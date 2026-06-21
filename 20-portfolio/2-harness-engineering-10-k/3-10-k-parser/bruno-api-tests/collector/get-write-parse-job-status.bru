@@ -1,0 +1,29 @@
+meta {
+  name: Get Collector Parse Job Write Path Status
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/parser/collector/parse-jobs/{{parseWriteJobId}}
+  body: none
+}
+
+docs {
+  Polls the operational write-path parser job created by the previous request.
+  Accepts intermediate and terminal lifecycle states because collector-backed parsing is asynchronous.
+  Terminal-state verification and downstream side effects are checked separately in shell-based e2e.
+}
+
+assert {
+  res.status: eq 200
+  res.body.jobId: isDefined
+  res.body.status: isDefined
+}
+
+tests {
+  test("write-path job should be in a known async lifecycle state", function() {
+    const status = res.getBody().status;
+    expect(["queued", "running", "completed", "completed_with_errors", "failed"]).to.include(status);
+  });
+}

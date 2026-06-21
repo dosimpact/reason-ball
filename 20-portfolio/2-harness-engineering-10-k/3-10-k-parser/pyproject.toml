@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ten-k-parser"
+version = "0.1.0"
+description = "Parser and Graph RAG runtime for SEC filing analysis"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "neo4j>=5.26.0,<6",
+  "requests>=2.32.0,<3",
+  "python-dotenv>=1.0.1,<2",
+  "openai>=1.51.0,<2",
+  "fastapi>=0.113,<1",
+  "uvicorn[standard]>=0.30,<1"
+]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<testsuites>
+  <testsuite name="List Companies" file="companies/list-companies.bru" errors="0" failures="0" skipped="0" tests="3" timestamp="2026-03-21T14:55:55.171" hostname="dodos-MacBook-Pro.local" time="0.148">
+    <testcase name="res.status eq 200" status="pass" classname="http://localhost:3305/api/companies" time="0.049"/>
+    <testcase name="res.body.filters isDefined" status="pass" classname="http://localhost:3305/api/companies" time="0.049"/>
+    <testcase name="res.body.items isArray" status="pass" classname="http://localhost:3305/api/companies" time="0.049"/>
+  </testsuite>
+  <testsuite name="Status Summary" file="filings/status-summary.bru" errors="0" failures="0" skipped="0" tests="5" timestamp="2026-03-21T14:55:55.171" hostname="dodos-MacBook-Pro.local" time="0.049">
+    <testcase name="res.status eq 200" status="pass" classname="http://localhost:3305/api/filings/status-summary" time="0.010"/>
+    <testcase name="res.body.total isNumber" status="pass" classname="http://localhost:3305/api/filings/status-summary" time="0.010"/>
+    <testcase name="res.body.pending isNumber" status="pass" classname="http://localhost:3305/api/filings/status-summary" time="0.010"/>
+    <testcase name="res.body.downloaded isNumber" status="pass" classname="http://localhost:3305/api/filings/status-summary" time="0.010"/>
+    <testcase name="res.body.failed isNumber" status="pass" classname="http://localhost:3305/api/filings/status-summary" time="0.010"/>
+  </testsuite>
+  <testsuite name="List Filings Pending" file="filings/list-filings-pending.bru" errors="0" failures="0" skipped="0" tests="3" timestamp="2026-03-21T14:55:55.172" hostname="dodos-MacBook-Pro.local" time="0.049">
+    <testcase name="res.status eq 200" status="pass" classname="http://localhost:3305/api/filings" time="0.016"/>
+    <testcase name="res.body.filters isDefined" status="pass" classname="http://localhost:3305/api/filings" time="0.016"/>
+    <testcase name="res.body.items isArray" status="pass" classname="http://localhost:3305/api/filings" time="0.016"/>
+  </testsuite>
+  <testsuite name="List Filings Downloaded" file="filings/list-filings-downloaded.bru" errors="0" failures="0" skipped="0" tests="3" timestamp="2026-03-21T14:55:55.172" hostname="dodos-MacBook-Pro.local" time="0.046">
+    <testcase name="res.status eq 200" status="pass" classname="http://localhost:3305/api/filings" time="0.015"/>
+    <testcase name="res.body.filters isDefined" status="pass" classname="http://localhost:3305/api/filings" time="0.015"/>
+    <testcase name="res.body.items isArray" status="pass" classname="http://localhost:3305/api/filings" time="0.015"/>
+  </testsuite>
+  <testsuite name="Health - List Filings Default" file="health/list-filings-default.bru" errors="0" failures="0" skipped="0" tests="4" timestamp="2026-03-21T14:55:55.172" hostname="dodos-MacBook-Pro.local" time="0.098">
+    <testcase name="res.status eq 200" status="pass" classname="http://localhost:3305/api/filings" time="0.025"/>
+    <testcase name="res.body.filters isDefined" status="pass" classname="http://localhost:3305/api/filings" time="0.025"/>
+    <testcase name="res.body.items isArray" status="pass" classname="http://localhost:3305/api/filings" time="0.025"/>
+    <testcase name="default filings endpoint should respond" status="pass" classname="http://localhost:3305/api/filings" time="0.025"/>
+  </testsuite>
+  <testsuite name="Company Sync Job" file="jobs/company-sync-job.bru" errors="0" failures="0" skipped="0" tests="3" timestamp="2026-03-21T14:55:55.172" hostname="dodos-MacBook-Pro.local" time="0.757">
+    <testcase name="res.status eq 201" status="pass" classname="http://localhost:3305/api/company-sync-jobs" time="0.252"/>
+    <testcase name="res.body.job eq &quot;companies:sync&quot;" status="pass" classname="http://localhost:3305/api/company-sync-jobs" time="0.252"/>
+    <testcase name="res.body.syncedCount isNumber" status="pass" classname="http://localhost:3305/api/company-sync-jobs" time="0.252"/>
+  </testsuite>
+  <testsuite name="Filing Sync Job" file="jobs/filing-sync-job.bru" errors="0" failures="0" skipped="0" tests="4" timestamp="2026-03-21T14:55:55.172" hostname="dodos-MacBook-Pro.local" time="29.530">
+    <testcase name="res.status eq 201" status="pass" classname="http://localhost:3305/api/filing-sync-jobs" time="7.382"/>
+    <testcase name="res.body.job eq &quot;filings:sync&quot;" status="pass" classname="http://localhost:3305/api/filing-sync-jobs" time="7.382"/>
+    <testcase name="res.body.companiesProcessed isNumber" status="pass" classname="http://localhost:3305/api/filing-sync-jobs" time="7.382"/>
+    <testcase name="res.body.filingsSynced isNumber" status="pass" classname="http://localhost:3305/api/filing-sync-jobs" time="7.382"/>
+  </testsuite>
+  <testsuite name="Filing Download Job" file="jobs/filing-download-job.bru" errors="0" failures="0" skipped="0" tests="5" timestamp="2026-03-21T14:55:55.172" hostname="dodos-MacBook-Pro.local" time="0.070">
+    <testcase name="res.status eq 201" status="pass" classname="http://localhost:3305/api/filing-download-jobs" time="0.014"/>
+    <testcase name="res.body.job eq &quot;filings:download&quot;" status="pass" classname="http://localhost:3305/api/filing-download-jobs" time="0.014"/>
+    <testcase name="res.body.queued isNumber" status="pass" classname="http://localhost:3305/api/filing-download-jobs" time="0.014"/>
+    <testcase name="res.body.downloaded isNumber" status="pass" classname="http://localhost:3305/api/filing-download-jobs" time="0.014"/>
+    <testcase name="res.body.failed isNumber" status="pass" classname="http://localhost:3305/api/filing-download-jobs" time="0.014"/>
+  </testsuite>
+  <testsuite name="Filing Retry Job" file="jobs/filing-retry-job.bru" errors="0" failures="0" skipped="0" tests="3" timestamp="2026-03-21T14:55:55.172" hostname="dodos-MacBook-Pro.local" time="0.058">
+    <testcase name="res.status eq 201" status="pass" classname="http://localhost:3305/api/filing-retry-jobs" time="0.019"/>
+    <testcase name="res.body.job eq &quot;filings:retry-failed&quot;" status="pass" classname="http://localhost:3305/api/filing-retry-jobs" time="0.019"/>
+    <testcase name="res.body.resetCount isNumber" status="pass" classname="http://localhost:3305/api/filing-retry-jobs" time="0.019"/>
+  </testsuite>
+</testsuites>

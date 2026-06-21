@@ -1,0 +1,43 @@
+meta {
+  name: Create Runtime Thread
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/langgraph/threads
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "assistantId": "{{assistantId}}",
+    "threadId": "{{runtimeThreadId}}"
+  }
+}
+
+vars:post-response {
+  threadId: res.body.threadId
+}
+
+docs {
+  Creates or returns a LangGraph runtime thread for the SEC filing assistant.
+  Stores threadId for subsequent stream, snapshot, and resume requests.
+}
+
+assert {
+  res.status: eq 200
+  res.body.threadId: eq {{runtimeThreadId}}
+  res.body.assistantId: eq {{assistantId}}
+}
+
+tests {
+  test("thread id should be a non-empty UUID-like string", function() {
+    const threadId = res.getBody().threadId;
+    expect(threadId).to.be.a("string").and.not.empty;
+  });
+}

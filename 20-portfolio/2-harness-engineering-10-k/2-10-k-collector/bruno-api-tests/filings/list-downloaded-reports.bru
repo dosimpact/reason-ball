@@ -1,0 +1,31 @@
+meta {
+  name: List Downloaded Reports
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/filings/downloaded-reports?page={{downloadedReportsPage}}&pageSize={{downloadedReportsPageSize}}&formType={{downloadedReportsFormType}}&ticker={{sampleTicker}}&since={{sinceDate}}
+  body: none
+}
+
+docs {
+  Lists downloaded reports and returns the static file content inline as JSON.
+  Query params:
+  - page, pageSize: pagination
+  - formType: SEC form type filter
+  - ticker: company ticker filter
+  - since: optional YYYY-MM-DD lower bound for filing_date
+}
+
+assert {
+  res.status: eq 200
+  res.body.filters.page: eq {{downloadedReportsPage}}
+  res.body.filters.pageSize: eq {{downloadedReportsPageSize}}
+  res.body.pagination.page: eq {{downloadedReportsPage}}
+  res.body.pagination.pageSize: eq {{downloadedReportsPageSize}}
+  res.body.pagination.totalItems: isNumber
+  res.body.pagination.totalPages: isNumber
+  res.body.pagination.hasNextPage: isBoolean
+  res.body.items: isArray
+}

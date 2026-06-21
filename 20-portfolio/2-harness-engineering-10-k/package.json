@@ -1,0 +1,27 @@
+{
+  "name": "@10k/workspace",
+  "private": true,
+  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c",
+  "scripts": {
+    "infra": "node ./scripts/infra.mjs",
+    "infra:up": "sh -c 'POSTGRES_PORT=${POSTGRES_PORT:-55432} pnpm --filter @10k/infra run infra:up && sh ./scripts/init-postgres.sh'",
+    "infra:down": "sh -c 'POSTGRES_PORT=${POSTGRES_PORT:-55432} pnpm --filter @10k/infra run infra:down'",
+    "dev": "pnpm run infra:up && sh -c 'export POSTGRES_URL=${POSTGRES_URL:-postgresql://postgres:postgres@127.0.0.1:55432/chat_bot}; export PARSER_BACKEND_URL=${PARSER_BACKEND_URL:-http://127.0.0.1:3406}; export DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@127.0.0.1:55432/sec_collector}; export COLLECTOR_DATABASE_URL=${COLLECTOR_DATABASE_URL:-postgresql://postgres:postgres@127.0.0.1:55432/sec_collector}; export COLLECTOR_DATA_DIR=${COLLECTOR_DATA_DIR:-$(pwd)/2-10-k-collector}; pnpm --filter @10k/chatbot run db:migrate && pnpm --parallel --filter @10k/collector --filter @10k/parser --filter @10k/chatbot run dev'",
+    "build": "sh -c 'export PARSER_BACKEND_URL=${PARSER_BACKEND_URL:-http://127.0.0.1:3406}; export DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@127.0.0.1:55432/sec_collector}; export COLLECTOR_DATABASE_URL=${COLLECTOR_DATABASE_URL:-postgresql://postgres:postgres@127.0.0.1:55432/sec_collector}; export COLLECTOR_DATA_DIR=${COLLECTOR_DATA_DIR:-$(pwd)/2-10-k-collector}; pnpm --filter @10k/infra run build && pnpm --filter @10k/collector run build && pnpm --filter @10k/parser run build && pnpm --filter @10k/chatbot run build'",
+    "lint": "pnpm run doctor",
+    "test": "pnpm run test:unit",
+    "start": "pnpm run infra:up && sh -c 'export POSTGRES_URL=${POSTGRES_URL:-postgresql://postgres:postgres@127.0.0.1:55432/chat_bot}; export PARSER_BACKEND_URL=${PARSER_BACKEND_URL:-http://127.0.0.1:3406}; export DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@127.0.0.1:55432/sec_collector}; export COLLECTOR_DATABASE_URL=${COLLECTOR_DATABASE_URL:-postgresql://postgres:postgres@127.0.0.1:55432/sec_collector}; export COLLECTOR_DATA_DIR=${COLLECTOR_DATA_DIR:-$(pwd)/2-10-k-collector}; pnpm --filter @10k/chatbot run db:migrate && pnpm --parallel --filter @10k/collector --filter @10k/parser --filter @10k/chatbot run start'",
+    "test:unit": "sh -c 'export PARSER_BACKEND_URL=${PARSER_BACKEND_URL:-http://127.0.0.1:3406}; export DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@127.0.0.1:55432/sec_collector}; export COLLECTOR_DATABASE_URL=${COLLECTOR_DATABASE_URL:-postgresql://postgres:postgres@127.0.0.1:55432/sec_collector}; export COLLECTOR_DATA_DIR=${COLLECTOR_DATA_DIR:-$(pwd)/2-10-k-collector}; pnpm --filter @10k/collector run test:unit && pnpm --filter @10k/parser run test:unit && pnpm --filter @10k/chatbot run test:unit'",
+    "test:e2e": "node ./scripts/test-e2e.mjs",
+    "test:graph-rag": "node ./scripts/test-parser-collector-graph-rag.mjs",
+    "doctor": "node ./scripts/project-doctor.mjs",
+    "doctor:verify": "node ./scripts/project-doctor.mjs --run-checks",
+    "doctor:probe": "node ./scripts/project-doctor.mjs --probe-services",
+    "doctor:probe:local": "node ./scripts/run-doctor-probe.mjs",
+    "doctor:e2e": "node ./scripts/project-doctor.mjs --run-checks --run-e2e",
+    "clean": "pnpm --filter @10k/infra --filter @10k/collector --filter @10k/parser --filter @10k/chatbot run clean && rm -rf .turbo"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.8"
+  }
+}

@@ -1,0 +1,453 @@
+[
+  {
+    "iterationIndex": 0,
+    "results": [
+      {
+        "test": {
+          "filename": "collector/create-parse-job.bru"
+        },
+        "request": {
+          "method": "POST",
+          "url": "http://127.0.0.1:3312/api/parser/collector/parse-jobs",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "data": "{\n  \"page\": 1,\n  \"pageSize\": 1,\n  \"cik\": \"0000916793\",\n  \"dry_run\": true\n}"
+        },
+        "response": {
+          "status": 200,
+          "statusText": "OK",
+          "headers": {
+            "date": "Wed, 15 Apr 2026 15:35:19 GMT",
+            "server": "uvicorn",
+            "content-length": "277",
+            "content-type": "application/json"
+          },
+          "data": {
+            "jobId": "02c6b42d-56f7-4c64-a0b3-6bfc63510d54",
+            "status": "queued",
+            "requestedAt": "2026-04-15T15:35:20.197028+00:00",
+            "request": {
+              "page": 1,
+              "pageSize": 1,
+              "cik": "0000916793",
+              "dry_run": true,
+              "include_debug": false,
+              "parserStatusOnSuccess": "parsed",
+              "parserStatusOnFailure": "parse_failed"
+            }
+          },
+          "url": "http://127.0.0.1/api/parser/collector/parse-jobs",
+          "responseTime": 9
+        },
+        "error": null,
+        "status": "pass",
+        "assertionResults": [
+          {
+            "uid": "imv2dIsiA6_4CoOii8BtE",
+            "lhsExpr": "res.status",
+            "rhsExpr": "eq 200",
+            "rhsOperand": "200",
+            "operator": "eq",
+            "status": "pass"
+          },
+          {
+            "uid": "ND2S3dC70taxkPo86tlAF",
+            "lhsExpr": "res.body.jobId",
+            "rhsExpr": "isDefined",
+            "rhsOperand": "",
+            "operator": "isDefined",
+            "status": "pass"
+          },
+          {
+            "uid": "harEM_fBbsQ6LHYzrrHsy",
+            "lhsExpr": "res.body.status",
+            "rhsExpr": "eq queued",
+            "rhsOperand": "queued",
+            "operator": "eq",
+            "status": "pass"
+          }
+        ],
+        "testResults": [
+          {
+            "description": "job id should be a non-empty string",
+            "status": "pass",
+            "uid": "rlAgv4FE9nast3pNzP-AF"
+          }
+        ],
+        "preRequestTestResults": [],
+        "postResponseTestResults": [],
+        "shouldStopRunnerExecution": false,
+        "runDuration": 0.0899395,
+        "name": "Create Collector Parse Job",
+        "path": "collector/create-parse-job",
+        "iterationIndex": 0
+      },
+      {
+        "test": {
+          "filename": "collector/get-parse-job-status.bru"
+        },
+        "request": {
+          "method": "GET",
+          "url": "http://127.0.0.1:3312/api/parser/collector/parse-jobs/02c6b42d-56f7-4c64-a0b3-6bfc63510d54",
+          "headers": {
+            "content-type": null
+          }
+        },
+        "response": {
+          "status": 200,
+          "statusText": "OK",
+          "headers": {
+            "date": "Wed, 15 Apr 2026 15:35:19 GMT",
+            "server": "uvicorn",
+            "content-length": "652",
+            "content-type": "application/json"
+          },
+          "data": {
+            "jobId": "02c6b42d-56f7-4c64-a0b3-6bfc63510d54",
+            "status": "completed",
+            "createdAt": "2026-04-15T15:35:20.196920+00:00",
+            "request": {
+              "page": 1,
+              "pageSize": 1,
+              "cik": "0000916793",
+              "dry_run": true,
+              "include_debug": false,
+              "parserStatusOnSuccess": "parsed",
+              "parserStatusOnFailure": "parse_failed"
+            },
+            "startedAt": "2026-04-15T15:35:20.197441+00:00",
+            "collectorFilters": {
+              "page": 1,
+              "pageSize": 1,
+              "formType": null,
+              "ticker": null,
+              "since": null,
+              "cik": "0000916793",
+              "parserStatus": ""
+            },
+            "collectorPagination": {
+              "page": 1,
+              "pageSize": 1,
+              "totalItems": 1,
+              "totalPages": 1,
+              "hasNextPage": false
+            },
+            "queued": 0,
+            "completedAt": "2026-04-15T15:35:20.260245+00:00",
+            "success": 0,
+            "failed": 0,
+            "results": [],
+            "errors": []
+          },
+          "url": "http://127.0.0.1/api/parser/collector/parse-jobs/02c6b42d-56f7-4c64-a0b3-6bfc63510d54",
+          "responseTime": 2
+        },
+        "error": null,
+        "status": "pass",
+        "assertionResults": [
+          {
+            "uid": "b7RB5zN4pA4kX4oIdWdp6",
+            "lhsExpr": "res.status",
+            "rhsExpr": "eq 200",
+            "rhsOperand": "200",
+            "operator": "eq",
+            "status": "pass"
+          },
+          {
+            "uid": "D5a1L6Y2UnK963GK9eOVQ",
+            "lhsExpr": "res.body.jobId",
+            "rhsExpr": "isDefined",
+            "rhsOperand": "",
+            "operator": "isDefined",
+            "status": "pass"
+          },
+          {
+            "uid": "HXCgHoyZllDC4-jjvMUhv",
+            "lhsExpr": "res.body.status",
+            "rhsExpr": "isDefined",
+            "rhsOperand": "",
+            "operator": "isDefined",
+            "status": "pass"
+          }
+        ],
+        "testResults": [
+          {
+            "description": "job should be in a known async lifecycle state",
+            "status": "pass",
+            "uid": "00iBPjIuNzuJfytQwOtal"
+          }
+        ],
+        "preRequestTestResults": [],
+        "postResponseTestResults": [],
+        "shouldStopRunnerExecution": false,
+        "runDuration": 0.040461292,
+        "name": "Get Collector Parse Job Status",
+        "path": "collector/get-parse-job-status",
+        "iterationIndex": 0
+      },
+      {
+        "test": {
+          "filename": "collector/create-write-parse-job.bru"
+        },
+        "request": {
+          "method": "POST",
+          "url": "http://127.0.0.1:3312/api/parser/collector/parse-jobs",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "data": "{\n  \"page\": 1,\n  \"pageSize\": 1,\n  \"cik\": \"0000842180\",\n  \"dry_run\": false,\n  \"parserStatusOnSuccess\": \"parsed\",\n  \"parserStatusOnFailure\": \"parse_failed\"\n}"
+        },
+        "response": {
+          "status": 200,
+          "statusText": "OK",
+          "headers": {
+            "date": "Wed, 15 Apr 2026 15:35:19 GMT",
+            "server": "uvicorn",
+            "content-length": "278",
+            "content-type": "application/json"
+          },
+          "data": {
+            "jobId": "23391643-d694-4e47-a31b-95975855d3e5",
+            "status": "queued",
+            "requestedAt": "2026-04-15T15:35:20.302493+00:00",
+            "request": {
+              "page": 1,
+              "pageSize": 1,
+              "cik": "0000842180",
+              "dry_run": false,
+              "include_debug": false,
+              "parserStatusOnSuccess": "parsed",
+              "parserStatusOnFailure": "parse_failed"
+            }
+          },
+          "url": "http://127.0.0.1/api/parser/collector/parse-jobs",
+          "responseTime": 2
+        },
+        "error": null,
+        "status": "pass",
+        "assertionResults": [
+          {
+            "uid": "XKJGmW1TDMRhTOeF7ovZt",
+            "lhsExpr": "res.status",
+            "rhsExpr": "eq 200",
+            "rhsOperand": "200",
+            "operator": "eq",
+            "status": "pass"
+          },
+          {
+            "uid": "F7442g6mDauQl-Gkh5fcW",
+            "lhsExpr": "res.body.jobId",
+            "rhsExpr": "isDefined",
+            "rhsOperand": "",
+            "operator": "isDefined",
+            "status": "pass"
+          },
+          {
+            "uid": "jgko48HSpVMnsTETomKMT",
+            "lhsExpr": "res.body.status",
+            "rhsExpr": "eq queued",
+            "rhsOperand": "queued",
+            "operator": "eq",
+            "status": "pass"
+          }
+        ],
+        "testResults": [
+          {
+            "description": "write-path job id should be a non-empty string",
+            "status": "pass",
+            "uid": "e_iZ4mYeFwXOdZ3Rij9Pz"
+          }
+        ],
+        "preRequestTestResults": [],
+        "postResponseTestResults": [],
+        "shouldStopRunnerExecution": false,
+        "runDuration": 0.054624,
+        "name": "Create Collector Parse Job Write Path",
+        "path": "collector/create-write-parse-job",
+        "iterationIndex": 0
+      },
+      {
+        "test": {
+          "filename": "collector/get-write-parse-job-status.bru"
+        },
+        "request": {
+          "method": "GET",
+          "url": "http://127.0.0.1:3312/api/parser/collector/parse-jobs/23391643-d694-4e47-a31b-95975855d3e5",
+          "headers": {
+            "content-type": null
+          }
+        },
+        "response": {
+          "status": 200,
+          "statusText": "OK",
+          "headers": {
+            "date": "Wed, 15 Apr 2026 15:35:19 GMT",
+            "server": "uvicorn",
+            "content-length": "554",
+            "content-type": "application/json"
+          },
+          "data": {
+            "jobId": "23391643-d694-4e47-a31b-95975855d3e5",
+            "status": "running",
+            "createdAt": "2026-04-15T15:35:20.302460+00:00",
+            "request": {
+              "page": 1,
+              "pageSize": 1,
+              "cik": "0000842180",
+              "dry_run": false,
+              "include_debug": false,
+              "parserStatusOnSuccess": "parsed",
+              "parserStatusOnFailure": "parse_failed"
+            },
+            "startedAt": "2026-04-15T15:35:20.302910+00:00",
+            "collectorFilters": {
+              "page": 1,
+              "pageSize": 1,
+              "formType": null,
+              "ticker": null,
+              "since": null,
+              "cik": "0000842180",
+              "parserStatus": ""
+            },
+            "collectorPagination": {
+              "page": 1,
+              "pageSize": 1,
+              "totalItems": 1,
+              "totalPages": 1,
+              "hasNextPage": false
+            },
+            "queued": 1
+          },
+          "url": "http://127.0.0.1/api/parser/collector/parse-jobs/23391643-d694-4e47-a31b-95975855d3e5",
+          "responseTime": 2
+        },
+        "error": null,
+        "status": "pass",
+        "assertionResults": [
+          {
+            "uid": "naJc_7P4YOcUL7yUzutu4",
+            "lhsExpr": "res.status",
+            "rhsExpr": "eq 200",
+            "rhsOperand": "200",
+            "operator": "eq",
+            "status": "pass"
+          },
+          {
+            "uid": "g0ajpE1gOpSNo4Ssa0xbQ",
+            "lhsExpr": "res.body.jobId",
+            "rhsExpr": "isDefined",
+            "rhsOperand": "",
+            "operator": "isDefined",
+            "status": "pass"
+          },
+          {
+            "uid": "jyCVktGT9AoYyXJlTPcso",
+            "lhsExpr": "res.body.status",
+            "rhsExpr": "isDefined",
+            "rhsOperand": "",
+            "operator": "isDefined",
+            "status": "pass"
+          }
+        ],
+        "testResults": [
+          {
+            "description": "write-path job should be in a known async lifecycle state",
+            "status": "pass",
+            "uid": "zWVogu8OOEQB9MyTvTT_x"
+          }
+        ],
+        "preRequestTestResults": [],
+        "postResponseTestResults": [],
+        "shouldStopRunnerExecution": false,
+        "runDuration": 0.042429666,
+        "name": "Get Collector Parse Job Write Path Status",
+        "path": "collector/get-write-parse-job-status",
+        "iterationIndex": 0
+      },
+      {
+        "test": {
+          "filename": "health/health-check.bru"
+        },
+        "request": {
+          "method": "GET",
+          "url": "http://127.0.0.1:3312/health",
+          "headers": {
+            "content-type": null
+          }
+        },
+        "response": {
+          "status": 200,
+          "statusText": "OK",
+          "headers": {
+            "date": "Wed, 15 Apr 2026 15:35:19 GMT",
+            "server": "uvicorn",
+            "content-length": "39",
+            "content-type": "application/json"
+          },
+          "data": {
+            "status": "ok",
+            "service": "10-k-parser"
+          },
+          "url": "http://127.0.0.1/health",
+          "responseTime": 3
+        },
+        "error": null,
+        "status": "pass",
+        "assertionResults": [
+          {
+            "uid": "_xG-zUlzppoKppgfJxxTx",
+            "lhsExpr": "res.status",
+            "rhsExpr": "eq 200",
+            "rhsOperand": "200",
+            "operator": "eq",
+            "status": "pass"
+          },
+          {
+            "uid": "U9nh3s05J8fHH_wGGXWsJ",
+            "lhsExpr": "res.body.status",
+            "rhsExpr": "eq ok",
+            "rhsOperand": "ok",
+            "operator": "eq",
+            "status": "pass"
+          },
+          {
+            "uid": "yak2k53bQHj3He9RMzqQ4",
+            "lhsExpr": "res.body.service",
+            "rhsExpr": "eq 10-k-parser",
+            "rhsOperand": "10-k-parser",
+            "operator": "eq",
+            "status": "pass"
+          }
+        ],
+        "testResults": [],
+        "preRequestTestResults": [],
+        "postResponseTestResults": [],
+        "shouldStopRunnerExecution": false,
+        "runDuration": 0.007115833,
+        "name": "Health Check",
+        "path": "health/health-check",
+        "iterationIndex": 0
+      }
+    ],
+    "summary": {
+      "totalRequests": 5,
+      "passedRequests": 5,
+      "failedRequests": 0,
+      "errorRequests": 0,
+      "skippedRequests": 0,
+      "totalAssertions": 15,
+      "passedAssertions": 15,
+      "failedAssertions": 0,
+      "totalTests": 4,
+      "passedTests": 4,
+      "failedTests": 0,
+      "totalPreRequestTests": 0,
+      "passedPreRequestTests": 0,
+      "failedPreRequestTests": 0,
+      "totalPostResponseTests": 0,
+      "passedPostResponseTests": 0,
+      "failedPostResponseTests": 0
+    }
+  }
+]

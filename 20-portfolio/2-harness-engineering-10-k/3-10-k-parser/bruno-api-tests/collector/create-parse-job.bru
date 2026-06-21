@@ -1,0 +1,45 @@
+meta {
+  name: Create Collector Parse Job
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/parser/collector/parse-jobs
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "page": 1,
+    "pageSize": 1,
+    "cik": "{{collectorCik}}",
+    "dry_run": true
+  }
+}
+
+vars:post-response {
+  parseJobId: res.body.jobId
+}
+
+docs {
+  Starts a collector-backed parse job against one downloaded filing row.
+  Uses dry_run so Neo4j writes and parser_status updates are skipped.
+  Stores the returned jobId for the next polling request.
+}
+
+assert {
+  res.status: eq 200
+  res.body.jobId: isDefined
+  res.body.status: eq queued
+}
+
+tests {
+  test("job id should be a non-empty string", function() {
+    expect(res.getBody().jobId).to.be.a("string").and.not.empty;
+  });
+}

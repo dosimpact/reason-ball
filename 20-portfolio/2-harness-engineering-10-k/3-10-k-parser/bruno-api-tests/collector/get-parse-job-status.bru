@@ -1,0 +1,29 @@
+meta {
+  name: Get Collector Parse Job Status
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/parser/collector/parse-jobs/{{parseJobId}}
+  body: none
+}
+
+docs {
+  Polls the parser job created by the previous request.
+  Accepts queued or running because the parser job is asynchronous.
+  Terminal-state completion is verified separately with API polling outside Bruno.
+}
+
+assert {
+  res.status: eq 200
+  res.body.jobId: isDefined
+  res.body.status: isDefined
+}
+
+tests {
+  test("job should be in a known async lifecycle state", function() {
+    const status = res.getBody().status;
+    expect(["queued", "running", "completed", "completed_with_errors", "failed"]).to.include(status);
+  });
+}

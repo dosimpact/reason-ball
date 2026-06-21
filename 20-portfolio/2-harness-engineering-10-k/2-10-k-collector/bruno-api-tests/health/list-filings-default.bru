@@ -1,0 +1,34 @@
+meta {
+  name: Health - List Filings Default
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/filings
+  body: none
+}
+
+docs {
+  Basic health check for the filings listing endpoint.
+  No query params are provided, so the API applies its defaults.
+  Expected behavior:
+  - status 200
+  - response contains filters and items fields
+  This is useful as a lightweight smoke test before running narrower filing queries.
+}
+
+assert {
+  res.status: eq 200
+  res.body.filters: isDefined
+  res.body.items: isArray
+}
+
+tests {
+  test("default filings endpoint should respond", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body).to.have.property("filters");
+    expect(body).to.have.property("items");
+  });
+}

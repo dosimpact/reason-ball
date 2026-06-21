@@ -1,0 +1,148 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-06-12T04:30:58.000Z",
+  "activeFeatures": [
+    "workspace-monorepo-orchestration",
+    "investment-assistant-copilotkit"
+  ],
+  "primaryFeature": "investment-assistant-copilotkit",
+  "features": {
+    "simple-chatbot-init": {
+      "phase": "plan",
+      "matchRate": null,
+      "iterationCount": 0,
+      "documents": {},
+      "taskChain": [
+        {
+          "phase": "plan",
+          "status": "completed",
+          "createdAt": "2026-03-21T13:02:27.759Z"
+        }
+      ],
+      "timestamps": {
+        "started": "2026-03-21T13:02:27.760Z",
+        "lastUpdated": "2026-03-21T13:02:27.760Z"
+      }
+    },
+    "investment-assistant-copilotkit": {
+      "phase": "report",
+      "matchRate": 100,
+      "iterationCount": 5,
+      "documents": {
+        "plan": "docs/01-plan/features/investment-assistant-copilotkit.plan.md",
+        "design": "docs/02-design/features/investment-assistant-copilotkit.design.md",
+        "analysis": "docs/03-analysis/investment-assistant-copilotkit.analysis.md",
+        "report": "docs/04-report/investment-assistant-copilotkit.report.md"
+      },
+      "taskChain": [
+        {
+          "phase": "plan",
+          "status": "completed",
+          "createdAt": "2026-04-16T09:00:00.000Z"
+        },
+        {
+          "phase": "design",
+          "status": "completed",
+          "createdAt": "2026-04-16T09:30:00.000Z"
+        },
+        {
+          "phase": "do",
+          "status": "completed",
+          "createdAt": "2026-04-16T10:00:00.000Z"
+        },
+        {
+          "phase": "check",
+          "status": "completed",
+          "createdAt": "2026-04-17T08:00:00.000Z"
+        },
+        {
+          "phase": "report",
+          "status": "active",
+          "createdAt": "2026-06-11T23:14:55.000Z"
+        }
+      ],
+      "timestamps": {
+        "started": "2026-04-16T09:00:00.000Z",
+        "lastUpdated": "2026-06-12T04:30:58.000Z"
+      }
+    },
+    "workspace-monorepo-orchestration": {
+      "phase": "report",
+      "matchRate": 100,
+      "iterationCount": 0,
+      "documents": {
+        "plan": "docs/01-plan/features/workspace-monorepo-orchestration.plan.md",
+        "design": "docs/02-design/features/workspace-monorepo-orchestration.design.md",
+        "report": "docs/04-report/workspace-monorepo-orchestration.report.md"
+      },
+      "taskChain": [
+        {
+          "phase": "plan",
+          "status": "completed",
+          "createdAt": "2026-04-17T12:00:00.000Z"
+        },
+        {
+          "phase": "design",
+          "status": "completed",
+          "createdAt": "2026-04-17T12:05:00.000Z"
+        },
+        {
+          "phase": "do",
+          "status": "completed",
+          "createdAt": "2026-04-17T12:15:00.000Z"
+        },
+        {
+          "phase": "check",
+          "status": "completed",
+          "createdAt": "2026-04-17T12:15:00.000Z"
+        },
+        {
+          "phase": "report",
+          "status": "active",
+          "createdAt": "2026-04-17T12:15:00.000Z"
+        }
+      ],
+      "timestamps": {
+        "started": "2026-04-17T12:00:00.000Z",
+        "lastUpdated": "2026-06-12T04:30:58.000Z"
+      }
+    }
+  },
+  "pipeline": {
+    "currentPhase": 5,
+    "level": "Starter",
+    "phaseHistory": [
+      {
+        "feature": "workspace-monorepo-orchestration",
+        "phase": "plan",
+        "completedAt": "2026-04-17T12:05:00.000Z"
+      },
+      {
+        "feature": "workspace-monorepo-orchestration",
+        "phase": "design",
+        "completedAt": "2026-04-17T12:15:00.000Z"
+      },
+      {
+        "feature": "workspace-monorepo-orchestration",
+        "phase": "do",
+        "completedAt": "2026-04-17T19:20:00.000Z"
+      },
+      {
+        "feature": "workspace-monorepo-orchestration",
+        "phase": "check",
+        "completedAt": "2026-04-17T19:50:00.000Z"
+      },
+      {
+        "feature": "investment-assistant-copilotkit",
+        "phase": "check",
+        "completedAt": "2026-06-11T23:14:55.000Z"
+      }
+    ]
+  },
+  "session": {
+    "startedAt": "2026-03-21T13:02:27.757Z",
+    "onboardingCompleted": true,
+    "lastActivity": "2026-06-12T04:30:58.000Z"
+  },
+  "history": []
+}

@@ -1,0 +1,45 @@
+meta {
+  name: Filing Parser Status Update
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/filings/parser-status
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "cik": "{{sampleCik}}",
+    "accessionNo": "{{sampleAccessionNo}}",
+    "parserStatus": "{{parserStatusValue}}"
+  }
+}
+
+docs {
+  Updates parser_status for a specific filing row.
+  Intended for parser/LLM pipelines that mark a filing after graph DB ingestion.
+  Request body:
+  - cik: filing company CIK
+  - accessionNo: filing accession number
+  - parserStatus: free-form parser state string
+  Response:
+  - job: filings:parser-status-updated
+  - requestedAt: ISO timestamp
+  - cik: normalized filing CIK
+  - accessionNo: target accession number
+  - parserStatus: saved parser status value
+}
+
+assert {
+  res.status: eq 201
+  res.body.job: eq "filings:parser-status-updated"
+  res.body.cik: eq "{{sampleCik}}"
+  res.body.accessionNo: eq "{{sampleAccessionNo}}"
+  res.body.parserStatus: eq "{{parserStatusValue}}"
+}

@@ -1,0 +1,30 @@
+# bkit-codex
+.bkit-codex/
+
+# Node / pnpm / turbo
+node_modules/
+**/node_modules/
+.pnpm-store/
+.turbo/
+dist/
+.next/
+coverage/
+
+# Python / uv
+.venv/
+**/.venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+uv.lock
+*.tsbuildinfo
+
+# Local runtime artifacts
+/data/runtime.db
+/logs/
+
+# Playwright
+playwright-report/
+test-results/

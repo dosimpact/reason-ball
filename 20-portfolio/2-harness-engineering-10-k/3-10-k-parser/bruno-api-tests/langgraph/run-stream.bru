@@ -1,0 +1,47 @@
+meta {
+  name: Run Retrieval Stream
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/langgraph/threads/{{runtimeThreadId}}/runs/stream
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "chatId": "{{runtimeThreadId}}",
+    "userId": "bruno-e2e-user",
+    "message": "Sample Technology risks 알려줘"
+  }
+}
+
+docs {
+  Runs a retrieval-backed assistant response against the seeded mock filing graph.
+  The response is SSE text and must contain text-delta output plus retrieval debug data.
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  const body = typeof res.body === "string" ? res.body : JSON.stringify(res.getBody());
+
+  test("stream should include assistant text deltas", function() {
+    expect(body).to.include('"type": "text-delta"');
+  });
+
+  test("stream should include retrieval debug payload", function() {
+    expect(body).to.include('"type": "data-retrieval-debug"');
+  });
+
+  test("stream should include selected filing payload", function() {
+    expect(body).to.include('"type": "data-selected-filing"');
+  });
+}

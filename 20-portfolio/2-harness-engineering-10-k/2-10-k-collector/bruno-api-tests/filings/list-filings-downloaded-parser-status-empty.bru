@@ -1,0 +1,34 @@
+meta {
+  name: List Filings Downloaded Parser Status Empty
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/filings
+  body: none
+}
+
+params:query {
+  status: downloaded
+  limit: {{filingListLimit}}
+  parserStatus:  
+}
+
+docs {
+  Lists downloaded filing records whose parser_status is still the empty string.
+  Query params:
+  - status: fixed to downloaded in this request
+  - limit: max number of rows to return
+  - parserStatus: empty string filter, interpreted as parser_status = ''
+  - HTTP shape: /filings?status=downloaded&limit=20&parserStatus=
+  - do not use parserStatus='' because that means the literal string ''
+  - Bruno may omit truly empty query params, so this request intentionally uses a blank value in the query definition and should be verified against the final request URL
+}
+
+assert {
+  res.status: eq 200
+  res.body.filters: isDefined
+  res.body.items: isArray
+  res.body.filters.parserStatus: eq ""
+}

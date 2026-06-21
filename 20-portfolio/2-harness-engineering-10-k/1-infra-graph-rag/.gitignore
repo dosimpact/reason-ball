@@ -1,0 +1,20 @@
+# Runtime volumes
+data/*
+!data/.gitkeep
+logs/*
+!logs/.gitkeep
+import/*
+!import/.gitkeep
+plugins/*
+!plugins/.gitkeep
+
+# Grafana runtime storage
+monitoring/grafana/data/*
+!monitoring/grafana/data/.gitkeep
+
+postgres_data
+data/*
+logs/*
+import/*
+plugins/*
+monitoring/grafana/data/*

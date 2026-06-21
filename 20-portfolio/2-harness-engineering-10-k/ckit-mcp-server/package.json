@@ -1,0 +1,25 @@
+{
+  "name": "@popup-studio/ckit-mcp",
+  "version": "1.0.0",
+  "description": "ckit MCP Server for OpenAI Codex - distilled PDCA automation",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "node dist/index.js",
+    "test": "pnpm run build && node --test dist/tests/**/*.test.js",
+    "test:server": "pnpm run build && node --test dist/tests/server.test.js dist/tests/tools.test.js dist/tests/tools-handlers.test.js",
+    "test:integration": "pnpm run build && node --test dist/tests/integration-philosophy.test.js"
+  },
+  "keywords": [
+    "ckit",
+    "codex",
+    "mcp",
+    "pdca"
+  ],
+  "author": "POPUP STUDIO PTE. LTD.",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {}
+}

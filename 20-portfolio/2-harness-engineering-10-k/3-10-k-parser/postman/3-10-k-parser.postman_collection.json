@@ -1,0 +1,170 @@
+{
+  "info": {
+    "name": "3-10-k-parser API Tests",
+    "_postman_id": "f2743b4f-8e5d-4d7f-8b31-3-10-k-parser-bruno-converted",
+    "description": "API-level e2e tests for the parser FastAPI server.\n  Recommended order:\n  1. health smoke test\n  2. collector parse job request\n  3. collector parse job status polling",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ],
+              "query": []
+            },
+            "description": "Smoke test for parser server readiness.\n  Expects the FastAPI health endpoint to respond with service metadata."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status code is ok\", function () {",
+                  "  pm.expect(pm.response.code).to.equal(200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "collector",
+      "item": [
+        {
+          "name": "Create Collector Parse Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/parser/collector/parse-jobs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "parser",
+                "collector",
+                "parse-jobs"
+              ],
+              "query": []
+            },
+            "description": "Starts a collector-backed parse job against one downloaded filing row.\n  Uses dry_run so Neo4j writes and parser_status updates are skipped.\n  Stores the returned jobId for the next polling request.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"page\": 1,\n    \"pageSize\": 1,\n    \"cik\": \"{{collectorCik}}\",\n    \"dry_run\": true\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status code is ok\", function () {",
+                  "  pm.expect(pm.response.code).to.equal(200);",
+                  "});",
+                  "",
+                  "pm.collectionVariables.set(\"parseJobId\", pm.response.json().jobId);",
+                  "",
+                  "// Original Bruno tests preserved below for manual adaptation if needed.",
+                  "// test(\"job id should be a non-empty string\", function() {",
+                  "//     expect(res.getBody().jobId).to.be.a(\"string\").and.not.empty;",
+                  "//   });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Collector Parse Job Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/parser/collector/parse-jobs/{{parseJobId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "parser",
+                "collector",
+                "parse-jobs",
+                "{{parseJobId}}"
+              ],
+              "query": []
+            },
+            "description": "Polls the parser job created by the previous request.\n  Accepts queued or running because the parser job is asynchronous.\n  Terminal-state completion is verified separately with API polling outside Bruno."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status code is ok\", function () {",
+                  "  pm.expect(pm.response.code).to.equal(200);",
+                  "});",
+                  "",
+                  "// Original Bruno tests preserved below for manual adaptation if needed.",
+                  "// test(\"job should be in a known async lifecycle state\", function() {",
+                  "//     const status = res.getBody().status;",
+                  "//     expect([\"queued\", \"running\", \"completed\", \"completed_with_errors\", \"failed\"]).to.include(status);",
+                  "//   });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "parseJobId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:3406",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "collectorCik",
+      "value": "0000916793",
+      "type": "default",
+      "enabled": true
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+meta {
+  name: List Companies
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/companies
+  body: none
+}
+
+params:query {
+  limit: {{companyLimit}}
+  ticker: {{sampleTicker}}
+  q: {{sampleQuery}}
+}
+
+docs {
+  Lists companies already synced into the local companies table.
+  Query params:
+  - limit: max number of rows to return, positive integer, default 50
+  - ticker: optional exact ticker filter
+  - q: optional free-text search on company name or related text
+  Response:
+  - filters: normalized query filters applied by the API
+  - items: company rows matching the filters
+}
+
+assert {
+  res.status: eq 200
+  res.body.filters: isDefined
+  res.body.items: isArray
+}

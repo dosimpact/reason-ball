@@ -1,0 +1,22 @@
+headers {
+  Accept: application/json
+}
+
+script:post-response {
+  console.log(`[${req.getMethod()}] ${req.getUrl()} -> ${res.getStatus()} (${res.getResponseTime()}ms)`);
+}
+
+docs {
+  SEC 10-K collector API test collection.
+  Recommended flow:
+  1. Run Company Sync Job to refresh the companies table.
+  2. Run Filing Sync Job to queue filing metadata as pending.
+  3. Run Filing Download Job to download pending filing documents.
+  4. Use the filings queries and status summary endpoints to inspect current state.
+  5. Use Filing Retry Job to move failed downloads back to pending.
+  Filing query filter note:
+  - parserStatus is an exact-match filter for filings.parser_status.
+  - To request rows whose parser_status is the empty string, the HTTP query must be parserStatus=
+  - Do not send parserStatus='' because that means the literal two-character string ''.
+  - Some tools may omit empty query parameters automatically; verify the final requested URL when testing this case.
+}

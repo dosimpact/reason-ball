@@ -1,0 +1,34 @@
+meta {
+  name: List Filings Pending
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/filings
+  body: none
+}
+
+params:query {
+  status: pending
+  limit: {{filingListLimit}}
+  cik: {{sampleCik}}
+}
+
+docs {
+  Lists pending filing records for a sample CIK.
+  Use this after filing metadata sync to verify that filings were queued before download.
+  Query params:
+  - status: fixed to pending in this request
+  - limit: max number of rows to return
+  - cik: optional company CIK filter
+  Response:
+  - filters: normalized filters including status, limit, and cik
+  - items: filing rows waiting to be downloaded
+}
+
+assert {
+  res.status: eq 200
+  res.body.filters: isDefined
+  res.body.items: isArray
+}

@@ -1,0 +1,35 @@
+meta {
+  name: Status Summary
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/filings/status-summary
+  body: none
+}
+
+params:query {
+  since: {{sinceDate}}
+}
+
+docs {
+  Returns a filing status aggregate since the given date.
+  Query params:
+  - since: optional YYYY-MM-DD lower bound for filing_date filtering
+  - cik: optional company CIK filter is also supported by the API, though not used in this request
+  Response:
+  - filters: normalized cik and since values
+  - total: total filings in scope
+  - pending: filings waiting for download
+  - downloaded: filings downloaded successfully
+  - failed: filings whose download failed
+}
+
+assert {
+  res.status: eq 200
+  res.body.total: isNumber
+  res.body.pending: isNumber
+  res.body.downloaded: isNumber
+  res.body.failed: isNumber
+}

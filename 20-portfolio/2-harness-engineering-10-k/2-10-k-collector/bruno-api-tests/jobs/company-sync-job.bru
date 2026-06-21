@@ -1,0 +1,31 @@
+meta {
+  name: Company Sync Job
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/company-sync-jobs
+  body: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+docs {
+  Starts the company sync job.
+  This endpoint fetches SEC company_tickers.json data and upserts companies into the local database.
+  Request body:
+  - none
+  Response:
+  - job: companies:sync
+  - requestedAt: ISO timestamp when the request was handled
+  - syncedCount: number of companies inserted or updated
+}
+
+assert {
+  res.status: eq 201
+  res.body.job: eq "companies:sync"
+  res.body.syncedCount: isNumber
+}

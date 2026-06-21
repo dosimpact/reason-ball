@@ -1,0 +1,96 @@
+services:
+  neo4j:
+    image: neo4j:5.26
+    container_name: graph-rag-neo4j
+    restart: unless-stopped
+    ports:
+      - "${NEO4J_HTTP_PORT:-7474}:7474"
+      - "${NEO4J_BOLT_PORT:-7687}:7687"
+    environment:
+      NEO4J_AUTH: "${NEO4J_USER:-neo4j}/${NEO4J_PASSWORD:-test1234}"
+      NEO4J_PLUGINS: '["apoc","apoc-extended"]'
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: "yes"
+      NEO4J_dbms_security_procedures_unrestricted: "apoc.*"
+    volumes:
+      - ./data:/data
+      - ./logs:/logs
+      - ./import:/import
+      - ./plugins:/plugins
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >
+          auth="$${NEO4J_AUTH:-neo4j/test1234}";
+          user="$${auth%%/*}";
+          pass="$${auth#*/}";
+          cypher-shell -u "$${user}" -p "$${pass}" "RETURN 1;"
+          >/dev/null 2>&1 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+    networks:
+      - graph-rag
+
+  loki:
+    image: grafana/loki:2.9.8
+    container_name: graph-rag-loki
+    restart: unless-stopped
+    ports:
+      - "${LOKI_HTTP_PORT:-3100}:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./monitoring/loki/loki-config.yaml:/etc/loki/local-config.yaml:ro
+    networks:
+      - graph-rag
+
+  promtail:
+    image: grafana/promtail:2.9.8
+    container_name: graph-rag-promtail
+    restart: unless-stopped
+    command: -config.file=/etc/promtail/promtail-config.yaml
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./monitoring/promtail/promtail-config.yaml:/etc/promtail/promtail-config.yaml:ro
+    depends_on:
+      - loki
+    networks:
+      - graph-rag
+
+  grafana:
+    image: grafana/grafana:11.1.0
+    container_name: graph-rag-grafana
+    restart: unless-stopped
+    ports:
+      - "${GRAFANA_HTTP_PORT:-3001}:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: "${GRAFANA_ADMIN_USER:-admin}"
+      GF_SECURITY_ADMIN_PASSWORD: "${GRAFANA_ADMIN_PASSWORD:-admin1234}"
+      GF_SERVER_ROOT_URL: "${GRAFANA_ROOT_URL:-http://localhost:3001}"
+    volumes:
+      - ./monitoring/grafana/data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./monitoring/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - loki
+    networks:
+      - graph-rag
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: sec-filings-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: sec_collector
+    ports:
+      - "${POSTGRES_PORT:-55432}:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+networks:
+  graph-rag:
+    driver: bridge

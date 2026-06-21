@@ -1,0 +1,37 @@
+meta {
+  name: List Filings Downloaded
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/filings
+  body: none
+}
+
+params:query {
+  status: downloaded
+  limit: {{filingListLimit}}
+  parserStatus: {{downloadedFilingsParserStatus}}
+}
+
+docs {
+  Lists downloaded filing records.
+  Use this after the download job to verify that pending filings were saved successfully.
+  Query params:
+  - status: fixed to downloaded in this request
+  - limit: max number of rows to return
+  - parserStatus: optional parser_status exact-match filter
+  - example: parserStatus=completed or parserStatus=error
+  - note: the empty-string case is not parserStatus='' and is covered by a separate request
+  Response:
+  - filters: normalized filters including status and limit
+  - items: filing rows whose status is downloaded
+}
+
+assert {
+  res.status: eq 200
+  res.body.filters: isDefined
+  res.body.items: isArray
+  res.body.filters.parserStatus: eq "{{downloadedFilingsParserStatus}}"
+}

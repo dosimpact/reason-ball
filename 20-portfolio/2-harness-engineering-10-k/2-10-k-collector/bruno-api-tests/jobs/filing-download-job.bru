@@ -1,0 +1,45 @@
+meta {
+  name: Filing Download Job
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/filing-download-jobs
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "maxFiles": {{downloadMaxFiles}},
+    "since": "{{sinceDate}}",
+    "ciks": ["{{sampleCik}}"]
+  }
+}
+
+docs {
+  Downloads pending filing documents to local storage.
+  Request body:
+  - maxFiles: max number of pending filings to attempt
+  - since: optional YYYY-MM-DD lower bound
+  - ciks: optional list of CIKs to narrow the target set
+  Response:
+  - job: filings:download
+  - requestedAt: ISO timestamp
+  - options: normalized request options
+  - queued: number of filings selected for processing
+  - downloaded: number of successful downloads
+  - failed: number of failed downloads
+}
+
+assert {
+  res.status: eq 201
+  res.body.job: eq "filings:download"
+  res.body.queued: isNumber
+  res.body.downloaded: isNumber
+  res.body.failed: isNumber
+}

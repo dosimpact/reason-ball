@@ -1,0 +1,47 @@
+meta {
+  name: Create Collector Parse Job Write Path
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/parser/collector/parse-jobs
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "page": 1,
+    "pageSize": 1,
+    "cik": "{{collectorWriteCik}}",
+    "dry_run": false,
+    "parserStatusOnSuccess": "parsed",
+    "parserStatusOnFailure": "parse_failed"
+  }
+}
+
+vars:post-response {
+  parseWriteJobId: res.body.jobId
+}
+
+docs {
+  Starts the operational write-path parse job.
+  This path writes graph data into Neo4j and updates collector parser_status on completion.
+  Uses a dedicated CIK so dry-run and write-path scenarios do not overlap.
+}
+
+assert {
+  res.status: eq 200
+  res.body.jobId: isDefined
+  res.body.status: eq queued
+}
+
+tests {
+  test("write-path job id should be a non-empty string", function() {
+    expect(res.getBody().jobId).to.be.a("string").and.not.empty;
+  });
+}

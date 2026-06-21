@@ -1,0 +1,13 @@
+{
+  "name": "@10k/infra",
+  "private": true,
+  "scripts": {
+    "infra:up": "sh ../scripts/compose.sh up -d",
+    "infra:down": "sh ../scripts/compose.sh down",
+    "infra:ps": "sh ../scripts/compose.sh ps",
+    "build": "sh ../scripts/compose.sh config -q",
+    "test": "pnpm run test:unit",
+    "test:unit": "sh ../scripts/compose.sh config -q",
+    "clean": "sh ../scripts/compose.sh down -v"
+  }
+}

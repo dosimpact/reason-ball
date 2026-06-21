@@ -1,0 +1,14 @@
+meta {
+  name: 3-10-k-parser API Tests
+  type: collection
+}
+
+docs {
+  API-level e2e tests for the parser FastAPI server.
+  Recommended order:
+  1. health smoke test
+  2. parser setup (init-neo4j, parse-manifest)
+  3. langgraph thread + stream flow
+  4. collector parse job request
+  5. collector parse job status polling
+}

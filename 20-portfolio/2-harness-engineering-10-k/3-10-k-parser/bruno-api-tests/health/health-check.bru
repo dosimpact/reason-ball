@@ -1,0 +1,21 @@
+meta {
+  name: Health Check
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/health
+  body: none
+}
+
+docs {
+  Smoke test for parser server readiness.
+  Expects the FastAPI health endpoint to respond with service metadata.
+}
+
+assert {
+  res.status: eq 200
+  res.body.status: eq ok
+  res.body.service: eq 10-k-parser
+}

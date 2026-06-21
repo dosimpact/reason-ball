@@ -1,0 +1,227 @@
+{
+  "info": {
+    "name": "5.10-k-collector API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Collection for testing 5.10-k-collector REST APIs"
+  },
+  "item": [
+    {
+      "name": "Health - List Filings (default)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/filings",
+          "host": ["{{baseUrl}}"],
+          "path": ["filings"]
+        },
+        "description": "Quick connectivity check with default limit"
+      }
+    },
+    {
+      "name": "List Companies (default)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/companies?limit=20",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"],
+          "query": [
+            {
+              "key": "limit",
+              "value": "20"
+            }
+          ]
+        },
+        "description": "List synced companies with default paging"
+      }
+    },
+    {
+      "name": "Company Sync Job",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/company-sync-jobs",
+          "host": ["{{baseUrl}}"],
+          "path": ["company-sync-jobs"]
+        }
+      }
+    },
+    {
+      "name": "Filing Sync Job",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"limitCompanies\": 100,\n  \"since\": \"2025-01-01\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/filing-sync-jobs",
+          "host": ["{{baseUrl}}"],
+          "path": ["filing-sync-jobs"]
+        }
+      }
+    },
+    {
+      "name": "Filing Download Job",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"maxFiles\": 200,\n  \"since\": \"2025-01-01\",\n  \"ciks\": [\"0000320193\"]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/filing-download-jobs",
+          "host": ["{{baseUrl}}"],
+          "path": ["filing-download-jobs"]
+        }
+      }
+    },
+    {
+      "name": "Retry Failed Filings",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"limit\": 100,\n  \"since\": \"2025-01-01\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/filing-retry-jobs",
+          "host": ["{{baseUrl}}"],
+          "path": ["filing-retry-jobs"]
+        }
+      }
+    },
+    {
+      "name": "Status Summary",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/filings/status-summary?since=2025-01-01",
+          "host": ["{{baseUrl}}"],
+          "path": ["filings", "status-summary"],
+          "query": [
+            {
+              "key": "since",
+              "value": "2025-01-01"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Filings - Pending",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/filings?status=pending&limit=20&cik=0000320193",
+          "host": ["{{baseUrl}}"],
+          "path": ["filings"],
+          "query": [
+            {
+              "key": "status",
+              "value": "pending"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            },
+            {
+              "key": "cik",
+              "value": "0000320193"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Filings - Downloaded",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/filings?status=downloaded&limit=20",
+          "host": ["{{baseUrl}}"],
+          "path": ["filings"],
+          "query": [
+            {
+              "key": "status",
+              "value": "downloaded"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Status Summary - Recheck",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/filings/status-summary?since=2025-01-01",
+          "host": ["{{baseUrl}}"],
+          "path": ["filings", "status-summary"],
+          "query": [
+            {
+              "key": "since",
+              "value": "2025-01-01"
+            }
+          ]
+        },
+        "description": "Re-check status summary after retry/list requests"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3305/api"
+    }
+  ]
+}

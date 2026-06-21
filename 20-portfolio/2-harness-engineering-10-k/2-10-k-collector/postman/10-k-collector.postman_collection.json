@@ -1,0 +1,740 @@
+{
+  "info": {
+    "name": "10-k-collector API Tests",
+    "_postman_id": "f12677a0-fb63-4c3f-954a-10k-collector-bruno-converted",
+    "description": "SEC 10-K collector API test collection.\n  Recommended flow:\n  1. Run Company Sync Job to refresh the companies table.\n  2. Run Filing Sync Job to queue filing metadata as pending.\n  3. Run Filing Download Job to download pending filing documents.\n  4. Use the filings queries and status summary endpoints to inspect current state.\n  5. Use Filing Retry Job to move failed downloads back to pending.\n  Filing query filter note:\n  - parserStatus is an exact-match filter for filings.parser_status.\n  - To request rows whose parser_status is the empty string, the HTTP query must be parserStatus=\n  - Do not send parserStatus='' because that means the literal two-character string ''.\n  - Some tools may omit empty query parameters automatically; verify the final requested URL when testing this case.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "health",
+      "item": [
+        {
+          "name": "Health - List Filings Default",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/filings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filings"
+              ],
+              "query": []
+            },
+            "description": "Basic health check for the filings listing endpoint.\n  No query params are provided, so the API applies its defaults.\n  Expected behavior:\n  - status 200\n  - response contains filters and items fields\n  This is useful as a lightweight smoke test before running narrower filing queries."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is success\", function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "",
+                  "// Original Bruno tests preserved below for manual adaptation if needed.",
+                  "// test(\"default filings endpoint should respond\", function() {",
+                  "//     expect(res.getStatus()).to.equal(200);",
+                  "//     const body = res.getBody();",
+                  "//     expect(body).to.have.property(\"filters\");",
+                  "//     expect(body).to.have.property(\"items\");",
+                  "//   });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "companies",
+      "item": [
+        {
+          "name": "List Companies",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/companies",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "companies"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "{{companyLimit}}"
+                },
+                {
+                  "key": "ticker",
+                  "value": "{{sampleTicker}}"
+                },
+                {
+                  "key": "q",
+                  "value": "{{sampleQuery}}"
+                }
+              ]
+            },
+            "description": "Lists companies already synced into the local companies table.\n  Query params:\n  - limit: max number of rows to return, positive integer, default 50\n  - ticker: optional exact ticker filter\n  - q: optional free-text search on company name or related text\n  Response:\n  - filters: normalized query filters applied by the API\n  - items: company rows matching the filters"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is success\", function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "filings",
+      "item": [
+        {
+          "name": "Status Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/filings/status-summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filings",
+                "status-summary"
+              ],
+              "query": [
+                {
+                  "key": "since",
+                  "value": "{{sinceDate}}"
+                }
+              ]
+            },
+            "description": "Returns a filing status aggregate since the given date.\n  Query params:\n  - since: optional YYYY-MM-DD lower bound for filing_date filtering\n  - cik: optional company CIK filter is also supported by the API, though not used in this request\n  Response:\n  - filters: normalized cik and since values\n  - total: total filings in scope\n  - pending: filings waiting for download\n  - downloaded: filings downloaded successfully\n  - failed: filings whose download failed"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is success\", function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List Filings Pending",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/filings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filings"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "pending"
+                },
+                {
+                  "key": "limit",
+                  "value": "{{filingListLimit}}"
+                },
+                {
+                  "key": "cik",
+                  "value": "{{sampleCik}}"
+                }
+              ]
+            },
+            "description": "Lists pending filing records for a sample CIK.\n  Use this after filing metadata sync to verify that filings were queued before download.\n  Query params:\n  - status: fixed to pending in this request\n  - limit: max number of rows to return\n  - cik: optional company CIK filter\n  Response:\n  - filters: normalized filters including status, limit, and cik\n  - items: filing rows waiting to be downloaded"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is success\", function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List Downloaded Reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/filings/downloaded-reports?page={{downloadedReportsPage}}&pageSize={{downloadedReportsPageSize}}&formType={{downloadedReportsFormType}}&ticker={{sampleTicker}}&since={{sinceDate}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filings",
+                "downloaded-reports"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "{{downloadedReportsPage}}"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "{{downloadedReportsPageSize}}"
+                },
+                {
+                  "key": "formType",
+                  "value": "{{downloadedReportsFormType}}"
+                },
+                {
+                  "key": "ticker",
+                  "value": "{{sampleTicker}}"
+                },
+                {
+                  "key": "since",
+                  "value": "{{sinceDate}}"
+                }
+              ]
+            },
+            "description": "Lists downloaded reports and returns the static file content inline as JSON.\n  Query params:\n  - page, pageSize: pagination\n  - formType: SEC form type filter\n  - ticker: company ticker filter\n  - since: optional YYYY-MM-DD lower bound for filing_date"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is success\", function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List Filings Downloaded",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/filings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filings"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "downloaded"
+                },
+                {
+                  "key": "limit",
+                  "value": "{{filingListLimit}}"
+                },
+                {
+                  "key": "parserStatus",
+                  "value": "{{downloadedFilingsParserStatus}}"
+                }
+              ]
+            },
+            "description": "Lists downloaded filing records.\n  Use this after the download job to verify that pending filings were saved successfully.\n  Query params:\n  - status: fixed to downloaded in this request\n  - limit: max number of rows to return\n  - parserStatus: optional parser_status exact-match filter\n  - example: parserStatus=completed or parserStatus=error\n  - note: the empty-string case is not parserStatus='' and is covered by a separate request\n  Response:\n  - filters: normalized filters including status and limit\n  - items: filing rows whose status is downloaded"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is success\", function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List Filings Downloaded Parser Status Empty",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/filings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filings"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "downloaded"
+                },
+                {
+                  "key": "limit",
+                  "value": "{{filingListLimit}}"
+                },
+                {
+                  "key": "parserStatus",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Lists downloaded filing records whose parser_status is still the empty string.\n  Query params:\n  - status: fixed to downloaded in this request\n  - limit: max number of rows to return\n  - parserStatus: empty string filter, interpreted as parser_status = ''\n  - HTTP shape: /filings?status=downloaded&limit=20&parserStatus=\n  - do not use parserStatus='' because that means the literal string ''\n  - Bruno may omit truly empty query params, so this request intentionally uses a blank value in the query definition and should be verified against the final request URL"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is success\", function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "jobs",
+      "item": [
+        {
+          "name": "Company Sync Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/company-sync-jobs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "company-sync-jobs"
+              ],
+              "query": []
+            },
+            "description": "Starts the company sync job.\n  This endpoint fetches SEC company_tickers.json data and upserts companies into the local database.\n  Request body:\n  - none\n  Response:\n  - job: companies:sync\n  - requestedAt: ISO timestamp when the request was handled\n  - syncedCount: number of companies inserted or updated"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is success\", function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filing Sync Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/filing-sync-jobs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filing-sync-jobs"
+              ],
+              "query": []
+            },
+            "description": "Syncs filing metadata from SEC submissions into the filings table.\n  This stages rows with status pending and does not download documents yet.\n  Request body:\n  - page: 1-based page index for the companies batch\n  - pageSize: max number of companies to scan in this batch\n  - since: optional YYYY-MM-DD lower bound for filing_date\n  Response:\n  - job: filings:sync\n  - requestedAt: ISO timestamp\n  - options: normalized request options\n  - pagination: page metadata including totalCompanies, totalPages, hasNextPage\n  - companiesProcessed: number of companies scanned\n  - filingsSynced: number of filing metadata rows inserted or updated",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"page\": {{filingSyncPage}},\n    \"pageSize\": {{filingSyncPageSize}},\n    \"since\": \"{{sinceDate}}\"\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is success\", function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filing Download Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/filing-download-jobs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filing-download-jobs"
+              ],
+              "query": []
+            },
+            "description": "Downloads pending filing documents to local storage.\n  Request body:\n  - maxFiles: max number of pending filings to attempt\n  - since: optional YYYY-MM-DD lower bound\n  - ciks: optional list of CIKs to narrow the target set\n  Response:\n  - job: filings:download\n  - requestedAt: ISO timestamp\n  - options: normalized request options\n  - queued: number of filings selected for processing\n  - downloaded: number of successful downloads\n  - failed: number of failed downloads",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"maxFiles\": {{downloadMaxFiles}},\n    \"since\": \"{{sinceDate}}\",\n    \"ciks\": [\"{{sampleCik}}\"]\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is success\", function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filing Retry Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/filing-retry-jobs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filing-retry-jobs"
+              ],
+              "query": []
+            },
+            "description": "Resets failed filings back to pending so they can be downloaded again.\n  Request body:\n  - limit: max number of failed rows to reset\n  - since: optional YYYY-MM-DD lower bound\n  - cik: optional company CIK filter\n  Response:\n  - job: filings:retry-failed\n  - requestedAt: ISO timestamp\n  - options: normalized retry options\n  - resetCount: number of failed rows moved back to pending",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"limit\": {{retryLimit}},\n    \"since\": \"{{sinceDate}}\",\n    \"cik\": \"{{sampleCik}}\"\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is success\", function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filing Parser Status Update",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/filings/parser-status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filings",
+                "parser-status"
+              ],
+              "query": []
+            },
+            "description": "Updates parser_status for a specific filing row.\n  Intended for parser/LLM pipelines that mark a filing after graph DB ingestion.\n  Request body:\n  - cik: filing company CIK\n  - accessionNo: filing accession number\n  - parserStatus: free-form parser state string\n  Response:\n  - job: filings:parser-status-updated\n  - requestedAt: ISO timestamp\n  - cik: normalized filing CIK\n  - accessionNo: target accession number\n  - parserStatus: saved parser status value",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cik\": \"{{sampleCik}}\",\n    \"accessionNo\": \"{{sampleAccessionNo}}\",\n    \"parserStatus\": \"{{parserStatusValue}}\"\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is success\", function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3305/api",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "sinceDate",
+      "value": "2025-01-01",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "companyLimit",
+      "value": "20",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "filingSyncPage",
+      "value": "1",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "filingSyncPageSize",
+      "value": "100",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "downloadMaxFiles",
+      "value": "200",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "retryLimit",
+      "value": "100",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "filingListLimit",
+      "value": "20",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "downloadedReportsPage",
+      "value": "1",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "downloadedReportsPageSize",
+      "value": "2",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "downloadedReportsFormType",
+      "value": "10-K",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "sampleCik",
+      "value": "0000320193",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "sampleAccessionNo",
+      "value": "0000320193-25-000079",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "sampleTicker",
+      "value": "AAPL",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "sampleQuery",
+      "value": "Apple",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "parserStatusValue",
+      "value": "completed",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "downloadedFilingsParserStatus",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    }
+  ]
+}

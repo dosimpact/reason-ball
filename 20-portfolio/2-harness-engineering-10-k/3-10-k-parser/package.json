@@ -1,0 +1,13 @@
+{
+  "name": "@10k/parser",
+  "private": true,
+  "scripts": {
+    "python:sync": "UV_BIN=$(sh ../scripts/ensure-uv.sh) && \"$UV_BIN\" sync --project .",
+    "dev": "UV_BIN=$(sh ../scripts/ensure-uv.sh) && \"$UV_BIN\" sync --project . && \"$UV_BIN\" run --project . python -m parser.server --host \"${APP_HOST:-0.0.0.0}\" --port \"${APP_PORT:-3406}\" --reload",
+    "build": "UV_BIN=$(sh ../scripts/ensure-uv.sh) && \"$UV_BIN\" sync --project . && \"$UV_BIN\" run --project . python -m compileall -q src",
+    "start": "UV_BIN=$(sh ../scripts/ensure-uv.sh) && \"$UV_BIN\" sync --project . && \"$UV_BIN\" run --project . python -m parser.server --host \"${APP_HOST:-0.0.0.0}\" --port \"${APP_PORT:-3406}\"",
+    "test": "pnpm run test:unit",
+    "test:unit": "UV_BIN=$(sh ../scripts/ensure-uv.sh) && \"$UV_BIN\" sync --project . && \"$UV_BIN\" run --project . python -m compileall -q src scripts && \"$UV_BIN\" run --project . python scripts/runtime_store_smoke.py && \"$UV_BIN\" run --project . python scripts/retrieval_scope_smoke.py",
+    "clean": "rm -rf .venv .pytest_cache"
+  }
+}

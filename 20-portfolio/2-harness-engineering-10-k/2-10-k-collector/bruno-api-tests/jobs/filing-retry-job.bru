@@ -1,0 +1,41 @@
+meta {
+  name: Filing Retry Job
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/filing-retry-jobs
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "limit": {{retryLimit}},
+    "since": "{{sinceDate}}",
+    "cik": "{{sampleCik}}"
+  }
+}
+
+docs {
+  Resets failed filings back to pending so they can be downloaded again.
+  Request body:
+  - limit: max number of failed rows to reset
+  - since: optional YYYY-MM-DD lower bound
+  - cik: optional company CIK filter
+  Response:
+  - job: filings:retry-failed
+  - requestedAt: ISO timestamp
+  - options: normalized retry options
+  - resetCount: number of failed rows moved back to pending
+}
+
+assert {
+  res.status: eq 201
+  res.body.job: eq "filings:retry-failed"
+  res.body.resetCount: isNumber
+}

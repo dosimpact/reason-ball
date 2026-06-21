@@ -1,0 +1,27 @@
+meta {
+  name: Resume Latest Thread Stream
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/langgraph/threads/{{runtimeThreadId}}/stream
+  body: none
+}
+
+docs {
+  Replays the latest completed run for the thread through the resume endpoint.
+  Used to validate the stream join path used by the Next chat resume route.
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  const body = typeof res.body === "string" ? res.body : JSON.stringify(res.getBody());
+
+  test("resume stream should include text deltas", function() {
+    expect(body).to.include('"type": "text-delta"');
+  });
+}

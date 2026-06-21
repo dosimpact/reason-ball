@@ -1,0 +1,42 @@
+{
+  "name": "@10k/collector",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Nest.js POC for collecting SEC filings metadata and source files",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "dev": "pnpm run start:dev",
+    "start": "sh ./scripts/with-local-env.sh sh -c 'pnpm run build && node dist/main.js'",
+    "start:dev": "sh ./scripts/with-local-env.sh tsx src/main.ts",
+    "api": "sh ./scripts/with-local-env.sh node dist/main.js",
+    "api:dev": "pnpm run start:dev",
+    "api:serve": "pnpm run start",
+    "companies:sync": "sh ./scripts/with-local-env.sh sh -c 'pnpm run build && node dist/main.js companies:sync'",
+    "filings:collect": "sh ./scripts/with-local-env.sh sh -c 'pnpm run build && node dist/main.js filings:collect \"$@\"'",
+    "test": "pnpm run test:unit",
+    "test:unit": "pnpm run typecheck",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.11",
+    "@nestjs/core": "^11.0.11",
+    "@nestjs/platform-express": "^11.1.14",
+    "@nestjs/swagger": "^11.3.0",
+    "@nestjs/typeorm": "^11.0.0",
+    "dotenv": "^16.4.7",
+    "pg": "^8.13.3",
+    "reflect-metadata": "^0.2.2",
+    "swagger-ui-express": "^5.0.1",
+    "typeorm": "^0.3.24"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c"
+}

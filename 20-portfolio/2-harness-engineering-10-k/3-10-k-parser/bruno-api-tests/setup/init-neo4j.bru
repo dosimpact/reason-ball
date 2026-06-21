@@ -1,0 +1,31 @@
+meta {
+  name: Init Neo4j Constraints
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/parser/init-neo4j
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "pretty": true
+  }
+}
+
+docs {
+  Initializes the Neo4j constraints required by parser graph writes.
+  This can be rerun safely because the endpoint uses IF NOT EXISTS constraints.
+}
+
+assert {
+  res.status: eq 200
+  res.body.status: eq ok
+  res.body.action: eq init-neo4j
+}

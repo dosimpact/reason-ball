@@ -1,0 +1,42 @@
+meta {
+  name: Parse Mock Manifest Into Neo4j
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/parser/parse-manifest
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "manifest": "{{parserManifest}}",
+    "limit": 1,
+    "dry_run": false,
+    "pretty": true
+  }
+}
+
+docs {
+  Parses the bundled mock filing manifest and writes graph data to Neo4j.
+  This seeds the filing graph used by the langgraph retrieval tests.
+}
+
+assert {
+  res.status: eq 200
+  res.body.total: eq 1
+  res.body.success: eq 1
+  res.body.failed: eq 0
+}
+
+tests {
+  test("graph write should produce at least one node", function() {
+    const first = res.getBody().results[0];
+    expect(first.graph_nodes).to.be.greaterThan(0);
+  });
+}
