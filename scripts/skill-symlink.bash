@@ -4,9 +4,10 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-SKILL_SOURCES=(".agentic-playbook-rc" ".agentic-playbook", '.agents')
+SKILL_SOURCES=(".agentic-playbook-rc" ".agentic-playbook" ".agents/skills")
 TARGET_DIR="$REPO_ROOT/.codex/skills"
 
+rm -rf "$TARGET_DIR"
 mkdir -p "$TARGET_DIR"
 
 for source_dir in "${SKILL_SOURCES[@]}"; do
@@ -18,10 +19,6 @@ for source_dir in "${SKILL_SOURCES[@]}"; do
 
     target="$TARGET_DIR/$(basename "$skill")"
     relative_source="../../$source_dir/$(basename "$skill")"
-
-    if [ -L "$target" ]; then
-      rm "$target"
-    fi
 
     if [ -e "$target" ]; then
       echo "skip existing non-symlink: $target"

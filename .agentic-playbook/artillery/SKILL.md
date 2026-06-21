@@ -9,7 +9,8 @@ description: |
   performance test, load test, stress test, soak test, smoke test, spike test,
   부하 테스트, 성능 테스트, 스모크 테스트, 스트레스 테스트, 스파이크 테스트.
   Do NOT use for: non-Artillery performance tools, generic unit/integration
-  test authoring, production incident response.
+  test authoring (use $apb-unit-test-write), UI E2E browser testing
+  (use $apb-playwright-e2e), production incident response.
 ---
 
 # APB Artillery
@@ -28,6 +29,7 @@ $apb-artillery soak                         Author ./test/performance/soak.yml.
 $apb-artillery smoke                        Author ./test/performance/smoke.yml.
 $apb-artillery spike                        Author ./test/performance/spike.yml.
 $apb-artillery run {target_server} {yml}    Run a target server URL against a test YAML file.
+$apb-artillery review {json_report}         Generate HTML and summarize an Artillery JSON report.
 ```
 
 ## Phase Flow
@@ -49,7 +51,7 @@ Status:
 
 ---
 
-## Help Phase
+## Phase:Help
 
 Explain Artillery concepts, commands, and test-type selection using the local
 playbook as the source of truth.
@@ -98,7 +100,7 @@ playbook/playbook-1.md
 
 ---
 
-## Initialize Phase
+## Phase:Initialize
 
 Create the default Artillery workspace in the current project.
 
@@ -136,13 +138,11 @@ npm install --save-dev artillery
 
 ```
 ./test/performance
-./test/performance/payloads
-./reports
 ```
 
 ---
 
-## Author Phase
+## Phase:Author
 
 Write one of the supported Artillery YAML scenarios: smoke, load, stress, soak,
 or spike.
@@ -254,16 +254,11 @@ capture:
 
 ```
 ./test/performance/smoke.yml
-./test/performance/load.yml
-./test/performance/stress.yml
-./test/performance/soak.yml
-./test/performance/spike.yml
-./test/performance/processor.js
 ```
 
 ---
 
-## Execute Phase
+## Phase:Execute
 
 Run a selected Artillery YAML file against a target server and produce a JSON
 result.
@@ -305,7 +300,7 @@ reports/load.json
 
 ---
 
-## Review Phase
+## Phase:Review
 
 Generate an HTML report when possible and summarize the performance result.
 

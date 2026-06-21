@@ -36,7 +36,7 @@ Every generated `SKILL.md` MUST contain these sections, in this order:
 4. **`## Phase Flow`** — arrow diagram `[A] -> [B] -> [C]`
 5. **`## Phase Progress Visualization`** — status legend
    (`done` / `active` / `pending`)
-6. **`## {Phase Name} Phase`** — one section per phase in the flow.
+6. **`## Phase:{Phase Name}`** — one section per phase in the flow.
    Each phase section MUST contain, in order:
    - `### Prerequisites`
    - `### Steps`
@@ -61,7 +61,7 @@ Every generated `SKILL.md` MUST contain these sections, in this order:
 3. Write the front matter, H1, and blockquote summary.
 4. Write `## Usage` as a fenced table of commands.
 5. Write `## Phase Flow` and `## Phase Progress Visualization`.
-6. For each phase in the flow, append a `## {Phase} Phase` block with
+6. For each phase in the flow, append a `## Phase:{Phase}` block with
    `### Prerequisites`, `### Steps`, `### Output Path`.
 7. Validate: all required sections exist in the order above, every phase
    has the three sub-sections, and `Output Path` is concrete (not a
@@ -114,7 +114,7 @@ Status:
 
 ---
 
-## {A} Phase
+## Phase:{A}
 
 {one-line purpose}
 
