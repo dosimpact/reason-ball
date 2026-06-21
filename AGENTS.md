@@ -2,10 +2,10 @@
 
 ## Project Structure & Module Organization
 
-This repository is currently an empty project scaffold. As code is added, keep the top-level layout predictable:
+This repository is a pnpm workspace managed with Turborepo. Keep the top-level layout predictable:
 
-- `src/` for application source code and reusable modules.
-- `tests/` for automated tests that mirror the structure of `src/`.
+- `apps/` for runnable applications.
+- `packages/` for shared packages and reusable modules.
 - `assets/` for static files such as images, audio, sample data, or fixtures.
 - `docs/` for design notes, architecture decisions, and user-facing documentation.
 
@@ -13,12 +13,14 @@ Avoid placing implementation files directly in the repository root unless they a
 
 ## Build, Test, and Development Commands
 
-No build system, package manager, or test runner is configured yet. When one is introduced, document the exact commands here and keep them runnable from the repository root. Recommended examples:
+Use committed package scripts from the repository root:
 
-- `npm install` or equivalent: install project dependencies.
-- `npm run dev`: start a local development server.
-- `npm test`: run the automated test suite.
-- `npm run build`: create a production build.
+- `pnpm install`: install workspace dependencies.
+- `pnpm dev`: run development tasks through Turborepo.
+- `pnpm build`: run production builds through Turborepo.
+- `pnpm test`: run test tasks through Turborepo.
+- `pnpm lint`: run lint tasks through Turborepo.
+- `pnpm typecheck`: run type-check tasks through Turborepo.
 
 Prefer scripts committed in the project manifest over one-off local commands.
 
@@ -39,7 +41,7 @@ Place tests under `tests/` or next to source files using the convention selected
 
 ## Commit & Pull Request Guidelines
 
-This directory is not currently initialized as a Git repository, so no local commit history is available. Once Git is configured, use concise, imperative commit subjects such as `Add game loop` or `Fix score reset`. Pull requests should include a short summary, test results, linked issues when applicable, and screenshots or recordings for visible UI changes.
+Use concise, imperative commit subjects such as `Add game loop` or `Fix score reset`. Pull requests should include a short summary, test results, linked issues when applicable, and screenshots or recordings for visible UI changes.
 
 ## Agent-Specific Instructions
 
