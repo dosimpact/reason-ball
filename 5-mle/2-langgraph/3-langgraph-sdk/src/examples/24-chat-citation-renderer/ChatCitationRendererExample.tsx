@@ -1,13 +1,12 @@
 import { BookOpenText, ExternalLink, FileSearch, Link2, Loader2, Play, RotateCcw } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const evidenceQuestion =
   "How should a chat UI render inline citation chips, hover previews, and source document cards?";
@@ -143,7 +142,6 @@ function scoreLabel(value: number) {
 }
 
 export function ChatCitationRendererExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [question, setQuestion] = useState(evidenceQuestion);
   const [threadId, setThreadId] = useState("");
   const [status, setStatus] = useState("Idle");
@@ -160,7 +158,7 @@ export function ChatCitationRendererExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const selectedCitation = citations.find((citation) => citation.id === selectedCitationId) ?? citations[0] ?? null;
   const selectedSource = selectedCitation
     ? sources.find((source) => source.id === selectedCitation.sourceId) ?? null
@@ -240,7 +238,7 @@ export function ChatCitationRendererExample() {
       const nextThreadId = String(thread.thread_id);
       setThreadId(nextThreadId);
       setStatus("Streaming citation renderer");
-      const stream = await client.runs.stream(nextThreadId, "chat_citation_renderer", {
+      const stream = await client.runs.stream(nextThreadId, "24_chat_citation_renderer", {
         input: { question: trimmed },
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -274,7 +272,7 @@ export function ChatCitationRendererExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="button-row">
           <button type="button" className="secondary-button" onClick={() => setQuestion(evidenceQuestion)} disabled={busy}>

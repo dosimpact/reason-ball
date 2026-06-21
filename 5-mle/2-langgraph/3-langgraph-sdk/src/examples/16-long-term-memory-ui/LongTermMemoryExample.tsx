@@ -1,13 +1,12 @@
 import { Database, GitBranch, Loader2, Play, RotateCcw, Save, Trash2 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const samples = [
   {
@@ -138,7 +137,6 @@ function mergeMemoryEvents(current: MemoryEvent[], next: MemoryEvent[]) {
 }
 
 export function LongTermMemoryExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [userId, setUserId] = useState("learner-001");
   const [memoryId, setMemoryId] = useState(samples[0].key);
   const [content, setContent] = useState(samples[0].value);
@@ -162,7 +160,7 @@ export function LongTermMemoryExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const selectedMemory = memories.find((memory) => memory.id === memoryId) ?? null;
   const latestOperation = operations.at(-1) ?? null;
 
@@ -263,7 +261,7 @@ export function LongTermMemoryExample() {
       }
 
       setStatus(`Streaming ${action}`);
-      const stream = await client.runs.stream(activeThreadId, "long_term_memory", {
+      const stream = await client.runs.stream(activeThreadId, "16_long_term_memory", {
         input: {
           user_id: activeUserId,
           action,
@@ -331,7 +329,7 @@ export function LongTermMemoryExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <label className="field">
           <span>User ID</span>

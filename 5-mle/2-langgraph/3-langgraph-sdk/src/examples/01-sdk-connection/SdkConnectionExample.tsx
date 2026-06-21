@@ -1,21 +1,20 @@
 import { Loader2, Play, Plus, RefreshCw, Server, Trash2 } from "lucide-react";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 import {
   AssistantRecord,
   StreamLogEntry,
   assistantIdOf,
   assistantLabelOf,
   createLangGraphClient,
-  defaultLangGraphApiUrl,
   extractLatestMessageText,
+  langGraphApiUrl,
   normalizeAssistants,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
+const client = createLangGraphClient();
 
 export function SdkConnectionExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [assistants, setAssistants] = useState<AssistantRecord[]>([]);
   const [selectedAssistantId, setSelectedAssistantId] = useState("sdk_connection");
   const [threadId, setThreadId] = useState("");
@@ -27,14 +26,18 @@ export function SdkConnectionExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  // 핵심 노트
+  // - load assistant 
+  // - 
 
   async function loadAssistants() {
     setBusy(true);
     setError("");
     setStatus("Loading assistants");
     try {
-      const result = await (client.assistants as any).search({ limit: 100 });
+      const result = await client.assistants.search({ limit: 100 });
+
+
       const normalized = normalizeAssistants(result);
       setAssistants(normalized);
       const preferred =
@@ -61,14 +64,15 @@ export function SdkConnectionExample() {
     setError("");
     setStatus("Creating thread");
     try {
-      const thread = await (client.threads as any).create();
-      const nextThreadId = thread.thread_id ?? thread.threadId ?? thread.id;
+      const thread = await client.threads.create();
+      const nextThreadId = thread.thread_id;
+      
       setThreadId(nextThreadId);
       setEvents([]);
       setAnswer("");
       setRunId("");
       setStatus("Thread ready");
-      return nextThreadId as string;
+      return nextThreadId;
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : String(caught));
       setStatus("Thread create failed");
@@ -84,7 +88,7 @@ export function SdkConnectionExample() {
     setError("");
     setStatus("Deleting thread");
     try {
-      await (client.threads as any).delete(threadId);
+      await client.threads.delete(threadId);
       setThreadId("");
       setRunId("");
       setEvents([]);
@@ -111,7 +115,7 @@ export function SdkConnectionExample() {
       const activeThreadId = threadId || (await createThread());
       if (!activeThreadId) throw new Error("Unable to create or reuse a thread.");
 
-      const stream = await (client.runs as any).stream(activeThreadId, selectedAssistantId, {
+      const stream = await client.runs.stream(activeThreadId, selectedAssistantId, {
         input: {
           messages: [{ type: "human", content: prompt }],
         },
@@ -147,7 +151,7 @@ export function SdkConnectionExample() {
 
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
 
         <div className="button-row">
@@ -213,7 +217,7 @@ export function SdkConnectionExample() {
 
       <div className="result-panel">
         <div className="panel-title">OpenAI-backed response</div>
-        <div className="answer-box">{answer || "Run the assistant to stream a response."}</div>
+        <div className="answer-box">{answer}</div>
       </div>
 
       <div className="event-panel">

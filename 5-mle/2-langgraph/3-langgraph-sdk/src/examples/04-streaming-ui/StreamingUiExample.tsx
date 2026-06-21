@@ -1,14 +1,14 @@
 import { Activity, Loader2, Play, RotateCcw, Waves } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   extractLatestMessageText,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
+// {"node":"call_model","phase":"model_done","progress":0.8,"detail":"OpenAI response received."}
 
 type StreamMode = "messages" | "updates" | "values" | "custom";
 
@@ -75,7 +75,6 @@ function coerceProgressEvent(data: unknown): ProgressEvent {
 }
 
 export function StreamingUiExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [mode, setMode] = useState<StreamMode>("messages");
   const [prompt, setPrompt] = useState("Explain how LangGraph streaming helps a React UI.");
   const [threadId, setThreadId] = useState("");
@@ -89,7 +88,7 @@ export function StreamingUiExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
 
   function resetView() {
     setStatus("Idle");
@@ -126,7 +125,7 @@ export function StreamingUiExample() {
       setThreadId(nextThreadId);
       setStatus(`Streaming ${mode}`);
 
-      const stream = await client.runs.stream(nextThreadId, "streaming_ui", {
+      const stream = await client.runs.stream(nextThreadId, "04_streaming_ui", {
         input: { prompt: trimmed, progress: [] },
         streamMode: mode,
       });
@@ -181,7 +180,7 @@ export function StreamingUiExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
 
         <div className="mode-toggle" aria-label="Stream mode">

@@ -1,7 +1,7 @@
 import { Calculator, Loader2, MessageSquarePlus, RotateCcw, Send, Wrench } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createClientId,
   createLangGraphClient,
@@ -9,7 +9,6 @@ import {
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 type ChatItem = {
   id: string;
@@ -27,6 +26,9 @@ type ToolCard = {
   result?: string;
   error?: string;
 };
+
+type StreamMessage = Record<string, unknown>;
+type MessageStreamData = StreamMessage | [StreamMessage, ...unknown[]];
 
 const samplePrompts = [
   "Use the calculator tool to multiply 12 by 7, then explain the result.",
@@ -53,7 +55,7 @@ function contentToText(content: unknown): string {
   return "";
 }
 
-function extractMessages(value: unknown): Record<string, unknown>[] {
+function extractMessages(value: unknown): StreamMessage[] {
   if (Array.isArray(value)) return value.flatMap(extractMessages);
   if (!isRecord(value)) return [];
 
@@ -68,7 +70,7 @@ function extractMessages(value: unknown): Record<string, unknown>[] {
   return Object.values(value).flatMap(extractMessages);
 }
 
-function toolCallsFromMessage(message: Record<string, unknown>): Record<string, unknown>[] {
+function toolCallsFromMessage(message: StreamMessage): StreamMessage[] {
   if (Array.isArray(message.tool_calls)) return message.tool_calls as Record<string, unknown>[];
 
   const additional = message.additional_kwargs;
@@ -79,11 +81,11 @@ function toolCallsFromMessage(message: Record<string, unknown>): Record<string, 
   return [];
 }
 
-function toolCallIdOf(call: Record<string, unknown>, fallback: string): string {
+function toolCallIdOf(call: StreamMessage, fallback: string): string {
   return String(call.id ?? call.tool_call_id ?? fallback);
 }
 
-function toolNameOf(call: Record<string, unknown>): string {
+function toolNameOf(call: StreamMessage): string {
   if (typeof call.name === "string") return call.name;
   if (isRecord(call.function) && typeof call.function.name === "string") {
     return call.function.name;
@@ -91,7 +93,7 @@ function toolNameOf(call: Record<string, unknown>): string {
   return "tool";
 }
 
-function toolArgsOf(call: Record<string, unknown>): unknown {
+function toolArgsOf(call: StreamMessage): unknown {
   if ("args" in call) return call.args;
   if (isRecord(call.function) && typeof call.function.arguments === "string") {
     try {
@@ -103,7 +105,12 @@ function toolArgsOf(call: Record<string, unknown>): unknown {
   return {};
 }
 
-function messageFromStream(data: unknown): Record<string, unknown> | null {
+function isMessageStreamData(value: unknown): value is MessageStreamData {
+  if (isRecord(value)) return true;
+  return Array.isArray(value) && value.some(isRecord);
+}
+
+function messageFromStream(data: MessageStreamData): StreamMessage | null {
   if (Array.isArray(data)) {
     const firstRecord = data.find(isRecord);
     return firstRecord ?? null;
@@ -122,7 +129,6 @@ function latestToolCard(cards: ToolCard[], toolCallId: string): ToolCard | undef
 }
 
 export function ToolCallingReactExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [threadId, setThreadId] = useState("");
   const [prompt, setPrompt] = useState(samplePrompts[0]);
   const [messages, setMessages] = useState<ChatItem[]>([]);
@@ -132,7 +138,7 @@ export function ToolCallingReactExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
 
   function resetView() {
     setThreadId("");
@@ -143,7 +149,7 @@ export function ToolCallingReactExample() {
     setError("");
   }
 
-  function handleStreamMessages(streamMessages: Record<string, unknown>[]) {
+  function handleStreamMessages(streamMessages: StreamMessage[]) {
     for (const message of streamMessages) {
       const type = String(message.type ?? message.role ?? "").toLowerCase();
       const text = contentToText(message.content);
@@ -176,8 +182,10 @@ export function ToolCallingReactExample() {
       }
 
       if (type.includes("tool")) {
+        
         const toolCallId = String(message.tool_call_id ?? message.id ?? "");
         const result = text || JSON.stringify(message.content ?? "");
+
         setToolCards((current) => {
           const existing = latestToolCard(current, toolCallId);
           return upsertToolCall(current, {
@@ -193,7 +201,7 @@ export function ToolCallingReactExample() {
     }
   }
 
-  function handleMessageStream(data: unknown) {
+  function handleMessageStream(data: MessageStreamData) {
     const message = messageFromStream(data);
     if (!message) return;
 
@@ -235,16 +243,19 @@ export function ToolCallingReactExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming tool run");
 
-      const stream = await client.runs.stream(nextThreadId, "tool_calling_react", {
+      const stream = await client.runs.stream(nextThreadId, "05_tool_calling_react", {
         input: { messages: [{ type: "human", content: trimmed }] },
         streamMode: ["messages", "updates"] as ["messages", "updates"],
       });
 
       for await (const chunk of stream) {
         const logEntry = normalizeStreamChunk(chunk);
+
         setEvents((current) => [logEntry, ...current].slice(0, 80));
         if (logEntry.event === "messages" || logEntry.event.startsWith("messages/")) {
-          handleMessageStream(logEntry.data);
+          if (isMessageStreamData(logEntry.data)) {
+            handleMessageStream(logEntry.data);
+          }
         }
         if (logEntry.event === "updates") {
           handleStreamMessages(extractMessages(logEntry.data));
@@ -280,7 +291,7 @@ export function ToolCallingReactExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
 
         <div className="sample-list" aria-label="Sample prompts">

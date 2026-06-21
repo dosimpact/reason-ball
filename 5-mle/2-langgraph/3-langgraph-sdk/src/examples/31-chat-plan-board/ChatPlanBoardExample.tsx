@@ -2,13 +2,12 @@ import { ClipboardList, Loader2, Play, RefreshCcw, RotateCcw, StepForward } from
 import type { DragEvent, FormEvent } from "react";
 import { useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 const defaultGoal = "Plan a reliable rollout for a LangGraph SDK artifact demo with review checkpoints.";
 const statuses = ["completed", "active", "pending", "blocked", "failed"] as const;
 
@@ -121,7 +120,6 @@ function mergePlanEvents(current: PlanEvent[], next: PlanEvent[]) {
 }
 
 export function ChatPlanBoardExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [userGoal, setUserGoal] = useState(defaultGoal);
   const [revisionNote, setRevisionNote] = useState("Add a reviewer checkpoint before final launch.");
   const [threadId, setThreadId] = useState("");
@@ -145,7 +143,7 @@ export function ChatPlanBoardExample() {
   const [dragOverStatus, setDragOverStatus] = useState<PlanStatus | "">("");
   const [boardEditStatus, setBoardEditStatus] = useState("No manual board moves yet.");
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const canEditBoard = Boolean(threadId) && planSteps.length > 0 && !busy;
   const canContinue = canEditBoard;
 
@@ -212,7 +210,7 @@ export function ChatPlanBoardExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming plan board graph");
 
-      const stream = await client.runs.stream(nextThreadId, "chat_plan_board", {
+      const stream = await client.runs.stream(nextThreadId, "31_chat_plan_board", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -313,7 +311,7 @@ export function ChatPlanBoardExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <form className="run-form" onSubmit={submitPlan}>
           <label className="field">

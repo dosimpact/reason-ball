@@ -1,13 +1,12 @@
 import { CheckSquare, GitBranch, Loader2, Play, RotateCcw, Route, Square } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const samples = [
   {
@@ -134,7 +133,6 @@ function updateStepFromEvent(steps: PlanStep[], event: StepEvent) {
 }
 
 export function PlanAndExecuteExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [task, setTask] = useState(samples[0].value);
   const [controlMode, setControlMode] = useState<ControlMode>("normal");
   const [threadId, setThreadId] = useState("");
@@ -153,7 +151,7 @@ export function PlanAndExecuteExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const activeStep = useMemo(() => planSteps.find((step) => step.status === "active"), [planSteps]);
 
   function resetView() {
@@ -241,7 +239,7 @@ export function PlanAndExecuteExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming plan execution");
 
-      const stream = await client.runs.stream(nextThreadId, "plan_and_execute", {
+      const stream = await client.runs.stream(nextThreadId, "14_plan_and_execute", {
         input: { task: trimmed, control_mode: controlMode },
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -279,7 +277,7 @@ export function PlanAndExecuteExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="sample-list" aria-label="Plan task samples">
           {samples.map((sample) => (

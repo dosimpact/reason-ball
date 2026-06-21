@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   ChatMessageRecord,
   StreamLogEntry,
   createLangGraphClient,
@@ -18,7 +18,6 @@ import {
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const seedMessages = [
   "My name is Dogyung.",
@@ -196,7 +195,6 @@ function mergeEvents(current: ContextEvent[], next: ContextEvent[]) {
 }
 
 export function LongContextExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [threadId, setThreadId] = useState("");
   const [status, setStatus] = useState("Idle");
   const [messages, setMessages] = useState<ChatMessageRecord[]>([]);
@@ -217,7 +215,7 @@ export function LongContextExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
 
   function resetState() {
     setThreadId("");
@@ -306,7 +304,7 @@ export function LongContextExample() {
       setThreadId(activeThreadId);
       setStatus(`Streaming ${label}`);
 
-      const stream = await client.runs.stream(activeThreadId, "long_context", {
+      const stream = await client.runs.stream(activeThreadId, "19_long_context", {
         input: {
           messages: inputMessages.map((content) => ({ type: "human", content })),
         },
@@ -369,7 +367,7 @@ export function LongContextExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="button-row">
           <button type="button" className="secondary-button" onClick={createThread} disabled={busy}>
@@ -573,4 +571,3 @@ export function LongContextExample() {
     </section>
   );
 }
-

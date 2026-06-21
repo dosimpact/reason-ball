@@ -1,13 +1,12 @@
 import { BookOpenText, FileSearch, Link2, Loader2, Play, RotateCcw, Quote } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const samples = [
   {
@@ -100,7 +99,6 @@ function scoreLabel(value: number) {
 }
 
 export function RagQaExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [question, setQuestion] = useState(samples[0].value);
   const [threadId, setThreadId] = useState("");
   const [status, setStatus] = useState("Idle");
@@ -117,7 +115,7 @@ export function RagQaExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const retrievedIds = useMemo(() => retrievedDocs.map((doc) => doc.id).join(", "), [retrievedDocs]);
 
   function resetView() {
@@ -204,7 +202,7 @@ export function RagQaExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming RAG QA");
 
-      const stream = await client.runs.stream(nextThreadId, "rag_qa", {
+      const stream = await client.runs.stream(nextThreadId, "13_rag_qa", {
         input: { question: trimmed },
         streamMode: "updates",
       });
@@ -239,7 +237,7 @@ export function RagQaExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="sample-list" aria-label="RAG QA samples">
           {samples.map((sample) => (

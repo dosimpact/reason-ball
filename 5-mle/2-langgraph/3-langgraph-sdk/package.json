@@ -4,20 +4,31 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "dev": "vite --host 0.0.0.0 --port 2805",
+    "dev:agentic-chat-graph": "npx @langchain/langgraph-cli dev --config langgraph.agentic-chat.json --host 0.0.0.0 --port 2933",
+    "runtime:copilotkit": "node runtime/copilotkit-runtime.ts",
     "build": "tsc -b && vite build",
     "lint": "tsc --noEmit",
     "test": "tsc --noEmit",
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@copilotkit/react-core": "^1.61.0",
+    "@copilotkit/runtime": "^1.61.0",
+    "@copilotkit/sdk-js": "^1.61.0",
+    "@langchain/core": "^1.2.0",
+    "@langchain/langgraph": "^1.4.4",
     "@langchain/langgraph-sdk": "^1.9.22",
+    "@langchain/openai": "^1.5.1",
+    "langchain": "^1.5.0",
     "lucide-react": "^0.468.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.0",
+    "@types/node": "^26.0.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",

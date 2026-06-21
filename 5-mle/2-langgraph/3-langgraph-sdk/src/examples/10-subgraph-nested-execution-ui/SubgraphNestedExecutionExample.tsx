@@ -1,13 +1,12 @@
 import { ChevronRight, GitBranch, Layers3, Loader2, Play, RotateCcw } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const samples = [
   {
@@ -127,7 +126,6 @@ function nodePayloads(data: unknown): JsonRecord[] {
 }
 
 export function SubgraphNestedExecutionExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [request, setRequest] = useState(samples[0].value);
   const [threadId, setThreadId] = useState("");
   const [status, setStatus] = useState("Idle");
@@ -145,7 +143,7 @@ export function SubgraphNestedExecutionExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const setters = {
     setSelectedTeam,
     setBreadcrumb,
@@ -204,7 +202,7 @@ export function SubgraphNestedExecutionExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming parent and subgraph updates");
 
-      const stream = await client.runs.stream(nextThreadId, "subgraph_nested_execution", {
+      const stream = await client.runs.stream(nextThreadId, "10_subgraph_nested_execution", {
         input: { request: trimmed },
         streamMode: "updates",
         streamSubgraphs: true,
@@ -241,7 +239,7 @@ export function SubgraphNestedExecutionExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="sample-list" aria-label="Nested samples">
           {samples.map((sample) => (

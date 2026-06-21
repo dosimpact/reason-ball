@@ -45,6 +45,7 @@ Status key:
 | 32 | Chat Graph Execution Canvas | `plan/32-chat-graph-execution-canvas.md` | complete | main + subagents | Artifact; shared event store. |
 | 33 | Chat UI Preview | `plan/33-chat-ui-preview.md` | complete | main + subagents | Artifact; sandboxed preview. |
 | 34 | Chat Data Analysis Canvas | `plan/34-chat-data-analysis-canvas.md` | complete | main + subagents | Artifact; sandboxed analysis. |
+| 35 | Agentic Chat AG-UI | `plan/35-agentic-chat-ag-ui.md` | complete | main | Generative UI; CopilotKit AG-UI runtime and frontend tool middleware. |
 
 ## Coordination Notes
 

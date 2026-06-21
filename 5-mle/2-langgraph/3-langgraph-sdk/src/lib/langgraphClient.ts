@@ -1,10 +1,15 @@
 import { Client } from "@langchain/langgraph-sdk";
 
-export function defaultLangGraphApiUrl() {
+export const langGraphApiUrl = resolveLangGraphApiUrl();
+
+function resolveLangGraphApiUrl() {
   const configured = import.meta.env.VITE_LANGGRAPH_API_URL;
+
   if (configured) return configured;
   if (typeof window === "undefined") return "http://localhost:2931";
+
   const protocol = window.location.protocol === "https:" ? "https:" : "http:";
+
   return `${protocol}//${window.location.hostname}:2931`;
 }
 
@@ -31,7 +36,7 @@ export type ChatMessageRecord = {
   content: string;
 };
 
-export function createLangGraphClient(apiUrl: string) {
+export function createLangGraphClient(apiUrl = langGraphApiUrl) {
   return new Client({ apiUrl });
 }
 
@@ -53,9 +58,24 @@ export function assistantLabelOf(assistant: AssistantRecord): string {
 }
 
 export function normalizeAssistants(value: unknown): AssistantRecord[] {
+  // 1. 일반 search 결과
+  // [
+  //   { assistant_id: "...", graph_id: "sdk_connection" }
+  // ]
+
+  // 2. pagination 포함 결과
+  // {
+  //   assistants: [
+  //     { assistant_id: "...", graph_id: "sdk_connection" }
+  //   ],
+  //   next: "..."
+  // }
+
   if (Array.isArray(value)) return value as AssistantRecord[];
+
   if (value && typeof value === "object") {
     const objectValue = value as Record<string, unknown>;
+
     if (Array.isArray(objectValue.assistants)) {
       return objectValue.assistants as AssistantRecord[];
     }

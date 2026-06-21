@@ -1,14 +1,13 @@
 import { Boxes, CheckCircle2, Code2, Loader2, Play, RotateCcw, Send } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createClientId,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const launchPrompt =
   "Create a launch readiness UI card with action buttons and a fallback payload for unsupported UI.";
@@ -223,7 +222,6 @@ function PushUiMessageRenderer({
 }
 
 export function PushUiMessageExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [prompt, setPrompt] = useState(launchPrompt);
   const [threadId, setThreadId] = useState("");
   const [status, setStatus] = useState("Idle");
@@ -241,7 +239,7 @@ export function PushUiMessageExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const unsupportedCount = uiMessages.filter((message) => message.name === "legacy_payload").length;
 
   function resetView() {
@@ -308,7 +306,7 @@ export function PushUiMessageExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming push UI messages");
 
-      const stream = await client.runs.stream(nextThreadId, "push_ui_message_example", {
+      const stream = await client.runs.stream(nextThreadId, "25_push_ui_message_example", {
         input: { prompt: trimmed },
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -343,7 +341,7 @@ export function PushUiMessageExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="button-row">
           <button type="button" className="secondary-button" onClick={() => setPrompt(launchPrompt)} disabled={busy}>

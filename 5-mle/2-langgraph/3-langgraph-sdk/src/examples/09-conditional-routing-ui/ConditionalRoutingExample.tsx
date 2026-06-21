@@ -1,13 +1,12 @@
 import { GitFork, Loader2, Play, RotateCcw, Route } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const samples = [
   {
@@ -87,7 +86,6 @@ function nodePayload(data: unknown, nodeName: string): JsonRecord | null {
 }
 
 export function ConditionalRoutingExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [request, setRequest] = useState(samples[0].value);
   const [threadId, setThreadId] = useState("");
   const [status, setStatus] = useState("Idle");
@@ -101,7 +99,7 @@ export function ConditionalRoutingExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
 
   function resetView() {
     setThreadId("");
@@ -156,7 +154,7 @@ export function ConditionalRoutingExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming route decision");
 
-      const stream = await client.runs.stream(nextThreadId, "conditional_routing", {
+      const stream = await client.runs.stream(nextThreadId, "09_conditional_routing", {
         input: { request: trimmed },
         streamMode: "updates",
       });
@@ -199,7 +197,7 @@ export function ConditionalRoutingExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="sample-list" aria-label="Routing samples">
           {samples.map((sample) => (

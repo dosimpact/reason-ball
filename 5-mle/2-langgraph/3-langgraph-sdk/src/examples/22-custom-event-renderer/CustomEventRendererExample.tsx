@@ -1,14 +1,13 @@
 import { AlertTriangle, CheckCircle2, Loader2, Play, RotateCcw, RadioTower } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createClientId,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const warningPrompt =
   "Render inline progress for a legacy import with warning events and preserve unknown diagnostic payloads.";
@@ -137,7 +136,6 @@ function phasePercent(record: PhaseRecord) {
 }
 
 export function CustomEventRendererExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [taskId, setTaskId] = useState("renderer-demo-001");
   const [taskPrompt, setTaskPrompt] = useState(warningPrompt);
   const [threadId, setThreadId] = useState("");
@@ -157,7 +155,7 @@ export function CustomEventRendererExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const warningEvents = renderEvents.filter((event) => event.kind === "warning");
   const progressComplete = inlineEvents.some((event) => event.progress >= 1 || event.status === "completed");
 
@@ -238,7 +236,7 @@ export function CustomEventRendererExample() {
       const nextThreadId = String(thread.thread_id);
       setThreadId(nextThreadId);
       setStatus("Streaming custom events");
-      const stream = await client.runs.stream(nextThreadId, "custom_event_renderer", {
+      const stream = await client.runs.stream(nextThreadId, "22_custom_event_renderer", {
         input: {
           task_id: trimmedId,
           task_prompt: trimmedTask,
@@ -275,7 +273,7 @@ export function CustomEventRendererExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="button-row">
           <button type="button" className="secondary-button" onClick={() => setTaskPrompt(warningPrompt)} disabled={busy}>

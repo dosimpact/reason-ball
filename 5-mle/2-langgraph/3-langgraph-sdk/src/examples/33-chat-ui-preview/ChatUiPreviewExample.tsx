@@ -1,13 +1,12 @@
 import { Check, Code2, Eye, GitCompare, Loader2, Play, RotateCcw, SlidersHorizontal, Undo2 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 const defaultRequest =
   "Create a compact launch status card with clear success metrics, a review badge, and one primary action.";
 
@@ -180,7 +179,6 @@ function previewDocument(markup: string) {
 }
 
 export function ChatUiPreviewExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [userRequest, setUserRequest] = useState(defaultRequest);
   const [threadId, setThreadId] = useState("");
   const [status, setStatus] = useState("Idle");
@@ -206,7 +204,7 @@ export function ChatUiPreviewExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const canApprove = Boolean(threadId) && proposedCode.length > 0 && !busy;
 
   function resetView() {
@@ -281,7 +279,7 @@ export function ChatUiPreviewExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming UI preview graph");
 
-      const stream = await client.runs.stream(nextThreadId, "chat_ui_preview", {
+      const stream = await client.runs.stream(nextThreadId, "33_chat_ui_preview", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -334,7 +332,7 @@ export function ChatUiPreviewExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <form className="run-form" onSubmit={runPreview}>
           <label className="field">

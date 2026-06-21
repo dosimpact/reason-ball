@@ -1,14 +1,13 @@
 import { Brain, CheckCircle2, Loader2, Play, RotateCcw, ShieldCheck } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createClientId,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const analysisPrompt =
   "Explain how a LangGraph UI can show useful public reasoning status without exposing non-public model notes.";
@@ -112,7 +111,6 @@ function mergeThinkingSteps(current: ThinkingStep[], next: ThinkingStep[]) {
 }
 
 export function ThinkingRendererExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [question, setQuestion] = useState(analysisPrompt);
   const [threadId, setThreadId] = useState("");
   const [runId, setRunId] = useState("");
@@ -128,7 +126,7 @@ export function ThinkingRendererExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const completedSteps = thinkingSteps.filter((step) => step.status === "completed").length;
 
   function resetView() {
@@ -190,7 +188,7 @@ export function ThinkingRendererExample() {
       const nextThreadId = String(thread.thread_id);
       setThreadId(nextThreadId);
       setStatus("Streaming thinking status");
-      const stream = await client.runs.stream(nextThreadId, "thinking_renderer", {
+      const stream = await client.runs.stream(nextThreadId, "23_thinking_renderer", {
         input: { question: trimmed },
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -224,7 +222,7 @@ export function ThinkingRendererExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="button-row">
           <button type="button" className="secondary-button" onClick={() => setQuestion(analysisPrompt)} disabled={busy}>

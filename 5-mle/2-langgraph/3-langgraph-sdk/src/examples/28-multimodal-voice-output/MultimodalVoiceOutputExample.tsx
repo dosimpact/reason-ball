@@ -1,13 +1,12 @@
 import { Download, Loader2, Play, RotateCcw, SlidersHorizontal, Volume2 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 const defaultPrompt =
   "Create a short spoken update that explains why LangGraph SDK voice output is useful for product demos.";
 const defaultInstructions = "Speak clearly, warmly, and at a measured pace.";
@@ -125,7 +124,6 @@ function mergeAudioEvents(current: AudioEvent[], next: AudioEvent[]) {
 }
 
 export function MultimodalVoiceOutputExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [prompt, setPrompt] = useState(defaultPrompt);
   const [voice, setVoice] = useState("coral");
   const [responseFormat, setResponseFormat] = useState("mp3");
@@ -143,7 +141,7 @@ export function MultimodalVoiceOutputExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
 
   function resetResultState() {
     setThreadId("");
@@ -201,7 +199,7 @@ export function MultimodalVoiceOutputExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming voice output");
 
-      const stream = await client.runs.stream(nextThreadId, "multimodal_voice_output", {
+      const stream = await client.runs.stream(nextThreadId, "28_multimodal_voice_output", {
         input: {
           prompt: trimmedPrompt,
           voice,
@@ -247,7 +245,7 @@ export function MultimodalVoiceOutputExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <form className="run-form" onSubmit={runVoiceOutput}>
           <label className="field">

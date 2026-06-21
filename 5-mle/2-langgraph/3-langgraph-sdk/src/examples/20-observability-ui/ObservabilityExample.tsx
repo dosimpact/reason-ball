@@ -10,13 +10,12 @@ import {
 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const toolQuery =
   "Use observability metrics to explain why a LangGraph SDK demo run is slow. Mention latency, tokens, and cost.";
@@ -177,7 +176,6 @@ function mergeObservabilityEvents(current: ObservabilityEvent[], next: Observabi
 }
 
 export function ObservabilityExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [query, setQuery] = useState(toolQuery);
   const [threadId, setThreadId] = useState("");
   const [runId, setRunId] = useState("");
@@ -195,7 +193,7 @@ export function ObservabilityExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const totalElapsed = nodeTimings.reduce((sum, timing) => sum + timing.elapsedMs, 0);
   const llmCalls = tokenMetrics.length;
 
@@ -265,7 +263,7 @@ export function ObservabilityExample() {
       const nextThreadId = String(thread.thread_id);
       setThreadId(nextThreadId);
       setStatus("Streaming observable graph");
-      const stream = await client.runs.stream(nextThreadId, "observability", {
+      const stream = await client.runs.stream(nextThreadId, "20_observability", {
         input: { query: trimmed, run_label: "ui-observable-run" },
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -298,7 +296,7 @@ export function ObservabilityExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="button-row">
           <button type="button" className="secondary-button" onClick={() => setQuery(toolQuery)} disabled={busy}>

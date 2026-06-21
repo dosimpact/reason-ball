@@ -1,7 +1,7 @@
 import { Loader2, MessageSquarePlus, RefreshCw, Send, Trash2 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   ChatMessageRecord,
   StreamLogEntry,
   createClientId,
@@ -11,7 +11,6 @@ import {
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 type Conversation = {
   id: string;
@@ -20,7 +19,6 @@ type Conversation = {
 };
 
 export function BasicChatExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [threadId, setThreadId] = useState("");
   const [messages, setMessages] = useState<ChatMessageRecord[]>([]);
@@ -30,7 +28,7 @@ export function BasicChatExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
 
   async function createConversation(title = "New conversation") {
     setBusy(true);
@@ -127,7 +125,7 @@ export function BasicChatExample() {
     ]);
 
     try {
-      const stream = await client.runs.stream(activeThreadId, "basic_chat", {
+      const stream = await client.runs.stream(activeThreadId, "02_basic_chat", {
         input: { messages: [{ type: "human", content: trimmed }] },
         streamMode: "updates",
       });
@@ -164,7 +162,7 @@ export function BasicChatExample() {
         <div className="panel-title">Conversations</div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="button-row">
           <button

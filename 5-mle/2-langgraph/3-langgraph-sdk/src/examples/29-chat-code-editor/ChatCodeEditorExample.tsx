@@ -10,13 +10,12 @@ import {
 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 const defaultRequest =
   "Add a safe test scaffold marker to the FastAPI sample and show the diff before applying it.";
 const files = ["app.py", "README.md"];
@@ -115,7 +114,6 @@ function mergeEditorEvents(current: EditorEvent[], next: EditorEvent[]) {
 }
 
 export function ChatCodeEditorExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [userRequest, setUserRequest] = useState(defaultRequest);
   const [selectedFile, setSelectedFile] = useState("app.py");
   const [threadId, setThreadId] = useState("");
@@ -139,7 +137,7 @@ export function ChatCodeEditorExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const hasProposal = Boolean(proposalDiff);
   const canApprove = hasProposal && finalStatus === "awaiting_approval" && !busy && Boolean(threadId);
 
@@ -209,7 +207,7 @@ export function ChatCodeEditorExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming code editor graph");
 
-      const stream = await client.runs.stream(nextThreadId, "chat_code_editor", {
+      const stream = await client.runs.stream(nextThreadId, "29_chat_code_editor", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -272,7 +270,7 @@ export function ChatCodeEditorExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <form className="run-form" onSubmit={submitProposal}>
           <label className="field">

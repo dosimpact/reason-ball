@@ -9,13 +9,12 @@ import {
 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const samples = [
   {
@@ -128,7 +127,6 @@ function normalizeLoopEvents(value: unknown): LoopEvent[] {
 }
 
 export function ReflectionEvaluatorLoopExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [request, setRequest] = useState(samples[0].value);
   const [maxAttempts, setMaxAttempts] = useState(3);
   const [retryPolicy, setRetryPolicy] = useState<RetryPolicy>("force_first_retry");
@@ -150,7 +148,7 @@ export function ReflectionEvaluatorLoopExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const rejectedIterations = useMemo(
     () => iterations.filter((iteration) => iteration.verdict === "FAIL"),
     [iterations],
@@ -260,7 +258,7 @@ export function ReflectionEvaluatorLoopExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming reflection loop");
 
-      const stream = await client.runs.stream(nextThreadId, "reflection_evaluator_loop", {
+      const stream = await client.runs.stream(nextThreadId, "15_reflection_evaluator_loop", {
         input: {
           request: trimmed,
           max_attempts: maxAttempts,
@@ -302,7 +300,7 @@ export function ReflectionEvaluatorLoopExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="sample-list" aria-label="Reflection request samples">
           {samples.map((sample) => (

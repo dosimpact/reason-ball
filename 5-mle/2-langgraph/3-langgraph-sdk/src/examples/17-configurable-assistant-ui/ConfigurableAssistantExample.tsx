@@ -1,13 +1,12 @@
 import { GitCompareArrows, Loader2, Play, RotateCcw, Settings2, Sliders } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const samples = [
   {
@@ -143,7 +142,6 @@ function configRows(defaultRun: RunResult | null, overrideRun: RunResult | null)
 }
 
 export function ConfigurableAssistantExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [prompt, setPrompt] = useState(samples[0].value);
   const [model, setModel] = useState<ModelAlias>("fast");
   const [style, setStyle] = useState<Style>("detailed");
@@ -162,7 +160,7 @@ export function ConfigurableAssistantExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const diffRows = useMemo(() => configRows(defaultRun, overrideRun), [defaultRun, overrideRun]);
   const invalidTemperature = temperature < 0 || temperature > 1 || Number.isNaN(temperature);
 
@@ -223,7 +221,7 @@ export function ConfigurableAssistantExample() {
             }
           : {};
 
-      const stream = await client.runs.stream(nextThreadId, "configurable_assistant", {
+      const stream = await client.runs.stream(nextThreadId, "17_configurable_assistant", {
         input: { prompt: trimmed, run_label: label },
         config: { configurable },
         streamMode: ["updates", "custom"] as ["updates", "custom"],
@@ -278,7 +276,7 @@ export function ConfigurableAssistantExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="sample-list" aria-label="Configurable prompt samples">
           {samples.map((sample) => (

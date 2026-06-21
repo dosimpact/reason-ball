@@ -1,13 +1,12 @@
 import { Check, Loader2, RotateCcw, ShieldAlert, SquarePen, X } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 const storageKey = "langgraph-sdk-example-06-pending-thread";
 const defaultAction = "delete production database backup after summarizing risk";
 const editedAction = "archive production database backup after summarizing risk";
@@ -85,7 +84,6 @@ function clearPendingThread() {
 }
 
 export function HumanInTheLoopInterruptExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [action, setAction] = useState(defaultAction);
   const [editText, setEditText] = useState(editedAction);
   const [threadId, setThreadId] = useState("");
@@ -97,7 +95,7 @@ export function HumanInTheLoopInterruptExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
 
   useEffect(() => {
     const storedThreadId = readPendingThread();
@@ -163,13 +161,16 @@ export function HumanInTheLoopInterruptExample() {
       setPendingThreadId(nextThreadId);
       setStatus("Running until approval interrupt");
 
-      const stream = await client.runs.stream(nextThreadId, "human_in_the_loop_interrupt", {
+      const stream = await client.runs.stream(nextThreadId, "06_human_in_the_loop_interrupt", {
         input: { action: trimmed },
         streamMode: "updates",
       });
 
       for await (const chunk of stream) {
         const logEntry = normalizeStreamChunk(chunk);
+
+        console.log(">>logEntry",logEntry)
+
         setEvents((current) => [logEntry, ...current].slice(0, 80));
         const maybeInterrupt = extractInterruptPayload(logEntry.data);
         if (maybeInterrupt) setInterruptPayload(maybeInterrupt);
@@ -211,7 +212,7 @@ export function HumanInTheLoopInterruptExample() {
     setStatus("Resuming approval run");
 
     try {
-      const stream = await client.runs.stream(threadId, "human_in_the_loop_interrupt", {
+      const stream = await client.runs.stream(threadId, "06_human_in_the_loop_interrupt", {
         input: null,
         command: { resume: resumeValue },
         streamMode: "updates",
@@ -247,7 +248,7 @@ export function HumanInTheLoopInterruptExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
 
         <form onSubmit={startRun} className="run-form">

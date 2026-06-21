@@ -1,13 +1,12 @@
 import { FileImage, ImagePlus, Loader2, Play, RotateCcw, ScanSearch } from "lucide-react";
 import { ChangeEvent, FormEvent, useMemo, useRef, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 const defaultPrompt =
   "Analyze this image for layout, visible text, colors, and UI-relevant details.";
 const alternatePrompt =
@@ -195,7 +194,6 @@ function createSamplePng() {
 }
 
 export function MultimodalImageInputExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [prompt, setPrompt] = useState(defaultPrompt);
   const [imageDataUrl, setImageDataUrl] = useState("");
   const [imageName, setImageName] = useState("");
@@ -217,7 +215,7 @@ export function MultimodalImageInputExample() {
   const [busy, setBusy] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
 
   function resetResultState() {
     setThreadId("");
@@ -317,7 +315,7 @@ export function MultimodalImageInputExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming image analysis");
 
-      const stream = await client.runs.stream(nextThreadId, "multimodal_image_input", {
+      const stream = await client.runs.stream(nextThreadId, "26_multimodal_image_input", {
         input: {
           prompt: trimmedPrompt,
           image: {
@@ -359,7 +357,7 @@ export function MultimodalImageInputExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="button-row">
           <button type="button" className="secondary-button" onClick={useSampleImage} disabled={busy}>

@@ -1,13 +1,12 @@
 import { AlertTriangle, GitBranch, Loader2, Play, RotateCcw, ShieldCheck, TimerReset } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const samples = [
   {
@@ -128,7 +127,6 @@ function mergeRetryEvents(current: RetryEvent[], next: RetryEvent[]) {
 }
 
 export function RetryErrorDegradationExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [query, setQuery] = useState(samples[0].value);
   const [failureMode, setFailureMode] = useState<FailureMode>("flaky_success");
   const [maxAttempts, setMaxAttempts] = useState(3);
@@ -149,7 +147,7 @@ export function RetryErrorDegradationExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const usedStrategy = finalStatus === "fallback_success" ? "fallback" : finalStatus === "failed" ? "none" : "primary";
 
   function resetView() {
@@ -219,7 +217,7 @@ export function RetryErrorDegradationExample() {
       const nextThreadId = String(thread.thread_id);
       setThreadId(nextThreadId);
       setStatus("Streaming retry demo");
-      const stream = await client.runs.stream(nextThreadId, "retry_error_degradation", {
+      const stream = await client.runs.stream(nextThreadId, "18_retry_error_degradation", {
         input: {
           query: trimmed,
           failure_mode: failureMode,
@@ -258,7 +256,7 @@ export function RetryErrorDegradationExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="sample-list" aria-label="Retry query samples">
           {samples.map((sample) => (

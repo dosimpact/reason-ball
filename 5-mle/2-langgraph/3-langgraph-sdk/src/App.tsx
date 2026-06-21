@@ -1,6 +1,7 @@
 import { BookOpen, CheckCircle2, FlaskConical, ListTree } from "lucide-react";
 import { useMemo, useState } from "react";
 import { SdkConnectionExample } from "./examples/01-sdk-connection/SdkConnectionExample";
+import { SdkConnectionReactHookExample } from "./examples/01-2-sdk-connection-react-hook/SdkConnectionReactHookExample";
 import { BasicChatExample } from "./examples/02-basic-chat-ui/BasicChatExample";
 import { GraphExecutionTimelineExample } from "./examples/03-graph-execution-timeline/GraphExecutionTimelineExample";
 import { StreamingUiExample } from "./examples/04-streaming-ui/StreamingUiExample";
@@ -34,6 +35,8 @@ import { ChatPlanBoardExample } from "./examples/31-chat-plan-board/ChatPlanBoar
 import { ChatGraphExecutionCanvasExample } from "./examples/32-chat-graph-execution-canvas/ChatGraphExecutionCanvasExample";
 import { ChatUiPreviewExample } from "./examples/33-chat-ui-preview/ChatUiPreviewExample";
 import { ChatDataAnalysisCanvasExample } from "./examples/34-chat-data-analysis-canvas/ChatDataAnalysisCanvasExample";
+import { AgenticChatAgUiExample } from "./examples/35-agentic-chat-ag-ui/AgenticChatAgUiExample";
+import { HumanInTheLoopReactHookExample } from "./examples/06-2-human-in-the-loop-react-hook/HumanInTheLoopReactHookExample";
 import { examples } from "./data/examples";
 
 export default function App() {
@@ -87,6 +90,9 @@ export default function App() {
         </header>
 
         {activeExample.slug === "01-sdk-connection" ? <SdkConnectionExample /> : null}
+        {activeExample.slug === "01-2-sdk-connection-react-hook" ? (
+          <SdkConnectionReactHookExample />
+        ) : null}
         {activeExample.slug === "02-basic-chat-ui" ? <BasicChatExample /> : null}
         {activeExample.slug === "03-graph-execution-timeline" ? (
           <GraphExecutionTimelineExample />
@@ -143,6 +149,10 @@ export default function App() {
         {activeExample.slug === "33-chat-ui-preview" ? <ChatUiPreviewExample /> : null}
         {activeExample.slug === "34-chat-data-analysis-canvas" ? (
           <ChatDataAnalysisCanvasExample />
+        ) : null}
+        {activeExample.slug === "35-agentic-chat-ag-ui" ? <AgenticChatAgUiExample /> : null}
+        {activeExample.slug === "06-2-human-in-the-loop-react-hook" ? (
+          <HumanInTheLoopReactHookExample />
         ) : null}
         {!activeExample.implemented ? (
           <section className="empty-state">

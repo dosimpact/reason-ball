@@ -12,13 +12,12 @@ import {
 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 const defaultRequest =
   "Rewrite the launch brief to be more professional, concise, and clear for executive reviewers.";
 const tones = ["professional", "friendly", "executive", "plain"];
@@ -174,7 +173,6 @@ function mergeDocumentEvents(current: DocumentEvent[], next: DocumentEvent[]) {
 }
 
 export function ChatDocumentArtifactExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [userRequest, setUserRequest] = useState(defaultRequest);
   const [tone, setTone] = useState("professional");
   const [targetLength, setTargetLength] = useState("concise");
@@ -201,7 +199,7 @@ export function ChatDocumentArtifactExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const hasProposal = documentSections.length > 0;
   const canApprove = hasProposal && finalStatus === "awaiting_approval" && !busy && Boolean(threadId);
   const canSaveUserEdits = hasProposal && userEditDirty && !busy && Boolean(threadId);
@@ -277,7 +275,7 @@ export function ChatDocumentArtifactExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming document graph");
 
-      const stream = await client.runs.stream(nextThreadId, "chat_document_artifact", {
+      const stream = await client.runs.stream(nextThreadId, "30_chat_document_artifact", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -382,7 +380,7 @@ export function ChatDocumentArtifactExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <form className="run-form" onSubmit={submitProposal}>
           <label className="field">

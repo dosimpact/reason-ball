@@ -1,13 +1,12 @@
 import { GitMerge, Loader2, Play, RotateCcw, Workflow } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const samples = [
   {
@@ -116,7 +115,6 @@ function nodePayloads(data: unknown): JsonRecord[] {
 }
 
 export function ParallelMapReduceExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [topic, setTopic] = useState(samples[0].value);
   const [threadId, setThreadId] = useState("");
   const [status, setStatus] = useState("Idle");
@@ -128,7 +126,7 @@ export function ParallelMapReduceExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
 
   function resetView() {
     setThreadId("");
@@ -191,7 +189,7 @@ export function ParallelMapReduceExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming parallel workers");
 
-      const stream = await client.runs.stream(nextThreadId, "parallel_map_reduce", {
+      const stream = await client.runs.stream(nextThreadId, "11_parallel_map_reduce", {
         input: { topic: trimmed },
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -229,7 +227,7 @@ export function ParallelMapReduceExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="sample-list" aria-label="Map-reduce samples">
           {samples.map((sample) => (

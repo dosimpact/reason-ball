@@ -12,13 +12,12 @@ import {
 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 const defaultRequest =
   "Analyze conversion by channel, identify the strongest segment, and produce a compact chart and retry-safe sandbox log.";
 const defaultCsv = `channel,visitors,signups,revenue
@@ -202,7 +201,6 @@ function tableColumns(rows: TableRow[], columns: DatasetColumn[]) {
 }
 
 export function ChatDataAnalysisCanvasExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [userRequest, setUserRequest] = useState(defaultRequest);
   const [csvText, setCsvText] = useState(defaultCsv);
   const [threadId, setThreadId] = useState("");
@@ -228,7 +226,7 @@ export function ChatDataAnalysisCanvasExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const canRetry = Boolean(threadId) && !busy;
   const resultColumns = tableColumns(resultTable, []);
   const previewColumns = tableColumns(previewRows, columns);
@@ -313,7 +311,7 @@ export function ChatDataAnalysisCanvasExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming data analysis graph");
 
-      const stream = await client.runs.stream(nextThreadId, "chat_data_analysis_canvas", {
+      const stream = await client.runs.stream(nextThreadId, "34_chat_data_analysis_canvas", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -367,7 +365,7 @@ export function ChatDataAnalysisCanvasExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <form className="run-form" onSubmit={runAnalysis}>
           <label className="field">

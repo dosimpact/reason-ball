@@ -1,13 +1,12 @@
 import { CheckCircle2, Loader2, Play, RotateCcw, Send, SlidersHorizontal } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const ambiguousRequest = "Show me Apple stock.";
 const completeRequest = "Show me AAPL on NASDAQ for 1M.";
@@ -164,7 +163,6 @@ function missingFields(value: unknown): FieldName[] {
 }
 
 export function IntentFeedbackGenerativeExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [userQuery, setUserQuery] = useState(ambiguousRequest);
   const [threadId, setThreadId] = useState("");
   const [status, setStatus] = useState("Idle");
@@ -186,7 +184,7 @@ export function IntentFeedbackGenerativeExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const selectionComplete = Boolean(selection.ticker && selection.market && selection.period);
 
   function resetView() {
@@ -247,7 +245,7 @@ export function IntentFeedbackGenerativeExample() {
       const nextThreadId = String(thread.thread_id);
       setThreadId(nextThreadId);
       setStatus(`Streaming ${label}`);
-      const stream = await client.runs.stream(nextThreadId, "intent_feedback_generative_ui", {
+      const stream = await client.runs.stream(nextThreadId, "21_intent_feedback_generative_ui", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -311,7 +309,7 @@ export function IntentFeedbackGenerativeExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="button-row">
           <button type="button" className="secondary-button" onClick={() => setUserQuery(ambiguousRequest)} disabled={busy}>

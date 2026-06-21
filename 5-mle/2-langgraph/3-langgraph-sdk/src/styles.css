@@ -5,6 +5,57 @@
   background: #eef2f1;
 }
 
+.agentic-chat-surface {
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  min-height: 720px;
+  overflow: hidden;
+  padding: 24px;
+  width: 100%;
+}
+
+.agentic-chat-panel {
+  height: min(680px, calc(100vh - 220px));
+  min-height: 560px;
+  width: min(100%, 960px);
+}
+
+.agentic-chat-window {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.agentic-weather-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+}
+
+.agentic-weather-card strong {
+  color: var(--text-strong);
+}
+
+@media (max-width: 760px) {
+  .agentic-chat-surface {
+    min-height: 620px;
+    padding: 12px;
+  }
+
+  .agentic-chat-panel {
+    height: 620px;
+    min-height: 0;
+  }
+}
+
 * {
   box-sizing: border-box;
 }

@@ -1,13 +1,12 @@
 import { GitBranch, Loader2, MousePointer2, Play, RotateCcw, StepBack } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 const defaultPrompt =
   "Explain a LangGraph SDK run with chat, subgraph execution, checkpoints, and replay inspection.";
 
@@ -199,7 +198,6 @@ function selectedEventFrom(values: JsonRecord, fallback: ExecutionEvent | null):
 }
 
 export function ChatGraphExecutionCanvasExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [userPrompt, setUserPrompt] = useState(defaultPrompt);
   const [threadId, setThreadId] = useState("");
   const [status, setStatus] = useState("Idle");
@@ -224,7 +222,7 @@ export function ChatGraphExecutionCanvasExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const canInspect = Boolean(threadId) && executionEvents.length > 0 && !busy;
   const activeNodeDetail = graphNodes.find((node) => node.id === activeNode) ?? null;
   const selectedCheckpoint =
@@ -320,7 +318,7 @@ export function ChatGraphExecutionCanvasExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming graph canvas");
 
-      const stream = await client.runs.stream(nextThreadId, "chat_graph_execution_canvas", {
+      const stream = await client.runs.stream(nextThreadId, "32_chat_graph_execution_canvas", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -373,7 +371,7 @@ export function ChatGraphExecutionCanvasExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <form className="run-form" onSubmit={runInspect}>
           <label className="field">

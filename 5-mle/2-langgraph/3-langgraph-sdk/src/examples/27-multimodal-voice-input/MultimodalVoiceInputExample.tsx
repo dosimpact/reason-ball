@@ -1,14 +1,13 @@
 import { AudioLines, Loader2, Mic2, Play, RotateCcw, Upload } from "lucide-react";
 import { ChangeEvent, FormEvent, useMemo, useRef, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 import { sampleVoiceDataUrl, sampleVoiceInput } from "./sampleAudio";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 const defaultPrompt =
   "Summarize the voice input, preserve important keywords, and explain what the speaker asked for.";
 const alternatePrompt =
@@ -163,7 +162,6 @@ function readAudioDurationMs(dataUrl: string) {
 }
 
 export function MultimodalVoiceInputExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [prompt, setPrompt] = useState(defaultPrompt);
   const [audioDataUrl, setAudioDataUrl] = useState("");
   const [audioName, setAudioName] = useState("");
@@ -189,7 +187,7 @@ export function MultimodalVoiceInputExample() {
   const [busy, setBusy] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
 
   function resetResultState() {
     setThreadId("");
@@ -306,7 +304,7 @@ export function MultimodalVoiceInputExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming voice analysis");
 
-      const stream = await client.runs.stream(nextThreadId, "multimodal_voice_input", {
+      const stream = await client.runs.stream(nextThreadId, "27_multimodal_voice_input", {
         input: {
           prompt: trimmedPrompt,
           audio: {
@@ -357,7 +355,7 @@ export function MultimodalVoiceInputExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="button-row">
           <button type="button" className="secondary-button" onClick={useSampleAudio} disabled={busy}>

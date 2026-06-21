@@ -1,13 +1,12 @@
 import { GitBranch, GitCompareArrows, History, Loader2, Play, RotateCcw } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 const defaultTopic = "debugging replay branches from checkpoint history";
 const defaultReplayTopic = "forked replay branch with stricter rollback guidance";
 const defaultReplayInstruction =
@@ -119,7 +118,6 @@ function buildComparison(original: JsonRecord | null, replay: JsonRecord | null)
 }
 
 export function TimeTravelReplayExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [topic, setTopic] = useState(defaultTopic);
   const [replayTopic, setReplayTopic] = useState(defaultReplayTopic);
   const [replayInstruction, setReplayInstruction] = useState(defaultReplayInstruction);
@@ -134,7 +132,7 @@ export function TimeTravelReplayExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const selectedCheckpoint = history.find((entry) => entry.id === selectedCheckpointId) ?? null;
   const comparisonRows = buildComparison(originalState, replayState);
   const changedRows = comparisonRows.filter((row) => row.status !== "same");
@@ -185,7 +183,7 @@ export function TimeTravelReplayExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming original run");
 
-      const stream = await client.runs.stream(nextThreadId, "time_travel_replay", {
+      const stream = await client.runs.stream(nextThreadId, "08_time_travel_replay", {
         input: {
           topic: trimmed,
           replay_instruction: "Create the original baseline before any replay branch.",
@@ -227,7 +225,7 @@ export function TimeTravelReplayExample() {
     setStatus("Replaying from selected checkpoint");
 
     try {
-      const stream = await client.runs.stream(threadId, "time_travel_replay", {
+      const stream = await client.runs.stream(threadId, "08_time_travel_replay", {
         input: {
           topic: trimmedTopic,
           replay_instruction: trimmedInstruction,
@@ -268,7 +266,7 @@ export function TimeTravelReplayExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <form onSubmit={runOriginal} className="run-form">
           <label className="field">

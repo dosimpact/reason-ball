@@ -9,13 +9,12 @@ import {
 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 const samples = [
   {
@@ -98,7 +97,6 @@ function actionItems(parsed: JsonRecord | null) {
 }
 
 export function StructuredOutputExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [request, setRequest] = useState(samples[0].value);
   const [threadId, setThreadId] = useState("");
   const [status, setStatus] = useState("Idle");
@@ -115,7 +113,7 @@ export function StructuredOutputExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const fields = useMemo(() => schemaFields(schemaJson), [schemaJson]);
   const actions = useMemo(() => actionItems(parsedObject), [parsedObject]);
 
@@ -190,7 +188,7 @@ export function StructuredOutputExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming structured extraction");
 
-      const stream = await client.runs.stream(nextThreadId, "structured_output", {
+      const stream = await client.runs.stream(nextThreadId, "12_structured_output", {
         input: { request: trimmed },
         streamMode: "updates",
       });
@@ -225,7 +223,7 @@ export function StructuredOutputExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <div className="sample-list" aria-label="Structured output samples">
           {samples.map((sample) => (

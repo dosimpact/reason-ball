@@ -1,13 +1,12 @@
 import { CheckCircle2, Clock3, Loader2, Play, RotateCcw } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 
 type NodeName = "prepare_topic" | "call_model" | "finalize";
 type NodeStatus = "pending" | "running" | "done" | "error" | "skipped";
@@ -43,7 +42,6 @@ function markNextRunning(nodes: TimelineNode[]): TimelineNode[] {
 }
 
 export function GraphExecutionTimelineExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [topic, setTopic] = useState("streaming graph updates");
   const [threadId, setThreadId] = useState("");
   const [status, setStatus] = useState("Idle");
@@ -53,7 +51,7 @@ export function GraphExecutionTimelineExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
 
   function resetView() {
     setNodes(initialNodes());
@@ -84,7 +82,8 @@ export function GraphExecutionTimelineExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming graph updates");
 
-      const stream = await client.runs.stream(nextThreadId, "graph_execution_timeline", {
+      // node_updates는 langgraph의 상태값이며 이는 직접 정의된다.  
+      const stream = await client.runs.stream(nextThreadId, "03_graph_execution_timeline", {
         input: { topic: trimmed, steps: [], node_updates: [] },
         streamMode: "updates",
       });
@@ -93,6 +92,7 @@ export function GraphExecutionTimelineExample() {
         const logEntry = normalizeStreamChunk(chunk);
         setEvents((current) => [logEntry, ...current].slice(0, 50));
 
+        
         setNodes((current) => {
           let next = current;
           for (const node of nodeOrder) {
@@ -131,7 +131,7 @@ export function GraphExecutionTimelineExample() {
         <div className="panel-title">Run Controls</div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <form onSubmit={runTimeline} className="run-form">
           <label className="field">

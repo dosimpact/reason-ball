@@ -1,13 +1,12 @@
 import { GitCompareArrows, History, Loader2, Play, RotateCcw } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import {
-  defaultLangGraphApiUrl,
+  langGraphApiUrl,
   StreamLogEntry,
   createLangGraphClient,
   normalizeStreamChunk,
 } from "../../lib/langgraphClient";
 
-const defaultApiUrl = defaultLangGraphApiUrl();
 const defaultTopic = "debugging LangGraph state changes with checkpoints";
 
 type JsonRecord = Record<string, unknown>;
@@ -113,7 +112,6 @@ function buildDiff(selected: JsonRecord, current: JsonRecord): DiffRow[] {
 }
 
 export function CheckpointStateHistoryExample() {
-  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [topic, setTopic] = useState(defaultTopic);
   const [threadId, setThreadId] = useState("");
   const [status, setStatus] = useState("Idle");
@@ -124,7 +122,7 @@ export function CheckpointStateHistoryExample() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const client = useMemo(() => createLangGraphClient(apiUrl), [apiUrl]);
+  const client = useMemo(() => createLangGraphClient(), []);
   const selectedCheckpoint = history.find((entry) => entry.id === selectedCheckpointId) ?? null;
   const diffRows = buildDiff(selectedCheckpoint?.values ?? {}, currentState ?? {});
 
@@ -171,7 +169,7 @@ export function CheckpointStateHistoryExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming checkpointed run");
 
-      const stream = await client.runs.stream(nextThreadId, "checkpoint_state_history", {
+      const stream = await client.runs.stream(nextThreadId, "07_checkpoint_state_history", {
         input: { topic: trimmed },
         streamMode: "updates",
       });
@@ -201,7 +199,7 @@ export function CheckpointStateHistoryExample() {
         </div>
         <label className="field">
           <span>LangGraph API URL</span>
-          <input value={apiUrl} onChange={(event) => setApiUrl(event.target.value)} />
+          <input value={langGraphApiUrl} readOnly />
         </label>
         <form onSubmit={runCheckpointHistory} className="run-form">
           <label className="field">
