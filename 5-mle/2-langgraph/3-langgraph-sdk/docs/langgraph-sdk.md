@@ -30,6 +30,15 @@
     - [5.2 Item 검색](#52-item-검색)
     - [5.3 Namespace 목록 조회](#53-namespace-목록-조회)
   - [6. 이 프로젝트에서 우선 익힐 API](#6-이-프로젝트에서-우선-익힐-api)
+- [@langchain/langgraph-sdk/react 정리](#langchainlanggraph-sdkreact-정리)
+  - [1. React SDK의 위치](#1-react-sdk의-위치)
+  - [2. `useStream` 핵심 역할](#2-usestream-핵심-역할)
+  - [3. 기본 사용 패턴](#3-기본-사용-패턴)
+  - [4. 주요 옵션과 콜백](#4-주요-옵션과-콜백)
+  - [5. Thread 관리](#5-thread-관리)
+  - [6. Interrupt와 resume](#6-interrupt와-resume)
+  - [7. 직접 Client API와의 선택 기준](#7-직접-client-api와의-선택-기준)
+  - [8. 이 프로젝트의 적용 예](#8-이-프로젝트의-적용-예)
 
 
 이 문서는 React 예제에서 다음 코드로 LangGraph SDK 클라이언트를 만든 뒤 사용할 수 있는 주요 API를 정리한다.
@@ -947,3 +956,216 @@ const history = await client.threads.getHistory(thread.thread_id, {
 
 await client.threads.delete(thread.thread_id);
 ```
+
+# @langchain/langgraph-sdk/react 정리
+
+## 1. React SDK의 위치
+
+`@langchain/langgraph-sdk/react`는 브라우저 React 컴포넌트에서 LangGraph server streaming run을 쉽게 다루기 위한 hook layer다.
+
+기존 `@langchain/langgraph-sdk`의 `Client`를 직접 쓰면 thread 생성, run stream 순회, state 병합, interrupt 추출, loading/error 상태 관리를 컴포넌트에서 직접 처리해야 한다. React SDK는 이 반복 작업을 `useStream` hook으로 묶어 준다.
+
+```tsx
+import { useStream } from "@langchain/langgraph-sdk/react";
+```
+
+이 프로젝트에서는 `src/examples/*-react-hook/` 예제들이 이 import를 사용한다.
+
+## 2. `useStream` 핵심 역할
+
+`useStream`은 React state와 LangGraph stream lifecycle을 연결한다.
+
+주요 책임:
+
+- LangGraph API URL과 assistant id를 기준으로 run을 실행한다.
+- thread id가 없으면 thread를 만들고 `onThreadId`로 알려준다.
+- stream event를 받아 `values`, `interrupt`, `isLoading`, `error` 같은 hook 상태로 노출한다.
+- `onCreated`, `onUpdateEvent`, `onCustomEvent`, `onMetadataEvent`, `onFinish`, `onError` 콜백으로 UI 로그나 상태 표시를 갱신할 수 있게 한다.
+- `submit(...)`으로 새 run 실행과 interrupt resume을 같은 표면에서 처리한다.
+- `switchThread(...)`로 현재 hook이 바라보는 thread를 바꾼다.
+
+## 3. 기본 사용 패턴
+
+가장 작은 형태는 아래와 같다.
+
+```tsx
+const [threadId, setThreadId] = useState<string | null>(null);
+
+const stream = useStream<MyGraphState>({
+  apiUrl: langGraphApiUrl,
+  assistantId: "basic_chat",
+  threadId,
+  onThreadId: setThreadId,
+});
+
+await stream.submit(
+  {
+    messages: [{ type: "human", content: "Hello" }],
+  },
+  {
+    streamMode: ["updates"],
+  },
+);
+```
+
+실행 후 UI에서는 hook state를 읽는다.
+
+```tsx
+const busy = stream.isLoading;
+const error = stream.error;
+const values = stream.values;
+```
+
+`stream.values`는 graph state의 최신 누적값이다. 예를 들어 message 기반 graph라면 `stream.values.messages`에서 assistant message를 찾아 화면에 렌더링한다.
+
+## 4. 주요 옵션과 콜백
+
+### 4.1 생성 옵션
+
+```tsx
+const stream = useStream<State>({
+  apiUrl: langGraphApiUrl,
+  assistantId: "sdk_connection",
+  threadId,
+  onThreadId: setThreadId,
+});
+```
+
+- `apiUrl`: LangGraph dev/server URL. 이 프로젝트에서는 `langGraphApiUrl` 공통 상수를 사용한다.
+- `assistantId`: 실행할 assistant 또는 graph id. `langgraph.json`의 graph key와 맞추는 것이 기본이다.
+- `threadId`: 재사용할 thread id. `null`이면 hook이 새 thread를 만들 수 있다.
+- `onThreadId`: 새 thread가 생성되거나 hook이 thread id를 알게 됐을 때 호출된다.
+
+### 4.2 Stream callback
+
+```tsx
+const stream = useStream<State>({
+  apiUrl: langGraphApiUrl,
+  assistantId: "sdk_connection",
+  threadId,
+  onThreadId: setThreadId,
+  onCreated(run) {
+    setRunId(run.run_id);
+  },
+  onMetadataEvent(data) {
+    addEvent("metadata", data);
+  },
+  onUpdateEvent(data) {
+    addEvent("updates", data);
+  },
+  onCustomEvent(data) {
+    addEvent("custom", data);
+  },
+  onFinish(state, run) {
+    addEvent("finish", state.values, run?.run_id);
+  },
+  onError(error, run) {
+    addEvent("error", error, run?.run_id);
+  },
+});
+```
+
+- `onCreated`: run 생성 직후 호출된다. run id를 UI에 표시할 때 유용하다.
+- `onMetadataEvent`: stream metadata event를 받는다.
+- `onUpdateEvent`: `streamMode: ["updates"]`에서 graph node update를 받는다.
+- `onCustomEvent`: graph가 `get_stream_writer()` 등으로 보낸 custom event를 받는다.
+- `onFinish`: stream 완료 후 최종 state를 받는다.
+- `onError`: run 또는 stream 실패를 받는다.
+
+## 5. Thread 관리
+
+### 5.1 자동 생성
+
+`threadId`가 `null`이면 `submit(...)` 시점에 hook이 thread를 만들고 `onThreadId`로 알려준다.
+
+```tsx
+const [threadId, setThreadId] = useState<string | null>(null);
+
+const stream = useStream<State>({
+  apiUrl: langGraphApiUrl,
+  assistantId: "sdk_connection",
+  threadId,
+  onThreadId: setThreadId,
+});
+```
+
+### 5.2 Thread reset
+
+현재 hook state를 새 대화로 돌리고 싶으면 `switchThread(null)`을 호출한다.
+
+```tsx
+function resetView() {
+  stream.switchThread(null);
+  setThreadId(null);
+}
+```
+
+기존 thread를 서버에서 삭제하는 작업은 별도 Client API인 `client.threads.delete(threadId)`가 필요하다. `switchThread(null)`은 UI hook이 바라보는 thread를 바꾸는 동작이다.
+
+## 6. Interrupt와 resume
+
+Human-in-the-loop graph에서는 `stream.interrupt`를 읽어 승인 UI를 구성한다.
+
+```tsx
+const interruptPayload = payloadFromInterrupt(stream.interrupt);
+```
+
+resume은 `submit(null, { command: { resume: ... } })` 패턴을 사용한다.
+
+```tsx
+await stream.submit(null, {
+  command: { resume: "approve" },
+  streamMode: ["updates"],
+});
+```
+
+수정 승인처럼 객체를 넘겨야 할 때도 같은 방식이다.
+
+```tsx
+await stream.submit(null, {
+  command: {
+    resume: {
+      action: "edit",
+      action_text: editText.trim(),
+    },
+  },
+  streamMode: ["updates"],
+});
+```
+
+## 7. 직접 Client API와의 선택 기준
+
+`useStream`을 쓰기 좋은 경우:
+
+- React 컴포넌트 안에서 하나의 대화/run 흐름을 바로 렌더링한다.
+- loading, error, latest state, interrupt를 hook state로 다루고 싶다.
+- callback 기반으로 event log UI를 만들고 싶다.
+- thread 자동 생성과 재사용이 필요하다.
+
+직접 `Client`를 쓰기 좋은 경우:
+
+- assistant/thread/run/store API를 세밀하게 조합해야 한다.
+- 여러 run을 병렬로 관리하거나 특정 run id를 직접 제어해야 한다.
+- thread history, checkpoint, store 검색처럼 stream 외 API가 중심이다.
+- 공통 service/helper layer에서 React hook 없이 SDK를 호출해야 한다.
+
+## 8. 이 프로젝트의 적용 예
+
+현재 React hook 계열 예제는 아래 패턴을 따른다.
+
+```text
+component state
+  -> useStream({ apiUrl, assistantId, threadId, callbacks })
+  -> stream.submit(input, { streamMode })
+  -> stream.values / stream.interrupt / stream.isLoading 렌더링
+```
+
+대표 파일:
+
+- `src/examples/01-2-sdk-connection-react-hook/SdkConnectionReactHookExample.tsx`
+- `src/examples/02-2-basic-chat-react-hook/BasicChatReactHookExample.tsx`
+- `src/examples/04-2-streaming-react-hook/StreamingReactHookExample.tsx`
+- `src/examples/05-2-tool-calling-react-hook/ToolCallingReactHookExample.tsx`
+- `src/examples/06-2-human-in-the-loop-react-hook/HumanInTheLoopReactHookExample.tsx`
+
+CopilotKit 계열 예제는 이 React SDK hook과 다른 카테고리로 묶는다. `@langchain/langgraph-sdk/react`는 LangGraph server를 직접 호출하지만, CopilotKit 예제는 `CopilotChat -> /api/copilotkit -> CopilotKit runtime -> LangGraph server` 흐름을 사용한다. CopilotKit 실행 구조는 `docs/CopilotKit-runtime.md`에서 따로 정리한다.
