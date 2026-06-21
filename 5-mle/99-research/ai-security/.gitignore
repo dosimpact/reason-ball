@@ -1,0 +1,30 @@
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Python/tooling caches, if validation scripts are added
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Temporary research/download artifacts
+tmp/
+temp/
+downloads/
+*.tmp
+
+# Generated exports that are not final Markdown reports
+output/*.csv
+output/*.xlsx
+output/*.pdf
+output/*.html
