@@ -1,0 +1,63 @@
+# Secrets / local environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.python-version
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# uv
+# Keep uv.lock committed for reproducible installs.
+
+# Test / coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.pyright/
+.ipynb_checkpoints/
+
+# LangGraph local runtime artifacts
+.langgraph_api/
+.langgraph/
+
+# Local data / databases
+*.db
+*.sqlite
+*.sqlite3
+*.duckdb
+chroma/
+.chroma/
+qdrant_storage/
+storage/
+
+# Private keys / certificates
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+logs/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

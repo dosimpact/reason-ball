@@ -1,0 +1,21 @@
+{
+  "dependencies": [".[advanced]"],
+  "graphs": {
+    "advanced_01_semantic_cache": "./graph-advanced/01_semantic_cache/graph.py:graph",
+    "advanced_02_tool_rag": "./graph-advanced/02_tool_rag/graph.py:graph",
+    "advanced_03_async_webhook": "./graph-advanced/03_async_webhook/graph.py:graph",
+    "advanced_04_graceful_degradation": "./graph-advanced/04_graceful_degradation/graph.py:graph",
+    "advanced_04_graceful_degradation_retry": "./graph-advanced/04_graceful_degradation/graph.py:graph_retry",
+    "advanced_04_graceful_degradation_try_except": "./graph-advanced/04_graceful_degradation/graph.py:graph_try_except",
+    "advanced_04_graceful_degradation_fallback": "./graph-advanced/04_graceful_degradation/graph.py:graph_fallback",
+    "advanced_04_graceful_degradation_partial": "./graph-advanced/04_graceful_degradation/graph.py:graph_partial",
+    "advanced_05_code_sandbox": "./graph-advanced/05_code_sandbox/graph.py:graph",
+    "advanced_06_postgres_checkpointer": "./graph-advanced/06_postgres_checkpointer/graph.py:graph",
+    "advanced_07_vectordb_rag": "./graph-advanced/07_vectordb_rag/graph.py:graph",
+    "advanced_08_eval_harness": "./graph-advanced/08_eval_harness/graph.py:graph",
+    "advanced_09_observability": "./graph-advanced/09_observability/graph.py:graph",
+    "advanced_10_async_sse": "./graph-advanced/10_async_sse/graph.py:graph",
+    "advanced_11_multitenancy": "./graph-advanced/11_multitenancy/graph.py:graph"
+  },
+  "env": ".env"
+}

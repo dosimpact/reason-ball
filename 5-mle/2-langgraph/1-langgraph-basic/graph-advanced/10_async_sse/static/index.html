@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>10_async_sse demo</title>
+  <style>
+    body { font-family: ui-monospace, monospace; max-width: 720px; margin: 24px auto; padding: 0 12px; }
+    #out { white-space: pre-wrap; border: 1px solid #ccc; padding: 12px; min-height: 240px; }
+    input { width: 80%; padding: 6px; }
+    button { padding: 6px 12px; }
+  </style>
+</head>
+<body>
+  <h2>LangGraph SSE 토큰 스트리밍 데모</h2>
+  <div>
+    <input id="q" value="langgraph 에 대해 설명해줘" />
+    <button onclick="run()">Send</button>
+  </div>
+  <pre id="out"></pre>
+  <script>
+    let es;
+    function run() {
+      if (es) es.close();
+      const out = document.getElementById('out');
+      out.textContent = '';
+      const q = encodeURIComponent(document.getElementById('q').value);
+      es = new EventSource(`/stream?q=${q}`);
+      es.addEventListener('token', (ev) => {
+        const { text } = JSON.parse(ev.data);
+        out.textContent += text;
+      });
+      es.addEventListener('done', () => es.close());
+      es.addEventListener('error', (ev) => {
+        out.textContent += `\n[error] ${ev.data || ''}`;
+        es.close();
+      });
+    }
+  </script>
+</body>
+</html>

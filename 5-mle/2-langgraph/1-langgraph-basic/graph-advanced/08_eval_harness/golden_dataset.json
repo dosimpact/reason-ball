@@ -1,0 +1,62 @@
+[
+  {
+    "id": "time-1",
+    "input": "지금 몇 시야?",
+    "expected_keywords": ["KST"],
+    "expected_tool_calls": ["get_current_time"]
+  },
+  {
+    "id": "time-2",
+    "input": "What time is it now?",
+    "expected_keywords": ["KST"],
+    "expected_tool_calls": ["get_current_time"]
+  },
+  {
+    "id": "calc-1",
+    "input": "123 * 456 계산해줘",
+    "expected_keywords": ["56088"],
+    "expected_tool_calls": ["calculate"]
+  },
+  {
+    "id": "calc-2",
+    "input": "(15 + 27) / 6 은 얼마야?",
+    "expected_keywords": ["7"],
+    "expected_tool_calls": ["calculate"]
+  },
+  {
+    "id": "lookup-1",
+    "input": "langgraph 가 뭐야?",
+    "expected_keywords": ["LangGraph", "stateful"],
+    "expected_tool_calls": ["lookup_info"]
+  },
+  {
+    "id": "lookup-2",
+    "input": "bedrock 에 대해 알려줘",
+    "expected_keywords": ["Bedrock", "foundation"],
+    "expected_tool_calls": ["lookup_info"]
+  },
+  {
+    "id": "lookup-3",
+    "input": "fastapi 설명해줘",
+    "expected_keywords": ["FastAPI", "Python"],
+    "expected_tool_calls": ["lookup_info"]
+  },
+  {
+    "id": "no-tool-1",
+    "input": "안녕!",
+    "expected_keywords": [],
+    "expected_tool_calls": []
+  },
+  {
+    "id": "multi-1",
+    "input": "지금 몇 시인지 알려주고, 12 * 7 도 계산해줘",
+    "expected_keywords": ["KST", "84"],
+    "expected_tool_calls": ["get_current_time", "calculate"]
+  },
+  {
+    "id": "multi-2",
+    "input": "langgraph 설명해주고 fastapi 도 같이 알려줘",
+    "expected_keywords": ["LangGraph", "FastAPI"],
+    "expected_tool_calls": ["lookup_info"]
+  }
+]
