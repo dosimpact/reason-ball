@@ -1,0 +1,80 @@
+# Artillery stress test for the HTTP API.
+# Pushes the service above normal load with slower and CPU-heavy endpoints included.
+config:
+  # TARGET_URL is normally supplied by npm scripts, with a localhost default.
+  target: "{{ $processEnvironment.TARGET_URL }}"
+
+  # Establish a baseline, ramp up pressure, then hold that pressure briefly.
+  # maxVusers caps concurrency growth during the hold phase.
+  phases:
+    - name: "baseline"
+      duration: 30
+      arrivalRate: 5
+    - name: "ramp to pressure"
+      duration: 90
+      arrivalRate: 5
+      rampTo: 40
+    - name: "hold pressure"
+      duration: 60
+      arrivalRate: 40
+      maxVusers: 250
+
+  # All HTTP requests in this file send JSON bodies unless overridden.
+  defaults:
+    headers:
+      content-type: "application/json"
+
+  # JS hooks create per-user data and attach common request headers.
+  processor: "./processor.js"
+
+  # Stress-test acceptance gates.
+  # Looser than smoke/load because this file intentionally applies pressure.
+  ensure:
+    maxErrorRate: 5
+    thresholds:
+      - http.response_time.p95: 1500
+      - http.response_time.p99: 3000
+
+# Scenario flow:
+# 1. Log in and capture an access token.
+# 2. Exercise a delayed list endpoint.
+# 3. Exercise a CPU-bound endpoint.
+# 4. Include a small expected failure rate through the flaky endpoint.
+scenarios:
+  - name: "stress slow and CPU endpoints"
+    # Generates email and password for this VU.
+    beforeScenario: "setRandomUser"
+    flow:
+      # Login provides the bearer token used by later protected requests.
+      - post:
+          url: "/api/auth/login"
+          beforeRequest: "addRequestHeaders"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.accessToken"
+              as: "token"
+          expect:
+            - statusCode: 200
+
+      # Protected list endpoint with artificial response delay.
+      - get:
+          url: "/api/items?delayMs=80"
+          beforeRequest: "addRequestHeaders"
+          headers:
+            authorization: "Bearer {{ token }}"
+
+      # Protected CPU endpoint to simulate server-side processing pressure.
+      - get:
+          url: "/api/cpu?ms=60"
+          beforeRequest: "addRequestHeaders"
+          headers:
+            authorization: "Bearer {{ token }}"
+
+      # Protected endpoint with a small configured failure rate.
+      - get:
+          url: "/api/flaky?failureRate=0.02"
+          beforeRequest: "addRequestHeaders"
+          headers:
+            authorization: "Bearer {{ token }}"

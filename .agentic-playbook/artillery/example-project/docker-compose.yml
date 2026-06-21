@@ -1,0 +1,103 @@
+services:
+  target-server:
+    build: .
+    ports:
+      - "2929:3000"
+    environment:
+      PORT: 3000
+      JWT_SECRET: local-artillery-secret
+    labels:
+      logging: "promtail"
+      service: "target-server"
+
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    depends_on:
+      - target-server
+    ports:
+      - "2930:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.enable-lifecycle"
+
+  grafana:
+    image: grafana/grafana:11.3.0
+    depends_on:
+      - prometheus
+      - loki
+    ports:
+      - "2931:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+
+  loki:
+    image: grafana/loki:3.2.1
+    ports:
+      - "2932:3100"
+    volumes:
+      - ./monitoring/loki/loki.yml:/etc/loki/local-config.yml:ro
+      - loki-data:/loki
+    command: ["-config.file=/etc/loki/local-config.yml"]
+
+  promtail:
+    image: grafana/promtail:3.2.1
+    depends_on:
+      - loki
+    ports:
+      - "2933:9080"
+    volumes:
+      - ./monitoring/promtail/promtail.yml:/etc/promtail/config.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    command: ["-config.file=/etc/promtail/config.yml"]
+
+  artillery-load:
+    image: node:22-alpine
+    working_dir: /app
+    depends_on:
+      - target-server
+    volumes:
+      - .:/app
+    environment:
+      TARGET_URL: http://target-server:3000
+      WS_TARGET_URL: ws://target-server:3000
+      LOAD_TEST_RUN_ID: docker-load
+    command: sh -c "corepack enable && pnpm install --frozen-lockfile && pnpm run test:load && pnpm run report:load"
+
+  artillery-stress:
+    image: node:22-alpine
+    working_dir: /app
+    depends_on:
+      - target-server
+    volumes:
+      - .:/app
+    environment:
+      TARGET_URL: http://target-server:3000
+      LOAD_TEST_RUN_ID: docker-stress
+    command: sh -c "corepack enable && pnpm install --frozen-lockfile && pnpm run test:stress && pnpm run report:stress"
+
+volumes:
+  prometheus-data:
+  grafana-data:
+  loki-data:
+
+# 1.먼저 서버 + 모니터링을 올립니다:
+# docker-compose up --build target-server prometheus grafana loki promtail
+
+# 2. 
+# docker-compose run --rm artillery-load
+# (docker-compose에 정의된 artillery-load 서비스를 일회성으로 실행하고, 끝나면 컨테이너를 자동 삭제하라)
+
+# 3.
+# docker-compose run --rm artillery-stress
+
+# docker-compose down

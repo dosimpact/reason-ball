@@ -1,0 +1,34 @@
+# Artillery Socket.IO test.
+# Opens Socket.IO connections and emits representative room traffic events.
+config:
+  # TARGET_URL should be the HTTP origin where the Socket.IO server is mounted.
+  target: "{{ $processEnvironment.TARGET_URL }}"
+
+  # Ramp connection arrivals from 5 to 20 users per second over 30 seconds.
+  phases:
+    - name: "socket.io load"
+      duration: 30
+      arrivalRate: 5
+      rampTo: 20
+
+# Scenario flow:
+# 1. Join a shared load-test room.
+# 2. Wait briefly.
+# 3. Emit a message into that room.
+scenarios:
+  - name: "socket.io room traffic"
+    # Use Artillery's Socket.IO engine.
+    engine: socketio
+    flow:
+      # Join the room used by this load test.
+      - emit:
+          - "join"
+          - '{"roomId":"load-test"}'
+
+      # Keep the connection open briefly before sending the room message.
+      - think: 1
+
+      # Send a representative room message.
+      - emit:
+          - "message"
+          - '{"roomId":"load-test","text":"hello from artillery"}'

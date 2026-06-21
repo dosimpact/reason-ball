@@ -1,0 +1,23 @@
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Node/frontend artifacts, if prototypes are added
+node_modules/
+dist/
+build/
+.next/
+.nuxt/
+.vite/
+coverage/
+
+# Temporary drafts/exports
+tmp/
+temp/
+*.tmp

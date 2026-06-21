@@ -1,0 +1,78 @@
+# Artillery smoke test for the HTTP API.
+# Runs a short, low-traffic check against TARGET_URL to confirm the core API path works.
+config:
+  # The target is injected from npm script defaults or the TARGET_URL environment variable.
+  target: "{{ $processEnvironment.TARGET_URL }}"
+
+  # Smoke phase: create 1 virtual user per second for 10 seconds.
+  # This is meant to catch obvious failures, not to measure sustained capacity.
+  phases:
+    - name: "smoke"
+      duration: 10
+      arrivalRate: 1
+
+  # Apply JSON content type to requests unless a step overrides headers.
+  defaults:
+    headers:
+      content-type: "application/json"
+
+  # Shared JS hooks for generating test data and adding request headers.
+  processor: "./processor.js"
+
+  # Basic pass/fail gates for the run.
+  # The test fails if errors exceed 1% or p95 response time is above 500ms.
+  ensure:
+    maxErrorRate: 1
+    thresholds:
+      - http.response_time.p95: 500
+
+# Scenario flow:
+# 1. Check the health endpoint.
+# 2. Log in with a generated test user and capture the access token.
+# 3. Use the token to read items.
+# 4. Use the token to create an item.
+scenarios:
+  - name: "health and authenticated CRUD smoke"
+    # Generates per-user email, password, item title, and item description.
+    beforeScenario: "setRandomUser"
+    flow:
+      # Public health check.
+      - get:
+          url: "/health"
+          beforeRequest: "addRequestHeaders"
+          expect:
+            - statusCode: 200
+
+      # Authenticate and capture the bearer token for the protected API calls below.
+      - post:
+          url: "/api/auth/login"
+          beforeRequest: "addRequestHeaders"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.accessToken"
+              as: "token"
+          expect:
+            - statusCode: 200
+
+      # Protected read path.
+      - get:
+          url: "/api/items"
+          beforeRequest: "addRequestHeaders"
+          headers:
+            authorization: "Bearer {{ token }}"
+          expect:
+            - statusCode: 200
+
+      # Protected create path.
+      - post:
+          url: "/api/items"
+          beforeRequest: "addRequestHeaders"
+          headers:
+            authorization: "Bearer {{ token }}"
+          json:
+            title: "{{ itemTitle }}"
+            description: "{{ itemDescription }}"
+          expect:
+            - statusCode: 201

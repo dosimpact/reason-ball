@@ -1,0 +1,34 @@
+# Artillery WebSocket test.
+# Opens native WebSocket connections and sends simple messages through the /ws endpoint.
+config:
+  # WS_TARGET_URL should include the ws:// or wss:// origin.
+  target: "{{ $processEnvironment.WS_TARGET_URL }}"
+
+  # Ramp connection arrivals from 5 to 20 users per second over 30 seconds.
+  phases:
+    - name: "websocket load"
+      duration: 30
+      arrivalRate: 5
+      rampTo: 20
+
+# Scenario flow:
+# 1. Connect to the native WebSocket endpoint.
+# 2. Send a ping payload.
+# 3. Wait briefly.
+# 4. Send a normal message payload.
+scenarios:
+  - name: "websocket echo"
+    # Use Artillery's native WebSocket engine.
+    engine: ws
+    flow:
+      # Connect to the /ws endpoint on the configured WebSocket target.
+      - connect: "{{ target }}/ws"
+
+      # Send a lightweight ping-style message.
+      - send: '{"type":"ping"}'
+
+      # Keep the connection open briefly before sending the next message.
+      - think: 1
+
+      # Send a representative application message.
+      - send: '{"type":"message","body":"hello from artillery"}'

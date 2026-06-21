@@ -1,0 +1,85 @@
+# Artillery load test for the normal HTTP API path.
+# Uses a warmup phase before holding expected target traffic for a short period.
+config:
+  # TARGET_URL is normally supplied by npm scripts, with a localhost default.
+  target: "{{ $processEnvironment.TARGET_URL }}"
+
+  # Warm up gradually, then keep a steady arrival rate for the target load window.
+  phases:
+    - name: "warmup"
+      duration: 30
+      arrivalRate: 2
+      rampTo: 8
+    - name: "target load"
+      duration: 60
+      arrivalRate: 8
+
+  # All HTTP requests in this file send JSON bodies unless overridden.
+  defaults:
+    headers:
+      content-type: "application/json"
+
+  # JS hooks create per-user data and attach common request headers.
+  processor: "./processor.js"
+
+  # Load-test acceptance gates.
+  # The run fails when errors exceed 1%, p95 is above 500ms, or p99 is above 1000ms.
+  ensure:
+    maxErrorRate: 1
+    thresholds:
+      - http.response_time.p95: 500
+      - http.response_time.p99: 1000
+
+# Scenario flow:
+# 1. Check service health.
+# 2. Log in and capture an access token.
+# 3. Pause briefly to model user pacing.
+# 4. Read and create items through authenticated endpoints.
+scenarios:
+  - name: "normal user API flow"
+    # Generates email, password, item title, and item description for this VU.
+    beforeScenario: "setRandomUser"
+    flow:
+      # Public availability check.
+      - get:
+          url: "/health"
+          beforeRequest: "addRequestHeaders"
+          expect:
+            - statusCode: 200
+
+      # Login provides the bearer token used by later protected requests.
+      - post:
+          url: "/api/auth/login"
+          beforeRequest: "addRequestHeaders"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.accessToken"
+              as: "token"
+          expect:
+            - statusCode: 200
+
+      # Small user think time between authentication and app activity.
+      - think: 1
+
+      # Protected read path.
+      - get:
+          url: "/api/items"
+          beforeRequest: "addRequestHeaders"
+          headers:
+            authorization: "Bearer {{ token }}"
+          expect:
+            - statusCode: 200
+
+      # Protected create path.
+      - post:
+          url: "/api/items"
+          beforeRequest: "addRequestHeaders"
+          headers:
+            authorization: "Bearer {{ token }}"
+          json:
+            title: "{{ itemTitle }}"
+            description: "{{ itemDescription }}"
+          expect:
+            - statusCode: 201

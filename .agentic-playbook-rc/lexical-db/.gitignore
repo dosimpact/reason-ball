@@ -1,0 +1,26 @@
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Python caches/environments for local experiments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Notebook and generated data
+.ipynb_checkpoints/
+tmp/
+temp/
+output/
+outputs/
+extracted/

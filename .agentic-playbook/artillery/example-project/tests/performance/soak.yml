@@ -1,0 +1,65 @@
+# Artillery soak test for the HTTP API.
+# Keeps moderate traffic running longer to catch degradation over time.
+config:
+  # TARGET_URL is normally supplied by npm scripts, with a localhost default.
+  target: "{{ $processEnvironment.TARGET_URL }}"
+
+  # Short demo soak: steady low-to-moderate traffic for 5 minutes.
+  # maxVusers prevents the test from growing without bound if responses slow down.
+  phases:
+    - name: "short demo soak"
+      duration: 300
+      arrivalRate: 4
+      maxVusers: 80
+
+  # All HTTP requests in this file send JSON bodies unless overridden.
+  defaults:
+    headers:
+      content-type: "application/json"
+
+  # JS hooks create per-user data and attach common request headers.
+  processor: "./processor.js"
+
+  # Soak-test acceptance gates.
+  # Allows up to 1% errors and requires p95 response time to stay under 800ms.
+  ensure:
+    maxErrorRate: 1
+    thresholds:
+      - http.response_time.p95: 800
+
+# Scenario flow:
+# 1. Log in and capture an access token.
+# 2. Repeat a read/think/create loop to simulate steady CRUD usage.
+scenarios:
+  - name: "steady CRUD traffic"
+    # Generates email, password, item title, and item description for this VU.
+    beforeScenario: "setRandomUser"
+    flow:
+      # Login provides the bearer token used by later protected requests.
+      - post:
+          url: "/api/auth/login"
+          beforeRequest: "addRequestHeaders"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.accessToken"
+              as: "token"
+
+      # Repeated protected activity with pacing between read and create operations.
+      - loop:
+          - get:
+              url: "/api/items?delayMs=40"
+              beforeRequest: "addRequestHeaders"
+              headers:
+                authorization: "Bearer {{ token }}"
+          - think: 2
+          - post:
+              url: "/api/items"
+              beforeRequest: "addRequestHeaders"
+              headers:
+                authorization: "Bearer {{ token }}"
+              json:
+                title: "{{ itemTitle }}"
+                description: "{{ itemDescription }}"
+        count: 3

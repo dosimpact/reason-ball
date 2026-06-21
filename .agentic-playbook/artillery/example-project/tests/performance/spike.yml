@@ -1,0 +1,66 @@
+# Artillery spike test for the HTTP API.
+# Compares baseline behavior, sudden traffic pressure, and recovery behavior.
+config:
+  # TARGET_URL is normally supplied by npm scripts, with a localhost default.
+  target: "{{ $processEnvironment.TARGET_URL }}"
+
+  # Start at baseline, jump to a high arrival rate, then drop back down for recovery.
+  # maxVusers caps concurrency growth during the spike.
+  phases:
+    - name: "baseline"
+      duration: 20
+      arrivalRate: 3
+    - name: "traffic spike"
+      duration: 20
+      arrivalRate: 80
+      maxVusers: 300
+    - name: "recovery"
+      duration: 40
+      arrivalRate: 5
+
+  # All HTTP requests in this file send JSON bodies unless overridden.
+  defaults:
+    headers:
+      content-type: "application/json"
+
+  # JS hooks create per-user data and attach common request headers.
+  processor: "./processor.js"
+
+  # Spike-test acceptance gates.
+  # Allows more errors and slower p95 because this test intentionally shocks the service.
+  ensure:
+    maxErrorRate: 10
+    thresholds:
+      - http.response_time.p95: 2000
+
+# Scenario flow:
+# 1. Log in and capture an access token.
+# 2. Hit the public health endpoint.
+# 3. Hit the protected list endpoint with a small artificial delay.
+scenarios:
+  - name: "sudden health and list traffic"
+    # Generates email and password for this VU.
+    beforeScenario: "setRandomUser"
+    flow:
+      # Login provides the bearer token used by the protected list request.
+      - post:
+          url: "/api/auth/login"
+          beforeRequest: "addRequestHeaders"
+          json:
+            email: "{{ email }}"
+            password: "{{ password }}"
+          capture:
+            - json: "$.accessToken"
+              as: "token"
+
+      # Public availability check during baseline, spike, and recovery phases.
+      - get:
+          url: "/health"
+          beforeRequest: "addRequestHeaders"
+
+      # Protected list endpoint with a small artificial response delay.
+      - get:
+          url: "/api/items?delayMs=20"
+          beforeRequest: "addRequestHeaders"
+          headers:
+            authorization: "Bearer {{ token }}"

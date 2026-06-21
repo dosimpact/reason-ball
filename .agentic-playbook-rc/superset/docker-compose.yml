@@ -1,0 +1,171 @@
+# Local Apache Superset onboarding stack.
+# This is intended for learning and local evaluation only. The official Superset
+# docs recommend Kubernetes or a hardened custom image for production use.
+
+x-superset-common: &superset-common
+  # The official release image is lean and does not include the Postgres driver
+  # needed by this local metadata DB setup. The -dev tag includes that driver and
+  # is acceptable for a disposable onboarding environment.
+  image: apache/superset:6.0.0-dev
+  environment: &superset-env
+    # Superset loads this Python file at startup. Keep runtime config here rather
+    # than baking one-off values into the container image.
+    SUPERSET_CONFIG_PATH: /app/pythonpath/superset_config.py
+
+    # Replace this before sharing the stack outside local development.
+    SUPERSET_SECRET_KEY: ${SUPERSET_SECRET_KEY:-dev-only-change-this-secret-key}
+
+    # Superset metadata DB: stores dashboards, charts, saved queries, users,
+    # roles, and connection definitions. This is not your analytics warehouse.
+    SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://superset:superset@superset-db:5432/superset
+
+    # Redis is used for cache, Celery broker, and Celery result backend.
+    REDIS_HOST: superset-cache
+    REDIS_PORT: "6379"
+
+    # First-run defaults. Set SUPERSET_LOAD_EXAMPLES=no after the first boot if
+    # you want faster subsequent initialization.
+    SUPERSET_LOAD_EXAMPLES: ${SUPERSET_LOAD_EXAMPLES:-yes}
+    ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+    ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
+    ADMIN_FIRSTNAME: ${ADMIN_FIRSTNAME:-Superset}
+    ADMIN_LASTNAME: ${ADMIN_LASTNAME:-Admin}
+    ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@example.com}
+  volumes:
+    # Persist files that Superset writes under its home directory.
+    - superset-home:/app/superset_home
+    # Mount local configuration read-only so every Superset process shares it.
+    - ./docker/superset_config.py:/app/pythonpath/superset_config.py:ro
+
+services:
+  superset-db:
+    # Metadata database for Superset itself. Back up this volume if local work
+    # must be preserved.
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: superset
+      POSTGRES_USER: superset
+      POSTGRES_PASSWORD: superset
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U superset -d superset"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    volumes:
+      - superset-db:/var/lib/postgresql/data
+
+  superset-cache:
+    # Cache and task queue. It is intentionally not published to the host.
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    volumes:
+      - superset-cache:/data
+
+  superset-init:
+    <<: *superset-common
+    # One-shot bootstrap: migrate metadata DB, create the admin user, optionally
+    # load example datasets/dashboards, and sync Superset permissions.
+    restart: "no"
+    healthcheck:
+      disable: true
+    depends_on:
+      superset-db:
+        condition: service_healthy
+      superset-cache:
+        condition: service_healthy
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -e
+        superset db upgrade
+        superset fab create-admin \
+          --username "$$ADMIN_USERNAME" \
+          --firstname "$$ADMIN_FIRSTNAME" \
+          --lastname "$$ADMIN_LASTNAME" \
+          --email "$$ADMIN_EMAIL" \
+          --password "$$ADMIN_PASSWORD" || true
+        if [ "$$SUPERSET_LOAD_EXAMPLES" = "yes" ]; then
+          superset load_examples
+        fi
+        superset init
+
+  superset-app:
+    <<: *superset-common
+    # Web UI and API. Browse to http://localhost:8088 after the healthcheck is
+    # healthy and log in with admin/admin unless overridden above.
+    depends_on:
+      superset-init:
+        condition: service_completed_successfully
+      superset-db:
+        condition: service_healthy
+      superset-cache:
+        condition: service_healthy
+    ports:
+      - "8088:8088"
+    command:
+      - /bin/sh
+      - -c
+      - superset run -h 0.0.0.0 -p 8088 --with-threads
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8088/health', timeout=5).read()\"",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+
+  superset-worker:
+    <<: *superset-common
+    # Celery worker for async SQL Lab tasks, cache warmup, and optional alert /
+    # report jobs when those features are enabled in configuration.
+    healthcheck:
+      disable: true
+    depends_on:
+      superset-init:
+        condition: service_completed_successfully
+      superset-db:
+        condition: service_healthy
+      superset-cache:
+        condition: service_healthy
+    command:
+      - celery
+      - --app=superset.tasks.celery_app:app
+      - worker
+      - --pool=prefork
+      - -O
+      - fair
+      - -c
+      - "2"
+
+  superset-worker-beat:
+    <<: *superset-common
+    # Single scheduler process. Keep exactly one beat service per environment to
+    # avoid duplicate scheduled jobs.
+    healthcheck:
+      disable: true
+    depends_on:
+      superset-init:
+        condition: service_completed_successfully
+      superset-db:
+        condition: service_healthy
+      superset-cache:
+        condition: service_healthy
+    command:
+      - celery
+      - --app=superset.tasks.celery_app:app
+      - beat
+      - --schedule
+      - /tmp/celerybeat-schedule
+
+volumes:
+  superset-db:
+  superset-cache:
+  superset-home:
