@@ -92,8 +92,11 @@ textarea {
   border-right: 1px solid #cfd8d5;
   background: #fbfcfb;
   min-height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: sticky;
+  top: 0;
 }
 
 .brand {
@@ -125,9 +128,63 @@ textarea {
 .example-nav {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  flex: 1;
+  gap: 10px;
+  min-height: 0;
   padding: 10px;
   overflow: auto;
+}
+
+.nav-group {
+  display: grid;
+  gap: 4px;
+}
+
+.nav-group-toggle {
+  align-items: center;
+  background: #f2f6f4;
+  border: 1px solid #d7dfdc;
+  border-radius: 8px;
+  color: #40534d;
+  cursor: pointer;
+  display: grid;
+  font-weight: 700;
+  gap: 8px;
+  grid-template-columns: 16px minmax(0, 1fr) auto;
+  min-height: 36px;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.nav-group-toggle:hover,
+.nav-group-toggle.active {
+  background: #e8f1ee;
+  border-color: #b7cac4;
+  color: #24332f;
+}
+
+.nav-group-toggle[aria-expanded="false"] .nav-group-icon {
+  transform: rotate(-90deg);
+}
+
+.nav-group-icon {
+  transition: transform 140ms ease;
+}
+
+.nav-group-count {
+  background: #ffffff;
+  border: 1px solid #c7d3cf;
+  border-radius: 999px;
+  color: #60706b;
+  font-size: 12px;
+  min-width: 26px;
+  padding: 2px 7px;
+  text-align: center;
+}
+
+.nav-group-items {
+  display: grid;
+  gap: 4px;
 }
 
 .nav-item {
@@ -5402,6 +5459,15 @@ textarea {
   color: #52635e;
   font-size: 13px;
   font-weight: 700;
+}
+
+.field-help {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: -4px 0 12px;
+  color: #52635e;
+  font-size: 13px;
 }
 
 input,

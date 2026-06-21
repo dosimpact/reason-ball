@@ -9,7 +9,7 @@ import { LangGraphAgent } from "@copilotkit/runtime/langgraph";
 const host = process.env.COPILOTKIT_RUNTIME_HOST ?? "0.0.0.0";
 const port = Number(process.env.COPILOTKIT_RUNTIME_PORT ?? 2932);
 const basePath = "/api/copilotkit";
-const deploymentUrl = process.env.AGENTIC_CHAT_LANGGRAPH_URL ?? "http://localhost:2933";
+const deploymentUrl = process.env.LANGGRAPH_URL ?? "http://localhost:2931";
 
 const runtime = new CopilotRuntime({
   agents: {
@@ -18,12 +18,73 @@ const runtime = new CopilotRuntime({
       graphId: "agentic_chat",
       langsmithApiKey: process.env.LANGSMITH_API_KEY,
     }),
+    backend_tool_rendering: new LangGraphAgent({
+      deploymentUrl,
+      graphId: "backend_tool_rendering",
+      langsmithApiKey: process.env.LANGSMITH_API_KEY,
+    }),
+    human_in_the_loop_ag_ui: new LangGraphAgent({
+      deploymentUrl,
+      graphId: "human_in_the_loop_ag_ui",
+      langsmithApiKey: process.env.LANGSMITH_API_KEY,
+    }),
+    agentic_generative_ui: new LangGraphAgent({
+      deploymentUrl,
+      graphId: "agentic_generative_ui",
+      langsmithApiKey: process.env.LANGSMITH_API_KEY,
+    }),
+    tool_based_generative_ui: new LangGraphAgent({
+      deploymentUrl,
+      graphId: "tool_based_generative_ui",
+      langsmithApiKey: process.env.LANGSMITH_API_KEY,
+    }),
+    shared_state_agent_ui: new LangGraphAgent({
+      deploymentUrl,
+      graphId: "shared_state_agent_ui",
+      langsmithApiKey: process.env.LANGSMITH_API_KEY,
+    }),
+    predictive_state_updates: new LangGraphAgent({
+      deploymentUrl,
+      graphId: "predictive_state_updates",
+      langsmithApiKey: process.env.LANGSMITH_API_KEY,
+    }),
+    agentic_chat_reasoning: new LangGraphAgent({
+      deploymentUrl,
+      graphId: "agentic_chat_reasoning",
+      langsmithApiKey: process.env.LANGSMITH_API_KEY,
+    }),
+    agentic_chat_multimodal: new LangGraphAgent({
+      deploymentUrl,
+      graphId: "agentic_chat_multimodal",
+      langsmithApiKey: process.env.LANGSMITH_API_KEY,
+    }),
+    subgraphs_ag_ui: new LangGraphAgent({
+      deploymentUrl,
+      graphId: "subgraphs_ag_ui",
+      langsmithApiKey: process.env.LANGSMITH_API_KEY,
+    }),
+    a2ui_fixed_schema: new LangGraphAgent({
+      deploymentUrl,
+      graphId: "a2ui_fixed_schema",
+      langsmithApiKey: process.env.LANGSMITH_API_KEY,
+    }),
+    a2ui_dynamic_schema: new LangGraphAgent({
+      deploymentUrl,
+      graphId: "a2ui_dynamic_schema",
+      langsmithApiKey: process.env.LANGSMITH_API_KEY,
+    }),
+    a2ui_advanced: new LangGraphAgent({
+      deploymentUrl,
+      graphId: "a2ui_advanced",
+      langsmithApiKey: process.env.LANGSMITH_API_KEY,
+    }),
   },
 });
 
 const handler = createCopilotRuntimeHandler({
   runtime,
   basePath,
+  mode: "single-route",
   cors: true,
 });
 

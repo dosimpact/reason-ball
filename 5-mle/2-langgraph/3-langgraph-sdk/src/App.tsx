@@ -1,11 +1,14 @@
-import { BookOpen, CheckCircle2, FlaskConical, ListTree } from "lucide-react";
+import { BookOpen, CheckCircle2, ChevronDown, FlaskConical, ListTree } from "lucide-react";
 import { useMemo, useState } from "react";
 import { SdkConnectionExample } from "./examples/01-sdk-connection/SdkConnectionExample";
 import { SdkConnectionReactHookExample } from "./examples/01-2-sdk-connection-react-hook/SdkConnectionReactHookExample";
 import { BasicChatExample } from "./examples/02-basic-chat-ui/BasicChatExample";
+import { BasicChatReactHookExample } from "./examples/02-2-basic-chat-react-hook/BasicChatReactHookExample";
 import { GraphExecutionTimelineExample } from "./examples/03-graph-execution-timeline/GraphExecutionTimelineExample";
 import { StreamingUiExample } from "./examples/04-streaming-ui/StreamingUiExample";
+import { StreamingReactHookExample } from "./examples/04-2-streaming-react-hook/StreamingReactHookExample";
 import { ToolCallingReactExample } from "./examples/05-tool-calling-react-ui/ToolCallingReactExample";
+import { ToolCallingReactHookExample } from "./examples/05-2-tool-calling-react-hook/ToolCallingReactHookExample";
 import { HumanInTheLoopInterruptExample } from "./examples/06-human-in-the-loop-interrupt-ui/HumanInTheLoopInterruptExample";
 import { CheckpointStateHistoryExample } from "./examples/07-checkpoint-state-history-ui/CheckpointStateHistoryExample";
 import { TimeTravelReplayExample } from "./examples/08-time-travel-replay-ui/TimeTravelReplayExample";
@@ -36,15 +39,52 @@ import { ChatGraphExecutionCanvasExample } from "./examples/32-chat-graph-execut
 import { ChatUiPreviewExample } from "./examples/33-chat-ui-preview/ChatUiPreviewExample";
 import { ChatDataAnalysisCanvasExample } from "./examples/34-chat-data-analysis-canvas/ChatDataAnalysisCanvasExample";
 import { AgenticChatAgUiExample } from "./examples/35-agentic-chat-ag-ui/AgenticChatAgUiExample";
+import { BackendToolRenderingAgUiExample } from "./examples/36-backend-tool-rendering-ag-ui/BackendToolRenderingAgUiExample";
+import { HumanInTheLoopAgUiExample } from "./examples/37-human-in-the-loop-ag-ui/HumanInTheLoopAgUiExample";
+import { AgenticGenerativeUiAgUiExample } from "./examples/38-agentic-generative-ui-ag-ui/AgenticGenerativeUiAgUiExample";
+import { ToolBasedGenerativeUiAgUiExample } from "./examples/39-tool-based-generative-ui-ag-ui/ToolBasedGenerativeUiAgUiExample";
+import { SharedStateAgentUiAgUiExample } from "./examples/40-shared-state-agent-ui-ag-ui/SharedStateAgentUiAgUiExample";
+import { PredictiveStateUpdatesAgUiExample } from "./examples/41-predictive-state-updates-ag-ui/PredictiveStateUpdatesAgUiExample";
+import { AgenticChatReasoningAgUiExample } from "./examples/42-agentic-chat-reasoning-ag-ui/AgenticChatReasoningAgUiExample";
+import { AgenticChatMultimodalAgUiExample } from "./examples/43-agentic-chat-multimodal-ag-ui/AgenticChatMultimodalAgUiExample";
+import { SubgraphsAgUiExample } from "./examples/44-subgraphs-ag-ui/SubgraphsAgUiExample";
+import { A2uiFixedSchemaAgUiExample } from "./examples/45-a2ui-fixed-schema-ag-ui/A2uiFixedSchemaAgUiExample";
+import { A2uiDynamicSchemaAgUiExample } from "./examples/46-a2ui-dynamic-schema-ag-ui/A2uiDynamicSchemaAgUiExample";
+import { A2uiAdvancedAgUiExample } from "./examples/47-a2ui-advanced-ag-ui/A2uiAdvancedAgUiExample";
 import { HumanInTheLoopReactHookExample } from "./examples/06-2-human-in-the-loop-react-hook/HumanInTheLoopReactHookExample";
-import { examples } from "./data/examples";
+import { examples, type ExampleMeta } from "./data/examples";
+
+const groupOrder: ExampleMeta["group"][] = ["MVP", "Core", "Generative UI", "Artifact", "CopilotKit"];
 
 export default function App() {
   const [activeSlug, setActiveSlug] = useState("01-sdk-connection");
+  const [expandedGroups, setExpandedGroups] = useState<Set<ExampleMeta["group"]>>(
+    () => new Set(groupOrder),
+  );
   const activeExample = useMemo(
     () => examples.find((example) => example.slug === activeSlug) ?? examples[0],
     [activeSlug],
   );
+  const groupedExamples = useMemo(
+    () =>
+      groupOrder.map((group) => ({
+        group,
+        examples: examples.filter((example) => example.group === group),
+      })),
+    [],
+  );
+
+  function toggleGroup(group: ExampleMeta["group"]) {
+    setExpandedGroups((current) => {
+      const next = new Set(current);
+      if (next.has(group)) {
+        next.delete(group);
+      } else {
+        next.add(group);
+      }
+      return next;
+    });
+  }
 
   return (
     <div className="app-shell">
@@ -58,22 +98,50 @@ export default function App() {
         </div>
 
         <nav className="example-nav">
-          {examples.map((example) => (
-            <button
-              key={example.slug}
-              type="button"
-              className={example.slug === activeSlug ? "nav-item active" : "nav-item"}
-              onClick={() => setActiveSlug(example.slug)}
-            >
-              <span className="nav-index">{String(example.id).padStart(2, "0")}</span>
-              <span className="nav-label">{example.title}</span>
-              {example.implemented ? (
-                <CheckCircle2 aria-label="implemented" size={16} />
-              ) : (
-                <BookOpen aria-label="planned" size={16} />
-              )}
-            </button>
-          ))}
+          {groupedExamples.map(({ group, examples: groupExamples }) => {
+            const isExpanded = expandedGroups.has(group);
+            const hasActiveExample = groupExamples.some((example) => example.slug === activeSlug);
+
+            return (
+              <section className="nav-group" key={group}>
+                <button
+                  type="button"
+                  className={hasActiveExample ? "nav-group-toggle active" : "nav-group-toggle"}
+                  aria-expanded={isExpanded}
+                  aria-controls={`nav-group-${group.replace(/\s+/g, "-").toLowerCase()}`}
+                  onClick={() => toggleGroup(group)}
+                >
+                  <ChevronDown aria-hidden="true" className="nav-group-icon" size={16} />
+                  <span>{group}</span>
+                  <span className="nav-group-count">{groupExamples.length}</span>
+                </button>
+
+                {isExpanded ? (
+                  <div
+                    className="nav-group-items"
+                    id={`nav-group-${group.replace(/\s+/g, "-").toLowerCase()}`}
+                  >
+                    {groupExamples.map((example) => (
+                      <button
+                        key={example.slug}
+                        type="button"
+                        className={example.slug === activeSlug ? "nav-item active" : "nav-item"}
+                        onClick={() => setActiveSlug(example.slug)}
+                      >
+                        <span className="nav-index">{String(example.id).padStart(2, "0")}</span>
+                        <span className="nav-label">{example.title}</span>
+                        {example.implemented ? (
+                          <CheckCircle2 aria-label="implemented" size={16} />
+                        ) : (
+                          <BookOpen aria-label="planned" size={16} />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+              </section>
+            );
+          })}
         </nav>
       </aside>
 
@@ -94,11 +162,20 @@ export default function App() {
           <SdkConnectionReactHookExample />
         ) : null}
         {activeExample.slug === "02-basic-chat-ui" ? <BasicChatExample /> : null}
+        {activeExample.slug === "02-2-basic-chat-react-hook" ? (
+          <BasicChatReactHookExample />
+        ) : null}
         {activeExample.slug === "03-graph-execution-timeline" ? (
           <GraphExecutionTimelineExample />
         ) : null}
         {activeExample.slug === "04-streaming-ui" ? <StreamingUiExample /> : null}
+        {activeExample.slug === "04-2-streaming-react-hook" ? (
+          <StreamingReactHookExample />
+        ) : null}
         {activeExample.slug === "05-tool-calling-react-ui" ? <ToolCallingReactExample /> : null}
+        {activeExample.slug === "05-2-tool-calling-react-hook" ? (
+          <ToolCallingReactHookExample />
+        ) : null}
         {activeExample.slug === "06-human-in-the-loop-interrupt-ui" ? (
           <HumanInTheLoopInterruptExample />
         ) : null}
@@ -151,6 +228,38 @@ export default function App() {
           <ChatDataAnalysisCanvasExample />
         ) : null}
         {activeExample.slug === "35-agentic-chat-ag-ui" ? <AgenticChatAgUiExample /> : null}
+        {activeExample.slug === "36-backend-tool-rendering-ag-ui" ? (
+          <BackendToolRenderingAgUiExample />
+        ) : null}
+        {activeExample.slug === "37-human-in-the-loop-ag-ui" ? (
+          <HumanInTheLoopAgUiExample />
+        ) : null}
+        {activeExample.slug === "38-agentic-generative-ui-ag-ui" ? (
+          <AgenticGenerativeUiAgUiExample />
+        ) : null}
+        {activeExample.slug === "39-tool-based-generative-ui-ag-ui" ? (
+          <ToolBasedGenerativeUiAgUiExample />
+        ) : null}
+        {activeExample.slug === "40-shared-state-agent-ui-ag-ui" ? (
+          <SharedStateAgentUiAgUiExample />
+        ) : null}
+        {activeExample.slug === "41-predictive-state-updates-ag-ui" ? (
+          <PredictiveStateUpdatesAgUiExample />
+        ) : null}
+        {activeExample.slug === "42-agentic-chat-reasoning-ag-ui" ? (
+          <AgenticChatReasoningAgUiExample />
+        ) : null}
+        {activeExample.slug === "43-agentic-chat-multimodal-ag-ui" ? (
+          <AgenticChatMultimodalAgUiExample />
+        ) : null}
+        {activeExample.slug === "44-subgraphs-ag-ui" ? <SubgraphsAgUiExample /> : null}
+        {activeExample.slug === "45-a2ui-fixed-schema-ag-ui" ? (
+          <A2uiFixedSchemaAgUiExample />
+        ) : null}
+        {activeExample.slug === "46-a2ui-dynamic-schema-ag-ui" ? (
+          <A2uiDynamicSchemaAgUiExample />
+        ) : null}
+        {activeExample.slug === "47-a2ui-advanced-ag-ui" ? <A2uiAdvancedAgUiExample /> : null}
         {activeExample.slug === "06-2-human-in-the-loop-react-hook" ? (
           <HumanInTheLoopReactHookExample />
         ) : null}

@@ -2,13 +2,17 @@ import { expect, type Locator, type Page, type Request, test } from "@playwright
 
 test.setTimeout(180_000);
 
-const API_URL = "http://localhost:2931";
 const GRAPH_ID = "chat_data_analysis_canvas";
 
 type StreamRequestRecord = {
   body: string;
   url: string;
 };
+
+function expectedApiUrl(page: Page) {
+  const url = new URL(page.url());
+  return `${url.protocol}//${url.hostname}:2931`;
+}
 
 function normalizeText(value: string) {
   return value.replace(/\s+/g, " ").trim();
@@ -56,6 +60,10 @@ function csvInput(page: Page) {
   return workspace(page).getByRole("textbox", { name: /^CSV data$/i }).first();
 }
 
+function csvUploadInput(page: Page) {
+  return workspace(page).getByLabel(/^CSV upload$/i).first();
+}
+
 function actionButton(page: Page, name: RegExp) {
   return workspace(page).getByRole("button", { name }).first();
 }
@@ -81,7 +89,7 @@ async function selectExample(page: Page) {
   await page.reload();
   await page.getByRole("button", { name: /34\s+Chat \+ Data Analysis Canvas/i }).click();
   await expect(page.getByRole("heading", { name: /^(?:34\s+)?Chat \+ Data Analysis Canvas$/i })).toBeVisible();
-  await expect(langGraphApiInput(page)).toHaveValue(API_URL);
+  await expect(langGraphApiInput(page)).toHaveValue(expectedApiUrl(page));
 }
 
 async function panelBodyText(panel: Locator, title: RegExp) {
@@ -143,6 +151,7 @@ async function assertInitialSurface(page: Page) {
   await expect(langGraphApiInput(page)).toBeVisible();
   await expect(requestInput(page)).toBeVisible();
   await expect(datasetNameInput(page)).toBeVisible();
+  await expect(csvUploadInput(page)).toBeVisible();
   await expect(csvInput(page)).toBeVisible();
   await expect(runButton(page)).toBeVisible();
   await expect(resetButton(page)).toBeVisible();
@@ -179,16 +188,22 @@ test("Chat + Data Analysis Canvas analyzes CSV data and retries on the same thre
   await assertInitialSurface(page);
 
   const marker = `E2E data marker ${Date.now()}-${testInfo.parallelIndex}-${testInfo.repeatEachIndex}`;
-  await datasetNameInput(page).fill("e2e_campaign_metrics.csv");
-  await requestInput(page).fill(
-    `${marker}: analyze conversion by channel, produce a result table, chart canvas, sandbox logs, and retry-safe summary.`,
-  );
-  await csvInput(page).fill(`channel,visitors,signups,revenue
+  const csvFixture = `channel,visitors,signups,revenue
 Organic,4200,504,30240
 Paid Search,3100,279,19530
 Referral,1800,252,17640
 Email,2400,384,26880
-Partner,950,171,13680`);
+Partner,950,171,13680`;
+  await csvUploadInput(page).setInputFiles({
+    name: "e2e_campaign_metrics.csv",
+    mimeType: "text/csv",
+    buffer: Buffer.from(csvFixture),
+  });
+  await expect(datasetNameInput(page)).toHaveValue("e2e_campaign_metrics.csv");
+  await expect(csvInput(page)).toHaveValue(csvFixture);
+  await requestInput(page).fill(
+    `${marker}: analyze conversion by channel, produce a result table, chart canvas, sandbox logs, and retry-safe summary.`,
+  );
 
   const streamRequests = watchStreamRequests(page);
   await runButton(page).click();

@@ -2,13 +2,17 @@ import { expect, type Locator, type Page, type Request, test } from "@playwright
 
 test.setTimeout(180_000);
 
-const API_URL = "http://localhost:2931";
 const GRAPH_ID = "chat_ui_preview";
 
 type StreamRequestRecord = {
   body: string;
   url: string;
 };
+
+function expectedApiUrl(page: Page) {
+  const url = new URL(page.url());
+  return `${url.protocol}//${url.hostname}:2931`;
+}
 
 function normalizeText(value: string) {
   return value.replace(/\s+/g, " ").trim();
@@ -77,7 +81,7 @@ async function selectExample(page: Page) {
   await page.reload();
   await page.getByRole("button", { name: /33\s+Chat \+ UI Preview/i }).click();
   await expect(page.getByRole("heading", { name: /^(?:33\s+)?Chat \+ UI Preview$/i })).toBeVisible();
-  await expect(langGraphApiInput(page)).toHaveValue(API_URL);
+  await expect(langGraphApiInput(page)).toHaveValue(expectedApiUrl(page));
 }
 
 async function panelBodyText(panel: Locator, title: RegExp) {

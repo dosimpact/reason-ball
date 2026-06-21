@@ -2,7 +2,7 @@ export type ExampleMeta = {
   id: number;
   title: string;
   slug: string;
-  group: "MVP" | "Core" | "Generative UI" | "Artifact";
+  group: "MVP" | "Core" | "Generative UI" | "Artifact" | "CopilotKit";
   implemented: boolean;
   planPath: string;
 };
@@ -11,9 +11,12 @@ const rows: Array<Omit<ExampleMeta, "planPath">> = [
   { id: 1, title: "SDK Connection", slug: "01-sdk-connection", group: "MVP", implemented: true },
   { id: 1.2, title: "SDK Connection React Hook", slug: "01-2-sdk-connection-react-hook", group: "MVP", implemented: true },
   { id: 2, title: "Basic Chat UI", slug: "02-basic-chat-ui", group: "MVP", implemented: true },
+  { id: 2.2, title: "Basic Chat React Hook", slug: "02-2-basic-chat-react-hook", group: "MVP", implemented: true },
   { id: 3, title: "Graph Execution Timeline", slug: "03-graph-execution-timeline", group: "MVP", implemented: true },
   { id: 4, title: "Streaming UI", slug: "04-streaming-ui", group: "MVP", implemented: true },
+  { id: 4.2, title: "Streaming React Hook", slug: "04-2-streaming-react-hook", group: "MVP", implemented: true },
   { id: 5, title: "Tool Calling / ReAct UI", slug: "05-tool-calling-react-ui", group: "MVP", implemented: true },
+  { id: 5.2, title: "Tool Calling React Hook", slug: "05-2-tool-calling-react-hook", group: "MVP", implemented: true },
   { id: 6, title: "Human-in-the-loop / Interrupt UI", slug: "06-human-in-the-loop-interrupt-ui", group: "MVP", implemented: true },
   { id: 6.2, title: "Human-in-the-loop React Hook", slug: "06-2-human-in-the-loop-react-hook", group: "MVP", implemented: true },
   { id: 7, title: "Checkpoint / State History UI", slug: "07-checkpoint-state-history-ui", group: "MVP", implemented: true },
@@ -44,7 +47,19 @@ const rows: Array<Omit<ExampleMeta, "planPath">> = [
   { id: 32, title: "Chat + Graph Execution Canvas", slug: "32-chat-graph-execution-canvas", group: "Artifact", implemented: true },
   { id: 33, title: "Chat + UI Preview", slug: "33-chat-ui-preview", group: "Artifact", implemented: true },
   { id: 34, title: "Chat + Data Analysis Canvas", slug: "34-chat-data-analysis-canvas", group: "Artifact", implemented: true },
-  { id: 35, title: "Agentic Chat AG-UI", slug: "35-agentic-chat-ag-ui", group: "Generative UI", implemented: true },
+  { id: 35, title: "Agentic Chat AG-UI", slug: "35-agentic-chat-ag-ui", group: "CopilotKit", implemented: true },
+  { id: 36, title: "Backend Tool Rendering AG-UI", slug: "36-backend-tool-rendering-ag-ui", group: "CopilotKit", implemented: true },
+  { id: 37, title: "Human in the Loop AG-UI", slug: "37-human-in-the-loop-ag-ui", group: "CopilotKit", implemented: true },
+  { id: 38, title: "Agentic Generative UI AG-UI", slug: "38-agentic-generative-ui-ag-ui", group: "CopilotKit", implemented: true },
+  { id: 39, title: "Tool Based Generative UI AG-UI", slug: "39-tool-based-generative-ui-ag-ui", group: "CopilotKit", implemented: true },
+  { id: 40, title: "Shared State Between Agent and UI AG-UI", slug: "40-shared-state-agent-ui-ag-ui", group: "CopilotKit", implemented: true },
+  { id: 41, title: "Predictive State Updates AG-UI", slug: "41-predictive-state-updates-ag-ui", group: "CopilotKit", implemented: true },
+  { id: 42, title: "Agentic Chat Reasoning AG-UI", slug: "42-agentic-chat-reasoning-ag-ui", group: "CopilotKit", implemented: true },
+  { id: 43, title: "Agentic Chat Multimodal AG-UI", slug: "43-agentic-chat-multimodal-ag-ui", group: "CopilotKit", implemented: true },
+  { id: 44, title: "Subgraphs AG-UI", slug: "44-subgraphs-ag-ui", group: "CopilotKit", implemented: true },
+  { id: 45, title: "A2UI Fixed Schema AG-UI", slug: "45-a2ui-fixed-schema-ag-ui", group: "CopilotKit", implemented: true },
+  { id: 46, title: "A2UI Dynamic Schema AG-UI", slug: "46-a2ui-dynamic-schema-ag-ui", group: "CopilotKit", implemented: true },
+  { id: 47, title: "A2UI Advanced AG-UI", slug: "47-a2ui-advanced-ag-ui", group: "CopilotKit", implemented: true },
 ];
 
 export const examples: ExampleMeta[] = rows.map((example) => ({

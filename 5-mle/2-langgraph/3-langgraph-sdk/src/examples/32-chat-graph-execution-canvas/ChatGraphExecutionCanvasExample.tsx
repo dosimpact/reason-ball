@@ -318,7 +318,7 @@ export function ChatGraphExecutionCanvasExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming graph canvas");
 
-      const stream = await client.runs.stream(nextThreadId, "32_chat_graph_execution_canvas", {
+      const stream = await client.runs.stream(nextThreadId, "chat_graph_execution_canvas", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });

@@ -46,8 +46,21 @@ Status key:
 | 33 | Chat UI Preview | `plan/33-chat-ui-preview.md` | complete | main + subagents | Artifact; sandboxed preview. |
 | 34 | Chat Data Analysis Canvas | `plan/34-chat-data-analysis-canvas.md` | complete | main + subagents | Artifact; sandboxed analysis. |
 | 35 | Agentic Chat AG-UI | `plan/35-agentic-chat-ag-ui.md` | complete | main | Generative UI; CopilotKit AG-UI runtime and frontend tool middleware. |
+| 36 | Backend Tool Rendering AG-UI | `plan/36-backend-tool-rendering-ag-ui.md` | complete | main | AG-UI Dojo; render Python backend tool execution in React. |
+| 37 | Human in the Loop AG-UI | `plan/37-human-in-the-loop-ag-ui.md` | complete | main | AG-UI Dojo; interrupt/resume approval flow. |
+| 38 | Agentic Generative UI AG-UI | `plan/38-agentic-generative-ui-ag-ui.md` | complete | main | AG-UI Dojo; long-running agent-generated task UI. |
+| 39 | Tool Based Generative UI AG-UI | `plan/39-tool-based-generative-ui-ag-ui.md` | complete | main | AG-UI Dojo; backend tool returns custom UI payload. |
+| 40 | Shared State Between Agent and UI AG-UI | `plan/40-shared-state-agent-ui-ag-ui.md` | complete | main | AG-UI Dojo; shared recipe state collaboration. |
+| 41 | Predictive State Updates AG-UI | `plan/41-predictive-state-updates-ag-ui.md` | complete | main | AG-UI Dojo; optimistic document state updates. |
+| 42 | Agentic Chat Reasoning AG-UI | `plan/42-agentic-chat-reasoning-ag-ui.md` | complete | main | AG-UI Dojo; public reasoning summaries only. |
+| 43 | Agentic Chat Multimodal AG-UI | `plan/43-agentic-chat-multimodal-ag-ui.md` | complete | main | AG-UI Dojo; multimodal chat with image/media input. |
+| 44 | Subgraphs AG-UI | `plan/44-subgraphs-ag-ui.md` | complete | main | AG-UI Dojo; multi-agent subgraph progress UI. |
+| 45 | A2UI Fixed Schema AG-UI | `plan/45-a2ui-fixed-schema-ag-ui.md` | complete | main | AG-UI Dojo; fixed-schema flight card renderer. |
+| 46 | A2UI Dynamic Schema AG-UI | `plan/46-a2ui-dynamic-schema-ag-ui.md` | complete | main | AG-UI Dojo; whitelisted dynamic schema renderer. |
+| 47 | A2UI Advanced AG-UI | `plan/47-a2ui-advanced-ag-ui.md` | complete | main | AG-UI Dojo; dynamic A2UI with progress and actions. |
 
 ## Coordination Notes
 
 - Reference graph review came from the `1-langgraph-basic` subproject and confirmed the key entrypoints: `b_01_simple`, `b_03_tool_node`, `b_05_interrupt`, `b_06_checkpointer`, `b_07_streaming`, `b_16_command_interrupt`, `b_17_configurable`, `b_18_custom_streaming`, `b_20_history_reducer`, `b_21_long_context`, and `b_25_approval_system`.
+- Examples 35-47 map to the 13 AG-UI Dojo LangGraph feature demos in order, using Python LangGraph backend graphs plus TypeScript React frontend examples.
 - Boilerplate can start next: workspace package setup, Python LangGraph project setup, shared SDK client, app shell, and MVP routes.

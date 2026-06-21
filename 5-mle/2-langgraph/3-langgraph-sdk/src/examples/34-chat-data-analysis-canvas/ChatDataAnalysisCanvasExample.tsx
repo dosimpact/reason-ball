@@ -9,8 +9,9 @@ import {
   RotateCcw,
   SquareTerminal,
   Table2,
+  Upload,
 } from "lucide-react";
-import { FormEvent, useMemo, useState } from "react";
+import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import {
   langGraphApiUrl,
   StreamLogEntry,
@@ -224,6 +225,7 @@ export function ChatDataAnalysisCanvasExample() {
   const [finalState, setFinalState] = useState<JsonRecord | null>(null);
   const [events, setEvents] = useState<StreamLogEntry[]>([]);
   const [error, setError] = useState("");
+  const [uploadStatus, setUploadStatus] = useState("No CSV file selected.");
   const [busy, setBusy] = useState(false);
 
   const client = useMemo(() => createLangGraphClient(), []);
@@ -255,6 +257,7 @@ export function ChatDataAnalysisCanvasExample() {
     setFinalState(null);
     setEvents([]);
     setError("");
+    setUploadStatus("No CSV file selected.");
   }
 
   function applyValues(values: JsonRecord) {
@@ -311,7 +314,7 @@ export function ChatDataAnalysisCanvasExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming data analysis graph");
 
-      const stream = await client.runs.stream(nextThreadId, "34_chat_data_analysis_canvas", {
+      const stream = await client.runs.stream(nextThreadId, "chat_data_analysis_canvas", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
@@ -356,6 +359,24 @@ export function ChatDataAnalysisCanvasExample() {
     await streamRun({ action: "retry" }, threadId);
   }
 
+  async function handleCsvUpload(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) {
+      setUploadStatus("No CSV file selected.");
+      return;
+    }
+
+    try {
+      const text = await file.text();
+      setDatasetName(file.name);
+      setCsvText(text);
+      setUploadStatus(`Loaded ${file.name} (${text.split(/\r?\n/).filter(Boolean).length} line(s)).`);
+    } catch (caught) {
+      setUploadStatus("Could not read the selected CSV file.");
+      setError(caught instanceof Error ? caught.message : String(caught));
+    }
+  }
+
   return (
     <section className="data-canvas-layout">
       <aside className="data-canvas-control">
@@ -376,6 +397,14 @@ export function ChatDataAnalysisCanvasExample() {
             <span>Dataset name</span>
             <input value={datasetName} onChange={(event) => setDatasetName(event.target.value)} />
           </label>
+          <label className="field">
+            <span>CSV upload</span>
+            <input type="file" accept=".csv,text/csv" onChange={(event) => void handleCsvUpload(event)} disabled={busy} />
+          </label>
+          <p className="field-help">
+            <Upload aria-hidden="true" size={14} />
+            {uploadStatus}
+          </p>
           <label className="field">
             <span>CSV data</span>
             <textarea value={csvText} onChange={(event) => setCsvText(event.target.value)} rows={7} />

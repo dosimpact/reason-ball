@@ -1,0 +1,139 @@
+.advanced-a2ui-shell {
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+  gap: 16px;
+  min-height: 720px;
+}
+
+.advanced-a2ui-side,
+.advanced-a2ui-chat-window,
+.advanced-a2ui-card {
+  background: #ffffff;
+  border: 1px solid #cfd8d5;
+  border-radius: 8px;
+}
+
+.advanced-a2ui-side {
+  align-self: start;
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+}
+
+.advanced-a2ui-side-title,
+.advanced-a2ui-header,
+.advanced-a2ui-progress section,
+.advanced-a2ui-decision button {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.advanced-a2ui-side p,
+.advanced-a2ui-header span,
+.advanced-a2ui-progress span,
+.advanced-a2ui-decision p,
+.advanced-a2ui-options span,
+.advanced-a2ui-card footer {
+  color: #52645f;
+  margin: 0;
+}
+
+.advanced-a2ui-action-state {
+  background: #f4f8f7;
+  border: 1px solid #d9e4e1;
+  border-radius: 8px;
+  color: #24332f;
+  padding: 10px;
+}
+
+.advanced-a2ui-chat-window {
+  height: min(720px, calc(100vh - 190px));
+  min-height: 620px;
+  overflow: hidden;
+}
+
+.advanced-a2ui-card {
+  color: #24332f;
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+}
+
+.advanced-a2ui-header div {
+  display: grid;
+  gap: 2px;
+}
+
+.advanced-a2ui-progress {
+  display: grid;
+  gap: 8px;
+}
+
+.advanced-a2ui-progress section {
+  background: #f8fbfa;
+  border: 1px solid #d9e4e1;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.advanced-a2ui-progress section.active {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+
+.advanced-a2ui-progress section div {
+  display: grid;
+  gap: 2px;
+}
+
+.advanced-a2ui-decision {
+  display: grid;
+  gap: 12px;
+}
+
+.advanced-a2ui-options {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.advanced-a2ui-options article {
+  border: 1px solid #d9e4e1;
+  border-radius: 8px;
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+}
+
+.advanced-a2ui-options article.selected {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.14);
+}
+
+.advanced-a2ui-decision button {
+  background: #0f766e;
+  border: 0;
+  border-radius: 8px;
+  color: #ffffff;
+  cursor: pointer;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 12px;
+}
+
+.advanced-a2ui-loading {
+  color: #52645f;
+  padding: 12px;
+}
+
+@media (max-width: 900px) {
+  .advanced-a2ui-shell,
+  .advanced-a2ui-options {
+    grid-template-columns: 1fr;
+  }
+
+  .advanced-a2ui-chat-window {
+    height: 640px;
+  }
+}

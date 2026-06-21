@@ -210,7 +210,7 @@ export function ChatPlanBoardExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming plan board graph");
 
-      const stream = await client.runs.stream(nextThreadId, "31_chat_plan_board", {
+      const stream = await client.runs.stream(nextThreadId, "chat_plan_board", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });

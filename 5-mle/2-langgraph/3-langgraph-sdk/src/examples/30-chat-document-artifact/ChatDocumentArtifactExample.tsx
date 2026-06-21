@@ -275,7 +275,7 @@ export function ChatDocumentArtifactExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming document graph");
 
-      const stream = await client.runs.stream(nextThreadId, "30_chat_document_artifact", {
+      const stream = await client.runs.stream(nextThreadId, "chat_document_artifact", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });

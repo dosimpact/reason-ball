@@ -207,7 +207,7 @@ export function ChatCodeEditorExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming code editor graph");
 
-      const stream = await client.runs.stream(nextThreadId, "29_chat_code_editor", {
+      const stream = await client.runs.stream(nextThreadId, "chat_code_editor", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });

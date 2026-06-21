@@ -279,7 +279,7 @@ export function ChatUiPreviewExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming UI preview graph");
 
-      const stream = await client.runs.stream(nextThreadId, "33_chat_ui_preview", {
+      const stream = await client.runs.stream(nextThreadId, "chat_ui_preview", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });
