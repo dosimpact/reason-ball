@@ -49,7 +49,7 @@ Status:
 
 ---
 
-## Collect Phase
+## Phase:Collect
 
 ### Prerequisites
 
@@ -74,7 +74,7 @@ Status:
 
 ---
 
-## Compare Phase
+## Phase:Compare
 
 ### Prerequisites
 
@@ -98,7 +98,7 @@ Status:
 
 ---
 
-## Report Phase
+## Phase:Report
 
 ### Prerequisites
 

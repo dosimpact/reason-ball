@@ -4,6 +4,7 @@ description: |
   Core rules for apb PDCA methodology. Detailed reference for document-driven
   development, level detection, task classification, and code quality standards.
   Use when you need detailed apb rules beyond what AGENTS.md provides.
+  Phases: Guide.
   Triggers: apb rules, PDCA rules, development rules, coding standards,
   개발 규칙, 코딩 표준, ルール, 规则, reglas, règles, Regeln, regole
   Do NOT use for: specific PDCA actions (use $pdca instead).
@@ -13,7 +14,54 @@ description: |
 
 > Comprehensive rules for apb's document-driven AI-native development methodology.
 
-## 1. PDCA Auto-Apply Rules
+## Usage
+
+```
+$apb-rules guide    Print or apply the apb methodology reference rules
+```
+
+## Phase Flow
+
+```
+[Guide]
+```
+
+## Phase Progress Visualization
+
+```
+[Guide]
+
+Status:
+  [Phase] done     -> phase completed
+  [Phase] active   -> currently working
+  [Phase] pending  -> not yet started
+```
+
+---
+
+## Phase:Guide
+
+Use this read-only reference to apply apb methodology rules consistently.
+
+### Prerequisites
+
+- User asks for apb rules, PDCA rules, level detection, or coding standards.
+
+### Steps
+
+1. Identify the requested rule category.
+2. Consult the matching reference section below.
+3. Apply the rule without editing project files unless the user separately asks for implementation work.
+
+### Output Path
+
+```
+Console output only (no files written).
+```
+
+---
+
+## Reference: PDCA Auto-Apply Rules
 
 ### Task Classification
 
@@ -68,7 +116,7 @@ After significant code changes:
 
 ---
 
-## 2. Level Detection Rules
+## Reference: Level Detection Rules
 
 Detect project level based on directory structure and config files.
 
@@ -111,7 +159,7 @@ None of the above conditions met. Default level for simple projects.
 
 ---
 
-## 3. 8-Language Trigger Keywords
+## Reference: 8-Language Trigger Keywords
 
 apb supports trigger detection in 8 languages:
 
@@ -141,7 +189,7 @@ apb supports trigger detection in 8 languages:
 
 ---
 
-## 4. Naming Conventions
+## Reference: Naming Conventions
 
 ### Code Naming Rules
 
@@ -166,7 +214,7 @@ apb supports trigger detection in 8 languages:
 
 ---
 
-## 5. Code Quality Standards
+## Reference: Code Quality Standards
 
 ### Core Principles
 
@@ -209,7 +257,7 @@ apb supports trigger detection in 8 languages:
 
 ---
 
-## 6. MCP Tools Quick Reference
+## Reference: MCP Tools Quick Reference
 
 | Tool | When to Call | Priority |
 |------|-------------|----------|
@@ -232,7 +280,7 @@ apb supports trigger detection in 8 languages:
 
 ---
 
-## 7. Response Style Guidelines
+## Reference: Response Style Guidelines
 
 ### Include apb Feature Usage Report
 

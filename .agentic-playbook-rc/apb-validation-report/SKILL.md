@@ -56,7 +56,7 @@ Status:
 
 ---
 
-## Gather Phase
+## Phase:Gather
 
 ### Prerequisites
 
@@ -78,7 +78,7 @@ Status:
 
 ---
 
-## Score Phase
+## Phase:Score
 
 ### Prerequisites
 
@@ -102,7 +102,7 @@ Status:
 
 ---
 
-## Write Phase
+## Phase:Write
 
 ### Prerequisites
 
@@ -129,7 +129,7 @@ Status:
 
 ---
 
-## Conclude Phase
+## Phase:Conclude
 
 ### Prerequisites
 

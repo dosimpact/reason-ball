@@ -29,6 +29,56 @@ $apb-react-directory-policy guide    Explain the directory layout and each dir's
 **Default action:** When invoked with no arguments
 (`$apb-react-directory-policy`), run `guide`.
 
+## Phase Flow
+
+```
+[Guide]
+```
+
+## Phase Progress Visualization
+
+```
+[Guide]
+
+Status:
+  [Phase] done     -> phase completed
+  [Phase] active   -> currently working
+  [Phase] pending  -> not yet started
+```
+
+---
+
+## Phase:Guide
+
+Explain the canonical directory layout and each directory's role and
+responsibility. This is the **default action** when the skill is
+invoked with no arguments.
+
+### Prerequisites
+
+- None. This phase is read-only and requires no project path.
+
+### Steps
+
+1. Print the `Canonical Layout` tree (the 13 top-level directories
+   under `src/` with inline comments).
+2. Print the `Directory Responsibilities` table (what each dir
+   `Contains` and `Must NOT contain`).
+3. Print the `elements vs widget` section verbatim:
+   - Definition of `elements/` (reusable UI, no business logic).
+   - Definition of `widget/` (finished, business-aware output).
+   - The 4-step Decision rubric.
+   - The Pairing pattern example.
+4. Do not read or write any files.
+
+### Output Path
+
+```
+Console output only (no files written, no repo access).
+```
+
+---
+
 ## Canonical Layout
 
 Exactly these 13 directories are allowed at `src/` level. No other
@@ -119,56 +169,6 @@ elements/Button.tsx              # generic, styled button
 widget/CheckoutButton.tsx        # wraps <Button>, calls apis/checkout,
                                  # reads store/cart, handles loading/errors
 ```
-
-## Phase Flow
-
-```
-[Guide]
-```
-
-## Phase Progress Visualization
-
-```
-[Guide]
-
-Status:
-  [Phase] done     -> phase completed
-  [Phase] active   -> currently working
-  [Phase] pending  -> not yet started
-```
-
----
-
-## Guide Phase
-
-Explain the canonical directory layout and each directory's role and
-responsibility. This is the **default action** when the skill is
-invoked with no arguments.
-
-### Prerequisites
-
-- None. This phase is read-only and requires no project path.
-
-### Steps
-
-1. Print the `Canonical Layout` tree (the 13 top-level directories
-   under `src/` with inline comments).
-2. Print the `Directory Responsibilities` table (what each dir
-   `Contains` and `Must NOT contain`).
-3. Print the `elements vs widget` section verbatim:
-   - Definition of `elements/` (reusable UI, no business logic).
-   - Definition of `widget/` (finished, business-aware output).
-   - The 4-step Decision rubric.
-   - The Pairing pattern example.
-4. Do not read or write any files.
-
-### Output Path
-
-```
-Console output only (no files written, no repo access).
-```
-
----
 
 ## Reference: `tree -L 1` Expected Output
 

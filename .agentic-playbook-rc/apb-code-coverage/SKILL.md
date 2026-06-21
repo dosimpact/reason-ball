@@ -57,7 +57,7 @@ Status:
 
 ---
 
-## Detect Phase
+## Phase:Detect
 
 Discover the project's test-coverage command from `package.json`.
 
@@ -86,7 +86,7 @@ Console only (resolved command printed; no files written).
 
 ---
 
-## Sync Phase
+## Phase:Sync
 
 Fetch the upstream remote so the base branch is up to date.
 
@@ -114,7 +114,7 @@ Console only (resolved base ref printed; local git index updated by fetch).
 
 ---
 
-## Diff Phase
+## Phase:Diff
 
 Extract the list of changed source files between `HEAD` and the base ref.
 
@@ -142,7 +142,7 @@ Extract the list of changed source files between `HEAD` and the base ref.
 
 ---
 
-## Measure Phase
+## Phase:Measure
 
 Run coverage restricted to the changed files and print a summary.
 
@@ -177,7 +177,7 @@ Run coverage restricted to the changed files and print a summary.
 
 ---
 
-## Augment Phase
+## Phase:Augment
 
 Add or expand tests for the changed files until per-file coverage meets
 the target threshold.
@@ -214,7 +214,7 @@ the target threshold.
 
 ---
 
-## Verify Phase
+## Phase:Verify
 
 Re-run the coverage script, check against the threshold, and loop back
 to Augment if not yet met.

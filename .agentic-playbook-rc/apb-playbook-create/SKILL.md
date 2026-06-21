@@ -44,36 +44,6 @@ Status:
   [Phase] pending  -> not yet started
 ```
 
-## Heading Rules
-
-- H1 is reserved for the document title only:
-
-  ```markdown
-  # Langgraph SDK Playbook
-  ```
-
-- H2 is reserved for numbered category-level headings. A category groups
-  related LangGraph SDK implementation lessons and must not contain a concrete
-  implementation task directly in the heading.
-
-  ```markdown
-  ## 1. {category}
-  ```
-
-- H3 is reserved for numbered playbook-task headings. A playbook task is the
-  concrete implementation unit, such as a chat UI, streaming pattern, checkpoint
-  flow, or interrupt handling pattern.
-
-  ```markdown
-  ### 1.1 {playbook task}
-  ```
-
-- H2 and H3 headings require prefix numbers. H2 prefixes use document order
-  (`1.`, `2.`, `3.`), and H3 prefixes use the parent H2 number plus local task
-  order (`1.1`, `1.2`, `2.1`).
-- Do not use `### 상세 로직`. The phrase `상세 로직` is plain body text inside
-  each H3 task.
-
 ---
 
 ## Phase:Create Playbook
@@ -313,3 +283,35 @@ follow the standard hierarchy and prefix-number convention.
 ```
 /Users/studio/workspace/projects/reason-ball/5-mle/2-langgraph/3-langgraph-sdk/docs/핵심 노트-playbook.md
 ```
+
+---
+
+## Heading Rules
+
+- H1 is reserved for the document title only:
+
+  ```markdown
+  # Langgraph SDK Playbook
+  ```
+
+- H2 is reserved for numbered category-level headings. A category groups
+  related LangGraph SDK implementation lessons and must not contain a concrete
+  implementation task directly in the heading.
+
+  ```markdown
+  ## 1. {category}
+  ```
+
+- H3 is reserved for numbered playbook-task headings. A playbook task is the
+  concrete implementation unit, such as a chat UI, streaming pattern, checkpoint
+  flow, or interrupt handling pattern.
+
+  ```markdown
+  ### 1.1 {playbook task}
+  ```
+
+- H2 and H3 headings require prefix numbers. H2 prefixes use document order
+  (`1.`, `2.`, `3.`), and H3 prefixes use the parent H2 number plus local task
+  order (`1.1`, `1.2`, `2.1`).
+- Do not use `### 상세 로직`. The phrase `상세 로직` is plain body text inside
+  each H3 task.

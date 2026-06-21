@@ -48,7 +48,7 @@ Status:
 
 ---
 
-## Detect Phase
+## Phase:Detect
 
 ### Prerequisites
 
@@ -68,7 +68,7 @@ Status:
 
 ---
 
-## Plan Cases Phase
+## Phase:Plan Cases
 
 ### Prerequisites
 
@@ -91,7 +91,7 @@ Status:
 
 ---
 
-## Author Phase
+## Phase:Author
 
 ### Prerequisites
 
@@ -122,7 +122,7 @@ Status:
 
 ---
 
-## Run Phase
+## Phase:Run
 
 ### Prerequisites
 

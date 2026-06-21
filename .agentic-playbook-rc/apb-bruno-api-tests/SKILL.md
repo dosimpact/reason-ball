@@ -54,7 +54,7 @@ Status:
 
 ---
 
-## Inspect Phase
+## Phase:Inspect
 
 Understand the target API surface and pick a root directory.
 
@@ -77,7 +77,7 @@ Understand the target API surface and pick a root directory.
 
 ---
 
-## Scaffold Phase
+## Phase:Scaffold
 
 Create the collection skeleton if it does not already exist.
 
@@ -111,7 +111,7 @@ Create the collection skeleton if it does not already exist.
 
 ---
 
-## Author Phase
+## Phase:Author
 
 Add one `.bru` file per scenario.
 
@@ -139,7 +139,7 @@ Add one `.bru` file per scenario.
 
 ---
 
-## Run Phase
+## Phase:Run
 
 Execute the suite and feed results back to validate.
 

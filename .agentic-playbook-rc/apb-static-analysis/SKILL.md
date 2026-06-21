@@ -50,7 +50,7 @@ Status:
 
 ---
 
-## Detect Phase
+## Phase:Detect
 
 ### Prerequisites
 
@@ -77,7 +77,7 @@ Status:
 
 ---
 
-## Run Phase
+## Phase:Run
 
 ### Prerequisites
 
@@ -98,7 +98,7 @@ reports/static-analysis/{YYYY-MM-DD-HHMM}/{lint|typecheck|security}.log
 
 ---
 
-## Aggregate Phase
+## Phase:Aggregate
 
 ### Prerequisites
 

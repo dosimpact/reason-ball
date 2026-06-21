@@ -38,22 +38,6 @@ apb-pgv validate {feature-Name}          Enter validate phase: run plan E2E scen
 
 Missing `{feature-Name}` → return this usage block and stop.
 
-## Workspace Layout
-
-All PGV documents and state are kept inside `.apb-workspace/docs/` so the
-project root stays clean:
-
-```
-<projectDir>/
-└── .apb-workspace/
-    └── docs/
-        ├── .apb-status.json
-        ├── 01-plan/{feature}.plan.md
-        ├── 02-gradate/{feature}.gradate.md
-        ├── 03-validate/{feature}.validate.md
-        └── 99-archive/{timestamp}-{feature}/...
-```
-
 ## Phase Flow
 
 ```
@@ -75,7 +59,7 @@ Status:
 
 ---
 
-## Plan Phase
+## Phase:Plan
 
 Initialize state if needed and create the plan document.
 
@@ -100,7 +84,7 @@ Initialize state if needed and create the plan document.
 
 ---
 
-## Plan-Gradate Phase
+## Phase:Plan-Gradate
 
 Enrich the plan to make gradate (design + implementation) easier, and recommend `apb-*` skills to use in the gradate phase.
 
@@ -126,7 +110,7 @@ Enrich the plan to make gradate (design + implementation) easier, and recommend 
 
 ---
 
-## Plan-Validate Phase
+## Phase:Plan-Validate
 
 Enrich the plan with E2E test scenarios and recommend `apb-*` skills to use in the validate phase.
 
@@ -152,7 +136,7 @@ Enrich the plan with E2E test scenarios and recommend `apb-*` skills to use in t
 
 ---
 
-## Plan-Skill-Add Phase
+## Phase:Plan-Skill-Add
 
 Record the final chosen skills for gradate and validate inside the plan's Skills section.
 
@@ -176,7 +160,7 @@ Record the final chosen skills for gradate and validate inside the plan's Skills
 
 ---
 
-## Gradate Phase
+## Phase:Gradate
 
 Produce the gradate document and drive implementation until the self-reported gap is < 1%.
 
@@ -204,7 +188,7 @@ Produce the gradate document and drive implementation until the self-reported ga
 
 ---
 
-## Validate Phase
+## Phase:Validate
 
 Produce the validate report by running the E2E scenarios authored in plan-validate.
 
@@ -226,4 +210,22 @@ Produce the validate report by running the E2E scenarios authored in plan-valida
 
 ```
 .apb-workspace/docs/03-validate/{feature-Name}.validate.md
+```
+
+---
+
+## Workspace Layout
+
+All PGV documents and state are kept inside `.apb-workspace/docs/` so the
+project root stays clean:
+
+```
+<projectDir>/
+└── .apb-workspace/
+    └── docs/
+        ├── .apb-status.json
+        ├── 01-plan/{feature}.plan.md
+        ├── 02-gradate/{feature}.gradate.md
+        ├── 03-validate/{feature}.validate.md
+        └── 99-archive/{timestamp}-{feature}/...
 ```

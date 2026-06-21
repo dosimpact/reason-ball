@@ -3,6 +3,7 @@ name: apb-templates
 description: |
   PDCA document templates for consistent documentation. Provides template
   selection guide based on phase and project level.
+  Phases: Select -> Apply.
   Triggers: template, plan document, design document, analysis, report,
   템플릿, 계획서, 설계서, テンプレート, 模板, plantilla, modèle, Vorlage, modello
   Do NOT use for: executing PDCA actions (use $pdca instead).
@@ -12,7 +13,80 @@ description: |
 
 > Use these templates when generating PDCA documents for consistent format and structure.
 
-## Available Templates
+## Usage
+
+```
+$apb-templates select {phase}    Select the correct PDCA template for a phase and project level
+$apb-templates apply {template}  Apply the selected template with concrete variable values
+```
+
+## Phase Flow
+
+```
+[Select] -> [Apply]
+```
+
+## Phase Progress Visualization
+
+```
+[Select] -> [Apply]
+
+Status:
+  [Phase] done     -> phase completed
+  [Phase] active   -> currently working
+  [Phase] pending  -> not yet started
+```
+
+---
+
+## Phase:Select
+
+Choose the correct template for the requested PDCA phase and project level.
+
+### Prerequisites
+
+- The requested document phase is known.
+- Project level is known or can be inferred as Starter, Dynamic, or Enterprise.
+
+### Steps
+
+1. Match the requested PDCA phase to the template selection matrix.
+2. If the phase is Design, choose the Starter, Dynamic, or Enterprise design template.
+3. Confirm the output path pattern before applying the template.
+
+### Output Path
+
+```
+(no file; produces a selected template path and destination path)
+```
+
+---
+
+## Phase:Apply
+
+Create a document from the selected template using concrete project values.
+
+### Prerequisites
+
+- Select phase completed.
+- Required variables such as `{feature}`, `{date}`, `{author}`, `{project}`, and `{version}` are known.
+
+### Steps
+
+1. Load the selected template from `references/`.
+2. Replace every `{variable}` placeholder with concrete values.
+3. Write the document to the selected output path.
+4. Preserve document standards, common header, status tracking, and cross-reference rules.
+
+### Output Path
+
+```
+docs/{phase-path}/{feature}.{type}.md
+```
+
+---
+
+## Reference: Available Templates
 
 | Template | File | Purpose |
 |----------|------|---------|
@@ -24,7 +98,7 @@ description: |
 | Report | `references/report.template.md` | Completion report |
 | Do | `references/do.template.md` | Implementation guide |
 
-## Template Selection Matrix
+## Reference: Template Selection Matrix
 
 ### By PDCA Phase
 
@@ -45,7 +119,7 @@ description: |
 | Dynamic | design.template.md | Full template with API + data model |
 | Enterprise | design-enterprise.template.md | MSA, K8s, Terraform, observability |
 
-## Variable Substitution
+## Reference: Variable Substitution
 
 Templates use `{variable}` syntax. Replace these when generating documents:
 
@@ -57,7 +131,7 @@ Templates use `{variable}` syntax. Replace these when generating documents:
 | `{project}` | Project name | `my-saas` |
 | `{version}` | Document version | `0.1` |
 
-## Document Output Paths
+## Reference: Document Output Paths
 
 ```
 docs/
@@ -74,7 +148,7 @@ docs/
         └── {feature}.report.md
 ```
 
-## Document Standards
+## Reference: Document Standards
 
 ### File Naming Rules
 
@@ -136,7 +210,7 @@ Link related PDCA documents:
 - **Code vs Design mismatch**: Code is truth, suggest document update
 - **Multiple versions**: Reference only the latest version
 
-## Usage
+## Reference: Usage Notes
 
 When a PDCA phase requires document creation:
 
