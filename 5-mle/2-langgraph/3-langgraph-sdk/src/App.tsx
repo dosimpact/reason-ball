@@ -51,6 +51,7 @@ import { SubgraphsAgUiExample } from "./examples/44-subgraphs-ag-ui/SubgraphsAgU
 import { A2uiFixedSchemaAgUiExample } from "./examples/45-a2ui-fixed-schema-ag-ui/A2uiFixedSchemaAgUiExample";
 import { A2uiDynamicSchemaAgUiExample } from "./examples/46-a2ui-dynamic-schema-ag-ui/A2uiDynamicSchemaAgUiExample";
 import { A2uiAdvancedAgUiExample } from "./examples/47-a2ui-advanced-ag-ui/A2uiAdvancedAgUiExample";
+import { TodoListMiddlewareExample } from "./examples/48-todo-list-middleware/TodoListMiddlewareExample";
 import { HumanInTheLoopReactHookExample } from "./examples/06-2-human-in-the-loop-react-hook/HumanInTheLoopReactHookExample";
 import { examples, type ExampleMeta } from "./data/examples";
 
@@ -58,6 +59,7 @@ const groupOrder: ExampleMeta["group"][] = ["MVP", "Core", "Generative UI", "Art
 
 export default function App() {
   const [activeSlug, setActiveSlug] = useState("01-sdk-connection");
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<Set<ExampleMeta["group"]>>(
     () => new Set(groupOrder),
   );
@@ -97,7 +99,23 @@ export default function App() {
           </div>
         </div>
 
-        <nav className="example-nav">
+        <button
+          type="button"
+          className="mobile-nav-toggle"
+          aria-expanded={isMobileNavOpen}
+          aria-controls="example-nav"
+          onClick={() => setIsMobileNavOpen((current) => !current)}
+        >
+          <span>
+            {String(activeExample.id).padStart(2, "0")} {activeExample.title}
+          </span>
+          <ChevronDown aria-hidden="true" className="mobile-nav-icon" size={16} />
+        </button>
+
+        <nav
+          className={isMobileNavOpen ? "example-nav open" : "example-nav"}
+          id="example-nav"
+        >
           {groupedExamples.map(({ group, examples: groupExamples }) => {
             const isExpanded = expandedGroups.has(group);
             const hasActiveExample = groupExamples.some((example) => example.slug === activeSlug);
@@ -126,7 +144,10 @@ export default function App() {
                         key={example.slug}
                         type="button"
                         className={example.slug === activeSlug ? "nav-item active" : "nav-item"}
-                        onClick={() => setActiveSlug(example.slug)}
+                        onClick={() => {
+                          setActiveSlug(example.slug);
+                          setIsMobileNavOpen(false);
+                        }}
                       >
                         <span className="nav-index">{String(example.id).padStart(2, "0")}</span>
                         <span className="nav-label">{example.title}</span>
@@ -260,6 +281,7 @@ export default function App() {
           <A2uiDynamicSchemaAgUiExample />
         ) : null}
         {activeExample.slug === "47-a2ui-advanced-ag-ui" ? <A2uiAdvancedAgUiExample /> : null}
+        {activeExample.slug === "48-todo-list-middleware" ? <TodoListMiddlewareExample /> : null}
         {activeExample.slug === "06-2-human-in-the-loop-react-hook" ? (
           <HumanInTheLoopReactHookExample />
         ) : null}

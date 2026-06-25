@@ -10,7 +10,7 @@ Status key:
 
 ## Current Phase
 
-Planning and boilerplate are complete. Examples 01-34 are implemented and verified end to end, including live 29-34 artifact verification against `http://dodonet.iptime.org:2805`. Examples 35-47 have AG-UI implementations and passed live CopilotKit E2E against `http://dodonet.iptime.org:2805`.
+Planning and boilerplate are complete. Examples 01-34 are implemented and verified end to end, including live 29-34 artifact verification against `http://dodonet.iptime.org:2805`. Examples 35-47 have AG-UI implementations and passed live CopilotKit E2E against `http://dodonet.iptime.org:2805`. Example 48 is implemented and verified locally with a deterministic `TodoListMiddleware` graph and browser smoke test.
 
 ## Boilerplate Tracker
 
@@ -73,3 +73,4 @@ Planning and boilerplate are complete. Examples 01-34 are implemented and verifi
 | 45 | A2UI Fixed Schema AG-UI | `plan/45-a2ui-fixed-schema-ag-ui.md` | verified | `a2ui_fixed_schema` | `/examples/45-a2ui-fixed-schema-ag-ui` | Live chat requires LangGraph dev server plus CopilotKit runtime. | Added fixed-schema flight tool, flight card renderer, scoped CSS, app/runtime registration, and local compile/build/import verification. |
 | 46 | A2UI Dynamic Schema AG-UI | `plan/46-a2ui-dynamic-schema-ag-ui.md` | verified | `a2ui_dynamic_schema` | `/examples/46-a2ui-dynamic-schema-ag-ui` | Live chat requires LangGraph dev server plus CopilotKit runtime. | Added dynamic schema tool, allowlisted schema renderer with fallback, scoped CSS, app/runtime registration, and local compile/build/import verification. |
 | 47 | A2UI Advanced AG-UI | `plan/47-a2ui-advanced-ag-ui.md` | verified | `a2ui_advanced` | `/examples/47-a2ui-advanced-ag-ui` | Live chat requires LangGraph dev server plus CopilotKit runtime. | Added advanced A2UI tool, progress/action renderer, frontend confirmation tool, scoped CSS, app/runtime registration, and local compile/build/import verification. |
+| 48 | Todo List Middleware | `plan/48-todo-list-middleware.md` | verified | `todo_list_middleware` | `/examples/48-todo-list-middleware` | None | Added deterministic LangChain `TodoListMiddleware` agent graph, registered graph/example route, and React todo board showing `pending`/`in_progress`/`completed` state from stream values; verified with `pnpm test`, `pnpm build`, Python graph invoke/duplicate-call smoke, and Playwright browser smoke on `http://localhost:2934` with LangGraph API `http://localhost:2935`. |
