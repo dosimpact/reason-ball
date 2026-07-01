@@ -1,0 +1,2 @@
+"""Modern LangChain search agent."""
+
