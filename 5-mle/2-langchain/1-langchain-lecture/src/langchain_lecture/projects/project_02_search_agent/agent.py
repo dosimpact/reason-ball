@@ -1,3 +1,5 @@
+"""검색 도구를 사용하는 LangChain 에이전트 흐름을 보여주는 예제입니다. 도구와 모델을 묶어 에이전트 실행 단위를 구성합니다."""
+
 from __future__ import annotations
 
 from langchain_lecture.projects.project_02_search_agent.schemas import AgentResponse

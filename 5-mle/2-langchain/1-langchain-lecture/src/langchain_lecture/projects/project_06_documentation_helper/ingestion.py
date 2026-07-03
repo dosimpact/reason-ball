@@ -1,3 +1,5 @@
+"""문서 수집, 검색, 답변 생성을 묶은 문서 도우미 RAG 예제입니다. 외부 문서를 읽고 나누어 벡터 저장소에 넣는 수집 흐름입니다."""
+
 from __future__ import annotations
 
 from langchain_core.documents import Document

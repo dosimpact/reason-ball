@@ -1,3 +1,5 @@
+"""설정에 맞춰 OpenAI 또는 Ollama 채팅 모델을 생성합니다."""
+
 from __future__ import annotations
 
 from langchain_core.language_models.chat_models import BaseChatModel

@@ -1,3 +1,5 @@
+"""문서 수집, 검색, 답변 생성을 묶은 문서 도우미 RAG 예제입니다. 문서 도우미 앱의 검색과 답변 생성을 묶는 백엔드 로직입니다."""
+
 from __future__ import annotations
 
 from typing import Any

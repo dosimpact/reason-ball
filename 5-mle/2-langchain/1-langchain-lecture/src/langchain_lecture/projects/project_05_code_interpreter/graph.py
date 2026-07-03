@@ -1,3 +1,5 @@
+"""Python 실행 도구와 CSV 분석 도구를 라우팅하는 코드 인터프리터 예제입니다. LangGraph 노드와 상태 전이를 정의해 예제를 그래프로 노출합니다."""
+
 from __future__ import annotations
 
 from typing import Any, NotRequired, TypedDict
@@ -39,6 +41,7 @@ def run_code_interpreter_node(state: CodeInterpreterState) -> dict[str, Any]:
         return {"error": f"{type(exc).__name__}: {exc}"}
 
 
+# 노드 하나를 중심으로 START에서 END까지 이어지는 LangGraph 흐름입니다.
 builder = StateGraph(CodeInterpreterState)
 builder.add_node("run_code_interpreter", run_code_interpreter_node)
 builder.add_edge(START, "run_code_interpreter")

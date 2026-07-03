@@ -1,2 +1,2 @@
-"""RAG gist examples with and without LCEL."""
+"""project_04_rag_gist 예제 패키지의 공개 경계를 표시하는 초기화 모듈입니다."""
 

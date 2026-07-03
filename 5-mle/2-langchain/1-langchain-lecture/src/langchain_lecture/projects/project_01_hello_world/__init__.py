@@ -1,2 +1,2 @@
-"""Hello-world prompt and model chain."""
+"""project_01_hello_world 예제 패키지의 공개 경계를 표시하는 초기화 모듈입니다."""
 

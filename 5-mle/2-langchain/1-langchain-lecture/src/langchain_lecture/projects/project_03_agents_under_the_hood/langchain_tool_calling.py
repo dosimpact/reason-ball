@@ -1,3 +1,5 @@
+"""에이전트 루프와 도구 호출이 내부적으로 어떻게 이어지는지 보여주는 예제입니다. LangChain 도구 호출 메시지를 수동 루프로 처리하는 예제입니다."""
+
 from __future__ import annotations
 
 from langchain_core.messages import HumanMessage, SystemMessage, ToolMessage

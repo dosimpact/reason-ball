@@ -1,3 +1,5 @@
+"""가장 단순한 프롬프트-모델 체인 흐름을 보여주는 예제입니다. LangGraph 노드와 상태 전이를 정의해 예제를 그래프로 노출합니다."""
+
 from __future__ import annotations
 
 from typing import NotRequired, TypedDict
@@ -22,6 +24,7 @@ def summarize_node(state: HelloWorldState) -> dict[str, str]:
         return {"error": f"{type(exc).__name__}: {exc}"}
 
 
+# 노드 하나를 중심으로 START에서 END까지 이어지는 LangGraph 흐름입니다.
 builder = StateGraph(HelloWorldState)
 builder.add_node("summarize", summarize_node)
 builder.add_edge(START, "summarize")

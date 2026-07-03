@@ -1,3 +1,5 @@
+"""가장 단순한 프롬프트-모델 체인 흐름을 보여주는 예제입니다. 프롬프트, 모델, 파서를 조합해 재사용 가능한 체인을 만듭니다."""
+
 from __future__ import annotations
 
 from langchain_core.prompts import PromptTemplate

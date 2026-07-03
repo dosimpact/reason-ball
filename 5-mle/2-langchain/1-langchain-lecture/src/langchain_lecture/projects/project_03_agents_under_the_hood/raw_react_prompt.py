@@ -1,3 +1,5 @@
+"""에이전트 루프와 도구 호출이 내부적으로 어떻게 이어지는지 보여주는 예제입니다. ReAct 형식의 도구 설명, 액션 파싱, 최종 답변 파싱을 보여줍니다."""
+
 from __future__ import annotations
 
 import inspect

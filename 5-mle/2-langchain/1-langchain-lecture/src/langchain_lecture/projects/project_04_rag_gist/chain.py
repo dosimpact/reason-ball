@@ -1,3 +1,5 @@
+"""문서 검색 결과를 프롬프트에 넣어 답변하는 RAG 기본 흐름 예제입니다. 프롬프트, 모델, 파서를 조합해 재사용 가능한 체인을 만듭니다."""
+
 from __future__ import annotations
 
 from collections.abc import Iterable

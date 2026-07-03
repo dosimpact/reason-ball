@@ -1,3 +1,5 @@
+"""문서 검색 결과를 프롬프트에 넣어 답변하는 RAG 기본 흐름 예제입니다. 외부 문서를 읽고 나누어 벡터 저장소에 넣는 수집 흐름입니다."""
+
 from __future__ import annotations
 
 from pathlib import Path

@@ -1,3 +1,5 @@
+"""에이전트 루프와 도구 호출이 내부적으로 어떻게 이어지는지 보여주는 예제입니다. 에이전트가 호출할 수 있는 도구 함수를 모아 둡니다."""
+
 from __future__ import annotations
 
 from langchain.tools import tool

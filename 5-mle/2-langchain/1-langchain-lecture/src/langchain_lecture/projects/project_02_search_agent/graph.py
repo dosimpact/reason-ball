@@ -1,3 +1,5 @@
+"""검색 도구를 사용하는 LangChain 에이전트 흐름을 보여주는 예제입니다. LangGraph 노드와 상태 전이를 정의해 예제를 그래프로 노출합니다."""
+
 from __future__ import annotations
 
 from typing import Any, NotRequired, TypedDict
@@ -30,6 +32,7 @@ def search_node(state: SearchAgentState) -> dict[str, Any]:
         return {"error": f"{type(exc).__name__}: {exc}"}
 
 
+# 노드 하나를 중심으로 START에서 END까지 이어지는 LangGraph 흐름입니다.
 builder = StateGraph(SearchAgentState)
 builder.add_node("search", search_node)
 builder.add_edge(START, "search")

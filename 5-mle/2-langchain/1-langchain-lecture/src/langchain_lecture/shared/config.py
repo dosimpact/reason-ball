@@ -1,3 +1,5 @@
+"""환경 변수에서 모델과 외부 서비스 설정을 읽어옵니다."""
+
 from __future__ import annotations
 
 import os
