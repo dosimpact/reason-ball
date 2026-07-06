@@ -1,0 +1,15 @@
+{
+  "name": "reason-hwang-langgraph-fast",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "uv run uvicorn langgraph_fast.server.server:app --reload",
+    "start": "uv run uvicorn langgraph_fast.server.server:app",
+    "build": "uv build",
+    "test": "uv run pytest",
+    "lint": "uv run --with ruff ruff check .",
+    "typecheck": "uv run --with pyright pyright",
+    "sync": "uv sync",
+    "clean": "rm -rf dist build .pytest_cache .ruff_cache .pyright .coverage coverage htmlcov"
+  }
+}
