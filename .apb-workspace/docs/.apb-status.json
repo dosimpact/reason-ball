@@ -1,0 +1,77 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-07-06T15:31:08.777Z",
+  "activeFeatures": [
+    "langgraph-fast-init",
+    "codex-oauth-proxy-init"
+  ],
+  "primaryFeature": "langgraph-fast-init",
+  "features": {
+    "langgraph-fast-init": {
+      "phase": "validate",
+      "status": "validate",
+      "completedPhases": [
+        "plan",
+        "gradate"
+      ],
+      "documents": {
+        "plan": ".apb-workspace/docs/01-plan/langgraph-fast-init.plan.md",
+        "gradate": ".apb-workspace/docs/02-gradate/langgraph-fast-init.gradate.md",
+        "validate": ".apb-workspace/docs/03-validate/langgraph-fast-init.validate.md"
+      },
+      "createdAt": "2026-07-06T15:01:43.708Z",
+      "updatedAt": "2026-07-06T15:28:02.832Z"
+    },
+    "codex-oauth-proxy-init": {
+      "phase": "validate",
+      "status": "validate",
+      "completedPhases": [
+        "plan",
+        "gradate"
+      ],
+      "documents": {
+        "plan": ".apb-workspace/docs/01-plan/codex-oauth-proxy-init.plan.md",
+        "gradate": ".apb-workspace/docs/02-gradate/codex-oauth-proxy-init.gradate.md",
+        "validate": ".apb-workspace/docs/03-validate/codex-oauth-proxy-init.validate.md"
+      },
+      "createdAt": "2026-07-06T15:12:42.897Z",
+      "updatedAt": "2026-07-06T15:31:08.777Z"
+    }
+  },
+  "history": [
+    {
+      "feature": "langgraph-fast-init",
+      "to": "plan",
+      "timestamp": "2026-07-06T15:01:43.708Z"
+    },
+    {
+      "feature": "codex-oauth-proxy-init",
+      "to": "plan",
+      "timestamp": "2026-07-06T15:12:42.897Z"
+    },
+    {
+      "feature": "langgraph-fast-init",
+      "from": "plan",
+      "to": "gradate",
+      "timestamp": "2026-07-06T15:20:36.477Z"
+    },
+    {
+      "feature": "langgraph-fast-init",
+      "from": "gradate",
+      "to": "validate",
+      "timestamp": "2026-07-06T15:28:02.831Z"
+    },
+    {
+      "feature": "codex-oauth-proxy-init",
+      "from": "plan",
+      "to": "gradate",
+      "timestamp": "2026-07-06T15:28:04.390Z"
+    },
+    {
+      "feature": "codex-oauth-proxy-init",
+      "from": "gradate",
+      "to": "validate",
+      "timestamp": "2026-07-06T15:31:08.775Z"
+    }
+  ]
+}
