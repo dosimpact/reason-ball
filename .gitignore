@@ -14,8 +14,10 @@ out/
 
 # Test and coverage outputs
 coverage/
+htmlcov/
 playwright-report/
 test-results/
+.coverage
 
 # TypeScript
 *.tsbuildinfo
@@ -41,6 +43,7 @@ yarn-error.log*
 .env.*
 !.env.example
 !.env.*.example
+.config/
 
 # OS and editor files
 .DS_Store

@@ -46,3 +46,11 @@ Use concise, imperative commit subjects such as `Add game loop` or `Fix score re
 ## Agent-Specific Instructions
 
 Before editing, inspect the repository state and avoid overwriting user-created files. Keep changes scoped to the requested task, and update this guide when project tooling or structure changes.
+
+
+## Response Format (MANDATORY)
+
+ALWAYS include at the end of each response:
+- **Learning Points**: 3-5 key concepts the user should learn
+- **Next Step**: Specific action with command/tool suggestion
+- Use clear terms and avoid forcing responses into fixed project-type categories.
