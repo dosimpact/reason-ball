@@ -52,6 +52,7 @@ import { A2uiFixedSchemaAgUiExample } from "./examples/45-a2ui-fixed-schema-ag-u
 import { A2uiDynamicSchemaAgUiExample } from "./examples/46-a2ui-dynamic-schema-ag-ui/A2uiDynamicSchemaAgUiExample";
 import { A2uiAdvancedAgUiExample } from "./examples/47-a2ui-advanced-ag-ui/A2uiAdvancedAgUiExample";
 import { TodoListMiddlewareExample } from "./examples/48-todo-list-middleware/TodoListMiddlewareExample";
+import { LoopEngineeringHarnessExample } from "./examples/49-loop-engineering-harness-ui/LoopEngineeringHarnessExample";
 import { HumanInTheLoopReactHookExample } from "./examples/06-2-human-in-the-loop-react-hook/HumanInTheLoopReactHookExample";
 import { examples, type ExampleMeta } from "./data/examples";
 
@@ -282,6 +283,9 @@ export default function App() {
         ) : null}
         {activeExample.slug === "47-a2ui-advanced-ag-ui" ? <A2uiAdvancedAgUiExample /> : null}
         {activeExample.slug === "48-todo-list-middleware" ? <TodoListMiddlewareExample /> : null}
+        {activeExample.slug === "49-loop-engineering-harness-ui" ? (
+          <LoopEngineeringHarnessExample />
+        ) : null}
         {activeExample.slug === "06-2-human-in-the-loop-react-hook" ? (
           <HumanInTheLoopReactHookExample />
         ) : null}

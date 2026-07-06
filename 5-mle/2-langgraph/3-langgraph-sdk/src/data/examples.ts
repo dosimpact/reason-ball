@@ -61,6 +61,7 @@ const rows: Array<Omit<ExampleMeta, "planPath">> = [
   { id: 46, title: "A2UI Dynamic Schema AG-UI", slug: "46-a2ui-dynamic-schema-ag-ui", group: "CopilotKit", implemented: true },
   { id: 47, title: "A2UI Advanced AG-UI", slug: "47-a2ui-advanced-ag-ui", group: "CopilotKit", implemented: true },
   { id: 48, title: "Todo List Middleware", slug: "48-todo-list-middleware", group: "Core", implemented: true },
+  { id: 49, title: "Loop Engineering Harness", slug: "49-loop-engineering-harness-ui", group: "Core", implemented: true },
 ];
 
 export const examples: ExampleMeta[] = rows.map((example) => ({

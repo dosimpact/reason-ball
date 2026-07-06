@@ -6,6 +6,11 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "dev:reason-hwang": "turbo run dev --filter='./20-portfolio/1-reason-hwang/**'",
+    "build:reason-hwang": "turbo run build --filter='./20-portfolio/1-reason-hwang/**'",
+    "start:reason-hwang": "turbo run start --filter=reason-hwang-fe-host --filter=@reason-hwang/bff-apps",
+    "infra-up:reason-hwang": "cd 20-portfolio/1-reason-hwang/infra/1-infra-graph-rag && docker-compose up -d",
+    "test:e2e:reason-hwang": "turbo run test:e2e --filter=reason-hwang-fe-host",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",

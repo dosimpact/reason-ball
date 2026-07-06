@@ -1,5 +1,6 @@
 "use client";
 import type { UseChatHelpers } from "@ai-sdk/react";
+import type { ReactNode } from "react";
 import { useState } from "react";
 import type { Vote } from "@/lib/db/schema";
 import type { ChatMessage } from "@/lib/types";
@@ -166,6 +167,45 @@ function renderInvestmentBriefOutput(brief: any) {
         {markdown || "No investment brief available"}
       </Response>
     </div>
+  );
+}
+
+function hasToolError(output: unknown): output is { error: unknown } {
+  return Boolean(output && typeof output === "object" && "error" in output);
+}
+
+function renderToolError(output: { error: unknown }) {
+  return <div className="p-2 text-red-500 text-sm">{String(output.error)}</div>;
+}
+
+function renderReasoningTrace(output: any) {
+  return output?.reasoningTrace ? (
+    <ReasoningTracePanel trace={output.reasoningTrace} />
+  ) : null;
+}
+
+function renderSecToolFrame({
+  part,
+  renderOutput,
+  type,
+}: {
+  part: any;
+  renderOutput: (output: any) => ReactNode;
+  type: `tool-${string}`;
+}) {
+  const { toolCallId, state } = part;
+
+  return (
+    <Tool defaultOpen={true} key={toolCallId}>
+      <ToolHeader state={state} type={type} />
+      <ToolContent>
+        {state === "input-available" && <ToolInput input={part.input} />}
+        {state === "output-available" && renderOutput(part.output)}
+        {state === "output-error" && (
+          <ToolOutput errorText={part.errorText} output={null} />
+        )}
+      </ToolContent>
+    </Tool>
   );
 }
 
@@ -489,181 +529,99 @@ const PurePreviewMessage = ({
             }
 
             if (type === "tool-listCompanyFilings") {
-              const { toolCallId, state } = part;
-
-              return (
-                <Tool defaultOpen={true} key={toolCallId}>
-                  <ToolHeader state={state} type="tool-listCompanyFilings" />
-                  <ToolContent>
-                    {state === "input-available" && (
-                      <ToolInput input={part.input} />
-                    )}
-                    {state === "output-available" && (
-                      <ToolOutput
-                        errorText={undefined}
-                        output={renderListCompanyFilingsOutput(part.output)}
-                      />
-                    )}
-                    {state === "output-error" && (
-                      <ToolOutput errorText={part.errorText} output={null} />
-                    )}
-                  </ToolContent>
-                </Tool>
-              );
+              return renderSecToolFrame({
+                part,
+                type: "tool-listCompanyFilings",
+                renderOutput: (output) => (
+                  <ToolOutput
+                    errorText={undefined}
+                    output={renderListCompanyFilingsOutput(output)}
+                  />
+                ),
+              });
             }
 
             if (type === "tool-openLatestFilingFullText") {
-              const { toolCallId, state } = part;
-              const output = part.output as any;
-
-              return (
-                <Tool defaultOpen={true} key={toolCallId}>
-                  <ToolHeader
-                    state={state}
-                    type="tool-openLatestFilingFullText"
-                  />
-                  <ToolContent>
-                    {state === "input-available" && (
-                      <ToolInput input={part.input} />
-                    )}
-                    {state === "output-available" && (
-                      <div className="space-y-3 p-3">
-                        {output &&
-                        typeof output === "object" &&
-                        "error" in output ? (
-                          <div className="text-red-500 text-sm">
-                            {String(output.error)}
+              return renderSecToolFrame({
+                part,
+                type: "tool-openLatestFilingFullText",
+                renderOutput: (output) => (
+                  <div className="space-y-3 p-3">
+                    {hasToolError(output) ? (
+                      renderToolError(output)
+                    ) : (
+                      <>
+                        <div className="rounded border bg-muted/20 p-2 text-xs">
+                          <div>
+                            <span className="font-medium">Form:</span>{" "}
+                            {output?.filing?.formType}
                           </div>
-                        ) : (
-                          <>
-                            <div className="rounded border bg-muted/20 p-2 text-xs">
-                              <div>
-                                <span className="font-medium">Form:</span>{" "}
-                                {output?.filing?.formType}
-                              </div>
-                              <div>
-                                <span className="font-medium">
-                                  Filing Date:
-                                </span>{" "}
-                                {formatFilingDate(output?.filing?.filingDate)}
-                              </div>
-                              <div>
-                                <span className="font-medium">Accession:</span>{" "}
-                                {output?.filing?.accessionNo}
-                              </div>
-                            </div>
-                            {output?.document?.id && (
-                              <DocumentToolResult
-                                isReadonly={isReadonly}
-                                result={output.document}
-                                type="create"
-                              />
-                            )}
-                            {output?.document?.id && (
-                              <FilingMarkdownViewer
-                                documentId={output.document.id}
-                                toc={output?.reader?.toc ?? []}
-                              />
-                            )}
-                            {output?.reasoningTrace && (
-                              <ReasoningTracePanel
-                                trace={output.reasoningTrace}
-                              />
-                            )}
-                          </>
+                          <div>
+                            <span className="font-medium">Filing Date:</span>{" "}
+                            {formatFilingDate(output?.filing?.filingDate)}
+                          </div>
+                          <div>
+                            <span className="font-medium">Accession:</span>{" "}
+                            {output?.filing?.accessionNo}
+                          </div>
+                        </div>
+                        {output?.document?.id && (
+                          <DocumentToolResult
+                            isReadonly={isReadonly}
+                            result={output.document}
+                            type="create"
+                          />
                         )}
-                      </div>
+                        {output?.document?.id && (
+                          <FilingMarkdownViewer
+                            documentId={output.document.id}
+                            toc={output?.reader?.toc ?? []}
+                          />
+                        )}
+                        {renderReasoningTrace(output)}
+                      </>
                     )}
-                    {state === "output-error" && (
-                      <ToolOutput errorText={part.errorText} output={null} />
-                    )}
-                  </ToolContent>
-                </Tool>
-              );
+                  </div>
+                ),
+              });
             }
 
             if (type === "tool-summarizeSelectedFiling") {
-              const { toolCallId, state } = part;
-              const output = part.output as any;
-
-              return (
-                <Tool defaultOpen={true} key={toolCallId}>
-                  <ToolHeader
-                    state={state}
-                    type="tool-summarizeSelectedFiling"
-                  />
-                  <ToolContent>
-                    {state === "input-available" && (
-                      <ToolInput input={part.input} />
+              return renderSecToolFrame({
+                part,
+                type: "tool-summarizeSelectedFiling",
+                renderOutput: (output) => (
+                  <div className="space-y-2 p-2">
+                    {hasToolError(output) ? (
+                      renderToolError(output)
+                    ) : (
+                      <>
+                        {renderSummaryOutput(output.summary)}
+                        {renderReasoningTrace(output)}
+                      </>
                     )}
-                    {state === "output-available" && (
-                      <div className="space-y-2 p-2">
-                        {output &&
-                        typeof output === "object" &&
-                        "error" in output ? (
-                          <div className="p-2 text-red-500 text-sm">
-                            {String(output.error)}
-                          </div>
-                        ) : (
-                          <>
-                            {renderSummaryOutput(output.summary)}
-                            {output?.reasoningTrace && (
-                              <ReasoningTracePanel
-                                trace={output.reasoningTrace}
-                              />
-                            )}
-                          </>
-                        )}
-                      </div>
-                    )}
-                    {state === "output-error" && (
-                      <ToolOutput errorText={part.errorText} output={null} />
-                    )}
-                  </ToolContent>
-                </Tool>
-              );
+                  </div>
+                ),
+              });
             }
 
             if (type === "tool-buildInvestmentDecisionBrief") {
-              const { toolCallId, state } = part;
-              const output = part.output as any;
-
-              return (
-                <Tool defaultOpen={true} key={toolCallId}>
-                  <ToolHeader
-                    state={state}
-                    type="tool-buildInvestmentDecisionBrief"
-                  />
-                  <ToolContent>
-                    {state === "input-available" && (
-                      <ToolInput input={part.input} />
+              return renderSecToolFrame({
+                part,
+                type: "tool-buildInvestmentDecisionBrief",
+                renderOutput: (output) => (
+                  <div className="space-y-2 p-2">
+                    {hasToolError(output) ? (
+                      renderToolError(output)
+                    ) : (
+                      <>
+                        {renderInvestmentBriefOutput(output.brief)}
+                        {renderReasoningTrace(output)}
+                      </>
                     )}
-                    {state === "output-available" && (
-                      <div className="space-y-2 p-2">
-                        {output &&
-                        typeof output === "object" &&
-                        "error" in output ? (
-                          <div className="p-2 text-red-500 text-sm">
-                            {String(output.error)}
-                          </div>
-                        ) : (
-                          <>
-                            {renderInvestmentBriefOutput(output.brief)}
-                            {output?.reasoningTrace && (
-                              <ReasoningTracePanel
-                                trace={output.reasoningTrace}
-                              />
-                            )}
-                          </>
-                        )}
-                      </div>
-                    )}
-                    {state === "output-error" && (
-                      <ToolOutput errorText={part.errorText} output={null} />
-                    )}
-                  </ToolContent>
-                </Tool>
-              );
+                  </div>
+                ),
+              });
             }
 
             return null;

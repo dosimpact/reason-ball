@@ -75,7 +75,7 @@ import { cn } from "@/lib/utils";
 // ============================================================================
 
 export type AttachmentsContext = {
-  files: (FileUIPart & { id: string })[];
+  files: PromptInputFile[];
   add: (files: File[] | FileList) => void;
   remove: (id: string) => void;
   clear: () => void;
@@ -105,6 +105,26 @@ const PromptInputController = createContext<PromptInputControllerProps | null>(
 const ProviderAttachmentsContext = createContext<AttachmentsContext | null>(
   null
 );
+
+type PromptInputFile = FileUIPart & { id: string };
+
+function createPromptInputFile(file: File): PromptInputFile {
+  return {
+    id: nanoid(),
+    type: "file",
+    url: URL.createObjectURL(file),
+    mediaType: file.type,
+    filename: file.name,
+  };
+}
+
+function revokePromptInputFileUrls(files: PromptInputFile[]) {
+  for (const file of files) {
+    if (file.url) {
+      URL.revokeObjectURL(file.url);
+    }
+  }
+}
 
 export const usePromptInputController = () => {
   const ctx = useContext(PromptInputController);
@@ -150,9 +170,7 @@ export function PromptInputProvider({
   const clearInput = useCallback(() => setTextInput(""), []);
 
   // ----- attachments state (global when wrapped)
-  const [attachmentFiles, setAttachmentFiles] = useState<
-    (FileUIPart & { id: string })[]
-  >([]);
+  const [attachmentFiles, setAttachmentFiles] = useState<PromptInputFile[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const openRef = useRef<() => void>(() => undefined);
 
@@ -163,23 +181,15 @@ export function PromptInputProvider({
     }
 
     setAttachmentFiles((prev) =>
-      prev.concat(
-        incoming.map((file) => ({
-          id: nanoid(),
-          type: "file" as const,
-          url: URL.createObjectURL(file),
-          mediaType: file.type,
-          filename: file.name,
-        }))
-      )
+      prev.concat(incoming.map(createPromptInputFile))
     );
   }, []);
 
   const remove = useCallback((id: string) => {
     setAttachmentFiles((prev) => {
       const found = prev.find((f) => f.id === id);
-      if (found?.url) {
-        URL.revokeObjectURL(found.url);
+      if (found) {
+        revokePromptInputFileUrls([found]);
       }
       return prev.filter((f) => f.id !== id);
     });
@@ -187,11 +197,7 @@ export function PromptInputProvider({
 
   const clear = useCallback(() => {
     setAttachmentFiles((prev) => {
-      for (const f of prev) {
-        if (f.url) {
-          URL.revokeObjectURL(f.url);
-        }
-      }
+      revokePromptInputFileUrls(prev);
       return [];
     });
   }, []);
@@ -203,11 +209,7 @@ export function PromptInputProvider({
   // Cleanup blob URLs on unmount to prevent memory leaks
   useEffect(() => {
     return () => {
-      for (const f of attachmentsRef.current) {
-        if (f.url) {
-          URL.revokeObjectURL(f.url);
-        }
-      }
+      revokePromptInputFileUrls(attachmentsRef.current);
     };
   }, []);
 
@@ -277,7 +279,7 @@ export const usePromptInputAttachments = () => {
 };
 
 export type PromptInputAttachmentProps = HTMLAttributes<HTMLDivElement> & {
-  data: FileUIPart & { id: string };
+  data: PromptInputFile;
   className?: string;
 };
 
@@ -378,7 +380,7 @@ export type PromptInputAttachmentsProps = Omit<
   HTMLAttributes<HTMLDivElement>,
   "children"
 > & {
-  children: (attachment: FileUIPart & { id: string }) => ReactNode;
+  children: (attachment: PromptInputFile) => ReactNode;
 };
 
 export function PromptInputAttachments({
@@ -479,7 +481,7 @@ export const PromptInput = ({
   const formRef = useRef<HTMLFormElement | null>(null);
 
   // ----- Local attachments (only used when no provider)
-  const [items, setItems] = useState<(FileUIPart & { id: string })[]>([]);
+  const [items, setItems] = useState<PromptInputFile[]>([]);
   const files = usingProvider ? controller.attachments.files : items;
 
   // Keep a ref to files for cleanup on unmount (avoids stale closure)
@@ -547,17 +549,7 @@ export const PromptInput = ({
             message: "Too many files. Some were not added.",
           });
         }
-        const next: (FileUIPart & { id: string })[] = [];
-        for (const file of capped) {
-          next.push({
-            id: nanoid(),
-            type: "file",
-            url: URL.createObjectURL(file),
-            mediaType: file.type,
-            filename: file.name,
-          });
-        }
-        return prev.concat(next);
+        return prev.concat(capped.map(createPromptInputFile));
       });
     },
     [matchesAccept, maxFiles, maxFileSize, onError]
@@ -567,8 +559,8 @@ export const PromptInput = ({
     (id: string) =>
       setItems((prev) => {
         const found = prev.find((file) => file.id === id);
-        if (found?.url) {
-          URL.revokeObjectURL(found.url);
+        if (found) {
+          revokePromptInputFileUrls([found]);
         }
         return prev.filter((file) => file.id !== id);
       }),
@@ -578,11 +570,7 @@ export const PromptInput = ({
   const clearLocal = useCallback(
     () =>
       setItems((prev) => {
-        for (const file of prev) {
-          if (file.url) {
-            URL.revokeObjectURL(file.url);
-          }
-        }
+        revokePromptInputFileUrls(prev);
         return [];
       }),
     []
@@ -671,11 +659,7 @@ export const PromptInput = ({
   useEffect(
     () => () => {
       if (!usingProvider) {
-        for (const f of filesRef.current) {
-          if (f.url) {
-            URL.revokeObjectURL(f.url);
-          }
-        }
+        revokePromptInputFileUrls(filesRef.current);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps -- cleanup only on unmount; filesRef always current

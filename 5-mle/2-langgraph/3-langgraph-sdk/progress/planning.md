@@ -59,10 +59,12 @@ Status key:
 | 46 | A2UI Dynamic Schema AG-UI | `plan/46-a2ui-dynamic-schema-ag-ui.md` | complete | main | AG-UI Dojo; whitelisted dynamic schema renderer. |
 | 47 | A2UI Advanced AG-UI | `plan/47-a2ui-advanced-ag-ui.md` | complete | main | AG-UI Dojo; dynamic A2UI with progress and actions. |
 | 48 | Todo List Middleware | `plan/48-todo-list-middleware.md` | complete | main | LangChain middleware; `write_todos` state board and duplicate-call error path. |
+| 49 | Loop Engineering Harness | `plan/49-loop-engineering-harness-ui.md` | complete | main | LangChain loop engineering article; agent, verification, event-driven, and hill-climbing loops. |
 
 ## Coordination Notes
 
 - Reference graph review came from the `1-langgraph-basic` subproject and confirmed the key entrypoints: `b_01_simple`, `b_03_tool_node`, `b_05_interrupt`, `b_06_checkpointer`, `b_07_streaming`, `b_16_command_interrupt`, `b_17_configurable`, `b_18_custom_streaming`, `b_20_history_reducer`, `b_21_long_context`, and `b_25_approval_system`.
 - Examples 35-47 map to the 13 AG-UI Dojo LangGraph feature demos in order, using Python LangGraph backend graphs plus TypeScript React frontend examples.
 - Example 48 adds the LangChain `TodoListMiddleware` learning path, focused on full-list todo state replacement, `write_todos` tool visibility, and middleware duplicate-call handling.
+- Example 49 adds the LangChain loop engineering learning path as a deterministic local harness with visible retry, trace, and improvement loops.
 - Boilerplate can start next: workspace package setup, Python LangGraph project setup, shared SDK client, app shell, and MVP routes.

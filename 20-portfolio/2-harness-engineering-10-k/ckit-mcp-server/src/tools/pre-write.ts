@@ -1,10 +1,10 @@
 // @ts-nocheck
 'use strict';
 
-const path = require('path');
 const { checkDesignExists, checkPlanExists, classifyTask } = require('../lib/pdca/automation');
 const { readPdcaStatus } = require('../lib/pdca/status');
 const { getConfig } = require('../lib/core/config');
+const { extractFeatureName } = require('../lib/core/feature');
 
 /**
  * ckit_pre_write_check - Pre-write PDCA compliance check.
@@ -75,32 +75,6 @@ async function handler(args, context) {
     pdcaRequired: classification.pdcaRequired,
     conventionHints
   };
-}
-
-/**
- * Extract feature name from a file path.
- * Looks at directory names or common path patterns.
- */
-function extractFeatureName(filePath, projectDir) {
-  const relative = path.relative(projectDir, filePath);
-  const parts = relative.split(path.sep);
-
-  // Skip common directories
-  const skip = ['src', 'lib', 'app', 'components', 'pages', 'api', 'utils', 'hooks', 'styles', 'public', 'assets'];
-
-  for (const part of parts) {
-    if (!skip.includes(part) && !part.startsWith('.') && !part.includes('.')) {
-      return part;
-    }
-  }
-
-  // Try extracting from filename
-  const basename = path.basename(filePath, path.extname(filePath));
-  if (basename && !skip.includes(basename)) {
-    return basename;
-  }
-
-  return null;
 }
 
 const definition = {

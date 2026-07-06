@@ -43,6 +43,7 @@ def test_registered_graph_modules_import():
         "graphs.32_chat_graph_execution_canvas",
         "graphs.33_chat_ui_preview",
         "graphs.34_chat_data_analysis_canvas",
+        "graphs.49_loop_engineering_harness",
     ]:
         module = importlib.import_module(module_name)
         assert module.graph is not None

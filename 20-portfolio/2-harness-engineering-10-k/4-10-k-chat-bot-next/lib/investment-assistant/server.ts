@@ -17,6 +17,8 @@ import {
   type FilingListItem,
   type FilingProvenanceState,
   type FilingSelectionState,
+  type InvestmentAssistantRuntimeIssue,
+  type InvestmentAssistantRuntimeIssueSource,
   type InvestmentAssistantState,
   normalizeInvestmentA2UISurface,
 } from "@/lib/investment-assistant/types";
@@ -650,6 +652,42 @@ function formatProvenanceLine(filing: FilingSelectionState) {
   ].join("; ");
 }
 
+function getErrorDetail(error: unknown, fallback: string) {
+  return error instanceof Error ? error.message : fallback;
+}
+
+function recordRuntimeIssue(
+  state: InvestmentAssistantState,
+  {
+    error,
+    fallbackDetail,
+    recovery,
+    severity,
+    source,
+    title,
+  }: {
+    error: unknown;
+    fallbackDetail: string;
+    recovery: string;
+    severity?: InvestmentAssistantRuntimeIssue["severity"];
+    source: InvestmentAssistantRuntimeIssueSource;
+    title: string;
+  }
+) {
+  const detail = getErrorDetail(error, fallbackDetail);
+  appendRuntimeIssue(
+    state,
+    createRuntimeIssue({
+      source,
+      severity,
+      title,
+      detail,
+      recovery,
+    })
+  );
+  return detail;
+}
+
 function pickBestFilingForWorkspace(
   filings: FilingRecord[],
   targetPeriod: "annual" | "quarterly" | "auto"
@@ -875,20 +913,14 @@ export async function runInvestmentAssistantTurn({
           break;
         }
       } catch (error) {
-        const detail =
-          error instanceof Error
-            ? error.message
-            : "filing catalog query failed";
-        appendRuntimeIssue(
-          nextState,
-          createRuntimeIssue({
-            source: "filing-catalog",
-            title: "Filing catalog unavailable",
-            detail,
-            recovery:
-              "Check the workspace PostgreSQL service and collector schema, then retry the request.",
-          })
-        );
+        recordRuntimeIssue(nextState, {
+          error,
+          source: "filing-catalog",
+          title: "Filing catalog unavailable",
+          fallbackDetail: "filing catalog query failed",
+          recovery:
+            "Check the workspace PostgreSQL service and collector schema, then retry the request.",
+        });
         break;
       }
     }
@@ -945,20 +977,14 @@ export async function runInvestmentAssistantTurn({
         accessionNo: selectedFiling.accessionNo,
       });
     } catch (error) {
-      const detail =
-        error instanceof Error
-          ? error.message
-          : "selected filing lookup failed";
-      appendRuntimeIssue(
-        nextState,
-        createRuntimeIssue({
-          source: "filing-catalog",
-          title: "Selected filing lookup unavailable",
-          detail,
-          recovery:
-            "Check the workspace PostgreSQL service before refreshing this filing context.",
-        })
-      );
+      recordRuntimeIssue(nextState, {
+        error,
+        source: "filing-catalog",
+        title: "Selected filing lookup unavailable",
+        fallbackDetail: "selected filing lookup failed",
+        recovery:
+          "Check the workspace PostgreSQL service before refreshing this filing context.",
+      });
     }
 
     if (filing) {
@@ -989,19 +1015,15 @@ export async function runInvestmentAssistantTurn({
           nextState.brief = brief;
         }
       } catch (error) {
-        filingReadError =
-          error instanceof Error ? error.message : "failed to load filing text";
-        appendRuntimeIssue(
-          nextState,
-          createRuntimeIssue({
-            source: "filing-reader",
-            severity: "warning",
-            title: "Filing text unavailable",
-            detail: filingReadError,
-            recovery:
-              "Verify the collector data directory and downloaded filing file path.",
-          })
-        );
+        filingReadError = recordRuntimeIssue(nextState, {
+          error,
+          source: "filing-reader",
+          severity: "warning",
+          title: "Filing text unavailable",
+          fallbackDetail: "failed to load filing text",
+          recovery:
+            "Verify the collector data directory and downloaded filing file path.",
+        });
       }
 
       try {
@@ -1021,19 +1043,15 @@ export async function runInvestmentAssistantTurn({
           evidenceBundle: graphResult.evidenceBundle,
         };
       } catch (error) {
-        graphError =
-          error instanceof Error ? error.message : "graph retrieval failed";
-        appendRuntimeIssue(
-          nextState,
-          createRuntimeIssue({
-            source: "graph-rag",
-            severity: "warning",
-            title: "Graph evidence unavailable",
-            detail: graphError,
-            recovery:
-              "Check the parser Graph RAG service and Neo4j container, then retry for citations.",
-          })
-        );
+        graphError = recordRuntimeIssue(nextState, {
+          error,
+          source: "graph-rag",
+          severity: "warning",
+          title: "Graph evidence unavailable",
+          fallbackDetail: "graph retrieval failed",
+          recovery:
+            "Check the parser Graph RAG service and Neo4j container, then retry for citations.",
+        });
       }
     }
   }

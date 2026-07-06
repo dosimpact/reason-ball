@@ -240,6 +240,15 @@ MVP는 `SDK 기본 연결 -> Chat/Thread -> Streaming -> Graph Timeline -> Tool 
     - LangGraph 패턴: code tool, sandboxing, structured output, retry
     - 완료 기준: 데이터 입력부터 분석 코드 실행, 차트 출력까지 한 화면에서 확인할 수 있다.
 
+### E. 추가 Core 학습 예제
+
+49. **Loop Engineering Harness**
+    - 목표: Agent loop, Verification loop, Event-driven loop, Hill-climbing loop를 하나의 graph + UI 하네스로 보여준다.
+    - 참고: https://www.langchain.com/blog/the-art-of-loop-engineering
+    - UI 연습: trigger 선택, attempt timeline, verifier retry, trace event log, 개선 제안 패널
+    - LangGraph 패턴: streaming updates, custom events, conditional retry loop, trace-driven improvement summary
+    - 완료 기준: 외부 API 키 없이도 최소 1회 retry와 최종 개선 제안을 확인할 수 있다.
+
 ## env
 
 실제 secret 값은 `goal.md`에 저장하지 않는다. 로컬 `.env`에만 넣고, 문서에는 placeholder만 남긴다.

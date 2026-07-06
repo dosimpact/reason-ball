@@ -1,28 +1,28 @@
 ---
 name: apb-pgv
 description: |
-  gkit PGV (Plan -> Gradate -> Validate) cycle driver skill. Uses the gkit
-  MCP tools to run a feature end-to-end through the three phases, with
+  pgv-state-mcp PGV (Plan -> Gradate -> Validate) cycle driver skill. Uses
+  the pgv-state-mcp tools to run a feature end-to-end through the three phases, with
   plan-enrichment sub-commands (plan-gradate, plan-validate, plan-skill-add)
   that recommend and review which apb-* skills to use at each downstream
   phase.
   Phases: Plan -> Gradate -> Validate.
   Triggers: apb-pgv, pgv, plan gradate validate, harness cycle,
-  gkit 사이클, 플랜 그레이데이트 밸리데이트, 하네스 사이클,
-  gkit サイクル, プラン グレーデート バリデート,
-  gkit 循环, 计划 精炼 验证,
+  pgv-state-mcp 사이클, 플랜 그레이데이트 밸리데이트, 하네스 사이클,
+  pgv-state-mcp サイクル, プラン グレーデート バリデート,
+  pgv-state-mcp 循环, 计划 精炼 验证,
   ciclo pgv, cycle pgv, PGV-Zyklus, ciclo pgv
   Do NOT use for: creating new skills (use $apb-skill-create),
   PDCA-style workflows (use legacy $pdca on apb projects),
-  direct state file edits (state must only change via gkit_* MCP tools).
+  direct state file edits (state must only change via pgv_state_* MCP tools).
 ---
 
 # apb-pgv — PGV Cycle Driver
 
-> Runs a feature through Plan → Gradate → Validate using the gkit MCP server.
+> Runs a feature through Plan → Gradate → Validate using the pgv-state-mcp server.
 > All PGV artifacts (plan/gradate/validate docs, state file) live under
 > `.apb-workspace/docs/` at the project root.
-> All state changes happen through `gkit_*` MCP tools; this skill must never
+> All state changes happen through `pgv_state_*` MCP tools; this skill must never
 > edit `.apb-workspace/docs/.apb-status.json` directly.
 
 ## Usage
@@ -66,15 +66,15 @@ Initialize state if needed and create the plan document.
 ### Prerequisites
 
 - `{feature-Name}` is provided (kebab-case recommended).
-- gkit MCP server is configured in `.cognition/config.json`.
+- pgv-state-mcp server is configured in `.cognition/config.json`.
 
 ### Steps
 
-1. Call `gkit_get_status` to check whether `.apb-workspace/docs/.apb-status.json` exists.
-2. If the state file is missing, call `gkit_init` with the current project dir.
-3. Call `gkit_pgv_plan` with `{feature-Name}`.
+1. Call `pgv_state_get_status` to check whether `.apb-workspace/docs/.apb-status.json` exists.
+2. If the state file is missing, call `pgv_state_init` with the current project dir.
+3. Call `pgv_state_pgv_plan` with `{feature-Name}`.
 4. If the feature already exists with `status != null`, do **not** overwrite the plan file; inform the user.
-5. Call `gkit_get_status --feature {feature-Name}` and summarize the result.
+5. Call `pgv_state_get_status --feature {feature-Name}` and summarize the result.
 
 ### Output Path
 
@@ -171,13 +171,13 @@ Produce the gradate document and drive implementation until the self-reported ga
 
 ### Steps
 
-1. Call `gkit_pgv_gradate` with `{feature-Name}` (creates the gradate doc and transitions status).
+1. Call `pgv_state_pgv_gradate` with `{feature-Name}` (creates the gradate doc and transitions status).
 2. Fill the `## Implementation Draft` section (architecture overview, modules, interfaces, dependencies, data flow).
 3. Invoke chosen gradate skills (e.g. `apb-react-directory-policy`) to keep the implementation aligned.
 4. Implement the code following the gradate design.
 5. Self-run a gap check: compare gradate design items vs. actual code and update the `## Gap Analysis (Pre-Validate)` section.
 6. Loop steps 3-5 until the gap is < 1% (i.e. every designed item has a matching implementation), then proceed.
-7. Call `gkit_get_status --feature {feature-Name}` and report the snapshot.
+7. Call `pgv_state_get_status --feature {feature-Name}` and report the snapshot.
 
 ### Output Path
 
@@ -194,17 +194,17 @@ Produce the validate report by running the E2E scenarios authored in plan-valida
 
 ### Prerequisites
 
-- `.apb-workspace/docs/02-gradate/{feature-Name}.gradate.md` exists (otherwise `gkit_pgv_validate` will error; instruct user to run gradate first).
+- `.apb-workspace/docs/02-gradate/{feature-Name}.gradate.md` exists (otherwise `pgv_state_pgv_validate` will error; instruct user to run gradate first).
 - Chosen validate-phase skills are listed in the plan's `## Skills` section.
 
 ### Steps
 
-1. Call `gkit_pgv_validate` with `{feature-Name}` (creates the validate report and transitions status).
+1. Call `pgv_state_pgv_validate` with `{feature-Name}` (creates the validate report and transitions status).
 2. Run each E2E scenario from the plan's `## Validation → E2E 시나리오` using the skills listed in `## Skills → Validate 단계`.
 3. Invoke `apb-gap-analysis` to produce the gap table (Design ↔ Implementation).
 4. Invoke `apb-validation-report` to populate the checklist (PASS/FAIL/SKIP), test results, and Action Items.
-5. If the MCP server is not running or any `gkit_*` tool is not exposed, stop and return an actionable error to the user (do not edit the state file manually).
-6. Call `gkit_get_status --feature {feature-Name}` and summarize: final status, document paths, overall verdict.
+5. If the MCP server is not running or any `pgv_state_*` tool is not exposed, stop and return an actionable error to the user (do not edit the state file manually).
+6. Call `pgv_state_get_status --feature {feature-Name}` and summarize: final status, document paths, overall verdict.
 
 ### Output Path
 

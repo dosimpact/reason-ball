@@ -169,33 +169,8 @@ class RetrievalService:
             )
             rows = self._prepare_evidence_rows(rows, intent=intent, query=query)
 
-        evidence_bundle = [
-            Evidence(
-                citation_label=f"Item {row.get('item_code') or '?'}",
-                node_type=str(row.get("node_type") or "SectionText"),
-                text=str(row.get("text") or ""),
-                item_code=row.get("item_code"),
-                filing_id=row.get("filing_id"),
-                company_name=row.get("company_name"),
-                score=max(0.1, 1 - idx * 0.08),
-                reason=f"{intent} retrieval match",
-            )
-            for idx, row in enumerate(rows)
-            if row.get("text")
-        ]
-
-        selected = resolved_filing
-        if selected is None and evidence_bundle:
-            selected = {
-                "filing_id": evidence_bundle[0].filing_id,
-                "accession_no": None,
-                "company_name": evidence_bundle[0].company_name,
-                "ticker": None,
-                "cik": None,
-                "form_type": None,
-                "filing_date": None,
-            }
-
+        evidence_bundle = self._build_evidence_bundle(rows, intent=intent)
+        selected = self._select_filing_from_evidence(resolved_filing, evidence_bundle)
         return RetrievalResult(
             intent=intent,
             selected_filing=selected,
@@ -276,6 +251,43 @@ class RetrievalService:
 
         return normalized
 
+    def _build_evidence_bundle(
+        self, rows: list[dict[str, Any]], *, intent: str
+    ) -> list[Evidence]:
+        return [
+            Evidence(
+                citation_label=f"Item {row.get('item_code') or '?'}",
+                node_type=str(row.get("node_type") or "SectionText"),
+                text=str(row.get("text") or ""),
+                item_code=row.get("item_code"),
+                filing_id=row.get("filing_id"),
+                company_name=row.get("company_name"),
+                score=max(0.1, 1 - idx * 0.08),
+                reason=f"{intent} retrieval match",
+            )
+            for idx, row in enumerate(rows)
+            if row.get("text")
+        ]
+
+    def _select_filing_from_evidence(
+        self,
+        selected_filing: dict[str, Any] | None,
+        evidence_bundle: list[Evidence],
+    ) -> dict[str, Any] | None:
+        if selected_filing is not None or not evidence_bundle:
+            return selected_filing
+
+        first = evidence_bundle[0]
+        return {
+            "filing_id": first.filing_id,
+            "accession_no": None,
+            "company_name": first.company_name,
+            "ticker": None,
+            "cik": None,
+            "form_type": None,
+            "filing_date": None,
+        }
+
     def _resolve_selected_filing(
         self,
         session: Any,
@@ -329,16 +341,14 @@ class RetrievalService:
             )
 
             if row is None:
-                unresolved = dict(normalized or {})
-                unresolved["unresolved"] = True
-                unresolved["requested_scope"] = {
-                    "filing_id": filing_id,
-                    "accession_no": accession_no,
-                    "company_query": company_query,
-                    "ticker": ticker,
-                    "cik": cik,
-                }
-                return unresolved
+                return self._build_unresolved_filing_scope(
+                    normalized=normalized,
+                    filing_id=filing_id,
+                    accession_no=accession_no,
+                    company_query=company_query,
+                    ticker=ticker,
+                    cik=cik,
+                )
 
             return self._merge_selected_filing_hint(row, normalized)
 
@@ -384,18 +394,37 @@ class RetrievalService:
         )
 
         if row is None:
-            unresolved = dict(normalized or {})
-            unresolved["unresolved"] = True
-            unresolved["requested_scope"] = {
-                "filing_id": filing_id,
-                "accession_no": accession_no,
-                "company_query": company_query,
-                "ticker": ticker,
-                "cik": cik,
-            }
-            return unresolved
+            return self._build_unresolved_filing_scope(
+                normalized=normalized,
+                filing_id=filing_id,
+                accession_no=accession_no,
+                company_query=company_query,
+                ticker=ticker,
+                cik=cik,
+            )
 
         return self._merge_selected_filing_hint(row, normalized)
+
+    def _build_unresolved_filing_scope(
+        self,
+        *,
+        normalized: dict[str, Any] | None,
+        filing_id: str | None,
+        accession_no: str | None,
+        company_query: str | None,
+        ticker: str | None,
+        cik: str | None,
+    ) -> dict[str, Any]:
+        unresolved = dict(normalized or {})
+        unresolved["unresolved"] = True
+        unresolved["requested_scope"] = {
+            "filing_id": filing_id,
+            "accession_no": accession_no,
+            "company_query": company_query,
+            "ticker": ticker,
+            "cik": cik,
+        }
+        return unresolved
 
     def _merge_selected_filing_hint(
         self, row: Any, normalized: dict[str, Any] | None

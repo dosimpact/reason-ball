@@ -3,7 +3,7 @@ name: apb-bruno-api-tests
 phase: validate
 description: |
   Scaffolds and extends a Bruno-style API E2E test suite that mirrors the
-  `ads-assistant-main/e2e/bruno-api-tests` layout: `bruno.json`,
+  `assistant-ai/e2e/bruno-api-tests` layout: `bruno.json`,
   `collection.bru` (shared headers + post-response script), numbered
   folders (`01-*`, `02-*`, ...), environments (`local.bru`, `dev.bru`,
   `staging.bru`), and per-endpoint `.bru` request files with `assert` +
@@ -21,7 +21,7 @@ description: |
 # apb-bruno-api-tests
 
 > Creates API E2E tests in the Bruno collection format used by
-> `ads-assistant-main/e2e/bruno-api-tests`, keyed to the feature's plan
+> `assistant-ai/e2e/bruno-api-tests`, keyed to the feature's plan
 > E2E scenarios.
 
 ## Usage

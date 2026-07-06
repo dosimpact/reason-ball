@@ -7,6 +7,7 @@ import { In, Repository } from 'typeorm';
 import { AppConfigService } from '../common/config/app.config';
 import { Company } from '../common/db/entities/company.entity';
 import { Filing, FilingStatus } from '../common/db/entities/filing.entity';
+import { addWhere } from '../common/db/query-builder';
 import { SecClientService } from './sec-client.service';
 
 // 필터링하는 폼, 
@@ -338,16 +339,11 @@ export class FilingsCollectorService {
       .groupBy('filing.status');
 
     if (cik) {
-      query.where('filing.cik = :cik', { cik });
+      addWhere(query, 'filing.cik = :cik', { cik });
     }
 
     if (sinceDate) {
-      const whereCondition = 'filing.filing_date >= :sinceDate';
-      if (cik) {
-        query.andWhere(whereCondition, { sinceDate });
-      } else {
-        query.where(whereCondition, { sinceDate });
-      }
+      addWhere(query, 'filing.filing_date >= :sinceDate', { sinceDate });
     }
 
     const rows = await query.getRawMany<{ status: FilingStatus; count: string }>();
@@ -403,34 +399,19 @@ export class FilingsCollectorService {
       .limit(limit);
 
     if (cik) {
-      query.where('filing.cik = :cik', { cik });
+      addWhere(query, 'filing.cik = :cik', { cik });
     }
 
     if (options.status) {
-      const whereCondition = 'filing.status = :status';
-      if (cik) {
-        query.andWhere(whereCondition, { status: options.status });
-      } else {
-        query.where(whereCondition, { status: options.status });
-      }
+      addWhere(query, 'filing.status = :status', { status: options.status });
     }
 
     if (sinceDate) {
-      const whereCondition = 'filing.filing_date >= :sinceDate';
-      if (cik || options.status || parserStatus !== undefined) {
-        query.andWhere(whereCondition, { sinceDate });
-      } else {
-        query.where(whereCondition, { sinceDate });
-      }
+      addWhere(query, 'filing.filing_date >= :sinceDate', { sinceDate });
     }
 
     if (parserStatus !== undefined) {
-      const whereCondition = 'filing.parser_status = :parserStatus';
-      if (cik || options.status || sinceDate) {
-        query.andWhere(whereCondition, { parserStatus });
-      } else {
-        query.where(whereCondition, { parserStatus });
-      }
+      addWhere(query, 'filing.parser_status = :parserStatus', { parserStatus });
     }
 
     return query.getMany();
@@ -721,7 +702,7 @@ export class FilingsCollectorService {
         .orderBy('company.cik', 'ASC');
 
       if (ciks?.length) {
-        query.where('company.cik IN (:...ciks)', { ciks });
+        addWhere(query, 'company.cik IN (:...ciks)', { ciks });
       }
 
       if (tickers?.length) {

@@ -26,7 +26,7 @@ export function createRemotesMiddleware() {
         return;
       }
 
-      await proxyDevRemote(remote.devServer, request, response);
+      await proxyDevRemote(remote.name, remote.devServer, request, response);
     } catch (error) {
       next(error);
     }
@@ -106,6 +106,7 @@ function isDirectory(path: string) {
 }
 
 async function proxyDevRemote(
+  remoteName: string,
   devServer: string,
   request: Request,
   response: Response,
@@ -120,9 +121,11 @@ async function proxyDevRemote(
     duplex: 'half',
   } as RequestInit & { duplex?: 'half' });
 
+  const shouldRewrite = shouldRewriteDevAsset(proxyResponse);
+
   response.status(proxyResponse.status);
   proxyResponse.headers.forEach((value, key) => {
-    if (!shouldSkipResponseHeader(key)) {
+    if (!shouldSkipResponseHeader(key, shouldRewrite)) {
       response.setHeader(key, value);
     }
   });
@@ -132,9 +135,52 @@ async function proxyDevRemote(
     return;
   }
 
+  if (shouldRewrite) {
+    const source = await proxyResponse.text();
+    response.setHeader('Content-Type', getProxyContentType(proxyResponse));
+    response.setHeader('Cache-Control', 'no-store');
+    response.send(rewriteViteDevAsset(remoteName, source));
+    return;
+  }
+
   Readable.fromWeb(proxyResponse.body as Parameters<typeof Readable.fromWeb>[0]).pipe(
     response,
   );
+}
+
+function shouldRewriteDevAsset(response: globalThis.Response) {
+  const contentType = response.headers.get('content-type') ?? '';
+
+  return (
+    response.ok &&
+    (contentType.includes('text/javascript') ||
+      contentType.includes('application/javascript'))
+  );
+}
+
+function getProxyContentType(response: globalThis.Response) {
+  return response.headers.get('content-type') ?? 'text/javascript; charset=utf-8';
+}
+
+function rewriteViteDevAsset(remoteName: string, source: string) {
+  const publicProxyPrefix = (
+    process.env.REMOTES_PUBLIC_PROXY_PREFIX ?? '/proxy/remotes'
+  ).replace(/\/+$/, '');
+  const remotePrefix = `${publicProxyPrefix}/${remoteName}`;
+
+  return source
+    .replaceAll('"/@vite/', `"${remotePrefix}/@vite/`)
+    .replaceAll("'\/@vite/", `'${remotePrefix}/@vite/`)
+    .replaceAll('"/@id/', `"${remotePrefix}/@id/`)
+    .replaceAll("'\/@id/", `'${remotePrefix}/@id/`)
+    .replaceAll('"/@fs/', `"${remotePrefix}/@fs/`)
+    .replaceAll("'\/@fs/", `'${remotePrefix}/@fs/`)
+    .replaceAll('"/@react-refresh', `"${remotePrefix}/@react-refresh`)
+    .replaceAll("'\/@react-refresh", `'${remotePrefix}/@react-refresh`)
+    .replaceAll('"/src/', `"${remotePrefix}/src/`)
+    .replaceAll("'\/src/", `'${remotePrefix}/src/`)
+    .replaceAll('"/node_modules/.vite/', `"${remotePrefix}/node_modules/.vite/`)
+    .replaceAll("'\/node_modules/.vite/", `'${remotePrefix}/node_modules/.vite/`);
 }
 
 function hasRequestBody(method: string) {
@@ -163,14 +209,22 @@ function getProxyRequestHeaders(request: Request) {
 }
 
 function shouldSkipRequestHeader(header: string) {
-  return ['connection', 'content-length', 'host'].includes(
+  return ['connection', 'content-length', 'host', 'if-none-match', 'if-modified-since'].includes(
     header.toLowerCase(),
   );
 }
 
-function shouldSkipResponseHeader(header: string) {
-  return ['connection', 'content-length', 'transfer-encoding'].includes(
-    header.toLowerCase(),
+function shouldSkipResponseHeader(header: string, rewritten = false) {
+  const normalizedHeader = header.toLowerCase();
+
+  return (
+    ['connection', 'content-length', 'transfer-encoding'].includes(
+      normalizedHeader,
+    ) ||
+    (rewritten &&
+      ['cache-control', 'content-encoding', 'etag', 'last-modified'].includes(
+        normalizedHeader,
+      ))
   );
 }
 

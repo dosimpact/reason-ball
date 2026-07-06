@@ -1,0 +1,10 @@
+{"question":"챗봇 응답이 느려질 때 어떤 운영 지표를 확인해야 하나요?","reference":"p95 latency timeout cache hit rate queue depth","expected_sources":["operations_runbook.md"]}
+{"question":"비용을 줄이려면 RAG 파이프라인에서 무엇을 조정하나요?","reference":"token budget cache compression top_k","expected_sources":["operations_runbook.md","retrieval_quality.md"]}
+{"question":"문서를 어떻게 쪼개야 검색 품질이 좋아지나요?","reference":"chunk boundaries overlap headings stable source metadata","expected_sources":["chunking_guide.md"]}
+{"question":"검색 결과가 부족하면 어떻게 답해야 하나요?","reference":"retrieval validation insufficient evidence refuse grounded answer","expected_sources":["retrieval_quality.md","safety_notes.md"]}
+{"question":"여러 관점 질문은 어떤 retrieval 전략이 유리한가요?","reference":"multi-query recall query variants coverage","expected_sources":["retrieval_quality.md"]}
+{"question":"reranking은 언제 도움이 되나요?","reference":"reranking precision reorder noisy candidates","expected_sources":["retrieval_quality.md"]}
+{"question":"개인정보가 문서에 있을 때 어떤 방어가 필요한가요?","reference":"PII masking safety source validation","expected_sources":["safety_notes.md"]}
+{"question":"query rewrite와 multi-query의 차이는 무엇인가요?","reference":"rewrite canonical query multi-query several variants recall","expected_sources":["retrieval_quality.md"]}
+{"question":"평가 질문에는 무엇을 기록해야 하나요?","reference":"expected source hit rate reference answer","expected_sources":["evaluation_playbook.md"]}
+{"question":"hybrid search는 무엇을 섞나요?","reference":"keyword lexical vector-like semantic scoring","expected_sources":["retrieval_quality.md"]}

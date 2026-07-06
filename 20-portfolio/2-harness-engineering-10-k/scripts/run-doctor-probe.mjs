@@ -1,16 +1,9 @@
 import { spawn } from "node:child_process";
-import {
-  copyFileSync,
-  existsSync,
-  mkdtempSync,
-  rmSync,
-  unlinkSync,
-} from "node:fs";
-import { tmpdir } from "node:os";
 import { join } from "node:path";
 import process from "node:process";
 import { setTimeout as sleep } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
+import { createNextEnvSnapshot } from "./next-env-snapshot.mjs";
 
 const workspaceRoot = fileURLToPath(new URL("..", import.meta.url));
 const collectorRoot = fileURLToPath(
@@ -28,8 +21,7 @@ const parserStartCommand =
   'UV_BIN=$(sh ../scripts/ensure-uv.sh) && "$UV_BIN" sync --project . && exec "$UV_BIN" run --project . python -m parser.server --host "${APP_HOST:-0.0.0.0}" --port "${APP_PORT:-3406}"';
 const servicePorts = [3003, 3305, 3406];
 const services = [];
-let nextEnvSnapshotDir = null;
-let hadNextEnv = false;
+const nextEnvSnapshot = createNextEnvSnapshot(nextEnvFile, "10k-doctor-next-env-");
 
 const sharedEnv = {
   POSTGRES_URL:
@@ -48,36 +40,6 @@ const sharedEnv = {
     join(workspaceRoot, "2-10-k-collector"),
   NEXT_TELEMETRY_DISABLED: process.env.NEXT_TELEMETRY_DISABLED || "1",
 };
-
-function snapshotNextEnv() {
-  if (nextEnvSnapshotDir !== null) {
-    return;
-  }
-
-  nextEnvSnapshotDir = mkdtempSync(join(tmpdir(), "10k-doctor-next-env-"));
-  hadNextEnv = existsSync(nextEnvFile);
-
-  if (hadNextEnv) {
-    copyFileSync(nextEnvFile, join(nextEnvSnapshotDir, "next-env.d.ts"));
-  }
-}
-
-function restoreNextEnv() {
-  if (nextEnvSnapshotDir === null) {
-    return;
-  }
-
-  const snapshotFile = join(nextEnvSnapshotDir, "next-env.d.ts");
-  if (hadNextEnv && existsSync(snapshotFile)) {
-    copyFileSync(snapshotFile, nextEnvFile);
-  } else if (!hadNextEnv && existsSync(nextEnvFile)) {
-    unlinkSync(nextEnvFile);
-  }
-
-  rmSync(nextEnvSnapshotDir, { recursive: true, force: true });
-  nextEnvSnapshotDir = null;
-  hadNextEnv = false;
-}
 
 function run(command, args, options = {}) {
   const { env, ...spawnOptions } = options;
@@ -175,7 +137,7 @@ async function cleanup() {
     await killListeningPort(port);
   }
 
-  restoreNextEnv();
+  nextEnvSnapshot.restore();
 
   await run("pnpm", ["run", "infra:down"]).catch(() => {});
 }
@@ -201,7 +163,7 @@ async function main() {
       await killListeningPort(port);
     }
 
-    snapshotNextEnv();
+    nextEnvSnapshot.snapshot();
 
     spawnService("collector", "./node_modules/.bin/tsx", ["src/main.ts"], {
       cwd: collectorRoot,

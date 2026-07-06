@@ -55,8 +55,29 @@ function relPath(path) {
   return join(root, path);
 }
 
+function findUp(filename) {
+  let current = root;
+
+  while (true) {
+    const candidate = join(current, filename);
+    if (existsSync(candidate)) {
+      return candidate;
+    }
+
+    const parent = dirname(current);
+    if (parent === current) {
+      return null;
+    }
+    current = parent;
+  }
+}
+
 function readText(path) {
   return readFileSync(relPath(path), "utf8");
+}
+
+function readTextAbsolute(path) {
+  return readFileSync(path, "utf8");
 }
 
 function readJson(path) {
@@ -122,6 +143,22 @@ function expectFile(target, path, recovery) {
 
   fail(target, `missing ${path}; ${recovery}`);
   return false;
+}
+
+function expectWorkspaceFile(target, filename, recovery) {
+  if (existsSync(relPath(filename))) {
+    pass(target, `found ${filename}`);
+    return relPath(filename);
+  }
+
+  const nearest = findUp(filename);
+  if (nearest) {
+    pass(target, `found inherited ${filename} at ${nearest}`);
+    return nearest;
+  }
+
+  fail(target, `missing ${filename}; ${recovery}`);
+  return null;
 }
 
 function expectNoFile(target, path, recovery) {
@@ -264,44 +301,53 @@ function expectEnvValue(target, env, key, expected) {
   }
 }
 
-function expectText(target, path, label, patterns, severity = "fail") {
+function getPatternLabel(pattern) {
+  return typeof pattern === "string" ? pattern : pattern.source;
+}
+
+function textIncludesPattern(text, pattern) {
+  return typeof pattern === "string" ? text.includes(pattern) : pattern.test(text);
+}
+
+function expectTextPatterns(target, path, label, patterns, onMatch, onMiss) {
   if (!expectFile(target, path, `restore ${path} before text checks`)) {
     return;
   }
 
   const text = readText(path);
   for (const pattern of patterns) {
-    const found =
-      typeof pattern === "string" ? text.includes(pattern) : pattern.test(text);
-    const patternLabel = typeof pattern === "string" ? pattern : pattern.source;
-
-    if (found) {
-      pass(target, `${label} includes ${patternLabel}`);
-    } else if (severity === "warn") {
-      warn(target, `${label} does not include ${patternLabel}`);
+    const patternLabel = getPatternLabel(pattern);
+    if (textIncludesPattern(text, pattern)) {
+      onMatch(patternLabel);
     } else {
-      fail(target, `${label} does not include ${patternLabel}`);
+      onMiss(patternLabel);
     }
   }
 }
 
+function expectText(target, path, label, patterns, severity = "fail") {
+  expectTextPatterns(
+    target,
+    path,
+    label,
+    patterns,
+    (patternLabel) => pass(target, `${label} includes ${patternLabel}`),
+    (patternLabel) => {
+      const report = severity === "warn" ? warn : fail;
+      report(target, `${label} does not include ${patternLabel}`);
+    },
+  );
+}
+
 function expectNoText(target, path, label, patterns) {
-  if (!expectFile(target, path, `restore ${path} before text checks`)) {
-    return;
-  }
-
-  const text = readText(path);
-  for (const pattern of patterns) {
-    const found =
-      typeof pattern === "string" ? text.includes(pattern) : pattern.test(text);
-    const patternLabel = typeof pattern === "string" ? pattern : pattern.source;
-
-    if (found) {
-      fail(target, `${label} still includes stale value ${patternLabel}`);
-    } else {
-      pass(target, `${label} does not include stale value ${patternLabel}`);
-    }
-  }
+  expectTextPatterns(
+    target,
+    path,
+    label,
+    patterns,
+    (patternLabel) => fail(target, `${label} still includes stale value ${patternLabel}`),
+    (patternLabel) => pass(target, `${label} does not include stale value ${patternLabel}`),
+  );
 }
 
 function expectNextEnvRouteTypes(target) {
@@ -356,13 +402,21 @@ function expectNextEnvRouteTypes(target) {
 }
 
 function expectWorkspacePackages(target) {
-  if (!expectFile(target, "pnpm-workspace.yaml", "restore workspace manifest")) {
+  const manifestPath = expectWorkspaceFile(
+    target,
+    "pnpm-workspace.yaml",
+    "restore workspace manifest",
+  );
+  if (!manifestPath) {
     return;
   }
 
-  const text = readText("pnpm-workspace.yaml");
+  const text = readTextAbsolute(manifestPath);
   for (const workspacePackage of targetIds.slice(1)) {
-    if (text.includes(`"${workspacePackage}"`)) {
+    if (
+      text.includes(`"${workspacePackage}"`) ||
+      text.includes('"20-portfolio/**"')
+    ) {
       pass(target, `workspace includes ${workspacePackage}`);
     } else {
       fail(target, `workspace is missing ${workspacePackage}`);
@@ -915,11 +969,18 @@ function checkHarness() {
   ]);
   expectWorkspacePackages(target);
   expectFile(target, "turbo.json", "restore turbo task graph");
-  expectFile(target, "pnpm-lock.yaml", "run pnpm install to recreate lockfile");
+  expectWorkspaceFile(target, "pnpm-lock.yaml", "run pnpm install to recreate lockfile");
+  expectFile(target, "scripts/next-env-snapshot.mjs", "restore shared Next env snapshot helper");
+  expectText(target, "scripts/next-env-snapshot.mjs", "shared Next env snapshot helper", [
+    "createNextEnvSnapshot",
+    "snapshot()",
+    "restore()",
+  ]);
   expectFile(target, "scripts/test-e2e.mjs", "restore e2e orchestrator");
   expectText(target, "scripts/test-e2e.mjs", "e2e runner generated file hygiene", [
-    "snapshotNextEnv",
-    "restoreNextEnv",
+    "createNextEnvSnapshot",
+    "nextEnvSnapshot.snapshot",
+    "nextEnvSnapshot.restore",
     "10k-e2e-next-env-",
   ]);
   expectText(target, "scripts/test-e2e.mjs", "e2e runner Playwright orchestration", [
@@ -934,8 +995,9 @@ function checkHarness() {
   );
   expectText(target, "scripts/run-doctor-probe.mjs", "doctor probe lifecycle runner", [
     "doctor:probe",
-    "snapshotNextEnv",
-    "restoreNextEnv",
+    "createNextEnvSnapshot",
+    "nextEnvSnapshot.snapshot",
+    "nextEnvSnapshot.restore",
     "waitForHttp",
     "cleanup",
     "infra:down",

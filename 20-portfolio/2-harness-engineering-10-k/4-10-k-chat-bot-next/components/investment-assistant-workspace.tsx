@@ -296,7 +296,6 @@ function InvestmentAssistantPanels({ threadId }: { threadId: string }) {
   const router = useRouter();
   const { agent } = useAgent({
     agentId: AGENT_ID,
-    threadId,
   });
   const agentState = (agent?.state ?? {}) as Partial<InvestmentAssistantState>;
   const [isInfoOpen, setIsInfoOpen] = useState(false);

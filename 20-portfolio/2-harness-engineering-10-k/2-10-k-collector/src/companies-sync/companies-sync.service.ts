@@ -2,6 +2,7 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Company } from '../common/db/entities/company.entity';
+import { addWhere } from '../common/db/query-builder';
 import { SecClientService } from '../common/sec/sec-client.service';
 
 type CompanyTickerRecord = {
@@ -81,25 +82,18 @@ export class CompaniesSyncService {
       .limit(limit);
 
     if (cik) {
-      query.where('company.cik = :cik', { cik });
+      addWhere(query, 'company.cik = :cik', { cik });
     }
 
     if (ticker) {
-      if (cik) {
-        query.andWhere('company.ticker = :ticker', { ticker });
-      } else {
-        query.where('company.ticker = :ticker', { ticker });
-      }
+      addWhere(query, 'company.ticker = :ticker', { ticker });
     }
 
     if (q) {
       const keyword = `%${q}%`;
-      const whereClause = '(company.name ILIKE :keyword OR company.ticker ILIKE :keyword)';
-      if (cik || ticker) {
-        query.andWhere(whereClause, { keyword });
-      } else {
-        query.where(whereClause, { keyword });
-      }
+      addWhere(query, '(company.name ILIKE :keyword OR company.ticker ILIKE :keyword)', {
+        keyword,
+      });
     }
 
     return query.getMany();

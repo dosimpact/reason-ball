@@ -1,9 +1,9 @@
 // @ts-nocheck
 'use strict';
 
-const path = require('path');
 const { checkDesignExists, classifyTask } = require('../lib/pdca/automation');
 const { readPdcaStatus } = require('../lib/pdca/status');
+const { extractFeatureName } = require('../lib/core/feature');
 
 /**
  * ckit_post_write - Post-write guidance.
@@ -80,24 +80,6 @@ async function handler(args, context) {
     guidance,
     nextSteps
   };
-}
-
-function extractFeatureName(filePath, projectDir) {
-  const relative = path.relative(projectDir, filePath);
-  const parts = relative.split(path.sep);
-  const skip = ['src', 'lib', 'app', 'components', 'pages', 'api', 'utils', 'hooks', 'styles', 'public', 'assets'];
-
-  for (const part of parts) {
-    if (!skip.includes(part) && !part.startsWith('.') && !part.includes('.')) {
-      return part;
-    }
-  }
-
-  const basename = path.basename(filePath, path.extname(filePath));
-  if (basename && !skip.includes(basename)) {
-    return basename;
-  }
-  return null;
 }
 
 const definition = {

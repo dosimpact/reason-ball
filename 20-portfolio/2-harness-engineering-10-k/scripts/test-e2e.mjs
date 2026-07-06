@@ -1,16 +1,8 @@
 import { spawn } from "node:child_process";
-import {
-  copyFileSync,
-  existsSync,
-  mkdtempSync,
-  rmSync,
-  unlinkSync,
-} from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { createNextEnvSnapshot } from "./next-env-snapshot.mjs";
 
 const workspaceRoot = fileURLToPath(new URL("..", import.meta.url));
 const collectorRoot = fileURLToPath(
@@ -26,38 +18,7 @@ const nextEnvFile = fileURLToPath(
 const parserDevCommand =
   'UV_BIN=$(sh ../scripts/ensure-uv.sh) && "$UV_BIN" sync --project . && exec "$UV_BIN" run --project . python -m parser.server --host "${APP_HOST:-0.0.0.0}" --port "${APP_PORT:-3406}" --reload';
 const services = [];
-let nextEnvSnapshotDir = null;
-let hadNextEnv = false;
-
-function snapshotNextEnv() {
-  if (nextEnvSnapshotDir !== null) {
-    return;
-  }
-
-  nextEnvSnapshotDir = mkdtempSync(join(tmpdir(), "10k-e2e-next-env-"));
-  hadNextEnv = existsSync(nextEnvFile);
-
-  if (hadNextEnv) {
-    copyFileSync(nextEnvFile, join(nextEnvSnapshotDir, "next-env.d.ts"));
-  }
-}
-
-function restoreNextEnv() {
-  if (nextEnvSnapshotDir === null) {
-    return;
-  }
-
-  const snapshotFile = join(nextEnvSnapshotDir, "next-env.d.ts");
-  if (hadNextEnv && existsSync(snapshotFile)) {
-    copyFileSync(snapshotFile, nextEnvFile);
-  } else if (!hadNextEnv && existsSync(nextEnvFile)) {
-    unlinkSync(nextEnvFile);
-  }
-
-  rmSync(nextEnvSnapshotDir, { recursive: true, force: true });
-  nextEnvSnapshotDir = null;
-  hadNextEnv = false;
-}
+const nextEnvSnapshot = createNextEnvSnapshot(nextEnvFile, "10k-e2e-next-env-");
 
 function run(cmd, args, options = {}) {
   return new Promise((resolve, reject) => {
@@ -238,7 +199,7 @@ async function cleanup() {
     "pkill -f 'Chromium|chrome.*remote-debugging-pipe|playwright|playwright-core|headless_shell' >/dev/null 2>&1 || true",
   ]).catch(() => {});
 
-  restoreNextEnv();
+  nextEnvSnapshot.restore();
 
   await run("pnpm", ["run", "infra:down"]).catch(() => {});
 }
@@ -284,7 +245,7 @@ async function main() {
     await killListeningPort(3003);
     await killListeningPort(3305);
     await killListeningPort(3406);
-    snapshotNextEnv();
+    nextEnvSnapshot.snapshot();
 
     spawnService("collector", "./node_modules/.bin/tsx", ["src/main.ts"], sharedEnv, {
       cwd: collectorRoot,

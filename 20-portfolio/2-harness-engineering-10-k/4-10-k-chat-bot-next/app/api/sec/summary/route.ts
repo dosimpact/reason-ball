@@ -5,8 +5,6 @@
  * style-specific summary plus reasoning trace.
  */
 import { z } from "zod";
-import { auth } from "@/app/(auth)/auth";
-import { ChatSDKError } from "@/lib/errors";
 import { getRequestIdFromHeaders, withRequestIdHeader } from "@/lib/request-id";
 import {
   createFilingNotFoundResponse,
@@ -14,6 +12,10 @@ import {
 } from "@/lib/sec/api-response";
 import { loadFilingDocument } from "@/lib/sec/filing-loader";
 import { getFilingByIdentity } from "@/lib/sec/repository";
+import {
+  parseSecJsonBody,
+  requireSecApiUser,
+} from "@/lib/sec/route-helpers";
 import { summarizeFilingByStyle } from "@/lib/sec/summarizer";
 
 const bodySchema = z.object({
@@ -27,24 +29,14 @@ const bodySchema = z.object({
 
 export async function POST(request: Request) {
   const requestId = getRequestIdFromHeaders(request.headers);
-  const session = await auth();
-
-  if (!session?.user) {
-    return withRequestIdHeader(
-      new ChatSDKError("unauthorized:chat").toResponse(),
-      requestId
-    );
+  const authError = await requireSecApiUser(requestId);
+  if (authError) {
+    return authError;
   }
 
-  let body: z.infer<typeof bodySchema>;
-
-  try {
-    body = bodySchema.parse(await request.json());
-  } catch {
-    return toSecApiErrorResponse(
-      new ChatSDKError("bad_request:api", "Invalid request body"),
-      requestId
-    );
+  const body = await parseSecJsonBody(request, bodySchema, requestId);
+  if (body instanceof Response) {
+    return body;
   }
 
   try {
