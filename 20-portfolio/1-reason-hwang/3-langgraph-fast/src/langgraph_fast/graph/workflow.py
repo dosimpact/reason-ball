@@ -1,3 +1,5 @@
+from typing import cast
+
 from langgraph.graph import END, START, StateGraph
 
 from langgraph_fast.graph.main.node.llm import call_llm
@@ -19,4 +21,4 @@ async def run_graph(message: str, provider_name: str = "openai") -> GraphState:
         "provider": provider_name,
         "response": "",
     }
-    return await app.ainvoke(initial_state)
+    return cast(GraphState, await app.ainvoke(initial_state))
