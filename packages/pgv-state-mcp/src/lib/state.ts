@@ -104,6 +104,42 @@ async function setFeatureDocument(projectDir, feature, phase, docPath) {
   return writeStatus(projectDir, status);
 }
 
+async function archiveFeature(projectDir, feature, archivedDocuments) {
+  const status = await readStatus(projectDir);
+  const existing = status.features[feature] || null;
+  const now = new Date().toISOString();
+
+  if (!existing) {
+    status.features[feature] = {
+      phase: 'archived',
+      status: 'archived',
+      completedPhases: PHASES.slice(),
+      documents: archivedDocuments,
+      createdAt: now,
+      updatedAt: now,
+      archivedAt: now
+    };
+  } else {
+    const previousPhase = existing.phase || null;
+    existing.phase = 'archived';
+    existing.status = 'archived';
+    existing.completedPhases = Array.from(new Set([...(existing.completedPhases || []), ...PHASES]));
+    existing.documents = { ...(existing.documents || {}), ...archivedDocuments };
+    existing.updatedAt = now;
+    existing.archivedAt = now;
+    if (previousPhase !== 'archived') {
+      status.history.push({ feature, from: previousPhase, to: 'archived', timestamp: now });
+    }
+  }
+
+  status.activeFeatures = (status.activeFeatures || []).filter((activeFeature) => activeFeature !== feature);
+  if (status.primaryFeature === feature) {
+    status.primaryFeature = status.activeFeatures[0] || null;
+  }
+
+  return writeStatus(projectDir, status);
+}
+
 function getPhaseProgress(featureStatus) {
   return PHASES.map((phase) => {
     if (!featureStatus) return { phase, status: 'pending' };
@@ -120,16 +156,22 @@ function relativeDocPath(phase, feature) {
   return `${DOCS_DIR}/${dir}/${feature}.${phase}.md`;
 }
 
+function relativeArchiveDocPath(feature, fileName) {
+  return `${DOCS_DIR}/99-archive/${feature}/${fileName}`;
+}
+
 module.exports = {
   DOCS_DIR,
   STATUS_FILE,
   PHASES,
+  archiveFeature,
   ensureFeature,
   getDocsDir,
   getPhaseProgress,
   getStatusPath,
   initializeWorkspace,
   readStatus,
+  relativeArchiveDocPath,
   relativeDocPath,
   setFeatureDocument,
   writeStatus

@@ -30,5 +30,6 @@ required = true
 | `pgv_state_pgv_plan` | Create `01-plan/{feature}.plan.md` and enter plan phase. |
 | `pgv_state_pgv_gradate` | Create `02-gradate/{feature}.gradate.md` and enter gradate phase. |
 | `pgv_state_pgv_validate` | Create `03-validate/{feature}.validate.md` and enter validate phase. |
+| `pgv_state_pgv_archive` | Move phase documents into `99-archive/{feature}/` and mark the feature archived. |
 
 State is stored in `.apb-workspace/docs/.apb-status.json`.

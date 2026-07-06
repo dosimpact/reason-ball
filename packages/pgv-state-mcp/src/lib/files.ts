@@ -36,9 +36,15 @@ async function writeTextFile(filePath, text, options = {}) {
   return true;
 }
 
+async function moveFile(sourcePath, targetPath) {
+  await ensureDir(path.dirname(targetPath));
+  await fsPromises.rename(sourcePath, targetPath);
+}
+
 module.exports = {
   ensureDir,
   fileExists,
+  moveFile,
   readJsonFile,
   writeJsonFile,
   writeTextFile

@@ -6,7 +6,8 @@ const tools = {
   pgv_state_get_status: require('./get-status'),
   pgv_state_pgv_plan: require('./pgv-plan'),
   pgv_state_pgv_gradate: require('./pgv-gradate'),
-  pgv_state_pgv_validate: require('./pgv-validate')
+  pgv_state_pgv_validate: require('./pgv-validate'),
+  pgv_state_pgv_archive: require('./pgv-archive')
 };
 
 function getToolDefinitions() {

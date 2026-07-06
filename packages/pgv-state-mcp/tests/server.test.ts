@@ -36,7 +36,8 @@ describe('pgv-state-mcp server', () => {
       'pgv_state_get_status',
       'pgv_state_pgv_plan',
       'pgv_state_pgv_gradate',
-      'pgv_state_pgv_validate'
+      'pgv_state_pgv_validate',
+      'pgv_state_pgv_archive'
     ]);
   });
 

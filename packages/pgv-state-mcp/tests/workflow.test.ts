@@ -48,6 +48,39 @@ describe('PGV workflow tools', () => {
     await fs.access(path.join(projectDir, '.apb-workspace/docs/01-plan/sample-feature.plan.md'));
     await fs.access(path.join(projectDir, '.apb-workspace/docs/02-gradate/sample-feature.gradate.md'));
     await fs.access(path.join(projectDir, '.apb-workspace/docs/03-validate/sample-feature.validate.md'));
+
+    const archive = await callTool(server, 'pgv_state_pgv_archive', { feature: 'sample-feature' });
+    assert.strictEqual(archive.phase, 'archived');
+    assert.strictEqual(archive.archived, true);
+    assert.deepStrictEqual(archive.moved.map((entry) => entry.phase), ['plan', 'gradate', 'validate']);
+    assert.strictEqual(archive.documents.plan, '.apb-workspace/docs/99-archive/sample-feature/sample-feature.plan.md');
+    assert.strictEqual(archive.documents.gradate, '.apb-workspace/docs/99-archive/sample-feature/sample-feature.gradate.md');
+    assert.strictEqual(archive.documents.validate, '.apb-workspace/docs/99-archive/sample-feature/sample-feature.validate.md');
+
+    await assert.rejects(
+      fs.access(path.join(projectDir, '.apb-workspace/docs/01-plan/sample-feature.plan.md')),
+      { code: 'ENOENT' }
+    );
+    await assert.rejects(
+      fs.access(path.join(projectDir, '.apb-workspace/docs/02-gradate/sample-feature.gradate.md')),
+      { code: 'ENOENT' }
+    );
+    await assert.rejects(
+      fs.access(path.join(projectDir, '.apb-workspace/docs/03-validate/sample-feature.validate.md')),
+      { code: 'ENOENT' }
+    );
+    await fs.access(path.join(projectDir, '.apb-workspace/docs/99-archive/sample-feature/sample-feature.plan.md'));
+    await fs.access(path.join(projectDir, '.apb-workspace/docs/99-archive/sample-feature/sample-feature.gradate.md'));
+    await fs.access(path.join(projectDir, '.apb-workspace/docs/99-archive/sample-feature/sample-feature.validate.md'));
+
+    const archivedStatus = await callTool(server, 'pgv_state_get_status', { feature: 'sample-feature' });
+    assert.strictEqual(archivedStatus.status.phase, 'archived');
+    assert.strictEqual(archivedStatus.status.status, 'archived');
+    assert.ok(archivedStatus.status.archivedAt);
+
+    const allStatus = await callTool(server, 'pgv_state_get_status', {});
+    assert.deepStrictEqual(allStatus.activeFeatures, []);
+    assert.strictEqual(allStatus.primaryFeature, null);
   });
 
   it('does not overwrite an existing plan for a tracked feature', async () => {
