@@ -1,0 +1,23 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local config / secrets
+.config/
+.env
+.env.*
+!.env.example
+
+# Runtime output
+*.log
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
