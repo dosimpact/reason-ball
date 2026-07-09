@@ -1,0 +1,37 @@
+meta {
+  name: Parse File Dry Run
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/tenk/parse-file
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "path": "{{sampleFiling}}",
+    "company_name": "Sample Technology Inc.",
+    "ticker": "SAMP",
+    "report_type": "10-K",
+    "dry_run": true
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.segments: eq 4
+  res.body.written_nodes: eq 0
+}
+
+tests {
+  test("dry-run graph projection should produce graph nodes", function() {
+    expect(res.getBody().graph_nodes).to.be.greaterThan(0);
+    expect(res.getBody().graph_relationships).to.be.greaterThan(0);
+  });
+}

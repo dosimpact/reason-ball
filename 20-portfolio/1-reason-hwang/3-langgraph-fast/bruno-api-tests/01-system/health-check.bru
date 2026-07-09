@@ -1,0 +1,15 @@
+meta {
+  name: Health Check
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/health
+  body: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.status: eq ok
+}

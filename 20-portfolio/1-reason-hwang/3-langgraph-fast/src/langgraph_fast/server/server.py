@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from pydantic import BaseModel, Field
 
 from langgraph_fast.graph.workflow import run_graph
+from langgraph_fast.server.routers.tenk import graph_router as tenk_graph_router
+from langgraph_fast.server.routers.tenk import router as tenk_router
 
 
 class GraphRunRequest(BaseModel):
@@ -16,6 +18,8 @@ class GraphRunResponse(BaseModel):
 
 
 app = FastAPI(title="LangGraph Fast", version="0.1.0")
+app.include_router(tenk_router)
+app.include_router(tenk_graph_router)
 
 
 @app.get("/health")
