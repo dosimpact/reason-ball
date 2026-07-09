@@ -2,12 +2,12 @@ export const remotes = {
   template: {
     name: "template",
     label: "Template remote",
-    entry: "/api/proxy/remotes/template/remoteEntry.js",
+    entry: "/api/remote-proxy/remotes/template/remoteEntry.js",
   },
   todo: {
     name: "todo",
     label: "Todo remote",
-    entry: "/api/proxy/remotes/todo/remoteEntry.js",
+    entry: "/api/remote-proxy/remotes/todo/remoteEntry.js",
   },
 } as const;
 

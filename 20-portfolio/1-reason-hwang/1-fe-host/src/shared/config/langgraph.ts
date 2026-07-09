@@ -14,7 +14,7 @@ export type LangGraphConfigResult =
       error: string;
     };
 
-const defaultApiUrl = "http://localhost:8123";
+const defaultApiUrl = "/api/langgraph";
 const defaultAssistantId = "starter_graph";
 const defaultStreamMode = "values";
 

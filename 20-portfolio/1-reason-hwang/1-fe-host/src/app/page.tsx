@@ -45,7 +45,7 @@ const architecture = [
   },
   {
     title: "BFF proxy",
-    value: "/api/proxy/remotes/:name",
+    value: "/api/remote-proxy/remotes/:name",
     icon: Server,
   },
   {

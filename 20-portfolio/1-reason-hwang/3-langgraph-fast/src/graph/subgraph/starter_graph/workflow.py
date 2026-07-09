@@ -19,7 +19,7 @@ SYSTEM_PROMPT = (
 
 def build_react_agent():
     model = ChatOpenAI(
-        model=os.getenv("OPENAI_MODEL", "gpt-4.1-mini"),
+        model=os.getenv("OPENAI_MODEL", "gpt-5.4-mini"),
         base_url=os.getenv("OPENAI_BASE_URL", "http://127.0.0.1:18741/v1"),
         api_key=lambda: os.getenv("OPENAI_API_KEY", "chatgpt-oauth-placeholder"),
     )
