@@ -1,28 +1,47 @@
 {
   "version": "1.0",
-  "lastUpdated": "2026-07-06T15:31:08.777Z",
+  "lastUpdated": "2026-07-09T13:10:55.729Z",
   "activeFeatures": [
-    "langgraph-fast-init",
-    "codex-oauth-proxy-init"
+    "10-k-parser-migration",
+    "generative-ui-master-plan"
   ],
-  "primaryFeature": "langgraph-fast-init",
+  "primaryFeature": "10-k-parser-migration",
   "features": {
     "langgraph-fast-init": {
-      "phase": "validate",
-      "status": "validate",
+      "phase": "archived",
+      "status": "archived",
       "completedPhases": [
         "plan",
-        "gradate"
+        "gradate",
+        "validate"
       ],
       "documents": {
-        "plan": ".apb-workspace/docs/01-plan/langgraph-fast-init.plan.md",
-        "gradate": ".apb-workspace/docs/02-gradate/langgraph-fast-init.gradate.md",
-        "validate": ".apb-workspace/docs/03-validate/langgraph-fast-init.validate.md"
+        "plan": ".apb-workspace/docs/99-archive/langgraph-fast-init/langgraph-fast-init.plan.md",
+        "gradate": ".apb-workspace/docs/99-archive/langgraph-fast-init/langgraph-fast-init.gradate.md",
+        "validate": ".apb-workspace/docs/99-archive/langgraph-fast-init/langgraph-fast-init.validate.md"
       },
       "createdAt": "2026-07-06T15:01:43.708Z",
-      "updatedAt": "2026-07-06T15:28:02.832Z"
+      "updatedAt": "2026-07-06T15:55:20.826Z",
+      "archivedAt": "2026-07-06T15:55:20.826Z"
     },
     "codex-oauth-proxy-init": {
+      "phase": "archived",
+      "status": "archived",
+      "completedPhases": [
+        "plan",
+        "gradate",
+        "validate"
+      ],
+      "documents": {
+        "plan": ".apb-workspace/docs/99-archive/codex-oauth-proxy-init/codex-oauth-proxy-init.plan.md",
+        "gradate": ".apb-workspace/docs/99-archive/codex-oauth-proxy-init/codex-oauth-proxy-init.gradate.md",
+        "validate": ".apb-workspace/docs/99-archive/codex-oauth-proxy-init/codex-oauth-proxy-init.validate.md"
+      },
+      "createdAt": "2026-07-06T15:12:42.897Z",
+      "updatedAt": "2026-07-06T15:55:21.004Z",
+      "archivedAt": "2026-07-06T15:55:21.004Z"
+    },
+    "10-k-parser-migration": {
       "phase": "validate",
       "status": "validate",
       "completedPhases": [
@@ -30,12 +49,22 @@
         "gradate"
       ],
       "documents": {
-        "plan": ".apb-workspace/docs/01-plan/codex-oauth-proxy-init.plan.md",
-        "gradate": ".apb-workspace/docs/02-gradate/codex-oauth-proxy-init.gradate.md",
-        "validate": ".apb-workspace/docs/03-validate/codex-oauth-proxy-init.validate.md"
+        "plan": ".apb-workspace/docs/01-plan/10-k-parser-migration.plan.md",
+        "gradate": ".apb-workspace/docs/02-gradate/10-k-parser-migration.gradate.md",
+        "validate": ".apb-workspace/docs/03-validate/10-k-parser-migration.validate.md"
       },
-      "createdAt": "2026-07-06T15:12:42.897Z",
-      "updatedAt": "2026-07-06T15:31:08.777Z"
+      "createdAt": "2026-07-06T15:58:54.828Z",
+      "updatedAt": "2026-07-06T16:25:15.651Z"
+    },
+    "generative-ui-master-plan": {
+      "phase": "plan",
+      "status": "plan",
+      "completedPhases": [],
+      "documents": {
+        "plan": ".apb-workspace/docs/01-plan/generative-ui-master-plan.plan.md"
+      },
+      "createdAt": "2026-07-09T13:10:55.726Z",
+      "updatedAt": "2026-07-09T13:10:55.729Z"
     }
   },
   "history": [
@@ -72,6 +101,40 @@
       "from": "gradate",
       "to": "validate",
       "timestamp": "2026-07-06T15:31:08.775Z"
+    },
+    {
+      "feature": "langgraph-fast-init",
+      "from": "validate",
+      "to": "archived",
+      "timestamp": "2026-07-06T15:55:20.826Z"
+    },
+    {
+      "feature": "codex-oauth-proxy-init",
+      "from": "validate",
+      "to": "archived",
+      "timestamp": "2026-07-06T15:55:21.004Z"
+    },
+    {
+      "feature": "10-k-parser-migration",
+      "to": "plan",
+      "timestamp": "2026-07-06T15:58:54.828Z"
+    },
+    {
+      "feature": "10-k-parser-migration",
+      "from": "plan",
+      "to": "gradate",
+      "timestamp": "2026-07-06T16:14:17.426Z"
+    },
+    {
+      "feature": "10-k-parser-migration",
+      "from": "gradate",
+      "to": "validate",
+      "timestamp": "2026-07-06T16:25:15.649Z"
+    },
+    {
+      "feature": "generative-ui-master-plan",
+      "to": "plan",
+      "timestamp": "2026-07-09T13:10:55.726Z"
     }
   ]
 }
