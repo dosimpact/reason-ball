@@ -18,7 +18,7 @@ Goal :
     - (+ 기술적 분석 사고과정 실험 자동화 )  
 
 Action Item
-- 기본 langgraph 개발환경을 구축한다.  
+- [ ] 기본 langgraph 개발환경을 구축한다.  
 
 
 ## Scope
