@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('renders template remote through the host route', async ({ page }) => {
-  await page.goto('/apps/template');
+  await page.goto('/remotes/template');
 
   await expect(
     page.getByRole('heading', { name: 'Template', exact: true }),
@@ -13,7 +13,7 @@ test('renders template remote through the host route', async ({ page }) => {
 });
 
 test('renders todo remote through the host route', async ({ page }) => {
-  await page.goto('/apps/todo');
+  await page.goto('/remotes/todo');
 
   await expect(
     page.getByRole('heading', { name: 'Todo', exact: true }),

@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckSquare, LayoutTemplate } from "lucide-react";
+import { CheckSquare, Home, LayoutTemplate } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -8,13 +8,18 @@ import { cn } from "@/lib/utils";
 
 const items = [
   {
+    title: "Home",
+    href: "/",
+    icon: Home,
+  },
+  {
     title: "Template",
-    href: "/apps/template",
+    href: "/remotes/template",
     icon: LayoutTemplate,
   },
   {
     title: "Todo",
-    href: "/apps/todo",
+    href: "/remotes/todo",
     icon: CheckSquare,
   },
 ];
@@ -23,7 +28,7 @@ export function MobileNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="grid grid-cols-2 gap-2 rounded-md border bg-white p-1 md:hidden">
+    <nav className="grid grid-cols-3 gap-2 rounded-md border bg-white p-1 md:hidden">
       {items.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.href;
