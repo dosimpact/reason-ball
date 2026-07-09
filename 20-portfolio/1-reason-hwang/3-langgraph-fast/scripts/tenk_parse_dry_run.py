@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from langgraph_fast.domains.tenk.pipeline import ParserPipeline
+from domains.tenk.pipeline import ParserPipeline
 
 
 def main() -> int:

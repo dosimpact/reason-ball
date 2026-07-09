@@ -5,7 +5,20 @@
 Describe the user-visible outcome this feature must deliver.  
 
 Generative UI 설계를 진행한다.  
-Goal : langgraph의 
+Goal : 
+- 기술적 검증 
+  - 기본 기술 스택 : next.js + langgraph agent  
+  - Frontend Agent Stack : AG-UI, A2UI  
+  - Canvas System : 
+- 비즈니스 가치 더하기 : 
+  - 기술적 분석 자동화  
+    - toss api mcp / tool 만들기  
+    - 기술적 분석 python 라이브러리 tool 연결하기  
+    - 내 사고과정 프롬프트로 저장하기
+    - (+ 기술적 분석 사고과정 실험 자동화 )  
+
+Action Item
+- 기본 langgraph 개발환경을 구축한다.  
 
 
 ## Scope

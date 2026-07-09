@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 
-from langgraph_fast.infrastructure.neo4j.constraints import init_neo4j_constraints
+from infrastructure.neo4j.constraints import init_neo4j_constraints
 
 
 def main() -> int:

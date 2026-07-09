@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from langgraph_fast.server.server import app
+from server.server import app
 
 
 def test_health() -> None:
@@ -20,7 +20,7 @@ def test_graph_run_uses_workflow(monkeypatch) -> None:
             "response": "fake response",
         }
 
-    monkeypatch.setattr("langgraph_fast.server.server.run_graph", fake_run_graph)
+    monkeypatch.setattr("server.server.run_graph", fake_run_graph)
     client = TestClient(app)
 
     response = client.post(

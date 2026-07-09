@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pytest
 
-from langgraph_fast.domains.tenk.pipeline import ParserPipeline
-from langgraph_fast.domains.tenk.segmenter import FilingSegmenter
+from domains.tenk.pipeline import ParserPipeline
+from domains.tenk.segmenter import FilingSegmenter
 
 FIXTURE = Path(__file__).resolve().parents[2] / "fixtures" / "tenk" / "sample_10k.txt"
 
@@ -51,7 +51,7 @@ def test_pipeline_raises_for_missing_manifest_path() -> None:
 
 def test_non_mock_extractor_requires_explicit_future_provider(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("LLM_PROVIDER", "openai")
-    from langgraph_fast.settings import reset_settings_cache
+    from settings import reset_settings_cache
 
     reset_settings_cache()
     with pytest.raises(RuntimeError, match="LLM_PROVIDER=mock"):

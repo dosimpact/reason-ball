@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from langgraph_fast.domains.tenk.retrieval import RetrievalService
+from domains.tenk.retrieval import RetrievalService
 
 
 def main() -> int:

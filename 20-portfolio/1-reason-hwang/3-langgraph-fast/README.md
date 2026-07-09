@@ -11,8 +11,16 @@ uv sync
 ## Run
 
 ```sh
-uv run uvicorn langgraph_fast.server.server:app --reload
+uv run uvicorn server.server:app --reload
 ```
+
+## LangGraph Studio
+
+```sh
+pnpm studio
+```
+
+The Studio config exposes `main_graph` and `tenk_subgraph` as separate graph modules.
 
 ## API
 

@@ -2,7 +2,7 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-from langgraph_fast.server.server import app
+from server.server import app
 
 FIXTURE = Path(__file__).resolve().parents[1] / "fixtures" / "tenk" / "sample_10k.txt"
 

@@ -1,4 +1,4 @@
-from langgraph_fast.domains.tenk.retrieval import RetrievalService
+from domains.tenk.retrieval import RetrievalService
 
 
 class FakeResult:
