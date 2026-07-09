@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "uv run uvicorn server.server:app --reload",
-    "studio": "uv run langgraph dev",
+    "studio": "uv run langgraph dev --host 0.0.0.0",
     "start": "uv run uvicorn server.server:app",
     "build": "uv build",
     "test": "uv run pytest",
@@ -22,6 +22,9 @@
     "test:neo4j": "RUN_NEO4J_TESTS=1 uv run pytest -m neo4j tests/integration -q",
     "lint": "uv run --with ruff ruff check .",
     "typecheck": "uv run --with pyright pyright",
+    "docker:build": "docker build -f Dockerfile.langgraph -t reason-hwang-langgraph-fast-api .",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
     "sync": "uv sync",
     "clean": "rm -rf dist build .pytest_cache .ruff_cache .pyright .coverage coverage htmlcov"
   }
