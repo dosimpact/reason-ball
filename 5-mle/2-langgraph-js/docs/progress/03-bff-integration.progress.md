@@ -13,4 +13,4 @@ Verification:
 
 - `pnpm --filter @reason-ball/langgraph-js-bff typecheck`
 - `pnpm --filter @reason-ball/langgraph-js-bff test`
-- `pnpm build`
+- `pnpm --filter @reason-ball/langgraph-js-bff build`
