@@ -1,6 +1,6 @@
 "use client";
 
-import { Boxes, CheckSquare, Home, LayoutTemplate } from "lucide-react";
+import { Boxes, CheckSquare, Home, LayoutTemplate, MessagesSquare } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
@@ -34,6 +34,11 @@ const navItems = [
     title: "Todo",
     href: "/remotes/todo",
     icon: CheckSquare,
+  },
+  {
+    title: "Chat",
+    href: "/chat",
+    icon: MessagesSquare,
   },
 ];
 

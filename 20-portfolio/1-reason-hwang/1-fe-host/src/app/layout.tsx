@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={cn("font-sans", inter.variable)}>
-      <body className="font-sans">
+      <body className="font-sans" suppressHydrationWarning>
         <SidebarProvider>
           <AppSidebar />
           <SidebarInset>
