@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "studio": "langgraphjs dev --config ../../langgraph.json",
+    "studio:tunnel": "langgraphjs dev --config ../../langgraph.json --tunnel",
     "build": "tsc -p tsconfig.json",
     "dev": "tsx watch src/main.ts",
     "start": "tsx src/main.ts",
@@ -16,16 +18,18 @@
   "dependencies": {
     "@langchain/core": "latest",
     "@langchain/langgraph": "latest",
+    "@langchain/openai": "latest",
     "@nestjs/common": "latest",
     "@nestjs/core": "latest",
     "@nestjs/platform-express": "latest",
-    "@reason-ball/langgraph-examples": "workspace:*",
     "dotenv": "latest",
     "express": "latest",
     "reflect-metadata": "latest",
-    "rxjs": "latest"
+    "rxjs": "latest",
+    "zod": "latest"
   },
   "devDependencies": {
+    "@langchain/langgraph-cli": "latest",
     "@types/express": "latest",
     "@types/node": "latest",
     "supertest": "latest",

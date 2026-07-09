@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { Command } from "@langchain/langgraph";
 import type { RunnableConfig } from "@langchain/core/runnables";
-import { getGraphById, listGraphIds } from "@reason-ball/langgraph-examples";
+import { getGraphById, listGraphIds } from "../../langgraph-examples/index.js";
 
 @Injectable()
 export class LangGraphRunnerAdapter {
