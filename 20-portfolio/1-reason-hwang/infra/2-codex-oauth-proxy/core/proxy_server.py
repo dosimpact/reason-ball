@@ -12,6 +12,7 @@ from aiohttp import web
 
 from . import api_translator
 from .constants import CHATGPT_RESPONSES_URL
+from .models import SUPPORTED_CODEX_MODELS
 from .token_manager import TokenManager
 
 logger = logging.getLogger(__name__)
@@ -27,6 +28,7 @@ def create_app(token_manager: TokenManager) -> web.Application:
     app = web.Application()
     app.router.add_post("/v1/chat/completions", handle_chat_completions)
     app.router.add_post("/v1/responses", handle_responses)
+    app.router.add_get("/v1/models", handle_models)
     app.router.add_get("/health", handle_health)
     return app
 
@@ -42,6 +44,22 @@ async def handle_health(request: web.Request) -> web.Response:
             pass
 
     return web.json_response({"status": "ok", "token_valid": token_valid})
+
+
+async def handle_models(request: web.Request) -> web.Response:
+    """Return Codex models verified as available to this proxy."""
+    return web.json_response({
+        "object": "list",
+        "data": [
+            {
+                "id": model,
+                "object": "model",
+                "created": 0,
+                "owned_by": "openai",
+            }
+            for model in SUPPORTED_CODEX_MODELS
+        ],
+    })
 
 
 async def _forward_to_codex(

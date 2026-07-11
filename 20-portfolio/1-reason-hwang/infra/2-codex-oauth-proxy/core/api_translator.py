@@ -7,30 +7,7 @@ import json
 import time
 from typing import Any
 
-
-# Models not supported on Codex endpoint -> best available replacement
-_MODEL_MAP: dict[str, str] = {
-    "gpt-4o": "gpt-5.4-mini",
-    "gpt-4o-mini": "gpt-5.4-mini",
-    "gpt-4o-2024-08-06": "gpt-5.4-mini",
-    "gpt-4.1-mini": "gpt-5.4-mini",
-    "gpt-4-turbo": "gpt-5.4-mini",
-    "gpt-4": "gpt-5.4-mini",
-    "gpt-3.5-turbo": "gpt-5.4-mini",
-    "o4-mini": "gpt-5.4-mini",
-    "o3-mini": "gpt-5.4-mini",
-    # gpt-5-nano is rejected by the Codex/ChatGPT-account endpoint
-    # ("model is not supported when using Codex with a ChatGPT account").
-    # Map to the lightest Codex-compatible model so OAuth-mode callers
-    # (telegram_translator, dashboards, weekly intelligence) keep working.
-    # API-key mode bypasses this proxy, so it still uses real gpt-5-nano.
-    "gpt-5-nano": "gpt-5.4-mini",
-}
-
-
-def _map_model(model: str) -> str:
-    """Map unsupported model names to Codex-compatible equivalents."""
-    return _MODEL_MAP.get(model, model)
+from .models import DEFAULT_CODEX_MODEL, map_model as _map_model
 
 
 def prepare_responses_passthrough(body: dict) -> dict:
@@ -52,7 +29,7 @@ def prepare_responses_passthrough(body: dict) -> dict:
     Does not mutate the caller's dict.
     """
     out = dict(body)
-    out["model"] = _map_model(body.get("model", "gpt-5.4-mini"))
+    out["model"] = _map_model(body.get("model", DEFAULT_CODEX_MODEL))
     out["store"] = False   # MANDATORY: store:true returns 400
     out["stream"] = True   # MANDATORY: always stream upstream
     if not out.get("instructions"):
@@ -164,7 +141,10 @@ def _translate_messages_to_input(messages: list[dict]) -> list[dict]:
         if role == "assistant" and msg.get("tool_calls"):
             # Add the assistant's text content if any
             if content:
-                result.append({"role": "assistant", "content": content})
+                result.append({
+                    "role": "assistant",
+                    "content": _translate_content(content, role),
+                })
             # Add each tool call as a separate function_call item
             for tc in (msg.get("tool_calls") or []):
                 func = tc.get("function", {})
@@ -178,11 +158,52 @@ def _translate_messages_to_input(messages: list[dict]) -> list[dict]:
 
         translated_msg: dict[str, Any] = {"role": role}
         if content is not None:
-            translated_msg["content"] = content
+            translated_msg["content"] = _translate_content(content, role)
 
         result.append(translated_msg)
 
     return result
+
+
+def _translate_content(content: Any, role: str) -> Any:
+    """Translate Chat Completions content blocks to Responses API blocks."""
+    if not isinstance(content, list):
+        return content
+
+    translated = []
+    for block in content:
+        if not isinstance(block, dict):
+            translated.append(block)
+            continue
+
+        block_type = block.get("type")
+        if block_type == "text":
+            translated.append({
+                **block,
+                "type": "output_text" if role == "assistant" else "input_text",
+            })
+            continue
+
+        if block_type == "image_url":
+            image = block.get("image_url")
+            if isinstance(image, dict):
+                image_block = {
+                    "type": "input_image",
+                    "image_url": image.get("url", ""),
+                }
+                if image.get("detail") is not None:
+                    image_block["detail"] = image["detail"]
+                translated.append(image_block)
+            else:
+                translated.append({
+                    "type": "input_image",
+                    "image_url": image,
+                })
+            continue
+
+        translated.append(dict(block))
+
+    return translated
 
 
 def _translate_tools_request(tools: list[dict]) -> list[dict]:

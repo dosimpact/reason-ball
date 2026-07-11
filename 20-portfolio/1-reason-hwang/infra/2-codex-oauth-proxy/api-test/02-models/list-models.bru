@@ -1,0 +1,28 @@
+meta {
+  name: List supported models
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/models
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.object: eq list
+  res.body.data: isArray
+  res.body.data[0].object: eq model
+}
+
+tests {
+  test("returns the verified Codex model list", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    const modelIds = body.data.map((model) => model.id);
+    expect(modelIds).to.include("gpt-5.4-mini");
+    expect(modelIds).to.not.include("gpt-5.6-luna");
+  });
+}

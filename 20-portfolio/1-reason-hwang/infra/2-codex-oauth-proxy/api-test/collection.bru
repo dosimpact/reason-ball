@@ -1,0 +1,10 @@
+headers {
+  Content-Type: application/json
+  Authorization: Bearer chatgpt-oauth-placeholder
+}
+
+script:post-response {
+  console.log(`[${req.getMethod()}] ${req.getUrl()} -> ${res.getStatus()} (${res.getResponseTime()}ms)`);
+  console.log("Response body:");
+  console.log(JSON.stringify(res.getBody(), null, 2));
+}

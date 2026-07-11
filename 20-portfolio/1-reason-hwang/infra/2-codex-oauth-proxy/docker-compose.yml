@@ -7,8 +7,8 @@ services:
     restart: unless-stopped
     environment:
       CHATGPT_OAUTH_PROXY_HOST: "0.0.0.0"
-      CHATGPT_OAUTH_PROXY_PORT: "18741"
+      CHATGPT_OAUTH_PROXY_PORT: "2890"
     ports:
-      - "127.0.0.1:${CODEX_OAUTH_PROXY_PORT:-18741}:18741"
+      - "127.0.0.1:${CODEX_OAUTH_PROXY_PORT:-2890}:18741"
     volumes:
       - ${CODEX_OAUTH_PROXY_CONFIG_DIR:-./.config}:/app/.config
