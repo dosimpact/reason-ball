@@ -5,6 +5,10 @@
   "scripts": {
     "dev": "uv run uvicorn server.server:app --reload",
     "studio": "npx kill-port 2024 && uv run langgraph dev --host 0.0.0.0 --port 2024 --tunnel",
+    "langgraph:validate": "uv run langgraph validate",
+    "langgraph:build": "uv run langgraph build -t reason-hwang-langgraph-fast-api",
+    "langgraph:up": "uv run langgraph up --image reason-hwang-langgraph-fast-api --port 8123 --wait",
+    "studio:dev": "npx kill-port 2810 && uv run langgraph dev --host 0.0.0.0 --port 2810",
     "start": "uv run uvicorn server.server:app",
     "build": "uv build",
     "test": "uv run pytest",
