@@ -1,7 +1,7 @@
 services:
   neo4j:
     image: neo4j:5.26
-    container_name: graph-rag-neo4j
+    container_name: reason-graph-neo4j
     restart: unless-stopped
     ports:
       - "${NEO4J_HTTP_PORT:-7474}:7474"
@@ -12,10 +12,10 @@ services:
       NEO4J_ACCEPT_LICENSE_AGREEMENT: "yes"
       NEO4J_dbms_security_procedures_unrestricted: "apoc.*"
     volumes:
-      - ./data:/data
-      - ./logs:/logs
-      - ./import:/import
-      - ./plugins:/plugins
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/neo4j/data:/data
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/neo4j/logs:/logs
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/neo4j/import:/import
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/neo4j/plugins:/plugins
     healthcheck:
       test:
         - CMD-SHELL
@@ -32,27 +32,47 @@ services:
     networks:
       - graph-rag
 
+  postgres:
+    image: postgres:16-alpine
+    container_name: reason-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER:-postgres}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env}"
+      POSTGRES_DB: "${POSTGRES_DB:-sec_collector}"
+    ports:
+      - "${POSTGRES_PORT:-55432}:5432"
+    volumes:
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/postgres/data:/var/lib/postgresql/data
+    networks:
+      - graph-rag
+
   loki:
-    image: grafana/loki:2.9.8
-    container_name: graph-rag-loki
+    image: grafana/loki:3.7.3
+    container_name: reason-loki
+    user: "0:0"
     restart: unless-stopped
     ports:
       - "${LOKI_HTTP_PORT:-3100}:3100"
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
       - ./monitoring/loki/loki-config.yaml:/etc/loki/local-config.yaml:ro
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/loki/data:/var/lib/loki
     networks:
       - graph-rag
 
-  promtail:
-    image: grafana/promtail:2.9.8
-    container_name: graph-rag-promtail
+  alloy:
+    image: grafana/alloy:v1.17.0
+    container_name: reason-alloy
     restart: unless-stopped
-    command: -config.file=/etc/promtail/promtail-config.yaml
+    command:
+      - run
+      - /etc/alloy/config.alloy
+      - --storage.path=/var/lib/alloy/data
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - ./monitoring/promtail/promtail-config.yaml:/etc/promtail/promtail-config.yaml:ro
+      - ./monitoring/alloy/config.alloy:/etc/alloy/config.alloy:ro
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/alloy/data:/var/lib/alloy/data
     depends_on:
       - loki
     networks:
@@ -60,7 +80,7 @@ services:
 
   grafana:
     image: grafana/grafana:11.1.0
-    container_name: graph-rag-grafana
+    container_name: reason-grafana
     restart: unless-stopped
     ports:
       - "${GRAFANA_HTTP_PORT:-3001}:3000"
@@ -69,7 +89,7 @@ services:
       GF_SECURITY_ADMIN_PASSWORD: "${GRAFANA_ADMIN_PASSWORD:-admin1234}"
       GF_SERVER_ROOT_URL: "${GRAFANA_ROOT_URL:-http://localhost:3001}"
     volumes:
-      - ./monitoring/grafana/data:/var/lib/grafana
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/grafana/data:/var/lib/grafana
       - ./monitoring/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
       - ./monitoring/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
       - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
@@ -77,19 +97,6 @@ services:
       - loki
     networks:
       - graph-rag
-
-  postgres:
-    image: postgres:16-alpine
-    container_name: sec-filings-postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: sec_collector
-    ports:
-      - "${POSTGRES_PORT:-55432}:5432"
-    volumes:
-      - ./postgres_data:/var/lib/postgresql/data
 
 networks:
   graph-rag:

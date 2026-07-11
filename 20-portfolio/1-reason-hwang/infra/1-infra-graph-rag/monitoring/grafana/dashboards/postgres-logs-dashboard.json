@@ -1,0 +1,29 @@
+{
+  "annotations": { "list": [] }, "editable": true, "id": null, "links": [],
+  "panels": [
+    {
+      "datasource": { "type": "loki", "uid": "loki" },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 }, "id": 1,
+      "options": { "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true }, "tooltip": { "mode": "single", "sort": "none" } },
+      "targets": [{ "expr": "sum(count_over_time({service=\"postgres\"}[1m]))", "legendFormat": "logs/min", "queryType": "range", "refId": "A" }],
+      "title": "PostgreSQL Log Rate", "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "loki", "uid": "loki" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 }, "id": 2,
+      "options": { "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true }, "tooltip": { "mode": "single", "sort": "none" } },
+      "targets": [{ "expr": "sum(count_over_time({service=\"postgres\"} |~ `(?i)(error|fatal|panic)` [5m]))", "legendFormat": "errors/5m", "queryType": "range", "refId": "A" }],
+      "title": "PostgreSQL Errors", "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "loki", "uid": "loki" },
+      "gridPos": { "h": 16, "w": 24, "x": 0, "y": 8 }, "id": 3,
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "prettifyLogMessage": false, "showCommonLabels": false, "showLabels": true, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [{ "expr": "{service=\"postgres\"}", "refId": "A" }],
+      "title": "PostgreSQL Logs", "type": "logs"
+    }
+  ],
+  "refresh": "10s", "schemaVersion": 39, "tags": ["postgres", "loki", "graph-rag"],
+  "templating": { "list": [] }, "time": { "from": "now-1h", "to": "now" }, "timepicker": {}, "timezone": "browser",
+  "title": "PostgreSQL Logs Overview", "uid": "postgres-logs-overview", "version": 1
+}

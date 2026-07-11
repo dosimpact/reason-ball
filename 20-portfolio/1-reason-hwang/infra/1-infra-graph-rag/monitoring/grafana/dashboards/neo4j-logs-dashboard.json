@@ -32,7 +32,7 @@
       },
       "targets": [
         {
-          "expr": "{job=\"containers\"} |= \"neo4j\"",
+          "expr": "{service=\"neo4j\"}",
           "refId": "A"
         }
       ],

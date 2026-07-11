@@ -1,0 +1,22 @@
+{
+  "annotations": { "list": [] }, "editable": true, "id": null, "links": [],
+  "panels": [
+    {
+      "datasource": { "type": "loki", "uid": "loki" },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 0 }, "id": 1,
+      "options": { "legend": { "displayMode": "table", "placement": "right", "showLegend": true }, "tooltip": { "mode": "multi", "sort": "desc" } },
+      "targets": [{ "expr": "sum by (service) (count_over_time({service=~\"loki|alloy|grafana\"}[1m]))", "legendFormat": "{{service}}", "queryType": "range", "refId": "A" }],
+      "title": "Observability Log Rate", "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "loki", "uid": "loki" },
+      "gridPos": { "h": 16, "w": 24, "x": 0, "y": 8 }, "id": 2,
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "prettifyLogMessage": false, "showCommonLabels": false, "showLabels": true, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [{ "expr": "{service=~\"loki|alloy|grafana\"}", "refId": "A" }],
+      "title": "Loki / Alloy / Grafana Logs", "type": "logs"
+    }
+  ],
+  "refresh": "10s", "schemaVersion": 39, "tags": ["observability", "loki", "alloy", "grafana"],
+  "templating": { "list": [] }, "time": { "from": "now-1h", "to": "now" }, "timepicker": {}, "timezone": "browser",
+  "title": "Observability Stack Logs", "uid": "observability-stack-logs", "version": 1
+}

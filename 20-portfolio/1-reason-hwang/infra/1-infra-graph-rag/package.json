@@ -2,8 +2,8 @@
   "name": "@10k/infra",
   "private": true,
   "scripts": {
-    "infra:up": "docker-compose up -d neo4j loki promtail grafana postgres",
-    "infra:down": "docker-compose stop neo4j loki promtail grafana postgres && docker-compose rm -f neo4j loki promtail grafana postgres",
-    "infra:ps": "docker-compose ps neo4j loki promtail grafana postgres"
+    "infra:up": "docker-compose up -d neo4j postgres loki alloy grafana",
+    "infra:down": "docker-compose down",
+    "infra:ps": "docker-compose ps"
   }
 }

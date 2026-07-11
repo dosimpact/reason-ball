@@ -1,6 +1,6 @@
 # 1-infra-graph-rag
 
-Neo4j와 관측 스택(Loki, Promtail, Grafana)을 로컬에서 실행하는 인프라 프로젝트입니다.
+Neo4j, PostgreSQL과 관측 스택(Loki, Alloy, Grafana)을 로컬에서 실행하는 인프라 프로젝트입니다.
 
 ## 1. 실행 방법
 
@@ -18,7 +18,9 @@ pnpm run infra:up
 3. 상태 확인
 ```bash
 pnpm run infra:ps
-docker compose logs --tail=100 neo4j
+docker-compose logs --tail=100 neo4j
+docker-compose logs --tail=100 postgres
+docker-compose logs --tail=100 alloy
 ```
 
 4. 주요 접속 주소
@@ -34,8 +36,9 @@ pnpm run infra:down
 ## 2. 핵심 기능들
 
 - Neo4j 그래프 데이터베이스를 로컬에서 즉시 실행할 수 있습니다.
-- Loki + Promtail + Grafana로 로그 수집/조회 환경을 함께 제공합니다.
-- Docker 볼륨 기반으로 재기동 시 데이터/로그를 유지합니다.
+- Alloy가 Docker metadata를 이용해 Neo4j와 PostgreSQL 로그를 Loki로 전달합니다.
+- Grafana Explore에서 `{service="neo4j"}` 또는 `{service="postgres"}`로 조회할 수 있습니다.
+- Docker 볼륨으로 데이터, Loki 로그, Alloy 수집 상태를 유지합니다.
 
 ## 3. 운영 복구
 
