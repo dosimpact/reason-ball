@@ -17,7 +17,7 @@ _site: web.TCPSite | None = None
 
 def inject_env(port: int | None = None) -> None:
     """Point OpenAI SDK clients in this process at the local proxy."""
-    proxy_port = port or DEFAULT_PROXY_PORT
+    proxy_port = DEFAULT_PROXY_PORT if port is None else port
     os.environ["OPENAI_BASE_URL"] = f"http://localhost:{proxy_port}/v1"
     os.environ["OPENAI_API_KEY"] = "chatgpt-oauth-placeholder"
     logger.info("OPENAI_BASE_URL=http://localhost:%d/v1", proxy_port)
@@ -37,8 +37,8 @@ async def start_proxy(port: int | None = None, host: str | None = None) -> bool:
         logger.info("Proxy already running")
         return True
 
-    proxy_host = host or DEFAULT_PROXY_HOST
-    proxy_port = port or DEFAULT_PROXY_PORT
+    proxy_host = DEFAULT_PROXY_HOST if host is None else host
+    proxy_port = DEFAULT_PROXY_PORT if port is None else port
 
     try:
         token_manager = TokenManager()

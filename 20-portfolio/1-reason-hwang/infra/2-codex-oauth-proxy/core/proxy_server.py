@@ -4,8 +4,10 @@ Lightweight aiohttp web server that translates Chat Completions API
 requests to ChatGPT Responses API format and back.
 """
 
+import asyncio
 import json
 import logging
+from collections.abc import AsyncIterator
 
 import aiohttp
 from aiohttp import web
@@ -17,15 +19,30 @@ from .token_manager import TokenManager
 
 logger = logging.getLogger(__name__)
 
-_token_manager: TokenManager | None = None
+TOKEN_MANAGER_KEY = web.AppKey("token_manager", TokenManager)
+HTTP_SESSION_KEY = web.AppKey("http_session", aiohttp.ClientSession)
+
+
+def _error_response(message: str, error_type: str, status: int) -> web.Response:
+    return web.json_response(
+        {"error": {"message": message, "type": error_type}},
+        status=status,
+    )
+
+
+async def _http_client_context(app: web.Application) -> AsyncIterator[None]:
+    app[HTTP_SESSION_KEY] = aiohttp.ClientSession(
+        timeout=aiohttp.ClientTimeout(total=300),
+    )
+    yield
+    await app[HTTP_SESSION_KEY].close()
 
 
 def create_app(token_manager: TokenManager) -> web.Application:
     """Create the aiohttp proxy application."""
-    global _token_manager
-    _token_manager = token_manager
-
     app = web.Application()
+    app[TOKEN_MANAGER_KEY] = token_manager
+    app.cleanup_ctx.append(_http_client_context)
     app.router.add_post("/v1/chat/completions", handle_chat_completions)
     app.router.add_post("/v1/responses", handle_responses)
     app.router.add_get("/v1/models", handle_models)
@@ -35,13 +52,12 @@ def create_app(token_manager: TokenManager) -> web.Application:
 
 async def handle_health(request: web.Request) -> web.Response:
     """Health check endpoint."""
-    token_valid = False
-    if _token_manager:
-        try:
-            await _token_manager.get_token()
-            token_valid = True
-        except Exception:
-            pass
+    try:
+        await request.app[TOKEN_MANAGER_KEY].get_token()
+        token_valid = True
+    except Exception as exc:
+        logger.debug("Health check token validation failed: %s", exc)
+        token_valid = False
 
     return web.json_response({"status": "ok", "token_valid": token_valid})
 
@@ -63,6 +79,7 @@ async def handle_models(request: web.Request) -> web.Response:
 
 
 async def _forward_to_codex(
+    request: web.Request,
     translated_request: dict,
 ) -> "tuple[dict | None, web.Response | None]":
     """Forward a pre-translated Responses API request to the Codex upstream.
@@ -73,22 +90,13 @@ async def _forward_to_codex(
         (api_response, None)  on success — api_response is a Responses API dict.
         (None, error_response) on any failure — error_response is a web.Response.
     """
-    if not _token_manager:
-        return None, web.json_response(
-            {"error": {"message": "Token manager not initialized", "type": "server_error"}},
-            status=500,
-        )
-
-    # Get OAuth token
+    token_manager = request.app[TOKEN_MANAGER_KEY]
     try:
-        token = await _token_manager.get_token()
-        account_id = await _token_manager.get_account_id()
+        token = await token_manager.get_token()
+        account_id = await token_manager.get_account_id()
     except Exception as e:
         logger.error("Token retrieval failed: %s", e)
-        return None, web.json_response(
-            {"error": {"message": str(e), "type": "authentication_error"}},
-            status=401,
-        )
+        return None, _error_response(str(e), "authentication_error", 401)
 
     headers = {
         "Authorization": f"Bearer {token}",
@@ -100,95 +108,82 @@ async def _forward_to_codex(
         headers["chatgpt-account-id"] = account_id
 
     try:
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
-                CHATGPT_RESPONSES_URL,
-                json=translated_request,
-                headers=headers,
-                timeout=aiohttp.ClientTimeout(total=300),
-            ) as resp:
-                raw_body = await resp.text()
+        session = request.app[HTTP_SESSION_KEY]
+        async with session.post(
+            CHATGPT_RESPONSES_URL,
+            json=translated_request,
+            headers=headers,
+        ) as resp:
+            raw_body = await resp.text()
 
-                if resp.status != 200:
-                    try:
-                        error_body = json.loads(raw_body)
-                    except json.JSONDecodeError:
-                        error_body = {"error": {"message": raw_body}}
+            if resp.status != 200:
+                try:
+                    error_body = json.loads(raw_body)
+                except json.JSONDecodeError:
+                    error_body = {"error": {"message": raw_body}}
 
-                    translated_error, status = api_translator.translate_error(error_body, resp.status)
-                    logger.warning("ChatGPT API error (%d): %s", resp.status, raw_body[:200])
-                    return None, web.json_response(translated_error, status=status)
+                translated_error, status = api_translator.translate_error(error_body, resp.status)
+                logger.warning("ChatGPT API error (%d): %s", resp.status, raw_body[:200])
+                return None, web.json_response(translated_error, status=status)
 
-                # Parse response (may be SSE or JSON)
-                # Always request stream=true, so check both Content-Type and body format
-                content_type = resp.headers.get("Content-Type", "")
-                is_sse = "text/event-stream" in content_type or raw_body.lstrip().startswith("event:")
-                if is_sse:
-                    try:
-                        api_response = api_translator.collect_sse_to_response(raw_body)
-                        logger.debug("SSE parsed: output_items=%s status=%s",
-                                     [i.get("type") for i in api_response.get("output", [])],
-                                     api_response.get("status"))
-                    except ValueError as e:
-                        logger.error("SSE parsing failed: %s (Content-Type: %s, body[:200]: %s)", e, content_type, raw_body[:200])
-                        return None, web.json_response(
-                            {"error": {"message": f"SSE parsing error: {e}", "type": "server_error"}},
-                            status=502,
-                        )
-                else:
-                    try:
-                        api_response = json.loads(raw_body)
-                    except json.JSONDecodeError:
-                        logger.error("Invalid JSON response from ChatGPT (Content-Type: %s, body[:200]: %s)", content_type, raw_body[:200])
-                        return None, web.json_response(
-                            {"error": {"message": "Invalid response from upstream", "type": "server_error"}},
-                            status=502,
-                        )
+            content_type = resp.headers.get("Content-Type", "")
+            is_sse = "text/event-stream" in content_type or raw_body.lstrip().startswith("event:")
+            try:
+                api_response = (
+                    api_translator.collect_sse_to_response(raw_body)
+                    if is_sse
+                    else json.loads(raw_body)
+                )
+                if not isinstance(api_response, dict):
+                    raise ValueError("Upstream response must be a JSON object")
+            except (ValueError, json.JSONDecodeError) as exc:
+                logger.error(
+                    "Invalid upstream response (Content-Type: %s, body[:200]: %s): %s",
+                    content_type,
+                    raw_body[:200],
+                    exc,
+                )
+                return None, _error_response("Invalid response from upstream", "server_error", 502)
+
+            logger.debug(
+                "Upstream response parsed: output_items=%s status=%s",
+                [item.get("type") for item in api_response.get("output", [])],
+                api_response.get("status"),
+            )
 
     except aiohttp.ClientError as e:
         logger.error("Connection to ChatGPT failed: %s", e)
-        return None, web.json_response(
-            {"error": {"message": f"Upstream connection error: {e}", "type": "server_error"}},
-            status=502,
-        )
+        return None, _error_response(f"Upstream connection error: {e}", "server_error", 502)
+    except asyncio.TimeoutError:
+        logger.error("Connection to ChatGPT timed out")
+        return None, _error_response("Upstream request timed out", "server_error", 504)
 
     return api_response, None
 
 
 async def handle_chat_completions(request: web.Request) -> web.Response:
     """Translate and proxy a Chat Completions request to ChatGPT Responses API."""
-    if not _token_manager:
-        return web.json_response(
-            {"error": {"message": "Token manager not initialized", "type": "server_error"}},
-            status=500,
-        )
-
     try:
         body = await request.json()
-    except json.JSONDecodeError:
-        return web.json_response(
-            {"error": {"message": "Invalid JSON body", "type": "invalid_request_error"}},
-            status=400,
-        )
+        if not isinstance(body, dict):
+            raise ValueError("JSON body must be an object")
+    except (json.JSONDecodeError, ValueError) as exc:
+        return _error_response(str(exc) or "Invalid JSON body", "invalid_request_error", 400)
 
     original_model = body.get("model", "gpt-4o")
 
     # Translate request
     try:
         translated_request = api_translator.translate_request(body)
-    except Exception as e:
-        msg_types = [(m.get("role"), type(m.get("content")).__name__, type(m.get("tool_calls")).__name__) for m in (body.get("messages") or [])]
-        logger.error("Request translation failed: %s | messages: %s", e, msg_types)
-        return web.json_response(
-            {"error": {"message": f"Request translation error: {e}", "type": "server_error"}},
-            status=500,
-        )
+    except (AttributeError, TypeError, ValueError) as e:
+        logger.info("Request translation failed: %s", e)
+        return _error_response(f"Request translation error: {e}", "invalid_request_error", 400)
 
     logger.debug("Proxy request: model=%s -> %s, tools=%d, messages=%d",
                  original_model, translated_request.get("model"),
                  len(body.get("tools") or []), len(body.get("messages") or []))
 
-    api_response, err = await _forward_to_codex(translated_request)
+    api_response, err = await _forward_to_codex(request, translated_request)
     if err is not None:
         return err
 
@@ -197,10 +192,7 @@ async def handle_chat_completions(request: web.Request) -> web.Response:
         result = api_translator.translate_response(api_response, original_model)
     except Exception as e:
         logger.error("Response translation failed: %s", e)
-        return web.json_response(
-            {"error": {"message": f"Response translation error: {e}", "type": "server_error"}},
-            status=500,
-        )
+        return _error_response(f"Response translation error: {e}", "server_error", 500)
 
     return web.json_response(result)
 
@@ -214,11 +206,10 @@ async def handle_responses(request: web.Request) -> web.Response:
     """
     try:
         body = await request.json()
-    except json.JSONDecodeError:
-        return web.json_response(
-            {"error": {"message": "Invalid JSON body", "type": "invalid_request_error"}},
-            status=400,
-        )
+        if not isinstance(body, dict):
+            raise ValueError("JSON body must be an object")
+    except (json.JSONDecodeError, ValueError) as exc:
+        return _error_response(str(exc) or "Invalid JSON body", "invalid_request_error", 400)
 
     translated = api_translator.prepare_responses_passthrough(body)
 
@@ -226,7 +217,7 @@ async def handle_responses(request: web.Request) -> web.Response:
                  body.get("model"), translated.get("model"),
                  len(body.get("tools") or []))
 
-    api_response, err = await _forward_to_codex(translated)
+    api_response, err = await _forward_to_codex(request, translated)
     if err is not None:
         return err
 

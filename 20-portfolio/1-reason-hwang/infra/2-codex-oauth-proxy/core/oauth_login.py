@@ -9,7 +9,6 @@ import base64
 import hashlib
 import json
 import logging
-import os
 import secrets
 import time
 import webbrowser
@@ -19,6 +18,7 @@ from urllib.parse import parse_qs, urlparse
 import aiohttp
 from aiohttp import web
 
+from .auth_store import load_auth, save_auth
 from .constants import (
     OAUTH_CLIENT_ID,
     OAUTH_AUTHORIZE_URL,
@@ -26,7 +26,6 @@ from .constants import (
     OAUTH_SCOPE,
     OAUTH_CALLBACK_PORT,
     OAUTH_REDIRECT_URI,
-    AUTH_DIR,
     AUTH_FILE,
 )
 
@@ -112,8 +111,7 @@ async def login(force: bool = False, manual_callback: bool = False) -> dict:
     # Check existing auth
     if not force and AUTH_FILE.exists():
         try:
-            with open(AUTH_FILE) as f:
-                existing = json.load(f)
+            existing = load_auth()
             if existing.get("refresh_token"):
                 logger.info("Already authenticated. Use force=True to re-authenticate.")
                 return existing
@@ -244,7 +242,7 @@ async def login(force: bool = False, manual_callback: bool = False) -> dict:
     }
 
     # Save tokens
-    _save_auth(auth_data)
+    save_auth(auth_data)
 
     masked_token = auth_data["access_token"][:20] + "..."
     print(f"\nAuthentication successful!")
@@ -253,17 +251,6 @@ async def login(force: bool = False, manual_callback: bool = False) -> dict:
     print(f"Saved to: {AUTH_FILE}")
 
     return auth_data
-
-
-def _save_auth(auth_data: dict) -> None:
-    """Save auth data with restricted permissions (atomic write)."""
-    AUTH_DIR.mkdir(parents=True, exist_ok=True)
-    tmp_file = AUTH_FILE.with_suffix(".tmp")
-    with open(tmp_file, "w") as f:
-        json.dump(auth_data, f, indent=2)
-    os.chmod(tmp_file, 0o600)
-    os.rename(tmp_file, AUTH_FILE)
-    logger.debug("Auth data saved to %s", AUTH_FILE)
 
 
 async def logout() -> None:
@@ -281,8 +268,7 @@ async def status() -> None:
         print("Not authenticated. Run 'login' to authenticate.")
         return
 
-    with open(AUTH_FILE) as f:
-        auth = json.load(f)
+    auth = load_auth()
 
     now = time.time()
     expires_at = auth.get("expires_at", 0)
@@ -316,8 +302,7 @@ def _main() -> None:
 
     if not args.force and AUTH_FILE.exists():
         try:
-            with open(AUTH_FILE) as f:
-                auth = json.load(f)
+            auth = load_auth()
         except (OSError, json.JSONDecodeError):
             auth = {}
 

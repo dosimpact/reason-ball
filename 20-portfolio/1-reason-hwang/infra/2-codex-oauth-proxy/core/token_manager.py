@@ -5,18 +5,16 @@ Thread/async-safe with asyncio.Lock.
 """
 
 import asyncio
-import json
 import logging
-import os
 import time
 
 import aiohttp
 
+from .auth_store import load_auth, save_auth
 from .constants import (
     OAUTH_CLIENT_ID,
     OAUTH_TOKEN_URL,
     AUTH_FILE,
-    AUTH_DIR,
     TOKEN_REFRESH_BUFFER,
 )
 
@@ -42,17 +40,11 @@ class TokenManager:
                 f"No auth file found at {AUTH_FILE}. "
                 "Run 'python -m core.oauth_login' from chatgpt-oauth-proxy to authenticate."
             )
-        with open(AUTH_FILE) as f:
-            return json.load(f)
+        return load_auth()
 
     def _save_to_disk(self, auth_data: dict) -> None:
         """Save auth data atomically with restricted permissions."""
-        AUTH_DIR.mkdir(parents=True, exist_ok=True)
-        tmp_file = AUTH_FILE.with_suffix(".tmp")
-        with open(tmp_file, "w") as f:
-            json.dump(auth_data, f, indent=2)
-        os.chmod(tmp_file, 0o600)
-        os.rename(tmp_file, AUTH_FILE)
+        save_auth(auth_data)
 
     def validate_or_fail(self) -> None:
         """Check that auth file exists and has a refresh token. Call at startup."""

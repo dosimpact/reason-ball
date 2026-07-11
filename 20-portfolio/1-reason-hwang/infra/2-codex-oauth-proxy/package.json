@@ -11,6 +11,7 @@
     "infra:ps": "uv run python proxy-server/health_check.py && docker-compose ps",
     "start": "uv run python proxy-server/main.py --serve",
     "lint": "python3 -m compileall core proxy-server examples",
+    "test": "uv run python -m unittest discover -s tests -p 'test_*.py' -v",
     "test:sdk": "OPENAI_BASE_URL=http://127.0.0.1:2890/v1 OPENAI_API_KEY=chatgpt-oauth-placeholder uv run python examples/sdk.py",
     "test:langgraph": "OPENAI_BASE_URL=http://127.0.0.1:2890/v1 OPENAI_API_KEY=chatgpt-oauth-placeholder uv run python examples/langgraph.py",
     "test:api": "bash api-test/run-local.sh",
