@@ -1,12 +1,12 @@
 {
   "version": "1.0",
-  "lastUpdated": "2026-07-09T13:43:00.818Z",
+  "lastUpdated": "2026-07-11T05:10:02.548Z",
   "activeFeatures": [
-    "10-k-parser-migration",
     "generative-ui-master-plan",
-    "generative-ui-basic-tech-stack"
+    "generative-ui-basic-tech-stack",
+    "research-agent-ui-contract"
   ],
-  "primaryFeature": "10-k-parser-migration",
+  "primaryFeature": "generative-ui-master-plan",
   "features": {
     "langgraph-fast-init": {
       "phase": "archived",
@@ -43,19 +43,21 @@
       "archivedAt": "2026-07-06T15:55:21.004Z"
     },
     "10-k-parser-migration": {
-      "phase": "validate",
-      "status": "validate",
+      "phase": "archived",
+      "status": "archived",
       "completedPhases": [
         "plan",
-        "gradate"
+        "gradate",
+        "validate"
       ],
       "documents": {
-        "plan": ".apb-workspace/docs/01-plan/10-k-parser-migration.plan.md",
-        "gradate": ".apb-workspace/docs/02-gradate/10-k-parser-migration.gradate.md",
-        "validate": ".apb-workspace/docs/03-validate/10-k-parser-migration.validate.md"
+        "plan": ".apb-workspace/docs/99-archive/10-k-parser-migration/10-k-parser-migration.plan.md",
+        "gradate": ".apb-workspace/docs/99-archive/10-k-parser-migration/10-k-parser-migration.gradate.md",
+        "validate": ".apb-workspace/docs/99-archive/10-k-parser-migration/10-k-parser-migration.validate.md"
       },
       "createdAt": "2026-07-06T15:58:54.828Z",
-      "updatedAt": "2026-07-06T16:25:15.651Z"
+      "updatedAt": "2026-07-11T03:48:53.991Z",
+      "archivedAt": "2026-07-11T03:48:53.991Z"
     },
     "generative-ui-master-plan": {
       "phase": "plan",
@@ -76,6 +78,33 @@
       },
       "createdAt": "2026-07-09T13:43:00.816Z",
       "updatedAt": "2026-07-09T13:43:00.818Z"
+    },
+    "alloy-logging-migration": {
+      "phase": "archived",
+      "status": "archived",
+      "completedPhases": [
+        "plan",
+        "gradate",
+        "validate"
+      ],
+      "documents": {
+        "plan": ".apb-workspace/docs/99-archive/alloy-logging-migration/alloy-logging-migration.plan.md",
+        "gradate": ".apb-workspace/docs/99-archive/alloy-logging-migration/alloy-logging-migration.gradate.md",
+        "validate": ".apb-workspace/docs/99-archive/alloy-logging-migration/alloy-logging-migration.validate.md"
+      },
+      "createdAt": "2026-07-11T03:45:47.523Z",
+      "updatedAt": "2026-07-11T05:08:49.463Z",
+      "archivedAt": "2026-07-11T05:08:49.463Z"
+    },
+    "research-agent-ui-contract": {
+      "phase": "plan",
+      "status": "plan",
+      "completedPhases": [],
+      "documents": {
+        "plan": ".apb-workspace/docs/01-plan/research-agent-ui-contract.plan.md"
+      },
+      "createdAt": "2026-07-11T05:10:02.547Z",
+      "updatedAt": "2026-07-11T05:10:02.548Z"
     }
   },
   "history": [
@@ -151,6 +180,40 @@
       "feature": "generative-ui-basic-tech-stack",
       "to": "plan",
       "timestamp": "2026-07-09T13:43:00.816Z"
+    },
+    {
+      "feature": "alloy-logging-migration",
+      "to": "plan",
+      "timestamp": "2026-07-11T03:45:47.523Z"
+    },
+    {
+      "feature": "alloy-logging-migration",
+      "from": "plan",
+      "to": "gradate",
+      "timestamp": "2026-07-11T03:47:10.838Z"
+    },
+    {
+      "feature": "10-k-parser-migration",
+      "from": "validate",
+      "to": "archived",
+      "timestamp": "2026-07-11T03:48:53.991Z"
+    },
+    {
+      "feature": "alloy-logging-migration",
+      "from": "gradate",
+      "to": "validate",
+      "timestamp": "2026-07-11T03:50:41.761Z"
+    },
+    {
+      "feature": "alloy-logging-migration",
+      "from": "validate",
+      "to": "archived",
+      "timestamp": "2026-07-11T05:08:49.463Z"
+    },
+    {
+      "feature": "research-agent-ui-contract",
+      "to": "plan",
+      "timestamp": "2026-07-11T05:10:02.547Z"
     }
   ]
 }

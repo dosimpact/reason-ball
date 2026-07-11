@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-import os
 from typing import cast
 
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
-from langchain_openai import ChatOpenAI
 from langgraph.graph import END, START, StateGraph
 from langgraph.prebuilt import create_react_agent
 
+from graph.provider import ChatGptOauthProxyProvider
 from graph.subgraph.starter_graph.state import StarterGraphState
 from graph.subgraph.starter_graph.tools import get_weather
 
@@ -18,11 +17,7 @@ SYSTEM_PROMPT = (
 
 
 def build_react_agent():
-    model = ChatOpenAI(
-        model=os.getenv("OPENAI_MODEL", "gpt-5.4-mini"),
-        base_url=os.getenv("OPENAI_BASE_URL", "http://127.0.0.1:18741/v1"),
-        api_key=lambda: os.getenv("OPENAI_API_KEY", "chatgpt-oauth-placeholder"),
-    )
+    model = ChatGptOauthProxyProvider().chat_model()
     return create_react_agent(
         model,
         tools=[get_weather],

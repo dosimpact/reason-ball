@@ -1,5 +1,5 @@
-from graph.shared.provider import get_provider
 from graph.main_graph.state import GraphState
+from graph.provider import get_provider
 
 
 async def call_llm(state: GraphState) -> dict[str, str]:

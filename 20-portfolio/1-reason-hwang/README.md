@@ -10,7 +10,7 @@ Reason Hwang 포트폴리오 워크스페이스입니다. 프론트엔드 호스
 | `2-bff-apps` | NestJS BFF 및 remote 앱 프록시 | `2801` |
 | `3-langgraph-fast` | FastAPI + LangGraph 서비스 | `8000` |
 | `infra/1-infra-graph-rag` | Neo4j, PostgreSQL, Loki, Promtail, Grafana | `7474`, `5433`, `3100`, `3001` |
-| `infra/2-codex-oauth-proxy` | 로컬 OpenAI 호환 OAuth 프록시 | `18741` |
+| `infra/2-codex-oauth-proxy` | 로컬 OpenAI 호환 OAuth 프록시 | `18741 -> 2890` |
 
 ## 사전 준비
 

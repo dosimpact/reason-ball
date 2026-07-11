@@ -35,6 +35,5 @@ curl -X POST http://127.0.0.1:8000/graph/run \
   -d '{"message":"Say hello in one sentence","provider":"openai"}'
 ```
 
-Use `provider: "chatgpt-oauth-proxy"` with
-`CHATGPT_OAUTH_PROXY_URL` set when `/Users/studio/workspace/projects/chatgpt-oauth-proxy`
-is running.
+Use `provider: "chatgpt-oauth-proxy"` with `OPENAI_BASE_URL` pointing to the
+running OAuth proxy (for example, `http://127.0.0.1:2890/v1`).

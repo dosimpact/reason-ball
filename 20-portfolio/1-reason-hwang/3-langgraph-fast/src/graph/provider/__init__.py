@@ -1,7 +1,5 @@
-from graph.shared.provider.chatgpt_oauth_proxy import (
-    ChatGptOauthProxyProvider,
-)
-from graph.shared.provider.openai import OpenAIProvider
+from graph.provider.chatgpt_oauth_proxy import ChatGptOauthProxyProvider
+from graph.provider.openai import OpenAIProvider
 
 
 def get_provider(name: str):
