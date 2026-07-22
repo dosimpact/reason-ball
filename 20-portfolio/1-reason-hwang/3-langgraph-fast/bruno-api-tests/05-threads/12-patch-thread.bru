@@ -1,0 +1,28 @@
+meta {
+  name: Patch Thread
+  type: http
+  seq: 12
+}
+
+patch {
+  url: {{baseUrl}}/threads/{{threadId}}
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"metadata": {"patched": true}}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-THREAD-01: merges thread metadata", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

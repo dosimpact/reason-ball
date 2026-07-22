@@ -1,0 +1,28 @@
+meta {
+  name: Search Thread History
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/threads/{{threadId}}/history
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"limit": 10}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-THREAD-02: searches checkpoint history", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

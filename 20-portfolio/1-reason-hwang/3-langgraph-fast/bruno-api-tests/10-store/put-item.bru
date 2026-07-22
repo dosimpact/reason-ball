@@ -1,0 +1,38 @@
+meta {
+  name: Put Store Item
+  type: http
+  seq: 1
+}
+
+docs {
+  Plan: BRUNO-STORE-01
+}
+
+put {
+  url: {{baseUrl}}/store/items
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "namespace": ["bruno", "users"],
+    "key": "profile-001",
+    "value": {"name": "Ada", "role": "engineer"},
+    "ttl": null
+  }
+}
+
+assert {
+  res.status: eq 204
+}
+
+tests {
+  test("store accepts a namespaced item", function() {
+    expect(res.getStatus()).to.equal(204);
+  });
+}

@@ -1,0 +1,38 @@
+meta {
+  name: Count Assistants
+  type: http
+  seq: 5
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-04
+}
+
+post {
+  url: {{baseUrl}}/assistants/count
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "metadata": {"suite": "assistants"},
+    "graph_id": "main_graph",
+    "name": "contract"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body: eq 1
+}
+
+tests {
+  test("BRUNO-ASST-04 count matches the filtered search", function() {
+    expect(res.getBody()).to.equal(1);
+  });
+}

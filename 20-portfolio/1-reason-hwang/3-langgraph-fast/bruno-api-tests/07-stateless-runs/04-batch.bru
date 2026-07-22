@@ -1,0 +1,31 @@
+meta {
+  name: Stateless Batch Run
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/runs/batch
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  [
+    {"assistant_id": "main_graph", "input": {"batch": 1}},
+    {"assistant_id": "main_graph", "input": {"batch": 2}}
+  ]
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-RUN-03: executes a stateless batch", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

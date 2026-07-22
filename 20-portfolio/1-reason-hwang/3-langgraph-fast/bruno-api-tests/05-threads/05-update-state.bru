@@ -1,0 +1,32 @@
+meta {
+  name: Update Thread State
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/threads/{{threadId}}/state
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"values": {"bruno_step": 1}, "as_node": "bruno"}
+}
+
+assert {
+  res.status: eq 200
+}
+
+script:post-response {
+  bru.setVar("checkpointId", res.getBody().checkpoint.checkpoint_id);
+}
+
+tests {
+  test("BRUNO-THREAD-02: stores the returned checkpoint", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

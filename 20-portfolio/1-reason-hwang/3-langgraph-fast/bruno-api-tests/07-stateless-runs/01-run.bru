@@ -1,0 +1,28 @@
+meta {
+  name: Stateless Run
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/runs
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"assistant_id": "main_graph", "input": {"message": "run"}}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-RUN-03: executes a stateless run", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

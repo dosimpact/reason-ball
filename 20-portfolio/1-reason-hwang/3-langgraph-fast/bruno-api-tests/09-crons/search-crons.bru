@@ -1,0 +1,43 @@
+meta {
+  name: Search Crons
+  type: http
+  seq: 3
+}
+
+docs {
+  Plan: BRUNO-CRON-01
+}
+
+post {
+  url: {{baseUrl}}/runs/crons/search
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "assistant_id": "main_graph",
+    "enabled": true,
+    "metadata": {"source": "bruno"},
+    "limit": 10,
+    "offset": 0,
+    "sort_by": "created_at",
+    "sort_order": "desc"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body: isArray
+}
+
+tests {
+  test("cron search applies metadata filter", function() {
+    expect(res.getBody().length).to.be.greaterThan(0);
+    expect(res.getBody().every((cron) => cron.metadata.source === "bruno")).to.equal(true);
+  });
+}

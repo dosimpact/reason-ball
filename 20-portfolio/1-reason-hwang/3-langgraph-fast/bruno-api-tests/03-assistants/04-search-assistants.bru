@@ -1,0 +1,47 @@
+meta {
+  name: Search Assistants
+  type: http
+  seq: 4
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-03
+}
+
+post {
+  url: {{baseUrl}}/assistants/search
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "metadata": {"suite": "assistants"},
+    "graph_id": "main_graph",
+    "name": "contract",
+    "limit": 10,
+    "offset": 0,
+    "sort_by": "name",
+    "sort_order": "asc",
+    "select": ["assistant_id", "graph_id", "name", "metadata", "version"]
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-ASST-03 filters, sorts and projects", function() {
+    const body = res.getBody();
+    expect(body).to.be.an("array").that.is.not.empty;
+    expect(body[0].assistant_id).to.equal(bru.getVar("assistantId"));
+    expect(Object.keys(body[0]).sort()).to.deep.equal(
+      ["assistant_id", "graph_id", "metadata", "name", "version"].sort()
+    );
+  });
+}

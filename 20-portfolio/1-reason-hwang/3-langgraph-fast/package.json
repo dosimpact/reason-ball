@@ -4,11 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "uv run uvicorn server.server:app --reload",
-    "studio": "npx kill-port 2024 && uv run langgraph dev --host 0.0.0.0 --port 2024 --tunnel",
-    "langgraph:validate": "uv run langgraph validate",
-    "langgraph:build": "uv run langgraph build -t reason-hwang-langgraph-fast-api",
-    "langgraph:up": "uv run langgraph up --image reason-hwang-langgraph-fast-api --port 8123 --wait",
-    "studio:dev": "npx kill-port 2810 && uv run langgraph dev --host 0.0.0.0 --port 2810",
     "start": "uv run uvicorn server.server:app",
     "build": "uv build",
     "test": "uv run pytest",
@@ -24,12 +19,14 @@
     "tenk:smoke": "pnpm run tenk:fetch && pnpm run tenk:parse:dry-run && pnpm run tenk:init-neo4j && pnpm run tenk:graph:write && pnpm run tenk:query",
     "smoke:tenk:http": "uv run python scripts/smoke_tenk_api.py --input .tmp/tenk/latest-10k.txt --metadata .tmp/tenk/latest-10k.json",
     "test:neo4j": "RUN_NEO4J_TESTS=1 uv run pytest -m neo4j tests/integration -q",
+    "test:api": "uv run pytest tests/server -q",
+    "test:bruno": "pnpm exec bru run bruno-api-tests --env local",
     "lint": "uv run --with ruff ruff check .",
     "typecheck": "uv run --with pyright pyright",
-    "docker:build": "docker build -f Dockerfile.langgraph -t reason-hwang-langgraph-fast-api .",
-    "docker:up": "docker-compose up -d",
-    "docker:down": "docker-compose down",
     "sync": "uv sync",
     "clean": "rm -rf dist build .pytest_cache .ruff_cache .pyright .coverage coverage htmlcov"
+  },
+  "devDependencies": {
+    "@usebruno/cli": "^2.13.0"
   }
 }

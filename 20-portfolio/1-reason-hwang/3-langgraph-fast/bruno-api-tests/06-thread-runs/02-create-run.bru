@@ -1,0 +1,32 @@
+meta {
+  name: Create Thread Run
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/threads/{{threadId}}/runs
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"assistant_id": "main_graph", "input": {"message": "bruno"}, "if_not_exists": "create", "_hold": true}
+}
+
+assert {
+  res.status: eq 200
+}
+
+script:post-response {
+  bru.setVar("runId", res.getBody().run_id);
+}
+
+tests {
+  test("BRUNO-RUN-01: creates a run and stores runId", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

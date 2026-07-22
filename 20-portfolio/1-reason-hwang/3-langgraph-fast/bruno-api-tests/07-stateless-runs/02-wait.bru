@@ -1,0 +1,28 @@
+meta {
+  name: Stateless Wait Run
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/runs/wait
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"assistant_id": "main_graph", "input": {"message": "wait"}}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-RUN-03: waits for a stateless result", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

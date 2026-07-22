@@ -1,0 +1,20 @@
+meta {
+  name: Get Thread
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseUrl}}/threads/{{threadId}}
+  body: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-THREAD-01: returns the created thread", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

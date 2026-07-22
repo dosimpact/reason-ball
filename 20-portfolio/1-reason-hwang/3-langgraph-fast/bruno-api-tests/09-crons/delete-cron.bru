@@ -1,0 +1,25 @@
+meta {
+  name: Delete Cron
+  type: http
+  seq: 7
+}
+
+docs {
+  Plan: BRUNO-CRON-01
+}
+
+delete {
+  url: {{baseUrl}}/runs/crons/{{cronId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("created stateless cron is deleted", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

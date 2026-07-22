@@ -1,0 +1,51 @@
+meta {
+  name: A2A Message Send
+  type: http
+  seq: 1
+}
+
+docs {
+  Plan: BRUNO-A2A-01
+}
+
+post {
+  url: {{baseUrl}}/a2a/20000000-0000-4000-8000-000000000001
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "jsonrpc": "2.0",
+    "id": "bruno-a2a-1",
+    "method": "message/send",
+    "params": {
+      "message": {
+        "role": "user",
+        "parts": [{"kind": "text", "text": "Hello from Bruno"}],
+        "messageId": "bruno-message-1",
+        "contextId": "bruno-context-1"
+      }
+    }
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.id: eq bruno-a2a-1
+  res.body.result.kind: eq task
+  res.body.result.status.state: eq completed
+}
+
+tests {
+  test("A2A returns a task protocol response", function() {
+    expect(res.getBody().jsonrpc).to.equal("2.0");
+    expect(res.getBody().result.contextId).to.equal("bruno-context-1");
+    expect(res.getBody().result.artifacts[0].parts[0].text).to.equal("Hello from Bruno");
+  });
+}

@@ -1,0 +1,39 @@
+meta {
+  name: Search Store Items
+  type: http
+  seq: 3
+}
+
+docs {
+  Plan: BRUNO-STORE-01
+}
+
+post {
+  url: {{baseUrl}}/store/items/search
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "namespace_prefix": ["bruno"],
+    "filter": {"role": "engineer"},
+    "limit": 10,
+    "offset": 0
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.items: isArray
+}
+
+tests {
+  test("store search returns the seeded profile", function() {
+    expect(res.getBody().items.some((item) => item.key === "profile-001")).to.equal(true);
+  });
+}

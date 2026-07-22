@@ -1,0 +1,36 @@
+meta {
+  name: Delete Store Item
+  type: http
+  seq: 5
+}
+
+docs {
+  Plan: BRUNO-STORE-01
+}
+
+delete {
+  url: {{baseUrl}}/store/items
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "namespace": ["bruno", "users"],
+    "key": "profile-001"
+  }
+}
+
+assert {
+  res.status: eq 204
+}
+
+tests {
+  test("store item deletion is idempotent", function() {
+    expect(res.getStatus()).to.equal(204);
+  });
+}

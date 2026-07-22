@@ -1,0 +1,27 @@
+meta {
+  name: Get Assistant
+  type: http
+  seq: 6
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-05
+}
+
+get {
+  url: {{baseUrl}}/assistants/{{assistantId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.assistant_id: eq {{assistantId}}
+}
+
+tests {
+  test("BRUNO-ASST-05 gets an assistant by UUID", function() {
+    expect(res.getBody().assistant_id).to.equal(bru.getVar("assistantId"));
+    expect(res.getBody().graph_id).to.equal("main_graph");
+  });
+}

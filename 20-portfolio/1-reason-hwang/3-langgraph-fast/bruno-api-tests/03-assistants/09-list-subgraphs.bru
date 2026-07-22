@@ -1,0 +1,27 @@
+meta {
+  name: List Assistant Subgraphs
+  type: http
+  seq: 9
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-08
+}
+
+get {
+  url: {{baseUrl}}/assistants/{{assistantId}}/subgraphs?recurse=true
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-ASST-08 lists recursive subgraph schemas", function() {
+    const body = res.getBody();
+    expect(body).to.have.property("tenk_subgraph");
+    expect(body.tenk_subgraph).to.have.property("state_schema");
+  });
+}

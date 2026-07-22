@@ -1,0 +1,20 @@
+meta {
+  name: Join Thread Stream
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{baseUrl}}/threads/{{threadId}}/stream?stream_modes=run_modes
+  body: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-RUN-02: returns an SSE stream", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

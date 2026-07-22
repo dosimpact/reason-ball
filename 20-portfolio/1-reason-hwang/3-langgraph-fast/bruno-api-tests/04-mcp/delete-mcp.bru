@@ -1,0 +1,25 @@
+meta {
+  name: MCP DELETE Has No Session
+  type: http
+  seq: 3
+}
+
+docs {
+  Plan: BRUNO-MCP-05
+}
+
+delete {
+  url: {{baseUrl}}/mcp/
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+}
+
+tests {
+  test("stateless MCP has no session to terminate", function() {
+    expect(res.getStatus()).to.equal(404);
+  });
+}

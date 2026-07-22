@@ -1,0 +1,39 @@
+meta {
+  name: Patch Cron
+  type: http
+  seq: 6
+}
+
+docs {
+  Plan: BRUNO-CRON-01
+}
+
+patch {
+  url: {{baseUrl}}/runs/crons/{{cronId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "enabled": false,
+    "metadata": {"state": "paused"}
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.enabled: eq false
+  res.body.metadata.source: eq bruno
+  res.body.metadata.state: eq paused
+}
+
+tests {
+  test("cron patch merges metadata and disables the cron", function() {
+    expect(res.getBody().payload.metadata.state).to.equal("paused");
+  });
+}

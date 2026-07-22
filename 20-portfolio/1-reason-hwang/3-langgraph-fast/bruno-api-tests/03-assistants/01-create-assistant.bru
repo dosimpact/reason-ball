@@ -1,0 +1,52 @@
+meta {
+  name: Create Assistant
+  type: http
+  seq: 1
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-01
+}
+
+post {
+  url: {{baseUrl}}/assistants
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "graph_id": "main_graph",
+    "name": "Bruno Contract Assistant",
+    "config": {"configurable": {"suite": "bruno"}},
+    "context": {"locale": "ko-KR"},
+    "metadata": {"suite": "assistants", "stage": "created"}
+  }
+}
+
+script:post-response {
+  const body = res.getBody();
+  bru.setVar("assistantId", body.assistant_id);
+  bru.setVar("initialVersion", body.version);
+}
+
+assert {
+  res.status: eq 200
+  res.body.graph_id: eq main_graph
+  res.body.version: eq 1
+}
+
+tests {
+  test("BRUNO-ASST-01 returns the Assistant contract", function() {
+    const body = res.getBody();
+    expect(body.assistant_id).to.be.a("string");
+    expect(body.config.configurable.suite).to.equal("bruno");
+    expect(body.metadata.stage).to.equal("created");
+    expect(body.created_at).to.be.a("string");
+    expect(body.updated_at).to.be.a("string");
+  });
+}

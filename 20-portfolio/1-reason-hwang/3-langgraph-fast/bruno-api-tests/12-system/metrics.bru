@@ -1,0 +1,28 @@
+meta {
+  name: System Metrics JSON
+  type: http
+  seq: 2
+}
+
+docs {
+  Plan: BRUNO-SYSTEM-01
+}
+
+get {
+  url: {{baseUrl}}/metrics?format=json
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("metrics reports configured worker capacity", function() {
+    expect(res.getBody().queue).to.be.an("object");
+    expect(res.getBody().workers).to.be.an("object");
+    expect(res.getBody().http).to.be.an("object");
+    expect(res.getBody().workers.available).to.equal(10);
+  });
+}

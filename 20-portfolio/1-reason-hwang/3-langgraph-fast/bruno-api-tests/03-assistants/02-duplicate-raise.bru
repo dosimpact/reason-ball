@@ -1,0 +1,38 @@
+meta {
+  name: Duplicate Assistant Raise
+  type: http
+  seq: 2
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-02
+}
+
+post {
+  url: {{baseUrl}}/assistants
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "assistant_id": "{{assistantId}}",
+    "graph_id": "main_graph",
+    "if_exists": "raise"
+  }
+}
+
+assert {
+  res.status: eq 409
+}
+
+tests {
+  test("BRUNO-ASST-02 raise policy returns conflict", function() {
+    expect(res.getStatus()).to.equal(409);
+    expect(res.getBody().detail).to.be.a("string");
+  });
+}

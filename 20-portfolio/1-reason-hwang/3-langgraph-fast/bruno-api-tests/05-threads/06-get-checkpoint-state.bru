@@ -1,0 +1,20 @@
+meta {
+  name: Get State At Checkpoint
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/threads/{{threadId}}/state/{{checkpointId}}
+  body: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-THREAD-02: reads state by checkpoint path", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

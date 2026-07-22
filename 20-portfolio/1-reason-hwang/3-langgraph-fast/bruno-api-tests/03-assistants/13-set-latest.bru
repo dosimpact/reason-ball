@@ -1,0 +1,27 @@
+meta {
+  name: Set Latest Assistant Version
+  type: http
+  seq: 13
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-11
+}
+
+post {
+  url: {{baseUrl}}/assistants/{{assistantId}}/latest?version={{initialVersion}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.version: eq 1
+}
+
+tests {
+  test("BRUNO-ASST-11 switches latest using the required integer query", function() {
+    expect(res.getBody().version).to.equal(bru.getVar("initialVersion"));
+    expect(bru.getVar("latestVersion")).to.equal(2);
+  });
+}

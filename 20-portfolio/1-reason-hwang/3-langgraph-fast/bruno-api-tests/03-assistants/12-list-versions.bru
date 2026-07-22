@@ -1,0 +1,27 @@
+meta {
+  name: List Assistant Versions Without Body
+  type: http
+  seq: 12
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-10
+}
+
+post {
+  url: {{baseUrl}}/assistants/{{assistantId}}/versions
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-ASST-10 sends no body and returns both versions", function() {
+    const body = res.getBody();
+    expect(body).to.be.an("array").with.length(2);
+    expect(body.map((item) => item.version)).to.deep.equal([2, 1]);
+  });
+}

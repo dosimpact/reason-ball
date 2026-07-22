@@ -1,0 +1,26 @@
+meta {
+  name: Standard Health Check
+  type: http
+  seq: 4
+}
+
+docs {
+  Plan: BRUNO-SYSTEM-01
+}
+
+get {
+  url: {{baseUrl}}/ok?check_db=0
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.ok: eq true
+}
+
+tests {
+  test("standard health endpoint reports ready", function() {
+    expect(res.getBody()).to.deep.equal({ok: true});
+  });
+}

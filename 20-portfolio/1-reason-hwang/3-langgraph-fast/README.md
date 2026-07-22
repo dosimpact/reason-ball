@@ -1,33 +1,65 @@
-# LangGraph Fast Init
+# LangGraph Standard API on FastAPI
 
-FastAPI and LangGraph starter project using `uv`.
+Open-source FastAPI/LangGraph server that implements the API contract in
+`.apb-workspace/docs/01-plan/langgraph-standard.json` without the licensed
+`langgraph-api` image or `langgraph dev` production runtime.
 
 ## Setup
 
 ```sh
 uv sync
+pnpm install
 ```
 
-## Run
+## PostgreSQL
+
+The database is provided by the shared infrastructure project. PostgreSQL must already contain the
+configured database. The local role needs `CREATE TABLE`, `CREATE INDEX`, and `ALTER TABLE` because
+`ENV_PROFILE=local` runs idempotent checkpointer and application migrations at startup. Other
+profiles only verify the schema and never execute DDL.
 
 ```sh
-uv run uvicorn server.server:app --reload
+cd ../infra/1-infra-graph-rag
+docker compose --env-file .env up -d postgres
+docker compose --env-file .env exec -T postgres \
+  sh -c 'pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"'
 ```
 
-## LangGraph Studio
+Copy `.env.example` to `.env`, set the PostgreSQL values, keep
+`MAX_CONCURRENT_RUNS=10`, and point `LANGGRAPH_STANDARD_OPENAPI` at the SSOT JSON.
+
+## Run (one worker)
 
 ```sh
-pnpm studio
+uv run uvicorn server.server:app --env-file .env \
+  --host 127.0.0.1 --port 8000 --workers 1
 ```
 
-The Studio config exposes `main_graph` and `tenk_subgraph` as separate graph modules.
+`ENV_PROFILE=dev`, `staging`, and `production` require a schema prepared out of band. Startup fails
+when the schema version is missing or outdated.
 
-## API
+## API and validation
 
-- `GET /health`: service health check.
-- `POST /graph/run`: run the minimal LangGraph workflow.
+```sh
+curl http://127.0.0.1:8000/ok?check_db=1
+curl http://127.0.0.1:8000/openapi.json
+pnpm test
+pnpm test:bruno
+```
 
-Example:
+The standard surface includes Assistants, Threads, Thread Runs, Stateless Runs, Streaming, Crons,
+Store, A2A, MCP, and System endpoints. Existing `/health`, `/graph/run`, and `/api/tenk/*` routes are
+kept as project extensions.
+
+## Runtime policy
+
+- At most 10 graph runs execute concurrently and 10 more wait in FIFO order.
+- Overflow receives `429` with `Retry-After`; concurrent runs for the same thread receive `409`.
+- `delete_threads=true` removes Assistant/thread/run application metadata but preserves LangGraph
+  checkpointer checkpoint, write, and blob rows.
+- Run exactly one Uvicorn worker; distributed coordination is outside this service's scope.
+
+## Legacy graph extension
 
 ```sh
 curl -X POST http://127.0.0.1:8000/graph/run \

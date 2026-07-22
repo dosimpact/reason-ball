@@ -1,0 +1,20 @@
+meta {
+  name: Delete Thread Run
+  type: http
+  seq: 10
+}
+
+delete {
+  url: {{baseUrl}}/threads/{{threadId}}/runs/{{runId}}
+  body: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-RUN-01: deletes the selected run", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

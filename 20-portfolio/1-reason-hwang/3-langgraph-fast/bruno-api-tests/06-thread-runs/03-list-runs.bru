@@ -1,0 +1,20 @@
+meta {
+  name: List Thread Runs
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/threads/{{threadId}}/runs?limit=10&offset=0
+  body: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-RUN-01: lists runs for the thread", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

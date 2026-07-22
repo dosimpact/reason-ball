@@ -1,0 +1,36 @@
+meta {
+  name: Count Crons
+  type: http
+  seq: 4
+}
+
+docs {
+  Plan: BRUNO-CRON-01
+}
+
+post {
+  url: {{baseUrl}}/runs/crons/count
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "assistant_id": "main_graph",
+    "metadata": {"source": "bruno"}
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("cron count returns at least the created stateless cron", function() {
+    expect(res.getBody()).to.be.at.least(1);
+  });
+}

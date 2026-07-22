@@ -1,0 +1,29 @@
+meta {
+  name: Server Information
+  type: http
+  seq: 1
+}
+
+docs {
+  Plan: BRUNO-SYSTEM-01
+}
+
+get {
+  url: {{baseUrl}}/info
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.version: isString
+  res.body.langgraph_py_version: isString
+}
+
+tests {
+  test("server info advertises MCP support", function() {
+    expect(res.getBody().flags).to.be.an("object");
+    expect(res.getBody().metadata).to.be.an("object");
+    expect(res.getBody().flags.mcp).to.equal(true);
+  });
+}

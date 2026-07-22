@@ -1,0 +1,27 @@
+meta {
+  name: Get Assistant Subgraph Namespace
+  type: http
+  seq: 10
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-08
+}
+
+get {
+  url: {{baseUrl}}/assistants/{{assistantId}}/subgraphs/tenk_subgraph?recurse=true
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-ASST-08 filters subgraphs by namespace", function() {
+    const body = res.getBody();
+    expect(Object.keys(body)).to.deep.equal(["tenk_subgraph"]);
+    expect(body.tenk_subgraph.state_schema).to.be.an("object");
+  });
+}

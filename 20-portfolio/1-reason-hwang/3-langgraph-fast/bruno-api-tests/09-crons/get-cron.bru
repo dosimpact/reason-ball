@@ -1,0 +1,27 @@
+meta {
+  name: Get Cron
+  type: http
+  seq: 5
+}
+
+docs {
+  Plan: BRUNO-CRON-01
+}
+
+get {
+  url: {{baseUrl}}/runs/crons/{{cronId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.cron_id: eq {{cronId}}
+  res.body.thread_id: eq {{cronThreadId}}
+}
+
+tests {
+  test("created cron can be retrieved", function() {
+    expect(res.getBody().metadata.suite).to.equal("extended-api");
+  });
+}

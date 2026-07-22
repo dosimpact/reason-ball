@@ -1,0 +1,28 @@
+meta {
+  name: Post State At Checkpoint
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/threads/{{threadId}}/state/checkpoint
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"checkpoint": {"thread_id": "{{threadId}}", "checkpoint_ns": "", "checkpoint_id": "{{checkpointId}}"}}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-THREAD-02: reads state by checkpoint body", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

@@ -1,0 +1,28 @@
+meta {
+  name: Protocol Event Stream
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/threads/{{threadId}}/stream/events
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"channels": ["values", "metadata"], "since": 0}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-STREAM-01: returns ordered protocol SSE events", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

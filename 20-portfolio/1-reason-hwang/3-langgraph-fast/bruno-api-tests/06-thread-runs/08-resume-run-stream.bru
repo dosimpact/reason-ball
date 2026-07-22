@@ -1,0 +1,20 @@
+meta {
+  name: Resume Existing Run Stream
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/threads/{{threadId}}/runs/{{runId}}/stream
+  body: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-RUN-02: returns resumable SSE", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

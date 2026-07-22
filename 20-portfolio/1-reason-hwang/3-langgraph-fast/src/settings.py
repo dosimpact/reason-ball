@@ -16,6 +16,14 @@ class AppSettings:
     parser_chunk_overlap: int
     sec_user_agent: str
     prompts_dir: Path
+    env_profile: str | None = None
+    postgres_host: str | None = None
+    postgres_port: int | None = None
+    postgres_user: str | None = None
+    postgres_password: str | None = None
+    postgres_db: str | None = None
+    max_concurrent_runs: int = 10
+    max_queued_runs: int = 10
 
     @classmethod
     def from_env(cls) -> "AppSettings":
@@ -31,6 +39,21 @@ class AppSettings:
                 return fallback
             return parsed if parsed > 0 else fallback
 
+        def read_optional_int(key: str) -> int | None:
+            raw = os.getenv(key)
+            if raw is None or not raw.strip() or raw.strip().lower() == "your":
+                return None
+            try:
+                return int(raw)
+            except ValueError:
+                return None
+
+        def read_optional(key: str) -> str | None:
+            value = os.getenv(key)
+            if value is None or not value.strip() or value.strip().lower() == "your":
+                return None
+            return value.strip()
+
         return cls(
             neo4j_uri=os.getenv("NEO4J_URI", "bolt://127.0.0.1:7687"),
             neo4j_user=os.getenv("NEO4J_USER", "neo4j"),
@@ -41,6 +64,37 @@ class AppSettings:
             parser_chunk_overlap=read_positive_int("PARSER_CHUNK_OVERLAP", 400),
             sec_user_agent=os.getenv("SEC_USER_AGENT", ""),
             prompts_dir=root_dir / "prompts",
+            env_profile=read_optional("ENV_PROFILE"),
+            postgres_host=read_optional("POSTGRES_HOST"),
+            postgres_port=read_optional_int("POSTGRES_PORT"),
+            postgres_user=read_optional("POSTGRES_USER"),
+            postgres_password=read_optional("POSTGRES_PASSWORD"),
+            postgres_db=read_optional("POSTGRES_DB"),
+            max_concurrent_runs=read_positive_int("MAX_CONCURRENT_RUNS", 10),
+            max_queued_runs=read_positive_int("MAX_QUEUED_RUNS", 10),
+        )
+
+    @property
+    def postgres_configured(self) -> bool:
+        return all(
+            (
+                self.env_profile,
+                self.postgres_host,
+                self.postgres_port,
+                self.postgres_user,
+                self.postgres_password,
+                self.postgres_db,
+            )
+        )
+
+    def postgres_conninfo(self) -> str:
+        if self.env_profile not in {"local", "dev", "staging", "production"}:
+            raise ValueError("ENV_PROFILE must be one of local, dev, staging, production")
+        if not self.postgres_configured:
+            raise ValueError("PostgreSQL environment variables are required")
+        return (
+            f"host={self.postgres_host} port={self.postgres_port} user={self.postgres_user} "
+            f"password={self.postgres_password} dbname={self.postgres_db}"
         )
 
 

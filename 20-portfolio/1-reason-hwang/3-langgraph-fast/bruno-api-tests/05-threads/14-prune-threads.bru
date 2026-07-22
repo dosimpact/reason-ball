@@ -1,0 +1,28 @@
+meta {
+  name: Prune Copied Thread
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{baseUrl}}/threads/prune
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"thread_ids": ["{{copyThreadId}}"], "strategy": "delete"}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-THREAD-01: prunes the copied thread", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

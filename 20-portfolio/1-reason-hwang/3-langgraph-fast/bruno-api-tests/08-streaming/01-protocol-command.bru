@@ -1,0 +1,28 @@
+meta {
+  name: Protocol Command
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/threads/{{threadId}}/commands
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"id": 1, "method": "agent.getTree", "params": {}}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-STREAM-01: returns a correlated protocol response", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

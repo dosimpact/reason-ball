@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2026-07-11T05:53:34.645Z",
+  "lastUpdated": "2026-07-11T16:15:44.280Z",
   "activeFeatures": [
     "generative-ui-master-plan",
     "generative-ui-basic-tech-stack",
@@ -108,14 +108,20 @@
       "updatedAt": "2026-07-11T05:10:02.548Z"
     },
     "reason-langgraph-fast-server": {
-      "phase": "plan",
-      "status": "plan",
-      "completedPhases": [],
+      "phase": "validate",
+      "status": "validate",
+      "completedPhases": [
+        "plan",
+        "gradate",
+        "validate"
+      ],
       "documents": {
-        "plan": ".apb-workspace/docs/01-plan/reason-langgraph-fast-server.plan.md"
+        "plan": ".apb-workspace/docs/01-plan/reason-langgraph-fast-server.plan.md",
+        "gradate": ".apb-workspace/docs/02-gradate/reason-langgraph-fast-server.gradate.md",
+        "validate": ".apb-workspace/docs/03-validate/reason-langgraph-fast-server.validate.md"
       },
       "createdAt": "2026-07-11T05:53:34.644Z",
-      "updatedAt": "2026-07-11T05:53:34.645Z"
+      "updatedAt": "2026-07-11T16:15:44.280Z"
     }
   },
   "history": [
@@ -230,6 +236,30 @@
       "feature": "reason-langgraph-fast-server",
       "to": "plan",
       "timestamp": "2026-07-11T05:53:34.644Z"
+    },
+    {
+      "feature": "reason-langgraph-fast-server",
+      "from": "plan",
+      "to": "gradate",
+      "timestamp": "2026-07-11T06:32:52.974Z"
+    },
+    {
+      "feature": "reason-langgraph-fast-server",
+      "from": "gradate",
+      "to": "validate",
+      "timestamp": "2026-07-11T06:47:33.574Z"
+    },
+    {
+      "feature": "reason-langgraph-fast-server",
+      "from": "validate",
+      "to": "gradate",
+      "timestamp": "2026-07-11T15:58:31.748Z"
+    },
+    {
+      "feature": "reason-langgraph-fast-server",
+      "from": "gradate",
+      "to": "validate",
+      "timestamp": "2026-07-11T16:15:44.279Z"
     }
   ]
 }

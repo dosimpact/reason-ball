@@ -1,0 +1,28 @@
+meta {
+  name: Create And Wait Thread Run
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/threads/{{threadId}}/runs/wait
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"assistant_id": "main_graph", "input": {"message": "wait"}}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-RUN-01: waits for result", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

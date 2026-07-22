@@ -1,0 +1,46 @@
+meta {
+  name: Create Thread Cron
+  type: http
+  seq: 1
+}
+
+docs {
+  Plan: BRUNO-CRON-01
+}
+
+post {
+  url: {{baseUrl}}/threads/10000000-0000-4000-8000-000000000001/runs/crons
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "assistant_id": "main_graph",
+    "schedule": "0 0 * * *",
+    "input": {"message": "scheduled thread run"},
+    "metadata": {"source": "bruno-thread"}
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.thread_id: eq 10000000-0000-4000-8000-000000000001
+  res.body.schedule: eq 0 0 * * *
+  res.body.enabled: eq true
+}
+
+script:post-response {
+  bru.setVar("threadCronId", res.getBody().cron_id);
+}
+
+tests {
+  test("thread cron is bound to the requested thread", function() {
+    expect(res.getBody().cron_id).to.be.a("string");
+    expect(res.getBody().payload.assistant_id).to.equal("main_graph");
+  });
+}

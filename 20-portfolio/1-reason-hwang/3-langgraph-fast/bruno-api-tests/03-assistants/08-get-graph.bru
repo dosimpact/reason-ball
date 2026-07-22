@@ -1,0 +1,28 @@
+meta {
+  name: Get Assistant Graph Xray
+  type: http
+  seq: 8
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-07
+}
+
+get {
+  url: {{baseUrl}}/assistants/{{assistantId}}/graph?xray=true
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-ASST-07 resolves graph through the assistant with xray", function() {
+    const body = res.getBody();
+    expect(body.nodes).to.be.an("array").that.is.not.empty;
+    expect(body.edges).to.be.an("array");
+    expect(body.nodes.map((node) => node.id)).to.include("main_graph");
+  });
+}

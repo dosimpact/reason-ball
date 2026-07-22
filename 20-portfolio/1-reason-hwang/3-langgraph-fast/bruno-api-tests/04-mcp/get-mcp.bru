@@ -1,0 +1,25 @@
+meta {
+  name: MCP GET Is Not Allowed
+  type: http
+  seq: 2
+}
+
+docs {
+  Plan: BRUNO-MCP-05
+}
+
+get {
+  url: {{baseUrl}}/mcp/
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 405
+}
+
+tests {
+  test("stateless MCP rejects GET streaming", function() {
+    expect(res.getStatus()).to.equal(405);
+  });
+}

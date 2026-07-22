@@ -1,0 +1,24 @@
+meta {
+  name: Copy Thread
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/threads/{{threadId}}/copy
+  body: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+script:post-response {
+  bru.setVar("copyThreadId", res.getBody().thread_id);
+}
+
+tests {
+  test("BRUNO-THREAD-01: copies the thread and stores copyThreadId", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

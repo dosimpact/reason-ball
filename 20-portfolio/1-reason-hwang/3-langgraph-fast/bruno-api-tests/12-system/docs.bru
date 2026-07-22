@@ -1,0 +1,25 @@
+meta {
+  name: API Documentation
+  type: http
+  seq: 3
+}
+
+docs {
+  Plan: BRUNO-SYSTEM-01
+}
+
+get {
+  url: {{baseUrl}}/docs
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("API documentation returns HTML", function() {
+    expect(res.getHeader("content-type")).to.contain("text/html");
+  });
+}

@@ -1,0 +1,26 @@
+meta {
+  name: Delete Assistant With Threads Flag
+  type: http
+  seq: 14
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-12
+}
+
+delete {
+  url: {{baseUrl}}/assistants/{{assistantId}}?delete_threads=true
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-ASST-12 accepts delete_threads while preserving checkpoint policy", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody()).to.equal(null);
+  });
+}

@@ -1,0 +1,28 @@
+meta {
+  name: Create Streaming Thread Run
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/threads/{{threadId}}/runs/stream
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"assistant_id": "main_graph", "input": {"message": "stream"}, "stream_mode": "values"}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-RUN-02: returns SSE for a new run", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

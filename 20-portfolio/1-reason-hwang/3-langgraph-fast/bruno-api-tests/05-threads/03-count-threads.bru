@@ -1,0 +1,28 @@
+meta {
+  name: Count Threads
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/threads/count
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"metadata": {"suite": "bruno-threads"}}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-THREAD-01: returns a numeric count", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

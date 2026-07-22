@@ -1,0 +1,32 @@
+meta {
+  name: Search Threads
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/threads/search
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "metadata": {"suite": "bruno-threads"},
+    "limit": 10,
+    "offset": 0
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-THREAD-01: returns a thread array", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

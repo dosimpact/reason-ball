@@ -1,0 +1,28 @@
+meta {
+  name: Bulk Cancel Runs
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/runs/cancel
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"thread_id": "{{threadId}}", "run_ids": ["{{runId}}"]}
+}
+
+assert {
+  res.status: eq 204
+}
+
+tests {
+  test("BRUNO-RUN-03: returns empty 204 response", function() {
+    expect(res.getStatus()).to.equal(204);
+  });
+}

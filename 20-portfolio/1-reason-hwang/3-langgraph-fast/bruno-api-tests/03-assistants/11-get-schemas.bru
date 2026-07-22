@@ -1,0 +1,28 @@
+meta {
+  name: Get Assistant Schemas
+  type: http
+  seq: 11
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-09
+}
+
+get {
+  url: {{baseUrl}}/assistants/{{assistantId}}/schemas
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.graph_id: eq main_graph
+}
+
+tests {
+  test("BRUNO-ASST-09 returns all graph schema categories", function() {
+    const body = res.getBody();
+    ["input_schema", "output_schema", "state_schema", "config_schema", "context_schema"]
+      .forEach((key) => expect(body).to.have.property(key));
+  });
+}

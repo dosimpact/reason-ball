@@ -1,0 +1,47 @@
+meta {
+  name: Create Stateless Cron
+  type: http
+  seq: 2
+}
+
+docs {
+  Plan: BRUNO-CRON-01
+}
+
+post {
+  url: {{baseUrl}}/runs/crons
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "assistant_id": "main_graph",
+    "schedule": "*/5 * * * *",
+    "input": {"message": "scheduled stateless run"},
+    "metadata": {"source": "bruno", "suite": "extended-api"},
+    "enabled": true
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.schedule: eq */5 * * * *
+  res.body.enabled: eq true
+}
+
+script:post-response {
+  bru.setVar("cronId", res.getBody().cron_id);
+  bru.setVar("cronThreadId", res.getBody().thread_id);
+}
+
+tests {
+  test("stateless cron returns lifecycle identifiers", function() {
+    expect(res.getBody().cron_id).to.be.a("string");
+    expect(res.getBody().thread_id).to.be.a("string");
+  });
+}

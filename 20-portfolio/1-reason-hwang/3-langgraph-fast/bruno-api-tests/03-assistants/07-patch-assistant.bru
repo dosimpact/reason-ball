@@ -1,0 +1,45 @@
+meta {
+  name: Patch Assistant
+  type: http
+  seq: 7
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-06
+}
+
+patch {
+  url: {{baseUrl}}/assistants/{{assistantId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Bruno Contract Assistant v2",
+    "metadata": {"stage": "patched"}
+  }
+}
+
+script:post-response {
+  bru.setVar("latestVersion", res.getBody().version);
+}
+
+assert {
+  res.status: eq 200
+  res.body.version: eq 2
+  res.body.metadata.suite: eq assistants
+  res.body.metadata.stage: eq patched
+}
+
+tests {
+  test("BRUNO-ASST-06 merges metadata and creates version two", function() {
+    const body = res.getBody();
+    expect(body.version).to.equal(2);
+    expect(body.metadata).to.deep.include({suite: "assistants", stage: "patched"});
+  });
+}

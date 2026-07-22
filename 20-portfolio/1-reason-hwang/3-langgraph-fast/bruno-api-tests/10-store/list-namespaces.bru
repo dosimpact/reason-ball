@@ -1,0 +1,38 @@
+meta {
+  name: List Store Namespaces
+  type: http
+  seq: 4
+}
+
+docs {
+  Plan: BRUNO-STORE-01
+}
+
+post {
+  url: {{baseUrl}}/store/namespaces
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "prefix": ["bruno"],
+    "limit": 100,
+    "offset": 0
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body: isArray
+}
+
+tests {
+  test("namespace listing contains the item namespace", function() {
+    expect(res.getBody().some((namespace) => namespace.join("/") === "bruno/users")).to.equal(true);
+  });
+}

@@ -1,0 +1,20 @@
+meta {
+  name: Get Thread History
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/threads/{{threadId}}/history?limit=10
+  body: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-THREAD-02: returns checkpoint history", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

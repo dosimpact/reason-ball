@@ -1,0 +1,20 @@
+meta {
+  name: Get Thread Run
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/threads/{{threadId}}/runs/{{runId}}
+  body: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BRUNO-RUN-01: returns the selected run", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}

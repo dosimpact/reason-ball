@@ -1,0 +1,28 @@
+meta {
+  name: Get Store Item
+  type: http
+  seq: 2
+}
+
+docs {
+  Plan: BRUNO-STORE-01
+}
+
+get {
+  url: {{baseUrl}}/store/items?key=profile-001&namespace=bruno&namespace=users
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.key: eq profile-001
+  res.body.value.name: eq Ada
+}
+
+tests {
+  test("store returns the value and namespace", function() {
+    expect(res.getBody().namespace).to.deep.equal(["bruno", "users"]);
+    expect(res.getBody().created_at).to.be.a("string");
+  });
+}

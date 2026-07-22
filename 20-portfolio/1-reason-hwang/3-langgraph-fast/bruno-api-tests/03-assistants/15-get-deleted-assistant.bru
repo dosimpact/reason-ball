@@ -1,0 +1,26 @@
+meta {
+  name: Get Deleted Assistant
+  type: http
+  seq: 15
+}
+
+docs {
+  Plan scenario: BRUNO-ASST-12
+}
+
+get {
+  url: {{baseUrl}}/assistants/{{assistantId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+}
+
+tests {
+  test("BRUNO-ASST-12 returns 404 after deletion", function() {
+    expect(res.getStatus()).to.equal(404);
+    expect(res.getBody().detail).to.equal("Assistant not found");
+  });
+}
