@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npx kill-port 2800 && next dev --port 2800",
+    "dev": "next dev --hostname 127.0.0.1 --port 2800",
     "build": "next build --no-lint",
     "start": "next start --port 2800",
     "lint": "eslint .",
-    "test:e2e": "playwright test"
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test",
+    "test:e2e:calculation": "playwright test --project=calculation"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
