@@ -66,6 +66,16 @@ uv run langgraph dev --config langgraph-advanced.json --host 0.0.0.0 --port 2998
 >Add to allowed domains
 ```
 
+45~46 capstone을 실제 OpenAI API와 LangGraph API 경로로 검증하려면 서버를
+실행한 상태에서 다음 명령을 별도 터미널에서 실행합니다.
+
+```bash
+uv run python scripts/e2e_capstones.py --base-url http://127.0.0.1:2999 --include-web
+```
+
+Tavily의 실제 외부 검색 결과까지 필수로 검사하려면 `--require-live-web`을
+사용합니다. 이 옵션은 `TAVILY_API_KEY`가 없거나 유효하지 않으면 실패합니다.
+
 고급 예제는 루트 `pyproject.toml`의 `advanced` extra로 의존성을 관리하고, 루트 `langgraph-advanced.json`으로 Studio에 등록합니다.
 
 ```bash

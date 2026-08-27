@@ -188,6 +188,36 @@ def _demo_web_search(question: str) -> list[Document]:
     ]
 
 
+def _tavily_documents(result: object) -> list[Document]:
+    """Tavily 성공 응답만 내부 document 형식으로 변환한다.
+
+    Tavily tool은 인증 실패를 예외 대신 ``{"error": ...}``로 반환할 수 있다.
+    빈 결과와 error 응답은 여기서 빈 목록으로 정규화해 demo fallback이 동작하게 한다.
+    """
+    if isinstance(result, dict):
+        items = result.get("results", [])
+    elif isinstance(result, list):
+        items = result
+    else:
+        items = []
+
+    if not isinstance(items, list):
+        return []
+
+    documents: list[Document] = []
+    for index, item in enumerate(items, 1):
+        if not isinstance(item, dict) or not item.get("content"):
+            continue
+        documents.append(
+            {
+                "id": f"web-{index}",
+                "source": str(item.get("url", "tavily")),
+                "text": str(item["content"]),
+            }
+        )
+    return documents
+
+
 def web_search(state: State) -> dict:
     new_documents: list[Document]
     if os.environ.get("TAVILY_API_KEY"):
@@ -195,14 +225,9 @@ def web_search(state: State) -> dict:
             from langchain_tavily import TavilySearch
 
             result = TavilySearch(max_results=3).invoke({"query": state["question"]})
-            new_documents = [
-                {
-                    "id": f"web-{index}",
-                    "source": str(item.get("url", "tavily")),
-                    "text": str(item.get("content", "")),
-                }
-                for index, item in enumerate(result.get("results", []), 1)
-            ]
+            new_documents = _tavily_documents(result)
+            if not new_documents:
+                new_documents = _demo_web_search(state["question"])
         except Exception:
             new_documents = _demo_web_search(state["question"])
     else:

@@ -307,3 +307,19 @@ def test_agentic_rag_routes_grades_and_finishes_with_grounded_answer(monkeypatch
     assert module.route_after_answer_grade(
         {"grounded": False, "useful": False, "attempts": 3}
     ) == "__end__"
+
+
+def test_agentic_rag_normalizes_tavily_errors_for_demo_fallback():
+    module = load_example("46_agentic_rag.py")
+
+    assert module._tavily_documents({"error": ValueError("unauthorized")}) == []
+    assert module._tavily_documents({"results": []}) == []
+    assert module._tavily_documents(
+        [{"url": "https://example.com", "content": "current fact"}]
+    ) == [
+        {
+            "id": "web-1",
+            "source": "https://example.com",
+            "text": "current fact",
+        }
+    ]
