@@ -63,6 +63,6 @@ selected=['db_query_users', 'db_query_orders', 'db_query_payments', ...]
 - 다국어 카탈로그면 다국어 임베딩 모델(Titan v2 multilingual / multilingual-e5) 필수
 
 ## 8. 부모 프로젝트와의 관계
-- `graph/03_tool_node.py` ReAct 의 앞단에 retrieval 노드를 끼운 변형.
-- `graph/10_rag.py` (문서 RAG) 의 retrieval 패턴을 **tool 메타데이터** 에 적용한 것.
+- `graph-basic/15_react_tool_loop.py` ReAct 의 앞단에 retrieval 노드를 끼운 변형.
+- `graph-basic/34_rag.py` (문서 RAG) 의 retrieval 패턴을 **tool 메타데이터** 에 적용한 것.
 - `docs/심화주제.md` §2 직접 구현체.

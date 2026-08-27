@@ -1,7 +1,7 @@
 """
 10 — Async ReAct + FastAPI SSE 토큰 스트리밍.
 
-부모 `graph/07_streaming.py` 는 동기 `graph.stream()` 을 CLI 에서 print 했을 뿐.
+부모 `graph-basic/17_streaming.py` 는 동기 `graph.stream()` 을 CLI 에서 print 했을 뿐.
 실제 서비스는 HTTP 위에서 토큰을 한 줄씩 client 에 흘려야 한다.
 
 핵심

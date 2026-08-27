@@ -88,6 +88,6 @@ def push(record):
 agent 노드에서 record 생성 후 `push(record)` 한 줄 추가.
 
 ## 8. 부모 graph/NN_*.py 와의 관계
-- 베이스: `graph/03_tool_node.py` (ReAct) + `graph/20_history_reducer.py` (state 에 부가 데이터 누적 패턴)
+- 베이스: `graph-basic/15_react_tool_loop.py` (ReAct) + `graph-basic/28_history_reducer.py` (state 에 부가 데이터 누적 패턴)
 - 추가: LangSmith 환경변수 자동 후킹 + 비용 추정 dict
 - 본 프로젝트는 운영 가시성의 **최소 단위**. 실서비스는 OpenTelemetry / Datadog / Grafana 와의 통합을 고려.

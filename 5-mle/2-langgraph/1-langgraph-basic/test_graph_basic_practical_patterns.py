@@ -22,9 +22,9 @@ def load_module(relative_path: str):
 
 def test_new_practical_pattern_graphs_compile():
     for path in [
-        "graph-basic/22_evaluator_loop.py",
-        "graph-basic/23_verification_flow.py",
-        "graph-basic/24_qa_pipeline.py",
+        "graph-basic/38_evaluator_loop.py",
+        "graph-basic/39_verification_flow.py",
+        "graph-basic/35_qa_pipeline.py",
         "graph-basic/25_approval_system.py",
     ]:
         module = load_module(path)
@@ -32,7 +32,7 @@ def test_new_practical_pattern_graphs_compile():
 
 
 def test_qa_pipeline_falls_back_without_docs():
-    module = load_module("graph-basic/24_qa_pipeline.py")
+    module = load_module("graph-basic/35_qa_pipeline.py")
 
     out = module.graph.invoke({"question": "쿠버네티스 파드는 무엇인가요?"})
 

@@ -1,8 +1,22 @@
-"""
-Example 25 — Approval system.
+"""Example 25 — 정책 기반 Approval system.
 
-툴 실행/외부 변경/고위험 작업 전에 정책으로 위험도를 판정하고,
-필요한 경우 human approval 을 받아 승인/수정/거절로 분기하는 패턴.
+선행 개념
+---------
+- Example 22의 dynamic interrupt와 Example 24의 tool approval 흐름
+
+새 개념
+-------
+- 작업 위험도를 먼저 분류해 저위험 작업은 자동 승인
+- 고위험 작업만 human approval로 보내는 policy gate
+- 승인 / 거절 / 수정 후 승인이라는 세 가지 결정 처리
+
+복습 개념
+---------
+- 조건부 edge, ``interrupt()``, ``Command(resume=...)``
+
+Example 24가 모든 tool call을 동일하게 멈춘다면, 이 예제는 먼저 정책을 적용해
+사람의 검토가 필요한 작업만 선택한다. 실제 서비스에서는 문자열 키워드 대신 권한,
+리소스, 금액, 환경 등의 구조화된 정책 입력을 사용해야 한다.
 
 그래프 구조
 -----------
@@ -103,7 +117,7 @@ graph = build_graph()
 
 
 if __name__ == "__main__":
-    from langgraph.checkpoint.memory import MemorySaver
+    from langgraph.checkpoint.memory import InMemorySaver
     from langgraph.types import Command
 
     builder = StateGraph(State)
@@ -118,7 +132,7 @@ if __name__ == "__main__":
     )
     builder.add_edge("request_approval", "execute")
     builder.add_edge("execute", END)
-    standalone = builder.compile(checkpointer=MemorySaver())
+    standalone = builder.compile(checkpointer=InMemorySaver())
 
     cfg = {"configurable": {"thread_id": "approval-demo"}}
     print(

@@ -25,7 +25,7 @@
 | ② Tool 안 try/except | `graph_try_except` | `always_failing_search` | 예외를 잡아 결과 문자열로 변환 → LLM 이 우회 |
 | ③ Fallback 체인 | `graph_fallback` | primary→secondary→cached | 조건부 엣지로 단계별 fallback |
 | ④ Partial Result | `graph_partial` | map-reduce 3 worker | 일부 worker 실패해도 부분 답변 |
-| ⑤ LLM 재프롬프트 | (별도 그래프 X) | LangGraph prebuilt `ToolNode` | 잘못된 tool 인자를 ToolMessage 에 담아 재시도 — 부모 `graph/03_tool_node.py` 의 `ToolNode` 가 이미 처리 |
+| ⑤ LLM 재프롬프트 | (별도 그래프 X) | LangGraph prebuilt `ToolNode` | 잘못된 tool 인자를 ToolMessage 에 담아 재시도 — 부모 `graph-basic/15_react_tool_loop.py` 의 `ToolNode` 가 이미 처리 |
 
 ## 4. 그래프 구조
 
@@ -99,6 +99,6 @@ LLM 호출이 없으므로 AWS 자격증명 없이도 동작합니다 (의존성
 
 ## 8. 부모 프로젝트와의 관계
 - `graph/19_*` (RetryPolicy 패턴) 의 직접 응용.
-- `graph/13_map_reduce.py` 의 `Send` 패턴을 partial result 시나리오에 사용.
-- `graph/03_tool_node.py` 의 prebuilt `ToolNode` 가 전략 ⑤ (LLM 재프롬프트) 를 무료로 제공함을 보임.
+- `graph-basic/30_map_reduce.py` 의 `Send` 패턴을 partial result 시나리오에 사용.
+- `graph-basic/15_react_tool_loop.py` 의 prebuilt `ToolNode` 가 전략 ⑤ (LLM 재프롬프트) 를 무료로 제공함을 보임.
 - `docs/심화주제.md` §4 직접 구현체.

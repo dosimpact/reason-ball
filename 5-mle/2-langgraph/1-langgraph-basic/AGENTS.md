@@ -6,7 +6,7 @@ This repository contains LangGraph learning examples backed by the OpenAI API.
 
 - `common/`: shared infrastructure such as `create_llm()` and demo tools.
 - `node/`: reusable LangGraph node factories and routing helpers.
-- `graph/`: numbered, self-contained LangGraph examples exposed by `langgraph.json`.
+- `graph-basic/`: numbered, self-contained LangGraph examples exposed by `langgraph.json`.
 - `graph-advanced/`: advanced examples with their own local `common/` modules and optional dependencies.
 - `test_*.py`: Python tests and end-to-end graph checks.
 - `.env.example`: safe configuration template. `.env` is local-only and ignored.
@@ -18,7 +18,7 @@ Use `uv` for environment management.
 ```bash
 uv sync                         # Install base dependencies
 uv sync --extra advanced        # Install advanced-example dependencies
-uv run python graph/03_tool_node.py
+uv run python graph-basic/15_react_tool_loop.py
 uv run langgraph dev --port 2025
 uv run langgraph dev --config langgraph-advanced.json --port 2025
 uv run pytest
@@ -28,7 +28,7 @@ uv run pytest
 
 ## Coding Style & Naming Conventions
 
-Use Python 3.10+ syntax with 4-space indentation and type hints where practical. Keep graph example files self-contained and named with the existing numeric pattern, for example `graph/22_new_pattern.py`. Prefer shared helpers in `common/` and `node/` over duplicating logic in root examples. Keep comments concise and focused on non-obvious behavior.
+Use Python 3.10+ syntax with 4-space indentation and type hints where practical. Keep graph example files self-contained and named with the existing numeric pattern, for example `graph-basic/22_dynamic_interrupt.py`. Prefer shared helpers in `common/` and `node/` after a concept has first been introduced directly. Keep comments concise and focused on non-obvious behavior.
 
 ## Testing Guidelines
 
@@ -38,7 +38,7 @@ Tests use `pytest` for Python flows and graph checks. Name new Python tests `tes
 uv run pytest
 ```
 
-For streaming or advanced examples, also run the target graph manually with `uv run python ...` or through LangGraph Studio.
+For streaming or advanced examples, also run the target graph manually with `uv run python ...` or through LangGraph Studio. Keep the `01`~`44` curriculum order synchronized with `docs/graph-basic-curriculum.md` and `langgraph.json`.
 
 ## Commit & Pull Request Guidelines
 

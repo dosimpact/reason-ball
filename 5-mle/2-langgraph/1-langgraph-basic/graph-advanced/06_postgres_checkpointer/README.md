@@ -1,7 +1,7 @@
 # 06 — Postgres Checkpointer (영속 멀티턴 대화)
 
 ## 1. 한 줄 소개
-부모 `graph/06_checkpointer.py` 의 `MemorySaver` 를 `PostgresSaver` 로 교체해 프로세스 재시작에도 thread 가 살아있는 멀티턴 ReAct 에이전트.
+부모 `graph-basic/20_checkpointer.py` 의 `InMemorySaver` 를 `PostgresSaver` 로 교체해 프로세스 재시작에도 thread 가 살아있는 멀티턴 에이전트.
 
 ## 2. 왜 필요한가
 `MemorySaver` 는 인메모리이므로:
@@ -70,6 +70,6 @@ uv run langgraph dev --config langgraph-advanced.json
 - **thread_id 충돌**: 멀티테넌시면 `{tenant}:{user}:{conv}` prefix 권장
 
 ## 8. 부모 graph/NN_*.py 와의 관계
-- 베이스: `graph/06_checkpointer.py` (MemorySaver)
+- 베이스: `graph-basic/20_checkpointer.py` (InMemorySaver)
 - 본 프로젝트는 step 1: 인메모리 → 영속화
-- 다음 단계 (별도 프로젝트): `PostgresStore` 로 cross-thread 장기 메모리 (`graph/15_long_term_memory.py` 후속)
+- 다음 단계 (별도 프로젝트): `PostgresStore` 로 cross-thread 장기 메모리 (`graph-basic/26_long_term_memory.py` 후속)

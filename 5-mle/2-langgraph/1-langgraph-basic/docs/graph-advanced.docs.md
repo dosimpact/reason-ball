@@ -278,7 +278,7 @@ agent (LLM)
 
 ## 6. 프로덕션 Checkpointer / Store
 
-`graph/06_checkpointer.py`, `graph/15_long_term_memory.py` 의 후속.
+`graph-basic/20_checkpointer.py`, `graph-basic/26_long_term_memory.py` 의 후속.
 
 ### MemorySaver / InMemoryStore 한계
 - 프로세스 재시작 시 증발
@@ -309,7 +309,7 @@ agent (LLM)
 
 ## 7. RAG 실전 (Vector DB / 하이브리드)
 
-`graph/10_rag.py` 는 인메모리 키워드 매칭 데모. 실제는:
+`graph-basic/34_rag.py` 는 인메모리 키워드 매칭 데모. 실제는:
 
 ### Vector DB 선택지
 | | 운영 |적합 규모 | 비고 |
@@ -389,7 +389,7 @@ LLM 응답은 비결정적. 코드 변경이 응답 품질을 떨어뜨려도 �
 - 노드별 latency / token 시각화
 
 ### 자체 구축 옵션
-- `graph/20_history_reducer.py` 패턴 확장 — state 자체에 trace 저장
+- `graph-basic/28_history_reducer.py` 패턴 확장 — state 자체에 trace 저장
 - OpenTelemetry + Datadog / Grafana
 - LLM 호출 callback 으로 token 카운트 → Prometheus
 

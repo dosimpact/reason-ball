@@ -1,7 +1,7 @@
 """
 06 — Postgres Checkpointer 로 영속 멀티턴 대화.
 
-부모 `graph/06_checkpointer.py` 의 MemorySaver 를 PostgresSaver 로 교체.
+부모 `graph-basic/20_checkpointer.py` 의 InMemorySaver 를 PostgresSaver 로 교체.
 컨테이너/프로세스 재시작 후에도 thread_id 단위 대화 히스토리가 유지된다.
 
 핵심 메커니즘

@@ -74,6 +74,6 @@ done
 - Audit log: user_id, thread_id, tool_calls 를 별도 로그로 남겨 데이터 접근 추적.
 
 ## 8. 부모 graph/ 와의 관계
-- ReAct 구조 자체는 `graph/03_tool_node.py` 그대로.
-- `graph/12_long_term_memory.py` 류의 store 사용 패턴에 namespace 격리 + 인증 미들웨어를 더한 것.
+- ReAct 구조 자체는 `graph-basic/15_react_tool_loop.py` 그대로.
+- `graph-basic/26_long_term_memory.py` 류의 store 사용 패턴에 namespace 격리 + 인증 미들웨어를 더한 것.
 - `docs/심화주제.md` 의 멀티테넌시 / 보안 섹션 구현체.

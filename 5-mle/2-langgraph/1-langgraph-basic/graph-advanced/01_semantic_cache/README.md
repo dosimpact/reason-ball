@@ -68,6 +68,6 @@ threshold 를 0.99 로 올리면 hit 이 줄어들고, 0.85 까지 낮추면 의
 - 사용자별 격리(다국어, A/B 그룹) 가 필요하면 namespace 키 추가 (현재는 글로벌 단일 캐시).
 
 ## 8. 부모 프로젝트와의 관계
-- `graph/03_tool_node.py` (ReAct) 의 앞뒤에 `cache_lookup` / `cache_store` 노드를 끼워 넣은 형태.
+- `graph-basic/15_react_tool_loop.py` 의 앞뒤에 `cache_lookup` / `cache_store` 노드를 끼워 넣은 형태.
 - `node/llm_node.py` 의 `make_call_model` 패턴을 참고하되, LLM 생성은 루트 `common/llm.py`를 사용.
 - `docs/심화주제.md` §1 의 직접 구현체.

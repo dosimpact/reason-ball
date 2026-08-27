@@ -97,6 +97,6 @@ python run.py
 - 본 프로젝트는 LangSmith 없이도 완결되도록 설계됨.
 
 ## 8. 부모 프로젝트와의 관계
-- 그래프 자체는 `graph/03_tool_node.py` 와 동일한 ReAct 구조.
+- 그래프 자체는 `graph-basic/15_react_tool_loop.py` 와 동일한 ReAct 구조.
 - 새로 추가된 것은 `run.py` 의 평가 파이프라인 — 부모 프로젝트는 평가 인프라가 없음.
 - `docs/심화주제.md` §8 직접 구현체.

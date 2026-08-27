@@ -65,6 +65,6 @@ curl -s -X POST http://localhost:8000/webhook/t1 \
 - Postgres 가 쓰기 부하의 SPOF — checkpoint 빈도 / 압축 / 보존정책 설계.
 
 ## 8. 부모 graph/ 와의 관계
-- `graph/16_command_interrupt.py` 의 `interrupt()` + `Command(resume)` 패턴을 그대로 확장.
+- `graph-basic/22_dynamic_interrupt.py` 의 `interrupt()` + `Command(resume)` 패턴을 그대로 확장.
 - 사용자(사람) 대신 외부 시스템(webhook) 이 resume 주체가 된다는 점만 다름.
-- ToolNode + ReAct 사이클은 `graph/03_tool_node.py` 와 동일.
+- ToolNode + ReAct 사이클은 `graph-basic/15_react_tool_loop.py` 와 동일.

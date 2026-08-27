@@ -1,7 +1,7 @@
 # 07 — Qdrant + BM25 하이브리드 RAG
 
 ## 1. 한 줄 소개
-부모 `graph/10_rag.py` 의 인메모리 키워드 매칭을 Qdrant + BM25 하이브리드 + RRF + LLM rerank 로 업그레이드한 실전 RAG.
+부모 `graph-basic/34_rag.py` 의 인메모리 키워드 매칭을 Qdrant + BM25 하이브리드 + RRF + LLM rerank 로 업그레이드한 실전 RAG.
 
 ## 2. 왜 필요한가
 부모 10번 예제는 학습용 키워드 매칭이라 한국어 어절 / 동의어 / 의미 검색이 약하다. 실서비스 RAG 는:
@@ -64,6 +64,6 @@ graph.py 의 5개 질문이 그대로 회귀 테스트 역할:
 - **청킹**: 마크다운 헤더 분할 + 800자 제한. 토큰 단위가 아니라 글자 단위라는 점 유의 (한국어는 더 짧게).
 
 ## 8. 부모 graph/NN_*.py 와의 관계
-- 베이스: `graph/10_rag.py`
+- 베이스: `graph-basic/34_rag.py`
 - 변경점: 인메모리 dict → Qdrant; 키워드 점수 → dense+BM25+RRF+rerank
 - 인용 ID 강제 / 부족시 모른다고 답하는 system prompt 패턴은 그대로 계승

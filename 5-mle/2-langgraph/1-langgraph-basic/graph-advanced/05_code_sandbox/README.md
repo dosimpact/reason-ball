@@ -69,6 +69,6 @@ uv run langgraph dev --config langgraph-advanced.json
 - CI / 프로덕션에서 docker daemon 이 없는 환경: tool 이 즉시 ERROR 반환 → graceful degradation 으로 처리.
 
 ## 8. 부모 graph/ 와의 관계
-- `graph/03_tool_node.py` 의 ReAct 패턴을 그대로 사용.
+- `graph-basic/15_react_tool_loop.py` 의 ReAct 패턴을 그대로 사용.
 - tool 1 개 (`run_python`) 만 등록하고, 이 tool 의 부작용을 컨테이너로 sandbox 한 것이 핵심.
 - `docs/심화주제.md` 의 "5. 코드 실행 Sandboxing" 섹션 구현체.

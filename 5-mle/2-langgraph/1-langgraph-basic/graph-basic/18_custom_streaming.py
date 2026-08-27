@@ -1,16 +1,22 @@
-"""
-Example 18 — Custom streaming (`get_stream_writer`).
+"""Example 18 — Custom streaming (``get_stream_writer``).
 
-07 의 `stream_mode` 는 LangGraph 가 자동으로 emit 하는 이벤트(updates / values / messages)
-지만, **노드 안에서 직접 임의의 진행률 / 디버깅 이벤트** 를 흘려보내고 싶을 때 사용하는
-`get_stream_writer()` 패턴입니다.
+선행 개념
+---------
+- Example 17의 ``values`` / ``updates`` / ``messages`` 자동 스트리밍
 
-학습 포인트
------------
-- `from langgraph.config import get_stream_writer`
-- 노드 안에서 `writer = get_stream_writer(); writer({"phase": "downloading"})`
-- 클라이언트는 `graph.stream(input, stream_mode="custom")` 으로 수신
-- 여러 stream_mode 를 동시에 받으려면 `stream_mode=["updates","custom"]`
+새 개념
+-------
+- 노드 안에서 ``get_stream_writer()``로 애플리케이션 이벤트 직접 전송
+- ``stream_mode="custom"`` 수신
+- ``stream_mode=["updates", "custom"]``로 자동 이벤트와 custom 이벤트 동시 수신
+
+복습 개념
+---------
+- 여러 노드로 구성된 직선 그래프와 부분 state update
+
+기본 스트리밍 모드는 LangGraph나 LLM이 이벤트를 만든다. custom 모드는 다운로드
+진행률이나 처리 단계처럼 state에 저장할 필요가 없는 UI 이벤트를 애플리케이션이
+직접 만든다는 차이가 있다.
 
 그래프 구조
 -----------
@@ -40,7 +46,7 @@ START ─▶ download ─▶ process ─▶ upload ─▶ END
           print(mode, evt)
 
 Studio 사용
-   - Studio 는 자동으로 stream 이벤트를 표시. 노드 카드 옆에 progress / phase 페이로드가 흐르는 것을 확인.
+   - Studio에서 custom event의 progress / phase 페이로드를 확인한다.
 """
 
 from __future__ import annotations

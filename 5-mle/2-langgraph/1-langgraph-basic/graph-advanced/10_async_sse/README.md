@@ -4,7 +4,7 @@
 `async` 노드 + `graph.astream(stream_mode="messages")` + FastAPI SSE 로 LLM 토큰을 HTTP 위에서 한 줄씩 client 로 흘리는 데모.
 
 ## 2. 왜 필요한가
-- 부모 `graph/07_streaming.py` 는 동기 `graph.stream()` 을 CLI 에 print 한 데모. 실제 서비스에서는 HTTP 위에서 토큰을 client 에 흘려야 UX 가 산다.
+- 부모 `graph-basic/17_streaming.py` 는 동기 `graph.stream()` 을 CLI 에 print 한 데모. 실제 서비스에서는 HTTP 위에서 토큰을 client 에 흘려야 UX 가 산다.
 - 동기 노드 + 동기 stream 은 FastAPI worker 를 점유하므로 동시 접속이 늘면 throughput 이 무너진다.
 - 노드를 `async def` 로 만들고 `llm.ainvoke()` / `graph.astream()` 을 쓰면 동일 worker 가 다른 요청을 처리할 수 있다.
 
@@ -57,5 +57,5 @@ data: [DONE]
 - 인증 / rate limit 은 본 데모에 없음 (11_multitenancy 참고).
 
 ## 8. 부모 graph/ 와의 관계
-- `graph/07_streaming.py` 의 sync stream 데모를 → async + HTTP SSE 로 확장.
-- `graph/03_tool_node.py` 의 ReAct 구조와 동일하나, 노드 함수 시그니처가 `async def` 이고 `llm.ainvoke` 를 사용.
+- `graph-basic/17_streaming.py` 의 sync stream 데모를 → async + HTTP SSE 로 확장.
+- `graph-basic/15_react_tool_loop.py` 의 ReAct 구조와 동일하나, 노드 함수 시그니처가 `async def` 이고 `llm.ainvoke` 를 사용.

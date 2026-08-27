@@ -1,157 +1,76 @@
-# LangGraph 예제 요약
+# LangGraph Basic 예제 요약
 
-각 예제별 핵심 기능을 3줄로 정리.
+`graph-basic/`은 한 예제에서 한두 개의 새 개념만 추가하도록 구성한 44단계
+커리큘럼입니다. 상세한 선행 관계와 기존 번호 마이그레이션은
+[`graph-basic-curriculum.md`](graph-basic-curriculum.md)를 참고하세요.
 
----
+## 1. Graph fundamentals
 
-## `graph-basic/` — 기본 패턴
+- `01_simple_graph`: StateGraph, node, edge, compile, invoke.
+- `02_state_updates`: 노드의 부분 update와 기본 overwrite.
+- `03_reducers`: `Annotated` reducer를 이용한 누적 state.
+- `04_state_schemas`: 내부 state와 input/output schema 분리.
+- `05_conditional_routing`: 결정론적 router와 conditional edge.
+- `06_cycles_and_recursion`: cycle, 종료 조건, recursion limit.
+- `07_command_routing`: `Command(update=..., goto=...)` 동적 이동.
 
-### 01_simple_graph
-- LLM/tool 없이 일반 함수 노드 두 개를 직선으로 연결한 "Hello, LangGraph" 예제.
-- `StateGraph` + `TypedDict` 로 커스텀 state 를 정의하고 노드가 부분 dict 를 반환하는 기본 규약을 보여줌.
-- 구조: `START ─▶ uppercase ─▶ exclaim ─▶ END`.
+## 2. LLM and messages
 
-### 02_llm_graph
-- 01 위에 LLM 한 번 호출하는 노드를 얹은 가장 단순한 챗봇 (도구 없음).
-- `MessagesState` 의 `add_messages` reducer 로 메시지가 자동 누적됨을 학습.
-- 구조: `START ─▶ chat ─▶ END`.
+- `08_llm_graph`: 일반 TypedDict state에서 LLM을 직접 호출.
+- `09_messages_state`: `MessagesState`와 `add_messages` 누적.
+- `10_structured_output`: Pydantic structured output.
+- `11_runtime_context`: `context_schema`와 `Runtime` 실행별 context.
 
-### 03_tool_node
-- prebuilt `ToolNode` 와 조건부 엣지로 ReAct 패턴 (agent ⇄ tools 사이클) 구현.
-- `llm.bind_tools(...)` 로 LLM 이 tool_call 을 만들고 `ToolNode` 가 실제 실행.
-- TOOLS = `get_current_time / calculate / lookup_info`.
+## 3. Tools and agents
 
-### 04_structured_output
-- `llm.with_structured_output(PydanticSchema)` 로 LLM 응답을 강제 JSON 객체화.
-- `common.llm.create_llm()` 이 만든 `ChatOpenAI` 위에서 Pydantic `Sentiment` 스키마를 사용.
-- 후속 노드에서 파싱 코드 없이 `state["sentiment"]["label"]` 처럼 dict 접근.
+- `12_tool_schema`: `@tool` 정의와 입력 schema.
+- `13_tool_calls`: `bind_tools`와 `AIMessage.tool_calls`.
+- `14_tool_node`: `ToolNode`가 호출 요청을 `ToolMessage`로 변환.
+- `15_react_tool_loop`: router, ToolNode, cycle을 결합한 ReAct.
+- `16_create_agent`: 수동 ReAct와 LangChain `create_agent` 비교.
 
-### 05_interrupt
-- 03 의 ReAct 그래프에 `interrupt_before=["tools"]` 로 tool 실행 직전 일시정지 (HITL).
-- 같은 `thread_id` 로 `invoke(None, config)` 호출하면 이어서 재개됨.
-- `update_state` 로 멈춰있는 동안 메시지 직접 수정 가능.
+## 4. Runtime control and reliability
 
-### 05_2_custom_interrupt
-- `start` 다음 노드의 `interrupt()` 로 사용자 이름을 직접 입력받음.
-- tool call 실행 전 두 번째 `interrupt()` 로 `Y/y` 승인 또는 `N/n` 거절을 받음.
-- `compile(interrupt_before=["tools"])` 없이 승인·거절 결과를 명시적 노드 분기로 처리.
+- `17_streaming`: `values`, `updates`, `messages` stream modes.
+- `18_custom_streaming`: 노드 내부 custom progress events.
+- `19_retry_policy`: 일시 오류에 대한 노드별 RetryPolicy.
+- `20_checkpointer`: `thread_id` 기반 short-term state 저장.
+- `21_state_snapshots`: snapshot 조회, 수정, history, replay.
+- `22_dynamic_interrupt`: `interrupt()`와 `Command(resume=...)`.
+- `23_static_breakpoint`: `interrupt_before` 정적 breakpoint.
+- `24_tool_approval`: tool 실행 전 승인·거절 HITL.
+- `25_approval_system`: 위험도 정책 기반 approval gate.
 
-### 06_checkpointer
-- `MemorySaver` 를 부착해 `thread_id` 단위로 멀티턴 대화 히스토리 자동 저장/복원.
-- 사용자가 컨텍스트를 직접 넘길 필요 없이 같은 thread 면 messages 가 누적됨.
-- 운영에서는 SqliteSaver / PostgresSaver / RedisSaver 로 교체.
+## 5. Memory and execution history
 
-### 07_streaming
-- `graph.stream(..., stream_mode=...)` 의 세 가지 모드 (`values`/`updates`/`messages`) 비교.
-- `updates` 는 노드의 부분 업데이트, `messages` 는 LLM 토큰 단위 실시간 스트리밍.
-- 운영 SSE 서버는 보통 `updates` 또는 `messages` 를 사용.
+- `26_long_term_memory`: Store API와 사용자 namespace.
+- `27_long_context`: 요약, sliding window, `RemoveMessage`.
+- `28_history_reducer`: 실행 이력 reducer와 node 계측.
 
-### 08_map_reduce
-- `Send` API 로 런타임에 결정되는 N개 항목을 worker 로 동적 fan-out 후 reducer 로 합침.
-- `Annotated[list[dict], operator.add]` 로 병렬 결과 자동 병합 (순서 비보장).
-- LangGraph 가 worker 완료까지 자동으로 wait barrier 를 걸어줌.
+## 6. Composition and concurrency
 
-### 09_subgraph
-- 부모 그래프가 LLM 으로 의도를 분류 후 서브그래프(translator/summarizer) 로 라우팅.
-- 컴파일된 subgraph 를 부모의 노드로 부착하는 패턴 + `with_structured_output` 으로 분류 강제.
-- intent 가 "other" 면 서브그래프를 우회하고 바로 종료.
+- `29_parallel_branches`: 정적 fan-out/fan-in과 join barrier.
+- `30_map_reduce`: 동적 `Send`, worker state, reducer fan-in.
+- `31_basic_subgraph`: 동일 state를 공유하는 최소 subgraph.
+- `32_subgraph_state_schemas`: 부모·자식 state 경계와 공유 key.
+- `33_routed_subgraphs`: 분류 결과에 따른 subgraph 라우팅.
 
-### 10_rag
-- 가장 흔한 RAG 패턴 (retrieve → augment → generate) 를 인메모리 키워드 매칭으로 단순 구현.
-- LangGraph 흐름 학습이 목적이라 vector DB 는 쓰지 않음 (실 운영은 OpenSearch/Pinecone 등).
-- 매칭 문서가 없으면 "정보 없음" 답변을 반환하도록 컨텍스트 부족 케이스도 처리.
+## 7. Application and multi-agent patterns
 
-### 11_1_supervisor
-- supervisor 노드(LLM)가 다음 worker(researcher/calculator/writer)를 결정하는 멀티에이전트 라우팅.
-- conditional edge 의 mapping 으로 N-way 분기, 각 worker 는 자기만의 system prompt + tool 셋.
-- worker 가 끝나면 supervisor 로 복귀 → FINISH 결정 시 종료.
+- `34_rag`: retrieve → augment → generate 기본 RAG.
+- `35_qa_pipeline`: citation gate와 fallback을 포함한 QA.
+- `36_reflection`: generate/critic self-reflection loop.
+- `37_reflection_streaming`: custom progress stream이 있는 reflection.
+- `38_evaluator_loop`: 구조화된 평가와 재작성 상한.
+- `39_verification_flow`: 결정론적 규칙 검증과 repair.
+- `40_plan_and_execute`: structured plan과 순차 실행 시뮬레이션.
+- `41_supervisor`: 평면 multi-agent supervisor.
+- `42_hierarchical_supervisor`: 팀 단위 계층형 supervisor.
+- `43_isolated_team_state`: 팀별 격리 state와 공유 interface.
+- `44_reusable_chat_subgraph`: compiled chat subgraph 재사용.
 
-### 11_2_supervisor
-- 평면 supervisor 의 단점(라우팅 enum 폭발/토큰 비대화/정확도 저하)을 해결하는 **계층적** supervisor.
-- top_supervisor 가 팀(data/search/writing) 을 고르고, 각 팀은 자기 worker 만 보는 컴파일된 subgraph.
-- 모든 레벨이 `MessagesState` 를 공유해 팀 결과가 top 으로도 그대로 보임.
+## Advanced 확장 트랙
 
-### 11_3_supervisor_diff_state
-- 11_2 의 계층형 supervisor 를 확장해 부모와 팀별 subgraph 가 서로 다른 state schema 를 사용.
-- 공통 키인 `messages` 만 부모/자식 간 자동 공유되고, `sql_result`, `draft`, `revision_count` 같은 팀 내부 필드는 부모로 누설되지 않음.
-- top_supervisor 는 data/writing 팀만 라우팅하고, 각 팀은 자체 worker 와 내부 scratch state 를 관리.
-
-### 11_4_supervisor_chat_subgraph
-- 하나의 compiled `chat_graph` 를 `chat_after_B`, `chat_after_D`, `chat_final` 세 위치에 재사용하는 패턴.
-- 부모가 `chat_command`/`chat_payload` 를 세팅하면 자식 chat subgraph 가 `summarize` 또는 `append_message` 분기로 동작.
-- `ui_step_count` 는 자식 전용 state 로 유지되고, 부모에는 stage/analysis/final/messages/control 필드만 남음.
-
-### 12_1_reflection
-- LLM 이 만든 초안을 critic LLM 이 비평하고 GOOD 신호까지 다시 작성하는 self-critique 루프.
-- 매 iteration 의 critique 가 다음 generate 의 system prompt 에 누적되어 점진적 개선.
-- LangGraph 의 cyclic graph 강점을 가장 잘 보여주는 예제.
-
-### 12_2_reflection
-- 12_1 과 같은 reflection 루프를 `MessagesState` 위에서 재구현 + **진행상황 메시지 스트리밍**.
-- critic 의 raw 비평은 사용자에게 노출하지 않고 `state["critique"]` 에만 저장 (다음 generate 컨텍스트 용).
-- 사용자는 "초안 작성 중 / 검토 중 / 수정 중" 같은 progress 메시지 + 최종 draft 만 봄.
-
-### 13_plan_and_execute
-- LLM 이 task 를 단계 리스트(plan)로 분해 후 executor 가 한 step 씩 처리하며 plan 을 줄여나감.
-- structured output 으로 plan 강제 + queue-like state 로 종료 조건이 결정적("plan 비었나?").
-- ReAct 즉흥 판단보다 체계적이고 planner/executor 를 다른 모델로 분리해 비용 최적화 가능.
-
-### 14_parallel_branches
-- 컴파일 타임에 정해진 N개 가지(요약/태그/감정) 를 같은 입력으로 동시 실행 후 join.
-- 같은 source 에서 여러 노드로 `add_edge` 만 걸면 LangGraph 가 자동 병렬 스케줄링.
-- 병렬 노드가 같은 state 키를 쓸 때는 reducer (`Annotated[list, operator.add]`) 필수.
-
-### 15_long_term_memory
-- thread 를 가로지르는 영구 메모리 (`BaseStore` API) — 사용자별 선호도/사실 저장.
-- 노드가 `store: BaseStore` 파라미터를 받으면 자동 주입, namespace 튜플로 사용자 격리.
-- dev 서버는 `InMemoryStore` (재시작 시 휘발), Platform 은 관리형 Postgres 로 영속.
-
-### 05_2_command_interrupt
-- 모던 `interrupt()` 함수 + `Command(resume=...)` 으로 HITL 흐름을 한 번에 처리.
-- 노드 내부에서 `value = interrupt({...})` 호출 → 페이로드가 클라이언트로 전달 → resume 값이 그대로 반환.
-- 한 노드 안에 여러 interrupt 가능 (각 호출마다 한 번씩 멈춤).
-
-### 17_configurable
-- `StateGraph(config_schema=ConfigSchema)` 로 호출시점마다 model/system_prompt/style 등을 바꿀 수 있게 함.
-- Studio UI 의 "Manage Assistants" 폼 자동 생성 + 노드는 `config["configurable"]` 로 값 접근.
-- TypedDict 는 기본값이 없으므로 노드에서 `cfg.get("key", default)` 로 직접 처리.
-
-### 18_custom_streaming
-- `get_stream_writer()` 로 노드 내부에서 임의의 진행률/디버깅 이벤트를 직접 emit.
-- 클라이언트는 `stream_mode="custom"` 또는 `["updates","custom"]` 로 수신.
-- 자동 emit (07) 만으로 표현 못 하는 phase/progress 를 프론트로 흘릴 때 사용.
-
-### 19_retry_policy
-- 특정 노드에 `RetryPolicy(max_attempts, backoff_factor, retry_on=...)` 부여해 일시 오류 자동 복구.
-- `retry_on` 으로 재시도할 예외 클래스를 필터링 (영속 오류는 그대로 raise).
-- `add_node("name", fn, retry_policy=...)` 시그니처로 노드별 정책 부착.
-
-### 20_history_reducer
-- 그래프가 자기 실행 trace(노드 시작/종료 시각, elapsed, 변경 키)를 state.history 에 append-only 누적.
-- `@with_history` 데코레이터로 모든 노드를 자동 계측, `Annotated[list[dict], operator.add]` reducer 사용.
-- Checkpointer 와 결합하면 별도 로깅 인프라 없이도 trace 영속화/재구성 가능.
-
-### 21_long_context
-- 긴 대화에서 토큰 한도를 넘기지 않게 오래된 메시지를 요약하고 최근 N개만 유지.
-- `RemoveMessage(id=...)` 를 반환하면 `add_messages` reducer 가 실제로 messages 에서 삭제.
-- 임계값(SUMMARIZE_AFTER=8) 초과 시 요약 노드로 분기 → system prompt 에 누적 요약 합성.
-
-### 22_evaluator_loop
-- 생성 답변을 evaluator 가 `PASS/FAIL`, score, feedback 으로 평가하고 실패 시 재작성하는 루프.
-- 자유형 reflection 보다 실무적인 품질 게이트: 명시 기준, 재시도 상한(MAX_ATTEMPTS=3), draft history 보존.
-- 구조: `START ─▶ generate ─▶ evaluate ─┬─▶ END / └─▶ generate`.
-
-### 23_verification_flow
-- 답변 생성 후 verifier 가 필수 인용, 최소 길이, 과도한 보장 표현 같은 결정적 규칙을 검사.
-- 실패 시 repair 노드가 오류 목록을 받아 수정하고 다시 verify 로 돌아가는 검증/수정 루프.
-- 구조: `draft ─▶ verify ─┬─▶ END / └─▶ repair ─▶ verify`.
-
-### 24_qa_pipeline
-- RAG 를 retrieve → answer → cite_check → fallback 의 QA 파이프라인으로 확장.
-- 관련 문서가 없거나 답변에 허용된 citation 이 없으면 최종 답변 대신 fallback 으로 안전하게 종료.
-- `qa_status` 와 `citation_ok` 으로 프론트/테스트에서 품질 상태를 명확히 확인 가능.
-
-### 25_approval_system
-- 작업 위험도를 정책으로 분류하고 high-risk action 은 `interrupt()` 로 human approval 을 요청.
-- 승인/거절/수정 후 승인 세 경로를 지원하며, 승인되지 않은 작업은 `BLOCKED` 로 종료.
-- tool 실행, 외부 변경, 결제/삭제/프로덕션 작업 전에 붙이는 approval gate 패턴.
+`graph-advanced/`에서는 semantic cache, Tool+RAG, webhook resume,
+graceful degradation, sandbox, Postgres persistence, vector DB,
+evaluation harness, observability, async SSE, multi-tenancy를 다룹니다.

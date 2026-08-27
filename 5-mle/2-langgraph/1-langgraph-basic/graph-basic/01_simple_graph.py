@@ -4,12 +4,20 @@ Example 01 — 가장 단순한 그래프.
 LangGraph 의 핵심 컨셉만 보여주는 "Hello, LangGraph" 예제입니다.
 LLM / tool 없이 두 개의 일반 함수 노드를 직선으로 연결합니다.
 
-학습 포인트
------------
+선행 예제
+---------
+- 없음
+
+새 개념
+-------
 - `StateGraph` + `TypedDict` 로 커스텀 상태 정의
 - 노드 = state 를 입력받아 부분 dict 를 반환하는 함수
 - `add_edge(START, ...)`, `add_edge(..., END)` 로 흐름 정의
 - `compile()` 호출 후 `invoke()` 로 실행
+
+복습 개념
+---------
+- 일반 Python 함수, `TypedDict`
 
 그래프 구조
 -----------
