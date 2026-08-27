@@ -7,7 +7,7 @@ LangGraph 핵심 패턴을 학습하기 위한 예제 모음입니다. LLM과 �
 ```text
 common/          # OpenAI LLM 팩토리, 공용 데모 tools
 node/            # 재사용 LangGraph 노드와 라우팅 헬퍼
-graph-basic/     # 01~44: 기초부터 멀티에이전트까지 점진적 예제
+graph-basic/     # 01~46: 기초부터 agentic RAG까지 점진적 예제
 graph-advanced/  # 캐시, RAG, observability 등 고급 예제
 langgraph.json   # 기본 예제 LangGraph Studio 그래프 설정
 langgraph-advanced.json # 고급 예제 LangGraph Studio 그래프 설정
@@ -51,6 +51,7 @@ uv run python graph-basic/01_simple_graph.py
 uv run python graph-basic/05_conditional_routing.py
 uv run python graph-basic/15_react_tool_loop.py
 uv run python graph-basic/20_checkpointer.py
+uv run python graph-basic/45_research_reflexion.py
 ```
 
 LangGraph Studio:

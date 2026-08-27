@@ -38,7 +38,7 @@ Tests use `pytest` for Python flows and graph checks. Name new Python tests `tes
 uv run pytest
 ```
 
-For streaming or advanced examples, also run the target graph manually with `uv run python ...` or through LangGraph Studio. Keep the `01`~`44` curriculum order synchronized with `docs/graph-basic-curriculum.md` and `langgraph.json`.
+For streaming or advanced examples, also run the target graph manually with `uv run python ...` or through LangGraph Studio. Keep the `01`~`46` curriculum order synchronized with `docs/graph-basic-curriculum.md` and `langgraph.json`.
 
 ## Commit & Pull Request Guidelines
 

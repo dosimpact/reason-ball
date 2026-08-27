@@ -93,6 +93,17 @@
 | 43 | `isolated_team_state` | 팀별 격리 state |
 | 44 | `reusable_chat_subgraph` | compiled subgraph 재사용 |
 
+### 8. Integrated capstones
+
+앞 단계에서 배운 여러 개념을 실제 에이전트 흐름으로 결합합니다. 새로운 저수준
+API를 추가하기보다, 분리해 학습한 routing, tools, reflection, evaluation, RAG를
+하나의 bounded workflow로 통합하는 단계입니다.
+
+| 번호 | 예제 | 새 개념 |
+|---:|---|---|
+| 45 | `research_reflexion` | 자기비평이 검색 쿼리와 인용 수정을 유도하는 research loop |
+| 46 | `agentic_rag` | 검색원 라우팅, 문서 relevance, grounding/usefulness 평가와 검색 보강 |
+
 ## 기존 번호 마이그레이션
 
 | 기존 | 신규 |
@@ -120,6 +131,21 @@
 | `23_verification_flow` | `39_verification_flow` |
 | `24_qa_pipeline` | `35_qa_pipeline` |
 | `26_create_agent` | `16_create_agent` |
+
+## graph-lectures 흡수 매핑
+
+기존 강의 예제는 별도 트랙으로 중복 등록하지 않고 아래 basic 단계에 흡수했습니다.
+검색 도구가 Tavily인지 로컬 함수인지는 LangGraph 구조가 아니라 도구 구현의
+차이이므로, 동일한 graph pattern은 하나의 단계로 통합했습니다.
+
+| 기존 lecture | 흡수된 basic | 판단 |
+|---|---|---|
+| `01_reflection_graph` | `09_messages_state`, `36_reflection`, `37_reflection_streaming` | message reducer와 generate/reflect cycle을 분리 학습 |
+| `02_react_agent` | `12_tool_schema` ~ `15_react_tool_loop` | 수동 ReAct loop와 동일 |
+| `03_react_function_calling` | `13_tool_calls` ~ `15_react_tool_loop` | function calling은 `bind_tools`/`ToolNode` 단계에 포함 |
+| `04_search_agent` | `15_react_tool_loop`, `16_create_agent` | 검색은 ReAct에 연결하는 도구의 한 종류 |
+| `05_reflexion_agent` | `45_research_reflexion` | 비평 기반 검색·근거 수집·인용 수정으로 보존 |
+| `06_agentic_rag` | `46_agentic_rag` | 질문 라우팅·문서 평가·답변 평가·보강 loop로 보존 |
 
 고급 비동기 서버, semantic cache, Postgres persistence, vector database,
 observability, evaluation harness, multi-tenancy는 `graph-advanced/` 확장 트랙에서 다룹니다.

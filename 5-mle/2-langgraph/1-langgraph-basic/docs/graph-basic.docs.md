@@ -1,6 +1,6 @@
 # LangGraph Basic 예제 요약
 
-`graph-basic/`은 한 예제에서 한두 개의 새 개념만 추가하도록 구성한 44단계
+`graph-basic/`은 한 예제에서 한두 개의 새 개념만 추가하도록 구성한 46단계
 커리큘럼입니다. 상세한 선행 관계와 기존 번호 마이그레이션은
 [`graph-basic-curriculum.md`](graph-basic-curriculum.md)를 참고하세요.
 
@@ -68,6 +68,14 @@
 - `42_hierarchical_supervisor`: 팀 단위 계층형 supervisor.
 - `43_isolated_team_state`: 팀별 격리 state와 공유 interface.
 - `44_reusable_chat_subgraph`: compiled chat subgraph 재사용.
+
+## 8. Integrated capstones
+
+- `45_research_reflexion`: 자기비평이 검색과 인용 수정을 유도하는 Reflexion.
+- `46_agentic_rag`: 검색원 라우팅, 문서 평가, 답변 평가, 검색 보강 loop.
+
+기존 `graph-lectures/`의 ReAct, Reflection, Reflexion, Agentic RAG 강의는
+해당 basic 단계로 흡수되었습니다. 상세 대응표는 커리큘럼 문서를 참고하세요.
 
 ## Advanced 확장 트랙
 

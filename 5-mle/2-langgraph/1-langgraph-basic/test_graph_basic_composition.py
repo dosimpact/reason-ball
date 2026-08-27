@@ -230,3 +230,80 @@ def test_reusable_chat_subgraph_exposes_only_public_output(monkeypatch):
     assert "chat_command" not in out
     assert "chat_payload" not in out
     assert "ui_step_count" not in out
+
+
+class ResearchReflexionFakeModel:
+    def __init__(self):
+        self.schema = None
+
+    def with_structured_output(self, schema):
+        self.schema = schema
+        return self
+
+    def invoke(self, _messages):
+        reflection = SimpleNamespace(missing="checkpoint evidence", superfluous="none")
+        if self.schema.__name__ == "DraftResult":
+            return SimpleNamespace(
+                answer="initial answer",
+                reflection=reflection,
+                search_queries=["LangGraph checkpoint"],
+            )
+        if self.schema.__name__ == "RevisionResult":
+            return SimpleNamespace(
+                answer="Checkpoint enables resume and replay [ref-1].",
+                reflection=SimpleNamespace(missing="none", superfluous="none"),
+                search_queries=[],
+                citations=["ref-1"],
+                ready=True,
+            )
+        raise AssertionError(f"unexpected schema: {self.schema}")
+
+
+def test_research_reflexion_turns_critique_into_cited_evidence(monkeypatch):
+    module = load_example("45_research_reflexion.py")
+    monkeypatch.setattr(module, "create_llm", ResearchReflexionFakeModel)
+
+    out = module.graph.invoke({"question": "LangGraph checkpoint는 왜 필요한가요?"})
+
+    assert [item["id"] for item in out["evidence"]] == ["ref-1"]
+    assert out["citations"] == ["ref-1"]
+    assert out["ready"] is True
+    assert out["attempts"] == 2
+    assert module.route_after_revision({"ready": False, "attempts": 3}) == "__end__"
+
+
+class AgenticRagFakeModel:
+    def __init__(self):
+        self.schema = None
+
+    def with_structured_output(self, schema):
+        self.schema = schema
+        return self
+
+    def invoke(self, _messages):
+        if self.schema is None:
+            return AIMessage(content="Checkpoint resumes interrupted runs [local-2].")
+        if self.schema.__name__ == "RouteDecision":
+            return SimpleNamespace(datasource="local")
+        if self.schema.__name__ == "RelevanceGrade":
+            return SimpleNamespace(relevant=True)
+        if self.schema.__name__ == "AnswerGrade":
+            return SimpleNamespace(grounded=True, useful=True, feedback="")
+        raise AssertionError(f"unexpected schema: {self.schema}")
+
+
+def test_agentic_rag_routes_grades_and_finishes_with_grounded_answer(monkeypatch):
+    module = load_example("46_agentic_rag.py")
+    monkeypatch.setattr(module, "create_llm", AgenticRagFakeModel)
+
+    out = module.graph.invoke({"question": "LangGraph checkpoint는 왜 필요한가요?"})
+
+    assert out["datasource"] == "local"
+    assert out["documents"]
+    assert out["grounded"] is True
+    assert out["useful"] is True
+    assert out["attempts"] == 1
+    assert module.route_to_datasource({"datasource": "web"}) == "web_search"
+    assert module.route_after_answer_grade(
+        {"grounded": False, "useful": False, "attempts": 3}
+    ) == "__end__"

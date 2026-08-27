@@ -13,6 +13,7 @@ Example 15 — ToolNode를 사용한 ReAct loop.
 - agent가 tool call을 만들면 tools로, 아니면 END로 routing
 - `tools → agent` cycle에서 tool 결과를 읽고 최종 답변 생성
 - 앞에서 배운 routing, cycle, tool-call, ToolNode의 결합
+- 계산, 조회, 웹 검색 등 도구 종류가 달라도 graph 구조는 동일함
 
 복습 개념
 ---------

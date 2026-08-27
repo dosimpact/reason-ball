@@ -59,6 +59,8 @@ EXPECTED_STEMS = [
     "42_hierarchical_supervisor",
     "43_isolated_team_state",
     "44_reusable_chat_subgraph",
+    "45_research_reflexion",
+    "46_agentic_rag",
 ]
 
 
@@ -98,6 +100,14 @@ def main() -> None:
     }
     if list(registered.items()) != list(expected_graphs.items()):
         raise AssertionError("langgraph.json basic graph order or paths are out of sync")
+
+    legacy_graphs = {
+        key: value
+        for key, value in _registered_graphs().items()
+        if key.startswith("l_") or "graph-lectures" in value
+    }
+    if legacy_graphs:
+        raise AssertionError(f"Legacy lecture graphs are still registered: {legacy_graphs}")
 
     for stem in EXPECTED_STEMS:
         _load_graph(stem)
