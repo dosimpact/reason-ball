@@ -14,10 +14,12 @@ from langchain_openai import ChatOpenAI
 # ---------------------------------------------------------------------------
 # OpenAI Configuration
 # ---------------------------------------------------------------------------
+OPENAI_MODEL_NORMAL = os.environ.get("OPENAI_MODEL_NORMAL", "gpt-5-nano")
+
 MODEL_ALIASES: dict[str, str] = {
     "default": os.environ.get("OPENAI_MODEL_DEFAULT", "gpt-4o-mini"),
     "fast": os.environ.get("OPENAI_MODEL_FAST", "gpt-4o-mini"),
-    "normal": os.environ.get("OPENAI_MODEL_NORMAL", "gpt-5-nano"),
+    "normal": OPENAI_MODEL_NORMAL,
     "smart": os.environ.get("OPENAI_MODEL_SMART", "gpt-5-mini"),
     "reasoning": os.environ.get("OPENAI_MODEL_REASONING", "o4-mini"),
 }
@@ -30,6 +32,7 @@ def _resolve_model(model_alias: str) -> str:
     return MODEL_ALIASES.get(model_alias, model_alias)
 
 
+# GPT api Provider 결정
 def create_llm(model_alias: str = DEFAULT_MODEL) -> ChatOpenAI:
     """ChatOpenAI LLM 인스턴스를 생성합니다."""
     return ChatOpenAI(model=_resolve_model(model_alias))
@@ -38,5 +41,6 @@ def create_llm(model_alias: str = DEFAULT_MODEL) -> ChatOpenAI:
 __all__ = [
     "DEFAULT_MODEL",
     "MODEL_ALIASES",
+    "OPENAI_MODEL_NORMAL",
     "create_llm",
 ]

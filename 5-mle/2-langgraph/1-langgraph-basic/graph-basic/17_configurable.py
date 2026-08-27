@@ -12,7 +12,7 @@ Example 17 — Configurable graph (runtime config schema).
 
 그래프 구조
 -----------
-START ─▶ chat ─▶ END  (단일 LLM 노드. config 에 따라 LLM 동작이 바뀜)  
+START ─▶ chat ─▶ END  (단일 LLM 노드. config 에 따라 LLM 동작이 바뀜)
 
 설정값  LangGraph 에서 특히 자주 쓰는 것
 -----------
@@ -75,9 +75,9 @@ from common.llm import create_llm
 
 
 class ConfigSchema(TypedDict, total=False):
-    model: str           # "default" | "smart" | "fast"
-    system_prompt: str   # 자유 텍스트
-    style: str           # "concise" | "detailed" | "playful"
+    model: str  # "default" | "smart" | "fast"
+    system_prompt: str  # 자유 텍스트
+    style: str  # "concise" | "detailed" | "playful"
 
 
 STYLE_HINTS = {
@@ -102,7 +102,7 @@ def chat(state: MessagesState, config: RunnableConfig) -> dict:
 
     llm = create_llm(model_alias)
     response = llm.invoke([system] + state["messages"])
-    
+
     return {"messages": [response]}
 
 

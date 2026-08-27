@@ -44,25 +44,25 @@ DOCS: list[dict[str, str]] = [
         "id": "doc-1",
         "title": "LangGraph",
         "text": "LangGraph is a library for building stateful, multi-actor applications "
-                "with LLMs. It extends LangChain with cyclic graph support.",
+        "with LLMs. It extends LangChain with cyclic graph support.",
     },
     {
         "id": "doc-2",
         "title": "AWS Bedrock",
         "text": "Amazon Bedrock is a fully managed service that offers foundation models "
-                "from leading AI companies (Anthropic, Meta, Cohere, Mistral) via a single API.",
+        "from leading AI companies (Anthropic, Meta, Cohere, Mistral) via a single API.",
     },
     {
         "id": "doc-3",
         "title": "FastAPI",
         "text": "FastAPI is a modern Python web framework based on type hints, with built-in "
-                "OpenAPI/Swagger documentation and async support.",
+        "OpenAPI/Swagger documentation and async support.",
     },
     {
         "id": "doc-4",
         "title": "Guardrails",
         "text": "Bedrock Guardrails apply content filtering, PII masking, and prompt-injection "
-                "detection on inputs and outputs of foundation models.",
+        "detection on inputs and outputs of foundation models.",
     },
 ]
 
@@ -102,7 +102,7 @@ def generate(state: State) -> dict:
             "Answer the user question using ONLY the provided context. "
             "If the context is insufficient, say so explicitly. "
             "Cite document ids you used in square brackets, e.g. [doc-1].\n\n"
-            f"Context:\n{state.get('context','')}"
+            f"Context:\n{state.get('context', '')}"
         )
     )
     response = llm.invoke([system, HumanMessage(content=state["question"])])
@@ -117,7 +117,7 @@ def build_graph():
     builder.add_node("retrieve", retrieve)
     builder.add_node("augment", augment)
     builder.add_node("generate", generate)
-    
+
     builder.add_edge(START, "retrieve")
     builder.add_edge("retrieve", "augment")
     builder.add_edge("augment", "generate")

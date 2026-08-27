@@ -29,7 +29,7 @@ top 으로도 그대로 보인다.
 
 학습 포인트
 -----------
-- 컴파일된 subgraph 를 부모의 노드로 부착 (예제 04 와 동일 메커니즘)
+- 컴파일된 subgraph 를 부모의 노드로 부착 (예제 09 와 동일 메커니즘)
 - 각 supervisor 가 자기 worker 만 아는 **국소화된 라우팅 enum**
 - `MessagesState` 누적 + `name` 필드로 어떤 노드가 만든 메시지인지 추적
 - top / team 각각 iteration 상한을 두어 무한 루프 방지
@@ -61,14 +61,14 @@ from common.llm import create_llm
 # State
 # ===========================================================================
 class State(MessagesState):
-    next_team: str       # top supervisor 결정: data | search | writing | FINISH
-    next_worker: str     # team supervisor 결정: <worker name> | DONE
-    top_iters: int       # top supervisor 호출 횟수
-    team_iters: int      # 현재 팀 supervisor 호출 횟수
+    next_team: str  # top supervisor 결정: data | search | writing | FINISH
+    next_worker: str  # team supervisor 결정: <worker name> | DONE
+    top_iters: int  # top supervisor 호출 횟수
+    team_iters: int  # 현재 팀 supervisor 호출 횟수
 
 
-MAX_TOP_ITERS = 6      # top → 팀 디스패치 최대 횟수
-MAX_TEAM_ITERS = 4     # 한 팀 안에서 worker 호출 최대 횟수
+MAX_TOP_ITERS = 6  # top → 팀 디스패치 최대 횟수
+MAX_TEAM_ITERS = 4  # 한 팀 안에서 worker 호출 최대 횟수
 
 
 def _extract_text(content) -> str:
@@ -77,7 +77,8 @@ def _extract_text(content) -> str:
         return content
     if isinstance(content, list):
         return "".join(
-            b["text"] for b in content
+            b["text"]
+            for b in content
             if isinstance(b, dict) and b.get("type") == "text"
         )
     return str(content)
@@ -88,15 +89,12 @@ def _extract_text(content) -> str:
 # ===========================================================================
 def _make_llm_worker(name: str, role_prompt: str):
     """LLM 으로 실제 답을 생성하는 워커 (writing_team 용)."""
+
     def node(state: State) -> dict:
         llm = create_llm()
-        response = llm.invoke(
-            [SystemMessage(content=role_prompt), *state["messages"]]
-        )
+        response = llm.invoke([SystemMessage(content=role_prompt), *state["messages"]])
         body = _extract_text(response.content)
-        return {
-            "messages": [AIMessage(content=f"[{name}] {body}", name=name)]
-        }
+        return {"messages": [AIMessage(content=f"[{name}] {body}", name=name)]}
 
     return node
 
@@ -107,10 +105,9 @@ def _make_stub_worker(name: str, mock_output: str):
     데이터/검색 워커처럼 실제로 외부 시스템(SQL, 검색 API)을 붙여야 의미 있는
     역할은 데모용으로 mock 응답을 박아둔다. supervisor 라우팅 구조 학습이 목적.
     """
+
     def node(state: State) -> dict:
-        return {
-            "messages": [AIMessage(content=f"[{name}] {mock_output}", name=name)]
-        }
+        return {"messages": [AIMessage(content=f"[{name}] {mock_output}", name=name)]}
 
     return node
 
@@ -267,11 +264,11 @@ def _build_team_subgraph(team_name: str, workers: dict, hint: str):
     sg.add_conditional_edges(
         f"{team_name}_supervisor",
         team_route,
-        {**{w: w for w in workers.keys()}, "__end__": END},
+        {**{w: w for w in workers}, "__end__": END},
     )
     # 진입할 때 team_iters 를 0 으로 리셋해야 다른 팀 진입 시 카운트가 섞이지 않는다.
     # 여기서는 단순화를 위해 그냥 누적 — 필요하면 worker 노드에서 reset 가능.
-    for wname in workers.keys():
+    for wname in workers:
         sg.add_edge(wname, f"{team_name}_supervisor")
 
     return sg.compile()
@@ -279,7 +276,11 @@ def _build_team_subgraph(team_name: str, workers: dict, hint: str):
 
 data_team = _build_team_subgraph(
     "data",
-    {"sql_runner": sql_runner, "pandas_runner": pandas_runner, "chart_maker": chart_maker},
+    {
+        "sql_runner": sql_runner,
+        "pandas_runner": pandas_runner,
+        "chart_maker": chart_maker,
+    },
     "Plan SQL queries, pandas transforms, and visualizations for tabular data analysis.",
 )
 search_team = _build_team_subgraph(
@@ -363,8 +364,8 @@ def top_route(state: State) -> str:
 def build_graph():
     builder = StateGraph(State)
     builder.add_node("top_supervisor", top_supervisor)
-    builder.add_node("data_team", data_team)        # 컴파일된 subgraph
-    builder.add_node("search_team", search_team)    # 컴파일된 subgraph
+    builder.add_node("data_team", data_team)  # 컴파일된 subgraph
+    builder.add_node("search_team", search_team)  # 컴파일된 subgraph
     builder.add_node("writing_team", writing_team)  # 컴파일된 subgraph
 
     builder.add_edge(START, "top_supervisor")

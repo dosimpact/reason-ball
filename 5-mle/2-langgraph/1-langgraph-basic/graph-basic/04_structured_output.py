@@ -1,5 +1,5 @@
 """
-Example 09 — Structured output (Pydantic).
+Example 04 — Structured output (Pydantic).
 
 LLM 의 자유 텍스트 응답이 아니라 **Pydantic 스키마에 맞춰 강제 변환**된 객체로 받는 패턴.
 LangChain 의 `llm.with_structured_output(Schema)` 를 사용합니다.
@@ -7,8 +7,16 @@ LangChain 의 `llm.with_structured_output(Schema)` 를 사용합니다.
 학습 포인트
 -----------
 - 자유 텍스트 → 파싱 코드 작성이 필요 없어짐
-- Bedrock + Anthropic 의 tool-use 메커니즘으로 내부 동작 (보장된 JSON)
 - 후속 노드에서 `state["sentiment"]["label"]` 처럼 dict 접근
+
+
+Structured output Schema 정의 및 LLm 까지 langchain이 전달  
+-----------
+- Pydantic 모델 클래스을 사용하기위해 BaseModel을 상속함. 
+- LangChain이 JSON Schema로 해석
+- LangChain/OpenAI SDK가 이 스키마를 OpenAI API의 structured-output 설정으로 전달
+- LangChain은 모델 응답을 Pydantic 객체로 파싱 및 검증 
+
 
 그래프 구조
 -----------
@@ -40,7 +48,10 @@ from pydantic import BaseModel, Field
 
 from common.llm import create_llm
 
-
+# Pydantic 모델 클래스을 사용하기위해 BaseModel을 상속함. 
+# LangChain이 JSON Schema로 해석
+# LangChain/OpenAI SDK가 이 스키마를 OpenAI API의 structured-output 설정으로 전달
+# LangChain은 모델 응답을 Pydantic 객체로 파싱 및 검증 
 class Sentiment(BaseModel):
     """감정 분류 결과."""
 
@@ -71,7 +82,7 @@ def build_graph():
 
     builder = StateGraph(State)
     builder.add_node("analyze", analyze)
-    
+
     builder.add_edge(START, "analyze")
     builder.add_edge("analyze", END)
     return builder.compile()

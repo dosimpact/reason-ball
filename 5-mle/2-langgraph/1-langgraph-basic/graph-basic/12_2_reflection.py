@@ -98,7 +98,7 @@ def _narrate(step: str, iteration: int, extra: str = "") -> str:
         text = _content(resp).strip().strip('"').strip("'")
         # 안전장치: LLM 이 길게 답해도 한 줄 첫 줄만 사용
         return text.splitlines()[0][:60] if text else f"[{step}] 진행 중..."
-    except Exception:
+    except Exception:  # noqa: BLE001 - narrator failure must not stop the main flow
         # narrator 가 실패해도 본 흐름은 막지 않는다
         return f"[{step}] 진행 중... ({iteration}회차)"
 
@@ -218,6 +218,6 @@ if __name__ == "__main__":
             print(f"[{tag}] {body[:200]}")
 
     if final_state:
-        print(f"\n=== summary ===")
+        print("\n=== summary ===")
         print(f"iterations: {final_state.get('iterations')}")
         print(f"final draft: {final_state.get('draft')}")

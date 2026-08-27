@@ -1,5 +1,5 @@
 """
-Example 16 — Modern interrupt() + Command(resume).
+Example 05-2 — Modern interrupt() + Command(resume).
 
 05 의 `interrupt_before` 는 "특정 노드 진입 전에 그래프를 정지" 시킬 뿐,
 "무엇을 사용자에게 보여줄지" 와 "사용자 입력을 어떻게 다시 그래프에 흘릴지" 는
@@ -80,8 +80,10 @@ def human_review(state: State) -> dict:
     # user_decision 은 클라이언트가 Command(resume=...) 로 보낸 값 (문자열 또는 dict)
     if isinstance(user_decision, dict):
         if user_decision.get("action") == "edit":
-            return {"draft": user_decision.get("text", state.get("draft", "")),
-                    "approved": True}
+            return {
+                "draft": user_decision.get("text", state.get("draft", "")),
+                "approved": True,
+            }
         return {"approved": user_decision.get("action") == "approve"}
 
     return {"approved": user_decision == "approve"}
@@ -90,7 +92,7 @@ def human_review(state: State) -> dict:
 def publish(state: State) -> dict:
     if not state.get("approved"):
         return {"final": "(rejected)"}
-    return {"final": f"PUBLISHED: {state.get('draft','')}"}
+    return {"final": f"PUBLISHED: {state.get('draft', '')}"}
 
 
 def build_graph():
@@ -140,7 +142,9 @@ if __name__ == "__main__":
     cfg2 = {"configurable": {"thread_id": "demo-cmd-2"}}
     standalone.invoke({"topic": "Bedrock"}, config=cfg2)
     final2 = standalone.invoke(
-        Command(resume={"action": "edit", "text": "[Edited] Custom blurb about Bedrock."}),
+        Command(
+            resume={"action": "edit", "text": "[Edited] Custom blurb about Bedrock."}
+        ),
         config=cfg2,
     )
     print("after edit:", final2)

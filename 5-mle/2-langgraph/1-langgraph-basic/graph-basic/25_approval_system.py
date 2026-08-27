@@ -45,7 +45,9 @@ def classify_risk(state: State) -> dict:
     return {
         "risk": risk,
         "approved": risk == "low",
-        "decision_reason": "auto-approved low-risk action" if risk == "low" else "human approval required",
+        "decision_reason": "auto-approved low-risk action"
+        if risk == "low"
+        else "human approval required",
     }
 
 
@@ -119,5 +121,7 @@ if __name__ == "__main__":
     standalone = builder.compile(checkpointer=MemorySaver())
 
     cfg = {"configurable": {"thread_id": "approval-demo"}}
-    print(standalone.invoke({"action": "delete production database backup"}, config=cfg))
+    print(
+        standalone.invoke({"action": "delete production database backup"}, config=cfg)
+    )
     print(standalone.invoke(Command(resume="reject"), config=cfg))

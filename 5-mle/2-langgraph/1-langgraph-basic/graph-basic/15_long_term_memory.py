@@ -49,7 +49,7 @@ from langgraph.store.base import BaseStore
 
 class State(TypedDict, total=False):
     user_id: str
-    fact: str            # 새로 저장할 사실 (선택)
+    fact: str  # 새로 저장할 사실 (선택)
     recalled: list[str]  # recall 결과
 
 
@@ -101,7 +101,7 @@ if __name__ == "__main__":
     builder.add_edge(START, "remember")
     builder.add_edge("remember", "recall")
     builder.add_edge("recall", END)
-    
+
     standalone = builder.compile(store=InMemoryStore())
 
     # 1) 사실 저장

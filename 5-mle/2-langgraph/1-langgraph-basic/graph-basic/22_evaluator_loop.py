@@ -32,7 +32,9 @@ MAX_ATTEMPTS = 3
 
 
 class EvalResult(BaseModel):
-    verdict: Literal["PASS", "FAIL"] = Field(description="Whether the answer is acceptable.")
+    verdict: Literal["PASS", "FAIL"] = Field(
+        description="Whether the answer is acceptable."
+    )
     score: int = Field(description="Quality score from 1 to 5.", ge=1, le=5)
     feedback: str = Field(description="One concise improvement note.")
 

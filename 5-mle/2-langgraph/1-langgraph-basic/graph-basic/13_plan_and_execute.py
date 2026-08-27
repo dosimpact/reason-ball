@@ -2,7 +2,7 @@
 Example 13 — Plan-and-Execute.
 
 복잡한 작업을 LLM 으로 **단계 리스트(plan)** 를 만들고, 각 단계를 순서대로 실행하면서
-plan 을 줄여나가는 패턴.  
+plan 을 줄여나가는 패턴.
 
 
 흐름
@@ -17,7 +17,7 @@ plan 을 줄여나가는 패턴.
 - state 의 list 를 노드에서 줄여 나가는 패턴 (queue-like)
 - conditional edge 로 "남은 step 이 있는가?" 분기
 
-Plan-and-Execute 패턴의 장점  
+Plan-and-Execute 패턴의 장점
 - ReAct(매 step 마다 LLM 이 다음 행동을 즉흥적으로 결정) 보다 더 체계적이고 예측 가능
 
 장점 (vs. ReAct 즉흥 판단)
@@ -65,7 +65,10 @@ from common.llm import create_llm
 
 class Plan(BaseModel):
     """작업 분할 계획."""
-    steps: list[str] = Field(description="3~5개의 짧은 실행 단계", min_length=1, max_length=6)
+
+    steps: list[str] = Field(
+        description="3~5개의 짧은 실행 단계", min_length=1, max_length=6
+    )
 
 
 class State(TypedDict, total=False):
@@ -88,7 +91,7 @@ def planner(state: State) -> dict:
         [
             SystemMessage(
                 content="Break the user's task into 3-5 concrete, executable steps. "
-                        "Each step should be short and actionable."
+                "Each step should be short and actionable."
             ),
             HumanMessage(content=state["task"]),
         ]
@@ -108,9 +111,9 @@ def executor(state: State) -> dict:
         [
             SystemMessage(
                 content=f"You are executing one step of a larger plan.\n"
-                        f"Original task: {state['task']}\n"
-                        f"Already done: {state.get('completed', [])}\n"
-                        f"Reply with just the result of this single step (≤100 chars)."
+                f"Original task: {state['task']}\n"
+                f"Already done: {state.get('completed', [])}\n"
+                f"Reply with just the result of this single step (≤100 chars)."
             ),
             HumanMessage(content=f"Execute: {step}"),
         ]
@@ -126,7 +129,7 @@ def has_more_steps(state: State) -> str:
 
 def finalize(state: State) -> dict:
     summary_lines = [
-        f"{i+1}. {c['step']}\n   → {c['result']}"
+        f"{i + 1}. {c['step']}\n   → {c['result']}"
         for i, c in enumerate(state.get("completed", []))
     ]
     return {"answer": "Plan executed:\n" + "\n".join(summary_lines)}

@@ -5,10 +5,8 @@ Example 02 — LLM 한 번 호출하는 그래프.
 
 학습 포인트
 -----------
-- `MessagesState` (built-in TypedDict, `messages: Annotated[list, add_messages]`)
-  를 사용해 메시지 누적을 자동화
+- `MessagesState` (built-in TypedDict, `messages: Annotated[list, add_messages]`) 를 사용해 메시지 누적을 자동화.
 - 노드가 `{"messages": [AIMessage(...)]}` 를 반환하면 reducer 가 기존 list 에 append
-- LLM 노드는 `node.llm_node.make_call_model` 팩토리로 표준화
 
 그래프 구조
 -----------
@@ -18,7 +16,6 @@ START ─▶ chat ─▶ END
 -----------------------------------------
 LangGraph Studio 의 messages 입력에 다음 중 하나를 넣어보세요.
 - "안녕! 한 줄로 인사해줘."
-- "LangGraph 가 뭐야? 한 문장으로 설명해줘."
 - "오늘 기분이 좋아지는 짧은 명언 하나만."
 - "Tell me a fun fact in one sentence."
 """
@@ -27,12 +24,12 @@ from __future__ import annotations
 
 from langgraph.graph import END, START, MessagesState, StateGraph
 
-from common.llm import create_llm
+from common.llm import OPENAI_MODEL_NORMAL, create_llm
 from node.llm_node import make_call_model
 
 
 def build_graph():
-    llm = create_llm()
+    llm = create_llm(OPENAI_MODEL_NORMAL)
     chat_node = make_call_model(
         llm,
         system_prompt=(
@@ -41,7 +38,7 @@ def build_graph():
     )
 
     builder = StateGraph(MessagesState)
-    
+
     builder.add_node("chat", chat_node)
 
     builder.add_edge(START, "chat")

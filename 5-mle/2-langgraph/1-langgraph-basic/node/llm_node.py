@@ -34,6 +34,14 @@ def make_call_model(
     def call_model(state: MessagesState) -> dict:
         system = SystemMessage(content=system_prompt)
         response = bound.invoke([system] + state["messages"])
+        #   실제 LLM 입력은 다음 형태입니다.
+        #   SystemMessage
+        #   HumanMessage 1
+        #   AIMessage 1
+        #   HumanMessage 2
+        #   AIMessage 2
+        #   ...
+        #   최근 HumanMessage
         return {"messages": [response]}
 
     return call_model

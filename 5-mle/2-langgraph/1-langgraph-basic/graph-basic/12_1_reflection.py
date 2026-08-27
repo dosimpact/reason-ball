@@ -66,8 +66,8 @@ def generate(state: State) -> dict:
     else:
         prompt = (
             f"Improve the following draft based on the critique.\n"
-            f"---DRAFT---\n{state.get('draft','')}\n"
-            f"---CRITIQUE---\n{state.get('critique','')}\n"
+            f"---DRAFT---\n{state.get('draft', '')}\n"
+            f"---CRITIQUE---\n{state.get('critique', '')}\n"
             f"Return ONLY the improved 2-sentence blurb."
         )
     resp = llm.invoke([HumanMessage(content=prompt)])
@@ -103,7 +103,7 @@ def should_continue(state: State) -> str:
 
 def build_graph():
     builder = StateGraph(State)
-    
+
     builder.add_node("generate", generate)
     builder.add_node("critic", critic)
 

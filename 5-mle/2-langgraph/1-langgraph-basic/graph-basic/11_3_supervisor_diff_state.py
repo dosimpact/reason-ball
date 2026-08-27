@@ -70,25 +70,28 @@ from common.llm import create_llm
 # ===========================================================================
 class ParentState(MessagesState):
     """부모는 라우팅 정보만 들고 다닌다. 팀 내부 필드는 모름."""
-    next_team: str       # data | writing | FINISH
+
+    next_team: str  # data | writing | FINISH
     top_iters: int
 
 
 class DataTeamState(MessagesState):
     """data_team 전용 — SQL/pandas/chart 의 중간 산출물을 내부에 보관."""
+
     next_worker: str
     team_iters: int
-    sql_result: str       # ← 부모에 노출 안 됨
-    pandas_result: str    # ← 부모에 노출 안 됨
-    chart_spec: str       # ← 부모에 노출 안 됨
+    sql_result: str  # ← 부모에 노출 안 됨
+    pandas_result: str  # ← 부모에 노출 안 됨
+    chart_spec: str  # ← 부모에 노출 안 됨
 
 
 class WritingTeamState(MessagesState):
     """writing_team 전용 — 초안과 리비전 횟수를 내부에 보관."""
+
     next_worker: str
     team_iters: int
-    draft: str            # ← 부모에 노출 안 됨
-    revision_count: int   # ← 부모에 노출 안 됨
+    draft: str  # ← 부모에 노출 안 됨
+    revision_count: int  # ← 부모에 노출 안 됨
 
 
 MAX_TOP_ITERS = 6
@@ -100,7 +103,8 @@ def _extract_text(content) -> str:
         return content
     if isinstance(content, list):
         return "".join(
-            b["text"] for b in content
+            b["text"]
+            for b in content
             if isinstance(b, dict) and b.get("type") == "text"
         )
     return str(content)
@@ -111,14 +115,10 @@ def _extract_text(content) -> str:
 # ===========================================================================
 def sql_runner(state: DataTeamState) -> dict:
     """SQL 결과를 내부 필드 sql_result 에 저장하고 messages 에도 한 줄 push."""
-    mock = (
-        "2024Q4: 12.4억, 2024Q3: 10.1억 (전분기 대비 +22.7%)"
-    )
+    mock = "2024Q4: 12.4억, 2024Q3: 10.1억 (전분기 대비 +22.7%)"
     return {
         "sql_result": mock,  # 팀 내부에만 보존
-        "messages": [
-            AIMessage(content=f"[sql_runner] {mock}", name="sql_runner")
-        ],
+        "messages": [AIMessage(content=f"[sql_runner] {mock}", name="sql_runner")],
     }
 
 
@@ -145,7 +145,11 @@ def chart_maker(state: DataTeamState) -> dict:
     }
 
 
-DATA_WORKERS = {"sql_runner": sql_runner, "pandas_runner": pandas_runner, "chart_maker": chart_maker}
+DATA_WORKERS = {
+    "sql_runner": sql_runner,
+    "pandas_runner": pandas_runner,
+    "chart_maker": chart_maker,
+}
 
 
 # ===========================================================================
@@ -154,13 +158,15 @@ DATA_WORKERS = {"sql_runner": sql_runner, "pandas_runner": pandas_runner, "chart
 def drafter(state: WritingTeamState) -> dict:
     """첫 초안을 LLM 으로 생성해 draft 에 저장."""
     llm = create_llm()
-    response = llm.invoke([
-        SystemMessage(
-            content="You are a drafter. Write a first-draft executive summary "
-                    "based on the conversation so far. Under 120 words."
-        ),
-        *state["messages"],
-    ])
+    response = llm.invoke(
+        [
+            SystemMessage(
+                content="You are a drafter. Write a first-draft executive summary "
+                "based on the conversation so far. Under 120 words."
+            ),
+            *state["messages"],
+        ]
+    )
     body = _extract_text(response.content)
     return {
         "draft": body,
@@ -261,9 +267,9 @@ def _build_team_subgraph(team_name: str, state_cls, workers: dict, hint: str):
     sg.add_conditional_edges(
         f"{team_name}_supervisor",
         route,
-        {**{w: w for w in workers.keys()}, "__end__": END},
+        {**{w: w for w in workers}, "__end__": END},
     )
-    for wname in workers.keys():
+    for wname in workers:
         sg.add_edge(wname, f"{team_name}_supervisor")
     return sg.compile()
 
@@ -345,7 +351,7 @@ def top_route(state: ParentState) -> str:
 def build_graph():
     builder = StateGraph(ParentState)  # ← 부모는 ParentState
     builder.add_node("top_supervisor", top_supervisor)
-    builder.add_node("data_team", data_team)        # subgraph(DataTeamState)
+    builder.add_node("data_team", data_team)  # subgraph(DataTeamState)
     builder.add_node("writing_team", writing_team)  # subgraph(WritingTeamState)
 
     builder.add_edge(START, "top_supervisor")

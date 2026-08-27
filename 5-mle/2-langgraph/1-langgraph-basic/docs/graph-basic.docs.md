@@ -21,15 +21,20 @@
 - `llm.bind_tools(...)` 로 LLM 이 tool_call 을 만들고 `ToolNode` 가 실제 실행.
 - TOOLS = `get_current_time / calculate / lookup_info`.
 
-### 04_subgraph
-- 부모 그래프가 LLM 으로 의도를 분류 후 서브그래프(translator/summarizer) 로 라우팅.
-- 컴파일된 subgraph 를 부모의 노드로 부착하는 패턴 + `with_structured_output` 으로 분류 강제.
-- intent 가 "other" 면 서브그래프를 우회하고 바로 종료.
+### 04_structured_output
+- `llm.with_structured_output(PydanticSchema)` 로 LLM 응답을 강제 JSON 객체화.
+- `common.llm.create_llm()` 이 만든 `ChatOpenAI` 위에서 Pydantic `Sentiment` 스키마를 사용.
+- 후속 노드에서 파싱 코드 없이 `state["sentiment"]["label"]` 처럼 dict 접근.
 
 ### 05_interrupt
 - 03 의 ReAct 그래프에 `interrupt_before=["tools"]` 로 tool 실행 직전 일시정지 (HITL).
 - 같은 `thread_id` 로 `invoke(None, config)` 호출하면 이어서 재개됨.
 - `update_state` 로 멈춰있는 동안 메시지 직접 수정 가능.
+
+### 05_2_custom_interrupt
+- `start` 다음 노드의 `interrupt()` 로 사용자 이름을 직접 입력받음.
+- tool call 실행 전 두 번째 `interrupt()` 로 `Y/y` 승인 또는 `N/n` 거절을 받음.
+- `compile(interrupt_before=["tools"])` 없이 승인·거절 결과를 명시적 노드 분기로 처리.
 
 ### 06_checkpointer
 - `MemorySaver` 를 부착해 `thread_id` 단위로 멀티턴 대화 히스토리 자동 저장/복원.
@@ -46,10 +51,10 @@
 - `Annotated[list[dict], operator.add]` 로 병렬 결과 자동 병합 (순서 비보장).
 - LangGraph 가 worker 완료까지 자동으로 wait barrier 를 걸어줌.
 
-### 09_structured_output
-- `llm.with_structured_output(PydanticSchema)` 로 LLM 응답을 강제 JSON 객체화.
-- `common.llm.create_llm()` 이 만든 `ChatOpenAI` 위에서 Pydantic `Sentiment` 스키마를 사용.
-- 후속 노드에서 파싱 코드 없이 `state["sentiment"]["label"]` 처럼 dict 접근.
+### 09_subgraph
+- 부모 그래프가 LLM 으로 의도를 분류 후 서브그래프(translator/summarizer) 로 라우팅.
+- 컴파일된 subgraph 를 부모의 노드로 부착하는 패턴 + `with_structured_output` 으로 분류 강제.
+- intent 가 "other" 면 서브그래프를 우회하고 바로 종료.
 
 ### 10_rag
 - 가장 흔한 RAG 패턴 (retrieve → augment → generate) 를 인메모리 키워드 매칭으로 단순 구현.
@@ -101,7 +106,7 @@
 - 노드가 `store: BaseStore` 파라미터를 받으면 자동 주입, namespace 튜플로 사용자 격리.
 - dev 서버는 `InMemoryStore` (재시작 시 휘발), Platform 은 관리형 Postgres 로 영속.
 
-### 16_command_interrupt
+### 05_2_command_interrupt
 - 모던 `interrupt()` 함수 + `Command(resume=...)` 으로 HITL 흐름을 한 번에 처리.
 - 노드 내부에서 `value = interrupt({...})` 호출 → 페이로드가 클라이언트로 전달 → resume 값이 그대로 반환.
 - 한 노드 안에 여러 interrupt 가능 (각 호출마다 한 번씩 멈춤).

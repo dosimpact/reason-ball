@@ -15,11 +15,20 @@ langgraph-advanced.json # 고급 예제 LangGraph Studio 그래프 설정
 
 ## 환경 설정
 
-`uv`를 사용합니다.
-```
+`uv`를 사용합니다. 설치 직후에는 현재 쉘에 `uv` 경로를 반영합니다.
+
+```bash
 # --- uv 설치
 curl -LsSf https://astral.sh/uv/install.sh | sh
+source "$HOME/.local/bin/env"
 uv sync
+```
+
+`uv: command not found` 오류가 나면 위의 `source` 명령을 실행하세요. 새 zsh 터미널에서도
+`uv`를 찾지 못하면 다음 한 줄을 `~/.zshrc`에 추가합니다.
+
+```bash
+source "$HOME/.local/bin/env"
 ```
 
 `langgraph dev` CLI는 기본 의존성에 포함되어 있습니다.

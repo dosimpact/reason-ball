@@ -12,12 +12,12 @@ Example 08 — Map-Reduce (Send API).
 학습 포인트
 -----------
 
-1. 상태정의 
+1. 상태정의
 
 class State(TypedDict, total=False):
     topics: list[str]
     # results: list[dict] ← reducer 없음
-    results: Annotated[list[dict], operator.add] 
+    results: Annotated[list[dict], operator.add]
     answer: str
 
 # results: Annotated[list[dict], operator.add]
@@ -25,16 +25,16 @@ class State(TypedDict, total=False):
 #           표준         값의 타입         이 키의 reducer
 #           Python      (타입체커용)       (LangGraph 가 읽음)
 #           기능
-  • Annotated[X, Y] 는 Python 표준 — X 는 진짜 타입, Y 는 메타데이터.  
-  • 일반 코드에서 Y 는 무시되지만, LangGraph 는 Y 를 reducer 로 해석.  
+  • Annotated[X, Y] 는 Python 표준 — X 는 진짜 타입, Y 는 메타데이터.
+  • 일반 코드에서 Y 는 무시되지만, LangGraph 는 Y 를 reducer 로 해석.
 
-2. Send로 fan-out 동적 수행 
+2. Send로 fan-out 동적 수행
 - `from langgraph.constants import Send` — 동적 fan-out
 -  conditional edge 에서 `[Send(...), Send(...), ...]` 를 반환하면 병렬 분기
 
 3. aggregate 에서 reducer 로 합치기
-- reducer 가 병합 (LangGraph 가 자동)  
-- 3개 worker 가 끝날 때까지 LangGraph 가 wait barrier 를 걸고, 모두 완료되면 operator.add 로 합침  
+- reducer 가 병합 (LangGraph 가 자동)
+- 3개 worker 가 끝날 때까지 LangGraph 가 wait barrier 를 걸고, 모두 완료되면 operator.add 로 합침
 - aggregate 진입 시 state (순서는 보장되지 않음, 인덱스 넣어서 순서 정렬 가능)
 {
     "topics": ["langgraph", "bedrock", "fastapi"],

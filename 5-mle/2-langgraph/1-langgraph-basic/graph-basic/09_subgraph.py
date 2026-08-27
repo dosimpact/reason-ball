@@ -1,5 +1,5 @@
 """
-Example 04 — 서브그래프(subgraph) 2개 + LLM 분류 라우팅 (MessagesState 버전).
+Example 09 — 서브그래프(subgraph) 2개 + LLM 분류 라우팅 (MessagesState 버전).
 
 부모 그래프가 LLM 으로 사용자 의도를 분류한 뒤, 의도에 맞는 서브그래프로
 조건부 라우팅합니다. 매칭되는 의도가 없으면 서브그래프를 건너뛰고
@@ -58,7 +58,7 @@ from common.llm import create_llm
 # State: MessagesState + 라우팅용 intent 필드 한 개
 # ---------------------------------------------------------------------------
 class State(MessagesState):
-    intent: str   # "translate" | "summarize" | "other"
+    intent: str  # "translate" | "summarize" | "other"
 
 
 def _last_user_text(state: State) -> str:
@@ -203,6 +203,7 @@ def _build_translator_subgraph():
     sg = StateGraph(State)
     sg.add_node("detect_lang", _detect_lang)
     sg.add_node("translate", _translate)
+
     sg.add_edge(START, "detect_lang")
     sg.add_edge("detect_lang", "translate")
     sg.add_edge("translate", END)
@@ -259,8 +260,8 @@ def build_graph():
 
     builder = StateGraph(State)
     builder.add_node("classify", _classify)
-    builder.add_node("translator", translator)       # 컴파일된 subgraph 부착
-    builder.add_node("summarizer", summarizer)       # 컴파일된 subgraph 부착
+    builder.add_node("translator", translator)  # 컴파일된 subgraph 부착
+    builder.add_node("summarizer", summarizer)  # 컴파일된 subgraph 부착
     builder.add_node("finalize_other", _finalize_other)
 
     builder.add_edge(START, "classify")

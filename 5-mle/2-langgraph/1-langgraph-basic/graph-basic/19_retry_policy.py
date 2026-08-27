@@ -53,7 +53,7 @@ class PermanentError(Exception):
 
 class State(TypedDict, total=False):
     target: str
-    attempts: int     # 실제 시도 횟수 추적 (디버깅용)
+    attempts: int  # 실제 시도 횟수 추적 (디버깅용)
     result: str
 
 

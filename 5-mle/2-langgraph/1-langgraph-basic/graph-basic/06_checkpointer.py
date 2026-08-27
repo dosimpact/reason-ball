@@ -81,13 +81,19 @@ if __name__ == "__main__":
     b.add_node("agent", make_call_model(create_llm(), tools=_T))
     b.add_node("tools", make_tool_node(_T))
     b.add_edge(START, "agent")
-    b.add_conditional_edges("agent", should_continue, {"tools": "tools", "__end__": END})
+    b.add_conditional_edges(
+        "agent", should_continue, {"tools": "tools", "__end__": END}
+    )
     b.add_edge("tools", "agent")
     standalone = b.compile(checkpointer=MemorySaver())
 
     cfg = {"configurable": {"thread_id": "user-42"}}
     # 1턴
-    standalone.invoke({"messages": [HumanMessage(content="내 이름은 도경이야.")]}, config=cfg)
+    standalone.invoke(
+        {"messages": [HumanMessage(content="내 이름은 도경이야.")]}, config=cfg
+    )
     # 2턴 — 이전 컨텍스트가 자동 복원되므로 "내 이름" 을 기억함
-    out = standalone.invoke({"messages": [HumanMessage(content="내 이름이 뭐였지?")]}, config=cfg)
+    out = standalone.invoke(
+        {"messages": [HumanMessage(content="내 이름이 뭐였지?")]}, config=cfg
+    )
     print(out["messages"][-1].content)

@@ -10,11 +10,11 @@ append-only 로 누적합니다. State 자체에 기록이 들어 있으므로:
 
 학습 포인트
 -----------
-- `Annotated[list[dict], operator.add]` 로 append-only reducer 를 선언  
-- `@with_history("name")` 데코레이터로 모든 노드를 자동 계측  
-  · 시작 / 종료 두 entry 를 한 번의 노드 실행에서 함께 push  
-  · 변경된 state key 목록 / elapsed_ms / 에러 여부 기록  
-- `MessagesState` 를 확장해 `history` 와 `messages` 를 함께 보유  
+- `Annotated[list[dict], operator.add]` 로 append-only reducer 를 선언
+- `@with_history("name")` 데코레이터로 모든 노드를 자동 계측
+  · 시작 / 종료 두 entry 를 한 번의 노드 실행에서 함께 push
+  · 변경된 state key 목록 / elapsed_ms / 에러 여부 기록
+- `MessagesState` 를 확장해 `history` 와 `messages` 를 함께 보유
 
 그래프 구조
 -----------
@@ -57,9 +57,10 @@ state.history 예시
 from __future__ import annotations
 
 import time
+from collections.abc import Callable
 from functools import wraps
 from operator import add
-from typing import Annotated, Any, Callable
+from typing import Annotated, Any
 
 from langchain_core.messages import AnyMessage
 from langgraph.graph import END, START, StateGraph
@@ -75,7 +76,7 @@ from node.tool_node import make_tool_node
 
 class State(TypedDict, total=False):
     messages: Annotated[list[AnyMessage], add_messages]
-    history: Annotated[list[dict[str, Any]], add]   # append-only
+    history: Annotated[list[dict[str, Any]], add]  # append-only
 
 
 def with_history(name: str) -> Callable:
@@ -93,7 +94,7 @@ def with_history(name: str) -> Callable:
                 "event": "start",
                 "node": name,
                 "ts": start_ts,
-                "in_keys": sorted(k for k in state.keys() if k != "history"),
+                "in_keys": sorted(k for k in state if k != "history"),
             }
             try:
                 out = fn(state, *args, **kwargs) or {}
@@ -149,7 +150,7 @@ def build_graph():
     builder.add_node("logger", _dummy_logger)
     builder.add_node("agent", agent_node)
     builder.add_node("tools", tool_node)
-    
+
     builder.add_edge(START, "logger")
     builder.add_edge("logger", "agent")
     builder.add_conditional_edges(

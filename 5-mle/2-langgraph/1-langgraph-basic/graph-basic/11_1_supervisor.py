@@ -48,7 +48,7 @@ researcher = lookup_info, calculator = calculate, writer = 최종 정리.
 ※ recursion_limit 가 너무 작으면 MAX_SUPERVISOR_ITERATIONS=6 전에 끊길 수 있음
 """
 
-from typing import Literal, TypedDict
+from typing import Literal
 
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langgraph.graph import END, START, MessagesState, StateGraph
@@ -62,6 +62,7 @@ WORKERS = ["researcher", "calculator", "writer"]
 
 class Route(BaseModel):
     """supervisor 의 라우팅 결정."""
+
     next: Literal["researcher", "calculator", "writer", "FINISH"] = Field(
         description="다음에 실행할 worker. 충분한 정보가 모였으면 FINISH."
     )
@@ -84,7 +85,9 @@ def supervisor_node(state: State) -> dict:
         return {
             "next": "FINISH",
             "iterations": iters,
-            "messages": [AIMessage(content=f"[supervisor → FINISH] max iterations reached")],
+            "messages": [
+                AIMessage(content="[supervisor → FINISH] max iterations reached")
+            ],
         }
 
     llm = create_llm()
@@ -116,7 +119,9 @@ def supervisor_node(state: State) -> dict:
     return {
         "next": routed.next,
         "iterations": iters,
-        "messages": [AIMessage(content=f"[supervisor → {routed.next}] {routed.reason}")],
+        "messages": [
+            AIMessage(content=f"[supervisor → {routed.next}] {routed.reason}")
+        ],
     }
 
 
@@ -130,6 +135,7 @@ def _worker_node(system_prompt: str, tool_fn=None, extract_arg: str = "query"):
     이렇게 하면 메시지 히스토리에 tool_use/tool_result 페어링이 필요 없어
     Bedrock validation 오류가 발생하지 않습니다.
     """
+
     def node(state: State) -> dict:
         llm = create_llm()
         if tool_fn is None:
@@ -148,7 +154,7 @@ def _worker_node(system_prompt: str, tool_fn=None, extract_arg: str = "query"):
         )
         try:
             result = tool_fn.invoke({extract_arg: extracted.value})
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001 - tools may raise provider-specific errors
             result = f"(tool error: {e})"
         return {
             "messages": [

@@ -39,10 +39,10 @@ def uppercase(state: State) -> dict:
     """입력 텍스트를 대문자로 변환합니다."""
 
     # 📕
-    # - state["<key>"] 
+    # - state["<key>"]
     # - state.get("<key>", <default value> )
     new_text = state.get("text", "no input").upper()  # 없을 수도 있으면 OK
-    # new_text = state["text"].upper() # 필수 입력, 없으면 애러  
+    # new_text = state["text"].upper() # 필수 입력, 없으면 애러
 
     return {"text": new_text, "steps": state.get("steps", []) + ["uppercase"]}
 
@@ -55,7 +55,7 @@ def exclaim(state: State) -> dict:
 
 def build_graph():
     builder = StateGraph(State)
-    
+
     builder.add_node("uppercase", uppercase)
     builder.add_node("exclaim", exclaim)
 

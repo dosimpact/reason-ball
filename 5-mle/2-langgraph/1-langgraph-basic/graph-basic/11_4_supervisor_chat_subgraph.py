@@ -5,9 +5,9 @@ Example 11_4 — **Command 분기형 재사용 가능한 chat subgraph** 패턴.
 **하나의 compiled subgraph 를 여러 위치에 재부착**하면서, 각 호출 시점에
 **부모가 명령(command)과 payload 를 주입**해 동작을 제어한다.
 
-Note  
-Q. ChatState만 api, ui단에  노출시키는게  가능?  
-- LangGraph 의 StateGraph 는 state / input / output schema 를 분리해서 줄 수 있다.  
+Note
+Q. ChatState만 api, ui단에  노출시키는게  가능?
+- LangGraph 의 StateGraph 는 state / input / output schema 를 분리해서 줄 수 있다.
 
 ```python
     builder = StateGraph(
@@ -15,7 +15,7 @@ Q. ChatState만 api, ui단에  노출시키는게  가능?
         output_schema=ApiOutputState,   # ⭐
     )
 ```
-- 스트리밍 시 namespace 로 chat 노드 이벤트만 출력 가능  
+- 스트리밍 시 namespace 로 chat 노드 이벤트만 출력 가능
 
 CHAT_NODES = {"chat_after_B", "chat_after_D", "chat_final"}
 
@@ -29,7 +29,7 @@ for ns, update in graph.stream(
         # 이 update 만 UI 로 보냄 — ChatState 영역에서 발생한 변경분
         ui_send(update)
 
-- chat 노드에서 get_stream_writer() 로 custom 이벤트 송출 > 완전 커스터 마이징  
+- chat 노드에서 get_stream_writer() 로 custom 이벤트 송출 > 완전 커스터 마이징
 
 
 chat_graph 의 동작 (입력 contract)
@@ -130,21 +130,23 @@ CMD_APPEND = "append_message"
 # ===========================================================================
 class ParentState(MessagesState):
     """메인 파이프라인 상태 + chat 호출용 control 필드."""
-    stage: str           # intake_done | research_done | analyze_done | draft_done | finalized
-    analysis: str        # research/analyze 산출물
-    final: str           # conclusion 산출물
+
+    stage: str  # intake_done | research_done | analyze_done | draft_done | finalized
+    analysis: str  # research/analyze 산출물
+    final: str  # conclusion 산출물
 
     # chat_graph 호출 직전에 세팅 — 자식과 키 이름이 같아 자동 전달됨
-    chat_command: str    # "summarize" | "append_message"
+    chat_command: str  # "summarize" | "append_message"
     chat_payload: str
 
 
 class ChatState(MessagesState):
     """chat subgraph 전용 schema — 외부에서 받는 control + 내부 스크래치."""
-    chat_command: str    # 부모로부터 자동 매핑 (키 이름 동일)
-    chat_payload: str    # 부모로부터 자동 매핑
 
-    ui_step_count: int   # ← 부모로 누설되지 않는 내부 스크래치
+    chat_command: str  # 부모로부터 자동 매핑 (키 이름 동일)
+    chat_payload: str  # 부모로부터 자동 매핑
+
+    ui_step_count: int  # ← 부모로 누설되지 않는 내부 스크래치
 
 
 def _extract_text(content) -> str:
@@ -152,7 +154,8 @@ def _extract_text(content) -> str:
         return content
     if isinstance(content, list):
         return "".join(
-            b["text"] for b in content
+            b["text"]
+            for b in content
             if isinstance(b, dict) and b.get("type") == "text"
         )
     return str(content)
@@ -174,10 +177,12 @@ def summarize_node(state: ChatState) -> dict:
     step = state.get("ui_step_count", 0) + 1
 
     llm = create_llm()
-    response = llm.invoke([
-        SystemMessage(content=_SUMMARIZE_SYSTEM),
-        HumanMessage(content=f"PAYLOAD:\n{payload}"),
-    ])
+    response = llm.invoke(
+        [
+            SystemMessage(content=_SUMMARIZE_SYSTEM),
+            HumanMessage(content=f"PAYLOAD:\n{payload}"),
+        ]
+    )
     summary = _extract_text(response.content).strip()
 
     return {
@@ -308,9 +313,7 @@ def conclusion(state: ParentState) -> dict:
     return {
         "stage": "finalized",
         "final": final,
-        "messages": [
-            AIMessage(content=f"[conclusion] {final}", name="conclusion")
-        ],
+        "messages": [AIMessage(content=f"[conclusion] {final}", name="conclusion")],
         # chat_final 이 사용할 control
         "chat_command": CMD_SUMMARIZE,
         "chat_payload": final,

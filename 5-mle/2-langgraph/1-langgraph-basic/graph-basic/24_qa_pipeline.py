@@ -27,7 +27,6 @@ from langgraph.graph import END, START, StateGraph
 
 from common.llm import create_llm
 
-
 DOCS = [
     {
         "id": "qa-1",
@@ -64,8 +63,11 @@ def _text(content) -> str:
 def retrieve(state: State) -> dict:
     q = state["question"].lower()
     hits = [
-        doc for doc in DOCS
-        if any(token in (doc["title"] + " " + doc["text"]).lower() for token in q.split())
+        doc
+        for doc in DOCS
+        if any(
+            token in (doc["title"] + " " + doc["text"]).lower() for token in q.split()
+        )
     ]
     return {"docs": hits[:2]}
 

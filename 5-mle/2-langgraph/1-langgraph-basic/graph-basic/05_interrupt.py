@@ -37,8 +37,8 @@ tool 호출이 발생해야 interrupt 가 걸립니다. tool 안 쓰는 인사�
    2) 같은 thread 에서 "Continue" 클릭 → 이어서 tool 실행
 
 참고
-- 16 예제는 노드 내부에서 value = interrupt({...}) 호출 → state 에 __interrupt__ 라는 특수 필드가 추가
-됨 (페이로드 운반용). 이건 진짜로 interrupt 가 state 에 뭘 넣는 케이스.  
+- 05_2 예제는 노드 내부에서 value = interrupt({...}) 호출 → state 에 __interrupt__ 라는 특수 필드가 추가
+됨 (페이로드 운반용). 이건 진짜로 interrupt 가 state 에 뭘 넣는 케이스.
 
 """
 
@@ -92,12 +92,16 @@ if __name__ == "__main__":
     b.add_node("agent", make_call_model(create_llm(), tools=_T))
     b.add_node("tools", make_tool_node(_T))
     b.add_edge(START, "agent")
-    b.add_conditional_edges("agent", should_continue, {"tools": "tools", "__end__": END})
+    b.add_conditional_edges(
+        "agent", should_continue, {"tools": "tools", "__end__": END}
+    )
     b.add_edge("tools", "agent")
     standalone = b.compile(checkpointer=MemorySaver(), interrupt_before=["tools"])
 
     cfg = {"configurable": {"thread_id": "demo-interrupt-1"}}
-    standalone.invoke({"messages": [HumanMessage(content="2 + 2 를 계산해줘")]}, config=cfg)
+    standalone.invoke(
+        {"messages": [HumanMessage(content="2 + 2 를 계산해줘")]}, config=cfg
+    )
     state = standalone.get_state(cfg)
     print("interrupted at:", state.next)  # ('tools',)
     out = standalone.invoke(None, config=cfg)

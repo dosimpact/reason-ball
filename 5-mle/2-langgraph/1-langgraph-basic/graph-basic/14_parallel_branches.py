@@ -72,7 +72,9 @@ def sentiment(state: State) -> dict:
     text = state["text"].lower()
     positive_words = {"good", "great", "love", "amazing", "best", "happy", "좋"}
     negative_words = {"bad", "hate", "worst", "sad", "angry", "싫"}
-    score = sum(w in text for w in positive_words) - sum(w in text for w in negative_words)
+    score = sum(w in text for w in positive_words) - sum(
+        w in text for w in negative_words
+    )
     label = "positive" if score > 0 else "negative" if score < 0 else "neutral"
     return {"artifacts": [{"kind": "sentiment", "value": label}]}
 

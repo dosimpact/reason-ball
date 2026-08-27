@@ -52,8 +52,6 @@ SUMMARIZE_AFTER=8, KEEP_RECENT=4 기준으로 9턴째부터 요약 트리거.
 
 from __future__ import annotations
 
-from typing import TypedDict
-
 from langchain_core.messages import (
     AIMessage,
     AnyMessage,
@@ -68,12 +66,13 @@ from common.llm import create_llm
 # ---------------------------------------------------------------------------
 # 임계값 — 실제 운영에선 토큰 카운트 기반으로 바꾸는 것을 권장
 # ---------------------------------------------------------------------------
-SUMMARIZE_AFTER = 8   # messages 가 이 개수를 넘으면 요약 트리거
-KEEP_RECENT = 4       # 요약 후 최근 N 개는 그대로 유지
+SUMMARIZE_AFTER = 8  # messages 가 이 개수를 넘으면 요약 트리거
+KEEP_RECENT = 4  # 요약 후 최근 N 개는 그대로 유지
 
 
 class State(MessagesState):
     """MessagesState + 누적 요약."""
+
     summary: str
 
 
@@ -90,7 +89,9 @@ def chat(state: State) -> dict:
     llm = create_llm()
     summary = state.get("summary", "")
 
-    system_text = "You are a friendly assistant. Reply concisely in the user's language."
+    system_text = (
+        "You are a friendly assistant. Reply concisely in the user's language."
+    )
     if summary:
         # 요약을 system prompt 에 끼워넣어 모델이 과거 컨텍스트를 인식하게 함
         system_text += (
@@ -129,8 +130,10 @@ def summarize(state: State) -> dict:
 
     transcript_lines = []
     for m in to_summarize:
-        role = "User" if isinstance(m, HumanMessage) else (
-            "Assistant" if isinstance(m, AIMessage) else type(m).__name__
+        role = (
+            "User"
+            if isinstance(m, HumanMessage)
+            else ("Assistant" if isinstance(m, AIMessage) else type(m).__name__)
         )
         transcript_lines.append(f"{role}: {_content(m)}")
     transcript = "\n".join(transcript_lines)
