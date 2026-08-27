@@ -1,0 +1,46 @@
+meta {
+  name: List Downloaded Report Content
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/filings/downloaded-reports
+  body: none
+  auth: none
+}
+
+params:query {
+  page: {{downloadedReportsPage}}
+  pageSize: {{downloadedReportsPageSize}}
+  formType: {{downloadedReportsFormType}}
+  cik: {{sampleCik}}
+  ticker: {{sampleTicker}}
+  since: {{sinceDate}}
+  parserStatus: {{parserStatusValue}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.filters.page: eq {{downloadedReportsPage}}
+  res.body.filters.pageSize: eq {{downloadedReportsPageSize}}
+  res.body.filters.formType: eq "{{downloadedReportsFormType}}"
+  res.body.pagination.totalItems: isNumber
+  res.body.pagination.totalPages: isNumber
+  res.body.pagination.hasNextPage: isBoolean
+  res.body.items: isArray
+}
+
+tests {
+  test("returns paginated downloaded report content", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.pagination.page).to.equal(Number(bru.getEnvVar("downloadedReportsPage")));
+    expect(body.items).to.be.an("array");
+  });
+}
+
+docs {
+  Scenario: SEC-FILINGS-DOWNLOADED-REPORTS-001
+  Returns downloaded filing rows together with their locally stored report content.
+}

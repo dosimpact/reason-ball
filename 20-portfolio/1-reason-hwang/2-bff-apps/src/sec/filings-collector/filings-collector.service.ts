@@ -10,9 +10,8 @@ import { Filing, FilingStatus } from '../common/db/entities/filing.entity';
 import { addWhere } from '../common/db/query-builder';
 import { SecClientService } from './sec-client.service';
 
-// 필터링하는 폼, 
-//  F-1, F-3, 424B3, SCHEDULE  13G 같은 form은 현재 수집 대상이 아니다.  
-const TARGET_FORMS = new Set(['10-K', '10-K/A', '10-Q', '10-Q/A', '6-K', '6-K/A', '20-F', '20-F/A']);
+// Core US issuer reports plus their amendments. Other forms are intentionally excluded.
+const TARGET_FORMS = new Set(['10-K', '10-K/A', '10-Q', '10-Q/A', '8-K', '8-K/A']);
 
 const VALID_FILING_STATUSES: FilingStatus[] = ['pending', 'downloaded', 'failed'];
 

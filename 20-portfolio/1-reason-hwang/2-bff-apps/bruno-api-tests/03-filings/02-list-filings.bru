@@ -1,0 +1,42 @@
+meta {
+  name: List Downloaded Filings
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/filings
+  body: none
+  auth: none
+}
+
+params:query {
+  limit: {{filingListLimit}}
+  status: downloaded
+  cik: {{sampleCik}}
+  since: {{sinceDate}}
+  parserStatus: {{parserStatusValue}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.filters.limit: eq {{filingListLimit}}
+  res.body.filters.status: eq "downloaded"
+  res.body.filters.cik: eq "{{sampleCik}}"
+  res.body.filters.parserStatus: eq "{{parserStatusValue}}"
+  res.body.items: isArray
+}
+
+tests {
+  test("returns filings matching the normalized filters", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.filters.status).to.equal("downloaded");
+    expect(body.items).to.be.an("array");
+  });
+}
+
+docs {
+  Scenario: SEC-FILINGS-LIST-001
+  Lists filing rows with limit, status, CIK, date, and parser-status filters.
+}

@@ -28,9 +28,36 @@ export class Filing {
   @Column({ name: 'primary_doc', type: 'text', nullable: true })
   primaryDoc!: string | null;
 
+  @Column({ name: 'primary_doc_description', type: 'text', nullable: true })
+  primaryDocDescription!: string | null;
+
   // SEC 아카이브 원문 URL.
   @Column({ name: 'filing_url', type: 'text' })
   filingUrl!: string;
+
+  @Column({ name: 'full_submission_url', type: 'text', nullable: true })
+  fullSubmissionUrl!: string | null;
+
+  @Column({ name: 'accepted_at', type: 'timestamptz', nullable: true })
+  acceptedAt!: Date | null;
+
+  @Column({ name: 'items', type: 'text', nullable: true })
+  items!: string | null;
+
+  @Column({ name: 'file_number', type: 'varchar', length: 64, nullable: true })
+  fileNumber!: string | null;
+
+  @Column({ name: 'film_number', type: 'varchar', length: 64, nullable: true })
+  filmNumber!: string | null;
+
+  @Column({ name: 'file_size', type: 'bigint', nullable: true })
+  fileSize!: string | null;
+
+  @Column({ name: 'is_xbrl', type: 'boolean', nullable: true })
+  isXbrl!: boolean | null;
+
+  @Column({ name: 'is_inline_xbrl', type: 'boolean', nullable: true })
+  isInlineXbrl!: boolean | null;
 
   // 수집/다운로드 파이프라인 상태.
   @Column({ name: 'status', type: 'varchar', length: 16, default: 'pending' })
@@ -55,6 +82,18 @@ export class Filing {
   // 재시도 누적 횟수.
   @Column({ name: 'retry_count', type: 'int', default: 0 })
   retryCount!: number;
+
+  @Column({ name: 'source_kind', type: 'varchar', length: 32, default: 'submissions-api' })
+  sourceKind!: string;
+
+  @Column({ name: 'document_content', type: 'text', nullable: true, select: false })
+  documentContent!: string | null;
+
+  @Column({ name: 'document_content_type', type: 'varchar', length: 128, nullable: true })
+  documentContentType!: string | null;
+
+  @Column({ name: 'document_downloaded_at', type: 'timestamptz', nullable: true })
+  documentDownloadedAt!: Date | null;
 
   // 레코드 마지막 갱신 시각. update 시 자동 갱신.
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })

@@ -1,0 +1,55 @@
+meta {
+  name: Synchronize Filing Metadata
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/filing-sync-jobs
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  x-request-id: {{requestId}}-filing-sync
+}
+
+body:json {
+  {
+    "page": {{filingSyncPage}},
+    "pageSize": {{filingSyncPageSize}},
+    "since": "{{sinceDate}}",
+    "ciks": ["{{sampleCik}}"],
+    "tickers": ["{{sampleTicker}}"]
+  }
+}
+
+assert {
+  res.status: eq 201
+  res.body.job: eq "filings:sync"
+  res.body.correlationId: eq "{{requestId}}-filing-sync"
+  res.body.options.page: eq {{filingSyncPage}}
+  res.body.options.pageSize: eq {{filingSyncPageSize}}
+  res.body.pagination.totalCompanies: isNumber
+  res.body.pagination.totalPages: isNumber
+  res.body.pagination.hasNextPage: isBoolean
+  res.body.companiesProcessed: isNumber
+  res.body.filingsSynced: isNumber
+}
+
+tests {
+  test("synchronizes filing metadata for the selected company", function() {
+    expect(res.getStatus()).to.equal(201);
+    const body = res.getBody();
+    expect(body.job).to.equal("filings:sync");
+    expect(body.companiesProcessed).to.be.a("number");
+    expect(body.filingsSynced).to.be.a("number");
+  });
+}
+
+docs {
+  Scenario: SEC-FILINGS-SYNC-001
+  Reads SEC submissions and stores matching filing metadata as pending rows.
+  This request performs external I/O and changes database state.
+}

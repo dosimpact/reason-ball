@@ -1,0 +1,41 @@
+meta {
+  name: List Companies With Filters
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/companies
+  body: none
+  auth: none
+}
+
+params:query {
+  limit: {{companyLimit}}
+  cik: {{sampleCik}}
+  ticker: {{sampleTicker}}
+  q: {{sampleQuery}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.filters.limit: eq {{companyLimit}}
+  res.body.filters.cik: eq "{{sampleCik}}"
+  res.body.filters.ticker: eq "{{sampleTicker}}"
+  res.body.items: isArray
+}
+
+tests {
+  test("returns normalized company filters and an item array", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.filters.cik).to.equal(bru.getEnvVar("sampleCik"));
+    expect(body.filters.ticker).to.equal(bru.getEnvVar("sampleTicker"));
+    expect(body.items).to.be.an("array");
+  });
+}
+
+docs {
+  Scenario: SEC-COMPANIES-LIST-001
+  Lists companies using the supported limit, CIK, ticker, and free-text filters.
+}

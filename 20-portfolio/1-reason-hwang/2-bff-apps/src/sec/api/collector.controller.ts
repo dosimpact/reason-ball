@@ -1,5 +1,18 @@
-import { BadRequestException, Body, Controller, Get, Headers, Inject, Post, Query } from '@nestjs/common';
 import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Headers,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
+import {
+  ApiAcceptedResponse,
   ApiBadRequestResponse,
   ApiBody,
   ApiOkResponse,
@@ -9,6 +22,7 @@ import {
 } from '@nestjs/swagger';
 import { CompaniesSyncService } from '../companies-sync/companies-sync.service';
 import { FilingStatus } from '../common/db/entities/filing.entity';
+import { SecBackfillService } from '../filings-collector/sec-backfill.service';
 import { FilingsCollectorService } from '../filings-collector/filings-collector.service';
 import {
   CompaniesListResponseDto,
@@ -43,6 +57,8 @@ export class CollectorController {
     private readonly companiesSyncService: CompaniesSyncService,
     @Inject(FilingsCollectorService)
     private readonly filingsCollectorService: FilingsCollectorService,
+    @Inject(SecBackfillService)
+    private readonly secBackfillService: SecBackfillService,
   ) {}
 
   @ApiOperation({
@@ -173,6 +189,59 @@ export class CollectorController {
       companiesProcessed: summary.companiesProcessed,
       filingsSynced: summary.filingsSynced,
     };
+  }
+
+  @ApiOperation({
+    summary: '전체 SEC 핵심 공시 bulk backfill 시작',
+    description:
+      'SEC submissions.zip을 스트리밍 처리하여 최근 N년의 10-K, 10-Q, 8-K 및 수정공시를 PostgreSQL에 idempotent upsert합니다.',
+  })
+  @ApiBody({
+    required: false,
+    schema: {
+      type: 'object',
+      properties: {
+        years: { type: 'integer', minimum: 1, maximum: 30, default: 20 },
+        refreshArchive: { type: 'boolean', default: false },
+      },
+    },
+  })
+  @ApiAcceptedResponse({ description: '백필이 백그라운드에서 시작됐으며 run 상태를 반환합니다.' })
+  @Post('filing-backfill-jobs')
+  @HttpCode(HttpStatus.ACCEPTED)
+  async createFilingBackfillJob(@Body() rawBody?: unknown) {
+    const body = this.readBody(rawBody);
+    const years = this.readPositiveInt(body.years, 'years', 20);
+    if (years > 30) {
+      throw new BadRequestException('years must be 30 or fewer.');
+    }
+    const refreshArchive = this.readOptionalBoolean(
+      body.refreshArchive,
+      'refreshArchive',
+      false,
+    );
+    return this.secBackfillService.start({ years, refreshArchive });
+  }
+
+  @ApiOperation({ summary: '가장 최근 SEC bulk backfill 상태 조회' })
+  @ApiOkResponse({ description: '최근 run 또는 run이 없으면 null을 반환합니다.' })
+  @Get('filing-backfill-jobs/latest')
+  async getLatestFilingBackfillJob() {
+    return this.secBackfillService.latest();
+  }
+
+  @ApiOperation({ summary: 'SEC bulk backfill 상태 조회' })
+  @ApiOkResponse({ description: '지정한 run의 진행률과 결과를 반환합니다.' })
+  @Get('filing-backfill-jobs/:runId')
+  async getFilingBackfillJob(@Param('runId') runId: string) {
+    return this.secBackfillService.get(runId);
+  }
+
+  @ApiOperation({ summary: 'SEC bulk backfill DB 완전성 검증' })
+  @ApiOkResponse({ description: 'form/date/CIK/URL/원문 저장 완전성 지표를 반환합니다.' })
+  @Get('filing-backfill-jobs/:runId/verification')
+  async verifyFilingBackfillJob(@Param('runId') runId: string) {
+    return this.secBackfillService.verify(runId);
   }
 
   @ApiOperation({
@@ -635,6 +704,24 @@ export class CollectorController {
     );
 
     return tickers.length > 0 ? tickers : undefined;
+  }
+
+  private readOptionalBoolean(
+    raw: unknown,
+    fieldName: string,
+    fallback: boolean,
+  ): boolean {
+    const value = this.firstValue(raw);
+    if (value === undefined || value === null || value === '') {
+      return fallback;
+    }
+    if (value === true || value === 'true') {
+      return true;
+    }
+    if (value === false || value === 'false') {
+      return false;
+    }
+    throw new BadRequestException(`${fieldName} must be a boolean.`);
   }
 
   private firstValue(raw: unknown): unknown {

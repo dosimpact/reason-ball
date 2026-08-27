@@ -1,0 +1,24 @@
+headers {
+  Accept: application/json
+}
+
+script:post-response {
+  console.log(`[${req.getMethod()}] ${req.getUrl()} -> ${res.getStatus()} (${res.getResponseTime()}ms)`);
+}
+
+docs {
+  Reason Hwang BFF SEC API collection.
+
+  Recommended workflow:
+  1. Synchronize the SEC company master.
+  2. List companies to confirm the imported company.
+  3. Synchronize filing metadata for the sample company.
+  4. Download pending filings.
+  5. Inspect filing status, rows, and downloaded report content.
+  6. Retry failed downloads or update parser status when required.
+
+  Warning:
+  - Job requests call SEC endpoints and mutate the configured PostgreSQL database.
+  - Review the selected environment before running an entire folder or collection.
+  - Parser status update requires sampleAccessionNo to identify an existing filing.
+}

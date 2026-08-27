@@ -50,6 +50,21 @@ export class AppConfigService {
     return this.readInt('SEC_RETRY_COUNT', 3);
   }
 
+  get secBulkSubmissionsUrl(): string {
+    return (
+      process.env.SEC_BULK_SUBMISSIONS_URL ??
+      'https://www.sec.gov/Archives/edgar/daily-index/bulkdata/submissions.zip'
+    );
+  }
+
+  get secBackfillRetentionYears(): number {
+    return this.readInt('SEC_BACKFILL_RETENTION_YEARS', 20);
+  }
+
+  get secBackfillBatchSize(): number {
+    return this.readInt('SEC_BACKFILL_BATCH_SIZE', 500);
+  }
+
   get dataDir(): string {
     const configured = process.env.DATA_DIR ?? './data';
     return path.resolve(process.cwd(), configured);
@@ -57,6 +72,10 @@ export class AppConfigService {
 
   get filingsDir(): string {
     return path.resolve(this.dataDir, 'filings');
+  }
+
+  get secBulkArchivePath(): string {
+    return path.resolve(this.dataDir, 'sec-cache', 'submissions.zip');
   }
 
   private readInt(key: string, fallback: number): number {

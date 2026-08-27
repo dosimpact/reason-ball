@@ -1,0 +1,39 @@
+meta {
+  name: Get Filing Status Summary
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/filings/status-summary
+  body: none
+  auth: none
+}
+
+params:query {
+  cik: {{sampleCik}}
+  since: {{sinceDate}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.filters.cik: eq "{{sampleCik}}"
+  res.body.filters.since: eq "{{sinceDate}}"
+  res.body.total: isNumber
+  res.body.pending: isNumber
+  res.body.downloaded: isNumber
+  res.body.failed: isNumber
+}
+
+tests {
+  test("returns internally consistent filing status counts", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.total).to.equal(body.pending + body.downloaded + body.failed);
+  });
+}
+
+docs {
+  Scenario: SEC-FILINGS-STATUS-SUMMARY-001
+  Aggregates pending, downloaded, and failed filings for a company and date range.
+}

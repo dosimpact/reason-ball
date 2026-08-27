@@ -1,0 +1,38 @@
+meta {
+  name: Synchronize SEC Company Master
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/company-sync-jobs
+  body: none
+  auth: none
+}
+
+headers {
+  x-request-id: {{requestId}}-company-sync
+}
+
+assert {
+  res.status: eq 201
+  res.body.job: eq "companies:sync"
+  res.body.correlationId: eq "{{requestId}}-company-sync"
+  res.body.requestedAt: isString
+  res.body.syncedCount: isNumber
+}
+
+tests {
+  test("synchronizes the SEC company master", function() {
+    expect(res.getStatus()).to.equal(201);
+    const body = res.getBody();
+    expect(body.job).to.equal("companies:sync");
+    expect(body.syncedCount).to.be.a("number");
+  });
+}
+
+docs {
+  Scenario: SEC-COMPANIES-SYNC-001
+  Fetches the SEC company ticker snapshot and upserts it into PostgreSQL.
+  This request performs external I/O and changes database state.
+}

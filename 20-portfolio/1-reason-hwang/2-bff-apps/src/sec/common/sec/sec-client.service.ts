@@ -1,6 +1,9 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { writeFile } from 'node:fs/promises';
+import { createWriteStream } from 'node:fs';
+import { rename, rm } from 'node:fs/promises';
 import * as path from 'node:path';
+import { Readable } from 'node:stream';
+import { pipeline } from 'node:stream/promises';
 import { AppConfigService } from '../config/app.config';
 
 class HttpStatusError extends Error {
@@ -26,10 +29,33 @@ export class SecClientService {
     return (await response.json()) as T;
   }
 
-  async downloadFile(url: string, destinationPath: string): Promise<void> {
+  async downloadFile(
+    url: string,
+    destinationPath: string,
+    onProgress?: (downloadedBytes: number, totalBytes: number | null) => void,
+  ): Promise<void> {
     const response = await this.request(url);
-    const bytes = Buffer.from(await response.arrayBuffer());
-    await writeFile(destinationPath, bytes);
+    if (!response.body) {
+      throw new Error(`SEC response has no body: ${url}`);
+    }
+
+    const temporaryPath = `${destinationPath}.part`;
+    const totalHeader = response.headers.get('content-length');
+    const totalBytes = totalHeader ? Number.parseInt(totalHeader, 10) : null;
+    let downloadedBytes = 0;
+    const source = Readable.fromWeb(response.body as never);
+    source.on('data', (chunk: Buffer) => {
+      downloadedBytes += chunk.length;
+      onProgress?.(downloadedBytes, totalBytes);
+    });
+
+    try {
+      await pipeline(source, createWriteStream(temporaryPath));
+      await rename(temporaryPath, destinationPath);
+    } catch (error) {
+      await rm(temporaryPath, { force: true });
+      throw error;
+    }
   }
 
   private async request(url: string): Promise<Response> {

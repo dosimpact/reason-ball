@@ -7,6 +7,10 @@ import 'reflect-metadata';
 import { AppModule } from './app.module';
 import { createRemotesMiddleware } from './remotes.middleware';
 
+const SWAGGER_UI_PATH = 'docs/sec';
+const SWAGGER_JSON_PATH = 'docs/sec/openapi.json';
+const SWAGGER_YAML_PATH = 'docs/sec/openapi.yaml';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api/sec');
@@ -17,7 +21,9 @@ async function bootstrap() {
   const expressApp = app.getHttpAdapter().getInstance() as Express;
 
   expressApp.use('/remotes/:name', createRemotesMiddleware());
-  configureSwagger(app);
+  if (process.env.SWAGGER_ENABLED !== 'false') {
+    configureSwagger(app);
+  }
 
   const port = Number(process.env.PORT ?? 2801);
   await app.listen(port);
@@ -31,8 +37,15 @@ function configureSwagger(app: INestApplication): void {
     .addTag('SEC Collector')
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs/sec', app, document, {
+  const documentFactory = () =>
+    SwaggerModule.createDocument(app, config, {
+      operationIdFactory: (_controllerKey, methodKey) => methodKey,
+    });
+
+  SwaggerModule.setup(SWAGGER_UI_PATH, app, documentFactory, {
+    customSiteTitle: 'Reason Hwang SEC API Docs',
+    jsonDocumentUrl: SWAGGER_JSON_PATH,
+    yamlDocumentUrl: SWAGGER_YAML_PATH,
     swaggerOptions: {
       persistAuthorization: true,
     },
