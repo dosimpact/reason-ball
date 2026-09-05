@@ -176,5 +176,3 @@ module.exports = {
   setFeatureDocument,
   writeStatus
 };
-
-export {};

@@ -1,43 +1,26 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { build } from 'esbuild';
 
-const rootDir = process.cwd();
-const distDir = path.join(rootDir, 'dist');
-const copyTargets = ['index.ts', 'src', 'tests', 'README.md'];
+const packageDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const legacyDistDir = path.join(packageDir, 'dist');
+const releaseDir = path.join(packageDir, 'release');
+const outfile = path.join(releaseDir, 'latest.js');
 
-fs.rmSync(distDir, { recursive: true, force: true });
-fs.mkdirSync(distDir, { recursive: true });
+fs.rmSync(legacyDistDir, { recursive: true, force: true });
+fs.mkdirSync(releaseDir, { recursive: true });
 
-for (const target of copyTargets) {
-  const sourcePath = path.join(rootDir, target);
-  if (fs.existsSync(sourcePath)) {
-    copyEntry(sourcePath, path.join(distDir, target));
-  }
-}
+await build({
+  entryPoints: [path.join(packageDir, 'index.ts')],
+  outfile,
+  bundle: true,
+  platform: 'node',
+  format: 'cjs',
+  target: 'node18',
+  loader: { '.md': 'text' },
+  legalComments: 'none'
+});
 
-function copyEntry(sourcePath, targetPath) {
-  const stat = fs.statSync(sourcePath);
-  if (stat.isDirectory()) {
-    fs.mkdirSync(targetPath, { recursive: true });
-    for (const entry of fs.readdirSync(sourcePath)) {
-      copyEntry(path.join(sourcePath, entry), path.join(targetPath, entry));
-    }
-    return;
-  }
-
-  if (sourcePath.endsWith('.ts')) {
-    const outPath = targetPath.replace(/\.ts$/, '.js');
-    fs.mkdirSync(path.dirname(outPath), { recursive: true });
-    fs.writeFileSync(outPath, transpilePseudoTs(fs.readFileSync(sourcePath, 'utf8')));
-    return;
-  }
-
-  fs.mkdirSync(path.dirname(targetPath), { recursive: true });
-  fs.copyFileSync(sourcePath, targetPath);
-}
-
-function transpilePseudoTs(source) {
-  return source
-    .replace(/^\/\/ @ts-nocheck\n/, '')
-    .replace(/\nexport \{\};\n?$/s, '\n');
-}
+fs.chmodSync(outfile, 0o755);
+console.log(`Bundled pgv-state-mcp to ${path.relative(packageDir, outfile)}`);

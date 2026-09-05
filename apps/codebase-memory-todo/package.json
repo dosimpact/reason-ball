@@ -8,6 +8,7 @@
     "dev:api": "tsx watch src/server/main.ts",
     "dev:web": "vite --host 0.0.0.0 --port 5174",
     "build": "pnpm typecheck && vite build && tsc -p tsconfig.server.json",
+    "codebase-memory:proxy": "node scripts/codebase-memory-proxy.mjs",
     "start": "node dist/server/main.js",
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",

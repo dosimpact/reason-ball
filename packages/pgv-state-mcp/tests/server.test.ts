@@ -57,5 +57,3 @@ describe('pgv-state-mcp server', () => {
     assert.match(response.result.content[0].text, /Unknown tool/);
   });
 });
-
-export {};

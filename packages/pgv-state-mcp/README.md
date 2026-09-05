@@ -4,18 +4,18 @@ MCP server for `apb-pgv` Plan -> Gradate -> Validate state and document scaffold
 
 ## Usage
 
-Build the server:
+Build the single-file release bundle:
 
 ```bash
-pnpm --filter @reason-ball/pgv-state-mcp build
+pnpm --filter @reason-ball/pgv-state-mcp release
 ```
 
 Codex configuration:
 
 ```toml
-[mcp.servers.pgv-state-mcp]
+[mcp_servers.pgv-state-mcp]
 command = "node"
-args = ["packages/pgv-state-mcp/dist/index.js"]
+args = ["packages/pgv-state-mcp/release/latest.js"]
 startup_timeout_sec = 10
 tool_timeout_sec = 60
 required = true

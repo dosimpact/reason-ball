@@ -95,5 +95,3 @@ describe('PGV workflow tools', () => {
     assert.match(second.message, /not overwritten/);
   });
 });
-
-export {};

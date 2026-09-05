@@ -23,5 +23,3 @@ async function executeToolCall(name, args, context) {
 }
 
 module.exports = { getToolDefinitions, executeToolCall };
-
-export {};

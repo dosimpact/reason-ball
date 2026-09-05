@@ -49,5 +49,3 @@ module.exports = {
   writeJsonFile,
   writeTextFile
 };
-
-export {};

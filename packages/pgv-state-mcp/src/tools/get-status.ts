@@ -67,5 +67,3 @@ const definition = {
 };
 
 module.exports = { handler, definition };
-
-export {};

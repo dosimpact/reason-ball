@@ -12,6 +12,10 @@ out/
 .turbo/
 .vite/
 
+# The packaged PGV MCP entrypoint is intentionally committed.
+!packages/pgv-state-mcp/release/
+!packages/pgv-state-mcp/release/latest.js
+
 # Test and coverage outputs
 coverage/
 htmlcov/

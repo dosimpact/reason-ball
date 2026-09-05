@@ -1,0 +1,250 @@
+{
+  "communities": {
+    "0": [
+      "web_src_apis_todos",
+      "web_src_apis_todos_apierrorbody",
+      "web_src_apis_todos_createtodo",
+      "web_src_apis_todos_deletetodo",
+      "web_src_apis_todos_fetchtodos",
+      "web_src_apis_todos_request",
+      "web_src_apis_todos_updatetodo",
+      "web_src_constants_api",
+      "web_src_constants_api_todo_api_path",
+      "web_src_hooks_usetodos",
+      "web_src_hooks_usetodos_tomessage",
+      "web_src_hooks_usetodos_usetodos"
+    ],
+    "1": [
+      "api_src_todos_todos_controller_todoscontroller",
+      "api_src_todos_todos_controller_todoscontroller_constructor",
+      "api_src_todos_todos_controller_todoscontroller_remove",
+      "api_src_todos_todos_controller_todoscontroller_update",
+      "controller",
+      "delete",
+      "httpcode",
+      "param",
+      "patch"
+    ],
+    "2": [
+      "api_src_todos_todos_service_todosservice",
+      "api_src_todos_todos_service_todosservice_create",
+      "api_src_todos_todos_service_todosservice_getbyid",
+      "api_src_todos_todos_service_todosservice_normalizetitle",
+      "api_src_todos_todos_service_todosservice_remove",
+      "api_src_todos_todos_service_todosservice_update",
+      "api_test_todos_service_test",
+      "injectable"
+    ],
+    "3": [
+      "web_src_main",
+      "web_src_main_root",
+      "web_src_utils_todo_summary",
+      "web_src_utils_todo_summary_gettodosummary",
+      "web_src_utils_todo_summary_test",
+      "web_src_utils_todo_summary_todosummary",
+      "web_src_widget_todoapp",
+      "web_src_widget_todoapp_todoapp"
+    ],
+    "4": [
+      "api_src_app_module",
+      "api_src_app_module_appmodule",
+      "api_src_app_module_ts_module",
+      "api_src_main",
+      "api_src_main_bootstrap",
+      "api_src_todos_todos_module_todosmodule",
+      "api_src_todos_todos_module_ts_module"
+    ],
+    "5": [
+      "api_src_todos_todo_model",
+      "api_src_todos_todo_model_createtododto",
+      "api_src_todos_todo_model_updatetododto",
+      "api_src_todos_todos_controller",
+      "api_src_todos_todos_module",
+      "api_src_todos_todos_service"
+    ],
+    "6": [
+      "web_src_elements_textinput",
+      "web_src_elements_textinput_textinput",
+      "web_src_widget_todoform",
+      "web_src_widget_todoform_todoform",
+      "web_src_widget_todoform_todoform_handlesubmit",
+      "web_src_widget_todoform_todoformprops"
+    ],
+    "7": [
+      "web_src_apis_todos_todo",
+      "web_src_hooks_usetodos_usetodosresult",
+      "web_src_widget_todolist",
+      "web_src_widget_todolist_todolist",
+      "web_src_widget_todolist_todolistprops"
+    ],
+    "8": [
+      "api_src_todos_todo_model_todo",
+      "api_src_todos_todos_controller_todoscontroller_findall",
+      "api_src_todos_todos_service_todosservice_findall",
+      "get"
+    ],
+    "9": [
+      "web_src_elements_button",
+      "web_src_elements_button_button",
+      "web_src_elements_button_buttonprops",
+      "web_src_elements_button_buttonvariant"
+    ],
+    "10": [
+      "api_src_todos_todos_controller_todoscontroller_create",
+      "body",
+      "post"
+    ],
+    "11": [
+      "web_src_vite_env_d"
+    ],
+    "12": [
+      "web_vite_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.3787878787878788,
+    "1": 0.25,
+    "2": 0.39285714285714285,
+    "3": 0.39285714285714285,
+    "4": 0.3333333333333333,
+    "5": 0.7333333333333333,
+    "6": 0.4,
+    "7": 0.5,
+    "8": 0.6666666666666666,
+    "9": 0.5,
+    "10": 0.6666666666666666,
+    "11": 1.0,
+    "12": 1.0
+  },
+  "gods": [
+    {
+      "id": "api_src_todos_todos_service_todosservice",
+      "label": "TodosService",
+      "degree": 12
+    },
+    {
+      "id": "api_src_todos_todo_model_todo",
+      "label": "Todo",
+      "degree": 10
+    },
+    {
+      "id": "api_src_todos_todos_controller_todoscontroller",
+      "label": "TodosController",
+      "degree": 8
+    },
+    {
+      "id": "web_src_hooks_usetodos_usetodos",
+      "label": "useTodos()",
+      "degree": 8
+    },
+    {
+      "id": "web_src_apis_todos_todo",
+      "label": "Todo",
+      "degree": 7
+    },
+    {
+      "id": "api_src_todos_todo_model_createtododto",
+      "label": "CreateTodoDto",
+      "degree": 5
+    },
+    {
+      "id": "api_src_todos_todo_model_updatetododto",
+      "label": "UpdateTodoDto",
+      "degree": 5
+    },
+    {
+      "id": "web_src_apis_todos_request",
+      "label": "request()",
+      "degree": 5
+    },
+    {
+      "id": "web_src_apis_todos_createtodo",
+      "label": "createTodo()",
+      "degree": 4
+    },
+    {
+      "id": "web_src_apis_todos_deletetodo",
+      "label": "deleteTodo()",
+      "degree": 4
+    }
+  ],
+  "surprises": [
+    {
+      "source": "UseTodosResult",
+      "target": "Todo",
+      "source_files": [
+        "web/src/hooks/useTodos.ts",
+        "web/src/apis/todos.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "peripheral node `UseTodosResult` unexpectedly reaches hub `Todo`"
+    },
+    {
+      "source": "TodoListProps",
+      "target": "Todo",
+      "source_files": [
+        "web/src/widget/TodoList.tsx",
+        "web/src/apis/todos.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "peripheral node `TodoListProps` unexpectedly reaches hub `Todo`"
+    },
+    {
+      "source": "TodoApp()",
+      "target": "useTodos()",
+      "source_files": [
+        "web/src/widget/TodoApp.tsx",
+        "web/src/hooks/useTodos.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "useTodos()",
+      "target": "createTodo()",
+      "source_files": [
+        "web/src/hooks/useTodos.ts",
+        "web/src/apis/todos.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "useTodos()",
+      "target": "deleteTodo()",
+      "source_files": [
+        "web/src/hooks/useTodos.ts",
+        "web/src/apis/todos.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `TodosController` connect `Community 1` to `Community 8`, `Community 10`, `Community 5`?",
+      "why": "High betweenness centrality (0.073) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `TodosService` connect `Community 2` to `Community 8`, `Community 1`, `Community 5`?",
+      "why": "High betweenness centrality (0.056) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `Todo` connect `Community 8` to `Community 1`, `Community 10`, `Community 2`, `Community 5`?",
+      "why": "High betweenness centrality (0.025) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `ApiErrorBody`, `TodoSummary`, `TodoFormProps` to the rest of the system?",
+      "why": "6 weakly-connected nodes found - possible documentation gaps or missing edges."
+    }
+  ]
+}

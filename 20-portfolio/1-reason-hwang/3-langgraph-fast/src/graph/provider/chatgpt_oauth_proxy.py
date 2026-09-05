@@ -9,7 +9,7 @@ class ChatGptOauthProxyProvider:
     def __init__(self, base_url: str | None = None, model: str | None = None) -> None:
         configured_base_url = base_url or os.getenv(
             "OPENAI_BASE_URL",
-            "http://127.0.0.1:2890/v1",
+            "http://127.0.0.1:18741/v1",
         )
         self.base_url = configured_base_url.rstrip("/")
         if not self.base_url.endswith("/v1"):

@@ -1,5 +1,5 @@
-// @ts-nocheck
 #!/usr/bin/env node
+// @ts-nocheck
 'use strict';
 
 const { createServer } = require('./src/server');
@@ -58,5 +58,3 @@ process.on('uncaughtException', (err) => {
 });
 
 console.error('[pgv-state-mcp] PGV state MCP server started (STDIO)');
-
-export {};

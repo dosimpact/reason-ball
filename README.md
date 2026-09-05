@@ -7,6 +7,23 @@ pnpm workspace + Turborepo monorepo scaffold.
 - Node.js 24.14.0 or compatible
 - pnpm 10.33.4
 
+## Installation
+
+Clone the repository together with its Git submodules, then install the workspace dependencies:
+
+```sh
+git clone --recurse-submodules <repo-url>
+cd reason-ball
+pnpm install
+```
+
+If the repository was cloned without `--recurse-submodules`, initialize the submodules separately:
+
+```sh
+git submodule update --init --recursive
+pnpm install
+```
+
 ## Commands
 
 ```sh

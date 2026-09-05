@@ -1,11 +1,13 @@
 {
   "version": "1.0",
-  "lastUpdated": "2026-07-11T16:15:44.280Z",
+  "lastUpdated": "2026-08-28T13:51:46.724Z",
   "activeFeatures": [
     "generative-ui-master-plan",
     "generative-ui-basic-tech-stack",
     "research-agent-ui-contract",
-    "reason-langgraph-fast-server"
+    "reason-langgraph-fast-server",
+    "yahoo-finance-price-agent-subgraph",
+    "ohlcv-talib-analysis-agent"
   ],
   "primaryFeature": "generative-ui-master-plan",
   "features": {
@@ -122,6 +124,36 @@
       },
       "createdAt": "2026-07-11T05:53:34.644Z",
       "updatedAt": "2026-07-11T16:15:44.280Z"
+    },
+    "yahoo-finance-price-agent-subgraph": {
+      "phase": "validate",
+      "status": "validate",
+      "completedPhases": [
+        "plan",
+        "gradate"
+      ],
+      "documents": {
+        "plan": ".apb-workspace/docs/01-plan/yahoo-finance-price-agent-subgraph.plan.md",
+        "gradate": ".apb-workspace/docs/02-gradate/yahoo-finance-price-agent-subgraph.gradate.md",
+        "validate": ".apb-workspace/docs/03-validate/yahoo-finance-price-agent-subgraph.validate.md"
+      },
+      "createdAt": "2026-08-28T12:26:09.075Z",
+      "updatedAt": "2026-08-28T13:51:46.724Z"
+    },
+    "ohlcv-talib-analysis-agent": {
+      "phase": "validate",
+      "status": "validate",
+      "completedPhases": [
+        "plan",
+        "gradate"
+      ],
+      "documents": {
+        "plan": ".apb-workspace/docs/01-plan/ohlcv-talib-analysis-agent.plan.md",
+        "gradate": ".apb-workspace/docs/02-gradate/ohlcv-talib-analysis-agent.gradate.md",
+        "validate": ".apb-workspace/docs/03-validate/ohlcv-talib-analysis-agent.validate.md"
+      },
+      "createdAt": "2026-08-28T12:30:46.246Z",
+      "updatedAt": "2026-08-28T13:51:03.609Z"
     }
   },
   "history": [
@@ -260,6 +292,40 @@
       "from": "gradate",
       "to": "validate",
       "timestamp": "2026-07-11T16:15:44.279Z"
+    },
+    {
+      "feature": "yahoo-finance-price-agent-subgraph",
+      "to": "plan",
+      "timestamp": "2026-08-28T12:26:09.075Z"
+    },
+    {
+      "feature": "ohlcv-talib-analysis-agent",
+      "to": "plan",
+      "timestamp": "2026-08-28T12:30:46.246Z"
+    },
+    {
+      "feature": "ohlcv-talib-analysis-agent",
+      "from": "plan",
+      "to": "gradate",
+      "timestamp": "2026-08-28T13:37:29.303Z"
+    },
+    {
+      "feature": "yahoo-finance-price-agent-subgraph",
+      "from": "plan",
+      "to": "gradate",
+      "timestamp": "2026-08-28T13:37:55.231Z"
+    },
+    {
+      "feature": "ohlcv-talib-analysis-agent",
+      "from": "gradate",
+      "to": "validate",
+      "timestamp": "2026-08-28T13:51:03.600Z"
+    },
+    {
+      "feature": "yahoo-finance-price-agent-subgraph",
+      "from": "gradate",
+      "to": "validate",
+      "timestamp": "2026-08-28T13:51:46.720Z"
     }
   ]
 }

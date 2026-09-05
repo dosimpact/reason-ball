@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "uv run uvicorn server.server:app --reload",
+    "dev:langgraph": "uv run langgraph dev --no-browser",
     "start": "uv run uvicorn server.server:app",
     "build": "uv build",
     "test": "uv run pytest",
+    "test:technical-analysis": "uv run pytest tests/infrastructure/technical_analysis tests/graph/subgraph/technical_analysis tests/architecture/test_talib_boundary.py -q",
     "test:tenk": "uv run pytest tests/domains/tenk tests/graph/subgraph/tenk tests/server/test_tenk_*.py -q",
     "test:tenk:domain": "uv run pytest tests/domains/tenk -q",
     "test:tenk:api": "uv run pytest tests/server/test_tenk_*.py -q",

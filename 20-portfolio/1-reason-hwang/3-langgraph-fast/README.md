@@ -2,7 +2,8 @@
 
 Open-source FastAPI/LangGraph server that implements the API contract in
 `.apb-workspace/docs/01-plan/langgraph-standard.json` without the licensed
-`langgraph-api` image or `langgraph dev` production runtime.
+`langgraph-api` image. The FastAPI server is the main runtime; a separate
+`langgraph dev` runtime is available for local graph testing and Studio.
 
 ## Setup
 
@@ -37,6 +38,19 @@ uv run uvicorn server.server:app --env-file .env \
 
 `ENV_PROFILE=dev`, `staging`, and `production` require a schema prepared out of band. Startup fails
 when the schema version is missing or outdated.
+
+## LangGraph development runtime
+
+Run the official lightweight Agent Server separately when testing the compiled graph or using
+LangSmith Studio:
+
+```sh
+pnpm dev:langgraph
+```
+
+The runtime reads `langgraph.json`, loads `main_graph` from
+`src/graph/main_graph/workflow.py`, and listens on `http://127.0.0.1:2024` by default. It is
+independent of the FastAPI server above and does not replace the FastAPI API implementation.
 
 ## API and validation
 

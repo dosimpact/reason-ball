@@ -1,12 +1,14 @@
 // @ts-nocheck
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+const templates = {
+  plan: require('../template/plan.md'),
+  gradate: require('../template/gradate.md'),
+  validate: require('../template/validate.md')
+};
 
 function renderTemplate(templateName, values) {
-  const templatePath = path.join(__dirname, '..', 'template', `${templateName}.md`);
-  const template = fs.readFileSync(templatePath, 'utf-8');
+  const template = templates[templateName];
   return template.replace(/\{\{feature\}\}/g, values.feature);
 }
 
@@ -27,5 +29,3 @@ module.exports = {
   gradateTemplate,
   validateTemplate
 };
-
-export {};
