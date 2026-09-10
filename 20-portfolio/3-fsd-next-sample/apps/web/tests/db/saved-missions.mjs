@@ -1,0 +1,42 @@
+import assert from "node:assert/strict";
+
+export async function verifySavedMissions(db, { ownerId, reporterId, missionId, expectDatabaseError }) {
+  const key = (n) => `64000000-0000-4000-8000-${String(n).padStart(12, "0")}`;
+  const claims = (id) => db.query("select set_config('request.jwt.claims',$1,false)", [JSON.stringify({ sub: id, role: "authenticated" })]);
+  const save = (n, saved = true, target = missionId) => db.query("select * from public.set_saved_mission($1,$2,$3)", [key(n), target, saved]);
+  const count = async () => (await db.query("select count(*)::int as n from public.mission_favorites where user_id=$1 and mission_id=$2", [ownerId, missionId])).rows[0].n;
+  await claims(ownerId);
+  await db.exec("set role authenticated");
+  assert.deepEqual((await save(1)).rows[0], { mission_id: missionId, saved: true });
+  assert.equal(await count(), 1);
+  await save(2, false);
+  assert.equal(await count(), 0);
+  await save(1);
+  assert.equal(await count(), 0, "old save replay cannot undo newer removal");
+  await expectDatabaseError(() => save(1, false), "40001");
+  await expectDatabaseError(() => save(1, true, key(99)), "40001");
+  await save(3);
+  await expectDatabaseError(() => db.query("select * from public.mission_favorite_requests"), "42501");
+  await db.exec("reset role");
+  const original = (await db.query("select status,visibility from public.missions where id=$1", [missionId])).rows[0];
+  await db.query("update public.missions set visibility='private' where id=$1", [missionId]);
+  await claims(reporterId);
+  await db.exec("set role authenticated");
+  assert.equal(await count(), 0, "another user's saved row stays private");
+  await expectDatabaseError(() => save(4), "P0002");
+  await save(4, false);
+  await db.exec("reset role");
+  assert.equal(await count(), 1, "another user cannot remove the owner's bookmark");
+  await db.query("update public.missions set status='archived' where id=$1", [missionId]);
+  await claims(ownerId);
+  await db.exec("set role authenticated");
+  await expectDatabaseError(() => save(5), "P0002");
+  await save(5, false);
+  assert.equal(await count(), 0, "owner may remove unavailable content");
+  await save(3);
+  assert.equal(await count(), 0);
+  await db.exec("reset role; set role anon");
+  await expectDatabaseError(() => save(6), "42501");
+  await db.exec("reset role");
+  await db.query("update public.missions set status=$2,visibility=$3 where id=$1", [missionId, original.status, original.visibility]);
+}

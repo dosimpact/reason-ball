@@ -1,0 +1,92 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-09-05T07:37:39Z",
+  "activeFeatures": [
+    "character-english-chat"
+  ],
+  "primaryFeature": "character-english-chat",
+  "features": {
+    "character-english-chat": {
+      "phase": "report",
+      "matchRate": 49.1,
+      "iterationCount": 2,
+      "documents": {
+        "business": "docs/01-business/character-english-chat.business.md",
+        "development": "docs/02-development/character-english-chat.development.md",
+        "validation": "docs/03-validation/character-english-chat.implementation-e2e.md"
+      },
+      "taskChain": [
+        {
+          "phase": "plan",
+          "status": "completed",
+          "createdAt": "2026-09-05T05:07:37Z"
+        },
+        {
+          "phase": "design",
+          "status": "completed",
+          "createdAt": "2026-09-05T05:07:37Z"
+        },
+        {
+          "phase": "do",
+          "status": "completed",
+          "createdAt": "2026-09-05T05:07:37Z"
+        },
+        {
+          "phase": "check",
+          "status": "completed",
+          "createdAt": "2026-09-05T07:37:39Z"
+        },
+        {
+          "phase": "report",
+          "status": "active",
+          "createdAt": "2026-09-05T07:37:39Z"
+        }
+      ],
+      "timestamps": {
+        "started": "2026-09-05T05:07:37Z",
+        "lastUpdated": "2026-09-05T07:37:39Z"
+      }
+    }
+  },
+  "pipeline": {
+    "currentPhase": 5,
+    "level": "Starter",
+    "phaseHistory": [
+      {
+        "feature": "character-english-chat",
+        "phase": "plan",
+        "completedAt": "2026-09-05T05:07:37Z"
+      },
+      {
+        "feature": "character-english-chat",
+        "phase": "design",
+        "completedAt": "2026-09-05T05:07:37Z"
+      },
+      {
+        "feature": "character-english-chat",
+        "phase": "do",
+        "completedAt": "2026-09-05T07:37:39Z"
+      },
+      {
+        "feature": "character-english-chat",
+        "phase": "check",
+        "completedAt": "2026-09-05T07:37:39Z"
+      }
+    ]
+  },
+  "session": {
+    "startedAt": "2026-09-05T05:07:37Z",
+    "onboardingCompleted": true,
+    "lastActivity": "2026-09-05T07:37:39Z"
+  },
+  "history": [
+    {
+      "feature": "character-english-chat",
+      "event": "portfolio-mock-validated",
+      "at": "2026-09-05T07:37:39Z",
+      "result": "PASS",
+      "releaseGate": "FAIL",
+      "matchRate": 49.1
+    }
+  ]
+}

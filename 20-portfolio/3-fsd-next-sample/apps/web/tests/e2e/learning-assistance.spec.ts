@@ -1,0 +1,46 @@
+import { expect, test } from "@playwright/test";
+import { installCleanAppState } from "./test-setup";
+
+test("LEARN-04/06 keeps chat intact while retrying correction, expanding explanation and requesting simpler text/replies", async ({ page }) => {
+  await installCleanAppState(page);
+  await page.setViewportSize({ width: 360, height: 800 });
+  const requests: unknown[] = [];
+  await page.route("**/api/ai/learning-assistance", async (route) => {
+    requests.push(route.request().postDataJSON());
+    if (requests.length === 1) return route.fulfill({ status: 503, json: {} });
+    await route.continue();
+  });
+  await page.goto("/chat/mia-hotelier");
+  const input = page.getByTestId("chat-input");
+  await input.fill("I wants coffee.");
+  await page.getByRole("button", { name: "메시지 보내기", exact: true }).click();
+  await expect(page.getByTestId("message-assistant")).toHaveCount(2);
+  await expect(page.getByRole("button", { name: "답변 생성 중지" })).toHaveCount(0);
+  await input.fill("Keep my next sentence");
+  const user = page.getByTestId("message-user").last();
+  await user.getByText("학습 도움", { exact: true }).click();
+  await user.getByRole("button", { name: "문장 교정", exact: true }).click();
+  await expect(user.getByRole("alert")).toContainText("원래 메시지와 입력창은 유지됩니다.");
+  await expect(input).toHaveValue("Keep my next sentence");
+  await user.getByRole("button", { name: "학습 도움 다시 시도" }).click();
+  const result = user.getByTestId("learning-help-result");
+  await expect(result).toContainText("I want coffee.");
+  expect(requests[0]).toEqual(requests[1]);
+  await expect(result.getByText(/실제 AI의 언어 판단이 아닌/)).not.toBeVisible();
+  await result.getByText("자세한 설명", { exact: true }).click();
+  await expect(result.getByText(/실제 AI의 언어 판단이 아닌/)).toBeVisible();
+  await result.getByRole("button", { name: "도움 문장을 입력창에 덧붙이기" }).click();
+  await expect(input).toHaveValue("Keep my next sentence\nI want coffee.");
+  await user.getByRole("button", { name: "쉽게 바꾸기" }).click();
+  await expect.poll(() => requests.length).toBe(3);
+  await expect(result).toContainText("데모 예시");
+  const assistant = page.getByTestId("message-assistant").last();
+  await assistant.getByText("학습 도움", { exact: true }).click();
+  await assistant.getByRole("button", { name: "답변 추천" }).click();
+  await expect(assistant.getByTestId("learning-help-result")).toContainText("Could you help me, please?");
+  await expect(page.getByTestId("message-user")).toHaveCount(1);
+  await page.reload();
+  await expect(page.getByTestId("message-user")).toContainText("I wants coffee.");
+  await expect(page.getByTestId("learning-help-result")).toHaveCount(0);
+  await expect(input).toHaveValue("Keep my next sentence\nI want coffee.");
+});

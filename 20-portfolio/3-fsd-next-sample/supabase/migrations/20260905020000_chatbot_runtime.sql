@@ -1,0 +1,360 @@
+begin;
+
+alter table public.artifact_versions
+  add column if not exists published_at timestamptz;
+
+update public.artifact_versions as version
+set published_at = coalesce(artifact.updated_at, artifact.created_at)
+from public.artifacts as artifact
+where artifact.current_version_id = version.id
+  and artifact.status in ('published', 'archived')
+  and version.published_at is null;
+
+create trigger artifact_versions_prevent_published_mutation
+before update or delete on public.artifact_versions
+for each row execute function public.prevent_published_version_mutation();
+
+create or replace function public.validate_message_parent_and_parts()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if new.role = 'user' and jsonb_array_length(new.parts) = 0 then
+    raise exception using errcode = '23514', message = 'user messages require typed content parts';
+  end if;
+
+  if new.parent_message_id is not null and not exists (
+    select 1
+    from public.messages as parent
+    where parent.id = new.parent_message_id
+      and parent.conversation_id = new.conversation_id
+      and parent.sequence_number < new.sequence_number
+  ) then
+    raise exception using errcode = '23514', message = 'message parent must be an earlier message in the conversation';
+  end if;
+  return new;
+end;
+$$;
+
+create trigger messages_validate_parent_and_parts
+before insert or update of conversation_id, role, parts, parent_message_id
+on public.messages
+for each row execute function public.validate_message_parent_and_parts();
+
+create or replace function public.purge_deleted_conversation(
+  _conversation_id uuid,
+  _expected_owner_id uuid
+)
+returns uuid
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  deleted_id uuid;
+begin
+  perform set_config('app.immutable_purge', 'enabled', true);
+
+  delete from public.conversations as conversation
+  where conversation.id = _conversation_id
+    and conversation.owner_id = _expected_owner_id
+    and conversation.status = 'deleted'
+  returning conversation.id into deleted_id;
+
+  if deleted_id is null then
+    raise exception using errcode = 'P0002', message = 'deleted conversation not found';
+  end if;
+  return deleted_id;
+end;
+$$;
+
+create or replace function public.create_artifact_with_version(
+  _artifact_id uuid,
+  _artifact_version_id uuid,
+  _expected_owner_id uuid,
+  _conversation_id uuid,
+  _payload jsonb
+)
+returns table (
+  artifact_id uuid,
+  artifact_version_id uuid,
+  version_number integer,
+  status text
+)
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  desired_status text := coalesce(nullif(_payload ->> 'status', ''), 'draft');
+  source_message uuid := nullif(_payload ->> 'sourceMessageId', '')::uuid;
+  storage_bucket text := nullif(_payload ->> 'storageBucket', '');
+  storage_path text := nullif(_payload ->> 'storagePath', '');
+begin
+  if _artifact_id is null or _artifact_version_id is null
+    or _expected_owner_id is null or _conversation_id is null
+    or _payload is null or jsonb_typeof(_payload) <> 'object'
+    or _payload ->> 'kind' not in ('text', 'code', 'image', 'sheet')
+    or char_length(coalesce(_payload ->> 'title', '')) not between 1 and 200
+    or desired_status not in ('draft', 'published')
+  then
+    raise exception using errcode = '22023', message = 'invalid artifact create request';
+  end if;
+  if not exists (
+    select 1 from public.conversations as conversation
+    where conversation.id = _conversation_id
+      and conversation.owner_id = _expected_owner_id
+      and conversation.status <> 'deleted'
+  ) then
+    raise exception using errcode = '42501', message = 'artifact conversation owner mismatch';
+  end if;
+  if source_message is not null and not exists (
+    select 1 from public.messages as message
+    where message.id = source_message
+      and message.conversation_id = _conversation_id
+  ) then
+    raise exception using errcode = '23514', message = 'artifact source message mismatch';
+  end if;
+  if nullif(_payload ->> 'contentText', '') is null
+    and _payload -> 'contentJson' is null
+    and (storage_bucket is null or storage_path is null)
+  then
+    raise exception using errcode = '23514', message = 'artifact version content is required';
+  end if;
+  if storage_bucket is not null and (
+    storage_bucket <> 'chat-attachments'
+    or split_part(storage_path, '/', 1) <> _expected_owner_id::text
+    or not exists (
+      select 1 from storage.objects as object
+      where object.bucket_id = storage_bucket and object.name = storage_path
+    )
+  ) then
+    raise exception using errcode = '23514', message = 'invalid artifact storage object';
+  end if;
+
+  insert into public.artifacts (
+    id, conversation_id, owner_id, kind, title, status
+  ) values (
+    _artifact_id, _conversation_id, _expected_owner_id,
+    _payload ->> 'kind', _payload ->> 'title', 'draft'
+  );
+
+  insert into public.artifact_versions (
+    id, artifact_id, version_number, source_message_id,
+    content_text, content_json, storage_bucket, storage_path, created_by
+  ) values (
+    _artifact_version_id, _artifact_id, 1, source_message,
+    nullif(_payload ->> 'contentText', ''), _payload -> 'contentJson',
+    storage_bucket, storage_path, _expected_owner_id
+  );
+
+  update public.artifacts as artifact
+  set current_version_id = _artifact_version_id, status = desired_status
+  where artifact.id = _artifact_id;
+
+  if desired_status = 'published' then
+    update public.artifact_versions as version
+    set published_at = timezone('utc', now())
+    where version.id = _artifact_version_id;
+  end if;
+
+  return query select _artifact_id, _artifact_version_id, 1, desired_status;
+end;
+$$;
+
+create or replace function public.append_artifact_version(
+  _artifact_version_id uuid,
+  _artifact_id uuid,
+  _expected_owner_id uuid,
+  _payload jsonb
+)
+returns table (
+  artifact_id uuid,
+  artifact_version_id uuid,
+  version_number integer,
+  status text
+)
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  locked_artifact public.artifacts%rowtype;
+  next_version integer;
+  desired_status text := coalesce(nullif(_payload ->> 'status', ''), 'draft');
+  source_message uuid := nullif(_payload ->> 'sourceMessageId', '')::uuid;
+  storage_bucket text := nullif(_payload ->> 'storageBucket', '');
+  storage_path text := nullif(_payload ->> 'storagePath', '');
+begin
+  if _artifact_version_id is null or _artifact_id is null
+    or _expected_owner_id is null or _payload is null
+    or jsonb_typeof(_payload) <> 'object'
+    or desired_status not in ('draft', 'published')
+  then
+    raise exception using errcode = '22023', message = 'invalid artifact version request';
+  end if;
+
+  select * into locked_artifact
+  from public.artifacts as artifact
+  where artifact.id = _artifact_id
+  for update;
+  if not found then
+    raise exception using errcode = 'P0002', message = 'artifact not found';
+  end if;
+  if locked_artifact.owner_id is distinct from _expected_owner_id then
+    raise exception using errcode = '42501', message = 'artifact owner mismatch';
+  end if;
+  if source_message is not null and not exists (
+    select 1 from public.messages as message
+    where message.id = source_message
+      and message.conversation_id = locked_artifact.conversation_id
+  ) then
+    raise exception using errcode = '23514', message = 'artifact source message mismatch';
+  end if;
+  if nullif(_payload ->> 'contentText', '') is null
+    and _payload -> 'contentJson' is null
+    and (storage_bucket is null or storage_path is null)
+  then
+    raise exception using errcode = '23514', message = 'artifact version content is required';
+  end if;
+  if storage_bucket is not null and (
+    storage_bucket <> 'chat-attachments'
+    or split_part(storage_path, '/', 1) <> _expected_owner_id::text
+    or not exists (
+      select 1 from storage.objects as object
+      where object.bucket_id = storage_bucket and object.name = storage_path
+    )
+  ) then
+    raise exception using errcode = '23514', message = 'invalid artifact storage object';
+  end if;
+
+  select coalesce(max(version.version_number), 0) + 1 into next_version
+  from public.artifact_versions as version
+  where version.artifact_id = locked_artifact.id;
+
+  insert into public.artifact_versions (
+    id, artifact_id, version_number, source_message_id,
+    content_text, content_json, storage_bucket, storage_path, created_by
+  ) values (
+    _artifact_version_id, locked_artifact.id, next_version, source_message,
+    nullif(_payload ->> 'contentText', ''), _payload -> 'contentJson',
+    storage_bucket, storage_path, _expected_owner_id
+  );
+
+  update public.artifacts as artifact
+  set current_version_id = _artifact_version_id, status = desired_status
+  where artifact.id = locked_artifact.id;
+
+  if desired_status = 'published' then
+    update public.artifact_versions as version
+    set published_at = timezone('utc', now())
+    where version.id = _artifact_version_id;
+  end if;
+
+  return query select locked_artifact.id, _artifact_version_id, next_version, desired_status;
+end;
+$$;
+
+create or replace function public.update_artifact_state(
+  _artifact_id uuid,
+  _expected_owner_id uuid,
+  _title text default null,
+  _status text default null
+)
+returns table (
+  artifact_id uuid,
+  artifact_version_id uuid,
+  status text
+)
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  locked_artifact public.artifacts%rowtype;
+  desired_status text;
+begin
+  select * into locked_artifact
+  from public.artifacts as artifact
+  where artifact.id = _artifact_id
+  for update;
+  if not found then
+    raise exception using errcode = 'P0002', message = 'artifact not found';
+  end if;
+  if locked_artifact.owner_id is distinct from _expected_owner_id then
+    raise exception using errcode = '42501', message = 'artifact owner mismatch';
+  end if;
+  if _title is not null and char_length(_title) not between 1 and 200 then
+    raise exception using errcode = '22023', message = 'invalid artifact title';
+  end if;
+  desired_status := coalesce(_status, locked_artifact.status);
+  if desired_status not in ('draft', 'published', 'archived') then
+    raise exception using errcode = '22023', message = 'invalid artifact status';
+  end if;
+  if desired_status = 'published' and locked_artifact.current_version_id is null then
+    raise exception using errcode = '23514', message = 'published artifact requires a version';
+  end if;
+
+  if desired_status = 'published' then
+    update public.artifact_versions as version
+    set published_at = timezone('utc', now())
+    where version.id = locked_artifact.current_version_id
+      and version.published_at is null;
+  end if;
+
+  update public.artifacts as artifact
+  set
+    title = coalesce(_title, artifact.title),
+    status = desired_status
+  where artifact.id = locked_artifact.id;
+
+  return query
+  select locked_artifact.id, locked_artifact.current_version_id, desired_status;
+end;
+$$;
+
+create or replace function public.delete_owned_artifact(
+  _artifact_id uuid,
+  _expected_owner_id uuid
+)
+returns uuid
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  deleted_id uuid;
+begin
+  delete from public.artifacts as artifact
+  where artifact.id = _artifact_id
+    and artifact.owner_id = _expected_owner_id
+  returning artifact.id into deleted_id;
+  if deleted_id is null then
+    raise exception using errcode = 'P0002', message = 'artifact not found';
+  end if;
+  return deleted_id;
+end;
+$$;
+
+revoke insert, update, delete on table public.artifacts from authenticated;
+revoke insert, update, delete on table public.artifact_versions from authenticated;
+revoke update, delete on table public.messages from authenticated;
+
+revoke execute on function public.validate_message_parent_and_parts() from public, anon, authenticated;
+revoke execute on function public.purge_deleted_conversation(uuid, uuid) from public, anon, authenticated;
+revoke execute on function public.create_artifact_with_version(uuid, uuid, uuid, uuid, jsonb) from public, anon, authenticated;
+revoke execute on function public.append_artifact_version(uuid, uuid, uuid, jsonb) from public, anon, authenticated;
+revoke execute on function public.update_artifact_state(uuid, uuid, text, text) from public, anon, authenticated;
+revoke execute on function public.delete_owned_artifact(uuid, uuid) from public, anon, authenticated;
+
+grant execute on function public.purge_deleted_conversation(uuid, uuid) to service_role;
+grant execute on function public.create_artifact_with_version(uuid, uuid, uuid, uuid, jsonb) to service_role;
+grant execute on function public.append_artifact_version(uuid, uuid, uuid, jsonb) to service_role;
+grant execute on function public.update_artifact_state(uuid, uuid, text, text) to service_role;
+grant execute on function public.delete_owned_artifact(uuid, uuid) to service_role;
+
+comment on column public.artifact_versions.published_at is
+  'Once published, an artifact version is immutable; revisions append a new version.';
+
+commit;

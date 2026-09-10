@@ -1,0 +1,403 @@
+import { generateText, Output } from "ai";
+import { z } from "zod";
+
+import type {
+  EvaluationAxis,
+  EvaluationAxisKey,
+  MissionEvaluation,
+} from "@/entities/mission-run/model/types";
+import {
+  createAiCapabilities,
+  createRequestId,
+  enforceAiRateLimit,
+  jsonSuccessResponse,
+  parseJsonBody,
+  recordAiObservation,
+  safeAiErrorResponse,
+} from "@/shared/api/ai";
+import { uuidSchema } from "@/shared/api/supabase/domain";
+import {
+  assertDatabaseSuccess,
+  createPrivilegedClient,
+  createRequestClient,
+  requireAuthenticatedUser,
+  safeSupabaseErrorResponse,
+  SupabaseHttpError,
+} from "@/shared/api/supabase/http";
+import { evaluateMockRun, getMockSession, withMockSession } from "../../mission-runs/_lib/mock-store";
+import { getOwnedRunRow, hydrateProductionRun } from "../../mission-runs/_lib/production";
+import { isMockRuntime, routeError, routeSuccess } from "../../mission-runs/_lib/responses";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+const requestSchema = z
+  .object({
+    runId: z.string().trim().min(1).max(200),
+    messages: z
+      .array(
+        z
+          .object({
+            id: z.string().trim().min(1).max(200),
+            role: z.enum(["user", "assistant"]),
+            text: z.string().trim().min(1).max(8_000),
+          })
+          .strict(),
+      )
+      .min(2)
+      .max(200),
+  })
+  .strict()
+  .refine((input) => input.messages.some((message) => message.role === "user"), {
+    message: "At least one learner message is required.",
+    path: ["messages"],
+  });
+
+const evidenceSchema = z
+  .object({
+    messageId: z.string().trim().min(1).max(200),
+    rationale: z.string().trim().min(1).max(500),
+  })
+  .strict();
+
+const axisSchema = z
+  .object({
+    score: z.number().min(0).max(100),
+    evidence: z.array(evidenceSchema).min(1).max(6),
+  })
+  .strict();
+
+const outputSchema = z
+  .object({
+    axes: z
+      .object({
+        taskCompletion: axisSchema,
+        appropriateness: axisSchema,
+        grammar: axisSchema,
+        vocabulary: axisSchema,
+      })
+      .strict(),
+    summary: z.string().trim().min(1).max(1_000),
+    strengths: z.array(z.string().trim().min(1).max(500)).min(1).max(5),
+    improvements: z.array(z.string().trim().min(1).max(500)).min(1).max(5),
+    corrections: z
+      .array(
+        z
+          .object({
+            original: z.string().trim().min(1).max(1_000),
+            suggested: z.string().trim().min(1).max(1_000),
+            explanation: z.string().trim().min(1).max(500),
+          })
+          .strict(),
+      )
+      .max(8),
+    completedSteps: z
+      .array(
+        z
+          .object({
+            stepId: z.uuid(),
+            evidenceMessageIds: z.array(z.string().trim().min(1).max(200)).min(1).max(12),
+            rationale: z.string().trim().min(1).max(500),
+          })
+          .strict(),
+      )
+      .max(30),
+    vocabularyObserved: z.array(z.string().trim().min(1).max(120)).max(30),
+  })
+  .strict();
+
+type StepRow = {
+  id: string;
+  step_order: number;
+  title: string;
+  objective: string;
+  learner_goal: string;
+  success_criteria: unknown;
+  is_optional: boolean;
+};
+
+type MissionVersionRow = {
+  learning_goals: unknown;
+  pass_score: number | string;
+  maximum_turns: number;
+  target_vocabulary: unknown;
+  target_grammar: unknown;
+};
+
+const axisLabels: Record<EvaluationAxisKey, string> = {
+  taskCompletion: "과업 완수",
+  appropriateness: "상황 적절성",
+  grammar: "문법·명료성",
+  vocabulary: "어휘 활용",
+};
+
+function starsFor(score: number, passed: boolean) {
+  if (!passed) return 0;
+  if (score >= 90) return 3;
+  if (score >= 80) return 2;
+  return 1;
+}
+
+export async function POST(request: Request) {
+  const requestId = createRequestId();
+  const startedAt = Date.now();
+  let observedProvider: string | undefined;
+  let observedModel: string | undefined;
+  try {
+    const rateLimited = enforceAiRateLimit(request, requestId, {
+      operation: "mission-evaluation",
+      limit: 12,
+      windowMs: 60_000,
+    });
+    if (rateLimited) return rateLimited;
+    const parsed = await parseJsonBody(request, requestSchema, requestId, 256 * 1024);
+    if (!parsed.ok) return parsed.response;
+
+    if (isMockRuntime()) {
+      observedProvider = "mock";
+      observedModel = "deterministic-mission-evaluator";
+      const { session, sessionId } = getMockSession(request);
+      const result = evaluateMockRun(session, parsed.data.runId, parsed.data.messages);
+      const response = result
+        ? routeSuccess(result, requestId)
+        : routeError(404, "MISSION_RUN_NOT_FOUND", "The mission run could not be found.", requestId);
+      recordAiObservation({
+        requestId,
+        operation: "mission-evaluation",
+        provider: observedProvider,
+        model: observedModel,
+        outcome: result ? "success" : "error",
+        startedAt,
+      });
+      return withMockSession(response, sessionId);
+    }
+
+    if (!uuidSchema.safeParse(parsed.data.runId).success) {
+      throw new SupabaseHttpError(400, "INVALID_MISSION_RUN_ID", "The mission run id is invalid.");
+    }
+    const client = await createRequestClient();
+    const user = await requireAuthenticatedUser(client);
+    const admin = createPrivilegedClient();
+    const runRow = await getOwnedRunRow(client, user.id, parsed.data.runId);
+    if (["passed", "abandoned"].includes(runRow.status)) {
+      throw new SupabaseHttpError(409, "MISSION_RUN_FINALIZED", "A finalized mission run cannot be evaluated again.");
+    }
+
+    const [versionResult, stepResult, instructionResult] = await Promise.all([
+      admin
+        .from("mission_versions")
+        .select("learning_goals, pass_score, maximum_turns, target_vocabulary, target_grammar")
+        .eq("id", runRow.mission_version_id)
+        .limit(1),
+      admin
+        .from("mission_steps")
+        .select("id, step_order, title, objective, learner_goal, success_criteria, is_optional")
+        .eq("mission_version_id", runRow.mission_version_id)
+        .order("step_order", { ascending: true }),
+      admin
+        .from("mission_version_instructions")
+        .select("evaluator_prompt, evaluator_config")
+        .eq("mission_version_id", runRow.mission_version_id)
+        .limit(1),
+    ]);
+    assertDatabaseSuccess(versionResult.error, "mission_versions.evaluate");
+    assertDatabaseSuccess(stepResult.error, "mission_steps.evaluate");
+    assertDatabaseSuccess(instructionResult.error, "mission_instructions.evaluate");
+    const version = (versionResult.data ?? [])[0] as MissionVersionRow | undefined;
+    const steps = (stepResult.data ?? []) as StepRow[];
+    if (!version || !steps.length) {
+      throw new SupabaseHttpError(409, "MISSION_CONTRACT_INCOMPLETE", "The mission learning contract is incomplete.");
+    }
+    const instruction = (instructionResult.data ?? [])[0] as
+      | { evaluator_prompt: string; evaluator_config: unknown }
+      | undefined;
+
+    const capabilities = createAiCapabilities({ operation: "mission-draft" });
+    observedProvider = capabilities.providerName;
+    observedModel = capabilities.modelIds.chat;
+    const generated = await generateText({
+      model: capabilities.languageModel,
+      instructions: [
+        "You evaluate an English learner's completed role-play. Be kind, concise, and evidence based.",
+        "Use only learner messages supplied in the transcript as evidence. Never invent a message id.",
+        "A mission step is completed only when a learner message directly satisfies its success criteria.",
+        "Score all four axes independently from 0 to 100: task completion, situational appropriateness, grammar and clarity, target vocabulary.",
+        instruction?.evaluator_prompt ?? "",
+      ].join("\n\n"),
+      prompt: JSON.stringify({
+        mission: {
+          learningGoals: version.learning_goals,
+          passScore: Number(version.pass_score),
+          maximumTurns: version.maximum_turns,
+          targetVocabulary: version.target_vocabulary,
+          targetGrammar: version.target_grammar,
+          steps,
+          evaluatorConfig: instruction?.evaluator_config ?? {},
+        },
+        transcript: parsed.data.messages,
+      }),
+      output: Output.object({
+        schema: outputSchema,
+        name: "mission_learning_evaluation",
+        description: "A four-axis, transcript-evidenced English mission evaluation",
+      }),
+      abortSignal: request.signal,
+      maxRetries: 1,
+      timeout: { totalMs: 45_000, stepMs: 45_000 },
+      providerOptions: { openai: { store: false } },
+    });
+    const output = outputSchema.parse(generated.output);
+    const messagesById = new Map(
+      parsed.data.messages
+        .filter((message) => message.role === "user")
+        .map((message) => [message.id, message]),
+    );
+    const stepIds = new Set(steps.map((step) => step.id));
+    const completedSteps = output.completedSteps.flatMap((step) => {
+      const evidenceMessageIds = step.evidenceMessageIds.filter((id) => messagesById.has(id));
+      return stepIds.has(step.stepId) && evidenceMessageIds.length
+        ? [{ ...step, evidenceMessageIds }]
+        : [];
+    });
+    const completedStepIds = [...new Set(completedSteps.map((step) => step.stepId))];
+    const requiredStepsComplete = steps
+      .filter((step) => !step.is_optional)
+      .every((step) => completedStepIds.includes(step.id));
+
+    const axisKeys = Object.keys(axisLabels) as EvaluationAxisKey[];
+    const axes: EvaluationAxis[] = axisKeys.map((key) => ({
+      key,
+      label: axisLabels[key],
+      score: Math.round(output.axes[key].score),
+      evidence: output.axes[key].evidence.flatMap((item) => {
+        const message = messagesById.get(item.messageId);
+        return message
+          ? [{ messageId: message.id, quote: message.text.slice(0, 500), rationale: item.rationale }]
+          : [];
+      }),
+    }));
+    const totalScore = Math.round(
+      axes.find((axis) => axis.key === "taskCompletion")!.score * 0.4 +
+        axes.find((axis) => axis.key === "appropriateness")!.score * 0.2 +
+        axes.find((axis) => axis.key === "grammar")!.score * 0.2 +
+        axes.find((axis) => axis.key === "vocabulary")!.score * 0.2,
+    );
+    const passed = requiredStepsComplete && totalScore >= Number(version.pass_score);
+    const stars = starsFor(totalScore, passed);
+    const now = new Date().toISOString();
+    const evaluationResult = await admin
+      .from("mission_evaluations")
+      .insert({
+        mission_run_id: runRow.id,
+        status: "completed",
+        evaluator_model_id: capabilities.modelIds.chat,
+        total_score: totalScore,
+        passed,
+        rubric_scores: { axes },
+        feedback: {
+          summary: output.summary,
+          strengths: output.strengths,
+          improvements: output.improvements,
+        },
+        corrections: output.corrections,
+        completed_learning_goals: requiredStepsComplete ? version.learning_goals : [],
+        vocabulary_observed: output.vocabularyObserved,
+        raw_response: output,
+        completed_at: now,
+      })
+      .select("id, created_at")
+      .single();
+    assertDatabaseSuccess(evaluationResult.error, "mission_evaluations.insert");
+    const evaluationRow = evaluationResult.data as { id: string; created_at: string };
+
+    for (const completed of completedSteps) {
+      const evidenceIds = completed.evidenceMessageIds.filter(
+        (id) => uuidSchema.safeParse(id).success,
+      );
+      const progressResult = await admin
+        .from("mission_step_progress")
+        .update({
+          status: "completed",
+          evidence_message_ids: evidenceIds,
+          feedback: completed.rationale,
+          completed_at: now,
+        })
+        .eq("mission_run_id", runRow.id)
+        .eq("mission_step_id", completed.stepId);
+      assertDatabaseSuccess(progressResult.error, "mission_step_progress.evaluate");
+    }
+
+    const runUpdate = await admin
+      .from("mission_runs")
+      .update({
+        status: passed ? "evaluating" : "failed",
+        score: totalScore,
+        stars,
+        turn_count: parsed.data.messages.length,
+      })
+      .eq("id", runRow.id);
+    assertDatabaseSuccess(runUpdate.error, "mission_runs.evaluate");
+
+    let rewardId: string | undefined;
+    if (passed) {
+      const rewardResult = await admin
+        .from("mission_rewards")
+        .select("id")
+        .eq("mission_id", runRow.mission_id)
+        .eq("mission_version_id", runRow.mission_version_id)
+        .eq("is_active", true)
+        .lte("minimum_score", totalScore)
+        .lte("minimum_stars", stars)
+        .order("minimum_score", { ascending: false })
+        .order("sort_order", { ascending: true })
+        .limit(1);
+      assertDatabaseSuccess(rewardResult.error, "mission_rewards.evaluate");
+      rewardId = ((rewardResult.data ?? []) as Array<{ id: string }>)[0]?.id;
+    }
+
+    const evaluation: MissionEvaluation = {
+      id: evaluationRow.id,
+      runId: runRow.id,
+      status: "completed",
+      passed,
+      totalScore,
+      stars,
+      axes,
+      summary: output.summary,
+      strengths: output.strengths,
+      improvements: output.improvements,
+      corrections: output.corrections,
+      completedStepIds,
+      vocabularyObserved: output.vocabularyObserved,
+      createdAt: evaluationRow.created_at,
+    };
+    const refreshed = await getOwnedRunRow(client, user.id, runRow.id);
+    const run = await hydrateProductionRun(client, refreshed);
+    const response = jsonSuccessResponse(requestId, { evaluation, rewardId, run }, {
+      "X-AI-Model": capabilities.modelIds.chat,
+      "X-AI-Provider": capabilities.providerName,
+    });
+    recordAiObservation({
+      requestId,
+      operation: "mission-evaluation",
+      provider: capabilities.providerName,
+      model: capabilities.modelIds.chat,
+      outcome: "success",
+      startedAt,
+      usage: generated.usage,
+    });
+    return response;
+  } catch (error) {
+    recordAiObservation({
+      requestId,
+      operation: "mission-evaluation",
+      provider: observedProvider,
+      model: observedModel,
+      outcome: request.signal.aborted ? "aborted" : "error",
+      startedAt,
+    });
+    return error instanceof SupabaseHttpError
+      ? safeSupabaseErrorResponse(error, requestId)
+      : safeAiErrorResponse(error, requestId);
+  }
+}

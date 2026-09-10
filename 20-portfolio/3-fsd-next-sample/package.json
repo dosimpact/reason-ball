@@ -1,0 +1,30 @@
+{
+  "name": "@fsd-next-sample/workspace",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.33.4",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @fsd-next-sample/web dev",
+    "build": "pnpm --filter @fsd-next-sample/web build",
+    "lint": "pnpm --filter @fsd-next-sample/web lint",
+    "typecheck": "pnpm --filter @fsd-next-sample/web typecheck",
+    "test": "pnpm --filter @fsd-next-sample/web test",
+    "test:db": "pnpm --filter @fsd-next-sample/web test:db",
+    "test:contracts": "pnpm --filter @fsd-next-sample/web test:contracts",
+    "test:e2e": "pnpm --filter @fsd-next-sample/web test:e2e",
+    "test:security": "pnpm --filter @fsd-next-sample/web test:security",
+    "test:e2e:ui": "pnpm --filter @fsd-next-sample/web test:e2e:ui",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:reset": "supabase db reset",
+    "supabase:status": "supabase status",
+    "supabase:check": "pnpm --filter @fsd-next-sample/web supabase:check",
+    "test:e2e:supabase": "pnpm --filter @fsd-next-sample/web test:e2e:supabase"
+  },
+  "devDependencies": {
+    "supabase": "^2.116.0"
+  }
+}

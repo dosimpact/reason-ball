@@ -1,0 +1,16 @@
+# Isolated browser security test artifacts
+apps/web/playwright-security-report/
+apps/web/test-results-security/
+/apps/web/test-results-contracts/
+apps/web/playwright-production-report/
+apps/web/test-results-production/
+apps/web/playwright-supabase-report/
+apps/web/test-results-supabase/
+apps/web/playwright-recheck-report/
+apps/web/test-results-recheck/
+
+# Local browser failure artifacts
+reports/**/trace.zip
+reports/**/*.webm
+reports/**/test-failed-*.png
+reports/**/error-context.md
