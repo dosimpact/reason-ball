@@ -12,16 +12,19 @@ import {
   useMissionRunQuery,
 } from "@/entities/mission-run";
 import { MissionResultPanel } from "@/features/mission-reward";
+import type { RewardCharacterDisplay } from "@/features/mission-reward/ui/mission-result-panel";
 import { restoreEvaluationResult } from "../model/evaluation-result";
 
 export function MissionEvaluationPanel({
   runId,
+  character,
   messages,
   onEvaluated,
   onCompleted,
   onRetake,
 }: {
   runId: string;
+  character?: RewardCharacterDisplay;
   messages: MissionEvaluationMessage[];
   onEvaluated?: (result: MissionEvaluationResponse) => void;
   onCompleted?: (result: MissionCompletionResponse) => void;
@@ -67,7 +70,7 @@ export function MissionEvaluationPanel({
   if (result && result.evaluation.id !== dismissedEvaluationId) {
     const completion = runQuery.data?.completion ?? complete.data?.result;
     return <div className="space-y-3">
-      <MissionResultPanel result={result} completion={completion} />
+      <MissionResultPanel result={result} completion={completion} character={character} />
       {result.evaluation.passed && !completion ? <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
         <p role={complete.error ? "alert" : "status"} className="text-sm">
           {complete.error ? "보상 저장에 실패했어요. 평가 결과는 보존되어 있으니 다시 시도해 주세요." : "평가는 통과했어요. 보상 저장을 확인해 주세요."}

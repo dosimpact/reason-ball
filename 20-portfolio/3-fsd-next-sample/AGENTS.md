@@ -1,5 +1,26 @@
 # 개발 디자인 지침
 
+## 원격 RPC 충돌 응답
+
+`20260910160828_business_conflict_http_status.sql`은 앱의 revision·멱등성 충돌을
+`PT409`로 반환한다. 이런 확정된 입력 충돌에 `40001`을 직접 발생시키지 않는다.
+PostgREST 14에서는 재시도 루프가 발생할 수 있다. 실제 DB 직렬화 실패와 앱의
+수정 충돌은 구분하며, 서버는 두 코드 모두 기존 `VERSION_CONFLICT` 응답으로
+변환한다. 수정 충돌 테스트는 응답 시간과 초안 보존까지 실연동으로 확인한다.
+
+`20260910161344_token_gated_unlisted_conversations.sql`은 링크 공유 대화의
+토큰 없는 직접 Data API 조회를 차단한다. `can_view_conversation`과 인라인
+`conversations_select_visible` 정책을 함께 유지한다. `unlisted`를 모든 로그인
+사용자에게 허용하지 않으며, 공유 페이지는 `/api/share/[token]`에서 토큰과
+현재 공개 상태를 검사한다. 소유자·public·관리자 조회 및 INSERT RETURNING은
+유지하고, 앱 API뿐 아니라 다른 사용자 JWT의 직접 행 조회를 검사한다.
+
+## Supabase 실행 환경 (2026-09-11 사용자 결정)
+
+- 개발과 실연동 검증은 항상 원격 Supabase를 사용한다. 로컬 Supabase Docker 스택을 기동하거나 start/stop/reset/status 스크립트를 다시 추가하지 않는다.
+- 서비스 설정은 원격 대시보드에서 관리한다. CLI 최소 설정과 migrations/seed는 원격 변경 이력 관리용으로 유지한다.
+- 자동화 회귀 테스트의 명시적 mock은 실제 Supabase 검증과 구분한다. 과거 검증 문서의 로컬 Docker 실행 기록은 현재 실행 지침이 아니다.
+
 ## 현재 완료 검증 범위 (2026-09-10 사용자 결정)
 
 - 사용자가 서버 자격 증명을 제공하고 원격 Supabase 연동을 요청했다. 이전 실연동 유예는 이 작업에 적용하지 않는다. 실제 성공 경로를 확인하기 전에는 E2E 완료로 표기하지 않는다.
@@ -30,7 +51,11 @@
 
 ## 단계별 학습 힌트
 
-채팅 단계 안내는 `widgets/chat-workspace/model/mission-guidance.ts`의 순수 정책으로 고정 미션 정의와 실행 단계 ID를 연결한다. 메시지 수·배열 위치로 목표 완료나 현재 단계를 추정하지 않는다. 누락/중복/불일치는 오류로 알리며 작성자 힌트가 없으면 임의 문장을 만들지 않는다. 다른 단계의 미리 연습은 현재 실행 상태와 구분하고 진행·평가·보상 쓰기를 만들지 않는다. 힌트 삽입은 기존 초안을 보존하며 전송은 사용자가 결정한다. 작성자 힌트 연결을 AI 재표현·추천 답변·대화 중 교정 완료로 주장하지 않는다.
+채팅 단계 안내는 `widgets/chat-workspace/model/mission-guidance.ts`의 순수 정책으로 고정 미션 정의와 실행 단계 ID를 연결한다. 메시지 수·배열 위치로 목표 완료나 현재 단계를 추정하지 않는다. 누락/중복/불일치는 오류로 알린다. mock의 작성자 힌트는 기존대로 유지하며 없는 값을 만들지 않는다.
+
+원격 3단계 힌트는 `20260910224735_mission_hint_requests.sql` 적용 후 사용한다. `features/mission-hint`는 의도→핵심 표현→완성 문장을 명시적으로 요청하고 성공 기록을 복원한다. 서버는 고정 실행/단계와 실제 저장 메시지 문맥만 사용하며 요청 ID 재시도는 저장된 동일 결과를 반환한다. 생성 결과는 한국어 설명 문장을 요구하고 과거 저장값에는 강화된 생성 조건을 소급 적용하지 않는다. 이미 달성한 목표라도 선택한 목표를 연습하며 최신 AI 질문으로 목표를 바꾸지 않는다. 복원 GET 중 새 요청을 막고 실행/단계 해제 시 늦은 결과를 표시하지 않는다.
+
+`mission_runs.hint_tracking_started_at`은 서버 보호 필드이며 기존 실행의 NULL을 채우지 않는다. 평가 INSERT의 DB trigger가 실행 잠금 아래 성공한 힌트 요청 집계를 feedback.assistance에 고정하며 이후 요청으로 바꾸지 않는다. 이 값은 실제 열람 횟수나 외부 도움 부재를 보증하지 않는다. 추적된 0회만 자립 완료로 구분하고 미추적/레거시는 기록 없음으로 표시한다. 힌트 요청은 목표 완료·점수·보상 삭감을 만들지 않는다. 힌트 삽입은 기존 초안을 보존하고 전송은 사용자가 결정한다. 도움받은 완료 뒤 별도 자립 재도전 안내는 현재 게시된 미션/캐릭터를 확인하며 서버 시작 조건 검사를 유지한다.
 
 ## 메시지 학습 도움말
 
@@ -46,7 +71,7 @@ HTTP 복구 UI는 최신 실패/pending 승인 체크포인트만 복원하고 �
 
 ## 학습자 설정
 
-학습자 설정 API는 `20260910120000_private_learning_preferences.sql` 적용 후 사용한다. 목표·관심 상황·교정 선호는 공개 프로필 JSON이 아니라 소유자만 조회 가능한 `learner_preferences`에 저장한다. 저장은 인증된 사용자, expectedOwnerId, expectedRevision을 확인하고 충돌 시 편집 내용을 보존한다. 최신 revision으로 자동 덮어쓰지 않는다. 데모의 v1 설정은 검증 후 읽되 삭제하거나 원격 계정으로 자동 업로드하지 않는다.
+학습자 설정 API는 `20260910120000_private_learning_preferences.sql` 적용 후 사용한다. 한국어 설명량(none/brief/detailed, 기본 brief)과 답변 길이(short/standard/long, 기본 short)는 `20260910231152_learner_response_preferences.sql`이 추가로 필요하다. 기존 9필드 설정은 읽을 때 기본값을 적용하며 DB JSON·revision을 일괄 변경하지 않는다. 목표·관심 상황·교정 선호는 공개 프로필 JSON이 아니라 소유자만 조회 가능한 `learner_preferences`에 저장한다. 저장은 인증된 사용자, expectedOwnerId, expectedRevision을 확인하고 충돌 시 편집 내용을 보존한다. 최신 revision으로 자동 덮어쓰지 않는다. 데모의 v1 설정은 검증 후 읽되 삭제하거나 원격 계정으로 자동 업로드하지 않는다.
 
 `entities/learner/model`은 검증·레거시 변환·프롬프트 데이터 변환을 순수하게 처리하고, `api`는 Storage/HTTP/DB 경계를 소유한다. 편집 UI는 음성 feature를 조합하므로 `widgets/learner-settings`에 둔다. 서버 채팅은 브라우저 설정을 신뢰하지 않고 인증된 소유자의 저장본을 읽는다. 학습 선호로 미션 판정·보상·안전 규칙을 변경하지 않는다. 음성 미리 듣기는 편집값을, 일반 음성 버튼은 저장값을 사용한다. 자동 재생은 현재 화면에서 새로 완료한 답변에만 적용하고 기록 복원에는 적용하지 않는다.
 
@@ -121,3 +146,25 @@ HTTP 답변 재생성은 `20260910060000_prepare_response_regeneration.sql`을 �
 채팅 첨부는 `20260910070000_chat_file_storage.sql` 적용 후 비공개 `chat-message-files` 버킷과 `chat_file_uploads` 등록 정보를 사용한다. 기존 `chat-attachments`/Artifact 버킷의 정책은 변경하지 않는다. 메시지·outbox에는 `chat-file://대화UUID/첨부UUID`만 저장하고, 파일 읽기와 AI 입력 변환 전에 소유권을 재확인한다. 브라우저 버킷 권한·upsert·임의 URL 서버 fetch를 추가하지 않는다. 서명 URL이나 base64는 신규 원격 메시지에 저장하지 않는다. 공유 화면은 비공개 파일을 요청하지 않는다. 취소/삭제로 남은 Storage 객체의 물리 정리는 별도 운영 과제다.
 
 `pnpm test:security`는 mock AI 공급자와 실연동 서버 인증 경계를 함께 사용하는 별도 Playwright 구성이다. 테스트용 public 환경값으로 production build를 생성하므로, 일반 배포용 산출물은 올바른 환경에서 `pnpm build`로 다시 생성한다. 이 검사를 실제 Supabase 통합 검증으로 표기하지 않는다.
+
+
+## 캐릭터 인기 집계
+
+`20260910203419_character_conversation_count.sql`은 활성·보관 대화 수를 `characters.conversation_count`에 유지한다. 삭제 상태는 제외하고 영구 삭제에서 중복 차감하지 않는다. 내부 `app_private.maintain_character_conversation_count`는 trigger 전용이며 브라우저/RPC 실행 권한을 주지 않는다. 일반 애플리케이션의 대화 생성·상태 변경·삭제는 이 경로를 사용하며, 관리자가 TRUNCATE/trigger 비활성화를 사용할 경우 별도 재집계가 필요하다. 이 지표는 고유 학습자 수가 아니다.
+
+자동 대화 제목 배포 전 `20260910213224_conversation_auto_title.sql`과 `20260910214228_conversation_title_intent_bootstrap.sql`을 순서대로 적용한다. 대화 생성은 사용자 RLS INSERT를 유지하고 metadata.initialTitleMode는 생성 시 초기 선택으로만 처리한다. title_source는 서버 보호 열이며 제목/상태를 수동 변경할 때 같은 업데이트를 사용한다. 메시지 편집·clear·retry에서 pending으로 되돌리지 않는다.
+
+
+Artifact 제안 복원은 `20260910215332_persisted_artifact_suggestions.sql` 적용 후 사용한다. POST requestId와 원본 버전/선택 범위를 재시도 중 유지한다. GET은 현재 버전의 최신 typed 제안만 복원하며, 기존 mode NULL 행에 공급자 메타데이터를 만들어 넣지 않는다. 제안은 서버만 저장하고 소유자만 조회한다. 명시 적용은 기존 버전 저장을 사용하며 과거 pending 행을 적용 감사 기록으로 해석하지 않는다.
+
+## 교정 모드와 자유 대화 복습
+
+서버의 저장된 학습 설정은 gentle(역할 답변 후 짧은 코칭), immediate(중요 오류 교정 후 재발화 기회), summary(요청/종료까지 교정 보류)를 결정한다. 무해한 대소문자·문장부호는 매번 지적하지 않는다. 한국어 설명량과 일반 역할 답변 길이는 별도 지침이다.
+
+자유 대화의 “대화 마치고 복습하기”는 `entities/chat/model/conversation-review.ts`의 일반 사용자 메시지를 기존 outbox/stream 저장 경로로 보낸다. 미전송 초안은 유지하고 첨부·수정·전송 중에는 실행하지 않는다. 서버는 준비된 권한 확인 이력에서 복습 요청을 판별하고 실제 사용자 발화만 근거로 삼으며 복습 중 도구를 비활성화한다. 이 동작은 미션 평가·보상·대화 보관이 아니며 저장된 대화를 나중에 계속할 수 있다.
+
+## 근거 기반 평가와 발화 피드백
+
+실제 새 미션 평가는 과업 달성·이해 가능성·문법·어휘/표현·상호작용의 다섯 축을 사용한다. `evaluation-rubric.ts`가 생성 스키마, 실제 소유자 사용자 메시지 인용, 최종 근거 검증, 가중 합계를 소유한다. 모든 점수 축에 유효한 사용자 근거가 남아야 저장한다. 새 rubric_scores에는 version2와 과업40%/나머지 각15% 가중치를 기록한다. 과거 appropriateness 축·라벨·저장 총점은 새 의미나 계산식으로 덮어쓰지 않는다.
+
+개별 발화의 “이 발화 평가”는 `/api/ai/turn-evaluation`의 별도 읽기 전용 요청이다. 서버가 인증 소유자의 완료된 사용자 원문과 이전7개 메시지를 읽고, 고정 미션과 서버 CEFR을 사용한다. 이후 발화는 포함하지 않으며 모든 점수 근거는 선택한 원문 ID만 허용한다. 생성 후 같은 문맥을 다시 읽어 변경된 결과는 거부한다. 진행/실행/평가/보상 테이블에 쓰지 않으며 임시 결과임을 UI에 명시한다. 전체 미션 평가 endpoint를 발화 도움말에서 호출하지 않는다.

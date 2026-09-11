@@ -1,3 +1,4 @@
+import { createUuid } from "@/shared/lib/uuid";
 import { activityResponseSchema, type ActivityRequest } from "../model/activity";
 
 export function createActivityRecorder(conversationId: string, onSaved: () => void, onError: (message?: string) => void, fetcher: typeof fetch = fetch) {
@@ -12,7 +13,7 @@ export function createActivityRecorder(conversationId: string, onSaved: () => vo
       running = true;
       try {
         do {
-          pending ??= { conversationId, requestId: crypto.randomUUID(), active: desired };
+          pending ??= { conversationId, requestId: createUuid(), active: desired };
           const response = await fetcher("/api/me/activity", { method: "POST", keepalive: true,
             headers: { "Content-Type": "application/json" }, body: JSON.stringify(pending) });
           if (!response.ok) throw new Error("학습 시간 기록을 저장하지 못했어요. 대화는 계속할 수 있습니다.");

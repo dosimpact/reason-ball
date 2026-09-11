@@ -11,7 +11,7 @@ export async function verifyResponseRegeneration(db, { ownerId, reporterId, conv
   const finish = (turn, text) => db.query("select public.finish_chat_generation($1,$2,$3,$4,'complete',$5,'stop')", [chat, ownerId, turn.assistant_message_id, request, JSON.stringify([{ type: 'text', text }])]);
   const original = await begin();
   const prepare = (id = key, answer = original.assistant_message_id, owner = ownerId) => db.query('select public.prepare_response_regeneration($1,$2,$3,$4) as id', [chat, owner, answer, id]);
-  await expectDatabaseError(() => prepare(), '40001');
+  await expectDatabaseError(() => prepare(), 'PT409');
   await finish(original, 'Original answer');
   await expectDatabaseError(() => prepare(key, original.assistant_message_id, reporterId), '42501');
   await db.query("update public.conversations set status='archived' where id=$1", [chat]);
@@ -22,7 +22,7 @@ export async function verifyResponseRegeneration(db, { ownerId, reporterId, conv
   await prepare();
   assert.deepEqual((await db.query('select id,parts,client_message_id from public.messages where id=$1', [original.user_message_id])).rows, before);
   assert.equal((await db.query('select count(*)::int as n from public.messages where conversation_id=$1', [chat])).rows[0].n, 1);
-  await expectDatabaseError(() => finish(original, 'Late original answer'), '40001');
+  await expectDatabaseError(() => finish(original, 'Late original answer'), 'PT409');
   const next = await begin();
   assert.equal(next.user_message_id, original.user_message_id);
   assert.notEqual(next.assistant_message_id, original.assistant_message_id);
@@ -30,11 +30,11 @@ export async function verifyResponseRegeneration(db, { ownerId, reporterId, conv
   await finish(next, 'Regenerated answer');
   await prepare(); // Nor may replay delete the new completed reply.
   assert.equal((await db.query('select plain_text from public.messages where id=$1', [next.assistant_message_id])).rows[0].plain_text, 'Regenerated answer');
-  await expectDatabaseError(() => prepare(key, next.assistant_message_id), '40001');
-  await expectDatabaseError(() => prepare(request), '40001'); // old answer no longer tail
+  await expectDatabaseError(() => prepare(key, next.assistant_message_id), 'PT409');
+  await expectDatabaseError(() => prepare(request), 'PT409'); // old answer no longer tail
   const later = await begin('later-user');
   await finish(later, 'Later reply');
-  await expectDatabaseError(() => prepare(request, next.assistant_message_id), '40001');
+  await expectDatabaseError(() => prepare(request, next.assistant_message_id), 'PT409');
   assert.equal((await db.query('select count(*)::int as n from public.messages where conversation_id=$1', [chat])).rows[0].n, 4);
   await db.query("update public.messages set status='error' where id=$1", [later.user_message_id]);
   await expectDatabaseError(() => prepare(request, later.assistant_message_id), '55000');

@@ -58,3 +58,42 @@ test("mock requests carry learner choices but remote requests never send them", 
   expect(buildChatRequest({ ...input, mockRuntime: true })).toHaveProperty("learnerPreferences", defaultPreferences);
   expect(buildChatRequest({ ...input, mockRuntime: false })).toEqual({ messages: [], conversationId: "chat", modelId: "model" });
 });
+
+
+test("older preferences default explanation and response length without accepting null or unknown settings", () => {
+  const old = { ...defaultPreferences } as Partial<typeof defaultPreferences>;
+  delete old.koreanExplanation;
+  delete old.responseLength;
+  expect(learningPreferencesSchema.parse(old)).toEqual(defaultPreferences);
+  expect(old).not.toHaveProperty("koreanExplanation");
+  for (const key of ["koreanExplanation", "responseLength"]) {
+    for (const value of [null, "unknown", 1, false, [], {}]) {
+      expect(learningPreferencesSchema.safeParse({ ...defaultPreferences, [key]: value }).success).toBe(false);
+    }
+  }
+  for (const koreanExplanation of ["none", "brief", "detailed"]) {
+    for (const responseLength of ["short", "standard", "long"]) {
+      expect(learningPreferencesSchema.parse({ ...old, koreanExplanation, responseLength })).toMatchObject({ koreanExplanation, responseLength });
+    }
+  }
+});
+
+test("guidance separates correction timing, explanation language and ordinary response length", () => {
+  const gentle = learningPreferenceInstructions(defaultPreferences);
+  expect(gentle).toContain("in character FIRST");
+  expect(gentle).toContain("Quick tip:");
+  const immediate = learningPreferenceInstructions({ ...defaultPreferences, correctionMode: "immediate", koreanExplanation: "none", responseLength: "long" });
+  expect(immediate).toContain("Correction:");
+  expect(immediate).toContain("Try again:");
+  expect(immediate).toContain("instead of advancing");
+  expect(immediate).toContain("English only");
+  expect(immediate).toContain("five or six English sentences");
+  const summary = learningPreferenceInstructions({ ...defaultPreferences, correctionMode: "summary", koreanExplanation: "detailed", responseLength: "standard" });
+  expect(summary).toContain("without unsolicited corrections");
+  expect(summary).toContain("two or three clear Korean explanation sentences");
+  expect(summary).toContain("three or four English sentences");
+  for (const prompt of [gentle, immediate, summary]) {
+    expect(prompt).toContain("Never invent errors");
+    expect(prompt).toContain("ordinary role-play timing must not prevent that review");
+  }
+});

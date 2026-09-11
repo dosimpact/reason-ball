@@ -12,7 +12,7 @@ type CharacterCardProps = {
 export function CharacterCard({ character, action }: CharacterCardProps) {
   return (
     <article
-      className="group overflow-hidden rounded-[1.6rem] border border-black/6 bg-white shadow-[0_16px_50px_-35px_rgba(25,18,8,.55)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_-30px_rgba(25,18,8,.35)]"
+      className="group overflow-hidden rounded-[1.6rem] border border-border bg-card text-card-foreground shadow-[0_16px_50px_-35px_rgba(25,18,8,.55)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_-30px_rgba(25,18,8,.35)]"
       data-testid={`character-card-${character.id}`}
     >
       <div className="relative">
@@ -33,23 +33,23 @@ export function CharacterCard({ character, action }: CharacterCardProps) {
           </div>
           <p className="mt-1 text-sm font-medium text-[#e16748]">{character.role}</p>
         </div>
-        <p className="line-clamp-2 min-h-10 text-sm leading-5 text-neutral-600">
+        <p className="line-clamp-2 min-h-10 text-sm leading-5 text-muted-foreground">
           {character.tagline}
         </p>
         <div className="flex flex-wrap gap-1.5">
           {character.personality.slice(0, 3).map((item) => (
             <span
               key={item}
-              className="rounded-full bg-[#f5f1eb] px-2.5 py-1 text-[11px] font-semibold text-neutral-600"
+              className="rounded-full bg-muted px-2.5 py-1 text-[11px] font-semibold text-muted-foreground"
             >
               {item}
             </span>
           ))}
         </div>
-        <div className="flex items-center justify-between border-t border-black/6 pt-4">
-          <span className="flex items-center gap-1.5 text-xs text-neutral-500">
+        <div className="flex items-center justify-between border-t border-border pt-4">
+          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
             <Users className="size-3.5" aria-hidden="true" />
-            {character.learnerCount.toLocaleString("ko-KR")}명 학습
+            {character.learnerCount.toLocaleString("ko-KR")}개 대화
           </span>
           <Link
             href={`/characters/${character.id}`}

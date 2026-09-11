@@ -100,7 +100,7 @@ test("creates only server metadata with a stable creation ID and no fabricated g
   });
   const created = await repository.createConversation(context, conversation.id);
   expect(JSON.parse(requests[0].init!.body as string)).toEqual({
-    id: conversation.id, characterId: context.characterId, title: context.title,
+    id: conversation.id, characterId: context.characterId, title: context.title, titleMode: "auto",
   });
   expect(created.id).toBe(conversation.id);
   expect(created.messages).toEqual([]);

@@ -22,9 +22,9 @@ export async function verifyChatGeneration(db, { ownerId, reporterId, conversati
     { role: "user", status: "complete", parts },
     { role: "assistant", status: "pending", parts: [] },
   ]);
-  await expectDatabaseError(() => begin(retryRequest), "40001");
-  await expectDatabaseError(() => begin(retryRequest, parts, "another-turn"), "40001");
-  await expectDatabaseError(() => begin(retryRequest, [{ type: "text", text: "changed" }]), "40001");
+  await expectDatabaseError(() => begin(retryRequest), "PT409");
+  await expectDatabaseError(() => begin(retryRequest, parts, "another-turn"), "PT409");
+  await expectDatabaseError(() => begin(retryRequest, [{ type: "text", text: "changed" }]), "PT409");
   const finish = (requestId, status, body = answer, owner = ownerId) => db.query(
     "select public.finish_chat_generation($1, $2, $3, $4, $5, $6, 'stop') as id",
     [chatId, owner, claimed.assistant_message_id, requestId, status, JSON.stringify(body)],
@@ -35,12 +35,12 @@ export async function verifyChatGeneration(db, { ownerId, reporterId, conversati
   // the replacement worker's result. The user and assistant IDs remain stable.
   await db.query("update public.chat_generations set lease_expires_at = now() - interval '1 second' where conversation_id = $1", [chatId]);
   assert.deepEqual((await begin(retryRequest)).rows[0], claimed);
-  await expectDatabaseError(() => finish(firstRequest, "complete"), "40001");
+  await expectDatabaseError(() => finish(firstRequest, "complete"), "PT409");
   await finish(retryRequest, "error", [{ type: "text", text: "partial" }]);
   assert.deepEqual((await begin(firstRequest)).rows[0], claimed);
   await finish(firstRequest, "complete");
   await finish(firstRequest, "complete");
-  await expectDatabaseError(() => finish(firstRequest, "complete", [{ type: "text", text: "overwrite" }]), "40001");
+  await expectDatabaseError(() => finish(firstRequest, "complete", [{ type: "text", text: "overwrite" }]), "PT409");
   assert.deepEqual((await begin(retryRequest)).rows[0], { ...claimed, replayed: true });
   const completed = await db.query("select role, status, parts, plain_text from public.messages where conversation_id = $1 order by sequence_number", [chatId]);
   assert.deepEqual(completed.rows, [

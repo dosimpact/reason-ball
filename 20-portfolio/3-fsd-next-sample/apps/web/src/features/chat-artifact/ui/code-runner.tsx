@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { copyText as writeClipboard } from "@/shared/lib/clipboard";
 import { executeCode } from "../api/execute-code";
 import type { CodeExecutionResult } from "../model/code-execution";
 
@@ -32,7 +33,7 @@ export function CodeRunner({ source }: { source: string }) {
     }
   }
   async function copyText(text: string) {
-    try { await navigator.clipboard.writeText(text); setCopyNotice("복사했어요."); }
+    try { await writeClipboard(text); setCopyNotice("복사했어요."); }
     catch { setCopyNotice("복사하지 못했어요. 출력 내용을 직접 선택해 주세요."); }
   }
   return <section className="mt-4 rounded-xl border border-black/8 p-3" aria-label="격리 JavaScript 실행">

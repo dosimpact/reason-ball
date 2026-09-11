@@ -110,13 +110,18 @@ export async function PATCH(request: Request, context: RouteContext) {
           "Restore the conversation before updating it.",
         );
       }
-      if (parsed.data.title !== undefined) changes.title = parsed.data.title;
+      if (parsed.data.title !== undefined) {
+        changes.title = parsed.data.title;
+        changes.title_source = "manual";
+      }
       if (parsed.data.modelId !== undefined) {
         if (current.status !== "active") throw new SupabaseHttpError(409, "CONVERSATION_NOT_ACTIVE", "Restore the conversation before changing its model.");
         changes.model_id = requireAllowedChatModel(parsed.data.modelId);
       }
       if (parsed.data.visibility !== undefined) {
         changes.visibility = parsed.data.visibility;
+        // Revoked links must stay invalid even if the owner shares again later.
+        if (parsed.data.visibility === "private") changes.share_token = crypto.randomUUID();
       }
     } else if (parsed.data.action === "archive") {
       changes.status = "archived";

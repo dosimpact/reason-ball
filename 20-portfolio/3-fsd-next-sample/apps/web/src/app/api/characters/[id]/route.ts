@@ -7,6 +7,7 @@ import {
 import { z } from "zod";
 import {
   assertTrustedMutationRequest,
+  assertDatabaseSuccess,
   createPrivilegedClient,
   createRequestClient,
   createRequestId,
@@ -20,6 +21,7 @@ import {
 import {
   bucketForCharacter,
   characterRpcPayload,
+  copyCharacterImageForVisibility,
   decodeImageDataUrl,
   removeStoredImage,
   storeImage,
@@ -102,6 +104,13 @@ export async function PATCH(request: Request, context: CharacterRouteContext) {
     const client = await createRequestClient();
     const user = await requireAuthenticatedUser(client);
     const character = await resolveResource(client, "characters", identifier);
+    // Readability of a published character does not authorize mutation or copying.
+    const owned = await client.from("characters").select("id, current_version_id, visibility")
+      .eq("id", character.id).eq("owner_id", user.id).limit(1);
+    assertDatabaseSuccess(owned.error, "characters.mutation_owner");
+    if (!owned.data?.[0]) {
+      throw new SupabaseHttpError(403, "CHARACTER_NOT_OWNED", "Only the owner may change this character.");
+    }
 
     if (parsed.data.action === "create-version") {
       if (parsed.data.draft.publishStatus === "archived") {
@@ -122,6 +131,13 @@ export async function PATCH(request: Request, context: CharacterRouteContext) {
           resourceId: character.id,
           bucket: bucketForCharacter(parsed.data.draft),
           ...decoded,
+        });
+      } else {
+        image = await copyCharacterImageForVisibility(client, {
+          userId: user.id, resourceId: character.id,
+          versionId: owned.data[0].current_version_id,
+          currentVisibility: owned.data[0].visibility,
+          bucket: bucketForCharacter(parsed.data.draft),
         });
       }
 

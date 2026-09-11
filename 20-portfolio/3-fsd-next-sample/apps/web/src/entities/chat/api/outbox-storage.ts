@@ -1,3 +1,4 @@
+import { withBrowserStorageLock } from '@/shared/lib/browser-lock';
 import { outboxSchema, type ChatOutbox } from '../model/outbox';
 type OutboxStorage = Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
 
@@ -31,8 +32,7 @@ export function createOutboxStorage(storage: OutboxStorage, ownerId: string, con
   };
 }
 
-// Cross-tab read/compare/write sequences use the same origin-scoped Web Lock.
+// Keep the whole read/compare/write operation inside the cross-tab lock.
 export function withBrowserOutbox<T>(ownerId: string, conversationId: string, operation: (store: ReturnType<typeof createOutboxStorage>) => T): Promise<T> {
-  if (!navigator.locks) return Promise.reject(new Error('이 브라우저에서는 안전한 전송 기록 잠금을 사용할 수 없어요.'));
-  return navigator.locks.request(outboxKey(ownerId, conversationId), () => operation(createOutboxStorage(window.localStorage, ownerId, conversationId)));
+  return withBrowserStorageLock(outboxKey(ownerId, conversationId), () => operation(createOutboxStorage(window.localStorage, ownerId, conversationId)));
 }

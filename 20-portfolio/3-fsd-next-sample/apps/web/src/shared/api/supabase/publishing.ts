@@ -1,3 +1,4 @@
+import { writeMissionDifficulty as missionDifficulty } from "./mission-difficulty";
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -7,7 +8,7 @@ import type {
   MissionDraft,
 } from "@/shared/api/learning/contracts";
 
-import { SupabaseHttpError } from "./http";
+import { assertDatabaseSuccess, SupabaseHttpError } from "./http";
 import { compileMissionLearningFields } from "./mission-version-fields";
 import { createUserStoragePath, STORAGE_BUCKETS } from "./storage";
 import { isStorageObjectConflict } from "@/shared/lib/storage-error";
@@ -124,6 +125,50 @@ export async function storeImage(
   };
 }
 
+// Call only after validating resource ownership. Resolve the source from the
+// current DB version, never from a caller-supplied image URL.
+export async function copyCharacterImageForVisibility(
+  client: SupabaseClient,
+  input: { userId: string; resourceId: string; versionId: string | null; bucket: string; currentVisibility: string },
+): Promise<StoredImage | undefined> {
+  if (!input.versionId) return;
+  const result = await client.from("character_assets")
+    .select("storage_bucket, storage_path, mime_type")
+    .eq("character_id", input.resourceId)
+    .eq("character_version_id", input.versionId)
+    .eq("asset_type", "avatar").eq("is_primary", true).limit(1);
+  assertDatabaseSuccess(result.error, "characters.current_image");
+  let asset = result.data?.[0];
+  if (!asset) {
+    // Older revisions reused a character-wide compatible avatar. Match the
+    // display fallback, then give this new revision its own immutable asset.
+    const fallback = await client.from("character_assets")
+      .select("storage_bucket, storage_path, mime_type")
+      .eq("character_id", input.resourceId).eq("asset_type", "avatar")
+      .eq("access_level", input.currentVisibility === "public" ? "public" : "owner")
+      .order("is_primary", { ascending: false }).order("sort_order", { ascending: true }).limit(1);
+    assertDatabaseSuccess(fallback.error, "characters.legacy_image");
+    asset = fallback.data?.[0];
+  }
+  if (!asset) return;
+  const allowed = [STORAGE_BUCKETS.characterPrivate, STORAGE_BUCKETS.characterPublic] as string[];
+  const prefix = `${input.userId}/${input.resourceId}/`;
+  if (!allowed.includes(asset.storage_bucket) || !allowed.includes(input.bucket)
+    || !asset.storage_path.startsWith(prefix) || asset.storage_path.slice(prefix.length).includes("/")) {
+    throw new SupabaseHttpError(409, "INVALID_IMAGE_REFERENCE", "The current character image cannot be copied.");
+  }
+  imageExtension(asset.mime_type);
+  const downloaded = await client.storage.from(asset.storage_bucket).download(asset.storage_path);
+  if (downloaded.error || !downloaded.data) {
+    throw new SupabaseHttpError(502, "IMAGE_DOWNLOAD_FAILED", "The current character image could not be loaded.", true);
+  }
+  if (downloaded.data.size === 0 || downloaded.data.size > 10 * 1024 * 1024) {
+    throw new SupabaseHttpError(413, "IMAGE_SIZE_INVALID", "The image must be between 1 byte and 10 MB.");
+  }
+  return storeImage(client, { userId: input.userId, resourceId: input.resourceId, bucket: input.bucket,
+    mimeType: asset.mime_type, bytes: new Uint8Array(await downloaded.data.arrayBuffer()) });
+}
+
 export async function removeStoredImage(
   client: SupabaseClient,
   image: StoredImage | undefined,
@@ -220,11 +265,6 @@ export function characterRpcPayload(
   };
 }
 
-function missionDifficulty(value: MissionDraft["difficulty"]) {
-  if (value === "입문") return "A1";
-  if (value === "초급") return "A2";
-  return "B1";
-}
 
 export function missionRpcPayload(
   draft: MissionDraft,
@@ -285,6 +325,7 @@ export function missionRpcPayload(
     evaluatorConfig: {
       successThreshold: passScore,
       prerequisites: learning.prerequisites,
+      objectives: learning.objectives,
       exampleDialogue: draft.exampleDialogue ?? [],
     },
     steps,

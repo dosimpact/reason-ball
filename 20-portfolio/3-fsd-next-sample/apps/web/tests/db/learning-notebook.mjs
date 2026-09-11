@@ -10,11 +10,11 @@ export async function verifyLearningNotebook(db, { ownerId, reporterId, conversa
   assert.equal(first.outcome, "created");
   assert.deepEqual(first.entry.draft, draft);
   assert.deepEqual((await save(1)).rows[0], { entry: first.entry, outcome: "replayed" });
-  await expectDatabaseError(() => save(1, { ...draft, meaning: "changed" }), "40001");
+  await expectDatabaseError(() => save(1, { ...draft, meaning: "changed" }), "PT409");
   const duplicate = { ...draft, meaning: "Do not replace existing note" };
   assert.deepEqual((await save(2, duplicate)).rows[0], { entry: first.entry, outcome: "duplicate" });
   assert.deepEqual((await save(2, duplicate)).rows[0], { entry: first.entry, outcome: "replayed" });
-  await expectDatabaseError(() => save(2, draft), "40001");
+  await expectDatabaseError(() => save(2, draft), "PT409");
   await expectDatabaseError(() => save(3, draft, reporterId), "P0002");
   await expectDatabaseError(() => save(3, { ...draft, source: { conversationId, messageId: "missing" } }), "P0002");
   assert.equal((await db.query("select count(*)::int as n from public.learning_notebook_entries where user_id=$1", [ownerId])).rows[0].n, 1);

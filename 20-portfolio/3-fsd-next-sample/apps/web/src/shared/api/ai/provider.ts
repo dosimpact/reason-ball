@@ -20,7 +20,8 @@ import {
   createMockSpeechModel,
 } from "./mock-models";
 
-export type AiOperation = "chat" | "mission-draft" | "learning-assistance" | "image" | "speech";
+import type { AiOperation } from "./provider-policy";
+export type { AiOperation } from "./provider-policy";
 
 export type AiCapabilities = {
   languageModel: LanguageModel;
@@ -41,7 +42,7 @@ export function createAiCapabilities(options: {
   imageKind?: ImageKind;
   modelId?: string;
 }): AiCapabilities {
-  const config = readAiRuntimeConfig();
+  const config = readAiRuntimeConfig(options.operation);
   const selectedChatModel = resolveChatModelId(options.modelId);
 
   const modelIds = { ...config.models, chat: selectedChatModel };

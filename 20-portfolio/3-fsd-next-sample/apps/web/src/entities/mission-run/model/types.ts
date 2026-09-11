@@ -22,7 +22,9 @@ export type MissionRunStep = {
 
 export type EvaluationAxisKey =
   | "taskCompletion"
-  | "appropriateness"
+  | "appropriateness" // Historical evaluations only; do not relabel or recompute.
+  | "comprehensibility"
+  | "interaction"
   | "grammar"
   | "vocabulary";
 
@@ -37,12 +39,39 @@ export type EvaluationAxis = {
   label: string;
   score: number;
   evidence: EvaluationEvidence[];
+  feedback?: string;
 };
 
 export type MissionCorrection = {
   original: string;
   suggested: string;
   explanation: string;
+};
+
+export type MissionNewExpression = {
+  english: string;
+  meaning: string;
+};
+
+export type MissionHintDepth = 1 | 2 | 3;
+
+export type MissionHint = {
+  id: string;
+  runId: string;
+  stepId: string;
+  depth: MissionHintDepth;
+  result: { text: string; explanation: string };
+  createdAt: string;
+  contextMessageId?: string;
+  contextSequenceNumber?: number;
+};
+
+export type MissionAssistanceSnapshot = {
+  status: "tracked" | "unknown";
+  requestCount: number;
+  maxDepth: 0 | MissionHintDepth;
+  steps: Array<{ stepId: string; maxDepth: MissionHintDepth; requestCount: number }>;
+  capturedAt: string;
 };
 
 export type MissionEvaluation = {
@@ -59,6 +88,8 @@ export type MissionEvaluation = {
   corrections: MissionCorrection[];
   completedStepIds: string[];
   vocabularyObserved: string[];
+  newExpressions?: MissionNewExpression[];
+  assistance?: MissionAssistanceSnapshot;
   createdAt: string;
 };
 

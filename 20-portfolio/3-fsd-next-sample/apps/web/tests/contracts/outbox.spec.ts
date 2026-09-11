@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { conversationReviewPrompt } from '../../src/entities/chat/model/conversation-review';
 import { prepareOutbox, reconcileOutbox, draftAfterTransmission } from '../../src/entities/chat/model/outbox';
 import { createOutboxStorage, outboxKey } from '../../src/entities/chat/api/outbox-storage';
 import { createDraftStorage } from '../../src/entities/chat/api/draft-storage';
@@ -94,4 +95,34 @@ test('owner and logout cleanup cover drafts and pending transmissions without to
   drafts.clearAll();
   expect(createOutboxStorage(memory, 'bob', 'chat').read()).toBeUndefined();
   expect(memory.getItem('unrelated')).toBe('keep');
+});
+
+
+test('action-generated review preserves an identical unsent draft through storage and recovery, while normal sending clears it', () => {
+  const review: ChatMessage = { ...user, parts: [{ type: 'text', text: conversationReviewPrompt }] };
+  const draft = `  ${conversationReviewPrompt}\n`;
+  const preserved = prepareOutbox(conversation, review, 'model-a', entry.startedAt, { preserveDraft: true });
+  const memory = memoryStorage();
+  createOutboxStorage(memory, 'alice', 'chat').write(preserved);
+  const recovered = createOutboxStorage(memory, 'alice', 'chat').read()!;
+  expect(recovered.preserveDraft).toBe(true);
+  expect(draftAfterTransmission(draft, recovered)).toBe(draft);
+  expect(draftAfterTransmission('different next draft', recovered)).toBe('different next draft');
+  expect(reconcileOutbox(conversation, recovered).conversation.messages).toEqual([review]);
+  expect(reconcileOutbox({ ...conversation, messages: [review] }, recovered).stored).toBe(true);
+  for (const options of [undefined, { preserveDraft: false }]) {
+    const ordinary = prepareOutbox(conversation, review, 'model-a', entry.startedAt, options);
+    expect(draftAfterTransmission(draft, ordinary)).toBe('');
+  }
+});
+
+test('malformed preserveDraft flags are rejected and the original stored record is retained', () => {
+  const memory = memoryStorage();
+  const store = createOutboxStorage(memory, 'alice', 'chat');
+  for (const preserveDraft of ['true', 1, null, {}]) {
+    const corrupt = JSON.stringify({ ...entry, preserveDraft });
+    memory.setItem(outboxKey('alice', 'chat'), corrupt);
+    expect(() => store.read()).toThrow();
+    expect(memory.getItem(outboxKey('alice', 'chat'))).toBe(corrupt);
+  }
 });

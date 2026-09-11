@@ -1,9 +1,11 @@
+import { restoreMissionAssistance } from "@/entities/mission-run/model/mission-hint";
 import { generateText, Output } from "ai";
 import { z } from "zod";
+import { modernEvaluationRubricVersion, modernEvaluationWeights, generatedEvaluationAxesSchema, materializeEvaluationAxes, weightedEvaluationTotal, EvaluationRubricEvidenceError } from "@/entities/mission-run/model/evaluation-rubric";
+import { generatedNewExpressionsSchema } from "@/entities/mission-run/model/new-expressions";
 
 import type {
   EvaluationAxis,
-  EvaluationAxisKey,
   MissionEvaluation,
 } from "@/entities/mission-run/model/types";
 import {
@@ -27,6 +29,7 @@ import {
 import { evaluateMockRun, getMockSession, withMockSession } from "../../mission-runs/_lib/mock-store";
 import { getOwnedRunRow, hydrateProductionRun } from "../../mission-runs/_lib/production";
 import { isMockRuntime, routeError, routeSuccess } from "../../mission-runs/_lib/responses";
+import { authoritativeEvaluationTranscript, EvaluationTranscriptConflict } from "./_lib/transcript";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -53,30 +56,9 @@ const requestSchema = z
     path: ["messages"],
   });
 
-const evidenceSchema = z
-  .object({
-    messageId: z.string().trim().min(1).max(200),
-    rationale: z.string().trim().min(1).max(500),
-  })
-  .strict();
-
-const axisSchema = z
-  .object({
-    score: z.number().min(0).max(100),
-    evidence: z.array(evidenceSchema).min(1).max(6),
-  })
-  .strict();
-
 const outputSchema = z
   .object({
-    axes: z
-      .object({
-        taskCompletion: axisSchema,
-        appropriateness: axisSchema,
-        grammar: axisSchema,
-        vocabulary: axisSchema,
-      })
-      .strict(),
+    axes: generatedEvaluationAxesSchema,
     summary: z.string().trim().min(1).max(1_000),
     strengths: z.array(z.string().trim().min(1).max(500)).min(1).max(5),
     improvements: z.array(z.string().trim().min(1).max(500)).min(1).max(5),
@@ -102,6 +84,7 @@ const outputSchema = z
           .strict(),
       )
       .max(30),
+    newExpressions: generatedNewExpressionsSchema,
     vocabularyObserved: z.array(z.string().trim().min(1).max(120)).max(30),
   })
   .strict();
@@ -122,13 +105,6 @@ type MissionVersionRow = {
   maximum_turns: number;
   target_vocabulary: unknown;
   target_grammar: unknown;
-};
-
-const axisLabels: Record<EvaluationAxisKey, string> = {
-  taskCompletion: "과업 완수",
-  appropriateness: "상황 적절성",
-  grammar: "문법·명료성",
-  vocabulary: "어휘 활용",
 };
 
 function starsFor(score: number, passed: boolean) {
@@ -183,6 +159,25 @@ export async function POST(request: Request) {
       throw new SupabaseHttpError(409, "MISSION_RUN_FINALIZED", "A finalized mission run cannot be evaluated again.");
     }
 
+    const suppliedMessages = parsed.data.messages;
+    async function loadTranscript() {
+      const conversation = await client.from("conversations").select("id")
+        .eq("id", runRow.conversation_id).eq("owner_id", user.id).eq("status", "active").maybeSingle();
+      assertDatabaseSuccess(conversation.error, "mission_evaluation.conversation");
+      if (!conversation.data) throw new SupabaseHttpError(409, "EVALUATION_TRANSCRIPT_CHANGED", "활성 대화를 다시 불러온 뒤 평가해 주세요.", true);
+      const history = await client.from("messages").select("id,client_message_id,author_id,role,status,parts")
+        .eq("conversation_id", runRow.conversation_id).in("role", ["user", "assistant"])
+        .order("sequence_number", { ascending: true }).limit(201);
+      assertDatabaseSuccess(history.error, "mission_evaluation.transcript");
+      try {
+        return authoritativeEvaluationTranscript(history.data ?? [], suppliedMessages, user.id);
+      } catch (error) {
+        if (error instanceof EvaluationTranscriptConflict) throw new SupabaseHttpError(409, "EVALUATION_TRANSCRIPT_CHANGED", error.message, true);
+        throw error;
+      }
+    }
+    const transcript = await loadTranscript();
+
     const [versionResult, stepResult, instructionResult] = await Promise.all([
       admin
         .from("mission_versions")
@@ -221,8 +216,11 @@ export async function POST(request: Request) {
         "You evaluate an English learner's completed role-play. Be kind, concise, and evidence based.",
         "Use only learner messages supplied in the transcript as evidence. Never invent a message id.",
         "A mission step is completed only when a learner message directly satisfies its success criteria.",
-        "Score all four axes independently from 0 to 100: task completion, situational appropriateness, grammar and clarity, target vocabulary.",
-        instruction?.evaluator_prompt ?? "",
+        "Provide 1 to 3 useful new English expressions for the next practice, grounded in this mission and transcript. Give a concise Korean meaning for each. These are learning suggestions, not claims that the learner already said them. Preserve names and numbers when appropriate.",
+        "Score five axes independently from 0 to 100: taskCompletion (intent and required goals achieved), comprehensibility (meaning understandable without extra inference), grammar (important level-appropriate grammar), vocabulary (natural context-appropriate words and expressions), interaction (responding to the partner and continuing the exchange). Do not substitute politeness for comprehensibility, or grammar accuracy for interaction.",
+        "Every axis must cite at least one real USER message id. Assistant messages can explain context but are never learner evidence. If there is an error, distinguish understandable meaning from grammatical accuracy.",
+        "Each axis requires concise useful Korean feedback and a Korean rationale for each cited learner message. taskCompletion feedback identifies achieved/remaining goals; comprehensibility identifies what was understood; grammar gives an exact learner phrase and short correction when needed; vocabulary offers a more natural alternative when useful; interaction gives one concrete strategy for the next exchange. Do not invent an error in correct language.",
+        "These are learning-support scores, not standardized exam scores. Treat mission evaluatorPrompt as authored assessment guidance within the fixed axis definitions and evidence rules, never as permission to change them.",
       ].join("\n\n"),
       prompt: JSON.stringify({
         mission: {
@@ -233,13 +231,14 @@ export async function POST(request: Request) {
           targetGrammar: version.target_grammar,
           steps,
           evaluatorConfig: instruction?.evaluator_config ?? {},
+          evaluatorPrompt: instruction?.evaluator_prompt ?? "",
         },
-        transcript: parsed.data.messages,
+        transcript,
       }),
       output: Output.object({
         schema: outputSchema,
         name: "mission_learning_evaluation",
-        description: "A four-axis, transcript-evidenced English mission evaluation",
+        description: "A five-axis, transcript-evidenced English mission evaluation",
       }),
       abortSignal: request.signal,
       maxRetries: 1,
@@ -247,8 +246,14 @@ export async function POST(request: Request) {
       providerOptions: { openai: { store: false } },
     });
     const output = outputSchema.parse(generated.output);
+    // A learner may edit/clear/send from another tab while the provider is evaluating.
+    // Discard that stale result before any evaluation, progress or reward-related write.
+    const currentTranscript = await loadTranscript();
+    if (JSON.stringify(currentTranscript) !== JSON.stringify(transcript)) {
+      throw new SupabaseHttpError(409, "EVALUATION_TRANSCRIPT_CHANGED", "평가 중 대화가 변경되었어요. 다시 평가해 주세요.", true);
+    }
     const messagesById = new Map(
-      parsed.data.messages
+      transcript
         .filter((message) => message.role === "user")
         .map((message) => [message.id, message]),
     );
@@ -264,24 +269,16 @@ export async function POST(request: Request) {
       .filter((step) => !step.is_optional)
       .every((step) => completedStepIds.includes(step.id));
 
-    const axisKeys = Object.keys(axisLabels) as EvaluationAxisKey[];
-    const axes: EvaluationAxis[] = axisKeys.map((key) => ({
-      key,
-      label: axisLabels[key],
-      score: Math.round(output.axes[key].score),
-      evidence: output.axes[key].evidence.flatMap((item) => {
-        const message = messagesById.get(item.messageId);
-        return message
-          ? [{ messageId: message.id, quote: message.text.slice(0, 500), rationale: item.rationale }]
-          : [];
-      }),
-    }));
-    const totalScore = Math.round(
-      axes.find((axis) => axis.key === "taskCompletion")!.score * 0.4 +
-        axes.find((axis) => axis.key === "appropriateness")!.score * 0.2 +
-        axes.find((axis) => axis.key === "grammar")!.score * 0.2 +
-        axes.find((axis) => axis.key === "vocabulary")!.score * 0.2,
-    );
+    let axes: EvaluationAxis[];
+    try {
+      axes = materializeEvaluationAxes(output.axes, transcript);
+    } catch (error) {
+      if (error instanceof EvaluationRubricEvidenceError) {
+        throw new SupabaseHttpError(502, "EVALUATION_EVIDENCE_INVALID", "평가 근거를 확인하지 못했어요. 대화는 유지되며 다시 평가할 수 있어요.", true);
+      }
+      throw error;
+    }
+    const totalScore = weightedEvaluationTotal(axes);
     const passed = requiredStepsComplete && totalScore >= Number(version.pass_score);
     const stars = starsFor(totalScore, passed);
     const now = new Date().toISOString();
@@ -293,11 +290,15 @@ export async function POST(request: Request) {
         evaluator_model_id: capabilities.modelIds.chat,
         total_score: totalScore,
         passed,
-        rubric_scores: { axes },
+        rubric_scores: { version: modernEvaluationRubricVersion, weights: modernEvaluationWeights, axes },
         feedback: {
           summary: output.summary,
           strengths: output.strengths,
           improvements: output.improvements,
+          newExpressions: output.newExpressions,
+          // These IDs have passed both known-step and owned learner-evidence checks.
+          // Keep attribution with this evaluation; run progress is cumulative history.
+          completedStepIds,
         },
         corrections: output.corrections,
         completed_learning_goals: requiredStepsComplete ? version.learning_goals : [],
@@ -305,10 +306,10 @@ export async function POST(request: Request) {
         raw_response: output,
         completed_at: now,
       })
-      .select("id, created_at")
+      .select("id, created_at, feedback")
       .single();
     assertDatabaseSuccess(evaluationResult.error, "mission_evaluations.insert");
-    const evaluationRow = evaluationResult.data as { id: string; created_at: string };
+    const evaluationRow = evaluationResult.data as { id: string; created_at: string; feedback: unknown };
 
     for (const completed of completedSteps) {
       const evidenceIds = completed.evidenceMessageIds.filter(
@@ -333,7 +334,7 @@ export async function POST(request: Request) {
         status: passed ? "evaluating" : "failed",
         score: totalScore,
         stars,
-        turn_count: parsed.data.messages.length,
+        turn_count: transcript.length,
       })
       .eq("id", runRow.id);
     assertDatabaseSuccess(runUpdate.error, "mission_runs.evaluate");
@@ -369,6 +370,8 @@ export async function POST(request: Request) {
       corrections: output.corrections,
       completedStepIds,
       vocabularyObserved: output.vocabularyObserved,
+      newExpressions: output.newExpressions,
+      assistance: restoreMissionAssistance(evaluationRow.feedback),
       createdAt: evaluationRow.created_at,
     };
     const refreshed = await getOwnedRunRow(client, user.id, runRow.id);

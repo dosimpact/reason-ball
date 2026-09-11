@@ -28,7 +28,7 @@ export async function verifyClearMessages(db, { ownerId, reporterId, conversatio
   assert.deepEqual((await db.query('select title,status,last_message_at from public.conversations where id=$1', [chat])).rows[0], { title: 'Keep my title', status: 'active', last_message_at: null });
   assert.deepEqual((await db.query('select content_text,source_message_id from public.artifact_versions where id=$1', [version])).rows[0], { content_text: 'Published content', source_message_id: null });
   await expectDatabaseError(() => db.query("update public.artifact_versions set content_text='forbidden' where id=$1", [version]), '55000');
-  await expectDatabaseError(() => db.query("select public.finish_chat_generation($1,$2,$3,$4,'complete',$5,'stop')", [chat, ownerId, generation.assistant_message_id, nextKey, parts]), '40001');
+  await expectDatabaseError(() => db.query("select public.finish_chat_generation($1,$2,$3,$4,'complete',$5,'stop')", [chat, ownerId, generation.assistant_message_id, nextKey, parts]), 'PT409');
 
   await db.query("insert into public.messages(conversation_id,author_id,role,status,parts) values($1,$2,'user','complete',$3)", [chat, ownerId, parts]);
   assert.equal((await clear()).rows[0].n, 2); // Old result, not a new deletion.

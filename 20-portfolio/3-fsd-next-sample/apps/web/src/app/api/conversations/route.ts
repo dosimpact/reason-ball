@@ -127,6 +127,7 @@ export async function POST(request: Request) {
       characterId: parsed.data.characterId,
       missionId: parsed.data.missionId ?? null,
       title: parsed.data.title,
+      titleMode: parsed.data.titleMode,
       visibility: parsed.data.visibility,
       modelId: parsed.data.modelId ?? null,
     });
@@ -173,7 +174,7 @@ export async function POST(request: Request) {
       .insert({
         id: parsed.data.id ?? crypto.randomUUID(),
         owner_id: user.id,
-        metadata: { creationRequest },
+        metadata: { creationRequest, initialTitleMode: parsed.data.titleMode ?? "manual" },
         character_id: character.id,
         character_version_id: character.versionId,
         mission_id: mission?.id ?? null,

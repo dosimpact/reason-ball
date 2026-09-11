@@ -8,7 +8,8 @@ export const DEFAULT_CHAT_MODEL = "gpt-5.6-terra";
 export const DEFAULT_IMAGE_MODEL = "gpt-image-2";
 export const DEFAULT_SPEECH_MODEL = "gpt-4o-mini-tts";
 
-export type AiProviderName = "mock" | "oauth-proxy" | "openai";
+import { operationProviderOverride, type AiProviderName, type AiOperation } from "./provider-policy";
+export type { AiProviderName } from "./provider-policy";
 export type AiApiMode = "chat-completions" | "responses";
 
 export type AiRuntimeConfig = {
@@ -108,8 +109,11 @@ function readProxyBaseUrl() {
   return rawUrl.replace(/\/+$/, "");
 }
 
-export function readAiRuntimeConfig(): AiRuntimeConfig {
-  const providerName = readProviderName();
+export function readAiRuntimeConfig(operation: AiOperation = "chat"): AiRuntimeConfig {
+  let override: AiProviderName | undefined;
+  try { override = operationProviderOverride(operation, process.env); }
+  catch (cause) { throw new AiConfigurationError(cause instanceof Error ? cause.message : "AI provider override is invalid."); }
+  const providerName = override ?? readProviderName();
   const models = {
     chat: readModelId("AI_CHAT_MODEL", "OPENAI_MODEL", DEFAULT_CHAT_MODEL),
     image: readModelId(

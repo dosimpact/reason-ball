@@ -16,16 +16,16 @@ export async function verifyMessageBranch(db, { ownerId, reporterId, conversatio
   const third = await begin('third', 'Discard this');
   const replace = (id = key, tail = third.assistant_message_id, owner = ownerId, text = 'Edited') => db.query(
     'select public.replace_message_branch($1,$2,$3,$4,$5,$6) as id', [chat, owner, second.user_message_id, tail, id, JSON.stringify(parts(text))]);
-  await expectDatabaseError(() => replace(), '40001'); // live generation
+  await expectDatabaseError(() => replace(), 'PT409'); // live generation
   await finish(third);
   await expectDatabaseError(() => replace(key, third.assistant_message_id, reporterId), '42501');
-  await expectDatabaseError(() => replace(key, second.assistant_message_id), '40001');
+  await expectDatabaseError(() => replace(key, second.assistant_message_id), 'PT409');
   // A collision occurs after deletion; the transaction must restore that tail.
   await expectDatabaseError(() => replace(first.user_message_id), '23505');
   assert.equal((await db.query('select count(*)::int as n from public.messages where conversation_id=$1', [chat])).rows[0].n, 6);
   assert.equal((await replace()).rows[0].id, key);
   assert.equal((await replace()).rows[0].id, key);
-  await expectDatabaseError(() => replace(key, third.assistant_message_id, ownerId, 'Different input'), '40001');
+  await expectDatabaseError(() => replace(key, third.assistant_message_id, ownerId, 'Different input'), 'PT409');
   const rows = (await db.query('select id,role,plain_text,client_message_id from public.messages where conversation_id=$1 order by sequence_number', [chat])).rows;
   assert.deepEqual(rows.map((row) => row.id), [first.user_message_id, first.assistant_message_id, key]);
   assert.equal(rows[2].plain_text, 'Edited');

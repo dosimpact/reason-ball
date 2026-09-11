@@ -44,3 +44,11 @@ test("inserting a hint preserves the entire draft and does not insert blank hint
   expect(appendGuidanceHint("", "Hint")).toBe("Hint");
   expect(appendGuidanceHint("Keep spaces  ", " ")).toBe("Keep spaces  ");
 });
+
+test("all required goals achieved permits review while optional goals remain available", () => {
+  const steps = run.steps.map((step, index) => ({ ...step, required: index === 0, status: index === 0 ? "completed" as const : "locked" as const }));
+  const guidance = buildMissionGuidance(mission, { ...run, steps });
+  expect(guidance.state).toBe("review");
+  expect(guidance.currentStepId).toBeUndefined();
+  expect(selectGuidanceStep(guidance, steps[1].id)?.id).toBe(steps[1].id);
+});

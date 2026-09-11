@@ -1,3 +1,4 @@
+import { restoreMissionAssistance } from "@/entities/mission-run/model/mission-hint";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type {
   EvaluationAxis,
@@ -10,6 +11,8 @@ import type {
 import { assertDatabaseSuccess, SupabaseHttpError, throwMutationError } from "@/shared/api/supabase/http";
 import { resumeOwnedRun } from "./resume-owned-run";
 import { restoreMissionDisplayMetadata } from "@/shared/api/supabase/version-display-metadata";
+import { restoreNewExpressions } from "@/entities/mission-run/model/new-expressions";
+import { restoreEvaluationObjectiveIds } from "@/entities/mission-run/model/evaluation-objectives";
 
 export async function startProductionRun(
   admin: SupabaseClient,
@@ -185,6 +188,8 @@ function evaluationFromRow(
       : [],
     completedStepIds,
     vocabularyObserved: strings(row.vocabulary_observed),
+    newExpressions: restoreNewExpressions(row.feedback),
+    assistance: restoreMissionAssistance(row.feedback),
     createdAt: row.created_at,
   };
 }
@@ -208,12 +213,49 @@ export async function getOwnedRunRow(
   return row;
 }
 
+async function restoreProductionCompletion(
+  client: SupabaseClient,
+  row: MissionRunRow,
+): Promise<MissionCompletionResult | undefined> {
+  if (row.status !== "passed") return undefined;
+  if (!row.awarded_evaluation_id || !row.awarded_mission_reward_id || !row.completed_at || row.score == null || row.stars == null) {
+    throw new SupabaseHttpError(502, "MISSION_COMPLETION_INCOMPLETE", "The saved completion is missing its awarded result.");
+  }
+  const [reward, mission] = await Promise.all([
+    client.from("mission_rewards").select("character_asset_id")
+      .eq("id", row.awarded_mission_reward_id).eq("mission_id", row.mission_id).eq("mission_version_id", row.mission_version_id).single(),
+    client.from("missions").select("reward_experience_points").eq("id", row.mission_id).single(),
+  ]);
+  assertDatabaseSuccess(reward.error, "mission_rewards.restore_completion");
+  assertDatabaseSuccess(mission.error, "missions.restore_completion_xp");
+  if (!reward.data || !mission.data || !Number.isInteger(mission.data.reward_experience_points) || mission.data.reward_experience_points < 0) {
+    throw new SupabaseHttpError(502, "MISSION_COMPLETION_INCOMPLETE", "The saved completion reward is unavailable.");
+  }
+  // The same asset can already have been unlocked by an earlier attempt.
+  // Match the completion RPC's owner+asset identity, not the current run ID.
+  const unlock = await client.from("reward_unlocks").select("id")
+    .eq("user_id", row.owner_id).eq("character_asset_id", reward.data.character_asset_id).single();
+  assertDatabaseSuccess(unlock.error, "reward_unlocks.restore_completion");
+  if (!unlock.data) throw new SupabaseHttpError(502, "MISSION_COMPLETION_INCOMPLETE", "The saved reward unlock is unavailable.");
+  return {
+    missionRunId: row.id,
+    missionEvaluationId: row.awarded_evaluation_id,
+    rewardUnlockId: unlock.data.id,
+    score: numberValue(row.score),
+    stars: row.stars,
+    // Matches complete_mission_run replay. The schema has no immutable per-run
+    // XP snapshot; this value is the mission's current configured award.
+    experiencePointsAwarded: mission.data.reward_experience_points,
+    alreadyCompleted: true,
+  };
+}
+
 export async function hydrateProductionRun(
   client: SupabaseClient,
   row: MissionRunRow,
   completion?: MissionCompletionResult,
 ): Promise<MissionRun> {
-  const [stepResult, definitionResult, evaluationResult, missionResult, bestResult, displayResult] =
+  const [stepResult, definitionResult, evaluationResult, missionResult, bestResult, displayResult, restoredCompletion] =
     await Promise.all([
       client
         .from("mission_step_progress")
@@ -246,6 +288,7 @@ export async function hydrateProductionRun(
         .limit(1),
       client.from("mission_versions").select("display_metadata")
         .eq("id", row.mission_version_id).eq("mission_id", row.mission_id).limit(1),
+      completion ? Promise.resolve(completion) : restoreProductionCompletion(client, row),
     ]);
   assertDatabaseSuccess(stepResult.error, "mission_step_progress.select");
   assertDatabaseSuccess(definitionResult.error, "mission_steps.select");
@@ -273,10 +316,8 @@ export async function hydrateProductionRun(
       feedback: item?.feedback ?? undefined,
     } satisfies MissionRunStep;
   });
-  const completedStepIds = steps
-    .filter((step) => step.status === "completed")
-    .map((step) => step.id);
   const evaluationRow = ((evaluationResult.data ?? []) as EvaluationRow[])[0];
+  const completedStepIds = restoreEvaluationObjectiveIds(evaluationRow?.feedback, steps.map((step) => step.id));
   const bestRow = ((bestResult.data ?? []) as Array<{
     attempt_number: number;
     score: number | string;
@@ -311,7 +352,8 @@ export async function hydrateProductionRun(
     evaluation: evaluationRow
       ? evaluationFromRow(evaluationRow, row.id, completedStepIds, row.stars ?? 0)
       : undefined,
-    completion,
+    completion: restoredCompletion,
+    rewardId: row.awarded_mission_reward_id ?? undefined,
     best,
     reviewNote: typeof feedback.reviewNote === "string" ? feedback.reviewNote : undefined,
     startedAt: row.started_at ?? undefined,

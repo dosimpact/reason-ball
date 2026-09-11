@@ -103,7 +103,7 @@ export const httpLearningRepository: LearningRepository = {
     const current = await requestJson<ItemResponse<Character>>(path);
     const payload = await requestJson<ItemResponse<Character>>(path, {
       method: "PATCH",
-      body: JSON.stringify({
+      body: JSON.stringify(draft.publishStatus === "archived" ? { action: "archive" } : {
         action: "create-version",
         expectedVersion: Math.max(1, Number(current.item.versionNumber ?? 1)),
         draft,
@@ -144,7 +144,7 @@ export const httpLearningRepository: LearningRepository = {
     const current = await requestJson<ItemResponse<Mission>>(path);
     const payload = await requestJson<ItemResponse<Mission>>(path, {
       method: "PATCH",
-      body: JSON.stringify({
+      body: JSON.stringify(draft.publishStatus === "archived" ? { action: "archive" } : {
         action: "create-version",
         expectedVersion: Math.max(1, Number(current.item.versionNumber ?? 1)),
         draft,

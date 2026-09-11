@@ -17,12 +17,9 @@
     "test:e2e": "pnpm --filter @fsd-next-sample/web test:e2e",
     "test:security": "pnpm --filter @fsd-next-sample/web test:security",
     "test:e2e:ui": "pnpm --filter @fsd-next-sample/web test:e2e:ui",
-    "supabase:start": "supabase start",
-    "supabase:stop": "supabase stop",
-    "supabase:reset": "supabase db reset",
-    "supabase:status": "supabase status",
     "supabase:check": "pnpm --filter @fsd-next-sample/web supabase:check",
-    "test:e2e:supabase": "pnpm --filter @fsd-next-sample/web test:e2e:supabase"
+    "test:e2e:supabase": "pnpm --filter @fsd-next-sample/web test:e2e:supabase",
+    "test:e2e:mock": "pnpm --filter @fsd-next-sample/web test:e2e:mock"
   },
   "devDependencies": {
     "supabase": "^2.116.0"

@@ -312,7 +312,7 @@ begin
   if exists (select 1 from public.chat_generations g join public.messages m on m.id = g.user_message_id
     where g.conversation_id = _conversation_id and m.client_message_id = _client_message_id
       and g.continuation_parts is not null and g.status <> 'complete') then
-    raise exception using errcode = '40001', message = 'retry the saved approval continuation';
+    raise exception using errcode = 'PT409', message = 'retry the saved approval continuation';
   end if;
   return query select * from public.begin_chat_generation_user(_conversation_id, _owner_id, _client_message_id, _parts, _request_id, _model_id);
 end;
@@ -351,7 +351,7 @@ begin
   if found then
     if user_row.role <> 'user' or user_row.author_id is distinct from _owner_id
       or user_row.parts is distinct from _parts then
-      raise exception using errcode = '40001', message = 'message key reused with different content';
+      raise exception using errcode = 'PT409', message = 'message key reused with different content';
     end if;
     select * into generation from public.chat_generations g where g.user_message_id = user_row.id;
     if found and generation.status = 'complete' then
@@ -360,13 +360,13 @@ begin
     end if;
     if exists (select 1 from public.messages m where m.conversation_id = _conversation_id
       and m.role = 'user' and m.sequence_number > user_row.sequence_number) then
-      raise exception using errcode = '40001', message = 'only the latest user turn can be retried';
+      raise exception using errcode = 'PT409', message = 'only the latest user turn can be retried';
     end if;
   end if;
 
   if exists (select 1 from public.chat_generations g where g.conversation_id = _conversation_id
     and g.status = 'running' and g.lease_expires_at > clock_timestamp()) then
-    raise exception using errcode = '40001', message = 'a chat generation is already running';
+    raise exception using errcode = 'PT409', message = 'a chat generation is already running';
   end if;
   -- A crashed worker must not strand the conversation forever. Late writes are
   -- fenced by request_id below, even after the same turn is reclaimed.
@@ -459,24 +459,24 @@ begin
   select * into answer from public.messages where conversation_id = _conversation_id
     order by sequence_number desc limit 1;
   if answer.id is distinct from _assistant_id or answer.role <> 'assistant' or answer.model_id is distinct from _model_id then
-    raise exception using errcode = '40001', message = 'approval turn or model changed';
+    raise exception using errcode = 'PT409', message = 'approval turn or model changed';
   end if;
   select * into generation from public.chat_generations g
     where g.conversation_id = _conversation_id and g.assistant_message_id = _assistant_id;
-  if not found then raise exception using errcode = '40001', message = 'approval generation missing'; end if;
+  if not found then raise exception using errcode = 'PT409', message = 'approval generation missing'; end if;
   select * into learner from public.messages where id = generation.user_message_id;
   if learner.author_id is distinct from _owner_id or learner.role <> 'user' then
     raise exception using errcode = '42501', message = 'approval author mismatch';
   end if;
   if exists (select 1 from public.chat_generations g where g.conversation_id = _conversation_id
     and g.status = 'running' and g.lease_expires_at > clock_timestamp()) then
-    raise exception using errcode = '40001', message = 'generation running';
+    raise exception using errcode = 'PT409', message = 'generation running';
   end if;
 
   if generation.status <> 'complete' then
     -- Only the same decisions can reclaim a failed or expired continuation.
     if generation.continuation_parts is null or generation.continuation_decisions is distinct from canonical then
-      raise exception using errcode = '40001', message = 'approval retry changed';
+      raise exception using errcode = 'PT409', message = 'approval retry changed';
     end if;
     merged := generation.continuation_parts;
   else
@@ -485,7 +485,7 @@ begin
       select count(*) into matching from jsonb_array_elements(merged) p
         where p->>'toolCallId' = decision->>'toolCallId' and p->'approval'->>'id' = decision->>'approvalId'
           and (p->>'type' like 'tool-%' or p->>'type' = 'dynamic-tool');
-      if matching <> 1 then raise exception using errcode = '40001', message = 'approval target missing'; end if;
+      if matching <> 1 then raise exception using errcode = 'PT409', message = 'approval target missing'; end if;
       select value, (ordinality - 1)::integer into part, part_index
         from jsonb_array_elements(merged) with ordinality
         where value->>'toolCallId' = decision->>'toolCallId' and value->'approval'->>'id' = decision->>'approvalId';
@@ -498,7 +498,7 @@ begin
         and part->'approval'->'approved' = decision->'approved'
         and (part->'approval'->'reason') is not distinct from (decision->'reason') then
         null;
-      else raise exception using errcode = '40001', message = 'approval decision changed';
+      else raise exception using errcode = 'PT409', message = 'approval decision changed';
       end if;
     end loop;
     if new_decisions = 0 then
@@ -633,7 +633,6 @@ CREATE FUNCTION public.can_view_conversation(_conversation_id uuid) RETURNS bool
       and (
         owner_id = (select auth.uid())
         or visibility = 'public'
-        or (visibility = 'unlisted' and (select auth.uid()) is not null)
       )
   ) or public.is_admin();
 $$;
@@ -798,14 +797,14 @@ begin
       or saved_request.expected_version_id is distinct from _expected_version_id
       or saved_request.payload is distinct from _payload
     then
-      raise exception using errcode = '40001', message = 'artifact request key reused with different input';
+      raise exception using errcode = 'PT409', message = 'artifact request key reused with different input';
     end if;
     return saved_request.request_id;
   end if;
 
   if _expected_version_id is null then
     if locked_artifact.id is not null then
-      raise exception using errcode = '40001', message = 'artifact already exists';
+      raise exception using errcode = 'PT409', message = 'artifact already exists';
     end if;
     perform * from public.create_artifact_with_version(
       _artifact_id, _request_id, _expected_owner_id, _conversation_id, _payload
@@ -815,7 +814,7 @@ begin
       raise exception using errcode = 'P0002', message = 'artifact not found';
     end if;
     if locked_artifact.current_version_id is distinct from _expected_version_id then
-      raise exception using errcode = '40001', message = 'artifact version changed';
+      raise exception using errcode = 'PT409', message = 'artifact version changed';
     end if;
     -- Both operations share this transaction; an invalid version rolls back title too.
     if _payload ? 'title' then
@@ -1192,7 +1191,7 @@ begin
 
   if not found then
     raise exception using
-      errcode = '40001',
+      errcode = 'PT409',
       message = 'mission run changed while completion was in progress';
   end if;
 
@@ -1485,7 +1484,7 @@ begin
     raise exception using errcode = '23514', message = 'character current version is invalid';
   end if;
   if current_version_number <> _expected_version_number then
-    raise exception using errcode = '40001', message = 'character version conflict';
+    raise exception using errcode = 'PT409', message = 'character version conflict';
   end if;
 
   select coalesce(max(version.version_number), 0) + 1
@@ -1935,7 +1934,7 @@ begin
     raise exception using errcode = '23514', message = 'mission current version is invalid';
   end if;
   if current_version_number <> _expected_version_number then
-    raise exception using errcode = '40001', message = 'mission version conflict';
+    raise exception using errcode = 'PT409', message = 'mission version conflict';
   end if;
 
   select *
@@ -2551,12 +2550,12 @@ begin
   select * into generation from public.chat_generations g
     where g.conversation_id = _conversation_id and g.assistant_message_id = _assistant_message_id;
   if not found or generation.request_id is distinct from _request_id then
-    raise exception using errcode = '40001', message = 'stale generation completion';
+    raise exception using errcode = 'PT409', message = 'stale generation completion';
   end if;
   if generation.status <> 'running' then
     if generation.status = _status and exists (select 1 from public.messages m
       where m.id = _assistant_message_id and m.parts = _parts) then return _assistant_message_id; end if;
-    raise exception using errcode = '40001', message = 'generation already finalized';
+    raise exception using errcode = 'PT409', message = 'generation already finalized';
   end if;
   update public.messages set parts = _parts,
     plain_text = coalesce((select string_agg(part ->> 'text', E'\n' order by ordinal)
@@ -2858,18 +2857,18 @@ begin
   select * into receipt from public.response_regeneration_requests where request_id = _request_id;
   if found then
     if receipt.conversation_id <> _conversation_id or receipt.assistant_message_id <> _assistant_id then
-      raise exception using errcode = '40001', message = 'regeneration key reused';
+      raise exception using errcode = 'PT409', message = 'regeneration key reused';
     end if;
     return receipt.user_message_id;
   end if;
   if exists (select 1 from public.chat_generations where conversation_id = _conversation_id
     and status = 'running' and lease_expires_at > clock_timestamp()) then
-    raise exception using errcode = '40001', message = 'generation running';
+    raise exception using errcode = 'PT409', message = 'generation running';
   end if;
   select * into answer from public.messages where conversation_id = _conversation_id
     order by sequence_number desc limit 1;
   if answer.id is distinct from _assistant_id or answer.role <> 'assistant' or answer.status <> 'complete' then
-    raise exception using errcode = '40001', message = 'only the latest completed answer can be regenerated';
+    raise exception using errcode = 'PT409', message = 'only the latest completed answer can be regenerated';
   end if;
   select * into learner from public.messages where conversation_id = _conversation_id
     and role = 'user' and author_id = _owner_id and sequence_number < answer.sequence_number
@@ -2903,6 +2902,16 @@ declare
   target_asset_id uuid;
   target_asset_type text;
 begin
+
+  if tg_op = 'DELETE' and pg_trigger_depth() > 1
+    and current_user in ('postgres', 'supabase_admin', 'service_role') then
+    if tg_table_name = 'character_assets' then
+      -- Reward assets still honor surviving published mission references below.
+      if old.asset_type <> 'reward' and not exists (select 1 from public.characters where id = old.character_id) then return old; end if;
+    elsif tg_table_name = 'mission_assets' then
+      if not exists (select 1 from public.missions where id = old.mission_id) then return old; end if;
+    end if;
+  end if;
   old_version_id := case when tg_op = 'INSERT' then null else
     nullif(coalesce(
       to_jsonb(old) ->> 'character_version_id',
@@ -2966,6 +2975,11 @@ CREATE FUNCTION public.prevent_published_character_instruction_mutation() RETURN
 declare
   target_version_id uuid;
 begin
+
+  if tg_op = 'DELETE' and pg_trigger_depth() > 1
+    and current_user in ('postgres', 'supabase_admin', 'service_role')
+    and not exists (select 1 from public.character_versions v join public.characters c on c.id = v.character_id where v.id = old.character_version_id)
+  then return old; end if;
   target_version_id := case
     when tg_op = 'DELETE' then old.character_version_id
     else new.character_version_id
@@ -3001,6 +3015,11 @@ CREATE FUNCTION public.prevent_published_mission_character_mutation() RETURNS tr
 declare
   target_mission_id uuid;
 begin
+
+  if tg_op = 'DELETE' and pg_trigger_depth() > 1
+    and current_user in ('postgres', 'supabase_admin', 'service_role')
+    and not exists (select 1 from public.missions where id = old.mission_id)
+  then return old; end if;
   target_mission_id := case
     when tg_op = 'DELETE' then old.mission_id
     else new.mission_id
@@ -3036,6 +3055,11 @@ CREATE FUNCTION public.prevent_published_mission_child_mutation() RETURNS trigge
 declare
   target_version_id uuid;
 begin
+
+  if tg_op = 'DELETE' and pg_trigger_depth() > 1
+    and current_user in ('postgres', 'supabase_admin', 'service_role')
+    and not exists (select 1 from public.mission_versions v join public.missions m on m.id = v.mission_id where v.id = old.mission_version_id)
+  then return old; end if;
   if tg_table_name = 'mission_version_instructions' then
     target_version_id := case
       when tg_op = 'DELETE' then old.mission_version_id
@@ -3081,6 +3105,15 @@ CREATE FUNCTION public.prevent_published_version_mutation() RETURNS trigger
     SET search_path TO ''
     AS $$
 begin
+
+  if tg_op = 'DELETE' and pg_trigger_depth() > 1
+    and current_user in ('postgres', 'supabase_admin', 'service_role') then
+    if tg_table_name = 'character_versions' then
+      if not exists (select 1 from public.characters where id = old.character_id) then return old; end if;
+    elsif tg_table_name = 'mission_versions' then
+      if not exists (select 1 from public.missions where id = old.mission_id) then return old; end if;
+    end if;
+  end if;
   if current_user in ('postgres', 'supabase_admin')
     and current_setting('app.immutable_purge', true) = 'enabled'
   then
@@ -3398,7 +3431,7 @@ begin
   values (_conversation_id,_owner_id,object_path,_sha256,_mime_type,_byte_size,_filename)
   on conflict (storage_path) do nothing;
   select * into stored from public.chat_file_uploads where storage_path=object_path;
-  if stored.byte_size <> _byte_size or stored.mime_type <> _mime_type then raise exception using errcode='40001', message='file metadata conflict'; end if;
+  if stored.byte_size <> _byte_size or stored.mime_type <> _mime_type then raise exception using errcode='PT409', message='file metadata conflict'; end if;
   return stored;
 end;
 $_$;
@@ -3432,18 +3465,18 @@ begin
   if found then
     if receipt.conversation_id <> _conversation_id or receipt.source_message_id <> _source_id
       or receipt.expected_tail_id <> _expected_tail_id or receipt.parts is distinct from _parts then
-      raise exception using errcode = '40001', message = 'branch key reused with different input';
+      raise exception using errcode = 'PT409', message = 'branch key reused with different input';
     end if;
     return _request_id;
   end if;
   if exists (select 1 from public.chat_generations where conversation_id = _conversation_id
     and status = 'running' and lease_expires_at > clock_timestamp()) then
-    raise exception using errcode = '40001', message = 'a generation is running';
+    raise exception using errcode = 'PT409', message = 'a generation is running';
   end if;
   select id into tail_id from public.messages where conversation_id = _conversation_id
     order by sequence_number desc limit 1;
   if tail_id is distinct from _expected_tail_id then
-    raise exception using errcode = '40001', message = 'conversation changed since editing began';
+    raise exception using errcode = 'PT409', message = 'conversation changed since editing began';
   end if;
   select * into source from public.messages where id = _source_id
     and conversation_id = _conversation_id and author_id = _owner_id and role = 'user';
@@ -3486,7 +3519,7 @@ begin
   perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended('notebook:' || _owner_id::text, 0));
   select * into previous from public.learning_notebook_requests r where r.user_id=_owner_id and r.request_id=_request_id;
   if found then
-    if previous.draft <> _draft then raise exception using errcode='40001', message='notebook request changed'; end if;
+    if previous.draft <> _draft then raise exception using errcode='PT409', message='notebook request changed'; end if;
     select * into saved from public.learning_notebook_entries e where e.user_id=_owner_id and e.id=previous.entry_id;
     result_kind := 'replayed';
   else
@@ -3502,7 +3535,7 @@ begin
     select * into saved from public.learning_notebook_entries e
       where e.user_id=_owner_id and md5(e.identity_key)=md5(_identity_key);
     if found then
-      if saved.identity_key <> _identity_key then raise exception using errcode='40001', message='notebook identity conflict'; end if;
+      if saved.identity_key <> _identity_key then raise exception using errcode='PT409', message='notebook identity conflict'; end if;
       result_kind := 'duplicate';
     else
       insert into public.learning_notebook_entries(user_id,id,draft,identity_key)
@@ -3539,7 +3572,7 @@ begin
     update public.learner_preferences p set settings=_settings, revision=p.revision+1
       where p.user_id=owner_id and p.revision=_expected_revision returning p.* into saved;
   end if;
-  if saved.user_id is null then raise exception using errcode='40001', message='learning preferences changed; reload before editing'; end if;
+  if saved.user_id is null then raise exception using errcode='PT409', message='learning preferences changed; reload before editing'; end if;
   return query select saved.revision, saved.settings;
 end;
 $$;
@@ -3560,7 +3593,7 @@ begin
   perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended('saved-missions:' || owner_id::text, 0));
   select * into previous from public.mission_favorite_requests r where r.user_id=owner_id and r.request_id=_request_id;
   if found then
-    if previous.mission_id <> _mission_id or previous.saved <> _saved then raise exception using errcode='40001', message='bookmark request changed'; end if;
+    if previous.mission_id <> _mission_id or previous.saved <> _saved then raise exception using errcode='PT409', message='bookmark request changed'; end if;
     return query select previous.mission_id, previous.saved;
     return;
   end if;
@@ -3663,7 +3696,7 @@ begin
   end if;
   if mission.current_version_id is distinct from _mission_version_id
     or persona.current_version_id is distinct from _character_version_id then
-    raise exception 'Publication changed before mission start' using errcode = '40001';
+    raise exception 'Publication changed before mission start' using errcode = 'PT409';
   end if;
   if not exists (select 1 from public.mission_versions where id = _mission_version_id
       and mission_id = _mission_id and published_at is not null)
@@ -3699,9 +3732,9 @@ begin
 
   if chat_id is null then
     insert into public.conversations(owner_id, mission_id, mission_version_id, character_id,
-      character_version_id, title, model_id, metadata)
+      character_version_id, title, model_id, metadata, title_source)
     values (_expected_owner_id, _mission_id, _mission_version_id, _character_id,
-      _character_version_id, mission.title, _model_id, '{"source":"mission-run"}'::jsonb)
+      _character_version_id, mission.title, _model_id, '{"source":"mission-run"}'::jsonb, 'pending')
     returning id into chat_id;
   end if;
   insert into public.mission_runs(owner_id, mission_id, mission_version_id, character_id,
@@ -3792,13 +3825,13 @@ $$;
 -- Name: valid_learning_preferences(jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.valid_learning_preferences(value jsonb) RETURNS boolean
-    LANGUAGE plpgsql IMMUTABLE
-    SET search_path TO ''
-    AS $$
+CREATE FUNCTION public.valid_learning_preferences(value jsonb)
+returns boolean language plpgsql immutable set search_path = '' as $$
 declare fields text[] := array['displayName','learnerLevel','dailyGoal','learningGoal','interests','correctionMode','voice','rate','autoplay'];
 begin
-  if value is null or jsonb_typeof(value) <> 'object' or not value ?& fields or value - fields <> '{}'::jsonb then return false; end if;
+  if value is null or jsonb_typeof(value) <> 'object' or not value ?& fields or value - (fields || array['koreanExplanation','responseLength']) <> '{}'::jsonb then return false; end if;
+  if value ? 'koreanExplanation' and (jsonb_typeof(value->'koreanExplanation') <> 'string' or value->>'koreanExplanation' not in ('none','brief','detailed')) then return false; end if;
+  if value ? 'responseLength' and (jsonb_typeof(value->'responseLength') <> 'string' or value->>'responseLength' not in ('short','standard','long')) then return false; end if;
   if jsonb_typeof(value->'displayName') <> 'string' or char_length(btrim(value->>'displayName')) not between 1 and 40
     or jsonb_typeof(value->'learningGoal') <> 'string' or char_length(value->>'learningGoal') > 500
     or jsonb_typeof(value->'autoplay') <> 'boolean'
@@ -4402,6 +4435,7 @@ CREATE TABLE public.conversations (
     mission_id uuid,
     mission_version_id uuid,
     title text DEFAULT 'New conversation'::text NOT NULL,
+    title_source text DEFAULT 'manual'::text NOT NULL CHECK (title_source IN ('manual', 'pending', 'auto')),
     visibility text DEFAULT 'private'::text NOT NULL,
     status text DEFAULT 'active'::text NOT NULL,
     model_id text NOT NULL,
@@ -7531,7 +7565,7 @@ CREATE POLICY conversations_insert_owned ON public.conversations FOR INSERT TO a
 -- Name: conversations conversations_select_visible; Type: POLICY; Schema: public; Owner: -
 --
 
-CREATE POLICY conversations_select_visible ON public.conversations FOR SELECT USING ((((status <> 'deleted'::text) AND ((owner_id = ( SELECT auth.uid() AS uid)) OR (visibility = 'public'::text) OR ((visibility = 'unlisted'::text) AND (( SELECT auth.uid() AS uid) IS NOT NULL)))) OR public.is_admin()));
+CREATE POLICY conversations_select_visible ON public.conversations FOR SELECT USING ((((status <> 'deleted'::text) AND ((owner_id = ( SELECT auth.uid() AS uid)) OR (visibility = 'public'::text))) OR public.is_admin()));
 
 
 --
@@ -9272,3 +9306,352 @@ ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON T
 --
 
 
+
+-- Character saved-conversation counter (20260910203419).
+create schema if not exists app_private;
+revoke all on schema app_private from public, anon, authenticated, service_role;
+
+create function app_private.maintain_character_conversation_count()
+returns trigger language plpgsql security definer set search_path = ''
+as $$
+declare
+  old_character uuid;
+  new_character uuid;
+begin
+  if tg_op <> 'INSERT' then
+    if old.status <> 'deleted' then old_character := old.character_id; end if;
+  end if;
+  if tg_op <> 'DELETE' then
+    if new.status <> 'deleted' then new_character := new.character_id; end if;
+  end if;
+  -- Includes active <-> archived and updates of unrelated fields.
+  if old_character is not distinct from new_character then return null; end if;
+
+  -- Atomic deltas avoid recount races. UUID ordering handles opposite transfers;
+  -- NO KEY UPDATE remains compatible with the conversation FK's KEY SHARE lock.
+  perform id from public.characters
+    where id in (old_character, new_character)
+    order by id for no key update;
+  if old_character is not null then
+    update public.characters set conversation_count = conversation_count - 1
+      where id = old_character;
+  end if;
+  if new_character is not null then
+    update public.characters set conversation_count = conversation_count + 1
+      where id = new_character;
+  end if;
+  return null;
+end;
+$$;
+revoke all on function app_private.maintain_character_conversation_count() from public, anon, authenticated, service_role;
+
+create trigger conversations_maintain_character_count
+  after insert or delete or update of character_id, status on public.conversations
+  for each row execute function app_private.maintain_character_conversation_count();
+
+comment on column public.characters.conversation_count is
+  'Number of saved conversations in active or archived state; excludes deleted conversations, not a distinct learner count. Maintained by an internal trigger.';
+
+
+-- First saved user-message titles (20260910213224).
+comment on column public.conversations.title_source is
+  'Server-owned title intent: pending opts a new contextual title into first saved learner-message naming; auto/manual persist across clear, edits and retries. Legacy rows stay manual.';
+
+-- Preserve the existing browser write surface, excluding the new server marker.
+revoke insert, update on public.conversations from anon, authenticated;
+grant insert (id, owner_id, character_id, character_version_id, mission_id, mission_version_id,
+  title, visibility, status, model_id, share_token, metadata, last_message_at, created_at, updated_at),
+  update (id, owner_id, character_id, character_version_id, mission_id, mission_version_id,
+  title, visibility, status, model_id, share_token, metadata, last_message_at, created_at, updated_at)
+  on public.conversations to anon, authenticated;
+
+create function app_private.mark_manual_conversation_title()
+returns trigger language plpgsql security definer set search_path = ''
+as $$
+begin
+  -- Only the trusted automatic writer can supply this protected transition.
+  if old.title_source = 'pending' and new.title_source = 'auto' then return new; end if;
+  -- UPDATE OF title also fires when a user deliberately saves the same string.
+  new.title_source := 'manual';
+  return new;
+end;
+$$;
+revoke all on function app_private.mark_manual_conversation_title() from public, anon, authenticated, service_role;
+create trigger conversations_mark_manual_title before update of title on public.conversations
+  for each row execute function app_private.mark_manual_conversation_title();
+
+create function app_private.name_conversation_from_first_message()
+returns trigger language plpgsql security definer set search_path = ''
+as $$
+declare
+  candidate text;
+begin
+  if new.role <> 'user' or new.status <> 'complete' then return null; end if;
+  select string_agg(part->>'text', '' order by ordinal) into candidate
+    from jsonb_array_elements(new.parts) with ordinality as item(part, ordinal)
+    where part->>'type' = 'text' and jsonb_typeof(part->'text') = 'string';
+  candidate := left(btrim(regexp_replace(coalesce(candidate, ''), '[[:space:]]+', ' ', 'g')), 80);
+  if candidate = '' then
+    candidate := case when exists (select 1 from jsonb_array_elements(new.parts) as part where part->>'type' = 'file')
+      then '첨부파일 대화' else '새 대화' end;
+  end if;
+  -- The guarded UPDATE takes the same conversation row lock as rename/clear/chat
+  -- RPCs, and is committed or rolled back with this saved user message.
+  update public.conversations set title = candidate, title_source = 'auto'
+    where id = new.conversation_id and owner_id = new.author_id
+      and status = 'active' and title_source = 'pending';
+  return null;
+end;
+$$;
+revoke all on function app_private.name_conversation_from_first_message() from public, anon, authenticated, service_role;
+create trigger messages_name_conversation after insert on public.messages
+  for each row execute function app_private.name_conversation_from_first_message();
+
+
+-- RLS-preserving creation title intent (20260910214228).
+-- Opting one's new conversation into automatic naming is a public creation
+-- choice. Keep INSERT under the caller's RLS instead of granting marker writes.
+create function app_private.bootstrap_conversation_title_intent()
+returns trigger language plpgsql security definer set search_path = ''
+as $$
+begin
+  if new.title_source = 'manual' and new.metadata->>'initialTitleMode' = 'auto' then
+    new.title_source := 'pending';
+  end if;
+  return new;
+end;
+$$;
+revoke all on function app_private.bootstrap_conversation_title_intent() from public, anon, authenticated, service_role;
+create trigger conversations_bootstrap_title_intent before insert on public.conversations
+  for each row execute function app_private.bootstrap_conversation_title_intent();
+
+comment on function app_private.bootstrap_conversation_title_intent() is
+  'Reads public initialTitleMode only at creation, preserving caller RLS. Later metadata writes never reset auto/manual intent; explicit trusted pending is preserved.';
+
+-- Persisted Artifact provider suggestions (20260910215332).
+alter table public.artifact_suggestions
+  add column mode text check (mode in ('rewrite', 'grammar', 'analysis')),
+  add column selection_start integer,
+  add column selection_end integer,
+  add constraint artifact_suggestions_selection_check check (
+    (mode is null and selection_start is null and selection_end is null)
+    or (mode is not null and mode in ('grammar', 'analysis') and selection_start is null and selection_end is null)
+    or (mode is not null and mode = 'rewrite' and selection_start is not null and selection_end is not null
+      and selection_start >= 0 and selection_end > selection_start)
+  );
+comment on column public.artifact_suggestions.mode is
+  'Typed server-generated suggestion mode; NULL legacy rows have no recoverable provider metadata.';
+comment on column public.artifact_suggestions.original_text is
+  'For typed rows, the complete immutable source-version text snapshot; selection offsets use JavaScript UTF-16 units. Historical pending rows do not claim an application audit.';
+create index artifact_suggestions_current_pending_idx
+  on public.artifact_suggestions(artifact_version_id, owner_id, created_at desc, id desc)
+  where status = 'pending' and mode is not null;
+
+revoke all on public.artifact_suggestions from public, anon, authenticated;
+grant select on public.artifact_suggestions to authenticated;
+drop policy artifact_suggestions_insert_owned on public.artifact_suggestions;
+drop policy artifact_suggestions_update_owned on public.artifact_suggestions;
+drop policy artifact_suggestions_delete_owned on public.artifact_suggestions;
+drop policy artifact_suggestions_select_owned on public.artifact_suggestions;
+create policy artifact_suggestions_select_owned on public.artifact_suggestions
+  for select to authenticated using (
+    owner_id = (select auth.uid()) and exists (
+      select 1 from public.artifact_versions version join public.artifacts artifact on artifact.id = version.artifact_id
+      where version.id = artifact_version_id and artifact.owner_id = (select auth.uid())
+    )
+  );
+
+create function public.persist_artifact_suggestion(
+  _request_id uuid, _artifact_id uuid, _expected_owner_id uuid, _expected_version_id uuid,
+  _mode text, _selection_start integer, _selection_end integer,
+  _source_content text, _suggested_text text, _description text
+)
+returns setof public.artifact_suggestions
+language plpgsql security definer set search_path = ''
+as $$
+declare
+  owned_conversation_id uuid;
+  artifact public.artifacts%rowtype;
+  saved public.artifact_suggestions%rowtype;
+  source text;
+  source_units integer;
+begin
+  if _request_id is null or _artifact_id is null or _expected_owner_id is null or _expected_version_id is null
+    or _mode is null or _mode not in ('rewrite', 'grammar', 'analysis')
+    or _source_content is null or char_length(btrim(_source_content)) not between 1 and 20000
+    or _suggested_text is null or char_length(btrim(_suggested_text)) not between 1 and 20000
+    or _description is null or char_length(btrim(_description)) not between 1 and 2000 then
+    raise exception using errcode = '22023', message = 'invalid artifact suggestion';
+  end if;
+  -- Browser selection offsets count astral characters as two UTF-16 units.
+  select coalesce(sum(case when ascii(piece) > 65535 then 2 else char_length(piece) end), 0)::integer
+    into source_units from regexp_split_to_table(_source_content, '') as piece;
+  if source_units > 20000
+    or (_mode = 'rewrite' and (_selection_start is null or _selection_end is null
+      or _selection_start < 0 or _selection_end <= _selection_start or _selection_end > source_units))
+    or (_mode <> 'rewrite' and (_selection_start is not null or _selection_end is not null)) then
+    raise exception using errcode = '22023', message = 'invalid suggestion selection';
+  end if;
+
+  select a.conversation_id into owned_conversation_id from public.artifacts a
+    where a.id = _artifact_id and a.owner_id = _expected_owner_id;
+  if not found then raise exception using errcode = '42501', message = 'artifact suggestion owner mismatch'; end if;
+  -- Same lock order as commit_artifact_revision: conversation, then artifact.
+  perform 1 from public.conversations c where c.id = owned_conversation_id and c.owner_id = _expected_owner_id and c.status = 'active' for update;
+  if not found then raise exception using errcode = '42501', message = 'artifact suggestion conversation unavailable'; end if;
+  select a.* into artifact from public.artifacts a where a.id = _artifact_id
+    and a.owner_id = _expected_owner_id and a.conversation_id = owned_conversation_id for update;
+  if not found then raise exception using errcode = '42501', message = 'artifact suggestion owner changed'; end if;
+  if artifact.status = 'archived' then raise exception using errcode = 'PT409', message = 'artifact is archived'; end if;
+  if (_mode = 'grammar' and artifact.kind <> 'text') or (_mode = 'analysis' and artifact.kind <> 'sheet')
+    or (_mode = 'rewrite' and artifact.kind not in ('text', 'code', 'sheet')) then
+    raise exception using errcode = '22023', message = 'suggestion mode does not match artifact kind';
+  end if;
+
+  select v.content_text into source from public.artifact_versions v where v.id = _expected_version_id and v.artifact_id = _artifact_id;
+  if not found or source is distinct from _source_content then
+    raise exception using errcode = 'PT409', message = 'artifact suggestion source changed';
+  end if;
+
+  select s.* into saved from public.artifact_suggestions s where s.id = _request_id;
+  if found then
+    if saved.owner_id is distinct from _expected_owner_id or saved.artifact_version_id is distinct from _expected_version_id
+      or saved.mode is distinct from _mode or saved.selection_start is distinct from _selection_start
+      or saved.selection_end is distinct from _selection_end or saved.original_text is distinct from _source_content then
+      raise exception using errcode = 'PT409', message = 'suggestion request key reused with different input';
+    end if;
+    return next saved; return;
+  end if;
+  if artifact.current_version_id is distinct from _expected_version_id then
+    raise exception using errcode = 'PT409', message = 'artifact version changed before suggestion persistence';
+  end if;
+  insert into public.artifact_suggestions(id,artifact_version_id,owner_id,original_text,suggested_text,description,mode,selection_start,selection_end)
+    values(_request_id,_expected_version_id,_expected_owner_id,_source_content,_suggested_text,_description,_mode,_selection_start,_selection_end)
+    on conflict(id) do nothing returning * into saved;
+  if not found then
+    -- A concurrent call for another artifact can collide on the global request ID.
+    select s.* into saved from public.artifact_suggestions s where s.id = _request_id;
+    if saved.owner_id is distinct from _expected_owner_id or saved.artifact_version_id is distinct from _expected_version_id
+      or saved.mode is distinct from _mode or saved.selection_start is distinct from _selection_start
+      or saved.selection_end is distinct from _selection_end or saved.original_text is distinct from _source_content then
+      raise exception using errcode = 'PT409', message = 'suggestion request key reused with different input';
+    end if;
+  end if;
+  return next saved;
+end;
+$$;
+revoke all on function public.persist_artifact_suggestion(uuid,uuid,uuid,uuid,text,integer,integer,text,text,text) from public, anon, authenticated;
+grant execute on function public.persist_artifact_suggestion(uuid,uuid,uuid,uuid,text,integer,integer,text,text,text) to service_role;
+-- Existing attempts remain unknown; new attempts are tracked from their insertion.
+alter table public.mission_runs add column hint_tracking_started_at timestamptz;
+create function public.protect_mission_hint_tracking() returns trigger
+language plpgsql set search_path = '' as $$
+begin
+  if tg_op = 'INSERT' then new.hint_tracking_started_at := clock_timestamp();
+  elsif new.hint_tracking_started_at is distinct from old.hint_tracking_started_at then
+    raise exception using errcode='42501', message='hint tracking is server managed';
+  end if;
+  return new;
+end; $$;
+revoke all on function public.protect_mission_hint_tracking() from public, anon, authenticated;
+create trigger protect_mission_hint_tracking before insert or update on public.mission_runs
+for each row execute function public.protect_mission_hint_tracking();
+
+create table public.mission_hint_requests (
+  id uuid primary key,
+  mission_run_id uuid not null references public.mission_runs(id) on delete cascade,
+  mission_step_id uuid not null references public.mission_steps(id) on delete restrict,
+  depth integer not null check(depth between 1 and 3),
+  result jsonb not null check(jsonb_typeof(result)='object'
+    and jsonb_typeof(result->'text')='string' and char_length(btrim(result->>'text')) between 1 and 1200
+    and jsonb_typeof(result->'explanation')='string' and char_length(btrim(result->>'explanation')) between 1 and 1200
+    and result ? 'text' and result ? 'explanation'),
+  -- Historical identifiers, deliberately not FKs: clearing messages cannot rewrite help evidence.
+  context_message_id uuid,
+  context_sequence_number bigint,
+  created_at timestamptz not null default clock_timestamp(),
+  check ((context_message_id is null) = (context_sequence_number is null))
+);
+create index mission_hint_requests_run_created_idx on public.mission_hint_requests(mission_run_id,created_at,id);
+create index mission_hint_requests_step_idx on public.mission_hint_requests(mission_step_id);
+alter table public.mission_hint_requests enable row level security;
+revoke all on public.mission_hint_requests from public, anon, authenticated, service_role;
+grant select on public.mission_hint_requests to authenticated;
+grant select,insert,delete on public.mission_hint_requests to service_role;
+create policy mission_hint_requests_select_owner on public.mission_hint_requests for select to authenticated
+using(exists(select 1 from public.mission_runs r where r.id=mission_run_id and r.owner_id=(select auth.uid())));
+
+create function public.persist_mission_hint(
+ _expected_owner_id uuid,_request_id uuid,_mission_run_id uuid,_mission_step_id uuid,_depth integer,
+ _result jsonb,_context_message_id uuid,_context_sequence_number bigint
+) returns jsonb language plpgsql security definer set search_path = '' as $$
+declare
+ run public.mission_runs%rowtype;
+ saved public.mission_hint_requests%rowtype;
+ owned_conversation_id uuid;
+ latest_id uuid;
+ latest_sequence bigint;
+begin
+ if _expected_owner_id is null or _request_id is null or _mission_run_id is null or _mission_step_id is null
+   or _depth is null or _depth not between 1 and 3 then
+   raise exception using errcode='22023',message='invalid mission hint request';
+ end if;
+ select r.conversation_id into owned_conversation_id from public.mission_runs r
+ where r.id=_mission_run_id and r.owner_id=_expected_owner_id;
+ if not found then raise exception using errcode='42501',message='mission hint owner mismatch'; end if;
+ perform 1 from public.conversations c where c.id=owned_conversation_id and c.owner_id=_expected_owner_id and c.status='active' for update;
+ if not found then raise exception using errcode='42501',message='mission hint conversation unavailable'; end if;
+ select r.* into run from public.mission_runs r where r.id=_mission_run_id and r.owner_id=_expected_owner_id for update;
+ if not found or run.status='abandoned' then raise exception using errcode='PT409',message='mission run unavailable'; end if;
+ perform 1 from public.mission_steps s where s.id=_mission_step_id and s.mission_version_id=run.mission_version_id;
+ if not found then raise exception using errcode='22023',message='hint step does not belong to pinned mission version'; end if;
+ select h.* into saved from public.mission_hint_requests h where h.id=_request_id;
+ if found then
+   if saved.mission_run_id<>_mission_run_id or saved.mission_step_id<>_mission_step_id or saved.depth<>_depth then
+     raise exception using errcode='PT409',message='hint request key reused';
+   end if;
+   return to_jsonb(saved);
+ end if;
+ select m.id,m.sequence_number into latest_id,latest_sequence from public.messages m
+ where m.conversation_id=owned_conversation_id and m.status='complete' and m.role in ('user','assistant')
+ order by m.sequence_number desc limit 1;
+ if latest_id is distinct from _context_message_id or latest_sequence is distinct from _context_sequence_number then
+   raise exception using errcode='PT409',message='mission hint context changed';
+ end if;
+ insert into public.mission_hint_requests(id,mission_run_id,mission_step_id,depth,result,context_message_id,context_sequence_number)
+ values(_request_id,_mission_run_id,_mission_step_id,_depth,_result,_context_message_id,_context_sequence_number)
+ on conflict(id) do nothing returning * into saved;
+ if not found then
+   select h.* into saved from public.mission_hint_requests h where h.id=_request_id;
+   if saved.mission_run_id<>_mission_run_id or saved.mission_step_id<>_mission_step_id or saved.depth<>_depth then
+     raise exception using errcode='PT409',message='hint request key reused';
+   end if;
+ end if;
+ return to_jsonb(saved);
+end; $$;
+revoke all on function public.persist_mission_hint(uuid,uuid,uuid,uuid,integer,jsonb,uuid,bigint) from public,anon,authenticated;
+grant execute on function public.persist_mission_hint(uuid,uuid,uuid,uuid,integer,jsonb,uuid,bigint) to service_role;
+
+create function public.snapshot_mission_assistance() returns trigger
+language plpgsql security definer set search_path = '' as $$
+declare tracked_at timestamptz; snapshot jsonb;
+begin
+ if tg_op='UPDATE' then
+   -- Evaluation assistance is fixed at insertion, including absent legacy evidence.
+   new.feedback := new.feedback - 'assistance';
+   if old.feedback ? 'assistance' then new.feedback := new.feedback || jsonb_build_object('assistance',old.feedback->'assistance'); end if;
+   return new;
+ end if;
+ select r.hint_tracking_started_at into tracked_at from public.mission_runs r where r.id=new.mission_run_id for update;
+ select jsonb_build_object('status',case when tracked_at is null then 'unknown' else 'tracked' end,
+   'requestCount',coalesce(sum(grouped.n),0),'maxDepth',coalesce(max(grouped.depth),0),
+   'steps',coalesce(jsonb_agg(jsonb_build_object('stepId',grouped.mission_step_id,'maxDepth',grouped.depth,'requestCount',grouped.n)
+     order by grouped.mission_step_id),'[]'::jsonb),'capturedAt',clock_timestamp()) into snapshot
+ from (select h.mission_step_id,count(*)::integer n,max(h.depth) depth from public.mission_hint_requests h
+   where h.mission_run_id=new.mission_run_id group by h.mission_step_id) grouped;
+ new.feedback := new.feedback || jsonb_build_object('assistance',snapshot);
+ return new;
+end; $$;
+revoke all on function public.snapshot_mission_assistance() from public,anon,authenticated;
+create trigger snapshot_mission_assistance before insert or update of feedback on public.mission_evaluations
+for each row execute function public.snapshot_mission_assistance();

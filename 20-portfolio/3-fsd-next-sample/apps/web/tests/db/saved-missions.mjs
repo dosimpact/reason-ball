@@ -13,8 +13,8 @@ export async function verifySavedMissions(db, { ownerId, reporterId, missionId, 
   assert.equal(await count(), 0);
   await save(1);
   assert.equal(await count(), 0, "old save replay cannot undo newer removal");
-  await expectDatabaseError(() => save(1, false), "40001");
-  await expectDatabaseError(() => save(1, true, key(99)), "40001");
+  await expectDatabaseError(() => save(1, false), "PT409");
+  await expectDatabaseError(() => save(1, true, key(99)), "PT409");
   await save(3);
   await expectDatabaseError(() => db.query("select * from public.mission_favorite_requests"), "42501");
   await db.exec("reset role");

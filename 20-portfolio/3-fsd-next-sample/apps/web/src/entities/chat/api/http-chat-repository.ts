@@ -79,10 +79,15 @@ export function createHttpChatRepository(fetchJson: FetchJson = (url, init) => f
     async createConversation(context: CreateConversationInput, id: string) {
       const response = await request<{ item: ConversationResponseItem }>("/api/conversations", {
         method: "POST",
-        body: JSON.stringify({ id, characterId: context.characterId, missionId: context.missionId, title: context.title }),
+        body: JSON.stringify({ id, characterId: context.characterId, missionId: context.missionId, title: context.title, titleMode: "auto" }),
       });
       // Creation can replay after a lost HTTP response; always restore its rows.
       return conversationFromHttp(response.item, await getMessages(response.item.id), context);
+    },
+    async getTitle(id: string) {
+      const response = await request<{ item: ConversationResponseItem }>(`/api/conversations/${encodeURIComponent(id)}`);
+      if (response.item?.id !== id || typeof response.item.title !== "string") throw new Error("저장된 제목을 확인하지 못했어요.");
+      return response.item.title;
     },
     async renameConversation(id: string, title: string) {
       return request(`/api/conversations/${encodeURIComponent(id)}`, { method: "PATCH", body: JSON.stringify({ action: "update", title }) });
@@ -101,6 +106,12 @@ export function createHttpChatRepository(fetchJson: FetchJson = (url, init) => f
       if (!response.shareToken) throw new Error("공유 링크를 확인하지 못했어요.");
       return response.shareToken;
     },
+    async revokeShare(id: string) {
+      const response = await request<{ item: { id: string; visibility: string } }>(`/api/conversations/${encodeURIComponent(id)}`, {
+        method: "PATCH", body: JSON.stringify({ action: "update", visibility: "private" }),
+      });
+      if (response.item?.id !== id || response.item.visibility !== "private") throw new Error("공유 취소 상태를 확인하지 못했어요. 다시 시도해 주세요.");
+    },
     async deleteConversation(id: string) {
       return request(`/api/conversations/${encodeURIComponent(id)}`, { method: "DELETE" });
     },
@@ -116,7 +127,12 @@ export function createHttpChatRepository(fetchJson: FetchJson = (url, init) => f
       if (confirmation !== "DELETE ALL") throw new Error("모든 대화 삭제 확인 문구를 입력해 주세요.");
       return request("/api/conversations", { method: "DELETE", body: JSON.stringify({ requestId, confirmation }) });
     },
-    async vote(messageId: string, value: "up" | "down", reason?: string) {
+    async vote(messageId: string, value: "up" | "down" | undefined, reason?: string) {
+      if (!value) {
+        const response = await request<{ deleted: boolean }>(`/api/messages/${encodeURIComponent(messageId)}/vote`, { method: "DELETE" });
+        if (!response.deleted) throw new Error("피드백 취소를 확인하지 못했어요.");
+        return undefined;
+      }
       const response = await request<{ vote: { message_id: string; rating: number; reason: string | null } }>(`/api/messages/${encodeURIComponent(messageId)}/vote`, { method: "POST", body: JSON.stringify({ rating: value === "up" ? 1 : -1, reason }) });
       if (response.vote?.message_id !== messageId) throw new Error("저장된 피드백의 메시지를 확인하지 못했어요.");
       return voteFromHttp(response.vote);

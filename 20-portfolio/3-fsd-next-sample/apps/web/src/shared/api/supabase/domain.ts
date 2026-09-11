@@ -1,3 +1,4 @@
+import { readMissionDifficulty as missionDifficulty } from "./mission-difficulty";
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -13,8 +14,9 @@ import type {
 } from "@/shared/api/learning/contracts";
 
 import { assertDatabaseSuccess, createPrivilegedClient, SupabaseHttpError } from "./http";
-import { readMissionPrerequisites } from "./mission-version-fields";
+import { readMissionObjectives, readMissionPrerequisites } from "./mission-version-fields";
 import { restoreCharacterDisplayMetadata, restoreMissionDisplayMetadata } from "./version-display-metadata";
+import { missionPhraseLengthIssues } from "./mission-level-validation";
 
 const paletteOptions: [string, string][] = [
   ["#7887c7", "#d8dcf0"],
@@ -122,7 +124,10 @@ export const missionDraftSchema: z.ZodType<MissionDraft> = z
     recommendedCharacterId: resourceIdSchema,
     publishStatus: z.enum(["draft", "published", "archived"]).optional(),
   })
-  .strict();
+  .strict()
+  .superRefine((draft, context) => {
+    for (const issue of missionPhraseLengthIssues(draft)) context.addIssue(issue);
+  });
 
 export const learningHistoryDraftSchema: z.ZodType<LearningHistoryDraft> = z
   .object({
@@ -359,11 +364,6 @@ function emojiFromTags(tags: string[]) {
   return "💬";
 }
 
-function missionDifficulty(value: string): Mission["difficulty"] {
-  if (value === "pre-A1" || value === "A1") return "입문";
-  if (value === "A2" || value === "B1") return "초급";
-  return "중급";
-}
 
 function missionEmoji(category: string) {
   const normalized = category.toLowerCase();
@@ -429,6 +429,18 @@ function publicAssetUrl(
   path: string,
 ) {
   return client.storage.from(bucket).getPublicUrl(path).data.publicUrl;
+}
+
+async function characterAssetUrl(client: SupabaseClient, asset: PublicAssetRow) {
+  if (asset.access_level === "public") {
+    return publicAssetUrl(client, asset.storage_bucket, asset.storage_path);
+  }
+  // Use the request client's Storage policy; signing must not bypass ownership.
+  const result = await client.storage.from(asset.storage_bucket).createSignedUrl(asset.storage_path, 300);
+  if (result.error || !result.data) {
+    throw new SupabaseHttpError(502, "DATA_SERVICE_ERROR", "The character image could not be loaded.", true);
+  }
+  return result.data!.signedUrl;
 }
 
 function uniqueStrings(values: Array<string | null>) {
@@ -499,7 +511,7 @@ async function hydrateCharacters(
   const assetsByCharacter = groupBy(assets, (asset) => asset.character_id);
   const profileById = new Map(profiles.map((profile) => [profile.id, profile]));
 
-  return rows.map((currentRow) => {
+  return Promise.all(rows.map(async (currentRow) => {
     const version = currentRow.current_version_id
       ? versionById.get(currentRow.current_version_id)
       : undefined;
@@ -558,11 +570,7 @@ async function hydrateCharacters(
       emoji: emojiFromTags(characterTags),
       ...(primaryAsset
         ? {
-            imageUrl: publicAssetUrl(
-              client,
-              primaryAsset.storage_bucket,
-              primaryAsset.storage_path,
-            ),
+            imageUrl: await characterAssetUrl(client, primaryAsset),
           }
         : {}),
       visibility: row.visibility === "private" ? "private" : "public",
@@ -582,7 +590,7 @@ async function hydrateCharacters(
       rating: 5,
       createdAt: row.created_at,
     } satisfies Character;
-  });
+  }));
 }
 
 export async function listCharacters(client: SupabaseClient) {
@@ -678,6 +686,10 @@ async function hydrateMissions(
   assertDatabaseSuccess(charactersResult.error, "mission_characters.select");
   assertDatabaseSuccess(assetsResult.error, "mission_assets.select");
   assertDatabaseSuccess(conditionsResult.error, "mission_version_instructions.conditions");
+  const objectiveConfigByVersion = new Map(
+    ((conditionsResult.data ?? []) as Array<{ mission_version_id: string; evaluator_config: unknown }>)
+      .map((row) => [row.mission_version_id, row.evaluator_config]),
+  );
   const conditionsByVersion = new Map(
     ((conditionsResult.data ?? []) as Array<{ mission_version_id: string; evaluator_config: unknown }>)
       .map((row) => [row.mission_version_id, readMissionPrerequisites(row.evaluator_config)]),
@@ -720,7 +732,7 @@ async function hydrateMissions(
       metadataSource: display.metadataSource,
       subtitle: version?.opening_instruction ?? row.summary,
       description: row.summary || version?.scenario_context || "",
-      category: row.scenario_category,
+      category: ({ travel: "여행", daily: "일상", everyday: "일상", relationships: "관계", relationship: "관계", work: "업무", business: "업무" } as Record<string, string>)[row.scenario_category] ?? row.scenario_category,
       location: version?.scenario_context ?? row.scenario_category,
       difficulty: missionDifficulty(row.difficulty),
       durationMinutes: row.estimated_minutes,
@@ -728,13 +740,16 @@ async function hydrateMissions(
       ...(version?.character_role
         ? { characterRole: version.character_role }
         : {}),
-      objectives: missionSteps
+      objectives: readMissionObjectives(
+        version ? objectiveConfigByVersion.get(version.id) : undefined,
+        version?.learning_goals,
+        missionSteps
         .filter((step) => !step.is_optional)
         .map((step) => ({
           id: step.id,
           label: step.objective || step.learner_goal || step.title,
           hint: firstString(step.hints, step.learner_goal),
-        })),
+        }))),
       steps: missionSteps.map((step) => ({
         id: step.id,
         label: step.objective || step.learner_goal || step.title,

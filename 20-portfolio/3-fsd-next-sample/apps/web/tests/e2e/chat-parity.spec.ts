@@ -322,12 +322,13 @@ test.describe("Chat parity", () => {
     await input.fill("/model gpt-5-mini");
     await input.press("Enter");
     await expect(page.getByLabel("AI 모델 선택")).toHaveValue("gpt-5-mini");
+    const wasDark = await page.locator("html").evaluate(element => element.classList.contains("dark"));
     await input.fill("/theme");
     await input.press("Enter");
-    await expect(page.getByTestId("chat-workspace")).toHaveClass(/bg-indigo-100/);
+    await expect(page.locator("html")).toHaveClass(wasDark ? /light/ : /dark/);
     await page.reload();
     await expect(page.getByLabel("AI 모델 선택")).toHaveValue("gpt-5-mini");
-    await expect(page.getByTestId("chat-workspace")).toHaveClass(/bg-indigo-100/);
+    await expect(page.locator("html")).toHaveClass(wasDark ? /light/ : /dark/);
   });
 
   test("shows an explicit request failure and retries the same turn", async ({ page }) => {

@@ -9,7 +9,7 @@
 | `schema.sql` | 현재 public 스키마: 함수, 테이블, PK/FK, 인덱스, 트리거, RLS, 권한 |
 | `migrations/` | 실제 적용 순서와 변경 이력. 원격 DB에 22개 적용됨 |
 | `seed.sql` | 기본 캐릭터 Mina와 호텔 체크인 미션 |
-| `config.toml` | 로컬 Supabase 설정. 원격 Auth 설정에는 자동 반영되지 않음 |
+| `config.toml` | 원격 마이그레이션·seed 관리를 위한 최소 CLI 설정 |
 
 두 SQL 참고 파일은 2026-09-10 원격 DB에서 추출했습니다. 실행용 초기화 파일이
 아닙니다. `tables.sql`만 실행하면 FK·권한·함수 등이 빠집니다. `schema.sql`은
@@ -55,6 +55,10 @@ Security Advisor에는 RLS 정책 없는 서버 전용 테이블 11개(INFO)와
 
 ## 연결 확인
 
+개발과 실연동 검증은 원격 Supabase를 사용합니다. 로컬 Docker 스택은 사용하지
+않습니다. Auth·Storage·API 설정은 원격 대시보드에서 관리하며, CLI와
+`migrations/`, `seed.sql`은 원격 DB 변경 이력 관리에 사용합니다.
+
 프로젝트 루트에서 `pnpm supabase:check`를 실행합니다. 읽기 전용 검사이며,
 API 키·주요 테이블 접근·익명 로그인 활성화를 확인합니다. 실제 저장과 모든
 RLS/Storage 정책 검증을 대신하지 않습니다. 환경변수는 `apps/web/.env.local`에 두고
@@ -71,3 +75,8 @@ Storage 파일 업로드·다운로드 전체 흐름까지 검증한 결과는 �
 Supabase를 사용하는 브라우저 시나리오 3개도 통과했습니다. 설정·미션 저장과
 대화 저장·복원을 확인했으며, AI 출력은 mock입니다. 실행 명령은
 `pnpm test:e2e:supabase`입니다.
+
+
+단계별 힌트는 `20260910224735_mission_hint_requests.sql`을 사용합니다. 소유 실행의 힌트는 인증 사용자 SELECT만 허용하고 저장 RPC는 서버 전용입니다. 신규 실행만 도움 추적을 시작하며 과거 실행의 NULL은 유지합니다. 평가별 도움 집계는 DB에서 고정합니다. 이 변경은 원격 프로젝트에 migration ledger와 같은 트랜잭션으로 적용했습니다. DB 계약은 `pnpm --filter @fsd-next-sample/web test:db`, 실제 브라우저 검증은 web 디렉터리의 `pnpm test:e2e mission-hint-depth.spec.ts`를 사용합니다.
+
+교정 설정 확장은 `20260910231152_learner_response_preferences.sql`을 사용합니다. 기존 소유자별 설정 validator에 한국어 설명량과 답변 길이를 선택 필드로 추가합니다. 과거 JSON과 revision은 유지하며 새 필드의 잘못된 값·null은 거부합니다. 원격 migration ledger와 동일 트랜잭션으로 적용하고 저장된 SQL의 MD5가 로컬 파일과 일치함을 확인했습니다.

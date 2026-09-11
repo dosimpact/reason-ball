@@ -11,6 +11,8 @@ import {
   safeAiErrorResponse,
 } from "@/shared/api/ai";
 
+import { assertTrustedMutationRequest, createRequestClient, requireAuthenticatedUser, safeSupabaseErrorResponse, SupabaseHttpError } from "@/shared/api/supabase/http";
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -19,8 +21,12 @@ export async function POST(request: Request) {
   const startedAt = Date.now();
 
   try {
+    assertTrustedMutationRequest(request);
+    const mock = process.env.APP_RUNTIME_MODE === "mock" || process.env.AI_PROVIDER === "mock";
+    const user = mock ? undefined : await requireAuthenticatedUser(await createRequestClient());
     const rateLimited = enforceAiRateLimit(request, requestId, {
       operation: "image",
+      authenticatedUserId: user?.id,
       limit: 12,
       windowMs: 60_000,
     });
@@ -70,6 +76,7 @@ export async function POST(request: Request) {
     recordAiObservation({ requestId, operation: "image", provider: capabilities.providerName, model: capabilities.modelIds.image, outcome: "success", startedAt, usage: result.usage });
     return response;
   } catch (error) {
+    if (error instanceof SupabaseHttpError) return safeSupabaseErrorResponse(error, requestId);
     return safeAiErrorResponse(error, requestId);
   }
 }

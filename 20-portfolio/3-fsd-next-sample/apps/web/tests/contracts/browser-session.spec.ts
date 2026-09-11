@@ -5,6 +5,24 @@ const originalFetch = globalThis.fetch;
 test.afterEach(() => { globalThis.fetch = originalFetch; });
 const guest = { id: "guest-id", email: null, isAnonymous: true, createdAt: "2026-09-10T00:00:00Z" };
 
+for (const scenario of [
+  { status: 403, code: "CROSS_SITE_REQUEST_BLOCKED", message: "현재 접속 주소" },
+  { status: 429, code: "AUTH_RATE_LIMITED", message: "잠시 제한" },
+  { status: 400, code: "CAPTCHA_REQUIRED", message: "보안 인증" },
+  { status: 502, code: "AUTH_SERVICE_ERROR", message: "HTTP 502, 요청 test-request" },
+]) {
+  test(`explains guest failure ${scenario.code} and allows a later retry`, async () => {
+    globalThis.fetch = async (input) => String(input) === "/api/auth/session"
+      ? Response.json({ user: null })
+      : Response.json({ error: { code: scenario.code } }, {
+        status: scenario.status, headers: { "x-request-id": "test-request" },
+      });
+    await expect(ensureBrowserSession()).rejects.toThrow(scenario.message);
+    globalThis.fetch = async () => Response.json({ user: guest });
+    expect(await ensureBrowserSession()).toEqual(guest);
+  });
+}
+
 test("coalesces concurrent session preparation into one anonymous account request", async () => {
   const paths: string[] = [];
   globalThis.fetch = async (input) => {

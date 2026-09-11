@@ -81,7 +81,7 @@ export async function verifyMissionStart(db, { ownerId, reporterId, expectDataba
   const thirdChat = await newChat();
   await db.query("update public.conversations set status='archived' where id=$1", [thirdChat]);
   await expectDatabaseError(() => start(mission, thirdChat), 'P2002');
-  await expectDatabaseError(() => start(mission, null, ownerId, randomUUID()), '40001');
+  await expectDatabaseError(() => start(mission, null, ownerId, randomUUID()), 'PT409');
 
   await db.query("update public.mission_runs set status='failed',score=67,completed_at=now() where id=$1", [firstId]);
   const beforeReplay = await getRun(firstId);

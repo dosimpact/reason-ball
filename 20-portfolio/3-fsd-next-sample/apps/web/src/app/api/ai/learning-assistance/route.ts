@@ -1,6 +1,6 @@
 import { generateText, Output } from "ai";
 import { z } from "zod";
-import { assistanceInstructions, assistanceRequestSchema, assistanceResultSchema, buildAssistancePrompt, selectAssistanceContext } from "@/entities/learning-assistance/model/assistance";
+import { assistanceInstructions, assistanceRequestSchema, assistanceGenerationSchema, buildAssistancePrompt, selectAssistanceContext } from "@/entities/learning-assistance/model/assistance";
 import { loadAssistanceMessages } from "@/entities/learning-assistance/api/server-context";
 import { loadLearningPreferences } from "@/entities/learner/api/server-preferences";
 import { AiHttpError, createAiCapabilities, createRequestId, enforceAiRateLimit, jsonSuccessResponse, parseJsonBody, recordAiObservation, safeAiErrorResponse } from "@/shared/api/ai";
@@ -39,9 +39,9 @@ export async function POST(request: Request) {
     try { context = selectAssistanceContext(messages, input.messageId, input.mode); }
     catch { throw new AiHttpError(400, "INVALID_ASSISTANCE_TARGET", "이 메시지에는 선택한 학습 도움을 제공할 수 없어요."); }
     const capabilities = createAiCapabilities({ operation: "learning-assistance" });
-    const generated = await generateText({ model: capabilities.languageModel, instructions: assistanceInstructions, prompt: buildAssistancePrompt(input.mode, level, context), output: Output.object({ schema: assistanceResultSchema }),
+    const generated = await generateText({ model: capabilities.languageModel, instructions: assistanceInstructions, prompt: buildAssistancePrompt(input.mode, level, context), output: Output.object({ schema: assistanceGenerationSchema }),
       abortSignal: request.signal, maxRetries: 0, maxOutputTokens: 1200, timeout: { totalMs: 30_000, stepMs: 30_000 }, providerOptions: capabilities.providerName === "mock" ? undefined : { openai: { store: false } } });
-    const result = assistanceResultSchema.parse(generated.output);
+    const result = assistanceGenerationSchema.parse(generated.output);
     recordAiObservation({ requestId, operation: "learning-assistance", startedAt, outcome: "success", provider: capabilities.providerName, model: capabilities.modelIds.chat, usage: generated.usage });
     return jsonSuccessResponse(requestId, { mode: input.mode, messageId: input.messageId, targetText: context.target.text, source: capabilities.providerName === "mock" ? "mock" : "provider", result });
   } catch (error) {

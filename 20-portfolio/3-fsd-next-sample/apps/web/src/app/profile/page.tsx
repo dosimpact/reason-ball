@@ -11,7 +11,7 @@ import { LearningNotebook } from "@/widgets/learning-notebook/ui/learning-notebo
 import { SavedMissions } from "@/widgets/saved-missions/ui/saved-missions";
 import { CreatorLibrary } from "@/widgets/creator-library/ui/creator-library";
 import { FavoriteButton } from "@/features/character-favorite";
-import { MissionReward } from "@/features/mission-reward";
+import { RewardCollection } from "@/features/mission-reward";
 
 import { defaultPreferences, useLearningPreferences } from "@/entities/learner";
 import { LearningProgress } from "@/widgets/learning-progress/ui/learning-progress";
@@ -55,7 +55,7 @@ export default function ProfilePage() {
 
         {tab === "즐겨찾기" ? <section className="mt-8" data-testid="profile-favorites">{favorites.length ? <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{favorites.map((character) => <CharacterCard key={character.id} character={character} action={<FavoriteButton characterId={character.id} characterName={character.name} />} />)}</div> : <div className="rounded-[1.5rem] border border-dashed py-16 text-center"><Heart className="mx-auto size-7 text-neutral-300" /><p className="mt-3 font-bold">아직 즐겨찾는 캐릭터가 없어요.</p><Link href="/characters" className="mt-4 inline-flex text-sm font-bold text-[#e16748]">캐릭터 만나기</Link></div>}</section> : null}
 
-        {tab === "보상 컬렉션" ? <section className="mt-8" data-testid="reward-collection"><div className="mb-6"><p className="text-xs font-black uppercase tracking-[.18em] text-[#e16748]">Unlocked memories</p><h2 className="mt-1 text-2xl font-black">캐릭터와 만든 장면들</h2></div><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{missions.map((mission) => <div key={mission.id}><MissionReward mission={mission} compact /><p className="mt-2 text-center text-xs font-semibold text-neutral-500">{rewardIds.includes(mission.id) ? mission.title : "아직 잠긴 미션 보상"}</p></div>)}</div></section> : null}
+        {tab === "보상 컬렉션" ? <RewardCollection missions={missions} rewardIds={rewardIds} /> : null}
 
         {tab === "학습 표현" ? <LearningNotebook /> : null}
 

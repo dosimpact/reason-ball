@@ -1,5 +1,6 @@
 "use client";
 
+import { createUuid } from "@/shared/lib/uuid";
 import { useState } from "react";
 import { Bookmark } from "lucide-react";
 import { useSavedMissions, useSetSavedMission } from "@/entities/mission/api/use-saved-missions";
@@ -13,7 +14,7 @@ export function SaveMissionButton({ missionId }: { missionId: string }) {
   const saved = query.data?.some((item) => item.missionId === missionId) ?? false;
   async function change() {
     if (!query.data || mutation.isPending) return;
-    const request = pending ?? { requestId: crypto.randomUUID(), missionId, saved: !saved };
+    const request = pending ?? { requestId: createUuid(), missionId, saved: !saved };
     setPending(request);
     setError("");
     try { await mutation.mutateAsync(request); setPending(null); }

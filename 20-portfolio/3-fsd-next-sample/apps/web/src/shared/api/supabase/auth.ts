@@ -25,6 +25,7 @@ export const emailAuthSchema = z.discriminatedUnion("action", [
   z
     .object({
       action: z.literal("sign-in"),
+      switchAccount: z.boolean().optional(),
       email: emailSchema,
       password: passwordSchema,
     })

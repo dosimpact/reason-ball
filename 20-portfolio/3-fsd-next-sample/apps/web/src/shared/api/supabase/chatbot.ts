@@ -21,6 +21,7 @@ export const conversationCreateSchema = z
     characterId: resourceIdSchema,
     missionId: resourceIdSchema.optional(),
     title: z.string().trim().min(1).max(200).default("New conversation"),
+    titleMode: z.enum(["auto", "manual"]).optional(),
     visibility: z.enum(["private", "unlisted", "public"]).default("private"),
     modelId: z.string().trim().min(1).max(200).optional(),
   })

@@ -1,7 +1,10 @@
+/** @jsxImportSource react */
 "use client";
 
 import { AlertCircle, LoaderCircle, Pause, Play, Volume2 } from "lucide-react";
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
+
+import { useUiMessages } from "@/shared/i18n/ui-messages-provider";
 
 import { audioPlaybackController } from "../model/audio-controller";
 import { defaultPreferences, useLearningPreferences } from "@/entities/learner";
@@ -35,6 +38,7 @@ export function AudioPlaybackButton({
   showSettings?: boolean;
   compact?: boolean;
 }) {
+  const { audio: copy, languageTag } = useUiMessages();
   const requiresPreferences = defaultVoice === undefined || defaultRate === undefined || autoplay === undefined;
   const preferences = useLearningPreferences(requiresPreferences);
   const defaults = preferences.data?.settings ?? defaultPreferences;
@@ -70,16 +74,8 @@ export function AudioPlaybackButton({
     };
   }, [autoPlayOnMount, shouldAutoplay, preferencesReady, messageId, messageRevision, playbackId, rate, text, voice]);
 
-  const label =
-    status === "loading"
-      ? "음성 불러오는 중"
-      : status === "playing"
-        ? "음성 일시정지"
-        : status === "paused"
-          ? "음성 이어 듣기"
-          : status === "error"
-            ? "음성 다시 시도"
-            : "AI 음성 듣기";
+  const label = copy.labels[status];
+  const announcement = copy.announcements[status];
   const Icon =
     status === "loading"
       ? LoaderCircle
@@ -92,7 +88,7 @@ export function AudioPlaybackButton({
             : Volume2;
 
   return (
-    <div className="inline-flex flex-col items-start gap-2" data-testid={`audio-playback-${playbackId}`}>
+    <div lang={languageTag} className="inline-flex flex-col items-start gap-2" data-testid={`audio-playback-${playbackId}`}>
       <div className="flex flex-wrap items-center gap-2">
         <button
           type="button"
@@ -116,7 +112,7 @@ export function AudioPlaybackButton({
         </button>
         {showSettings ? (
           <div id={settingsId} className="flex items-center gap-2 text-xs">
-            <label className="sr-only" htmlFor={`${settingsId}-voice`}>AI 음성</label>
+            <label className="sr-only" htmlFor={`${settingsId}-voice`}>{copy.voice}</label>
             <select
               id={`${settingsId}-voice`}
               value={voice}
@@ -125,7 +121,7 @@ export function AudioPlaybackButton({
             >
               {voices.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
-            <label className="sr-only" htmlFor={`${settingsId}-rate`}>재생 속도</label>
+            <label className="sr-only" htmlFor={`${settingsId}-rate`}>{copy.rate}</label>
             <select
               id={`${settingsId}-rate`}
               value={rate}
@@ -137,8 +133,9 @@ export function AudioPlaybackButton({
           </div>
         ) : null}
       </div>
-      <p className="text-[10px] font-medium text-neutral-400">AI로 생성된 음성입니다.</p>
-      {requiresPreferences && preferences.isError ? <button type="button" onClick={() => void preferences.refetch()} className="text-xs text-red-700">음성 설정 다시 불러오기</button> : null}
+      <p role="status" aria-live="polite" aria-atomic="true" className="sr-only">{announcement}</p>
+      <p className="text-[10px] font-medium text-neutral-400">{copy.disclosure}</p>
+      {requiresPreferences && preferences.isError ? <button type="button" onClick={() => void preferences.refetch()} className="text-xs text-red-700">{copy.reloadPreferences}</button> : null}
       {status === "error" ? <p role="alert" className="text-xs font-semibold text-red-600">{snapshot.error}</p> : null}
     </div>
   );

@@ -64,7 +64,7 @@ NEXT_PUBLIC_APP_URL=http://127.0.0.1:3000
 NEXT_PUBLIC_DATA_PROVIDER=supabase
 
 # Supabase browser/server
-NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
+NEXT_PUBLIC_SUPABASE_URL=https://oaewaygmejlmzclckygk.supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
 SUPABASE_SECRET_KEY=
 
@@ -157,6 +157,8 @@ AI 스트림과 DB 커밋은 서로 다른 실패 지점이다. 사용자 메시
 응답의 재요청은 현재 `CHAT_RESPONSE_SAVED`(409)로 안내하며 재생성하지 않는다.
 HTTP UI의 자동 복원, 도구 승인 continuation, 편집·재생성 분기와 장기 대화의
 요약 정책은 아직 연결해야 한다. 이 일반 턴 저장 구현을 CHAT 전체 완료로 해석하지 않는다.
+
+채팅 관찰 로그는 모델 onFinish를 성공으로 취급하지 않는다. 모델 콜백은 usage와 오류/중단 플래그만 수집하며, 실제 finish 저장 뒤 요청별 최종 outcome을 한 번 기록한다. 로그에는 requestId·conversationId·assistantMessageId와 요청 시작부터 최종 처리까지 durationMs를 연결하고 본문/프롬프트/자격 증명은 넣지 않는다. 저장 실패는 error, 저장된 사용자 중단은 aborted다. 응답 스트림 취소로 이미 닫힌 controller를 다시 닫거나 enqueue하지 않는다. 초기 검증/모델 선택 거절도 요청 ID의 error로 기록한다. 이 console 로그는 영속 관찰 원장이나 비용 원장이 아니며, 재시도는 같은 답변 행의 request_id를 갱신하므로 과거 시도는 로그 보존이 필요하다.
 
 후속 HTTP UI 연결에서는 `entities/chat/api/http-chat-repository.ts`가 대화 생성·조회,
 메시지 페이지 조회, 제목·공유·삭제·피드백 요청을 담당한다. 생성 요청은 클라이언트가
@@ -768,6 +770,8 @@ const { audio } = await generateSpeech({
 
 점수와 근거를 저장하되 모델 ID, prompt version, rubric version을 함께 기록한다.
 
+실제 종료 평가에서는 실행 소유자의 저장된 대화를 읽어 요청의 전체 메시지 순서·역할·본문과 대조한다. 화면 메시지 ID는 저장된 client_message_id와 일치할 때만 허용하고, 평가 입력과 저장 근거에는 DB 메시지 ID를 사용한다. 위조·누락·중복·오래된 대화는 `409 EVALUATION_TRANSCRIPT_CHANGED`로 거절한다. AI 호출 후 저장 직전에도 원본을 재확인한다. 이 재확인은 트랜잭션 잠금이 아니므로 마지막 조회 이후 동시 변경에 대한 원자성까지 보장하지 않는다. 과거 평가 기록은 소급 변경하지 않는다. 새 평가의 서버 검증된 완료 목표 ID는 feedback.completedStepIds에 평가별로 저장하고 고정 미션 단계에 대조해 복원한다. 누적 단계 진행이나 검증 전 모델 원본으로 평가 목표를 재구성하지 않는다. 이 스냅샷이 없는 과거 평가는 목표 귀속을 알 수 없으므로 completedStepIds를 빈 배열로 반환하며 점수·피드백·보상은 유지한다.
+
 ## 10. API 계약
 
 | Method/Path | Auth | 입력 | 출력/효과 |
@@ -1086,7 +1090,7 @@ AI SDK 7에서는 `ai/test`의 V4 mock model과 `simulateReadableStream`을 사�
 | Storage MIME/경로 policy | 아니오 | 예 |
 | reward transaction idempotency | 아니오 | 예 |
 
-로컬 Supabase 또는 Docker가 없는 실행 환경에서는 해당 항목을 `SKIP`이나 `PASS`로 숨기지 않고 `BLOCKED/미검증`으로 기록한다.
+원격 Supabase 연결 또는 필요한 자격 증명이 없는 실행 환경에서는 해당 항목을 `SKIP`이나 `PASS`로 숨기지 않고 `BLOCKED/미검증`으로 기록한다.
 
 ## 16. 테스트 설계
 
@@ -1405,3 +1409,102 @@ pnpm test:e2e:supabase
 - 운영 모델 allowlist와 사용자 등급별 quota
 
 확인 전에도 mock 구현과 local Supabase 검증은 진행할 수 있지만, 관련 운영 항목을 검증 완료로 표시하지 않는다.
+
+
+### UI 문구와 학습 콘텐츠 언어 경계
+
+`shared/i18n/ui-messages.ts`와 `UiMessagesProvider`는 미션 결과·음성 버튼·학습 도움말의 인터페이스 문구를 소유한다. 저장된 평가·학습 문장·AI 설명은 UI catalog에 넣지 않는다. 학습 도움말 콘텐츠는 `assistanceContentLanguages`에 따라 suggestion은 en, brief/explanation은 ko로 표시한다. 별도 언어 선택 UI나 전체 앱 번역 완료를 의미하지 않는다.
+
+학습 도움말 생성은 `assistanceGenerationSchema`로 한국어 피드백/설명에 한글이 포함되는지 검사한다. 실제 모델이 설명 전체를 영어로 반환한 회귀를 차단하며, 영어 예문과 한국어 이름은 보존한다. 이 검사는 범용 언어/의미 판별기가 아니다. UI/기존 응답 기본 schema와 생성 제약을 분리하고 부적합 출력은 기존 오류 및 명시적 재시도 흐름으로 처리한다.
+
+
+보상 카드 배경은 `backgroundImage`에서 서명 이미지와 잠금 그라데이션을 선택한다. `background` 단축 속성을 함께 사용하면 획득 목록 재조회로 palette가 바뀔 때 기존 이미지가 지워질 수 있다. ready 상태만으로 표시 성공을 판단하지 않고 브라우저 이미지 요청·디코딩과 archive 후 재표시를 실연동으로 검사한다.
+
+
+잠긴 보상은 원본 Storage 요청 없이 공통 로컬 SVG 실루엣으로 표시한다. 완료 축하 인사는 대화 캐릭터의 공개 표시 정보만 사용하고 완료의 실행/평가/캐릭터 일치를 검사한다. 준비된 UI 문구이며 새 AI 발화나 대화 메시지가 아니다. 완료 전/불일치 시 표시하지 않고 저장 완료와 대화 문맥으로 새로고침 후 복원한다.
+
+
+홈 이어하기는 저장 대화 ID를 포함한 공통 conversationUrl을 사용한다. 캐릭터/미션 ID만 전달하면 신규 대화가 만들어지므로 기존 이력을 이어가는 링크와 신규 시작 링크를 구분한다. LearningHistory의 실제 메시지 수를 표시하며 단계 진행률이 없는 DTO에서 임의 진행률을 만들지 않는다. 자유 대화와 공개 목록에 없는 기존 대화도 저장 이력으로 진입할 수 있도록 한다.
+
+
+홈 추천은 저장 관심사와 공개 게시 캐릭터 topics의 일치 개수를 우선하고 ID로 동률을 정렬한다. 인기 영역은 삭제되지 않은 저장 대화 수 기준이며, 카드도 대화 수/미션 완료 횟수로 단위를 표시한다. 입문·초급 미션만 별도 선택하고 빈 결과는 그대로 안내한다. 난이도 변환은 shared/api/supabase/mission-difficulty.ts에서 저장/조회를 함께 관리한다: 입문=A1, 초급=A2, 중급=B1 이상이다.
+
+대화 수 trigger는 app_private에 있고 권한 없는 직접 호출을 막는다. 활성/보관 대화는 포함, 삭제는 제외하며 원자적 증감으로 동시 생성의 recount 경합을 피한다. 초기 집계와 trigger 설치는 source/target 쓰기 잠금 안에서 함께 반영한다. 일반 다중 행 트랜잭션의 모든 교착 가능성을 제거한다고 주장하지 않으며 관리자 TRUNCATE는 별도 재집계 대상이다. [Supabase trigger 문서](https://supabase.com/docs/guides/database/postgres/triggers)를 참고했다.
+
+
+### 공유 링크 취소와 원격 HTTP 복사
+
+공유 창은 현재 origin의 URL을 표시하고 공통 copyText를 사용한다. 복사 성공·실패와 공유 취소 실패를 별도로 안내한다. 소유자가 visibility=private으로 PATCH하면 같은 DB 업데이트로 share_token을 새 UUID로 교체한다. 이후 재공유는 새 토큰을 사용하며 취소한 구 URL을 복구하지 않는다. 링크 취소는 메시지·제목·미전송 초안을 삭제하지 않는다. 실제 외부 HTTP의 copy/실패 재시도/다른 계정 읽기/취소/재공유는 tests/e2e/live/share-link.spec.ts로 검증한다.
+
+
+### 채팅 테마 명령
+
+`/theme`은 상단 테마 버튼과 같은 next-themes 상태로 dark/light를 전환하고 `lingua-theme`에 브라우저 설정을 유지한다. 과거 대화별 focus 배경 상태를 변경하는 명령은 사용하지 않는다. 명령 문자열은 AI 전송이나 메시지 저장 대상으로 처리하지 않는다. 외부 HTTP의 양방향 전환·실제 배경·reload와 `/rename`, `/model` 저장은 live/chat-management.spec.ts에서 검증한다.
+
+
+### 자동 대화 제목
+
+`20260910213224_conversation_auto_title.sql`과 `20260910214228_conversation_title_intent_bootstrap.sql` 적용 후 UI의 새 대화는 titleMode:auto로 생성한다. API는 client RLS INSERT와 metadata.initialTitleMode를 사용하고 내부 BEFORE INSERT가 초기 pending을 설정한다. 첫 완료 사용자 저장에서 정규화된 text parts 최대80 Unicode codepoint로 auto 제목을 한 번 확정한다. 기존/외부 명시 제목은 manual이며, 같은 문자열을 수동 저장한 경우도 manual로 보호한다. 편집/재시도/clear는 상태를 초기화하지 않는다. title_source 직접 쓰기는 일반 사용자에게 허용하지 않는다. UI 제목 조회는 manual revision과 최신 요청 번호로 보호하며 편집 초안과 분리한다.
+
+
+### Artifact AI 제안 저장과 복원 (2026-09-11)
+
+`20260910215332_persisted_artifact_suggestions.sql`은 기존 artifact_suggestions에 mode와 UTF-16 선택 범위를 추가한다. 기존 mode NULL 행에는 공급자 종류를 추측해 넣지 않는다. typed 행의 original_text는 선택 문자열이 아니라 전체 불변 원본 버전 스냅샷이다.
+
+POST /api/ai/artifact-assistance는 requestId를 요구한다. 동일 요청 키·소유자·원본 버전·mode·selection·source의 완료 재요청은 저장된 첫 결과를 반환한다. 동시에 시작한 두 최초 요청의 공급자 호출까지 exactly-once로 보장하지 않으며, 저장 RPC는 대화→Artifact 잠금 아래 최초 결과 한 건만 채택한다. 공급자 호출 전 활성 대화를 확인하고 저장 시 소유권/상태/current version/source를 다시 확인한다.
+
+GET은 소유자에게 현재 버전의 최신 typed pending 제안 한 건 또는 null을 반환한다. 화면은 새로고침/열기 시 이를 복원하며 조회 재시도는 AI 호출을 만들지 않는다. ID/버전 전환 시 요청을 취소하고 초안이 원본과 달라지면 적용을 금지한다. 명시 적용은 기존 commit_artifact_revision의 expectedVersionId 계약을 유지한다. 새 버전에서는 이전 제안이 나타나지 않으며 과거 행은 보존한다. pending은 이 단계에서 적용 여부의 감사 상태를 의미하지 않으며 accepted/rejected 워크플로를 구현했다고 주장하지 않는다. 동일 키의 과거 결과 재조회도 새 버전 적용 권한을 주지 않는다.
+
+일반 로그인/게스트 사용자에게는 자기 Artifact의 자기 제안 SELECT만 허용한다. INSERT/UPDATE/DELETE/TRUNCATE 등은 취소하고 서버 RPC 실행은 service_role만 허용한다. 원본 대화 purge의 기존 FK cascade가 제안을 제거한다. 공급자 제안을 사용자가 직접 Data API로 위조해 넣는 경로를 허용하지 않는다. RLS와 테이블 권한은 별도 경계다([Supabase 공식 문서](https://supabase.com/docs/guides/database/postgres/row-level-security)).
+
+
+### 대화 기록 조회 제한 제거 (2026-09-11)
+
+학습 snapshot의 대화50개/메시지1000개 고정 제한을 제거했다. `shared/api/supabase/learning.ts`는 고유 ID 순으로 대화를 요청당 최대200행 조회하고, 대화 ID를50개씩 나눠 메시지를 conversation_id/sequence_number 순으로 읽는다. 실제 반환 행 수만큼 다음 offset으로 진행하고 빈 페이지에서 끝낸다. 설정된 Data API 상한이 요청 크기보다 작아도 끝까지 조회하며 반복 행은 오류로 처리한다. 전체 조회 후 최신 활동 순서를 유지하고 미리보기/메시지 수를 계산한다.
+
+현재 /history 화면은 완성된 snapshot을4개씩 표시하는 기존 구조다. 서버 cursor 기반 무한 스크롤로 바꿨다고 주장하지 않는다. 요청 크기를 제한한 것이며 전체 snapshot 메모리/비용은 기록 크기에 비례한다. 여러 요청 사이의 동시 삽입/삭제/수정에 대한 트랜잭션 snapshot 격리는 제공하지 않는다.
+
+
+### 평가 결과의 목표·새 표현·다음 미션 (2026-09-11)
+
+평가 공급자는 맥락에 맞는 짧은 새 영어 표현1~3개와 한국어 뜻을 newExpressions로 반환한다. 이 값은 기존 mission_evaluations.feedback JSON과 원본 응답에 저장되며 read DTO가 같은 값을 복원한다. 기존 어휘 관찰 목록을 새 표현으로 바꾸거나 과거 평가에 번역을 임의로 채우지 않는다. 과거에 저장 필드가 없으면 빈 목록과 명시 안내를 표시한다. DB schema 변경은 없다.
+
+결과 화면은 해당 evaluation.completedStepIds와 고정 실행 단계 목록으로 목표별 달성/남은 목표를 표시한다. 잘한 점·교정·새 표현·복습 메모를 구분하며, 새 영어 표현과 한국어 뜻에는 각각 lang=en/ko를 지정한다. 메모 저장은 기존 평가 내용을 보존한다.
+
+다음 미션은 실제 공개 게시 미션/캐릭터, 완료 미션, 저장된 CEFR에서 고른다. 현재/이미 완료/선수 미달/너무 어려움/사용 불가 캐릭터를 제외한다. 현재 완료 미션을 선수로 요구하는 다음 단계, 수준에 가까운 난이도, ID 순으로 안정적으로 선택한다. 현재 평가와 일치하는 서버 완료 확인만 snapshot 갱신 전 현재 미션 완료에 합산한다. 추천은 저장된 AI 평가 내용이 아니라 현재 공개 카탈로그 기반이며, 항목이 없거나 조회 실패 시 이를 명시한다. 링크는 실제 미션 상세로 이동하고 시작 시 서버가 조건을 다시 검사한다. 현재 API가 제공하는 공개 카탈로그 범위의 추천이다.
+
+### 보상 획득일
+
+보상 컬렉션의 미션명 옆 획득일은 reward_unlocks.unlocked_at을 earned-rewards API의 unlockedAt으로 받아 표시한다. <time dateTime>은 원본 시각을 유지하고 사람에게 보이는 날짜는 Asia/Seoul 기준임을 명시한다. 현재 날짜나 평가 시각으로 대체하지 않으며 잠긴 보상에는 획득일을 표시하지 않는다. 재완료/replay/제작자 archive는 최초 해금 시각을 변경하지 않는다.
+
+
+### 추천 질문의 새 대화와 복구
+
+자유 대화의 SuggestedConversations는 추천 질문 클릭 시 기존 createConversation API에 새 UUID를 전달하고 질문을 새 대화의 로컬 초안에 준비한다. 기존 학습 문장 삽입과 구분한 명시 UI이며 미션 실행을 생성하지 않는다. owner+원본 conversation별 pending intent를 브라우저에 저장해 응답 유실·새로고침 뒤 같은 ID로 명시 재시도한다. 최초 초안 준비 여부를 서버 POST 전에 저장하고 재시도에서는 사용자 수정·비우기를 덮어쓰지 않는다. 컴포넌트가 해제된 뒤 끝나는 요청은 탐색을 수행하지 않는다. intent/초안은 브라우저 범위이며 실제 conversation/message는 원격 Supabase를 사용한다. suggested-conversations.spec.ts가 실제 외부 주소에서 생성/AI/응답 유실/reload/후속 초안 편집/화면 이탈을 검증한다.
+
+
+### 단계별 AI 힌트와 평가별 도움 기록
+
+`mission_hint_requests`는 run/고정 step/depth/생성 결과/문맥 기준 ID·순번을 보존한다. GET은 UUID 키셋으로 전체 결과를 복원하고 POST는 strict ID 입력, 인증 소유권, 활성 대화, 고정 버전, 서버 학습 수준과 최근 완료 메시지8개로 요청한 깊이만 생성한다. 첫 저장 결과를 같은 requestId로 재생하며 ID 재사용 충돌과 생성 중 최신 메시지 변경은 거절한다. 동일 메시지 ID의 관리용 직접 본문 수정까지 감지하는 해시는 없고 동시 최초 요청의 공급자 비용 exactly-once도 보장하지 않는다.
+
+신규 실행의 추적 시작은 INSERT trigger가 정하고 기존 실행은 NULL로 보존한다. 평가 INSERT trigger는 힌트 저장과 같은 실행 잠금 아래 도움 집계를 feedback.assistance에 저장한다. 평가 UPDATE는 원래 집계를 보존한다. UI는 이 서버 스냅샷으로 도움받은 완료·자립 완료·기록 없음 상태를 구분한다. 목표·통과 점수·보상 정책은 힌트 여부를 사용하지 않는다. 도움받은 완료의 별도 재도전은 기존 새 시도 경로를 사용한다.
+
+신규 생성 결과에는 학습에 쓸 수 있는 한국어 설명을 요구한다. 의도는 한국어 목적, 핵심 표현은 영어 빈칸 패턴, 완성 문장은 실제 사용자 상황을 반영한다. 과거 저장값 복원 스키마는 별도로 유지한다. 실제 E2E 첫 실행에서 설명이 이모티콘만인 응답을 발견해 생성 계약과 목표 고정 지시를 보강했다. 조회 중 생성 버튼을 비활성화하여 늦은 GET이 새 POST 결과를 덮지 않도록 한다. 패널 열기·저장된 깊이 보기·새로고침은 새 AI 요청을 만들지 않는다.
+
+
+### 2026-09-11 교정 설정과 자유 대화 종료 복습
+
+학습 설정에 한국어 설명량 none/brief/detailed와 답변 길이 short/standard/long을 추가했다. 누락된 과거 필드에는 brief/short 기본값을 적용하고 명시적 null·잘못된 enum은 거부한다. 원격 validator 확장 migration은 기존 JSON·revision·RLS를 바꾸지 않는다.
+
+gentle은 역할 응답 후 하나의 중요한 교정, immediate는 Correction과 Try again으로 재발화 기회, summary는 일반 대화 중 교정 보류를 지시한다. 사소한 초급 오류는 매 턴 지적하지 않는다. 설명량과 일반 역할 응답 문장 수(1–2/3–4/5–6)는 독립 설정이며 명시적 복습은 예시 2–3개의 짧은 구조화 응답을 허용한다.
+
+자유 대화 복습 버튼은 일반 사용자 메시지를 기존 outbox와 AI 저장 경로로 전송한다. 별도 미션/평가/보상/종료 상태를 만들지 않고 미전송 초안을 보존한다. 서버는 클라이언트가 보낸 과거 이력을 근거로 삼지 않고 prepareChatGeneration의 권한 확인 이력에서 사용자 원문을 수집한다. 영어 원문→개선 표현, 잘한 점, 다음 연습 전략을 요청하고 도구는 비활성화한다. 실제 검증의 결과와 한계는 live E2E 진행 원장에 기록한다.
+
+
+### 2026-09-11 다섯 평가 축과 선택 발화 평가
+
+상세11.2의 과업 달성, 이해 가능성, 문법, 어휘·표현, 상호작용을 각각 생성/검증한다. 이해 가능성을 상황 적절성이나 문법으로 대체하지 않는다. 각 축은 점수, 한국어 실천 피드백, 실제 학습자 메시지 ID와 서버 복원 원문 인용/이유를 가진다. AI가 허구/assistant 근거만 제시한 축은 저장 전 거부하고 재시도할 수 있다. 새 전체 점수는 과업40%, 나머지 네 축 각15%이며 저장 JSON에 버전과 가중치를 남긴다. 기존 평가 총점·축은 재계산하지 않는다.
+
+선택 발화 평가는 미션 전체 평가와 분리했다. 사용자 메시지의 학습 도움 안에서 명시적으로 요청하며, 해당 발화까지의 문맥과 서버 고정 미션·CEFR만 사용한다. 이후 정정 발화를 근거로 과거 오류를 지우지 않는다. 결과는 읽기 전용 임시 학습 피드백이며 새로고침 후 명시적으로 다시 요청한다. 원문/초안/미션 진행/점수/XP/보상은 유지한다. 실패 시 원문과 입력을 보존하고 재시도하며, 원문/대화 변경이나 화면 해제 때 늦은 UI 결과를 적용하지 않는다. 모든 점수는 공인 시험 결과가 아닌 학습 지원용으로 안내한다.
+
+실제 검증 기록은 `docs/03-validation/2026-09-11-live-e2e-progress.md`를 따른다. 이 변경은 LEARN-02의 자동 목표 추적을 구현한 것이 아니다.

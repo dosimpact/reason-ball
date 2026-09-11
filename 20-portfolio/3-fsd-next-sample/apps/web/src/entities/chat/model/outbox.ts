@@ -9,18 +9,20 @@ export const outboxSchema = z.object({
   version: z.literal(1), conversationId: z.string().min(1), userMessageId: z.string().min(1).max(200),
   parts: partsSchema, modelId: z.string().min(1).max(100), startedAt: z.iso.datetime(),
   baseUpdatedAt: z.string().min(1), baseTailId: z.string().nullable(),
+  preserveDraft: z.boolean().optional(),
 }).strict();
 export type ChatOutbox = z.infer<typeof outboxSchema>;
 
 export function draftAfterTransmission(draft: string, entry: ChatOutbox): string {
+  if (entry.preserveDraft) return draft;
   const submitted = entry.parts.filter((part) => part.type === 'text').map((part) => part.text).join('\n');
   return draft.trim() === submitted ? '' : draft;
 }
 
-export function prepareOutbox(conversation: ChatConversation, message: ChatMessage, modelId: string, startedAt: string): ChatOutbox {
+export function prepareOutbox(conversation: ChatConversation, message: ChatMessage, modelId: string, startedAt: string, options: { preserveDraft?: boolean } = {}): ChatOutbox {
   if (message.role !== 'user') throw new Error('사용자 메시지만 재전송할 수 있어요.');
   return outboxSchema.parse({ version: 1, conversationId: conversation.id, userMessageId: message.id,
-    parts: message.parts, modelId, startedAt, baseUpdatedAt: conversation.updatedAt, baseTailId: conversation.messages.at(-1)?.id ?? null });
+    parts: message.parts, modelId, startedAt, ...(options.preserveDraft !== undefined ? { preserveDraft: options.preserveDraft } : {}), baseUpdatedAt: conversation.updatedAt, baseTailId: conversation.messages.at(-1)?.id ?? null });
 }
 
 export function reconcileOutbox(conversation: ChatConversation, entry: ChatOutbox): { stored: boolean; conversation: ChatConversation } {

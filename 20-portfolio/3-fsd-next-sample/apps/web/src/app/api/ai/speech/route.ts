@@ -13,6 +13,7 @@ import {
 } from "@/shared/api/ai";
 import {
   assertDatabaseSuccess,
+  assertTrustedMutationRequest,
   createPrivilegedClient,
   createRequestClient,
   requireAuthenticatedUser,
@@ -125,9 +126,20 @@ function assertStorageSuccess(error: { message?: string } | null, diagnosticCode
   );
 }
 
-async function requireMessageOwner(messageId: string) {
+type SpeechAuth = {
+  client: Awaited<ReturnType<typeof createRequestClient>>;
+  user: Awaited<ReturnType<typeof requireAuthenticatedUser>>;
+};
+async function authenticateSpeechRequest(request: Request): Promise<SpeechAuth | undefined> {
+  assertTrustedMutationRequest(request);
+  if (process.env.APP_RUNTIME_MODE === "mock" || process.env.AI_PROVIDER === "mock") return undefined;
   const client = await createRequestClient();
-  const user = await requireAuthenticatedUser(client);
+  return { client, user: await requireAuthenticatedUser(client) };
+}
+
+async function requireMessageOwner(messageId: string, authenticated?: SpeechAuth) {
+  const client = authenticated?.client ?? await createRequestClient();
+  const user = authenticated?.user ?? await requireAuthenticatedUser(client);
   const admin = createPrivilegedClient();
   const messageResult = await admin
     .from("messages")
@@ -160,8 +172,10 @@ export async function POST(request: Request) {
   let observedModel: string | undefined;
 
   try {
+    const authenticated = await authenticateSpeechRequest(request);
     const rateLimited = enforceAiRateLimit(request, requestId, {
       operation: "speech",
+      authenticatedUserId: authenticated?.user.id,
       limit: 30,
       windowMs: 60_000,
     });
@@ -202,7 +216,7 @@ export async function POST(request: Request) {
       | Awaited<ReturnType<typeof requireMessageOwner>>
       | undefined;
     if (parsed.data.messageId && capabilities.providerName !== "mock") {
-      productionContext = await requireMessageOwner(parsed.data.messageId);
+      productionContext = await requireMessageOwner(parsed.data.messageId, authenticated);
       const cachedResult = await productionContext.admin
         .from("message_audio")
         .select("storage_bucket, storage_path, mime_type")
@@ -330,6 +344,7 @@ export async function POST(request: Request) {
 export async function DELETE(request: Request) {
   const requestId = createRequestId();
   try {
+    const authenticated = await authenticateSpeechRequest(request);
     const parsed = await parseJsonBody(request, invalidateSchema, requestId, 8 * 1024);
     if (!parsed.ok) return parsed.response;
 
@@ -351,7 +366,7 @@ export async function DELETE(request: Request) {
       );
     }
 
-    const { admin, user } = await requireMessageOwner(parsed.data.messageId);
+    const { admin, user } = await requireMessageOwner(parsed.data.messageId, authenticated);
     let query = admin
       .from("message_audio")
       .select("id, storage_bucket, storage_path")

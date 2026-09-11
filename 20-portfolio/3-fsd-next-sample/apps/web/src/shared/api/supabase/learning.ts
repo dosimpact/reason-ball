@@ -44,6 +44,43 @@ function startOfTrailingWeek() {
   return date.toISOString().slice(0, 10);
 }
 
+// Keep Data API requests bounded without treating its configured row cap as EOF.
+async function collectHistoryPages<T>(
+  page: (offset: number) => PromiseLike<{ data: T[] | null; error: { code?: string } | null }>,
+  identity: (row: T) => string,
+  operation: string,
+): Promise<T[]> {
+  const rows: T[] = [];
+  const seen = new Set<string>();
+  for (;;) {
+    const result = await page(rows.length);
+    assertDatabaseSuccess(result.error, operation);
+    const batch = result.data ?? [];
+    if (batch.length === 0) return rows;
+    for (const row of batch) {
+      const key = identity(row);
+      if (seen.has(key)) throw new Error(`${operation}: repeated history page`);
+      seen.add(key);
+      rows.push(row);
+    }
+  }
+}
+
+async function allHistoryConversations(client: SupabaseClient, userId: string) {
+  const rows = await collectHistoryPages<ConversationRow>(
+    (offset) => client.from("conversations")
+      .select("id, character_id, mission_id, title, metadata, last_message_at, created_at")
+      .eq("owner_id", userId).neq("status", "deleted")
+      .order("id", { ascending: true }).range(offset, offset + 199),
+    (row) => row.id,
+    "conversations.history",
+  );
+  // Retrieval order is immutable; presentation follows the latest activity.
+  return rows.sort((left, right) =>
+    (right.last_message_at ?? right.created_at).localeCompare(left.last_message_at ?? left.created_at)
+    || left.id.localeCompare(right.id));
+}
+
 export async function getLearningSnapshot(
   client: SupabaseClient,
   userId: string,
@@ -53,7 +90,7 @@ export async function getLearningSnapshot(
     favoritesResult,
     completedResult,
     unlocksResult,
-    conversationsResult,
+    conversations,
     dailyResult,
   ] = await Promise.all([
     client
@@ -74,15 +111,7 @@ export async function getLearningSnapshot(
       .from("reward_unlocks")
       .select("mission_id")
       .eq("user_id", userId),
-    client
-      .from("conversations")
-      .select(
-        "id, character_id, mission_id, title, metadata, last_message_at, created_at",
-      )
-      .eq("owner_id", userId)
-      .neq("status", "deleted")
-      .order("last_message_at", { ascending: false, nullsFirst: false })
-      .limit(50),
+    allHistoryConversations(client, userId),
     client
       .from("daily_learning_stats")
       .select("active_minutes")
@@ -94,28 +123,28 @@ export async function getLearningSnapshot(
   assertDatabaseSuccess(favoritesResult.error, "character_favorites.select");
   assertDatabaseSuccess(completedResult.error, "mission_runs.completed");
   assertDatabaseSuccess(unlocksResult.error, "reward_unlocks.select");
-  assertDatabaseSuccess(conversationsResult.error, "conversations.history");
   assertDatabaseSuccess(dailyResult.error, "daily_learning_stats.select");
 
   const profiles = (profileResult.data ?? []) as ProfileProgressRow[];
   const favorites = (favoritesResult.data ?? []) as CharacterFavoriteRow[];
   const completed = (completedResult.data ?? []) as CompletedMissionRow[];
   const unlocks = (unlocksResult.data ?? []) as RewardUnlockRow[];
-  const conversations = (conversationsResult.data ?? []) as ConversationRow[];
   const daily = (dailyResult.data ?? []) as DailyLearningRow[];
   const conversationIds = conversations.map((conversation) => conversation.id);
 
-  let messages: MessageRow[] = [];
-  if (conversationIds.length > 0) {
-    const messagesResult = await client
-      .from("messages")
-      .select("conversation_id, plain_text, sequence_number")
-      .in("conversation_id", conversationIds)
-      .neq("role", "system")
-      .order("sequence_number", { ascending: false })
-      .limit(1_000);
-    assertDatabaseSuccess(messagesResult.error, "messages.history_preview");
-    messages = (messagesResult.data ?? []) as MessageRow[];
+  const messages: MessageRow[] = [];
+  for (let index = 0; index < conversationIds.length; index += 50) {
+    const ids = conversationIds.slice(index, index + 50);
+    messages.push(...await collectHistoryPages<MessageRow>(
+      (offset) => client.from("messages")
+        .select("conversation_id, plain_text, sequence_number")
+        .in("conversation_id", ids).neq("role", "system")
+        .order("conversation_id", { ascending: true })
+        .order("sequence_number", { ascending: false })
+        .range(offset, offset + 199),
+      (row) => `${row.conversation_id}:${row.sequence_number}`,
+      "messages.history_preview",
+    ));
   }
 
   const latestMessageByConversation = new Map<string, MessageRow>();
@@ -144,7 +173,7 @@ export async function getLearningSnapshot(
       historyFromConversation(
         conversation,
         latestMessageByConversation.get(conversation.id),
-        messageCountByConversation.get(conversation.id),
+        messageCountByConversation.get(conversation.id) ?? 0,
       ),
     ),
     streak: profile?.current_streak ?? 0,

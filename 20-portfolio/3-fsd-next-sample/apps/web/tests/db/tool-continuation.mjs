@@ -21,12 +21,12 @@ export async function verifyToolContinuation(db, { ownerId, reporterId, conversa
     "select * from public.begin_chat_tool_continuation($1,$2,$3,$4,$5,$6)", [chatId, owner, assistantId, requestId, model, JSON.stringify(body)]);
   await finish(requests[0], "complete", pending);
   await expectDatabaseError(() => begin(decisions, requests[1], reporterId), "42501");
-  await expectDatabaseError(() => begin(decisions, requests[1], ownerId, conversationId), "40001");
-  await expectDatabaseError(() => begin(decisions, requests[1], ownerId, claim.assistant_message_id, "other-model"), "40001");
+  await expectDatabaseError(() => begin(decisions, requests[1], ownerId, conversationId), "PT409");
+  await expectDatabaseError(() => begin(decisions, requests[1], ownerId, claim.assistant_message_id, "other-model"), "PT409");
   for (const invalid of [[], [decisions[0], decisions[0]], [{ ...decisions[0], approved: "yes" }], [{ ...decisions[0], reason: null }], [{ ...decisions[0], input: "tamper" }], decisions.slice(0, 1)]) {
     await expectDatabaseError(() => begin(invalid), "22023");
   }
-  await expectDatabaseError(() => begin([{ ...decisions[0], approvalId: "unknown" }, decisions[1]]), "40001");
+  await expectDatabaseError(() => begin([{ ...decisions[0], approvalId: "unknown" }, decisions[1]]), "PT409");
   assert.deepEqual((await db.query("select parts from public.messages where id=$1", [claim.assistant_message_id])).rows[0].parts, pending);
   const resumed = (await begin()).rows[0];
   assert.equal(resumed.assistant_message_id, claim.assistant_message_id);
@@ -34,24 +34,24 @@ export async function verifyToolContinuation(db, { ownerId, reporterId, conversa
   assert.equal(resumed.replayed, false);
   const checkpoint = pending.map((part, index) => index === 0 ? part : { ...part, state: "approval-responded", approval: { ...part.approval, approved: decisions[index - 1].approved, ...(index === 2 ? { reason: "No thanks" } : {}) } });
   assert.deepEqual(resumed.continuation_parts, checkpoint);
-  await expectDatabaseError(() => begin(), "40001");
-  await expectDatabaseError(() => beginUser(), "40001");
-  await expectDatabaseError(() => beginUser("other-user"), "40001");
-  await expectDatabaseError(() => finish(requests[0], "complete", pending), "40001");
+  await expectDatabaseError(() => begin(), "PT409");
+  await expectDatabaseError(() => beginUser(), "PT409");
+  await expectDatabaseError(() => beginUser("other-user"), "PT409");
+  await expectDatabaseError(() => finish(requests[0], "complete", pending), "PT409");
   await finish(requests[1], "error", []);
   assert.deepEqual((await db.query("select parts,status from public.messages where id=$1", [claim.assistant_message_id])).rows[0], { parts: checkpoint, status: "error" });
-  await expectDatabaseError(() => begin([{ ...decisions[0], approved: false }, decisions[1]], requests[2]), "40001");
-  await expectDatabaseError(() => beginUser(), "40001");
+  await expectDatabaseError(() => begin([{ ...decisions[0], approved: false }, decisions[1]], requests[2]), "PT409");
+  await expectDatabaseError(() => beginUser(), "PT409");
   assert.deepEqual((await begin(decisions.toReversed(), requests[2])).rows[0], resumed);
   await db.query("update public.chat_generations set lease_expires_at=now()-interval '1 second' where conversation_id=$1", [chatId]);
   assert.deepEqual((await begin(decisions, requests[3])).rows[0], resumed);
-  await expectDatabaseError(() => finish(requests[2], "complete", pending), "40001");
+  await expectDatabaseError(() => finish(requests[2], "complete", pending), "PT409");
   const completed = checkpoint.map((part, index) => index === 0 ? part : { ...part, state: index === 1 ? "output-available" : "output-denied", ...(index === 1 ? { output: { location: "London", temperature: 20, condition: "sunny", source: "mock" } } : {}) });
   completed.push({ type: "text", text: "London is sunny; Seoul was not queried." });
   await finish(requests[3], "complete", completed);
   await finish(requests[3], "complete", completed);
   assert.equal((await begin()).rows[0].replayed, true);
-  await expectDatabaseError(() => begin([{ ...decisions[0], approved: false }, decisions[1]]), "40001");
+  await expectDatabaseError(() => begin([{ ...decisions[0], approved: false }, decisions[1]]), "PT409");
   assert.equal((await db.query("select count(*)::integer as n from public.messages where conversation_id=$1", [chatId])).rows[0].n, 2);
 
   // A later approval round preserves all prior outputs and accepts only its own decisions.
@@ -65,7 +65,7 @@ export async function verifyToolContinuation(db, { ownerId, reporterId, conversa
   const finalParts = nextRound.continuation_parts.map((part) => part.toolCallId === "call-2" ? { ...part, state: "output-denied" } : part);
   await finish(requests[1], "complete", finalParts);
   await beginUser("later-user");
-  await expectDatabaseError(() => begin(nextDecision), "40001");
+  await expectDatabaseError(() => begin(nextDecision), "PT409");
   await db.query("update public.conversations set status='deleted' where id=$1", [chatId]);
   await expectDatabaseError(() => begin(nextDecision), "42501");
   const grants = (await db.query(`select

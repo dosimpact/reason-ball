@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { PGlite } from "@electric-sql/pglite";
 import { verifyChatGeneration } from "./chat-generation.mjs";
 import { verifyToolContinuation } from "./tool-continuation.mjs";
-import { verifyLearningPreferences } from "./learning-preferences.mjs";
+import { verifyLearningPreferences, verifyLearningPreferenceUpgrade } from "./learning-preferences.mjs";
 import { verifyLearningActivity } from "./learning-activity.mjs";
 import { verifyLearningNotebook } from "./learning-notebook.mjs";
 import { verifySavedMissions } from "./saved-missions.mjs";
@@ -16,6 +16,13 @@ import { verifyResponseRegeneration } from "./response-regeneration.mjs";
 import { verifyChatFiles } from './chat-files.mjs';
 import { verifyMissionPrerequisites } from './mission-prerequisites.mjs';
 import { verifyMissionStart } from './mission-start.mjs';
+import { verifyPublishedParentDelete } from './published-parent-delete.mjs';
+import { verifyAutomaticGoalTracking } from "./automatic-goal-tracking.mjs";
+import { verifyMissionHints } from "./mission-hints.mjs";
+import { verifyArtifactSuggestions } from "./artifact-suggestions.mjs";
+import { verifyAutoTitleBootstrap } from "./auto-title-bootstrap.mjs";
+import { verifyAutoTitle } from "./auto-title.mjs";
+import { verifyCharacterConversationCount } from "./character-conversation-count.mjs";
 import { verifyConversationReturning } from './conversation-returning.mjs';
 
 const webDirectory = fileURLToPath(new URL("../..", import.meta.url));
@@ -161,6 +168,22 @@ try {
   await db.exec(await migration('20260910140000_learning_notebook.sql'));
   await db.exec(await migration('20260910144925_conversation_select_returning.sql'));
   await db.exec(await migration('20260910150000_saved_missions.sql'));
+  await db.exec(await migration('20260910154533_published_parent_delete_cascade.sql'));
+  await db.exec(await migration('20260910160828_business_conflict_http_status.sql'));
+  await db.exec(await migration('20260910161344_token_gated_unlisted_conversations.sql'));
+  await verifyCharacterConversationCount(db, await migration("20260910203419_character_conversation_count.sql"));
+  await db.exec(await migration("20260910203419_character_conversation_count.sql"));
+  await verifyAutoTitle(db, await migration("20260910213224_conversation_auto_title.sql"));
+  await db.exec(await migration("20260910213224_conversation_auto_title.sql"));
+  await db.exec(await migration("20260910214228_conversation_title_intent_bootstrap.sql"));
+  await verifyAutoTitleBootstrap(db);
+  await db.exec(await migration("20260910215332_persisted_artifact_suggestions.sql"));
+  await verifyArtifactSuggestions(db);
+  await verifyMissionHints(db, await migration("20260910224735_mission_hint_requests.sql"));
+  await db.exec(await migration("20260910224735_mission_hint_requests.sql"));
+  await verifyLearningPreferenceUpgrade(db, await migration("20260910231152_learner_response_preferences.sql"));
+  await db.exec(await migration("20260910231152_learner_response_preferences.sql"));
+  await verifyAutomaticGoalTracking(db, await migration("20260911000705_automatic_mission_goal_tracking.sql"));
   assert.equal((await db.query(`select count(*)::int as count from public.character_versions where display_metadata is not null`)).rows[0].count, 0);
   assert.equal((await db.query(`select count(*)::int as count from public.mission_versions where display_metadata is not null`)).rows[0].count, 0);
 
@@ -389,7 +412,7 @@ try {
           JSON.stringify(characterVersion2Payload),
         ],
       ),
-    "40001",
+    "PT409",
   );
   await db.query("select * from public.archive_character($1, $2)", [
     characterId,
@@ -601,7 +624,7 @@ try {
         "select * from public.create_mission_version($1, $2, $3, $4, $5::jsonb)",
         [missionId, missionVersion3Id, ownerId, 1, JSON.stringify(missionVersion2Payload)],
       ),
-    "40001",
+    "PT409",
   );
   await db.query("select * from public.archive_mission($1, $2)", [missionId, ownerId]);
   assert.equal(
@@ -940,11 +963,18 @@ try {
     JSON.stringify({ sub: reporterId, app_metadata: {} }),
   ]);
   await db.exec("set role authenticated");
-  const sharedConversation = await db.query(
+  const unlistedConversation = await db.query(
     "select id from public.conversations where id = $1",
     [conversationId],
   );
-  assert.deepEqual(sharedConversation.rows, [{ id: conversationId }]);
+  assert.deepEqual(unlistedConversation.rows, []);
+  // Public conversations retain cross-user feedback access. Unlisted reads now
+  // require the server's token path, and do not grant direct JWT voting access.
+  await db.exec("reset role");
+  await db.query("update public.conversations set visibility = 'public' where id = $1", [conversationId]);
+  await db.exec("set role authenticated");
+  const publicConversation = await db.query("select id from public.conversations where id = $1", [conversationId]);
+  assert.deepEqual(publicConversation.rows, [{ id: conversationId }]);
   await db.query(
     "insert into public.message_feedback (user_id, message_id, rating, reason) values ($1, $2, 1, 'helpful')",
     [reporterId, assistantMessageId],
@@ -972,6 +1002,7 @@ try {
   assert.deepEqual(ownFeedback.rows, [{ message_id: assistantMessageId, rating: -1, reason: "Needs detail" }]);
   await db.exec("reset role");
 
+  await db.query("update public.conversations set visibility = 'unlisted' where id = $1", [conversationId]);
   await db.query("select set_config('request.jwt.claims', '{}', false)");
   await db.exec("set role anon");
   const anonymousUnlisted = await db.query(
@@ -1131,6 +1162,7 @@ try {
   assert.deepEqual(grants.rows[0], { browser: false, server: true });
   await db.exec('rollback');
 
+  await verifyPublishedParentDelete(db, ownerId);
   await verifyConversationReturning(db, ownerId, reporterId);
   console.log(`PGlite database contract PASS (${webDirectory}/tests/db/publish-runtime.mjs)`);
 } finally {

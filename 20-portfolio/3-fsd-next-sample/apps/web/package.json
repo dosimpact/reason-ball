@@ -15,7 +15,8 @@
     "test:security": "playwright test --config playwright.security.config.ts",
     "test:e2e:ui": "playwright test --ui",
     "supabase:check": "node scripts/check-supabase.mjs",
-    "test:e2e:supabase": "playwright test --config playwright.supabase.config.ts"
+    "test:e2e:supabase": "playwright test --config playwright.supabase.config.ts",
+    "test:e2e:mock": "playwright test --config playwright.mock.config.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.59",

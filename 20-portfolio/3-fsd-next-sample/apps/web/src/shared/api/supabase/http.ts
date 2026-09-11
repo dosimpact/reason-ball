@@ -101,10 +101,17 @@ export function assertTrustedMutationRequest(request: Request) {
   if (!origin) return;
 
   const allowedOrigins = new Set<string>([new URL(request.url).origin]);
-  const configuredAppUrl = process.env.NEXT_PUBLIC_APP_URL?.trim();
-  if (configuredAppUrl) {
+  const configuredOrigins = [
+    process.env.NEXT_PUBLIC_APP_URL?.trim(),
+    ...(process.env.APP_ALLOWED_ORIGINS ?? "").split(",").map((value) => value.trim()),
+  ].filter((value): value is string => Boolean(value));
+  for (const configuredOrigin of configuredOrigins) {
     try {
-      allowedOrigins.add(new URL(configuredAppUrl).origin);
+      const url = new URL(configuredOrigin);
+      if (!["http:", "https:"].includes(url.protocol) || url.username || url.password) {
+        throw new Error("Invalid application origin");
+      }
+      allowedOrigins.add(url.origin);
     } catch {
       throw new SupabaseHttpError(
         503,
@@ -287,7 +294,7 @@ export function throwMutationError(
       "A resource with the same identifier already exists.",
     );
   }
-  if (error.code === "40001") {
+  if (error.code === "40001" || error.code === "PT409") {
     throw new SupabaseHttpError(
       409,
       "VERSION_CONFLICT",

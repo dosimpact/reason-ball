@@ -182,7 +182,10 @@ export async function POST(request: Request, context: RouteContext) {
       })
       .select(messageColumns)
       .limit(1);
-    assertDatabaseSuccess(result.error, "messages.append_user");
+    if (result.error?.code === "22023") {
+      throw new SupabaseHttpError(400, "INVALID_MESSAGE_CONTENT", "The message contains invalid content or attachment references.");
+    }
+    if (result.error) throwMutationError(result.error, "messages.append_user");
     const row = (result.data ?? [])[0];
     if (!row) {
       throw new SupabaseHttpError(

@@ -8,7 +8,7 @@ import type { Mission } from "@/entities/mission";
 import { useMissionRewardAccess } from "../model/use-mission-reward-access";
 
 type MissionRewardProps = {
-  mission: Mission;
+  mission: Pick<Mission, "id" | "rewardTitle" | "rewardPalette" | "rewardEmoji">;
   compact?: boolean;
 };
 
@@ -32,14 +32,11 @@ export function MissionReward({
     <div
       className={`relative isolate overflow-hidden rounded-[1.5rem] ${compact ? "min-h-40 p-5" : "min-h-72 p-7"}`}
       style={{
-        background: `linear-gradient(145deg, ${mission.rewardPalette[0]}, ${mission.rewardPalette[1]})`,
-        ...(signedRewardUrl
-          ? {
-              backgroundImage: `linear-gradient(to top, rgba(0,0,0,.65), rgba(0,0,0,.05)), url(${signedRewardUrl})`,
-              backgroundPosition: "center",
-              backgroundSize: "cover",
-            }
-          : {}),
+        backgroundImage: signedRewardUrl
+          ? `linear-gradient(to top, rgba(0,0,0,.65), rgba(0,0,0,.05)), url(${signedRewardUrl})`
+          : `linear-gradient(145deg, ${mission.rewardPalette[0]}, ${mission.rewardPalette[1]})`,
+        backgroundPosition: "center",
+        backgroundSize: "cover",
       }}
       data-testid={`reward-${mission.id}`}
       data-reward-state={rewardState}
@@ -72,9 +69,16 @@ export function MissionReward({
           </>
         ) : (
           <>
-            <span className="grid size-12 place-items-center rounded-full bg-black/20 backdrop-blur">
-              <LockKeyhole className="size-5" />
-            </span>
+            <div className="relative h-24 w-36">
+              {/* A local silhouette conceals the scene without fetching its private original. */}
+              <svg viewBox="0 0 144 96" role="img" aria-label="잠긴 보상 실루엣" className="h-full w-full text-black/35" data-testid="reward-locked-silhouette">
+                <circle cx="72" cy="26" r="19" fill="currentColor" />
+                <path d="M29 92V80c0-23 18-36 43-36s43 13 43 36v12Z" fill="currentColor" />
+              </svg>
+              <span aria-hidden="true" className="absolute bottom-0 right-3 grid size-10 place-items-center rounded-full bg-black/35 text-white backdrop-blur">
+                <LockKeyhole className="size-5" />
+              </span>
+            </div>
             <p className="mt-4 font-bold">완료하면 열리는 장면</p>
             <p className="mt-1 text-xs text-white/65">
               {mission.rewardTitle}

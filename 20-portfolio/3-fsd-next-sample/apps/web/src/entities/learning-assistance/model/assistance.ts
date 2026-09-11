@@ -8,6 +8,13 @@ export const assistanceRequestSchema = z.object({
   demo: z.object({ messages: z.array(assistanceMessageSchema).min(1).max(8), level: cefrLevelSchema }).strict().optional(),
 }).strict();
 export const assistanceResultSchema = z.object({ suggestion: z.string().trim().min(1).max(2000), brief: z.string().trim().min(1).max(300), explanation: z.string().trim().min(1).max(2000) }).strict();
+// Generation-only script guard: explanations must contain Korean text. This is
+// not a general language detector; quoted English examples and names stay valid.
+export const assistanceGenerationSchema = assistanceResultSchema.extend({
+  suggestion: assistanceResultSchema.shape.suggestion.describe("An English practice sentence. Preserve the learner's names and facts."),
+  brief: assistanceResultSchema.shape.brief.regex(/[가-힣]/, "Write the brief feedback in Korean.").describe("짧고 다정한 한국어 피드백. 반드시 한국어로 작성하세요."),
+  explanation: assistanceResultSchema.shape.explanation.regex(/[가-힣]/, "Explain in Korean; English examples may be included.").describe("한국어로 문법이나 표현을 설명하세요. 영어 예문을 포함해도 되지만 설명 전체를 영어로 쓰지 마세요."),
+});
 export const assistanceResponseSchema = z.object({ mode: assistanceModeSchema, messageId: z.string().min(1).max(200), targetText: z.string().min(1).max(4000), source: z.enum(["mock", "provider"]), result: assistanceResultSchema }).strict();
 export type AssistanceRequest = z.infer<typeof assistanceRequestSchema>;
 export type AssistanceResponse = z.infer<typeof assistanceResponseSchema>;
@@ -27,6 +34,9 @@ export function selectAssistanceContext(messages: AssistanceMessage[], messageId
 export function buildAssistancePrompt(mode: AssistanceRequest["mode"], level: string, context: ReturnType<typeof selectAssistanceContext>) {
   return JSON.stringify({ mode: assistanceModeSchema.parse(mode), level: cefrLevelSchema.parse(level), target: context.target, history: context.history });
 }
+
+// This policy describes generated learning content, independently of interface copy.
+export const assistanceContentLanguages = { suggestion: "en", brief: "ko", explanation: "ko" } as const;
 
 export const assistanceInstructions = [
   "You provide optional English-learning assistance, never mission assessment or rewards.",

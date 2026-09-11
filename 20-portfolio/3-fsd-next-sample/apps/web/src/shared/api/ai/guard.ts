@@ -66,10 +66,14 @@ export function recordAiObservation(input: {
   startedAt: number;
   outcome: "success" | "error" | "aborted";
   usage?: unknown;
+  conversationId?: string;
+  assistantMessageId?: string;
 }) {
   console.info("AI operation", {
     requestId: input.requestId,
     operation: input.operation,
+    conversationId: input.conversationId,
+    assistantMessageId: input.assistantMessageId,
     provider: input.provider,
     model: input.model,
     outcome: input.outcome,

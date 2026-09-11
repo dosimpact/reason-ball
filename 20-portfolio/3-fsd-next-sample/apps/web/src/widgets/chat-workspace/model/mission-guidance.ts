@@ -30,7 +30,10 @@ export function buildMissionGuidance(mission: Mission, run?: MissionRun): Missio
   if (!steps.length || new Set(steps.map((step) => step.order)).size !== steps.length) {
     return { state: "unavailable", steps: [] };
   }
-  if (run.status === "passed" || run.status === "abandoned" || ordered.every((step) => step.status === "completed" || step.status === "skipped")) {
+  const required = ordered.filter(step => step.required);
+  if (run.status === "passed" || run.status === "abandoned" ||
+    (required.length > 0 && required.every(step => step.status === "completed")) ||
+    ordered.every((step) => step.status === "completed" || step.status === "skipped")) {
     return { state: "review", steps };
   }
   const active = ordered.filter((step) => step.status === "active");

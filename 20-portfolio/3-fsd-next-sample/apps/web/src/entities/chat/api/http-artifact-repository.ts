@@ -1,3 +1,4 @@
+import { createUuid } from "@/shared/lib/uuid";
 import type { ChatArtifact, ChatArtifactKind } from "../model/types";
 import { ChatRepositoryError } from "./http-chat-repository";
 
@@ -128,7 +129,7 @@ export function createHttpArtifactRepository(fetchJson: typeof fetch = fetch) {
     async create(conversationId: string, kind: ChatArtifactKind, edit: ArtifactEdit) {
       const body = { conversationId, kind, title: edit.title, ...await content(edit) };
       const key = JSON.stringify(body);
-      const requestId = pendingCreates.get(key) ?? crypto.randomUUID();
+      const requestId = pendingCreates.get(key) ?? createUuid();
       pendingCreates.set(key, requestId);
       const payload = await request<{ item: ArtifactItem }>("/api/artifacts", "POST", {
         ...body, requestId,
@@ -147,7 +148,7 @@ export function createHttpArtifactRepository(fetchJson: typeof fetch = fetch) {
           "다른 창에서 Artifact가 변경됐어요. 초안을 복사한 뒤 최신 버전을 다시 불러와 주세요.", "VERSION_CONFLICT", 409,
         );
         if (!forceVersion && saved.title === edit.title && latest.content === edit.content && latest.imageUrl === edit.imageUrl) return saved;
-        requestId = crypto.randomUUID();
+        requestId = createUuid();
         pendingSaves.set(key, requestId);
       }
       const body = { title: edit.title, ...await content(edit, id), expectedVersionId };

@@ -13,7 +13,7 @@ export async function verifyArtifactRevisions(db, { ownerId, reporterId, convers
   await expectDatabaseError(() => commit(first, null, body, reporterId), "42501");
   assert.equal((await commit(first, null, body)).rows[0].id, first);
   await commit(first, null, body);
-  await expectDatabaseError(() => commit(first, null, { ...body, title: "Changed input" }), "40001");
+  await expectDatabaseError(() => commit(first, null, { ...body, title: "Changed input" }), "PT409");
   assert.equal((await db.query("select count(*)::int as n from public.artifact_versions where artifact_id=$1", [artifact])).rows[0].n, 1);
 
   // A title mutation is rolled back when the version content is invalid.
@@ -22,8 +22,8 @@ export async function verifyArtifactRevisions(db, { ownerId, reporterId, convers
   const edit = { title: "Renamed", contentText: "second", status: "draft" };
   await commit(second, first, edit);
   await commit(second, first, edit); // Lost response, same request and old base.
-  await expectDatabaseError(() => commit(third, first, { ...edit, contentText: "stale edit" }), "40001");
-  await expectDatabaseError(() => commit(second, second, edit), "40001");
+  await expectDatabaseError(() => commit(third, first, { ...edit, contentText: "stale edit" }), "PT409");
+  await expectDatabaseError(() => commit(second, second, edit), "PT409");
   await expectDatabaseError(() => commit(third, second, edit, reporterId), "42501");
   const snapshot = await db.query(`select a.title, a.current_version_id,
     (select count(*)::int from public.artifact_versions v where v.artifact_id=a.id) as versions

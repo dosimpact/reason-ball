@@ -1,5 +1,6 @@
 "use client";
 
+import { createUuid } from "@/shared/lib/uuid";
 import { Bookmark } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useSaveNotebook } from "@/entities/learning-notebook/api/use-notebook";
@@ -35,7 +36,7 @@ function NotebookEditor({ text: initialText, conversationId, messageId, onClose 
     if (mutation.isPending || saved) return;
     const parsed = notebookDraftSchema.safeParse({ kind, text, meaning, originalText: kind === "correction" ? originalText : "", source: { conversationId, messageId } });
     if (!parsed.success) { setError(parsed.error.issues[0]?.message ?? "입력을 확인해 주세요."); return; }
-    if (!pending.current) pending.current = { id: crypto.randomUUID(), draft: parsed.data };
+    if (!pending.current) pending.current = { id: createUuid(), draft: parsed.data };
     setSubmitted(true);
     setError("");
     try {

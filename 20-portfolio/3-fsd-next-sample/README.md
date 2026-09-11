@@ -56,7 +56,27 @@ Supabase URL·키와 AI 공급자 환경값을 설정합니다. Next.js는 웹 �
 환경 파일을 읽습니다. 비밀값은 커밋하지 않습니다. `src/proxy.ts`가 요청마다
 세션을 갱신하므로 실연동 설정이 없는 상태를 정상 실행으로 간주하지 않습니다.
 
+### 원격 브라우저에서 개발 서버 접속
+
+개발 서버의 `allowedDevOrigins`에 `192.168.0.45`와 `dodonet.iptime.org`를
+등록했습니다. `http://192.168.0.45:3000/` 또는
+`http://dodonet.iptime.org:13000/`에서 접속할 수 있습니다. 외부 13000번은
+공유기에서 개발 서버의 3000번으로 연결되어 있어야 합니다. 주소가 바뀌면
+`apps/web/next.config.ts`의 호스트 허용 목록을 갱신합니다.
+개발용 JavaScript 요청이 403이면 HTML만 보이고 버튼이 동작하지 않을 수 있습니다.
+이 설정은 개발 서버용이며 Supabase Auth redirect 설정과 별개입니다.
+API 쓰기 요청에는 서버 환경변수 `APP_ALLOWED_ORIGINS`도 필요합니다.
+`apps/web/.env.local`에 아래 값을 설정합니다. 요청의 Host/전달 헤더를 자동으로
+신뢰하지 않으며, 명시된 scheme·host·port만 추가 허용합니다.
+
+```dotenv
+APP_ALLOWED_ORIGINS=http://192.168.0.45:3000,http://dodonet.iptime.org:13000
+```
+
 ### 원격 Supabase 연결
+
+개발과 실연동 검증에는 항상 원격 Supabase를 사용합니다. 로컬 Supabase Docker
+스택은 사용하지 않으며, 로컬 start/stop/reset/status 스크립트도 제공하지 않습니다.
 
 DB 구조는 [Supabase 안내](supabase/README.md)와
 [최종 CREATE TABLE 모음](supabase/tables.sql)에서 확인합니다.
@@ -76,22 +96,28 @@ Session pooler 연결 정보를 사용합니다. 비밀번호가 포함된 URL�
 원격 DB에 `supabase db reset`을 실행하지 않습니다.
 
 앱의 게스트 세션에는 대시보드 Authentication에서 Anonymous sign-ins 활성화도
-필요합니다. 로컬 `supabase/config.toml` 설정만으로 원격 Auth 설정이 바뀌지는 않습니다.
+필요합니다. Auth·Storage·API 서비스 설정은 원격 대시보드에서 관리합니다.
+`supabase/config.toml`에는 CLI의 마이그레이션·seed 관리 설정만 둡니다.
 
-외부 서비스 없이 UI를 확인하려면 mock 모드를 명시합니다.
+자동화된 UI 회귀 테스트를 재현할 때만 mock 모드를 명시합니다.
+일반 개발에는 위의 원격 Supabase 연결을 사용합니다.
 
 ```bash
 APP_RUNTIME_MODE=mock NEXT_PUBLIC_APP_RUNTIME_MODE=mock AI_PROVIDER=mock pnpm dev
 ```
 
-`test:e2e`는 mock 런타임의 사용자 흐름을 실제 브라우저로 검증합니다.
-`test:e2e:supabase`는 `.env.local`의 실제 Supabase로 게스트 로그인, 개인 설정,
-미션 저장, 대화 저장·복원을 검증합니다. `seed.sql`의 기본 미션이 필요합니다.
-임시 게스트를 생성하고 테스트 종료 시 로그아웃 후 삭제합니다. AI 응답만
-mock이며 Auth·DB·RLS·HTTP 요청은 실제 연결을 사용합니다. 실연동 검사는
-production build/start로 실행해 개발 서버의 페이지별 컴파일·Fast Refresh를
-제외합니다. 두 E2E 명령은 동일한 `.next` 경로를 쓰므로 순서대로 실행합니다. 결과는
-`apps/web/playwright-supabase-report/`에 저장합니다.
+`test:e2e`와 호환 명령 `test:e2e:supabase`는 `apps/web/tests/e2e/live/`를
+**http://dodonet.iptime.org:13000/** 에서 실행합니다. 앱은 원격 Supabase 설정으로
+3000번 포트에 먼저 실행하고 외부 13000번 포트가 연결되어 있어야 합니다.
+Playwright는 서버를 별도로 띄우지 않고 worker 1개로 순차 실행합니다.
+학습 시간의 실제 탭 포커스 이탈을 검사하는 `learning-activity.spec.ts`만 창 모드로 실행하므로 GUI 환경이 필요합니다. 이 테스트도 브라우저 하나를 사용하고 종료 시 닫습니다. 다른 테스트는 기본 headless 설정을 사용합니다.
+Auth·DB·Storage는 실제 연결이며 AI 생성 사례에는 실제 공급자 인증도 필요합니다.
+테스트 계정은 관리자 API로 만들고 실제 앱 로그인 API를 통과합니다. 테스트가
+생성한 계정과 콘텐츠만 종료 시 정리하며, 중단되어 남은 계정 ID는 git에서 제외한
+`apps/web/.e2e-owned-accounts.json`에 기록합니다. 관리자 확인 계정은 실제 인증
+메일 전달·게스트 이메일 연결 검증을 대체하지 않습니다.
+결과는 `apps/web/playwright-report/`에 저장합니다. 기존 mock 회귀 검사는
+`pnpm test:e2e:mock`으로 명시적으로 실행하며 실연동 성공으로 합산하지 않습니다.
 `test:contracts`는 브라우저 없이 스트림·저장 순서 등 Node 계약을 검증합니다.
 `test:security`는 별도 production build와 3211 포트에서 실연동 서버 모드의
 채팅 컨텍스트·인증·출처 차단을 검증합니다. 실제 Supabase RLS/Storage 성공

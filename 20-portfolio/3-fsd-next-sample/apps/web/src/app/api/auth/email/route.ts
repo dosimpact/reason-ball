@@ -36,7 +36,7 @@ export async function POST(request: Request) {
 
     if (action === "sign-in" || action === "sign-up") {
       const current = await client.auth.getUser();
-      if (current.data.user?.is_anonymous) {
+      if (current.data.user?.is_anonymous && !(parsed.data.action === "sign-in" && parsed.data.switchAccount === true)) {
         throw new SupabaseHttpError(
           409,
           "ANONYMOUS_LINK_REQUIRED",

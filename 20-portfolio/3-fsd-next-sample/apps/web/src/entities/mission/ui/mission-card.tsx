@@ -17,12 +17,12 @@ const categoryColors: Record<string, string> = {
 export function MissionCard({ mission, completed = false }: MissionCardProps) {
   return (
     <article
-      className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-black/6 bg-white p-5 shadow-[0_16px_45px_-35px_rgba(25,18,8,.5)] transition duration-300 hover:-translate-y-1"
+      className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-border bg-card text-card-foreground p-5 shadow-[0_16px_45px_-35px_rgba(25,18,8,.5)] transition duration-300 hover:-translate-y-1"
       data-testid={`mission-card-${mission.id}`}
     >
       <div className="flex items-start justify-between gap-3">
         <span
-          className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${categoryColors[mission.category] ?? "bg-neutral-100 text-neutral-700"}`}
+          className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${categoryColors[mission.category] ?? "bg-neutral-100 text-neutral-700 dark:text-neutral-200"}`}
         >
           {mission.category}
         </span>
@@ -32,8 +32,8 @@ export function MissionCard({ mission, completed = false }: MissionCardProps) {
       </div>
       <div className="mt-5 flex flex-1 flex-col">
         <h3 className="text-xl font-bold tracking-tight">{mission.title}</h3>
-        <p className="mt-1.5 text-sm leading-5 text-neutral-500">{mission.subtitle}</p>
-        <div className="mt-5 space-y-2 text-xs text-neutral-500">
+        <p className="mt-1.5 text-sm leading-5 text-muted-foreground">{mission.subtitle}</p>
+        <div className="mt-5 space-y-2 text-xs text-muted-foreground">
           <div className="flex items-center gap-2">
             <MapPin className="size-3.5 text-[#e16748]" aria-hidden="true" />
             {mission.location}
@@ -45,7 +45,7 @@ export function MissionCard({ mission, completed = false }: MissionCardProps) {
             </span>
             <span className="flex items-center gap-2">
               <Users className="size-3.5" aria-hidden="true" />
-              {mission.learnerCount.toLocaleString("ko-KR")}명
+              {mission.learnerCount.toLocaleString("ko-KR")}회 완료
             </span>
           </div>
         </div>
@@ -62,7 +62,7 @@ export function MissionCard({ mission, completed = false }: MissionCardProps) {
             <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">
               Reward
             </p>
-            <p className="text-xs font-semibold text-neutral-700">{mission.rewardTitle}</p>
+            <p className="text-xs font-semibold text-neutral-700 dark:text-neutral-200">{mission.rewardTitle}</p>
           </div>
         </div>
       </div>

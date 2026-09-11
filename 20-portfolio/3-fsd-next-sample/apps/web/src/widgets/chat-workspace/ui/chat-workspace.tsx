@@ -1,5 +1,6 @@
 "use client";
 
+import { createUuid } from "@/shared/lib/uuid";
 import { useChat } from "@ai-sdk/react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { learningQueryKeys } from "@/shared/api/learning";
@@ -25,6 +26,7 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState, type ClipboardEvent, type FormEvent } from "react";
 import { DefaultChatTransport, lastAssistantMessageIsCompleteWithApprovalResponses, type FileUIPart } from "ai";
@@ -66,16 +68,28 @@ import { loadSavedChatContext } from "../api/saved-context";
 import { createLocalPreferences } from "@/entities/learner/api/preferences-repository";
 import { appendGuidanceHint, buildMissionGuidance, selectGuidanceStep } from "../model/mission-guidance";
 import { MissionGuidancePanel } from "./mission-guidance-panel";
+import { MissionProgressPanel } from "./mission-progress-panel";
+import { SuggestedConversations } from "./suggested-conversations";
 import { MessageLearningHelp } from "@/features/learning-assistance/ui/message-learning-help";
+import { TurnEvaluation } from "@/features/turn-evaluation/ui/turn-evaluation";
+import { copyText } from "@/shared/lib/clipboard";
+import { conversationReviewPrompt } from "@/entities/chat/model/conversation-review";
 
 type PendingAttachment = FileUIPart & { size: number };
 
 function makeId(prefix: string) {
-  return `${prefix}-${globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`}`;
+  return `${prefix}-${createUuid()}`;
 }
 
 function isUuid(value: string) {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+}
+
+function persistedMessageId(message: ChatMessage) {
+  if (isUuid(message.id)) return message.id;
+  const metadata = message.metadata;
+  if (typeof metadata !== "object" || metadata === null || !("databaseId" in metadata)) return undefined;
+  return typeof metadata.databaseId === "string" && isUuid(metadata.databaseId) ? metadata.databaseId : undefined;
 }
 
 function welcomeMessage(character: Character, mission?: Mission): ChatMessage {
@@ -207,7 +221,7 @@ function ResolvedChatWorkspace({ character, mission, requestedConversationId, re
           const user = await ensureBrowserSession();
           if (!active || epoch !== loadEpoch.current) return;
           const context = conversationInput(character, mission);
-          if (creation.current?.routeKey !== context.routeKey) creation.current = { routeKey: context.routeKey, id: crypto.randomUUID() };
+          if (creation.current?.routeKey !== context.routeKey) creation.current = { routeKey: context.routeKey, id: createUuid() };
           const next = requestedConversationId && !requestedNewAttempt && !forceCreate.current
             ? await httpChatRepository.getConversation(requestedConversationId, context)
             : await httpChatRepository.createConversation(context, creation.current.id);
@@ -247,7 +261,7 @@ function ResolvedChatWorkspace({ character, mission, requestedConversationId, re
       setLoadError(undefined);
       setRecoveryIssue(undefined);
       const context = conversationInput(character, mission);
-      creation.current = { routeKey: context.routeKey, id: crypto.randomUUID() };
+      creation.current = { routeKey: context.routeKey, id: createUuid() };
       forceCreate.current = true;
       try {
         const user = await ensureBrowserSession();
@@ -336,6 +350,10 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
   const voteRequestInFlight = useRef(false);
   const [shareToken, setShareToken] = useState(conversation.shareToken);
   const [shareOpen, setShareOpen] = useState(false);
+  const [shareUrl, setShareUrl] = useState("");
+  const [shareStatus, setShareStatus] = useState<string>();
+  const [shareError, setShareError] = useState<string>();
+  const [shareBusy, setShareBusy] = useState(false);
   const [manageOpen, setManageOpen] = useState(false);
   const [destructiveAction, setDestructiveAction] = useState<"clear" | "delete" | "purge">();
   const [purgeConfirmation, setPurgeConfirmation] = useState("");
@@ -349,8 +367,11 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
   const [artifacts, setArtifacts] = useState(conversation.artifacts);
   const [initialArtifactKind, setInitialArtifactKind] = useState<ChatArtifactKind>();
   const [title, setTitle] = useState(conversation.title);
+  const [titleDraft, setTitleDraft] = useState(conversation.title);
+  const titleRevision = useRef(0);
+  const titleRequest = useRef(0);
   const [chatSource, setChatSource] = useState<"api">();
-  const [theme, setTheme] = useState(conversation.theme);
+  const { resolvedTheme, setTheme } = useTheme();
   const [audioRevisions, setAudioRevisions] = useState<Record<string, number>>({});
   const [pendingRequest, setPendingRequest] = useState(conversation.pendingRequest);
   const [autoPlayMessageId, setAutoPlayMessageId] = useState<string>();
@@ -384,19 +405,24 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
   }), [character, conversation.id, mission, model, scenario]);
 
   const initialMessages = useMemo(() => {
-    if (!conversation.pendingRequest) return conversation.messages;
+    // Persisted remote turns stay visible while waiting for explicit retry.
+    // Only the legacy mock auto-send path removes the user before re-appending it.
+    if (remote || !conversation.pendingRequest) return conversation.messages;
     const pendingUserIndex = conversation.messages.findIndex((message) => message.id === conversation.pendingRequest?.userMessageId);
     return pendingUserIndex < 0 ? conversation.messages : conversation.messages.slice(0, pendingUserIndex);
-  }, [conversation]);
+  }, [conversation, remote]);
 
   const { addToolApprovalResponse, clearError, error, messages, regenerate, sendMessage, setMessages, status, stop } = useChat<ChatMessage>({
     id: conversation.id,
     messages: initialMessages,
     transport,
     onError: (cause) => {
+      if (remote) void refreshTitle();
+      if (remote && mission) void missionRunQuery.refetch();
       if (remote && cause.message.includes("CHAT_RESPONSE_SAVED")) void restoreSavedMessages();
     },
     onFinish: ({ isError, isAbort, message }) => {
+      if (remote) { void refreshTitle(); if (mission) void missionRunQuery.refetch(); }
       if (!isError && !isAbort) setAutoPlayMessageId(message.id);
       requestFinishedThisMount.current = !isError;
       if (!isError) setChatSource("api");
@@ -410,10 +436,24 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
 
   const busy = status === "submitted" || status === "streaming";
 
+  async function refreshTitle() {
+    if (!remote) return;
+    const revision = titleRevision.current;
+    const request = ++titleRequest.current;
+    try {
+      const savedTitle = await httpChatRepository.getTitle(conversation.id);
+      if (revision === titleRevision.current && request === titleRequest.current) setTitle(savedTitle);
+      void queryClient.invalidateQueries({ queryKey: learningQueryKeys.snapshot() });
+    } catch {
+      // Preserve the current title; a later restore or reload retries the authoritative read.
+    }
+  }
+
   async function restoreSavedMessages() {
     try {
       const restored = storedMessagesToChat(await httpChatRepository.getMessages(conversation.id));
       setMessages(restored);
+      void refreshTitle();
       setPendingRequest(undefined);
       clearError();
       setChatSource("api");
@@ -423,7 +463,6 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
     }
   }
   const guidance = mission ? buildMissionGuidance(mission, missionRun) : undefined;
-  const completedRunSteps = missionRun?.steps.filter((step) => step.status === "completed").length ?? 0;
   const suggestions = mission?.keyPhrases.slice(0, 3) ?? [
     { english: "Could you say that again?", korean: "다시 말해 줄래요?" },
     { english: "Let me think for a second.", korean: "잠깐 생각해 볼게요." },
@@ -461,7 +500,9 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
   }, [character.id, conversation.id, messages, mission?.id, title, touchHistory, remote, saveMockConversation]);
 
   useEffect(() => {
-    if (!pendingRequest || requestStartedThisMount.current) return;
+    // Restoring a remote conversation must not incur an AI request without user
+    // intent. The explicit continuation button resumes its persisted checkpoint.
+    if (remote || !pendingRequest || requestStartedThisMount.current) return;
     const userMessage = conversation.messages.find((message) => message.id === pendingRequest.userMessageId && message.role === "user");
     if (!userMessage) {
       saveMockConversation({ pendingRequest: undefined });
@@ -471,7 +512,7 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
     requestStartedThisMount.current = true;
     requestFinishedThisMount.current = false;
     void sendMessage({ id: userMessage.id, role: "user", parts: userMessage.parts }).catch(() => undefined);
-  }, [conversation.id, conversation.messages, pendingRequest, sendMessage, saveMockConversation]);
+  }, [conversation.id, conversation.messages, pendingRequest, remote, sendMessage, saveMockConversation]);
 
   useEffect(() => {
     if (!pendingRequest) return;
@@ -543,7 +584,7 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
     saveMockConversation({ artifacts: nextArtifacts });
   }
 
-  async function updateVote(messageId: string, value: "up" | "down", reason?: string) {
+  async function updateVote(messageId: string, value: "up" | "down" | undefined, reason?: string) {
     if (remote) {
       if (voteRequestInFlight.current || deletingRef.current) return;
       voteRequestInFlight.current = true;
@@ -551,7 +592,11 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
       setActionError(undefined);
       try {
         const saved = await httpChatRepository.vote(messageId, value, reason);
-        setVotes((current) => ({ ...current, [messageId]: saved }));
+        setVotes((current) => {
+          const next = { ...current };
+          if (saved) next[messageId] = saved; else delete next[messageId];
+          return next;
+        });
       } catch (cause) {
         setActionError(cause instanceof Error ? cause.message : "피드백을 저장하지 못했어요.");
       } finally {
@@ -560,7 +605,9 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
       }
       return;
     }
-    const nextVotes = { ...votes, [messageId]: { value, ...(reason ? { reason } : {}) } };
+    const nextVotes = { ...votes };
+    if (value) nextVotes[messageId] = { value, ...(reason ? { reason } : {}) };
+    else delete nextVotes[messageId];
     setVotes(nextVotes);
     saveMockConversation({ votes: nextVotes });
   }
@@ -662,8 +709,9 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
     if (command === "/rename") {
       const nextTitle = argument || `${character.name} practice`;
       if (remote) {
+        titleRevision.current++;
         void httpChatRepository.renameConversation(conversation.id, nextTitle)
-          .then(() => { setTitle(nextTitle); setInput(""); })
+          .then(() => { titleRevision.current++; setTitle(nextTitle); setInput(""); void queryClient.invalidateQueries({ queryKey: learningQueryKeys.snapshot() }); })
           .catch((cause) => setActionError(cause instanceof Error ? cause.message : "제목을 저장하지 못했어요."));
         return true;
       }
@@ -677,8 +725,8 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
       return true;
     }
     if (command === "/theme") {
-      const nextTheme = theme === "light" ? "focus" : "light";
-      setTheme(nextTheme); saveMockConversation({ theme: nextTheme }); setInput(""); return true;
+      setTheme(resolvedTheme === "dark" ? "light" : "dark");
+      setInput(""); return true;
     }
     if (command === "/delete") { setDestructiveAction("delete"); setInput(""); return true; }
     if (command === "/purge") { setDestructiveAction("purge"); setPurgeConfirmation(""); setInput(""); return true; }
@@ -703,12 +751,17 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const text = input.trim();
+    await submitDraft();
+  }
+
+  async function submitDraft(review = false) {
+    const text = review ? conversationReviewPrompt : input.trim();
     if (!missionReady || busy || deletingRef.current || attachmentRead.current.controller) return;
-    if (!editingId && text.startsWith("/") && executeCommand(text)) return;
+    if (review && (mission || editingId || attachment || !messages.some(message => message.role === "user"))) return;
+    if (!review && !editingId && text.startsWith("/") && executeCommand(text)) return;
     if ((!text && !attachment) || busy || deletingRef.current) return;
     const editedMessageId = editingId;
-    const userMessageId = editingId ?? makeId("user");
+    const userMessageId = editingId ?? (remote ? createUuid() : makeId("user"));
     let parts: ChatMessage["parts"] = [
       ...(attachment ? [attachment] : []),
       ...(text ? [{ type: "text" as const, text }] : []),
@@ -731,7 +784,7 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
       try {
         if (!draftSession?.ownerId) throw new Error('전송 기록의 사용자를 확인하지 못했어요.');
         const current = await httpChatRepository.getConversation(conversation.id, conversationInput(character, mission));
-        const entry = prepareOutbox(current, { id: userMessageId, role: 'user', parts }, model, new Date().toISOString());
+        const entry = prepareOutbox(current, { id: userMessageId, role: 'user', parts }, model, new Date().toISOString(), review ? { preserveDraft: true } : undefined);
         await withBrowserOutbox(draftSession.ownerId, conversation.id, (store) => {
           const previous = store.read();
           if (previous && reconcileOutbox(current, previous).stored) store.clear(previous.userMessageId);
@@ -742,7 +795,7 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
         return;
       } finally { deletingRef.current = false; setDeleting(false); }
     }
-    setInput("");
+    if (!review) setInput("");
     clearError();
     const nextPending = { startedAt: new Date().toISOString(), userMessageId };
     requestStartedThisMount.current = true;
@@ -788,7 +841,7 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
     if (!edit || deletingRef.current || busy) return;
     deletingRef.current = true; setDeleting(true); setActionError(undefined);
     try {
-      edit.request = prepareEditRequest(edit.request, parts, crypto.randomUUID());
+      edit.request = prepareEditRequest(edit.request, parts, createUuid());
       const { requestId, parts: savedParts } = edit.request;
       const { sourceId, expectedTailId } = edit.checkpoint;
       const saved = await httpChatRepository.replaceMessageBranch(conversation.id, sourceId, expectedTailId, requestId, savedParts);
@@ -912,7 +965,7 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
     if (remote) {
       deletingRef.current = true; setDeleting(true); setActionError(undefined);
       try {
-        const requestId = regenerationRequests.current.get(message.id) ?? crypto.randomUUID();
+        const requestId = regenerationRequests.current.get(message.id) ?? createUuid();
         regenerationRequests.current.set(message.id, requestId);
         const user = await httpChatRepository.prepareRegeneration(conversation.id, message.id, requestId);
         const restored = storedMessagesToChat(await httpChatRepository.getMessages(conversation.id));
@@ -943,25 +996,67 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
   }
 
   async function copyMessage(message: ChatMessage) {
-    await navigator.clipboard?.writeText(messageText(message));
-    setCopiedId(message.id);
+    setCopiedId(undefined);
+    try {
+      await copyText(messageText(message));
+      setCopiedId(message.id);
+      setActionError(undefined);
+    } catch {
+      setActionError("복사하지 못했어요. 텍스트를 선택해 직접 복사해 주세요.");
+    }
   }
 
   async function openShare() {
     try {
       const token = remote ? await httpChatRepository.shareConversation(conversation.id) : mockChatRepository.shareConversation(conversation.id);
+      if (!token) throw new Error("공유 링크를 확인하지 못했어요.");
       setShareToken(token);
+      setShareUrl(new URL(`/shared/${token}`, window.location.origin).href);
+      setShareStatus(undefined);
+      setShareError(undefined);
       setShareOpen(true);
       setActionError(undefined);
     } catch (cause) { setActionError(cause instanceof Error ? cause.message : "공유 링크를 만들지 못했어요."); }
   }
 
+  async function copyShareLink() {
+    setShareStatus(undefined);
+    setShareError(undefined);
+    try {
+      await copyText(shareUrl);
+      setShareStatus("공유 링크를 복사했어요.");
+    } catch (cause) {
+      setShareError(cause instanceof Error ? cause.message : "공유 링크를 복사하지 못했어요.");
+    }
+  }
+
+  async function revokeShare() {
+    if (shareBusy) return;
+    setShareBusy(true);
+    setShareError(undefined);
+    setShareStatus(undefined);
+    try {
+      if (remote) await httpChatRepository.revokeShare(conversation.id);
+      else mockChatRepository.updateConversation(conversation.id, { shareToken: undefined });
+      setShareToken(undefined);
+      setShareUrl("");
+      setShareOpen(false);
+      if (remote) void queryClient.invalidateQueries({ queryKey: learningQueryKeys.snapshot() });
+    } catch {
+      setShareError("공유 취소를 확인하지 못했어요. 다시 시도해 주세요.");
+    } finally {
+      setShareBusy(false);
+    }
+  }
+
   async function saveTitle() {
-    const nextTitle = title.trim() || conversation.title;
+    const nextTitle = titleDraft.trim() || title;
+    titleRevision.current++;
     if (remote) {
       try { await httpChatRepository.renameConversation(conversation.id, nextTitle); }
       catch (cause) { setActionError(cause instanceof Error ? cause.message : "제목을 저장하지 못했어요."); return; }
     }
+    titleRevision.current++;
     setTitle(nextTitle);
     saveMockConversation({ title: nextTitle });
     setManageOpen(false);
@@ -978,7 +1073,7 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
       if (destructiveAction === "clear") {
         let restored: ChatMessage[];
         if (remote) {
-          clearRequestRef.current ??= crypto.randomUUID();
+          clearRequestRef.current ??= createUuid();
           restored = storedMessagesToChat(await httpChatRepository.clearMessages(conversation.id, clearRequestRef.current));
           clearRequestRef.current = undefined;
           try {
@@ -997,7 +1092,7 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
       }
       if (remote) {
         if (destructiveAction === "purge") {
-          purgeRequestRef.current ??= crypto.randomUUID();
+          purgeRequestRef.current ??= createUuid();
           await httpChatRepository.purgeConversations(purgeRequestRef.current, purgeConfirmation);
           purgeRequestRef.current = undefined;
         } else await httpChatRepository.deleteConversation(conversation.id);
@@ -1032,6 +1127,7 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
 
   const missionPanel = mission && missionRun ? <div className="mt-6"><MissionEvaluationPanel
     runId={missionRun.id}
+    character={{ id: character.id, name: character.name, emoji: character.emoji, palette: character.palette }}
     onRetake={onNew}
     messages={messages
       .filter((message): message is ChatMessage & { role: "user" | "assistant" } => message.role === "user" || message.role === "assistant")
@@ -1042,17 +1138,16 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
   const slashCommands = [
     ["/hint", "다음 문장 힌트"], ["/translate", "자연스러운 번역"], ["/goal", "미션 목표 확인"],
     ["/weather Seoul", "날씨 도구 승인"], ["/artifact text", "Artifact 만들기"], ["/rename", "대화 제목 변경"],
-    ["/model gpt-5-mini", "모델 변경"], ["/theme", "집중 테마 전환"], ["/clear", "메시지 지우기"], ["/new", "새 대화"], ["/delete", "현재 대화 삭제"], ["/purge", "모든 대화 삭제"],
+    ["/model gpt-5-mini", "모델 변경"], ["/theme", "다크·라이트 테마 전환"], ["/clear", "메시지 지우기"], ["/new", "새 대화"], ["/delete", "현재 대화 삭제"], ["/purge", "모든 대화 삭제"],
   ];
 
-  return <div className={`h-[calc(100svh-4rem-1px)] overflow-hidden pb-20 lg:pb-0 ${theme === "focus" ? "bg-indigo-100" : "bg-[#f7f4ef]"}`} data-testid="chat-workspace" data-conversation-id={conversation.id}>
+  return <div className="h-[calc(100svh-4rem-1px)] overflow-hidden bg-[#f7f4ef] pb-20 lg:pb-0" data-testid="chat-workspace" data-conversation-id={conversation.id}>
     {actionError ? <div role="alert" className="fixed inset-x-4 bottom-24 z-[80] mx-auto max-w-lg rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-900 shadow-lg"><p>{actionError}</p><button type="button" onClick={() => setActionError(undefined)} className="mt-2 font-bold">안내 닫기</button></div> : null}
     {draftWarning ? <p role="alert" className="fixed inset-x-4 bottom-12 z-[80] mx-auto max-w-lg rounded-xl bg-amber-100 p-3 text-xs text-amber-950">{draftWarning}</p> : null}
     <div className="mx-auto grid h-full min-h-0 max-w-[1600px] grid-rows-[minmax(0,1fr)] lg:grid-cols-[300px_minmax(0,1fr)_330px]">
       <aside className="hidden border-r border-black/6 bg-white/55 p-5 lg:flex lg:flex-col">
         <Link href={mission ? `/missions/${mission.id}` : `/characters/${character.id}`} className="inline-flex items-center gap-2 text-xs font-bold text-neutral-500"><ArrowLeft className="size-4" /> 대화 나가기</Link>
         <div className="mt-7 overflow-hidden rounded-[1.5rem] bg-white shadow-sm"><CharacterAvatar character={character} size="hero" className="h-52" /><div className="p-4"><p className="text-lg font-black">{character.name}</p><p className="text-xs text-[#e16748]">{character.role}</p><p className="mt-3 text-xs leading-5 text-neutral-500">{character.speakingStyle}</p></div></div>
-        {mission ? <div className="mt-5 flex-1 overflow-y-auto"><p className="text-[10px] font-black uppercase tracking-[.18em] text-neutral-400">Mission run progress</p><h2 className="mt-2 font-black">{mission.title}</h2><ol className="mt-4 space-y-3">{mission.objectives.map((objective, index) => { const done = index < completedRunSteps; return <li key={objective.id} className={`flex gap-3 text-xs leading-5 ${done ? "text-emerald-700" : "text-neutral-500"}`}><span className={`mt-0.5 grid size-5 shrink-0 place-items-center rounded-full ${done ? "bg-emerald-100" : "border border-black/10"}`}>{done ? <Check className="size-3" /> : index + 1}</span><span>{objective.label}</span></li>; })}</ol></div> : null}
       </aside>
 
       <section className="flex min-h-0 min-w-0 flex-col bg-white" aria-label={`${character.name}와 대화`}>
@@ -1060,35 +1155,40 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
         <header className="flex h-16 shrink-0 items-center gap-3 border-b border-black/6 px-4 sm:px-6">
           <Link href={mission ? `/missions/${mission.id}` : `/characters/${character.id}`} className="grid size-9 place-items-center rounded-xl hover:bg-neutral-100 lg:hidden" aria-label="대화 나가기"><ArrowLeft className="size-4" /></Link>
           <CharacterAvatar character={character} size="sm" className="rounded-full lg:hidden" />
-          <div className="min-w-0"><p className="truncate text-sm font-black">{title}</p><p className="truncate text-[10px] text-neutral-400" data-testid="conversation-id">{conversation.id}</p><p className="text-[11px] text-emerald-600">● {busy ? "답변을 생각하는 중" : "대화 가능"}{chatSource ? " · AI Route" : ""}</p></div>
+          <div className="min-w-0"><p className="truncate text-sm font-black" data-testid="conversation-title">{title}</p><p className="truncate text-[10px] text-neutral-400" data-testid="conversation-id">{conversation.id}</p><p className="text-[11px] text-emerald-600">● {busy ? "답변을 생각하는 중" : "대화 가능"}{chatSource ? " · AI Route" : ""}</p></div>
           <div className="ml-auto flex items-center gap-1.5">
             <button type="button" onClick={onNew} className="grid size-9 place-items-center rounded-xl hover:bg-neutral-100" aria-label="새 대화 시작"><Plus className="size-4" /></button>
             <button type="button" onClick={() => { setInitialArtifactKind(undefined); setArtifactsOpen(true); }} className="grid size-9 place-items-center rounded-xl hover:bg-neutral-100" aria-label="Artifact 열기"><Clipboard className="size-4" /></button>
             <button type="button" onClick={openShare} className="grid size-9 place-items-center rounded-xl hover:bg-neutral-100" aria-label="대화 공유"><Share2 className="size-4" /></button>
-            <button type="button" onClick={() => setManageOpen(true)} className="grid size-9 place-items-center rounded-xl hover:bg-neutral-100" aria-label="대화 관리"><Settings2 className="size-4" /></button>
+            <button type="button" onClick={() => { setTitleDraft(title); setManageOpen(true); }} className="grid size-9 place-items-center rounded-xl hover:bg-neutral-100" aria-label="대화 관리"><Settings2 className="size-4" /></button>
             <button type="button" onClick={() => setNotesOpen(true)} className="grid size-9 place-items-center rounded-xl hover:bg-neutral-100 lg:hidden" aria-label="학습 노트 열기"><Menu className="size-4" /></button>
           </div>
         </header>
+        {mission ? <MissionProgressPanel run={missionRun} title={mission.title} loading={missionRunQuery.isFetching} failed={missionRunQuery.isError} onRetry={() => void missionRunQuery.refetch()} /> : null}
         <ChatModelSelector entries={modelEntries} model={model} disabled={busy || deleting} loading={modelCatalog.isPending} failed={modelCatalog.isError} onChange={(id) => void setModel(id)} onRetry={() => void modelCatalog.refetch()} />
+        {!mission ? <div className="flex flex-wrap items-center justify-between gap-2 border-b border-black/6 px-4 py-2 text-xs"><p className="text-neutral-500">이번 연습을 마치면 대화에 나온 표현을 모아 복습할 수 있어요.</p><button type="button" onClick={() => void submitDraft(true)} disabled={busy || deleting || readingAttachment || Boolean(editingId || attachment) || !messages.some(message => message.role === "user")} className="rounded-lg border border-indigo-200 px-3 py-2 font-bold text-indigo-800 disabled:opacity-40" data-testid="conversation-review-button">대화 마치고 복습하기</button></div> : null}
+        {!mission ? <SuggestedConversations sourceConversationId={conversation.id} context={conversationInput(character)} prompts={["Let's practice introducing ourselves.", "Could you help me plan my day?"]} ownerId={draftSession?.ownerId} disabled={busy || deleting} /> : null}
 
         <div className="min-h-0 flex-1 overflow-y-auto px-4 py-6 sm:px-7" aria-live="polite">
           <div className="mx-auto max-w-3xl space-y-6">
             <div className="text-center"><span className="rounded-full bg-[#f7f4ef] px-3 py-1.5 text-[10px] font-bold text-neutral-400">오늘 · 안전한 AI 학습 대화</span></div>
             {messages.map((message, messageIndex) => {
               const assistant = message.role === "assistant";
+              const assistanceId = remote ? persistedMessageId(message) : message.id;
               return <article key={message.id} className={`group flex gap-3 ${assistant ? "items-start" : "justify-end"}`} data-testid={`message-${message.role}`} data-message-id={message.id}>
                 {assistant ? <CharacterAvatar character={character} size="sm" className="mt-1 rounded-full" /> : null}
-                <div className={`max-w-[86%] sm:max-w-[75%] ${assistant ? "" : "flex flex-col items-end"}`}>
-                  <div className={`rounded-[1.3rem] px-4 py-3 text-left text-sm leading-6 ${assistant ? "rounded-tl-sm bg-[#f1eee8] text-neutral-800" : "rounded-tr-sm bg-[#5763d7] text-white"}`}><MessageContent message={message} onToolApproval={(approvalId, approved) => void addToolApprovalResponse({ id: approvalId, approved })} onWeatherDecision={(approved, partIndex) => updateWeather(message.id, partIndex, approved)} /></div>
+                <div className={`min-w-0 max-w-[86%] sm:max-w-[75%] ${assistant ? "" : "flex flex-col items-end"}`}>
+                  <div className={`min-w-0 max-w-full rounded-[1.3rem] px-4 py-3 text-left text-sm leading-6 ${assistant ? "rounded-tl-sm bg-[#f1eee8] text-neutral-800" : "rounded-tr-sm bg-[#5763d7] text-white"}`}><MessageContent message={message} onToolApproval={(approvalId, approved) => void addToolApprovalResponse({ id: approvalId, approved })} onWeatherDecision={(approved, partIndex) => updateWeather(message.id, partIndex, approved)} /></div>
                   <div className={`mt-1 flex min-h-7 items-center gap-0.5 opacity-0 transition group-hover:opacity-100 focus-within:opacity-100 ${assistant ? "" : "flex-row-reverse"}`}>
                     {messageText(message) ? <SaveNotebookButton text={messageText(message)} conversationId={conversation.id} messageId={message.id} disabled={busy || deleting || (remote && message.id.startsWith("welcome-"))} /> : null}
-                    {assistant ? <>{messageText(message) ? <AudioPlaybackButton playbackId={message.id} autoPlayOnMount={autoPlayMessageId === message.id} text={messageText(message)} messageId={isUuid(message.id) ? message.id : undefined} messageRevision={audioRevisions[message.id] ?? 1} compact /> : null}<button type="button" onClick={() => copyMessage(message)} className="message-action" aria-label="메시지 복사">{copiedId === message.id ? <Check /> : <Copy />}</button><button type="button" disabled={remote && (savingVote || busy || deleting)} onClick={() => updateVote(message.id, "up")} aria-pressed={votes[message.id]?.value === "up"} className="message-action" aria-label="좋아요"><ThumbsUp className={votes[message.id]?.value === "up" ? "fill-current" : ""} /></button><button type="button" disabled={remote && (savingVote || busy || deleting)} onClick={() => updateVote(message.id, "down", votes[message.id]?.reason ?? "도움이 되지 않음")} aria-pressed={votes[message.id]?.value === "down"} className="message-action" aria-label="싫어요"><ThumbsDown className={votes[message.id]?.value === "down" ? "fill-current" : ""} /></button><button type="button" disabled={remote && (busy || deleting || messages.at(-1)?.id !== message.id)} onClick={() => void regenerateMessage(message)} className="message-action" aria-label="답변 다시 생성"><RotateCcw /></button></> : <><button type="button" onClick={() => void beginEdit(message)} className="message-action" aria-label="메시지 편집"><Pencil /></button><button type="button" onClick={() => copyMessage(message)} className="message-action" aria-label="메시지 복사"><Copy /></button></>}
+                    {assistant ? <>{messageText(message) ? <AudioPlaybackButton playbackId={message.id} autoPlayOnMount={autoPlayMessageId === message.id} text={messageText(message)} messageId={isUuid(message.id) ? message.id : undefined} messageRevision={audioRevisions[message.id] ?? 1} compact /> : null}<button type="button" onClick={() => copyMessage(message)} className="message-action" aria-label="메시지 복사">{copiedId === message.id ? <Check /> : <Copy />}</button><button type="button" disabled={remote && (savingVote || busy || deleting)} onClick={() => updateVote(message.id, votes[message.id]?.value === "up" ? undefined : "up")} aria-pressed={votes[message.id]?.value === "up"} className="message-action" aria-label="좋아요"><ThumbsUp className={votes[message.id]?.value === "up" ? "fill-current" : ""} /></button><button type="button" disabled={remote && (savingVote || busy || deleting)} onClick={() => updateVote(message.id, votes[message.id]?.value === "down" ? undefined : "down", votes[message.id]?.reason ?? "도움이 되지 않음")} aria-pressed={votes[message.id]?.value === "down"} className="message-action" aria-label="싫어요"><ThumbsDown className={votes[message.id]?.value === "down" ? "fill-current" : ""} /></button><button type="button" disabled={remote && (busy || deleting || messages.at(-1)?.id !== message.id)} onClick={() => void regenerateMessage(message)} className="message-action" aria-label="답변 다시 생성"><RotateCcw /></button></> : <><button type="button" onClick={() => void beginEdit(message)} className="message-action" aria-label="메시지 편집"><Pencil /></button><button type="button" onClick={() => copyMessage(message)} className="message-action" aria-label="메시지 복사"><Copy /></button></>}
                   </div>
+                  {copiedId === message.id ? <span role="status" className="sr-only">메시지를 복사했어요.</span> : null}
                   {assistant && votes[message.id]?.value === "down" ? <label className="mt-1 block text-[10px] font-bold text-neutral-500">피드백 이유<select disabled={remote && (savingVote || busy || deleting)} value={votes[message.id]?.reason ?? "도움이 되지 않음"} onChange={(event) => updateVote(message.id, "down", event.target.value)} className="ml-2 rounded-lg border border-black/10 bg-white px-2 py-1 text-[10px]" aria-label="싫어요 이유"><option>도움이 되지 않음</option><option>정확하지 않음</option><option>말투가 어색함</option></select></label> : null}
-                  {messageText(message).trim() && messageText(message).length <= 4000 && (!remote || isUuid(message.id)) ? <MessageLearningHelp key={messageText(message)} text={messageText(message)} role={assistant ? "assistant" : "user"} disabled={busy || deleting} onUse={(suggestion) => setInput(appendGuidanceHint(input, suggestion))} makeRequest={(mode) => ({
-                    conversationId: conversation.id, messageId: message.id, mode,
+                  {messageText(message).trim() && messageText(message).length <= 4000 && assistanceId ? <MessageLearningHelp key={messageText(message)} text={messageText(message)} role={assistant ? "assistant" : "user"} disabled={busy || deleting} onUse={(suggestion) => setInput(appendGuidanceHint(input, suggestion))} makeRequest={(mode) => ({
+                    conversationId: conversation.id, messageId: assistanceId, mode,
                     ...(remote ? {} : { demo: { level: createLocalPreferences(window.localStorage).read().settings.learnerLevel, messages: messages.slice(0, messageIndex + 1).map((item) => ({ id: item.id, role: item.role === "user" ? "user" as const : "assistant" as const, text: messageText(item).trim().slice(0, 4000) })).filter((item) => item.text).slice(-8) } }),
-                  })} /> : null}
+                  })}>{remote && !assistant ? <TurnEvaluation key={`${conversation.id}:${assistanceId}:${messageText(message)}`} conversationId={conversation.id} messageId={assistanceId} text={messageText(message)} disabled={busy || deleting} /> : null}</MessageLearningHelp> : null}
                 </div>
               </article>;
             })}
@@ -1099,7 +1199,7 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
         </div>
 
         <div className="shrink-0 border-t border-black/6 bg-white px-3 py-3 sm:px-6"><div className="mx-auto max-w-3xl">
-          {guidance ? <MissionGuidancePanel guidance={guidance} open={guidanceOpen} onOpenChange={setGuidanceOpen} disabled={busy || deleting || !missionReady || missionRunQuery.isFetching} onRetry={() => void missionRunQuery.refetch()} onInsert={(hint) => setInput(appendGuidanceHint(input, hint))} /> : null}
+          {guidance ? <MissionGuidancePanel guidance={guidance} runId={remote ? missionRun?.id : undefined} open={guidanceOpen} onOpenChange={setGuidanceOpen} disabled={busy || deleting || !missionReady || missionRunQuery.isFetching} onRetry={() => void missionRunQuery.refetch()} onInsert={(hint) => setInput(appendGuidanceHint(input, hint))} /> : null}
           <div className="mb-2 flex gap-2 overflow-x-auto pb-1" aria-label="추천 문장">{suggestions.map((suggestion) => <button key={suggestion.english} type="button" disabled={deleting} onClick={() => setInput(suggestion.english)} className="shrink-0 rounded-full bg-[#f1f2ff] px-3 py-2 text-[11px] font-bold text-[#444a9d] hover:bg-[#e7e8ff]">{suggestion.english}</button>)}</div>
           {attachment ? <div className="mb-2 flex max-w-sm items-center gap-3 overflow-hidden rounded-xl bg-neutral-100 p-2 text-xs" data-testid="attachment-preview">{attachment.mediaType.startsWith("image/") ? <img src={chatFileDisplayUrl(attachment.url)} alt="첨부 미리보기" className="size-12 rounded-lg object-cover" /> : <div className="grid size-12 place-items-center rounded-lg bg-white"><Clipboard className="size-5" /></div>}<span className="min-w-0 flex-1 truncate">{attachment.filename}<small className="block text-neutral-400">{Math.ceil(attachment.size / 1024)} KB</small></span><button type="button" disabled={deleting} onClick={clearAttachment} aria-label="첨부 제거"><X className="size-3.5" /></button></div> : null}
           {readingAttachment ? <div className="mb-2 flex items-center justify-between text-xs" role="status"><span>첨부파일을 읽고 있어요…</span><button type="button" onClick={cancelAttachmentRead}>파일 읽기 취소</button></div> : null}
@@ -1127,9 +1227,28 @@ function LoadedChatWorkspace({ character, conversation, mission, onDelete, onNew
 
     {notesOpen ? <div className="fixed inset-0 z-50 flex items-end bg-black/35 p-3 lg:hidden" role="dialog" aria-modal="true" aria-labelledby="mobile-notes-title" data-testid="mobile-learning-notes"><div className="max-h-[82svh] w-full overflow-y-auto rounded-[1.7rem] bg-[#f7f4ef] p-5 shadow-2xl"><div className="flex items-start justify-between"><div><p className="text-[10px] font-black uppercase tracking-[.18em] text-[#5763d7]">Learning artifact</p><h2 id="mobile-notes-title" className="mt-1 text-xl font-black">오늘의 표현 노트</h2></div><button type="button" onClick={() => setNotesOpen(false)} className="grid size-9 place-items-center rounded-xl bg-white" aria-label="학습 노트 닫기"><X className="size-4" /></button></div><div className="mt-5 space-y-2">{suggestions.map((phrase) => <button key={phrase.english} type="button" onClick={() => { setInput(phrase.english); setNotesOpen(false); }} className="block w-full rounded-2xl bg-white p-4 text-left"><span className="block text-sm font-bold">{phrase.english}</span><span className="mt-1 block text-xs text-neutral-500">{phrase.korean}</span></button>)}</div>{missionPanel}</div></div> : null}
 
-    {shareOpen && shareToken ? <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-5" role="dialog" aria-modal="true" aria-labelledby="share-title"><div className="w-full max-w-md rounded-[1.5rem] bg-white p-6 shadow-2xl"><div className="flex items-start justify-between"><div><h2 id="share-title" className="text-xl font-black">대화 공유</h2><p className="mt-1 text-sm text-neutral-500">학습 대화를 읽기 전용 링크로 공유해요.</p></div><button type="button" onClick={() => setShareOpen(false)} className="grid size-9 place-items-center rounded-xl hover:bg-neutral-100" aria-label="공유 창 닫기"><X className="size-4" /></button></div><div className="mt-5 flex items-center gap-2 rounded-xl bg-neutral-100 p-2"><code className="min-w-0 flex-1 truncate px-2 text-xs" data-testid="share-link">lingua.local/shared/{shareToken}</code><button type="button" onClick={() => navigator.clipboard?.writeText(`${window.location.origin}/shared/${shareToken}`)} className="inline-flex items-center gap-1 rounded-lg bg-neutral-950 px-3 py-2 text-xs font-bold text-white"><Copy className="size-3" /> 복사</button></div><Link href={`/shared/${shareToken}`} className="mt-3 inline-flex text-xs font-bold text-[#5763d7]">읽기 전용 화면 열기</Link></div></div> : null}
+    {shareOpen && shareToken ? (
+      <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-5" role="dialog" aria-modal="true" aria-labelledby="share-title">
+        <div className="w-full max-w-md rounded-[1.5rem] bg-white p-6 shadow-2xl">
+          <div className="flex items-start justify-between">
+            <div><h2 id="share-title" className="text-xl font-black">대화 공유</h2><p className="mt-1 text-sm text-neutral-500">학습 대화를 읽기 전용 링크로 공유해요.</p></div>
+            <button type="button" disabled={shareBusy} onClick={() => setShareOpen(false)} className="grid size-9 place-items-center rounded-xl hover:bg-neutral-100" aria-label="공유 창 닫기"><X className="size-4" /></button>
+          </div>
+          <div className="mt-5 flex flex-wrap items-center gap-2 rounded-xl bg-neutral-100 p-2">
+            <code className="min-w-0 flex-1 break-all px-2 text-xs" data-testid="share-link">{shareUrl}</code>
+            <button type="button" disabled={shareBusy} onClick={() => void copyShareLink()} aria-label="공유 링크 복사" className="inline-flex items-center gap-1 rounded-lg bg-neutral-950 px-3 py-2 text-xs font-bold text-white"><Copy className="size-3" /> 복사</button>
+          </div>
+          {shareStatus ? <p role="status" className="mt-3 text-sm">{shareStatus}</p> : null}
+          {shareError ? <p role="alert" className="mt-3 text-sm text-red-700">{shareError}</p> : null}
+          <div className="mt-4 flex items-center justify-between gap-3">
+            <Link href={`/shared/${shareToken}`} className="text-xs font-bold text-[#5763d7]">읽기 전용 화면 열기</Link>
+            <button type="button" disabled={shareBusy} onClick={() => void revokeShare()} className="rounded-lg border px-3 py-2 text-xs font-bold">{shareBusy ? "공유 취소 중…" : "공유 취소"}</button>
+          </div>
+        </div>
+      </div>
+    ) : null}
 
-    {manageOpen ? <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-5" role="dialog" aria-modal="true" aria-labelledby="manage-title"><div className="w-full max-w-md rounded-[1.5rem] bg-white p-6 shadow-2xl"><div className="flex items-start justify-between"><div><h2 id="manage-title" className="text-xl font-black">대화 관리</h2><p className="mt-1 text-xs text-neutral-500">ID: {conversation.id}</p></div><button type="button" onClick={() => setManageOpen(false)} aria-label="대화 관리 닫기"><X className="size-4" /></button></div><label className="mt-5 block text-xs font-bold">대화 제목<input value={title} onChange={(event) => setTitle(event.target.value)} className="mt-2 h-11 w-full rounded-xl border border-black/10 px-3 text-sm" aria-label="대화 제목" /></label><button type="button" onClick={saveTitle} className="mt-3 w-full rounded-xl bg-neutral-950 px-4 py-3 text-xs font-bold text-white">제목 저장</button><button type="button" onClick={() => { setManageOpen(false); setDestructiveAction("delete"); }} className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-red-50 px-4 py-3 text-xs font-bold text-red-700"><Trash2 className="size-3.5" /> 대화 삭제</button></div></div> : null}
+    {manageOpen ? <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-5" role="dialog" aria-modal="true" aria-labelledby="manage-title"><div className="w-full max-w-md rounded-[1.5rem] bg-white p-6 shadow-2xl"><div className="flex items-start justify-between"><div><h2 id="manage-title" className="text-xl font-black">대화 관리</h2><p className="mt-1 text-xs text-neutral-500">ID: {conversation.id}</p></div><button type="button" onClick={() => setManageOpen(false)} aria-label="대화 관리 닫기"><X className="size-4" /></button></div><label className="mt-5 block text-xs font-bold">대화 제목<input value={titleDraft} onChange={(event) => setTitleDraft(event.target.value)} className="mt-2 h-11 w-full rounded-xl border border-black/10 px-3 text-sm" aria-label="대화 제목" /></label><button type="button" onClick={saveTitle} className="mt-3 w-full rounded-xl bg-neutral-950 px-4 py-3 text-xs font-bold text-white">제목 저장</button><button type="button" onClick={() => { setManageOpen(false); setDestructiveAction("delete"); }} className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-red-50 px-4 py-3 text-xs font-bold text-red-700"><Trash2 className="size-3.5" /> 대화 삭제</button></div></div> : null}
 
     {destructiveAction ? <div className="fixed inset-0 z-[60] grid place-items-center bg-black/55 p-5" role="dialog" aria-modal="true" aria-labelledby="destructive-title"><div className="w-full max-w-md rounded-[1.5rem] bg-white p-6 shadow-2xl"><h2 id="destructive-title" className="text-xl font-black">{destructiveAction === "purge" ? "모든 대화를 삭제할까요?" : destructiveAction === "clear" ? "메시지를 초기화할까요?" : "이 대화를 삭제할까요?"}</h2><p className="mt-2 text-sm leading-6 text-neutral-500">{destructiveAction === "purge" ? "저장된 대화와 Artifact가 모두 사라집니다. 계속하려면 DELETE ALL을 입력하세요." : destructiveAction === "clear" ? "현재 대화의 메시지와 메시지 평가를 지웁니다. 대화 제목, Artifact, 미션 진행과 기존 결과는 유지됩니다. 삭제한 메시지는 복구할 수 없어요." : "삭제한 대화는 기록에서도 사라지며 복구할 수 없어요."}</p>{destructiveAction === "purge" ? <label className="mt-4 block text-xs font-bold">확인 문구<input value={purgeConfirmation} onChange={(event) => setPurgeConfirmation(event.target.value)} className="mt-2 h-11 w-full rounded-xl border border-black/10 px-3" aria-label="모든 대화 삭제 확인 문구" placeholder="DELETE ALL" /></label> : null}{actionError ? <p role="alert" className="mt-3 text-sm text-red-700">{actionError}</p> : null}<div className="mt-5 grid grid-cols-2 gap-2"><button type="button" disabled={deleting} onClick={() => { setDestructiveAction(undefined); setPurgeConfirmation(""); }} className="rounded-xl border border-black/10 px-4 py-3 text-xs font-bold">취소</button><button type="button" onClick={confirmDestructiveAction} disabled={deleting || busy || (destructiveAction === "purge" && purgeConfirmation !== "DELETE ALL")} className="rounded-xl bg-red-700 px-4 py-3 text-xs font-bold text-white disabled:opacity-35">{destructiveAction === "purge" ? "모든 대화 삭제 확인" : destructiveAction === "clear" ? "메시지 초기화 확인" : "대화 삭제 확인"}</button></div></div></div> : null}
 

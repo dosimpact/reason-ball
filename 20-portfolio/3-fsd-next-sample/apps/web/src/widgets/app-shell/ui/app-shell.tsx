@@ -15,8 +15,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { ThemeToggle } from "@/features/theme-toggle";
+import { useCharactersQuery } from "@/entities/character";
 import { AuthSession } from "@/features/auth-session";
 import { useLearningProgressQuery } from "@/entities/learning-session";
 import { useMobileMenuStore } from "@/shared/model";
@@ -40,19 +41,34 @@ export function AppShell({ children }: AppShellProps) {
   const shellRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const router = useRouter();
+  const { data: characters, refetch: refreshCharacters } = useCharactersQuery();
+  const startingChat = useRef(false);
+  const [chatError, setChatError] = useState("");
   const progress = useLearningProgressQuery();
   const streak = progress.isError ? undefined : progress.data?.streak;
   const menuOpen = useMobileMenuStore((state) => state.isOpen);
   const closeMenu = useMobileMenuStore((state) => state.close);
   const toggleMenu = useMobileMenuStore((state) => state.toggle);
 
-  const startNewChat = useCallback(() => {
-    const conversationId =
-      typeof crypto !== "undefined" && "randomUUID" in crypto
-        ? crypto.randomUUID()
-        : `conversation-${Date.now()}`;
-    router.push(`/chat/mia-hotelier?conversation=${conversationId}&new=1`);
-  }, [router]);
+  const startNewChat = useCallback(async () => {
+    if (startingChat.current) return;
+    startingChat.current = true;
+    setChatError("");
+    try {
+      // The shell can hydrate before its catalog. Keep the user's click pending
+      // until that request finishes instead of redirecting to discovery.
+      const available = characters ?? (await refreshCharacters({ cancelRefetch: false })).data;
+      if (!available) {
+        setChatError("대화 상대를 불러오지 못했어요. 새 채팅을 다시 눌러 주세요.");
+        return;
+      }
+      const character = available.find((item) => item.publishStatus !== "archived");
+      if (!character) { router.push("/characters"); return; }
+      router.push(`/chat/${encodeURIComponent(character.id)}?attempt=new`);
+    } finally {
+      startingChat.current = false;
+    }
+  }, [characters, refreshCharacters, router]);
 
   useEffect(() => {
     function handleShortcut(event: KeyboardEvent) {
@@ -149,6 +165,10 @@ export function AppShell({ children }: AppShellProps) {
             className="border-t border-black/6 bg-[#f7f4ef] px-4 py-3 dark:border-white/10 dark:bg-neutral-950 lg:hidden"
             aria-label="모바일 메뉴"
           >
+            <button type="button" onClick={() => { closeMenu(); void startNewChat(); }}
+              className="mb-3 flex w-full items-center justify-center gap-2 rounded-xl bg-[#f06f52] px-4 py-3 text-sm font-bold text-white sm:hidden">
+              <Plus className="size-4" aria-hidden="true" /> 새 채팅
+            </button>
             <div className="mx-auto grid max-w-[1440px] grid-cols-2 gap-2 sm:grid-cols-5">
               {navItems.map((item) => {
                 const Icon = item.icon;
@@ -158,7 +178,7 @@ export function AppShell({ children }: AppShellProps) {
                     key={item.href}
                     href={item.href}
                     onClick={closeMenu}
-                    className={`flex items-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold ${active ? "bg-neutral-950 text-white" : "bg-white"}`}
+                    className={`flex items-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold ${active ? "bg-neutral-950 text-white dark:bg-neutral-100 dark:text-neutral-950" : "bg-white dark:bg-neutral-800"}`}
                   >
                     <Icon className="size-4" aria-hidden="true" />
                     {item.label}
@@ -169,6 +189,7 @@ export function AppShell({ children }: AppShellProps) {
           </nav>
         ) : null}
       </header>
+      {chatError ? <p role="alert" className="px-4 py-2 text-sm text-red-700 dark:text-red-300">{chatError}</p> : null}
 
       <aside className="fixed inset-y-16 left-0 z-30 hidden w-64 flex-col border-r border-black/6 bg-white/65 px-4 py-5 backdrop-blur-xl dark:border-white/10 dark:bg-neutral-950/75 lg:flex" aria-label="데스크톱 사이드바">
         <button

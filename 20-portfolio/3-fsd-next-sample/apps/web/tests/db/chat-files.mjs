@@ -15,7 +15,7 @@ export async function verifyChatFiles(db, { ownerId, reporterId, conversationId,
   await expectDatabaseError(() => register(ownerId, 2097153), '22023');
   const file = (await register()).rows[0];
   assert.equal((await register()).rows[0].id, file.id);
-  await expectDatabaseError(() => register(ownerId, 9), '40001');
+  await expectDatabaseError(() => register(ownerId, 9), 'PT409');
   assert.equal((await db.query("select public from storage.buckets where id='chat-message-files'")).rows[0].public, false);
   const part = { type: 'file', url: `chat-file://${chat}/${file.id}`, mediaType: 'image/png', filename: 'key.png' };
   const insert = (filePart, target = chat, owner = ownerId) => db.query("insert into public.messages(conversation_id,author_id,role,parts,plain_text) values ($1,$2,'user',$3,'hello') returning id", [target, owner, JSON.stringify([{ type: 'text', text: 'hello' }, filePart])]);

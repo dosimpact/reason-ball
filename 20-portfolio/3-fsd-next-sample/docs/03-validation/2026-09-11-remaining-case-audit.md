@@ -1,0 +1,38 @@
+# 19 MISSING-LIVE 항목의 원인 감사
+
+범위: `docs/03-validation/2026-09-11-live-e2e-progress.md`의 MISSING-LIVE 19행을 `docs/03-validation/2026-09-11-business-case-inventory.md` 및 `docs/01-business/character-english-chat.business.md`의 원문 수용 기준과 대조했다. 84개 통합 실행은 부모 에이전트의 live handle 34300에서 진행 중이며 이 감사는 실행 결과가 아니다. 앱/테스트/문서는 수정하지 않았고 브라우저/API 요청을 실행하지 않았다. web graph 인덱스가 없어 정확한 관련 소스를 읽는 fallback을 사용했다. 아래 미구현은 열거된 범위의 관찰이며 저장소 전체의 모든 가능성 부재를 주장하지 않는다.
+
+외부 조건은 부모의 실제 관찰을 유지한다: 현재 OAuth `/audio/speech`와 `/images/generations` 호출은 모두 실제 404이며 미디어 API 키 환경변수는 없다. 이것은 Supabase 연결 장애가 아니다. 이미지/음성 정상 생성·브라우저 디코딩 성공은 현재 공급자 경로로 증명할 수 없다. 실패 안내·접근성·고지 등 생성 성공을 요구하지 않는 세부 조건까지 키 때문에 막혔다고 해서는 안 된다.
+
+분류: **E** 외부 공급자/자격 증명 차단, **U** 구현 있으나 실제 전용 검사 부족, **I** 수용 기준 일부 구현 부족, **O** 운영 조건/측정 기준이 필요한 검증. **S** 기존 증거가 이미 있으나 MISSING 표기가 오래됨. 한 ID에 여러 원인이 있으면 명시한다.
+
+| ID | 정확한 요구 기준 | 분류 | 소스 증거와 현재 범위 | 다음 검증 또는 구현 |
+|---|---|---|---|---|
+| REF-30 | 이미지 생성, 편집, 버전, 저장·재조회 | E + U | `features/chat-artifact/ui/artifact-workspace.tsx:100-138,213`에 imageUrl와 버전 autosave, 이미지 생성 요청 경로가 있다. `shared/api/supabase/artifact-images.ts`와 artifact image/versions API가 Storage 경로를 제공한다. 현재 실제 이미지 생성 공급자404. | 공급자 접근 가능 후 UI prompt→생성→이미지/버전 저장→prompt 변경/재생성→이전 버전/reload 원본 확인. 프롬프트 변경 재생성을 픽셀 기반 편집/inpainting 성공이라고 표현하지 않는다. |
+| REF-34 | request/stream/tool/cost/error 상관 추적 | O + I | `shared/api/ai/guard.ts:61-79`는 requestId/operation/provider/model/outcome/durationMs/usage를 console에 출력. `app/api/ai/chat/route.ts:156` finish에서 usage를 전달한다. 이 관찰 함수 입력에는 streamId/toolCallId/jobId/cost 항목이 없다. | 서버 로그 접근/보존 경로를 정한 뒤 browser X-Request-Id와 생성/실패 로그 매칭. stream/tool/job/금액까지 하나의 trace로 묶는 구현은 추가 필요. |
+| CHAR-09 | 잠긴 이미지와 해금된 이미지를 구분해 표시 | S | 원문 `business.md:201`은 캐릭터별 전용 페이지를 요구하지 않는다. `live/reward-preservation.spec.ts:63` locked, :110 ready, :137 archive 뒤 ready와 원본 비노출/접근을 실제 확인했고 기존 PASS 기록이 있다. | freeze 종료 후 PARTIAL 또는 원문 범위 수용 검토 가능. 이전 행렬 감사에서 캐릭터별 전용 갤러리까지 요구해 MISSING을 유지한 것은 과도한 범위 해석이었다. 신규 AI 이미지 생성 없이도 수동 PNG의 locked/unlocked 구분은 이미 검증됨. |
+| MISSION-08 | Pre-A1~A2 어휘·문장 길이·지원 힌트 정책 | U + I/O | `features/mission-create/ui/mission-builder.tsx:150-153` 난이도→CEFR, :266-267 입문 표현10단어 제한, :380 정책 안내. `widgets/chat-workspace/model/chat-request.ts:18` CEFR 매핑. 이는 Pre-A1의 작성 문장 길이만 구체적이며 A1/A2 어휘 적합도 판정의 증거는 아님. | 입문11단어 거절/10단어 통과→실 DB 게시·reload, A1/A2 설정·힌트 복원은 바로 검사 가능. 어휘 수준 수용 기준/자료집과 AI 출력 평가 corpus는 별도 정해야 함. |
+| LEARN-03 | 캐릭터 성격·말투와 미션 역할을 응답 전반에 유지 | U + O | `shared/api/supabase/chat-context.ts:25,42-60`은 대화에 고정된 character/mission version과 instructions를 조회; chat route:135-142 buildChatInstructions에 authorized snapshots를 전달한다. 이것은 prompt 전달이지 여러 턴의 의미적 역할 일관성 검증은 아니다. | 실제 owned 캐릭터에 구체적 역할/말투 규칙을 정하고 정상/역할 변경 유도 3~5턴 응답을 rubric으로 확인. 버전 수정 뒤 기존 대화 pinned version 유지도 검사. 확률적 AI의 응답 전반 보장은 여러 corpus/모델 반복 평가가 필요. |
+| LEARN-05 | 의미 전달, 문법, 어휘, 자연스러움을 근거와 함께 평가 | I + U | `features/mission-evaluation/ui/mission-evaluation-panel.tsx:59`는 명시 평가 버튼 시 useEvaluateMissionMutation 호출. `app/api/ai/evaluate/route.ts`는 전체 저장 transcript를 대조해 종료 평가와 4축을 저장한다. `entities/learning-assistance/model/assistance.ts:36`의 correction은 주요 오류1개 교정이지 턴별4축 결과가 아니다. | 기존 완료 평가 PASS를 자동 턴별 평가로 올리지 않는다. 턴별 평가 저장/표시와 언제 평가할지 정책을 구현한 뒤 각 사용자 턴의 근거DB ID·4축·원문 보존을 검사. |
+| LEARN-07 | 캐릭터 메시지 버블의 해당 영어 문장 재생 | E + U | `features/audio-playback/model/audio-controller.ts:91-125` 실제 speech fetch→Blob→Audio→play. 버튼이 messageId/revision/text를 넘긴다. 공급자404 때문에 정상 재생 증거 없음. | 공급자 복구 후 실제 저장 assistant의 text/ID 요청, nonempty audio·실제 duration/currentTime 증가·다른 메시지 재생 혼동 없음 확인. |
+| LEARN-08 | 로딩, 재생 중, 실패, 다시 재생을 접근 가능하게 표시 | E + U | controller 상태 idle/loading/playing/paused/error(:3), `audio-playback-button.tsx:74-93` 상태별 이름, :143 근처 error role=alert. | 현재404로 로딩→오류·다시시도 이름·원문/초안 보존은 지금 검사 가능. 정상 playing/paused/ended 재생은 공급자 조건 필요. |
+| TTS-01 | 버블 재생과 해당 메시지 연결 | E + U | controller request의 messageId/messageRevision/text(:94-101), speech API requireMessageOwner(:217 이후). | actual assistant ID와 text를 캡처하고 소유자 audio row·바이트 재생·다른 계정 거절. 기존 인증 거절 검사만으로 성공 승격 불가. |
+| TTS-02 | 재생/일시정지/재개 | E + U | controller.toggle(:66-79)는 같은 playbackId의 playing→pause, paused→play 경로. | 실제 음성 길이가 충분한 문장으로 play→pause 시 currentTime 정지→resume 증가 및 음성 재생 요청 중복 없음 확인. |
+| TTS-03 | 한 번에 한 메시지, 다른 메시지 재생 시 기존 정지 | E + U | singleton audioPlaybackController(:149), load의 releaseCurrent(:83)가 기존 요청 abort·audio.pause/remove src/objectURL revoke(:52-63). | 실제 두 버블 A→B 순서, A정지/B재생 및 비동기 A응답 늦게 도착해도 재활성 없음. Audio stub으로 실제 디코딩 성공 대체 금지. |
+| TTS-05 | loading/playing/paused/error를 이름과 live 상태로 제공 | I + E/U | button 이름은 상태에 따라 변하고 error에만 role=alert가 있다. 조회한 버튼 JSX에는 loading/playing/paused를 읽는 aria-live/status 영역이 없다. | 먼저 live region 보강 필요 여부 수용 기준대로 결정. 성공과 실패 상태에서 accessible name+live announcement DOM검사; 성공은 공급자 필요, 오류 경로는 현재 검사 가능. |
+| TTS-06 | message version/voice/model/text hash 동일 시 재사용 | E + U | speech route:188-205 key 구성, :217-252 message_audio의 message/revision/text_hash/model/voice/rate/owner 조회→Storage 다운로드→HIT. | 실제 첫 생성MISS→동일 재생HIT·byte동일·공급자호출추가없음·DB행1; voice/revision 변경MISS. cache key 소스 확인만으로 실Storage 캐시 성공 아님. |
+| TTS-07 | 메시지 변경 시 이전 음성 캐시 사용하지 않음 | E + U | controller.invalidateAudioCache(:151-158) DELETE endpoint; chat 변경 경로가 이를 참조하며 speech 캐시 lookup에 revision/text hash 포함. | 실제 음성A 생성 뒤 메시지편집→새ID/revision 또는 hash 결과, old audio row/asset 무효화와 변경text 음성 생성·타계정 무효화 차단 확인. |
+| TTS-08 | AI 생성 음성임을 표시 | U | `audio-playback-button.tsx`의 고지 `<p>AI로 생성된 음성입니다.</p>`는 재생 성공 여부와 무관하게 렌더링. speech response에 X-AI-Voice-Disclosure 헤더도 있음. | 키 없이 실제 원격 메시지 버블/설정에서 고지가 보이는지 즉시 검사 가능. 정상 재생과 동시에 고지 유지까지는 키 필요하지만 정적 고지 자체를 E로 분류하지 않음. |
+| NFR-03 | 즉시 낙관 UI, 스트리밍 상태, 이미지 지연 로딩/대체 UI | U + I | `live/network-recovery.spec.ts`는 전송실패 후 미전송 사용자 표시, stream-recovery는 부분텍스트 상태의 실제 PASS가 있음. `entities/character/ui/character-avatar.tsx:26-44`는 CSS backgroundImage이며 loading=lazy/실패 onError 경로가 없고 emoji는 imageUrl이 없을 때만 표시. | 낙관 UI·스트림은 PARTIAL 근거로 활용 가능. 캐릭터 이미지 viewport 지연 로드와 잘못된URL 대체를 구현/검사해야 함. 원문에 숫자 SLA가 없어 임의 성능 임계값 요구로 바꾸지 않는다. |
+| NFR-08 | 외부 시스템 mock과 안정적 test id/role 기반 E2E | S | `playwright.mock.config.ts`와 기존 mock specs, 실제 `playwright.config.ts` 및 live specs의 getByRole/getByTestId가 이미 있다. frozen84 실행은 미확정이나 과거66 전체PASS는 별도 확정. | MISSING보다 구현·실행 증거 있음이 정확. 실제 런타임을 mock으로 바꾸라는 뜻이 아니라 별도 mock regression과 실연동 검증을 나눠 유지하는 기준. 양 설정 --list/선택 회귀 실행을 증거로 남기면 됨. |
+| NFR-09 | 요청·생성 job·오류·지연의 상관 ID 추적 | O + I | guard recordAiObservation과 errors.ts:159의 실패requestId console관찰은 구현. 로그의 requestId와 generation job 관계·보존/조회 도구까지 이어지는 전용 검증 없음. | 실제HTTP requestId→DB생성/job ID→성공/오류로그 연결 가능한 필드를 정하고 서버로그 read-only 수집/검사. production로그수집서비스 설정은 단순 Playwright녹색으로 대체 불가. |
+| NFR-10 | UI 문자열과 학습 언어/설명 언어를 분리 가능한 설계 | I | `features/audio-playback/ui/audio-playback-button.tsx` 상태명/고지, `features/mission-create/ui/mission-builder.tsx:341,380` 등 한국어 UI literal 내장. 반면 learning instruction/text는 별도 데이터라 부분 분리는 있지만 UI resource catalog/provider 경계는 이 경로들에 없다. | UI 메시지 catalog/locale 경계를 도입하고 동일 lesson English데이터에 UI locale만 변경해 UI문구가 바뀌며 학습내용은 불변인 테스트. 번역 파일 존재만으로 전체문자열 전환성 주장 금지. |
+
+## 우선순위와 주의
+
+1. **즉시 가능한 것**: CHAR-09/NFR-08 stale분류 정정 검토, TTS-08 고지 및 LEARN-08 오류/재시도 접근성, Pre-A1 10단어 경계 실연동 검증. 이미지/음성 공급자 키가 없어도 가능하다.
+2. **제품 변경 필요**: TTS-05 live 상태 안내, NFR-03 이미지 lazy/error대체, LEARN-05 턴별4축 경로, NFR-10 UIlocale경계. 필요 승인/범위 논의 없이 mock PASS로 대체해서는 안 된다.
+3. **실제 외부 조건 필요**: Image Artifact·TTS 정상 생성/디코딩/캐시/무효화는 현재404+키없음 조건 해소 후검증. 같은404를 반복호출해도 새증거가 생기지 않는다.
+4. **의미/운영 조건 필요**: 역할일관성/어휘적합도는 명확한 rubric, 관찰가능성은 실제로그와 상관관계 구현·조회가 필요하다. 현재소스의 console호출만으로 운영관찰가능성을 완료처리하지 않는다.
+
+현재19개는 서로 동일한 blockers가 아니다. 게다가CHAR-09/NFR-08은원문의 정확한범위상 이미부분/구현증거가있어 MISSING의장기유지는부정확하다. 본문서는freeze중이므로 저장소행렬의상태/개수는수정하지않았다.

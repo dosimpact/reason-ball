@@ -110,7 +110,7 @@ export async function POST(request: Request, context: MissionRunRouteContext) {
           "The mission run is not ready to complete with this evaluation and reward.",
         );
       }
-      if (code === "40001" || code === "40P01") {
+      if (code === "40001" || code === "40P01" || code === "PT409") {
         throw new SupabaseHttpError(
           409,
           "MISSION_COMPLETION_CONFLICT",
