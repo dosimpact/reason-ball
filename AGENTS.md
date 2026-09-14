@@ -8,6 +8,7 @@ This repository is a pnpm workspace managed with Turborepo. Keep the top-level l
 - `packages/` for shared packages and reusable modules.
 - `assets/` for static files such as images, audio, sample data, or fixtures.
 - `docs/` for design notes, architecture decisions, and user-facing documentation.
+- `21-mini-projects/` for independent workspace mini projects. `todo-list-mcp` is a single Next.js UI/API/MCP application.
 
 Avoid placing implementation files directly in the repository root unless they are standard project entry points or configuration files.
 
@@ -23,6 +24,8 @@ Use committed package scripts from the repository root:
 - `pnpm typecheck`: run type-check tasks through Turborepo.
 
 Prefer scripts committed in the project manifest over one-off local commands.
+
+For Todo MCP, use `pnpm --filter todo-list-mcp dev` and scoped `test`, `test:e2e`, `typecheck`, `lint`, and `build` scripts. E2E runs headless against an owned server and temporary JSON, then releases its port. Never reuse or terminate unrelated development servers. Keep its core transformations pure and follow SLAP; local runtime JSON is not committed.
 
 ## Coding Style & Naming Conventions
 
