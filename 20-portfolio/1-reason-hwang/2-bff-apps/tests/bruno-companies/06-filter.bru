@@ -1,0 +1,24 @@
+meta {
+  name: filter
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/companies?q=group&page=2&pageSize=1
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("SEC-COMPANIES-PAGE-001 filter", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().pagination).to.deep.equal({"page": 2, "pageSize": 1, "totalItems": 3, "totalPages": 3, "hasNextPage": true});
+    expect(res.getBody().items.map(item => item.cik)).to.deep.equal(["0000000002"]);
+    expect(res.getBody().filters.limit).to.equal(1);
+  });
+}

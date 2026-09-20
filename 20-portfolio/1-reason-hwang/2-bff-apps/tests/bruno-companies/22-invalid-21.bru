@@ -1,0 +1,21 @@
+meta {
+  name: invalid-21
+  type: http
+  seq: 22
+}
+
+get {
+  url: {{baseUrl}}/companies?pageSize=
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("SEC-COMPANIES-PAGE-001 invalid-21", function() {
+    expect(res.getStatus()).to.equal(400);
+  });
+}

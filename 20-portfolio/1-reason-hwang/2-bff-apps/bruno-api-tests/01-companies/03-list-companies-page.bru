@@ -1,0 +1,37 @@
+meta {
+  name: List Companies Page Two
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/companies?page=1&pageSize={{companyLimit}}
+  body: none
+  auth: none
+}
+
+params:query {
+  page: 1
+  pageSize: {{companyLimit}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.pagination.page: eq 2
+  res.body.pagination.totalItems: isNumber
+  res.body.items: isArray
+}
+
+tests {
+  test("returns the requested page and consistent totals", function() {
+    const body = res.getBody();
+    expect(body.pagination.totalPages).to.equal(Math.ceil(body.pagination.totalItems / body.pagination.pageSize));
+    expect(body.pagination.hasNextPage).to.equal(2 < body.pagination.totalPages);
+    expect(body.items.length).to.be.at.most(body.pagination.pageSize);
+  });
+}
+
+docs {
+  Scenario: SEC-COMPANIES-PAGE-001
+  Page two can be empty when there are fewer than two pages.
+}

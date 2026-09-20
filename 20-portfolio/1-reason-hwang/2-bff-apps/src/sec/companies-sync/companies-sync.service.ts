@@ -13,6 +13,8 @@ type CompanyTickerRecord = {
 
 export type CompaniesListOptions = {
   limit?: number;
+  page?: number;
+  pageSize?: number;
   cik?: string;
   ticker?: string;
   q?: string;
@@ -69,8 +71,9 @@ export class CompaniesSyncService {
     return { syncedCount: rows.length };
   }
 
-  async listCompanies(options: CompaniesListOptions = {}): Promise<Company[]> {
-    const limit = this.normalizeLimit(options.limit);
+  async listCompanies(options: CompaniesListOptions = {}) {
+    const page = options.page ?? 1;
+    const pageSize = this.normalizeLimit(options.pageSize ?? options.limit);
     const cik = this.normalizeOptionalCik(options.cik);
     const ticker = this.normalizeOptionalTicker(options.ticker);
     const q = this.normalizeOptionalText(options.q);
@@ -79,7 +82,8 @@ export class CompaniesSyncService {
       .createQueryBuilder('company')
       .orderBy('company.updated_at', 'DESC')
       .addOrderBy('company.cik', 'ASC')
-      .limit(limit);
+      .skip((page - 1) * pageSize)
+      .take(pageSize);
 
     if (cik) {
       addWhere(query, 'company.cik = :cik', { cik });
@@ -96,7 +100,12 @@ export class CompaniesSyncService {
       });
     }
 
-    return query.getMany();
+    const [items, totalItems] = await query.getManyAndCount();
+    const totalPages = Math.ceil(totalItems / pageSize);
+    return {
+      items,
+      pagination: { page, pageSize, totalItems, totalPages, hasNextPage: page < totalPages },
+    };
   }
 
   private normalizeLimit(raw: number | undefined): number {

@@ -1,0 +1,24 @@
+meta {
+  name: default
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/companies
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("SEC-COMPANIES-PAGE-001 default", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().pagination).to.deep.equal({"page": 1, "pageSize": 50, "totalItems": 5, "totalPages": 1, "hasNextPage": false});
+    expect(res.getBody().items.map(item => item.cik)).to.deep.equal(["0000000001", "0000000002", "0000000003", "0000000004", "0000000005"]);
+    expect(res.getBody().filters.limit).to.equal(50);
+  });
+}

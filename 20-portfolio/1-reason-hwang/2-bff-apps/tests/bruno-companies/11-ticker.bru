@@ -1,0 +1,24 @@
+meta {
+  name: ticker
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseUrl}}/companies?ticker=aaa
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("SEC-COMPANIES-PAGE-001 ticker", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().pagination).to.deep.equal({"page": 1, "pageSize": 50, "totalItems": 1, "totalPages": 1, "hasNextPage": false});
+    expect(res.getBody().items.map(item => item.cik)).to.deep.equal(["0000000001"]);
+    expect(res.getBody().filters.limit).to.equal(50);
+  });
+}

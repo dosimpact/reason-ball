@@ -20,8 +20,11 @@ params:query {
 assert {
   res.status: eq 200
   res.body.filters.limit: eq {{companyLimit}}
-  res.body.filters.cik: eq "{{sampleCik}}"
-  res.body.filters.ticker: eq "{{sampleTicker}}"
+  res.body.pagination.page: eq 1
+  res.body.pagination.pageSize: eq {{companyLimit}}
+  res.body.pagination.totalItems: isNumber
+  res.body.pagination.totalPages: isNumber
+  res.body.pagination.hasNextPage: isBoolean
   res.body.items: isArray
 }
 
@@ -29,13 +32,14 @@ tests {
   test("returns normalized company filters and an item array", function() {
     expect(res.getStatus()).to.equal(200);
     const body = res.getBody();
-    expect(body.filters.cik).to.equal(bru.getEnvVar("sampleCik"));
-    expect(body.filters.ticker).to.equal(bru.getEnvVar("sampleTicker"));
+    expect(body.pagination.totalPages).to.equal(Math.ceil(body.pagination.totalItems / body.pagination.pageSize));
+    expect(body.items.length).to.be.at.most(body.pagination.pageSize);
     expect(body.items).to.be.an("array");
   });
 }
 
 docs {
   Scenario: SEC-COMPANIES-LIST-001
-  Lists companies using the supported limit, CIK, ticker, and free-text filters.
+  Lists companies with pagination. limit is a pageSize alias; page defaults to 1.
+  Use page=2&pageSize=20 for the next page. Optional filters are disabled by default.
 }

@@ -74,7 +74,13 @@ export class FilingDto {
 }
 
 export class CompaniesFilterDto {
-  @ApiProperty({ type: Number, description: '조회 최대 건수입니다.', example: 50 })
+  @ApiProperty({ type: Number, example: 1 })
+  page!: number;
+
+  @ApiProperty({ type: Number, example: 20, maximum: 500 })
+  pageSize!: number;
+
+  @ApiProperty({ type: Number, description: '조회 최대 건수입니다.', example: 20 })
   limit!: number;
 
   @ApiPropertyOptional({ type: String, description: '10자리 CIK 필터입니다.', example: '0000320193' })
@@ -126,7 +132,27 @@ export class CompanySyncJobResponseDto {
   syncedCount!: number;
 }
 
+export class CompaniesPaginationDto {
+  @ApiProperty({ example: 1 })
+  page!: number;
+
+  @ApiProperty({ example: 20 })
+  pageSize!: number;
+
+  @ApiProperty({ example: 101 })
+  totalItems!: number;
+
+  @ApiProperty({ example: 6 })
+  totalPages!: number;
+
+  @ApiProperty({ example: true })
+  hasNextPage!: boolean;
+}
+
 export class CompaniesListResponseDto {
+  @ApiProperty({ type: () => CompaniesPaginationDto })
+  pagination!: CompaniesPaginationDto;
+
   @ApiProperty({ type: () => CompaniesFilterDto })
   filters!: CompaniesFilterDto;
 

@@ -11,7 +11,8 @@
     "lint": "tsc --noEmit",
     "test": "pnpm build && node --test tests/*.test.cjs",
     "test:sec-live": "pnpm build && node scripts/verify-sec-database.cjs",
-    "sec:import-files": "pnpm build && node scripts/import-filing-files.cjs"
+    "sec:import-files": "pnpm build && node scripts/import-filing-files.cjs",
+    "test:companies:e2e": "pnpm build && node scripts/verify-company-pagination.cjs"
   },
   "dependencies": {
     "@nestjs/common": "^10.4.15",

@@ -89,35 +89,45 @@ export class CollectorController {
     summary: '회사 목록 조회',
     description: 'CIK, ticker, 검색어로 `companies` 테이블을 조회합니다.',
   })
-  @ApiQuery({ name: 'limit', required: false, description: '최대 조회 건수. 기본값 50.', example: 50 })
+  @ApiQuery({ name: 'page', required: false, description: '페이지 번호. 기본값 1.', example: 1 })
+  @ApiQuery({ name: 'pageSize', required: false, description: '페이지 크기. 기본값 50, 최대 500. limit보다 우선합니다.', example: 20 })
+  @ApiQuery({ name: 'limit', required: false, description: 'pageSize의 호환 별칭.', example: 50 })
   @ApiQuery({ name: 'cik', required: false, description: '1~10자리 숫자 CIK. 내부에서 10자리로 패딩됩니다.', example: '0000320193' })
   @ApiQuery({ name: 'ticker', required: false, description: '티커 심볼 필터입니다.', example: 'AAPL' })
   @ApiQuery({ name: 'q', required: false, description: '회사명 또는 티커 부분 검색어입니다.', example: 'apple' })
   @ApiOkResponse({ type: CompaniesListResponseDto })
-  @ApiBadRequestResponse({ description: '잘못된 limit, cik, ticker 형식이 들어오면 반환됩니다.' })
+  @ApiBadRequestResponse({ description: '잘못된 page, pageSize, limit, cik, ticker 형식이 들어오면 반환됩니다.' })
   @Get('companies')
-  async listCompanies(
-    @Query() query: RawQuery,
-  ): Promise<{
-    filters: { limit: number; cik?: string; ticker?: string; q?: string };
-    items: Awaited<ReturnType<CompaniesSyncService['listCompanies']>>;
-  }> {
-    const limit = this.readPositiveInt(query.limit, 'limit', 50);
+  async listCompanies(@Query() query: RawQuery) {
+    const page = this.readCompanyPageNumber(query.page, 'page', 1);
+    const pageSize = Math.min(
+      this.readCompanyPageNumber(query.pageSize ?? query.limit, 'pageSize', 50),
+      500,
+    );
+    if (!Number.isSafeInteger((page - 1) * pageSize)) {
+      throw new BadRequestException('Pagination offset is too large.');
+    }
     const cik = this.readOptionalCik(query.cik, 'cik');
     const ticker = this.readOptionalTicker(query.ticker, 'ticker');
     const q = this.readOptionalText(query.q, 'q');
-
-    const items = await this.companiesSyncService.listCompanies({
-      limit,
-      cik,
-      ticker,
-      q,
-    });
+    const result = await this.companiesSyncService.listCompanies({ page, pageSize, cik, ticker, q });
 
     return {
-      filters: { limit, cik, ticker, q },
-      items,
+      filters: { limit: pageSize, page, pageSize, cik, ticker, q },
+      ...result,
     };
+  }
+
+  private readCompanyPageNumber(raw: unknown, field: string, fallback: number): number {
+    if (raw === undefined) return fallback;
+    if (typeof raw !== 'string' || !/^\d+$/.test(raw)) {
+      throw new BadRequestException(`${field} must be a positive integer.`);
+    }
+    const value = Number(raw);
+    if (!Number.isSafeInteger(value) || value < 1) {
+      throw new BadRequestException(`${field} must be a positive safe integer.`);
+    }
+    return value;
   }
 
   @ApiOperation({

@@ -121,3 +121,15 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 ## 검토 중인 API 간소화 제안
 
 [SEC-API-SIMPLIFY-001 설계안](../../flow/2026-09-20-sec-api-simplification-proposal.md)은 현재 13개 API를 단계적으로 11개, 최종 9개로 줄이는 미승인 제안이다. 현재 구현과 Bruno 계약은 위의 13개를 유지하며, 이 링크는 변경된 계약을 의미하지 않는다.
+
+
+## SEC-COMPANIES-PAGE-001: 회사 목록 페이지네이션
+
+`GET /api/sec/companies`는 `filters`, `items`, `pagination`을 반환한다. pagination은 page/pageSize/totalItems/totalPages/hasNextPage이며 전체 건수는 cik/ticker/q 필터를 적용한 결과다.
+
+- page 기본 1, pageSize 기본 50·최대 500. pageSize가 없으면 기존 limit를 사용한다. filters.limit는 실제 적용 pageSize다.
+- 정렬은 updated_at DESC, cik ASC. offset 방식이므로 동시 갱신 시 페이지 사이 데이터가 이동할 수 있다.
+- 빈 결과 totalPages=0; 범위 밖 페이지 items=[]·hasNextPage=false. 잘못된 페이지 입력·안전 정수 범위를 넘는 offset은 400이다.
+- 기존 Bruno limit 요청을 유지하고 2페이지 조회 요청을 추가했다. 격리 fixture 전용 Bruno 시나리오는 `2-bff-apps/tests/bruno-companies/`에 있다.
+- `pnpm --filter @reason-hwang/bff-apps test:companies:e2e`는 Docker PostgreSQL과 임시 API 포트를 생성·정리한다. Docker와 Bruno CLI 설치 또는 pnpm dlx 네트워크가 필요하며 기존 DB/서버에 접근하지 않는다.
+- 검증 증거: [회사 페이지네이션 기록](../../flow/2026-09-20-company-pagination.md).
