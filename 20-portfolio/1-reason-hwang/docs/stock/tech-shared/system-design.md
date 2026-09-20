@@ -6,6 +6,8 @@
 
 Reason Hwang is a local-first portfolio platform combining a Next.js user interface, independently delivered React remotes, SEC EDGAR collection, LangGraph-based AI workflows, PostgreSQL and Neo4j persistence, and local observability.
 
+[Editable architecture](overall-architecture.excalidraw) · [PNG with embedded Excalidraw scene](overall-architecture.excalidraw.png)
+
 ## Runtime topology
 
 ```text
