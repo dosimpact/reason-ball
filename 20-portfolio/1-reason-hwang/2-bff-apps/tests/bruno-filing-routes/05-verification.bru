@@ -1,0 +1,22 @@
+meta {
+  name: verification
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/all-company-filing-sync-jobs/{{runId}}/verification
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("SEC-API-NAME-001 verification", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().runId).to.equal(bru.getVar("runId")); expect(res.getBody().totalFilings).to.equal("1");
+  });
+}

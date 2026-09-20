@@ -1,11 +1,11 @@
 meta {
-  name: Get Latest Filing Backfill
+  name: 최근 전체 기업 공시 수집 상태 조회
   type: http
   seq: 2
 }
 
 get {
-  url: {{baseUrl}}/filing-backfill-jobs/latest
+  url: {{baseUrl}}/all-company-filing-sync-jobs/latest
   body: none
   auth: none
 }

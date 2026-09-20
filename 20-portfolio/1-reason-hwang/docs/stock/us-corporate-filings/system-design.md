@@ -133,3 +133,15 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 - 기존 Bruno limit 요청을 유지하고 2페이지 조회 요청을 추가했다. 격리 fixture 전용 Bruno 시나리오는 `2-bff-apps/tests/bruno-companies/`에 있다.
 - `pnpm --filter @reason-hwang/bff-apps test:companies:e2e`는 Docker PostgreSQL과 임시 API 포트를 생성·정리한다. Docker와 Bruno CLI 설치 또는 pnpm dlx 네트워크가 필요하며 기존 DB/서버에 접근하지 않는다.
 - 검증 증거: [회사 페이지네이션 기록](../../flow/2026-09-20-company-pagination.md).
+
+
+## SEC-API-NAME-001: 수집 대상이 드러나는 API 이름
+
+- 선택 기업 공시 수집: `POST /api/sec/company-filing-sync-jobs` (기존 `/filing-sync-jobs` 대체). CIK/ticker 및 회사 페이지로 대상 선택, 동기 응답 201.
+- 전체 기업 공시 일괄 수집: `POST /api/sec/all-company-filing-sync-jobs` (기존 `/filing-backfill-jobs` 대체). years/refreshArchive 유지, 비동기 접수 202.
+- 전체 기업 수집 조회: `GET /api/sec/all-company-filing-sync-jobs/latest`, `GET /api/sec/all-company-filing-sync-jobs/:runId`, `GET /api/sec/all-company-filing-sync-jobs/:runId/verification`.
+- 기존 경로는 제거되어 404를 반환한다. 서비스·DB·runId·본문 계약과 수집 방식은 유지한다. 기존 실행 이력은 새 경로로 조회한다.
+- Bruno 표시 이름도 선택 기업/전체 기업 기준으로 변경했다. 기존 폴더·파일 이름은 유지한다.
+- 이 변경은 이름 변경이며, 앞선 9개 API 통합 제안을 구현한 것이 아니다.
+- 검증 명령: `pnpm --filter @reason-hwang/bff-apps test:filing-routes:e2e` (격리 Docker DB·SEC fixture).
+- 검증: [수집 API 이름 변경 기록](../../flow/2026-09-20-filing-api-names.md).

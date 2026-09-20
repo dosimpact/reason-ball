@@ -1,0 +1,30 @@
+meta {
+  name: selected
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/company-filing-sync-jobs
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"ciks": ["0000000001"]}
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("SEC-API-NAME-001 selected", function() {
+    expect(res.getStatus()).to.equal(201);
+    expect(res.getBody().companiesProcessed).to.equal(1); expect(res.getBody().filingsSynced).to.equal(1);
+  });
+}

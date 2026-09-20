@@ -1,0 +1,22 @@
+meta {
+  name: removed-10
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseUrl}}/filing-backfill-jobs/{{runId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+}
+
+tests {
+  test("SEC-API-NAME-001 removed-10", function() {
+    expect(res.getStatus()).to.equal(404);
+
+  });
+}

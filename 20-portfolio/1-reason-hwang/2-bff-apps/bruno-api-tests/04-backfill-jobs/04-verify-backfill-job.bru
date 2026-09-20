@@ -1,11 +1,11 @@
 meta {
-  name: Verify Filing Backfill
+  name: 전체 기업 공시 수집 완전성 검증
   type: http
   seq: 4
 }
 
 get {
-  url: {{baseUrl}}/filing-backfill-jobs/{{backfillRunId}}/verification
+  url: {{baseUrl}}/all-company-filing-sync-jobs/{{backfillRunId}}/verification
   body: none
   auth: none
 }

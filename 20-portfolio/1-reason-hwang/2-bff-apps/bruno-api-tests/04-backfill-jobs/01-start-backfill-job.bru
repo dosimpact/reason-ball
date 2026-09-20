@@ -1,11 +1,11 @@
 meta {
-  name: Start Filing Backfill
+  name: 전체 기업 공시 일괄 수집
   type: http
   seq: 1
 }
 
 post {
-  url: {{baseUrl}}/filing-backfill-jobs
+  url: {{baseUrl}}/all-company-filing-sync-jobs
   body: json
   auth: none
 }

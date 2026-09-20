@@ -15,6 +15,7 @@ import {
   ApiAcceptedResponse,
   ApiBadRequestResponse,
   ApiBody,
+  ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
   ApiQuery,
@@ -131,13 +132,13 @@ export class CollectorController {
   }
 
   @ApiOperation({
-    summary: '공시 메타데이터 수집 작업 실행',
+    summary: '선택 기업 공시 수집',
     description: '회사별 SEC submissions JSON을 읽어 `filings` 테이블에 pending 항목을 적재합니다.',
   })
   @ApiBody({ type: FilingSyncJobBodyDto, required: false })
-  @ApiOkResponse({ type: FilingSyncJobResponseDto })
+  @ApiCreatedResponse({ type: FilingSyncJobResponseDto })
   @ApiBadRequestResponse({ description: 'limitCompanies 또는 since 형식이 올바르지 않으면 반환됩니다.' })
-  @Post('filing-sync-jobs')
+  @Post('company-filing-sync-jobs')
   async createFilingSyncJob(
     @Body() rawBody?: unknown,
     @Headers(REQUEST_ID_HEADER) requestId?: string,
@@ -202,7 +203,7 @@ export class CollectorController {
   }
 
   @ApiOperation({
-    summary: '전체 SEC 핵심 공시 bulk backfill 시작',
+    summary: '전체 기업 공시 일괄 수집',
     description:
       'SEC submissions.zip을 스트리밍 처리하여 최근 N년의 10-K, 10-Q, 8-K 및 수정공시를 PostgreSQL에 idempotent upsert합니다.',
   })
@@ -217,7 +218,7 @@ export class CollectorController {
     },
   })
   @ApiAcceptedResponse({ description: '백필이 백그라운드에서 시작됐으며 run 상태를 반환합니다.' })
-  @Post('filing-backfill-jobs')
+  @Post('all-company-filing-sync-jobs')
   @HttpCode(HttpStatus.ACCEPTED)
   async createFilingBackfillJob(@Body() rawBody?: unknown) {
     const body = this.readBody(rawBody);
@@ -233,23 +234,23 @@ export class CollectorController {
     return this.secBackfillService.start({ years, refreshArchive });
   }
 
-  @ApiOperation({ summary: '가장 최근 SEC bulk backfill 상태 조회' })
+  @ApiOperation({ summary: '최근 전체 기업 공시 수집 상태 조회' })
   @ApiOkResponse({ description: '최근 run 또는 run이 없으면 null을 반환합니다.' })
-  @Get('filing-backfill-jobs/latest')
+  @Get('all-company-filing-sync-jobs/latest')
   async getLatestFilingBackfillJob() {
     return this.secBackfillService.latest();
   }
 
-  @ApiOperation({ summary: 'SEC bulk backfill 상태 조회' })
+  @ApiOperation({ summary: '전체 기업 공시 수집 상태 조회' })
   @ApiOkResponse({ description: '지정한 run의 진행률과 결과를 반환합니다.' })
-  @Get('filing-backfill-jobs/:runId')
+  @Get('all-company-filing-sync-jobs/:runId')
   async getFilingBackfillJob(@Param('runId') runId: string) {
     return this.secBackfillService.get(runId);
   }
 
-  @ApiOperation({ summary: 'SEC bulk backfill DB 완전성 검증' })
+  @ApiOperation({ summary: '전체 기업 공시 수집 완전성 검증' })
   @ApiOkResponse({ description: 'form/date/CIK/URL/원문 저장 완전성 지표를 반환합니다.' })
-  @Get('filing-backfill-jobs/:runId/verification')
+  @Get('all-company-filing-sync-jobs/:runId/verification')
   async verifyFilingBackfillJob(@Param('runId') runId: string) {
     return this.secBackfillService.verify(runId);
   }

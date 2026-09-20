@@ -78,11 +78,11 @@ POST 경로 이름에 `jobs`가 포함되어 있지만 현재 구현은 작업 I
 | --- | --- | --- | --- |
 | POST | `/company-sync-jobs` | SEC 회사 마스터 동기화 | SEC 호출, `companies` upsert |
 | GET | `/companies` | 회사 목록 조회 | 없음 |
-| POST | `/filing-sync-jobs` | 공시 메타데이터 동기화 | SEC 호출, `filings` upsert |
-| POST | `/filing-backfill-jobs` | 전체 기업 최근 N년 bulk backfill 시작 | SEC bulk 다운로드, 대량 upsert |
-| GET | `/filing-backfill-jobs/latest` | 최근 bulk backfill 상태 조회 | 없음 |
-| GET | `/filing-backfill-jobs/:runId` | 지정 bulk backfill 상태 조회 | 없음 |
-| GET | `/filing-backfill-jobs/:runId/verification` | bulk backfill DB 완전성 검증 | 집계 쿼리 |
+| POST | `/company-filing-sync-jobs` | 선택 기업 공시 수집 | SEC 호출, `filings` upsert |
+| POST | `/all-company-filing-sync-jobs` | 전체 기업 최근 N년 공시 일괄 수집 시작 | SEC bulk 다운로드, 대량 upsert |
+| GET | `/all-company-filing-sync-jobs/latest` | 최근 bulk backfill 상태 조회 | 없음 |
+| GET | `/all-company-filing-sync-jobs/:runId` | 지정 bulk backfill 상태 조회 | 없음 |
+| GET | `/all-company-filing-sync-jobs/:runId/verification` | bulk backfill DB 완전성 검증 | 집계 쿼리 |
 | POST | `/filing-download-jobs` | pending 공시 원문 다운로드 | PostgreSQL 원문 저장, 상태 변경 |
 | POST | `/filing-retry-jobs` | failed 공시 재시도 준비 | 상태 변경 |
 | GET | `/filings/status-summary` | 공시 상태별 집계 | 없음 |
@@ -164,10 +164,10 @@ GET /api/sec/companies?page=1&pageSize=50&cik=320193&ticker=aapl&q=apple
 
 ## 5. Filing Job API
 
-### 5.1. 공시 메타데이터 동기화
+### 5.1. 선택 기업 공시 수집
 
 ```http
-POST /api/sec/filing-sync-jobs
+POST /api/sec/company-filing-sync-jobs
 Content-Type: application/json
 x-request-id: filing-sync-001
 ```
@@ -226,7 +226,7 @@ x-request-id: filing-sync-001
 ### 5.2. 전체 기업 20년 bulk backfill
 
 ```http
-POST /api/sec/filing-backfill-jobs
+POST /api/sec/all-company-filing-sync-jobs
 Content-Type: application/json
 ```
 
@@ -262,9 +262,9 @@ SEC 공식 `submissions.zip`을 한 번 내려받아 압축을 디스크에 풀�
 진행 상태와 검증 결과는 다음 API로 조회한다.
 
 ```http
-GET /api/sec/filing-backfill-jobs/latest
-GET /api/sec/filing-backfill-jobs/{runId}
-GET /api/sec/filing-backfill-jobs/{runId}/verification
+GET /api/sec/all-company-filing-sync-jobs/latest
+GET /api/sec/all-company-filing-sync-jobs/{runId}
+GET /api/sec/all-company-filing-sync-jobs/{runId}/verification
 ```
 
 run 상태는 `queued -> downloading -> running -> completed`이며 오류 발생 시 `failed`가 된다. 동시에 하나의 active run만 허용한다. verification 응답의 `metadataComplete`는 run 완료, 적재 개수 일치, 유효 form/date, company row 및 공식 filing URL 존재를 함께 검사한다.
