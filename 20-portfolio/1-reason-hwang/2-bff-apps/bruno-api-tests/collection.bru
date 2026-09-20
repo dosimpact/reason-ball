@@ -17,6 +17,12 @@ docs {
   5. Inspect filing status, rows, and downloaded report content.
   6. Retry failed downloads or update parser status when required.
 
+  Backfill workflow (04-backfill-jobs):
+  - Start a backfill to capture backfillRunId, then inspect its status and verification.
+  - To inspect an existing run without starting another, use latest or set backfillRunId.
+  - Starting backfill downloads the bulk SEC archive; years only limits retained history.
+  - Completeness flags can remain false until processing/downloads finish.
+
   Warning:
   - Job requests call SEC endpoints and mutate the configured PostgreSQL database.
   - Review the selected environment before running an entire folder or collection.

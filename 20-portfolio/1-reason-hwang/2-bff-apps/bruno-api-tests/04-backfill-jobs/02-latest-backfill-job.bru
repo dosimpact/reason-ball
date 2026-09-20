@@ -1,0 +1,47 @@
+meta {
+  name: Get Latest Filing Backfill
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/filing-backfill-jobs/latest
+  body: none
+  auth: none
+}
+
+script:post-response {
+  const body = res.getBody();
+  if (res.getStatus() === 200 && body && body.runId && !bru.getVar("backfillRunId")) {
+    bru.setVar("backfillRunId", body.runId);
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("get latest filing backfill response contract", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    if (body === null || body === "") {
+      // Nest/Express can send an empty body for a null controller result.
+      return;
+    }
+    expect(body.runId).to.be.a("string").and.not.empty;
+    expect(["queued", "downloading", "running", "completed", "failed"]).to.include(body.status);
+    expect(body.cutoffDate).to.match(/^\d{4}-\d{2}-\d{2}$/);
+    expect(body.targetForms).to.be.an("array").that.includes("10-K");
+    expect(Number.isNaN(Date.parse(body.requestedAt))).to.equal(false);
+    ["archiveBytes", "processedEntries", "companiesUpserted", "filingsSeen", "filingsUpserted"].forEach(function(key) {
+      expect(body[key], key).to.match(/^\d+$/);
+    });
+  });
+}
+
+docs {
+  Scenario: SEC-BACKFILL-002
+  Returns the latest run, or null/empty body when no run exists.
+  Seeds backfillRunId only when unset, preserving a run selected or started earlier.
+}

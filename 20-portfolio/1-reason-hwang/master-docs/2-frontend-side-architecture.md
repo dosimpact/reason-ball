@@ -58,15 +58,15 @@ Host의 역할은 다음과 같다.
 
 - 전체 페이지 레이아웃을 제공한다.
 - shadcn sidebar 기반의 left nav를 제공한다.
-- `/apps/template`, `/apps/todo` 경로에서 Remote 앱을 렌더링한다.
-- Remote 앱의 `remoteEntry.js`를 BFF 엔드포인트에서 가져온다.
+- `/remotes/template`, `/remotes/todo` 경로에서 Remote 앱을 렌더링한다.
+- Remote 앱의 `remoteEntry.js`를 Next.js same-origin proxy와 BFF를 거쳐 가져온다.
 - Remote가 노출한 `./mount` 모듈을 실행해 화면에 붙인다.
 
 Host의 Remote 설정 예시는 다음과 같다.
 
 ```text
-template -> http://localhost:2801/remotes/template/remoteEntry.js
-todo     -> http://localhost:2801/remotes/todo/remoteEntry.js
+template -> /api/remote-proxy/remotes/template/remoteEntry.js
+todo     -> /api/remote-proxy/remotes/todo/remoteEntry.js
 ```
 
 ## 4. Remote 앱
@@ -164,7 +164,7 @@ Host
   -> http://localhost:2802/remoteEntry.js
 ```
 
-Host는 항상 BFF를 바라본다. BFF가 실제 Remote dev server로 요청을 넘긴다.
+브라우저의 Host 코드는 항상 Next.js same-origin proxy를 바라본다. Next.js가 BFF로 전달하고, BFF가 실제 Remote dev server로 요청을 넘긴다.
 
 ## 8. 빌드 환경 흐름
 
@@ -192,21 +192,21 @@ Host
 
 ## 9. 라우팅
 
-Host의 앱 경로는 `/apps/**` 접두사를 사용한다.
+Host의 Remote 경로는 `/remotes/**` 접두사를 사용한다.
 
 현재 경로는 다음과 같다.
 
 | Host 경로 | Remote 앱 |
 | --- | --- |
-| `/apps/template` | `template` |
-| `/apps/todo` | `todo` |
+| `/remotes/template` | `template` |
+| `/remotes/todo` | `todo` |
 
 새 Remote 앱을 추가할 때도 같은 규칙을 따른다.
 
 예를 들어 `calendar` Remote를 추가하면 다음 형태가 된다.
 
 ```text
-/apps/calendar
+/remotes/calendar
 ```
 
 ## 10. Remote 추가 절차
@@ -218,7 +218,7 @@ Host의 앱 경로는 `/apps/**` 접두사를 사용한다.
 3. Remote 앱이 `remoteEntry.js`를 생성하도록 설정한다.
 4. `2-bff-apps/src/remotes.config.ts`에 Remote 정보를 추가한다.
 5. Host의 Remote 설정에 BFF 엔드포인트를 추가한다.
-6. Host에 `/apps/{remote-name}` 경로를 추가한다.
+6. Host에 `/remotes/{remote-name}` 경로를 추가한다.
 7. left nav에 메뉴를 추가한다.
 
 ## 11. 검증 방법
@@ -237,8 +237,8 @@ pnpm test
 
 - Host가 정상 실행되는지
 - BFF가 Remote 엔드포인트를 제공하는지
-- `/apps/template`에서 template Remote가 렌더링되는지
-- `/apps/todo`에서 todo Remote가 렌더링되는지
+- `/remotes/template`에서 template Remote가 렌더링되는지
+- `/remotes/todo`에서 todo Remote가 렌더링되는지
 - 개발 환경과 빌드 환경에서 Host의 Remote URL이 동일하게 유지되는지
 
 ## 12. 향후 방향

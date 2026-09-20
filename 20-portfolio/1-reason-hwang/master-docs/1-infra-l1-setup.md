@@ -1,5 +1,7 @@
 # Reason hawng infra setup
 
+> Status: 이 문서는 초기 로그 관측 구성의 이력을 포함합니다. 현재 Prometheus, cAdvisor, PostgreSQL exporter, Neo4j exporter까지 포함한 canonical 설계는 `docs/stock/shared/system-design.md`와 `infra/1-infra-graph-rag/docs/design.md`를 따릅니다.
+
 ## Goal
 
 Langgraph Agent + Graph RAG 개발에 필요한 데이터베이스와 로그 관측 환경을 Docker Compose로 구성

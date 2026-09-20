@@ -99,3 +99,20 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 - SQL SHA-256은 PostgreSQL 16 내장 함수 사용: [공식 binary string 함수 문서](https://www.postgresql.org/docs/16/functions-binarystring.html).
 
 검증 증거는 [DB 원문 저장 구현 기록](../../flow/2026-09-20-sec-filing-database-content-implementation.md)에 기록한다.
+
+
+## SEC-BRUNO-001: BFF REST 요청 컬렉션
+
+`2-bff-apps/bruno-api-tests/`는 BFF `/api/sec`의 명시적 REST 라우트 13개를 모두 포함한다. Swagger 문서·remote 정적 자산 경로와 별도 FastAPI 서비스는 이 범위 밖이다.
+
+- `01-companies`: 회사 동기화·조회 2개.
+- `02-filing-jobs`: 공시 동기화·다운로드·재시도 3개.
+- `03-filings`: 공시 조회·상태 변경 4개.
+- `04-backfill-jobs`: 백필 시작·최근 작업·특정 작업·완전성 조회 4개.
+- local/dev/staging에 `backfillYears`(20), `backfillRefreshArchive`(false), `backfillRunId`(빈 값)를 둔다. dev/staging URL은 실제 환경으로 교체해야 한다.
+- 백필 시작은 HTTP 202와 run 정보를 반환하고 런타임 `backfillRunId`를 설정한다. 최근 작업 조회는 선택된 ID가 없을 때만 ID를 설정한다. 특정 작업·완전성 조회는 ID가 필요하다.
+- 백필 시작은 SEC bulk archive 다운로드와 DB 변경을 수행한다. years는 보존 기간이며 다운로드 크기 제한이 아니다. 진행 중인 작업이 있으면 409를 반환한다.
+- 최근 작업이 없으면 null/빈 응답을 허용한다. 완전성 응답 테스트는 지표 타입을 확인하며 진행 중인 작업의 false를 실패로 취급하지 않는다.
+- `pnpm --filter @reason-hwang/bff-apps bruno`로 연다. 시작 요청 없이 기존 작업을 조회하려면 최근 작업 요청을 실행하거나 환경의 ID를 설정한다. 기존 런타임 ID가 있으면 먼저 제거해야 환경 ID로 전환된다.
+
+요청 등록 범위와 런타임 E2E 통과는 구분한다. 이번 추가의 정적 검증 및 실제 HTTP 미실행 상태는 [백필 Bruno 추가 기록](../../flow/2026-09-20-backfill-bruno-coverage.md)을 참조한다.

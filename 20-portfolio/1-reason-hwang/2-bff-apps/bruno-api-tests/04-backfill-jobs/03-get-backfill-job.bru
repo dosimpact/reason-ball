@@ -1,0 +1,43 @@
+meta {
+  name: Get Filing Backfill
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/filing-backfill-jobs/{{backfillRunId}}
+  body: none
+  auth: none
+}
+
+script:pre-request {
+  if (!bru.getVar("backfillRunId")) {
+    throw new Error("Start a backfill, fetch the latest run, or set backfillRunId before this request.");
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("get filing backfill response contract", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.runId).to.be.a("string").and.not.empty;
+    expect(body.runId).to.equal(bru.getVar("backfillRunId"));
+    expect(["queued", "downloading", "running", "completed", "failed"]).to.include(body.status);
+    expect(body.cutoffDate).to.match(/^\d{4}-\d{2}-\d{2}$/);
+    expect(body.targetForms).to.be.an("array").that.includes("10-K");
+    expect(Number.isNaN(Date.parse(body.requestedAt))).to.equal(false);
+    ["archiveBytes", "processedEntries", "companiesUpserted", "filingsSeen", "filingsUpserted"].forEach(function(key) {
+      expect(body[key], key).to.match(/^\d+$/);
+    });
+  });
+}
+
+docs {
+  Scenario: SEC-BACKFILL-003
+  Requires backfillRunId from the start/latest request or environment.
+  A valid UUID with no matching run returns HTTP 404.
+}

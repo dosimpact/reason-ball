@@ -1,0 +1,24 @@
+# Domain-oriented Documentation Structure
+
+- Date: 2026-09-20
+- Domain: `shared`
+- Context: Canonical stock documents were stored directly under `docs/stock/`, which did not clearly separate business capabilities from workspace-wide concerns as the product gained distinct domains.
+- Change:
+  - Adopted `docs/stock/<domain-feature-name>/` as the canonical domain documentation structure.
+  - Established `docs/stock/us-corporate-filings/` for SEC filings such as 10-K and 10-Q.
+  - Established `docs/stock/index-dcf-visualizer/` for Index DCF Visualizer behavior.
+  - Established `docs/stock/shared/` for workspace-wide topology, shared infrastructure, cross-domain conventions, and common validation policy.
+  - Moved the existing workspace, overall system, and overall test designs into `docs/stock/shared/`.
+  - Kept `docs/flow/` as one append-only dated history and required new records to identify their affected domain and exact stock documents.
+- Rationale: Organize canonical knowledge around stable business capabilities while retaining a clear home for shared system concerns.
+- Affected stock documents:
+  - `docs/stock/shared/workspace.md`
+  - `docs/stock/shared/system-design.md`
+  - `docs/stock/shared/test-design.md`
+  - `docs/stock/us-corporate-filings/README.md`
+  - `docs/stock/index-dcf-visualizer/README.md`
+- Validation:
+  - Confirmed `docs/stock/shared/`, `docs/stock/us-corporate-filings/`, and `docs/stock/index-dcf-visualizer/` contain their expected stock entry points.
+  - Confirmed current guidance and supporting documents contain no references to the former top-level stock file paths.
+  - Confirmed every local link in `docs/README.md` resolves.
+  - `git diff --check`: PASS.

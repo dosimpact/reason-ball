@@ -1,0 +1,21 @@
+# Validation MCP Setup
+
+- Date: 2026-09-20
+- Domain: `shared`
+- IDs: `VAL-API-001`, `VAL-VIEW-001`, `VAL-BROWSER-001`.
+- Context: User requested MCP installation/configuration and a reproducible README guide for required validation.
+- Change: Registered global Codex servers `playwright`, `chrome-devtools`, and `reason-hwang-storybook` using pinned browser MCP versions and the existing Storybook addon. Downloaded/cached Bruno CLI via npx. Existing MCP entries were preserved.
+- Configuration: Browser MCPs launch isolated headless Chrome; Chrome DevTools usage statistics and CrUX are disabled. Storybook registration targets port 6006; an owned server on port 16006 was used for installation checks because 6006 was already occupied.
+- Affected stock: [Shared test design](../stock/shared/test-design.md), Validation tooling.
+- Guide: [README](../../README.md#검증용-mcp-설치-및-연결); [validation entry](../validation/README.md).
+- Evidence:
+  - `npx -y @playwright/mcp@0.0.82 --help`: PASS.
+  - `npx -y chrome-devtools-mcp@1.9.0 --help`: PASS.
+  - `npx -y @usebruno/cli@4.1.0 --version`: PASS, 4.1.0.
+  - `codex mcp list`: PASS, all three added servers enabled.
+  - Temporary MCP SDK client `/tmp/reason-hwang-mcp-check.mjs`: PASS for initialization and tools/list on all three servers; Playwright `browser_navigate` to `about:blank` and Chrome DevTools `list_pages` successfully launched browsers.
+  - Storybook tools included stories-preview, stories-find-by-component, test-run, and docs tools on the owned port 16006 server.
+  - Package manifests and app code were not changed. Feature API/UI E2E was not run; this change installs and checks tooling only.
+- Cleanup: Owned Storybook process stopped; port 16006 confirmed released. Existing port 6006 server was not reused or stopped.
+- Documentation validation: Relative-link checks and scoped `git diff --check` PASS.
+- Follow-up: Reopen the Codex session to load newly registered tools. Start an owned Storybook server when its MCP is needed. Record actual feature test results separately.
