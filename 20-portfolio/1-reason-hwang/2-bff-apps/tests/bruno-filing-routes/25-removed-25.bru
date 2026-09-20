@@ -1,0 +1,22 @@
+meta {
+  name: removed-25
+  type: http
+  seq: 25
+}
+
+post {
+  url: {{baseUrl}}/filings/parser-status
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+}
+
+tests {
+  test("BFF-DIR-001 removed-25", function() {
+    expect(res.getStatus()).to.equal(404);
+
+  });
+}

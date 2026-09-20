@@ -1,0 +1,19 @@
+meta {
+  name: missing-report-date
+  type: http
+  seq: 37
+}
+get {
+  url: {{baseUrl}}/filings?cik=10
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-AMEND-001 missing-report-date", function() {
+    const body = res.getBody(); const item = body.items[0];
+    expect(item.amendmentLinkStatus).to.equal('missing-report-date');
+  });
+}

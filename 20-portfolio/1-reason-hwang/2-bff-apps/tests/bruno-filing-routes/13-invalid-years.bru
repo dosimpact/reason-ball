@@ -1,0 +1,30 @@
+meta {
+  name: invalid-years
+  type: http
+  seq: 13
+}
+
+post {
+  url: {{baseUrl}}/all-company-filing-sync-jobs
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"years": 31}
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("BFF-DIR-001 invalid-years", function() {
+    expect(res.getStatus()).to.equal(400);
+
+  });
+}

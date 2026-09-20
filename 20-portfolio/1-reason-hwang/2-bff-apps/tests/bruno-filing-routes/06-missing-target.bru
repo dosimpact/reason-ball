@@ -1,0 +1,30 @@
+meta {
+  name: missing-target
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/company-filing-sync-jobs
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {}
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("BFF-DIR-001 missing-target", function() {
+    expect(res.getStatus()).to.equal(400);
+
+  });
+}

@@ -1,0 +1,22 @@
+meta {
+  name: invalid-page
+  type: http
+  seq: 16
+}
+
+get {
+  url: {{baseUrl}}/filings?page=1.5
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("BFF-DIR-001 invalid-page", function() {
+    expect(res.getStatus()).to.equal(400);
+
+  });
+}

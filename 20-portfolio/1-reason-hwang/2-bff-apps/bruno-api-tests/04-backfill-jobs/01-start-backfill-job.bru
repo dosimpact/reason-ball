@@ -17,38 +17,26 @@ headers {
 body:json {
   {
     "years": {{backfillYears}},
+    "downloadDocuments": true,
     "refreshArchive": {{backfillRefreshArchive}}
   }
 }
 
-script:post-response {
-  if (res.getStatus() === 202 && res.getBody().runId) {
-    bru.setVar("backfillRunId", res.getBody().runId);
-  }
-}
-
 assert {
-  res.status: eq 202
+  res.status: eq 200
 }
 
 tests {
-  test("start filing backfill response contract", function() {
-    expect(res.getStatus()).to.equal(202);
-    const body = res.getBody();
-    expect(body.runId).to.be.a("string").and.not.empty;
-    expect(["queued", "downloading", "running", "completed", "failed"]).to.include(body.status);
-    expect(body.cutoffDate).to.match(/^\d{4}-\d{2}-\d{2}$/);
-    expect(body.targetForms).to.be.an("array").that.includes("10-K");
-    expect(Number.isNaN(Date.parse(body.requestedAt))).to.equal(false);
-    ["archiveBytes", "processedEntries", "companiesUpserted", "filingsSeen", "filingsUpserted"].forEach(function(key) {
-      expect(body[key], key).to.match(/^\d+$/);
-    });
+  test("backfill SSE completes", function() {
+    expect(res.getStatus()).to.equal(200);
+    const events = String(res.getBody()).split('\n\n').filter(x => x.startsWith('event:')).map(x => ({event: x.split('\n')[0].slice(7), data: JSON.parse(x.split('\ndata: ')[1])}));
+    expect(events[0].event).to.equal('started');
+    expect(events[events.length - 1].event).to.equal('completed');
   });
 }
 
 docs {
-  Scenario: SEC-BACKFILL-001
-  Starts an asynchronous bulk archive import and saves backfillRunId for subsequent requests.
-  Calls SEC and mutates PostgreSQL. years limits retained history, not archive download size.
-  HTTP 202 means accepted, not completed. An already active run returns HTTP 409.
+  BFF-DIR-001: POST returns SSE, metadata first, optional documents second.
+  Set downloadDocuments=false to skip documents. HTTP 200 alone does not imply success; inspect completed/error event.
+  Native EventSource only supports GET; use streaming fetch or curl -N for live POST progress.
 }

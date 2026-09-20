@@ -1,0 +1,19 @@
+meta {
+  name: original-amendments
+  type: http
+  seq: 32
+}
+get {
+  url: {{baseUrl}}/filings?cik=6&formType=10-K
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-AMEND-001 original-amendments", function() {
+    const body = res.getBody(); const item = body.items[0];
+    expect(item.accessionNo).to.equal('base'); expect(item.amendments).to.have.length(2); expect(item.original).not.to.have.property('content'); expect(item.amendments[0]).not.to.have.property('content');
+  });
+}

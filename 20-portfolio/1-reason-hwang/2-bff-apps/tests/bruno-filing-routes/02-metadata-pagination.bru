@@ -1,0 +1,22 @@
+meta {
+  name: metadata-pagination
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/filings?cik=1&pageSize=1
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BFF-DIR-001 metadata-pagination", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().pagination.totalItems).to.equal(2); expect(res.getBody().pagination.hasNextPage).to.equal(true); expect(res.getBody().items[0]).not.to.have.property('content');
+  });
+}

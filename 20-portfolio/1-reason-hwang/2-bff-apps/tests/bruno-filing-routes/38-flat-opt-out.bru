@@ -1,0 +1,19 @@
+meta {
+  name: flat-opt-out
+  type: http
+  seq: 38
+}
+get {
+  url: {{baseUrl}}/filings?cik=6&includeAmendments=false
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-AMEND-001 flat-opt-out", function() {
+    const body = res.getBody(); const item = body.items[0];
+    expect(item).not.to.have.property('original'); expect(item).not.to.have.property('amendments');
+  });
+}

@@ -1,0 +1,22 @@
+meta {
+  name: removed-21
+  type: http
+  seq: 21
+}
+
+post {
+  url: {{baseUrl}}/filing-sync-jobs
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+}
+
+tests {
+  test("BFF-DIR-001 removed-21", function() {
+    expect(res.getStatus()).to.equal(404);
+
+  });
+}

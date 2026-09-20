@@ -2,9 +2,10 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { createHash } = require('node:crypto');
 require('reflect-metadata');
-const { documentFromBytes } = require('../dist/sec/common/sec/document-content');
-const { SecClientService } = require('../dist/sec/common/sec/sec-client.service');
-const { FilingsCollectorService } = require('../dist/sec/filings-collector/filings-collector.service');
+const { documentFromBytes } = require('../dist/lib/sec/sec.utils');
+const { SecClientService } = require('../dist/lib/sec/sec.client');
+const { FilingService } = require('../dist/us-corporate-filings/service/filing.service');
+const { FilingBackfillService } = require('../dist/us-corporate-filings/service/filing-backfill.service');
 
 test('UTF-8 bytes, BOM, checksum and size are preserved', () => {
   const bytes = Buffer.from('\ufeff<html>보고서</html>');
@@ -47,7 +48,7 @@ function collectorHarness(client, failWrite = false) {
         } };
     },
   };
-  return { row, writes, service: new FilingsCollectorService({}, repository, client, {}) };
+  return { row, writes, service: new FilingBackfillService({}, {}, client, repository, {}) };
 }
 
 test('successful download atomically stores content, checksum, size and status without path', async () => {
@@ -82,10 +83,10 @@ test('late failed worker cannot overwrite a committed success', async () => {
   assert.equal(h.row.retryCount, 0);
 });
 
-test('missing primary document is failed without requesting SEC', async () => {
-  const h = collectorHarness({ downloadDocument: async () => assert.fail('must not download') });
-  h.row.primaryDoc = null;
-  assert.equal(await h.service.downloadSingleFiling(h.row), 'failed');
+test('historical filing without primary document downloads the full-submission URL', async () => {
+  const h = collectorHarness({ downloadDocument: async url => { assert.equal(url, 'full.txt'); return documentFromBytes(Buffer.from('historical filing'), 'text/plain'); } });
+  h.row.primaryDoc = null; h.row.filingUrl = 'full.txt';
+  assert.equal(await h.service.downloadSingleFiling(h.row), 'downloaded');
 });
 
 test('late successful worker also preserves the first committed body', async () => {
@@ -98,14 +99,38 @@ test('late successful worker also preserves the first committed body', async () 
 });
 
 test('report page budget rejects oversized responses before loading bodies', async () => {
-  let selections = [];
   const query = new Proxy({}, { get(_target, key) {
     if (key === 'getCount') return async () => 1;
-    if (key === 'select') return value => { selections.push(value); return query; };
-    if (key === 'getRawMany') return async () => [{ bytes: String(65 * 1024 * 1024) }];
+    if (key === 'getMany') return async () => [{cik:'1',accessionNo:'one',formType:'10-K',reportDate:null,documentSizeBytes:String(65*1024*1024)}];
+    if (key === 'addSelect') return () => assert.fail('must reject before loading content');
     return () => query;
-  } });
-  const service = new FilingsCollectorService({}, { createQueryBuilder: () => query }, {}, {});
-  await assert.rejects(service.listDownloadedReports(), error => error.getStatus() === 413);
-  assert.deepEqual(selections, ['filing.document_size_bytes']);
+  }});
+  const service = new FilingService({ createQueryBuilder: () => query });
+  await assert.rejects(service.listFilings({page:1,pageSize:50,includeContent:true,includeAmendments:false}), error => error.getStatus() === 413);
+});
+
+const { linkAmendments } = require('../dist/us-corporate-filings/service/filing.service');
+test('amendments link to a unique original without replacing its content', () => {
+  const original = {cik:'1', accessionNo:'o', formType:'10-K', reportDate:'2025-12-31', filingDate:'2026-02-01'};
+  const amendment = {...original, accessionNo:'a', formType:'10-K/A', filingDate:'2026-03-01'};
+  assert.equal(linkAmendments(amendment,[original,amendment]).original, original);
+  assert.deepEqual(linkAmendments(original,[original,amendment]).amendments,[amendment]);
+  assert.equal(linkAmendments(amendment,[amendment]).status,'missing-original');
+  assert.equal(linkAmendments(amendment,[original,{...original,accessionNo:'o2'},amendment]).status,'ambiguous-original');
+  assert.equal(linkAmendments({...amendment,reportDate:null},[original]).status,'missing-report-date');
+  assert.equal(linkAmendments(amendment,[{...original,cik:'2'},amendment]).status,'missing-original');
+  assert.equal(linkAmendments(amendment,[{...original,formType:'10-Q'},amendment]).status,'missing-original');
+});
+
+test('nested original and amendment bodies count toward the response budget', async () => {
+  const original = {cik:'1',accessionNo:'o',formType:'10-K',reportDate:'2025-12-31',filingDate:'2026-02-01',documentSizeBytes:String(25*1024*1024)};
+  const amendment = {...original,accessionNo:'a',formType:'10-K/A',filingDate:'2026-03-01'};
+  const query = new Proxy({}, {get(_t,k) {
+    if(k==='getCount') return async()=>1;
+    if(k==='getMany') return async()=>[amendment];
+    if(k==='addSelect') return ()=>assert.fail('must reject before loading bodies');
+    return ()=>query;
+  }});
+  const service = new FilingService({createQueryBuilder:()=>query,find:async()=>[original,amendment]});
+  await assert.rejects(service.listFilings({page:1,pageSize:1,includeContent:true,includeAmendments:true}),e=>e.getStatus()===413);
 });

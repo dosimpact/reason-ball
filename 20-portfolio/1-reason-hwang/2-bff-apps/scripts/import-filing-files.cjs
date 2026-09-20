@@ -4,12 +4,12 @@ const path = require('node:path');
 require('reflect-metadata');
 const { NestFactory } = require('@nestjs/core');
 const { DataSource } = require('typeorm');
-const { SecModule } = require('../dist/sec/sec.module');
-const { AppConfigService } = require('../dist/sec/common/config/app.config');
-const { documentFromBytes } = require('../dist/sec/common/sec/document-content');
+const { AppModule } = require('../dist/app.module');
+const { AppConfigService } = require('../dist/shared/config.service');
+const { documentFromBytes } = require('../dist/lib/sec/sec.utils');
 
 async function main() {
-  const app = await NestFactory.createApplicationContext(SecModule, { logger: ['warn', 'error'] });
+  const app = await NestFactory.createApplicationContext(AppModule, { logger: ['warn', 'error'] });
   const summary = { imported: 0, failed: 0 };
   try {
     const db = app.get(DataSource);

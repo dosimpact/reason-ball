@@ -1,0 +1,22 @@
+meta {
+  name: preserved-body
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/filings?cik=1&page=2&pageSize=1&includeContent=true
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BFF-DIR-001 preserved-body", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().items[0].checksum).to.equal(bru.getVar('savedChecksum')); expect(res.getBody().pagination.totalItems).to.equal(2);
+  });
+}

@@ -1,0 +1,33 @@
+meta {
+  name: document-failure
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/company-filing-sync-jobs
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {"ciks": ["3"]}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("BFF-DIR-001 document-failure", function() {
+    expect(res.getStatus()).to.equal(200);
+    const events = String(res.getBody()).split('\n\n').filter(x => x.startsWith('event:')).map(x => ({ event: x.split('\n')[0].slice(7), data: JSON.parse(x.split('\ndata: ')[1]) }));
+    expect(events[0].event).to.equal('started');
+    const last = events[events.length - 1];
+    expect(last.event).to.equal('completed'); expect(last.data.failed).to.equal(1);
+  });
+}

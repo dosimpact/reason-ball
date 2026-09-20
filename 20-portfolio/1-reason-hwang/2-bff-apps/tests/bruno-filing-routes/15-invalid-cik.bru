@@ -1,0 +1,22 @@
+meta {
+  name: invalid-cik
+  type: http
+  seq: 15
+}
+
+get {
+  url: {{baseUrl}}/filings?cik=bad
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("BFF-DIR-001 invalid-cik", function() {
+    expect(res.getStatus()).to.equal(400);
+
+  });
+}

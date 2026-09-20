@@ -1,0 +1,19 @@
+meta {
+  name: other-company
+  type: http
+  seq: 33
+}
+get {
+  url: {{baseUrl}}/filings?cik=7
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-AMEND-001 other-company", function() {
+    const body = res.getBody(); const item = body.items[0];
+    expect(item.amendments).to.have.length(0);
+  });
+}

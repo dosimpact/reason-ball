@@ -1,11 +1,12 @@
+import type { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import type { INestApplication } from '@nestjs/common';
 import type { Express } from 'express';
 import 'reflect-metadata';
 
 import { AppModule } from './app.module';
-import { createRemotesMiddleware } from './remotes.middleware';
+import { createRemotesMiddleware } from './remote-delivery/remotes.middleware';
+import { AppConfigService } from './shared/config.service';
 
 const SWAGGER_UI_PATH = 'docs/sec';
 const SWAGGER_JSON_PATH = 'docs/sec/openapi.json';
@@ -18,15 +19,15 @@ async function bootstrap() {
     origin: true,
   });
 
+  const settings = app.get(AppConfigService);
   const expressApp = app.getHttpAdapter().getInstance() as Express;
 
   expressApp.use('/remotes/:name', createRemotesMiddleware());
-  if (process.env.SWAGGER_ENABLED !== 'false') {
+  if (settings.swaggerEnabled) {
     configureSwagger(app);
   }
 
-  const port = Number(process.env.PORT ?? 2801);
-  await app.listen(port);
+  await app.listen(settings.appPort, settings.appHost);
 }
 
 function configureSwagger(app: INestApplication): void {

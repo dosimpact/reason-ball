@@ -4,14 +4,14 @@ const { createHash } = require('node:crypto');
 require('reflect-metadata');
 const { NestFactory } = require('@nestjs/core');
 const { DataSource } = require('typeorm');
-const { SecModule } = require('../dist/sec/sec.module');
-const { SecClientService } = require('../dist/sec/common/sec/sec-client.service');
-const { FilingsCollectorService } = require('../dist/sec/filings-collector/filings-collector.service');
-const { Company } = require('../dist/sec/common/db/entities/company.entity');
-const { Filing } = require('../dist/sec/common/db/entities/filing.entity');
+const { AppModule } = require('../dist/app.module');
+const { SecClientService } = require('../dist/lib/sec/sec.client');
+const { FilingBackfillService } = require('../dist/us-corporate-filings/service/filing-backfill.service');
+const { Company } = require('../dist/us-corporate-filings/entity/company.entity');
+const { Filing } = require('../dist/us-corporate-filings/entity/filing.entity');
 
 async function main() {
-  const app = await NestFactory.create(SecModule, { logger: ['warn', 'error'] });
+  const app = await NestFactory.create(AppModule, { logger: ['warn', 'error'] });
   try {
     app.setGlobalPrefix('api/sec');
     await app.listen(0, '127.0.0.1'); // Own ephemeral port; always closed below.
@@ -19,7 +19,7 @@ async function main() {
     const [{ database }] = await db.query('SELECT current_database() AS database');
     assert.equal(database, 'sec_collector');
     const client = app.get(SecClientService);
-    const service = app.get(FilingsCollectorService);
+    const service = app.get(FilingBackfillService);
     const data = await client.getJson('https://data.sec.gov/submissions/CIK0000320193.json');
     const recent = data.filings.recent;
     const index = recent.form.indexOf('10-K');
@@ -47,7 +47,7 @@ async function main() {
       file_path IS NULL AS "noFilePath"
       FROM filings WHERE accession_no=$1 AND cik=$2`, [accessionNo,cik,expected.documentContent]);
     assert.deepEqual([contentMatches,sizeMatches,checksumMatches,noFilePath], [true,true,true,true]);
-    const response = await fetch(`${await app.getUrl()}/api/sec/filings/downloaded-reports?cik=${cik}&formType=10-K&pageSize=1`);
+    const response = await fetch(`${await app.getUrl()}/api/sec/filings?includeContent=true&cik=${cik}&formType=10-K&pageSize=1`);
     assert.equal(response.status, 200);
     const result = await response.json();
     const item = result.items.find(value => value.accessionNo === accessionNo);

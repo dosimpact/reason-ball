@@ -1,5 +1,5 @@
 meta {
-  name: List Downloaded Filings
+  name: 기업 공시 조회
   type: http
   seq: 2
 }
@@ -11,19 +11,21 @@ get {
 }
 
 params:query {
-  limit: {{filingListLimit}}
+  page: 1
+  pageSize: {{filingListLimit}}
+  includeContent: false
+  includeAmendments: true
   status: downloaded
   cik: {{sampleCik}}
   since: {{sinceDate}}
-  parserStatus: {{parserStatusValue}}
 }
 
 assert {
   res.status: eq 200
-  res.body.filters.limit: eq {{filingListLimit}}
+  res.body.filters.pageSize: eq {{filingListLimit}}
   res.body.filters.status: eq "downloaded"
   res.body.filters.cik: eq "{{sampleCik}}"
-  res.body.filters.parserStatus: eq "{{parserStatusValue}}"
+  res.body.pagination.totalItems: isNumber
   res.body.items: isArray
 }
 
@@ -33,6 +35,7 @@ tests {
     const body = res.getBody();
     expect(body.filters.status).to.equal("downloaded");
     expect(body.items).to.be.an("array");
+    body.items.forEach(item => { expect(item.amendments).to.be.an("array"); expect(item).to.have.property("original"); });
   });
 }
 

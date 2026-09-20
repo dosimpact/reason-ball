@@ -1,0 +1,19 @@
+meta {
+  name: linked-partial
+  type: http
+  seq: 31
+}
+get {
+  url: {{baseUrl}}/filings?cik=6&formType=10-K%2FA&since=2026-03-01&pageSize=1&includeContent=true
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-AMEND-001 linked-partial", function() {
+    const body = res.getBody(); const item = body.items[0];
+    expect(item.original.content).to.equal('Original financial statements'); expect(item.amendments.map(x=>x.accessionNo)).to.deep.equal(['partial','full']); expect(item.amendments[0].content).to.contain('Part III'); expect(item.amendmentLinkStatus).to.equal('linked'); expect(body.pagination.totalItems).to.equal(2);
+  });
+}

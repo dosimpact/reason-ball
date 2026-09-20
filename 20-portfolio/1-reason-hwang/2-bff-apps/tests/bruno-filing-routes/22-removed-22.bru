@@ -1,0 +1,22 @@
+meta {
+  name: removed-22
+  type: http
+  seq: 22
+}
+
+post {
+  url: {{baseUrl}}/filing-backfill-jobs
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+}
+
+tests {
+  test("BFF-DIR-001 removed-22", function() {
+    expect(res.getStatus()).to.equal(404);
+
+  });
+}

@@ -1,0 +1,22 @@
+meta {
+  name: removed-23
+  type: http
+  seq: 23
+}
+
+post {
+  url: {{baseUrl}}/filing-download-jobs
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+}
+
+tests {
+  test("BFF-DIR-001 removed-23", function() {
+    expect(res.getStatus()).to.equal(404);
+
+  });
+}

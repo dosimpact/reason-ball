@@ -9,7 +9,7 @@
 ```text
 SEC EDGAR -> NestJS bounded HTTP download -> UTF-8 검증 및 SHA-256
           -> PostgreSQL sec_collector.public.filings (원자적 UPDATE)
-          -> GET /api/sec/filings/downloaded-reports
+          -> GET /api/sec/filings?includeContent=true
           -> 원문 소비자/파서
 ```
 
@@ -19,10 +19,10 @@ PostgreSQL 접속은 BFF 환경 설정을 따른다. 기본 논리 DB 이름은 
 
 | 컴포넌트 | 책임 | 소유 경로 |
 | --- | --- | --- |
-| SEC client | 요청 속도 제한, HTTP 오류 재시도, 60초 요청 제한, bounded 응답 읽기 | `2-bff-apps/src/sec/common/sec/sec-client.service.ts` |
-| 원문 변환 | UTF-8 유효성, 빈 문서/NUL 거부, BOM 보존, 실제 bytes 및 SHA-256 계산 | `2-bff-apps/src/sec/common/sec/document-content.ts` |
-| Filing collector | 원문과 상태 원자 저장, DB 원문 조회 | `2-bff-apps/src/sec/filings-collector/filings-collector.service.ts` |
-| Entity/migration | 컬럼과 완료 상태 무결성 제약 | `2-bff-apps/src/sec/common/db/` |
+| SEC client | 요청 속도 제한, HTTP 오류 재시도, 60초 요청 제한, bounded 응답 읽기 | `2-bff-apps/src/lib/sec/sec.client.ts` |
+| 원문 변환 | UTF-8 유효성, 빈 문서/NUL 거부, BOM 보존, 실제 bytes 및 SHA-256 계산 | `2-bff-apps/src/lib/sec/sec.utils.ts` |
+| Filing collector | 수집·다운로드·상태 원자 저장 | `2-bff-apps/src/us-corporate-filings/service/filing-backfill.service.ts` |
+| Entity/migration | 컬럼과 완료 상태 무결성 제약 | `2-bff-apps/src/us-corporate-filings/entity/ 및 migrations/` |
 | 기존 파일 이관 | checksum 검증 후 원문 적재, 원본 파일 보존 | `2-bff-apps/scripts/import-filing-files.cjs` |
 | 실제 SEC 검증 | 실제 Apple 10-K 저장, HTTP 왕복, SQL hash/크기/제약 검증 | `2-bff-apps/scripts/verify-sec-database.cjs` |
 
@@ -48,20 +48,20 @@ PostgreSQL 접속은 BFF 환경 설정을 따른다. 기본 논리 DB 이름은 
 | SEC-SD-02 | 상태, 본문, 해시, 크기, 시각을 같은 행의 한 UPDATE에서 기록 | 다운로드 완료와 본문 저장의 원자성 |
 | SEC-SD-03 | HTTP 호출은 DB 트랜잭션 밖에서 수행 | 네트워크 대기 중 잠금 방지 |
 | SEC-SD-04 | 기존 경로와 파일은 보존하며 별도 importer 제공 | 이관 재실행 및 원본 보존 |
-| SEC-SD-05 | 목록 기본 조회에서 원문 제외, 본문 페이지에 byte 예산 적용 | 불필요한 큰 본문 로딩 제한 |
+| SEC-SD-05 | 목록 기본 조회에서 원문 제외, 원문 포함 페이지에 byte 예산 적용 | 불필요한 큰 본문 로딩 제한 |
 
 - 입력 상태는 `pending`, 성공은 `downloaded`, 실패는 `failed`이다.
 - 성공/실패 쓰기는 현재 상태가 `pending`일 때만 수행한다. 늦게 끝난 작업이 이미 완료된 원문을 덮어쓰거나 실패 상태로 되돌리지 않는다.
 - 병렬 작업자의 중복 HTTP 다운로드 자체를 막는 lease/claim은 아직 없다. 상태 갱신은 조건부 쓰기로 보호하지만 분산 작업 스케줄러는 이 범위에 포함하지 않는다.
 - 다운로드 완료 DB 제약은 본문이 비어 있지 않음, 저장 시각 존재, 실제 크기 일치, 64자리 hex checksum 존재를 강제한다. 해시 일치는 저장 코드와 검증 명령에서 계산한다.
 - HTTP 실패, 잘못된 UTF-8, 빈 원문, NUL, 크기 초과는 실패 처리한다. DB 자체가 연결 불가하면 실패 상태 기록도 실패할 수 있으며 원문 없는 완료 상태는 커밋되지 않는다.
-- 재시도 API가 failed를 pending으로 되돌린 후 다시 다운로드한다.
+- 백필 재실행이 failed를 pending으로 되돌린 후 다시 다운로드한다.
 
 ## API
 
-`GET /api/sec/filings/downloaded-reports`는 `status='downloaded' AND document_content IS NOT NULL` 행을 조회하여 `content`로 반환한다. 파일 시스템 fallback은 없다.
+`GET /api/sec/filings?includeContent=true`는 필터에 맞는 공시와 DB 원문을 `content`로 반환한다. 본문이 없으면 null이며 downloaded만 필요하면 status=downloaded를 추가한다. 파일 시스템 fallback은 없다.
 
-- 기존 필터와 pagination 응답 구조 유지.
+- 통합 공시 목록에 필터와 pagination을 제공한다.
 - `filePath`는 nullable/deprecated. 신규 다운로드는 null.
 - 정렬: filing date DESC NULLS LAST, updated_at DESC, accession_no ASC, cik ASC.
 - 선택 페이지의 원문 크기 합계를 먼저 조회하고 64 MiB 초과 시 HTTP 413 반환. pageSize를 줄여 재요청한다.
@@ -101,47 +101,44 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 검증 증거는 [DB 원문 저장 구현 기록](../../flow/2026-09-20-sec-filing-database-content-implementation.md)에 기록한다.
 
 
-## SEC-BRUNO-001: BFF REST 요청 컬렉션
+## BFF-DIR-001: 현재 모듈·API 계약
 
-`2-bff-apps/bruno-api-tests/`는 BFF `/api/sec`의 명시적 REST 라우트 13개를 모두 포함한다. Swagger 문서·remote 정적 자산 경로와 별도 FastAPI 서비스는 이 범위 밖이다.
+[디렉터리 정책](../tech-shared/2-bff-apps/directory-policy.md)이 구조의 원본이다. `AppModule`에 업무 모듈 하나를 연결한다. TypeORM 엔티티는 Company/Filing 두 개이고 DTO는 같은 entity 디렉터리에 둔다. 서비스는 CompanyService, FilingService, FilingBackfillService 세 개다. 외부 SEC HTTP·타입·ZIP 처리·명세는 `src/lib/sec/`에 둔다.
 
-- `01-companies`: 회사 동기화·조회 2개.
-- `02-filing-jobs`: 공시 동기화·다운로드·재시도 3개.
-- `03-filings`: 공시 조회·상태 변경 4개.
-- `04-backfill-jobs`: 백필 시작·최근 작업·특정 작업·완전성 조회 4개.
-- local/dev/staging에 `backfillYears`(20), `backfillRefreshArchive`(false), `backfillRunId`(빈 값)를 둔다. dev/staging URL은 실제 환경으로 교체해야 한다.
-- 백필 시작은 HTTP 202와 run 정보를 반환하고 런타임 `backfillRunId`를 설정한다. 최근 작업 조회는 선택된 ID가 없을 때만 ID를 설정한다. 특정 작업·완전성 조회는 ID가 필요하다.
-- 백필 시작은 SEC bulk archive 다운로드와 DB 변경을 수행한다. years는 보존 기간이며 다운로드 크기 제한이 아니다. 진행 중인 작업이 있으면 409를 반환한다.
-- 최근 작업이 없으면 null/빈 응답을 허용한다. 완전성 응답 테스트는 지표 타입을 확인하며 진행 중인 작업의 false를 실패로 취급하지 않는다.
-- `pnpm --filter @reason-hwang/bff-apps bruno`로 연다. 시작 요청 없이 기존 작업을 조회하려면 최근 작업 요청을 실행하거나 환경의 ID를 설정한다. 기존 런타임 ID가 있으면 먼저 제거해야 환경 ID로 전환된다.
+명시적 REST API는 5개다. [BFF API 명세](../../../2-bff-apps/src/us-corporate-filings/.docs/api-spec.md)와 Bruno 컬렉션이 같은 계약을 따른다.
 
-요청 등록 범위와 런타임 E2E 통과는 구분한다. 이번 추가의 정적 검증 및 실제 HTTP 미실행 상태는 [백필 Bruno 추가 기록](../../flow/2026-09-20-backfill-bruno-coverage.md)을 참조한다.
+| API | 동작 |
+| --- | --- |
+| POST /company-sync-jobs | 회사 snapshot 동기화, 201 JSON |
+| GET /companies | 페이지 조회, pageSize 기본 50·최대 100000, limit 호환 |
+| GET /filings | 공시 페이지 조회, pageSize 최대 500, includeContent 옵션 |
+| POST /company-filing-sync-jobs | 지정 기업 recent·역사 JSON 수집 후 원문, 200 SSE |
+| POST /all-company-filing-sync-jobs | 전체 archive 메타데이터 적재 후 원문, 200 SSE |
 
+- 회사 필터 cik/ticker/q와 공시 필터 cik/ticker/since/formType/status/parserStatus를 지원한다. pagination은 page/pageSize/totalItems/totalPages/hasNextPage이며 빈 결과 totalPages=0이다.
+- 백필 기본 기간은 20년(최대 30년), 지원 폼은 10-K/10-Q/8-K와 수정공시다. 메타데이터 단계가 먼저 끝난 후 원문을 다운로드한다. downloadDocuments=false로 원문을 생략할 수 있다.
+- SSE started/progress/completed/error로 진행 상황을 알린다. HTTP 200은 성공을 의미하지 않으며 마지막 이벤트와 failed 건수를 확인한다. 입력 검증 실패는 스트림 전 400이다.
+- 별도 작업 Entity, 메모리 작업 이력, 상태 GET은 없다. 공시 상태는 filings에만 영속 저장한다. 기존 sec_backfill_runs 테이블과 migration은 과거 이력 보존용이며 런타임은 접근하지 않는다.
+- 원문 재실행은 failed를 한 번 pending으로 되돌리고 기존 downloaded·parserStatus·checksum·본문을 보존한다. 연결 종료 시 다음 진행 보고에서 중단하고 재호출로 이어간다.
+- 전체 기업 백필 중복 실행 제한은 프로세스 단위다. 다중 프로세스 분산 잠금·영구 실행 복구를 제공하지 않는다.
+- 별도 다운로드/재시도/parser-status/상태 집계/원문 조회/백필 상태 API는 제거했다. 저장소의 FE·LangGraph 호출자 검색에서 소비자가 없음을 확인했다. 기존 원문 소비자는 filings?includeContent=true로 전환한다.
+- Config는 생성 시 한 번 검증한 snapshot을 공유한다. PORT > APP_PORT > 2801. 잘못된 숫자·URL·boolean은 부팅 오류다.
 
-## 검토 중인 API 간소화 제안
+## 검증과 실데이터 실행
 
-[SEC-API-SIMPLIFY-001 설계안](../../flow/2026-09-20-sec-api-simplification-proposal.md)은 현재 13개 API를 단계적으로 11개, 최종 9개로 줄이는 미승인 제안이다. 현재 구현과 Bruno 계약은 위의 13개를 유지하며, 이 링크는 변경된 계약을 의미하지 않는다.
+- Node 회귀 테스트, TypeScript lint, 격리 PostgreSQL+Nest Bruno: 회사 pagination 24개, 백필/SSE 30개 시나리오.
+- 추가 HTTP 스트림 검증: started가 작업 완료 전에 도착, metadata-only가 본문 없이 pending 저장, bulk 원문 조회 왕복, 작업 이력 테이블 쓰기 없음.
+- Swagger MCP: 특정 기업 메타데이터→문서→completed, 잘못된 대상 400, 저장 원문 재조회.
+- 실제 실행: `node scripts/run-sec-backfill.cjs 20`은 별도 임시 포트에서 회사 전체 동기화 후 전체 기업 20년 백필을 실행한다. configured DB를 변경하므로 명시적 요청 시만 실행한다. `DATA_DIR/runs`에 SSE 기록을 남긴다.
+- 과거 opt-in `test:sec-live`는 단일 Apple 문서 실연동 검증이며 전체 수집 명령과 다르다.
+- 상세 결과와 실제 수집 상태는 [구현·검증 flow](../../flow/2026-09-20-bff-simplification-sse.md)를 참조한다. 코드 검증 통과와 전체 원문 수집 완료를 구분한다.
 
+## SEC-AMEND-001: 원본과 수정본 연결 조회
 
-## SEC-COMPANIES-PAGE-001: 회사 목록 페이지네이션
+GET filings의 기본 includeAmendments=true는 각 검색 항목에 original/amendments/amendmentLinkStatus/amendmentLinkBasis를 추가한다. includeAmendments=false로 기존 평면 응답을 선택할 수 있다. 페이지네이션은 검색된 공시 행 기준이며 연결 문서는 page/since/status 필터 때문에 빠지지 않는다.
 
-`GET /api/sec/companies`는 `filters`, `items`, `pagination`을 반환한다. pagination은 page/pageSize/totalItems/totalPages/hasNextPage이며 전체 건수는 cik/ticker/q 필터를 적용한 결과다.
+연결은 동일 회사(CIK)·기본 form·reportDate, 수정본보다 늦지 않은 원본 후보가 정확히 하나일 때만 한다. acceptedAt이 양쪽에 있으면 시간 순서도 확인한다. 원본이 없거나 여러 개이면 null과 missing-original/ambiguous-original을 표시한다. reportDate가 없으면 missing-report-date다. 회사·폼이 다르면 연결하지 않는다.
 
-- page 기본 1, pageSize 기본 50·최대 100000. pageSize가 없으면 기존 limit를 사용한다. filters.limit는 실제 적용 pageSize다.
-- 정렬은 updated_at DESC, cik ASC. offset 방식이므로 동시 갱신 시 페이지 사이 데이터가 이동할 수 있다.
-- 빈 결과 totalPages=0; 범위 밖 페이지 items=[]·hasNextPage=false. 잘못된 페이지 입력·안전 정수 범위를 넘는 offset은 400이다.
-- 기존 Bruno limit 요청을 유지하고 2페이지 조회 요청을 추가했다. 격리 fixture 전용 Bruno 시나리오는 `2-bff-apps/tests/bruno-companies/`에 있다.
-- `pnpm --filter @reason-hwang/bff-apps test:companies:e2e`는 Docker PostgreSQL과 임시 API 포트를 생성·정리한다. Docker와 Bruno CLI 설치 또는 pnpm dlx 네트워크가 필요하며 기존 DB/서버에 접근하지 않는다.
-- 검증 증거: [회사 페이지네이션 기록](../../flow/2026-09-20-company-pagination.md).
+본문 수정 범위를 분석하거나 병합하지 않는다. 부분 수정본이 재무제표를 포함한다고 추정하지 않고 원본·모든 연결 수정본을 독립 문서로 노출한다. 원문 포함 조회는 중첩 반환되는 원문까지 64 MiB에 포함한다. metadata 기반 연결이며 법적 수정 범위의 확정 판정은 아니다.
 
-
-## SEC-API-NAME-001: 수집 대상이 드러나는 API 이름
-
-- 선택 기업 공시 수집: `POST /api/sec/company-filing-sync-jobs` (기존 `/filing-sync-jobs` 대체). CIK/ticker 및 회사 페이지로 대상 선택, 동기 응답 201.
-- 전체 기업 공시 일괄 수집: `POST /api/sec/all-company-filing-sync-jobs` (기존 `/filing-backfill-jobs` 대체). years/refreshArchive 유지, 비동기 접수 202.
-- 전체 기업 수집 조회: `GET /api/sec/all-company-filing-sync-jobs/latest`, `GET /api/sec/all-company-filing-sync-jobs/:runId`, `GET /api/sec/all-company-filing-sync-jobs/:runId/verification`.
-- 기존 경로는 제거되어 404를 반환한다. 서비스·DB·runId·본문 계약과 수집 방식은 유지한다. 기존 실행 이력은 새 경로로 조회한다.
-- Bruno 표시 이름도 선택 기업/전체 기업 기준으로 변경했다. 기존 폴더·파일 이름은 유지한다.
-- 이 변경은 이름 변경이며, 앞선 9개 API 통합 제안을 구현한 것이 아니다.
-- 검증 명령: `pnpm --filter @reason-hwang/bff-apps test:filing-routes:e2e` (격리 Docker DB·SEC fixture).
-- 검증: [수집 API 이름 변경 기록](../../flow/2026-09-20-filing-api-names.md).
+검증: 부분·전체 수정본 동시 보존, 수정본 검색에서도 필터 밖 원본 표시, 다른 회사/폼 제외, 원본 누락/모호성/기간 없음, 옵션 비활성화, 중첩 원문 byte 예산. [SSE 구현·검증 기록](../../flow/2026-09-20-bff-simplification-sse.md).

@@ -1,0 +1,22 @@
+meta {
+  name: invalid-date
+  type: http
+  seq: 17
+}
+
+get {
+  url: {{baseUrl}}/filings?since=2025-99-99
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("BFF-DIR-001 invalid-date", function() {
+    expect(res.getStatus()).to.equal(400);
+
+  });
+}
