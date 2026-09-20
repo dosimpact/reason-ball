@@ -1,0 +1,37 @@
+global:
+  default_module: default
+  scrape_timeout: 10s
+  collect_concurrency: 4
+
+modules:
+  default:
+    timeout: 8s
+    collectors:
+      server: true
+      bolt: true
+      databases: true
+      transactions: true
+      indexes: true
+      constraints: true
+      apoc_kernel: auto
+      apoc_store: auto
+      apoc_tx: auto
+      apoc_ids: auto
+      apoc_meta: auto
+      jolokia: false
+      settings: false
+    slow_query:
+      enabled: true
+      min_seconds: 5
+      top: 10
+      expose_query_text: false
+
+targets:
+  - name: local
+    address: neo4j:7687
+    module: default
+    bolt:
+      scheme: bolt
+      username: ${NEO4J_EXPORTER_USER}
+      password: ${NEO4J_EXPORTER_PASSWORD}
+      database: neo4j

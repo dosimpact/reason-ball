@@ -2,30 +2,27 @@
 
 ## Goal
 
-LangGraph Agent와 Graph RAG 개발에 필요한 데이터베이스와 로그 관측 환경을 Docker Compose로 구성한다.
+LangGraph Agent와 Graph RAG 개발에 필요한 데이터베이스와 로그·메트릭 관측 환경을 Docker Compose로 구성한다.
 - Neo4j와 PostgreSQL을 로컬 데이터 저장소로 사용
 - Alloy, Loki, Grafana로 컨테이너 로그를 수집하고 조회
-- 서비스 데이터와 로그 수집 상태를 호스트 디렉터리에 영속화
+- Prometheus와 exporter로 컨테이너 및 데이터베이스 메트릭을 수집하고 조회
+- 서비스 데이터와 관측 데이터를 호스트 디렉터리에 영속화
 
 ## Infra Overview
 
 ```text
-Neo4j / PostgreSQL / Loki / Grafana
-                │
-                │ stdout · stderr
-                ▼
-         Docker logging driver
-                │
-                │ Docker socket API
-                ▼
-          Grafana Alloy
-                │
-                │ Loki Push API
-                ▼
-              Loki
-                │
-                ▼
-             Grafana
+Neo4j / PostgreSQL / observability services
+             │ stdout · stderr
+             ▼
+      Docker logging driver ── Alloy ── Loki ──┐
+                                               │
+Neo4j ── Bolt/APOC ── neo4j-exporter ──────────┤
+PostgreSQL ── SQL ── postgres-exporter ─────────┤
+Docker runtime ── cAdvisor ─────────────────────┤
+                                               ▼
+                                          Prometheus
+                                               │
+                         Loki + Prometheus ─────┴── Grafana
 ```
 
 | 서비스 | 역할 | 포트 |
@@ -34,9 +31,13 @@ Neo4j / PostgreSQL / Loki / Grafana
 | PostgreSQL | 수집 데이터 저장소 | `${POSTGRES_PORT} -> 5432` |
 | Loki | 로그 저장 및 LogQL 조회 | `3100` |
 | Alloy | Docker 로그 수집 및 Loki 전달 | 외부 공개 없음 |
-| Grafana | 로그 대시보드와 Explore UI | `3001 -> 3000` |
+| cAdvisor | 컨테이너 CPU, 메모리, 네트워크, 파일시스템 메트릭 | `${CADVISOR_HTTP_PORT} -> 8080` |
+| PostgreSQL exporter | PostgreSQL 통계 뷰를 Prometheus 포맷으로 변환 | 외부 공개 없음 (`9187` 내부) |
+| Neo4j exporter | Bolt, Cypher, APOC 기반 Community Edition 메트릭 | 외부 공개 없음 (`9412` 내부) |
+| Prometheus | 메트릭 scrape, 시계열 저장 및 PromQL 조회 | `${PROMETHEUS_HTTP_PORT} -> 9090` |
+| Grafana | 로그·메트릭 대시보드와 Explore UI | `3001 -> 3000` |
 
-서비스 간 통신은 `graph-rag` 브리지 네트워크와 Compose 서비스명을 사용한다. Alloy는 `http://loki:3100`으로 로그를 전달하므로 실제 `container_name` 변경에는 영향을 받지 않는다.
+서비스 간 통신은 `graph-rag` 브리지 네트워크와 Compose 서비스명을 사용한다. Alloy는 `http://loki:3100`으로 로그를 전달하고 Prometheus는 각 exporter의 내부 주소를 scrape한다.
 
 ## Data Persistence
 
@@ -47,6 +48,7 @@ Volume/
 ├── neo4j/{data,logs,import,plugins}
 ├── postgres/data
 ├── loki/data
+├── prometheus/data
 ├── alloy/data
 └── grafana/data
 ```
@@ -79,7 +81,29 @@ Grafana Explore 또는 프리셋 대시보드에서 서비스 라벨로 로그�
 {project="1-infra-graph-rag"}
 ```
 
-Grafana에는 전체 서비스, Neo4j, PostgreSQL, 관측 스택 로그 대시보드를 provisioning한다. 현재 datasource는 Loki만 사용하므로 CPU, 메모리, DB connection 같은 metric은 수집 대상이 아니다.
+Grafana에는 전체 서비스, Neo4j, PostgreSQL, 관측 스택 로그 대시보드를 provisioning한다.
+
+## Metrics Collection
+
+Prometheus는 `monitoring/prometheus/prometheus.yml`에 정의된 대상을 15초 간격으로 pull한다.
+
+| job | endpoint | 관측 범위 |
+| --- | --- | --- |
+| `cadvisor` | `cadvisor:8080/metrics` | 컨테이너 CPU, 메모리, 네트워크, 파일시스템 |
+| `postgres` | `postgres-exporter:9187/metrics` | 연결, 트랜잭션, 락, DB 크기 등 PostgreSQL 내부 상태 |
+| `neo4j` | `neo4j-exporter:9412/probe` | Bolt 응답, DB 상태, 활성 트랜잭션, 인덱스, APOC store/transaction |
+| `neo4j-exporter` | `neo4j-exporter:9412/metrics` | exporter 자체 상태와 scrape 통계 |
+| `prometheus` | `prometheus:9090/metrics` | Prometheus 자체 상태 |
+
+Neo4j Community Edition에는 공식 Prometheus endpoint가 없으므로 고정 버전 `ghcr.io/i-harsha-reddy/neo4j-exporter:0.1.0`을 사용한다. 이 exporter는 신생 커뮤니티 프로젝트이므로 Enterprise 메트릭과 동일한 보장을 제공하지 않는다. 현재 범위에서는 APOC/Cypher 메트릭만 사용하고 Jolokia 기반 JVM 메트릭은 비활성화한다. 컨테이너 CPU와 메모리는 cAdvisor가 담당한다.
+
+PostgreSQL exporter는 기존 DB 계정으로 읽기 전용 통계 조회를 수행한다. 운영 환경에서는 `pg_monitor` 권한만 부여한 전용 계정으로 분리해야 한다.
+
+cAdvisor는 macOS 호스트 자체가 아니라 Docker Desktop Linux VM 내부 컨테이너를 관측한다. Linux 운영 환경과 비교하면 일부 filesystem/device 라벨이 제한되거나 다를 수 있다.
+
+Prometheus의 로컬 보존 기간은 15일이다. Grafana에는 UID `prometheus` datasource와 `Graph RAG Metrics Overview` 대시보드를 provisioning한다.
+
+Grafana datasource와 dashboard preset의 디렉터리 구조, UID 규칙, 변경 및 검증 절차는 [Grafana 대시보드 프로비저닝 가이드](./grafana-provisioning.md)를 따른다.
 
 ## Verification
 
@@ -87,6 +111,9 @@ Grafana에는 전체 서비스, Neo4j, PostgreSQL, 관측 스택 로그 대시�
 pnpm run infra:ps
 docker-compose logs --tail=100 alloy
 curl http://localhost:3100/ready
+curl http://localhost:9090/-/ready
+curl http://localhost:9090/api/v1/targets
+curl http://localhost:8080/healthz
 ```
 
-Loki가 `ready`를 반환하고 Grafana에서 `service="neo4j"`, `service="postgres"` 로그가 조회되면 수집 경로가 정상이다.
+Loki와 Prometheus가 `ready`를 반환하고, Prometheus targets에서 `cadvisor`, `postgres`, `neo4j`가 `UP`이며, Grafana에서 로그와 메트릭이 조회되면 관측 경로가 정상이다.

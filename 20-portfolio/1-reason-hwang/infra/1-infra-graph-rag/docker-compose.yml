@@ -1,4 +1,9 @@
 services:
+  # ============================================================================
+  # 1. 핵심 데이터 저장소 (Core Data Stores)
+  # ============================================================================
+
+  # [Neo4j] Graph RAG 지식 그래프(Knowledge Graph) 저장소
   neo4j:
     image: neo4j:5.26
     container_name: reason-graph-neo4j
@@ -32,6 +37,7 @@ services:
     networks:
       - graph-rag
 
+  # [PostgreSQL] 문서 메타데이터 및 수집 이력 관리 RDB (기본 포트 5432 -> 호스트 55432 충돌 방지 매핑)
   postgres:
     image: postgres:16-alpine
     container_name: reason-postgres
@@ -47,6 +53,88 @@ services:
     networks:
       - graph-rag
 
+  # ============================================================================
+  # 2. 메트릭 관측 스택 (Metrics Observation - Prometheus & Exporters)
+  # ============================================================================
+
+  # [PostgreSQL Exporter] Postgres 내부 통계 지표를 Prometheus 포맷으로 노출 (내부 통신)
+  postgres-exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter:v0.20.1
+    container_name: reason-postgres-exporter
+    restart: unless-stopped
+    environment:
+      DATA_SOURCE_URI: "postgres:5432/${POSTGRES_DB:-sec_collector}?sslmode=disable"
+      DATA_SOURCE_USER: "${POSTGRES_USER:-postgres}"
+      DATA_SOURCE_PASS: "${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env}"
+    depends_on:
+      - postgres
+    networks:
+      - graph-rag
+
+  # [Neo4j Exporter] Neo4j Bolt/APOC 프로시저를 호출하여 지식그래프 메트릭 노출 (내부 통신)
+  neo4j-exporter:
+    image: ghcr.io/i-harsha-reddy/neo4j-exporter:0.1.0
+    container_name: reason-neo4j-exporter
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/neo4j-exporter/config.yml
+      - --web.listen-address=:9412
+      - --log.level=info
+    environment:
+      NEO4J_EXPORTER_USER: "${NEO4J_USER:-neo4j}"
+      NEO4J_EXPORTER_PASSWORD: "${NEO4J_PASSWORD:-test1234}"
+    volumes:
+      - ./monitoring/neo4j-exporter/config.yml:/etc/neo4j-exporter/config.yml:ro
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    networks:
+      - graph-rag
+
+  # [cAdvisor] Docker 데몬 및 컨테이너별 CPU/메모리/네트워크 리소스 사용량 실시간 수집
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.52.1
+    container_name: reason-cadvisor
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - "${CADVISOR_HTTP_PORT:-8080}:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+    networks:
+      - graph-rag
+
+  # [Prometheus] 각 Exporter 및 cAdvisor로부터 시계열 메트릭을 주기적으로 스크랩 및 저장
+  prometheus:
+    image: prom/prometheus:v3.7.3
+    container_name: reason-prometheus
+    user: "0:0"
+    restart: unless-stopped
+    ports:
+      - "${PROMETHEUS_HTTP_PORT:-9090}:9090"
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=15d
+      - --web.enable-lifecycle
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/prometheus/data:/prometheus
+    depends_on:
+      - cadvisor
+      - postgres-exporter
+      - neo4j-exporter
+    networks:
+      - graph-rag
+
+  # ============================================================================
+  # 3. 로그 관측 스택 (Logs Observation - Loki & Alloy)
+  # ============================================================================
+
+  # [Loki] 컨테이너 로그 집계 및 검색을 위한 중앙 로그 저장소
   loki:
     image: grafana/loki:3.7.3
     container_name: reason-loki
@@ -61,6 +149,7 @@ services:
     networks:
       - graph-rag
 
+  # [Alloy] Docker 소켓을 감시하여 모든 컨테이너 stdout/stderr 로그를 수집 후 Loki로 전달
   alloy:
     image: grafana/alloy:v1.17.0
     container_name: reason-alloy
@@ -78,6 +167,11 @@ services:
     networks:
       - graph-rag
 
+  # ============================================================================
+  # 4. 통합 시각화 대시보드 (Visualization - Grafana)
+  # ============================================================================
+
+  # [Grafana] Prometheus(메트릭)와 Loki(로그)를 연동하여 모니터링 대시보드 제공 (기본 포트 3000 -> 호스트 3001)
   grafana:
     image: grafana/grafana:11.1.0
     container_name: reason-grafana
@@ -95,6 +189,7 @@ services:
       - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
     depends_on:
       - loki
+      - prometheus
     networks:
       - graph-rag
 

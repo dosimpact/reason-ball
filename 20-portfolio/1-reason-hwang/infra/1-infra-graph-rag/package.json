@@ -2,7 +2,7 @@
   "name": "@10k/infra",
   "private": true,
   "scripts": {
-    "infra:up": "docker-compose up -d neo4j postgres loki alloy grafana",
+    "infra:up": "docker-compose up -d neo4j postgres loki alloy postgres-exporter neo4j-exporter cadvisor prometheus grafana",
     "infra:down": "docker-compose down",
     "infra:ps": "docker-compose ps"
   }
