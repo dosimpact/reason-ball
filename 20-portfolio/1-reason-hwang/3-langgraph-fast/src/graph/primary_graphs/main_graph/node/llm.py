@@ -1,4 +1,4 @@
-from graph.main_graph.state import GraphState
+from graph.primary_graphs.main_graph.state import GraphState
 from graph.provider import get_provider
 
 

@@ -28,7 +28,7 @@ def _rpc(request_id: Any, *, result: Any = None, error: dict[str, Any] | None = 
 async def _call_tool(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
     async with _run_slots:
         if name == "main_graph":
-            from graph.main_graph.workflow import run_graph
+            from graph.primary_graphs.main_graph.workflow import run_graph
 
             result = await run_graph(arguments.get("message", ""), arguments.get("provider", "openai"))
         elif name == "tenk_subgraph":

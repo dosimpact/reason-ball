@@ -2,8 +2,8 @@ from typing import cast
 
 from langgraph.graph import END, START, StateGraph
 
-from graph.main_graph.node.llm import call_llm
-from graph.main_graph.state import GraphState
+from graph.primary_graphs.main_graph.node.llm import call_llm
+from graph.primary_graphs.main_graph.state import GraphState
 
 
 def build_graph():

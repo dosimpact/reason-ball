@@ -1,10 +1,11 @@
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from typing import AsyncIterator
 
 from fastapi import FastAPI, Request
 from pydantic import BaseModel, Field
 
-from graph.main_graph.workflow import run_graph
+from graph.primary_graphs.main_graph.workflow import run_graph
+from infrastructure.neo4j import prepare_neo4j_schema
 from infrastructure.postgres import PostgresRuntime
 from infrastructure.postgres.a2a_task_repository import PostgresA2ATaskRepository
 from infrastructure.postgres.assistant_repository import PostgresAssistantRepository
@@ -19,8 +20,8 @@ from infrastructure.postgres.thread_repository import PostgresThreadRepository
 from server.a2a import router as a2a_router
 from server.a2a import set_a2a_task_repository
 from server.assistants import router as assistants_router
-from server.assistants.router import set_assistant_repository
 from server.assistants.repository import InMemoryAssistantRepository
+from server.assistants.router import set_assistant_repository
 from server.crons import router as crons_router
 from server.crons import set_cron_repository
 from server.execution import execution_gate
@@ -53,6 +54,8 @@ class GraphRunResponse(BaseModel):
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     settings = get_settings()
     postgres: PostgresRuntime | None = None
+    if settings.env_profile is not None:
+        prepare_neo4j_schema(profile=settings.env_profile, settings=settings)
     if settings.postgres_configured:
         postgres = PostgresRuntime(
             conninfo=settings.postgres_conninfo(),

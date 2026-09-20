@@ -39,6 +39,19 @@ uv run uvicorn server.server:app --env-file .env \
 `ENV_PROFILE=dev`, `staging`, and `production` require a schema prepared out of band. Startup fails
 when the schema version is missing or outdated.
 
+## Neo4j
+
+Neo4j schema preparation follows the same environment-profile policy as PostgreSQL. With
+`ENV_PROFILE=local`, FastAPI startup idempotently creates the nine unique `id` constraints used by
+the 10-K graph. With `ENV_PROFILE=dev`, `staging`, or `production`, startup only verifies those
+constraints and fails without executing DDL when any are missing.
+
+The explicit initializer remains available for preparing a database out of band:
+
+```sh
+uv run python scripts/tenk_init_neo4j.py --database neo4j --pretty
+```
+
 ## LangGraph development runtime
 
 Run the official lightweight Agent Server separately when testing the compiled graph or using
@@ -49,7 +62,7 @@ pnpm dev:langgraph
 ```
 
 The runtime reads `langgraph.json`, loads `main_graph` from
-`src/graph/main_graph/workflow.py`, and listens on `http://127.0.0.1:2024` by default. It is
+`src/graph/primary_graphs/main_graph/workflow.py`, and listens on `http://127.0.0.1:2024` by default. It is
 independent of the FastAPI server above and does not replace the FastAPI API implementation.
 
 ## API and validation
