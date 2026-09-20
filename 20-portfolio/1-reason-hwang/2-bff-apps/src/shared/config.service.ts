@@ -9,6 +9,9 @@ dotenv.config();
 export class AppConfigService {
   private readonly settings = readEnvironment(process.env);
 
+  get appEnv() { return this.settings.appEnv; }
+  get logDir() { return this.settings.logDir; }
+  get logLevel() { return this.settings.logLevel; }
   get appHost() { return this.settings.appHost; }
   get appPort() { return this.settings.appPort; }
   get databaseUrl() { return this.settings.databaseUrl; }
@@ -62,7 +65,17 @@ export function readEnvironment(env: NodeJS.ProcessEnv, cwd = process.cwd()) {
   const swagger = env.SWAGGER_ENABLED ?? 'true';
   if (!['true', 'false'].includes(swagger)) throw new Error('SWAGGER_ENABLED must be true or false.');
   const dataDir = path.resolve(cwd, env.DATA_DIR ?? './data');
+  const rawEnv = env.APP_ENV ?? env.NODE_ENV ?? 'local';
+  const environments: Record<string, 'local' | 'stage' | 'prod'> = {
+    local: 'local', development: 'local', test: 'local', stage: 'stage', staging: 'stage', prod: 'prod', production: 'prod',
+  };
+  const appEnv = environments[rawEnv];
+  if (!appEnv) throw new Error('APP_ENV must be local, stage or prod.');
+  const logLevel = env.LOG_LEVEL ?? (appEnv === 'local' ? 'debug' : 'info');
+  if (!['error', 'warn', 'info', 'http', 'verbose', 'debug', 'silly'].includes(logLevel)) throw new Error('Invalid LOG_LEVEL.');
   return Object.freeze({
+    appEnv, logLevel,
+    logDir: path.resolve(cwd, env.LOG_DIR ?? './data/logs'),
     appHost: env.APP_HOST ?? '0.0.0.0',
     appPort: env.PORT !== undefined ? integer('PORT', 2801, 0, 65535) : integer('APP_PORT', 2801, 0, 65535),
     databaseUrl: url('DATABASE_URL', '', ['postgres:', 'postgresql:'], true),

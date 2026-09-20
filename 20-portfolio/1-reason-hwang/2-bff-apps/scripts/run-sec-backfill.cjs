@@ -5,12 +5,13 @@ const path = require('node:path');
 const { NestFactory } = require('@nestjs/core');
 require('reflect-metadata');
 const { AppModule } = require('../dist/app.module');
+const { createAppLogger } = require('../dist/shared/logger');
 const { AppConfigService } = require('../dist/shared/config.service');
 
 async function main() {
   const years = Number(process.argv[2] ?? 20);
   if (!Number.isInteger(years) || years < 1 || years > 30) throw new Error('years must be 1..30');
-  const app = await NestFactory.create(AppModule, { logger: ['warn', 'error'] });
+  const app = await NestFactory.create(AppModule, { logger: createAppLogger() });
   app.setGlobalPrefix('api/sec');
   const directory = path.join(app.get(AppConfigService).dataDir, 'runs');
   fs.mkdirSync(directory, { recursive: true });

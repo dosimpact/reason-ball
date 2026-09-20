@@ -124,3 +124,17 @@ POST /all-company-filing-sync-jobs는 실행 시작 시 DB companies에서 ticke
 ## 개발·검증 빌드 출력 분리
 
 `pnpm dev`는 tsconfig.dev.json을 사용해 dist-dev/에 출력한다. 일반 build 및 테스트는 dist/를 사용한다. Nest deleteOutDir이 다른 프로세스의 실행 파일을 삭제하지 않도록 출력과 incremental 캐시를 분리한다. 설정 변경 전부터 실행 중인 watch는 한 번 재시작한다. 두 출력 디렉터리는 커밋하지 않는다.
+
+## BFF-LOG-001: Winston 로깅
+
+Nest 로거는 `src/shared/logger.ts`의 nest-winston 어댑터를 사용한다. 기존 `new Logger(Service.name)` 호출과 Nest 부팅 로그에 공통 적용한다. 별도 업무 모듈은 추가하지 않는다.
+
+- APP_ENV=local: Console transport, 사람이 읽는 Nest 형식. 기본 레벨 debug.
+- APP_ENV=stage 또는 prod: File transport만 사용, JSON(timestamp/level/message/context 및 오류 stack). 기본 레벨 info.
+- APP_ENV 생략 시 NODE_ENV를 사용한다. development/test→local, staging→stage, production→prod. 모두 생략 시 local. 잘못된 환경/로그 레벨은 시작 전에 실패한다.
+- LOG_DIR 기본 ./data/logs. application.log는 설정 레벨 이상 전체 로그, error.log는 error 로그. 파일당 10 MiB, 각각 최대 5개 순환 보관. LOG_LEVEL로 수준 변경.
+- `APP_ENV=stage pnpm start` 또는 `APP_ENV=prod pnpm start` (먼저 pnpm build). 로컬은 pnpm dev.
+- 자동 백필 runner의 Nest 로그도 같은 설정을 사용한다. runner의 콘솔 진행 출력과 DATA_DIR/runs SSE 기록은 별도 실행 결과물로 유지한다. 모든 console.log를 가로채지는 않는다.
+- HTTP 접근 로그 및 백필 이벤트 추가 로깅은 구현 범위 밖이다. 기존 개발 서버의 stdout 리다이렉션 파일은 Winston File transport가 아니다.
+
+참조: [Nest 로거](https://docs.nestjs.com/techniques/logger), [nest-winston](https://github.com/gremo/nest-winston).

@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import type { Express } from 'express';
 import 'reflect-metadata';
 
+import { createAppLogger } from './shared/logger';
 import { AppModule } from './app.module';
 import { createRemotesMiddleware } from './remote-delivery/remotes.middleware';
 import { AppConfigService } from './shared/config.service';
@@ -13,7 +14,7 @@ const SWAGGER_JSON_PATH = 'docs/sec/openapi.json';
 const SWAGGER_YAML_PATH = 'docs/sec/openapi.yaml';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { logger: createAppLogger() });
   app.setGlobalPrefix('api/sec');
   app.enableCors({
     origin: true,
