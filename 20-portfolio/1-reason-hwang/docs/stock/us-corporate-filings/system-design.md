@@ -127,7 +127,7 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 
 ## 검증과 실데이터 실행
 
-- Node 회귀 테스트, TypeScript lint, 격리 PostgreSQL+Nest Bruno: 회사 pagination 24개, 백필/SSE·수정본·단일 원문 48개 시나리오.
+- Node 회귀 테스트, TypeScript lint, 격리 PostgreSQL+Nest Bruno: 회사 pagination·티커 범위 28개, 백필/SSE·수정본·단일 원문·티커 범위 52개 시나리오.
 - 추가 HTTP 스트림 검증: started가 작업 완료 전에 도착, metadata-only가 본문 없이 pending 저장, bulk 원문 조회 왕복, 작업 이력 테이블 쓰기 없음.
 - Swagger MCP: 특정 기업 메타데이터→문서→completed, 잘못된 대상 400, 저장 원문 재조회.
 - 실제 실행: `node scripts/run-sec-backfill.cjs 20`은 별도 임시 포트에서 회사 전체 동기화 후 전체 기업 20년 백필을 실행한다. configured DB를 변경하므로 명시적 요청 시만 실행한다. `DATA_DIR/runs`에 SSE 기록을 남긴다.
@@ -173,3 +173,7 @@ pnpm sec:sync
 진행 상황은 터미널과 `DATA_DIR/runs/backfill-*.sse`에 기록한다. 회사 동기화 실패 시 백필을 시작하지 않고, SSE error/완료 이벤트 누락/다운로드 실패 건수가 있으면 비정상 종료한다. `Ctrl-C`로 중단하며 재실행하면 메타데이터를 다시 동기화하고 기존 다운로드 완료 원문은 건너뛴다. 중단 지점부터 ZIP을 그대로 이어 읽는 방식은 아니다. 기존 프로세스와 중복 실행하지 않는다.
 
 `pnpm sec:sync --help`는 사용법만 출력하고 빌드·DB 연결·수집을 수행하지 않는다. 원문을 생략하려면 백필 API에 downloadDocuments=false를 명시한다. 이 자동 스크립트는 원문까지 수집한다.
+
+## SEC-QUERY-TICKER-001: 목록 조회의 기본 범위
+
+GET /companies와 GET /filings는 DB companies.ticker가 NULL·빈 문자열·공백이 아닌 회사만 반환한다. 별도 파라미터 없이 기본 적용하며 cik/ticker/q 등 기존 필터와 AND로 결합한다. totalItems/totalPages에도 동일 조건이 적용된다. 티커 없는 회사 CIK를 지정하면 빈 목록이다. 회사 데이터나 공시를 삭제하지 않으며 현재 상장 여부를 의미하지 않는다. CIK+accessionNo로 이미 저장된 단일 원문을 조회하는 API는 이 목록 필터와 별개로 유지한다.

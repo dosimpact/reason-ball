@@ -28,7 +28,7 @@ export class UsCorporateFilingsController {
   }
 
   @Get('companies')
-  @ApiOperation({ summary: '회사 목록 조회' })
+  @ApiOperation({ summary: '회사 목록 조회', description: 'DB ticker가 비어 있지 않은 회사만 조회. 집계에도 동일 조건 적용.' })
   @ApiQuery({ name: 'page', required: false, example: 1 })
   @ApiQuery({ name: 'pageSize', required: false, example: 50, description: '최대 100000' })
   @ApiQuery({ name: 'limit', required: false, description: 'pageSize 호환 별칭' })
@@ -41,7 +41,7 @@ export class UsCorporateFilingsController {
   }
 
   @Get('filings')
-  @ApiOperation({ summary: '기업 공시 조회', description: '원문은 includeContent=true로 포함. 원문 합계 최대 64 MiB.' })
+  @ApiOperation({ summary: '기업 공시 조회', description: 'DB ticker가 비어 있지 않은 회사의 공시만 조회. 원문은 includeContent=true로 포함. 원문 합계 최대 64 MiB.' })
   @ApiQuery({ name: 'page', required: false, example: 1 })
   @ApiQuery({ name: 'pageSize', required: false, example: 50, description: '최대 500' })
   @ApiQuery({ name: 'limit', required: false, description: 'pageSize 호환 별칭' })

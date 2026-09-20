@@ -83,3 +83,7 @@ No automatic merging, replacement, or “latest file is complete” inference. O
 POST /all-company-filing-sync-jobs는 실행 시작 시 DB companies에서 ticker가 NULL/빈 문자열/공백이 아닌 회사의 CIK 목록을 고정한다. ZIP의 recent와 history 모두 이 목록에 해당하는 회사만 적재하며 원문 다운로드·실패 재시도에도 동일한 CIK 목록을 적용한다. 기존에 저장된 티커 없는 등록자의 pending/failed 공시는 건드리지 않는다. 지정 기업 백필은 기존 CIK/ticker 명시 방식 그대로다.
 
 먼저 회사 동기화를 실행해야 한다. 대상이 0이면 SSE error(statusCode=404)로 종료하고 archive를 읽거나 전체 범위로 확대하지 않는다. progress 및 completed에 tickerOnly:true와 totalCompanies를 제공한다. 전체 SEC ZIP 자체의 다운로드 크기는 줄지 않지만 저장·문서 다운로드 범위는 제한된다. 티커 존재는 현재 상장기업임을 보장하지 않으며, DB에 남은 과거 티커도 포함될 수 있다. 기존 수집 데이터는 삭제하지 않는다.
+
+## SEC-QUERY-TICKER-001: 목록 조회의 기본 범위
+
+GET /companies와 GET /filings는 DB companies.ticker가 NULL·빈 문자열·공백이 아닌 회사만 반환한다. 별도 파라미터 없이 기본 적용하며 cik/ticker/q 등 기존 필터와 AND로 결합한다. totalItems/totalPages에도 동일 조건이 적용된다. 티커 없는 회사 CIK를 지정하면 빈 목록이다. 회사 데이터나 공시를 삭제하지 않으며 현재 상장 여부를 의미하지 않는다. CIK+accessionNo로 이미 저장된 단일 원문을 조회하는 API는 이 목록 필터와 별개로 유지한다.

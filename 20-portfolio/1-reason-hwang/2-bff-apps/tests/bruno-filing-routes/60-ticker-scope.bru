@@ -1,0 +1,19 @@
+meta {
+  name: ticker-scope-60
+  type: http
+  seq: 60
+}
+get {
+  url: {{baseUrl}}/filings?cik=11
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-QUERY-TICKER-001", function() {
+    expect(res.getBody().pagination.totalItems).to.equal(0);
+    expect(res.getBody().items.length).to.equal(0);
+  });
+}

@@ -53,6 +53,11 @@ with zipfile.ZipFile(sys.argv[1],'w') as z:
     cik: String(i + 1).padStart(10, '0'), ticker: ['AAA', 'BBB', 'CCC', 'DDD', 'EEE'][i],
     name: i < 3 ? `Group ${i + 1}` : `Other ${i + 1}`, updatedAt: new Date('2026-01-01T00:00:00Z'),
   })));
+  await app.get(DataSource).getRepository(Company).save([
+    {cik:'0000000021',ticker:null,name:'Excluded null'},
+    {cik:'0000000022',ticker:'',name:'Excluded empty'},
+    {cik:'0000000023',ticker:'   ',name:'Excluded blank'},
+  ]);
   if (routeSuite) {
     const { SecClientService } = require('../dist/lib/sec/sec.client');
     // Replace only the external SEC boundary; controller/service/database stay real.
@@ -70,7 +75,7 @@ with zipfile.ZipFile(sys.argv[1],'w') as z:
       ['9','ambiguous-a','8-K/A','2025-12-31','2026-03-01','Unclear parent'],
       ['10','undated','10-K/A',null,'2026-03-01','Unknown period'],
     ];
-    await app.get(DataSource).getRepository(Company).save([6,7,8,9,10].map(cik=>({cik:String(cik).padStart(10,'0'),name:`Amendment fixture ${cik}`})));
+    await app.get(DataSource).getRepository(Company).save([6,7,8,9,10].map(cik=>({cik:String(cik).padStart(10,'0'),ticker:`TEST${cik}`,name:`Amendment fixture ${cik}`})));
     await app.get(DataSource).getRepository(Filing).save(amendmentFixtures.map(([cik,accessionNo,formType,reportDate,filingDate,body])=>({
       cik:cik.padStart(10,'0'),accessionNo,formType,reportDate,filingDate,filingUrl:'https://example.invalid/fixture',
       status:'downloaded',documentDownloadedAt:new Date(),...documentFromBytes(Buffer.from(body),'text/plain'),

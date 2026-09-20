@@ -27,7 +27,8 @@ export class FilingService {
   async listFilings(options: FilingsQueryInput) {
     const { page, pageSize } = options;
     const query = this.filingRepository.createQueryBuilder('filing')
-      .innerJoin(Company, 'company', 'company.cik = filing.cik');
+      .innerJoin(Company, 'company', 'company.cik = filing.cik')
+      .where("NULLIF(BTRIM(company.ticker), '') IS NOT NULL");
     if (options.cik) query.andWhere('filing.cik = :cik', { cik: options.cik });
     if (options.ticker) query.andWhere('company.ticker = :ticker', { ticker: options.ticker });
     if (options.status) query.andWhere('filing.status = :status', { status: options.status });

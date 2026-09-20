@@ -24,3 +24,7 @@
 `03-filings/05-raw-content.bru`: 목록에서 downloaded 공시의 cik/accessionNo를 골라 환경의 sampleCik/accessionNo에 설정한 후 실행한다. HTML/XML/text를 JSON 없이 반환한다. 초기 accessionNo는 교체가 필요한 placeholder다.
 
 전체 기업 백필은 DB ticker가 비어 있지 않은 회사만 대상으로 한다. 회사 동기화 후 실행하며, 기존 티커 없는 공시는 삭제하거나 다운로드하지 않는다.
+
+## SEC-QUERY-TICKER-001: 목록 조회의 기본 범위
+
+GET /companies와 GET /filings는 DB companies.ticker가 NULL·빈 문자열·공백이 아닌 회사만 반환한다. 별도 파라미터 없이 기본 적용하며 cik/ticker/q 등 기존 필터와 AND로 결합한다. totalItems/totalPages에도 동일 조건이 적용된다. 티커 없는 회사 CIK를 지정하면 빈 목록이다. 회사 데이터나 공시를 삭제하지 않으며 현재 상장 여부를 의미하지 않는다. CIK+accessionNo로 이미 저장된 단일 원문을 조회하는 API는 이 목록 필터와 별개로 유지한다.

@@ -63,6 +63,7 @@ export class CompanyService {
 
     const query = this.companyRepository
       .createQueryBuilder('company')
+      .where("NULLIF(BTRIM(company.ticker), '') IS NOT NULL")
       .orderBy('company.updated_at', 'DESC')
       .addOrderBy('company.cik', 'ASC')
       .skip((page - 1) * pageSize)
