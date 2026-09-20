@@ -14,7 +14,7 @@ The host Storybook presents reusable UI components independently of backend serv
 - The existing preview imports application `globals.css`; stories use the application theme and Tailwind styles.
 - Collapsible, DropdownMenu, Sheet, and Tooltip expose separate Interaction stories with `play` checks. Portal queries use the canvas owner document; assertions wait for transitions. Tooltip checks exercise keyboard focus and Escape.
 - Fixtures do not require authentication or API services. Stateful examples update story-local React state only; no data is persisted or sent to a backend.
-- `UI-STORY-002`: the 19 UI component files provide 83 stories spanning variants, sizes, content, empty/loading/error/disabled states, and composed application examples. Existing Default story IDs remain stable.
+- `UI-STORY-002`: the original 19 UI component files provide the initial rich-story collection spanning variants, sizes, content, empty/loading/error/disabled states, and composed application examples. Existing Default story IDs remain stable.
 - `src/stories/ui-gallery.tsx` provides story-only, labeled comparison galleries. They use two columns on wider screens and one column on narrow screens, with application theme tokens.
 - Default stories for Button, Badge, Bubble, Attachment, Avatar, Input, and Textarea expose explicit Controls. Fixed comparison/composition stories disable irrelevant controls.
 - Project cards include metadata, empty and skeleton states; messaging examples include conversation alignment, attachments, generation and delivery errors; MessageScroller supports local message insertion and an empty conversation.
@@ -33,9 +33,9 @@ pnpm --filter reason-hwang-fe-host typecheck
 pnpm --filter reason-hwang-fe-host lint
 ```
 
-The development default is port 6006. Validation may use a separate owned port. Follow [VAL-VIEW-001](../../validation/pure-view.md): verify content and interaction in the browser in addition to build and automated story tests.
+The development default is port 6006. Validation may use a separate owned port. Follow [VAL-VIEW-001](../../../validation/pure-view.md): verify content and interaction in the browser in addition to build and automated story tests.
 
-Evidence: [2026-09-20 rendering correction](../../flow/2026-09-20-storybook-rendering.md).
+Evidence: [2026-09-20 rendering correction](../../../flow/2026-09-20-storybook-rendering.md).
 
 ## Example coverage
 
@@ -48,4 +48,10 @@ Evidence: [2026-09-20 rendering correction](../../flow/2026-09-20-storybook-rend
 | Attachment / Marker / Breadcrumb | upload lifecycle, sizes, file collection, long filenames, activity timeline, collapsed/long paths |
 | Collapsible / DropdownMenu / Sheet / Tooltip / Sidebar | FAQ/files, menu groups/submenus/preferences, placements/edit form, toolbar help, workspace layouts |
 
-Expansion evidence: [2026-09-20 rich examples](../../flow/2026-09-20-storybook-rich-examples.md).
+Expansion evidence: [2026-09-20 rich examples](../../../flow/2026-09-20-storybook-rich-examples.md).
+
+## Installed component catalog
+
+See [shadcn UI catalog](ui-catalog.md) for the preinstalled components, dependency requirements, and entries that are composition guides. `UI-STORY-003` adds individual stories for all 42 newly installed components, completing coverage for all 61 standalone files. Data Table, Date Picker, and Typography have composed examples under `src/stories/`. The built index now contains 192 UI cases and 201 total stories. Twenty new interaction stories verify visible state changes; calendar, chart, menu, form, layout, and overlay examples cover representative states. Vitest prebundles catalog dependencies so cold discovery does not reload browser-test iframes.
+
+The `Installation/Registry smoke check` remains as an installation-level check. Evidence: [2026-09-20 catalog stories](../../../flow/2026-09-20-shadcn-catalog-stories.md).

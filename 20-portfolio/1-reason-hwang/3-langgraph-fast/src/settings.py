@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -22,11 +23,12 @@ class AppSettings:
     postgres_user: str | None = None
     postgres_password: str | None = None
     postgres_db: str | None = None
+    postgres_schema: str = "langgraph"
     max_concurrent_runs: int = 10
     max_queued_runs: int = 10
 
     @classmethod
-    def from_env(cls) -> "AppSettings":
+    def from_env(cls) -> AppSettings:
         root_dir = Path(__file__).resolve().parents[2]
 
         def read_positive_int(key: str, fallback: int) -> int:
@@ -70,6 +72,7 @@ class AppSettings:
             postgres_user=read_optional("POSTGRES_USER"),
             postgres_password=read_optional("POSTGRES_PASSWORD"),
             postgres_db=read_optional("POSTGRES_DB"),
+            postgres_schema=read_optional("POSTGRES_SCHEMA") or "langgraph",
             max_concurrent_runs=read_positive_int("MAX_CONCURRENT_RUNS", 10),
             max_queued_runs=read_positive_int("MAX_QUEUED_RUNS", 10),
         )
@@ -92,6 +95,10 @@ class AppSettings:
             raise ValueError("ENV_PROFILE must be one of local, dev, staging, production")
         if not self.postgres_configured:
             raise ValueError("PostgreSQL environment variables are required")
+        if re.fullmatch(r"[a-z_][a-z0-9_]*", self.postgres_schema) is None:
+            raise ValueError(
+                "POSTGRES_SCHEMA must be a lowercase PostgreSQL identifier"
+            )
         return (
             f"host={self.postgres_host} port={self.postgres_port} user={self.postgres_user} "
             f"password={self.postgres_password} dbname={self.postgres_db}"

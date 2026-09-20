@@ -7,10 +7,34 @@ application metadata schema.
 
 from __future__ import annotations
 
+import re
 from collections.abc import Mapping
 from typing import Any
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
+SCHEMA_LOCK_NAME = "langgraph_fast_schema_migration"
+
+OWNED_TABLES = (
+    "schema_migrations",
+    "assistants",
+    "assistant_versions",
+    "threads",
+    "runs",
+    "crons",
+    "store_items",
+    "a2a_tasks",
+    "checkpoint_migrations",
+    "checkpoints",
+    "checkpoint_blobs",
+    "checkpoint_writes",
+)
+
+CHECKPOINTER_TABLES = (
+    "checkpoint_migrations",
+    "checkpoints",
+    "checkpoint_blobs",
+    "checkpoint_writes",
+)
 
 DDL = (
     """CREATE TABLE IF NOT EXISTS schema_migrations (
@@ -121,20 +145,96 @@ DDL = (
     """INSERT INTO schema_migrations(version, name, checksum)
     VALUES (1, 'normalized_metadata_core', 'normalized-metadata-v1')
     ON CONFLICT (version) DO NOTHING""",
+    """INSERT INTO schema_migrations(version, name, checksum)
+    VALUES (2, 'langgraph_schema_namespace', 'langgraph-schema-v2')
+    ON CONFLICT (version) DO NOTHING""",
 )
 
 
-async def prepare_schema(connection: Any, *, profile: str) -> None:
+def _quoted_identifier(value: str) -> str:
+    if re.fullmatch(r"[a-z_][a-z0-9_]*", value) is None:
+        raise ValueError("PostgreSQL schema must be a lowercase identifier")
+    return f'"{value}"'
+
+
+async def _move_public_tables(connection: Any, schema: str) -> None:
+    quoted_schema = _quoted_identifier(schema)
+    await connection.execute(
+        "SELECT pg_advisory_lock(hashtext(%s))", (SCHEMA_LOCK_NAME,)
+    )
+    try:
+        for table in OWNED_TABLES:
+            cursor = await connection.execute(
+                "SELECT to_regclass(%s) AS source, to_regclass(%s) AS target",
+                (f"public.{table}", f"{schema}.{table}"),
+            )
+            row = await cursor.fetchone()
+            source = row.get("source") if isinstance(row, Mapping) else row[0]
+            target = row.get("target") if isinstance(row, Mapping) else row[1]
+            if source is not None and target is not None:
+                raise RuntimeError(
+                    f"PostgreSQL schema migration conflict for table {table}"
+                )
+            if source is not None:
+                await connection.execute(
+                    f'ALTER TABLE public."{table}" SET SCHEMA {quoted_schema}'
+                )
+    finally:
+        await connection.execute(
+            "SELECT pg_advisory_unlock(hashtext(%s))", (SCHEMA_LOCK_NAME,)
+        )
+
+
+async def prepare_schema(
+    connection: Any,
+    *,
+    profile: str,
+    schema: str | None = None,
+) -> None:
     """Create schema locally or verify it without DDL for non-local profiles."""
 
+    quoted_schema = _quoted_identifier(schema) if schema is not None else None
     if profile == "local":
+        if schema is not None:
+            await connection.execute(f"CREATE SCHEMA IF NOT EXISTS {quoted_schema}")
+            await _move_public_tables(connection, schema)
+            await connection.execute(f"SET search_path TO {quoted_schema}, public")
         for statement in DDL:
             await connection.execute(statement)
         return
+    if schema is not None:
+        cursor = await connection.execute("SELECT to_regnamespace(%s)", (schema,))
+        row = await cursor.fetchone()
+        namespace = (
+            next(iter(row.values()), None)
+            if isinstance(row, Mapping)
+            else row[0] if row else None
+        )
+        if namespace is None:
+            raise RuntimeError(
+                "PostgreSQL schema is missing or outdated; migrations are local-only"
+            )
+        await connection.execute(f"SET search_path TO {quoted_schema}, public")
     cursor = await connection.execute(
-        "SELECT version FROM schema_migrations WHERE version = 1 AND name = 'normalized_metadata_core'"
+        "SELECT version FROM schema_migrations "
+        "WHERE version = 2 AND name = 'langgraph_schema_namespace'"
     )
     row = await cursor.fetchone()  # type: ignore[attr-defined]
     version = row.get("version") if isinstance(row, Mapping) else row[0] if row else None
     if version is None or int(version) != SCHEMA_VERSION:
         raise RuntimeError("PostgreSQL schema is missing or outdated; migrations are local-only")
+    if schema is not None:
+        for table in CHECKPOINTER_TABLES:
+            cursor = await connection.execute(
+                "SELECT to_regclass(%s)", (f"{schema}.{table}",)
+            )
+            row = await cursor.fetchone()
+            relation = (
+                next(iter(row.values()), None)
+                if isinstance(row, Mapping)
+                else row[0] if row else None
+            )
+            if relation is None:
+                raise RuntimeError(
+                    "PostgreSQL schema is missing or outdated; migrations are local-only"
+                )

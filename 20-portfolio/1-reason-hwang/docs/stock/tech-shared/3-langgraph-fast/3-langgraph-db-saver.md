@@ -103,6 +103,11 @@ Application Repositories         AsyncPostgresSaver
 
 `Runs Runtime`이 API 모델과 LangGraph saver 형식 사이의 어댑터 역할을 한다. 애플리케이션 repository와 saver는 같은 pool을 사용하지만, 테이블 소유권과 삭제 정책은 서로 독립적이다.
 
+PostgreSQL 논리 데이터베이스는 BFF와 동일한 `sec_collector`를 사용할 수 있지만, 모든
+LangGraph 애플리케이션 메타데이터와 saver 테이블은 `POSTGRES_SCHEMA`로 지정한 전용
+`langgraph` 스키마에 저장한다. BFF의 SEC 테이블은 `public`에 남는다. pool connection의
+`search_path`는 `langgraph,public`이며 repository와 saver가 같은 전용 스키마를 사용한다.
+
 ## 2. Saver의 역할
 
 LangGraph saver는 그래프의 실행 상태를 체크포인트 단위로 저장하고 다시 읽는 컴포넌트다. 이 프로젝트에서 saver는 다음 기능을 담당한다.
@@ -258,6 +263,7 @@ POSTGRES_PORT=5432
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=...
 POSTGRES_DB=...
+POSTGRES_SCHEMA=langgraph
 ```
 
 여섯 값 중 하나라도 비어 있거나 placeholder인 `your`이면 PostgreSQL이 구성된 것으로 판단하지 않는다. 연결 문자열은 내부적으로 다음 Psycopg conninfo 형식으로 만들어진다.

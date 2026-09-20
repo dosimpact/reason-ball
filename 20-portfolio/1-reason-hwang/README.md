@@ -120,13 +120,16 @@ pnpm --filter reason-hwang-langgraph-fast typecheck
 
 ## 검증용 MCP 설치 및 연결
 
-[필수 검증 원칙](docs/validation/README.md)에 따라 API는 Bruno CLI, 순수 View는 Storybook, 비즈니스 동작은 Playwright MCP 또는 Chrome DevTools MCP로 검증합니다.
+[필수 검증 원칙](docs/validation/INDEX.md)에 따라 API는 Bruno CLI, 순수 View는 Storybook, 비즈니스 동작은 Playwright MCP 또는 Chrome DevTools MCP로 검증합니다.
+
+코드 탐색에는 Codebase Memory MCP를 함께 사용합니다. 아래 목록은 검증 도구와 코드 탐색 도구를 구분하며, 코드 그래프 조회는 테스트 실행을 대신하지 않습니다.
 
 | 도구 | 역할 | 등록 이름 |
 | --- | --- | --- |
 | Playwright MCP `0.0.82` | 사용자 입력·이동·화면 결과 확인 | `playwright` |
 | Chrome DevTools MCP `1.9.0` | 브라우저 동작·콘솔·네트워크 확인 | `chrome-devtools` |
 | Storybook MCP addon `10.6.0` | story 탐색·프리뷰·테스트 도구 | `reason-hwang-storybook` |
+| Codebase Memory MCP `0.11.0` | 로컬 코드 인덱싱·심볼·호출 관계·변경 영향 탐색 | `reason-hwang-codebase-memory` |
 | Bruno CLI `4.1.0` | `.bru` API E2E 실행 (별도 MCP 불필요) | 해당 없음 |
 
 ### 1. 사전 준비
@@ -191,13 +194,71 @@ npx -y @usebruno/cli@4.1.0 run --env local
 
 `pnpm bruno`는 Bruno 앱을 열 뿐 E2E 실행·통과를 대신하지 않습니다. 테스트 데이터 변경과 정리는 각 컬렉션의 정책을 따릅니다.
 
-### 5. 연결 확인과 문제 해결
+### 5. Codebase Memory MCP 설치 및 코드 탐색
+
+[DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp/tree/v0.11.0)를 사용합니다. 로컬에 `0.11.0`을 설치하고 Codex stdio 등록 및 실제 MCP 초기화·도구 호출을 확인했습니다.
+
+```bash
+npm install -g codebase-memory-mcp@0.11.0
+codebase-memory-mcp --version
+command -v codebase-memory-mcp
+```
+
+`codex mcp list`로 기존 등록을 먼저 확인한 뒤 다음과 같이 등록합니다. `command -v`가 실행 파일 경로를 출력하는 상태에서 실행하세요. 다른 머신에서는 아래 프로젝트 경로를 실제 절대 경로로 바꿉니다.
+
+```bash
+codex mcp add reason-hwang-codebase-memory \
+  --env CBM_ALLOWED_ROOT=/Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang \
+  -- "$(command -v codebase-memory-mcp)"
+```
+
+stdio 방식이므로 별도 HTTP 서버나 포트는 필요하지 않습니다. `CBM_ALLOWED_ROOT`는 인덱싱할 저장소의 허용 루트를 제한하며, 모든 파일 접근을 차단하는 보안 샌드박스는 아닙니다. 등록은 사용자 범위이므로 다른 프로젝트에서도 보이지만, 이 이름의 서버에는 이 워크스페이스만 인덱싱합니다. 자동 에이전트 설정을 수행하는 `codebase-memory-mcp install` 명령은 여기서는 사용하지 않습니다. 위 수동 등록만으로 Codex에 연결합니다.
+
+세션을 다시 연 뒤 다음 순서로 MCP 도구를 사용합니다.
+
+1. 기본 캐시는 `~/.cache/codebase-memory-mcp`의 로컬 SQLite입니다. 각 패키지 루트의 `.cbmignore`로 `.env*`, `.config/`, 키 파일 및 생성물을 제외합니다. 중첩 `.cbmignore`는 읽지 않으므로 인덱싱 루트를 바꿀 때는 그 루트의 제외 정책을 먼저 준비하세요. 저장소 내부 스냅샷은 `persistence=false`로 비활성화하며, 실수로 생성된 `.codebase-memory/`도 프로젝트 `.gitignore`로 제외합니다.
+2. `index_repository`에 패키지별 절대 경로와 이름을 전달합니다. 상위 `reason-ball` 전체가 아닌 아래 7개 패키지가 대상입니다. 예시:
+
+   ```json
+   {"repo_path":"/Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host","name":"reason-hwang-fe-host","persistence":false}
+   ```
+
+3. `index_status`로 상태를 확인하고 `list_projects`가 반환한 실제 프로젝트 식별자를 후속 조회에 사용합니다.
+4. `get_architecture`로 구조를 파악하고, `get_graph_schema`로 지원 스키마를 확인한 뒤 `search_graph`로 심볼, `trace_path`로 호출 관계를 탐색합니다. 세부 인자는 연결된 도구 스키마를 따릅니다.
+5. `get_code_snippet`과 실제 파일 읽기로 구현을 재확인합니다. `detect_changes`는 Git 변경의 영향 탐색에 활용합니다. 검색 누락·오래된 인덱스 가능성이 있으므로 `rg`와 직접 소스 확인을 병행하고, 대규모 이동 후에는 인덱싱 상태를 다시 확인합니다.
+
+요청 예시: “이 프로젝트를 인덱싱하고 SEC 보고서 수집 API부터 PostgreSQL 저장까지 호출 경로를 찾아줘. 관련 심볼과 파일 위치를 제시하고 실제 소스로 확인해줘.”
+
+코드 인덱스는 탐색용 파생 데이터입니다. SEC 보고서 원문을 저장하는 PostgreSQL `sec_collector`와 별개이며, [stock 문서](docs/INDEX.md)나 실행 기반 검증을 대체하지 않습니다.
+
+| 패키지 경로 | 인덱스 프로젝트 이름 |
+| --- | --- |
+| `1-fe-host` | `reason-hwang-fe-host` |
+| `2-bff-apps` | `reason-hwang-bff-apps` |
+| `2-bff-apps/remotes/template` | `reason-hwang-remote-template` |
+| `2-bff-apps/remotes/todo` | `reason-hwang-remote-todo` |
+| `3-langgraph-fast` | `reason-hwang-langgraph-fast` |
+| `infra/1-infra-graph-rag` | `reason-hwang-infra-graph-rag` |
+| `infra/2-codex-oauth-proxy` | `reason-hwang-codex-oauth-proxy` |
+
+BFF 인덱스에는 그 하위 remotes도 포함됩니다. remote 전용 변경은 개별 인덱스로, BFF와 remote를 함께 탐색할 때는 BFF 인덱스로 조회합니다. 독립 인덱스 간 호출 관계가 자동으로 연결되었다고 가정하지 않습니다. 루트 패키지는 실행 소스 패키지와 별도로 인덱싱하지 않았습니다.
+
+MCP 세션을 다시 열기 전에도 동일한 로컬 인덱스를 CLI로 조회·갱신할 수 있습니다.
+
+```bash
+codebase-memory-mcp cli list_projects
+codebase-memory-mcp cli index_status --project reason-hwang-fe-host
+codebase-memory-mcp cli index_repository --repo-path "$PWD/1-fe-host" --name reason-hwang-fe-host --persistence false
+```
+
+### 6. 연결 확인과 문제 해결
 
 ```bash
 codex mcp list
 codex mcp get playwright
 codex mcp get chrome-devtools
 codex mcp get reason-hwang-storybook
+codex mcp get reason-hwang-codebase-memory
 ```
 
 설정을 추가한 뒤 Codex 앱/CLI 세션을 다시 열고, CLI에서는 `/mcp`로 실제 연결 상태를 확인합니다. `list`에 enabled로 표시되는 것은 등록 확인이며 연결 성공 검증과는 다릅니다.
@@ -205,6 +266,7 @@ codex mcp get reason-hwang-storybook
 - Playwright: `browser_navigate`로 `about:blank`를 열고 `browser_snapshot` 호출을 확인합니다.
 - Chrome DevTools: `list_pages`로 격리 브라우저 실행을 확인합니다.
 - Storybook: 서버 실행 후 `stories-preview`, `stories-find-by-component`, `test-run` 등 실제 도구 목록을 확인하고 변경한 story를 테스트합니다.
+- Codebase Memory: `list_projects` 호출로 연결을 확인합니다. 빈 목록은 최초 인덱싱 전에는 정상입니다. 인덱싱 후 `index_status`와 알려진 심볼의 조회 결과를 실제 파일과 대조합니다.
 - MCP 도구가 없으면 Codex 세션을 재시작하고 설정 이름·실행 파일 PATH를 확인합니다.
 - 최초 다운로드가 느려 시작 시간 제한에 걸리면 각 패키지의 `npx ... --help`를 먼저 실행하고, 필요하면 해당 MCP 설정의 `startup_timeout_sec = 60`을 지정합니다.
 - Storybook 연결 거부는 서버 실행 여부와 MCP URL의 포트를 확인합니다. 일반 UI URL이 아닌 `/mcp`를 사용합니다.
@@ -212,7 +274,9 @@ codex mcp get reason-hwang-storybook
 
 2026-09-20 설치 검증에서 두 브라우저 MCP의 초기화·도구 목록·브라우저 실행, 별도로 소유한 16006 포트 Storybook MCP의 초기화·도구 목록, Bruno CLI 버전을 확인했습니다. 이는 설치 점검이며 프로젝트 기능 E2E 결과는 아닙니다. 이후 검증 결과는 [flow](docs/flow/)에 기록합니다.
 
-공식 참고: [Playwright MCP](https://github.com/microsoft/playwright-mcp), [Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp), [Storybook MCP](https://storybook.js.org/docs/next/ai/mcp/overview/).
+Codebase Memory MCP는 2026-09-20 실제 설치·등록 후 7개 패키지를 인덱싱했습니다. 별도 stdio 클라이언트로 MCP 초기화·도구 목록·`list_projects` 호출을 검증했습니다. 현재 Codex 대화의 도구 목록에 반영하려면 새 세션을 열어야 합니다. 상세 결과는 [설치·인덱싱 기록](docs/flow/2026-09-20-codebase-memory-mcp-installation.md)을 참고하세요.
+
+공식 참고: [Playwright MCP](https://github.com/microsoft/playwright-mcp), [Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp), [Storybook MCP](https://storybook.js.org/docs/next/ai/mcp/overview/), [Codebase Memory MCP v0.11.0](https://github.com/DeusData/codebase-memory-mcp/tree/v0.11.0), [Codex MCP 설정](https://developers.openai.com/codex/mcp).
 
 ## LangGraph API 예시
 

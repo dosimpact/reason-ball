@@ -60,6 +60,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         postgres = PostgresRuntime(
             conninfo=settings.postgres_conninfo(),
             profile=settings.env_profile or "local",
+            schema=settings.postgres_schema,
         )
         await postgres.open()
         if settings.env_profile == "local":

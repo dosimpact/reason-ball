@@ -65,14 +65,23 @@ Infrastructure ports are configurable through `infra/1-infra-graph-rag/.env`; th
 - Application-specific dependencies and scripts: each package's manifest.
 - Python dependencies: each Python project's `pyproject.toml` and `uv.lock`.
 - Secrets and machine-local values: untracked `.env` and OAuth token files.
-- Shared current architecture and workspace policy: `docs/stock/shared/`.
+- Shared current architecture and workspace policy: `docs/stock/tech-shared/`.
+- Package-specific technical detail: `docs/stock/tech-shared/{1-fe-host,2-bff-apps,3-langgraph-fast,infra}/`; see [DOC-SCOPE-002](INDEX.md#doc-scope-002-공용과-구체의-두-가지-범위).
 - Domain current state: `docs/stock/<domain-feature-name>/`.
 - Change history: `docs/flow/`.
 
 ## DOC-DISCOVERY-001: Documentation navigation
 
-`AGENTS.md` directs agents to [Documentation Map](../../README.md), which owns the detailed reading order and document selection rules. Discover task-relevant stock documents first, then related flow records and supporting references. Shared design principles are required reading for code design, implementation, and review through that map. Read relevant history without loading all stock and flow documents by default.
+`AGENTS.md` directs agents to [Documentation Map](../../INDEX.md), which owns the detailed reading order and document selection rules. Discover task-relevant stock documents first, then related flow records and supporting references. Shared design principles are required reading for code design, implementation, and review through that map. Read relevant history without loading all stock and flow documents by default.
 
 Stock defines the accepted current state; flow preserves dated context and validation evidence. Material changes require an append-only flow record and synchronization of affected stock before completion. Keep detailed navigation links in the map so new shared principles can be discovered without adding a direct reference for each one to `AGENTS.md`.
 
 `AGENTS.md` retains only workspace scope, the map entry point, change safety, execution/validation basics, and completion requirements. Package inventories, endpoints, architecture details, and code conventions belong in the mapped stock documents.
+
+## CODE-EXPLORE-001: Code exploration tooling
+
+Codebase Memory MCP 0.11.0 is installed locally and registered as `reason-hwang-codebase-memory` in user-scoped Codex configuration. Follow the [root MCP installation guide](../../../README.md#5-codebase-memory-mcp-설치-및-코드-탐색) for installation, scoped registration, and indexing. A direct stdio MCP client verified initialization, tool discovery, and project listing; a new Codex session is required to refresh its tool catalog.
+
+The seven child packages have separate named indexes; the orchestration root is not separately indexed. BFF's index also includes its nested remotes. Each indexed root owns a `.cbmignore` excluding environment files, credential configuration and generated data. Nested `.cbmignore` files are not inherited, so changing an indexing root requires reviewing its own exclusions. Use `persistence=false` to retain indexes in the local cache without repository snapshots. `.codebase-memory/` is also Git-ignored as a safeguard.
+
+Index this workspace only, not the parent repository. Use architecture, symbol, and call-path queries to locate relevant code, then verify findings against current source with file reads and `rg`. An empty result is not proof that an implementation does not exist. Generated indexes and artifacts are local derived data, separate from application PostgreSQL persistence; exclude them from Git. Code graphs replace neither canonical stock documents nor execution-based validation.

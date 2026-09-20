@@ -10,10 +10,11 @@ from infrastructure.postgres.migrations import prepare_schema
 class PostgresRuntime:
     conninfo: str
     profile: str
+    schema: str = "langgraph"
     pool: Any = None
     checkpointer: Any = None
 
-    async def open(self) -> "PostgresRuntime":
+    async def open(self) -> PostgresRuntime:
         try:
             from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
             from psycopg.rows import dict_row
@@ -27,12 +28,17 @@ class PostgresRuntime:
                 "autocommit": True,
                 "prepare_threshold": 0,
                 "row_factory": dict_row,
+                "options": f"-c search_path={self.schema},public",
             },
             open=False,
         )
         await self.pool.open()
         async with self.pool.connection() as connection:
-            await prepare_schema(connection, profile=self.profile)
+            await prepare_schema(
+                connection,
+                profile=self.profile,
+                schema=self.schema,
+            )
         self.checkpointer = AsyncPostgresSaver(self.pool)
         if self.profile == "local":
             await self.checkpointer.setup()

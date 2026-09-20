@@ -19,6 +19,12 @@ configured database. The local role needs `CREATE TABLE`, `CREATE INDEX`, and `A
 `ENV_PROFILE=local` runs idempotent checkpointer and application migrations at startup. Other
 profiles only verify the schema and never execute DDL.
 
+LangGraph application metadata and checkpointer tables live in the schema configured by
+`POSTGRES_SCHEMA` (default: `langgraph`). The SEC collector continues to own tables in `public`.
+On the first local startup after this separation, existing LangGraph-owned tables are moved from
+`public` to `langgraph` under an advisory lock without copying or dropping their data. Non-local
+profiles require the dedicated schema to be prepared out of band.
+
 ```sh
 cd ../infra/1-infra-graph-rag
 docker compose --env-file .env up -d postgres

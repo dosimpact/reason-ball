@@ -30,7 +30,7 @@ async def test_local_profile_runs_idempotent_ddl_statements() -> None:
 
 @pytest.mark.asyncio
 async def test_non_local_profile_only_reads_current_schema() -> None:
-    connection = FakeConnection({"version": 1})
+    connection = FakeConnection({"version": 2})
     await prepare_schema(connection, profile="production")
     assert len(connection.queries) == 1
     assert connection.queries[0].startswith("SELECT version")

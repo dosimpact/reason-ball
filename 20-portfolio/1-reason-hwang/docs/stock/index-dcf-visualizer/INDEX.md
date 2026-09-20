@@ -7,7 +7,7 @@ This domain owns the Index DCF Visualizer: its financial assumptions, calculatio
 ## Owning components
 
 - `1-fe-host`: the `/index-dcf-visualizer` page, calculation logic exposed through the UI, visualization components, input handling, and browser tests.
-- Shared host and test infrastructure documented under `../shared/` supports this domain but does not own its business rules.
+- Shared host and test infrastructure documented under `../tech-shared/` supports this domain but does not own its business rules.
 
 ## Current capability boundary
 
@@ -18,4 +18,4 @@ This domain owns the Index DCF Visualizer: its financial assumptions, calculatio
 
 ## Documentation routing
 
-Add financial terminology, formulas, assumptions, input/output contracts, UX behavior, warnings, and domain-specific test scenarios here. Keep general frontend shell, Module Federation, workspace commands, and cross-domain validation policy in `../shared/`.
+Add financial terminology, formulas, assumptions, input/output contracts, UX behavior, warnings, and domain-specific test scenarios here. Keep general frontend shell, Module Federation, workspace commands, and cross-domain validation policy in `../tech-shared/`.

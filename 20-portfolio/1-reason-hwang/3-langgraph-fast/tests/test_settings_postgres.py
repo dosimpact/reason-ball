@@ -11,6 +11,7 @@ def test_postgres_conninfo_requires_profile(monkeypatch: pytest.MonkeyPatch) -> 
         "POSTGRES_USER",
         "POSTGRES_PASSWORD",
         "POSTGRES_DB",
+        "POSTGRES_SCHEMA",
     ):
         monkeypatch.delenv(key, raising=False)
     settings = AppSettings.from_env()
@@ -33,3 +34,23 @@ def test_postgres_conninfo_from_environment(monkeypatch: pytest.MonkeyPatch) -> 
     assert settings.postgres_configured
     assert "host=localhost" in settings.postgres_conninfo()
     assert "port=55432" in settings.postgres_conninfo()
+    assert settings.postgres_schema == "langgraph"
+
+
+def test_postgres_schema_rejects_unsafe_identifier(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    values = {
+        "ENV_PROFILE": "local",
+        "POSTGRES_HOST": "localhost",
+        "POSTGRES_PORT": "55432",
+        "POSTGRES_USER": "postgres",
+        "POSTGRES_PASSWORD": "secret",
+        "POSTGRES_DB": "graph",
+        "POSTGRES_SCHEMA": "langgraph;drop schema public",
+    }
+    for key, value in values.items():
+        monkeypatch.setenv(key, value)
+
+    with pytest.raises(ValueError, match="POSTGRES_SCHEMA"):
+        AppSettings.from_env().postgres_conninfo()
