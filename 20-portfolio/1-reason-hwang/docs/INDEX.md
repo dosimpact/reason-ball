@@ -102,7 +102,7 @@ The technical subdirectories follow package ownership; the other stock directori
 | --- | --- |
 | `1-fe-host` | [Frontend architecture](stock/tech-shared/1-fe-host/2-frontend-side-architecture.md), [Storybook](stock/tech-shared/1-fe-host/storybook.md) |
 | `2-bff-apps` | [BFF map](stock/tech-shared/2-bff-apps/INDEX.md), [Directory policy](stock/tech-shared/2-bff-apps/directory-policy.md), [Swagger/OpenAPI](stock/tech-shared/2-bff-apps/swagger-module.md) |
-| `3-langgraph-fast` | [DB saver](stock/tech-shared/3-langgraph-fast/3-langgraph-db-saver.md) |
+| `3-langgraph-fast` | [Package map](stock/tech-shared/3-langgraph-fast/INDEX.md), [DB saver](stock/tech-shared/3-langgraph-fast/3-langgraph-db-saver.md), [Graph DB](stock/tech-shared/3-langgraph-fast/4-graph-db.md) |
 | `infra/1-infra-graph-rag` | [Infrastructure setup](stock/tech-shared/infra/1-infra-graph-rag/1-infra-l1-setup.md) |
 | `infra/2-codex-oauth-proxy` | [OAuth proxy](stock/tech-shared/infra/2-codex-oauth-proxy/1-infra-l2-codex-proxy.md) |
 
@@ -145,6 +145,7 @@ Flow documents remain in a single dated, append-only history. New records must i
 | [`flow/2026-09-20-minimal-stock-templates.md`](flow/2026-09-20-minimal-stock-templates.md) | Added minimal business and system design templates for domain stock documents |
 | [`flow/2026-09-20-sec-filing-database-content-design.md`](flow/2026-09-20-sec-filing-database-content-design.md) | Designed the staged transition from local filing files to PostgreSQL-backed content |
 | [`flow/2026-09-20-sec-filing-database-content-implementation.md`](flow/2026-09-20-sec-filing-database-content-implementation.md) | Implemented DB-backed content and verified a real SEC Apple 10-K |
+| [`flow/2026-09-20-langgraph-graph-db-stock.md`](flow/2026-09-20-langgraph-graph-db-stock.md) | Consolidated the implemented Neo4j Graph DB contract under the LangGraph package stock |
 
 Existing flow records keep their original wording and paths as historical evidence. A later stock relocation does not rewrite an earlier record.
 

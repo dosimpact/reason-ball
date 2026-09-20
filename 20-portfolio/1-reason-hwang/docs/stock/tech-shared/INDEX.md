@@ -23,7 +23,9 @@ tech-shared/
 ├── 2-bff-apps/
 │   └── swagger-module.md
 ├── 3-langgraph-fast/
-│   └── 3-langgraph-db-saver.md
+│   ├── INDEX.md
+│   ├── 3-langgraph-db-saver.md
+│   └── 4-graph-db.md
 └── infra/
     ├── 1-infra-graph-rag/
     │   └── 1-infra-l1-setup.md
@@ -48,7 +50,7 @@ tech-shared/
 | `1-fe-host` | [Frontend architecture](1-fe-host/2-frontend-side-architecture.md) | Host·Remote·BFF 프런트 전달 구조. 관련 BFF도 같은 문서를 참조 |
 | `1-fe-host` | [Storybook](1-fe-host/storybook.md) | UI 예제, 구성, 검증 |
 | `2-bff-apps` | [BFF 문서 지도](2-bff-apps/INDEX.md) | 디렉터리 정책·SSE·API·Swagger 안내 |
-| `3-langgraph-fast` | [DB saver](3-langgraph-fast/3-langgraph-db-saver.md) | PostgreSQL saver와 체크포인트 설계 |
+| `3-langgraph-fast` | [문서 지도](3-langgraph-fast/INDEX.md) | PostgreSQL saver와 Neo4j Graph DB 설계·운영 |
 | `infra/1-infra-graph-rag` | [Infra setup](infra/1-infra-graph-rag/1-infra-l1-setup.md) | Graph RAG 데이터베이스와 관측 환경 |
 | `infra/2-codex-oauth-proxy` | [OAuth proxy](infra/2-codex-oauth-proxy/1-infra-l2-codex-proxy.md) | OAuth 인증 프록시 구조와 사용법 |
 
