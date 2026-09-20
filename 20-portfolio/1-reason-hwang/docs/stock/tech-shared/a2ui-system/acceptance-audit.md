@@ -24,14 +24,14 @@
 | SEC-A2UI-07 |SEC manifest/stories/실제 Bruno/브라우저 | action 취소 보정 후 HTTP 회귀 PASS |
 | A2UI-VAL-001 |143 Python,69계약,75story, build/typecheck 등 | OAuth 범위 충족 |
 | 기술 문서 통합 |전용 INDEX와8개 기술문서, 링크 검사 | 충족 |
-| 검증 후 commit |최종 검토 후 A2UI 변경만 커밋 | 무관한 사용자 문서 제외 |
+| 검증 후 commit |f1dd3a8: A2UI 변경 164파일 커밋 | 충족; 무관한 사용자 문서 제외 |
 
 ## 검증 범위와 제한
 
 1. action 요청 messages 정리 이후 Dynamic/Fixed/SEC Bruno HTTP 회귀는 순차 재실행하여 모두 통과했다.
 2. 사용자 “지금 OAuth만 검증” 결정으로 API-key 실모델 실행은 현재 완료 조건에서 제외한다. 구현 지원과 실증 완료는 구분한다.
 3. 전체 lint는 변경 없는18파일의48오류로 실패한다. 변경 범위 lint/typecheck PASS와 구분해 최종 보고한다. 무관한 파일을 자동 수정하지 않는다.
-4. 기존 사용자 변경을 보존하면서 최종 diff/문서/검증 증거를 확인하고 작업 범위만 commit한다.
+4. 최종 diff/문서/생성물 검사를 통과했고 A2UI 변경만 f1dd3a8로 커밋했다. 사용자 reverse-biz 문서와 문서 지도 변경은 작업 트리에 보존했다.
 
 이 표의 ‘충족 증거 있음’은 적힌 범위만 뜻한다. 외부 서비스의 모든 가능한 장애를 검증했다는 뜻이 아니며, API-key 실모델 검증은 사용자 범위 변경에 의해 제외되었다.
 
