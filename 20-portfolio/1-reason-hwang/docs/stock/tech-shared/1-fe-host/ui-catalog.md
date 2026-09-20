@@ -14,9 +14,9 @@ The host preinstalls all standalone components in the current shadcn Base UI reg
 
 | Requested name | Preparation |
 | --- | --- |
-| Data Table | `table.tsx` plus `@tanstack/react-table`; define domain-specific columns and behavior when used |
-| Date Picker | `calendar.tsx` + `popover.tsx` + `date-fns`; compose when used |
-| Typography | Current documentation redirects to Typeset, a CSS design guide; no standalone CLI component was generated |
+| Data Table | `table.tsx` plus `@tanstack/react-table`; `UI/Data Table` demonstrates local search, sorting, and empty results; define domain-specific columns when integrating |
+| Date Picker | `calendar.tsx` + `popover.tsx` + `date-fns`; `UI/Date Picker` demonstrates selection and an initially empty value |
+| Typography | Current documentation redirects to Typeset, a CSS design guide; no standalone CLI component was generated; `UI/Typography` demonstrates headings, body, quotes, lists, and inline code |
 
 Sources: [Data Table](https://ui.shadcn.com/docs/components/base/data-table), [Date Picker](https://ui.shadcn.com/docs/components/base/date-picker), [Typeset](https://ui.shadcn.com/docs/typeset), [CLI](https://ui.shadcn.com/docs/cli).
 
@@ -24,10 +24,14 @@ Sources: [Data Table](https://ui.shadcn.com/docs/components/base/data-table), [D
 
 The CLI installs dependencies including `cn`, `cmdk`, `input-otp`, `react-resizable-panels`, `react-day-picker`, `date-fns`, `embla-carousel-react`, and `recharts`. `@shadcn/react` is updated to `^0.3.1` because `0.2.1` lacks the Questionnaire export. The lockfile records exact resolutions.
 
-New registry files retain their generated source, including the new `cn` package imports. Existing components keep `@/lib/utils`. Existing components, stories, theme, and application layout are unchanged. Toast is available for import; mount its Toaster where needed when integrating it into the app.
+New registry files retain their generated source, including the new `cn` package imports. Existing components keep `@/lib/utils`. Existing component source, theme, and application layout are preserved. Toast is available for import; mount its Toaster where needed when integrating it into the app.
 
 ## Validation scope
 
-Typecheck covers all installed source files. Existing 90 Storybook cases remain, plus one installation smoke story for Accordion, Checkbox, Switch, Progress, Calendar and Questionnaire at `Installation/Registry smoke check`. Full usage stories for the other newly installed components are not part of this preinstallation task.
+`UI-STORY-003`: all 61 standalone components have colocated `*.stories.tsx` files. Three additional composed examples live under `src/stories/`: Data Table, Date Picker, and Typography. The built catalog has 192 UI stories and 201 total cases including starter and installation examples. New stories cover useful variants and states; 20 new interaction stories verify clicks, selections, local filtering/sorting, survey completion, and overlay behavior.
+
+Story-local state and fixed fixtures require no backend. Toast uses a per-story manager, overlay Docs examples are isolated in frames, and chart/resizable examples provide explicit dimensions. `vitest.config.ts` prebundles the catalog dependencies to prevent optimizer reloads during browser tests. Typecheck, lint, the 201-case Chromium suite, and the static Storybook build pass. Browser checks additionally cover desktop charts, questionnaire submission, dialogs, and responsive date selection.
 
 Run the commands in [Storybook design](storybook.md). Installation evidence: [2026-09-20 catalog installation](../../../flow/2026-09-20-shadcn-catalog-install.md).
+
+Story expansion evidence: [2026-09-20 catalog stories](../../../flow/2026-09-20-shadcn-catalog-stories.md).
