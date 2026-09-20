@@ -50,6 +50,11 @@ export class AppConfigService {
     return this.readInt('SEC_RETRY_COUNT', 3);
   }
 
+  get secDocumentMaxBytes(): number {
+    const value = this.readInt('SEC_DOCUMENT_MAX_BYTES', 32 * 1024 * 1024);
+    return value > 0 ? value : 32 * 1024 * 1024;
+  }
+
   get secBulkSubmissionsUrl(): string {
     return (
       process.env.SEC_BULK_SUBMISSIONS_URL ??

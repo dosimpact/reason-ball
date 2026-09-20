@@ -8,7 +8,9 @@
     "start": "NODE_ENV=production node dist/main.js",
     "start:prod": "NODE_ENV=production node dist/main.js",
     "lint": "tsc --noEmit",
-    "test": "node --test"
+    "test": "pnpm build && node --test tests/*.test.cjs",
+    "test:sec-live": "pnpm build && node scripts/verify-sec-database.cjs",
+    "sec:import-files": "pnpm build && node scripts/import-filing-files.cjs"
   },
   "dependencies": {
     "@nestjs/common": "^10.4.15",

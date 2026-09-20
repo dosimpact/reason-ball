@@ -5,6 +5,7 @@ import * as path from 'node:path';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { AppConfigService } from '../config/app.config';
+import { documentFromBytes } from './document-content';
 
 class HttpStatusError extends Error {
   constructor(
@@ -27,6 +28,33 @@ export class SecClientService {
   async getJson<T>(url: string): Promise<T> {
     const response = await this.request(url);
     return (await response.json()) as T;
+  }
+
+  async downloadDocument(url: string) {
+    const response = await this.request(url);
+    if (!response.body) throw new Error('SEC_DOCUMENT_EMPTY');
+    const limit = this.config.secDocumentMaxBytes;
+    const reader = response.body.getReader();
+    const chunks: Buffer[] = [];
+    let size = 0;
+    try {
+      if (Number(response.headers.get('content-length')) > limit) {
+        throw new Error('SEC_DOCUMENT_TOO_LARGE');
+      }
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        size += value.byteLength;
+        if (size > limit) throw new Error('SEC_DOCUMENT_TOO_LARGE');
+        chunks.push(Buffer.from(value));
+      }
+      return documentFromBytes(Buffer.concat(chunks, size), response.headers.get('content-type'));
+    } catch (error) {
+      await reader.cancel().catch(() => undefined);
+      throw error;
+    } finally {
+      reader.releaseLock();
+    }
   }
 
   async downloadFile(
@@ -74,6 +102,7 @@ export class SecClientService {
         await this.acquireThrottleSlot();
 
         const response = await fetch(url, {
+          signal: AbortSignal.timeout(60_000),
           headers: {
             'User-Agent': userAgent,
             Accept: 'application/json, text/plain, */*',
@@ -81,9 +110,9 @@ export class SecClientService {
         });
 
         if (!response.ok) {
-          const body = await response.text();
+          await response.body?.cancel();
           throw new HttpStatusError(
-            `SEC request failed (${response.status}): ${body.slice(0, 200)}`,
+            `SEC request failed (${response.status})`,
             response.status,
           );
         }

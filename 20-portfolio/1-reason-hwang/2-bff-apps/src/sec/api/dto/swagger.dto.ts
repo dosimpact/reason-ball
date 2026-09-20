@@ -422,8 +422,8 @@ export class DownloadedReportDto {
   @ApiProperty({ type: String, example: 'https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm' })
   filingUrl!: string;
 
-  @ApiProperty({ type: String, example: 'nest-static-data/filings/0000320193/10-K/0000320193-25-000079/aapl-20250927.htm' })
-  filePath!: string;
+  @ApiProperty({ type: String, nullable: true, deprecated: true, description: '레거시 파일 경로. 신규 DB 원문은 null.', example: null })
+  filePath!: string | null;
 
   @ApiPropertyOptional({ type: String, example: '1a2b3c4d5e6f...', nullable: true })
   checksum!: string | null;
@@ -434,7 +434,7 @@ export class DownloadedReportDto {
   @ApiProperty({ type: String, format: 'date-time', example: '2026-04-15T12:00:00.000Z' })
   updatedAt!: Date;
 
-  @ApiProperty({ type: String, description: '로컬 static 파일에서 읽은 보고서 원문입니다.' })
+  @ApiProperty({ type: String, description: 'PostgreSQL에 저장된 보고서 원문입니다.' })
   content!: string;
 }
 

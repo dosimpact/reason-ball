@@ -83,11 +83,11 @@ POST 경로 이름에 `jobs`가 포함되어 있지만 현재 구현은 작업 I
 | GET | `/filing-backfill-jobs/latest` | 최근 bulk backfill 상태 조회 | 없음 |
 | GET | `/filing-backfill-jobs/:runId` | 지정 bulk backfill 상태 조회 | 없음 |
 | GET | `/filing-backfill-jobs/:runId/verification` | bulk backfill DB 완전성 검증 | 집계 쿼리 |
-| POST | `/filing-download-jobs` | pending 공시 원문 다운로드 | 파일 저장, 상태 변경 |
+| POST | `/filing-download-jobs` | pending 공시 원문 다운로드 | PostgreSQL 원문 저장, 상태 변경 |
 | POST | `/filing-retry-jobs` | failed 공시 재시도 준비 | 상태 변경 |
 | GET | `/filings/status-summary` | 공시 상태별 집계 | 없음 |
 | GET | `/filings` | 공시 메타데이터 목록 조회 | 없음 |
-| GET | `/filings/downloaded-reports` | 다운로드된 보고서 본문 조회 | 로컬 파일 읽기 |
+| GET | `/filings/downloaded-reports` | 다운로드된 보고서 본문 조회 | PostgreSQL 원문 조회 |
 | POST | `/filings/parser-status` | parser 후처리 상태 갱신 | 상태 변경 |
 
 ## 4. Company API
@@ -404,7 +404,7 @@ GET /api/sec/filings?limit=50&status=downloaded&cik=0000320193&since=2025-01-01&
       "primaryDoc": "aapl-20250927.htm",
       "filingUrl": "https://www.sec.gov/Archives/edgar/data/...",
       "status": "downloaded",
-      "filePath": "data/filings/.../aapl-20250927.htm",
+      "filePath": null,
       "checksum": "sha256-value",
       "parserStatus": "completed",
       "errorMessage": null,
@@ -433,7 +433,7 @@ GET /api/sec/filings/downloaded-reports?page=1&pageSize=20&formType=10-K&ticker=
 | `since` | 아니요 | - | filing date 하한 |
 | `parserStatus` | 아니요 | - | parser 상태 정확 일치, 빈 문자열 허용 |
 
-조회 대상은 `status=downloaded`이고 `filePath`가 존재하는 filing이다. DB 메타데이터와 함께 `filePath`의 파일 전체 내용을 `content`로 반환한다.
+조회 대상은 `status=downloaded`이고 `document_content`가 존재하는 filing이다. PostgreSQL `sec_collector.public.filings`에 저장한 원문을 `content`로 반환한다. 신규 다운로드의 `filePath`는 `null`이며 이 필드는 폐기 예정이다. 원문 합계가 64 MiB를 초과하는 페이지는 HTTP 413을 반환하므로 `pageSize`를 줄여야 한다.
 
 #### 성공 응답: `200 OK`
 
@@ -462,7 +462,7 @@ GET /api/sec/filings/downloaded-reports?page=1&pageSize=20&formType=10-K&ticker=
       "reportDate": "2025-09-27",
       "primaryDoc": "aapl-20250927.htm",
       "filingUrl": "https://www.sec.gov/Archives/edgar/data/...",
-      "filePath": "data/filings/.../aapl-20250927.htm",
+      "filePath": null,
       "checksum": "sha256-value",
       "parserStatus": "completed",
       "updatedAt": "2026-08-25T01:00:00.000Z",
@@ -472,7 +472,7 @@ GET /api/sec/filings/downloaded-reports?page=1&pageSize=20&formType=10-K&ticker=
 }
 ```
 
-DB row는 존재하지만 실제 파일을 읽을 수 없으면 요청 전체가 `500`으로 실패한다. 본문 크기가 크므로 `pageSize`를 작게 사용하는 것이 권장된다.
+로컬 파일을 읽지 않는다. DB 조회 오류는 `500`, 원문 합계 64 MiB 초과는 `413`이다. 본문 크기가 크므로 `pageSize`를 작게 사용한다.
 
 ## 7. Parser Status API
 
@@ -560,8 +560,9 @@ SEC metadata sync
 | `primaryDoc` | text | 예 | 원본 문서명 |
 | `filingUrl` | text | 아니요 | SEC 원문 URL |
 | `status` | enum string | 아니요 | pending/downloaded/failed |
-| `filePath` | text | 예 | 저장 파일 경로 |
-| `checksum` | string(64) | 예 | SHA-256 |
+| `filePath` | text | 예 | 레거시 이관 출처, 신규 DB 저장 시 null (deprecated) |
+| `checksum` | string(64) | 예 | DB 원문 UTF-8 bytes의 SHA-256 |
+| `documentSizeBytes` | bigint/string | 예 | DB 원문 실제 byte 수; SEC 선언 fileSize와 별도 |
 | `parserStatus` | string(255) | 아니요 | 후처리 상태 |
 | `errorMessage` | text | 예 | 마지막 실패 원인 |
 | `retryCount` | integer | 아니요 | 누적 재시도 횟수 |

@@ -95,6 +95,9 @@ export class Filing {
   @Column({ name: 'document_downloaded_at', type: 'timestamptz', nullable: true })
   documentDownloadedAt!: Date | null;
 
+  @Column({ name: 'document_size_bytes', type: 'bigint', nullable: true })
+  documentSizeBytes!: string | null;
+
   // 레코드 마지막 갱신 시각. update 시 자동 갱신.
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
   updatedAt!: Date;

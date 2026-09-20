@@ -398,7 +398,7 @@ export class CollectorController {
   @ApiOperation({
     summary: '다운로드된 보고서 조회',
     description:
-      'downloaded 상태 filing을 조회하고, 로컬 static 파일 내용을 읽어 JSON으로 함께 반환합니다.',
+      'downloaded 상태 filing의 PostgreSQL 원문을 JSON으로 반환합니다. filePath는 폐기 예정 nullable 필드입니다.',
   })
   @ApiQuery({ name: 'page', required: false, description: '현재 페이지. 기본값 1.', example: 1 })
   @ApiQuery({ name: 'pageSize', required: false, description: '페이지당 결과 수. 기본값 50.', example: 20 })

@@ -1,8 +1,5 @@
-import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, Logger, NotFoundException, PayloadTooLargeException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { createHash } from 'node:crypto';
-import { mkdir, readFile } from 'node:fs/promises';
-import * as path from 'node:path';
 import { In, Repository } from 'typeorm';
 import { AppConfigService } from '../common/config/app.config';
 import { Company } from '../common/db/entities/company.entity';
@@ -104,7 +101,7 @@ export type DownloadedReportItem = {
   reportDate: string | null;
   primaryDoc: string | null;
   filingUrl: string;
-  filePath: string;
+  filePath: string | null;
   checksum: string | null;
   parserStatus: string;
   updatedAt: Date;
@@ -453,7 +450,7 @@ export class FilingsCollectorService {
       .createQueryBuilder('filing')
       .innerJoin(Company, 'company', 'company.cik = filing.cik')
       .where('filing.status = :status', { status: 'downloaded' as FilingStatus })
-      .andWhere('filing.file_path IS NOT NULL');
+      .andWhere('filing.document_content IS NOT NULL');
 
     if (cik) {
       baseQuery.andWhere('filing.cik = :cik', { cik });
@@ -478,6 +475,18 @@ export class FilingsCollectorService {
     const totalItems = await baseQuery.clone().getCount();
     const totalPages = totalItems > 0 ? Math.ceil(totalItems / pageSize) : 0;
 
+    // Check the selected page's byte budget before fetching TOAST bodies.
+    const pageSizes = await baseQuery.clone()
+      .select('filing.document_size_bytes', 'bytes')
+      .orderBy('filing.filing_date', 'DESC', 'NULLS LAST')
+      .addOrderBy('filing.updated_at', 'DESC')
+      .addOrderBy('filing.accession_no', 'ASC')
+      .addOrderBy('filing.cik', 'ASC')
+      .offset(skip).limit(pageSize).getRawMany<{ bytes: string }>();
+    if (pageSizes.reduce((sum, row) => sum + Number(row.bytes), 0) > 64 * 1024 * 1024) {
+      throw new PayloadTooLargeException('Report content exceeds 64 MiB; reduce pageSize');
+    }
+
     const rows = await baseQuery
       .clone()
       .select([
@@ -493,9 +502,12 @@ export class FilingsCollectorService {
         'filing.checksum AS "checksum"',
         'filing.parser_status AS "parserStatus"',
         'filing.updated_at AS "updatedAt"',
+        'filing.document_content AS "content"',
       ])
       .orderBy('filing.filing_date', 'DESC', 'NULLS LAST')
       .addOrderBy('filing.updated_at', 'DESC')
+      .addOrderBy('filing.accession_no', 'ASC')
+      .addOrderBy('filing.cik', 'ASC')
       .offset(skip)
       .limit(pageSize)
       .getRawMany<{
@@ -507,18 +519,14 @@ export class FilingsCollectorService {
         reportDate: string | null;
         primaryDoc: string | null;
         filingUrl: string;
-        filePath: string;
+        filePath: string | null;
         checksum: string | null;
         parserStatus: string;
         updatedAt: Date;
+        content: string;
       }>();
 
-    const items = await Promise.all(
-      rows.map(async (row) => ({
-        ...row,
-        content: await readFile(path.resolve(process.cwd(), row.filePath), 'utf8'),
-      })),
-    );
+    const items = rows;
 
     return {
       page,
@@ -908,42 +916,28 @@ export class FilingsCollectorService {
   }
 
   private async downloadSingleFiling(filing: Filing): Promise<FilingStatus> {
-    // Persist lifecycle state per filing (downloaded/failed + checksum/path).
-    if (!filing.primaryDoc) {
-      filing.status = 'failed';
-      filing.errorMessage = 'Missing primary document in SEC metadata';
-      filing.retryCount += 1;
-      await this.filingRepository.save(filing);
-      return filing.status;
-    }
-
-    const formTypeSegment = filing.formType.replace(/[^a-zA-Z0-9._-]/g, '-');
-    const docName = path.basename(filing.primaryDoc);
-    const destinationPath = this.secClient.sanitizeDownloadPath(
-      this.config.filingsDir,
-      filing.cik,
-      formTypeSegment,
-      filing.accessionNo,
-      docName,
-    );
-
-    await mkdir(path.dirname(destinationPath), { recursive: true });
-
+    const identity = { accessionNo: filing.accessionNo, cik: filing.cik };
     try {
-      await this.secClient.downloadFile(filing.filingUrl, destinationPath);
-      filing.status = 'downloaded';
-      filing.filePath = path.relative(process.cwd(), destinationPath);
-      filing.checksum = await this.calculateSha256(destinationPath);
-      filing.errorMessage = null;
+      if (!filing.primaryDoc) throw new Error('Missing primary document in SEC metadata');
+      const document = await this.secClient.downloadDocument(filing.filingUrl);
+      // Network IO is complete before the atomic write. A late worker cannot overwrite success.
+      await this.filingRepository.update({ ...identity, status: 'pending' }, {
+        ...document,
+        documentDownloadedAt: new Date(),
+        status: 'downloaded',
+        filePath: null,
+        errorMessage: null,
+      });
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      filing.status = 'failed';
-      filing.retryCount += 1;
-      filing.errorMessage = message.slice(0, 1000);
+      await this.filingRepository.createQueryBuilder()
+        .update(Filing)
+        .set({ status: 'failed', retryCount: () => 'retry_count + 1', errorMessage: message.slice(0, 1000) })
+        .where('accession_no = :accessionNo AND cik = :cik AND status = :status', { ...identity, status: 'pending' })
+        .execute();
     }
-
-    await this.filingRepository.save(filing);
-    return filing.status;
+    const current = await this.filingRepository.findOneByOrFail(identity);
+    return current.status;
   }
 
   private buildFilingUrl(cik: string, accessionNo: string, primaryDoc: string | null): string {
@@ -960,11 +954,6 @@ export class FilingsCollectorService {
 
     const parsed = Number.parseInt(String(value), 10);
     return Number.isFinite(parsed) ? parsed : null;
-  }
-
-  private async calculateSha256(filePath: string): Promise<string> {
-    const bytes = await readFile(filePath);
-    return createHash('sha256').update(bytes).digest('hex');
   }
 
   private formatCorrelation(options: { correlationId?: string }): string {

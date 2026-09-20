@@ -4,6 +4,7 @@ import { AppConfigService } from '../config/app.config';
 import { InitialCollectorSchema1730000000000 } from './migrations/1730000000000-initial-collector-schema';
 import { SecTwentyYearBackfill1787589300000 } from './migrations/1787589300000-sec-twenty-year-backfill';
 import { FilingSourceDefault1787589400000 } from './migrations/1787589400000-filing-source-default';
+import { FilingDatabaseContent1790000000000 } from './migrations/1790000000000-filing-database-content';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { FilingSourceDefault1787589400000 } from './migrations/1787589400000-fil
             InitialCollectorSchema1730000000000,
             SecTwentyYearBackfill1787589300000,
             FilingSourceDefault1787589400000,
+            FilingDatabaseContent1790000000000,
           ],
           migrationsRun: true,
           synchronize: false,
