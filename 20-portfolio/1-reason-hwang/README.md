@@ -1,6 +1,6 @@
 # Reason Hwang Portfolio
 
-Reason Hwang 포트폴리오 워크스페이스입니다. 프론트엔드 호스트, BFF, LangGraph/FastAPI 서비스, 로컬 인프라를 하나의 Turborepo 하위 영역으로 관리합니다.
+Reason Hwang 포트폴리오 워크스페이스입니다. 프론트엔드 호스트, BFF, LangGraph/FastAPI 서비스, 로컬 인프라를 독립 pnpm workspace와 Turborepo로 관리합니다.
 
 ## 구성
 
@@ -14,7 +14,7 @@ Reason Hwang 포트폴리오 워크스페이스입니다. 프론트엔드 호스
 
 ## 사전 준비
 
-루트에서 의존성을 설치합니다.
+이 디렉터리에서 의존성을 설치합니다.
 
 ```bash
 pnpm install
@@ -23,7 +23,7 @@ pnpm install
 Python 기반 프로젝트는 `uv`를 사용합니다.
 
 ```bash
-cd 20-portfolio/1-reason-hwang/3-langgraph-fast
+cd 3-langgraph-fast
 uv sync
 ```
 
@@ -31,23 +31,23 @@ OAuth 프록시를 사용할 경우 토큰 파일이 로컬에 생성됩니다. 
 
 ## 빠른 실행
 
-저장소 루트에서 Reason Hwang 관련 개발 서버를 실행합니다.
+Reason Hwang workspace root에서 개발 서버를 실행합니다.
 
 ```bash
-pnpm dev:reason-hwang
+pnpm dev
 ```
 
 인프라가 필요한 기능을 확인할 때는 먼저 Docker Compose 스택을 올립니다.
 
 ```bash
-pnpm infra-up:reason-hwang
-pnpm infra-ps:reason-hwang
+pnpm infra:up
+pnpm infra:ps
 ```
 
 종료:
 
 ```bash
-pnpm infra-down:reason-hwang
+pnpm infra:down
 ```
 
 ## 개별 실행
@@ -73,7 +73,7 @@ pnpm --filter reason-hwang-langgraph-fast dev
 OAuth 프록시:
 
 ```bash
-cd 20-portfolio/1-reason-hwang/infra/2-codex-oauth-proxy
+cd infra/2-codex-oauth-proxy
 uv sync
 uv run python -m core.oauth_login --manual-callback
 uv run python proxy-server/main.py --serve
@@ -95,7 +95,7 @@ uv run python proxy-server/main.py --serve
 전체 Reason Hwang 영역 빌드:
 
 ```bash
-pnpm build:reason-hwang
+pnpm build
 ```
 
 개별 테스트:
@@ -138,7 +138,7 @@ curl -X POST http://127.0.0.1:8000/graph/run \
 
 ## 운영 메모
 
-- 루트 `package.json`의 `dev:reason-hwang`, `build:reason-hwang`, `infra-*` 스크립트를 우선 사용합니다.
+- 이 디렉터리의 `package.json`과 `pnpm-lock.yaml`이 Reason Hwang 의존성과 작업을 독립적으로 관리합니다.
 - `1-fe-host`는 기본적으로 `REMOTE_BFF_URL=http://localhost:2801`을 바라봅니다.
 - `2-bff-apps`는 `PORT` 미설정 시 `2801`로 실행됩니다.
 - `infra/1-infra-graph-rag`의 PostgreSQL 기본 포트는 `5433`입니다.

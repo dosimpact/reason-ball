@@ -2,7 +2,7 @@
 
 ## Scope
 
-`20-reason-hwang` is a toy project folder inside the larger `red-blood-brain-docs` workspace. Treat this directory as an isolated project unit when making changes. Keep implementation, docs, tests, and task notes under this folder unless a workspace-level change is required, such as updating `pnpm-workspace.yaml`.
+`1-reason-hwang` is an independent pnpm workspace inside the larger repository. Run pnpm and Turborepo commands from this directory. Keep implementation, configuration, lockfile, docs, tests, and task notes under this folder unless a repository-level change is explicitly required.
 
 ## Project Structure
 
@@ -23,7 +23,7 @@ Use `tasks/1-init.md` as the source of truth for the initial micro-frontend setu
 
 ## Build, Test, and Development Commands
 
-Use `pnpm` only. Run package-specific commands from the relevant app folder or with workspace filters after package names exist.
+Use `pnpm` only. Run workspace commands from this directory and package-specific commands from the relevant app folder or with workspace filters.
 
 Expected ports:
 

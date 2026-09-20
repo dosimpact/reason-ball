@@ -1,0 +1,60 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "envMode": "loose",
+  "globalPassThroughEnv": [
+    "POSTGRES_URL",
+    "PARSER_BACKEND_URL",
+    "DATABASE_URL",
+    "COLLECTOR_DATABASE_URL",
+    "COLLECTOR_DATA_DIR",
+    "POSTGRES_PORT",
+    "PORT",
+    "APP_PORT",
+    "APP_HOST",
+    "AUTH_SECRET",
+    "AUTH_TRUST_HOST",
+    "AI_GATEWAY_API_KEY",
+    "PLAYWRIGHT",
+    "CHATBOT_BASE_URL"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "build/**", "release/**", ".next/**", "!.next/cache/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
+    },
+    "infra:up": {
+      "cache": false
+    },
+    "infra:down": {
+      "cache": false
+    },
+    "infra:ps": {
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "test:e2e": {
+      "cache": false,
+      "outputs": ["playwright-report/**", "test-results/**"]
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

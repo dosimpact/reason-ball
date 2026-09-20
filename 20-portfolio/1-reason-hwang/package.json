@@ -1,0 +1,22 @@
+{
+  "name": "reason-hwang",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.33.4",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "start": "turbo run start --filter=reason-hwang-fe-host --filter=@reason-hwang/bff-apps",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e --filter=reason-hwang-fe-host",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean",
+    "infra:up": "turbo run infra:up --filter='./infra/*'",
+    "infra:down": "turbo run infra:down --filter='./infra/*'",
+    "infra:ps": "turbo run infra:ps --filter='./infra/*'"
+  },
+  "devDependencies": {
+    "turbo": "^2.9.18"
+  }
+}

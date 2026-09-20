@@ -1,0 +1,17 @@
+packages:
+  - "1-fe-host"
+  - "2-bff-apps"
+  - "2-bff-apps/remotes/*"
+  - "3-langgraph-fast"
+  - "infra/*"
+
+  - "!**/.agentic-playbook/**"
+  - "!**/.agentic-playbook-rc/**"
+  - "!**/.agents/**"
+  - "!**/.codex/**"
+  - "!**/node_modules/**"
+  - "!**/.turbo/**"
+  - "!**/.next/**"
+  - "!**/.venv*/**"
+  - "!**/dist/**"
+  - "!**/build/**"
