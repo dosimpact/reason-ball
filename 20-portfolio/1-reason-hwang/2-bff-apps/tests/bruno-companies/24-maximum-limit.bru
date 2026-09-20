@@ -1,11 +1,11 @@
 meta {
-  name: cap
+  name: maximum-limit
   type: http
-  seq: 9
+  seq: 24
 }
 
 get {
-  url: {{baseUrl}}/companies?pageSize=100001
+  url: {{baseUrl}}/companies?limit=100000
   body: none
   auth: none
 }
@@ -15,7 +15,7 @@ assert {
 }
 
 tests {
-  test("SEC-COMPANIES-PAGE-001 cap", function() {
+  test("SEC-COMPANIES-PAGE-001 maximum-limit", function() {
     expect(res.getStatus()).to.equal(200);
     expect(res.getBody().pagination).to.deep.equal({"page": 1, "pageSize": 100000, "totalItems": 5, "totalPages": 1, "hasNextPage": false});
     expect(res.getBody().items.map(item => item.cik)).to.deep.equal(["0000000001", "0000000002", "0000000003", "0000000004", "0000000005"]);

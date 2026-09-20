@@ -25,7 +25,7 @@ export type JobCorrelationOptions = {
 };
 
 const DEFAULT_LIST_LIMIT = 50;
-const MAX_LIST_LIMIT = 500;
+const MAX_LIST_LIMIT = 100_000;
 
 @Injectable()
 export class CompaniesSyncService {

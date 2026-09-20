@@ -90,7 +90,7 @@ export class CollectorController {
     description: 'CIK, ticker, 검색어로 `companies` 테이블을 조회합니다.',
   })
   @ApiQuery({ name: 'page', required: false, description: '페이지 번호. 기본값 1.', example: 1 })
-  @ApiQuery({ name: 'pageSize', required: false, description: '페이지 크기. 기본값 50, 최대 500. limit보다 우선합니다.', example: 20 })
+  @ApiQuery({ name: 'pageSize', required: false, description: '페이지 크기. 기본값 50, 최대 100000. limit보다 우선합니다.', example: 20 })
   @ApiQuery({ name: 'limit', required: false, description: 'pageSize의 호환 별칭.', example: 50 })
   @ApiQuery({ name: 'cik', required: false, description: '1~10자리 숫자 CIK. 내부에서 10자리로 패딩됩니다.', example: '0000320193' })
   @ApiQuery({ name: 'ticker', required: false, description: '티커 심볼 필터입니다.', example: 'AAPL' })
@@ -102,7 +102,7 @@ export class CollectorController {
     const page = this.readCompanyPageNumber(query.page, 'page', 1);
     const pageSize = Math.min(
       this.readCompanyPageNumber(query.pageSize ?? query.limit, 'pageSize', 50),
-      500,
+      100_000,
     );
     if (!Number.isSafeInteger((page - 1) * pageSize)) {
       throw new BadRequestException('Pagination offset is too large.');

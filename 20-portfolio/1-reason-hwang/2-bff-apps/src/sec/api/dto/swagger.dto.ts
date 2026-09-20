@@ -77,7 +77,7 @@ export class CompaniesFilterDto {
   @ApiProperty({ type: Number, example: 1 })
   page!: number;
 
-  @ApiProperty({ type: Number, example: 20, maximum: 500 })
+  @ApiProperty({ type: Number, example: 20, maximum: 100_000 })
   pageSize!: number;
 
   @ApiProperty({ type: Number, description: '조회 최대 건수입니다.', example: 20 })

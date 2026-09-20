@@ -127,7 +127,7 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 
 `GET /api/sec/companies`는 `filters`, `items`, `pagination`을 반환한다. pagination은 page/pageSize/totalItems/totalPages/hasNextPage이며 전체 건수는 cik/ticker/q 필터를 적용한 결과다.
 
-- page 기본 1, pageSize 기본 50·최대 500. pageSize가 없으면 기존 limit를 사용한다. filters.limit는 실제 적용 pageSize다.
+- page 기본 1, pageSize 기본 50·최대 100000. pageSize가 없으면 기존 limit를 사용한다. filters.limit는 실제 적용 pageSize다.
 - 정렬은 updated_at DESC, cik ASC. offset 방식이므로 동시 갱신 시 페이지 사이 데이터가 이동할 수 있다.
 - 빈 결과 totalPages=0; 범위 밖 페이지 items=[]·hasNextPage=false. 잘못된 페이지 입력·안전 정수 범위를 넘는 offset은 400이다.
 - 기존 Bruno limit 요청을 유지하고 2페이지 조회 요청을 추가했다. 격리 fixture 전용 Bruno 시나리오는 `2-bff-apps/tests/bruno-companies/`에 있다.

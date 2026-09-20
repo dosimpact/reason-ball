@@ -121,7 +121,7 @@ GET /api/sec/companies?page=1&pageSize=50&cik=320193&ticker=aapl&q=apple
 | Query | 필수 | 기본값 | 설명 |
 | --- | --- | --- | --- |
 | `page` | 아니요 | `1` | 1부터 시작하는 페이지 |
-| `pageSize` | 아니요 | `50` | 페이지 크기, 최대 `500`; limit보다 우선 |
+| `pageSize` | 아니요 | `50` | 페이지 크기, 최대 `100000`; limit보다 우선 |
 | `limit` | 아니요 | `50` | pageSize의 호환 별칭 |
 | `cik` | 아니요 | - | CIK 정확 일치 |
 | `ticker` | 아니요 | - | ticker 정확 일치 |
@@ -160,7 +160,7 @@ GET /api/sec/companies?page=1&pageSize=50&cik=320193&ticker=aapl&q=apple
 
 정렬 순서는 `updatedAt DESC`, `cik ASC`다.
 
-전체 건수는 검색 조건 적용 후 계산한다. 빈 검색 결과의 totalPages는 0이며 범위 밖 페이지는 items=[]를 반환한다. page/pageSize(또는 limit)는 양의 안전 정수여야 하며 빈 값·소수·잘못된 문자열·반복 파라미터와 안전 범위를 넘는 offset은 400이다. 크기는 500으로 제한하며 filters.limit도 실제 적용 크기를 반환한다. 페이지 간 동시 데이터 변경의 snapshot 일관성은 보장하지 않는다.
+전체 건수는 검색 조건 적용 후 계산한다. 빈 검색 결과의 totalPages는 0이며 범위 밖 페이지는 items=[]를 반환한다. page/pageSize(또는 limit)는 양의 안전 정수여야 하며 빈 값·소수·잘못된 문자열·반복 파라미터와 안전 범위를 넘는 offset은 400이다. 크기는 100000으로 제한하며 filters.limit도 실제 적용 크기를 반환한다. 페이지 간 동시 데이터 변경의 snapshot 일관성은 보장하지 않는다.
 
 ## 5. Filing Job API
 
