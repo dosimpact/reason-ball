@@ -197,7 +197,81 @@ async def handle_chat_completions(request: web.Request) -> web.Response:
     return web.json_response(result)
 
 
-async def handle_responses(request: web.Request) -> web.Response:
+async def _stream_from_codex(request: web.Request, translated: dict) -> web.StreamResponse:
+    """Relay upstream bytes as they arrive; never turn completed JSON into SSE."""
+    manager = request.app[TOKEN_MANAGER_KEY]
+    try:
+        token = await manager.get_token()
+        account = await manager.get_account_id()
+    except Exception:
+        return _error_response("OAuth authentication is unavailable", "authentication_error", 401)
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json",
+               "OpenAI-Beta": "responses=experimental", "Accept": "text/event-stream"}
+    if account:
+        headers["chatgpt-account-id"] = account
+    downstream = None
+    try:
+        async with request.app[HTTP_SESSION_KEY].post(
+            CHATGPT_RESPONSES_URL, json=translated, headers=headers,
+        ) as upstream:
+            if upstream.status != 200:
+                raw = await upstream.text()
+                try:
+                    body = json.loads(raw)
+                except ValueError:
+                    body = {"error": {"message": "Upstream request failed"}}
+                error, status = api_translator.translate_error(body, upstream.status)
+                return web.json_response(error, status=status)
+            prefix = b""
+            if upstream.content_type != "text/event-stream":
+                # Codex sometimes omits Content-Type. Validate a bounded first
+                # SSE line rather than accepting completed JSON as a stream.
+                while len(prefix) < 1024:
+                    chunk = await upstream.content.read(1024 - len(prefix))
+                    if not chunk:
+                        break
+                    prefix += chunk
+                    first_line = prefix.lstrip(b"\r\n").split(b"\n", 1)
+                    if len(first_line) > 1:
+                        break
+                first_line = prefix.lstrip(b"\r\n").split(b"\n", 1)
+                if len(first_line) < 2 or not first_line[0].startswith((b"event:", b"data:", b":")):
+                    return _error_response("Upstream did not return an event stream", "server_error", 502)
+            downstream = web.StreamResponse(headers={
+                "Content-Type": "text/event-stream", "Cache-Control": "no-cache",
+                "X-Accel-Buffering": "no",
+            })
+            await downstream.prepare(request)
+            if prefix:
+                await downstream.write(prefix)
+            while True:
+                if request.transport is None or request.transport.is_closing():
+                    upstream.close()
+                    return downstream
+                try:
+                    chunk = await asyncio.wait_for(upstream.content.readany(), timeout=0.2)
+                except asyncio.TimeoutError:
+                    if upstream.content.exception() is not None:
+                        raise aiohttp.ClientError("Upstream stream timed out")
+                    continue
+                if not chunk:
+                    break
+                await downstream.write(chunk)
+            await downstream.write_eof()
+            return downstream
+    except (ConnectionResetError, asyncio.CancelledError):
+        # The upstream context closes its connection on downstream disconnect.
+        raise
+    except (aiohttp.ClientError, asyncio.TimeoutError):
+        if downstream is None:
+            return _error_response("Upstream streaming connection failed", "server_error", 502)
+        # Headers are already committed: fail the stream, not a second JSON reply.
+        if request.transport:
+            request.transport.close()
+        return downstream
+
+
+async def handle_responses(request: web.Request) -> web.StreamResponse:
     """Proxy a Responses API request directly to the ChatGPT Codex backend.
 
     The openai-agents Runner already emits a Responses-shaped body, so no
@@ -216,6 +290,9 @@ async def handle_responses(request: web.Request) -> web.Response:
     logger.debug("Responses passthrough: model=%s -> %s, tools=%d",
                  body.get("model"), translated.get("model"),
                  len(body.get("tools") or []))
+
+    if body.get("stream") is True:
+        return await _stream_from_codex(request, translated)
 
     api_response, err = await _forward_to_codex(request, translated)
     if err is not None:
