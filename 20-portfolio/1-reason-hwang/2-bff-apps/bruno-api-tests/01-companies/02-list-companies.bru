@@ -5,16 +5,16 @@ meta {
 }
 
 get {
-  url: {{baseUrl}}/companies
+  url: {{baseUrl}}/companies?limit={{companyLimit}}&ticker={{sampleTicker}}
   body: none
   auth: none
 }
 
 params:query {
   limit: {{companyLimit}}
-  cik: {{sampleCik}}
   ticker: {{sampleTicker}}
-  q: {{sampleQuery}}
+  ~cik: {{sampleCik}}
+  ~q: {{sampleQuery}}
 }
 
 assert {
