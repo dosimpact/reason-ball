@@ -116,3 +116,8 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 - `pnpm --filter @reason-hwang/bff-apps bruno`로 연다. 시작 요청 없이 기존 작업을 조회하려면 최근 작업 요청을 실행하거나 환경의 ID를 설정한다. 기존 런타임 ID가 있으면 먼저 제거해야 환경 ID로 전환된다.
 
 요청 등록 범위와 런타임 E2E 통과는 구분한다. 이번 추가의 정적 검증 및 실제 HTTP 미실행 상태는 [백필 Bruno 추가 기록](../../flow/2026-09-20-backfill-bruno-coverage.md)을 참조한다.
+
+
+## 검토 중인 API 간소화 제안
+
+[SEC-API-SIMPLIFY-001 설계안](../../flow/2026-09-20-sec-api-simplification-proposal.md)은 현재 13개 API를 단계적으로 11개, 최종 9개로 줄이는 미승인 제안이다. 현재 구현과 Bruno 계약은 위의 13개를 유지하며, 이 링크는 변경된 계약을 의미하지 않는다.
