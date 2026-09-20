@@ -1,0 +1,45 @@
+meta {
+  name: Select stored original or amendment
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("secManifest");
+  const body = {threadId: "sec-" + Date.now(), runId: "sec-run-" + Date.now(), messages: [], state: {}, tools: [], context: [], forwardedProps: {a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}};
+  const prior = bru.getVar("secSnapshot");
+  body.threadId = bru.getVar("secThread");
+  const surfaceId = Object.keys(prior.surfaces)[0];
+  const sourceComponentId = "filing-select";
+  const event = prior.surfaces[surfaceId].components[sourceComponentId].action.event;
+  const context = {...event.context};
+  context.accession = prior.sec.filings.items.find(item => item.status === "downloaded").accessionNo;
+  body.forwardedProps.a2uiAction = {userAction: {surfaceId, sourceComponentId, name: event.name, context}};
+
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("Select stored original or amendment", function () {
+    expect(events.some(event => event.type === "RUN_ERROR")).to.equal(false);
+    const snapshots = events.filter(event => event.type === "STATE_SNAPSHOT" && event.snapshot.sec && event.snapshot.surfaces);
+    const snapshot = snapshots[snapshots.length - 1].snapshot;
+    expect(snapshot.sec.filing.status).to.equal("downloaded");
+    expect(snapshot.sec.report).to.equal(undefined);
+    bru.setVar("secSnapshot", snapshot);
+  });
+}

@@ -8,6 +8,7 @@
 | --- | --- |
 | [LangGraph DB Saver](3-langgraph-db-saver.md) | PostgreSQL application metadata, checkpoint saver, 전용 schema와 복구 정책 |
 | [Graph DB](4-graph-db.md) | Neo4j 연결, schema 초기화, 10-K graph model, 쓰기·검색·운영 계약 |
+| [A2UI](a2ui.md) | 생성 UI, 사용자 action, 모델 설정과 검증 |
 
 두 저장소는 목적과 생명주기가 다르다.
 

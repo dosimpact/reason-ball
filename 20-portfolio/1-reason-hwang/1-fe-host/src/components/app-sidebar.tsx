@@ -40,6 +40,11 @@ const navItems = [
     href: "/chat",
     icon: MessagesSquare,
   },
+  {
+    title: "A2UI Demo",
+    href: "/a2ui",
+    icon: Boxes,
+  },
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

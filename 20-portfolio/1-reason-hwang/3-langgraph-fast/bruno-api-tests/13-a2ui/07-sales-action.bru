@@ -1,0 +1,39 @@
+meta {
+  name: Query Busan sales on the same surface
+  type: http
+  seq: 7
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/dynamic
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("a2uiManifest");
+  const mode = "dynamic";
+  const contract = {protocolVersion: manifest.protocolVersion, ...manifest.catalogs[mode]};
+  const body = {threadId: "a2ui-" + Date.now() + "-" + Math.random(), runId: "run-" + Date.now(), state: {}, messages: [], tools: [], context: [], forwardedProps: {a2uiContract: contract}};
+  body.threadId = bru.getVar("a2uiDynamicThread");
+  body.forwardedProps.a2uiAction = {userAction: {name: "search_sales", surfaceId: bru.getVar("a2uiDynamicSurface"), sourceComponentId: "demo-search", context: {region: "busan"}}};
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("ACT-01: server filters and aggregates sales", function () {
+    expect(events.some(event => event.type === "RUN_ERROR")).to.equal(false);
+    const snapshots = events.filter(event => event.type === "STATE_SNAPSHOT" && event.snapshot.surfaces);
+    const surfaces = snapshots[snapshots.length - 1].snapshot.surfaces;
+    expect(surfaces[bru.getVar("a2uiDynamicSurface")].data.demo.revenue).to.equal("$320,000");
+    expect(surfaces[bru.getVar("a2uiDynamicSurface")].data.demo.accounts).to.equal("3");
+  });
+}

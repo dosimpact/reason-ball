@@ -1,0 +1,40 @@
+meta {
+  name: Reject stale SEC action
+  type: http
+  seq: 7
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("secManifest");
+  const body = {threadId: "sec-" + Date.now(), runId: "sec-run-" + Date.now(), messages: [], state: {}, tools: [], context: [], forwardedProps: {a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}};
+  const prior = bru.getVar("secSnapshot");
+  body.threadId = bru.getVar("secThread");
+  const surfaceId = Object.keys(prior.surfaces)[0];
+  const sourceComponentId = "report-button";
+  const event = prior.surfaces[surfaceId].components[sourceComponentId].action.event;
+  const context = {...event.context};
+
+  body.forwardedProps.a2uiAction = {userAction: {surfaceId, sourceComponentId, name: event.name, context}};
+
+  context.revision = -1;
+  req.setBody(body);
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("Reject stale SEC action", function () {
+    expect(res.getBody().detail).to.be.a("string");
+  });
+}

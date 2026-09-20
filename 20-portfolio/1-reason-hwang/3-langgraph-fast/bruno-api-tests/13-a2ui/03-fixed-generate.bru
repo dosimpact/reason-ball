@@ -1,0 +1,42 @@
+meta {
+  name: Generate fictional flight with real model
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/fixed
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("a2uiManifest");
+  const mode = "fixed";
+  const contract = {protocolVersion: manifest.protocolVersion, ...manifest.catalogs[mode]};
+  const body = {threadId: "a2ui-" + Date.now() + "-" + Math.random(), runId: "run-" + Date.now(), state: {}, messages: [], tools: [], context: [], forwardedProps: {a2uiContract: contract}};
+  body.messages = [{id: "user-" + Date.now(), role: "user", content: "인천 도쿄 항공편을 보여줘"}];
+  bru.setVar("a2uiFixedThread", body.threadId);
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("FIX-01: real model completes with a surface", function () {
+    expect(events.some(event => event.type === "RUN_ERROR")).to.equal(false);
+    expect(events.some(event => event.type === "RUN_FINISHED")).to.equal(true);
+    const snapshots = events.filter(event => event.type === "STATE_SNAPSHOT" && event.snapshot.surfaces);
+    const surfaces = snapshots[snapshots.length - 1].snapshot.surfaces;
+    const id = Object.keys(surfaces)[0];
+    expect(surfaces[id].data.price).to.equal("$289");
+    expect(surfaces[id].data.selected).to.equal(false);
+    bru.setVar("a2uiFixedSurface", id);
+  });
+}

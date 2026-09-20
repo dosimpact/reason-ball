@@ -1,0 +1,37 @@
+meta {
+  name: Search real stored companies
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("secManifest");
+  const body = {threadId: "sec-" + Date.now(), runId: "sec-run-" + Date.now(), messages: [], state: {}, tools: [], context: [], forwardedProps: {a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}};
+  body.messages = [{id: "sec-user", role: "user", content: "AAPL"}];
+  bru.setVar("secThread", body.threadId);
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("Search real stored companies", function () {
+    expect(events.some(event => event.type === "RUN_ERROR")).to.equal(false);
+    const snapshots = events.filter(event => event.type === "STATE_SNAPSHOT" && event.snapshot.sec && event.snapshot.surfaces);
+    const snapshot = snapshots[snapshots.length - 1].snapshot;
+    expect(snapshot.sec.companies.items.some(item => item.ticker === "AAPL")).to.equal(true);
+    bru.setVar("secSnapshot", snapshot);
+  });
+}

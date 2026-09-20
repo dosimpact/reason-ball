@@ -1,0 +1,12 @@
+[
+  {"id":"root","component":"Card","title":"가상 항공편","description":"선택 데모 · 실제 예약 및 운임 아님","child":"details"},
+  {"id":"details","component":"Column","children":["airports","airline","price","status","select"]},
+  {"id":"airports","component":"Row","children":["origin","arrow","destination"]},
+  {"id":"origin","component":"Text","text":{"path":"/origin"},"variant":"heading"},
+  {"id":"arrow","component":"Text","text":"→"},
+  {"id":"destination","component":"Text","text":{"path":"/destination"},"variant":"heading"},
+  {"id":"airline","component":"Badge","text":{"path":"/airline"}},
+  {"id":"price","component":"Metric","label":"샘플 가격","value":{"path":"/price"}},
+  {"id":"status","component":"Text","text":{"path":"/status"}},
+  {"id":"select","component":"Button","label":{"path":"/buttonLabel"},"disabled":{"path":"/selected"},"action":{"event":{"name":"select_flight","context":{"flightId":{"path":"/flightId"}}}}}
+]

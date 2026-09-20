@@ -1,0 +1,5 @@
+import Link from "next/link";
+
+export default function A2UIPage() {
+  return <main className="mx-auto max-w-4xl p-8"><Link href="/" className="text-sm underline">홈</Link><h1 className="mt-8 text-3xl font-semibold">A2UI 데모</h1><p className="mt-3 text-muted-foreground">질문에 따라 만들어지는 화면과 미리 설계된 화면을 비교하고, 화면에서 선택한 내용을 서버에 반영해 보세요.</p><div className="mt-8 grid gap-4 sm:grid-cols-2">{[{ href: "/a2ui/sec", title: "SEC 공시 분석", description: "회사 조회부터 공시 선택, 원문 근거를 포함한 분석·요약 보고서까지 확인합니다." }, { href: "/a2ui/dynamic", title: "매출 분석", description: "Dynamic · 질문에 맞춰 카드, 표, 차트를 구성합니다." }, { href: "/a2ui/fixed", title: "항공편 선택", description: "Fixed · 고정 카드에 데이터를 채우고 선택 결과를 반영합니다." }].map(item => <Link key={item.href} href={item.href} className="rounded-xl border p-6 transition-colors hover:bg-muted"><h2 className="text-xl font-semibold">{item.title}</h2><p className="mt-3 text-sm text-muted-foreground">{item.description}</p></Link>)}</div><Link href="/a2ui/catalog" className="mt-6 inline-block text-sm underline">전체 컴포넌트 카탈로그 보기</Link><p className="mt-6 text-sm text-muted-foreground">매출·항공편은 가상 데이터이며, SEC 화면은 연결된 서비스의 저장 공시를 사용합니다. 대화는 서버 재시작 후 유지되지 않습니다.</p></main>;
+}

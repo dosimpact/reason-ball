@@ -1,0 +1,46 @@
+meta {
+  name: Generate cited report with real model
+  type: http
+  seq: 6
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("secManifest");
+  const body = {threadId: "sec-" + Date.now(), runId: "sec-run-" + Date.now(), messages: [], state: {}, tools: [], context: [], forwardedProps: {a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}};
+  const prior = bru.getVar("secSnapshot");
+  body.threadId = bru.getVar("secThread");
+  const surfaceId = Object.keys(prior.surfaces)[0];
+  const sourceComponentId = "report-button";
+  const event = prior.surfaces[surfaceId].components[sourceComponentId].action.event;
+  const context = {...event.context};
+
+  body.forwardedProps.a2uiAction = {userAction: {surfaceId, sourceComponentId, name: event.name, context}};
+
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("Generate cited report with real model", function () {
+    expect(events.some(event => event.type === "RUN_ERROR")).to.equal(false);
+    const snapshots = events.filter(event => event.type === "STATE_SNAPSHOT" && event.snapshot.sec && event.snapshot.surfaces);
+    const snapshot = snapshots[snapshots.length - 1].snapshot;
+    expect(snapshot.sec.report.summary.length + snapshot.sec.report.business.length + snapshot.sec.report.financials.length + snapshot.sec.report.risks.length).to.be.greaterThan(0);
+    expect(snapshot.sec.report_source_label).to.include(snapshot.sec.filing.accessionNo);
+    expect(snapshot.sec.report_source_label).to.include("SHA-256");
+    bru.setVar("secSnapshot", snapshot);
+  });
+}

@@ -1,0 +1,892 @@
+{
+  "$defs": {
+    "anyComponent": {
+      "oneOf": [
+        {
+          "$ref": "#/components/Row"
+        },
+        {
+          "$ref": "#/components/Column"
+        },
+        {
+          "$ref": "#/components/Text"
+        },
+        {
+          "$ref": "#/components/Card"
+        },
+        {
+          "$ref": "#/components/Metric"
+        },
+        {
+          "$ref": "#/components/InfoRow"
+        },
+        {
+          "$ref": "#/components/Chart"
+        },
+        {
+          "$ref": "#/components/Table"
+        },
+        {
+          "$ref": "#/components/Badge"
+        },
+        {
+          "$ref": "#/components/Select"
+        },
+        {
+          "$ref": "#/components/Input"
+        },
+        {
+          "$ref": "#/components/Button"
+        }
+      ]
+    },
+    "theme": {
+      "additionalProperties": false,
+      "type": "object"
+    }
+  },
+  "$id": "reason-hwang://a2ui/dynamic/1.0.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "catalogId": "reason-hwang://a2ui/dynamic/1.0.0",
+  "components": {
+    "Badge": {
+      "additionalProperties": false,
+      "description": "A short status label.",
+      "properties": {
+        "component": {
+          "const": "Badge"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "variant": {
+          "enum": [
+            "default",
+            "secondary",
+            "destructive",
+            "outline"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "text"
+      ],
+      "type": "object"
+    },
+    "Button": {
+      "additionalProperties": false,
+      "description": "An action button. Use disabled when no workflow is available.",
+      "properties": {
+        "action": {
+          "additionalProperties": false,
+          "properties": {
+            "event": {
+              "additionalProperties": false,
+              "properties": {
+                "context": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "path": {
+                            "pattern": "^\\/",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                "name": {
+                  "enum": [
+                    "search_sales",
+                    "select_flight",
+                    "demo_submit"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "event"
+          ],
+          "type": "object"
+        },
+        "component": {
+          "const": "Button"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "variant": {
+          "enum": [
+            "default",
+            "outline",
+            "secondary",
+            "ghost",
+            "destructive",
+            "link"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label"
+      ],
+      "type": "object"
+    },
+    "Card": {
+      "additionalProperties": false,
+      "description": "Titled content card containing one child.",
+      "properties": {
+        "child": {
+          "type": "string"
+        },
+        "component": {
+          "const": "Card"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title"
+      ],
+      "type": "object"
+    },
+    "Chart": {
+      "additionalProperties": false,
+      "description": "Bar or pie chart of numeric data. Data can be an inline series or a data-model path to a series.",
+      "properties": {
+        "component": {
+          "const": "Chart"
+        },
+        "data": {
+          "anyOf": [
+            {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "label",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "maxItems": 100,
+              "type": "array"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "bar",
+            "pie"
+          ],
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title",
+        "kind",
+        "data"
+      ],
+      "type": "object"
+    },
+    "Column": {
+      "additionalProperties": false,
+      "description": "Vertical layout of component IDs.",
+      "properties": {
+        "children": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 100,
+          "type": "array"
+        },
+        "component": {
+          "const": "Column"
+        },
+        "gap": {
+          "maximum": 48,
+          "minimum": 0,
+          "type": "number"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "children"
+      ],
+      "type": "object"
+    },
+    "InfoRow": {
+      "additionalProperties": false,
+      "description": "Compact label and value pair.",
+      "properties": {
+        "component": {
+          "const": "InfoRow"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Input": {
+      "additionalProperties": false,
+      "description": "Single-line input. Bind value to a data path to submit the current value.",
+      "properties": {
+        "component": {
+          "const": "Input"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "text",
+            "email",
+            "search",
+            "tel",
+            "url"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Metric": {
+      "additionalProperties": false,
+      "description": "Numeric KPI display with a label.",
+      "properties": {
+        "component": {
+          "const": "Metric"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Row": {
+      "additionalProperties": false,
+      "description": "Horizontal wrapping layout of component IDs.",
+      "properties": {
+        "children": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 100,
+          "type": "array"
+        },
+        "component": {
+          "const": "Row"
+        },
+        "gap": {
+          "maximum": 48,
+          "minimum": 0,
+          "type": "number"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "children"
+      ],
+      "type": "object"
+    },
+    "Select": {
+      "additionalProperties": false,
+      "description": "Single selection with an accessible composed popup.",
+      "properties": {
+        "component": {
+          "const": "Select"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "options": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value",
+        "options"
+      ],
+      "type": "object"
+    },
+    "Table": {
+      "additionalProperties": false,
+      "description": "A data table; rows can be inline or a data-model path. Column keys select row fields.",
+      "properties": {
+        "columns": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "key",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "type": "array"
+        },
+        "component": {
+          "const": "Table"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "rows": {
+          "anyOf": [
+            {
+              "items": {
+                "additionalProperties": {
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean"
+                  ]
+                },
+                "type": "object"
+              },
+              "maxItems": 200,
+              "type": "array"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title",
+        "columns",
+        "rows"
+      ],
+      "type": "object"
+    },
+    "Text": {
+      "additionalProperties": false,
+      "description": "Plain text, never HTML.",
+      "properties": {
+        "component": {
+          "const": "Text"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "variant": {
+          "enum": [
+            "body",
+            "heading",
+            "caption"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "text"
+      ],
+      "type": "object"
+    }
+  }
+}

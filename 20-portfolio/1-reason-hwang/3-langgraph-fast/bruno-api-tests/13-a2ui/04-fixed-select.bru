@@ -1,0 +1,40 @@
+meta {
+  name: Select flight on the same surface
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/fixed
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("a2uiManifest");
+  const mode = "fixed";
+  const contract = {protocolVersion: manifest.protocolVersion, ...manifest.catalogs[mode]};
+  const body = {threadId: "a2ui-" + Date.now() + "-" + Math.random(), runId: "run-" + Date.now(), state: {}, messages: [], tools: [], context: [], forwardedProps: {a2uiContract: contract}};
+  body.threadId = bru.getVar("a2uiFixedThread");
+  body.forwardedProps.a2uiAction = {userAction: {name: "select_flight", surfaceId: bru.getVar("a2uiFixedSurface"), sourceComponentId: "select", context: {flightId: "demo-icn-nrt"}}};
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("ACT-01: selection updates authoritative state", function () {
+    expect(events.some(event => event.type === "RUN_ERROR")).to.equal(false);
+    const snapshots = events.filter(event => event.type === "STATE_SNAPSHOT" && event.snapshot.surfaces);
+    const surfaces = snapshots[snapshots.length - 1].snapshot.surfaces;
+    expect(Object.keys(surfaces)).to.deep.equal([bru.getVar("a2uiFixedSurface")]);
+    expect(surfaces[bru.getVar("a2uiFixedSurface")].data.selected).to.equal(true);
+    expect(surfaces[bru.getVar("a2uiFixedSurface")].data.price).to.equal("$289");
+  });
+}
