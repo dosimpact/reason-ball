@@ -1,0 +1,21 @@
+# SEC Filing Database Content Design
+
+- Date: 2026-09-20
+- Domain: `us-corporate-filings`
+- Context: SEC filing metadata was persisted in PostgreSQL while downloaded primary documents were stored below local `DATA_DIR`. A database restore, container replacement, working-directory change, or file cleanup could therefore leave a valid `file_path` pointing to missing content.
+- Change:
+  - Designed a staged transition that makes `public.filings.document_content` the canonical filing-content store.
+  - Chose the existing `document_content`, `document_content_type`, and `document_downloaded_at` columns rather than adding a second one-to-one table.
+  - Required a short atomic database update for content, checksum, timestamp, and downloaded status after the SEC network call completes outside the transaction.
+  - Kept `file_path` as a temporary migration fallback and rollback aid; no local files are deleted by this design work.
+  - Defined batch migration, checksum reconciliation, response-size safeguards, concurrency handling, backup/restore validation, and file-dependency removal stages.
+- Rationale: Co-locating filing state and content in PostgreSQL prevents path/content divergence while reusing the schema already prepared for database-backed documents. PostgreSQL TOAST keeps large text values out of the main row where appropriate.
+- Affected stock documents:
+  - `docs/stock/us-corporate-filings/system-design.md`
+  - `docs/stock/us-corporate-filings/README.md`
+- Status: Draft design; implementation and data migration have not started.
+- Validation:
+  - Confirmed the current collector writes the primary document to `${DATA_DIR}/filings` and stores a relative path plus checksum in `public.filings`.
+  - Confirmed the existing TypeORM entity and migration already define the three database-content columns.
+  - Confirmed the current downloaded-report API reads the body from the local path.
+  - Implementation validation remains pending.

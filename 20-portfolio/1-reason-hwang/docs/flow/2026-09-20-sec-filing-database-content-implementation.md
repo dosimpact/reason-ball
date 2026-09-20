@@ -1,0 +1,37 @@
+# SEC Filing Database Content Implementation
+
+- Date: 2026-09-20
+- Domain: `us-corporate-filings`, shared persistence boundary
+- Context: User approved replacing local filing files with PostgreSQL content and requested verification using a real SEC report. Before implementation, the configured local `sec_collector.public.filings` contained 0 rows.
+- Decisions:
+  - SEC-SD-01/02: Use existing content fields plus new `document_size_bytes`, keeping SEC-declared `file_size` distinct. Atomically update body, checksum, content type, timestamp and downloaded status.
+  - SEC-SD-03: Complete bounded SEC HTTP IO before conditional database updates. Success cannot be overwritten by a late pending worker; duplicate HTTP requests across workers are still possible.
+  - SEC-SD-04: Because there were no legacy rows locally, implement database-only reads immediately instead of the draft dual-read rollout. Migration resets legacy downloaded rows lacking DB content to pending without deleting their paths/files. A resumable checksum-verifying file import command supports other environments.
+  - SEC-SD-05: Preserve metadata-only ORM selection and reject body pages exceeding a 64 MiB source-byte budget. Download default limit is 32 MiB; it is configurable and not a claim about the entire SEC document size distribution.
+- Changes:
+  - Added bounded UTF-8 document decoding with BOM preservation, NUL/empty/invalid UTF-8 rejection and SHA-256 calculation.
+  - Added and registered migration `FilingDatabaseContent1790000000000`, applied to local `sec_collector`.
+  - Added downloaded-state DB CHECK constraint requiring body, size consistency, timestamp and a checksum value.
+  - Updated report API/Swagger to DB-backed content with nullable/deprecated `filePath`.
+  - Added Node regression tests, opt-in live SEC verification, and non-destructive legacy importer.
+- Affected stock:
+  - [SEC system design](../stock/us-corporate-filings/system-design.md): architecture, state, schema, API, migration, commands and boundaries.
+  - [SEC domain map](../stock/us-corporate-filings/README.md): current capability.
+  - [Shared system design](../stock/shared/system-design.md): SEC persistence boundary.
+- Validation:
+  - `pnpm --filter @reason-hwang/bff-apps test`: PASS, 10 tests, including UTF-8/BOM, empty/invalid/NUL, declared/streamed oversize, successful atomic persistence, HTTP failure, DB failure, late success/failure races, missing primary document, and oversized report pages.
+  - TypeScript/Nest production build: PASS as part of test commands.
+  - `pnpm --filter @reason-hwang/bff-apps test:sec-live`: PASS after correcting the isolated test server's global API prefix.
+  - Real issuer: Apple Inc., CIK `0000320193`, form `10-K`, filing date `2025-10-31`, accession `0000320193-25-000079`.
+  - Source: https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm
+  - Stored body: 1,520,317 bytes.
+  - SHA-256: `6ae13ef3cb4f02de22048707003085785ee20c94bdc7cac5c40fe5b95b23dd7d`.
+  - SEC download bytes, DB content, SQL-computed checksum/length, and HTTP API content all matched. `file_path IS NULL`.
+  - Attempted NULL-body update on a downloaded row: rejected with PostgreSQL `23514`; test transaction rolled back.
+  - `pnpm --filter @reason-hwang/bff-apps sec:import-files`: PASS, imported 0, failed 0. No existing files were deleted.
+  - Owned ephemeral HTTP server closed after live test. Real Apple company/filing remain in the local DB as requested.
+- Follow-up/limits:
+  - Configure a real SEC_USER_AGENT contact; the existing example contact generated a warning but SEC requests succeeded.
+  - Backup/restore drills, multi-worker claim/lease, non-UTF-8 report support and broad load testing were not performed.
+  - Existing-file importer had no production rows to migrate in this environment; migration checksum logic shares the tested byte conversion helper.
+  - A schema rollback preserves DB content but does not make the old file-only reader compatible with new DB-only filings.
