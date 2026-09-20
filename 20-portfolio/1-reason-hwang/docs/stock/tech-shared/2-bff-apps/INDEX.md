@@ -5,6 +5,7 @@
 | 문서 | 책임 |
 | --- | --- |
 | [디렉터리 정책](directory-policy.md) | 승인된 src 구조, 단일 모듈, 외부 lib, entity/DTO, API 통합 |
+| [로거](logger.md) | Winston 연결, 환경 선택, 파일 순환·운영·적용 범위 |
 | [Swagger](swagger-module.md) | 문서 URL, 생성 방식과 런타임 검증의 구분 |
 | [도메인 시스템 설계](../../us-corporate-filings/system-design.md) | 저장·원문·SSE·원본/수정본 연결 |
 | [BFF API 명세](../../../../2-bff-apps/src/us-corporate-filings/.docs/api-spec.md) | 공개 API 6개와 요청/응답 |
