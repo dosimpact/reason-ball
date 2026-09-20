@@ -120,3 +120,7 @@ src/
 POST /all-company-filing-sync-jobs는 실행 시작 시 DB companies에서 ticker가 NULL/빈 문자열/공백이 아닌 회사의 CIK 목록을 고정한다. ZIP의 recent와 history 모두 이 목록에 해당하는 회사만 적재하며 원문 다운로드·실패 재시도에도 동일한 CIK 목록을 적용한다. 기존에 저장된 티커 없는 등록자의 pending/failed 공시는 건드리지 않는다. 지정 기업 백필은 기존 CIK/ticker 명시 방식 그대로다.
 
 먼저 회사 동기화를 실행해야 한다. 대상이 0이면 SSE error(statusCode=404)로 종료하고 archive를 읽거나 전체 범위로 확대하지 않는다. progress 및 completed에 tickerOnly:true와 totalCompanies를 제공한다. 전체 SEC ZIP 자체의 다운로드 크기는 줄지 않지만 저장·문서 다운로드 범위는 제한된다. 티커 존재는 현재 상장기업임을 보장하지 않으며, DB에 남은 과거 티커도 포함될 수 있다. 기존 수집 데이터는 삭제하지 않는다.
+
+## 개발·검증 빌드 출력 분리
+
+`pnpm dev`는 tsconfig.dev.json을 사용해 dist-dev/에 출력한다. 일반 build 및 테스트는 dist/를 사용한다. Nest deleteOutDir이 다른 프로세스의 실행 파일을 삭제하지 않도록 출력과 incremental 캐시를 분리한다. 설정 변경 전부터 실행 중인 watch는 한 번 재시작한다. 두 출력 디렉터리는 커밋하지 않는다.
