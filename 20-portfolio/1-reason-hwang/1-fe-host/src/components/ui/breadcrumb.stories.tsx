@@ -39,6 +39,7 @@ export const Default: Story = {
 };
 
 export const CollapsedPath: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Breadcrumb>
       <BreadcrumbList>
@@ -62,6 +63,7 @@ export const CollapsedPath: Story = {
   ),
 };
 export const LongPath: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="w-full max-w-sm rounded-xl border p-5">
       <Breadcrumb>

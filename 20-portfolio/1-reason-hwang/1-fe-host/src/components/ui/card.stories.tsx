@@ -1,4 +1,4 @@
-import { StoryGallery, StorySample } from '../../stories/ui-gallery';
+import { StoryGallery } from '../../stories/ui-gallery';
 import { CardFooter, CardAction } from './card';
 import { Button } from './button';
 import { Badge } from './badge';
@@ -41,6 +41,7 @@ export const Default: Story = {
 };
 
 export const ProjectOverview: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Card className="w-full max-w-sm">
       <div className="flex h-32 items-end bg-gradient-to-br from-primary/20 via-primary/5 to-background p-5">
@@ -74,7 +75,7 @@ export const ProjectOverview: Story = {
   ),
 };
 export const Metrics: Story = {
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', controls: { disable: true } },
   render: () => (
     <StoryGallery
       title="요약 카드"
@@ -100,6 +101,7 @@ export const Metrics: Story = {
   ),
 };
 export const EmptyState: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Card className="w-full max-w-sm text-center">
       <CardContent className="flex flex-col items-center gap-3 py-5">
@@ -117,6 +119,7 @@ export const EmptyState: Story = {
   ),
 };
 export const Loading: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Card className="w-72" role="status" aria-label="프로젝트 로딩 중">
       <CardHeader>

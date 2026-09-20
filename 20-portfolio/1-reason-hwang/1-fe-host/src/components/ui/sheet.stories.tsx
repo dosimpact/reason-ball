@@ -62,6 +62,7 @@ export const Interaction: Story = {
 };
 
 export const Placement: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex flex-wrap gap-3">
       {(['left', 'right', 'top', 'bottom'] as const).map((side) => (
@@ -139,6 +140,7 @@ function ProjectSettings() {
   );
 }
 export const EditProject: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <ProjectSettings />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

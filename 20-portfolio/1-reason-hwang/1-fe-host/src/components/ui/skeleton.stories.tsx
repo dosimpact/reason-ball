@@ -24,7 +24,7 @@ export const Default: Story = {
 };
 
 export const ContentPatterns: Story = {
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', controls: { disable: true } },
   render: () => (
     <StoryGallery
       title="로딩 중의 레이아웃"
@@ -84,6 +84,7 @@ export const ContentPatterns: Story = {
   ),
 };
 export const Profile: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div
       className="flex items-center gap-3"

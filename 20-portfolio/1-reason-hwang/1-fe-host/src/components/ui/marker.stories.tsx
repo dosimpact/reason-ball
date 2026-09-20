@@ -26,7 +26,7 @@ export const Default: Story = {
 };
 
 export const Variants: Story = {
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', controls: { disable: true } },
   render: () => (
     <StoryGallery
       title="대화와 활동의 구분"
@@ -43,6 +43,7 @@ export const Variants: Story = {
   ),
 };
 export const ActivityTimeline: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="w-full max-w-sm space-y-5 rounded-xl border p-5">
       <Marker variant="separator">

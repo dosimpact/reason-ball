@@ -118,10 +118,12 @@ function ConversationExample({
 
 export const Default: Story = { render: () => <ConversationExample /> };
 export const EmptyConversation: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <ConversationExample empty />,
 };
 export const Compact: Story = { render: () => <ConversationExample compact /> };
 export const AddMessage: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <ConversationExample empty />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

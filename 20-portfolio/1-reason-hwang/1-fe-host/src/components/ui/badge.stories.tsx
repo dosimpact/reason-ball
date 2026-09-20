@@ -34,7 +34,7 @@ export const Default: Story = {
 };
 
 export const Variants: Story = {
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', controls: { disable: true } },
   render: () => (
     <StoryGallery
       title="배지와 상태"
@@ -58,6 +58,7 @@ export const Variants: Story = {
   ),
 };
 export const WorkflowStatus: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex flex-wrap gap-3">
       <Badge>
@@ -77,6 +78,7 @@ export const WorkflowStatus: Story = {
   ),
 };
 export const Categories: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex flex-wrap items-center gap-2">
       <Badge variant="outline">React</Badge>

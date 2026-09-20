@@ -57,7 +57,7 @@ const variants = [
 ] as const;
 
 export const Variants: Story = {
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', controls: { disable: true } },
   render: () => (
     <StoryGallery
       title="버튼의 역할"
@@ -76,6 +76,7 @@ export const Variants: Story = {
 };
 
 export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
       {(['xs', 'sm', 'default', 'lg'] as const).map((size) => (
@@ -89,6 +90,7 @@ export const Sizes: Story = {
 };
 
 export const WithIcons: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex flex-wrap gap-3">
       <Button>

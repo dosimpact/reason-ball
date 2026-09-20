@@ -6,7 +6,7 @@ import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 
 export default [{
-  ignores: [".next/**", "node_modules/**", "next-env.d.ts"],
+  ignores: [".next/**", "storybook-static/**", "node_modules/**", "next-env.d.ts"],
 }, eslint.configs.recommended, ...tseslint.configs.recommended, {
   files: ["**/*.{ts,tsx}"],
   languageOptions: {

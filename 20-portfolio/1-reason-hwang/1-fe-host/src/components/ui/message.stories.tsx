@@ -46,6 +46,7 @@ export const Default: Story = {
 };
 
 export const Conversation: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <MessageGroup className="w-full max-w-lg gap-6 rounded-xl border p-5">
       <Marker variant="separator">
@@ -97,6 +98,7 @@ export const Conversation: Story = {
   ),
 };
 export const WithAttachment: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Message className="w-full max-w-sm">
       <MessageContent>
@@ -116,6 +118,7 @@ export const WithAttachment: Story = {
   ),
 };
 export const Generating: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Message className="w-full max-w-sm">
       <MessageAvatar>
@@ -139,6 +142,7 @@ export const Generating: Story = {
   ),
 };
 export const DeliveryError: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Message align="end" className="w-full max-w-sm">
       <MessageContent>

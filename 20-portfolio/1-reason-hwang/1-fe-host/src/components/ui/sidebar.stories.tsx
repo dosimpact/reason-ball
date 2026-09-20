@@ -45,6 +45,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <>
       <Sidebar>
@@ -187,11 +188,14 @@ function WorkspaceSidebar({
 }
 export const Workspace: Story = { render: () => <WorkspaceSidebar /> };
 export const Floating: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <WorkspaceSidebar variant="floating" />,
 };
 export const Inset: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <WorkspaceSidebar variant="inset" />,
 };
 export const Offcanvas: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <WorkspaceSidebar collapsible="offcanvas" />,
 };

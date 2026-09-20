@@ -32,7 +32,7 @@ export const Default: Story = {
 };
 
 export const States: Story = {
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', controls: { disable: true } },
   render: () => (
     <StoryGallery
       title="입력 필드 상태"

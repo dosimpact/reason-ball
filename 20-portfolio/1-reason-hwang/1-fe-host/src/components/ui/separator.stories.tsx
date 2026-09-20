@@ -26,6 +26,7 @@ export const Default: Story = {
 };
 
 export const Vertical: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex h-8 items-center gap-3">
       <Button variant="ghost">개요</Button>
@@ -37,6 +38,7 @@ export const Vertical: Story = {
   ),
 };
 export const SettingsSections: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="w-full max-w-sm space-y-5 rounded-xl border p-6">
       <div>

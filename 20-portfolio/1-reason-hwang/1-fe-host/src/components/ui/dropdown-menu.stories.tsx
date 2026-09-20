@@ -68,6 +68,7 @@ export const Interaction: Story = {
 };
 
 export const ProjectActions: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <DropdownMenu>
       <DropdownMenuTrigger render={<Button variant="outline" />}>
@@ -144,6 +145,7 @@ function DisplayPreferences() {
   );
 }
 export const Preferences: Story = {
+  parameters: { controls: { disable: true } },
   render: () => <DisplayPreferences />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

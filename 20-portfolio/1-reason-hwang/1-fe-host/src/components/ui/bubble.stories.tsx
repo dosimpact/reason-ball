@@ -39,7 +39,7 @@ export const Default: Story = {
 };
 
 export const Variants: Story = {
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', controls: { disable: true } },
   render: () => (
     <StoryGallery
       title="말풍선의 표현"
@@ -66,6 +66,7 @@ export const Variants: Story = {
   ),
 };
 export const Conversation: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <BubbleGroup className="w-full max-w-md rounded-xl border p-5">
       <Bubble variant="secondary">
@@ -86,6 +87,7 @@ export const Conversation: Story = {
   ),
 };
 export const LongContent: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="w-full max-w-sm">
       <Bubble variant="outline">

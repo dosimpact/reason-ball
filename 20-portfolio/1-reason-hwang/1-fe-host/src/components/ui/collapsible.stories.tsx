@@ -53,6 +53,7 @@ export const Interaction: Story = {
 };
 
 export const FileTree: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Collapsible defaultOpen className="w-full max-w-sm rounded-xl border p-4">
       <CollapsibleTrigger className="flex w-full items-center gap-2 text-sm font-medium">
@@ -76,6 +77,7 @@ export const FileTree: Story = {
   ),
 };
 export const FAQ: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="w-full max-w-lg space-y-3">
       {[

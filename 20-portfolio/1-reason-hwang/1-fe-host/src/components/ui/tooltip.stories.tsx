@@ -58,6 +58,7 @@ export const Interaction: Story = {
 };
 
 export const Placement: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <TooltipProvider>
       <div className="flex flex-wrap justify-center gap-6 p-12">
@@ -74,6 +75,7 @@ export const Placement: Story = {
   ),
 };
 export const IconToolbar: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <TooltipProvider>
       <div className="flex gap-2 rounded-xl border p-3">
@@ -108,6 +110,7 @@ export const IconToolbar: Story = {
   ),
 };
 export const LongDescription: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <TooltipProvider>
       <Tooltip>

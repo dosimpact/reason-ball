@@ -29,7 +29,7 @@ export const Default: Story = {
 };
 
 export const States: Story = {
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', controls: { disable: true } },
   render: () => (
     <StoryGallery
       title="여러 줄 입력"
@@ -68,6 +68,7 @@ export const States: Story = {
   ),
 };
 export const Composer: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="w-full max-w-md space-y-3 rounded-xl border p-4">
       <label className="block space-y-2">

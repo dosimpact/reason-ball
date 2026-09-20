@@ -49,7 +49,7 @@ export const Default: Story = {
 };
 
 export const UploadStates: Story = {
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', controls: { disable: true } },
   render: () => (
     <StoryGallery
       title="파일 업로드 상태"
@@ -84,6 +84,7 @@ export const UploadStates: Story = {
   ),
 };
 export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="space-y-4">
       {(['xs', 'sm', 'default'] as const).map((size) => (
@@ -101,6 +102,7 @@ export const Sizes: Story = {
   ),
 };
 export const FileCollection: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="w-full max-w-lg space-y-3">
       <h3 className="text-sm font-medium">프로젝트 첨부파일 · 3개</h3>
@@ -121,6 +123,7 @@ export const FileCollection: Story = {
   ),
 };
 export const LongFilename: Story = {
+  parameters: { controls: { disable: true } },
   render: () => (
     <Attachment className="max-w-64">
       <AttachmentMedia>
