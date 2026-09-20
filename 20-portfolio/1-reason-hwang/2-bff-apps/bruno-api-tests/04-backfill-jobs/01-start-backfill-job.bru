@@ -11,6 +11,7 @@ post {
 }
 
 headers {
+  Accept: text/event-stream
   Content-Type: application/json
 }
 
@@ -31,7 +32,9 @@ tests {
     expect(res.getStatus()).to.equal(200);
     const events = String(res.getBody()).split('\n\n').filter(x => x.startsWith('event:')).map(x => ({event: x.split('\n')[0].slice(7), data: JSON.parse(x.split('\ndata: ')[1])}));
     expect(events[0].event).to.equal('started');
-    expect(events[events.length - 1].event).to.equal('completed');
+    const last = events[events.length - 1];
+    expect(last.event).to.equal('completed');
+    expect(last.data.failed).to.equal(0);
   });
 }
 

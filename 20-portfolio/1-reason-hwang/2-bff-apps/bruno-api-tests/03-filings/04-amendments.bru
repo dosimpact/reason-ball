@@ -1,11 +1,11 @@
 meta {
-  name: 기업 공시 조회
+  name: 원본 연결이 포함된 수정본 조회
   type: http
-  seq: 2
+  seq: 4
 }
 
 get {
-  url: {{baseUrl}}/filings?page=1&pageSize={{filingListLimit}}&includeContent=false&includeAmendments=true&status=downloaded&cik={{sampleCik}}&since={{sinceDate}}
+  url: {{baseUrl}}/filings?page=1&pageSize={{filingListLimit}}&includeContent=false&formType=10-K/A&includeAmendments=true&status=downloaded&cik={{sampleCik}}&since={{sinceDate}}
   body: none
   auth: none
 }
@@ -14,6 +14,7 @@ params:query {
   page: 1
   pageSize: {{filingListLimit}}
   includeContent: false
+  formType: 10-K/A
   includeAmendments: true
   status: downloaded
   cik: {{sampleCik}}

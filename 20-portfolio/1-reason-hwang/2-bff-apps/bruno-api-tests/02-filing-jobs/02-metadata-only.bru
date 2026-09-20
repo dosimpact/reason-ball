@@ -1,7 +1,7 @@
 meta {
-  name: 특정 기업 공시 백필
+  name: 특정 기업 메타데이터만 수집
   type: http
-  seq: 1
+  seq: 2
 }
 
 post {
@@ -19,7 +19,7 @@ headers {
 body:json {
   {
     "years": {{backfillYears}},
-    "downloadDocuments": true,
+    "downloadDocuments": false,
     "ciks": ["{{sampleCik}}"],
     "tickers": ["{{sampleTicker}}"]
   }

@@ -1,19 +1,19 @@
 meta {
-  name: 기업 공시 조회
+  name: 원본과 수정본 원문 조회
   type: http
-  seq: 2
+  seq: 3
 }
 
 get {
-  url: {{baseUrl}}/filings?page=1&pageSize={{filingListLimit}}&includeContent=false&includeAmendments=true&status=downloaded&cik={{sampleCik}}&since={{sinceDate}}
+  url: {{baseUrl}}/filings?page=1&pageSize=1&includeContent=true&includeAmendments=true&status=downloaded&cik={{sampleCik}}&since={{sinceDate}}
   body: none
   auth: none
 }
 
 params:query {
   page: 1
-  pageSize: {{filingListLimit}}
-  includeContent: false
+  pageSize: 1
+  includeContent: true
   includeAmendments: true
   status: downloaded
   cik: {{sampleCik}}
@@ -22,7 +22,7 @@ params:query {
 
 assert {
   res.status: eq 200
-  res.body.filters.pageSize: eq {{filingListLimit}}
+  res.body.filters.pageSize: eq 1
   res.body.filters.status: eq "downloaded"
   res.body.filters.cik: eq "{{sampleCik}}"
   res.body.pagination.totalItems: isNumber
@@ -35,7 +35,7 @@ tests {
     const body = res.getBody();
     expect(body.filters.status).to.equal("downloaded");
     expect(body.items).to.be.an("array");
-    body.items.forEach(item => { expect(item.amendments).to.be.an("array"); expect(item).to.have.property("original"); });
+    body.items.forEach(item => { expect(item.amendments).to.be.an("array"); expect(item).to.have.property("original"); expect(item).to.have.property("content"); if (item.original) expect(item.original).to.have.property("content"); item.amendments.forEach(amendment => expect(amendment).to.have.property("content")); });
   });
 }
 

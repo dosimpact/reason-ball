@@ -7,24 +7,17 @@ script:post-response {
 }
 
 docs {
-  Reason Hwang BFF SEC API collection.
+  BFF-DIR-001 / SEC-AMEND-001: Five business endpoints.
+  1. Sync company master, then list companies with pagination.
+  2. Backfill selected companies: metadata first, optional documents second.
+  3. Query filings with original + amendments; includeContent=true includes separate bodies.
+  4. Run all-company backfill only when required. It may take a long time.
 
-  Recommended workflow:
-  1. Synchronize the SEC company master.
-  2. List companies to confirm the imported company.
-  3. Synchronize filing metadata for the sample company.
-  4. Download pending filings.
-  5. Inspect filing status, rows, and downloaded report content.
-  6. Retry failed downloads or update parser status when required.
-
-  All-company filing sync workflow (04-backfill-jobs):
-  - Start a backfill to capture backfillRunId, then inspect its status and verification.
-  - To inspect an existing run without starting another, use latest or set backfillRunId.
-  - Starting backfill downloads the bulk SEC archive; years only limits retained history.
-  - Completeness flags can remain false until processing/downloads finish.
-
-  Warning:
-  - Job requests call SEC endpoints and mutate the configured PostgreSQL database.
-  - Review the selected environment before running an entire folder or collection.
-  - Parser status update requires sampleAccessionNo to identify an existing filing.
+  Backfill POST responses are SSE: started -> progress -> completed/error.
+  HTTP 200 alone is not success. Check final event and failed count.
+  downloadDocuments=false skips documents. Rerun to retry failed documents; completed bodies are preserved.
+  There is no job status GET, runId, separate download/retry or parser-status endpoint.
+  SSE events may appear in Bruno after stream completion depending on client version; curl -N supports live output.
+  Job requests call SEC and change the selected database. Do not run another full backfill just to inspect the current job.
+  See README.md for query variants and commands.
 }
