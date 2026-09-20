@@ -1,0 +1,18 @@
+meta {
+  name: raw-missing
+  type: http
+  seq: 47
+}
+get {
+  url: {{baseUrl}}/filings/11/0000000011-26-999999/content
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 404
+}
+tests {
+  test("SEC-CONTENT-001 missing", function() {
+    expect(res.getStatus()).to.equal(404);
+  });
+}

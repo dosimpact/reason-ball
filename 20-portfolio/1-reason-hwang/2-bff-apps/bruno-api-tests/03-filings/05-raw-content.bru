@@ -1,0 +1,28 @@
+meta {
+  name: 단일 공시 원문 직접 조회
+  type: http
+  seq: 5
+}
+get {
+  url: {{baseUrl}}/filings/{{sampleCik}}/{{accessionNo}}/content
+  body: none
+  auth: none
+}
+headers {
+  Accept: */*
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-CONTENT-001 returns a raw document", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getHeader("content-type")).to.match(/^(text\/(html|xml|plain)|application\/(xml|xhtml\+xml)); charset=utf-8$/);
+    expect(res.getHeader("x-content-type-options")).to.equal("nosniff");
+  });
+}
+docs {
+  목록 응답에서 선택한 공시의 cik와 accessionNo를 sampleCik/accessionNo 변수에 설정한다.
+  JSON 없이 저장된 대표 원문 한 건을 반환한다. 수정본은 해당 수정본의 accessionNo로 별도 조회한다.
+  400: 식별자 형식 오류. 404: 공시 없음. 409: 원문 다운로드 미완료.
+}

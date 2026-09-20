@@ -1,0 +1,22 @@
+meta {
+  name: raw-unknown-mime
+  type: http
+  seq: 43
+}
+get {
+  url: {{baseUrl}}/filings/11/0000000011-26-000004/content
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-CONTENT-001 unknown-mime", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getHeader("content-type")).to.equal("text/plain; charset=utf-8");
+    expect(res.getHeader("content-security-policy")).to.contain("sandbox;");
+    expect(res.getHeader("x-content-type-options")).to.equal("nosniff");
+    expect(res.getBody()).to.equal("Unknown MIME stays plain text");
+  });
+}

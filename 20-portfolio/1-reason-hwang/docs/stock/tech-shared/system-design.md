@@ -67,7 +67,7 @@ Remote definitions must remain consistent between `1-fe-host/src/lib/remotes.ts`
 1. Deliver remote assets through `/remotes/:name/*`.
 2. Expose SEC EDGAR collection and query operations under `/api/sec/*`.
 
-The SEC surface has five endpoints: company synchronization/listing, filing retrieval with original/amendment links, and selected/all-company backfill POST SSE. Metadata is collected before optional documents; retries are internal. There is no separate parser-status/download/retry/job-status API. PostgreSQL access is implemented with TypeORM entities and migrations. Swagger is enabled by default at `/docs/sec`, with JSON and YAML documents below that path; set `SWAGGER_ENABLED=false` to disable it.
+The SEC surface has six endpoints: company synchronization/listing, filing retrieval with original/amendment links, direct single-document content, and selected/all-company backfill POST SSE. Metadata is collected before optional documents; retries are internal. There is no separate parser-status/download/retry/job-status API. PostgreSQL access is implemented with TypeORM entities and migrations. Swagger is enabled by default at `/docs/sec`, with JSON and YAML documents below that path; set `SWAGGER_ENABLED=false` to disable it.
 
 SEC primary-document bodies are stored with metadata in PostgreSQL; report queries no longer read local filing paths. See the [filing system design](../us-corporate-filings/system-design.md) for migration and content-size limits. Bulk submissions ZIP remains a local, reproducible cache.
 

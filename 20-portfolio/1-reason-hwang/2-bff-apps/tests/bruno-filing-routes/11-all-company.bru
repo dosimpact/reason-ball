@@ -28,6 +28,6 @@ tests {
     const events = String(res.getBody()).split('\n\n').filter(x => x.startsWith('event:')).map(x => ({ event: x.split('\n')[0].slice(7), data: JSON.parse(x.split('\ndata: ')[1]) }));
     expect(events[0].event).to.equal('started');
     const last = events[events.length - 1];
-    expect(last.event).to.equal('completed'); expect(last.data.filingsUpserted).to.equal(1); expect(last.data.downloaded).to.equal(2);
+    expect(last.data.tickerOnly).to.equal(true); expect(last.data.totalCompanies).to.equal(5); expect(last.event).to.equal('completed'); expect(last.data.filingsUpserted).to.equal(2); expect(last.data.downloaded).to.equal(3);
   });
 }

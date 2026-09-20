@@ -1,0 +1,18 @@
+meta {
+  name: raw-wrong-company
+  type: http
+  seq: 48
+}
+get {
+  url: {{baseUrl}}/filings/10/0000000011-26-000001/content
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 404
+}
+tests {
+  test("SEC-CONTENT-001 wrong-company", function() {
+    expect(res.getStatus()).to.equal(404);
+  });
+}

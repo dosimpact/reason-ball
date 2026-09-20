@@ -73,3 +73,14 @@ export type FilingsQueryInput = ReturnType<FilingsQueryPipe['transform']>;
 
 export type BackfillProgress = { phase: 'archive' | 'metadata' | 'documents' } & Record<string, unknown>;
 export type ReportProgress = (progress: BackfillProgress) => void;
+
+export class FilingContentParamsPipe implements PipeTransform {
+  transform(params: Record<string, string>) {
+    const cik = readOptionalCik(params.cik, 'cik');
+    if (!cik || !/^\d{10}-\d{2}-\d{6}$/.test(params.accessionNo ?? '')) {
+      throw new BadRequestException('Provide cik and accessionNo in ##########-##-###### format.');
+    }
+    return { cik, accessionNo: params.accessionNo };
+  }
+}
+export type FilingContentParams = ReturnType<FilingContentParamsPipe['transform']>;

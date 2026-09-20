@@ -64,10 +64,11 @@ src/
 | 회사 동기화 | `POST /company-sync-jobs` | CompanyService | SEC 회사 정보를 DB에 동기화 |
 | 회사 조회 | `GET /companies?page=1&pageSize=...` | CompanyService | 검색·페이지네이션, 최대 100000, limit 호환 |
 | 기업 공시 조회 | `GET /filings?cik=...&page=1&pageSize=...` | FilingService | 기업별 공시 목록; 선택적으로 원문 포함 |
+| 단일 원문 조회 | `GET /filings/:cik/:accessionNo/content` | FilingService | 저장 원문 직접 반환 |
 | 특정 기업 공시 backfill | `POST /company-filing-sync-jobs` | FilingBackfillService | 지정 기업의 기간 내 공시자료 수집·SSE |
 | 전체 기업 공시 backfill | `POST /all-company-filing-sync-jobs` | FilingBackfillService | 전체 기업의 기간 내 공시자료 일괄 수집·SSE |
 
-업무 API는 위 5개로 정리한다. 기존의 메타데이터 수집 → 다운로드 → 실패 복귀 요청을 사용자가 순서대로 호출하게 하지 않는다.
+업무 API는 위 6개로 정리한다. 기존의 메타데이터 수집 → 다운로드 → 실패 복귀 요청을 사용자가 순서대로 호출하게 하지 않는다.
 
 ### 수집 범위의 의미
 
@@ -103,7 +104,7 @@ src/
 - 연결이 끊기면 다음 진행 보고 시 작업을 중단한다. 이미 진행 중인 SEC 요청·DB 배치는 끝날 수 있다. SSE heartbeat는 15초 간격이다.
 - 브라우저는 POST를 지원하는 streaming fetch를 사용한다. 기본 EventSource는 GET 전용이다. CLI는 `curl -N`으로 호출한다.
 - 전체 기업 백필 중복 실행은 한 프로세스 내에서 제한한다. 분산 작업 잠금·영구 작업 이력·재시작 자동 복구는 구현하지 않는다.
-- 기간은 기본 20년·최대 30년이며 기존 지원 범위 10-K/10-Q/8-K와 수정공시를 유지한다. ‘전체 기업’은 SEC bulk archive의 기업 범위다.
+- 기간은 기본 20년·최대 30년이며 기존 지원 범위 10-K/10-Q/8-K와 수정공시를 유지한다. ‘전체 기업’은 DB에 티커가 있는 회사로 제한한다.
 
 ## 6. 검증과 운영
 
@@ -113,3 +114,9 @@ src/
 - 실제 SEC 전체 동기화·백필은 명시적으로 요청된 경우 수행하며 실행 로그는 무시되는 runtime data 경로에 기록한다.
 
 구현·검증·실행 기록: [BFF 단순화 및 SSE](../../../flow/2026-09-20-bff-simplification-sse.md).
+
+## SEC-TICKER-SCOPE-001: 전체 백필의 티커 제한
+
+POST /all-company-filing-sync-jobs는 실행 시작 시 DB companies에서 ticker가 NULL/빈 문자열/공백이 아닌 회사의 CIK 목록을 고정한다. ZIP의 recent와 history 모두 이 목록에 해당하는 회사만 적재하며 원문 다운로드·실패 재시도에도 동일한 CIK 목록을 적용한다. 기존에 저장된 티커 없는 등록자의 pending/failed 공시는 건드리지 않는다. 지정 기업 백필은 기존 CIK/ticker 명시 방식 그대로다.
+
+먼저 회사 동기화를 실행해야 한다. 대상이 0이면 SSE error(statusCode=404)로 종료하고 archive를 읽거나 전체 범위로 확대하지 않는다. progress 및 completed에 tickerOnly:true와 totalCompanies를 제공한다. 전체 SEC ZIP 자체의 다운로드 크기는 줄지 않지만 저장·문서 다운로드 범위는 제한된다. 티커 존재는 현재 상장기업임을 보장하지 않으며, DB에 남은 과거 티커도 포함될 수 있다. 기존 수집 데이터는 삭제하지 않는다.

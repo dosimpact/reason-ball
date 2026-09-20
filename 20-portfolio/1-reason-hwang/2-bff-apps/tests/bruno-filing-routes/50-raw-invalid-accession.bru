@@ -1,0 +1,18 @@
+meta {
+  name: raw-invalid-accession
+  type: http
+  seq: 50
+}
+get {
+  url: {{baseUrl}}/filings/11/invalid/content
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 400
+}
+tests {
+  test("SEC-CONTENT-001 invalid-accession", function() {
+    expect(res.getStatus()).to.equal(400);
+  });
+}

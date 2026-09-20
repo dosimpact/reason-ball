@@ -1,0 +1,18 @@
+meta {
+  name: raw-pending
+  type: http
+  seq: 45
+}
+get {
+  url: {{baseUrl}}/filings/11/0000000011-26-000006/content
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("SEC-CONTENT-001 pending", function() {
+    expect(res.getStatus()).to.equal(409);
+  });
+}

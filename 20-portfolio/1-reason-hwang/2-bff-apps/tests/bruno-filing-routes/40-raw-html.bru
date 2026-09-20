@@ -1,0 +1,22 @@
+meta {
+  name: raw-html
+  type: http
+  seq: 40
+}
+get {
+  url: {{baseUrl}}/filings/11/0000000011-26-000001/content
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-CONTENT-001 html", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getHeader("content-type")).to.equal("text/html; charset=utf-8");
+    expect(res.getHeader("content-security-policy")).to.contain("sandbox;");
+    expect(res.getHeader("x-content-type-options")).to.equal("nosniff");
+    expect(res.getBody()).to.equal("<html><body><h1>공시 원문 HTML</h1><script>document.body.textContent=\"UNSAFE SCRIPT\"</script></body></html>");
+  });
+}

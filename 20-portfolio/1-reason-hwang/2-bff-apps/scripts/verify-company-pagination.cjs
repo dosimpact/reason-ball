@@ -33,7 +33,11 @@ async function main() {
     // Real ZIP reader, deterministic bulk company + historical document fixture.
     execFileSync('python3', ['-c', `import zipfile,json,sys
 with zipfile.ZipFile(sys.argv[1],'w') as z:
- z.writestr('CIK0000000004.json',json.dumps({'name':'Bulk Company','tickers':['DDD'],'filings':{'recent':{'accessionNumber':['0000000004-24-000001'],'form':['10-K'],'filingDate':['2024-01-01'],'primaryDocument':['bulk.htm']}}}))`, path.join(fixtureDir, 'sec-cache/submissions.zip')]);
+ z.writestr('CIK0000000004.json',json.dumps({'name':'Bulk Company','tickers':['DDD'],'filings':{'recent':{'accessionNumber':['0000000004-24-000001'],'form':['10-K'],'filingDate':['2024-01-01'],'primaryDocument':['bulk.htm']}}}))
+ z.writestr('CIK0000000004-submissions-001.json',json.dumps({'accessionNumber':['0000000004-20-000001'],'form':['10-K'],'filingDate':['2020-01-01'],'primaryDocument':['history.htm']}))
+ z.writestr('CIK0000000012.json',json.dumps({'name':'No ticker','tickers':[],'filings':{'recent':{'accessionNumber':['0000000012-24-000001'],'form':['10-K'],'filingDate':['2024-01-01'],'primaryDocument':['bulk.htm']}}}))
+ z.writestr('CIK0000000012-submissions-001.json',json.dumps({'accessionNumber':['0000000012-20-000001'],'form':['10-K'],'filingDate':['2020-01-01'],'primaryDocument':['history.htm']}))
+`, path.join(fixtureDir, 'sec-cache/submissions.zip')]);
   }
   require('reflect-metadata');
   const { NestFactory } = require('@nestjs/core');
@@ -70,6 +74,24 @@ with zipfile.ZipFile(sys.argv[1],'w') as z:
     await app.get(DataSource).getRepository(Filing).save(amendmentFixtures.map(([cik,accessionNo,formType,reportDate,filingDate,body])=>({
       cik:cik.padStart(10,'0'),accessionNo,formType,reportDate,filingDate,filingUrl:'https://example.invalid/fixture',
       status:'downloaded',documentDownloadedAt:new Date(),...documentFromBytes(Buffer.from(body),'text/plain'),
+    })));
+    await app.get(DataSource).getRepository(Company).save({ cik: '0000000011', name: 'Raw content fixture' });
+    await app.get(DataSource).getRepository(Company).save({ cik: '0000000012', ticker: '   ', name: 'Blank ticker fixture' });
+    const rawDocuments = [
+      ['000001', 'text/html', '<html><body><h1>공시 원문 HTML</h1><script>document.body.textContent="UNSAFE SCRIPT"</script></body></html>'],
+      ['000002', 'application/xml', '<?xml version="1.0" encoding="UTF-8"?><report>공시 XML</report>'],
+      ['000003', 'text/plain', '공시 plain text'],
+      ['000004', 'application/octet-stream', 'Unknown MIME stays plain text'],
+      ['000005', 'application/xhtml+xml', '<html xmlns="http://www.w3.org/1999/xhtml"><body>XHTML report</body></html>'],
+    ];
+    await app.get(DataSource).getRepository(Filing).save(rawDocuments.map(([suffix,mime,body]) => ({
+      cik: '0000000011', accessionNo: `0000000011-26-${suffix}`, formType: '10-K',
+      filingUrl: 'https://example.invalid/raw', status: 'downloaded', documentDownloadedAt: new Date(),
+      ...documentFromBytes(Buffer.from(body), mime),
+    })));
+    await app.get(DataSource).getRepository(Filing).save(['pending', 'failed'].map((status,index) => ({
+      cik: '0000000011', accessionNo: `0000000011-26-00000${index + 6}`, formType: '10-K',
+      filingUrl: 'https://example.invalid/raw', filingDate: '2026-01-01', status,
     })));
     let failedOnce = false;
     app.get(SecClientService).downloadDocument = async url => {
@@ -128,10 +150,22 @@ with zipfile.ZipFile(sys.argv[1],'w') as z:
   await new Promise(resolve => log.end(resolve));
   if (routeSuite) {
     const result = await (await fetch(`${baseUrl}/filings?cik=4&includeContent=true`)).json();
-    if (result.items.length !== 1 || result.items[0].content !== '<html>Fixture report</html>') throw new Error('Bulk metadata/document round trip failed');
+    if (result.items.length !== 2 || result.items.some(item => item.content !== '<html>Fixture report</html>')) throw new Error('Bulk metadata/document round trip failed');
     const [{ count }] = await app.get(DataSource).query('SELECT count(*) FROM sec_backfill_runs');
     if (Number(count) !== 0) throw new Error('Backfill must not persist job entities');
     console.log('PASS bulk content round trip and zero persisted jobs');
+    const { Filing } = require('../dist/us-corporate-filings/entity/filing.entity');
+    const filings = app.get(DataSource).getRepository(Filing);
+    if (await filings.countBy({cik:'0000000012'}) !== 0) throw new Error('Blank ticker ZIP entries must be excluded');
+    for (const [suffix,status] of [['000006','pending'],['000007','failed']]) {
+      const row = await filings.findOneByOrFail({cik:'0000000011',accessionNo:`0000000011-26-${suffix}`});
+      if (row.status !== status || row.retryCount !== 0) throw new Error('Non-ticker pending/failed must be untouched');
+    }
+    await app.get(DataSource).getRepository(Company).createQueryBuilder().update().set({ticker:null}).execute();
+    const empty = await (await fetch(`${baseUrl}/all-company-filing-sync-jobs`, {method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).text();
+    if (!empty.includes('event: error') || !empty.includes('"statusCode":404') || empty.includes('"phase":"archive"')) throw new Error('Empty ticker scope must stop before archive');
+    console.log('PASS ticker-only recent/history, excluded pending/failed, empty scope fails closed');
+
   }
   if (code !== 0) throw new Error(`Bruno failed: ${code}`);
 }

@@ -1,5 +1,5 @@
 meta {
-  name: 전체 기업 공시 일괄 수집
+  name: 티커가 있는 전체 기업 공시 일괄 수집
   type: http
   seq: 1
 }
@@ -35,10 +35,12 @@ tests {
     const last = events[events.length - 1];
     expect(last.event).to.equal('completed');
     expect(last.data.failed).to.equal(0);
+    expect(last.data.tickerOnly).to.equal(true);
   });
 }
 
 docs {
+  SEC-TICKER-SCOPE-001: 실행 시작 시 DB ticker가 비어 있지 않은 회사만 수집한다. 회사 동기화를 먼저 실행한다.
   BFF-DIR-001: POST returns SSE, metadata first, optional documents second.
   Set downloadDocuments=false to skip documents. HTTP 200 alone does not imply success; inspect completed/error event.
   Native EventSource only supports GET; use streaming fetch or curl -N for live POST progress.

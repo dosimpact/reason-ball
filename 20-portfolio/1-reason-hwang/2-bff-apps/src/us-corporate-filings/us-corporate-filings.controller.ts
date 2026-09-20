@@ -1,11 +1,11 @@
 import type { Response } from 'express';
-import { Body, Controller, Get, Headers, HttpCode, HttpException, Res, Post, Query } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Headers, HttpCode, HttpException, Param, Res, Post, Query } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiConflictResponse, ApiNotFoundResponse, ApiParam, ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { CompanyService } from './service/company.service';
 import { FilingService } from './service/filing.service';
 import { FilingBackfillService } from './service/filing-backfill.service';
 import { CompaniesQueryPipe, CompaniesQueryInput, CompaniesListResponseDto, CompanySyncJobResponseDto } from './entity/company.dto';
-import { BackfillBodyDto, BackfillBodyPipe, BackfillInput, SelectedBackfillBodyDto, SelectedBackfillPipe, SelectedBackfillInput, FilingsQueryPipe, FilingsQueryInput, ReportProgress } from './entity/filing.dto';
+import { BackfillBodyDto, BackfillBodyPipe, BackfillInput, SelectedBackfillBodyDto, SelectedBackfillPipe, SelectedBackfillInput, FilingsQueryPipe, FilingsQueryInput, ReportProgress, FilingContentParamsPipe, FilingContentParams } from './entity/filing.dto';
 
 @ApiTags('SEC Collector')
 @Controller()
@@ -57,6 +57,25 @@ export class UsCorporateFilingsController {
     return this.filings.listFilings(input);
   }
 
+  @Get('filings/:cik/:accessionNo/content')
+  @ApiOperation({ summary: '공시 원문 직접 조회', description: 'DB에 저장된 단일 원문을 JSON 포장 없이 반환. 수정본 병합이나 SEC 실시간 요청 없음.' })
+  @ApiParam({ name: 'cik', example: '0000320193' })
+  @ApiParam({ name: 'accessionNo', example: '0000320193-25-000079' })
+  @ApiProduces('text/html', 'application/xhtml+xml', 'application/xml', 'text/xml', 'text/plain')
+  @ApiOkResponse({ description: '저장된 UTF-8 원문', schema: { type: 'string' } })
+  @ApiBadRequestResponse({ description: '잘못된 CIK 또는 접수번호' })
+  @ApiNotFoundResponse({ description: '해당 공시 없음' })
+  @ApiConflictResponse({ description: '원문 다운로드 미완료' })
+  async getFilingContent(@Param(FilingContentParamsPipe) input: FilingContentParams, @Res() response: Response) {
+    const document = await this.filings.getContent(input.cik, input.accessionNo);
+    response.set({
+      'Content-Type': document.contentType,
+      'Content-Disposition': 'inline',
+      'X-Content-Type-Options': 'nosniff',
+      'Content-Security-Policy': "sandbox; default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'",
+    }).send(document.content);
+  }
+
   @Post('company-filing-sync-jobs')
   @ApiOperation({ summary: '특정 기업 공시 백필 (SSE)', description: '메타데이터 수집 후 원문 다운로드. downloadDocuments=false로 원문 생략.' })
   @HttpCode(200)
@@ -69,7 +88,7 @@ export class UsCorporateFilingsController {
   }
 
   @Post('all-company-filing-sync-jobs')
-  @ApiOperation({ summary: '전체 기업 공시 백필 (SSE)' })
+  @ApiOperation({ summary: '티커가 있는 전체 기업 공시 백필 (SSE)', description: '실행 시작 시 DB ticker가 비어 있지 않은 기업만 메타데이터·원문 수집. 회사 동기화를 먼저 실행.' })
   @HttpCode(200)
   @ApiBadRequestResponse({ description: '입력 검증 실패' })
   @ApiProduces('text/event-stream')

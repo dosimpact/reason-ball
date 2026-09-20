@@ -1,0 +1,18 @@
+meta {
+  name: raw-failed
+  type: http
+  seq: 46
+}
+get {
+  url: {{baseUrl}}/filings/11/0000000011-26-000007/content
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("SEC-CONTENT-001 failed", function() {
+    expect(res.getStatus()).to.equal(409);
+  });
+}

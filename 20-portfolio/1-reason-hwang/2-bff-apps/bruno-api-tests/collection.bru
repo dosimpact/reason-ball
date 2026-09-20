@@ -7,11 +7,11 @@ script:post-response {
 }
 
 docs {
-  BFF-DIR-001 / SEC-AMEND-001: Five business endpoints.
+  BFF-DIR-001 / SEC-AMEND-001: Six business endpoints.
   1. Sync company master, then list companies with pagination.
   2. Backfill selected companies: metadata first, optional documents second.
   3. Query filings with original + amendments; includeContent=true includes separate bodies.
-  4. Run all-company backfill only when required. It may take a long time.
+  4. All-company backfill targets only companies with nonblank DB tickers; sync companies first. Run only when required. It may take a long time.
 
   Backfill POST responses are SSE: started -> progress -> completed/error.
   HTTP 200 alone is not success. Check final event and failed count.

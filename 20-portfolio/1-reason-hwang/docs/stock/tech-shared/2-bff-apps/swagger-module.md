@@ -5,7 +5,7 @@
 ## 현재 구현 (BFF-DIR-001)
 
 - `/docs/sec`, `/docs/sec/openapi.json`, `/docs/sec/openapi.yaml`; SWAGGER_ENABLED=false로 비활성화.
-- 공개 API는 회사 동기화·회사 조회·공시 조회·특정 기업 백필·전체 기업 백필 5개다.
+- 공개 API는 회사 동기화·회사 조회·공시 조회·특정 기업 백필·전체 기업 백필 및 단일 원문 조회 6개다.
 - 백필 POST는 200 text/event-stream. 입력 오류는 스트림 전 400, 실행 오류는 error 이벤트다. 상태 조회 GET과 작업 Entity는 없다.
 - 공시 조회는 includeAmendments=true가 기본이며 original/amendments를 반환한다. includeContent=true로 각 본문을 포함한다.
 - 아래 일반적인 NestJS 사용 예시는 현재 계약의 추가 API나 모듈을 뜻하지 않는다. 정확한 계약은 [BFF API 명세](../../../../2-bff-apps/src/us-corporate-filings/.docs/api-spec.md)를 따른다.

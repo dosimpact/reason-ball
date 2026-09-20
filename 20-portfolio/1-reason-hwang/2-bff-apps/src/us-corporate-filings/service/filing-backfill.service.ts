@@ -45,14 +45,19 @@ export class FilingBackfillService {
     if (this.bulkRunning) throw new ConflictException('An all-company backfill is already active in this process.');
     this.bulkRunning = true;
     try {
+      const companies = await this.companyRepository.createQueryBuilder('company')
+        .select(['company.cik']).where("NULLIF(BTRIM(company.ticker), '') IS NOT NULL").getMany();
+      const ciks = companies.map(company => company.cik);
+      report({ phase: 'metadata', tickerOnly: true, totalCompanies: ciks.length });
+      if (!ciks.length) throw new NotFoundException('No companies with tickers; sync companies first.');
       const since = this.cutoffDate(options.years);
       await this.ensureArchive(options.refreshArchive, report);
-      const counters = await this.processArchive(since, report);
+      const counters = await this.processArchive(since, report, new Set(ciks));
       const documents = options.downloadDocuments
-        ? await this.downloadDocuments(since, report)
+        ? await this.downloadDocuments(since, report, ciks)
         : { downloaded: 0, failed: 0 };
       if (!options.downloadDocuments) report({ phase: 'documents', skipped: true });
-      return { ...counters, ...documents };
+      return { tickerOnly: true, totalCompanies: ciks.length, ...counters, ...documents };
     } finally {
       this.bulkRunning = false;
     }
@@ -187,7 +192,7 @@ export class FilingBackfillService {
     report({ phase: 'archive', archiveBytes: downloaded.size });
   }
 
-  private async processArchive(cutoffDate: string, report: ReportProgress): Promise<ProcessingCounters> {
+  private async processArchive(cutoffDate: string, report: ReportProgress, eligibleCiks: Set<string>): Promise<ProcessingCounters> {
     const counters: ProcessingCounters = {
       processedEntries: 0,
       companiesUpserted: 0,
@@ -216,7 +221,7 @@ export class FilingBackfillService {
       });
       zipFile.on('entry', (entry: yauzl.Entry) => {
         processing = true;
-        void this.processEntry(entry, zipFile, cutoffDate, companyBatch, filingBatch, counters)
+        void this.processEntry(entry, zipFile, cutoffDate, companyBatch, filingBatch, counters, eligibleCiks)
           .then(async () => {
             while (companyBatch.length >= batchSize) {
               counters.companiesUpserted += await this.flushCompanies(companyBatch);
@@ -254,6 +259,7 @@ export class FilingBackfillService {
     companyBatch: CompanyRow[],
     filingBatch: FilingRow[],
     counters: ProcessingCounters,
+    eligibleCiks: Set<string>,
   ): Promise<void> {
     if (/\/$/.test(entry.fileName) || !entry.fileName.endsWith('.json')) {
       return;
@@ -263,6 +269,7 @@ export class FilingBackfillService {
       return;
     }
     const cik = formatCik(cikMatch[1]);
+    if (!eligibleCiks.has(cik)) return;
     const payload = JSON.parse(await readZipEntry(zipFile, entry)) as SubmissionPayload;
     const rows = parseBulkSubmission(cik, payload, cutoffDate);
     for (const company of rows.companies) companyBatch.push(company);

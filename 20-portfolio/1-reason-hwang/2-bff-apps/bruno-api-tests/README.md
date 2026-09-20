@@ -1,6 +1,6 @@
 # SEC BFF Bruno requests
 
-현재 업무 API 5개를 반영한다. 회사 페이지네이션, SSE 백필, 원본·수정본 연결 조회를 포함한다.
+현재 업무 API 6개를 반영한다. 회사 페이지네이션, SSE 백필, 원본·수정본 연결 조회를 포함한다.
 
 - `01-companies`: 전체 회사 동기화, 회사 목록·페이지 조회 (최대 100000).
 - `02-filing-jobs`: 특정 기업 메타데이터→원문 SSE, 메타데이터만 수집하는 변형.
@@ -18,3 +18,9 @@
 격리 HTTP 회귀: `pnpm --filter @reason-hwang/bff-apps test:filing-routes:e2e` (SEC fixture + 임시 PostgreSQL). 실제 전체 백필은 `data/runs/20-year-backfill.log`를 확인한다.
 
 로컬 baseUrl은 `http://127.0.0.1:2801/api/sec`를 사용한다. 서버 기본 APP_HOST=0.0.0.0은 IPv4이며 localhost가 IPv6 ::1로 해석되면 ECONNREFUSED가 발생할 수 있다.
+
+## 단일 원문 조회
+
+`03-filings/05-raw-content.bru`: 목록에서 downloaded 공시의 cik/accessionNo를 골라 환경의 sampleCik/accessionNo에 설정한 후 실행한다. HTML/XML/text를 JSON 없이 반환한다. 초기 accessionNo는 교체가 필요한 placeholder다.
+
+전체 기업 백필은 DB ticker가 비어 있지 않은 회사만 대상으로 한다. 회사 동기화 후 실행하며, 기존 티커 없는 공시는 삭제하거나 다운로드하지 않는다.

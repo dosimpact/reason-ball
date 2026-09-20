@@ -1,0 +1,18 @@
+meta {
+  name: raw-invalid-cik
+  type: http
+  seq: 49
+}
+get {
+  url: {{baseUrl}}/filings/abc/0000000011-26-000001/content
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 400
+}
+tests {
+  test("SEC-CONTENT-001 invalid-cik", function() {
+    expect(res.getStatus()).to.equal(400);
+  });
+}

@@ -30,3 +30,5 @@ pnpm --filter @reason-hwang/bff-apps test:filing-routes:e2e
 - `data/`, 환경 파일, 실행 로그, node_modules, dist는 로컬 런타임/산출물이다. 특히 실행 중인 백필의 data·ZIP·로그를 삭제하지 않는다. 빌드는 deleteOutDir로 오래된 dist 출력을 교체한다.
 
 백필 기간은 요청 body의 years(기본 20, 최대 30)로 지정한다. 미사용 SEC_BACKFILL_RETENTION_YEARS 환경 설정은 제거했다.
+
+전체 기업 백필은 실행 시작 시 DB에 티커가 있는 회사의 CIK로 메타데이터·원문 대상을 제한한다. 회사 동기화를 먼저 실행한다. 단일 원문은 `GET /api/sec/filings/:cik/:accessionNo/content`로 조회한다.

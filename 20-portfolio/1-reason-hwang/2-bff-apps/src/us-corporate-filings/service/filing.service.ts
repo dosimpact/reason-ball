@@ -1,4 +1,4 @@
-import { Injectable, PayloadTooLargeException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, PayloadTooLargeException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { Company } from '../entity/company.entity';
@@ -8,6 +8,21 @@ import { FilingsQueryInput } from '../entity/filing.dto';
 @Injectable()
 export class FilingService {
   constructor(@InjectRepository(Filing) private readonly filingRepository: Repository<Filing>) { }
+
+  async getContent(cik: string, accessionNo: string) {
+    const filing = await this.filingRepository.createQueryBuilder('filing')
+      .select(['filing.cik', 'filing.accessionNo', 'filing.status', 'filing.documentContentType'])
+      .addSelect('filing.documentContent')
+      .where({ cik, accessionNo }).getOne();
+    if (!filing) throw new NotFoundException('Filing not found.');
+    if (filing.status !== 'downloaded' || !filing.documentContent) {
+      throw new ConflictException('Filing content is not downloaded yet.');
+    }
+    const mime = filing.documentContentType?.split(';')[0].trim().toLowerCase();
+    const contentType = mime && ['text/html', 'application/xhtml+xml', 'application/xml', 'text/xml', 'text/plain'].includes(mime)
+      ? mime : 'text/plain';
+    return { content: filing.documentContent, contentType: `${contentType}; charset=utf-8` };
+  }
 
   async listFilings(options: FilingsQueryInput) {
     const { page, pageSize } = options;

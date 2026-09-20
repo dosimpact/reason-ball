@@ -1,0 +1,21 @@
+meta {
+  name: raw-xml
+  type: http
+  seq: 41
+}
+get {
+  url: {{baseUrl}}/filings/11/0000000011-26-000002/content
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-CONTENT-001 xml", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getHeader("content-type")).to.equal("application/xml; charset=utf-8");
+    expect(res.getHeader("content-security-policy")).to.contain("sandbox;");
+    expect(res.getHeader("x-content-type-options")).to.equal("nosniff");
+  });
+}
