@@ -1,103 +1,102 @@
 ---
 name: apb-docs-write-point
 description: |
-  Write or refactor Markdown and MDX documentation as a beginner-friendly,
-  point-by-point explanation that preserves technical accuracy while turning
-  definitions, distinctions, examples, and cautions into a readable narrative.
-  Phase: Write Point Document.
-  Triggers: write point document, point-by-point guide, beginner explanation,
-  refactor documentation, 포인트 형식 문서, 초심자 해설, 문서 리팩터링,
-  ポイント形式, 初心者向け解説, 要点式文档, 初学者说明.
-  Do NOT use for: API reference generation, release notes, source-code refactoring,
-  or documents that must preserve a strict external template.
+  Markdown과 MDX 문서를 기술적 정확성을 유지한 초심자 친화적인 포인트별
+  설명으로 작성하거나 리팩터링한다. 정의, 차이, 예시, 주의점을 읽기 쉬운
+  흐름으로 구성할 때 사용한다. 단계: 포인트 문서 작성.
+  트리거: write point document, point-by-point guide, beginner explanation,
+  refactor documentation, 포인트 형식 문서, 포인트별 설명, 초심자 해설,
+  문서 리팩터링, 문서 재구성.
+  API 레퍼런스 생성, 릴리스 노트, 소스 코드 리팩터링, 엄격한 외부 양식을
+  유지해야 하는 문서에는 사용하지 않는다.
 ---
 
-# APB Docs Write Point
+# APB 포인트 문서 작성
 
-> Write or refactor documentation as a sequence of self-contained points for a beginner audience.
+> 초심자가 순서대로 이해할 수 있도록 문서를 독립적인 포인트의 흐름으로 작성하거나 리팩터링한다.
 
-## Usage
+## 사용법
 
-```
-$apb-docs-write-point write {topic}            Write a new point-based document
-$apb-docs-write-point refactor {document}      Refactor an existing document in place
-```
-
-## Phase Flow
-
-```
-[Write Point Document]
+```text
+$apb-docs-write-point write {주제}          새 포인트 형식 문서 작성
+$apb-docs-write-point refactor {문서}       기존 문서를 현재 위치에서 리팩터링
 ```
 
-## Phase Progress Visualization
+## 단계 흐름
 
+```text
+[포인트 문서 작성]
 ```
-[Write Point Document]
 
-Status:
-  [Write Point Document] done     -> document written and validated
-  [Write Point Document] active   -> currently writing or refactoring
-  [Write Point Document] pending  -> not yet started
+## 단계 진행 상태
+
+```text
+[포인트 문서 작성]
+
+상태:
+  [포인트 문서 작성] 완료     → 문서 작성 및 검증 완료
+  [포인트 문서 작성] 진행 중  → 문서 작성 또는 리팩터링 중
+  [포인트 문서 작성] 대기     → 아직 시작하지 않음
 ```
 
 ---
 
-## Phase:Write Point Document
+## 단계: 포인트 문서 작성
 
-Transform source material into a progressive point-by-point explanation and validate the result in its project context.
+원본 자료를 점진적인 포인트별 설명으로 바꾸고, 대상 프로젝트 환경에서 결과를 검증한다.
 
-### Prerequisites
+### 사전 조건
 
-- Read the target repository's instructions and inspect nearby documents for front matter, heading, naming, and tone conventions.
-- Identify the source material, target document, intended audience, and facts that must remain unchanged.
-- When the target path is not specified, locate the most relevant documentation section before creating a file.
-- Preserve unrelated user changes and do not overwrite an existing document without first reading it.
+- 대상 저장소의 지침을 읽고 주변 문서의 front matter, 제목, 파일명, 문체 규칙을 확인한다.
+- 원본 자료, 대상 문서, 예상 독자, 반드시 유지해야 하는 사실을 파악한다.
+- 대상 경로가 지정되지 않았다면 파일을 만들기 전에 가장 관련 있는 문서 영역을 찾는다.
+- 사용자의 관련 없는 변경 사항을 보존하며, 기존 문서는 전체 내용을 읽기 전에 덮어쓰지 않는다.
 
-### Steps
+### 작성 절차
 
-1. Read the complete source and extract its central claim, definitions, commonly confused distinctions, application guidance, examples, and cautions.
-2. Choose only the points needed to explain the topic. Prefer 3–7 substantial points, but use fewer or more when the material requires it. Give each point one clear teaching purpose.
-3. Order the points from foundation to application:
-   - explain why the topic matters;
-   - define the core concept;
-   - distinguish easily confused ideas;
-   - show practical application;
-   - provide a concrete example;
-   - close with limitations or a checklist.
-4. Start the body with this framing, adapted to the topic:
+1. 원본 전체를 읽고 핵심 주장, 정의, 혼동하기 쉬운 차이, 적용 방법, 예시, 주의점을 추출한다.
+2. 주제를 설명하는 데 필요한 포인트만 선택한다. 보통 내용이 충실한 포인트 3~7개를 권장하되, 자료의 성격에 따라 더 적거나 많게 구성할 수 있다. 각 포인트에는 하나의 명확한 학습 목적만 둔다.
+3. 기초에서 적용으로 이어지도록 포인트의 순서를 정한다.
+   - 주제가 중요한 이유를 설명한다.
+   - 핵심 개념을 정의한다.
+   - 혼동하기 쉬운 개념의 차이를 구분한다.
+   - 실제 적용 방법을 보여준다.
+   - 구체적인 예시를 제공한다.
+   - 한계 또는 체크리스트로 마무리한다.
+4. 주제에 맞게 표현을 조정하여 본문을 다음 형식으로 시작한다.
 
    ```markdown
-   [{Topic} - 초심자 해설]
+   [{주제} - 초심자 해설]
 
    이번 문서에서 주목할 포인트 몇 가지를 짚어 보겠습니다.
    ```
 
-5. Write every section with a descriptive heading rather than a bare label:
+5. 각 구역은 단순한 분류명이 아니라 결론을 담은 설명형 제목으로 작성한다.
 
    ```markdown
-   ## 포인트 1. {the point's conclusion in one sentence}
+   ## 포인트 1. {포인트의 결론을 나타내는 한 문장}
 
-   {Explain the idea in connected prose. Add a concrete example or contrast
-   when it improves understanding.}
+   {내용을 연결된 문장으로 설명한다. 이해에 도움이 된다면 구체적인 예시나
+   비교를 추가한다.}
    ```
 
-6. Lead each point with its conclusion, then explain why it is true and how it applies. Use approachable prose without weakening necessary technical terms.
-7. Keep paragraphs focused. Use bullets for compact enumerations, numbered lists for procedures, and tables only when repeated mappings or comparisons are clearer than prose.
-8. Preserve the source's verified facts, constraints, links, code, and examples. Correct contradictions that can be resolved from project context; otherwise flag uncertainty instead of inventing an answer.
-9. When refactoring, retain useful content rather than shortening mechanically. Remove only duplication, fragmented notes, empty headings, or details that do not support any point.
-10. End with a practical takeaway, checklist, or boundary that tells the reader how to use the concept without overgeneralizing it.
-11. Re-read the result and confirm:
-    - each point can be summarized in one sentence;
-    - adjacent points do not repeat the same lesson;
-    - terminology and examples remain internally consistent;
-    - a beginner can follow the document without missing context;
-    - front matter, links, Markdown/MDX, and sidebar placement follow repository conventions.
-12. Run the repository's required documentation validation command. For a Docusaurus project using Yarn 1, run `yarn build` unless repository instructions specify otherwise.
+6. 각 포인트의 첫 문장에서 결론을 제시한 뒤, 그 이유와 적용 방법을 설명한다. 필요한 기술 용어의 정확성은 유지하면서 이해하기 쉬운 문장을 사용한다.
+7. 문단마다 하나의 내용에 집중한다. 짧은 열거에는 글머리 기호, 절차에는 번호 목록, 반복되는 대응 관계나 비교가 문장보다 명확한 경우에만 표를 사용한다.
+8. 원본에서 검증된 사실, 제약, 링크, 코드, 예시를 보존한다. 프로젝트 맥락으로 해결할 수 있는 모순은 바로잡고, 확인할 수 없다면 내용을 만들어 내지 말고 불확실성을 표시한다.
+9. 기존 문서를 리팩터링할 때는 기계적으로 줄이지 말고 유용한 내용을 유지한다. 중복, 단편적인 메모, 빈 제목, 어떤 포인트도 뒷받침하지 않는 세부 내용만 제거한다.
+10. 독자가 개념을 과도하게 일반화하지 않고 적용할 수 있도록 실용적인 핵심 정리, 체크리스트 또는 적용 경계로 문서를 마무리한다.
+11. 결과를 다시 읽고 다음 사항을 확인한다.
+    - 각 포인트를 한 문장으로 요약할 수 있다.
+    - 인접한 포인트가 같은 내용을 반복하지 않는다.
+    - 용어와 예시가 문서 전체에서 일관된다.
+    - 초심자가 필요한 맥락을 놓치지 않고 읽을 수 있다.
+    - front matter, 링크, Markdown/MDX, sidebar 위치가 저장소 규칙을 따른다.
+12. 저장소에서 요구하는 문서 검증 명령을 실행한다. Yarn 1을 사용하는 Docusaurus 프로젝트라면 별도 지침이 없는 경우 `yarn build`를 실행한다.
 
-### Output Path
+### 결과 경로
 
-Write new documents under the repository's documentation root, or update the selected document in place:
+새 문서는 저장소의 문서 루트 아래에 작성하고, 기존 문서는 선택한 파일을 현재 위치에서 수정한다.
 
-```
+```text
 ./docs/
 ```
