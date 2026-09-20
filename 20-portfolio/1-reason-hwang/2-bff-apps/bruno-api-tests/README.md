@@ -16,3 +16,5 @@
 구형 상태 조회·다운로드·재시도·parser-status 요청은 제거했다. 이전 환경의 backfillRunId 등 미사용 변수는 요청에서 참조하지 않는다.
 
 격리 HTTP 회귀: `pnpm --filter @reason-hwang/bff-apps test:filing-routes:e2e` (SEC fixture + 임시 PostgreSQL). 실제 전체 백필은 `data/runs/20-year-backfill.log`를 확인한다.
+
+로컬 baseUrl은 `http://127.0.0.1:2801/api/sec`를 사용한다. 서버 기본 APP_HOST=0.0.0.0은 IPv4이며 localhost가 IPv6 ::1로 해석되면 ECONNREFUSED가 발생할 수 있다.
