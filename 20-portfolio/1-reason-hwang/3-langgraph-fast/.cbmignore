@@ -1,0 +1,20 @@
+# Keep credentials, local runtime data, and generated output out of code graphs.
+.env
+.env.*
+.config/
+*.pem
+*.key
+.codebase-memory/
+Volume/
+volumes/
+.data/
+.venv*/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+node_modules/
+.next/
+dist/
+build/
+coverage/
+storybook-static/
