@@ -11,6 +11,7 @@
     "lint": "tsc --noEmit",
     "test": "pnpm build && node --test tests/*.test.cjs",
     "test:sec-live": "pnpm build && node scripts/verify-sec-database.cjs",
+    "sec:sync": "bash scripts/sync-sec.sh",
     "sec:import-files": "pnpm build && node scripts/import-filing-files.cjs",
     "test:companies:e2e": "pnpm build && node scripts/verify-company-pagination.cjs",
     "test:filing-routes:e2e": "pnpm build && node scripts/verify-company-pagination.cjs --filing-routes"

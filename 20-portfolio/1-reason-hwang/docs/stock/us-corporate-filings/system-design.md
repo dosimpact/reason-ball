@@ -159,3 +159,17 @@ GET filings의 기본 includeAmendments=true는 각 검색 항목에 original/am
 POST /all-company-filing-sync-jobs는 실행 시작 시 DB companies에서 ticker가 NULL/빈 문자열/공백이 아닌 회사의 CIK 목록을 고정한다. ZIP의 recent와 history 모두 이 목록에 해당하는 회사만 적재하며 원문 다운로드·실패 재시도에도 동일한 CIK 목록을 적용한다. 기존에 저장된 티커 없는 등록자의 pending/failed 공시는 건드리지 않는다. 지정 기업 백필은 기존 CIK/ticker 명시 방식 그대로다.
 
 먼저 회사 동기화를 실행해야 한다. 대상이 0이면 SSE error(statusCode=404)로 종료하고 archive를 읽거나 전체 범위로 확대하지 않는다. progress 및 completed에 tickerOnly:true와 totalCompanies를 제공한다. 전체 SEC ZIP 자체의 다운로드 크기는 줄지 않지만 저장·문서 다운로드 범위는 제한된다. 티커 존재는 현재 상장기업임을 보장하지 않으며, DB에 남은 과거 티커도 포함될 수 있다. 기존 수집 데이터는 삭제하지 않는다.
+
+## SEC-AUTO-SYNC-001: 자동 수집 실행 명령
+
+```sh
+# 2-bff-apps 디렉터리에서 실행
+pnpm sec:sync
+# 또는 어느 위치에서든 scripts/sync-sec.sh의 절대경로로 실행
+```
+
+`scripts/sync-sec.sh`는 패키지 디렉터리로 이동해 빌드한 뒤 기존 `run-sec-backfill.cjs 20`을 실행한다. 회사 동기화 → DB 티커 보유 회사의 최근 20년 공시 메타데이터 → 원문 다운로드 순서다. 별도 API 서버를 켤 필요 없이 자체 임시 포트를 사용한다. `.env`의 DB와 SEC_USER_AGENT 설정이 필요하다.
+
+진행 상황은 터미널과 `DATA_DIR/runs/backfill-*.sse`에 기록한다. 회사 동기화 실패 시 백필을 시작하지 않고, SSE error/완료 이벤트 누락/다운로드 실패 건수가 있으면 비정상 종료한다. `Ctrl-C`로 중단하며 재실행하면 메타데이터를 다시 동기화하고 기존 다운로드 완료 원문은 건너뛴다. 중단 지점부터 ZIP을 그대로 이어 읽는 방식은 아니다. 기존 프로세스와 중복 실행하지 않는다.
+
+`pnpm sec:sync --help`는 사용법만 출력하고 빌드·DB 연결·수집을 수행하지 않는다. 원문을 생략하려면 백필 API에 downloadDocuments=false를 명시한다. 이 자동 스크립트는 원문까지 수집한다.

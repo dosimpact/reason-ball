@@ -32,3 +32,17 @@ pnpm --filter @reason-hwang/bff-apps test:filing-routes:e2e
 백필 기간은 요청 body의 years(기본 20, 최대 30)로 지정한다. 미사용 SEC_BACKFILL_RETENTION_YEARS 환경 설정은 제거했다.
 
 전체 기업 백필은 실행 시작 시 DB에 티커가 있는 회사의 CIK로 메타데이터·원문 대상을 제한한다. 회사 동기화를 먼저 실행한다. 단일 원문은 `GET /api/sec/filings/:cik/:accessionNo/content`로 조회한다.
+
+## 회사부터 최근 20년 공시까지 자동 수집
+
+```sh
+# 2-bff-apps 디렉터리에서 실행
+pnpm sec:sync
+# 또는 어느 위치에서든 scripts/sync-sec.sh의 절대경로로 실행
+```
+
+`scripts/sync-sec.sh`는 패키지 디렉터리로 이동해 빌드한 뒤 기존 `run-sec-backfill.cjs 20`을 실행한다. 회사 동기화 → DB 티커 보유 회사의 최근 20년 공시 메타데이터 → 원문 다운로드 순서다. 별도 API 서버를 켤 필요 없이 자체 임시 포트를 사용한다. `.env`의 DB와 SEC_USER_AGENT 설정이 필요하다.
+
+진행 상황은 터미널과 `DATA_DIR/runs/backfill-*.sse`에 기록한다. 회사 동기화 실패 시 백필을 시작하지 않고, SSE error/완료 이벤트 누락/다운로드 실패 건수가 있으면 비정상 종료한다. `Ctrl-C`로 중단하며 재실행하면 메타데이터를 다시 동기화하고 기존 다운로드 완료 원문은 건너뛴다. 중단 지점부터 ZIP을 그대로 이어 읽는 방식은 아니다. 기존 프로세스와 중복 실행하지 않는다.
+
+`pnpm sec:sync --help`는 사용법만 출력하고 빌드·DB 연결·수집을 수행하지 않는다. 원문을 생략하려면 백필 API에 downloadDocuments=false를 명시한다. 이 자동 스크립트는 원문까지 수집한다.
