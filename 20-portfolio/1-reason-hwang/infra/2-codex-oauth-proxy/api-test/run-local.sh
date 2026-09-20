@@ -79,7 +79,17 @@ fi
 
 echo "[run] Executing endpoint tests"
 cd "$root_dir/api-test"
-bru run --env local --env-var "baseUrl=$base_url" 2>&1 | tee "$test_log"
+
+bru_cmd="bru"
+if ! command -v bru >/dev/null 2>&1; then
+  if [[ -x "$root_dir/../../node_modules/.bin/bru" ]]; then
+    bru_cmd="$root_dir/../../node_modules/.bin/bru"
+  elif command -v npx >/dev/null 2>&1; then
+    bru_cmd="npx -y @usebruno/cli"
+  fi
+fi
+
+$bru_cmd run --env local --env-var "baseUrl=$base_url" 2>&1 | tee "$test_log"
 
 if grep -Eq 'Skipped\)|Skipping invalid file|Tests[[:space:]]+│[[:space:]]+0/0' "$test_log"; then
   echo "Bruno skipped or did not execute the endpoint test." >&2

@@ -1,0 +1,40 @@
+meta {
+  name: Complete text with model alias
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/v1/chat/completions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "model": "gpt-4o",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Reply with exactly: alias test passed"
+      }
+    ],
+    "stream": false
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.object: eq chat.completion
+  res.body.choices[0].message.role: eq assistant
+  res.body.choices[0].message.content: isString
+}
+
+tests {
+  test("returns completion via model alias fallback", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.object).to.equal("chat.completion");
+    expect(body.choices[0].message.content).to.be.a("string").and.not.empty;
+  });
+}

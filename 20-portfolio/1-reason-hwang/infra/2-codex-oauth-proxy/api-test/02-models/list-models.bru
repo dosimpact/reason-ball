@@ -22,7 +22,10 @@ tests {
     expect(res.getStatus()).to.equal(200);
     const body = res.getBody();
     const modelIds = body.data.map((model) => model.id);
+    expect(modelIds).to.include("gpt-5.6-sol");
+    expect(modelIds).to.include("gpt-5.6-terra");
     expect(modelIds).to.include("gpt-5.6-luna");
-    expect(modelIds).to.not.include("gpt-5.6-luna");
+    expect(modelIds).to.include("gpt-5.5");
+    expect(modelIds).to.include("gpt-5.3-codex-spark");
   });
 }

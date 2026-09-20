@@ -1,0 +1,67 @@
+meta {
+  name: Complete tool calling
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/v1/chat/completions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "model": "{{model}}",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What is the weather in Seoul right now? Use the get_current_weather tool."
+      }
+    ],
+    "tools": [
+      {
+        "type": "function",
+        "function": {
+          "name": "get_current_weather",
+          "description": "Get current weather for a given location",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "location": {
+                "type": "string",
+                "description": "City name"
+              }
+            },
+            "required": ["location"]
+          }
+        }
+      }
+    ],
+    "tool_choice": "auto",
+    "stream": false
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.object: eq chat.completion
+  res.body.choices[0].message.role: eq assistant
+  res.body.choices[0].message.tool_calls: isArray
+  res.body.choices[0].message.tool_calls[0].function.name: eq get_current_weather
+}
+
+tests {
+  test("returns an OpenAI-compatible tool call", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.object).to.equal("chat.completion");
+    const choice = body.choices[0];
+    expect(choice.message.tool_calls).to.be.an("array").that.is.not.empty;
+    const toolCall = choice.message.tool_calls[0];
+    expect(toolCall.type).to.equal("function");
+    expect(toolCall.function.name).to.equal("get_current_weather");
+    const args = JSON.parse(toolCall.function.arguments);
+    expect(args).to.have.property("location");
+  });
+}

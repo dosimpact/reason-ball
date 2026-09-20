@@ -178,15 +178,16 @@ uv run python proxy-server/main.py --serve
 ```
 
 Docker Compose는 이미지를 빌드하고 호스트의 `.config`를 컨테이너 `/app/.config`에 마운트한다. 따라서 OAuth 로그인은 호스트에서 먼저 수행해야 하며, 컨테이너에서 갱신된 토큰도 같은 디렉터리에 보존된다.
+컨테이너에는 프록시 런타임 의존성인 `aiohttp`와 서버 코드만 설치한다. OpenAI SDK 및 LangGraph 예제 의존성은 로컬 개발 그룹에 속하며 기본 `uv sync`로 설치되지만 Docker의 `uv sync --no-dev`에서는 제외된다.
 
 ```bash
 uv run python -m core.oauth_login --manual-callback
 docker compose up -d --build
 ```
 
-컨테이너는 내부적으로 `0.0.0.0:18741`에 바인딩하지만, 호스트에는 안전을 위해 `127.0.0.1:18741`로만 공개한다. 상태는 다음 명령으로 확인한다.
+컨테이너는 내부적으로 `0.0.0.0:18741`에 바인딩한다. Compose의 호스트 포트는 `CODEX_OAUTH_PROXY_PORT`로 바꿀 수 있으며 기본값은 `2890`이다. 호스트에는 안전을 위해 `127.0.0.1`로만 공개한다. 상태는 다음 명령으로 확인한다.
 
 ```bash
-curl http://127.0.0.1:18741/health
+curl http://127.0.0.1:2890/health
 docker compose ps
 ```

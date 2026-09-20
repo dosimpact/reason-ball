@@ -5,18 +5,17 @@
     "install": "uv sync",
     "install:frozen": "uv sync --frozen",
     "oauth": "uv run python -m core.oauth_login --manual-callback",
+    "health-check:sdk": "OPENAI_BASE_URL=http://127.0.0.1:2890/v1 OPENAI_API_KEY=chatgpt-oauth-placeholder uv run python examples/sdk.py",
+    "health-check:langgraph": "OPENAI_BASE_URL=http://127.0.0.1:2890/v1 OPENAI_API_KEY=chatgpt-oauth-placeholder uv run python examples/langgraph.py",
     "build": "docker build -t codex-oauth-proxy .",
     "infra:up": "docker compose up -d",
     "infra:down": "docker compose down",
     "infra:ps": "uv run python proxy-server/health_check.py && docker compose ps",
     "start": "uv run python proxy-server/main.py --serve",
     "lint": "python3 -m compileall core proxy-server examples",
-    "test": "uv run python -m unittest discover -s tests -p 'test_*.py' -v",
-    "test:sdk": "OPENAI_BASE_URL=http://127.0.0.1:2890/v1 OPENAI_API_KEY=chatgpt-oauth-placeholder uv run python examples/sdk.py",
-    "test:langgraph": "OPENAI_BASE_URL=http://127.0.0.1:2890/v1 OPENAI_API_KEY=chatgpt-oauth-placeholder uv run python examples/langgraph.py",
-    "test:api": "bash api-test/run-local.sh",
-    "test:models": "RUN_CODEX_LIVE_TESTS=1 uv run python -m unittest discover -s tests -p 'test_codex_models_live.py' -v",
     "typecheck": "python3 -m compileall core proxy-server examples",
-    "clean": "rm -rf .venv .pytest_cache .mypy_cache .ruff_cache htmlcov .coverage core/__pycache__ proxy-server/__pycache__ examples/__pycache__"
+    "test:unit": "uv run python -m unittest discover -s tests -p 'test_*.py' -v",
+    "test:api": "bash api-test/run-local.sh",
+    "clean": "rm -rf .venv .pytest_cache .mypy_cache .ruff_cache htmlcov .coverage && find core proxy-server examples tests -type d -name __pycache__ -prune -exec rm -rf {} +"
   }
 }

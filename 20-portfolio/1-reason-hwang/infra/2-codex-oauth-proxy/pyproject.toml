@@ -5,6 +5,10 @@ description = "Standalone ChatGPT OAuth proxy for Codex-compatible local OpenAI 
 requires-python = ">=3.10"
 dependencies = [
     "aiohttp~=3.11.13",
+]
+
+[dependency-groups]
+dev = [
     "langchain-openai>=1.0.0",
     "langgraph>=1.0.0",
     "openai>=1.0.0",

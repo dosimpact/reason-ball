@@ -4,9 +4,7 @@ WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    UV_LINK_MODE=copy \
-    CHATGPT_OAUTH_PROXY_HOST=0.0.0.0 \
-    CHATGPT_OAUTH_PROXY_PORT=18741
+    UV_LINK_MODE=copy
 
 RUN pip install --no-cache-dir uv==0.12.6
 
@@ -15,8 +13,6 @@ RUN uv sync --frozen --no-dev
 
 COPY core ./core
 COPY proxy-server ./proxy-server
-COPY examples ./examples
-COPY README.md ./
 
 EXPOSE 18741
 

@@ -5,9 +5,6 @@ services:
       dockerfile: Dockerfile
     container_name: codex-oauth-proxy
     restart: unless-stopped
-    environment:
-      CHATGPT_OAUTH_PROXY_HOST: "0.0.0.0"
-      CHATGPT_OAUTH_PROXY_PORT: "2890"
     ports:
       - "127.0.0.1:${CODEX_OAUTH_PROXY_PORT:-2890}:18741"
     volumes:
