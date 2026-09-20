@@ -47,9 +47,9 @@ production build/start를 사용합니다.
 
 ## 결과 파일
 
-- [최초 전체 리포트](../../apps/web/playwright-report/index.html)
-- [실패 항목 반복 리포트](../../apps/web/playwright-recheck-report/index.html)
-- [실제 Supabase 리포트](../../apps/web/playwright-supabase-report/index.html)
+- 최초 전체 리포트: `apps/web/playwright-report/index.html`
+- 실패 항목 반복 리포트: `apps/web/playwright-recheck-report/index.html`
+- 실제 Supabase 리포트: `apps/web/playwright-supabase-report/index.html`
 
 리포트·trace·스크린샷은 로컬 생성물이며 Git에서 제외됩니다. 테스트 설정과 spec은
 저장소에서 관리하고, API 키는 Git 제외된 `apps/web/.env.local`에서 읽습니다.

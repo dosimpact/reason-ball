@@ -1,13 +1,15 @@
 # Persona English 구현·E2E 검증서
 
+> 문서 역할: 유량(Flow) — 2026-09-05 시점의 구현·검증 기준선. 최신 상태 문서가 아니다.
+
 > 2026-09-10 후속 작업: [완성 작업 진행 기록](2026-09-10-completion-progress.md). 아래 본문은 2026-09-05 기준이며 최신 수정·재검증은 후속 기록을 함께 확인한다.
 
 > 2026-09-10 사용자 결정: 실제 Supabase E2E는 `DEFERRED_BY_USER`로 이번 완료 gate에서 제외한다. 자격 증명 연결은 추후 진행한다. 아래 운영 release 판정은 과거 기록이며, 이 유예를 실연동 PASS 또는 운영 배포 준비 완료로 해석하지 않는다.
 
 > 문서 상태: 포트폴리오 mock PASS, 운영 release gate FAIL  
 > 검증일: 2026-09-05  
-> 제품 요구사항: `../01-business/character-english-chat.business.md`  
-> 기술 기준: `../02-development/character-english-chat.development.md`
+> 제품 요구사항: `../stock/business-design.md`  
+> 기술 기준: `../stock/system-design.md`
 
 ## 1. 최종 판정
 

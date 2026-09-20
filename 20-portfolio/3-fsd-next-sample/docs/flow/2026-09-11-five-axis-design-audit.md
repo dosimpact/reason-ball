@@ -6,7 +6,7 @@
 
 부모가 확인한 Tier Verify graph 프로젝트는 todo/proxy뿐이며 대상 web 프로젝트는 notindexed다. web generation은 없다. 부모의 `check_index_coverage`에서 `src/entities/mission-run`, `src/app/api/ai/evaluate`, `src/features/mission-evaluation`, `tests/e2e/live/evaluation-axes.spec.ts`가 notindexed여서 해당 실제 소스를 직접 읽었다. 추가로 운영 hydration, 메시지 도움말, 학습 도움 API를 읽었다. 이 문서는 읽기 전용 코드 감사다. 브라우저·실제 AI·원격 DB 검증을 실행하지 않았으며 기존 테스트의 주석이나 assertion을 실제 실행 결과로 간주하지 않는다.
 
-권위 있는 요구사항은 `docs/01-business/character-english-chat.business.md`의 8.4 LEARN-05와 11.2 전체다. LEARN-05 표는 턴별 의미 전달·문법·어휘·자연스러움과 근거를 요구한다. 11.2는 과업 달성·이해 가능성·문법·어휘 및 표현·상호작용이라는 다섯 축과 모든 점수의 관찰 가능한 근거를 요구한다. 평가가 공인 시험 점수처럼 표시되어서는 안 된다.
+권위 있는 요구사항은 `docs/stock/business-design.md`의 8.4 LEARN-05와 11.2 전체다. LEARN-05 표는 턴별 의미 전달·문법·어휘·자연스러움과 근거를 요구한다. 11.2는 과업 달성·이해 가능성·문법·어휘 및 표현·상호작용이라는 다섯 축과 모든 점수의 관찰 가능한 근거를 요구한다. 평가가 공인 시험 점수처럼 표시되어서는 안 된다.
 
 ## 현재 구현과 실제 공백
 

@@ -607,7 +607,7 @@ REF-28의 copy를 직접 검사하는 live 시나리오를 추가했다. 외부 
 
 ## 보상 요구 사항 재감사
 
-서브 에이전트가 원문 `docs/01-business/character-english-chat.business.md:257`부터 REWARD-01~06 및 PROFILE-04를 현재 소스/테스트와 대조했다. 그래프에는 웹 앱이 미색인되어 정확한 소스 범위를 직접 읽었다. 원문의 archive 보존에 hard delete를 추가하거나 Gallery에 캐릭터별 필터를 요구한 이전 감사는 과도하여 정정했다. 반면 REWARD-03 silhouette/blur preview와 REWARD-04 캐릭터 반응은 구체적인 제품 공백이다. 현재 잠금 아이콘/그라데이션과 일반 결과 문구로 이 조건을 완료 처리하지 않는다.
+서브 에이전트가 원문 `docs/stock/business-design.md:257`부터 REWARD-01~06 및 PROFILE-04를 현재 소스/테스트와 대조했다. 그래프에는 웹 앱이 미색인되어 정확한 소스 범위를 직접 읽었다. 원문의 archive 보존에 hard delete를 추가하거나 Gallery에 캐릭터별 필터를 요구한 이전 감사는 과도하여 정정했다. 반면 REWARD-03 silhouette/blur preview와 REWARD-04 캐릭터 반응은 구체적인 제품 공백이다. 현재 잠금 아이콘/그라데이션과 일반 결과 문구로 이 조건을 완료 처리하지 않는다.
 
 감사 제안에 따라 reward-preservation에 프로필 보상 카드의 게시 당시 미션 제목, 실제 브라우저 이미지 요청의 원본 바이트 일치, 화면 background URL 디코딩을 추가했다. 제작자의 미션/캐릭터 archive 후 reload에서도 같은 검사를 반복한다. 실제 모델 평가/완료·XP 단일 지급과 원본 접근 격리 조건은 유지했다. 수동 1px PNG는 Storage/표시 계약용이며 AI 이미지 생성이나 시각적 품질 증거가 아니다.
 

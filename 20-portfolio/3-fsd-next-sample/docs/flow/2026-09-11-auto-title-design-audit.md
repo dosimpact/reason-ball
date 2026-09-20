@@ -1,6 +1,6 @@
 # REF-17 첫 메시지 자동 제목 설계 감사
 
-2026-09-11. 읽기 전용 조사이며 이 문서 외 제품·테스트·DB 변경은 없다. 원문 `docs/01-business/character-english-chat.business.md:168`은 **첫 메시지 자동 제목과 수동 이름 변경**이다. AI 요약 모델 호출은 요구하지 않는다. 현재 전체99 PASS·후속 공유4 PASS는 기존 기능의 증거이며 자동 제목 성공으로 해석하지 않는다.
+2026-09-11. 읽기 전용 조사이며 이 문서 외 제품·테스트·DB 변경은 없다. 원문 `docs/stock/business-design.md:168`은 **첫 메시지 자동 제목과 수동 이름 변경**이다. AI 요약 모델 호출은 요구하지 않는다. 현재 전체99 PASS·후속 공유4 PASS는 기존 기능의 증거이며 자동 제목 성공으로 해석하지 않는다.
 
 그래프는 todo/proxy만 존재하고 부모의 웹 coverage 요청은 not indexed였다. 웹 generation/심볼을 주장하지 않고 아래 실제 파일을 읽었다. Supabase 및 Postgres skill의 트리거/권한/잠금 원칙과 기존 migration 패턴을 기준으로 제안한다. 원격 조회·쓰기는 하지 않았다.
 

@@ -1,6 +1,6 @@
 # CHAT-01~09 / REF-01~20 명시 수용 조건 감사
 
-작성일: 2026-09-11. 범위는 `docs/01-business/character-english-chat.business.md:126–171`의 29개 행과 관련 본문 `:283–285,410–411,488–489`이다. CHAT-10은 부모 작업이므로 제외했다. 제품·테스트·주 진행표를 변경하지 않았다.
+작성일: 2026-09-11. 범위는 `docs/stock/business-design.md:126–171`의 29개 행과 관련 본문 `:283–285,410–411,488–489`이다. CHAT-10은 부모 작업이므로 제외했다. 제품·테스트·주 진행표를 변경하지 않았다.
 
 그래프 Verify 시도는 부모가 전달했다. 현재 프로젝트 목록에는 todo/proxy만 있고 웹의 chat-workspace/live 경로 coverage도 project not indexed다. 웹 generation·심볼·완전한 그래프 coverage는 얻지 못했으며, 아래 판단은 정확한 문서·소스·live spec 읽기 대조다. 새로운 브라우저/서비스 요청은 수행하지 않았다.
 
@@ -8,7 +8,7 @@
 
 `VERIFIED 후보`는 **그 행의 명시 조건**을 실행 증거가 직접 다룬다는 제안이다. 모든 환경·보안 공격·오류 조합이나 상위 release 완료 선언이 아니다. 특히 business.md:148은 REF를 최종 gate로 규정하므로 CHAT 요약 행이 충족되어도 미완료 REF는 사라지지 않는다. `유지`는 이미 VERIFIED인 행이다. `PARTIAL 유지`에는 임의의 “모든 조합” 대신 아래 실제 남은 조건을 썼다.
 
-근거 원장은 `docs/03-validation/2026-09-11-live-e2e-progress.md`다.
+근거 원장은 `docs/flow/2026-09-11-live-e2e-progress.md`다.
 
 - **E1** `:367–369`: 당시 고정된 실제 66개 전체 **66 PASS / 11.1분**. 기존 auth/chat/chat-actions/chat-management/guest-ai/clipboard/첨부/tool/network 사례의 역사적 증거.
 - **E2** `:438`: rich-content/chat/branch-conflict/shell 관련 **10 PASS / 1.7분**. `:443–451`: malformed rich content **3 PASS**, 첨부 편집 최종 **1 PASS / 23.8초**.

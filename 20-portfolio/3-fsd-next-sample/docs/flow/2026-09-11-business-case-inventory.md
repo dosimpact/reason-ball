@@ -8,7 +8,7 @@
 
 ## 근거와 조사 한계
 
-- 기준: `docs/01-business/character-english-chat.business.md`, `docs/02-development/character-english-chat.development.md`, 프로젝트/웹 `AGENTS.md`.
+- 기준: `docs/stock/business-design.md`, `docs/stock/system-design.md`, 프로젝트/웹 `AGENTS.md`.
 - 실제 라우트 전수 목록: `apps/web/src/app/**/page.tsx`, `route.ts`. 화면은 `/`, `/characters`, `/characters/new`, `/characters/:id`, `/characters/:id/edit`, `/missions`, `/missions/new`, `/missions/:id`, `/missions/:id/edit`, `/chat/:characterId`, `/history`, `/profile`, `/shared/:token`.
 - 실제 기능 근거: `features/auth-session/ui/auth-session.tsx`, `app/api/auth/email/route.ts`, `features/character-create/ui/character-builder.tsx`, `features/mission-create/ui/mission-builder.tsx`, `widgets/chat-workspace/ui/chat-workspace.tsx`, `features/chat-artifact/ui/*`, `app/profile/page.tsx`, `widgets/learner-settings`, `widgets/learning-notebook`, `widgets/saved-missions`, `widgets/creator-library`, `features/audio-playback`, `features/learning-assistance`, `app/api/ai/chat/route.ts`, `shared/api/learning/contracts.ts`.
 - Graph MCP 도구가 제공되지 않아 generation/coverage를 확인할 수 없었다. 문서/라우트 목록과 관련 소스 읽기·문자열 검색으로 대체했다. 모든 내부 함수/DB 정책을 전수 감사한 것은 아니다. 다른 에이전트가 기존 E2E를 감사하므로 이 문서는 기존 테스트 PASS 여부를 재판정하지 않는다.

@@ -1,6 +1,6 @@
 # 19 MISSING-LIVE 항목의 원인 감사
 
-범위: `docs/03-validation/2026-09-11-live-e2e-progress.md`의 MISSING-LIVE 19행을 `docs/03-validation/2026-09-11-business-case-inventory.md` 및 `docs/01-business/character-english-chat.business.md`의 원문 수용 기준과 대조했다. 84개 통합 실행은 부모 에이전트의 live handle 34300에서 진행 중이며 이 감사는 실행 결과가 아니다. 앱/테스트/문서는 수정하지 않았고 브라우저/API 요청을 실행하지 않았다. web graph 인덱스가 없어 정확한 관련 소스를 읽는 fallback을 사용했다. 아래 미구현은 열거된 범위의 관찰이며 저장소 전체의 모든 가능성 부재를 주장하지 않는다.
+범위: `docs/flow/2026-09-11-live-e2e-progress.md`의 MISSING-LIVE 19행을 `docs/flow/2026-09-11-business-case-inventory.md` 및 `docs/stock/business-design.md`의 원문 수용 기준과 대조했다. 84개 통합 실행은 부모 에이전트의 live handle 34300에서 진행 중이며 이 감사는 실행 결과가 아니다. 앱/테스트/문서는 수정하지 않았고 브라우저/API 요청을 실행하지 않았다. web graph 인덱스가 없어 정확한 관련 소스를 읽는 fallback을 사용했다. 아래 미구현은 열거된 범위의 관찰이며 저장소 전체의 모든 가능성 부재를 주장하지 않는다.
 
 외부 조건은 부모의 실제 관찰을 유지한다: 현재 OAuth `/audio/speech`와 `/images/generations` 호출은 모두 실제 404이며 미디어 API 키 환경변수는 없다. 이것은 Supabase 연결 장애가 아니다. 이미지/음성 정상 생성·브라우저 디코딩 성공은 현재 공급자 경로로 증명할 수 없다. 실패 안내·접근성·고지 등 생성 성공을 요구하지 않는 세부 조건까지 키 때문에 막혔다고 해서는 안 된다.
 

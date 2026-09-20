@@ -1,9 +1,10 @@
 # Persona English 비즈니스 설계서
 
-> 문서 상태: 구현 기준선 1.0  
-> 작성일: 2026-09-05  
+> 문서 역할: 저량(Stock) — 최신 비즈니스 요구사항의 단일 기준  
+> 최초 작성: 2026-09-05  
+> 최종 동기화: 2026-09-16  
 > 대상 독자: 제품 책임자, 기획자, 디자이너, 개발자, QA  
-> 연계 문서: `02-development/character-english-chat.development.md`, `03-validation/character-english-chat.implementation-e2e.md`
+> 연계 문서: `system-design.md`, `test-design.md`
 
 ## 1. 문서 목적
 
@@ -499,7 +500,7 @@ AI 생성 실패 시 입력값과 초안은 유지하고 재시도할 수 있어
 4. 필요한 데이터 계약 또는 로직 테스트가 통과한다.
 5. mock 환경의 실제 브라우저에서 Playwright E2E가 사용자 결과를 확인한다.
 6. Supabase RLS/Storage처럼 mock이 의미를 대체할 수 없는 경계는 별도 통합 검증 결과가 있다.
-7. `03-validation` 문서에 PASS/FAIL/SKIP 증거가 기록되어 있다.
+7. `../flow/` 기록에 PASS/FAIL/SKIP 증거가 있고 `test-design.md`의 현재 상태와 일치한다.
 
 E2E가 없거나 실패하면 화면이 동작해 보여도 `구현됨, 미검증` 또는 `FAIL`로 기록한다.
 

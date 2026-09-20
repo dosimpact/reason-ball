@@ -5,7 +5,7 @@ Next.js App Router와 Feature-Sliced Design을 함께 학습하기 위한 독립
 ## Workspace
 
 - `apps/web`: Next.js 프론트엔드
-- `docs`: 설계 및 검증 문서
+- `docs`: 저량(최신 설계)과 유량(변경·검증 이력) 문서. [문서 지도](docs/README.md)
 - `packages`: 향후 공유 패키지를 위한 공간
 
 웹 소스는 `apps/web/src/`에 모읍니다. `src/app/`이 Next.js 라우팅과 화면
@@ -33,7 +33,7 @@ apps/web/
 
 ## Development Guidelines
 
-- [개발 설계서: SLAP과 순수함수](docs/02-development/character-english-chat.development.md#54-slap과-순수함수)
+- [개발 설계서: SLAP과 순수함수](docs/stock/system-design.md#54-slap과-순수함수)
 - [에이전트 개발 지침](AGENTS.md)
 
 ## Commands

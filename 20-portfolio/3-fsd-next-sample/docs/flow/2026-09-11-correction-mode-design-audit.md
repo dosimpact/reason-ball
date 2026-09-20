@@ -8,7 +8,7 @@
 
 부모의 Tier Verify 조사에서 graph 프로젝트 목록에는 todo/proxy만 존재했고 대상 web 프로젝트는 인덱싱되지 않았다. `src/widgets/chat-workspace`, `src/features/learning-assistance`, `tests/e2e/live` 범위의 `check_index_coverage`는 notindexed를 반환했다. 해당 범위와 관련 실제 파일을 직접 읽는 방식으로 대체했다. web graph generation은 없으며 그래프 완전성을 주장하지 않는다.
 
-권위 있는 요구사항은 `docs/01-business/character-english-chat.business.md`의 LEARN-06 표와 상세 11.3이다. 표는 짧은 교정과 상세 설명 토글을 요구하고, 상세 절은 모드별 시점, 초급자 오류 처리, 설명량·답변 길이 설정까지 요구한다. 표만 충족해 전체 요구를 충족했다고 판정하면 안 된다.
+권위 있는 요구사항은 `docs/stock/business-design.md`의 LEARN-06 표와 상세 11.3이다. 표는 짧은 교정과 상세 설명 토글을 요구하고, 상세 절은 모드별 시점, 초급자 오류 처리, 설명량·답변 길이 설정까지 요구한다. 표만 충족해 전체 요구를 충족했다고 판정하면 안 된다.
 
 ## 현재 구현과 실제 공백
 

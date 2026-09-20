@@ -1,12 +1,12 @@
 # REF-21~34 도구·Artifact 명시 수용 조건 감사
 
-2026-09-11 작성. 범위는 `docs/01-business/character-english-chat.business.md:172–185`의 14개 행이다. 제품·테스트·주 진행표는 수정하지 않고 이 문서만 추가했다. 최신 전체99(session35926)는 작성 시 진행 중이므로 통과 근거에 포함하지 않는다.
+2026-09-11 작성. 범위는 `docs/stock/business-design.md:172–185`의 14개 행이다. 제품·테스트·주 진행표는 수정하지 않고 이 문서만 추가했다. 최신 전체99(session35926)는 작성 시 진행 중이므로 통과 근거에 포함하지 않는다.
 
 부모의 그래프 확인에서 todo/proxy만 인덱싱되었고 웹 coverage는 not indexed였다. 웹 generation·심볼·완전한 그래프 coverage는 없으며 정확한 요구 문서와 아래 소스·spec을 직접 대조했다. 브라우저/원격 요청은 수행하지 않았다.
 
 ## 실행 증거와 판정 범위
 
-증거 원장은 `docs/03-validation/2026-09-11-live-e2e-progress.md`다.
+증거 원장은 `docs/flow/2026-09-11-live-e2e-progress.md`다.
 
 - **E1** `:367–369`: 당시 전체 **66 PASS / 11.1분**. **E2** `:554–556`: 당시 전체 **89 PASS / 17.5분**. 실제 Supabase·OAuth AI·Open-Meteo를 사용하는 역사적 실행이며 현재99 전체 통과를 뜻하지 않는다.
 - **E3** `:565–575`: terminal observation 수정 후 observability+stream-recovery+tool-approval **4 PASS / 1.1분**. 실제 서버 로그와 첨부를 비교한 정상2·모델 거절1·취소1·재시도1의 5건 상관관계 확인. DB 취소를 error로 잘못 기록한 최초 실행은 별도 실패 증거로 보존되었다.

@@ -1,10 +1,11 @@
 # Persona English 개발 설계서
 
-> 문서 상태: 구현 기준선 1.0  
-> 작성일: 2026-09-05  
+> 문서 역할: 저량(Stock) — 최신 시스템·개발 설계의 단일 기준  
+> 최초 작성: 2026-09-05  
+> 최종 동기화: 2026-09-16  
 > 대상: Next.js 16 App Router + Feature-Sliced Design  
-> 제품 요구사항: `../01-business/character-english-chat.business.md`  
-> 검증 결과: `../03-validation/character-english-chat.implementation-e2e.md`
+> 제품 요구사항: `business-design.md`  
+> 테스트 기준 및 현재 검증 상태: `test-design.md`
 
 ## 1. 목적과 설계 원칙
 
@@ -1507,4 +1508,4 @@ gentle은 역할 응답 후 하나의 중요한 교정, immediate는 Correction�
 
 선택 발화 평가는 미션 전체 평가와 분리했다. 사용자 메시지의 학습 도움 안에서 명시적으로 요청하며, 해당 발화까지의 문맥과 서버 고정 미션·CEFR만 사용한다. 이후 정정 발화를 근거로 과거 오류를 지우지 않는다. 결과는 읽기 전용 임시 학습 피드백이며 새로고침 후 명시적으로 다시 요청한다. 원문/초안/미션 진행/점수/XP/보상은 유지한다. 실패 시 원문과 입력을 보존하고 재시도하며, 원문/대화 변경이나 화면 해제 때 늦은 UI 결과를 적용하지 않는다. 모든 점수는 공인 시험 결과가 아닌 학습 지원용으로 안내한다.
 
-실제 검증 기록은 `docs/03-validation/2026-09-11-live-e2e-progress.md`를 따른다. 이 변경은 LEARN-02의 자동 목표 추적을 구현한 것이 아니다.
+실제 검증 기록은 `docs/flow/2026-09-11-live-e2e-progress.md`를 따른다. 이 변경은 LEARN-02의 자동 목표 추적을 구현한 것이 아니다.

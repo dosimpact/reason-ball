@@ -4,9 +4,9 @@
 
 ## LEARN-05
 
-- `docs/01-business/character-english-chat.business.md:231`: **턴 평가 | 의미 전달, 문법, 어휘, 자연스러움을 근거와 함께 평가**. '자동', '매 턴', '4축을 매번'이라는 실행 빈도/방식 명세는 없다.
-- `docs/02-development/character-english-chat.development.md:764-768`: 두 층의 평가를 구분한다. 턴 평가는 '학습 흐름을 위한 저비용 힌트와 objective evidence 후보', 종료 평가는 저장 transcript/objective state를 바탕으로 rubric 점수·근거 생성이다. 따라서 자동 턴별4축이 없다는 이유만으로 전체 LEARN05를 구현 없음으로 판정하면 과도하다.
-- `docs/03-validation/2026-09-11-business-case-inventory.md:124`의 '자동 턴별4축 미검증'은 원문보다 강한 해석이며 분리/정정이 필요하다.
+- `docs/stock/business-design.md:231`: **턴 평가 | 의미 전달, 문법, 어휘, 자연스러움을 근거와 함께 평가**. '자동', '매 턴', '4축을 매번'이라는 실행 빈도/방식 명세는 없다.
+- `docs/stock/system-design.md:764-768`: 두 층의 평가를 구분한다. 턴 평가는 '학습 흐름을 위한 저비용 힌트와 objective evidence 후보', 종료 평가는 저장 transcript/objective state를 바탕으로 rubric 점수·근거 생성이다. 따라서 자동 턴별4축이 없다는 이유만으로 전체 LEARN05를 구현 없음으로 판정하면 과도하다.
+- `docs/flow/2026-09-11-business-case-inventory.md:124`의 '자동 턴별4축 미검증'은 원문보다 강한 해석이며 분리/정정이 필요하다.
 - `apps/web/src/app/api/ai/evaluate/route.ts:57-79`: 모델 axis마다 score와 evidence(messageId,rationale)를 요구한다. :128-133 레이블은 과업완수(taskCompletion), 상황적절성(appropriateness), 문법·명료성(grammar), 어휘(vocabulary). 원문의 의미전달·자연스러움에 대한 근접 운영화이지 독립적인 의미전달/자연스러움 척도가 정확히 같다는 증명은 아니다.
 - 같은 route :294-303에서 근거 ID를 저장된 사용자 transcript에 매칭하고 quote를 실제 message.text 앞500자로 만든다. 잘못된 ID는 제거되므로 변환 후 빈 evidence가 되지 않는지도 검사해야 한다. :322는 `{axes}`를 rubric_scores에 저장한다.
 - `features/mission-reward/ui/mission-result-panel.tsx:58-73`은 모든 axis 점수와 첫 evidence quote/rationale를 표시한다.
@@ -18,7 +18,7 @@
 
 ## NFR-10
 
-- `docs/01-business/character-english-chat.business.md:467`: **UI 문자열과 학습 언어/설명 언어를 분리 가능하게 설계**. 사용자 locale switch UI, 모든 언어 번역, 영문UI 완성은 명시하지 않는다.
+- `docs/stock/business-design.md:467`: **UI 문자열과 학습 언어/설명 언어를 분리 가능하게 설계**. 사용자 locale switch UI, 모든 언어 번역, 영문UI 완성은 명시하지 않는다.
 - 같은 문서 :545의 초기 대상은 한국어 설명을 사용하는 Pre-A1~A2 성인이다.
 - `entities/learning-assistance/model/assistance.ts:11`은 suggestion/brief/explanation을 별도 필드로 두고 :37은 suggestion 영어, brief/explanation 한국어와 영어예시를 요구한다. 이미 학습내용/설명내용의 구조적 분리가 일부 존재한다.
 - `shared/api/ai/instructions.ts:24`는 영어회화/필요시한국어지원을 구분한다. UI레이블과 이 AI언어정책이 같은 값에 종속되어 있지는 않다.

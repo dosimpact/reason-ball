@@ -4,9 +4,9 @@
 
 ## 증거와 판정 원칙
 
-- 원문: `docs/01-business/character-english-chat.business.md:193`의 CHAR 10행, `:268`의 DISC 4행, `:290`의 캐릭터 생성 상세 여정. 상세 여정에 실제로 적힌 성격 자유 서술/정도 설정, 외형 설명 입력, 세 턴 샘플, 게시 정책 검사는 생략하지 않는다.
+- 원문: `docs/stock/business-design.md:193`의 CHAR 10행, `:268`의 DISC 4행, `:290`의 캐릭터 생성 상세 여정. 상세 여정에 실제로 적힌 성격 자유 서술/정도 설정, 외형 설명 입력, 세 턴 샘플, 게시 정책 검사는 생략하지 않는다.
 - 그래프 Verify 제한: 부모가 확인한 프로젝트는 todo/proxy뿐이다. 웹 대상 coverage 요청도 not indexed다. 웹 generation/심볼/coverage 증거가 없으므로 아래 정확한 파일을 직접 읽었다. 전체 저장소의 부재를 증명했다고 주장하지 않는다.
-- 실행 원장: `docs/03-validation/2026-09-11-live-e2e-progress.md:556`의 전체89 PASS는 당시 고정 코드의 역사적 증거다. 이후 `:644` home-resume+shell 4 PASS, `:654` profile counts 2 PASS, `:674` home-discovery 1 PASS 및 discovery/level 회귀6 PASS, `:685` 모바일 캐릭터/미션 키보드2 PASS를 각각 독립 증거로 사용한다. 합산을 단일 전체 실행으로 표현하지 않는다.
+- 실행 원장: `docs/flow/2026-09-11-live-e2e-progress.md:556`의 전체89 PASS는 당시 고정 코드의 역사적 증거다. 이후 `:644` home-resume+shell 4 PASS, `:654` profile counts 2 PASS, `:674` home-discovery 1 PASS 및 discovery/level 회귀6 PASS, `:685` 모바일 캐릭터/미션 키보드2 PASS를 각각 독립 증거로 사용한다. 합산을 단일 전체 실행으로 표현하지 않는다.
 - VERIFIED 후보는 원문에 적힌 수용 범위를 만족하는 실행 증거가 있다는 뜻이다. 모든 브라우저·모든 동시 조합·대규모 전역 순위·AI 이미지 생성까지 관련 없는 조건을 추가하지 않는다. 주 원장의 상태는 이 문서가 직접 변경하지 않는다.
 
 ## ID별 대조

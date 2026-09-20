@@ -71,7 +71,7 @@ RLS/Storage 정책 검증을 대신하지 않습니다. 환경변수는 `apps/we
 이 결과는 HTTP/API 통합 검사이며 브라우저 전체 E2E, 실제 AI 응답 생성,
 Storage 파일 업로드·다운로드 전체 흐름까지 검증한 결과는 아닙니다.
 
-후속 [E2E 재검증](../docs/03-validation/2026-09-10-supabase-e2e.md)에서는 실제
+후속 [E2E 재검증](../docs/flow/2026-09-10-supabase-e2e.md)에서는 실제
 Supabase를 사용하는 브라우저 시나리오 3개도 통과했습니다. 설정·미션 저장과
 대화 저장·복원을 확인했으며, AI 출력은 mock입니다. 실행 명령은
 `pnpm test:e2e:supabase`입니다.
