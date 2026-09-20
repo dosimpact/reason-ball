@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim
+FROM python:3.11-slim-bookworm
 
 WORKDIR /app
 
@@ -7,6 +7,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     UV_LINK_MODE=copy \
     CHATGPT_OAUTH_PROXY_HOST=0.0.0.0 \
     CHATGPT_OAUTH_PROXY_PORT=18741
+
+RUN pip install --no-cache-dir uv==0.12.6
 
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev

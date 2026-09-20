@@ -17,7 +17,7 @@ def prepare_responses_passthrough(body: dict) -> dict:
     ``input``, ``instructions``, ``tools`` flat, ``text.format``, etc.), so
     this function must NOT re-translate the payload.  It only:
 
-    - Maps the model name via ``_map_model`` (e.g. gpt-4o -> gpt-5.4-mini).
+    - Maps the model name via ``map_model`` (e.g. gpt-4o -> gpt-5.6-luna).
     - Forces ``store=False`` and ``stream=True`` (mandatory for Codex backend).
     - Injects a default ``instructions`` value when the caller omitted it
       (Codex requires the field to be present and non-empty).

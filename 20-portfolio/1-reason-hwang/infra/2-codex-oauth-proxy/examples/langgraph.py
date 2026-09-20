@@ -6,7 +6,7 @@ Start the proxy first:
 
 Then run:
 
-    OPENAI_BASE_URL=http://127.0.0.1:18741/v1 \
+    OPENAI_BASE_URL=http://127.0.0.1:2890/v1 \
     OPENAI_API_KEY=chatgpt-oauth-placeholder \
     uv run python examples/langgraph.py
 """
@@ -29,7 +29,7 @@ class State(TypedDict):
     answer: str
 
 
-llm = ChatOpenAI(model="gpt-5.4-mini")
+llm = ChatOpenAI(model="gpt-5.6-luna")
 
 
 def ask_model(state: State) -> State:

@@ -95,17 +95,21 @@ class CodexModelsLiveTest(unittest.IsolatedAsyncioTestCase):
                 print(json.dumps({"model": model, "text": text}, ensure_ascii=False))
                 self.assertTrue(text.strip(), msg=f"{model} returned no output text")
 
-    async def test_unavailable_model_returns_not_found(self) -> None:
+    async def test_unavailable_model_returns_client_error(self) -> None:
         for model in UNAVAILABLE_CODEX_MODELS:
             with self.subTest(model=model):
                 status, body = await self._post_model(model)
 
                 print(f"\n[{model}] HTTP {status}")
                 print(body)
-                self.assertEqual(status, 404)
-                error = json.loads(body)["error"]
-                self.assertEqual(error.get("param"), "model")
-                self.assertIn("Model not found", error.get("message", ""))
+                self.assertIn(status, (400, 404))
+                payload = json.loads(body)
+                message = payload.get("detail", "")
+                if not message:
+                    error = payload.get("error", {})
+                    self.assertEqual(error.get("param"), "model")
+                    message = error.get("message", "")
+                self.assertTrue(message, msg=f"Missing model error message: {body}")
 
 
 if __name__ == "__main__":

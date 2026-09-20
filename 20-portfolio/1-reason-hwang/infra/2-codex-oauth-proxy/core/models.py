@@ -1,20 +1,20 @@
 """Codex model IDs and compatibility aliases used by the proxy."""
 
-DEFAULT_CODEX_MODEL = "gpt-5.4-mini"
+DEFAULT_CODEX_MODEL = "gpt-5.6-luna"
 
 # Verified against POST https://chatgpt.com/backend-api/codex/responses.
 SUPPORTED_CODEX_MODELS = (
     "gpt-5.6-sol",
     "gpt-5.6-terra",
+    "gpt-5.6-luna",
     "gpt-5.5",
-    "gpt-5.4",
-    "gpt-5.4-mini",
     "gpt-5.3-codex-spark",
 )
 
 # Requested model IDs that the live Codex endpoint currently rejects.
 UNAVAILABLE_CODEX_MODELS = (
-    "gpt-5.6-luna",
+    "gpt-5.4",
+    "gpt-5.4-mini",
 )
 
 # Unsupported or legacy OpenAI model names mapped to a working Codex model.

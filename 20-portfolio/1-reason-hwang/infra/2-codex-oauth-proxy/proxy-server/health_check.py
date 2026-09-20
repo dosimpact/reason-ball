@@ -7,9 +7,9 @@ import sys
 
 from openai import OpenAI
 
-
-DEFAULT_BASE_URL = "http://127.0.0.1:18741/v1"
+DEFAULT_BASE_URL = "http://127.0.0.1:2890/v1"
 DEFAULT_API_KEY = "chatgpt-oauth-placeholder"
+DEFAULT_MODEL = "gpt-5.6-luna"
 DEFAULT_TIMEOUT_SECONDS = 10.0
 
 
@@ -23,7 +23,7 @@ def main() -> int:
 
     try:
         response = client.chat.completions.create(
-            model="gpt-5.4-mini",
+            model=DEFAULT_MODEL,
             messages=[{"role": "user", "content": "한 문장으로 인사해줘."}],
         )
         content = response.choices[0].message.content

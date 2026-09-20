@@ -3,7 +3,7 @@
 Run from chatgpt-oauth-proxy after starting the proxy:
 
     uv run python proxy-server/main.py --serve
-    OPENAI_BASE_URL=http://127.0.0.1:18741/v1 \
+    OPENAI_BASE_URL=http://127.0.0.1:2890/v1 \
     OPENAI_API_KEY=chatgpt-oauth-placeholder \
     uv run python examples/sdk.py
 """
@@ -14,7 +14,7 @@ from openai import OpenAI
 def main() -> None:
     client = OpenAI()
     resp = client.chat.completions.create(
-        model="gpt-5.4-mini",
+        model="gpt-5.6-luna",
         messages=[{"role": "user", "content": "한 문장으로 인사해줘."}],
     )
     print(resp.choices[0].message.content)
