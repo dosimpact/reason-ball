@@ -60,12 +60,11 @@ test('configuration validates once with safe errors and documented defaults', ()
   const defaults = readEnvironment({}, '/tmp/test-config');
   assert.equal(defaults.appPort, 2801);
   assert.equal(defaults.secRetryCount, 3);
-  assert.equal(defaults.secBackfillRetentionYears, 20);
   assert.equal(readEnvironment({ PORT: '0', APP_PORT: '1234' }).appPort, 0);
   assert.equal(readEnvironment({ APP_PORT: '1234' }).appPort, 1234);
   for (const env of [
     { POSTGRES_PORT: 'bad' }, { PORT: '70000' }, { SEC_RETRY_COUNT: '-1' },
-    { SEC_DOCUMENT_MAX_BYTES: '0' }, { SEC_BACKFILL_RETENTION_YEARS: '31' },
+    { SEC_DOCUMENT_MAX_BYTES: '0' },
     { SEC_RATE_LIMIT_RPS: '1x' }, { SWAGGER_ENABLED: 'yes' },
     { SEC_BULK_SUBMISSIONS_URL: 'file:///secret' },
   ]) assert.throws(() => readEnvironment(env));

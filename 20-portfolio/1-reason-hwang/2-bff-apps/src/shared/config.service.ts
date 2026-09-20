@@ -22,10 +22,8 @@ export class AppConfigService {
   get secRetryCount() { return this.settings.secRetryCount; }
   get secDocumentMaxBytes() { return this.settings.secDocumentMaxBytes; }
   get secBulkSubmissionsUrl() { return this.settings.secBulkSubmissionsUrl; }
-  get secBackfillRetentionYears() { return this.settings.secBackfillRetentionYears; }
   get secBackfillBatchSize() { return this.settings.secBackfillBatchSize; }
   get dataDir() { return this.settings.dataDir; }
-  get filingsDir() { return this.settings.filingsDir; }
   get secBulkArchivePath() { return this.settings.secBulkArchivePath; }
   get swaggerEnabled() { return this.settings.swaggerEnabled; }
 }
@@ -78,10 +76,8 @@ export function readEnvironment(env: NodeJS.ProcessEnv, cwd = process.cwd()) {
     secRetryCount: integer('SEC_RETRY_COUNT', 3, 0),
     secDocumentMaxBytes: integer('SEC_DOCUMENT_MAX_BYTES', 32 * 1024 * 1024, 1),
     secBulkSubmissionsUrl: url('SEC_BULK_SUBMISSIONS_URL', 'https://www.sec.gov/Archives/edgar/daily-index/bulkdata/submissions.zip', ['http:', 'https:']),
-    secBackfillRetentionYears: integer('SEC_BACKFILL_RETENTION_YEARS', 20, 1, 30),
     secBackfillBatchSize: integer('SEC_BACKFILL_BATCH_SIZE', 500, 1),
     dataDir,
-    filingsDir: path.resolve(dataDir, 'filings'),
     secBulkArchivePath: path.resolve(dataDir, 'sec-cache', 'submissions.zip'),
     swaggerEnabled: swagger === 'true',
   });

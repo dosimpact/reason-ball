@@ -1,0 +1,32 @@
+# BFF Apps
+
+NestJS SEC 공시 수집·조회 API와 Vite Remote 전달 서버. 기본 포트 2801.
+
+- [디렉터리 정책](../docs/stock/tech-shared/2-bff-apps/directory-policy.md)
+- [BFF 문서 지도](../docs/stock/tech-shared/2-bff-apps/INDEX.md)
+- [업무·저장·수정본 연결 설계](../docs/stock/us-corporate-filings/system-design.md)
+- [API 명세](src/us-corporate-filings/.docs/api-spec.md) / [SEC upstream](src/lib/sec/.docs/api-spec.md)
+- [Bruno 사용법](bruno-api-tests/README.md)
+
+명령은 워크스페이스 루트 `1-reason-hwang`에서 실행한다.
+
+```sh
+pnpm --filter @reason-hwang/bff-apps dev
+pnpm --filter @reason-hwang/bff-apps test
+pnpm --filter @reason-hwang/bff-apps lint
+pnpm --filter @reason-hwang/bff-apps test:companies:e2e
+pnpm --filter @reason-hwang/bff-apps test:filing-routes:e2e
+```
+
+실제 수집은 명시적으로 실행한다. `node scripts/run-sec-backfill.cjs 20`은 회사 전체 동기화 후 20년 공시 메타데이터→원문을 수집하며 configured DB를 변경한다. 실행 중이라면 재시작하지 말고 `tail -f data/runs/20-year-backfill.log`로 현재 기록을 확인한다.
+
+## 파일 유지 기준
+
+- `src/`: 단일 업무 모듈, SEC lib, shared 설정, remote 전달.
+- `remotes/template`, `remotes/todo`: workspace와 전달 서버에 등록된 실제 앱.
+- `scripts/`: fixture HTTP 검증, 실제 수집, opt-in 단일 원문 검증, 기존 파일 이관. package.json에서 참조하거나 문서화된 실행 도구다.
+- `tests/`: Node 회귀 및 격리 Bruno HTTP 테스트. `bruno-api-tests/`는 사용자가 실제 환경에 호출하는 컬렉션이므로 별도로 유지한다.
+- `migrations/`: 이미 적용된 이력은 삭제하거나 다시 작성하지 않는다. 과거 작업 테이블 생성 이력도 보존하되 현재 API는 작업 테이블을 사용하지 않는다.
+- `data/`, 환경 파일, 실행 로그, node_modules, dist는 로컬 런타임/산출물이다. 특히 실행 중인 백필의 data·ZIP·로그를 삭제하지 않는다. 빌드는 deleteOutDir로 오래된 dist 출력을 교체한다.
+
+백필 기간은 요청 body의 years(기본 20, 최대 30)로 지정한다. 미사용 SEC_BACKFILL_RETENTION_YEARS 환경 설정은 제거했다.

@@ -79,7 +79,7 @@ PostgreSQL 접속은 BFF 환경 설정을 따른다. 기본 논리 DB 이름은 
 
 기존 파일이 있는 환경에서는 `pnpm --filter @reason-hwang/bff-apps sec:import-files`로 이관한다. 50행 keyset 페이지로 순회하고 한 문서씩 크기를 제한해 읽는다. 기존 checksum과 다르면 적재하지 않는다. 본문이 NULL인 행에만 원자적 저장하므로 재실행 가능하다. 누락/손상 파일은 보존된 metadata로 다시 다운로드할 수 있다. 파일은 자동 삭제하지 않는다.
 
-현재 로컬 DB는 구현 전 filings 0행이었으므로 이관 대상이 없었다. 기존 파일 서비스와의 무중단 이중 읽기를 구현하지 않고 DB 원문 조회로 바로 전환했다. 다운 마이그레이션은 본문을 보존하지만 구버전 애플리케이션은 DB-only 원문을 읽지 못하므로, 스키마 rollback만으로 구버전 호환이 복구되지는 않는다.
+현재 조회는 DB 원문을 사용하며 파일 시스템 fallback은 없다. 다운 마이그레이션은 본문을 보존하지만 구버전 애플리케이션은 DB-only 원문을 읽지 못하므로, 스키마 rollback만으로 구버전 호환이 복구되지는 않는다.
 
 ## 운영과 검증
 
@@ -94,7 +94,7 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 - 일반 test는 외부 네트워크/DB 없이 Node test runner로 회귀 검증한다.
 - test:sec-live는 명시적 실행 시 실제 Apple 10-K와 회사 metadata를 설정된 sec_collector에 저장한다. 임시 localhost 포트의 API 서버를 닫지만 실데이터는 DB에 남긴다.
 - SEC HTTP 원문은 로그에 출력하지 않는다. 원문 HTML을 브라우저에서 직접 실행하지 않도록 소비자가 처리해야 한다.
-- 실제 SEC 연락처를 `SEC_USER_AGENT`에 설정해야 한다. 현재 로컬 예시 연락처 상태에서도 이번 요청은 성공했지만 운영 설정 보완이 필요하다.
+- 실제 SEC 연락처를 `SEC_USER_AGENT`에 설정해야 한다. 예시 연락처를 운영 설정으로 사용하지 않는다.
 - PostgreSQL volume 백업/복원 정책은 원문까지 포함해야 한다. 백업 복원 실험, 다중 인스턴스 부하 시험, 비 UTF-8 공시 지원은 이번 검증 범위 밖이다.
 - SQL SHA-256은 PostgreSQL 16 내장 함수 사용: [공식 binary string 함수 문서](https://www.postgresql.org/docs/16/functions-binarystring.html).
 
@@ -126,7 +126,7 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 
 ## 검증과 실데이터 실행
 
-- Node 회귀 테스트, TypeScript lint, 격리 PostgreSQL+Nest Bruno: 회사 pagination 24개, 백필/SSE 30개 시나리오.
+- Node 회귀 테스트, TypeScript lint, 격리 PostgreSQL+Nest Bruno: 회사 pagination 24개, 백필/SSE·수정본 37개 시나리오.
 - 추가 HTTP 스트림 검증: started가 작업 완료 전에 도착, metadata-only가 본문 없이 pending 저장, bulk 원문 조회 왕복, 작업 이력 테이블 쓰기 없음.
 - Swagger MCP: 특정 기업 메타데이터→문서→completed, 잘못된 대상 400, 저장 원문 재조회.
 - 실제 실행: `node scripts/run-sec-backfill.cjs 20`은 별도 임시 포트에서 회사 전체 동기화 후 전체 기업 20년 백필을 실행한다. configured DB를 변경하므로 명시적 요청 시만 실행한다. `DATA_DIR/runs`에 SSE 기록을 남긴다.
