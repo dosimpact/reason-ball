@@ -23,3 +23,10 @@ GitHub Primer의 중립적인 light 스타일을 참고한 Planner 팔레트입�
 - 720px 이하에서는 주요 메뉴를 safe-area를 반영한 하단 내비게이션으로 표시합니다. 주요 터치 대상은 최소 44px, 입력 글자는 16px로 유지하고 편집 도구 모음은 가로 스크롤을 허용합니다.
 - 모바일 Dialog는 화면 가장자리 여백 8px 이내의 큰 작업면을 사용합니다. 프로젝트 drawer는 화면 왼쪽에서 열리고, Esc·닫기 후 호출 버튼으로 포커스를 돌려보냅니다.
 - 참고: [Primer 색상과 토큰](https://primer.style/product/primitives/), [shadcn/ui](https://ui.shadcn.com/docs).
+
+## 사이드바 접기
+
+- 데스크톱(1001px 이상)에서 사이드바 상단 버튼으로 탐색 영역을 접고 펼친다. 펼침 240px, 접힘 52px이며 접힌 상태에도 복원 버튼이 남는다.
+- 버튼은 aria-expanded/aria-controls, 상태별 접근 가능한 이름과 tooltip을 제공한다. Enter/Space로 조작하며 토글 후 포커스를 유지한다.
+- 검색과 본문 컴포넌트는 유지하므로 작성 중인 내용이 사라지지 않는다. 새로고침 시 기본 펼침 상태로 시작한다.
+- 1000px 이하에서는 데스크톱 사이드바 전체를 숨기고 기존 프로젝트 drawer를 사용한다.

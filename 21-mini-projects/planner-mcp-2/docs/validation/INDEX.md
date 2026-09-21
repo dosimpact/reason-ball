@@ -85,3 +85,5 @@ Bruno 실제 HTTP와 MCP SDK, Playwright Chromium은 소유 서버·임시 DB로
 ## MCP만 사용하는 종합 데모
 
 [요구사항 전체 대응 및 실행 결과](mcp-demo/INDEX.md): 실제 MCP 24개 도구로 설계·기존 구현 설명·검증 문서를 작성한 보존 데모입니다. 41개 MCP 검사 PASS, 14개 사람 확인 대기. UI·Storybook·Bruno·원본 템플릿 변경·사람 확인은 MCP 통과 결과에 포함하지 않습니다. 이전 통합 검증 결과와 이번 실행의 증거를 구분합니다.
+
+- SIDEBAR-01: 데스크톱 접기/펼치기 시 작업 영역 188px 확장·복원, Enter/Space·포커스·aria-expanded, 검색과 편집 초안 보존. 모바일 drawer 및 기존 패널·독립 스크롤 회귀. [실행 기록](../flow/2026-09-22-collapsible-sidebar.md).

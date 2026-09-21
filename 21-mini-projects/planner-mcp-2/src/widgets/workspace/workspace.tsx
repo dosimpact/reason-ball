@@ -21,6 +21,7 @@ import { api, missingAs } from "@/shared/api";
 import { DocumentEditor } from "./document-editor";
 import { TemplateManager } from "./template-manager";
 import { WorkspacePanels } from "./workspace-panels";
+import { WorkspaceShell } from "./workspace-shell";
 import {
   BookOpen,
   FolderGit2,
@@ -529,10 +530,7 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
           </Button>
         </div>
       )}
-      <div className="shell">
-        <aside className="sidebar" aria-label="프로젝트 탐색">
-          {projectNavigation()}
-        </aside>
+      <WorkspaceShell navigation={projectNavigation()}>
         <main>
           {tab === "guide" ? (
             guide
@@ -916,7 +914,7 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
             />
           )}
         </main>
-      </div>
+      </WorkspaceShell>
       {createParent && (
         <CreateDocumentDialog
           key={createParent.id}

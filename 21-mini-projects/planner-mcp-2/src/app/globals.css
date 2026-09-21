@@ -232,6 +232,29 @@ a {
   border-right: 1px solid var(--border);
   background: var(--background);
 }
+.sidebar-toggle-row {
+  padding: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-toggle {
+  min-width: 44px;
+  min-height: 44px;
+}
+.sidebar-navigation {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.sidebar-navigation[hidden] {
+  display: none;
+}
+@media (min-width: 1001px) {
+  .shell.shell-sidebar-collapsed {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+}
 .sidebar-content {
   flex: 1;
   min-height: 0;
