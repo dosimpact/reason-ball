@@ -106,7 +106,7 @@ def build_dynamic_tool(model):
 
 @tool(return_direct=True)
 def display_flight(flight_id: str = "demo-icn-nrt") -> str:
-    """Display a fictional flight: demo-icn-nrt or demo-pus-kix. This never books a flight."""
+    """Display a fictional flight by its exact ID from the available flights in the system prompt. Never books a flight."""
     operations = flight_operations(flight_id)
     validate_operations("fixed", operations)
     return a2ui.render(operations)
@@ -120,7 +120,11 @@ def build_graph(mode: Mode, model):
         state_schema=DemoState,
         system_prompt=SALES_INSTRUCTION if mode == "dynamic" else (
             "Show fictional flights using display_flight, once per requested flight. "
-            "Never claim to book tickets. Reply briefly in Korean. Available flights: "
+            "Never claim to book tickets or report real availability/prices. Reply briefly in Korean. "
+            "Map cities to demo airports: 인천/서울=ICN, 도쿄=NRT, 부산=PUS, 오사카=KIX, 방콕=BKK, 싱가포르=SIN. "
+            "Respect the requested direction. For a route absent from the data, do not call display_flight; "
+            "say '데모 데이터에 해당 노선이 없습니다. 실제 항공편 운항 여부를 조회한 결과는 아닙니다.' "
+            "and suggest an available demo route. All prices are fictional. Available flights: "
             + json.dumps(FLIGHTS)
         ),
     )
@@ -138,6 +142,13 @@ def build_graph(mode: Mode, model):
                 if operations:
                     surfaces = validate_operations(mode, operations, existing=surfaces)
                     generated = True
+        if not generated and mode == "fixed" and any(
+            isinstance(message, AIMessage) and message.content for message in new_messages
+        ) and not any(isinstance(message, ToolMessage) or (
+            isinstance(message, AIMessage) and message.tool_calls
+        ) for message in new_messages):
+            # Unsupported routes and clarification questions are valid text-only turns.
+            return {"messages": new_messages, "surfaces": surfaces, "a2ui_action": None}
         if not generated:
             raise ContractError("The model returned no A2UI surface; please retry")
         await adispatch_custom_event("a2ui.progress", {"stage": "delivering"})

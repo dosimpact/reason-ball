@@ -125,3 +125,24 @@ async def test_action_ignores_cancelled_client_tool_fragments():
     events = [event async for event in agent.run(prepared)]
     assert any(event.type == "RUN_FINISHED" for event in events)
     assert not any(event.type == "RUN_ERROR" for event in events)
+
+
+@pytest.mark.asyncio
+async def test_fixed_unavailable_route_is_text_only_and_can_recover():
+    graph = build_graph("fixed", ToolModel(responses=[
+        AIMessage(content="데모 데이터에 해당 노선이 없습니다."),
+        AIMessage(content="", tool_calls=[{
+            "id": "reverse-call", "name": "display_flight",
+            "args": {"flight_id": "demo-nrt-icn"},
+        }]),
+        AIMessage(content="가상 항공편입니다."),
+    ]))
+    config: RunnableConfig = {"configurable": {"thread_id": "unsupported-recovery"}}
+    result = await graph.ainvoke({
+        "messages": [HumanMessage(content="파리에서 뉴욕")], "surfaces": {},
+    }, config)
+    assert result["surfaces"] == {}
+    assert result["messages"][-1].content == "데모 데이터에 해당 노선이 없습니다."
+    result = await graph.ainvoke({"messages": [HumanMessage(content="도쿄에서 인천")]}, config)
+    data = next(iter(result["surfaces"].values()))["data"]
+    assert (data["origin"], data["destination"], data["price"]) == ("NRT", "ICN", "$279")

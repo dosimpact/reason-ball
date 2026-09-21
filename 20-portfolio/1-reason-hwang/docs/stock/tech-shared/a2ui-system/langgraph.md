@@ -13,6 +13,8 @@
 
 `workflow.py`는 생성과 사용자 action을 분기한다. Dynamic의 facts는 서버가 계산하고 모델은 구조와 허용 바인딩을 선택한다. Fixed의 항공편 트리는 `schemas/flight.json`이며 선택 상태만 변경한다. 실제 예약은 하지 않는다.
 
+Fixed 샘플은 인천(ICN)↔도쿄(NRT), 인천↔오사카(KIX), 부산(PUS)↔오사카, 인천↔방콕(BKK), 인천↔싱가포르(SIN)의 양방향 총 10편이다. 항공사와 가격은 가상이며 실시간 검색을 하지 않는다. 없는 노선은 데모 데이터 부재임을 안내하고 실제 운항 불가로 단정하지 않는다. 도시 이름은 위 샘플 공항으로 해석하되 명시된 공항 코드와 요청 방향을 따른다. Fixed의 도구 호출 없는 텍스트 안내/추가 질문은 정상 종료하며 기존 surface를 보존한다. 도구 호출이 있었는데 surface 생성에 실패한 경우와 Dynamic의 무출력은 계속 오류로 처리한다.
+
 ## 모델 설정
 
 `A2UI_MODEL_PROVIDER=oauth-proxy|api-key`를 명시한다. `A2UI_MODEL`, `A2UI_MODEL_BASE_URL`, `A2UI_MODEL_API_KEY`로 전용 연결을 설정한다. API-key 모드는 placeholder를 거절한다. OAuth 모드는 Responses API의 typed system 메시지를 developer 역할로 변환한다. 자동 제공자 전환은 없다. 비밀값은 환경 또는 로컬 비추적 설정으로 관리한다.

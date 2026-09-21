@@ -10,6 +10,14 @@ SALES = [
 ]
 FLIGHTS = {
     "demo-icn-nrt": {"origin": "ICN", "destination": "NRT", "airline": "Demo Air", "price": "$289"},
+    "demo-nrt-icn": {"origin": "NRT", "destination": "ICN", "airline": "Demo Air", "price": "$279"},
+    "demo-icn-kix": {"origin": "ICN", "destination": "KIX", "airline": "Sample Airlines", "price": "$239"},
+    "demo-kix-icn": {"origin": "KIX", "destination": "ICN", "airline": "Sample Airlines", "price": "$229"},
+    "demo-kix-pus": {"origin": "KIX", "destination": "PUS", "airline": "Sample Airlines", "price": "$209"},
+    "demo-icn-bkk": {"origin": "ICN", "destination": "BKK", "airline": "Demo Air", "price": "$359"},
+    "demo-bkk-icn": {"origin": "BKK", "destination": "ICN", "airline": "Demo Air", "price": "$349"},
+    "demo-icn-sin": {"origin": "ICN", "destination": "SIN", "airline": "Demo Air", "price": "$399"},
+    "demo-sin-icn": {"origin": "SIN", "destination": "ICN", "airline": "Demo Air", "price": "$389"},
     "demo-pus-kix": {"origin": "PUS", "destination": "KIX", "airline": "Sample Airlines", "price": "$219"},
 }
 
