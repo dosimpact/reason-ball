@@ -1,0 +1,7 @@
+headers {
+  Content-Type: application/json
+}
+
+script:post-response {
+  console.log(req.getMethod(), res.getStatus());
+}

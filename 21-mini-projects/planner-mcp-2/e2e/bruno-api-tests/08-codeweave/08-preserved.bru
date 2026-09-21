@@ -1,0 +1,16 @@
+meta {
+  name: preserved
+  type: http
+  seq: 8
+}
+get {
+  url: {{baseUrl}}/api/documents/{{cwDocument}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("preserved", function() { expect(res.getBody().extensions[1].type).to.equal('react-flow-diagram'); expect(res.getBody().revision).to.equal(2); });
+}

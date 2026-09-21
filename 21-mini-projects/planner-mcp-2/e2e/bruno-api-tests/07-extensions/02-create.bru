@@ -1,0 +1,45 @@
+meta {
+  name: extension-create
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/documents
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "projectId": "{{extensionProjectId}}",
+    "title": "Diagram",
+    "phase": "design",
+    "kind": "design-verification",
+    "extensions": [
+      {
+        "id": "flow",
+        "type": "react-flow-diagram",
+        "title": "API diagram",
+        "schemaVersion": 1,
+        "data": {
+          "nodes": [
+            {
+              "id": "start",
+              "label": "Start",
+              "position": {
+                "x": 0,
+                "y": 0
+              }
+            }
+          ],
+          "edges": []
+        }
+      }
+    ]
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("create", function() { bru.setVar('extensionDocumentId',res.getBody().id); expect(res.getBody().extensions[0].data.nodes[0].label).to.equal('Start'); });
+}

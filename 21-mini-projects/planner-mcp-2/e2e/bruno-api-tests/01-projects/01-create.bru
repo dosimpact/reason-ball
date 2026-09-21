@@ -1,0 +1,26 @@
+meta {
+  name: 01-projects-create
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/projects
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "Bruno project"
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("create", function() {
+    expect(res.getStatus()).to.equal(200);
+    const p=res.getBody(); bru.setVar('projectId',p.id); bru.setVar('nodeId',p.nodes[0].id); bru.setVar('indexId',p.indexes.find(i=>i.phase==='design').id); expect(p.indexes).to.have.length(3); expect(p.nodes).to.have.length(3);
+  });
+}

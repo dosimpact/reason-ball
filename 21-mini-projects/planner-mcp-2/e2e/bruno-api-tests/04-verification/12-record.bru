@@ -1,0 +1,27 @@
+meta {
+  name: 04-verification-record
+  type: http
+  seq: 12
+}
+post {
+  url: {{baseUrl}}/api/documents/{{documentId}}/verification
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "body": "First verification",
+    "expectedRevision": 5
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("record", function() {
+    expect(res.getStatus()).to.equal(200);
+    bru.setVar('resultId',res.getBody().id); expect(res.getBody().kind).to.equal('verification-result');
+  });
+}

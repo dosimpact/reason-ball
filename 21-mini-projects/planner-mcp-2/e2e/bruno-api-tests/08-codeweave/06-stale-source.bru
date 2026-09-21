@@ -1,0 +1,27 @@
+meta {
+  name: stale-source
+  type: http
+  seq: 6
+}
+patch {
+  url: {{baseUrl}}/api/documents/{{cwDocument}}/codeweave/cw
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedRevision": 2,
+    "expectedSource": "[App]\n  -> FLOW: 시작\n    -> (+) Custom: 처리 // 설명",
+    "nodeId": "line:3",
+    "patch": {
+      "text": "수정",
+      "inlineComment": "변경 설명"
+    }
+  }
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("stale-source", function() { expect(res.getBody().error).to.include('Source changed'); });
+}

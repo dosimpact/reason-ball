@@ -1,0 +1,35 @@
+meta {
+  name: 02-templates-create
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/templates
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "bruno-template",
+    "title": "Bruno template",
+    "kind": "design-verification",
+    "body": "Original design",
+    "example": "Example",
+    "prompt": "Verify",
+    "checklist": [
+      "Login",
+      "Error"
+    ]
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("create", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().revision).to.equal(1);
+  });
+}

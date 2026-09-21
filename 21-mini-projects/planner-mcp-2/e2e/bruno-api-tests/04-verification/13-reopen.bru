@@ -1,0 +1,30 @@
+meta {
+  name: 04-verification-reopen
+  type: http
+  seq: 13
+}
+post {
+  url: {{baseUrl}}/api/documents/{{documentId}}/reopen
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "affectedItemIds": [
+      "{{firstId}}"
+    ],
+    "reason": "Changed login",
+    "expectedRevision": 6
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("reopen", function() {
+    expect(res.getStatus()).to.equal(200);
+    const d=res.getBody(); expect(d.status).to.equal('reopen'); expect(d.checklist.find(i=>i.id===bru.getVar('firstId')).humanConfirmed).to.equal(false); expect(d.checklist.find(i=>i.id===bru.getVar('secondId')).humanConfirmed).to.equal(true);
+  });
+}

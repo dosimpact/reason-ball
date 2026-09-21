@@ -1,0 +1,20 @@
+meta {
+  name: 06-cleanup-cascade
+  type: http
+  seq: 20
+}
+get {
+  url: {{baseUrl}}/api/documents/{{documentId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+}
+tests {
+  test("cascade", function() {
+    expect(res.getStatus()).to.equal(404);
+    expect(res.getBody().error).to.include('not found');
+  });
+}

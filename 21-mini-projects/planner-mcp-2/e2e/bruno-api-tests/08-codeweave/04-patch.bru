@@ -1,0 +1,27 @@
+meta {
+  name: patch
+  type: http
+  seq: 4
+}
+patch {
+  url: {{baseUrl}}/api/documents/{{cwDocument}}/codeweave/cw
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedRevision": 1,
+    "expectedSource": "[App]\n  -> FLOW: 시작\n    -> (+) Custom: 처리 // 설명",
+    "nodeId": "line:3",
+    "patch": {
+      "text": "수정",
+      "inlineComment": "변경 설명"
+    }
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("patch", function() { expect(res.getBody().selected.text).to.equal('수정'); expect(res.getBody().revision).to.equal(2); });
+}

@@ -1,0 +1,22 @@
+meta {
+  name: preserve-node-position
+  type: http
+  seq: 4
+}
+patch {
+  url: {{baseUrl}}/api/projects/{{projectId}}/nodes/{{nodeId}}
+  body: json
+  auth: none
+}
+body:json {
+  { "label": "Moved design", "phase": "design", "documentId": "{{indexId}}", "position": 0 }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("preserve-node-position", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().coordinates).to.deep.equal({x:275.5,y:-40});
+  });
+}

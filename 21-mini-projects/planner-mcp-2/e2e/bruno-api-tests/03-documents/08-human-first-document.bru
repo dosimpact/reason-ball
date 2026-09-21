@@ -1,0 +1,22 @@
+meta {
+  name: human-first-document
+  type: http
+  seq: 8
+}
+post {
+  url: {{baseUrl}}/api/documents
+  body: json
+  auth: none
+}
+body:json {
+  { "projectId": "{{projectId}}", "title": "Human first", "phase": "design", "templateName": "view" }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("pending document", function() {
+    const d = res.getBody(); bru.setVar('humanDoc', d.id); bru.setVar('humanItem', d.checklist[0].id);
+    expect(d.checklist[0].aiResult).to.equal('pending');
+  });
+}

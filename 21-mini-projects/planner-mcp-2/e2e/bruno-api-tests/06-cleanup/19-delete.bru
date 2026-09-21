@@ -1,0 +1,24 @@
+meta {
+  name: 06-cleanup-delete
+  type: http
+  seq: 19
+}
+delete {
+  url: {{baseUrl}}/api/projects/{{projectId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {}
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("delete", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().deleted).to.equal(bru.getVar('projectId'));
+  });
+}

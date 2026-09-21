@@ -1,0 +1,27 @@
+meta {
+  name: 04-verification-record-again
+  type: http
+  seq: 14
+}
+post {
+  url: {{baseUrl}}/api/documents/{{documentId}}/verification
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "body": "Second verification",
+    "expectedRevision": 7
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("record-again", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().id).to.equal(bru.getVar('resultId')); expect(res.getBody().body).to.equal('Second verification');
+  });
+}

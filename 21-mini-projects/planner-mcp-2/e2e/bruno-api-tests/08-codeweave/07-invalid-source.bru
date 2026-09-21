@@ -1,0 +1,32 @@
+meta {
+  name: invalid-source
+  type: http
+  seq: 7
+}
+patch {
+  url: {{baseUrl}}/api/documents/{{cwDocument}}
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedRevision": 2,
+    "extensions": [
+      {
+        "id": "cw",
+        "title": "CW",
+        "type": "codeweave",
+        "schemaVersion": 1,
+        "data": {
+          "source": "[App]\n   broken"
+        }
+      }
+    ]
+  }
+}
+assert {
+  res.status: eq 400
+}
+tests {
+  test("invalid-source", function() { expect(res.getBody().issues.length).to.be.greaterThan(0); });
+}

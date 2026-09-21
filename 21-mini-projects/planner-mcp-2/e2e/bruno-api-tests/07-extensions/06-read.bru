@@ -1,0 +1,16 @@
+meta {
+  name: extension-read
+  type: http
+  seq: 6
+}
+get {
+  url: {{baseUrl}}/api/documents/{{extensionDocumentId}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("read", function() { expect(res.getBody().extensions[0].title).to.equal('Updated diagram'); });
+}

@@ -1,0 +1,29 @@
+meta {
+  name: 03-documents-instantiate
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/documents
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "projectId": "{{projectId}}",
+    "title": "Login",
+    "phase": "design",
+    "templateName": "bruno-template"
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("instantiate", function() {
+    expect(res.getStatus()).to.equal(200);
+    const d=res.getBody(); bru.setVar('documentId',d.id); bru.setVar('firstId',d.checklist[0].id); bru.setVar('secondId',d.checklist[1].id); expect(d.body).to.equal('Original design');
+  });
+}

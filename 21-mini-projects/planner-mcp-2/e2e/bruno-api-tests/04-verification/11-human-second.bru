@@ -1,0 +1,27 @@
+meta {
+  name: 04-verification-human-second
+  type: http
+  seq: 11
+}
+post {
+  url: {{baseUrl}}/api/documents/{{documentId}}/checklist/{{secondId}}/confirm
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "confirmed": true,
+    "expectedRevision": 4
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("human-second", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().status).to.equal('verified');
+  });
+}

@@ -1,0 +1,35 @@
+meta {
+  name: 03-documents-update-template
+  type: http
+  seq: 6
+}
+patch {
+  url: {{baseUrl}}/api/templates/bruno-template
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "bruno-template",
+    "title": "Updated template",
+    "kind": "design-verification",
+    "body": "New template body",
+    "example": "Example",
+    "prompt": "New prompt",
+    "checklist": [
+      "Changed"
+    ],
+    "expectedRevision": 1
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("update-template", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().revision).to.equal(2);
+  });
+}

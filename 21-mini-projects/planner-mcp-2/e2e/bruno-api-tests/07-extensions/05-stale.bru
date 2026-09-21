@@ -1,0 +1,22 @@
+meta {
+  name: extension-stale
+  type: http
+  seq: 5
+}
+patch {
+  url: {{baseUrl}}/api/documents/{{extensionDocumentId}}
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedRevision": 1,
+    "extensions": []
+  }
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("stale", function() { expect(res.getBody().error).to.include('revision'); });
+}

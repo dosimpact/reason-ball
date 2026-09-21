@@ -1,0 +1,30 @@
+meta {
+  name: 05-errors-bad-reopen
+  type: http
+  seq: 17
+}
+post {
+  url: {{baseUrl}}/api/documents/{{documentId}}/reopen
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "affectedItemIds": [
+      "absent"
+    ],
+    "reason": "Bad",
+    "expectedRevision": 8
+  }
+}
+
+assert {
+  res.status: eq 400
+}
+tests {
+  test("bad-reopen", function() {
+    expect(res.getStatus()).to.equal(400);
+    expect(res.getBody().error).to.include('Unknown');
+  });
+}

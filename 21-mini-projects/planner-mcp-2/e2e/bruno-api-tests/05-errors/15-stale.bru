@@ -1,0 +1,27 @@
+meta {
+  name: 05-errors-stale
+  type: http
+  seq: 15
+}
+patch {
+  url: {{baseUrl}}/api/documents/{{documentId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "body": "Overwrite",
+    "expectedRevision": 1
+  }
+}
+
+assert {
+  res.status: eq 409
+}
+tests {
+  test("stale", function() {
+    expect(res.getStatus()).to.equal(409);
+    expect(res.getBody().error).to.include('revision');
+  });
+}

@@ -1,0 +1,45 @@
+meta {
+  name: mixed-create
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/documents
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "projectId": "{{cwProject}}",
+    "title": "Mixed",
+    "phase": "design",
+    "kind": "design-verification",
+    "extensions": [
+      {
+        "id": "cw",
+        "title": "CodeWeave",
+        "type": "codeweave",
+        "schemaVersion": 1,
+        "data": {
+          "source": "[App]\n  -> FLOW: 시작\n    -> (+) Custom: 처리 // 설명"
+        }
+      },
+      {
+        "id": "diagram",
+        "title": "Flow",
+        "type": "react-flow-diagram",
+        "schemaVersion": 1,
+        "data": {
+          "nodes": [],
+          "edges": []
+        }
+      }
+    ]
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("mixed-create", function() { bru.setVar('cwDocument', res.getBody().id); expect(res.getBody().extensions).to.have.length(2); });
+}

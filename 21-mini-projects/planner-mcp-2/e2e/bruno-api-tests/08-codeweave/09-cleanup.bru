@@ -1,0 +1,19 @@
+meta {
+  name: cleanup
+  type: http
+  seq: 9
+}
+delete {
+  url: {{baseUrl}}/api/projects/{{cwProject}}
+  body: json
+  auth: none
+}
+body:json {
+  {}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("cleanup", function() { expect(res.getStatus()).to.equal(200); });
+}

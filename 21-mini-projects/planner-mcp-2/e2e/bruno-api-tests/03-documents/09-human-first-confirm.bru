@@ -1,0 +1,23 @@
+meta {
+  name: human-first-confirm
+  type: http
+  seq: 9
+}
+post {
+  url: {{baseUrl}}/api/documents/{{humanDoc}}/checklist/{{humanItem}}/confirm
+  body: json
+  auth: none
+}
+body:json {
+  { "confirmed": true, "expectedRevision": 1 }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("human confirms pending AI", function() {
+    expect(res.getBody().checklist[0].humanConfirmed).to.equal(true);
+    expect(res.getBody().checklist[0].aiResult).to.equal('pending');
+    expect(res.getBody().status).to.equal('in-progress');
+  });
+}

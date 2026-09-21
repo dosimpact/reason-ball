@@ -1,0 +1,20 @@
+meta {
+  name: 03-documents-snapshot
+  type: http
+  seq: 7
+}
+get {
+  url: {{baseUrl}}/api/documents/{{documentId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("snapshot", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().body).to.equal('Original design'); expect(res.getBody().checklist).to.have.length(2);
+  });
+}

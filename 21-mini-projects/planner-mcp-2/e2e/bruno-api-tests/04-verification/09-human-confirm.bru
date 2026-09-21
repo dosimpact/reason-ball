@@ -1,0 +1,27 @@
+meta {
+  name: 04-verification-human-confirm
+  type: http
+  seq: 9
+}
+post {
+  url: {{baseUrl}}/api/documents/{{documentId}}/checklist/{{firstId}}/confirm
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "confirmed": true,
+    "expectedRevision": 2
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("human-confirm", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().checklist[0].humanConfirmed).to.equal(true);
+  });
+}

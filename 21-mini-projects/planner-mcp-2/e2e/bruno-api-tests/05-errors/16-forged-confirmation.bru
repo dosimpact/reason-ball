@@ -1,0 +1,27 @@
+meta {
+  name: 05-errors-forged-confirmation
+  type: http
+  seq: 16
+}
+patch {
+  url: {{baseUrl}}/api/documents/{{documentId}}/checklist/{{firstId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "humanConfirmed": true,
+    "expectedRevision": 8
+  }
+}
+
+assert {
+  res.status: eq 400
+}
+tests {
+  test("forged-confirmation", function() {
+    expect(res.getStatus()).to.equal(400);
+    expect(res.getBody().error).to.equal('Invalid input');
+  });
+}

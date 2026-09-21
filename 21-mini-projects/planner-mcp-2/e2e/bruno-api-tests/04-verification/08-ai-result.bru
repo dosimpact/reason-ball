@@ -1,0 +1,27 @@
+meta {
+  name: 04-verification-ai-result
+  type: http
+  seq: 8
+}
+patch {
+  url: {{baseUrl}}/api/documents/{{documentId}}/checklist/{{firstId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "aiResult": "passed",
+    "expectedRevision": 1
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("ai-result", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().checklist[0].aiResult).to.equal('passed');
+  });
+}

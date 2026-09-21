@@ -1,0 +1,48 @@
+meta {
+  name: extension-invalid-edge
+  type: http
+  seq: 3
+}
+patch {
+  url: {{baseUrl}}/api/documents/{{extensionDocumentId}}
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedRevision": 1,
+    "extensions": [
+      {
+        "id": "flow",
+        "type": "react-flow-diagram",
+        "title": "API diagram",
+        "schemaVersion": 1,
+        "data": {
+          "nodes": [
+            {
+              "id": "start",
+              "label": "Start",
+              "position": {
+                "x": 0,
+                "y": 0
+              }
+            }
+          ],
+          "edges": [
+            {
+              "id": "bad",
+              "source": "start",
+              "target": "missing"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+assert {
+  res.status: eq 400
+}
+tests {
+  test("invalid-edge", function() { expect(res.getBody().error).to.be.a('string'); });
+}

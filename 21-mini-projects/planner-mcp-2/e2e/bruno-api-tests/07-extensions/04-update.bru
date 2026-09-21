@@ -1,0 +1,42 @@
+meta {
+  name: extension-update
+  type: http
+  seq: 4
+}
+patch {
+  url: {{baseUrl}}/api/documents/{{extensionDocumentId}}
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedRevision": 1,
+    "extensions": [
+      {
+        "id": "flow",
+        "type": "react-flow-diagram",
+        "title": "Updated diagram",
+        "schemaVersion": 1,
+        "data": {
+          "nodes": [
+            {
+              "id": "start",
+              "label": "Start",
+              "position": {
+                "x": 0,
+                "y": 0
+              }
+            }
+          ],
+          "edges": []
+        }
+      }
+    ]
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("update", function() { expect(res.getBody().extensions[0].title).to.equal('Updated diagram'); expect(res.getBody().revision).to.equal(2); });
+}

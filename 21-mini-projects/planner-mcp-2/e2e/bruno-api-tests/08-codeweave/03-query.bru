@@ -1,0 +1,16 @@
+meta {
+  name: query
+  type: http
+  seq: 3
+}
+get {
+  url: {{baseUrl}}/api/documents/{{cwDocument}}/codeweave/cw?line=3&query=Custom
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("query", function() { expect(res.getBody().selected.prefix).to.equal('Custom'); expect(res.getBody().matches).to.have.length(1); });
+}

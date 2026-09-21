@@ -1,0 +1,22 @@
+meta {
+  name: reject-invalid-position
+  type: http
+  seq: 5
+}
+patch {
+  url: {{baseUrl}}/api/projects/{{projectId}}/nodes/{{nodeId}}
+  body: json
+  auth: none
+}
+body:json {
+  { "label": "Moved design", "phase": "design", "documentId": "{{indexId}}", "position": 0, "coordinates": {"x": "invalid", "y": 0} }
+}
+assert {
+  res.status: eq 400
+}
+tests {
+  test("reject-invalid-position", function() {
+    expect(res.getStatus()).to.equal(400);
+
+  });
+}

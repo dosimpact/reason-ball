@@ -1,0 +1,19 @@
+meta {
+  name: extension-cleanup
+  type: http
+  seq: 7
+}
+delete {
+  url: {{baseUrl}}/api/projects/{{extensionProjectId}}
+  body: json
+  auth: none
+}
+body:json {
+  {}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("cleanup", function() { expect(res.getBody().deleted).to.equal(bru.getVar('extensionProjectId'));  });
+}
