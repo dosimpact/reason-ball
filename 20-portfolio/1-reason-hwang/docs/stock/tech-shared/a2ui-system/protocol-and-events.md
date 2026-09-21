@@ -82,7 +82,7 @@ stage만 전달하며 프롬프트·원문·내부 추론을 포함하지 않는
 
 ## A2UI-STREAM-001: 점진 미리보기
 
-Dynamic은 `forwardedProps.a2uiRenderMode`의 `batch`(기본) 또는 `progressive`를 수용한다. 다른 값과 Fixed/SEC의 progressive 요청은 422다. 표시 옵션은 서버 surfaces/checkpoint 권한을 바꾸지 않는다.
+Dynamic은 `forwardedProps.a2uiRenderMode`의 `batch` 또는 `progressive`를 수용한다. 화면은 기본으로 `progressive`를 명시해 전달하며, 옵션을 생략한 API 요청은 호환성을 위해 `batch`로 처리한다. 다른 값과 Fixed/SEC의 progressive 요청은 422다. 표시 옵션은 서버 surfaces/checkpoint 권한을 바꾸지 않는다.
 
 `server/a2ui/preview.py`는 AG-UI `render_a2ui`의 TOOL_CALL_ARGS를 관찰한다. 완결된 components 항목만 파싱하고, root Row/Column의 준비된 자식 트리만 묶거나 다른 root의 완결된 트리를 구성한다. 공식 operation/catalog·트리 연결·facts 바인딩 검증을 통과해야 `CUSTOM(name=a2ui.preview, value={operations:[...]})`을 발행한다. updateDataModel에는 모델 값 대신 서버 FACTS만 사용한다. 미완성 JSON의 닫는 괄호를 추정하거나 임의 숫자를 표시하지 않는다. 인자 버퍼는 1,000,000자를 넘으면 해당 시도 미리보기를 중지한다.
 

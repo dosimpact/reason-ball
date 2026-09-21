@@ -20,7 +20,7 @@ function DemoSession({ mode }: { mode: "dynamic" | "fixed" | "sec" }) {
   const catalog = useMemo(() => createHostCatalog(mode), [mode]);
   const renderers = useMemo(() => [createDemoActivityRenderer(catalog)], [catalog]);
   const [error, setError] = useState<string | null>(null);
-  const [renderMode, setRenderMode] = useState<RenderMode>("batch");
+  const [renderMode, setRenderMode] = useState<RenderMode>("progressive");
   const properties = useMemo(() => ({ a2uiContract: { protocolVersion: manifest.protocolVersion, ...manifest.catalogs[mode] }, a2uiRenderMode: mode === "dynamic" ? renderMode : "batch" }), [mode, renderMode]);
   return <CopilotKitProvider runtimeUrl={`/api/copilotkit/a2ui/${mode}`} agentId={`a2ui-${mode}`} useSingleEndpoint properties={properties} a2ui={{ catalog, includeSchema: false }} renderActivityMessages={renderers} enableInspector={false} onError={({ error }) => setError(error.message)}>
     {error && <div role="alert" className="mb-4 rounded-lg border border-destructive p-4"><p>{error}</p><Button variant="ghost" onClick={() => setError(null)}>알림 닫기</Button></div>}
