@@ -135,7 +135,9 @@ export function DocumentExtensions({
         <h3>
           <Workflow size={18} /> 확장 기능
         </h3>
-        {editable && (
+      </div>
+      {editable && (
+        <div className="extension-actions">
           <Button
             type="button"
             variant="outline"
@@ -164,8 +166,6 @@ export function DocumentExtensions({
           >
             <Plus size={14} /> React Flow 다이어그램 추가
           </Button>
-        )}
-        {editable && (
           <Button
             type="button"
             variant="outline"
@@ -186,8 +186,8 @@ export function DocumentExtensions({
           >
             <Plus size={14} /> CodeWeave 추가
           </Button>
-        )}
-      </div>
+        </div>
+      )}
       {extensions.length === 0 && (
         <p className="muted">첨부된 확장이 없습니다.</p>
       )}

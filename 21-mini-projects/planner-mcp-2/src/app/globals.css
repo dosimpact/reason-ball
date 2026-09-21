@@ -1471,8 +1471,18 @@ summary {
   margin: 24px 0;
   min-width: 0;
 }
-.document-extensions .section-heading {
+.extension-actions {
+  display: flex;
   flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+.extension-actions .ui-button {
+  max-width: 100%;
+  height: auto;
+  min-height: 32px;
+  white-space: normal;
+  text-align: left;
 }
 .document-extensions h3 {
   display: flex;
@@ -1740,9 +1750,6 @@ summary {
 }
 
 /* CodeWeave text is rendered as text, never executable HTML. */
-.document-extensions > .section-heading {
-  flex-wrap: wrap;
-}
 .codeweave-card {
   margin: 16px 0;
   min-width: 0;

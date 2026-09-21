@@ -48,3 +48,5 @@ GitHub Primer의 중립적인 light 스타일을 참고한 Planner 팔레트입�
 - Layout.Canvas / Detail: 각 콘텐츠 영역의 태그와 CSS 계약.
 
 단순 영역은 native element props와 className을 전달할 수 있다. 레이아웃 파일에는 프로젝트 데이터 요청이나 라우팅을 넣지 않는다. 이전 workspace-shell.tsx와 workspace-panels.tsx의 별도 export는 Layout으로 통합했다.
+
+- 문서·템플릿의 확장 기능 섹션은 제목 아래 별도 extension-actions 줄에 추가 버튼을 배치한다. 버튼 간격 8px·상하 여백 12px이며 좁은 폭에서 줄바꿈한다. 읽기 전용에서는 액션 줄을 숨긴다.

@@ -43,3 +43,7 @@ export const CodeWeave: Story = {
     ],
   },
 };
+
+export const AddActions: Story = {
+  args: { extensions: [], onChange: () => {} },
+};
