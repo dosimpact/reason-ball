@@ -74,3 +74,30 @@ async def test_single_tool_generates_both_selectors():
     components = next(iter(result["surfaces"].values()))["components"]
     assert components["meal"]["component"] == "RadioGroup"
     assert components["seat"]["component"] == "RadioGroup"
+
+
+@pytest.mark.parametrize("ui_type,field,choice,absent", [
+    ("meal", "meal", "vegetarian", "seat"),
+    ("seat", "seat", "14C", "meal"),
+])
+def test_individual_ui_confirms_only_visible_field(ui_type, field, choice, absent):
+    surfaces = validate_operations("fixed", cabin_operations("demo-nrt-icn", ui_type))
+    surface_id = next(iter(surfaces))
+    assert absent not in surfaces[surface_id]["components"]
+    assert absent not in surfaces[surface_id]["data"]
+    action = {
+        "name": "confirm_cabin", "surfaceId": surface_id, "sourceComponentId": "confirm",
+        "context": {"flightId": "demo-nrt-icn", field: choice},
+    }
+    _, updated = apply_action("fixed", action, surfaces)
+    assert updated[surface_id]["data"][field] == choice
+    assert updated[surface_id]["data"]["confirmed"] is True
+    assert absent not in updated[surface_id]["data"]
+    action["context"][absent] = "injected"
+    with pytest.raises(ContractError):
+        apply_action("fixed", action, surfaces)
+
+
+def test_invalid_ui_type_is_rejected():
+    with pytest.raises(ContractError, match="UI type"):
+        cabin_operations("demo-nrt-icn", "../arbitrary")  # type: ignore[arg-type]

@@ -39,9 +39,9 @@ SEC는 별도 `sec → render(ToolNode) → finish` 그래프다. 상세 구현�
 
 ## CABIN-01: 기내식·좌석 Fixed 데모
 
-기존 항공편 선택과 같은 Fixed 화면/endpoint에서 별도 `display_cabin_options(flight_id)` 도구 하나로 기내식과 좌석을 함께 표시한다. 항공편 카드의 `display_flight`는 유지한다. 기내식 또는 좌석 요청에는 새 도구만 호출하며 특정 항공편이 없으면 인천→도쿄 샘플을 표시한다.
+기존 항공편 선택과 같은 Fixed 화면/endpoint에서 별도 `display_cabin_options(flight_id, ui_type)` 도구 하나로 고정 UI를 선택한다. `ui_type`은 `meal | seat | both`이며 기본값은 `both`다. 기내식만 요청하면 meal, 좌석만 요청하면 seat, 둘 다 요청하면 both를 모델이 선택한다. 항공편 카드의 `display_flight`는 유지한다. 기내식 또는 좌석 요청에는 새 도구만 호출하며 특정 항공편이 없으면 인천→도쿄 샘플을 표시한다.
 
-고정 구조는 `schemas/cabin.json`, 데이터·선택 검증은 `cabin.py`가 소유한다. 일반식/채식/어린이식/없음과 좌석 12A/12B/12C/14A/14C 중 선택한다. 초기값은 일반식·12A이며 확정 전 RadioGroup이 로컬 데이터 모델을 수정한다. `confirm_cabin` action은 서버 checkpoint의 카드·항공편과 허용된 두 선택 값을 검증한다. 성공하면 동일 surface의 요약을 갱신하고 입력·버튼을 잠근다. 같은 확정의 재전송은 허용하고 다른 값으로 바꾸는 재전송은 거절한다. 다른 카드 상태는 바꾸지 않는다.
+고정 구조는 허용 목록에 등록된 `schemas/meal.json`(기내식), `schemas/seat.json`(좌석), `schemas/cabin.json`(통합)이며, 데이터·선택 검증은 `cabin.py`가 소유한다. 일반식/채식/어린이식/없음과 좌석 12A/12B/12C/14A/14C 중 선택한다. 초기값은 일반식·12A이며 확정 전 RadioGroup이 로컬 데이터 모델을 수정한다. `confirm_cabin` action은 서버 checkpoint의 카드·항공편과 해당 UI에 노출된 선택 값만 검증한다. UI 종류는 서버 checkpoint의 uiType을 기준으로 하며 화면에 없는 선택 값이나 클라이언트가 보낸 uiType은 거절한다. 성공하면 동일 surface의 요약을 갱신하고 입력·버튼을 잠근다. 같은 확정의 재전송은 허용하고 다른 값으로 바꾸는 재전송은 거절한다. 다른 카드 상태는 바꾸지 않는다.
 
 실제 좌석 재고, 결제, 예약, 알레르기 요구 보장, 특별식 제공 보장은 범위 밖이다. 새 선택을 하려면 새 카드를 요청한다. Fixed 카탈로그는 RadioGroup을 포함하며 전용 action 계약은 select_flight/confirm_cabin만 허용한다.
 
@@ -53,3 +53,5 @@ A2UI_LANGGRAPH_URL=http://127.0.0.1:18084 NEXT_DIST_DIR=.next-cabin-dev pnpm --f
 ```
 
 브라우저 `http://localhost:2821/a2ui/fixed`에서 “도쿄에서 인천 항공편의 기내식과 좌석을 선택하고 싶어”를 입력한다. 검증 결과는 [기내식·좌석 검증 기록](../../../flow/2026-09-21-a2ui-cabin-validation.md)에 있다.
+
+CABIN-03: 단일 도구의 UI 선택 인자와 개별 확정 검증은 [UI 종류 확장 기록](../../../flow/2026-09-21-a2ui-cabin-ui-types.md)을 따른다.
