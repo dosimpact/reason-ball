@@ -46,7 +46,8 @@ def graph(failures=None):
 def action(result, component, **inputs):
     surface_id, surface = next(iter(result["surfaces"].items()))
     event = surface["components"][component]["action"]["event"]
-    return {"surfaceId": surface_id, "sourceComponentId": component, "name": event["name"], "context": {**event["context"], **inputs}}
+    context = {key: surface["data"].get(value["path"].lstrip("/"), "") if isinstance(value, dict) and "path" in value else value for key, value in event["context"].items()}
+    return {"surfaceId": surface_id, "sourceComponentId": component, "name": event["name"], "context": {**context, **inputs}}
 
 
 @pytest.mark.asyncio
@@ -89,10 +90,11 @@ async def test_old_surface_actions_and_unknown_company_cannot_change_selection()
     initial = await workflow.ainvoke({"messages": [HumanMessage(content="DEMO")]}, config)
     old_action = action(initial, "company-select", cik=CIK)
     current = await workflow.ainvoke({"messages": [], "a2ui_action": old_action}, config)
-    with pytest.raises(ContractError, match="Stale"):
+    with pytest.raises(ContractError, match="unavailable"):
         validate_action(old_action, current["surfaces"])
+    current = await workflow.ainvoke({"messages": [], "a2ui_action": action(current, "search-button", query="DEMO")}, config)
     current = await workflow.ainvoke({"messages": [], "a2ui_action": action(current, "company-select", cik="0000000001")}, config)
-    assert current["sec"]["company"]["cik"] == CIK
+    assert "company" not in current["sec"]
     assert "없는 회사" in current["sec"]["notice"]
 
 

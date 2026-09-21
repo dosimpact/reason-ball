@@ -32,6 +32,11 @@ tests {
     const snapshots = events.filter(event => event.type === "STATE_SNAPSHOT" && event.snapshot.sec && event.snapshot.surfaces);
     const snapshot = snapshots[snapshots.length - 1].snapshot;
     expect(snapshot.sec.companies.items.some(item => item.ticker === "AAPL")).to.equal(true);
+    const components = Object.values(snapshot.surfaces)[0].components;
+    expect(components["filings"]).to.equal(undefined);
+    expect(components["report"]).to.equal(undefined);
+    expect(components["report-button"]).to.equal(undefined);
+    expect(components["companies"]).not.to.equal(undefined);
     bru.setVar("secSnapshot", snapshot);
   });
 }

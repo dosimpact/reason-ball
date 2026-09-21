@@ -1,7 +1,7 @@
 meta {
-  name: Reject stale SEC action
+  name: Reject oversized analysis request
   type: http
-  seq: 7
+  seq: 11
 }
 post {
   url: {{baseUrl}}/ag-ui/a2ui/sec
@@ -28,14 +28,14 @@ script:pre-request {
 
   body.forwardedProps.a2uiAction = {userAction: {surfaceId, sourceComponentId, name: event.name, context}};
 
-  context.revision = -1;
+  context.request = "x".repeat(501);
   req.setBody(body);
 }
 assert {
   res.status: eq 422
 }
 tests {
-  test("Reject stale SEC action", function () {
+  test("Reject oversized analysis request", function () {
     expect(res.getBody().detail).to.be.a("string");
   });
 }

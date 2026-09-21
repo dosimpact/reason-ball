@@ -1,7 +1,7 @@
 meta {
-  name: Reject stale SEC action
+  name: Reject hidden report action
   type: http
-  seq: 7
+  seq: 13
 }
 post {
   url: {{baseUrl}}/ag-ui/a2ui/sec
@@ -22,20 +22,20 @@ script:pre-request {
   body.threadId = bru.getVar("secThread");
   const surfaceId = Object.keys(prior.surfaces)[0];
   const sourceComponentId = "report-button";
-  const event = prior.surfaces[surfaceId].components[sourceComponentId].action.event;
+  const event = {name:"sec_report", context:{revision:prior.sec.revision}};
   const context = {...event.context};
   if (context.request) context.request = "";
 
   body.forwardedProps.a2uiAction = {userAction: {surfaceId, sourceComponentId, name: event.name, context}};
 
-  context.revision = -1;
+  context.request = "핵심만";
   req.setBody(body);
 }
 assert {
   res.status: eq 422
 }
 tests {
-  test("Reject stale SEC action", function () {
+  test("Reject hidden report action", function () {
     expect(res.getBody().detail).to.be.a("string");
   });
 }

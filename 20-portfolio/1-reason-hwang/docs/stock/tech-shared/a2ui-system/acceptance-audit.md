@@ -22,6 +22,8 @@
 | SEC-A2UI-05 |빈 원문/client 오류 단위 검사, API503/모델 장애 graph복구, 미저장/취소/통신/SSE 오류 브라우저 | 계층별 증거 있음; 실제 상위 장애 전체 경로 증거는 없음 |
 | SEC-A2UI-06 |stale/cross-thread422, 회사/공시 변경 시 초기화 | 충족 증거 있음 |
 | SEC-A2UI-07 |SEC manifest/stories/실제 Bruno/브라우저 | action 취소 보정 후 HTTP 회귀 PASS |
+| SEC-A2UI-08 |단계별 UI/빈 결과/재선택/숨겨진 action; [Hybrid 검증](../../../flow/2026-09-21-sec-hybrid-ui.md) | 단위·API·MCP 브라우저 PASS |
+| SEC-A2UI-09 |요약 카드/위험 표 실모델, 접이식 Storybook, 인용/plan 검증; [Hybrid 검증](../../../flow/2026-09-21-sec-hybrid-ui.md) | OAuth 범위 충족 |
 | A2UI-VAL-001 |143 Python,69계약,75story, build/typecheck 등 | OAuth 범위 충족 |
 | 기술 문서 통합 |전용 INDEX와8개 기술문서, 링크 검사 | 충족 |
 | 검증 후 commit |f1dd3a8: A2UI 변경 164파일 커밋 | 충족; 무관한 사용자 문서 제외 |

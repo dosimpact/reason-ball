@@ -5,17 +5,17 @@ import { A2UIProvider, A2UIRenderer, useA2UIActions, useA2UIError } from "@copil
 import { createHostCatalog } from "./catalog";
 import { catalogId } from "./definitions";
 
-export function SecPreview() {
+export function SecPreview({ operations }: { operations?: Record<string, unknown>[] } = {}) {
   const catalog = useMemo(() => createHostCatalog("sec"), []);
   const [action, setAction] = useState("");
-  return <A2UIProvider catalog={catalog} onAction={event => setAction(JSON.stringify(event))}><div className="max-w-xl p-4"><SecSurface /><output aria-label="SEC action">{action}</output></div></A2UIProvider>;
+  return <A2UIProvider catalog={catalog} onAction={event => setAction(JSON.stringify(event))}><div className="max-w-xl p-4"><SecSurface operations={operations} /><output aria-label="SEC action">{action}</output></div></A2UIProvider>;
 }
 
-function SecSurface() {
+function SecSurface({ operations }: { operations?: Record<string, unknown>[] }) {
   const { processMessages, clearSurfaces } = useA2UIActions();
   const error = useA2UIError();
   useEffect(() => {
-    processMessages([
+    processMessages(operations ?? [
       { version: "v0.9", createSurface: { surfaceId: "sec-story", catalogId: catalogId("sec") } },
       { version: "v0.9", updateComponents: { surfaceId: "sec-story", components: [
         { id: "root", component: "Column", children: ["query", "search", "report"] },
@@ -26,6 +26,6 @@ function SecSurface() {
       { version: "v0.9", updateDataModel: { surfaceId: "sec-story", path: "/", value: { query: "" } } },
     ]);
     return clearSurfaces;
-  }, [processMessages, clearSurfaces]);
+  }, [operations, processMessages, clearSurfaces]);
   return <>{error && <p role="alert">{error}</p>}<A2UIRenderer surfaceId="sec-story" /></>;
 }

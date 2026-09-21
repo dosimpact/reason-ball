@@ -41,6 +41,11 @@ tests {
     expect(snapshot.sec.company.ticker).to.equal("AAPL");
     expect(snapshot.sec.filings.items.every(item => item.cik === snapshot.sec.company.cik)).to.equal(true);
 
+    const components = Object.values(snapshot.surfaces)[0].components;
+    expect(components["companies"]).to.equal(undefined);
+    expect(components["report"]).to.equal(undefined);
+    expect(components["report-button"]).to.equal(undefined);
+    expect(components["filings"]).not.to.equal(undefined);
     bru.setVar("secSnapshot", snapshot);
   });
 }

@@ -24,6 +24,7 @@ script:pre-request {
   const sourceComponentId = "report-button";
   const event = prior.surfaces[surfaceId].components[sourceComponentId].action.event;
   const context = {...event.context};
+  if (context.request) context.request = "";
 
   body.forwardedProps.a2uiAction = {userAction: {surfaceId, sourceComponentId, name: event.name, context}};
 

@@ -24,6 +24,7 @@ script:pre-request {
   const sourceComponentId = "report-button";
   const event = prior.surfaces[surfaceId].components[sourceComponentId].action.event;
   const context = {...event.context};
+  if (context.request) context.request = "";
 
   body.forwardedProps.a2uiAction = {userAction: {surfaceId, sourceComponentId, name: event.name, context}};
 
@@ -38,6 +39,8 @@ tests {
     expect(events.some(event => event.type === "RUN_ERROR")).to.equal(false);
     const snapshots = events.filter(event => event.type === "STATE_SNAPSHOT" && event.snapshot.sec && event.snapshot.surfaces);
     const snapshot = snapshots[snapshots.length - 1].snapshot;
+    bru.setVar("secSnapshot", snapshot);
+    console.log("SEC result:", snapshot.sec.notice);
     expect(snapshot.sec.report.summary.length + snapshot.sec.report.business.length + snapshot.sec.report.financials.length + snapshot.sec.report.risks.length).to.be.greaterThan(0);
     expect(snapshot.sec.report_source_label).to.include(snapshot.sec.filing.accessionNo);
     expect(snapshot.sec.report_source_label).to.include("SHA-256");

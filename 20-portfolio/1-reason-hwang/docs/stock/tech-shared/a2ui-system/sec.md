@@ -11,16 +11,18 @@
 | SEC-A2UI-01 | 회사명·티커 검색, 빈 결과, 페이지 이동을 A2UI 입력/버튼/결과로 제공한다. 실제 BFF 결과와 화면을 비교한다. |
 | SEC-A2UI-02 | 회사를 선택하면 해당 CIK의 공시 목록을 표시한다. form·기간·상태·접수번호와 원본/수정본 관계를 보존한다. 다른 회사의 결과가 섞이지 않는지 검사한다. |
 | SEC-A2UI-03 | 공시 선택 후 요약/분석 생성 action으로 보고서를 만든다. 서버가 CIK와 accessionNo로 원문을 다시 읽는다. 클라이언트의 본문이나 회사명을 신뢰하지 않는다. |
-| SEC-A2UI-04 | 보고서는 핵심 요약·사업·재무·위험·분석 한계와 근거를 제공한다. 정보가 없는 항목은 없음으로 표시한다. 근거 ID와 실제 원문 발췌를 검증하고 표시한다. |
+| SEC-A2UI-04 | 기본 보고서는 핵심 요약·사업·재무·위험을 제공하며, 분석 요청이 있으면 요청한 항목만 표시한다. 선택한 항목에 정보가 없으면 근거 없음으로 표시하고 분석 한계와 근거는 항상 유지한다. 근거 ID와 실제 원문 발췌를 검증하고 표시한다. |
 | SEC-A2UI-05 | 로딩·빈 원문·미다운로드·상위 API 실패·모델 실패·중복 제출·취소 및 재시도를 검증한다. 실패를 성공 보고서로 바꾸지 않는다. |
 | SEC-A2UI-06 | thread별 회사/공시/보고서 선택을 격리한다. 회사 변경 후 이전 공시 action, 다른 thread의 action을 거절한다. |
 | SEC-A2UI-07 | 전용 SEC 카탈로그와 해시, Storybook, Bruno HTTP E2E, 순차 MCP 브라우저, 실제 저장 SEC 원문과 실제 모델 보고서 증거를 남긴다. fixture 통과와 실서비스 통과를 구분한다. |
+| SEC-A2UI-08 | 검색·회사·공시·보고서 단계에 필요한 영역만 표시한다. 빈 공시 목록에는 안내와 필터를 제공하고 빈 보고서/선택기를 노출하지 않는다. |
+| SEC-A2UI-09 | 선택 공시에 대한 사용자 요청으로 분석 항목·순서와 카드/표/접이식 표현을 선택한다. 허용된 계획과 인용을 검증하며 선택 문서와 출처는 서버가 유지한다. |
 
 ## 구조
 
 `/a2ui/sec` → 동일 출처 CopilotKit Runtime → FastAPI SEC 전용 LangGraph → 기존 BFF `/api/sec/companies`, `/api/sec/filings`, `/api/sec/filings/:cik/:accessionNo/content`.
 
-회사의 검색·선택과 공시 목록은 서버가 구성한 A2UI 화면이다. 보고서의 분석 내용은 모델이 생성하되 UI 구조와 근거 표시는 서버가 구성한다. 모델이 공시 식별자·가격·재무 수치를 임의로 만들어 조회하는 경로는 제공하지 않는다. 기존 66개 어댑터를 재사용하고 SEC용 정적 하위 카탈로그를 둔다.
+회사의 검색·선택과 공시 목록은 서버가 구성한 A2UI 화면이다. 보고서의 분석 내용과 제한된 ReportPlan은 모델이 생성하고 서버가 허용된 UI 템플릿으로 변환한다. ReportPlan은 summary/business/financials/risks 중 1~4개 고유 항목과 cards/table/accordion 표현만 선택한다. 임의 HTML/React나 근거 없는 수치 차트 생성은 지원하지 않는다. 모델이 공시 식별자·가격·재무 수치를 임의로 만들어 조회하는 경로는 제공하지 않는다. 기존 66개 어댑터를 재사용하고 SEC용 정적 하위 카탈로그를 둔다.
 
 회사 검색은 `q`, 명시적 page/pageSize를 기존 API로 전달한다. 공시 조회는 선택한 CIK를 강제하며 기본적으로 원문 없이 메타데이터만 읽는다. 서버 설정의 BFF 주소만 사용하고 사용자가 제공한 임의 URL로 요청하지 않는다.
 
@@ -32,6 +34,8 @@
 | --- | --- |
 | `3-langgraph-fast/src/domains/tenk/sec_client.py` | 기존 BFF GET 요청, 식별자/필터/크기 제한과 읽기 오류 |
 | `3-langgraph-fast/src/domains/tenk/a2ui_report.py` | 근거 발췌, 구조화 보고서, 근거 ID/원문 인용 검증 |
+| `3-langgraph-fast/src/domains/tenk/a2ui_report_plan.py` | 사용자 요청에 따른 항목/순서/표현 계획과 검증 |
+| `3-langgraph-fast/src/graph/primary_graphs/sec_a2ui/report_surface.py` | 검증한 계획을 인용 포함 카드/표/접이식 A2UI로 변환 |
 | `3-langgraph-fast/src/domains/tenk/segmenter.py` | 10-Q Part+Item 구분, 8-K 소수점 Item 구분 |
 | `3-langgraph-fast/src/graph/primary_graphs/sec_a2ui/` | 조회·선택 상태와 명시적 `render_sec_surface` 도구 노드 |
 | `1-fe-host/src/lib/a2ui/generated/sec.catalog.json` | SEC 전용 Button action을 포함한 정적 하위 카탈로그 |
@@ -55,7 +59,7 @@ FastAPI 연결은 기존 `A2UI_LANGGRAPH_URL`, FastAPI→BFF 연결은 `A2UI_SEC
 
 SEC 전용 thread 상태는 검색 조건, 서버가 반환한 선택 가능 회사/공시, 현재 선택, 보고서와 surface를 가진다. action은 허용된 이름·발신 컴포넌트·선택 가능한 ID와 현재 상태를 모두 검사한다. 회사 변경 시 공시 선택과 보고서 상태를 초기화한다.
 
-action은 `sec_search`, `sec_company`, `sec_filings_page`, `sec_filings_filter`, `sec_filing`, `sec_report`다. 서버가 발행한 revision과 context의 고정값을 검사해 오래된 action 및 변경된 식별자를 거절한다. 클라이언트의 가변 바인딩은 검색어·선택값·필터만 허용한다. 동일 surface에 고정된 컴포넌트 ID를 갱신한다. 최초 생성도 ToolNode를 통해 실제 TOOL_CALL_RESULT로 전달한다. STATE_SNAPSHOT만 반환하면 SDK가 최초 화면을 생성하지 않는 문제를 회귀 테스트로 고정했다.
+action은 `sec_search`, `sec_company`, `sec_filings_page`, `sec_filings_filter`, `sec_filing`, `sec_report`다. 서버가 발행한 revision과 context의 고정값을 검사해 오래된 action 및 변경된 식별자를 거절한다. 클라이언트의 가변 바인딩은 검색어·선택값·필터·500자 이내 분석 요청만 허용한다. 동일 surface의 root를 갱신한다. 단계마다 현재 트리를 새 스냅샷으로 검증해 사라진 컴포넌트의 action도 서버 상태에서 제거한다. 최초 생성도 ToolNode를 통해 실제 TOOL_CALL_RESULT로 전달한다. STATE_SNAPSHOT만 반환하면 SDK가 최초 화면을 생성하지 않는 문제를 회귀 테스트로 고정했다.
 
 조회와 보고서 생성 모두 비동기로 처리하고 동시 실행 제한과 취소 정리를 기존 A2UI 정책에 맞춘다. 보고서 생성 도중 이전 화면은 유지하되 진행 상태를 표시하며, 실패 후 같은 선택으로 재시도할 수 있게 한다.
 
@@ -65,3 +69,13 @@ action은 `sec_search`, `sec_company`, `sec_filings_page`, `sec_filings_filter`,
 
 - [공시 현재 시스템](../../us-corporate-filings/system-design.md)
 - [범위 확정 기록](../../../flow/2026-09-21-sec-a2ui-scope.md)
+
+## 단계별 조회와 요청별 보고서 (SEC-A2UI-08/09)
+
+회사 검색 결과에서는 회사 목록만, 회사 선택 후에는 선택 회사와 공시 필터/목록을 표시한다. 공시 선택 후에는 목록을 접고 선택 공시 정보와 분석 요청/보고서 생성 버튼을 표시한다. “공시 다시 선택”은 목록으로 돌아가며 보고서와 분석 요청을 초기화한다. 상단 회사 검색은 항상 유지하며 새 검색은 이전 선택과 보고서를 초기화한다.
+
+선택 공시가 있으면 채팅 입력도 분석 요청으로 처리한다. 회사 변경은 화면의 회사 검색을 사용한다. 빈 분석 요청은 기존 전체 4항목 접이식 보고서이고, “위험 요인만 표로 보여줘”는 위험 항목 표만 생성한다. SEC 표는 긴 분석/인용을 읽을 수 있도록 고정 열 너비와 줄바꿈을 적용한다. 표는 분석과 인용을 보여주는 근거 표이며 검증되지 않은 수치 차트를 생성하지 않는다.
+
+모델 계획과 보고서의 검증은 각각 최대 2회 시도한다. 요청하지 않은 보고서 항목의 내용은 거절한다. 요청한 항목에 근거가 없으면 해당 영역에 근거 없음 안내를 표시한다. 생성 중 이전 화면을 유지하고 실패하면 이전 정상 보고서와 선택을 보존한다. SEC 보고서는 완성·검증 후 갱신하며 매출 Dynamic의 점진 렌더링 옵션과 별개다.
+
+변경 및 실행 증거: [SEC Hybrid 기록](../../../flow/2026-09-21-sec-hybrid-ui.md).

@@ -18,8 +18,11 @@ export function createHostCatalog(profile: CatalogProfile) {
   return new Catalog(catalogId(profile), profileComponents[profile].map(name => {
     // The map is exhaustively checked above; iteration erases the per-key relation.
     const Render = adapters[name] as ComponentType<AdapterProps<ComponentName>>;
-    return createReactComponent({ name, schema: componentSchema(name, profile) }, ({ props, buildChild, context }) => (
-      <Render props={props as AdapterProps<ComponentName>["props"]} children={buildChild} {...bindingControls(context, profile === "sec" ? secActionSchema : profile === "fixed" ? fixedActionSchema : undefined)} />
-    ));
+    return createReactComponent({ name, schema: componentSchema(name, profile) }, ({ props, buildChild, context }) => {
+      const content = <Render props={props as AdapterProps<ComponentName>["props"]} children={buildChild} {...bindingControls(context, profile === "sec" ? secActionSchema : profile === "fixed" ? fixedActionSchema : undefined)} />;
+      return profile === "sec" && name === "Table"
+        ? <div className="min-w-0 [&_table]:table-fixed [&_td]:break-words [&_td]:whitespace-pre-wrap [&_td]:align-top [&_th]:whitespace-normal">{content}</div>
+        : content;
+    });
   }), []);
 }

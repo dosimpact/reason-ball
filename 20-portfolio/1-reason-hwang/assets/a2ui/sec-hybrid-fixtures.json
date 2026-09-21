@@ -1,0 +1,620 @@
+{
+  "cards": [
+    {
+      "version": "v0.9",
+      "createSurface": {
+        "surfaceId": "sec-story",
+        "catalogId": "reason-hwang://a2ui/sec/1.0.0"
+      }
+    },
+    {
+      "version": "v0.9",
+      "updateComponents": {
+        "surfaceId": "sec-story",
+        "components": [
+          {
+            "id": "root",
+            "component": "Column",
+            "children": [
+              "notice",
+              "search",
+              "report"
+            ]
+          },
+          {
+            "id": "notice",
+            "component": "Alert",
+            "title": "SEC 공시 분석",
+            "text": "회사를 검색하고 공시를 선택해 주세요."
+          },
+          {
+            "id": "search",
+            "component": "Card",
+            "title": "회사 검색",
+            "child": "search-fields"
+          },
+          {
+            "id": "search-fields",
+            "component": "Column",
+            "children": [
+              "query",
+              "search-button"
+            ]
+          },
+          {
+            "id": "query",
+            "component": "Input",
+            "label": "회사명 또는 티커",
+            "value": {
+              "path": "/query"
+            }
+          },
+          {
+            "id": "search-button",
+            "component": "Button",
+            "label": "회사 검색",
+            "disabled": false,
+            "action": {
+              "event": {
+                "name": "sec_search",
+                "context": {
+                  "revision": 0,
+                  "query": {
+                    "path": "/query"
+                  },
+                  "page": 1
+                }
+              }
+            }
+          },
+          {
+            "id": "report",
+            "component": "Card",
+            "title": "선택 공시 분석 보고서",
+            "child": "report-fields"
+          },
+          {
+            "id": "report-source",
+            "component": "Text",
+            "text": "Fixture filing · CIK 0000000001 · E1 · 원문 발췌"
+          },
+          {
+            "id": "report-request-label",
+            "component": "Text",
+            "text": "분석 요청: 위험 요인만"
+          },
+          {
+            "id": "report-limits",
+            "component": "Text",
+            "text": "선택 공시의 제한된 발췌를 분석합니다. 수정본 자동 병합과 전체 문서 검토는 수행하지 않습니다. 인용은 원문과 대조되지만 모델 해석은 별도 확인이 필요합니다."
+          },
+          {
+            "id": "report-risks-cards-0",
+            "component": "Card",
+            "title": "위험 요인",
+            "child": "report-risks-cards-0-text"
+          },
+          {
+            "id": "report-risks-cards-0-text",
+            "component": "Text",
+            "text": "서비스 중단은 고객 유지에 영향을 줄 수 있습니다.\n[E1] Service interruptions may adversely affect customer retention."
+          },
+          {
+            "id": "report-risks-cards",
+            "component": "Column",
+            "children": [
+              "report-risks-cards-0"
+            ]
+          },
+          {
+            "id": "report-fields",
+            "component": "Column",
+            "children": [
+              "report-request-label",
+              "report-source",
+              "report-risks-cards",
+              "report-limits"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "version": "v0.9",
+      "updateDataModel": {
+        "surfaceId": "sec-story",
+        "path": "/",
+        "value": {
+          "query": "",
+          "companyChoice": "",
+          "filingChoice": "",
+          "reportRequest": "위험 요인만",
+          "statusFilter": "",
+          "formFilter": "",
+          "sinceFilter": ""
+        }
+      }
+    }
+  ],
+  "table": [
+    {
+      "version": "v0.9",
+      "createSurface": {
+        "surfaceId": "sec-story",
+        "catalogId": "reason-hwang://a2ui/sec/1.0.0"
+      }
+    },
+    {
+      "version": "v0.9",
+      "updateComponents": {
+        "surfaceId": "sec-story",
+        "components": [
+          {
+            "id": "root",
+            "component": "Column",
+            "children": [
+              "notice",
+              "search",
+              "report"
+            ]
+          },
+          {
+            "id": "notice",
+            "component": "Alert",
+            "title": "SEC 공시 분석",
+            "text": "회사를 검색하고 공시를 선택해 주세요."
+          },
+          {
+            "id": "search",
+            "component": "Card",
+            "title": "회사 검색",
+            "child": "search-fields"
+          },
+          {
+            "id": "search-fields",
+            "component": "Column",
+            "children": [
+              "query",
+              "search-button"
+            ]
+          },
+          {
+            "id": "query",
+            "component": "Input",
+            "label": "회사명 또는 티커",
+            "value": {
+              "path": "/query"
+            }
+          },
+          {
+            "id": "search-button",
+            "component": "Button",
+            "label": "회사 검색",
+            "disabled": false,
+            "action": {
+              "event": {
+                "name": "sec_search",
+                "context": {
+                  "revision": 0,
+                  "query": {
+                    "path": "/query"
+                  },
+                  "page": 1
+                }
+              }
+            }
+          },
+          {
+            "id": "report",
+            "component": "Card",
+            "title": "선택 공시 분석 보고서",
+            "child": "report-fields"
+          },
+          {
+            "id": "report-source",
+            "component": "Text",
+            "text": "Fixture filing · CIK 0000000001 · E1 · 원문 발췌"
+          },
+          {
+            "id": "report-request-label",
+            "component": "Text",
+            "text": "분석 요청: 위험 요인만"
+          },
+          {
+            "id": "report-limits",
+            "component": "Text",
+            "text": "선택 공시의 제한된 발췌를 분석합니다. 수정본 자동 병합과 전체 문서 검토는 수행하지 않습니다. 인용은 원문과 대조되지만 모델 해석은 별도 확인이 필요합니다."
+          },
+          {
+            "id": "report-risks-table",
+            "component": "Table",
+            "title": "위험 요인",
+            "columns": [
+              {
+                "key": "analysis",
+                "label": "분석"
+              },
+              {
+                "key": "evidence",
+                "label": "원문 근거"
+              }
+            ],
+            "rows": [
+              {
+                "analysis": "서비스 중단은 고객 유지에 영향을 줄 수 있습니다.",
+                "evidence": "[E1] Service interruptions may adversely affect customer retention."
+              }
+            ]
+          },
+          {
+            "id": "report-fields",
+            "component": "Column",
+            "children": [
+              "report-request-label",
+              "report-source",
+              "report-risks-table",
+              "report-limits"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "version": "v0.9",
+      "updateDataModel": {
+        "surfaceId": "sec-story",
+        "path": "/",
+        "value": {
+          "query": "",
+          "companyChoice": "",
+          "filingChoice": "",
+          "reportRequest": "위험 요인만",
+          "statusFilter": "",
+          "formFilter": "",
+          "sinceFilter": ""
+        }
+      }
+    }
+  ],
+  "accordion": [
+    {
+      "version": "v0.9",
+      "createSurface": {
+        "surfaceId": "sec-story",
+        "catalogId": "reason-hwang://a2ui/sec/1.0.0"
+      }
+    },
+    {
+      "version": "v0.9",
+      "updateComponents": {
+        "surfaceId": "sec-story",
+        "components": [
+          {
+            "id": "root",
+            "component": "Column",
+            "children": [
+              "notice",
+              "search",
+              "report"
+            ]
+          },
+          {
+            "id": "notice",
+            "component": "Alert",
+            "title": "SEC 공시 분석",
+            "text": "회사를 검색하고 공시를 선택해 주세요."
+          },
+          {
+            "id": "search",
+            "component": "Card",
+            "title": "회사 검색",
+            "child": "search-fields"
+          },
+          {
+            "id": "search-fields",
+            "component": "Column",
+            "children": [
+              "query",
+              "search-button"
+            ]
+          },
+          {
+            "id": "query",
+            "component": "Input",
+            "label": "회사명 또는 티커",
+            "value": {
+              "path": "/query"
+            }
+          },
+          {
+            "id": "search-button",
+            "component": "Button",
+            "label": "회사 검색",
+            "disabled": false,
+            "action": {
+              "event": {
+                "name": "sec_search",
+                "context": {
+                  "revision": 0,
+                  "query": {
+                    "path": "/query"
+                  },
+                  "page": 1
+                }
+              }
+            }
+          },
+          {
+            "id": "report",
+            "component": "Card",
+            "title": "선택 공시 분석 보고서",
+            "child": "report-fields"
+          },
+          {
+            "id": "report-source",
+            "component": "Text",
+            "text": "Fixture filing · CIK 0000000001 · E1 · 원문 발췌"
+          },
+          {
+            "id": "report-request-label",
+            "component": "Text",
+            "text": "분석 요청: 위험 요인만"
+          },
+          {
+            "id": "report-limits",
+            "component": "Text",
+            "text": "선택 공시의 제한된 발췌를 분석합니다. 수정본 자동 병합과 전체 문서 검토는 수행하지 않습니다. 인용은 원문과 대조되지만 모델 해석은 별도 확인이 필요합니다."
+          },
+          {
+            "id": "report-risks-accordion",
+            "component": "Accordion",
+            "items": [
+              {
+                "title": "위험 요인",
+                "text": "서비스 중단은 고객 유지에 영향을 줄 수 있습니다.\n[E1] Service interruptions may adversely affect customer retention."
+              }
+            ]
+          },
+          {
+            "id": "report-fields",
+            "component": "Column",
+            "children": [
+              "report-request-label",
+              "report-source",
+              "report-risks-accordion",
+              "report-limits"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "version": "v0.9",
+      "updateDataModel": {
+        "surfaceId": "sec-story",
+        "path": "/",
+        "value": {
+          "query": "",
+          "companyChoice": "",
+          "filingChoice": "",
+          "reportRequest": "위험 요인만",
+          "statusFilter": "",
+          "formFilter": "",
+          "sinceFilter": ""
+        }
+      }
+    }
+  ],
+  "empty": [
+    {
+      "version": "v0.9",
+      "createSurface": {
+        "surfaceId": "sec-story",
+        "catalogId": "reason-hwang://a2ui/sec/1.0.0"
+      }
+    },
+    {
+      "version": "v0.9",
+      "updateComponents": {
+        "surfaceId": "sec-story",
+        "components": [
+          {
+            "id": "root",
+            "component": "Column",
+            "children": [
+              "notice",
+              "search",
+              "selected-company",
+              "filings"
+            ]
+          },
+          {
+            "id": "notice",
+            "component": "Alert",
+            "title": "SEC 공시 분석",
+            "text": "회사를 검색하고 공시를 선택해 주세요."
+          },
+          {
+            "id": "search",
+            "component": "Card",
+            "title": "회사 검색",
+            "child": "search-fields"
+          },
+          {
+            "id": "search-fields",
+            "component": "Column",
+            "children": [
+              "query",
+              "search-button"
+            ]
+          },
+          {
+            "id": "query",
+            "component": "Input",
+            "label": "회사명 또는 티커",
+            "value": {
+              "path": "/query"
+            }
+          },
+          {
+            "id": "search-button",
+            "component": "Button",
+            "label": "회사 검색",
+            "disabled": false,
+            "action": {
+              "event": {
+                "name": "sec_search",
+                "context": {
+                  "revision": 0,
+                  "query": {
+                    "path": "/query"
+                  },
+                  "page": 1
+                }
+              }
+            }
+          },
+          {
+            "id": "selected-company",
+            "component": "Text",
+            "text": "선택 회사: Fixture Company (-) · CIK 0000000001"
+          },
+          {
+            "id": "filings",
+            "component": "Card",
+            "title": "Fixture Company 공시",
+            "child": "filing-fields"
+          },
+          {
+            "id": "filing-fields",
+            "component": "Column",
+            "children": [
+              "filter-status",
+              "filter-form",
+              "filter-since",
+              "filter-button",
+              "filing-status"
+            ]
+          },
+          {
+            "id": "filter-status",
+            "component": "Select",
+            "label": "원문 저장 상태",
+            "value": {
+              "path": "/statusFilter"
+            },
+            "options": [
+              {
+                "value": "",
+                "label": "전체"
+              },
+              {
+                "value": "downloaded",
+                "label": "원문 저장됨"
+              },
+              {
+                "value": "pending",
+                "label": "저장 대기"
+              },
+              {
+                "value": "failed",
+                "label": "저장 실패"
+              }
+            ]
+          },
+          {
+            "id": "filter-form",
+            "component": "Select",
+            "label": "공시 종류",
+            "value": {
+              "path": "/formFilter"
+            },
+            "options": [
+              {
+                "value": "",
+                "label": "전체"
+              },
+              {
+                "value": "10-K",
+                "label": "10-K"
+              },
+              {
+                "value": "10-K/A",
+                "label": "10-K/A"
+              },
+              {
+                "value": "10-Q",
+                "label": "10-Q"
+              },
+              {
+                "value": "10-Q/A",
+                "label": "10-Q/A"
+              },
+              {
+                "value": "8-K",
+                "label": "8-K"
+              },
+              {
+                "value": "8-K/A",
+                "label": "8-K/A"
+              }
+            ]
+          },
+          {
+            "id": "filter-since",
+            "component": "Input",
+            "label": "제출 시작일 (선택)",
+            "value": {
+              "path": "/sinceFilter"
+            },
+            "placeholder": "YYYY-MM-DD"
+          },
+          {
+            "id": "filter-button",
+            "component": "Button",
+            "label": "공시 필터 적용",
+            "disabled": false,
+            "action": {
+              "event": {
+                "name": "sec_filings_filter",
+                "context": {
+                  "revision": 0,
+                  "status": {
+                    "path": "/statusFilter"
+                  },
+                  "form": {
+                    "path": "/formFilter"
+                  },
+                  "since": {
+                    "path": "/sinceFilter"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "id": "filing-status",
+            "component": "Text",
+            "text": "조건에 맞는 공시가 없습니다. 필터를 변경해 주세요."
+          }
+        ]
+      }
+    },
+    {
+      "version": "v0.9",
+      "updateDataModel": {
+        "surfaceId": "sec-story",
+        "path": "/",
+        "value": {
+          "query": "",
+          "companyChoice": "0000000001",
+          "filingChoice": "",
+          "reportRequest": "",
+          "statusFilter": "",
+          "formFilter": "",
+          "sinceFilter": ""
+        }
+      }
+    }
+  ]
+}

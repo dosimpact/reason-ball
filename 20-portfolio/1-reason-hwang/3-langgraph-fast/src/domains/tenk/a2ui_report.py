@@ -100,11 +100,11 @@ class FilingReport(BaseModel):
     risks: list[ReportClaim] = Field(max_length=5)
 
 
-def validate_report(value: object, source: ReportSource) -> FilingReport:
+def validate_report(value: object, source: ReportSource, *, allow_empty: bool = False) -> FilingReport:
     report = FilingReport.model_validate(value)
     evidence = {item.id: item.text for item in source.evidence}
     claims = [*report.summary, *report.business, *report.financials, *report.risks]
-    if not claims:
+    if not claims and not allow_empty:
         raise ReportError("제공된 발췌에서 보고서 근거를 찾지 못했습니다.")
     for claim in claims:
         for citation in claim.citations:
@@ -125,21 +125,30 @@ REPORT_INSTRUCTION = (
 )
 
 
-async def generate_report(model: BaseChatModel, source: ReportSource) -> FilingReport:
+async def generate_report(model: BaseChatModel, source: ReportSource, *, request: str = "", sections: list[str] | None = None) -> FilingReport:
     planner = model.bind_tools([FilingReport], tool_choice="FilingReport")
     messages = [
         SystemMessage(content=REPORT_INSTRUCTION),
-        HumanMessage(content=json.dumps({"excerpts": [asdict(item) for item in source.evidence]}, ensure_ascii=False)),
+        HumanMessage(content=json.dumps({
+            "request": request or "전체 공시 분석",
+            "requested_sections": sections or ["summary", "business", "financials", "risks"],
+            "excerpts": [asdict(item) for item in source.evidence],
+        }, ensure_ascii=False)),
     ]
+    if sections is not None:
+        messages[0] = SystemMessage(content=REPORT_INSTRUCTION + " Return all four schema fields, but use empty lists for unrequested sections. Focus the analysis on the user's request within the supplied evidence.")
     for attempt in range(2):
         result = await planner.ainvoke(messages)
         calls = getattr(result, "tool_calls", [])
         try:
             if len(calls) != 1 or calls[0]["name"] != "FilingReport":
                 raise ReportError("모델이 구조화된 보고서를 반환하지 않았습니다.")
-            return validate_report(calls[0]["args"], source)
+            report = validate_report(calls[0]["args"], source, allow_empty=sections is not None)
+            if sections is not None and any(value for key, value in report.model_dump().items() if key not in sections):
+                raise ReportError("요청하지 않은 보고서 항목이 포함되었습니다.")
+            return report
         except (ReportError, ValidationError) as error:
             if attempt:
                 raise ReportError("근거 검증에 실패했습니다. 같은 공시로 다시 시도해 주세요.") from error
-            messages.append(HumanMessage(content="The report was rejected. Return all four categories with cited claims. Copy every quote exactly from the supplied excerpts; use only the supplied evidence IDs."))
+            messages.append(HumanMessage(content="The report was rejected. Return all four schema fields, with empty lists for unrequested sections. Copy every quote exactly from the supplied excerpts; use only supplied evidence IDs. Include cited claims in the requested sections only."))
     raise ReportError("보고서를 생성하지 못했습니다.")
