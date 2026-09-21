@@ -8,6 +8,7 @@
 - 구조: app/server에서 SQLite·MCP·HTTP 경계, entities/planner에서 스키마·순수 규칙·공용 뷰, widgets/workspace에서 화면 조합, shared/api에서 HTTP 호출.
 - 기본값: 단일 사용자, 외부 허용 주소는 PLANNER_ALLOWED_ORIGINS로 지정. 문서 revision 충돌 검출. 사람 확인은 AI 검증 전에도 가능. 최종 verified는 모든 항목의 AI passed와 사람 확인이 모두 필요. 이전 검증 실행의 별도 버전 이력은 저장하지 않음.
 - UI 업무 흐름과 Storybook은 Chromium, 실제 MCP는 SDK Streamable HTTP 클라이언트로 검증.
+- 반응형 UI: 1000px 이하 프로젝트 drawer와 단일 패널 작업 공간, 720px 이하 safe-area 하단 내비게이션. 모바일 입력 16px, 주요 터치 대상 44px 이상.
 
 - 외부 접속: http://dodonet.iptime.org:14000 → 내부 4000. .env.local의 PLANNER_ALLOWED_ORIGINS에 정확한 외부 Origin을 등록합니다. 예시는 .env.example을 참고합니다.
 

@@ -13,7 +13,7 @@ Bruno 실제 HTTP와 MCP SDK, Playwright Chromium은 소유 서버·임시 DB로
 
 ## 최종 결과
 
-단위·저장·CodeWeave 회귀 34/34, Bruno 실제 HTTP 41/41, MCP·브라우저·Storybook·재시작 통합 37/37 PASS. lint·typecheck·생산 빌드·Storybook 빌드·CodeWeave standalone ESM 검사 PASS. 최신 증거: [CodeWeave 확장 통합](../flow/2026-09-22-codeweave-extension.md).
+단위·저장·CodeWeave 회귀 34/34, Bruno 실제 HTTP 41/41, MCP·브라우저·Storybook·재시작 통합 38/38 PASS. lint·typecheck·생산 빌드·Storybook 빌드·CodeWeave standalone ESM 검사 PASS. 최신 증거: [모바일 UX 전면 개편](../flow/2026-09-22-mobile-ux-overhaul.md).
 
 [구현 및 검증 증거](../flow/2026-09-21-core-implementation.md)에 요구사항별 대응과 브라우저 MCP 연결 한계를 기록했습니다.
 
@@ -44,6 +44,9 @@ Bruno 실제 HTTP와 MCP SDK, Playwright Chromium은 소유 서버·임시 DB로
 - UX-01: index → 하위 생성 Dialog의 위치 → 생성 문서 parentId/phase → 부모 이동 → 미저장 취소/버리고 이동.
 - VIEW-05/06: GitHub 팔레트와 공용 Tabs/Dialog 키보드·포커스, 하위 카탈로그 CTA 우선 배치.
 - UI-06 확장: 닫힌 상세 패널에서 다른 문서를 선택하면 자동 복원. 기존 독립 스크롤·드래그·모달·사람 확인 회귀 유지.
+
+- MOBILE-01: 390×844에서 프로젝트 sidebar 대신 drawer와 하단 내비게이션 표시, drawer focus trap·Esc·호출 버튼 포커스 복귀, 44px 주요 메뉴, 가로 overflow 없음.
+- MOBILE-02: 768×1024에서 프로젝트 drawer와 `문서 목록 / 문서 상세` 단일 패널 유지. 문서 상세 자동 전환, 저장 전 입력 보존, 데스크톱 1440px resizable/sidebar 회귀 유지.
 
 - UX-02: 템플릿 선택/신규 전환과 화면 이동 시 미저장 변경 확인, 취소 시 초안 보존, 버리기 시 전환.
 

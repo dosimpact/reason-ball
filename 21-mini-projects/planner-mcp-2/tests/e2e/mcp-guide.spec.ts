@@ -53,9 +53,17 @@ test("REQ-010 sidebar navigation and guide match live MCP schemas", async ({
     await page.reload();
     await expect(page.getByRole("article")).toHaveCount(tools.length);
     await page.setViewportSize({ width: 390, height: 844 });
+    const projectTrigger = page.getByRole("button", {
+      name: "프로젝트 메뉴 열기",
+      exact: true,
+    });
+    await projectTrigger.click();
+    const drawer = page.getByRole("dialog", { name: "프로젝트 탐색" });
     await expect(
-      page.getByRole("link", { name: "AI MCP Interface 안내" }),
+      drawer.getByRole("link", { name: "AI MCP Interface 안내" }),
     ).toBeInViewport();
+    await page.keyboard.press("Escape");
+    await expect(projectTrigger).toBeFocused();
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBe(390);

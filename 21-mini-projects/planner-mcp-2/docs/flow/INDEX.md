@@ -52,3 +52,4 @@
 - [CodeWeave core 독립 모듈](2026-09-22-codeweave-core.md)
 - [CodeWeave 문서 확장 통합](2026-09-22-codeweave-extension.md)
 - [MCP-only 전 과정 데모 검증](2026-09-22-mcp-only-demo.md)
+- [모바일 UX 전면 개편](2026-09-22-mobile-ux-overhaul.md)

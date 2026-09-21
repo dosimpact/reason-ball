@@ -33,6 +33,7 @@ import {
   ChevronRight,
   Settings2,
   CircleDot,
+  Menu,
 } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
@@ -46,6 +47,7 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
+  DialogClose,
 } from "@/shared/ui/dialog";
 import {
   DropdownMenu,
@@ -98,6 +100,7 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
   const [dialogError, setDialogError] = useState("");
   const [createParent, setCreateParent] = useState<Document | null>(null);
   const [projectSearch, setProjectSearch] = useState("");
+  const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
   const [documentSearch, setDocumentSearch] = useState("");
   const [editorDirty, setEditorDirty] = useState(false);
   const [editorEpoch, setEditorEpoch] = useState(0);
@@ -109,6 +112,7 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
   const [nodeLabel, setNodeLabel] = useState("");
   const [nodeDocument, setNodeDocument] = useState("");
   const autoSelectProject = useRef(routeProjectId);
+  const mobileNavigationTrigger = useRef<HTMLButtonElement>(null);
   const generation = useRef(0);
   const selection = useRef({ projectId: routeProjectId, documentId: "" });
   const refresh = useCallback(async () => {
@@ -241,6 +245,7 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
   }
   function openProject(id: string) {
     navigate(() => {
+      setMobileNavigationOpen(false);
       selectProject(id);
     });
   }
@@ -296,6 +301,115 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
     navigate(() => setCreateParent(parent));
   }
   const subtree = documentFlow(nodes, documents, nodeCoordinates);
+  function projectNavigation(mobile = false) {
+    return (
+      <>
+        <div className="sidebar-content">
+          <div className="sidebar-heading">
+            <h2>프로젝트</h2>
+            <Badge variant="secondary">{projects.length}</Badge>
+          </div>
+          <Button
+            className="new-project-button"
+            onClick={() => {
+              navigate(() => {
+                if (mobile) setMobileNavigationOpen(false);
+                setProjectTitle("");
+                setDialogError("");
+                setProjectDialog("create");
+              });
+            }}
+          >
+            <Plus size={16} />새 프로젝트
+          </Button>
+          <label className="search-field">
+            <span className="sr-only">프로젝트 검색</span>
+            <Search size={15} />
+            <Input
+              placeholder="프로젝트 검색"
+              value={projectSearch}
+              onChange={(e) => setProjectSearch(e.target.value)}
+            />
+          </label>
+          <div className="project-list">
+            {projects
+              .filter((p) =>
+                p.title.toLowerCase().includes(projectSearch.toLowerCase()),
+              )
+              .map((p) => (
+                <Button
+                  variant="ghost"
+                  aria-label={p.title}
+                  aria-pressed={projectId === p.id}
+                  key={p.id}
+                  onClick={() => openProject(p.id)}
+                >
+                  <FolderGit2 size={16} />
+                  <span>{p.title}</span>
+                </Button>
+              ))}
+          </div>
+          {projects.length === 0 && (
+            <p className="muted sidebar-hint">
+              프로젝트를 만들면 설계·구현·검증 문서가 준비됩니다.
+            </p>
+          )}
+          {selectedProject && (
+            <div className="project-settings">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm">
+                    <Settings2 size={15} />
+                    프로젝트 설정
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start">
+                  <DropdownMenuItem
+                    onSelect={() => {
+                      if (mobile) setMobileNavigationOpen(false);
+                      setProjectTitle(selectedProject.title);
+                      setDialogError("");
+                      setProjectDialog("rename");
+                    }}
+                  >
+                    이름 변경
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onSelect={() => {
+                      if (mobile) setMobileNavigationOpen(false);
+                      setDialogError("");
+                      setProjectDialog("delete");
+                    }}
+                  >
+                    프로젝트 삭제
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          )}
+        </div>
+        <div className="sidebar-footer">
+          <Button variant="ghost" asChild>
+            <Link
+              href="/mcp-guide"
+              prefetch={false}
+              onNavigate={(event) => {
+                if (pathname !== "/mcp-guide" && editorDirty) {
+                  event.preventDefault();
+                  navigate(() => router.push("/mcp-guide"));
+                }
+                if (mobile) setMobileNavigationOpen(false);
+              }}
+              aria-current={tab === "guide" ? "page" : undefined}
+            >
+              <Bot size={16} />
+              AI MCP Interface 안내
+            </Link>
+          </Button>
+        </div>
+      </>
+    );
+  }
   return (
     <div className="app">
       <header className="topbar">
@@ -357,7 +471,49 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
             </Button>
           ))}
         </nav>
+        <Button
+          className="mobile-project-trigger"
+          variant="outline"
+          aria-label="프로젝트 메뉴 열기"
+          aria-haspopup="dialog"
+          aria-expanded={mobileNavigationOpen}
+          ref={mobileNavigationTrigger}
+          onClick={() => setMobileNavigationOpen(true)}
+        >
+          <Menu size={18} />
+          <span>{selectedProject?.title ?? "프로젝트"}</span>
+        </Button>
       </header>
+      <Dialog
+        open={mobileNavigationOpen}
+        onOpenChange={(open) => {
+          setMobileNavigationOpen(open);
+          if (!open)
+            requestAnimationFrame(() =>
+              mobileNavigationTrigger.current?.focus(),
+            );
+        }}
+      >
+        <DialogContent
+          className="mobile-navigation-drawer"
+          closeLabel="프로젝트 메뉴 닫기"
+        >
+          <DialogHeader>
+            <DialogTitle>프로젝트 탐색</DialogTitle>
+            <DialogDescription>
+              프로젝트를 선택하거나 새 작업 공간을 만드세요.
+            </DialogDescription>
+          </DialogHeader>
+          <aside className="mobile-drawer-sidebar" aria-label="프로젝트 탐색">
+            {projectNavigation(true)}
+          </aside>
+          <DialogClose asChild>
+            <Button className="mobile-drawer-done" variant="outline">
+              현재 화면으로 돌아가기
+            </Button>
+          </DialogClose>
+        </DialogContent>
+      </Dialog>
       {error && (
         <div className="global-error" role="alert">
           {error}
@@ -374,106 +530,8 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
         </div>
       )}
       <div className="shell">
-        <aside className="sidebar">
-          <div className="sidebar-content">
-            <div className="sidebar-heading">
-              <h2>프로젝트</h2>
-              <Badge variant="secondary">{projects.length}</Badge>
-            </div>
-            <Button
-              className="new-project-button"
-              onClick={() => {
-                navigate(() => {
-                  setProjectTitle("");
-                  setDialogError("");
-                  setProjectDialog("create");
-                });
-              }}
-            >
-              <Plus size={16} />새 프로젝트
-            </Button>
-            <label className="search-field">
-              <span className="sr-only">프로젝트 검색</span>
-              <Search size={15} />
-              <Input
-                placeholder="프로젝트 검색"
-                value={projectSearch}
-                onChange={(e) => setProjectSearch(e.target.value)}
-              />
-            </label>
-            <div className="project-list">
-              {projects
-                .filter((p) =>
-                  p.title.toLowerCase().includes(projectSearch.toLowerCase()),
-                )
-                .map((p) => (
-                  <Button
-                    variant="ghost"
-                    aria-label={p.title}
-                    aria-pressed={projectId === p.id}
-                    key={p.id}
-                    onClick={() => openProject(p.id)}
-                  >
-                    <FolderGit2 size={16} />
-                    <span>{p.title}</span>
-                  </Button>
-                ))}
-            </div>
-            {projects.length === 0 && (
-              <p className="muted sidebar-hint">
-                프로젝트를 만들면 설계·구현·검증 문서가 준비됩니다.
-              </p>
-            )}
-            {selectedProject && (
-              <div className="project-settings">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm">
-                      <Settings2 size={15} />
-                      프로젝트 설정
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start">
-                    <DropdownMenuItem
-                      onSelect={() => {
-                        setProjectTitle(selectedProject.title);
-                        setDialogError("");
-                        setProjectDialog("rename");
-                      }}
-                    >
-                      이름 변경
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onSelect={() => {
-                        setDialogError("");
-                        setProjectDialog("delete");
-                      }}
-                    >
-                      프로젝트 삭제
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            )}
-          </div>
-          <div className="sidebar-footer">
-            <Button variant="ghost" asChild>
-              <Link
-                href="/mcp-guide"
-                prefetch={false}
-                onNavigate={(event) => {
-                  if (pathname !== "/mcp-guide" && editorDirty) {
-                    event.preventDefault();
-                    navigate(() => router.push("/mcp-guide"));
-                  }
-                }}
-                aria-current={tab === "guide" ? "page" : undefined}
-              >
-                <Bot size={16} />
-                AI MCP Interface 안내
-              </Link>
-            </Button>
-          </div>
+        <aside className="sidebar" aria-label="프로젝트 탐색">
+          {projectNavigation()}
         </aside>
         <main>
           {tab === "guide" ? (

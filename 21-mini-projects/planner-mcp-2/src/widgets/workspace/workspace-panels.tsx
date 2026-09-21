@@ -33,81 +33,120 @@ export function WorkspacePanels({
 }) {
   const [closedFor, setClosedFor] = useState<string | null>(null);
   const detailOpen = closedFor !== revealKey;
+  const [mobileView, setMobileView] = useState<"canvas" | "detail">(
+    revealKey ? "detail" : "canvas",
+  );
   useEffect(() => {
     // A new document starts visible; do not remember a prior document's closed state.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setClosedFor(null);
+    if (revealKey) setMobileView("detail");
   }, [revealKey]);
   const detailId = useId();
+  const canvasRegionId = `${detailId}-canvas`;
+  const detailRegionId = `${detailId}-detail`;
   const openButton = useRef<HTMLButtonElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
   const desktop = useSyncExternalStore(subscribe, getDesktop, () => true);
   return (
-    <ResizablePanelGroup
-      className={`workspace${detailOpen ? "" : " workspace-detail-closed"}`}
-      orientation="horizontal"
-      disabled={!desktop || !detailOpen}
-      style={{
-        display: desktop ? "flex" : "block",
-        overflow: "visible",
-        height: "auto",
-      }}
-    >
-      <ResizablePanel
-        id="canvas"
-        defaultSize="42.5%"
-        minSize={desktop ? "300px" : "0%"}
-        style={{ overflow: "visible", display: "block", maxHeight: "none" }}
+    <div className="workspace-shell">
+      <div
+        className="mobile-workspace-tabs"
+        role="tablist"
+        aria-label="작업 공간 보기"
       >
-        {!detailOpen && (
-          <div className="panel-toolbar">
-            <Button
-              variant="ghost"
-              size="sm"
-              aria-controls={detailId}
-              aria-expanded={false}
-              ref={openButton}
-              onClick={() => {
-                setClosedFor(null);
-                requestAnimationFrame(() => closeButton.current?.focus());
-              }}
-            >
-              상세 패널 열기
-            </Button>
-          </div>
-        )}
-        {canvas}
-      </ResizablePanel>
-      <ResizableHandle
-        withHandle
-        aria-label="캔버스와 상세 패널 크기 조절"
-        title="드래그하거나 방향키로 패널 크기를 조절하세요"
-      />
-      <ResizablePanel
-        id="detail"
-        defaultSize="57.5%"
-        minSize={desktop ? "340px" : "0%"}
-        style={{ overflow: "visible", display: "block", maxHeight: "none" }}
+        <Button
+          variant="ghost"
+          role="tab"
+          aria-selected={mobileView === "canvas"}
+          aria-controls={canvasRegionId}
+          onClick={() => setMobileView("canvas")}
+        >
+          문서 목록
+        </Button>
+        <Button
+          variant="ghost"
+          role="tab"
+          aria-selected={mobileView === "detail"}
+          aria-controls={detailRegionId}
+          onClick={() => setMobileView("detail")}
+        >
+          문서 상세
+        </Button>
+      </div>
+      <ResizablePanelGroup
+        className={`workspace mobile-view-${mobileView}${
+          desktop && !detailOpen ? " workspace-detail-closed" : ""
+        }`}
+        orientation="horizontal"
+        disabled={!desktop || !detailOpen}
+        style={{
+          display: desktop ? "flex" : "block",
+          overflow: "visible",
+          height: "auto",
+        }}
       >
-        <div id={detailId}>
-          <div className="panel-toolbar">
-            <Button
-              variant="ghost"
-              size="sm"
-              aria-controls={detailId}
-              aria-expanded={true}
-              ref={closeButton}
-              onClick={() => {
-                setClosedFor(revealKey);
-                requestAnimationFrame(() => openButton.current?.focus());
-              }}
-            >
-              상세 패널 닫기
-            </Button>
+        <ResizablePanel
+          id="canvas"
+          defaultSize="42.5%"
+          minSize={desktop ? "300px" : "0%"}
+          style={{ overflow: "visible", display: "block", maxHeight: "none" }}
+        >
+          <div id={canvasRegionId} role="tabpanel">
+            {!detailOpen && (
+              <div className="panel-toolbar desktop-panel-toolbar">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  aria-controls={detailRegionId}
+                  aria-expanded={false}
+                  ref={openButton}
+                  onClick={() => {
+                    setClosedFor(null);
+                    requestAnimationFrame(() => closeButton.current?.focus());
+                  }}
+                >
+                  상세 패널 열기
+                </Button>
+              </div>
+            )}
+            {canvas}
           </div>
-          {detail}
-        </div>
-      </ResizablePanel>
-    </ResizablePanelGroup>
+        </ResizablePanel>
+        <ResizableHandle
+          withHandle
+          aria-label="캔버스와 상세 패널 크기 조절"
+          title="드래그하거나 방향키로 패널 크기를 조절하세요"
+        />
+        <ResizablePanel
+          id="detail"
+          defaultSize="57.5%"
+          minSize={desktop ? "340px" : "0%"}
+          style={{ overflow: "visible", display: "block", maxHeight: "none" }}
+        >
+          <div id={detailRegionId} role="tabpanel">
+            <div
+              id={detailId}
+              className="panel-toolbar desktop-panel-toolbar"
+            >
+              <Button
+                variant="ghost"
+                size="sm"
+                aria-controls={detailRegionId}
+                aria-expanded={true}
+                ref={closeButton}
+                onClick={() => {
+                  setClosedFor(revealKey);
+                  requestAnimationFrame(() => openButton.current?.focus());
+                }}
+              >
+                상세 패널 닫기
+              </Button>
+            </div>
+            {detail}
+          </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
+    </div>
   );
 }

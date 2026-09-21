@@ -139,6 +139,9 @@ test("UI-01/03 narrow layout keeps unsaved document and avoids horizontal page s
       await expect(
         page.getByRole("separator", { name: "캔버스와 상세 패널 크기 조절" }),
       ).toBeHidden();
+      await expect(
+        page.getByRole("tab", { name: "문서 상세", exact: true }),
+      ).toHaveAttribute("aria-selected", "true");
       await expect(await sourceEditor(page, "문서 본문")).toHaveValue(
         "저장 전 입력 유지",
       );
@@ -152,6 +155,13 @@ test("UI-01/03 narrow layout keeps unsaved document and avoids horizontal page s
       expect(bounds.height).toBe(bounds.viewportHeight);
       await (await sourceEditor(page, "문서 본문")).scrollIntoViewIfNeeded();
       await expect(await sourceEditor(page, "문서 본문")).toBeVisible();
+      await page.getByRole("tab", { name: "문서 목록", exact: true }).click();
+      await expect(page.locator(".canvas-panel")).toBeVisible();
+      await expect(page.locator(".detail-panel")).toBeHidden();
+      await page.getByRole("tab", { name: "문서 상세", exact: true }).click();
+      await expect(await sourceEditor(page, "문서 본문")).toHaveValue(
+        "저장 전 입력 유지",
+      );
     }
     await page.screenshot({ path: "test-results/workspace-mobile.png" });
     await page.setViewportSize({ width: 1440, height: 900 });
@@ -250,10 +260,67 @@ test("UI-06 close detail expands canvas and reopening preserves draft and panel 
     await expect(editor).toHaveValue("닫아도 유지할 저장 전 내용");
     expect((await canvas.boundingBox())!.width).toBeCloseTo(width, 0);
     await page.setViewportSize({ width: 390, height: 844 });
-    await close.click();
+    await page.getByRole("tab", { name: "문서 목록", exact: true }).click();
     await expect(page.locator(".detail-panel")).toBeHidden();
-    await reopen.click();
+    await page.getByRole("tab", { name: "문서 상세", exact: true }).click();
     await expect(editor).toHaveValue("닫아도 유지할 저장 전 내용");
+  } finally {
+    await request.delete(`/api/projects/${p.id}`, { data: {} });
+  }
+});
+
+test("MOBILE-01 project drawer and bottom navigation keep the workspace task-first", async ({
+  page,
+  request,
+}) => {
+  const { p } = await seed(request, "모바일 프로젝트 탐색");
+  try {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`/projects/${p.id}`);
+    const projectTrigger = page.getByRole("button", {
+      name: "프로젝트 메뉴 열기",
+      exact: true,
+    });
+    await expect(projectTrigger).toBeVisible();
+    await expect(page.locator(".shell > .sidebar")).toBeHidden();
+    await expect(
+      page.getByRole("tab", { name: "문서 상세", exact: true }),
+    ).toHaveAttribute("aria-selected", "true");
+
+    await projectTrigger.click();
+    const drawer = page.getByRole("dialog", { name: "프로젝트 탐색" });
+    await expect(drawer).toBeVisible();
+    await expect(
+      drawer.getByRole("button", { name: p.title, exact: true }),
+    ).toHaveAttribute("aria-pressed", "true");
+    await expect(
+      drawer.getByRole("link", { name: "AI MCP Interface 안내" }),
+    ).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(drawer).toBeHidden();
+    await expect(projectTrigger).toBeFocused();
+
+    for (const name of ["작업 공간", "템플릿 관리", "AI 작업 안내"]) {
+      const item = page.getByRole("link", { name, exact: true });
+      const box = await item.boundingBox();
+      expect(box?.height).toBeGreaterThanOrEqual(44);
+    }
+    const bounds = await page.evaluate(() => ({
+      width: document.documentElement.scrollWidth,
+      viewport: innerWidth,
+    }));
+    expect(bounds.width).toBeLessThanOrEqual(bounds.viewport);
+    await page.screenshot({ path: "test-results/mobile-workspace-redesign.png" });
+
+    await page.setViewportSize({ width: 768, height: 1024 });
+    await expect(projectTrigger).toBeVisible();
+    await expect(page.locator(".shell > .sidebar")).toBeHidden();
+    await expect(
+      page.getByRole("tab", { name: "문서 상세", exact: true }),
+    ).toHaveAttribute("aria-selected", "true");
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBeLessThanOrEqual(768);
   } finally {
     await request.delete(`/api/projects/${p.id}`, { data: {} });
   }
