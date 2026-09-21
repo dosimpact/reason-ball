@@ -163,6 +163,12 @@ Existing flow records keep their original wording and paths as historical eviden
 
 ## Supporting documents
 
+### External service research
+
+[Reverse business documentation](reverse-biz/INDEX.md) contains external-service research materials, separate from the implemented product stock. Start at the [Cheongwoldang document map](reverse-biz/cheongwoldang/INDEX.md) for fact collection, saju/tarot analysis, visual trend research, and development handoff templates. Observation coverage must be completed before analytical findings are written. Template placeholders are not service facts or accepted implementation decisions.
+
+### Implementation references
+
 Detailed implementation notes are grouped by their technical owners:
 
 - [Tech-shared package references](stock/tech-shared/INDEX.md): detailed technical notes moved from the former `master-docs/` without changing their contents.
