@@ -1,0 +1,4878 @@
+{
+  "schemaVersion": 1,
+  "categoryId": "social",
+  "missions": [
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "pre-A1",
+      "slug": "say-your-name",
+      "title": "처음 만나 이름 말하기",
+      "scenario": "동네 모임에서 이름을 묻습니다. 연습 이름은 민입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "새 이웃. 이름을 듣고 자신은 Alex라고 소개한 뒤 반가움을 표현한다.",
+      "opening": "Hi!",
+      "steps": [
+        {
+          "goal": "인사하기",
+          "example": "Hi.",
+          "cue": "hi = 안녕"
+        },
+        {
+          "goal": "이름 말하기",
+          "example": "Min.",
+          "cue": "Min = 연습 이름 민; My name is Min이라고 말해도 돼요"
+        },
+        {
+          "goal": "반가움 표현하기",
+          "example": "Nice to meet you.",
+          "cue": "nice to meet you = 만나서 반가워요"
+        }
+      ],
+      "outcome": "연습 이름으로 첫 인사를 나눈다.",
+      "transfer": "다음에는 상대가 먼저 이름을 말한다. 들은 이름을 확인하고 내 이름을 말한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "pre-A1",
+      "slug": "spell-short-name",
+      "title": "이름 철자 확인하기",
+      "scenario": "접수 명찰의 이름이 Min이 아니라 Kim으로 적혔습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "모임 접수자. Kim?이라고 확인하고 수정할 철자를 하나씩 기다린다.",
+      "opening": "Kim?",
+      "steps": [
+        {
+          "goal": "잘못된 이름 부정하기",
+          "example": "No. Min.",
+          "cue": "no = 아니요"
+        },
+        {
+          "goal": "철자 말하기",
+          "example": "M-I-N.",
+          "cue": "M-I-N = 이름 Min의 알파벳을 하나씩 말하기"
+        },
+        {
+          "goal": "수정 확인하기",
+          "example": "Yes. Thank you.",
+          "cue": "yes = 맞아요"
+        }
+      ],
+      "outcome": "명찰에 적을 이름을 정정한다.",
+      "transfer": "명찰 이름이 Jin으로 들린다. Min의 첫 글자를 다시 알려 준다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "pre-A1",
+      "slug": "state-country",
+      "title": "어디에서 왔는지 답하기",
+      "scenario": "국제 교류 모임에서 출신 나라를 물었습니다. 한국을 연습 답으로 씁니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "교류 모임 참가자. 나라를 한 번 묻고 Korea인지 확인한다.",
+      "opening": "Where are you from?",
+      "steps": [
+        {
+          "goal": "나라 답하기",
+          "example": "Korea.",
+          "cue": "Korea = 한국"
+        },
+        {
+          "goal": "확인 질문에 답하기",
+          "example": "Yes.",
+          "cue": "yes = 맞아요"
+        },
+        {
+          "goal": "상대에게 되묻기",
+          "example": "And you?",
+          "cue": "and you = 당신은요"
+        }
+      ],
+      "outcome": "출신 나라를 말하고 상대에게도 질문한다.",
+      "transfer": "이번에는 현재 사는 나라를 묻는다. from과 live의 질문 차이를 한국어로 확인하고 답한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "pre-A1",
+      "slug": "choose-call-name",
+      "title": "불리고 싶은 이름 고르기",
+      "scenario": "참가자 명단에는 긴 이름이 있지만 짧은 이름 Sam을 쓰고 싶습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "진행자. 등록 이름을 읽고 원하는 호칭을 묻는다.",
+      "opening": "Your name?",
+      "steps": [
+        {
+          "goal": "원하는 이름 말하기",
+          "example": "Sam, please.",
+          "cue": "please = 부탁해요"
+        },
+        {
+          "goal": "철자 알려 주기",
+          "example": "S-A-M.",
+          "cue": "S-A-M = 이름 Sam의 알파벳을 하나씩 말하기"
+        },
+        {
+          "goal": "선택 확인하기",
+          "example": "Yes. Sam.",
+          "cue": "yes = 맞아요"
+        }
+      ],
+      "outcome": "불리고 싶은 이름을 분명히 정한다.",
+      "transfer": "별명 대신 등록 이름 Min을 쓰고 싶다. 원하는 이름과 철자를 바꿔 알려 준다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "A1",
+      "slug": "ask-preferred-name",
+      "title": "상대가 원하는 호칭 묻기",
+      "scenario": "새 모임의 상대는 명찰에 긴 이름을 적었지만 편한 호칭이 따로 있습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "참가자. 이름은 Alexandra이고 Alex로 불리기를 원한다고 답한다.",
+      "opening": "Hello. I'm Alexandra.",
+      "steps": [
+        {
+          "goal": "자기소개하기",
+          "example": "Hello. I'm Min.",
+          "cue": "I'm = 저는"
+        },
+        {
+          "goal": "원하는 호칭 묻기",
+          "example": "Can I call you Alex?",
+          "cue": "can I call you = 이렇게 불러도 되나요"
+        },
+        {
+          "goal": "호칭으로 인사하기",
+          "example": "Nice to meet you, Alex.",
+          "cue": "nice to meet you = 반가워요"
+        }
+      ],
+      "outcome": "상대가 원하는 호칭을 확인해 사용한다.",
+      "transfer": "상대가 줄임말 대신 전체 이름을 원한다. 선호를 받아들여 다시 인사한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "A1",
+      "slug": "introduce-companion",
+      "title": "함께 온 친구 소개하기",
+      "scenario": "처음 온 독서 모임에 친구 Jo와 함께 왔습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "모임 참가자. 친구 이름을 듣고 친구도 모임이 처음인지 묻는다.",
+      "opening": "Hi. Is this your friend?",
+      "steps": [
+        {
+          "goal": "친구 소개하기",
+          "example": "This is my friend Jo.",
+          "cue": "this is = 이 사람은"
+        },
+        {
+          "goal": "처음 왔다고 말하기",
+          "example": "It is our first time.",
+          "cue": "first time = 처음"
+        },
+        {
+          "goal": "상대 이름 묻기",
+          "example": "What is your name?",
+          "cue": "what is your name = 이름이 뭐예요"
+        }
+      ],
+      "outcome": "친구와 자신을 소개해 대화에 참여시킨다.",
+      "transfer": "친구가 아니라 가족이 동행한다. 관계 표현을 바꾸고 두 사람 모두에게 인사를 연결한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "A1",
+      "slug": "join-empty-seat",
+      "title": "처음 보는 사람 옆에 앉기",
+      "scenario": "모임에 늦게 도착했고 빈 의자가 예약석인지 모릅니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "먼저 앉은 참가자. 한 의자는 친구 자리이고 옆 의자는 비어 있다고 짧게 답한다.",
+      "opening": "Hello.",
+      "steps": [
+        {
+          "goal": "자리 사용 가능 여부 묻기",
+          "example": "Is this seat free?",
+          "cue": "seat = 자리"
+        },
+        {
+          "goal": "다른 자리 확인하기",
+          "example": "Can I sit here?",
+          "cue": "can I sit = 앉아도 되나요"
+        },
+        {
+          "goal": "앉은 뒤 소개하기",
+          "example": "I'm Min. Nice to meet you.",
+          "cue": "I'm = 저는"
+        }
+      ],
+      "outcome": "사용 가능한 자리를 확인하고 인사한다.",
+      "transfer": "첫 번째 자리가 비어 있다. 허락을 확인하고 옆 사람 이름을 묻는다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "A1",
+      "slug": "confirm-name-sound",
+      "title": "잘못 들은 이름 다시 묻기",
+      "scenario": "상대 이름이 Ben인지 Dan인지 잘 들리지 않았습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "처음 만난 참가자. 실제 이름은 Dan이며 요청하면 천천히 반복한다.",
+      "opening": "Hi, I'm Dan.",
+      "steps": [
+        {
+          "goal": "다시 말해 달라고 요청하기",
+          "example": "Sorry. Again, please.",
+          "cue": "again = 다시"
+        },
+        {
+          "goal": "이름 후보 확인하기",
+          "example": "Is your name Dan?",
+          "cue": "is your name = 이름이 ~인가요"
+        },
+        {
+          "goal": "맞는 이름으로 인사하기",
+          "example": "Nice to meet you, Dan.",
+          "cue": "nice to meet you = 반가워요"
+        }
+      ],
+      "outcome": "추측으로 이름을 정하지 않고 확인한다.",
+      "transfer": "이번에는 이름 철자를 물어 Ben과 Beth를 구분한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "A2",
+      "slug": "explain-attendance",
+      "title": "모임에 온 이유 말하기",
+      "scenario": "사진 모임에 처음 왔습니다. 휴대폰 사진을 더 잘 찍고 싶지만 장비는 없습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "모임 회원. 카메라가 없어도 참여할 수 있고 오늘은 구도 연습을 한다고 알려 준다.",
+      "opening": "What brings you to our group?",
+      "steps": [
+        {
+          "goal": "참여 이유 말하기",
+          "example": "I want to take better photos with my phone.",
+          "cue": "want to = ~하고 싶다"
+        },
+        {
+          "goal": "경험 수준 알려 주기",
+          "example": "I'm a beginner, and I don't have a camera.",
+          "cue": "beginner = 초보"
+        },
+        {
+          "goal": "참여 방법 묻기",
+          "example": "Can I join today's practice with my phone?",
+          "cue": "join = 참여하다"
+        }
+      ],
+      "outcome": "관심과 경험을 소개하고 참여 가능 여부를 확인한다.",
+      "transfer": "그림 모임에서 재료가 없는 상황으로 바꾼다. 빌릴 수 있는 도구를 묻는다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "A2",
+      "slug": "separate-home-current",
+      "title": "고향과 현재 거주지 구분하기",
+      "scenario": "어디에서 왔느냐는 질문에 고향과 현재 사는 도시를 나누어 설명하려 합니다. 연습 배경: 부산에서 자랐고 두 달 전에 이 공원 근처로 이사했습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "새 이웃. 현재 같은 동네에 사는지 궁금해하고 이사 시기를 묻는다.",
+      "opening": "Are you from this area?",
+      "steps": [
+        {
+          "goal": "고향 말하기",
+          "example": "I grew up in Busan.",
+          "cue": "grew up = 자랐다"
+        },
+        {
+          "goal": "현재 거주지 말하기",
+          "example": "I live near this park now.",
+          "cue": "live near = 근처에 살다"
+        },
+        {
+          "goal": "이사 시기 알려 주기",
+          "example": "I moved here two months ago.",
+          "cue": "two months ago = 두 달 전"
+        }
+      ],
+      "outcome": "고향과 현재 생활 지역을 혼동 없이 소개한다.",
+      "transfer": "고향은 같지만 주중에만 다른 도시에 머문다. 평일과 주말 거주를 구분한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "A2",
+      "slug": "exchange-safe-contact",
+      "title": "연락 방법을 골라 교환하기",
+      "scenario": "만난 사람과 연락을 이어 가고 싶지만 개인 전화번호는 공유하지 않으려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "모임 참가자. 전화번호를 물었다가 이메일도 괜찮다고 답한다.",
+      "opening": "Can I have your phone number?",
+      "steps": [
+        {
+          "goal": "다른 연락 방법 제안하기",
+          "example": "Can we use email instead?",
+          "cue": "instead = 대신"
+        },
+        {
+          "goal": "연습용 주소 전달하기",
+          "example": "My email is min@example.com.",
+          "cue": "email = 이메일"
+        },
+        {
+          "goal": "첫 연락 내용 정하기",
+          "example": "Please send me the next meeting time.",
+          "cue": "next meeting = 다음 모임"
+        }
+      ],
+      "outcome": "원하는 개인정보 범위 안에서 연락 수단을 정한다.",
+      "transfer": "이메일 대신 모임의 공개 그룹 채팅을 이용한다. 가입 링크를 요청한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "A2",
+      "slug": "welcome-new-member",
+      "title": "새 회원이 편하게 참여하도록 돕기",
+      "scenario": "처음 온 참가자가 누구에게 말을 걸어야 할지 몰라 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "새 회원. 이름은 Lee이고 게임 규칙을 모르며 혼자 왔다고 답한다.",
+      "opening": "Hi. Is this the game group?",
+      "steps": [
+        {
+          "goal": "이름과 역할 소개하기",
+          "example": "I'm Min. I'm a member here.",
+          "cue": "member = 회원"
+        },
+        {
+          "goal": "필요한 도움 묻기",
+          "example": "Is this your first time playing?",
+          "cue": "first time = 처음"
+        },
+        {
+          "goal": "소개와 안내 제안하기",
+          "example": "I can introduce you to Jo and explain the game.",
+          "cue": "introduce = 소개하다"
+        }
+      ],
+      "outcome": "새 회원에게 사람과 활동을 연결한다.",
+      "transfer": "새 회원은 규칙을 알지만 함께할 사람이 없다. 규칙 설명 대신 팀 소개를 제안한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "B1",
+      "slug": "explain-career-gap",
+      "title": "경력 공백을 부담 없이 소개하기",
+      "scenario": "동네 모임에서 하는 일을 물었습니다. 잠시 쉬고 있고 상세 사정은 말하고 싶지 않습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "새 지인. 무례한 의도 없이 직업을 묻고 현재 관심사로 화제를 옮기면 따라간다.",
+      "opening": "What do you do for work?",
+      "steps": [
+        {
+          "goal": "현재 상태를 간단히 말하기",
+          "example": "I'm taking a break from work at the moment.",
+          "cue": "taking a break = 잠시 쉬다"
+        },
+        {
+          "goal": "공유 범위 정하기",
+          "example": "I'd rather not go into the details today.",
+          "cue": "go into details = 자세히 말하다"
+        },
+        {
+          "goal": "현재 관심사로 연결하기",
+          "example": "I've started learning photography. What do you enjoy doing?",
+          "cue": "enjoy doing = 즐겨 하다"
+        }
+      ],
+      "outcome": "사생활을 지키면서 자기소개를 이어 간다.",
+      "transfer": "상대가 재차 이유를 묻는다. 짧게 경계를 반복한 뒤 함께할 활동으로 옮긴다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "B1",
+      "slug": "repair-identity-assumption",
+      "title": "자기소개에서 잘못된 추정 바로잡기",
+      "scenario": "이름을 들은 상대가 특정 나라 출신이라고 단정했습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "모임 참가자. 이름만 보고 추정했다고 인정하고 실제 배경을 물을 준비가 되어 있다.",
+      "opening": "So you must be from Japan, right?",
+      "steps": [
+        {
+          "goal": "추정을 부드럽게 정정하기",
+          "example": "Actually, I'm from Korea.",
+          "cue": "actually = 사실은"
+        },
+        {
+          "goal": "이해할 맥락 제공하기",
+          "example": "My family name is common in several places.",
+          "cue": "common = 흔한"
+        },
+        {
+          "goal": "대화 이어 가기",
+          "example": "Have you met many people from Korea before?",
+          "cue": "have you met = 만나 본 적 있나요"
+        }
+      ],
+      "outcome": "상대를 공격하지 않고 자기 배경을 정확히 전달한다.",
+      "transfer": "이번에는 억양만 듣고 거주 기간을 추정한다. 필요한 정보만 정정한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "B1",
+      "slug": "enter-group-conversation",
+      "title": "진행 중인 대화에 자연스럽게 합류하기",
+      "scenario": "세 사람이 지역 축제에 관해 이야기합니다. 아는 사람 없이 합류하려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "기존 참가자. 토요일 축제 계획을 말하고 질문을 받으면 처음 온 사람을 소개한다.",
+      "opening": "We're deciding which event to see on Saturday.",
+      "steps": [
+        {
+          "goal": "참여 허락 구하기",
+          "example": "Mind if I join you? I'm new to the group.",
+          "cue": "mind if = ~해도 될까요"
+        },
+        {
+          "goal": "현재 주제에 연결하기",
+          "example": "I heard you mention the festival. I've been looking at the schedule.",
+          "cue": "heard you mention = 언급하는 걸 들었다"
+        },
+        {
+          "goal": "공동 관심 질문하기",
+          "example": "Are you more interested in the music or the food stalls?",
+          "cue": "more interested = 더 관심 있다"
+        }
+      ],
+      "outcome": "흐름을 끊지 않고 이름과 관련 질문으로 합류한다.",
+      "transfer": "대화가 지난 행사 평가로 바뀐다. 미래 계획 대신 어떤 점이 좋았는지 질문한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "B1",
+      "slug": "introduce-two-connections",
+      "title": "공통 관심사를 바탕으로 두 사람 연결하기",
+      "scenario": "친구 Jo는 지역 산책 코스를 찾고, 새 회원 Lee는 걷기 모임을 운영합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "Lee. 초보자를 위한 일요일 짧은 산책이 있고 사전 신청이 필요하다고 설명한다.",
+      "opening": "Hi, Min. Who's your friend?",
+      "steps": [
+        {
+          "goal": "두 사람 소개하기",
+          "example": "This is Jo. Jo, meet Lee, who runs the walking group.",
+          "cue": "who runs = 운영하는"
+        },
+        {
+          "goal": "공통 관심 설명하기",
+          "example": "Jo is looking for an easy local route, so I thought you two might have ideas to share.",
+          "cue": "thought you might = ~할 것 같았다"
+        },
+        {
+          "goal": "대화 넘기기",
+          "example": "Lee, could you tell Jo about the Sunday walk?",
+          "cue": "could you tell = 알려 줄 수 있나요"
+        }
+      ],
+      "outcome": "서로에게 유용한 연결 이유를 말하고 대화를 넘긴다.",
+      "transfer": "두 사람 관심이 다르다는 것을 알게 된다. 억지 공통점을 만들지 말고 각자 관심을 묻는다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "B2",
+      "slug": "adapt-personal-intro",
+      "title": "대상에 맞춰 자기소개 길이 조절하기",
+      "scenario": "비영리 모임에서 후원 담당자와 처음 만납니다. 30초 안에 활동을 설명하되 후원 요청으로 오해받고 싶지 않습니다. 연습 역할은 지역 자원봉사자가 어려운 생활 정보를 쉬운 안내문으로 바꾸도록 돕는 사람입니다. 상대 팀의 새 주민 안내 방식에 관심이 있습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "후원 담당자. 시간이 짧고 오늘은 제안을 검토할 자리가 아니라고 말한다.",
+      "opening": "I have half a minute before the next session. What do you do?",
+      "steps": [
+        {
+          "goal": "핵심 활동 소개하기",
+          "example": "I help local volunteers turn complex information into clear guides.",
+          "cue": "help someone do = ~하도록 돕다"
+        },
+        {
+          "goal": "만남의 목적 한정하기",
+          "example": "I'm not making a funding pitch today; I'm interested in how your team reaches new residents.",
+          "cue": "funding pitch = 후원 제안"
+        },
+        {
+          "goal": "후속 대화 선택권 주기",
+          "example": "If that overlaps with your work, perhaps we could exchange details for another time.",
+          "cue": "overlap = 관련이 겹치다"
+        }
+      ],
+      "outcome": "짧은 소개로 관련성을 전달하고 압박 없는 후속 선택을 제안한다.",
+      "transfer": "상대가 5분 시간을 준다. 핵심 사례 하나를 추가하고 상대 관심을 확인한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "B2",
+      "slug": "explain-multiple-belonging",
+      "title": "여러 문화적 배경을 단순화 없이 소개하기",
+      "scenario": "모임에서 진짜 고향이 어디냐고 거듭 묻습니다. 여러 도시에서 자란 경험을 존중받고 싶습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "호기심 많은 지인. 국적 하나로 분류하려 하지만 설명을 들으면 질문 표현을 조정한다.",
+      "opening": "But where are you really from?",
+      "steps": [
+        {
+          "goal": "다층적 배경 설명하기",
+          "example": "I've lived in several places, so there isn't one place that tells the whole story.",
+          "cue": "whole story = 전체 맥락"
+        },
+        {
+          "goal": "질문 영향 알리기",
+          "example": "The word really makes it sound as if my first answer didn't count.",
+          "cue": "didn't count = 인정되지 않았다"
+        },
+        {
+          "goal": "대화 가능한 방향 제안하기",
+          "example": "If you're interested, I can tell you which places shaped my childhood.",
+          "cue": "shaped = 형성했다"
+        }
+      ],
+      "outcome": "정체성을 하나로 강요하는 질문을 정정하고 대화 방향을 정한다.",
+      "transfer": "상대가 출생지 서류 때문에 묻는다고 밝힌다. 행정 사실과 정체성 이야기를 구분한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "B2",
+      "slug": "correct-exaggerated-intro",
+      "title": "과장된 소개를 정중히 바로잡기",
+      "scenario": "진행자가 당신을 전문 통역사로 소개했지만 가끔 자원봉사를 하는 수준입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "행사 진행자. 소개를 수정할 수 있고 필요한 언어 도움의 범위를 묻는다.",
+      "opening": "Min is our expert interpreter for the evening.",
+      "steps": [
+        {
+          "goal": "감사를 전하며 정정하기",
+          "example": "Thank you for the welcome, though I should clarify that I'm a volunteer, not a trained interpreter.",
+          "cue": "clarify = 분명히 하다"
+        },
+        {
+          "goal": "할 수 있는 범위 설명하기",
+          "example": "I can help with everyday questions, but specialist topics may need professional support.",
+          "cue": "specialist topics = 전문 주제"
+        },
+        {
+          "goal": "소개 수정 제안하기",
+          "example": "Could you introduce me as a volunteer language helper instead?",
+          "cue": "instead = 대신"
+        }
+      ],
+      "outcome": "명예나 기대를 부풀리지 않고 실제 역할을 설정한다.",
+      "transfer": "의료 관련 통역을 부탁받는다. 전문 지원을 연결해야 함을 분명히 설명한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "B2",
+      "slug": "introduce-after-online",
+      "title": "온라인 지인을 오프라인에서 처음 만나기",
+      "scenario": "온라인 포럼에서는 별명으로 알고 지냈고 실명 사용에 대한 기대가 서로 다릅니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "포럼 친구. 행사 사진 설명에 실명을 쓰려 했지만 선호를 물으면 조정한다.",
+      "opening": "It's great to finally meet you. Shall I tag you by your real name?",
+      "steps": [
+        {
+          "goal": "온라인 관계 연결하기",
+          "example": "It's lovely to meet the person behind the posts we've been sharing.",
+          "cue": "behind the posts = 글을 쓰던 실제 사람"
+        },
+        {
+          "goal": "이름 공개 선호 설명하기",
+          "example": "I'd prefer to keep my real name separate from my public account.",
+          "cue": "keep separate = 분리하다"
+        },
+        {
+          "goal": "대안 합의하기",
+          "example": "Please use my forum name in any public post, and ask me before sharing a photo.",
+          "cue": "public post = 공개 게시물"
+        }
+      ],
+      "outcome": "친밀함을 유지하면서 온라인·오프라인 이름 공개 범위를 합의한다.",
+      "transfer": "상대는 사진을 게시하지 않고 비공개 앨범만 제안한다. 공유 대상과 저장 범위를 확인한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "C1",
+      "slug": "reframe-low-status-role",
+      "title": "낮게 평가된 역할을 방어적이지 않게 설명하기",
+      "scenario": "지역 행사에서 그냥 도우미라는 소개를 받았습니다. 조직 운영 책임이 있지만 직함 싸움을 하고 싶지는 않습니다. 당신은 자원봉사 일정과 당일 인력 배치를 조율하며, 전체 운영 정책은 위원회가 정합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "네트워킹 참가자. 실무 역할과 결정 권한을 혼동하며 도움 수준만 기대한다.",
+      "opening": "So you're just helping out rather than running anything?",
+      "steps": [
+        {
+          "goal": "가치 판단을 부드럽게 재구성하기",
+          "example": "I support the team, certainly, although my role includes coordinating the whole volunteer schedule.",
+          "cue": "although = 다만"
+        },
+        {
+          "goal": "구체적 책임과 한계 설명하기",
+          "example": "I make the day-to-day staffing decisions; the committee sets the overall policy.",
+          "cue": "day-to-day = 일상 운영의"
+        },
+        {
+          "goal": "대화 목적에 연결하기",
+          "example": "If your question concerns coverage on Saturday, I'm the right person to speak to.",
+          "cue": "coverage = 인력 배치"
+        }
+      ],
+      "outcome": "권한을 과장하지 않고 자신의 책임과 관련성을 설명한다.",
+      "transfer": "상대가 과도한 최종 승인 권한을 부여한다. 실제 결재권자를 구분한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "C1",
+      "slug": "introduce-with-pronunciation",
+      "title": "이름 발음을 고치며 관계 유지하기",
+      "scenario": "상대가 여러 번 이름을 틀렸고 너무 어려우니 별명을 쓰자는 제안을 했습니다. 연습 이름은 가상 이름 Jiyun(지윤)입니다. Ji와 yun 두 부분으로 나누어 보여 주며 실제 음성 발음의 정확도를 텍스트로 판정하지 않습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "새 동료 모임 참가자. 악의는 없지만 편의를 우선하며 쉬운 발음 안내가 있으면 시도한다.",
+      "opening": "Wouldn't it be easier if we just called you Jay?",
+      "steps": [
+        {
+          "goal": "원하는 이름을 명확히 말하기",
+          "example": "I'd appreciate it if you used my name as it is, even if the pronunciation takes a little practice.",
+          "cue": "I'd appreciate = ~해 주시면 좋겠다"
+        },
+        {
+          "goal": "실행 가능한 발음 지원하기",
+          "example": "My name is Jiyun: Ji, then yun. Please feel free to ask me to repeat it.",
+          "cue": "Ji, then yun = 이름을 두 부분으로 나누어 제시하기; repeat = 반복하다"
+        },
+        {
+          "goal": "실수 허용과 선호 구분하기",
+          "example": "I don't expect perfection; I do value the effort to get it right.",
+          "cue": "value the effort = 노력을 중요하게 여기다"
+        }
+      ],
+      "outcome": "이름 존중을 요구하면서 상대가 개선할 수 있는 길을 제공한다.",
+      "transfer": "상대가 청각상 어려움을 설명한다. 서면 이름이나 동의한 호칭 대안을 함께 찾는다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "C1",
+      "slug": "manage-reputation-intro",
+      "title": "소문을 들은 상대에게 자신을 소개하기",
+      "scenario": "처음 만난 상대가 이전 모임의 갈등 이야기를 알고 있습니다. 비공개 사정을 공개하지 않고 현재 관계를 시작하려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "새 모임 회원. 이전 갈등에 대해 한쪽 이야기만 들었고 현재 협력 가능성을 궁금해한다.",
+      "opening": "I've heard you're the person who challenged the last committee.",
+      "steps": [
+        {
+          "goal": "사실과 낙인 구분하기",
+          "example": "I did raise concerns about the process, but that description leaves out why we were discussing it.",
+          "cue": "leaves out = 빠뜨리다"
+        },
+        {
+          "goal": "비공개 범위 지키기",
+          "example": "I won't go into other people's private comments, though I'm happy to explain my own approach.",
+          "cue": "own approach = 자신의 방식"
+        },
+        {
+          "goal": "현재 협력 원칙 소개하기",
+          "example": "I prefer clear decisions and room for disagreement, and I'd like us to start on that basis.",
+          "cue": "on that basis = 그 원칙으로"
+        }
+      ],
+      "outcome": "타인의 사생활을 지키면서 자신에 대한 단순한 인상을 바로잡는다.",
+      "transfer": "상대가 구체적 공개 회의록을 언급한다. 공개 사실만 확인하며 현재 논의와 분리한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "C1",
+      "slug": "bridge-disciplinary-intro",
+      "title": "전문 배경이 다른 사람들에게 자신을 설명하기",
+      "scenario": "시민 모임에 연구자와 주민이 섞여 있습니다. 전문성을 설명하되 학술 용어로 거리를 만들고 싶지 않습니다. 연습 직업은 지역 서비스 변경 때 주민들이 어떤 정보를 믿는지 연구하는 연구자입니다. 쉬운 안내문 제작에 도움을 줄 수 있지만 모든 주민 의견을 안다고 주장할 수는 없습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "주민 대표. 연구 결과가 자기 지역에 실제로 어떤 도움이 되는지 묻고 용어 설명을 요구한다.",
+      "opening": "Your title sounds impressive, but what would your work mean for us?",
+      "steps": [
+        {
+          "goal": "일상 언어로 활동 설명하기",
+          "example": "I study how people decide which information to trust when local services change.",
+          "cue": "trust information = 정보를 신뢰하다"
+        },
+        {
+          "goal": "실제 관련성과 한계 연결하기",
+          "example": "That could help us make notices clearer, although it won't tell us what every resident thinks.",
+          "cue": "although = 한계를 덧붙일 때"
+        },
+        {
+          "goal": "상대 지식의 역할 인정하기",
+          "example": "Your experience would help us spot assumptions that our research might miss.",
+          "cue": "spot assumptions = 전제를 발견하다"
+        }
+      ],
+      "outcome": "전문 배경을 실용적으로 설명하고 상대를 동등한 대화자로 초대한다.",
+      "transfer": "상대가 전문가의 확실한 정답만 원한다. 연구가 알려 주는 범위와 판단이 필요한 부분을 나눈다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "C2",
+      "slug": "resist-token-representative",
+      "title": "한 집단의 대표로 소개되는 상황 조율하기",
+      "scenario": "국제 모임에서 당신에게 한국 사람 전체의 관점을 말해 달라고 합니다. 개인 경험은 나누되 대표성을 오해받고 싶지 않습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "진행자. 다양한 목소리를 소개하려 하지만 한 사람을 전체 집단 대표로 다루고 있다.",
+      "opening": "Perhaps you can tell us what Koreans think about this.",
+      "steps": [
+        {
+          "goal": "대표성의 전제를 짚기",
+          "example": "I can offer one perspective shaped by my experience, but it would be misleading to present it as a national view.",
+          "cue": "one perspective = 하나의 관점"
+        },
+        {
+          "goal": "다양성과 자신의 위치 설명하기",
+          "example": "Views differ by generation, region, and circumstance, and my own experience captures only part of that range.",
+          "cue": "captures only part = 일부만 담다"
+        },
+        {
+          "goal": "질문을 생산적으로 재구성하기",
+          "example": "Could we frame the question around what I have encountered, then invite contrasting experiences?",
+          "cue": "frame the question = 질문의 틀을 바꾸다"
+        }
+      ],
+      "outcome": "개인 경험을 공유하면서 집단 전체를 대표한다는 함의를 해소한다.",
+      "transfer": "진행자가 설문 자료를 제공한다. 표본의 관점과 자신의 경험을 구분해 소개한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "C2",
+      "slug": "introduce-contested-affiliation",
+      "title": "논쟁적인 소속과 개인 입장을 구분하기",
+      "scenario": "소속 단체에 대한 논쟁 때문에 첫 만남부터 공식 입장을 요구받습니다. 개인 참가자이며 조직을 대신해 답할 권한이 없습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "시민 토론 참가자. 단체 직원이면 공식 정책을 옹호해야 한다고 생각하지만 역할 구분을 들을 의향이 있다.",
+      "opening": "Since you work there, should we take your comments as the organisation's position?",
+      "steps": [
+        {
+          "goal": "발언 지위 분명히 하기",
+          "example": "I'm here in a personal capacity, so my comments shouldn't be read as an official statement.",
+          "cue": "personal capacity = 개인 자격"
+        },
+        {
+          "goal": "회피와 역할 한계를 구분하기",
+          "example": "That isn't a way of avoiding the issue; it is a limit on whose views I can legitimately represent.",
+          "cue": "legitimately represent = 정당하게 대표하다"
+        },
+        {
+          "goal": "답할 수 있는 질문 제안하기",
+          "example": "I can discuss my experience of the process and help locate a public statement on policy.",
+          "cue": "public statement = 공개 입장문"
+        }
+      ],
+      "outcome": "조직과 개인의 관계를 정확히 설명하고 논의 가능한 근거를 정한다.",
+      "transfer": "공식 패널로 초대된 자리로 바뀐다. 사전에 승인된 발언 범위와 개인 해석을 표시한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "C2",
+      "slug": "revise-self-narrative",
+      "title": "성공담을 강요받는 자기소개 다시 구성하기",
+      "scenario": "행사 진행자가 어려움을 극복한 감동 사례로 자신을 소개했습니다. 실제 경험에는 아직 해결되지 않은 부분과 주변의 도움이 있습니다. 연습 경험: 지역 언어 모임을 만들면서 공간 제공과 동료의 안내 도움을 받았고, 중단 후 재개한 적이 있습니다. 현재도 운영비와 일정 조율은 해결 중입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "진행자. 짧고 긍정적인 이야기를 기대하며 과정의 복잡함은 생략하려 한다.",
+      "opening": "Your story proves that determination is all anyone needs, doesn't it?",
+      "steps": [
+        {
+          "goal": "단순한 인과관계 바로잡기",
+          "example": "Determination mattered, but describing it as sufficient would erase the support and opportunities I had.",
+          "cue": "sufficient = 충분한 조건"
+        },
+        {
+          "goal": "진행 중인 부분 인정하기",
+          "example": "There are still difficulties, so I wouldn't present this as a neat before-and-after story.",
+          "cue": "neat before-and-after = 단순한 전후 구도"
+        },
+        {
+          "goal": "공유할 핵심 새로 제안하기",
+          "example": "What may be useful is how people made room for setbacks without withdrawing their support.",
+          "cue": "setbacks = 후퇴나 어려움"
+        }
+      ],
+      "outcome": "자기 경험을 과장된 보편 교훈으로 소비하지 않도록 재구성한다.",
+      "transfer": "진행자가 한 문장 소개를 요청한다. 도움과 미완성을 포함한 간결한 소개를 제안한다."
+    },
+    {
+      "subcategoryId": "introductions",
+      "difficulty": "C2",
+      "slug": "negotiate-anonymous-intro",
+      "title": "익명성이 필요한 모임에서 신뢰 형성하기",
+      "scenario": "민감한 경험을 나누는 공개 모임입니다. 진행자는 실명 소개가 신뢰의 조건이라고 말하지만 당신은 별명만 쓰려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "진행자. 신뢰와 안전을 모두 원하지만 실명 규칙의 영향을 충분히 생각하지 않았다.",
+      "opening": "Real names help us know that everyone is being genuine.",
+      "steps": [
+        {
+          "goal": "신뢰와 실명 동일시 검토하기",
+          "example": "A real name may make some people feel accountable, but it doesn't by itself establish trustworthiness.",
+          "cue": "by itself = 그것만으로"
+        },
+        {
+          "goal": "익명 참여의 정당한 이유 설명하기",
+          "example": "For others, limiting identifying details is what makes honest participation possible.",
+          "cue": "identifying details = 신원 정보"
+        },
+        {
+          "goal": "공유 가능한 책임 기준 제안하기",
+          "example": "Could we build trust around consistent conduct and agreed boundaries rather than public identity?",
+          "cue": "consistent conduct = 일관된 행동"
+        }
+      ],
+      "outcome": "신뢰 목적을 존중하면서 익명 참여를 허용할 대안을 협의한다.",
+      "transfer": "비공개 운영자 확인만 요구하는 방안이 나온다. 보관·접근·삭제 조건을 확인하고 선택한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "pre-A1",
+      "slug": "greet-morning",
+      "title": "아침 인사 나누기",
+      "scenario": "엘리베이터에서 이웃과 마주쳤습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "이웃. Good morning으로 인사한 뒤 How are you?라고 안부를 묻고, 답을 들으면 좋은 하루를 바란다.",
+      "opening": "Good morning!",
+      "steps": [
+        {
+          "goal": "인사 돌려주기",
+          "example": "Good morning.",
+          "cue": "good morning = 좋은 아침"
+        },
+        {
+          "goal": "안부에 답하기",
+          "example": "Good, thanks.",
+          "cue": "good = 좋아요"
+        },
+        {
+          "goal": "헤어지기",
+          "example": "Bye.",
+          "cue": "bye = 안녕히 가세요"
+        }
+      ],
+      "outcome": "짧은 아침 인사를 주고받는다.",
+      "transfer": "저녁에 같은 이웃을 만난다. evening이라는 낱말을 사용해 인사한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "pre-A1",
+      "slug": "name-weather",
+      "title": "오늘 날씨 한마디 하기",
+      "scenario": "공원에서 옆 사람이 날씨 이야기를 시작합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "공원 이용자. 오늘 맑고 따뜻하다고 한 문장씩 말한다.",
+      "opening": "Sunny today!",
+      "steps": [
+        {
+          "goal": "날씨에 동의하기",
+          "example": "Yes. Sunny.",
+          "cue": "sunny = 맑은"
+        },
+        {
+          "goal": "느낌 말하기",
+          "example": "Nice!",
+          "cue": "nice = 좋네요"
+        },
+        {
+          "goal": "좋은 하루를 바라며 마치기",
+          "example": "Have a good day.",
+          "cue": "have a good day = 좋은 하루 보내세요"
+        }
+      ],
+      "outcome": "눈앞의 날씨로 짧게 교류한다.",
+      "transfer": "비 오는 날로 바꾼다. rainy를 사용하되 좋다는 말에 꼭 동의하지 않아도 된다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "pre-A1",
+      "slug": "answer-how-are-you",
+      "title": "오늘 기분 짧게 답하기",
+      "scenario": "친한 이웃이 오늘 어떤지 묻습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "이웃. 짧은 답을 기다리고 자신도 괜찮다고 말한다.",
+      "opening": "How are you?",
+      "steps": [
+        {
+          "goal": "현재 상태 답하기",
+          "example": "Good, thanks.",
+          "cue": "good = 좋아요"
+        },
+        {
+          "goal": "상대 안부 묻기",
+          "example": "And you?",
+          "cue": "and you = 당신은요"
+        },
+        {
+          "goal": "답에 반응하기",
+          "example": "Nice.",
+          "cue": "nice = 좋네요"
+        }
+      ],
+      "outcome": "짧은 안부를 상호 교환한다.",
+      "transfer": "피곤한 날이다. tired라는 단어로 솔직하게 답하고 상대 안부를 묻는다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "pre-A1",
+      "slug": "recognize-pet",
+      "title": "반려동물 보고 한마디 하기",
+      "scenario": "산책 중 만난 사람의 개가 눈에 띕니다. 만지기 전에 허락이 필요합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "개 주인. 이름은 Max다. 이름을 알려 준 뒤 Please do not touch him today라고 짧게 안내하고, 요청하면 touch는 만지다라는 뜻을 설명한다.",
+      "opening": "Hello!",
+      "steps": [
+        {
+          "goal": "관심 표현하기",
+          "example": "Nice dog!",
+          "cue": "dog = 개"
+        },
+        {
+          "goal": "이름 묻기",
+          "example": "Name?",
+          "cue": "name = 이름"
+        },
+        {
+          "goal": "허락 거절 받아들이기",
+          "example": "Okay. Thank you.",
+          "cue": "okay = 알겠어요"
+        }
+      ],
+      "outcome": "짧게 관심을 표현하고 상대의 경계를 존중한다.",
+      "transfer": "다음에는 주인이 만져도 된다고 말한다. yes/no를 확인한 뒤 행동한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "A1",
+      "slug": "weekend-plan-short",
+      "title": "주말 계획 간단히 묻기",
+      "scenario": "금요일 수업이 끝나고 친구와 잠깐 이야기합니다. 연습 계획은 주말에 여자 형제를 방문하는 것입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 토요일에는 일하고 일요일에는 쉰다고 말한다.",
+      "opening": "Any plans for the weekend?",
+      "steps": [
+        {
+          "goal": "내 계획 말하기",
+          "example": "I'm visiting my sister.",
+          "cue": "visit = 방문하다"
+        },
+        {
+          "goal": "상대 계획 묻기",
+          "example": "What about you?",
+          "cue": "what about you = 당신은요"
+        },
+        {
+          "goal": "반응하기",
+          "example": "Enjoy your Sunday.",
+          "cue": "enjoy = 즐겁게 보내다"
+        }
+      ],
+      "outcome": "서로의 간단한 주말 계획을 나눈다.",
+      "transfer": "친구가 아무 계획이 없다고 한다. 계획을 강요하지 않고 쉬는 날을 응원한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "A1",
+      "slug": "comment-shared-place",
+      "title": "같은 장소에 관해 대화 시작하기",
+      "scenario": "새 도서관 휴게실에서 옆 사람과 짧게 대화합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "이용자. 처음 온 것은 아니며 창가 자리가 조용하다고 답한다.",
+      "opening": "It's quiet here.",
+      "steps": [
+        {
+          "goal": "느낌에 반응하기",
+          "example": "Yes. I like it.",
+          "cue": "quiet = 조용한"
+        },
+        {
+          "goal": "방문 경험 묻기",
+          "example": "Is this your first visit?",
+          "cue": "first visit = 첫 방문"
+        },
+        {
+          "goal": "짧은 정보에 감사하기",
+          "example": "Thank you. I like quiet places.",
+          "cue": "like = 좋아하다"
+        }
+      ],
+      "outcome": "공유하는 장소를 주제로 짧은 대화를 나눈다.",
+      "transfer": "장소가 시끄럽다. quiet 대신 noisy를 사용하고 조용한 자리를 묻는다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "A1",
+      "slug": "compliment-choice",
+      "title": "상대의 소지품 칭찬하기",
+      "scenario": "모임에서 상대가 고른 가방의 색이 마음에 듭니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "모임 참가자. 가방은 친구가 준 선물이며 가격은 모른다고 답한다.",
+      "opening": "Hi!",
+      "steps": [
+        {
+          "goal": "선택한 물건 칭찬하기",
+          "example": "I like your bag.",
+          "cue": "bag = 가방"
+        },
+        {
+          "goal": "색을 구체적으로 말하기",
+          "example": "The blue is nice.",
+          "cue": "blue = 파란색"
+        },
+        {
+          "goal": "설명에 반응하기",
+          "example": "That's a nice gift.",
+          "cue": "gift = 선물"
+        }
+      ],
+      "outcome": "외모 대신 소지품에 관해 자연스럽게 관심을 보인다.",
+      "transfer": "상대가 직접 만든 가방이라고 한다. made it의 뜻을 확인하고 솜씨에 반응한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "A1",
+      "slug": "end-short-chat",
+      "title": "급할 때 짧은 대화 끝내기",
+      "scenario": "이웃과 이야기하다 버스가 오는 것을 봤습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "이웃. 버스가 오는 것을 몰랐고 이유를 들으면 보내 준다.",
+      "opening": "How is your day going?",
+      "steps": [
+        {
+          "goal": "짧게 답하기",
+          "example": "Good, thanks.",
+          "cue": "good = 좋아요"
+        },
+        {
+          "goal": "떠날 이유 말하기",
+          "example": "My bus is here.",
+          "cue": "bus is here = 버스가 왔다"
+        },
+        {
+          "goal": "인사하고 마치기",
+          "example": "See you later.",
+          "cue": "see you later = 나중에 봐요"
+        }
+      ],
+      "outcome": "상대를 무시하지 않고 짧게 대화를 마친다.",
+      "transfer": "전화가 와서 자리를 비워야 한다. 짧은 이유를 바꿔 말한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "A2",
+      "slug": "follow-up-hobby",
+      "title": "취미 이야기에 후속 질문하기",
+      "scenario": "친구가 최근 요리를 시작했다고 합니다. 같은 질문만 반복하지 않으려 합니다. 연습 경험: 당신도 지난주에 수프를 만들었고 소금을 너무 많이 넣었습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 일요일마다 수프를 만들고 최근에는 너무 짜게 만들었다고 답한다.",
+      "opening": "I've started cooking at home.",
+      "steps": [
+        {
+          "goal": "구체적인 활동 묻기",
+          "example": "What do you usually cook?",
+          "cue": "usually = 보통"
+        },
+        {
+          "goal": "빈도 묻기",
+          "example": "How often do you cook?",
+          "cue": "how often = 얼마나 자주"
+        },
+        {
+          "goal": "작은 경험 연결하기",
+          "example": "I made soup last week too. Mine was very salty.",
+          "cue": "mine = 내 것은"
+        }
+      ],
+      "outcome": "취미에 관한 두 가지 정보를 얻고 자신의 경험을 연결한다.",
+      "transfer": "친구가 요리 대신 달리기를 시작했다. 장소와 빈도를 묻고 관련 경험을 한마디 덧붙인다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "A2",
+      "slug": "respond-bad-day",
+      "title": "힘든 하루였다는 말에 반응하기",
+      "scenario": "지인이 버스를 놓쳐 하루가 힘들었다고 말합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "지인. 지금은 집에 갈 수 있지만 잠깐 이야기하고 싶다고 말한다.",
+      "opening": "Today was really difficult.",
+      "steps": [
+        {
+          "goal": "상대 감정 인정하기",
+          "example": "I'm sorry to hear that.",
+          "cue": "sorry to hear = 안타깝다"
+        },
+        {
+          "goal": "말하고 싶은지 묻기",
+          "example": "Do you want to tell me about it?",
+          "cue": "do you want = 원하나요"
+        },
+        {
+          "goal": "간단한 응원하기",
+          "example": "I hope tomorrow is easier.",
+          "cue": "hope = 바라다"
+        }
+      ],
+      "outcome": "바로 해결책을 강요하지 않고 관심을 표현한다.",
+      "transfer": "상대가 말하고 싶지 않다고 한다. 선택을 받아들이고 다른 화제로 옮긴다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "A2",
+      "slug": "share-local-tip",
+      "title": "새 이웃에게 주변 정보 알려 주기",
+      "scenario": "새 이웃이 근처에서 조용히 앉을 곳을 찾습니다. 전달할 동네 정보: 도서관은 걸어서 5분, 좌석은 무료이며 오늘은 오후 6시에 닫습니다. 공원에도 무료 벤치가 있습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "새 이웃. 걸어서 갈 수 있고 돈을 쓰지 않는 곳을 원한다.",
+      "opening": "Is there a nice place to sit nearby?",
+      "steps": [
+        {
+          "goal": "원하는 조건 확인하기",
+          "example": "Do you want somewhere quiet?",
+          "cue": "somewhere quiet = 조용한 곳"
+        },
+        {
+          "goal": "조건에 맞는 장소 제안하기",
+          "example": "The library has free seats and is five minutes away.",
+          "cue": "free seats = 무료 좌석"
+        },
+        {
+          "goal": "이용 시간 알리기",
+          "example": "It closes at six, so go before then.",
+          "cue": "closes at = ~시에 닫다"
+        }
+      ],
+      "outcome": "조건에 맞는 동네 정보를 간단히 전달한다.",
+      "transfer": "도서관이 오늘 휴관이다. 유료 카페 대신 무료 공원 벤치를 대안으로 설명한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "A2",
+      "slug": "ask-without-prying",
+      "title": "너무 사적인 질문 피하며 안부 묻기",
+      "scenario": "한동안 못 본 모임 회원을 만났습니다. 결석 이유를 캐묻지 않으려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "모임 회원. 바빴고 자세한 사정은 말하지 않으며 돌아와 반갑다고 답한다.",
+      "opening": "It's been a while!",
+      "steps": [
+        {
+          "goal": "다시 만난 반가움 말하기",
+          "example": "It's good to see you again.",
+          "cue": "good to see = 만나서 반갑다"
+        },
+        {
+          "goal": "현재 안부 묻기",
+          "example": "How have you been?",
+          "cue": "how have you been = 그동안 어땠나요"
+        },
+        {
+          "goal": "현재 활동으로 연결하기",
+          "example": "Would you like to join our table today?",
+          "cue": "join our table = 우리 자리에 합류하다"
+        }
+      ],
+      "outcome": "사생활을 추궁하지 않고 다시 관계를 연결한다.",
+      "transfer": "상대가 먼저 결석 이유를 말한다. 필요한 만큼만 반응하고 참여 의사를 확인한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "B1",
+      "slug": "recover-dead-topic",
+      "title": "상대가 모르는 주제에서 대화 전환하기",
+      "scenario": "영화 이야기를 꺼냈지만 상대는 그 영화를 보지 않았습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "지인. 영화보다 산책을 좋아하며 주말에 새로운 길을 걸었다고 말한다.",
+      "opening": "I haven't seen it. I don't watch many films.",
+      "steps": [
+        {
+          "goal": "상대 반응 받아들이기",
+          "example": "No problem. I probably got carried away with the plot.",
+          "cue": "got carried away = 지나치게 몰두했다"
+        },
+        {
+          "goal": "관심사 묻기",
+          "example": "What do you like doing when you have free time?",
+          "cue": "free time = 여가"
+        },
+        {
+          "goal": "새 주제에 연결하기",
+          "example": "That sounds relaxing. Did you find a good walking route recently?",
+          "cue": "recently = 최근에"
+        }
+      ],
+      "outcome": "주제를 강요하지 않고 상대 관심으로 대화를 이어 간다.",
+      "transfer": "상대가 아무 취미도 떠올리지 못한다. 최근 편했던 순간처럼 더 쉬운 질문으로 바꾼다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "B1",
+      "slug": "explain-delayed-response",
+      "title": "늦은 연락을 간단히 설명하기",
+      "scenario": "친구의 안부 메시지에 일주일 늦게 답했습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 걱정했지만 긴 변명보다 상태와 연락 가능 여부를 알고 싶어 한다.",
+      "opening": "Hey, I hadn't heard from you. Everything okay?",
+      "steps": [
+        {
+          "goal": "늦은 답장 인정하기",
+          "example": "Sorry I took so long to reply.",
+          "cue": "took so long = 오래 걸렸다"
+        },
+        {
+          "goal": "간단한 이유와 상태 말하기",
+          "example": "I've had a busy week, but I'm doing okay.",
+          "cue": "doing okay = 괜찮게 지내다"
+        },
+        {
+          "goal": "대화 이어 갈 방법 제안하기",
+          "example": "How have you been? I have time to catch up this evening.",
+          "cue": "catch up = 밀린 이야기를 나누다"
+        }
+      ],
+      "outcome": "침묵으로 생긴 걱정을 줄이고 연락을 재개한다.",
+      "transfer": "아직 대화할 여유가 없다. 상태를 알리고 구체적인 후속 연락 시점을 제안한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "B1",
+      "slug": "avoid-weather-generalization",
+      "title": "날씨 취향이 다른 사람과 이야기하기",
+      "scenario": "덥고 맑은 날이 좋다고 했는데 상대는 더위가 힘들다고 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "이웃. 더위에 쉽게 지치며 그늘 있는 길을 선호한다.",
+      "opening": "I actually find this heat exhausting.",
+      "steps": [
+        {
+          "goal": "다른 경험 인정하기",
+          "example": "That makes sense. It can be too much in the afternoon.",
+          "cue": "exhausting = 지치게 하는"
+        },
+        {
+          "goal": "내 취향의 범위 설명하기",
+          "example": "I like the sunshine, but I prefer it when there's a cool breeze.",
+          "cue": "cool breeze = 시원한 바람"
+        },
+        {
+          "goal": "공통 관심으로 연결하기",
+          "example": "Have you found a shady place to walk around here?",
+          "cue": "shady = 그늘진"
+        }
+      ],
+      "outcome": "취향 차이를 논쟁으로 만들지 않고 공통 주제를 찾는다.",
+      "transfer": "상대가 추운 날을 힘들어한다. 실내에서 즐길 수 있는 장소를 화제로 삼는다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "B1",
+      "slug": "respond-to-good-news",
+      "title": "좋은 소식에 구체적으로 반응하기",
+      "scenario": "친구가 오래 준비한 시험을 통과했습니다. 내 경험으로 화제를 빼앗지 않으려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 두 번 재도전했고 오늘은 조용히 축하하고 싶어 한다.",
+      "opening": "I finally passed!",
+      "steps": [
+        {
+          "goal": "축하하기",
+          "example": "Congratulations! You worked really hard for this.",
+          "cue": "congratulations = 축하해요"
+        },
+        {
+          "goal": "의미 있는 후속 질문하기",
+          "example": "How did you feel when you saw the result?",
+          "cue": "result = 결과"
+        },
+        {
+          "goal": "원하는 축하 방식 묻기",
+          "example": "Would you like to celebrate, or would you rather have a quiet evening?",
+          "cue": "would you rather = 차라리 ~하고 싶나요"
+        }
+      ],
+      "outcome": "상대의 성취를 중심에 두고 원하는 반응을 확인한다.",
+      "transfer": "좋은 소식이 이직이지만 떠나는 아쉬움도 있다. 기쁨과 복합 감정을 함께 인정한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "B2",
+      "slug": "redirect-sensitive-topic",
+      "title": "민감해진 가벼운 대화 돌리기",
+      "scenario": "식사 전 가벼운 대화가 소득 비교로 흘렀습니다. 공개하고 싶지 않은 참가자가 있습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "모임 참가자. 연봉을 묻는 것이 친근한 관심이라고 생각하지만 대안 주제를 받아들인다.",
+      "opening": "Come on, roughly how much do you earn?",
+      "steps": [
+        {
+          "goal": "공유 선호를 분명히 하기",
+          "example": "I tend to keep finances private, especially in a group.",
+          "cue": "keep private = 비공개로 두다"
+        },
+        {
+          "goal": "상대 체면을 지키며 전환하기",
+          "example": "I know you're making conversation, but I'd rather talk about what we enjoy outside work.",
+          "cue": "make conversation = 대화를 이어 가다"
+        },
+        {
+          "goal": "새 질문 제안하기",
+          "example": "Has anyone found a good place to spend a free afternoon lately?",
+          "cue": "outside work = 일 밖에서"
+        }
+      ],
+      "outcome": "사적 정보 공개 없이 자연스럽게 공통 화제로 이동한다.",
+      "transfer": "상대가 같은 질문을 반복한다. 경계를 더 명확하게 말하고 대화에서 잠시 빠진다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "B2",
+      "slug": "include-quiet-person",
+      "title": "조용한 사람도 참여할 수 있게 대화하기",
+      "scenario": "모임 대화가 아는 사람들끼리의 추억에 치우쳐 새 참가자가 소외됐습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "오래된 회원. 내부 농담을 설명해 달라면 짧게 설명하며 새 참가자에게 질문을 넘긴다.",
+      "opening": "Remember that disaster on our last trip?",
+      "steps": [
+        {
+          "goal": "공통 배경 설명 요청하기",
+          "example": "Could we give a little context for anyone who wasn't there?",
+          "cue": "give context = 맥락을 설명하다"
+        },
+        {
+          "goal": "새 참가자에게 부담 적은 초대하기",
+          "example": "Jo, feel free to jump in if any of this reminds you of a trip you've taken.",
+          "cue": "jump in = 대화에 끼다"
+        },
+        {
+          "goal": "말하지 않을 선택도 인정하기",
+          "example": "No pressure to share; we can move on to something else too.",
+          "cue": "no pressure = 부담 갖지 않아도 된다"
+        }
+      ],
+      "outcome": "새 참가자에게 맥락과 참여 선택권을 제공한다.",
+      "transfer": "새 참가자가 말하기 대신 듣기를 원한다. 집중 질문을 멈추고 모두가 이해할 주제로 옮긴다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "B2",
+      "slug": "handle-cultural-reference",
+      "title": "모르는 문화적 농담 물어보기",
+      "scenario": "상대가 TV 프로그램을 빗댄 농담을 했지만 알아듣지 못했습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "지인. 실제 사건이 아니라 시트콤 장면을 인용했으며 요청하면 배경을 설명한다.",
+      "opening": "Well, that was a classic 'we were on a break' moment.",
+      "steps": [
+        {
+          "goal": "이해하지 못한 부분 특정하기",
+          "example": "I get that you're joking, but I'm missing the reference.",
+          "cue": "reference = 인용 대상"
+        },
+        {
+          "goal": "맥락 설명 요청하기",
+          "example": "Is that from a show, or does it refer to something that happened here?",
+          "cue": "refer to = 가리키다"
+        },
+        {
+          "goal": "이해한 뜻 확인하기",
+          "example": "So you're saying they had different ideas about what they'd agreed?",
+          "cue": "different ideas = 다른 이해"
+        }
+      ],
+      "outcome": "모르는 표현을 아는 척하지 않고 함의를 확인한다.",
+      "transfer": "같은 말이 실제 갈등을 비꼬는 데 쓰인다. 웃기 전에 진지한 의도인지 확인한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "B2",
+      "slug": "repair-one-upmanship",
+      "title": "자랑 경쟁처럼 들린 말 고치기",
+      "scenario": "친구의 여행 이야기에 더 좋은 내 경험을 길게 말해 버렸습니다. 친구는 밤시장에서 상인과 이야기를 나눈 것이 가장 기억에 남는다고 말하려던 중이었습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 밤시장 상인에게 간식 만드는 법을 배운 경험을 말하다 끊겼다. 정정 후 질문받으면 그 경험을 설명한다.",
+      "opening": "Right. Anyway, as I was saying...",
+      "steps": [
+        {
+          "goal": "대화를 빼앗은 점 인정하기",
+          "example": "Sorry, I turned that into my story without meaning to.",
+          "cue": "turned into = ~로 바꾸다"
+        },
+        {
+          "goal": "상대 경험으로 초점 되돌리기",
+          "example": "You were telling me about the night market. What made it special for you?",
+          "cue": "what made it special = 무엇이 특별하게 했나"
+        },
+        {
+          "goal": "후속 경청 표현하기",
+          "example": "That sounds like the part you most wanted to remember.",
+          "cue": "remember = 기억하다"
+        }
+      ],
+      "outcome": "경쟁적으로 보인 반응을 고치고 상대 이야기를 다시 중심에 둔다.",
+      "transfer": "친구가 이미 의욕을 잃었다. 더 말하라고 압박하지 않고 다음에 들을 의향을 전한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "C1",
+      "slug": "defuse-loaded-banter",
+      "title": "친근함을 가장한 비꼼에 선 긋기",
+      "scenario": "모임에서 늘 늦는 사람이라는 농담을 받습니다. 오늘은 정시에 왔고 낙인이 반복되는 것이 싫습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 농담일 뿐이라고 말하지만 구체적인 요청을 듣고 조정할 수 있다.",
+      "opening": "Look who's finally decided to join the punctual people!",
+      "steps": [
+        {
+          "goal": "농담의 사실 전제 정정하기",
+          "example": "I'm actually on time today, so I'll take the punctual part.",
+          "cue": "on time = 정시에; punctual = 시간을 지키는"
+        },
+        {
+          "goal": "반복되는 효과 설명하기",
+          "example": "I know you mean it lightly, but the running joke is starting to define me in the group.",
+          "cue": "running joke = 반복 농담"
+        },
+        {
+          "goal": "구체적 변화 요청하기",
+          "example": "Could we retire that one and let today's arrival speak for itself?",
+          "cue": "retire that one = 그 농담을 그만두다"
+        }
+      ],
+      "outcome": "적대감을 키우지 않고 반복 농담의 경계를 설정한다.",
+      "transfer": "친구가 공개석상에서 당황한다. 짧게 마무리하고 필요하면 사적으로 설명한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "C1",
+      "slug": "manage-grief-smalltalk",
+      "title": "상실을 겪은 사람에게 안부 묻기",
+      "scenario": "최근 가족을 잃은 지인을 만났습니다. 말하고 싶은 정도를 상대가 정하도록 하려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "지인. 어떤 날은 이야기하고 싶고 오늘은 평범한 대화를 원한다고 답한다.",
+      "opening": "It's nice to see a familiar face.",
+      "steps": [
+        {
+          "goal": "관심과 선택권 함께 표현하기",
+          "example": "It's good to see you too. We can talk about how things have been, or about something completely ordinary.",
+          "cue": "ordinary = 일상적인"
+        },
+        {
+          "goal": "선호에 맞춰 반응하기",
+          "example": "Of course. We don't have to make this a heavy conversation.",
+          "cue": "heavy conversation = 무거운 대화"
+        },
+        {
+          "goal": "구체적이고 부담 적은 연결 제안하기",
+          "example": "Would you like some company on the walk to the café?",
+          "cue": "some company = 함께 있어 주는 것"
+        }
+      ],
+      "outcome": "상실 경험을 강제로 꺼내지 않고 원하는 방식으로 곁을 제공한다.",
+      "transfer": "상대가 먼저 슬픔을 말한다. 조언이나 긍정 강요 대신 듣고 필요한 지원을 묻는다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "C1",
+      "slug": "question-rumor-politely",
+      "title": "소문에 동참하지 않고 대화하기",
+      "scenario": "모임에서 결석한 사람의 개인사를 추측합니다. 사실 여부를 모르며 대화 분위기를 깨고 싶지 않습니다. 모임 공지에는 Jo가 다음 모임 진행을 맡지 않으므로 새 진행자가 필요하다고만 적혀 있고, 개인적인 이유는 공개하지 않았습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "참가자. 다른 사람에게 들은 이야기일 뿐 직접 확인하지 못했다.",
+      "opening": "Apparently Jo left because of a huge argument.",
+      "steps": [
+        {
+          "goal": "정보 출처 구분하기",
+          "example": "Is that something Jo said, or is it what people have inferred?",
+          "cue": "inferred = 추론했다"
+        },
+        {
+          "goal": "추측 유포를 줄이기",
+          "example": "If we don't know, I'd rather not fill in the gaps about someone who isn't here.",
+          "cue": "fill in the gaps = 빈 부분을 추측하다"
+        },
+        {
+          "goal": "공유 가능한 사실로 이동하기",
+          "example": "What we do know is that the next meeting needs a new host. Shall we work that out?",
+          "cue": "work that out = 해결하다"
+        }
+      ],
+      "outcome": "부재자의 사생활을 보호하며 대화를 실용적인 주제로 돌린다.",
+      "transfer": "당사자의 공개 글이 제시된다. 직접 쓴 내용과 추가 추측을 분리한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "C1",
+      "slug": "bridge-language-speed",
+      "title": "빠른 집단 대화의 속도 조율하기",
+      "scenario": "여러 사람이 동시에 말해 일부 참가자가 놓치고 있습니다. 특정 사람의 능력을 공개 평가하지 않으려 합니다. 대화에서 마지막으로 모두가 확인한 내용은 버스가 반대 방향으로 갔다는 부분입니다. 그 뒤 이야기는 말이 겹쳐 놓쳤습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "모임 참가자. 버스를 반대로 탔다가 다음 역에서 돌아와 모임에 제시간에 도착한 경험을 말한다. 흥분해서 말이 겹쳤으나 한 사람씩 설명하자는 제안에 협조한다.",
+      "opening": "Wait, three people are talking at once!",
+      "steps": [
+        {
+          "goal": "공통 문제로 설명하기",
+          "example": "I think we're losing parts of each other's stories, not just the punchlines.",
+          "cue": "losing parts = 일부를 놓치는; punchlines = 이야기의 웃긴 결말"
+        },
+        {
+          "goal": "대화 방식 제안하기",
+          "example": "Could we finish one thread before starting the next, with a quick recap when we switch?",
+          "cue": "quick recap = 짧은 요약"
+        },
+        {
+          "goal": "내용을 간단히 연결하기",
+          "example": "So we were at the point where the bus went the wrong way. What happened next?",
+          "cue": "at the point = 그 지점에서"
+        }
+      ],
+      "outcome": "특정 사람을 지목하지 않고 모두가 따라갈 수 있는 흐름을 만든다.",
+      "transfer": "온라인 통화에서 지연으로 겹친다. 손들기나 짧은 대기 같은 채널별 규칙을 제안한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "C2",
+      "slug": "interpret-ambiguous-compliment",
+      "title": "칭찬인지 비꼼인지 모호한 말 확인하기",
+      "scenario": "상대가 당신의 발표를 아주 용감했다고 말합니다. 내용 비판인지 진심 어린 칭찬인지 불분명합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "지인. 발표의 솔직함은 좋았지만 근거가 약한 부분도 있었다고 생각하며 확인 질문을 받으면 구분한다.",
+      "opening": "That was certainly a brave presentation.",
+      "steps": [
+        {
+          "goal": "함의의 모호함을 비공격적으로 확인하기",
+          "example": "I'm not sure whether you mean candid or risky, and I'd rather ask than read too much into it.",
+          "cue": "read too much into = 지나치게 해석하다"
+        },
+        {
+          "goal": "상반된 평가 분리 요청하기",
+          "example": "Was it the openness you appreciated, or a claim you thought needed more support?",
+          "cue": "openness = 솔직함"
+        },
+        {
+          "goal": "확인된 뜻에 맞춰 반응하기",
+          "example": "That distinction helps. I can keep the directness while making the evidence clearer.",
+          "cue": "distinction = 구별"
+        }
+      ],
+      "outcome": "모호한 사회적 평가를 성급한 반응 없이 구체적 의미로 바꾼다.",
+      "transfer": "상대가 진심 칭찬만 의도했다고 말한다. 방어적 추궁 없이 설명을 받아들이고 감사한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "C2",
+      "slug": "untangle-ironic-consensus",
+      "title": "농담 속 동의가 실제 동의인지 구분하기",
+      "scenario": "모임에서 다들 야근을 좋아한다는 반어가 오갔습니다. 새 참가자는 실제로 주말 일을 해야 한다고 이해했습니다. 공식 공지에는 이번 주말 추가 모임이나 작업 요청이 없고, 농담을 한 참가자도 실제로 일을 제안한 것은 아닙니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "참가자. 농담으로 불만을 말했지만 새 참가자가 계획으로 받아들인 것을 모른다.",
+      "opening": "Well, obviously we all live for unpaid weekends.",
+      "steps": [
+        {
+          "goal": "반어와 실제 계획 구분하기",
+          "example": "I think that was irony about the pressure, not agreement to work this weekend.",
+          "cue": "irony = 반어"
+        },
+        {
+          "goal": "새 참가자의 오해 풀기",
+          "example": "To be clear, no extra session has been agreed, and nobody needs to infer an obligation from that joke.",
+          "cue": "infer an obligation = 의무를 추론하다"
+        },
+        {
+          "goal": "분명한 의사소통 제안하기",
+          "example": "If there is a real request, let's state it separately and give people a chance to respond.",
+          "cue": "state separately = 따로 명시하다"
+        }
+      ],
+      "outcome": "농담의 함의를 풀고 실제 의무가 없음을 확인한다.",
+      "transfer": "실제 유급 주말 요청도 있었다. 농담과 공식 요청의 범위·선택권을 다시 구분한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "C2",
+      "slug": "respond-double-bind",
+      "title": "답하기 곤란한 친근한 질문 재구성하기",
+      "scenario": "처음 만난 사람이 내 모임보다 자기 모임이 더 재미있지 않느냐고 묻습니다. 어느 쪽도 깎아내리고 싶지 않습니다. 연습 배경: 오늘 모임은 즉흥 활동이 많고, 당신의 기존 모임은 소규모로 길게 이야기를 나누는 시간을 확보합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "상대 모임 회원. 농담 섞인 비교를 기대하지만 다른 기준의 설명을 받아들인다.",
+      "opening": "Admit it, this group is much more fun than yours, isn't it?",
+      "steps": [
+        {
+          "goal": "비교 전제의 한계 짚기",
+          "example": "They're enjoyable in different ways, so a single ranking would miss most of what I value in each.",
+          "cue": "single ranking = 단일 순위"
+        },
+        {
+          "goal": "긍정적 구체성 제공하기",
+          "example": "I like the spontaneity here, while my other group gives us time for longer conversations.",
+          "cue": "spontaneity = 즉흥성"
+        },
+        {
+          "goal": "양자택일 대신 연결하기",
+          "example": "It might be interesting to bring those strengths together for a shared event.",
+          "cue": "bring together = 함께 살리다"
+        }
+      ],
+      "outcome": "압박적인 비교를 양쪽의 구체적 장점과 협력 가능성으로 바꾼다.",
+      "transfer": "상대가 오늘 행사의 구체적 개선점을 묻는다. 비교 회피 대신 관찰에 근거한 제안을 한다."
+    },
+    {
+      "subcategoryId": "small-talk",
+      "difficulty": "C2",
+      "slug": "protect-third-party-dignity",
+      "title": "부재자를 웃음거리로 만드는 이야기 멈추기",
+      "scenario": "모임에서 한 사람의 영어 실수를 흉내 내며 웃고 있습니다. 분위기를 적대적으로 만들지 않으면서 멈추려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "이야기하는 회원. 악의가 없었다고 말하지만 당사자의 참여 경험을 생각하면 수정할 수 있다.",
+      "opening": "You should have heard the way they said it!",
+      "steps": [
+        {
+          "goal": "웃음의 대상과 영향 구분하기",
+          "example": "A misunderstanding can be funny, but imitating the person makes them, rather than the situation, the joke.",
+          "cue": "rather than = ~대신"
+        },
+        {
+          "goal": "공통 기준 제안하기",
+          "example": "I'd like this to be a group where people can try a language without wondering how they'll be retold later.",
+          "cue": "retold = 다시 전해지다"
+        },
+        {
+          "goal": "이야기를 다르게 전달할 길 주기",
+          "example": "Could you tell us what went wrong with the message without performing their voice?",
+          "cue": "performing their voice = 목소리를 흉내 내다"
+        }
+      ],
+      "outcome": "공개 망신을 줄이면서 상황 중심의 이야기를 제안한다.",
+      "transfer": "당사자가 함께 웃고 있지만 불편함은 불명확하다. 대신 판단하지 말고 참여·중단 선택권을 확인한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "pre-A1",
+      "slug": "accept-tea",
+      "title": "차 마시자는 초대에 답하기",
+      "scenario": "이웃이 차 한 잔을 제안합니다. 오늘은 괜찮습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "이웃. 차를 제안하고 지금인지 확인한다.",
+      "opening": "Tea?",
+      "steps": [
+        {
+          "goal": "초대 수락하기",
+          "example": "Yes, please.",
+          "cue": "yes please = 네 부탁해요"
+        },
+        {
+          "goal": "지금 가능하다고 답하기",
+          "example": "Now? Yes.",
+          "cue": "now = 지금"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "간단한 초대를 수락하고 시점을 확인한다.",
+      "transfer": "커피 제안으로 바뀐다. coffee를 알아보고 원하는 경우 수락한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "pre-A1",
+      "slug": "refuse-today",
+      "title": "오늘 초대 짧게 거절하기",
+      "scenario": "지인이 지금 산책을 제안했지만 오늘은 어렵습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "지인. 오늘 가능한지만 묻고 거절하면 받아들인다.",
+      "opening": "A walk?",
+      "steps": [
+        {
+          "goal": "정중히 거절하기",
+          "example": "No, thank you.",
+          "cue": "no thank you = 아니요 괜찮아요"
+        },
+        {
+          "goal": "오늘 어렵다고 말하기",
+          "example": "Not today.",
+          "cue": "not today = 오늘은 아니에요"
+        },
+        {
+          "goal": "작별하기",
+          "example": "See you.",
+          "cue": "see you = 또 봐요"
+        }
+      ],
+      "outcome": "설명을 길게 하지 않고 오늘의 초대를 거절한다.",
+      "transfer": "내일은 가능하다. tomorrow라는 단어로 대안을 덧붙인다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "pre-A1",
+      "slug": "confirm-meeting-day",
+      "title": "약속 요일 확인하기",
+      "scenario": "달력에서 토요일 약속을 정합니다. 금요일로 잘못 들을 수 있습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 제안은 Saturday이며 Friday라고 들으면 정정한다.",
+      "opening": "Saturday?",
+      "steps": [
+        {
+          "goal": "요일 되묻기",
+          "example": "Saturday?",
+          "cue": "Saturday = 토요일"
+        },
+        {
+          "goal": "수락하기",
+          "example": "Yes.",
+          "cue": "yes = 좋아요"
+        },
+        {
+          "goal": "마무리하기",
+          "example": "See you Saturday.",
+          "cue": "see you = 만나요"
+        }
+      ],
+      "outcome": "약속 요일을 확인한다.",
+      "transfer": "약속이 일요일로 바뀐다. Sunday와 Saturday를 구분해 다시 말한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "pre-A1",
+      "slug": "choose-one-activity",
+      "title": "두 활동 중 하나 고르기",
+      "scenario": "친구와 함께할 활동을 정합니다. 커피와 산책 중 고릅니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 선택지를 coffee or walk로 제시하고 선택을 기다린다.",
+      "opening": "Coffee or a walk?",
+      "steps": [
+        {
+          "goal": "선택 말하기",
+          "example": "A walk, please.",
+          "cue": "a walk = 산책"
+        },
+        {
+          "goal": "함께 갈지 확인하기",
+          "example": "Now?",
+          "cue": "now = 지금"
+        },
+        {
+          "goal": "확정에 반응하기",
+          "example": "Okay. Let's go.",
+          "cue": "let's go = 가요"
+        }
+      ],
+      "outcome": "원하는 활동을 고르고 시작 시점을 확인한다.",
+      "transfer": "친구가 지금은 안 된다고 한다. later의 뜻을 확인하고 가능 여부를 답한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "A1",
+      "slug": "invite-lunch",
+      "title": "함께 점심 먹자고 제안하기",
+      "scenario": "수업 후 친구에게 점심을 제안합니다. 12시에 카페에서 만날 수 있습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 12시 가능하며 만날 곳을 묻는다.",
+      "opening": "I'm hungry.",
+      "steps": [
+        {
+          "goal": "함께 먹자고 제안하기",
+          "example": "Do you want to have lunch together?",
+          "cue": "have lunch together = 함께 점심을 먹다"
+        },
+        {
+          "goal": "시간 말하기",
+          "example": "At twelve?",
+          "cue": "at twelve = 12시에"
+        },
+        {
+          "goal": "장소 정하기",
+          "example": "Let's meet at the café.",
+          "cue": "let's meet = 만나자"
+        }
+      ],
+      "outcome": "점심 초대와 시간·장소를 정한다.",
+      "transfer": "친구가 12시에 안 된다. 1시를 제안하고 다시 확인한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "A1",
+      "slug": "check-location",
+      "title": "약속 장소 정확히 묻기",
+      "scenario": "친구가 공원에서 만나자고 했지만 입구가 두 개입니다. 기존에 정한 시각은 오후 3시입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 만날 곳은 버스 정류장 옆 입구라고 짧게 설명한다.",
+      "opening": "See you at the park.",
+      "steps": [
+        {
+          "goal": "어느 입구인지 묻기",
+          "example": "Which entrance?",
+          "cue": "which entrance = 어느 입구"
+        },
+        {
+          "goal": "위치 확인하기",
+          "example": "Near the bus stop?",
+          "cue": "near = 가까이"
+        },
+        {
+          "goal": "시간 재확인하기",
+          "example": "At three, right?",
+          "cue": "right = 맞죠"
+        }
+      ],
+      "outcome": "장소와 시간을 짧게 확인한다.",
+      "transfer": "만날 곳이 분수대로 바뀐다. 입구가 아니라 공원 안이라는 점을 확인한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "A1",
+      "slug": "bring-friend",
+      "title": "친구를 데려가도 되는지 묻기",
+      "scenario": "게임 모임에 초대받았고 친구 한 명도 관심이 있습니다. 함께 오고 싶어 하는 친구의 연습 이름은 Jo이며 소개 대명사는 she/her입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "주최자. 한 명 더 가능하지만 이름을 미리 알려 달라고 한다.",
+      "opening": "Can you come on Friday?",
+      "steps": [
+        {
+          "goal": "참석 가능하다고 답하기",
+          "example": "Yes, I can.",
+          "cue": "can = 가능하다"
+        },
+        {
+          "goal": "동반 허락 묻기",
+          "example": "Can I bring a friend?",
+          "cue": "bring a friend = 친구를 데려오다"
+        },
+        {
+          "goal": "이름 알려 주기",
+          "example": "Her name is Jo.",
+          "cue": "name = 이름"
+        }
+      ],
+      "outcome": "동반인을 임의로 데려오지 않고 허락을 구한다.",
+      "transfer": "주최자가 자리가 없다고 한다. 혼자 참석하거나 다음 기회를 묻는다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "A1",
+      "slug": "ask-what-bring",
+      "title": "모임에 준비할 것 묻기",
+      "scenario": "처음 저녁 모임에 가며 준비물이 있는지 모릅니다. 가져갈 수 있는 과일은 사과입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "주최자. 음료는 충분하고 과일을 가져오면 좋다고 답한다.",
+      "opening": "See you at dinner!",
+      "steps": [
+        {
+          "goal": "준비물 묻기",
+          "example": "What can I bring?",
+          "cue": "bring = 가져오다"
+        },
+        {
+          "goal": "물품 확인하기",
+          "example": "Some fruit?",
+          "cue": "fruit = 과일"
+        },
+        {
+          "goal": "합의 마무리하기",
+          "example": "Okay. I'll bring apples.",
+          "cue": "I'll = 내가 ~할게요"
+        }
+      ],
+      "outcome": "주최자에게 필요한 것을 확인하고 준비한다.",
+      "transfer": "주최자가 아무것도 필요 없다고 한다. 그 요청을 받아들이고 시간만 확인한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "A2",
+      "slug": "decline-offer-alternative",
+      "title": "일정이 겹친 초대 대안 제안하기",
+      "scenario": "토요일 영화 초대를 받았지만 가족과 약속이 있습니다. 일요일 오후는 가능합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 일요일 3시 영화도 가능하고 그 시간으로 바꿀 수 있다.",
+      "opening": "Would you like to see a film on Saturday?",
+      "steps": [
+        {
+          "goal": "초대에 감사하기",
+          "example": "Thanks for inviting me.",
+          "cue": "thanks for inviting = 초대해 줘서 고마워"
+        },
+        {
+          "goal": "거절 이유 짧게 말하기",
+          "example": "I can't on Saturday because I'm seeing my family.",
+          "cue": "because = 왜냐하면"
+        },
+        {
+          "goal": "다른 시간 제안하기",
+          "example": "Are you free on Sunday afternoon instead?",
+          "cue": "instead = 대신"
+        }
+      ],
+      "outcome": "원래 초대는 거절하고 가능한 대안을 정한다.",
+      "transfer": "일요일도 상대가 어렵다. 날짜를 강제로 정하지 말고 다음 주에 다시 확인한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "A2",
+      "slug": "confirm-food-needs",
+      "title": "초대 전 먹을 수 있는 음식 알리기",
+      "scenario": "저녁 모임에서 유제품을 먹지 않으려 합니다. 메뉴를 바꾸라고 요구하는 대신 선택지를 확인합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "주최자. 소스에는 치즈와 우유가 들어 있고, 별도로 준비한 샐러드와 빵에는 유제품을 넣지 않았다고 답한다. 이 과제는 식사 선호 확인이며 알레르기 안전을 보증하지 않는다.",
+      "opening": "We're making pasta for everyone.",
+      "steps": [
+        {
+          "goal": "필요한 조건 알리기",
+          "example": "I don't eat dairy products.",
+          "cue": "dairy products = 유제품"
+        },
+        {
+          "goal": "포함 여부 묻기",
+          "example": "Does the sauce have cheese or milk?",
+          "cue": "does it have = 들어 있나요"
+        },
+        {
+          "goal": "가능한 대안 확인하기",
+          "example": "Could I have the salad and bread instead?",
+          "cue": "instead = 대신"
+        }
+      ],
+      "outcome": "음식 선택에 필요한 정보를 공유하고 대안을 확인한다.",
+      "transfer": "모임이 각자 음식을 가져오는 방식이다. 본인이 먹을 음식을 준비하겠다고 제안한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "A2",
+      "slug": "reschedule-late",
+      "title": "늦어지는 약속 조정하기",
+      "scenario": "버스가 늦어 약속에 20분 늦습니다. 친구가 계속 기다릴 수 있는지 모릅니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 20분은 괜찮지만 40분 뒤에는 떠나야 한다고 답한다.",
+      "opening": "Are you on your way?",
+      "steps": [
+        {
+          "goal": "지연 사실 알리기",
+          "example": "Yes, but my bus is late.",
+          "cue": "on my way = 가는 중"
+        },
+        {
+          "goal": "예상 도착 시간 말하기",
+          "example": "I'll be there in about twenty minutes.",
+          "cue": "in twenty minutes = 20분 뒤"
+        },
+        {
+          "goal": "기다릴 수 있는지 확인하기",
+          "example": "Is that okay, or should we meet another day?",
+          "cue": "another day = 다른 날"
+        }
+      ],
+      "outcome": "지각을 알리고 상대 일정에 맞게 약속을 조정한다.",
+      "transfer": "도착 시간을 모르게 된다. 정확한 약속을 피하고 다음 업데이트 시점을 정한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "A2",
+      "slug": "ask-cost-before-accept",
+      "title": "초대 비용을 확인하고 결정하기",
+      "scenario": "친구가 공연 모임에 초대했지만 비용이 적혀 있지 않습니다. 예산은 20입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 표는 15이며 교통비는 별도이고 식사는 선택이라고 알려 준다.",
+      "opening": "Want to come to the show with us?",
+      "steps": [
+        {
+          "goal": "관심 표현하기",
+          "example": "I'd like to, but I need to check the cost.",
+          "cue": "check the cost = 비용 확인"
+        },
+        {
+          "goal": "포함 비용 묻기",
+          "example": "How much is the ticket, and is dinner included?",
+          "cue": "included = 포함된"
+        },
+        {
+          "goal": "조건에 맞게 수락하기",
+          "example": "The ticket is fine for me. I'll skip dinner this time.",
+          "cue": "skip = 이번에는 하지 않다"
+        }
+      ],
+      "outcome": "초대의 비용을 알아보고 자신의 범위 안에서 결정한다.",
+      "transfer": "표 가격이 30이다. 예산을 초과한다고 말하고 무료 활동을 제안한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "B1",
+      "slug": "coordinate-three-schedules",
+      "title": "세 사람 일정의 공통 시간 찾기",
+      "scenario": "세 친구가 만나려 합니다. Jo는 금요일만, Lee는 금요일 7시 이후 가능하며 당신은 9시에 떠나야 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "일정을 모으는 친구. 각자의 제약을 알고 있고 두 시간 모임도 괜찮다고 말한다.",
+      "opening": "Can we find a time that works for all three of us?",
+      "steps": [
+        {
+          "goal": "제약 정리하기",
+          "example": "Friday seems to be the only shared day, but we can't start before seven.",
+          "cue": "shared day = 공통 가능한 날"
+        },
+        {
+          "goal": "자신의 한계 알리기",
+          "example": "I need to leave at nine, so we'd have about two hours.",
+          "cue": "need to leave = 떠나야 한다"
+        },
+        {
+          "goal": "실행 가능한 약속 제안하기",
+          "example": "Shall we meet at seven somewhere near the station?",
+          "cue": "near the station = 역 근처"
+        }
+      ],
+      "outcome": "서로 다른 제약을 반영해 실행 가능한 만남을 정한다.",
+      "transfer": "Lee가 8시 이후만 가능하다. 한 시간 만남과 다음 주 연기를 비교한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "B1",
+      "slug": "invite-low-pressure",
+      "title": "처음 온 사람에게 부담 없는 초대하기",
+      "scenario": "모임의 새 참가자를 식사에 초대하려 하지만 혼자 쉴 수도 있도록 하고 싶습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "새 참가자. 관심은 있지만 저녁 전체를 함께할 시간은 없다고 말한다.",
+      "opening": "What are people doing after this?",
+      "steps": [
+        {
+          "goal": "활동을 구체적으로 알리기",
+          "example": "A few of us are getting something to eat nearby.",
+          "cue": "a few of us = 우리 중 몇 명; nearby = 근처에서"
+        },
+        {
+          "goal": "선택권 있는 초대하기",
+          "example": "You're welcome to join us, but there's no pressure if you have other plans.",
+          "cue": "no pressure = 부담 없이"
+        },
+        {
+          "goal": "부분 참여 가능하게 하기",
+          "example": "You could stay for a drink and leave whenever you need to.",
+          "cue": "whenever = 언제든"
+        }
+      ],
+      "outcome": "활동과 부담을 명확히 하여 새 참가자가 선택하게 한다.",
+      "transfer": "식당이 예약 인원을 요구한다. 자유롭게 합류할 수 있다는 제안을 수정하고 결정 시점을 알린다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "B1",
+      "slug": "change-outdoor-plan",
+      "title": "비 예보로 모임 계획 바꾸기",
+      "scenario": "야외 피크닉 날 비가 예상됩니다. 모두 이미 시간을 비웠고 실내 비용은 부담입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 무료 커뮤니티실이 2시부터 비며 음식 반입 가능 여부는 아직 확인하지 않았다.",
+      "opening": "The forecast looks bad for our picnic.",
+      "steps": [
+        {
+          "goal": "공동 목표 확인하기",
+          "example": "I'd still like us to meet, even if we can't sit outside.",
+          "cue": "forecast = 예보"
+        },
+        {
+          "goal": "조건 맞는 대안 제안하기",
+          "example": "Could we use the community room instead of booking a restaurant?",
+          "cue": "instead of = ~대신"
+        },
+        {
+          "goal": "확인할 사항과 책임 정하기",
+          "example": "I'll check whether we can bring food before we confirm.",
+          "cue": "before we confirm = 확정 전에"
+        }
+      ],
+      "outcome": "날씨 변화에도 비용과 준비 조건을 반영해 계획을 바꾼다.",
+      "transfer": "커뮤니티실에 음식 반입이 안 된다. 식사 후 실내에서 만나는 방식으로 조정한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "B1",
+      "slug": "clarify-plus-one-expectation",
+      "title": "동반 초대 여부의 오해 풀기",
+      "scenario": "초대장에 당신 이름만 있는데 친구는 당연히 동반 가능하다고 생각합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "주최자. 공간이 작아 초대한 사람만 참석할 수 있지만 미리 묻는 것은 괜찮다고 답한다.",
+      "opening": "We're looking forward to seeing you.",
+      "steps": [
+        {
+          "goal": "동반 가능 여부 먼저 확인하기",
+          "example": "Before I reply, is this invitation just for me or may I bring someone?",
+          "cue": "just for me = 저만 초대인가요"
+        },
+        {
+          "goal": "제약을 받아들이기",
+          "example": "I understand. I don't want to add to the numbers without checking.",
+          "cue": "add to the numbers = 인원을 늘리다"
+        },
+        {
+          "goal": "참석 여부 명확히 답하기",
+          "example": "In that case, I'll come on my own.",
+          "cue": "on my own = 혼자"
+        }
+      ],
+      "outcome": "동반인을 추정하지 않고 주최 조건에 맞게 응답한다.",
+      "transfer": "동반은 가능하지만 추가 비용이 있다. 비용을 확인한 뒤 동반인에게 선택을 맡긴다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "B2",
+      "slug": "balance-access-and-budget",
+      "title": "접근성과 예산을 함께 반영해 약속 잡기",
+      "scenario": "친구는 계단 없는 장소가 필요하고 다른 친구는 저렴한 곳을 원합니다. 후보 A는 저렴하지만 계단이 있고 B는 비쌉니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "주최 친구. 무료 커뮤니티 카페 C가 있지만 운영 시간이 짧다는 정보를 갖고 있다.",
+      "opening": "We can't seem to find a place that suits everyone.",
+      "steps": [
+        {
+          "goal": "필수 조건과 선호 구분하기",
+          "example": "Step-free access is essential; a particular menu is something we can be flexible about.",
+          "cue": "essential = 필수"
+        },
+        {
+          "goal": "새 대안 탐색하기",
+          "example": "Could we consider a community café or meet earlier somewhere accessible?",
+          "cue": "flexible = 조정 가능한"
+        },
+        {
+          "goal": "정보 확인 후 결정 제안하기",
+          "example": "Let's confirm the entrance and prices directly before asking everyone to commit.",
+          "cue": "commit = 확정하다"
+        }
+      ],
+      "outcome": "접근성을 포기시키지 않고 예산에 맞는 실질 대안을 찾는다.",
+      "transfer": "후보 C의 접근성 정보가 불확실하다. 직접 확인할 사람과 결정 마감 시점을 정한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "B2",
+      "slug": "resolve-unequal-hosting",
+      "title": "늘 같은 사람이 초대 준비하는 문제 논의하기",
+      "scenario": "늘 한 친구가 장소 예약과 음식 준비를 맡습니다. 다음 모임부터 부담을 나누고 싶습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "주최 친구. 도움을 원하지만 책임이 흐려져 준비가 빠질까 걱정한다.",
+      "opening": "I can host again, but organising everything is getting tiring.",
+      "steps": [
+        {
+          "goal": "기여 인정하기",
+          "example": "You've carried a lot of the work, and I don't want us to treat that as automatic.",
+          "cue": "carry the work = 일을 떠맡다"
+        },
+        {
+          "goal": "책임 배분 제안하기",
+          "example": "Could we split booking, food, and cleanup, with one named person for each?",
+          "cue": "split = 나누다"
+        },
+        {
+          "goal": "부담 확인하기",
+          "example": "Would that make hosting manageable, or would you prefer a different venue this time?",
+          "cue": "manageable = 감당 가능한"
+        }
+      ],
+      "outcome": "감사 표현에 그치지 않고 준비 책임을 구체적으로 분담한다.",
+      "transfer": "아무도 장소를 제공할 수 없다. 유료 대관과 공공 장소의 부담을 비교한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "B2",
+      "slug": "set-event-boundary",
+      "title": "초대를 수락하면서 참여 범위 정하기",
+      "scenario": "동창 모임이 저녁 식사 뒤 늦은 술자리로 이어집니다. 식사만 참여하고 싶습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 모두 끝까지 있을 거라고 예상하지만 부분 참여도 가능하다고 답한다.",
+      "opening": "You're coming for the whole evening, right?",
+      "steps": [
+        {
+          "goal": "참여 의사와 한계 함께 말하기",
+          "example": "I'd love to join dinner, but I'll leave before the late-night plans.",
+          "cue": "join dinner = 저녁 식사에 참여하다; leave before = 전에 떠나다"
+        },
+        {
+          "goal": "모호한 기대 정리하기",
+          "example": "Please count me for the meal only, so the later booking doesn't include me.",
+          "cue": "count me = 인원에 넣다"
+        },
+        {
+          "goal": "관계를 이어 갈 의도 표현하기",
+          "example": "I still want a chance to catch up properly during dinner.",
+          "cue": "catch up properly = 충분히 근황을 나누다"
+        }
+      ],
+      "outcome": "참여 의지를 보이면서 예약과 기대를 정확히 조정한다.",
+      "transfer": "주최자가 일괄 결제를 이미 했다. 사전 안내 내용과 비용 분담 가능성을 차분히 확인한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "B2",
+      "slug": "repair-excluded-invite",
+      "title": "일부만 초대되어 생긴 서운함 다루기",
+      "scenario": "작은 집 모임에 일부 친구만 초대했고 다른 친구가 서운함을 표현합니다. 모임 이후 당신은 참석자 사진을 공개 게시물로 올렸고 친구는 그 사진으로 모임을 알게 되었습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "초대받지 못한 친구. 공간 제약보다 관계에서 밀려났다는 느낌이 중요하다고 말한다.",
+      "opening": "I guess I'm not part of the group anymore.",
+      "steps": [
+        {
+          "goal": "감정과 해석 구분해 인정하기",
+          "example": "I can see why it felt excluding, though it wasn't meant as a judgement about our friendship.",
+          "cue": "excluding = 배제하는"
+        },
+        {
+          "goal": "실제 제약 설명하기",
+          "example": "I kept it small because of space, but I should have thought about how the public photos would land.",
+          "cue": "how it would land = 어떻게 받아들여질지"
+        },
+        {
+          "goal": "관계 회복의 구체적 행동 제안하기",
+          "example": "I'd like to make time for us separately, without pretending that cancels how you felt.",
+          "cue": "cancels = 없던 일로 만들다"
+        }
+      ],
+      "outcome": "공간 제약을 변명으로 쓰지 않고 서운함과 후속 관계를 다룬다.",
+      "transfer": "친구가 별도 초대를 원하지 않는다. 즉시 해결을 강요하지 않고 대화할 여지를 남긴다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "C1",
+      "slug": "clarify-optional-obligation",
+      "title": "선택이라지만 압박이 있는 초대 확인하기",
+      "scenario": "모임의 친목 여행은 선택이라고 하지만 불참자는 팀워크가 약하다는 말이 나옵니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "주최자. 참여율을 높이고 싶지만 비용과 개인 사정을 공개시키려는 의도는 없다고 말한다.",
+      "opening": "It's entirely optional, although committed members usually come.",
+      "steps": [
+        {
+          "goal": "표면적 선택과 암묵적 기대 구분하기",
+          "example": "Calling it optional while linking attendance to commitment sends two different messages.",
+          "cue": "commitment = 참여 의지"
+        },
+        {
+          "goal": "사생활 없는 선택권 요청하기",
+          "example": "Could we make clear that declining doesn't require a personal explanation or affect someone's standing?",
+          "cue": "standing = 집단 내 평가"
+        },
+        {
+          "goal": "동등한 참여 기회 제안하기",
+          "example": "A local, low-cost gathering later would also let people stay connected.",
+          "cue": "stay connected = 관계를 유지하다"
+        }
+      ],
+      "outcome": "초대의 숨은 의무를 드러내고 실제 선택권을 합의한다.",
+      "transfer": "주최자가 필수 운영 회의도 포함한다고 한다. 업무 일정과 친목 활동을 분리해 안내한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "C1",
+      "slug": "mediate-competing-traditions",
+      "title": "행사 방식에 대한 다른 관습 조율하기",
+      "scenario": "한 친구는 당일 즉흥 합류를, 다른 친구는 인원 확정과 사전 준비를 중요하게 여깁니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "공동 주최자. 음식 수량은 미리 알아야 하지만 식후 산책은 누구나 합류할 수 있다.",
+      "opening": "Why do we have to make a casual gathering so formal?",
+      "steps": [
+        {
+          "goal": "두 방식의 의미 설명하기",
+          "example": "For some people flexibility feels welcoming; for others, knowing the numbers is how they show care.",
+          "cue": "flexibility = 유연성; show care = 배려를 보이다"
+        },
+        {
+          "goal": "운영상 필요한 범위 한정하기",
+          "example": "We only need a firm count for dinner, not for every part of the day.",
+          "cue": "firm count = 확정 인원"
+        },
+        {
+          "goal": "혼합 방식 합의하기",
+          "example": "Could we set a dinner deadline and keep the walk afterwards open to last-minute arrivals?",
+          "cue": "last-minute arrivals = 막판 합류"
+        }
+      ],
+      "outcome": "어느 관습을 우월시하지 않고 활동별 참여 규칙을 만든다.",
+      "transfer": "식사도 각자 준비하는 방식으로 바뀐다. 확정 인원이 정말 필요한지 다시 검토한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "C1",
+      "slug": "withdraw-after-pressure",
+      "title": "압박으로 수락한 초대 다시 조정하기",
+      "scenario": "계속된 권유 끝에 여행에 가겠다고 했지만 실제로는 감당하기 어렵습니다. 상대는 예약하려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 예약은 아직 안 했으나 약속 변경이 아쉽다고 말한다.",
+      "opening": "I'm about to book your place. Still all good?",
+      "steps": [
+        {
+          "goal": "예약 전에 의사 정정하기",
+          "example": "Please don't book for me. I agreed too quickly and need to withdraw.",
+          "cue": "withdraw = 철회하다"
+        },
+        {
+          "goal": "책임과 압박의 영향을 나눠 말하기",
+          "example": "I should have been clearer, but the repeated persuasion made it harder for me to give an honest answer.",
+          "cue": "repeated persuasion = 반복 권유"
+        },
+        {
+          "goal": "앞으로의 경계 제안하기",
+          "example": "Next time, I'd appreciate having a no accepted without further negotiation.",
+          "cue": "accepted = 받아들여지다"
+        }
+      ],
+      "outcome": "금전 약속 전에 수락을 정정하고 향후 권유 경계를 정한다.",
+      "transfer": "이미 환불 불가 예약이 됐다. 실제 손실과 책임을 확인하고 해결을 논의한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "C1",
+      "slug": "write-inclusive-invitation",
+      "title": "대상과 참여 조건이 명확한 초대문 만들기",
+      "scenario": "이웃 행사 초대문에 가족 환영이라고만 적혀 독신 참가자와 돌봄 동반인이 자신도 가능한지 묻습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "공동 주최자. 모든 주민과 동반인이 대상이며 접근 가능한 입구와 조용한 공간이 준비되어 있다.",
+      "opening": "Isn't 'families welcome' clear enough?",
+      "steps": [
+        {
+          "goal": "배제될 수 있는 해석 설명하기",
+          "example": "It may suggest that people attending alone are outside the intended audience.",
+          "cue": "intended audience = 의도한 대상"
+        },
+        {
+          "goal": "구체적인 포함 문구 제안하기",
+          "example": "Let's say residents are welcome on their own or with someone, and list the practical access information.",
+          "cue": "on their own = 혼자"
+        },
+        {
+          "goal": "불확실한 조건 확인하기",
+          "example": "Before promising a quiet room, can we confirm who will keep it available?",
+          "cue": "practical access information = 이용 가능한 접근 정보"
+        }
+      ],
+      "outcome": "포용적인 의도와 실제 행사 조건이 일치하는 초대문을 만든다.",
+      "transfer": "조용한 공간 확보가 안 된다. 보장하지 않는 기능을 빼고 알려진 조건을 투명하게 안내한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "C2",
+      "slug": "separate-hospitality-debt",
+      "title": "호의와 보답 의무의 경계 조율하기",
+      "scenario": "초대를 받은 뒤 상대가 부탁을 거절하면 감사할 줄 모른다고 합니다. 이전 호의를 폄하하지 않으면서 의무로 전환되는 것을 막으려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "지인. 초대를 정성의 표시로 생각하며 관계에는 상호성이 있어야 한다고 주장한다.",
+      "opening": "After everything I hosted for you, I thought you'd say yes.",
+      "steps": [
+        {
+          "goal": "감사와 요청 판단 분리하기",
+          "example": "I am grateful for your hospitality, but gratitude doesn't mean I can agree to every later request.",
+          "cue": "hospitality = 환대"
+        },
+        {
+          "goal": "상호성의 의미 재구성하기",
+          "example": "I value reciprocity as something freely offered over time, rather than a debt activated by a refusal.",
+          "cue": "reciprocity = 상호성"
+        },
+        {
+          "goal": "현재 선택과 관계 제안 명확히 하기",
+          "example": "I can't do this particular favour; I'd still like us to spend time together without that being a transaction.",
+          "cue": "transaction = 거래"
+        }
+      ],
+      "outcome": "호의에 대한 감사를 유지하면서 관계를 채무로 바꾸는 함의를 거절한다.",
+      "transfer": "상대가 사전에 교환 조건을 분명히 했다고 주장한다. 실제 합의와 뒤늦은 기대를 확인한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "C2",
+      "slug": "resolve-invitation-ambiguity",
+      "title": "체면상 초대와 실제 초대의 모호함 풀기",
+      "scenario": "언제든 들르라는 말을 들었지만 갑자기 방문하면 부담일 수 있습니다. 진심을 시험하지 않고 구체화하려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "지인. 따뜻하게 말했지만 주중 방문은 어렵고 일요일 오후는 미리 정하면 가능하다.",
+      "opening": "You know you're always welcome to drop by.",
+      "steps": [
+        {
+          "goal": "호의에 감사하며 실제 조건 확인하기",
+          "example": "That's very kind. Rather than taking always literally, could we find a time that genuinely suits you?",
+          "cue": "literally = 문자 그대로"
+        },
+        {
+          "goal": "거절하기 쉬운 구체 제안하기",
+          "example": "Would Sunday afternoon work, or would another week be easier?",
+          "cue": "genuinely suits = 실제로 편하다"
+        },
+        {
+          "goal": "상호 기대 정리하기",
+          "example": "I'll message before coming, so the invitation doesn't become an unexpected obligation.",
+          "cue": "unexpected obligation = 예상 못한 의무"
+        }
+      ],
+      "outcome": "따뜻한 표현을 부담 없는 구체 약속으로 전환한다.",
+      "transfer": "상대가 날짜를 계속 정하지 않는다. 확답을 강요하지 않고 연락 주도권을 넘긴다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "C2",
+      "slug": "handle-symbolic-guest",
+      "title": "상징적 초대에서 실제 참여권 협의하기",
+      "scenario": "행사에 다양성을 보여 줄 게스트로 초대됐지만 발언 시간이나 기획 의견은 받을 수 없다고 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "주최자. 참석 사진이 중요하다고 생각하며 일정은 이미 거의 확정되었다.",
+      "opening": "Your presence alone will send a powerful message.",
+      "steps": [
+        {
+          "goal": "초대의 역할을 구체적으로 확인하기",
+          "example": "Before accepting, I'd like to understand whether I'm being invited as a participant or as a symbol in the event's presentation.",
+          "cue": "participant = 참여자; symbol = 상징"
+        },
+        {
+          "goal": "조건의 문제를 설명하기",
+          "example": "Visibility without a meaningful voice could suggest endorsement of decisions I haven't had a chance to discuss.",
+          "cue": "meaningful voice = 실질적 발언권; endorsement = 지지로 해석됨"
+        },
+        {
+          "goal": "실행 가능한 참여 조건 제안하기",
+          "example": "Could we agree a short contribution and how my attendance will be described, or reconsider the invitation?",
+          "cue": "reconsider = 재검토하다"
+        }
+      ],
+      "outcome": "초대의 상징적 이용과 실제 참여를 구분해 수락 조건을 정한다.",
+      "transfer": "주최자가 기획 참여는 가능하지만 홍보 문구는 바꿀 수 없다고 한다. 가능한 역할과 남는 위험을 명시해 결정한다."
+    },
+    {
+      "subcategoryId": "invitations",
+      "difficulty": "C2",
+      "slug": "negotiate-public-private-event",
+      "title": "사적 초대가 공개 행사로 바뀐 상황 조율하기",
+      "scenario": "작은 저녁 모임으로 수락했는데 생중계와 공개 명단이 추가됐습니다. 기존 수락이 새 조건에 동의한 것으로 간주됩니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "주최자. 홍보를 위해 범위를 넓혔고 참석자는 자동으로 촬영에 동의한다고 생각한다.",
+      "opening": "Everyone already said yes, so we've announced the livestream.",
+      "steps": [
+        {
+          "goal": "동의의 범위 변경 지적하기",
+          "example": "My acceptance was for a private gathering; adding a public broadcast changes what I was agreeing to.",
+          "cue": "private gathering = 사적 모임"
+        },
+        {
+          "goal": "구체적 참여 대안 제안하기",
+          "example": "I could attend an unrecorded part, provided my name and image aren't used in the publicity.",
+          "cue": "unrecorded part = 녹화하지 않는 부분; publicity = 홍보"
+        },
+        {
+          "goal": "동의 재확인 원칙 제안하기",
+          "example": "Could you ask everyone afresh, with a genuine option to decline the new format?",
+          "cue": "genuine option = 실질적 선택권"
+        }
+      ],
+      "outcome": "초대 변경에 맞춰 동의와 공개 범위를 다시 협의한다.",
+      "transfer": "주최자가 공개 명단은 이미 배포했다고 한다. 향후 노출 중단과 수정 안내 가능 범위를 확인한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "pre-A1",
+      "slug": "name-family-member",
+      "title": "가족 사진 속 사람 알려 주기",
+      "scenario": "가상의 가족 사진을 보며 누군지 묻습니다. 사진 카드는 텍스트 설명으로 제공하며, 연습 인물은 여자 형제 Jo입니다. 실제 가족 정보를 입력할 필요는 없습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 한 사람씩 가리키며 누구인지 묻고 짧은 답을 기다린다.",
+      "opening": "Who is this?",
+      "steps": [
+        {
+          "goal": "관계 말하기",
+          "example": "My sister.",
+          "cue": "sister = 여자 형제"
+        },
+        {
+          "goal": "이름 말하기",
+          "example": "Jo.",
+          "cue": "Jo = 사진 속 인물의 연습 이름"
+        },
+        {
+          "goal": "확인에 답하기",
+          "example": "Yes.",
+          "cue": "yes = 맞아요"
+        }
+      ],
+      "outcome": "가족 관계와 이름을 짧게 전달한다.",
+      "transfer": "사진 속 인물이 친구인 상황으로 바꿔 friend라는 단어를 사용한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "pre-A1",
+      "slug": "ask-help-carry",
+      "title": "함께 사는 사람에게 짐 도움 요청하기",
+      "scenario": "상자가 무거워 혼자 들기 어렵습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "함께 사는 사람. 도움 요청을 받으면 어느 상자인지 묻고 돕는다.",
+      "opening": "Hello.",
+      "steps": [
+        {
+          "goal": "도움 요청하기",
+          "example": "Help, please.",
+          "cue": "help = 도움"
+        },
+        {
+          "goal": "대상 가리켜 말하기",
+          "example": "This box.",
+          "cue": "this box = 이 상자"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "어떤 도움인지 짧게 알려 준다.",
+      "transfer": "도움이 필요한 것이 상자가 아니라 문이다. door를 사용해 대상을 바꾼다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "pre-A1",
+      "slug": "choose-family-meal",
+      "title": "함께 먹을 음식 선택하기",
+      "scenario": "가족과 저녁 메뉴를 고릅니다. 밥과 빵 중 선택합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "가족 역할. rice or bread를 묻고 선택 후 One bowl?이라고 양을 확인한다. 마지막에 More?라고 추가 여부를 묻는다. bowl은 한 그릇이라는 뜻을 제공한다.",
+      "opening": "Rice or bread?",
+      "steps": [
+        {
+          "goal": "원하는 음식 선택하기",
+          "example": "Rice, please.",
+          "cue": "rice = 밥"
+        },
+        {
+          "goal": "수량 답하기",
+          "example": "One, please.",
+          "cue": "one = 하나"
+        },
+        {
+          "goal": "추가 필요 여부 답하기",
+          "example": "No, thanks.",
+          "cue": "no thanks = 괜찮아요"
+        }
+      ],
+      "outcome": "식사 선택과 추가 여부를 전달한다.",
+      "transfer": "빵을 고르고 두 개가 필요하다. bread와 two를 사용한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "pre-A1",
+      "slug": "say-need-rest",
+      "title": "쉬고 싶다고 알리기",
+      "scenario": "친구와 함께 있지만 지금은 피곤합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 산책을 제안하다 피곤하다는 말을 들으면 쉬도록 한다.",
+      "opening": "Let's walk!",
+      "steps": [
+        {
+          "goal": "현재 상태 말하기",
+          "example": "Tired.",
+          "cue": "tired = 피곤한"
+        },
+        {
+          "goal": "쉬고 싶다고 요청하기",
+          "example": "Rest, please.",
+          "cue": "rest = 쉬기"
+        },
+        {
+          "goal": "제안에 답하기",
+          "example": "Yes. Thank you.",
+          "cue": "yes = 좋아요"
+        }
+      ],
+      "outcome": "피곤함과 쉬고 싶은 필요를 전달한다.",
+      "transfer": "잠깐 물이 필요한 상황으로 바꿔 water를 요청한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "A1",
+      "slug": "ask-daily-arrival",
+      "title": "함께 사는 사람의 귀가 시간 묻기",
+      "scenario": "저녁 준비를 위해 상대가 언제 오는지 알고 싶습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "동거인. 오늘은 7시에 오며 집에서 먹겠다고 한다.",
+      "opening": "I'm going out now.",
+      "steps": [
+        {
+          "goal": "귀가 시간 묻기",
+          "example": "What time are you coming home?",
+          "cue": "what time = 몇 시"
+        },
+        {
+          "goal": "식사 여부 묻기",
+          "example": "Are you eating at home?",
+          "cue": "eat at home = 집에서 먹다"
+        },
+        {
+          "goal": "확인하기",
+          "example": "Okay. Dinner at seven.",
+          "cue": "dinner = 저녁 식사"
+        }
+      ],
+      "outcome": "귀가와 식사 시간을 확인한다.",
+      "transfer": "상대가 밖에서 먹는다. 식사를 준비하지 않아도 되는지 확인한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "A1",
+      "slug": "share-chore",
+      "title": "간단한 집안일 나누기",
+      "scenario": "함께 식사한 뒤 설거지와 식탁 정리가 필요합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "동거인. 설거지는 할 수 있지만 쓰레기를 버리러 갈 시간은 없다.",
+      "opening": "We need to clean up.",
+      "steps": [
+        {
+          "goal": "할 일 제안하기",
+          "example": "Can you wash the dishes?",
+          "cue": "wash the dishes = 설거지하다"
+        },
+        {
+          "goal": "내 역할 말하기",
+          "example": "I can clean the table.",
+          "cue": "clean the table = 식탁 정리하다"
+        },
+        {
+          "goal": "합의 확인하기",
+          "example": "Let's do it now.",
+          "cue": "now = 지금"
+        }
+      ],
+      "outcome": "두 가지 집안일을 구체적으로 나눈다.",
+      "transfer": "상대가 설거지 대신 식탁 정리를 원한다. 역할을 바꾸어 확인한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "A1",
+      "slug": "check-friend-location",
+      "title": "친구를 찾으며 위치 묻기",
+      "scenario": "공원에서 만나기로 했지만 친구가 보이지 않습니다. 당신은 정문에 있고 친구의 정확한 위치는 아직 모릅니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 큰 나무 옆 벤치에 있고 파란 가방을 들고 있다.",
+      "opening": "I'm here. Where are you?",
+      "steps": [
+        {
+          "goal": "친구의 위치 묻기",
+          "example": "Where are you?",
+          "cue": "where are you = 어디에 있나요"
+        },
+        {
+          "goal": "내 위치를 말하고 친구 위치 확인하기",
+          "example": "I am at the gate. Are you by the big tree?",
+          "cue": "at the gate = 입구에; by = 옆에"
+        },
+        {
+          "goal": "친구 위치로 이동하겠다고 말하기",
+          "example": "I will come to the bench.",
+          "cue": "come to = 그쪽으로 가다; bench = 벤치"
+        }
+      ],
+      "outcome": "서로의 위치를 확인해 만날 지점을 정한다.",
+      "transfer": "친구가 이동하기 어렵다. 내가 친구 위치로 가겠다고 말한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "A1",
+      "slug": "ask-before-borrow",
+      "title": "가족 물건 빌리기 전에 묻기",
+      "scenario": "충전기가 없고 가족의 충전기가 보입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "가족 역할. 30분 동안 빌려줄 수 있으며 소파 옆에 돌려놓기를 원한다.",
+      "opening": "Do you need something?",
+      "steps": [
+        {
+          "goal": "물건 빌려도 되는지 묻기",
+          "example": "Can I use your charger?",
+          "cue": "use = 사용하다"
+        },
+        {
+          "goal": "반환 장소 확인하기",
+          "example": "Here beside the sofa?",
+          "cue": "beside the sofa = 소파 옆에"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you. I'll return it.",
+          "cue": "return = 돌려주다"
+        }
+      ],
+      "outcome": "소유자의 허락과 반환 장소를 확인한다.",
+      "transfer": "상대가 지금 사용해야 한다. 나중에 가능한 시간을 묻는다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "A2",
+      "slug": "arrange-check-in",
+      "title": "떨어져 사는 가족과 연락 시간 정하기",
+      "scenario": "가족과 시차가 있어 통화가 자주 엇갈립니다. 내 저녁 8시는 상대 아침 9시입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "가족 역할. 평일 아침은 바쁘지만 토요일 아침 9시는 가능하다.",
+      "opening": "We keep missing each other.",
+      "steps": [
+        {
+          "goal": "시차를 설명하기",
+          "example": "Eight in the evening here is nine in the morning for you.",
+          "cue": "eight in the evening here = 내 지역 저녁 8시; morning for you = 상대 지역 아침"
+        },
+        {
+          "goal": "가능한 요일 묻기",
+          "example": "Would Saturday morning be better for you?",
+          "cue": "morning for you = 당신 쪽 아침"
+        },
+        {
+          "goal": "시간 재확인하기",
+          "example": "So I'll call on my Saturday evening at eight.",
+          "cue": "I'll call = 전화할게요"
+        }
+      ],
+      "outcome": "서로의 현지 시각을 맞춰 연락을 정한다.",
+      "transfer": "상대 지역의 시간이 한 시간 바뀌었다. 예전 약속을 자동 적용하지 않고 다시 확인한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "A2",
+      "slug": "care-pet-instructions",
+      "title": "친구의 반려동물 돌봄 지시 확인하기",
+      "scenario": "친구가 하루 동안 고양이를 돌봐 달라고 부탁했습니다. 먹이는 6시에 한 봉지입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 물은 새로 채워 주고 약은 주지 않아도 되며 문제 시 연락해 달라고 한다.",
+      "opening": "Thanks for looking after my cat.",
+      "steps": [
+        {
+          "goal": "먹이 시간과 양 확인하기",
+          "example": "One packet at six, right?",
+          "cue": "packet = 봉지"
+        },
+        {
+          "goal": "추가 할 일 묻기",
+          "example": "Should I change the water too?",
+          "cue": "change the water = 물을 갈다"
+        },
+        {
+          "goal": "문제 발생 시 행동 확인하기",
+          "example": "I'll call you if anything seems wrong.",
+          "cue": "if anything seems wrong = 이상하면"
+        }
+      ],
+      "outcome": "돌봄의 구체적인 지시와 연락 방법을 확인한다.",
+      "transfer": "친구가 지시를 변경했다. 변경 전후 시간과 양을 다시 말해 확인한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "A2",
+      "slug": "thank-specific-support",
+      "title": "구체적인 도움에 감사 표현하기",
+      "scenario": "친구가 이사를 도와줬습니다. 막연한 감사 대신 도움이 된 점을 말하려 합니다. 이사는 오후에 진행됐으며 친구가 큰 상자를 옮기는 데 시간을 내 주었습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 큰 상자를 옮겨 준 것이고 오늘은 시간이 없어 식사 초대는 어렵다고 한다.",
+      "opening": "Did everything go okay after I left?",
+      "steps": [
+        {
+          "goal": "도움의 구체적 영향 말하기",
+          "example": "Yes. Moving the heavy boxes was much easier with your help.",
+          "cue": "with your help = 네 도움으로"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you for spending your afternoon with me.",
+          "cue": "spending time = 시간을 써 주다"
+        },
+        {
+          "goal": "부담 없는 보답 제안하기",
+          "example": "Can I make you lunch another day?",
+          "cue": "another day = 다른 날"
+        }
+      ],
+      "outcome": "기여를 구체적으로 인정하고 선택 가능한 감사를 표현한다.",
+      "transfer": "친구가 보답을 원치 않는다. 반복 권유하지 않고 감사만 분명히 전한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "A2",
+      "slug": "plan-shared-quiet",
+      "title": "함께 사는 공간의 조용한 시간 정하기",
+      "scenario": "내일 시험을 준비해야 하는데 가족이 거실에서 음악을 듣고 있습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "가족 역할. 8시까지는 음악을 듣고 이후에는 헤드폰을 쓸 수 있다고 한다.",
+      "opening": "I'm listening to music for a while.",
+      "steps": [
+        {
+          "goal": "필요한 시간 설명하기",
+          "example": "I need to study for an hour tonight.",
+          "cue": "need to study = 공부해야 한다"
+        },
+        {
+          "goal": "구체적인 부탁하기",
+          "example": "Could you use headphones after eight?",
+          "cue": "headphones = 헤드폰"
+        },
+        {
+          "goal": "합의 확인하기",
+          "example": "Thanks. I'll study from eight to nine.",
+          "cue": "from eight to nine = 8시부터 9시까지"
+        }
+      ],
+      "outcome": "서로의 활동을 유지하면서 조용한 시간을 정한다.",
+      "transfer": "상대에게 헤드폰이 없다. 장소를 바꾸거나 공부 시간을 조정하는 대안을 찾는다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "B1",
+      "slug": "negotiate-visit-duration",
+      "title": "가족 방문 기간 조정하기",
+      "scenario": "가족은 일주일 머물길 원하지만 당신은 3일만 가능합니다. 연습 일정: 월요일 도착, 목요일 복귀가 필요합니다. 가족 식사를 화요일로 앞당길 수 있는지 물으려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "가족 역할. 오랜만이라 아쉽지만 가능한 시간을 알면 중요한 식사를 앞당길 수 있다.",
+      "opening": "Can't you stay the whole week?",
+      "steps": [
+        {
+          "goal": "가능한 범위를 분명히 말하기",
+          "example": "I can stay for three days, but I need to be back by Thursday.",
+          "cue": "for three days = 사흘 동안; by Thursday = 목요일까지"
+        },
+        {
+          "goal": "관계 의도와 제약 함께 설명하기",
+          "example": "I do want to spend time with you; I just can't extend this visit.",
+          "cue": "spend time = 함께 시간을 보내다"
+        },
+        {
+          "goal": "중요한 활동 우선 정하기",
+          "example": "Could we have the family dinner on Tuesday so I don't miss it?",
+          "cue": "so I don't miss = 놓치지 않도록"
+        }
+      ],
+      "outcome": "방문 길이를 무리하게 약속하지 않고 중요한 시간을 확보한다.",
+      "transfer": "가족 행사를 옮길 수 없다. 별도 식사나 영상 통화 등 가능한 참여를 제안한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "B1",
+      "slug": "restore-borrowed-item",
+      "title": "빌린 물건을 손상했을 때 알리기",
+      "scenario": "친구에게 빌린 책에 물을 쏟았습니다. 숨기지 않고 해결하려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 책은 절판이며 새 책보다 말려서 보존하는 방법을 먼저 확인하고 싶어 한다.",
+      "opening": "How did you like the book?",
+      "steps": [
+        {
+          "goal": "손상 사실 정확히 말하기",
+          "example": "I'm sorry, I spilled water on part of the book.",
+          "cue": "spilled = 쏟았다"
+        },
+        {
+          "goal": "책임 인정하기",
+          "example": "I should have kept it away from my drink.",
+          "cue": "should have = ~했어야 했다"
+        },
+        {
+          "goal": "상대가 원하는 해결 묻기",
+          "example": "I'd like to make it right. Would you prefer a replacement, or should we check how to save this copy?",
+          "cue": "make it right = 잘못을 바로잡다"
+        }
+      ],
+      "outcome": "손상을 알리고 물건 주인의 선호를 반영해 복구를 협의한다.",
+      "transfer": "같은 책을 구할 수 없다. 임의로 다른 책을 사지 말고 가능한 보상 방법을 묻는다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "B1",
+      "slug": "notice-without-diagnosis",
+      "title": "기운 없는 친구에게 조심스럽게 묻기",
+      "scenario": "친구가 최근 모임에 잘 오지 않고 피곤해 보입니다. 상태를 단정하지 않으려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 일이 많아 지쳤고 지금은 조언보다 함께 산책하고 싶다고 말한다.",
+      "opening": "Sorry I haven't been around much.",
+      "steps": [
+        {
+          "goal": "관찰을 판단 없이 말하기",
+          "example": "I've noticed you've missed a few meetups, and I wanted to check in.",
+          "cue": "noticed = 관찰했다"
+        },
+        {
+          "goal": "대화 선택권 주기",
+          "example": "You don't have to explain, but how are things going?",
+          "cue": "check in = 안부를 확인하다"
+        },
+        {
+          "goal": "원하는 도움 확인하기",
+          "example": "Would it help to talk, take a walk, or just have some quiet company?",
+          "cue": "quiet company = 조용히 함께 있기"
+        }
+      ],
+      "outcome": "진단하지 않고 친구의 안부와 원하는 지원을 확인한다.",
+      "transfer": "친구가 지금은 혼자 있고 싶다고 한다. 즉시 방문하지 않고 다음 연락에 동의하는지 묻는다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "B1",
+      "slug": "renegotiate-household-task",
+      "title": "집안일 약속이 지켜지지 않아 다시 정하기",
+      "scenario": "쓰레기 배출을 번갈아 하기로 했지만 최근 두 번 당신이 대신했습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "동거인. 저녁에 늦게 와서 놓쳤고 아침 준비는 할 수 있다고 답한다.",
+      "opening": "I forgot again. Sorry.",
+      "steps": [
+        {
+          "goal": "구체적인 상황 설명하기",
+          "example": "I've taken it out the last two times, so the current plan isn't working for me.",
+          "cue": "last two times = 최근 두 번"
+        },
+        {
+          "goal": "원인과 가능한 역할 묻기",
+          "example": "Would getting the bags ready in the morning be easier for you?",
+          "cue": "getting the bags ready = 봉투를 미리 준비하기"
+        },
+        {
+          "goal": "새 분담 확인하기",
+          "example": "Then you prepare them, and I'll take them out on the correct evening.",
+          "cue": "prepare = 준비하다"
+        }
+      ],
+      "outcome": "비난보다 관찰에 근거해 현실적인 분담을 다시 만든다.",
+      "transfer": "아침 준비도 어렵다고 한다. 다른 집안일과 교환해 전체 부담을 조정한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "B2",
+      "slug": "mediate-family-plans",
+      "title": "가족 휴일 계획의 다른 우선순위 조율하기",
+      "scenario": "한 사람은 관광을, 다른 사람은 휴식을 원하며 함께하는 시간이 짧습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "가족 대표. 오전 외출과 오후 휴식은 가능하지만 식사는 함께하고 싶다.",
+      "opening": "If we just stay in, this whole trip will be wasted.",
+      "steps": [
+        {
+          "goal": "서로의 가치 구분하기",
+          "example": "For some of us the trip is about seeing things; for others it's a rare chance to slow down.",
+          "cue": "slow down = 쉬어 가다"
+        },
+        {
+          "goal": "공동·개별 시간 제안하기",
+          "example": "Could we share breakfast and dinner but make the afternoon activities optional?",
+          "cue": "optional = 선택적인"
+        },
+        {
+          "goal": "소외 방지 확인하기",
+          "example": "Let's make sure opting out doesn't get treated as not caring about the family.",
+          "cue": "opting out = 참여하지 않기"
+        }
+      ],
+      "outcome": "서로 다른 휴식 방식을 인정하고 공동 시간을 설계한다.",
+      "transfer": "교통 때문에 따로 움직일 수 없다. 짧은 관광과 충분한 휴식이 있는 공동 일정을 제안한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "B2",
+      "slug": "set-family-update-boundary",
+      "title": "가족 단체방의 개인정보 공유 범위 정하기",
+      "scenario": "가족이 당신의 근황 사진을 다른 단체방에 전달했습니다. 가족 관계는 유지하되 범위를 정하고 싶습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "가족 역할. 좋은 소식을 자랑하려 했으며 전송 범위가 중요하다는 것을 몰랐다.",
+      "opening": "I only shared it because I was proud of you.",
+      "steps": [
+        {
+          "goal": "좋은 의도 인정하기",
+          "example": "I appreciate that you were happy for me.",
+          "cue": "happy for me = 내 일을 함께 기뻐하는"
+        },
+        {
+          "goal": "공개 범위 차이 설명하기",
+          "example": "Sharing it here didn't mean I wanted it passed to people I don't know.",
+          "cue": "passed to = 다른 사람에게 전달되는"
+        },
+        {
+          "goal": "다음 행동 합의하기",
+          "example": "Please ask before forwarding my photos, and let me know where this one went.",
+          "cue": "ask before = 먼저 물어보다"
+        }
+      ],
+      "outcome": "가족 내부 공유와 외부 전송을 구분하는 규칙을 정한다.",
+      "transfer": "이미 공개 게시물에 올라갔다. 삭제 요청과 가능한 후속 안내를 차분히 협의한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "B2",
+      "slug": "discuss-money-between-friends",
+      "title": "친구 사이 빌려준 돈의 상환 계획 묻기",
+      "scenario": "친구에게 빌려준 가상 금액 60의 약속 날짜가 지났습니다. 모욕하지 않고 계획을 확인합니다. 원래 합의한 상환일은 지난 금요일이며 당신도 그 돈을 사용할 계획이 있었습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 지금 20은 가능하고 나머지는 2주 뒤 가능하지만 먼저 말하기 어려웠다.",
+      "opening": "I know I still owe you. Things are tight.",
+      "steps": [
+        {
+          "goal": "약속과 필요 명확히 말하기",
+          "example": "We agreed on last Friday, and I was relying on that money.",
+          "cue": "relying on = 기대하고 있었다"
+        },
+        {
+          "goal": "현실적인 계획 요청하기",
+          "example": "What amount can you return now, and when could you manage the rest?",
+          "cue": "manage = 감당하다"
+        },
+        {
+          "goal": "합의와 변경 연락 정하기",
+          "example": "Let's note those dates, and please tell me in advance if the plan changes.",
+          "cue": "in advance = 미리"
+        }
+      ],
+      "outcome": "상환 약속을 구체적인 일정과 변경 통지로 다시 정한다.",
+      "transfer": "친구가 날짜를 모른다고 한다. 무리한 확약보다 다시 확인할 날짜를 정한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "B2",
+      "slug": "handle-unsolicited-advice",
+      "title": "친한 사람의 반복 조언에 경계 정하기",
+      "scenario": "가족이 구직 방식에 계속 조언합니다. 도움은 고맙지만 매번 설명하는 부담이 큽니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "가족 역할. 걱정해서 묻는 것이며 구체적 연락 규칙을 받아들일 수 있다.",
+      "opening": "Have you tried sending more applications? You should do it my way.",
+      "steps": [
+        {
+          "goal": "걱정과 부담 함께 말하기",
+          "example": "I know you're concerned, but repeated suggestions are making it harder for me to talk openly.",
+          "cue": "concerned = 걱정하는"
+        },
+        {
+          "goal": "필요한 지원 설명하기",
+          "example": "What helps most is being able to share an update without immediately getting a plan back.",
+          "cue": "share an update = 근황을 전하다; immediately = 즉시"
+        },
+        {
+          "goal": "구체적인 대화 규칙 제안하기",
+          "example": "Could you ask whether I want advice before offering it?",
+          "cue": "offering advice = 조언하다"
+        }
+      ],
+      "outcome": "관계를 끊지 않고 조언을 받을 방식과 시점을 정한다.",
+      "transfer": "도움이 실제로 필요해졌다. 필요한 한 가지 조언을 구체적으로 요청한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "C1",
+      "slug": "share-care-responsibility",
+      "title": "가족 돌봄 부담을 보이지 않는 일까지 나누기",
+      "scenario": "가족 돌봄에서 방문 횟수만 공평하게 나눴지만 예약·연락은 한 사람이 전담합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "형제 역할. 방문은 똑같이 하는데 불공평하다는 말이 이해되지 않으며 구체 목록을 들으면 조정한다.",
+      "opening": "We all visit once a week, so the work is equal.",
+      "steps": [
+        {
+          "goal": "보이지 않는 업무 설명하기",
+          "example": "The visits are evenly shared, but arranging appointments and following up fall mostly to one person.",
+          "cue": "evenly shared = 고르게 나눈; fall mostly to = 주로 한 사람에게 맡겨지다"
+        },
+        {
+          "goal": "부담을 비교 가능한 일로 구체화하기",
+          "example": "Could we list the coordination tasks as well as the hours spent there?",
+          "cue": "coordination tasks = 조율 업무"
+        },
+        {
+          "goal": "지속 가능한 분담 제안하기",
+          "example": "Let's rotate appointment calls and keep one shared update so information doesn't depend on a single person.",
+          "cue": "depend on = 의존하다"
+        }
+      ],
+      "outcome": "눈에 보이는 시간 외의 돌봄 업무를 드러내고 분담한다.",
+      "transfer": "한 가족이 멀리 산다. 방문 대신 원격 예약·연락 책임을 제안한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "C1",
+      "slug": "reconcile-memory-dispute",
+      "title": "가족의 다른 기억을 사실 싸움 없이 다루기",
+      "scenario": "과거 행사에서 누가 도움을 줬는지 기억이 달라 상대가 인정받지 못했다고 느낍니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "가족 역할. 자신이 준비를 많이 했는데 사진과 이야기에는 나오지 않는 점이 서운하다.",
+      "opening": "You always tell it as if I did nothing.",
+      "steps": [
+        {
+          "goal": "기억의 한계 인정하기",
+          "example": "My memory is incomplete, and I may have left out work I didn't see.",
+          "cue": "incomplete = 불완전한"
+        },
+        {
+          "goal": "사실 확인과 감정 인정 분리하기",
+          "example": "We may remember the sequence differently, but I can recognise that you felt overlooked.",
+          "cue": "overlooked = 인정받지 못한"
+        },
+        {
+          "goal": "앞으로의 이야기 방식 조정하기",
+          "example": "Tell me which contributions I missed, and I'll make sure not to repeat the simplified version.",
+          "cue": "simplified version = 단순화된 이야기"
+        }
+      ],
+      "outcome": "기억의 차이를 인정하면서 누락된 기여를 복원한다.",
+      "transfer": "날짜를 보여 주는 기록이 나온다. 기록이 증명하는 사실만 정정하고 감정까지 부정하지 않는다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "C1",
+      "slug": "respond-life-choice-pressure",
+      "title": "인생 선택에 대한 가족 압박 조율하기",
+      "scenario": "가족이 결혼 여부를 매 모임마다 묻습니다. 관계를 유지하면서 공개 토론 주제로 삼지 않으려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "가족 역할. 걱정과 관심이라 말하며 다른 가족도 궁금해한다고 주장한다.",
+      "opening": "We're only asking because we care about your future.",
+      "steps": [
+        {
+          "goal": "관심과 결정권 구분하기",
+          "example": "I understand the concern, but caring about my future doesn't require us to debate this at every gathering.",
+          "cue": "debate = 토론하다"
+        },
+        {
+          "goal": "공개 대화의 영향 설명하기",
+          "example": "When it becomes a group discussion, I feel pushed to defend a personal decision.",
+          "cue": "defend a decision = 결정을 방어하다"
+        },
+        {
+          "goal": "대체 연결 방식 제안하기",
+          "example": "I'd be happy to talk about how life is going more generally, without making this the test of whether I'm doing well.",
+          "cue": "more generally = 더 폭넓게"
+        }
+      ],
+      "outcome": "관심은 받아들이되 특정 선택을 반복 심사하는 대화에 경계를 정한다.",
+      "transfer": "가족이 사적으로 한 번 듣고 싶다고 한다. 응할 범위와 원치 않는 질문을 분명히 한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "C1",
+      "slug": "repair-broken-confidence",
+      "title": "친구 비밀을 공유한 뒤 신뢰 회복하기",
+      "scenario": "걱정하는 마음으로 친구의 사적인 이야기를 다른 친구에게 전했습니다. 당사자가 알게 됐습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 좋은 의도보다 자신이 공유 여부를 선택하지 못한 점을 문제로 느낀다.",
+      "opening": "That wasn't yours to tell.",
+      "steps": [
+        {
+          "goal": "행동과 영향 책임지기",
+          "example": "You're right. I shared information you had trusted me with, and I took away your choice.",
+          "cue": "trusted me with = 믿고 맡겼다"
+        },
+        {
+          "goal": "변명과 설명 구분하기",
+          "example": "I was worried, but that explains my impulse rather than excusing what I did.",
+          "cue": "excusing = 정당화하는"
+        },
+        {
+          "goal": "가능한 복구를 상대와 정하기",
+          "example": "I'll tell you exactly who heard it and ask what, if anything, you want me to do next.",
+          "cue": "what if anything = 원한다면 무엇을"
+        }
+      ],
+      "outcome": "좋은 의도를 면죄부로 쓰지 않고 공유 범위와 복구 선택을 돌려준다.",
+      "transfer": "친구가 당분간 연락을 원치 않는다. 용서를 재촉하지 않고 경계를 존중한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "C2",
+      "slug": "negotiate-care-autonomy",
+      "title": "돌봄을 받는 가족의 자율성과 걱정 조율하기",
+      "scenario": "가족은 안전을 이유로 모든 일정을 대신 결정하려 하지만 당사자는 선택권을 원합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "가족 역할. 혼자 외출하다 문제가 생길까 걱정하며 당사자의 의사를 직접 묻지 않은 상태다.",
+      "opening": "It's easier if we make the decisions for them.",
+      "steps": [
+        {
+          "goal": "편의·안전·자율성 구분하기",
+          "example": "Easier for us is not necessarily better for them, and concern doesn't automatically justify taking over every choice.",
+          "cue": "taking over = 대신 통제하다"
+        },
+        {
+          "goal": "당사자 참여를 우선 제안하기",
+          "example": "Could we ask which decisions they want help with before deciding the scope of support?",
+          "cue": "scope of support = 지원 범위"
+        },
+        {
+          "goal": "비례적인 합의 제안하기",
+          "example": "We might agree check-ins for particular situations while leaving everyday choices with them.",
+          "cue": "particular situations = 특정 상황"
+        }
+      ],
+      "outcome": "막연한 안전 논리를 구체적 지원과 당사자 선택권으로 나눈다.",
+      "transfer": "당사자가 직접 더 많은 도움을 요청한다. 추측하지 말고 요청한 범위와 재검토 시점을 정한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "C2",
+      "slug": "untangle-family-loyalty",
+      "title": "가족에 대한 충성과 비밀 유지 요구 구분하기",
+      "scenario": "가족 갈등을 누구에게도 말하지 않는 것이 충성이라는 요구를 받습니다. 개인적인 지원을 구할 권리는 유지하려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "가족 역할. 외부에 알려지는 것이 두렵고 공개 망신과 비공개 상담을 혼동한다.",
+      "opening": "If you're loyal to the family, you won't discuss this with anyone.",
+      "steps": [
+        {
+          "goal": "충성의 양자택일 전제 검토하기",
+          "example": "Supporting the family and seeking confidential support are not necessarily opposing choices.",
+          "cue": "confidential support = 비공개 지원"
+        },
+        {
+          "goal": "공개와 비공개 도움 구분하기",
+          "example": "I'm not proposing to publicise private details; I need a space to think with someone outside the conflict.",
+          "cue": "publicise = 공개하다"
+        },
+        {
+          "goal": "자신의 경계 명확히 하기",
+          "example": "I'll be careful about what I share, but I can't promise complete isolation from support.",
+          "cue": "isolation = 고립"
+        }
+      ],
+      "outcome": "관계 존중을 유지하면서 외부 지원을 전면 금지하는 요구에 경계를 정한다.",
+      "transfer": "상대가 익명으로 상황을 설명하는 방안을 제안한다. 필요한 정보와 보호할 정보를 구분한다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "C2",
+      "slug": "reframe-fairness-among-siblings",
+      "title": "형제 사이 똑같음과 공평함의 차이 논의하기",
+      "scenario": "가족 지원을 똑같이 나누자는 의견과 필요에 맞게 나누자는 의견이 충돌합니다. 결론을 미리 정하지 않으려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "형제 역할. 한 사람에게 더 지원하면 편애라고 느끼며 기준의 투명성을 원한다.",
+      "opening": "If the amounts aren't identical, how can you call it fair?",
+      "steps": [
+        {
+          "goal": "공평함의 다른 정의 드러내기",
+          "example": "We're using fairness in two senses: equal amounts and a response to unequal needs.",
+          "cue": "unequal needs = 서로 다른 필요"
+        },
+        {
+          "goal": "판단 자료와 절차 제안하기",
+          "example": "Before choosing either rule, could we agree which needs count and what information people are willing to share?",
+          "cue": "which needs count = 인정할 필요"
+        },
+        {
+          "goal": "기준과 재검토 장치 제안하기",
+          "example": "A clear, reviewable principle may matter more than a one-off compromise that nobody can explain.",
+          "cue": "reviewable principle = 재검토 가능한 기준"
+        }
+      ],
+      "outcome": "편애 추정 대신 공평함의 정의와 판단 절차를 협의한다.",
+      "transfer": "모두 상세 재정 공개를 원하지 않는다. 최소 정보로 적용 가능한 기준을 찾아본다."
+    },
+    {
+      "subcategoryId": "friends-family",
+      "difficulty": "C2",
+      "slug": "renegotiate-old-friendship",
+      "title": "오랜 우정의 달라진 친밀도 이야기하기",
+      "scenario": "친구는 예전처럼 매일 연락해야 우정이 유지된다고 생각하지만 당신의 생활 리듬은 달라졌습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "오랜 친구. 연락 빈도 감소를 관계 거절로 해석하며 예측 가능한 연결을 원한다.",
+      "opening": "If we were still close, you would make time every day.",
+      "steps": [
+        {
+          "goal": "빈도와 관계 의미 분리하기",
+          "example": "Less frequent contact reflects how my days have changed, not a decision that you matter less.",
+          "cue": "reflects = 반영한다"
+        },
+        {
+          "goal": "상대에게 필요한 신호 묻기",
+          "example": "What would help you feel connected without requiring either of us to recreate our old routine?",
+          "cue": "recreate = 다시 만들다"
+        },
+        {
+          "goal": "새로운 지속 가능한 관계 제안하기",
+          "example": "Could we plan a proper conversation each week and allow slower replies between those times?",
+          "cue": "slower replies = 느린 답장"
+        }
+      ],
+      "outcome": "과거의 연락 규칙 대신 현재 삶에 맞는 친밀감 표현을 합의한다.",
+      "transfer": "친구는 정기 약속도 부담스럽다고 한다. 빈도 규칙보다 서로의 메시지 기대치를 정한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "pre-A1",
+      "slug": "say-like-music",
+      "title": "좋아하는 음악에 반응하기",
+      "scenario": "친구가 음악을 틀고 좋냐고 묻습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 짧은 감상에 답하고 더 듣고 싶은지 묻는다.",
+      "opening": "Do you like it?",
+      "steps": [
+        {
+          "goal": "좋다고 답하기",
+          "example": "Yes. Nice.",
+          "cue": "nice = 좋아요"
+        },
+        {
+          "goal": "더 듣고 싶다고 말하기",
+          "example": "More, please.",
+          "cue": "more = 더"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "좋아하는 것을 짧게 표현한다.",
+      "transfer": "마음에 들지 않는 음악이다. no thanks로 정중하게 거절한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "pre-A1",
+      "slug": "name-current-feeling",
+      "title": "지금 기분 이름 붙이기",
+      "scenario": "친구가 표정을 보고 괜찮냐고 묻습니다. 오늘은 슬프지만 이유는 말하지 않습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. sad를 들으면 조용히 함께 있을지 묻는다.",
+      "opening": "Are you okay?",
+      "steps": [
+        {
+          "goal": "기분 말하기",
+          "example": "Sad.",
+          "cue": "sad = 슬픈"
+        },
+        {
+          "goal": "필요한 반응 말하기",
+          "example": "Quiet, please.",
+          "cue": "quiet = 조용히"
+        },
+        {
+          "goal": "배려에 감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "감정과 필요한 반응을 한 단어 수준으로 전달한다.",
+      "transfer": "기쁜 날로 바꾸어 happy라고 말하고 웃는 반응을 나눈다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "pre-A1",
+      "slug": "choose-comfort",
+      "title": "춥거나 더운 상태 알리기",
+      "scenario": "모임 방이 춥고 문이 열려 있습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 상태를 들으면 문을 닫을지 묻는다.",
+      "opening": "Are you cold?",
+      "steps": [
+        {
+          "goal": "몸의 느낌 답하기",
+          "example": "Yes. Cold.",
+          "cue": "cold = 추운"
+        },
+        {
+          "goal": "원하는 행동 말하기",
+          "example": "Close it, please.",
+          "cue": "close it = 그것을 닫다; 여기서는 열린 문을 말해요"
+        },
+        {
+          "goal": "결과에 반응하기",
+          "example": "Better. Thanks.",
+          "cue": "better = 더 나아진"
+        }
+      ],
+      "outcome": "불편함과 간단한 해결 요청을 전달한다.",
+      "transfer": "방이 덥다. hot와 open을 사용해 문을 열어 달라고 요청한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "pre-A1",
+      "slug": "express-not-sure",
+      "title": "잘 모르겠다고 말하기",
+      "scenario": "두 그림 중 어느 것이 좋은지 묻지만 아직 선택하지 못했습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 바로 답을 요구하지 않고 시간을 줄 수 있다.",
+      "opening": "This one?",
+      "steps": [
+        {
+          "goal": "확신 없음을 말하기",
+          "example": "Not sure.",
+          "cue": "not sure = 잘 모르겠어요"
+        },
+        {
+          "goal": "시간 요청하기",
+          "example": "One minute, please.",
+          "cue": "one minute = 잠깐"
+        },
+        {
+          "goal": "선택 말하기",
+          "example": "This one.",
+          "cue": "this one = 이것"
+        }
+      ],
+      "outcome": "모르는 상태를 인정하고 생각할 시간을 요청한다.",
+      "transfer": "끝내 선택하기 어렵다. 둘 다 좋다는 both를 배워 답한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "A1",
+      "slug": "prefer-quiet-place",
+      "title": "조용한 장소가 좋다고 말하기",
+      "scenario": "친구와 앉을 곳을 고릅니다. 실내는 시끄럽고 정원은 조용합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 둘 다 갈 수 있으며 선호를 묻는다.",
+      "opening": "Inside or outside?",
+      "steps": [
+        {
+          "goal": "선호 말하기",
+          "example": "I like the garden.",
+          "cue": "garden = 정원"
+        },
+        {
+          "goal": "간단한 이유 말하기",
+          "example": "It is quiet.",
+          "cue": "quiet = 조용한"
+        },
+        {
+          "goal": "상대 선호 묻기",
+          "example": "Is that okay for you?",
+          "cue": "okay for you = 괜찮나요"
+        }
+      ],
+      "outcome": "선호와 이유를 짧게 말하고 상대 의견을 묻는다.",
+      "transfer": "정원에 비가 온다. 조용한 실내 자리를 새로 선택한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "A1",
+      "slug": "state-nervous",
+      "title": "처음 하는 활동의 긴장 말하기",
+      "scenario": "모임에서 처음 자기소개를 해야 해 긴장됩니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "진행자. 짧게 말해도 되고 나중에 해도 된다고 안내한다.",
+      "opening": "Are you ready to introduce yourself?",
+      "steps": [
+        {
+          "goal": "긴장 말하기",
+          "example": "I'm nervous.",
+          "cue": "nervous = 긴장한"
+        },
+        {
+          "goal": "짧게 해도 되는지 묻기",
+          "example": "Can I say just my name?",
+          "cue": "just my name = 이름만"
+        },
+        {
+          "goal": "감사하고 준비 알리기",
+          "example": "Thank you. I'm ready.",
+          "cue": "ready = 준비된"
+        }
+      ],
+      "outcome": "긴장을 표현하고 필요한 지원을 요청한다.",
+      "transfer": "말할 준비가 안 됐다. 나중에 하겠다고 later를 사용해 요청한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "A1",
+      "slug": "like-not-love",
+      "title": "선호 강도 간단히 구분하기",
+      "scenario": "친구가 매운 음식을 좋아하냐고 묻습니다. 조금은 좋지만 아주 매운 것은 싫습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. mild와 very spicy 중 골라 줄 수 있다.",
+      "opening": "Do you like spicy food?",
+      "steps": [
+        {
+          "goal": "한정된 선호 말하기",
+          "example": "I like a little spice.",
+          "cue": "a little = 조금"
+        },
+        {
+          "goal": "싫어하는 범위 말하기",
+          "example": "Not very spicy.",
+          "cue": "very spicy = 아주 매운"
+        },
+        {
+          "goal": "원하는 선택 확인하기",
+          "example": "Mild, please.",
+          "cue": "mild = 순한"
+        }
+      ],
+      "outcome": "좋고 싫음 사이의 범위를 짧게 전달한다.",
+      "transfer": "음료 단맛을 고른다. a little sugar로 선호 강도를 말한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "A1",
+      "slug": "agree-simple-reason",
+      "title": "좋은 생각에 이유 덧붙이기",
+      "scenario": "친구가 가까운 공원에서 만나자고 합니다. 집에서 가까워 동의합니다. 당신이 제안할 수 있는 시간은 오후 2시입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 공원이 가까운지 묻고 시간을 정하려 한다.",
+      "opening": "Let's meet at the park.",
+      "steps": [
+        {
+          "goal": "동의하기",
+          "example": "Good idea.",
+          "cue": "good idea = 좋은 생각"
+        },
+        {
+          "goal": "이유 말하기",
+          "example": "It's near my home.",
+          "cue": "near my home = 집 가까이"
+        },
+        {
+          "goal": "시간 제안하기",
+          "example": "At two?",
+          "cue": "at two = 2시에"
+        }
+      ],
+      "outcome": "단순 동의에 이유와 다음 행동을 연결한다.",
+      "transfer": "공원이 멀다. 가까운 도서관을 대안으로 제안한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "A2",
+      "slug": "explain-disappointment",
+      "title": "기대와 달라 실망한 이유 말하기",
+      "scenario": "기대했던 영화가 너무 시끄럽고 이야기가 어려웠습니다. 친구는 재미있게 봤습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 음악은 좋았지만 줄거리는 복잡했다는 데 동의할 수 있다.",
+      "opening": "I loved that film. What did you think?",
+      "steps": [
+        {
+          "goal": "감상 말하기",
+          "example": "I was a little disappointed.",
+          "cue": "disappointed = 실망한"
+        },
+        {
+          "goal": "구체적인 이유 말하기",
+          "example": "The sound was too loud, and I couldn't follow the story.",
+          "cue": "follow the story = 이야기를 따라가다"
+        },
+        {
+          "goal": "상대 감상 묻기",
+          "example": "What did you like most about it?",
+          "cue": "like most = 가장 좋아하다"
+        }
+      ],
+      "outcome": "다른 취향을 비난하지 않고 자신의 감상을 설명한다.",
+      "transfer": "친구가 당신의 말을 영화 전체가 나쁘다는 뜻으로 이해한다. 개인 느낌이라고 한정한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "A2",
+      "slug": "request-thinking-time",
+      "title": "의견을 말하기 전 시간 요청하기",
+      "scenario": "모임이 장소 변경을 바로 결정하려 합니다. 이동 시간을 확인해야 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "진행자. 5분 뒤 결정할 수 있고 두 후보의 주소를 제공한다.",
+      "opening": "Can we decide now?",
+      "steps": [
+        {
+          "goal": "바로 결정 못 하는 이유 말하기",
+          "example": "I need to check how long it takes to get there.",
+          "cue": "check = 확인하다"
+        },
+        {
+          "goal": "생각할 시간 요청하기",
+          "example": "Could I have five minutes?",
+          "cue": "five minutes = 5분"
+        },
+        {
+          "goal": "답할 시점 약속하기",
+          "example": "I'll give you my answer before we finish this topic.",
+          "cue": "before we finish = 끝내기 전에"
+        }
+      ],
+      "outcome": "무작정 동의하지 않고 필요한 시간을 확보한다.",
+      "transfer": "결정이 더 급하다. 현재 아는 정보만으로 조건부 의견을 말한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "A2",
+      "slug": "share-proud-moment",
+      "title": "자랑스러운 작은 성취 말하기",
+      "scenario": "혼자 영어로 주문한 경험을 친구에게 이야기합니다. 연습 경험: 추가 주문 질문에 긴장했지만 다시 말해 달라고 요청해 이해하고 주문을 마쳤습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 무엇이 어려웠고 어떻게 해결했는지 궁금해한다.",
+      "opening": "How did your café visit go?",
+      "steps": [
+        {
+          "goal": "성취 말하기",
+          "example": "I ordered in English by myself.",
+          "cue": "by myself = 혼자"
+        },
+        {
+          "goal": "어려움 설명하기",
+          "example": "I was nervous when they asked another question.",
+          "cue": "nervous = 긴장한; another question = 추가 질문"
+        },
+        {
+          "goal": "해결과 감정 말하기",
+          "example": "I asked them to repeat it, and I felt proud afterwards.",
+          "cue": "proud = 자랑스러운"
+        }
+      ],
+      "outcome": "결과뿐 아니라 어려움과 해결을 포함해 성취를 말한다.",
+      "transfer": "주문은 성공했지만 도움을 받았다. 도움받은 점도 정직하게 설명한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "A2",
+      "slug": "change-opinion-new-info",
+      "title": "새 정보를 듣고 생각 바꾸기",
+      "scenario": "공원 모임이 좋다고 했지만 그날 공사가 있다는 정보를 들었습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 도서관 방은 무료이고 같은 시간 이용할 수 있다고 알려 준다.",
+      "opening": "The park will be partly closed for repairs.",
+      "steps": [
+        {
+          "goal": "새 정보 반응하기",
+          "example": "Oh, I didn't know that.",
+          "cue": "didn't know = 몰랐다"
+        },
+        {
+          "goal": "의견 수정하기",
+          "example": "Then I don't think the park is a good choice this time.",
+          "cue": "this time = 이번에는"
+        },
+        {
+          "goal": "새 선택 확인하기",
+          "example": "Can we use the library room instead?",
+          "cue": "instead = 대신"
+        }
+      ],
+      "outcome": "새 사실에 따라 이유 있게 선호를 수정한다.",
+      "transfer": "공사가 끝났다고 확인된다. 기존 정보와 달라진 이유를 말하고 재검토한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "B1",
+      "slug": "separate-feeling-fact",
+      "title": "느낌과 사실을 구분해 오해 말하기",
+      "scenario": "메시지 답장이 없어 무시당한 느낌이 들었지만 실제 사정은 모릅니다. 답장을 기다린 기간은 이틀입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 바빠 답장을 못 했으며 의도적인 무시는 아니라고 설명한다.",
+      "opening": "I saw your messages but couldn't answer.",
+      "steps": [
+        {
+          "goal": "관찰 사실 말하기",
+          "example": "I didn't hear back for two days.",
+          "cue": "hear back = 답장을 받다"
+        },
+        {
+          "goal": "내 느낌으로 표현하기",
+          "example": "I felt worried and started wondering if I'd upset you.",
+          "cue": "felt worried = 걱정했다"
+        },
+        {
+          "goal": "단정 대신 확인하기",
+          "example": "Was something going on, or did you need some space?",
+          "cue": "need some space = 혼자 시간이 필요하다"
+        }
+      ],
+      "outcome": "상대 의도를 단정하지 않고 감정과 확인 질문을 전한다.",
+      "transfer": "상대가 실제로 불편한 일이 있었다고 한다. 방어하지 말고 어떤 점인지 듣는다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "B1",
+      "slug": "weigh-hobby-choice",
+      "title": "새 취미의 장단점 비교하기",
+      "scenario": "수영과 독서 모임 중 고릅니다. 수영은 건강에 좋지만 비싸고 독서 모임은 무료지만 시간이 늦습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 예산과 수면 중 어느 제약이 더 중요한지 묻는다.",
+      "opening": "Which one are you leaning towards?",
+      "steps": [
+        {
+          "goal": "대안 장점 비교하기",
+          "example": "Swimming would help me stay active, while the book group would help me meet people.",
+          "cue": "while = 반면; stay active = 활동적으로 지내다"
+        },
+        {
+          "goal": "현실 제약 설명하기",
+          "example": "The cost worries me, but late evenings are difficult too.",
+          "cue": "cost worries me = 비용이 걱정된다"
+        },
+        {
+          "goal": "조건부 선택 말하기",
+          "example": "I'll try swimming if there's an affordable beginner class.",
+          "cue": "affordable = 감당할 가격의"
+        }
+      ],
+      "outcome": "장점과 제약을 연결해 선택의 조건을 설명한다.",
+      "transfer": "저렴한 수영 수업이 없어진다. 예산을 무시하지 않고 다른 방식의 운동을 제안한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "B1",
+      "slug": "disagree-movie-view",
+      "title": "감상 차이를 이유 있게 이야기하기",
+      "scenario": "친구는 영화 결말이 좋았지만 당신은 인물 변화가 갑작스럽다고 느낍니다. 당신은 영화의 분위기는 좋았다고 느꼈습니다. 친구도 분위기와 결말이 좋았다고 말합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 열린 결말이 관객의 상상에 도움이 됐다고 생각한다.",
+      "opening": "I loved the atmosphere, and the ending was the best part.",
+      "steps": [
+        {
+          "goal": "공통점 먼저 말하기",
+          "example": "I liked the atmosphere too.",
+          "cue": "atmosphere = 분위기"
+        },
+        {
+          "goal": "다른 감상과 이유 말하기",
+          "example": "The ending didn't quite work for me because the character changed too suddenly.",
+          "cue": "too suddenly = 너무 갑자기"
+        },
+        {
+          "goal": "상대 근거 묻기",
+          "example": "Did you see an earlier scene that made the change believable?",
+          "cue": "believable = 믿을 만한"
+        }
+      ],
+      "outcome": "취향의 차이를 장면과 이유에 연결해 대화한다.",
+      "transfer": "상대가 장면을 알려 준다. 그것이 내 감상을 얼마나 바꾸는지 설명한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "B1",
+      "slug": "name-mixed-feelings",
+      "title": "좋으면서도 아쉬운 감정 설명하기",
+      "scenario": "친구가 멀리 이사해 기쁘지만 자주 못 만나 아쉽습니다. 당신과 친구는 지금까지 매주 함께 산책했습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 이사는 기대되지만 관계가 멀어질까 걱정한다.",
+      "opening": "I'm excited about moving, but I'll miss everyone.",
+      "steps": [
+        {
+          "goal": "기쁨 표현하기",
+          "example": "I'm happy that you have this opportunity.",
+          "cue": "opportunity = 기회"
+        },
+        {
+          "goal": "아쉬움 함께 말하기",
+          "example": "At the same time, I'll miss our weekly walks.",
+          "cue": "at the same time = 동시에"
+        },
+        {
+          "goal": "관계 유지 제안하기",
+          "example": "Could we keep a regular call, even if it's only once a month?",
+          "cue": "regular call = 정기 통화"
+        }
+      ],
+      "outcome": "서로 모순처럼 보이는 감정을 함께 표현한다.",
+      "transfer": "친구가 정기 통화 약속은 부담스럽다. 느슨한 연락 방식도 존중하며 대안을 찾는다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "B2",
+      "slug": "qualify-generalization",
+      "title": "지나치게 일반적인 의견 한정하기",
+      "scenario": "모임에서 온라인 친구는 진짜 친구가 아니라는 말을 들었습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "지인. 자신의 온라인 관계 경험이 짧아서 깊은 관계를 상상하지 못한다.",
+      "opening": "Online friendships aren't real friendships.",
+      "steps": [
+        {
+          "goal": "경험의 차이 인정하기",
+          "example": "I can see how short exchanges might feel less personal.",
+          "cue": "short exchanges = 짧은 주고받음; personal = 개인적인"
+        },
+        {
+          "goal": "일반화의 한계 지적하기",
+          "example": "But that doesn't apply to every online relationship; some involve years of trust and support.",
+          "cue": "apply to = 적용되다"
+        },
+        {
+          "goal": "판단 기준 제안하기",
+          "example": "Perhaps reliability and mutual care matter more than where people first met.",
+          "cue": "reliability = 믿을 수 있음"
+        }
+      ],
+      "outcome": "개인 경험을 전체에 적용한 의견을 근거와 기준으로 조정한다.",
+      "transfer": "상대가 사기 사례를 든다. 관계의 가능성과 신원 확인 위험을 별개로 다룬다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "B2",
+      "slug": "explain-value-tradeoff",
+      "title": "편리함과 사생활의 가치 충돌 설명하기",
+      "scenario": "친구들은 위치 공유 앱이 편하다고 하지만 당신은 항상 켜 두고 싶지 않습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 약속 때 서로 찾기 쉽다는 장점을 중시하며 상시 공유가 필요하다고 생각한다.",
+      "opening": "Why not just keep location sharing on all the time?",
+      "steps": [
+        {
+          "goal": "장점 인정하기",
+          "example": "It would make meeting up easier.",
+          "cue": "meeting up = 약속해서 만나는 것"
+        },
+        {
+          "goal": "우려와 기준 설명하기",
+          "example": "I'm comfortable sharing for a specific plan, but continuous access feels unnecessary.",
+          "cue": "specific plan = 특정 약속"
+        },
+        {
+          "goal": "한정된 대안 제안하기",
+          "example": "Could we turn it on for the journey and switch it off once we've met?",
+          "cue": "switch off = 끄다"
+        }
+      ],
+      "outcome": "공유의 목적과 기간을 제한하는 가치 절충안을 제안한다.",
+      "transfer": "앱에 일시 공유 기능이 없다. 도착 메시지 등 덜 침해적인 대안을 제안한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "B2",
+      "slug": "respond-invalidated-feeling",
+      "title": "감정이 과하다는 반응에 설명하기",
+      "scenario": "불편함을 말했더니 너무 예민하다는 답을 들었습니다. 연습 사건: 친구가 모임 사람들 앞에서 당신의 영어를 여러 번 고쳐 말했고, 그 뒤 당신은 말하기를 주저했습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 자신은 같은 상황에서 괜찮을 거라고 생각하지만 구체적 영향을 들을 수 있다.",
+      "opening": "You're being too sensitive. It was only a comment.",
+      "steps": [
+        {
+          "goal": "감정과 의도 구분하기",
+          "example": "You may not have meant harm, but it still affected me.",
+          "cue": "meant harm = 해칠 의도였다"
+        },
+        {
+          "goal": "구체적인 영향 설명하기",
+          "example": "Being corrected in front of everyone made me less willing to speak.",
+          "cue": "in front of everyone = 모두 앞에서; less willing = 덜 하고 싶은"
+        },
+        {
+          "goal": "원하는 변화 요청하기",
+          "example": "Could you give me that feedback privately next time?",
+          "cue": "privately = 사적으로"
+        }
+      ],
+      "outcome": "자신의 감정을 방어만 하지 않고 구체적 행동 변화를 요청한다.",
+      "transfer": "상대가 긴급한 오정보 수정이었다고 한다. 즉시 수정 필요와 표현 방식을 나누어 논의한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "B2",
+      "slug": "express-uncertain-opinion",
+      "title": "정보가 부족한 주제에 유보적 의견 말하기",
+      "scenario": "친구가 지역 시설 폐쇄에 찬반을 묻지만 비용 자료를 아직 보지 못했습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 유지 비용이 높다는 소문만 알고 이용자 수 자료는 없다.",
+      "opening": "Surely they should close it if it's expensive?",
+      "steps": [
+        {
+          "goal": "알고 있는 범위 밝히기",
+          "example": "I know the cost is a concern, but I haven't seen the figures.",
+          "cue": "figures = 수치"
+        },
+        {
+          "goal": "결정에 필요한 정보 묻기",
+          "example": "I'd want to compare the cost with how many people rely on it and what alternatives exist.",
+          "cue": "rely on = 의존하다"
+        },
+        {
+          "goal": "유보적 입장 말하기",
+          "example": "At this point I'd favour reviewing the options rather than deciding to close it.",
+          "cue": "at this point = 현재로서는"
+        }
+      ],
+      "outcome": "모르는 정보를 숨기지 않고 판단 조건과 임시 입장을 말한다.",
+      "transfer": "검증된 자료가 제공된다. 유보했던 입장을 어떻게 수정하는지 근거와 함께 말한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "C1",
+      "slug": "reframe-false-choice",
+      "title": "양자택일로 제시된 의견의 틀 넓히기",
+      "scenario": "모임에서 전통을 지키려면 모든 변화를 거절해야 한다는 주장이 나옵니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "회원. 오래된 행사의 의미가 사라질까 걱정하지만 특정 운영 방식은 바꿀 수 있다고 생각한다.",
+      "opening": "We either protect the tradition or turn it into something unrecognisable.",
+      "steps": [
+        {
+          "goal": "핵심 가치와 방식 구분하기",
+          "example": "We could preserve the purpose of the tradition without treating every past practice as essential.",
+          "cue": "purpose = 목적"
+        },
+        {
+          "goal": "구체적인 판단 질문 제안하기",
+          "example": "Which parts carry the meaning people value, and which are simply how we've organised it until now?",
+          "cue": "carry the meaning = 의미를 담다"
+        },
+        {
+          "goal": "대안 검토 제안하기",
+          "example": "Let's test proposed changes against that distinction rather than an all-or-nothing choice.",
+          "cue": "all-or-nothing = 전부 아니면 전무"
+        }
+      ],
+      "outcome": "전통 대 변화의 이분법을 가치와 실행 방식의 검토로 바꾼다.",
+      "transfer": "어떤 방식 자체가 핵심 상징이라는 설명을 듣는다. 그 항목을 별도로 다루며 수정안을 낸다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "C1",
+      "slug": "acknowledge-conflicting-values",
+      "title": "같은 목표 안의 다른 가치 인정하기",
+      "scenario": "모두 조용한 동네를 원하지만 한쪽은 행사 제한, 다른 쪽은 공동체 활동을 중시합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "주민. 밤 소음은 힘들지만 낮 행사는 반대하지 않으며 구체적 기준을 원한다.",
+      "opening": "You care more about entertainment than residents' peace.",
+      "steps": [
+        {
+          "goal": "공유 목표 확인하기",
+          "example": "I care about people being able to rest too; the disagreement is about how we balance that with shared activities.",
+          "cue": "balance = 균형을 맞추다"
+        },
+        {
+          "goal": "가치 충돌을 구체화하기",
+          "example": "We should distinguish late-night noise from daytime events rather than treating them as one category.",
+          "cue": "distinguish = 구분하다"
+        },
+        {
+          "goal": "검증 가능한 절충 제안하기",
+          "example": "Could we try a clear finishing time and review complaints after two events?",
+          "cue": "review complaints = 불편 접수를 검토하다"
+        }
+      ],
+      "outcome": "상대의 동기를 공격하지 않고 가치 충돌을 구체적 조건으로 조율한다.",
+      "transfer": "낮 소음도 특정 주민에게 어렵다. 시간 외 장소·빈도·안내 조건을 다시 검토한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "C1",
+      "slug": "express-regret-without-self-erasure",
+      "title": "후회하면서도 모든 책임을 떠안지 않기",
+      "scenario": "공동 계획이 실패해 미안하지만 모든 결정이 자신의 책임은 아닙니다. 연습 사건: 당신은 장소 예약 확인을 늦게 했습니다. 이후 시설이 예고 없이 닫혀 공동 행사를 진행하지 못했습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 준비가 늦은 점과 외부 취소를 함께 당신 탓으로 보고 있다.",
+      "opening": "This happened because you didn't organise it properly.",
+      "steps": [
+        {
+          "goal": "내 책임 인정하기",
+          "example": "I should have confirmed the booking earlier, and I regret not doing that.",
+          "cue": "regret = 후회하다"
+        },
+        {
+          "goal": "통제 밖 요인 구분하기",
+          "example": "The later closure wasn't something I could control, so I don't think one explanation covers the whole outcome.",
+          "cue": "control = 통제하다"
+        },
+        {
+          "goal": "배울 점과 복구 제안하기",
+          "example": "I can take responsibility for earlier checks next time while we plan a backup together.",
+          "cue": "backup = 대안 계획"
+        }
+      ],
+      "outcome": "책임 회피와 과도한 자기비난을 피하고 영향 범위를 정확히 말한다.",
+      "transfer": "외부 취소도 사전 공지가 있었다고 밝혀진다. 새 근거에 따라 책임 판단을 수정한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "C1",
+      "slug": "interpret-ambivalence",
+      "title": "상반된 마음을 하나로 단정하지 않기",
+      "scenario": "친구가 승진을 원하면서도 부담을 느낍니다. 감사할 줄 모른다고 생각하지 않고 설명을 돕습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 성취는 기쁘지만 돌봄 시간과 업무 증가가 걱정된다.",
+      "opening": "I should be happy, so why am I dreading it?",
+      "steps": [
+        {
+          "goal": "복합 감정 정상화하기",
+          "example": "Being pleased about the recognition doesn't rule out concern about what the role will demand.",
+          "cue": "doesn't rule out = 배제하지 않는다"
+        },
+        {
+          "goal": "걱정의 구체 내용 묻기",
+          "example": "Is it the work itself, the loss of time, or the expectation that you must accept immediately?",
+          "cue": "loss of time = 시간의 상실; accept immediately = 즉시 수락하다"
+        },
+        {
+          "goal": "판단을 돕는 질문 제안하기",
+          "example": "What would need to be clarified for this to feel like a choice rather than an obligation?",
+          "cue": "clarified = 분명해진"
+        }
+      ],
+      "outcome": "감정을 단일 평가로 줄이지 않고 선택에 필요한 질문을 정리한다.",
+      "transfer": "친구가 결국 승진을 거절하고 싶다. 설득하지 말고 그 결정의 이유를 정리하도록 돕는다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "C2",
+      "slug": "distinguish-explanation-endorsement",
+      "title": "설명과 옹호가 혼동된 토론 풀기",
+      "scenario": "어떤 사람이 왜 특정 선택을 했는지 설명했더니 그 행동을 지지한다는 비난을 받았습니다. 논의하는 사건은 모임 운영자가 시간 부족 때문에 새 회원 의견을 받지 않고 행사 장소를 정한 것입니다. 당신은 시간 압박을 설명했지만 의견을 생략한 결정을 옹호하려던 것은 아닙니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "토론 상대. 해로운 행동에 대한 책임이 흐려질까 걱정하고 있다.",
+      "opening": "By explaining it, you're making excuses for them.",
+      "steps": [
+        {
+          "goal": "설명의 목적 명확히 하기",
+          "example": "I'm trying to account for the conditions that shaped the decision, not to remove responsibility for its consequences.",
+          "cue": "account for = 설명하다"
+        },
+        {
+          "goal": "상대의 우려를 반영하기",
+          "example": "Your concern is valid if context is being used to erase agency, so let me make that boundary explicit.",
+          "cue": "erase agency = 행위 주체성을 지우다"
+        },
+        {
+          "goal": "논의를 다시 연결하기",
+          "example": "We can examine why it happened and still judge the choice and its effects critically.",
+          "cue": "critically = 비판적으로"
+        }
+      ],
+      "outcome": "인과 설명과 도덕적 옹호를 구분하면서 책임 논의를 유지한다.",
+      "transfer": "내 표현이 실제로 책임을 축소한 부분이 확인된다. 의도 주장만 하지 말고 해당 문장을 수정한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "C2",
+      "slug": "challenge-neutral-framing",
+      "title": "중립처럼 보이는 질문의 전제 검토하기",
+      "scenario": "모임 설문이 문제 회원을 어떻게 줄일 것인가라고 묻습니다. 누가 문제인지 정의되지 않았습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "설문 작성자. 회의 방해를 줄이려 했지만 반대 의견까지 문제로 묶을 수 있음을 생각하지 못했다.",
+      "opening": "It's a neutral question about reducing difficult members.",
+      "steps": [
+        {
+          "goal": "내재된 판단 드러내기",
+          "example": "The wording already labels people as the problem before we have agreed which behaviour needs to change.",
+          "cue": "wording = 문구"
+        },
+        {
+          "goal": "행동 중심 대안 제안하기",
+          "example": "Could we ask about specific interruptions or personal attacks, while protecting disagreement with the majority?",
+          "cue": "interruptions = 말 끊기; personal attacks = 인신공격"
+        },
+        {
+          "goal": "공정한 기준 확인하기",
+          "example": "The same standard should apply regardless of whether we agree with the speaker's position.",
+          "cue": "regardless of = ~와 관계없이"
+        }
+      ],
+      "outcome": "중립성 주장 속 평가 전제를 드러내고 일관된 질문을 제안한다.",
+      "transfer": "행동 정의가 합의됐다. 사람을 분류하지 않고 사건과 대응을 묻는 설문 문항으로 다듬는다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "C2",
+      "slug": "revise-conviction-publicly",
+      "title": "공개적으로 강한 의견을 수정하기",
+      "scenario": "모임에서 자신 있게 주장한 수치가 잘못됐다는 자료를 확인했습니다. 전체 입장을 유지할 부분도 있습니다. 연습 자료: 당신은 한 달 행사 이용자가 200명이라고 했으나 중복을 뺀 기록은 80명입니다. 별도의 접근성 점검에서는 계단만 있는 입구 때문에 참여하지 못한 사례 6건이 확인됐습니다. 기존 제안은 큰 행사 공간 확대였고, 작은 접근성 개선 시범사업은 대안입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "토론 상대. 수치 오류를 인정하면 제안 전체가 무효라고 생각한다.",
+      "opening": "So your whole argument falls apart, doesn't it?",
+      "steps": [
+        {
+          "goal": "오류를 명확히 인정하기",
+          "example": "I said two hundred participants, but the corrected count is eighty. I should withdraw the original figure without qualification.",
+          "cue": "corrected count = 수정된 집계; without qualification = 단서 없이"
+        },
+        {
+          "goal": "영향 범위 재평가하기",
+          "example": "That weakens the case for a larger venue, though the six documented access problems still need attention.",
+          "cue": "weakens the case = 주장의 근거를 약화한다; documented = 기록으로 확인된"
+        },
+        {
+          "goal": "수정된 입장 제시하기",
+          "example": "I would now propose a smaller access-improvement pilot, with the remaining uncertainties stated openly.",
+          "cue": "access-improvement pilot = 접근성 개선 시범사업; uncertainties = 불확실한 점"
+        }
+      ],
+      "outcome": "오류를 숨기지 않고 근거별 영향에 따라 주장을 재구성한다.",
+      "transfer": "다른 근거도 검증되지 않았음이 드러난다. 결론을 유지하려 억지로 방어하지 말고 보류한다."
+    },
+    {
+      "subcategoryId": "feelings-opinions",
+      "difficulty": "C2",
+      "slug": "mediate-incommensurable-values",
+      "title": "한 척도로 비교하기 어려운 가치 중재하기",
+      "scenario": "지역 오래된 건물을 보존할지 새 공공시설로 바꿀지 논의합니다. 한쪽은 기억, 다른 쪽은 접근성을 중시합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "주민 대표. 비용 숫자만으로 결정하려 했지만 역사적 의미와 접근성 모두 손실될 수 있음을 인정한다.",
+      "opening": "Let's put a price on everything and choose the cheaper option.",
+      "steps": [
+        {
+          "goal": "단일 척도의 한계 설명하기",
+          "example": "Cost matters, but not every loss can be represented adequately by a price, especially belonging or access.",
+          "cue": "adequately = 충분히"
+        },
+        {
+          "goal": "손실을 드러내는 비교 방식 제안하기",
+          "example": "Could we describe what each option preserves, what it sacrifices, and whose experience is least visible?",
+          "cue": "preserves = 보존한다; sacrifices = 포기한다"
+        },
+        {
+          "goal": "불완전한 합의 절차 제안하기",
+          "example": "We may not eliminate the conflict, but we can make the trade-offs explicit and agree how the decision will be reviewed.",
+          "cue": "trade-offs = 얻고 잃는 것; reviewed = 재검토되는"
+        }
+      ],
+      "outcome": "가치 충돌을 숫자로 숨기지 않고 손실과 재검토 절차를 명시한다.",
+      "transfer": "부분 보존 대안이 나온다. 모든 갈등이 해소됐다고 가정하지 않고 남은 손실을 평가한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "pre-A1",
+      "slug": "say-sorry-bump",
+      "title": "실수로 부딪혔을 때 사과하기",
+      "scenario": "복도에서 다른 사람과 가볍게 부딪혔습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "지나가는 사람. 괜찮다고 짧게 답한다.",
+      "opening": "Oh!",
+      "steps": [
+        {
+          "goal": "사과하기",
+          "example": "Sorry.",
+          "cue": "sorry = 미안해요"
+        },
+        {
+          "goal": "괜찮은지 묻기",
+          "example": "Okay?",
+          "cue": "okay = 괜찮아요"
+        },
+        {
+          "goal": "답에 감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "작은 실수에 사과하고 상대 상태를 확인한다.",
+      "transfer": "상대가 물건을 떨어뜨렸다. help라는 단어로 도움을 제안한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "pre-A1",
+      "slug": "ask-repeat-please",
+      "title": "못 들은 말을 다시 요청하기",
+      "scenario": "상대가 너무 빨리 말해 이해하지 못했습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "모임 안내자. 요청하면 한 번에 한 단어씩 천천히 반복한다.",
+      "opening": "Please sign here.",
+      "steps": [
+        {
+          "goal": "이해 못 했다고 알리기",
+          "example": "Sorry?",
+          "cue": "sorry = 다시 말씀해 주세요"
+        },
+        {
+          "goal": "반복 요청하기",
+          "example": "Again, please.",
+          "cue": "again = 다시"
+        },
+        {
+          "goal": "느리게 요청하기",
+          "example": "Slowly, please.",
+          "cue": "slowly = 천천히"
+        }
+      ],
+      "outcome": "모르는 상태를 숨기지 않고 대화 속도를 조절한다.",
+      "transfer": "두 번째도 모른다. Korean, please(한국어로 부탁해요)를 제공받아 설명 언어를 요청하고, 가능한 지원을 확인한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "pre-A1",
+      "slug": "say-stop",
+      "title": "불편한 행동 멈춰 달라고 말하기",
+      "scenario": "친구가 장난으로 사진을 계속 찍습니다. 지금은 원하지 않습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. no photo를 들으면 카메라를 내리고 확인한다.",
+      "opening": "Photo?",
+      "steps": [
+        {
+          "goal": "거절하기",
+          "example": "No, please.",
+          "cue": "no = 아니요"
+        },
+        {
+          "goal": "원치 않는 행동 특정하기",
+          "example": "No photo.",
+          "cue": "photo = 사진"
+        },
+        {
+          "goal": "멈춘 뒤 반응하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "짧고 분명하게 원치 않는 촬영을 거절한다.",
+      "transfer": "사진이 아니라 녹음이다. recording이라는 단어를 제공받아 경계를 말한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "pre-A1",
+      "slug": "ask-space",
+      "title": "좁은 곳에서 지나갈 자리 부탁하기",
+      "scenario": "문 앞에 사람이 있어 지나갈 수 없습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "문 앞 사람. 요청을 들으면 옆으로 움직이고 충분한지 묻는다.",
+      "opening": "Hello.",
+      "steps": [
+        {
+          "goal": "주의 끌기",
+          "example": "Excuse me.",
+          "cue": "excuse me = 잠시만요"
+        },
+        {
+          "goal": "지나갈 뜻 말하기",
+          "example": "May I pass?",
+          "cue": "may I pass = 지나가도 될까요; 한 덩어리 표현으로 연습해요"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "상대를 밀지 않고 통과할 공간을 요청한다.",
+      "transfer": "앉을 공간이 필요하다. seat를 사용해 요청 대상을 바꾼다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "A1",
+      "slug": "refuse-photo-post",
+      "title": "내 사진을 올리지 말아 달라고 하기",
+      "scenario": "친구가 함께 찍은 사진을 게시하려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 올리기 전에 확인하며 게시하지 않는 선택을 받아들인다.",
+      "opening": "Can I post this photo?",
+      "steps": [
+        {
+          "goal": "게시 거절하기",
+          "example": "No, please don't.",
+          "cue": "please don't = 하지 말아 주세요"
+        },
+        {
+          "goal": "내 선호 말하기",
+          "example": "I like to keep photos private.",
+          "cue": "private = 비공개"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thanks for asking.",
+          "cue": "thanks for asking = 물어봐 줘서 고마워요"
+        }
+      ],
+      "outcome": "사진 촬영과 게시 동의를 구분해 의사를 말한다.",
+      "transfer": "사진은 게시해도 이름 표시는 싫다. no name이라는 짧은 조건을 덧붙인다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "A1",
+      "slug": "correct-wrong-item",
+      "title": "다른 사람 물건을 집었을 때 정정하기",
+      "scenario": "모임에서 같은 색의 가방을 잘못 집었습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "가방 주인. 자신의 가방이라고 말하고 옆의 다른 가방을 가리킨다.",
+      "opening": "That's my bag.",
+      "steps": [
+        {
+          "goal": "실수 인정하기",
+          "example": "Oh, sorry.",
+          "cue": "sorry = 미안해요"
+        },
+        {
+          "goal": "물건 돌려주기",
+          "example": "Here you are.",
+          "cue": "here you are = 여기 있어요"
+        },
+        {
+          "goal": "내 물건 확인하기",
+          "example": "Is this one mine?",
+          "cue": "mine = 내 것"
+        }
+      ],
+      "outcome": "잘못 집은 물건을 돌려주고 자신의 것을 확인한다.",
+      "transfer": "같은 컵을 잘못 가져왔다. 사용 여부를 솔직히 말하고 새 컵을 제안한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "A1",
+      "slug": "request-lower-volume",
+      "title": "소리를 조금 줄여 달라고 하기",
+      "scenario": "공용 방에서 음악이 커 대화가 어렵습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 음악을 줄일 수 있고 어느 정도인지 확인한다.",
+      "opening": "Is the music okay?",
+      "steps": [
+        {
+          "goal": "불편함 말하기",
+          "example": "It's too loud.",
+          "cue": "too loud = 너무 큰 소리"
+        },
+        {
+          "goal": "구체적 요청하기",
+          "example": "Can you turn it down?",
+          "cue": "turn it down = 소리를 줄이다"
+        },
+        {
+          "goal": "개선 확인하기",
+          "example": "That's better. Thanks.",
+          "cue": "better = 더 나은"
+        }
+      ],
+      "outcome": "소리의 문제와 원하는 조치를 간단히 전달한다.",
+      "transfer": "음악을 끌 수 없는 행사다. 조용한 자리로 옮길 수 있는지 묻는다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "A1",
+      "slug": "ask-own-turn",
+      "title": "차례가 잘못됐을 때 말하기",
+      "scenario": "게임에서 내 차례를 건너뛰었습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "게임 참가자. 순서를 착각했고 확인하면 차례를 돌려준다.",
+      "opening": "It's Jo's turn.",
+      "steps": [
+        {
+          "goal": "주의 끌기",
+          "example": "Excuse me.",
+          "cue": "excuse me = 잠시만요"
+        },
+        {
+          "goal": "내 차례 알리기",
+          "example": "It's my turn.",
+          "cue": "my turn = 내 차례"
+        },
+        {
+          "goal": "차례 확인하기",
+          "example": "Can I go now?",
+          "cue": "go now = 지금 하다"
+        }
+      ],
+      "outcome": "공격하지 않고 자신의 차례를 확인한다.",
+      "transfer": "규칙상 차례를 쉬는 상황이다. 이유를 듣고 다음 차례를 확인한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "A2",
+      "slug": "apologize-late-arrival",
+      "title": "늦은 도착에 사과하고 영향 확인하기",
+      "scenario": "모임에 15분 늦었습니다. 다른 사람들이 시작을 미뤘는지 모릅니다. 연습 지각 이유는 버스를 놓친 것입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 기다리다 먼저 시작했으며 지금 진행 중인 게임은 다음 판부터 참여해야 한다.",
+      "opening": "We started without you.",
+      "steps": [
+        {
+          "goal": "늦음에 사과하기",
+          "example": "I'm sorry I'm late.",
+          "cue": "late = 늦은"
+        },
+        {
+          "goal": "간단한 이유 말하기",
+          "example": "I missed the bus.",
+          "cue": "missed the bus = 버스를 놓쳤다"
+        },
+        {
+          "goal": "현재 참여 방법 확인하기",
+          "example": "Should I wait until the next game?",
+          "cue": "until = ~까지"
+        }
+      ],
+      "outcome": "변명을 길게 하지 않고 늦음으로 달라진 참여 방법을 확인한다.",
+      "transfer": "모임이 아직 시작 전이다. 기다려 준 것에 감사하고 즉시 준비한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "A2",
+      "slug": "refuse-small-favor",
+      "title": "감당하기 어려운 부탁 거절하기",
+      "scenario": "친구가 내일 짐을 옮겨 달라고 하지만 이미 다른 일정이 있습니다. 오늘 저녁에는 한 시간 정도 짐 싸기를 도울 수 있습니다. 차량 대여는 원하지 않으므로 다시 요청받으면 거절할 수 있습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 내일 이사 도움을 요청하고, 어렵다고 하면 오늘 저녁 짐 싸기 도움도 유용하다고 답한다. 차량을 빌려 달라고 다시 물을 경우 거절을 받아들인다.",
+      "opening": "Can you help me move tomorrow?",
+      "steps": [
+        {
+          "goal": "불가능하다고 말하기",
+          "example": "I'm sorry, I can't tomorrow.",
+          "cue": "can't = 할 수 없다"
+        },
+        {
+          "goal": "간단한 제약 말하기",
+          "example": "I already have an appointment.",
+          "cue": "appointment = 약속"
+        },
+        {
+          "goal": "할 수 있는 작은 대안 말하기",
+          "example": "I can help you pack this evening.",
+          "cue": "pack = 짐을 싸다"
+        }
+      ],
+      "outcome": "불가능한 도움을 약속하지 않고 가능한 범위를 제안한다.",
+      "transfer": "작은 대안도 할 수 없다. 억지 대안을 만들지 않고 거절을 분명히 한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "A2",
+      "slug": "clarify-message-tone",
+      "title": "짧은 메시지의 의도 확인하기",
+      "scenario": "친구가 Whatever라고 답해 화가 난 것처럼 느껴집니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 선택은 모두 괜찮다는 뜻으로 썼으며 화난 것은 아니라고 설명한다.",
+      "opening": "I said whatever because either plan is fine.",
+      "steps": [
+        {
+          "goal": "느낀 오해 말하기",
+          "example": "I thought you were upset.",
+          "cue": "upset = 기분이 상한"
+        },
+        {
+          "goal": "의도 확인하기",
+          "example": "Did you mean both choices are okay?",
+          "cue": "both choices = 두 선택"
+        },
+        {
+          "goal": "이해를 정리하기",
+          "example": "Thanks. I understand now.",
+          "cue": "understand = 이해하다"
+        }
+      ],
+      "outcome": "문자 메시지의 감정을 단정하지 않고 의미를 확인한다.",
+      "transfer": "친구가 실제로 화났다고 답한다. 어떤 점이 불편했는지 짧게 묻는다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "A2",
+      "slug": "ask-return-time",
+      "title": "빌려준 물건 돌려받을 시간 정하기",
+      "scenario": "친구에게 우산을 빌려줬고 내일 비가 옵니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 오늘 저녁 6시까지 돌려줄 수 있고 현관에 놓겠다고 한다.",
+      "opening": "I've still got your umbrella.",
+      "steps": [
+        {
+          "goal": "필요한 시점 말하기",
+          "example": "I need it tomorrow morning.",
+          "cue": "need = 필요하다"
+        },
+        {
+          "goal": "반환 부탁하기",
+          "example": "Could you bring it back this evening?",
+          "cue": "bring back = 돌려주다"
+        },
+        {
+          "goal": "장소 확인하기",
+          "example": "Please leave it by my door.",
+          "cue": "by my door = 내 문 옆"
+        }
+      ],
+      "outcome": "물건 반환의 시간과 장소를 구체적으로 합의한다.",
+      "transfer": "친구가 오늘 못 온다. 내가 받을 수 있는 위치나 다른 우산 대여를 논의한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "B1",
+      "slug": "resolve-noise-repeat",
+      "title": "반복되는 소음 문제 해결 요청하기",
+      "scenario": "동거인이 밤마다 영상 통화를 크게 해 잠을 설칩니다. 이전 부탁은 일회성으로 이해됐습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "동거인. 해외 친구의 시간 때문에 늦게 통화하지만 다른 방을 사용할 수 있다.",
+      "opening": "I thought you only needed quiet last night.",
+      "steps": [
+        {
+          "goal": "반복 문제를 구체적으로 말하기",
+          "example": "I've been waking up during the late calls several nights this week.",
+          "cue": "several nights = 여러 밤"
+        },
+        {
+          "goal": "지속적인 필요 설명하기",
+          "example": "I need quiet after eleven on work nights, not just for one evening.",
+          "cue": "work nights = 일하는 날 전날 밤"
+        },
+        {
+          "goal": "실행 가능한 대안 묻기",
+          "example": "Could you take the calls in the other room or use a headset?",
+          "cue": "headset = 헤드셋"
+        }
+      ],
+      "outcome": "일회성 요청과 반복 규칙을 구분하고 대안을 정한다.",
+      "transfer": "다른 방에서도 소리가 들린다. 통화 시간과 목소리 크기를 함께 조정한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "B1",
+      "slug": "repair-forgotten-promise",
+      "title": "잊은 약속에 사과하고 복구하기",
+      "scenario": "친구의 공연에 가기로 했지만 잊었습니다. 다음 공연은 없어서 단순히 다음에 가겠다고 할 수 없습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 빈자리를 보고 서운했고 이유보다 약속을 가볍게 여겼는지 궁금해한다.",
+      "opening": "I kept looking for you in the audience.",
+      "steps": [
+        {
+          "goal": "구체적 잘못 인정하기",
+          "example": "I promised to come and didn't show up.",
+          "cue": "show up = 나타나다"
+        },
+        {
+          "goal": "영향 인정하기",
+          "example": "You were expecting support, and I let you down.",
+          "cue": "let you down = 실망시키다"
+        },
+        {
+          "goal": "상대가 원하는 후속을 묻기",
+          "example": "I'd like to hear about the performance if you want to tell me, but I understand if you need time.",
+          "cue": "need time = 시간이 필요하다"
+        }
+      ],
+      "outcome": "되돌릴 수 없는 약속 위반을 인정하고 즉시 용서를 요구하지 않는다.",
+      "transfer": "공연 녹화가 있다. 그것을 보겠다는 행동을 제안하되 결석을 상쇄한다고 말하지 않는다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "B1",
+      "slug": "correct-group-credit",
+      "title": "공동 결과에서 빠진 기여 알리기",
+      "scenario": "모임 발표에서 당신이 만든 자료가 다른 사람 단독 작업으로 소개됐습니다. 당신이 맡은 부분은 모임에서 보여 준 자료의 데이터 요약입니다. 전체 자료를 혼자 만들지는 않았습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "발표자. 실수로 이름을 빠뜨렸고 단체 메시지로 정정할 수 있다고 한다.",
+      "opening": "I didn't realise your name was missing.",
+      "steps": [
+        {
+          "goal": "사실과 기여 설명하기",
+          "example": "I prepared the data summary that was shown at the meeting.",
+          "cue": "prepared = 준비했다"
+        },
+        {
+          "goal": "원하는 수정 말하기",
+          "example": "Could you add my name and explain that it was a shared effort?",
+          "cue": "shared effort = 공동 노력"
+        },
+        {
+          "goal": "수정 방식 확인하기",
+          "example": "A short note to the group would be enough for me.",
+          "cue": "short note = 짧은 안내"
+        }
+      ],
+      "outcome": "기여를 과장하지 않고 누락된 인정의 구체적 수정을 요청한다.",
+      "transfer": "다른 사람의 기여도 누락됐다. 내 이름만 추가하지 말고 공동 작성자를 확인한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "B1",
+      "slug": "refuse-persistent-sales-friend",
+      "title": "친구의 반복 구매 권유 거절하기",
+      "scenario": "친구가 자신이 파는 물건을 계속 권합니다. 우정은 유지하고 구매는 하지 않으려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 제품을 믿고 있지만 거절을 관심 부족으로 받아들인다.",
+      "opening": "At least try one. Friends should support each other.",
+      "steps": [
+        {
+          "goal": "구매하지 않을 결정 말하기",
+          "example": "I've decided not to buy it.",
+          "cue": "decided not to = 하지 않기로 했다"
+        },
+        {
+          "goal": "관계와 구매 분리하기",
+          "example": "That doesn't mean I don't care about you.",
+          "cue": "care about = 소중히 여기다"
+        },
+        {
+          "goal": "반복 권유 중단 요청하기",
+          "example": "Please stop asking me to order, and let's talk about something else.",
+          "cue": "stop asking = 계속 묻지 않다"
+        }
+      ],
+      "outcome": "우정을 거래와 연결하지 않고 반복 권유에 경계를 정한다.",
+      "transfer": "친구가 무료 샘플을 제안한다. 받을 의사가 없다면 분명히 거절하고 구매로 연결하지 않는다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "B2",
+      "slug": "negotiate-apology-impact",
+      "title": "의도만 강조하는 사과에 필요한 점 말하기",
+      "scenario": "상대가 장난이었다고 사과하지만 공개적으로 창피했던 영향은 인정하지 않습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 나쁜 의도가 없다는 사실만 중요하다고 여기며 구체 요청을 들을 수 있다.",
+      "opening": "I said sorry. I didn't mean anything by it.",
+      "steps": [
+        {
+          "goal": "사과를 들었음을 인정하기",
+          "example": "I hear that you didn't intend to hurt me.",
+          "cue": "intend to hurt = 상처 줄 의도"
+        },
+        {
+          "goal": "아직 남은 문제 설명하기",
+          "example": "What I still need acknowledged is how it affected me in front of the group.",
+          "cue": "affected = 영향을 준"
+        },
+        {
+          "goal": "복구 행동 요청하기",
+          "example": "Could you clarify to them that the comment was unfair and avoid repeating it?",
+          "cue": "clarify = 분명히 하다"
+        }
+      ],
+      "outcome": "의도 논쟁을 넘어서 영향 인정과 재발 방지를 요청한다.",
+      "transfer": "상대가 공개 정정은 과하다고 한다. 원래 공개 범위에 비례한 복구 방법을 협의한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "B2",
+      "slug": "mediate-two-friends",
+      "title": "서로 다른 말을 기억하는 친구 중재하기",
+      "scenario": "두 친구가 누가 예약하기로 했는지 다투며 모임이 취소될 위기입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구 중 한 명. 자신은 장소를 찾겠다고 했지 예약 확약은 아니었다고 말한다.",
+      "opening": "I never said I'd book it; I said I'd look into it.",
+      "steps": [
+        {
+          "goal": "각자의 이해를 구분하기",
+          "example": "It sounds as if one person heard a firm commitment and the other intended to explore options.",
+          "cue": "firm commitment = 확정 약속"
+        },
+        {
+          "goal": "당장 해결할 문제 정하기",
+          "example": "Before deciding who was at fault, can we check whether there's still a table available?",
+          "cue": "at fault = 잘못한"
+        },
+        {
+          "goal": "다음 합의 명확히 하기",
+          "example": "For future plans, let's name who will book and ask them to confirm when it's done.",
+          "cue": "confirm when done = 완료 확인"
+        }
+      ],
+      "outcome": "기억 싸움과 긴급 해결을 나누고 다음 약속의 모호함을 줄인다.",
+      "transfer": "예약이 이미 불가능하다. 취소 비용과 대체 모임을 먼저 정하고 책임 대화는 별도로 한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "B2",
+      "slug": "respond-unfair-accusation",
+      "title": "부당한 비난에 사실과 경계로 답하기",
+      "scenario": "단체 물건이 사라졌고 마지막 사용자인 당신이 가져갔다는 비난을 받습니다. 연습 사실: 어제 공동 프로젝터를 사용했고 끝난 뒤 문 옆 선반에 돌려놓았습니다. 그 이후 이동은 보지 못했습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "모임 회원. 직접 본 증거는 없고 보관 장소를 확인하지 않았다.",
+      "opening": "You used it last, so you must have taken it.",
+      "steps": [
+        {
+          "goal": "확인 가능한 사실 말하기",
+          "example": "I used it yesterday and put it back on the shelf by the door.",
+          "cue": "put it back = 돌려놓았다; shelf = 선반"
+        },
+        {
+          "goal": "추정의 한계 지적하기",
+          "example": "Being the last known user doesn't prove I took it away.",
+          "cue": "prove = 증명하다"
+        },
+        {
+          "goal": "공동 확인 제안하기",
+          "example": "Let's check the room and ask who moved things before making accusations.",
+          "cue": "accusations = 비난"
+        }
+      ],
+      "outcome": "추정을 사실로 받아들이지 않고 확인 절차를 제안한다.",
+      "transfer": "물건이 다른 곳에서 발견된다. 책임 추궁보다 정정과 향후 보관 규칙을 요청한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "B2",
+      "slug": "set-conversation-pause",
+      "title": "격해진 대화의 휴식과 재개 정하기",
+      "scenario": "친구와 다투다 서로 말을 끊고 있습니다. 그냥 떠나면 회피로 보일까 걱정됩니다. 현재 시각은 오후 6시 40분이며 20분 뒤인 7시에 다시 대화할 수 있습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 대화를 끝내고 도망가는 것으로 느끼지만 재개 시간이 정해지면 받아들일 수 있다.",
+      "opening": "Don't walk away while we're talking.",
+      "steps": [
+        {
+          "goal": "휴식 목적 설명하기",
+          "example": "I want to resolve this, but we're both interrupting and getting more upset.",
+          "cue": "resolve = 해결하다"
+        },
+        {
+          "goal": "구체적인 휴식 제안하기",
+          "example": "Can we take twenty minutes to calm down?",
+          "cue": "calm down = 진정하다"
+        },
+        {
+          "goal": "재개 약속과 주제 정하기",
+          "example": "I'll come back at seven, and let's start with what each of us understood about the plan.",
+          "cue": "come back = 돌아오다"
+        }
+      ],
+      "outcome": "회피와 조절을 구분하고 실제 재개 약속을 만든다.",
+      "transfer": "20분 뒤에도 대화가 어렵다. 무기한 잠수하지 않고 다음 가능 시간과 연락 방식을 정한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "C1",
+      "slug": "reframe-intent-impact-dispute",
+      "title": "의도와 영향의 대립을 복구 대화로 바꾸기",
+      "scenario": "한쪽은 악의가 없었다고 반복하고 다른 쪽은 상처를 인정하지 않는다고 느낍니다. 사건은 상대가 모임에서 당신 대신 질문에 답한 것입니다. 상대는 영어 부담을 줄여 주려 했지만 당신은 직접 답할 기회를 잃었다고 느낍니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "갈등 당사자. 나쁜 사람으로 규정되는 것이 두려워 의도만 방어한다.",
+      "opening": "If you think I meant to hurt you, there's no point talking.",
+      "steps": [
+        {
+          "goal": "인격 판단과 영향 구분하기",
+          "example": "I'm not asking you to accept that you're a bad person; I'm asking us to recognise what happened between us.",
+          "cue": "recognise what happened = 일어난 일을 인정하다"
+        },
+        {
+          "goal": "함께 인정할 사실 제안하기",
+          "example": "We can accept that the intention was different from the effect without cancelling either account.",
+          "cue": "cancelling an account = 설명을 무효화하다"
+        },
+        {
+          "goal": "복구 질문으로 이동하기",
+          "example": "What could we change so the same situation doesn't leave either of us feeling unheard?",
+          "cue": "unheard = 받아들여지지 않은"
+        }
+      ],
+      "outcome": "의도 인정이 영향 부정이 되지 않는 공통 언어를 만든다.",
+      "transfer": "상대가 영향 자체를 부정한다. 해석보다 관찰된 행동과 필요한 변화로 범위를 좁힌다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "C1",
+      "slug": "respond-conditional-apology",
+      "title": "조건부 사과의 불충분함 설명하기",
+      "scenario": "상대가 기분 나빴다면 미안하다고만 말합니다. 사과의 문구를 강요하기보다 잘못된 행동을 짚으려 합니다. 문제가 된 행동은 친구가 당신의 이직 준비 소식을 허락 없이 모임 단체방에 올린 것입니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 누구나 다르게 느낀다며 자신의 공개 발언은 문제없었다고 생각한다.",
+      "opening": "I'm sorry if you were offended.",
+      "steps": [
+        {
+          "goal": "감정 발생 여부와 행동 구분하기",
+          "example": "The difficulty isn't whether I happened to feel offended; it's that private information was shared without asking.",
+          "cue": "shared without asking = 묻지 않고 공유한"
+        },
+        {
+          "goal": "책임질 사실 명확히 하기",
+          "example": "I'd like us to agree that permission was missing, regardless of how calmly I might have reacted.",
+          "cue": "regardless of = ~와 무관하게"
+        },
+        {
+          "goal": "미래 규칙 합의하기",
+          "example": "Can we agree to ask before sharing each other's personal news?",
+          "cue": "personal news = 사적인 소식"
+        }
+      ],
+      "outcome": "사과 표현 자체의 심사보다 동의 없는 행동과 재발 방지를 다룬다.",
+      "transfer": "정보가 이미 공개였다는 주장이 나온다. 어디까지 공개됐고 어떤 맥락으로 재전달됐는지 확인한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "C1",
+      "slug": "address-power-imbalance",
+      "title": "지위 차이가 있는 모임에서 이의 제기하기",
+      "scenario": "오래된 회원이 새 회원에게만 정리 일을 시킵니다. 운영 책임자의 영향력 때문에 말하기 어렵습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "운영 책임자. 전통이라 생각하지만 역할을 돌려 맡는 대안은 검토할 수 있다.",
+      "opening": "New people have always handled the cleanup. That's how we do things.",
+      "steps": [
+        {
+          "goal": "관찰과 참여 영향을 말하기",
+          "example": "I've noticed the cleanup always falls to new members, which may make joining feel more like a test than an invitation.",
+          "cue": "falls to = 맡겨지다"
+        },
+        {
+          "goal": "목적 확인과 대안 제안하기",
+          "example": "If the goal is shared responsibility, a rotation would express that more clearly.",
+          "cue": "rotation = 순환 분담"
+        },
+        {
+          "goal": "공개 논의 방식 요청하기",
+          "example": "Could we discuss the rule as a group without putting individual newcomers on the spot?",
+          "cue": "on the spot = 곤란한 공개 상황에"
+        }
+      ],
+      "outcome": "지위 공격 없이 불균형한 규칙의 영향과 대안을 논의한다.",
+      "transfer": "책임자가 새 회원에게만 의견을 묻는다. 부담을 집중시키지 않는 익명 의견 수렴을 제안한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "C1",
+      "slug": "restore-after-public-argument",
+      "title": "공개 다툼 이후 집단과 개인에게 복구하기",
+      "scenario": "단체방에서 친구와 감정적으로 다퉜습니다. 모두에게 자세한 사생활을 밝히지 않고 수습하려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 공개 비난은 정정하길 원하지만 갈등 원인은 비공개로 남기고 싶다.",
+      "opening": "I don't want another long message about our private issue.",
+      "steps": [
+        {
+          "goal": "공개적으로 책임질 부분 한정하기",
+          "example": "I can apologise to the group for the personal remarks without retelling the disagreement.",
+          "cue": "personal remarks = 개인 공격 발언"
+        },
+        {
+          "goal": "당사자 보호 문구 협의하기",
+          "example": "I'll correct what I said about you and make clear that the private details aren't for group discussion.",
+          "cue": "correct what I said = 내 발언을 바로잡다"
+        },
+        {
+          "goal": "별도 해결 채널 제안하기",
+          "example": "If you're willing, we can discuss the remaining issue privately at a time you choose.",
+          "cue": "remaining issue = 남은 문제"
+        }
+      ],
+      "outcome": "공개 피해의 정정과 사적 갈등 해결을 분리한다.",
+      "transfer": "친구가 사적 대화도 아직 원치 않는다. 공개 정정만 하고 추가 대화는 동의 후 진행한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "C2",
+      "slug": "separate-forgiveness-reconciliation",
+      "title": "용서와 관계 회복을 같은 의무로 보지 않기",
+      "scenario": "사과를 받아들였으니 즉시 예전처럼 가까워져야 한다는 요구를 받습니다. 앞선 문제는 허락 없이 개인 소식을 전한 일이었습니다. 현재는 연락을 유지하되 개인 소식은 다시 공유하지 말아 달라는 경계를 정하려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 관계 거리를 두는 것이 사과 거절이라고 생각한다.",
+      "opening": "If you accepted my apology, why are you still keeping your distance?",
+      "steps": [
+        {
+          "goal": "사과 수용과 신뢰 회복 구분하기",
+          "example": "I can accept that your apology is sincere without being ready to restore the same level of trust immediately.",
+          "cue": "sincere = 진심인"
+        },
+        {
+          "goal": "회복의 조건을 행동으로 설명하기",
+          "example": "Trust will depend on consistent respect for the boundary over time, not on a single declaration from either of us.",
+          "cue": "consistent respect = 일관된 존중; declaration = 말로 하는 선언"
+        },
+        {
+          "goal": "현재 가능한 관계 수준 제안하기",
+          "example": "I'm willing to stay in contact, but for now I need us to keep certain topics private and avoid pressure to move faster.",
+          "cue": "stay in contact = 연락을 유지하다; move faster = 관계 회복을 서두르다"
+        }
+      ],
+      "outcome": "용서 압박을 피하면서 현재 가능한 접촉과 신뢰 회복 조건을 말한다.",
+      "transfer": "상대가 연락을 잠시 멈추자고 한다. 그것을 벌로 해석하지 않고 서로 필요한 거리를 확인한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "C2",
+      "slug": "resolve-competing-harms",
+      "title": "갈등의 서로 다른 피해를 상쇄하지 않고 다루기",
+      "scenario": "한 친구는 비밀 유출을, 다른 친구는 그 뒤의 공개 비난을 문제 삼습니다. 누가 더 나쁜지 경쟁합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 자신도 상처받았으니 먼저 한 행동의 책임은 없어졌다고 생각한다.",
+      "opening": "After what you said about me, you can't complain about what I did.",
+      "steps": [
+        {
+          "goal": "두 행동의 책임 분리하기",
+          "example": "Your concern about the public criticism is valid, but it doesn't cancel the earlier breach of confidence.",
+          "cue": "breach of confidence = 비밀 신뢰 위반"
+        },
+        {
+          "goal": "각 피해에 필요한 복구 정리하기",
+          "example": "One needs a public correction; the other needs clarity about who received the private information.",
+          "cue": "public correction = 공개 정정; private information = 사적 정보"
+        },
+        {
+          "goal": "상쇄 없는 병렬 합의 제안하기",
+          "example": "Could we address both responsibilities without making either apology conditional on the other coming first?",
+          "cue": "conditional on = ~를 조건으로"
+        }
+      ],
+      "outcome": "피해 경쟁 대신 두 책임과 복구 조치를 각각 다룬다.",
+      "transfer": "한쪽이 즉시 합의하지 않는다. 다른 쪽의 책임 이행을 인질로 삼지 않는 범위를 정한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "C2",
+      "slug": "clarify-boundary-vs-control",
+      "title": "개인 경계와 상대 통제를 구분하기",
+      "scenario": "친구가 자신의 경계라며 당신이 다른 친구를 만나지 말라고 합니다. 불안을 인정하되 행동 통제는 받아들이지 않으려 합니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "친구. 소외될까 두렵고 만남 금지를 자신을 보호하는 규칙으로 표현한다.",
+      "opening": "My boundary is that you don't spend time with them.",
+      "steps": [
+        {
+          "goal": "감정 인정과 용어 구분하기",
+          "example": "I understand that the situation makes you uneasy, but a limit on my friendships is different from a decision about your own participation.",
+          "cue": "uneasy = 불안한"
+        },
+        {
+          "goal": "수용 가능한 요청 탐색하기",
+          "example": "We can discuss how I communicate plans or what information stays private, without giving either of us a veto over the other's friends.",
+          "cue": "veto = 거부권"
+        },
+        {
+          "goal": "자신의 입장과 선택권 말하기",
+          "example": "I won't agree to that restriction, and I recognise you may need to decide what contact feels workable for you.",
+          "cue": "restriction = 제한"
+        }
+      ],
+      "outcome": "경계라는 명칭만으로 상대 통제를 수용하지 않고 협의 범위를 정한다.",
+      "transfer": "친구가 특정 모임에는 함께 가지 않겠다고 한다. 자신의 참여 선택으로서 존중한다."
+    },
+    {
+      "subcategoryId": "conflict-resolution",
+      "difficulty": "C2",
+      "slug": "create-fair-repair-process",
+      "title": "당사자 입장이 다른 갈등의 공정한 해결 절차 정하기",
+      "scenario": "공동체 모임에서 두 사람의 주장이 다릅니다. 다수결로 한 사람의 경험을 무효화하려 합니다. 연습 사건: 한 회원은 공개 행사 사진 게시에 동의했다고 기억하고 다른 회원은 비공개 앨범만 허락했다고 기억합니다. 메시지에는 사진을 공유해도 된다는 말만 있고 대상은 적혀 있지 않습니다. 확인하는 동안 새 공개 게시를 보류하는 조치를 논의할 수 있습니다.",
+      "learnerRole": "상황 속 대화 참여자(가상 정보 사용)",
+      "interlocutorRole": "모임 진행자. 빠른 결론을 원하지만 증거와 경험을 구분하는 절차는 아직 없다.",
+      "opening": "Most people believe one account, so we should settle it by a vote.",
+      "steps": [
+        {
+          "goal": "인기와 사실 판단 구분하기",
+          "example": "A majority preference can't by itself establish what happened or erase someone's reported experience.",
+          "cue": "establish = 확정하다"
+        },
+        {
+          "goal": "절차의 공정성 제안하기",
+          "example": "Could each person state what they observed, what they inferred, and what remedy they are seeking, without interruption?",
+          "cue": "inferred = 추론했다"
+        },
+        {
+          "goal": "임시 조치와 최종 결론 분리하기",
+          "example": "We can agree temporary conduct rules while leaving disputed facts open to further checking.",
+          "cue": "temporary conduct rules = 임시 행동 규칙"
+        }
+      ],
+      "outcome": "서둘러 승자를 정하지 않고 사실·해석·복구 요구를 다루는 절차를 만든다.",
+      "transfer": "추가 기록이 발견된다. 기록의 범위만 사실로 반영하고 모든 해석이 해결됐다고 주장하지 않는다."
+    }
+  ]
+}

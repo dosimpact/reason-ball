@@ -1,0 +1,133 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-onboarding-a2-it-maintenance-notice-clarification",
+  "title": "점검 중 가능한 업무를 팀에 확인하기",
+  "categoryId": "work",
+  "subcategoryId": "onboarding",
+  "difficulty": "A2",
+  "scenario": "공지에는 금요일 저녁 portal maintenance라고만 쓰여 있습니다. 야간 팀은 18:00~19:00 문서를 읽어야 하지만 읽기까지 막히는지 모릅니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+  "practicalOutcome": "가능한 읽기·중단되는 업로드·점검 시간·종료 지연 시 확인 채널을 정리한 짧은 팀 안내를 만든다.",
+  "roles": {
+    "learner": "가상 IT 운영 담당자",
+    "interlocutor": "점검 담당자 역할. 공지면 충분하다고 생각한다. 질문하면 읽기는 가능하고 업로드만 한 시간 중단되며, 종료가 늦어지면 담당자가 상태 채널에 19:00 공지를 낸다고 답한다."
+  },
+  "caseBrief": {
+    "professionalRole": "it-operations",
+    "situation": "공지에는 금요일 저녁 portal maintenance라고만 쓰여 있습니다. 야간 팀은 18:00~19:00 문서를 읽어야 하지만 읽기까지 막히는지 모릅니다.",
+    "facts": [
+      "현재 목요일 15:00이다.",
+      "금요일 점검 예정은 18:00~19:00이다.",
+      "야간 팀은 같은 시간에 절차 문서를 읽어야 한다.",
+      "가상 점검 담당자는 문서 읽기는 가능하고 업로드만 중단된다는 계획을 가지고 있다."
+    ],
+    "constraints": [
+      "학습자는 중단 범위를 임의로 단정할 수 없다.",
+      "점검 취소를 결정할 권한이 없다.",
+      "대체 자료도 승인된 사본만 공유한다."
+    ],
+    "learnerAuthority": "점검 담당자에게 범위를 확인하고 야간 팀에 짧은 안내를 전달할 수 있다.",
+    "counterpartPosition": "점검 담당자 역할. 공지면 충분하다고 생각한다. 질문하면 읽기는 가능하고 업로드만 한 시간 중단되며, 종료가 늦어지면 담당자가 상태 채널에 19:00 공지를 낸다고 답한다.",
+    "unresolvedQuestions": [
+      "읽기와 업로드 중 어떤 기능이 중단되는가?",
+      "예정 종료가 지나면 어디서 소식을 확인하는가?",
+      "야간 팀에 지금 전달할 한 문장은 무엇인가?"
+    ],
+    "deliverable": "가능한 읽기·중단되는 업로드·점검 시간·종료 지연 시 확인 채널을 정리한 짧은 팀 안내를 만든다.",
+    "resolutionCriteria": [
+      "중단 기능을 질문으로 확인한다.",
+      "팀의 실제 문서 읽기 필요를 설명한다.",
+      "예정 종료와 실제 종료를 구별한다.",
+      "상태 공지 담당자와 채널을 확인한다."
+    ],
+    "escalationPath": "문서 읽기도 막히는 변경이 생기면 야간 팀 리드와 점검 담당자에게 동시에 알려 승인된 대체 자료 계획을 확인한다."
+  },
+  "opening": "The notice already says the portal is under maintenance.",
+  "estimatedMinutes": 10,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "팀의 필요한 기능 말하기",
+      "example": "Our night team needs to read the guide from six to seven.",
+      "hints": [
+        "의도: 팀의 필요한 기능 말하기",
+        "핵심 표현: night team = 야간 팀",
+        "완성 문장 예시: Our night team needs to read the guide from six to seven. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 팀의 필요한 기능 말하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "중단 범위 확인하기",
+      "example": "Can they still read files, or is everything offline?",
+      "hints": [
+        "의도: 중단 범위 확인하기",
+        "핵심 표현: offline = 이용할 수 없는",
+        "완성 문장 예시: Can they still read files, or is everything offline? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 중단 범위 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "이해한 조건 요약하기",
+      "example": "So reading works, but uploads stop for one hour.",
+      "hints": [
+        "의도: 이해한 조건 요약하기",
+        "핵심 표현: uploads = 파일 올리기",
+        "완성 문장 예시: So reading works, but uploads stop for one hour. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 이해한 조건 요약하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "지연 확인 경로 묻기",
+      "example": "Where should we check if the work is not finished at seven?",
+      "hints": [
+        "의도: 지연 확인 경로 묻기",
+        "핵심 표현: finished = 끝난",
+        "완성 문장 예시: Where should we check if the work is not finished at seven? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 지연 확인 경로 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "표현 틀을 선택적으로 제공; 세부 정보와 다음 행동 확인. 먼저 상황과 첫 발화의 뜻을 확인하고 팀의 필요한 기능 말하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '점검 중 가능한 업무를 팀에 확인하기' 상황에서 가능한 읽기·중단되는 업로드·점검 시간·종료 지연 시 확인 채널을 정리한 짧은 팀 안내를 만든다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "점검 시간이 두 시간으로 바뀌었습니다. 원래 안내를 그대로 보내지 말고 달라진 시간과 계속 가능한 기능을 다시 확인합니다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '점검 중 가능한 업무를 팀에 확인하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 점검 시간이 두 시간으로 바뀌었습니다. 원래 안내를 그대로 보내지 말고 달라진 시간과 계속 가능한 기능을 다시 확인합니다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "가능한 읽기·중단되는 업로드·점검 시간·종료 지연 시 확인 채널을 정리한 짧은 팀 안내를 만든다.",
+      "팀의 필요한 기능 말하기",
+      "중단 범위 확인하기",
+      "이해한 조건 요약하기",
+      "지연 확인 경로 묻기",
+      "중단 기능을 질문으로 확인한다.",
+      "팀의 실제 문서 읽기 필요를 설명한다.",
+      "예정 종료와 실제 종료를 구별한다.",
+      "상태 공지 담당자와 채널을 확인한다.",
+      "수준별 관찰: 일상 거래와 간단한 문제 해결. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-collaboration-b2-designer-handoff-scope-cut",
+  "title": "개발 마감 전에 모든 화면을 요구받을 때 범위 합의하기",
+  "categoryId": "work",
+  "subcategoryId": "collaboration",
+  "difficulty": "B2",
+  "scenario": "개발팀은 금요일까지 12개 상태의 디자인을 원하지만 디자이너는 6개만 검토 완료할 수 있습니다. 빈 상태와 실패 상태를 모두 나중으로 미루자는 제안이 나왔습니다.",
+  "practicalOutcome": "첫 흐름에 필요한 상태를 우선 전달하고 미확정 상태의 담당·기한·사용 제한을 기록한다.",
+  "roles": {
+    "learner": "가상 제품팀의 디자이너",
+    "interlocutor": "개발 리드. 질문하면 첫 출시에는 업로드만 열리고 신규 계정은 반드시 빈 목록을 보며 파일 오류도 발생할 수 있다고 답한다. 업로드 관련 5개 상태가 우선이고 나머지는 다음 주 수요일부터 구현한다. 제품 담당자는 오늘 5시에 목록을 확인할 수 있다."
+  },
+  "caseBrief": {
+    "professionalRole": "designer",
+    "situation": "개발팀은 금요일까지 12개 상태의 디자인을 원하지만 디자이너는 6개만 검토 완료할 수 있습니다. 빈 상태와 실패 상태를 모두 나중으로 미루자는 제안이 나왔습니다.",
+    "facts": [
+      "전체 요청은 기본·빈 상태·실패 상태를 포함한 12개다.",
+      "금요일까지 검토 완료 가능한 수량은 6개다.",
+      "현재 어떤 상태가 첫 사용자 흐름에 필요한지 합의되지 않았다."
+    ],
+    "constraints": [
+      "검토하지 않은 화면을 확정본으로 표시하지 않는다.",
+      "첫 출시 대상 흐름은 제품 담당자가 정한다."
+    ],
+    "learnerAuthority": "준비 상태와 비용을 설명하고 단계별 전달을 제안할 수 있으며 필수 흐름 제외를 단독 결정할 수 없다.",
+    "counterpartPosition": "개발 리드는 상태를 줄여도 기본 흐름을 먼저 구현하고 싶다.",
+    "unresolvedQuestions": [
+      "첫 사용자에게 열리는 기능은 무엇인가?",
+      "그 흐름에서 빈 상태나 실패 상태가 실제 발생하는가?",
+      "나머지 상태의 구현은 언제 시작하는가?"
+    ],
+    "deliverable": "첫 흐름에 필요한 상태를 우선 전달하고 미확정 상태의 담당·기한·사용 제한을 기록한다.",
+    "resolutionCriteria": [
+      "수량만으로 범위를 자르지 않는다.",
+      "실제 노출되는 경로와 예외 상태를 확인한다.",
+      "전달 목록과 미확정 항목의 후속을 합의한다."
+    ],
+    "escalationPath": "필수 상태가 처리 가능 범위를 넘으면 제품 책임자에게 출시 흐름 축소나 일정 조정을 요청한다."
+  },
+  "opening": "Just give us the happy-path screens by Friday. We can invent the empty and error states.",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "미확정 구현의 위험 설명하기",
+      "example": "If we leave those states undefined, the first users may hit a flow that neither team has reviewed.",
+      "hints": [
+        "의도: 미확정 구현의 위험 설명하기",
+        "핵심 표현: undefined = 정해지지 않은",
+        "완성 문장 예시: If we leave those states undefined, the first users may hit a flow that neither team has reviewed. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 미확정 구현의 위험 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "실제 노출 범위 묻기",
+      "example": "Which actions will be available to the first group, and which states can those actions trigger?",
+      "hints": [
+        "의도: 실제 노출 범위 묻기",
+        "핵심 표현: trigger = 발생시키다",
+        "완성 문장 예시: Which actions will be available to the first group, and which states can those actions trigger? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 실제 노출 범위 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "흐름 기준 우선순위 제안하기",
+      "example": "Let us prioritise the complete upload flow rather than six unrelated screens.",
+      "hints": [
+        "의도: 흐름 기준 우선순위 제안하기",
+        "핵심 표현: complete flow = 처음부터 끝까지 갖춘 흐름",
+        "완성 문장 예시: Let us prioritise the complete upload flow rather than six unrelated screens. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 흐름 기준 우선순위 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "담당·기한·표시 합의하기",
+      "example": "I'll list the five upload states for the product review at five today, deliver them by Friday, and mark the rest as not approved for implementation.",
+      "hints": [
+        "의도: 담당·기한·표시 합의하기",
+        "핵심 표현: not approved = 승인되지 않은",
+        "완성 문장 예시: I'll list the five upload states for the product review at five today, deliver them by Friday, and mark the rest as not approved for implementation. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 담당·기한·표시 합의하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 미확정 구현의 위험 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '개발 마감 전에 모든 화면을 요구받을 때 범위 합의하기' 상황에서 첫 흐름에 필요한 상태를 우선 전달하고 미확정 상태의 담당·기한·사용 제한을 기록한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "새로운 필수 상태가 추가돼 6개를 넘는다. 검토하지 않은 상태를 숨기지 말고 제품 책임자와 출시 범위를 다시 정한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '개발 마감 전에 모든 화면을 요구받을 때 범위 합의하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 새로운 필수 상태가 추가돼 6개를 넘는다. 검토하지 않은 상태를 숨기지 말고 제품 책임자와 출시 범위를 다시 정한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "첫 흐름에 필요한 상태를 우선 전달하고 미확정 상태의 담당·기한·사용 제한을 기록한다.",
+      "미확정 구현의 위험 설명하기",
+      "실제 노출 범위 묻기",
+      "흐름 기준 우선순위 제안하기",
+      "담당·기한·표시 합의하기",
+      "수량만으로 범위를 자르지 않는다.",
+      "실제 노출되는 경로와 예외 상태를 확인한다.",
+      "전달 목록과 미확정 항목의 후속을 합의한다.",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

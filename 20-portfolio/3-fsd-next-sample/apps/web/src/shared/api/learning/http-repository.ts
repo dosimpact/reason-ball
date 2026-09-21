@@ -115,6 +115,10 @@ export const httpLearningRepository: LearningRepository = {
     );
   },
   async listMissions() {
+    await requestJson("/api/me/mission-assignments", {
+      method: "POST",
+      body: JSON.stringify({}),
+    });
     const payload = await requestJson<ItemsResponse<Mission>>("/api/missions");
     return requireValue(
       payload.items,

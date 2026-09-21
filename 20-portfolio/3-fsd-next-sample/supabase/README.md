@@ -1,4 +1,19 @@
+## 프로필 기반 미션 배정 (2026-09-21)
+
+`20260921090000_profile_mission_provisioning.sql`을 원격 적용했다. 최초 배정 RPC, 카탈로그 관리 역할, 배정 RLS와 신규 대화/실행 guard를 추가한다. 업로드 완료 검증 전 `mission_catalog_state.is_ready=false`를 유지한다. 일반 학습자는 저장된 프로필에 맞는 5개를 최초 한 번 배정받으며 전체 카탈로그는 관리 계정으로 확인한다. `20260921100000_mission_catalog_instruction_projection.sql`은 목록에서 필요한 비공개 설정3개만 서버에 반환하는 service-only 뷰다. 원문을 매번 읽는 비용을 줄이고 RLS를 우회하는 공개 조회 권한은 추가하지 않는다. 세부 실행 결과는 [원격 적재 기록](../docs/flow/2026-09-21-mission-catalog-remote-upload.md)을 따른다. 아래 이전 수량은 당시 스냅샷이며 현재 migration 원장과 구분한다.
+
 # Supabase 구조 읽기
+
+최신 후속 적용: `20260920154920_mission_category_catalog.sql`까지 migration 33개.
+`mission_categories`와 `missions.category_id`가 추가되어 public 테이블은 50개다.
+기존 SQL 참고 스냅샷에는 이 변경이 포함되지 않는다.
+
+2026-09-21 현재 원격 migration 32개가 모두 적용되었다. 마지막은
+`20260911000705_automatic_mission_goal_tracking.sql`이다. 아래 47개 표기와
+`tables.sql`은 과거 스냅샷이며 최신 원격 스키마를 의미하지 않는다.
+`schema.sql` 역시 이후 migration 전체를 반영한 최신 dump가 아니다.
+최신 변경은 `migrations/`와 원격 ledger를 함께 확인한다.
+적용 근거: [원격 동기화 기록](../docs/flow/2026-09-21-remote-migration-sync.md).
 
 처음에는 [`tables.sql`](tables.sql)을 읽으면 됩니다. 원격 DB의 **최종 CREATE TABLE
 47개**를 모아 두었으므로, 컬럼이 언제 추가됐는지 마이그레이션을 따라갈 필요가 없습니다.
@@ -80,3 +95,5 @@ Supabase를 사용하는 브라우저 시나리오 3개도 통과했습니다. �
 단계별 힌트는 `20260910224735_mission_hint_requests.sql`을 사용합니다. 소유 실행의 힌트는 인증 사용자 SELECT만 허용하고 저장 RPC는 서버 전용입니다. 신규 실행만 도움 추적을 시작하며 과거 실행의 NULL은 유지합니다. 평가별 도움 집계는 DB에서 고정합니다. 이 변경은 원격 프로젝트에 migration ledger와 같은 트랜잭션으로 적용했습니다. DB 계약은 `pnpm --filter @fsd-next-sample/web test:db`, 실제 브라우저 검증은 web 디렉터리의 `pnpm test:e2e mission-hint-depth.spec.ts`를 사용합니다.
 
 교정 설정 확장은 `20260910231152_learner_response_preferences.sql`을 사용합니다. 기존 소유자별 설정 validator에 한국어 설명량과 답변 길이를 선택 필드로 추가합니다. 과거 JSON과 revision은 유지하며 새 필드의 잘못된 값·null은 거부합니다. 원격 migration ledger와 동일 트랜잭션으로 적용하고 저장된 SQL의 MD5가 로컬 파일과 일치함을 확인했습니다.
+
+게스트 전체 공개 미션 조회는 `20260921110000_guest_mission_catalog_browsing.sql`로 적용한다. 미로그인/익명 체험 계정의 공개 게시물 SELECT만 확대하며 회원 배정과 시작 guard는 유지한다.

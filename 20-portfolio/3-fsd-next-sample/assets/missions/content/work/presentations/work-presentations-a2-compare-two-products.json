@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-presentations-a2-compare-two-products",
+  "title": "두 제품의 차이 소개하기",
+  "categoryId": "work",
+  "subcategoryId": "presentations",
+  "difficulty": "A2",
+  "scenario": "가상 가방 A는 싸고 작으며 B는 비싸고 큽니다. 짧은 여행용 선택을 돕습니다.",
+  "practicalOutcome": "첫 특징 설명하기 / 대안 설명하기 / 용도별 추천하기",
+  "roles": {
+    "learner": "가상 업무 자료를 설명하는 발표자",
+    "interlocutor": "청중. 가격과 크기를 듣고 짧은 여행에는 무엇을 고를지 묻는다."
+  },
+  "opening": "How are these bags different?",
+  "estimatedMinutes": 10,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "첫 특징 설명하기",
+      "example": "Bag A is smaller and cheaper.",
+      "hints": [
+        "의도: 첫 특징 설명하기",
+        "핵심 표현: cheaper = 더 저렴한",
+        "완성 문장 예시: Bag A is smaller and cheaper. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 첫 특징 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "대안 설명하기",
+      "example": "Bag B has more space.",
+      "hints": [
+        "의도: 대안 설명하기",
+        "핵심 표현: more space = 더 넓은 공간",
+        "완성 문장 예시: Bag B has more space. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 대안 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "용도별 추천하기",
+      "example": "For a short trip, I'd choose A.",
+      "hints": [
+        "의도: 용도별 추천하기",
+        "핵심 표현: choose = 고르다",
+        "완성 문장 예시: For a short trip, I'd choose A. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 용도별 추천하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "표현 틀을 선택적으로 제공; 세부 정보와 다음 행동 확인. 먼저 상황과 첫 발화의 뜻을 확인하고 첫 특징 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '두 제품의 차이 소개하기' 상황에서 첫 특징 설명하기 / 대안 설명하기 / 용도별 추천하기 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "다음에는 크기는 같고 무게와 방수 성능이 다른 두 제품을 설명한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '두 제품의 차이 소개하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 다음에는 크기는 같고 무게와 방수 성능이 다른 두 제품을 설명한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "첫 특징 설명하기 / 대안 설명하기 / 용도별 추천하기",
+      "첫 특징 설명하기",
+      "대안 설명하기",
+      "용도별 추천하기",
+      "수준별 관찰: 일상 거래와 간단한 문제 해결. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

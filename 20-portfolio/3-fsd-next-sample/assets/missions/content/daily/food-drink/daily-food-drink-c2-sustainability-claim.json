@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-food-drink-c2-sustainability-claim",
+  "title": "식당의 지속가능성 설명을 정밀하게 묻기",
+  "categoryId": "daily",
+  "subcategoryId": "food-drink",
+  "difficulty": "C2",
+  "scenario": "식당이 zero-impact dining이라고 홍보하지만 설명에는 지역 식재료 사용만 있습니다. 행사 예약을 위해 실제 의미를 확인합니다.",
+  "practicalOutcome": "홍보의 의도와 사실 주장 범위를 구분해 참석자에게 정확한 안내를 만든다.",
+  "roles": {
+    "learner": "식당·카페 손님",
+    "interlocutor": "담당자. 지역 조달은 일부 채소에만 해당하고 에너지·운송 영향은 측정하지 않았지만 홍보 문구를 긍정적 표현이라고 여긴다."
+  },
+  "opening": "Zero-impact is really our way of saying that we care about the planet.",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "가치 표현과 검증 가능한 주장 구별하기",
+      "example": "Caring about the planet expresses an intention; zero-impact sounds like a measurable claim about the whole service.",
+      "hints": [
+        "의도: 가치 표현과 검증 가능한 주장 구별하기",
+        "핵심 표현: intention / measurable claim = 의도와 검증 주장",
+        "완성 문장 예시: Caring about the planet expresses an intention; zero-impact sounds like a measurable claim about the whole service. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 가치 표현과 검증 가능한 주장 구별하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "확인 가능한 범위 묻기",
+      "example": "Which ingredients are locally sourced, and which parts of the footprint have actually been assessed?",
+      "hints": [
+        "의도: 확인 가능한 범위 묻기",
+        "핵심 표현: which parts ... assessed = 실제 평가 범위",
+        "완성 문장 예시: Which ingredients are locally sourced, and which parts of the footprint have actually been assessed? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 확인 가능한 범위 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "과장 없는 전달문 합의하기",
+      "example": "We can tell guests that some produce is locally sourced, but I would avoid implying that the event has no environmental impact unless that broader claim can be supported.",
+      "hints": [
+        "의도: 과장 없는 전달문 합의하기",
+        "핵심 표현: avoid implying = 근거 이상 암시를 피하다",
+        "완성 문장 예시: We can tell guests that some produce is locally sourced, but I would avoid implying that the event has no environmental impact unless that broader claim can be supported. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 과장 없는 전달문 합의하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 가치 표현과 검증 가능한 주장 구별하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '식당의 지속가능성 설명을 정밀하게 묻기' 상황에서 홍보의 의도와 사실 주장 범위를 구분해 참석자에게 정확한 안내를 만든다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "전체 환경 영향 보고서가 제공되었으나 기간이 지난 경우 현재 행사에 적용되는 범위를 다시 확인한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '식당의 지속가능성 설명을 정밀하게 묻기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 전체 환경 영향 보고서가 제공되었으나 기간이 지난 경우 현재 행사에 적용되는 범위를 다시 확인한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "홍보의 의도와 사실 주장 범위를 구분해 참석자에게 정확한 안내를 만든다.",
+      "가치 표현과 검증 가능한 주장 구별하기",
+      "확인 가능한 범위 묻기",
+      "과장 없는 전달문 합의하기",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

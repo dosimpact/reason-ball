@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-presentations-a1-show-team-photo",
+  "title": "팀 사진에서 사람 소개하기",
+  "categoryId": "work",
+  "subcategoryId": "presentations",
+  "difficulty": "A1",
+  "scenario": "가상 사진 속 Sam은 매니저이고 Ana는 디자이너입니다. 동료에게 두 사람을 소개합니다.",
+  "practicalOutcome": "첫 사람 소개하기 / 역할 말하기 / 다른 사람 소개하기",
+  "roles": {
+    "learner": "가상 업무 자료를 설명하는 발표자",
+    "interlocutor": "청중. 사진 속 두 사람이 누구인지 질문한다."
+  },
+  "opening": "Who is this?",
+  "estimatedMinutes": 7,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "첫 사람 소개하기",
+      "example": "This is Sam.",
+      "hints": [
+        "의도: 첫 사람 소개하기",
+        "핵심 표현: this is = 이 사람은",
+        "완성 문장 예시: This is Sam. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 첫 사람 소개하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "역할 말하기",
+      "example": "Sam is our manager.",
+      "hints": [
+        "의도: 역할 말하기",
+        "핵심 표현: manager = 관리자",
+        "완성 문장 예시: Sam is our manager. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 역할 말하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "다른 사람 소개하기",
+      "example": "Ana is a designer.",
+      "hints": [
+        "의도: 다른 사람 소개하기",
+        "핵심 표현: designer = 디자이너",
+        "완성 문장 예시: Ana is a designer. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 다른 사람 소개하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "한 번에 한 질문; 필요하면 반복과 예시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 첫 사람 소개하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '팀 사진에서 사람 소개하기' 상황에서 첫 사람 소개하기 / 역할 말하기 / 다른 사람 소개하기 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "다음에는 직함 대신 각 사람이 담당하는 간단한 업무를 말한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '팀 사진에서 사람 소개하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 다음에는 직함 대신 각 사람이 담당하는 간단한 업무를 말한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "첫 사람 소개하기 / 역할 말하기 / 다른 사람 소개하기",
+      "첫 사람 소개하기",
+      "역할 말하기",
+      "다른 사람 소개하기",
+      "수준별 관찰: 예측 가능한 질문과 답, 기본 정보 확인. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

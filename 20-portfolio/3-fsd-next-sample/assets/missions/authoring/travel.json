@@ -1,0 +1,4878 @@
+{
+  "schemaVersion": 1,
+  "categoryId": "travel",
+  "missions": [
+    {
+      "subcategoryId": "airport",
+      "difficulty": "pre-A1",
+      "slug": "show-passport",
+      "title": "여권을 요청받고 건네기",
+      "scenario": "탑승 수속대에서 여권과 표를 구별해 건네야 합니다. 가상 문서 카드를 사용합니다. 가상 카드에는 [여권 Passport]와 [표 Ticket]이라고 적혀 있습니다. 영어 옆에 [건네기: 여권] 또는 [건네기: 표]라고 적으면 실제 파일 없이 해당 행동으로 처리합니다.",
+      "learnerRole": "탑승객",
+      "interlocutorRole": "수속 직원. 여권 다음에 표를 한 번에 하나씩 요청한다.",
+      "opening": "Passport, please.",
+      "steps": [
+        {
+          "goal": "여권을 건네기",
+          "example": "Here.",
+          "cue": "here = 여기요"
+        },
+        {
+          "goal": "표인지 확인하기",
+          "example": "Ticket?",
+          "cue": "ticket = 표"
+        },
+        {
+          "goal": "표를 건네며 답하기",
+          "example": "Yes. Here.",
+          "cue": "yes = 네"
+        }
+      ],
+      "outcome": "요청된 두 문서를 구별해 전달한다.",
+      "transfer": "직원이 표부터 요청한다. 요청 순서가 달라도 알맞은 카드를 건넨다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "pre-A1",
+      "slug": "find-gate",
+      "title": "탑승구 번호 가리켜 확인하기",
+      "scenario": "표의 Gate 4를 보고 안내 직원에게 방향을 묻습니다. 4와 5를 구분합니다.",
+      "learnerRole": "처음 비행하는 여행자",
+      "interlocutorRole": "안내 직원. Gate 4는 왼쪽, Gate 5는 오른쪽이라고 짧게 답한다.",
+      "opening": "Hello!",
+      "steps": [
+        {
+          "goal": "탑승구를 말하기",
+          "example": "Gate four?",
+          "cue": "gate = 탑승구; four = 4"
+        },
+        {
+          "goal": "왼쪽인지 확인하기",
+          "example": "Left?",
+          "cue": "left = 왼쪽"
+        },
+        {
+          "goal": "이해했음을 알리기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "자신의 탑승구 번호와 방향을 확인한다.",
+      "transfer": "표를 Gate 5로 바꾸고 right(오른쪽)를 제공한다. 새 방향을 확인한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "pre-A1",
+      "slug": "choose-seat",
+      "title": "창가와 통로 좌석 고르기",
+      "scenario": "직원이 두 좌석을 제안합니다. 원하는 좌석을 한 단어로 선택합니다.",
+      "learnerRole": "탑승 수속 중인 여행자",
+      "interlocutorRole": "항공사 직원. window와 aisle 뜻을 먼저 알려주고 선택을 재확인한다.",
+      "opening": "Window or aisle?",
+      "steps": [
+        {
+          "goal": "창가를 선택하기",
+          "example": "Window, please.",
+          "cue": "window = 창가"
+        },
+        {
+          "goal": "선택 재확인에 답하기",
+          "example": "Yes.",
+          "cue": "네"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "제시된 좌석 중 하나를 선택한다.",
+      "transfer": "창가가 없어 aisle(통로)을 선택하거나 no로 거절한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "pre-A1",
+      "slug": "ask-water-onboard",
+      "title": "기내에서 물 요청하기",
+      "scenario": "비행 중 승무원에게 물을 부탁합니다. 음료를 받기 전에 수량을 묻습니다.",
+      "learnerRole": "비행기 승객",
+      "interlocutorRole": "승무원. water 요청 후 one인지 묻고 제공한다.",
+      "opening": "Hello!",
+      "steps": [
+        {
+          "goal": "물 요청하기",
+          "example": "Water, please.",
+          "cue": "water = 물"
+        },
+        {
+          "goal": "한 잔이라고 답하기",
+          "example": "One.",
+          "cue": "one = 하나"
+        },
+        {
+          "goal": "받고 감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "필요한 음료와 수량을 전달한다.",
+      "transfer": "두 사람 몫이 필요하다. two를 제공하고 수량을 바꾼다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "A1",
+      "slug": "count-bags",
+      "title": "부치는 가방 수 말하기",
+      "scenario": "가방 두 개 중 큰 가방 한 개만 부치려 합니다. 가상 물건은 [큰 가방: 부칠 짐]과 [작은 가방: 기내 반입 짐]입니다. 영어 옆에 [가리키기: 큰 가방]처럼 적으면 지목 동작으로 처리합니다.",
+      "learnerRole": "수속 중인 승객",
+      "interlocutorRole": "직원. 전체 가방 수와 부칠 가방 수를 따로 질문한다.",
+      "opening": "How many bags do you have?",
+      "steps": [
+        {
+          "goal": "전체 개수 말하기",
+          "example": "I have two bags.",
+          "cue": "two bags = 가방 두 개"
+        },
+        {
+          "goal": "부칠 가방 지정하기",
+          "example": "This bag, please.",
+          "cue": "this = 이것"
+        },
+        {
+          "goal": "작은 가방은 가져간다고 말하기",
+          "example": "This is my carry-on.",
+          "cue": "carry-on = 기내 반입 가방"
+        }
+      ],
+      "outcome": "전체 가방과 위탁 가방을 구분한다.",
+      "transfer": "큰 가방 둘을 부치고 작은 가방 하나를 가져가는 경우로 바꾼다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "A1",
+      "slug": "ask-boarding-time",
+      "title": "탑승 시간 다시 확인하기",
+      "scenario": "표에는 출발 10시, 탑승 9시 30분이 적혀 있어 헷갈립니다.",
+      "learnerRole": "승객",
+      "interlocutorRole": "게이트 직원. 출발과 탑승 시간을 구분하여 알려준다.",
+      "opening": "Can I help you?",
+      "steps": [
+        {
+          "goal": "탑승 시간 묻기",
+          "example": "What time is boarding?",
+          "cue": "boarding = 탑승"
+        },
+        {
+          "goal": "시간 되묻기",
+          "example": "Nine thirty?",
+          "cue": "nine thirty = 9시 30분"
+        },
+        {
+          "goal": "출발과 구분하기",
+          "example": "The flight leaves at ten?",
+          "cue": "leaves = 출발해요"
+        }
+      ],
+      "outcome": "탑승과 출발 시간을 구별한다.",
+      "transfer": "출발이 30분 늦어졌다. 새 탑승 시각을 별도로 물어본다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "A1",
+      "slug": "request-slow-repeat",
+      "title": "공항 안내를 천천히 다시 듣기",
+      "scenario": "직원이 빠르게 탑승구를 알려주어 번호를 놓쳤습니다.",
+      "learnerRole": "영어 안내가 낯선 승객",
+      "interlocutorRole": "직원. Gate sixteen을 먼저 말하고 요청하면 천천히 반복한다.",
+      "opening": "Your flight is at gate sixteen.",
+      "steps": [
+        {
+          "goal": "반복 부탁하기",
+          "example": "Please say that again.",
+          "cue": "say again = 다시 말해 주세요"
+        },
+        {
+          "goal": "천천히 부탁하기",
+          "example": "Slowly, please.",
+          "cue": "slowly = 천천히"
+        },
+        {
+          "goal": "번호 확인하기",
+          "example": "Gate sixteen?",
+          "cue": "sixteen = 16"
+        }
+      ],
+      "outcome": "이해하지 못했음을 알리고 번호를 확인한다.",
+      "transfer": "Gate sixty를 제시한다. 16과 60 중 어느 것인지 확인한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "A1",
+      "slug": "identify-meal",
+      "title": "기내식 종류 확인하기",
+      "scenario": "닭고기와 채식 메뉴 중 채식 메뉴를 원합니다. 알레르기 진단 과제가 아닙니다.",
+      "learnerRole": "기내 승객",
+      "interlocutorRole": "승무원. chicken과 vegetarian 두 메뉴를 제시하고 음료를 묻는다.",
+      "opening": "Chicken or vegetarian?",
+      "steps": [
+        {
+          "goal": "메뉴 선택하기",
+          "example": "Vegetarian, please.",
+          "cue": "vegetarian = 채식 메뉴"
+        },
+        {
+          "goal": "물 요청하기",
+          "example": "Can I have water?",
+          "cue": "can I have = 받을 수 있나요"
+        },
+        {
+          "goal": "다른 음료 거절하기",
+          "example": "No coffee, thank you.",
+          "cue": "no coffee = 커피는 괜찮아요"
+        }
+      ],
+      "outcome": "음식과 음료 선호를 전달한다.",
+      "transfer": "원하는 메뉴가 없다. 남은 메뉴가 무엇인지 묻는다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "A2",
+      "slug": "security-electronics",
+      "title": "보안 검색에서 전자기기 확인하기",
+      "scenario": "검색대에서 노트북과 작은 태블릿을 꺼내야 하는지 확인합니다. 현지 직원 안내를 따릅니다.",
+      "learnerRole": "검색받는 여행자",
+      "interlocutorRole": "보안 직원. 이번 검색대에서는 노트북을 별도 트레이에 두고 태블릿은 가방에 둔다고 안내한다.",
+      "opening": "Please put your laptop in a separate tray.",
+      "steps": [
+        {
+          "goal": "노트북 위치 확인하기",
+          "example": "Do I put it in this tray?",
+          "cue": "tray = 검색 바구니"
+        },
+        {
+          "goal": "태블릿 규칙 묻기",
+          "example": "What about my tablet?",
+          "cue": "what about = 이것은요"
+        },
+        {
+          "goal": "이해한 행동 확인하기",
+          "example": "The tablet can stay in my bag?",
+          "cue": "stay = 그대로 있다"
+        }
+      ],
+      "outcome": "현재 검색대의 두 기기 처리 안내를 확인한다.",
+      "transfer": "다른 검색대에서는 두 기기를 모두 꺼내라고 한다. 이전 규칙을 고집하지 않고 확인한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "A2",
+      "slug": "connection-gate",
+      "title": "환승 탑승구와 이동 시간 묻기",
+      "scenario": "환승까지 50분이고 다른 터미널로 가야 합니다. 다음 항공편의 목적지는 Rome(로마)이며, 도보 여유를 포함한 총 소요 시간은 별도로 확인해야 합니다.",
+      "learnerRole": "환승객",
+      "interlocutorRole": "환승 안내 직원. 셔틀 10분, 보안 검색 약 15분, B12 탑승구라고 알려준다.",
+      "opening": "Where are you flying next?",
+      "steps": [
+        {
+          "goal": "다음 항공편 말하기",
+          "example": "My next flight is to Rome.",
+          "cue": "next flight = 다음 항공편"
+        },
+        {
+          "goal": "이동 방법 묻기",
+          "example": "How do I get to terminal B?",
+          "cue": "get to = 도착하다"
+        },
+        {
+          "goal": "시간 확인하기",
+          "example": "Do I need about twenty-five minutes?",
+          "cue": "about = 약"
+        }
+      ],
+      "outcome": "환승 경로와 예상 이동 시간을 확인한다.",
+      "transfer": "셔틀 대신 도보 통로만 운영한다. 새 소요 시간을 묻는다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "A2",
+      "slug": "missing-bag-belt",
+      "title": "수하물 벨트가 비었을 때 문의하기",
+      "scenario": "짐이 나오지 않았고 다른 승객들은 떠났습니다. 태그 번호를 가지고 있습니다.",
+      "learnerRole": "도착 승객",
+      "interlocutorRole": "수하물 직원. 다른 벨트 확인 후 미도착 접수대로 안내한다.",
+      "opening": "Which flight were you on?",
+      "steps": [
+        {
+          "goal": "항공편과 문제 설명하기",
+          "example": "I was on flight AB12. My bag is not here.",
+          "cue": "my bag is not here = 가방이 없어요"
+        },
+        {
+          "goal": "짐 특징 말하기",
+          "example": "It is a small blue suitcase.",
+          "cue": "suitcase = 여행 가방"
+        },
+        {
+          "goal": "다음 장소 묻기",
+          "example": "Where can I report it?",
+          "cue": "report = 신고하다"
+        }
+      ],
+      "outcome": "수하물 문제와 가방 특징을 전달하고 접수 위치를 안다.",
+      "transfer": "유사한 가방을 발견했지만 태그가 다르다. 자신의 것이 아니라고 설명한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "A2",
+      "slug": "assistance-distance",
+      "title": "긴 이동 구간의 이동 지원 요청하기",
+      "scenario": "터미널 내 긴 거리를 걷기 어려워 이동 지원의 가능 여부를 확인합니다.",
+      "learnerRole": "이동 지원을 원하는 승객",
+      "interlocutorRole": "지원 직원. 도움 종류를 묻고 탑승구까지 카트 지원이 15분 후 가능하다고 말한다.",
+      "opening": "What assistance do you need?",
+      "steps": [
+        {
+          "goal": "필요 설명하기",
+          "example": "I need help getting to the gate.",
+          "cue": "help getting to = 이동 도움"
+        },
+        {
+          "goal": "대기 시간 묻기",
+          "example": "How long is the wait?",
+          "cue": "wait = 대기"
+        },
+        {
+          "goal": "만날 장소 확인하기",
+          "example": "Shall I wait here?",
+          "cue": "shall I = 제가 할까요"
+        }
+      ],
+      "outcome": "필요한 지원과 대기 장소를 합의한다.",
+      "transfer": "카트가 없고 휠체어 지원만 가능하다. 자신의 선호와 가능한 대안을 확인한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "B1",
+      "slug": "missed-connection",
+      "title": "지연으로 환승편을 놓쳤을 때 대안 찾기",
+      "scenario": "첫 비행이 늦어져 연결편을 놓쳤고 오늘 저녁까지 도착하고 싶습니다.",
+      "learnerRole": "환승 실패 승객",
+      "interlocutorRole": "직원. 오후 직항은 만석이며 저녁 경유편 또는 내일 직항을 제안한다.",
+      "opening": "The next direct flight is tomorrow morning.",
+      "steps": [
+        {
+          "goal": "원인과 목표 설명하기",
+          "example": "My first flight was delayed, and I need to arrive tonight.",
+          "cue": "was delayed = 지연되었다"
+        },
+        {
+          "goal": "오늘 대안 묻기",
+          "example": "Is there another route today?",
+          "cue": "another route = 다른 경로"
+        },
+        {
+          "goal": "도착 시각 확인 후 선택하기",
+          "example": "If the evening connection arrives before ten, I would prefer that.",
+          "cue": "would prefer = 더 원하다"
+        }
+      ],
+      "outcome": "도착 목적에 맞는 대체편을 선택한다.",
+      "transfer": "오늘 도착보다 짐 동반 도착이 중요해졌다. 선택 기준을 바꾸어 질문한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "B1",
+      "slug": "seat-double-assigned",
+      "title": "같은 좌석 표를 가진 승객과 해결하기",
+      "scenario": "다른 승객도 12A 표를 가지고 있어 승무원에게 확인을 요청합니다. 새로 제안받을 자리는 14C이며 이동 전에 짐을 현재 줄 위 선반에 두어도 되는지 확인하려 합니다.",
+      "learnerRole": "중복 좌석 승객",
+      "interlocutorRole": "승무원. 두 표의 날짜와 편명을 확인하고 새 좌석을 안내한다. 대체 좌석은 14C이며 짐을 현재 줄 위 선반에 두는 것은 공간과 안전 상태를 확인한 뒤 허용할 수 있다.",
+      "opening": "Could I see both boarding passes?",
+      "steps": [
+        {
+          "goal": "관찰 사실 설명하기",
+          "example": "We both seem to have seat 12A.",
+          "cue": "seem to = 그런 것 같다"
+        },
+        {
+          "goal": "확인 요청하기",
+          "example": "Could you check which seat I should use?",
+          "cue": "which seat = 어느 좌석"
+        },
+        {
+          "goal": "새 좌석과 짐 위치 확인하기",
+          "example": "I can move to 14C. May I keep my bag above this row?",
+          "cue": "row = 좌석 줄"
+        }
+      ],
+      "outcome": "상대 탓을 하지 않고 좌석 배정을 확인한다.",
+      "transfer": "동행인과 떨어지는 새 좌석만 있다. 함께 앉을 필요를 설명한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "B1",
+      "slug": "damaged-suitcase",
+      "title": "수하물 파손을 사실대로 접수하기",
+      "scenario": "도착 후 가방 바퀴가 깨졌습니다. 사진과 수하물 태그가 있습니다.",
+      "learnerRole": "수하물 소유자",
+      "interlocutorRole": "접수 직원. 발견 시점, 손상 부위, 연락 수단을 요청하고 접수 번호를 발급한다.",
+      "opening": "When did you notice the damage?",
+      "steps": [
+        {
+          "goal": "발견 시점 설명하기",
+          "example": "I noticed the broken wheel when I collected the bag.",
+          "cue": "noticed = 발견했다"
+        },
+        {
+          "goal": "증빙 제시하기",
+          "example": "I took a photo before leaving the baggage area.",
+          "cue": "before leaving = 떠나기 전에"
+        },
+        {
+          "goal": "후속 절차 확인하기",
+          "example": "What should I do with this reference number?",
+          "cue": "reference number = 접수 번호"
+        }
+      ],
+      "outcome": "손상 사실과 증빙을 전달하고 후속 절차를 확인한다.",
+      "transfer": "손상이 집에 도착해서 발견되었다. 확인하지 않은 원인을 단정하지 않고 시점을 설명한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "B1",
+      "slug": "name-spelling-ticket",
+      "title": "예약 이름 철자 차이 확인하기",
+      "scenario": "여권과 예약에 영문 이름 한 글자가 다릅니다. 탑승 가능 여부를 추측하지 않고 직원에게 확인합니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "수속 직원. 여권상 철자와 예약 번호를 확인하고 발권 부서로 연결한다.",
+      "opening": "The name on your booking is different.",
+      "steps": [
+        {
+          "goal": "차이 구체적으로 설명하기",
+          "example": "The booking says JIN, but my passport says JIIN.",
+          "cue": "says = 적혀 있다"
+        },
+        {
+          "goal": "처리 가능 여부 묻기",
+          "example": "Can the ticket office correct this today?",
+          "cue": "correct = 수정하다"
+        },
+        {
+          "goal": "추가 절차 확인하기",
+          "example": "Do I need a new boarding pass after the change?",
+          "cue": "after the change = 변경 후"
+        }
+      ],
+      "outcome": "철자 차이를 정확히 전달하고 수정 경로를 확인한다.",
+      "transfer": "성명 순서만 반대로 보인다. 오타라고 단정하지 않고 표기 규칙을 묻는다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "B2",
+      "slug": "voluntary-rebooking",
+      "title": "자발적 항공편 변경 제안 조건 비교하기",
+      "scenario": "직원이 다음 날 비행으로 바꾸면 크레딧을 준다고 하지만 숙박과 사용 기한은 아직 설명하지 않았습니다.",
+      "learnerRole": "제안을 검토하는 승객",
+      "interlocutorRole": "직원. 크레딧 200, 6개월 유효, 호텔 제공 없음, 다음 날 좌석 확정이라고 답한다.",
+      "opening": "Would you consider travelling tomorrow for a travel credit?",
+      "steps": [
+        {
+          "goal": "조건을 나누어 질문하기",
+          "example": "Before deciding, could you clarify the expiry date and whether accommodation is included?",
+          "cue": "before deciding = 결정 전에"
+        },
+        {
+          "goal": "개인 비용과 비교하기",
+          "example": "The overnight cost may exceed the credit, so the offer is not yet practical for me.",
+          "cue": "exceed = 초과하다"
+        },
+        {
+          "goal": "수용 조건 또는 거절 말하기",
+          "example": "I could consider it if accommodation were covered; otherwise I will keep my flight.",
+          "cue": "otherwise = 그렇지 않으면"
+        }
+      ],
+      "outcome": "보상 조건과 실제 비용을 비교하여 의사를 전달한다.",
+      "transfer": "현금 환급이지만 도착 시각 미확정인 제안으로 바뀐다. 금액 외 불확실성을 평가한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "B2",
+      "slug": "uncertain-delay",
+      "title": "계속 바뀌는 지연 안내 확인하기",
+      "scenario": "화면은 40분 지연, 문자에는 출발 시각 미정이라고 나옵니다. 식사를 하러 이동해도 되는지 판단해야 합니다.",
+      "learnerRole": "출발 대기 승객",
+      "interlocutorRole": "게이트 직원. 새 출발 시간은 추정이고 탑승구 근처에 머물며 15분 후 업데이트를 받으라고 안내한다.",
+      "opening": "We expect an update shortly, but the display has not changed.",
+      "steps": [
+        {
+          "goal": "상충 안내 구체화하기",
+          "example": "The screen gives a time, but the text says it is unconfirmed.",
+          "cue": "unconfirmed = 미확정"
+        },
+        {
+          "goal": "확정과 예상 구별하기",
+          "example": "Is that a confirmed boarding time or only an estimate?",
+          "cue": "estimate = 예상치"
+        },
+        {
+          "goal": "행동 기준 합의하기",
+          "example": "I will stay nearby. When and where should I check for the next update?",
+          "cue": "stay nearby = 근처에 머물다"
+        }
+      ],
+      "outcome": "확정 정보와 추정을 구분하고 다음 확인 계획을 세운다.",
+      "transfer": "앱은 결항, 직원은 확인 중이라고 한다. 책임 있는 확인 채널을 지정해 달라고 요청한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "B2",
+      "slug": "baggage-allowance-dispute",
+      "title": "수하물 허용량 안내 차이 조율하기",
+      "scenario": "예약 이메일에는 23kg, 제휴 항공사 직원은 20kg이라고 안내합니다.",
+      "learnerRole": "공동운항 이용객",
+      "interlocutorRole": "수속 직원. 실제 운항편 규정을 확인할 관리자에게 문의할 수 있고 임의 면제를 약속하지 않는다.",
+      "opening": "Our system shows a twenty-kilo allowance.",
+      "steps": [
+        {
+          "goal": "서로 다른 근거 제시하기",
+          "example": "My confirmation lists twenty-three kilos for this itinerary.",
+          "cue": "confirmation = 예약 확인서"
+        },
+        {
+          "goal": "적용 범위 확인 요청하기",
+          "example": "Could you check which rule applies to this specific segment?",
+          "cue": "segment = 여정 구간"
+        },
+        {
+          "goal": "확인 전 선택지 묻기",
+          "example": "If an extra charge is required, what options do I have before paying?",
+          "cue": "required = 필요한"
+        }
+      ],
+      "outcome": "문서와 현재 안내 차이를 확인하고 비용 전 선택지를 파악한다.",
+      "transfer": "허용 무게는 같지만 개수 제한이 다르다. 무게와 개수를 구분하여 문의한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "B2",
+      "slug": "family-separated",
+      "title": "가족 좌석 분리를 현실적으로 조정하기",
+      "scenario": "동행 어린이가 다른 줄에 배정됐고 모든 좌석을 바꾸기는 어렵습니다. 현재 일행 네 명 중 성인 한 명은 아이 옆인 18B로 이동하고 나머지 두 명은 원래 좌석을 유지하는 안을 확인해야 합니다.",
+      "learnerRole": "동행 보호자",
+      "interlocutorRole": "승무원. 두 성인 중 한 명만 아이 옆으로 이동 가능하며 다른 승객 강제 이동은 할 수 없다. 가능한 이동 좌석은 아이 옆인 18B이며 다른 두 명은 기존 자리를 유지한다.",
+      "opening": "We cannot seat all four of you together.",
+      "steps": [
+        {
+          "goal": "최소 필요 설명하기",
+          "example": "Our priority is for one adult to sit next to the child, rather than keeping all four together.",
+          "cue": "priority = 최우선"
+        },
+        {
+          "goal": "대안 제시하기",
+          "example": "Either adult can move, and we do not need the same row for everyone.",
+          "cue": "either = 둘 중 누구든"
+        },
+        {
+          "goal": "합의 확인하기",
+          "example": "So one adult moves to 18B, while the other two keep their seats?",
+          "cue": "while = 반면에"
+        }
+      ],
+      "outcome": "전체 희망과 필수 조건을 구분하여 좌석 대안을 합의한다.",
+      "transfer": "비행 중에는 이동 불가하고 이륙 전만 가능하다. 처리 시점을 명확히 한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "C1",
+      "slug": "connection-responsibility",
+      "title": "환승 보장 표현의 책임 범위 확인하기",
+      "scenario": "직원은 환승을 보호한다고 하지만 도착 지연 시 재예약만인지 숙박도 포함인지 모호합니다.",
+      "learnerRole": "복합 여정 승객",
+      "interlocutorRole": "직원. 재예약은 지원하지만 숙박은 지연 원인과 심사에 따라 달라지고 지금 확약할 수 없다.",
+      "opening": "Your connection is protected, so there is nothing to worry about.",
+      "steps": [
+        {
+          "goal": "안심 표현을 구체 조건으로 바꾸기",
+          "example": "When you say protected, do you mean rebooking is covered, or that overnight expenses are covered as well?",
+          "cue": "when you say = 말씀하신 뜻이"
+        },
+        {
+          "goal": "확약 불가 범위 인정하며 확인하기",
+          "example": "I understand you cannot authorize accommodation now; I need to know the process if it becomes necessary.",
+          "cue": "authorize = 승인하다"
+        },
+        {
+          "goal": "기록과 연락 책임 합의하기",
+          "example": "Could you note the advice on my booking and identify the team I should contact if the connection fails?",
+          "cue": "note on my booking = 예약에 기록하다"
+        }
+      ],
+      "outcome": "포괄적 표현을 재예약·비용·연락 절차로 구체화한다.",
+      "transfer": "별도 발권 구간이 섞인 여정으로 바꾸고 보호 범위의 경계를 확인한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "C1",
+      "slug": "accessibility-handoff",
+      "title": "공항 간 지원 인계 누락 예방하기",
+      "scenario": "출발 공항에는 이동 지원 기록이 있으나 환승 공항에는 전달되지 않았습니다.",
+      "learnerRole": "지원 요청 승객",
+      "interlocutorRole": "지원 담당자. 출발팀은 예약만 확인하고 환승팀 수신 여부는 별도 확인해야 한다.",
+      "opening": "The assistance request is already in your reservation.",
+      "steps": [
+        {
+          "goal": "등록과 실행을 구분하기",
+          "example": "I can see the request, but registration alone does not tell me whether the transfer team has accepted it.",
+          "cue": "accepted = 인수 확인했다"
+        },
+        {
+          "goal": "구체 인계 질문하기",
+          "example": "Who will meet me at the aircraft door, and what is the fallback if nobody is there?",
+          "cue": "fallback = 대체 절차"
+        },
+        {
+          "goal": "개인 선호와 확인 기록 남기기",
+          "example": "Please record that I can transfer independently but need support over longer distances, and confirm the handover point.",
+          "cue": "handover point = 인계 장소"
+        }
+      ],
+      "outcome": "지원 등록과 현장 인계를 구분하고 대체 절차를 확보한다.",
+      "transfer": "항공기 문이 아닌 버스 도착 지점에서 만나야 한다. 변경된 인계 장소를 재확인한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "C1",
+      "slug": "multileg-option-tradeoff",
+      "title": "복잡한 대체 여정의 위험 비교하기",
+      "scenario": "오늘 출발 경유 두 번은 도착 미확정이고 내일 직항은 확정입니다. 중요한 일정은 이틀 뒤입니다.",
+      "learnerRole": "대체 여정 결정 승객",
+      "interlocutorRole": "발권 직원. 경유편 마지막 구간은 대기이고 직항은 확정 좌석, 변경 후 재변경 조건은 별도라고 안내한다.",
+      "opening": "This route gets you moving sooner, although the final leg is on standby.",
+      "steps": [
+        {
+          "goal": "출발 속도와 도착 확실성 분리하기",
+          "example": "Leaving sooner is less useful if the final connection is not confirmed.",
+          "cue": "less useful if = 이런 경우 유용성이 낮다"
+        },
+        {
+          "goal": "되돌릴 수 없는 선택 확인하기",
+          "example": "Would accepting this option release my confirmed seat tomorrow, and could I reverse the change?",
+          "cue": "release my seat = 좌석을 포기 처리하다"
+        },
+        {
+          "goal": "우선순위 근거로 결정하기",
+          "example": "Given that my event is in two days, I prefer the confirmed direct flight unless you can secure the final leg today.",
+          "cue": "secure = 확보하다"
+        }
+      ],
+      "outcome": "여정 전체 확실성과 변경 비용을 검토해 선택한다.",
+      "transfer": "오늘 도착이 필수인 가족 사정으로 바뀐다. 달라진 우선순위와 감수할 위험을 설명한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "C1",
+      "slug": "public-announcement-mediation",
+      "title": "혼란스러운 결항 안내를 동행인에게 전달하기",
+      "scenario": "직원은 환불 가능성 심사와 재예약 대기줄을 설명했는데 동행인은 즉시 전액 환불 확약으로 이해했습니다.",
+      "learnerRole": "그룹의 연락 담당 여행자",
+      "interlocutorRole": "직원. 환불은 구매처 심사이며 이 창구는 재예약만 처리한다고 정정한다.",
+      "opening": "We can arrange rebooking here; any refund request must go through the seller.",
+      "steps": [
+        {
+          "goal": "오해를 비난 없이 확인하기",
+          "example": "Some of us understood that a refund had already been approved. Could you clarify the distinction?",
+          "cue": "distinction = 구분"
+        },
+        {
+          "goal": "각 절차를 짧게 정리하기",
+          "example": "So this desk handles a new flight, while refund eligibility is assessed separately by the seller.",
+          "cue": "assessed separately = 별도 심사된다"
+        },
+        {
+          "goal": "동행인 판단을 위한 선택 질문하기",
+          "example": "Can we request an assessment without giving up the rebooking option at this stage?",
+          "cue": "at this stage = 현 단계에서"
+        }
+      ],
+      "outcome": "확약과 심사를 구분해 전달하고 선택 간 관계를 확인한다.",
+      "transfer": "동행인이 재예약을 환불 신청 취소로 이해한다. 실제 연동 여부를 확인해 설명한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "C2",
+      "slug": "conditional-commitment",
+      "title": "조건부 좌석 보장의 숨은 전제 풀기",
+      "scenario": "관리자는 자리를 확보해 보겠다고 하면서 확정이라고 말하지 않습니다. 탑승구 마감은 20분 뒤입니다.",
+      "learnerRole": "대체편 승객",
+      "interlocutorRole": "관리자. 재발권 승인 전에는 좌석을 보장할 수 없고 10분 안에 승인 상태를 확인할 수 있다.",
+      "opening": "You should be fine; we have effectively secured a seat, subject to the ticket being reissued.",
+      "steps": [
+        {
+          "goal": "조건부 표현의 실제 상태 확인하기",
+          "example": "I hear that a seat is being held, but not that I am cleared to board. Is that a fair reading?",
+          "cue": "a fair reading = 정확한 해석"
+        },
+        {
+          "goal": "낙관과 실행 가능성 구분하기",
+          "example": "Rather than an assurance about the likely outcome, could we establish what must happen before the gate closes?",
+          "cue": "rather than = 그 대신"
+        },
+        {
+          "goal": "시한과 대안의 담당자 합의하기",
+          "example": "If reissue is not confirmed within ten minutes, please let me know who can authorize the fallback without losing the held seat prematurely.",
+          "cue": "prematurely = 너무 이르게"
+        }
+      ],
+      "outcome": "모호한 안심 표현을 조건·시한·책임이 있는 계획으로 바꾼다.",
+      "transfer": "좌석은 확정이지만 입국 서류 확인이 남은 상황으로 바꾸어 확정 범위를 분리한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "C2",
+      "slug": "conflicting-agent-records",
+      "title": "두 직원의 상충 안내를 체면을 지키며 조정하기",
+      "scenario": "앞선 직원은 추가 비용이 없다고 했고 새 직원은 반드시 지불해야 한다고 합니다. 기록에는 변경 지원만 적혀 있습니다.",
+      "learnerRole": "재예약 승객",
+      "interlocutorRole": "새 관리자. 구두 약속을 확인할 수 없지만 기존 메모와 요금 계산을 검토할 권한이 있다.",
+      "opening": "There is no record of a fee waiver, so I cannot accept that this was promised.",
+      "steps": [
+        {
+          "goal": "기억과 증거를 구분하기",
+          "example": "I cannot establish the exact wording from the record, but I made my decision on the understanding that no additional fare would be charged.",
+          "cue": "on the understanding = 그렇게 이해하고"
+        },
+        {
+          "goal": "개인 책임 추궁 없이 쟁점 재구성하기",
+          "example": "Could we treat this as a gap between the advice received and the booking outcome, rather than a dispute over an individual colleague?",
+          "cue": "gap = 불일치"
+        },
+        {
+          "goal": "검토와 임시 조치 요청하기",
+          "example": "While you review that gap, can the seat be held and the disputed amount left unresolved until an authorized decision is made?",
+          "cue": "disputed amount = 다투는 금액"
+        }
+      ],
+      "outcome": "불확실한 구두 안내를 사실과 영향으로 분리하여 검토를 요청한다.",
+      "transfer": "앞선 안내 녹취가 있으나 일부만 들린다. 증거의 한계를 명시하며 재검토를 요청한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "C2",
+      "slug": "group-disruption-mediation",
+      "title": "일행의 상충 우선순위와 항공사 제한 중재하기",
+      "scenario": "일행 한 명은 당일 도착, 한 명은 경유 회피, 항공사는 전원 동일 재예약만 가능하다고 말합니다.",
+      "learnerRole": "그룹 대표 승객",
+      "interlocutorRole": "관리자. 예약 분리 가능 여부를 확인할 수 있으나 분리 후 짐 연결과 재결합은 보장하지 못한다.",
+      "opening": "We can move the whole party tomorrow, but splitting the booking may create other complications.",
+      "steps": [
+        {
+          "goal": "공통 목표와 다른 필요 분리하기",
+          "example": "We share the need for a reliable onward plan, but travelling together is a preference for some and a constraint for others.",
+          "cue": "constraint = 반드시 고려할 제약"
+        },
+        {
+          "goal": "일괄 처리 전제 질문하기",
+          "example": "Is keeping the party together a system requirement or the simplest available workflow?",
+          "cue": "workflow = 처리 절차"
+        },
+        {
+          "goal": "위험을 숨기지 않은 중재안 제시하기",
+          "example": "If splitting is permitted, please explain baggage and support implications to each traveller before we choose, so nobody consents on another person’s assumptions.",
+          "cue": "implications = 뒤따르는 영향"
+        }
+      ],
+      "outcome": "그룹 합의를 개인별 조건과 정보에 근거하도록 중재한다.",
+      "transfer": "예약 분리는 가능하지만 한 사람의 지원 예약이 끊긴다. 지원 연속성을 포함해 대안을 조정한다."
+    },
+    {
+      "subcategoryId": "airport",
+      "difficulty": "C2",
+      "slug": "incomplete-incident-summary",
+      "title": "불완전한 공항 사고 기록의 표현 조정하기",
+      "scenario": "지연 사건 요약에 승객이 서류를 늦게 냈다고 되어 있지만 안내받은 창구가 닫혀 있었습니다. 원인 단정을 피하며 기록 정정을 요청합니다. 확인 가능한 안내 시각은 닫힌 창구로 향한 14:10과 재안내 후 현재 창구에 도착한 14:35입니다.",
+      "learnerRole": "사건 기록을 확인하는 승객",
+      "interlocutorRole": "관리자. 시간 기록은 확인 가능하지만 지연 책임 판단은 별도 검토라고 설명한다.",
+      "opening": "The report states that the documents were not presented in time.",
+      "steps": [
+        {
+          "goal": "서술과 책임 함의 분리하기",
+          "example": "That may describe when the documents reached this desk, but it could imply that I had a working submission route earlier.",
+          "cue": "imply = 암시하다"
+        },
+        {
+          "goal": "검증 가능한 타임라인 제시하기",
+          "example": "I was directed to the closed counter at 14:10 and reached this desk after being redirected at 14:35.",
+          "cue": "redirected = 다른 곳으로 안내받다"
+        },
+        {
+          "goal": "중립적 수정과 미확정 부분 요청하기",
+          "example": "Could the record include those timings and leave responsibility open pending review, rather than presenting the delay as solely passenger-caused?",
+          "cue": "pending review = 검토가 끝날 때까지"
+        }
+      ],
+      "outcome": "사실 기록과 책임 판단을 구분하여 정확한 요약을 요청한다.",
+      "transfer": "시간 중 하나는 기억에 의존한다. 추정 시각과 확인된 시각을 명확히 구분한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "pre-A1",
+      "slug": "say-name",
+      "title": "프런트에서 예약 이름 말하기",
+      "scenario": "가상 이름 Mina로 예약했습니다. 프런트가 이름을 확인합니다.",
+      "learnerRole": "투숙객",
+      "interlocutorRole": "직원. 이름을 묻고 Mina인지 한 번 확인한다.",
+      "opening": "Your name, please?",
+      "steps": [
+        {
+          "goal": "이름 말하기",
+          "example": "Mina.",
+          "cue": "가상 이름 미나"
+        },
+        {
+          "goal": "맞다고 답하기",
+          "example": "Yes.",
+          "cue": "네"
+        },
+        {
+          "goal": "키 받고 감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "예약 이름에 응답한다.",
+      "transfer": "가상 이름을 Joon으로 바꾸고 잘못 부르면 no로 정정한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "pre-A1",
+      "slug": "room-number",
+      "title": "객실 번호 확인하기",
+      "scenario": "키 카드에 203이 적혀 있습니다. 번호와 층을 확인합니다.",
+      "learnerRole": "처음 숙박하는 여행자",
+      "interlocutorRole": "직원. 203은 2층이라고 한 정보씩 안내한다.",
+      "opening": "Room two-oh-three.",
+      "steps": [
+        {
+          "goal": "객실 번호 되말하기",
+          "example": "Two-oh-three?",
+          "cue": "203 읽는 말"
+        },
+        {
+          "goal": "층 확인하기",
+          "example": "Two?",
+          "cue": "two = 2"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "키 카드와 안내 번호를 연결한다.",
+      "transfer": "305 카드로 바꾸고 three(3층)를 확인한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "pre-A1",
+      "slug": "ask-towel",
+      "title": "수건 한 장 부탁하기",
+      "scenario": "방에 수건이 없습니다. 필요한 물건과 수량을 말합니다.",
+      "learnerRole": "투숙객",
+      "interlocutorRole": "직원. towel인지 확인하고 수량을 묻는다.",
+      "opening": "Hello!",
+      "steps": [
+        {
+          "goal": "수건 요청하기",
+          "example": "Towel, please.",
+          "cue": "towel = 수건"
+        },
+        {
+          "goal": "개수 말하기",
+          "example": "One.",
+          "cue": "하나"
+        },
+        {
+          "goal": "요청 확인에 답하기",
+          "example": "Yes, please.",
+          "cue": "네 부탁해요"
+        }
+      ],
+      "outcome": "필요한 수건 수량을 전달한다.",
+      "transfer": "비누가 필요하다. soap 뜻을 제공하고 물건을 바꾼다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "pre-A1",
+      "slug": "find-lift",
+      "title": "엘리베이터 방향 묻기",
+      "scenario": "짐이 있어 엘리베이터를 찾습니다. 계단과 구별합니다.",
+      "learnerRole": "투숙객",
+      "interlocutorRole": "직원. lift는 오른쪽이고 stairs는 왼쪽이라고 짧게 안내한다.",
+      "opening": "Hello!",
+      "steps": [
+        {
+          "goal": "엘리베이터 묻기",
+          "example": "Lift?",
+          "cue": "lift = 엘리베이터"
+        },
+        {
+          "goal": "방향 확인하기",
+          "example": "Right?",
+          "cue": "right = 오른쪽"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "원하는 이동 시설과 방향을 확인한다.",
+      "transfer": "엘리베이터가 반대편에 있다. left 뜻을 듣고 확인한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "A1",
+      "slug": "wifi-password",
+      "title": "와이파이 이름과 비밀번호 묻기",
+      "scenario": "두 네트워크 중 투숙객용을 선택해야 합니다.",
+      "learnerRole": "투숙객",
+      "interlocutorRole": "직원. Guest 네트워크와 가상 비밀번호 blue123을 종이에 적어 준다.",
+      "opening": "Do you need the Wi-Fi details?",
+      "steps": [
+        {
+          "goal": "연결망 묻기",
+          "example": "Which network is for guests?",
+          "cue": "network = 네트워크"
+        },
+        {
+          "goal": "비밀번호 요청하기",
+          "example": "What is the password?",
+          "cue": "password = 비밀번호"
+        },
+        {
+          "goal": "적어 달라고 하기",
+          "example": "Please write it down.",
+          "cue": "write it down = 적어 주세요"
+        }
+      ],
+      "outcome": "접속에 필요한 두 정보를 확인한다.",
+      "transfer": "회의실 네트워크가 별도다. 객실에서도 사용할 수 있는지 묻는다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "A1",
+      "slug": "breakfast-place-time",
+      "title": "조식 장소와 시간 확인하기",
+      "scenario": "내일 아침 외출 전 식사할 수 있는지 확인합니다.",
+      "learnerRole": "투숙객",
+      "interlocutorRole": "직원. 조식은 7시부터 9시, 1층이라고 답한다.",
+      "opening": "Breakfast is included.",
+      "steps": [
+        {
+          "goal": "시작 시각 묻기",
+          "example": "What time does breakfast start?",
+          "cue": "start = 시작하다"
+        },
+        {
+          "goal": "장소 묻기",
+          "example": "Where is the breakfast room?",
+          "cue": "where = 어디"
+        },
+        {
+          "goal": "이해한 시각 확인하기",
+          "example": "It starts at seven?",
+          "cue": "at seven = 7시에"
+        }
+      ],
+      "outcome": "조식 장소와 시작 시각을 안다.",
+      "transfer": "주말은 8시 시작이다. 내일이 주말인 경우를 확인한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "A1",
+      "slug": "extra-key",
+      "title": "동행인용 객실 키 부탁하기",
+      "scenario": "같은 방 동행인이 따로 외출하려고 키 한 장을 더 요청합니다. 가상 객실은 208호이며 동행인은 같은 방에 등록된 친구입니다.",
+      "learnerRole": "투숙객",
+      "interlocutorRole": "직원. 객실 번호와 등록된 이름을 확인하고 추가 키를 제공한다.",
+      "opening": "What is your room number?",
+      "steps": [
+        {
+          "goal": "객실 번호 말하기",
+          "example": "My room is 208.",
+          "cue": "room = 방"
+        },
+        {
+          "goal": "추가 키 요청하기",
+          "example": "Can I have another key?",
+          "cue": "another = 하나 더"
+        },
+        {
+          "goal": "동행인 목적 말하기",
+          "example": "It is for my friend.",
+          "cue": "for = 누구를 위해"
+        }
+      ],
+      "outcome": "필요한 추가 키와 방 정보를 전달한다.",
+      "transfer": "새 키 대신 작동하지 않는 키를 교체해 달라고 한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "A1",
+      "slug": "checkout-bag-storage",
+      "title": "퇴실 후 짐 맡길 수 있는지 묻기",
+      "scenario": "오전 퇴실 후 오후 3시에 가방을 찾고 싶습니다.",
+      "learnerRole": "퇴실 투숙객",
+      "interlocutorRole": "직원. 당일 보관 가능하고 보관표를 지참하라고 안내한다.",
+      "opening": "Are you checking out?",
+      "steps": [
+        {
+          "goal": "퇴실 의사 말하기",
+          "example": "Yes, I am checking out.",
+          "cue": "check out = 퇴실하다"
+        },
+        {
+          "goal": "짐 보관 요청하기",
+          "example": "Can I leave my bag here?",
+          "cue": "leave = 맡기다"
+        },
+        {
+          "goal": "찾을 시각 말하기",
+          "example": "I will come back at three.",
+          "cue": "come back = 돌아오다"
+        }
+      ],
+      "outcome": "보관 요청과 수령 시각을 전달한다.",
+      "transfer": "가방 두 개를 따로 찾는다. 개수와 수령 시각을 각각 말한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "A2",
+      "slug": "check-in",
+      "title": "호텔 체크인",
+      "scenario": "Mina Kim 이름으로 2박 예약했습니다. 예약과 조식 포함 여부를 확인합니다.",
+      "learnerRole": "예약 투숙객",
+      "interlocutorRole": "프런트 직원. 2박 예약은 있고 조식은 별도 12라고 알려주며 여권 확인 후 키를 준다.",
+      "opening": "Welcome. Do you have a reservation?",
+      "steps": [
+        {
+          "goal": "예약 정보 말하기",
+          "example": "I have a reservation for two nights under Mina Kim.",
+          "cue": "under = 이름으로"
+        },
+        {
+          "goal": "포함 항목 묻기",
+          "example": "Is breakfast included in my booking?",
+          "cue": "included = 포함된"
+        },
+        {
+          "goal": "선택과 객실 수령 확인하기",
+          "example": "I will skip breakfast for now. May I have the room key?",
+          "cue": "for now = 지금은"
+        }
+      ],
+      "outcome": "예약 기간과 조식 선택을 확인해 체크인한다.",
+      "transfer": "예약은 3박이고 조식 포함이다. 추가 구매하지 않고 포함 여부를 확인한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "A2",
+      "slug": "aircon-not-working",
+      "title": "에어컨 문제 알리기",
+      "scenario": "방이 덥고 에어컨 버튼을 눌러도 켜지지 않습니다. 가상 객실은 204호이며 현재는 오후 7시 30분입니다. 오후 8시 전 점검을 원합니다.",
+      "learnerRole": "투숙객",
+      "interlocutorRole": "직원. 카드 전원 확인 후 해결 안 되면 직원이 20분 후 방문한다고 안내한다.",
+      "opening": "How can I help?",
+      "steps": [
+        {
+          "goal": "증상 말하기",
+          "example": "The air conditioner in room 204 is not working.",
+          "cue": "not working = 작동하지 않는"
+        },
+        {
+          "goal": "이미 한 조치 말하기",
+          "example": "I put the key card in, but it is still off.",
+          "cue": "still = 여전히"
+        },
+        {
+          "goal": "방문 시간 확인하기",
+          "example": "Can someone check it before eight?",
+          "cue": "check it = 확인하다"
+        }
+      ],
+      "outcome": "문제와 시도한 조치를 전달하고 점검 시간을 확인한다.",
+      "transfer": "전원은 켜지지만 찬 바람이 안 나온다. 증상을 구분해 말한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "A2",
+      "slug": "late-arrival",
+      "title": "늦은 도착 미리 알리기",
+      "scenario": "기차가 늦어 체크인 예정 시각보다 2시간 늦습니다. 프런트는 밤 11시에 닫습니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "숙소 직원. 11시 이후에는 키 보관함을 쓰며 도착 확인 후 안내를 보낸다.",
+      "opening": "What time will you arrive?",
+      "steps": [
+        {
+          "goal": "지연과 시각 알리기",
+          "example": "My train is late, so I will arrive around midnight.",
+          "cue": "around midnight = 자정쯤"
+        },
+        {
+          "goal": "늦은 입실 방법 묻기",
+          "example": "How can I get my key after the desk closes?",
+          "cue": "after = 이후"
+        },
+        {
+          "goal": "안내 받을 곳 확인하기",
+          "example": "Could you send the instructions to my booking email?",
+          "cue": "instructions = 안내"
+        }
+      ],
+      "outcome": "지연 도착과 키 수령 절차를 합의한다.",
+      "transfer": "휴대전화 데이터가 안 된다. 도착 전 오프라인으로 확인할 방법을 묻는다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "A2",
+      "slug": "quiet-room",
+      "title": "조용한 위치의 방 요청하기",
+      "scenario": "일찍 일어나야 해서 엘리베이터 옆 대신 떨어진 방을 원합니다.",
+      "learnerRole": "체크인 투숙객",
+      "interlocutorRole": "직원. 같은 종류 방은 4층 끝에 하나 있고 전망은 없다고 안내한다.",
+      "opening": "Your room is next to the lift.",
+      "steps": [
+        {
+          "goal": "선호와 이유 말하기",
+          "example": "I need to get up early, so I would like a quiet room.",
+          "cue": "quiet = 조용한"
+        },
+        {
+          "goal": "대안 위치 묻기",
+          "example": "Do you have a room away from the lift?",
+          "cue": "away from = 떨어진"
+        },
+        {
+          "goal": "조건 받아들이기",
+          "example": "A room without a view is fine.",
+          "cue": "without a view = 전망이 없는"
+        }
+      ],
+      "outcome": "소음 관련 선호와 감수할 조건을 전달한다.",
+      "transfer": "조용한 방은 침대 종류가 다르다. 침대 조건을 확인하고 선택한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "B1",
+      "slug": "booking-not-found",
+      "title": "예약이 검색되지 않을 때 확인하기",
+      "scenario": "예약 확인 이메일이 있지만 프런트에서 이름이 조회되지 않습니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "직원. 이메일 번호로 검색 가능하며 다른 날짜 예약인지 확인한다.",
+      "opening": "I cannot find a reservation under that name.",
+      "steps": [
+        {
+          "goal": "확인 근거 제시하기",
+          "example": "I have a confirmation email with this booking number.",
+          "cue": "confirmation email = 예약 확인 메일"
+        },
+        {
+          "goal": "가능한 차이 확인하기",
+          "example": "Could it be under my family name or a different date?",
+          "cue": "family name = 성"
+        },
+        {
+          "goal": "다음 조치 요청하기",
+          "example": "If it still does not appear, could you contact the booking platform with me?",
+          "cue": "appear = 조회되다"
+        }
+      ],
+      "outcome": "조회 정보를 바꿔 확인하고 미해결 시 협조를 요청한다.",
+      "transfer": "호텔 이름은 같지만 지점이 다르다. 주소를 비교해 정확한 지점을 확인한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "B1",
+      "slug": "noise-next-door",
+      "title": "밤중 소음을 구체적으로 알리기",
+      "scenario": "옆방에서 새벽 1시까지 큰 음악이 들립니다. 직접 다투지 않고 프런트에 요청합니다.",
+      "learnerRole": "투숙객",
+      "interlocutorRole": "야간 직원. 먼저 해당 층을 확인하고 해결 안 되면 다른 방 가능 여부를 안내한다.",
+      "opening": "Can you describe the noise?",
+      "steps": [
+        {
+          "goal": "시간과 증상 말하기",
+          "example": "There has been loud music next door for about an hour.",
+          "cue": "for about an hour = 약 한 시간 동안"
+        },
+        {
+          "goal": "필요한 조치 요청하기",
+          "example": "Could someone check it? I have an early departure.",
+          "cue": "early departure = 이른 출발"
+        },
+        {
+          "goal": "미해결 대안 묻기",
+          "example": "If it continues, would a room change be possible?",
+          "cue": "continues = 계속되다"
+        }
+      ],
+      "outcome": "관찰한 소음과 해결 요청을 전달한다.",
+      "transfer": "소음이 공사장 쪽에서 난다. 원인을 확신하지 않고 들리는 위치를 설명한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "B1",
+      "slug": "billing-extra-item",
+      "title": "사용하지 않은 미니바 청구 확인하기",
+      "scenario": "영수증에 미니바 18이 추가됐지만 이용하지 않았습니다.",
+      "learnerRole": "퇴실 투숙객",
+      "interlocutorRole": "직원. 사용 기록을 확인해야 하며 검토 후 수정 영수증을 발급할 수 있다.",
+      "opening": "Your total includes eighteen for the minibar.",
+      "steps": [
+        {
+          "goal": "이견을 구체적으로 말하기",
+          "example": "I did not use the minibar, so I would like to check that charge.",
+          "cue": "charge = 청구액"
+        },
+        {
+          "goal": "기록 확인 요청하기",
+          "example": "Could you tell me which items were recorded?",
+          "cue": "recorded = 기록된"
+        },
+        {
+          "goal": "수정 결과 확인하기",
+          "example": "If it was added by mistake, could I get an updated receipt?",
+          "cue": "by mistake = 실수로"
+        }
+      ],
+      "outcome": "청구 항목을 확인하고 정정 영수증을 요청한다.",
+      "transfer": "동행인이 생수 하나는 썼다. 전체 부인 대신 실제 사용분을 구분한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "B1",
+      "slug": "extend-stay",
+      "title": "숙박 연장과 방 이동 조율하기",
+      "scenario": "일정이 바뀌어 하루 더 머물러야 하지만 같은 방은 예약돼 있습니다.",
+      "learnerRole": "투숙객",
+      "interlocutorRole": "직원. 다른 방은 가능하고 오전 11시 짐을 맡긴 뒤 오후 3시 입실 가능하다고 안내한다.",
+      "opening": "Your current room is booked for tomorrow.",
+      "steps": [
+        {
+          "goal": "연장 필요 말하기",
+          "example": "My plans have changed, and I need one more night.",
+          "cue": "one more night = 하룻밤 더"
+        },
+        {
+          "goal": "이동 조건 확인하기",
+          "example": "Would I need to move rooms, and when would the new room be ready?",
+          "cue": "move rooms = 방을 옮기다"
+        },
+        {
+          "goal": "짐과 비용 확인하기",
+          "example": "Could you store my bags between rooms and confirm the extra cost?",
+          "cue": "between rooms = 방 이동 사이"
+        }
+      ],
+      "outcome": "연장 비용·이동 시간·짐 처리 계획을 확인한다.",
+      "transfer": "방은 같지만 요금이 오른다. 이동 편의와 추가 비용을 비교한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "B2",
+      "slug": "overbooked-alternative",
+      "title": "예약 초과 호텔의 대체 숙소 비교하기",
+      "scenario": "호텔이 만실이라 다른 숙소를 제안했지만 행사장까지 더 멉니다.",
+      "learnerRole": "예약 보유 투숙객",
+      "interlocutorRole": "매니저. 같은 가격 다른 호텔과 편도 택시 지원을 제시하며 접근성 정보는 확인이 필요하다.",
+      "opening": "We have arranged another hotel at no extra room cost.",
+      "steps": [
+        {
+          "goal": "가격 외 영향 설명하기",
+          "example": "The room cost is only part of the issue; the location affects my morning schedule.",
+          "cue": "part of the issue = 문제의 일부"
+        },
+        {
+          "goal": "필수 조건 확인하기",
+          "example": "Could you confirm travel time, room type, and whether tomorrow’s transfer is included?",
+          "cue": "transfer = 이동 지원"
+        },
+        {
+          "goal": "선택 조건 제시하기",
+          "example": "I can accept the alternative if those details work and are confirmed in writing.",
+          "cue": "in writing = 서면으로"
+        }
+      ],
+      "outcome": "대체 숙소를 가격·위치·조건에 따라 검토한다.",
+      "transfer": "새 숙소는 가까우나 계단만 있다. 이동 가능 조건을 우선하여 확인한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "B2",
+      "slug": "deposit-hold",
+      "title": "보증금 승인과 실제 결제 구분하기",
+      "scenario": "카드 앱에 숙박료와 보증금 두 금액이 표시됩니다. 중복 청구인지 확인합니다.",
+      "learnerRole": "투숙객",
+      "interlocutorRole": "직원. 보증금은 승인 보류이며 해제 요청 날짜는 알지만 카드사 반영일은 보장 못 한다.",
+      "opening": "The second amount is a security hold, not another room payment.",
+      "steps": [
+        {
+          "goal": "거래 상태 구분하기",
+          "example": "Could you show which amount was charged and which is only being held?",
+          "cue": "hold = 승인 보류"
+        },
+        {
+          "goal": "처리 책임과 시점 묻기",
+          "example": "When will the hotel release the hold, and which part depends on my card provider?",
+          "cue": "release = 해제하다"
+        },
+        {
+          "goal": "증빙 요청하기",
+          "example": "Please give me a record of the release so I can follow up if necessary.",
+          "cue": "follow up = 후속 문의하다"
+        }
+      ],
+      "outcome": "결제·승인 보류·해제 시점을 구분한다.",
+      "transfer": "해제 후에도 금액이 남아 있다. 호텔 처리 기록을 바탕으로 다음 문의처를 확인한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "B2",
+      "slug": "room-description-gap",
+      "title": "객실 설명과 실제 시설 차이 논의하기",
+      "scenario": "예약에는 작업 공간이 있다고 했지만 방에는 작은 벽 선반만 있습니다. 온라인 회의가 예정돼 있습니다.",
+      "learnerRole": "업무 중인 여행자",
+      "interlocutorRole": "매니저. 책상 있는 방은 추가 요금, 공용 회의실은 저녁 2시간 무료라고 제안한다.",
+      "opening": "The shelf is what we list as a workspace.",
+      "steps": [
+        {
+          "goal": "명칭보다 필요한 기능 설명하기",
+          "example": "I need a surface large enough for a laptop and notes, plus a seat for a two-hour call.",
+          "cue": "surface = 작업 면"
+        },
+        {
+          "goal": "설명과 기대 차이 설명하기",
+          "example": "The listing led me to expect a desk, so I need a practical solution for tonight.",
+          "cue": "led me to expect = 기대하게 했다"
+        },
+        {
+          "goal": "대안 조건 조율하기",
+          "example": "The meeting room could work if it is quiet and reserved for the full call.",
+          "cue": "reserved = 예약된"
+        }
+      ],
+      "outcome": "시설 표현의 차이를 실제 사용 요건으로 해결한다.",
+      "transfer": "공용 공간은 조용하지만 통화가 금지다. 용도 제한을 확인해 대안을 조정한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "B2",
+      "slug": "housekeeping-boundaries",
+      "title": "청소 일정과 사생활 요구 조율하기",
+      "scenario": "재택 회의가 이어져 오후까지 객실 출입을 원하지 않지만 수건 교체는 필요합니다.",
+      "learnerRole": "장기 투숙객",
+      "interlocutorRole": "하우스키핑 담당자. 청소는 오후 3시까지, 문 앞 수건 전달은 가능하다고 안내한다.",
+      "opening": "Our cleaning team finishes at three.",
+      "steps": [
+        {
+          "goal": "필요와 제한 함께 설명하기",
+          "example": "I need fresh towels, but I cannot have anyone enter during my calls.",
+          "cue": "enter = 들어오다"
+        },
+        {
+          "goal": "양쪽 일정에 맞는 대안 제시하기",
+          "example": "Could the towels be left outside, with full cleaning tomorrow morning?",
+          "cue": "full cleaning = 전체 청소"
+        },
+        {
+          "goal": "출입 합의 확인하기",
+          "example": "Please record that no room entry is needed today, and let me know if a safety check is required.",
+          "cue": "safety check = 안전 확인"
+        }
+      ],
+      "outcome": "서비스 필요와 출입 선호를 분리해 합의한다.",
+      "transfer": "숙소 필수 점검이 있다. 점검 필요를 인정하면서 시간을 조정한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "C1",
+      "slug": "accessible-room-meaning",
+      "title": "접근성 객실 명칭의 실제 조건 확인하기",
+      "scenario": "숙소가 접근 가능 객실이라고 하지만 샤워실 턱 높이와 문 폭 정보가 없습니다.",
+      "learnerRole": "객실 확인 여행자",
+      "interlocutorRole": "예약 매니저. 엘리베이터는 있으나 욕실 구조는 현장 측정이 필요하며 사진을 제공할 수 있다.",
+      "opening": "The room is accessible; we have an elevator.",
+      "steps": [
+        {
+          "goal": "포괄 명칭과 개별 필요 구분하기",
+          "example": "An elevator addresses the route to the room, but it does not establish whether the bathroom works for me.",
+          "cue": "establish = 확인해 주다"
+        },
+        {
+          "goal": "검증 가능한 정보 요청하기",
+          "example": "Could someone measure the doorway and shower threshold rather than make a general assurance?",
+          "cue": "threshold = 문턱"
+        },
+        {
+          "goal": "미확인 조건과 예약 판단 연결하기",
+          "example": "Please mark anything unverified so I can decide before the cancellation deadline.",
+          "cue": "unverified = 미확인"
+        }
+      ],
+      "outcome": "접근성 라벨을 구체 정보와 확인 상태로 바꾼다.",
+      "transfer": "문 폭은 충분하지만 회전 공간이 부족하다. 새 사용 조건에 맞춰 질문한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "C1",
+      "slug": "discretionary-refund",
+      "title": "예외 환불 요청을 압박 없이 설득하기",
+      "scenario": "환불 불가 예약이지만 가족 일정이 갑자기 바뀌었습니다. 규정을 인정하며 가능한 예외를 요청합니다.",
+      "learnerRole": "예약 취소 희망자",
+      "interlocutorRole": "매니저. 현금 환불은 권한 밖이고 날짜 변경 또는 일부 크레딧은 검토할 수 있다.",
+      "opening": "The reservation is non-refundable under the agreed terms.",
+      "steps": [
+        {
+          "goal": "규정 인정과 요청 범위 밝히기",
+          "example": "I recognize the rate conditions. I am asking whether there is any discretionary flexibility, not assuming a refund is due.",
+          "cue": "discretionary = 재량에 따른"
+        },
+        {
+          "goal": "상대 권한에 맞춰 대안 제시하기",
+          "example": "If cash reimbursement is outside your authority, could a date change or partial credit be considered?",
+          "cue": "outside your authority = 권한 밖"
+        },
+        {
+          "goal": "불확실한 제안의 조건 확인하기",
+          "example": "Before I accept a credit, could you specify its restrictions and whether accepting it closes this request?",
+          "cue": "restrictions = 제한 조건"
+        }
+      ],
+      "outcome": "권리 단정 없이 예외 대안을 요청하고 조건을 확인한다.",
+      "transfer": "호텔이 객실을 재판매한 경우만 검토 가능하다. 확인 시점과 연락 절차를 합의한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "C1",
+      "slug": "staff-shift-handover",
+      "title": "교대 때 반복되는 수리 요청 정리하기",
+      "scenario": "세 교대 직원에게 누수 문제를 설명했지만 매번 처음부터 묻고 조치 상태가 없습니다.",
+      "learnerRole": "장기 투숙객",
+      "interlocutorRole": "당직 매니저. 접수는 있으나 수리 완료 표시가 잘못돼 있으며 한 명의 연락 담당을 정할 수 있다.",
+      "opening": "Our notes say the issue was resolved yesterday.",
+      "steps": [
+        {
+          "goal": "현재 관찰과 기록 불일치 설명하기",
+          "example": "The repair may have been marked complete, but water is still appearing under the sink.",
+          "cue": "marked complete = 완료로 표시된"
+        },
+        {
+          "goal": "절차 문제로 재구성하기",
+          "example": "I am less concerned about who entered the note than about having one accurate handover between shifts.",
+          "cue": "handover = 인계"
+        },
+        {
+          "goal": "책임과 확인 기준 합의하기",
+          "example": "Could one person own the update and confirm resolution only after we have checked the room together?",
+          "cue": "own the update = 진행 안내를 맡다"
+        }
+      ],
+      "outcome": "교대 인계와 실제 해결 확인 절차를 합의한다.",
+      "transfer": "수리는 끝났으나 냄새가 남아 있다. 기술적 완료와 사용 가능 상태를 구분한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "C1",
+      "slug": "mixed-expectations-group",
+      "title": "동행인의 다른 숙소 기대 중재하기",
+      "scenario": "한 사람은 조용한 방, 다른 사람은 연결 객실을 원하지만 둘을 동시에 제공할 수 없습니다.",
+      "learnerRole": "그룹 예약 대표",
+      "interlocutorRole": "매니저. 연결 객실은 도로 쪽, 조용한 방은 다른 층이며 변경은 오늘만 가능하다.",
+      "opening": "We can offer adjoining rooms or quiet rooms, but not both.",
+      "steps": [
+        {
+          "goal": "공통 목적과 충돌 조건 정리하기",
+          "example": "We all want an arrangement that lets the group manage comfortably, but proximity and quiet matter differently to each person.",
+          "cue": "proximity = 가까움"
+        },
+        {
+          "goal": "선택에 필요한 정보 묻기",
+          "example": "Could you explain the actual distance between the quiet rooms and the likely noise level in the adjoining ones?",
+          "cue": "likely = 예상되는"
+        },
+        {
+          "goal": "선호 강요 없이 합의안 제시하기",
+          "example": "Let us confirm each person’s non-negotiable need before assigning rooms, rather than treating my preference as the group’s choice.",
+          "cue": "non-negotiable = 양보 어려운"
+        }
+      ],
+      "outcome": "다른 필요를 구체화해 방 배정 결정을 돕는다.",
+      "transfer": "한 명의 야간 돌봄 필요가 추가된다. 선호와 필수 조건의 우선순위를 다시 정한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "C2",
+      "slug": "goodwill-vs-resolution",
+      "title": "호의 제공과 문제 해결 종결 구분하기",
+      "scenario": "소음 민원에 무료 저녁을 제안하며 만족스러운 해결이라고 기록하려 합니다. 다음 날 소음은 계속됩니다.",
+      "learnerRole": "민원 제기 투숙객",
+      "interlocutorRole": "매니저. 식사는 호의지만 객실 변경은 다음 날 가능하며 종결 동의 여부를 확인할 수 있다.",
+      "opening": "We hope the complimentary dinner settles the matter to your satisfaction.",
+      "steps": [
+        {
+          "goal": "호의는 인정하되 함의 분리하기",
+          "example": "I appreciate the gesture, but accepting dinner should not be read as agreement that the underlying disturbance has been resolved.",
+          "cue": "be read as = 해석되다"
+        },
+        {
+          "goal": "서로 다른 해결 기준 명시하기",
+          "example": "For me, resolution concerns whether I can sleep tonight; compensation addresses a different part of the experience.",
+          "cue": "underlying = 근본의"
+        },
+        {
+          "goal": "기록 문구와 다음 조치 합의하기",
+          "example": "Could the note say that the gesture was accepted while the room issue remains open, with a named contact for tonight?",
+          "cue": "remains open = 미해결로 남다"
+        }
+      ],
+      "outcome": "호의 수용과 민원 종결을 구별해 합의한다.",
+      "transfer": "무료 업그레이드가 다음 여행에만 적용된다. 현재 불편 해결과 미래 보상을 분리한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "C2",
+      "slug": "ambiguous-view-listing",
+      "title": "과장과 해석 차이를 구분해 숙소 설명 수정 요청하기",
+      "scenario": "부분 바다 전망 설명은 기술적으로 맞지만 사진 구도는 넓은 바다 전망을 암시합니다. 사기라고 단정하지 않고 해결을 요청합니다.",
+      "learnerRole": "예약 투숙객",
+      "interlocutorRole": "매니저. 객실 문구는 partial view이며 대표 사진은 다른 객실에서 촬영했다고 인정한다.",
+      "opening": "The description clearly says partial sea view, which this room has.",
+      "steps": [
+        {
+          "goal": "문언과 전체 인상 구분하기",
+          "example": "I accept that the wording is qualified; my concern is the combined impression created by the photo and the room label.",
+          "cue": "qualified = 제한 조건이 붙은"
+        },
+        {
+          "goal": "의도 추정 없이 영향 설명하기",
+          "example": "I am not claiming to know how the listing was intended, only that it shaped a materially different expectation.",
+          "cue": "materially different = 실질적으로 다른"
+        },
+        {
+          "goal": "즉시 조치와 장기 정정 분리하기",
+          "example": "Could we discuss a room option for this stay and, separately, clearer identification of the photograph for future guests?",
+          "cue": "separately = 별도로"
+        }
+      ],
+      "outcome": "허위 의도 단정 없이 표현과 기대 차이를 해결한다.",
+      "transfer": "사진은 실제 방이지만 계절 공사로 전망이 가려졌다. 시점과 안내 누락을 구별한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "C2",
+      "slug": "confidential-group-request",
+      "title": "단체 예약에서 개인 사유 공개 없이 필요 전달하기",
+      "scenario": "동행인의 개인적인 이유로 분리 객실이 필요하지만 단체 담당자가 이유를 모두에게 설명하라고 요구합니다.",
+      "learnerRole": "동행인의 동의를 받은 예약 대표",
+      "interlocutorRole": "매니저. 방 배정에 기능적 요구만 필요하고 그룹 공지에는 사유를 넣지 않아도 된다.",
+      "opening": "It would help if you explained to everyone why the rooms need to change.",
+      "steps": [
+        {
+          "goal": "정보 필요 범위 제한하기",
+          "example": "The allocation team needs to know the room arrangement required, but the personal reason is not necessary for the group announcement.",
+          "cue": "allocation = 배정"
+        },
+        {
+          "goal": "추측을 막는 중립 문구 제안하기",
+          "example": "Could we describe this simply as a revised rooming arrangement, without implying a dispute or disclosing private circumstances?",
+          "cue": "without implying = 암시하지 않고"
+        },
+        {
+          "goal": "당사자 동의와 실행 확인하기",
+          "example": "I will confirm the affected guests’ consent directly; please keep the operational details with the staff who need them.",
+          "cue": "affected guests = 영향을 받는 투숙객"
+        }
+      ],
+      "outcome": "필요한 실행 정보와 개인 사유를 분리한다.",
+      "transfer": "비용 정산 담당에게 변경 비용은 알려야 한다. 금액 정보와 개인 사유를 나눠 전달한다."
+    },
+    {
+      "subcategoryId": "hotel",
+      "difficulty": "C2",
+      "slug": "review-request-pressure",
+      "title": "보상과 후기 변경 요청의 관계 명확히 하기",
+      "scenario": "호텔이 부분 환불을 제안하며 나쁜 후기도 다시 생각해 달라고 합니다. 환불 조건인지 애매합니다.",
+      "learnerRole": "불만 후기를 쓴 투숙객",
+      "interlocutorRole": "매니저. 환불과 후기 수정은 연동 조건이 아니라고 확인할 수 있고 서면 제안서를 보낸다.",
+      "opening": "We can offer a partial refund, and naturally we would hope you might reconsider your review.",
+      "steps": [
+        {
+          "goal": "암묵적 조건 여부 직접 확인하기",
+          "example": "To avoid misunderstanding, is revising the review a condition of the refund, or a separate request?",
+          "cue": "condition = 조건"
+        },
+        {
+          "goal": "공정한 태도와 독립성 함께 표현하기",
+          "example": "I am willing to reflect any genuine resolution accurately, but I would not agree in advance to a particular rating.",
+          "cue": "in advance = 미리"
+        },
+        {
+          "goal": "합의 기록 요청하기",
+          "example": "Please set out the refund terms independently so both sides have the same understanding.",
+          "cue": "independently = 독립적으로"
+        }
+      ],
+      "outcome": "완곡한 기대와 거래 조건을 구분해 확인한다.",
+      "transfer": "후기 삭제가 명시 조건이라고 답한다. 동의하지 않는 범위와 다음 문의 절차를 밝힌다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "pre-A1",
+      "slug": "bus-number",
+      "title": "탈 버스 번호 확인하기",
+      "scenario": "정류장에 2번과 3번이 옵니다. 표에 적힌 2번을 찾습니다.",
+      "learnerRole": "버스 승객",
+      "interlocutorRole": "기사. 이 버스는 2번이고 맞는지 물으면 yes라고 답한다.",
+      "opening": "Hello!",
+      "steps": [
+        {
+          "goal": "번호 묻기",
+          "example": "Bus two?",
+          "cue": "bus = 버스; two = 2"
+        },
+        {
+          "goal": "탈 의사 말하기",
+          "example": "Yes, please.",
+          "cue": "네 부탁해요"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "표와 버스 번호를 맞춘다.",
+      "transfer": "3번 버스로 바꾼다. three를 듣고 번호를 확인한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "pre-A1",
+      "slug": "station-direction",
+      "title": "역 방향 한 번 묻기",
+      "scenario": "길에서 역을 찾습니다. 좌우 방향 중 하나를 확인합니다.",
+      "learnerRole": "길 찾는 여행자",
+      "interlocutorRole": "행인. 역은 왼쪽이라고 짧게 말한다.",
+      "opening": "Hello.",
+      "steps": [
+        {
+          "goal": "역 묻기",
+          "example": "Station?",
+          "cue": "station = 역"
+        },
+        {
+          "goal": "방향 되묻기",
+          "example": "Left?",
+          "cue": "left = 왼쪽"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "역 방향을 확인한다.",
+      "transfer": "역 대신 bus stop(버스 정류장)을 찾으며 새 장소 단어를 사용한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "pre-A1",
+      "slug": "single-ticket",
+      "title": "편도 표 한 장 고르기",
+      "scenario": "창구에서 편도와 왕복 중 편도 한 장을 삽니다.",
+      "learnerRole": "기차 이용자",
+      "interlocutorRole": "직원. single과 return 뜻을 알려주고 수량을 확인한다.",
+      "opening": "Single or return?",
+      "steps": [
+        {
+          "goal": "편도 고르기",
+          "example": "Single, please.",
+          "cue": "single = 편도"
+        },
+        {
+          "goal": "수량 말하기",
+          "example": "One.",
+          "cue": "하나"
+        },
+        {
+          "goal": "확인에 응답하기",
+          "example": "Yes.",
+          "cue": "네"
+        }
+      ],
+      "outcome": "표 종류와 수량을 전달한다.",
+      "transfer": "왕복 표 두 장이 필요하다. return과 two를 사용한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "pre-A1",
+      "slug": "stop-here",
+      "title": "택시에서 하차 지점 말하기",
+      "scenario": "목적지 건물 앞에 도착해 안전한 정차 가능 위치를 기사에게 확인합니다.",
+      "learnerRole": "택시 승객",
+      "interlocutorRole": "기사. 정차 가능한 곳에 도착하면 here인지 묻는다.",
+      "opening": "Here?",
+      "steps": [
+        {
+          "goal": "위치 확인하기",
+          "example": "Yes, here.",
+          "cue": "여기가 맞아요"
+        },
+        {
+          "goal": "정차 부탁하기",
+          "example": "Stop, please.",
+          "cue": "stop = 멈추다"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "원하는 하차 위치를 알린다.",
+      "transfer": "기사가 한 블록 앞 안전 지점을 제안한다. yes/no로 선호를 알린다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "A1",
+      "slug": "platform-check",
+      "title": "출발 플랫폼 확인하기",
+      "scenario": "전광판에서 목적지 이름을 찾기 어렵습니다. 4번 플랫폼인지 묻습니다. 표의 목적지는 York(요크)입니다.",
+      "learnerRole": "기차 승객",
+      "interlocutorRole": "역 직원. York행은 4번, 출발은 2시라고 답한다.",
+      "opening": "Where are you going?",
+      "steps": [
+        {
+          "goal": "목적지 말하기",
+          "example": "I am going to York.",
+          "cue": "going to = 가는 중이다"
+        },
+        {
+          "goal": "플랫폼 묻기",
+          "example": "Which platform is it?",
+          "cue": "platform = 승강장"
+        },
+        {
+          "goal": "번호 확인하기",
+          "example": "Platform four?",
+          "cue": "four = 4"
+        }
+      ],
+      "outcome": "목적지에 맞는 플랫폼을 확인한다.",
+      "transfer": "같은 도시로 가는 급행과 완행이 다르다. 표의 열차 시간을 함께 말한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "A1",
+      "slug": "taxi-address",
+      "title": "택시에 가상 주소 보여주기",
+      "scenario": "비슷한 호텔 이름이 있어 주소를 보여주며 목적지를 확인합니다. 가상 목적지는 King Street에 있는 Riverside Hotel입니다. [보여주기: Riverside Hotel, King Street]라는 텍스트로 주소 표시를 대신할 수 있습니다.",
+      "learnerRole": "택시 승객",
+      "interlocutorRole": "기사. Riverside Hotel이 두 곳이라 주소를 요청한다.",
+      "opening": "Which Riverside Hotel?",
+      "steps": [
+        {
+          "goal": "주소 제시하기",
+          "example": "This address, please.",
+          "cue": "address = 주소"
+        },
+        {
+          "goal": "거리 이름 말하기",
+          "example": "It is on King Street.",
+          "cue": "on King Street = King Street에 있는"
+        },
+        {
+          "goal": "목적지 확인하기",
+          "example": "The hotel on King Street, yes.",
+          "cue": "호텔과 거리 함께 말하기"
+        }
+      ],
+      "outcome": "이름이 같은 목적지를 주소로 구분한다.",
+      "transfer": "호텔이 아닌 같은 건물의 뒤쪽 입구로 가야 한다. entrance 뜻을 써서 설명한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "A1",
+      "slug": "fare-payment",
+      "title": "버스 요금과 결제 수단 묻기",
+      "scenario": "현금 없이 카드만 있어 승차 전에 결제 가능 여부를 확인합니다. 목적지는 city centre(도심)입니다.",
+      "learnerRole": "버스 승객",
+      "interlocutorRole": "기사. 요금 3, 카드 가능, 단말기는 오른쪽이라고 안내한다.",
+      "opening": "Where are you going?",
+      "steps": [
+        {
+          "goal": "목적지 말하기",
+          "example": "To the city centre, please.",
+          "cue": "city centre = 도심"
+        },
+        {
+          "goal": "요금 묻기",
+          "example": "How much is it?",
+          "cue": "how much = 얼마"
+        },
+        {
+          "goal": "카드 가능 여부 묻기",
+          "example": "Can I pay by card?",
+          "cue": "pay by card = 카드로 내다"
+        }
+      ],
+      "outcome": "요금과 사용할 결제 수단을 확인한다.",
+      "transfer": "카드가 안 되는 버스다. 현금이 없다고 말하고 표를 살 곳을 묻는다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "A1",
+      "slug": "next-stop",
+      "title": "다음 정류장인지 확인하기",
+      "scenario": "박물관에 가지만 안내 방송을 놓쳤습니다.",
+      "learnerRole": "버스 승객",
+      "interlocutorRole": "기사. 박물관은 두 정거장 뒤라고 천천히 알려준다.",
+      "opening": "Can I help?",
+      "steps": [
+        {
+          "goal": "목적지 알리기",
+          "example": "I need the museum stop.",
+          "cue": "stop = 정류장"
+        },
+        {
+          "goal": "다음인지 묻기",
+          "example": "Is it the next stop?",
+          "cue": "next = 다음"
+        },
+        {
+          "goal": "남은 수 확인하기",
+          "example": "Two more stops?",
+          "cue": "two more = 두 개 더"
+        }
+      ],
+      "outcome": "내릴 정류장까지 남은 거리를 확인한다.",
+      "transfer": "이미 지나쳤다. 다음 정류장에서 내려야 하는지 묻는다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "A2",
+      "slug": "change-lines",
+      "title": "지하철 환승 순서 확인하기",
+      "scenario": "빨간 노선에서 파란 노선으로 갈아타고 Harbor역으로 갑니다.",
+      "learnerRole": "지하철 이용자",
+      "interlocutorRole": "역 직원. Central에서 환승하고 동쪽 방향 열차를 타라고 안내한다.",
+      "opening": "You need to change at Central.",
+      "steps": [
+        {
+          "goal": "환승역 확인하기",
+          "example": "Do I change at Central station?",
+          "cue": "change = 갈아타다"
+        },
+        {
+          "goal": "진행 방향 묻기",
+          "example": "Which direction should I take on the blue line?",
+          "cue": "direction = 방향"
+        },
+        {
+          "goal": "경로 되말하기",
+          "example": "Red to Central, then blue towards Harbor?",
+          "cue": "towards = 쪽으로"
+        }
+      ],
+      "outcome": "환승 지점과 방향을 순서대로 확인한다.",
+      "transfer": "파란 노선 일부가 중단된다. 다른 환승역을 포함해 새 경로를 말한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "A2",
+      "slug": "last-train",
+      "title": "막차 시간을 확인해 귀가 계획 세우기",
+      "scenario": "공연이 10시 30분에 끝나며 역까지 15분 걸립니다.",
+      "learnerRole": "공연 관람 여행자",
+      "interlocutorRole": "역 직원. 마지막 열차는 11시, 다음은 새벽 5시라고 답한다.",
+      "opening": "The last train leaves at eleven.",
+      "steps": [
+        {
+          "goal": "출발 시각 재확인하기",
+          "example": "Is eleven the last train to West Park?",
+          "cue": "last train = 막차"
+        },
+        {
+          "goal": "걷는 시간 설명하기",
+          "example": "The show ends at ten thirty, and I need fifteen minutes to get here.",
+          "cue": "ends = 끝나다"
+        },
+        {
+          "goal": "놓친 경우 대안 묻기",
+          "example": "Is there a night bus if I miss it?",
+          "cue": "miss it = 놓치다"
+        }
+      ],
+      "outcome": "막차와 대체 교통 정보를 확보한다.",
+      "transfer": "공연 종료가 30분 늦어진다. 막차를 기대하지 않고 야간 교통을 확인한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "A2",
+      "slug": "ticket-machine-help",
+      "title": "발권기 오류 때 도움 요청하기",
+      "scenario": "발권기에서 카드는 인식했지만 표가 나오지 않았습니다. 이용한 발권기는 3번입니다.",
+      "learnerRole": "기차 승객",
+      "interlocutorRole": "직원. 결제 화면 사진과 기계 번호를 보고 결제 완료인지 확인한다.",
+      "opening": "What happened at the machine?",
+      "steps": [
+        {
+          "goal": "오류 설명하기",
+          "example": "I used my card, but no ticket came out.",
+          "cue": "came out = 나왔다"
+        },
+        {
+          "goal": "기계 지정하기",
+          "example": "It was machine number three.",
+          "cue": "machine number = 기계 번호"
+        },
+        {
+          "goal": "다음 조치 묻기",
+          "example": "Should I buy another ticket or wait for you to check?",
+          "cue": "wait = 기다리다"
+        }
+      ],
+      "outcome": "기계와 증상을 알려 중복 구매 전 확인한다.",
+      "transfer": "표는 나왔지만 날짜가 틀리다. 발권 실패가 아니라 수정 문제라고 설명한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "A2",
+      "slug": "bike-return",
+      "title": "공유 자전거 반납 확인하기",
+      "scenario": "반납대에 자전거를 넣었는데 앱에는 이용 중이라고 표시됩니다. 가상 자전거 번호는 42이며 도서관 옆 반납대에 넣었습니다.",
+      "learnerRole": "자전거 이용자",
+      "interlocutorRole": "상담원. 자전거 번호와 반납대 위치를 받고 잠금 표시 확인을 요청한다.",
+      "opening": "Is the bike locked into the dock?",
+      "steps": [
+        {
+          "goal": "현재 표시 설명하기",
+          "example": "The bike is in the dock, but the app still says it is in use.",
+          "cue": "in use = 사용 중"
+        },
+        {
+          "goal": "위치와 번호 말하기",
+          "example": "Bike 42 is at the station by the library.",
+          "cue": "by = 옆에"
+        },
+        {
+          "goal": "반납 확인 요청하기",
+          "example": "Can you check that my ride has ended?",
+          "cue": "ride has ended = 이용이 끝났다"
+        }
+      ],
+      "outcome": "물리 반납과 앱 상태 불일치를 신고한다.",
+      "transfer": "반납대가 가득 찼다. 반납 가능한 다른 위치를 먼저 묻는다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "B1",
+      "slug": "wrong-train",
+      "title": "반대 방향 열차를 탔을 때 돌아가기",
+      "scenario": "급히 타느라 반대 방향으로 두 역 이동했습니다. 추가 요금 여부도 확인합니다. 가려던 목적지는 North Park역입니다.",
+      "learnerRole": "길을 잘못 든 승객",
+      "interlocutorRole": "역 직원. 다음 역에서 반대편으로 이동 가능하며 개찰구를 나가기 전 직원에게 말하라고 안내한다.",
+      "opening": "Where were you trying to go?",
+      "steps": [
+        {
+          "goal": "실수와 목적지 설명하기",
+          "example": "I meant to go to North Park, but I got on the train going the other way.",
+          "cue": "meant to = 하려고 했다"
+        },
+        {
+          "goal": "되돌아갈 방법 묻기",
+          "example": "Where is the easiest place to change direction?",
+          "cue": "change direction = 방향을 바꾸다"
+        },
+        {
+          "goal": "요금 처리 확인하기",
+          "example": "Will my current ticket still work, or do I need help at the gate?",
+          "cue": "current ticket = 지금 표"
+        }
+      ],
+      "outcome": "실수 이후 경로와 표 처리 방법을 확인한다.",
+      "transfer": "급행이라 다음 정차역이 멀다. 돌아오는 시간까지 확인한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "B1",
+      "slug": "taxi-route-query",
+      "title": "택시의 다른 경로를 차분히 확인하기",
+      "scenario": "앱 경로와 다르게 가고 있어 우회 이유와 예상 요금을 묻습니다.",
+      "learnerRole": "택시 승객",
+      "interlocutorRole": "기사. 도로 공사로 우회 중이며 예상 10분 추가, 미터 요금이라고 설명한다.",
+      "opening": "The main road is closed today.",
+      "steps": [
+        {
+          "goal": "관찰한 차이 말하기",
+          "example": "The app shows another route, so I wanted to check where we are going.",
+          "cue": "wanted to check = 확인하고 싶었다"
+        },
+        {
+          "goal": "이유와 시간 묻기",
+          "example": "How much longer will this route take?",
+          "cue": "how much longer = 얼마나 더"
+        },
+        {
+          "goal": "요금 기준 확인하기",
+          "example": "Will the fare follow the meter, or was the price fixed?",
+          "cue": "meter = 미터기"
+        }
+      ],
+      "outcome": "우회 이유·시간·요금 기준을 확인한다.",
+      "transfer": "기사가 길을 잘못 들었다고 인정한다. 목적지 도착 계획과 비용 처리에 관해 묻는다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "B1",
+      "slug": "train-cancelled",
+      "title": "열차 취소 후 표 사용 대안 찾기",
+      "scenario": "예약 열차가 취소됐고 한 시간 후 지역 열차가 있습니다. 기존 표 사용 여부가 불명확합니다. 현재는 오후 2시이며 다음 지역 열차는 오후 3시입니다.",
+      "learnerRole": "예약 승객",
+      "interlocutorRole": "직원. 다음 지역 열차에 기존 표 사용 가능하지만 좌석 예약은 이전되지 않는다고 안내한다.",
+      "opening": "Your train has been cancelled.",
+      "steps": [
+        {
+          "goal": "대안 열차 확인하기",
+          "example": "Can I use this ticket on the regional train at three?",
+          "cue": "regional train = 지역 열차"
+        },
+        {
+          "goal": "좌석 조건 묻기",
+          "example": "Does my seat reservation carry over?",
+          "cue": "carry over = 그대로 이어지다"
+        },
+        {
+          "goal": "선택 확인하기",
+          "example": "I will take that train and look for an unreserved seat.",
+          "cue": "unreserved = 예약되지 않은"
+        }
+      ],
+      "outcome": "표와 좌석 예약을 구분해 대체편을 선택한다.",
+      "transfer": "다른 회사 열차만 남았다. 회사 간 표 인정 여부를 확인한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "B1",
+      "slug": "step-free-route",
+      "title": "계단 없는 역 이동 경로 찾기",
+      "scenario": "무거운 짐 때문에 계단 없는 출구가 필요하지만 가까운 엘리베이터가 고장입니다. 운영 중인 엘리베이터는 C 출구 쪽에 있습니다.",
+      "learnerRole": "여행자",
+      "interlocutorRole": "역 직원. 다른 출구 엘리베이터는 운영 중이며 도보 8분 우회가 필요하다고 안내한다. 작동 중인 엘리베이터가 C 출구에 있다는 사실을 안내한다.",
+      "opening": "This lift is out of service.",
+      "steps": [
+        {
+          "goal": "필요 설명하기",
+          "example": "I need a route without stairs because of my luggage.",
+          "cue": "without stairs = 계단 없이"
+        },
+        {
+          "goal": "대체 경로 묻기",
+          "example": "Is there another working lift to street level?",
+          "cue": "street level = 지상"
+        },
+        {
+          "goal": "우회 순서 확인하기",
+          "example": "So I follow the signs to exit C before taking the lift?",
+          "cue": "follow the signs = 표지를 따라가다"
+        }
+      ],
+      "outcome": "이용 가능한 계단 없는 경로를 확인한다.",
+      "transfer": "엘리베이터가 모두 고장이다. 직원 지원이나 다른 역 하차 가능성을 묻는다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "B2",
+      "slug": "rail-pass-value",
+      "title": "교통패스 조건과 실제 일정 비교하기",
+      "scenario": "3일 패스는 공항 노선을 제외하고 개별 표는 공항 노선을 포함해 따로 사야 합니다.",
+      "learnerRole": "교통권 구매자",
+      "interlocutorRole": "직원. 패스 25, 시내 개별 4, 공항 12이며 계획상 시내 이동은 4회라고 확인한다.",
+      "opening": "The pass is good value for unlimited travel within the city zone.",
+      "steps": [
+        {
+          "goal": "제외 조건 구체화하기",
+          "example": "Does the airport fall outside that zone, and would I pay the full fare separately?",
+          "cue": "outside = 범위 밖"
+        },
+        {
+          "goal": "실제 이용량으로 비교하기",
+          "example": "With only four city trips planned, individual tickets may cost less than the pass.",
+          "cue": "individual tickets = 개별 표"
+        },
+        {
+          "goal": "변경 가능성 확인하기",
+          "example": "If my plans change, can I upgrade later or would I need to buy a new pass?",
+          "cue": "upgrade = 상위 상품으로 바꾸다"
+        }
+      ],
+      "outcome": "홍보 문구 대신 사용 범위와 실제 비용으로 선택한다.",
+      "transfer": "하루 이동이 8회로 늘어난다. 같은 조건으로 다시 판단한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "B2",
+      "slug": "rental-car-damage",
+      "title": "렌터카 인수 시 기존 흠집 기록하기",
+      "scenario": "차량 확인서에는 흠집 없음이지만 문에 자국이 있습니다. 책임 분쟁 전에 기록을 요청합니다.",
+      "learnerRole": "렌터카 이용자",
+      "interlocutorRole": "직원. 사진과 위치 기록 후 인수 확인서 수정이 가능하고 수리비 판단은 하지 않는다.",
+      "opening": "Just sign here to confirm the car is in good condition.",
+      "steps": [
+        {
+          "goal": "관찰 사실과 서명 의미 확인하기",
+          "example": "There is a mark on the rear door, so I cannot confirm the current form as written.",
+          "cue": "as written = 쓰인 그대로"
+        },
+        {
+          "goal": "기록 수정 요청하기",
+          "example": "Could you photograph it and add its location before I sign?",
+          "cue": "add its location = 위치를 기록하다"
+        },
+        {
+          "goal": "사본 확인하기",
+          "example": "I would like a copy showing that this was present at collection.",
+          "cue": "at collection = 인수 시"
+        }
+      ],
+      "outcome": "기존 손상 사실이 기록된 후 인수 확인한다.",
+      "transfer": "밤이라 일부 표면이 안 보인다. 미확인 영역을 어떻게 기록하는지 묻는다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "B2",
+      "slug": "crowded-boarding-space",
+      "title": "혼잡한 차량의 공간을 예의 있게 조정하기",
+      "scenario": "출입문 앞 가방이 통로를 막고 내려야 하는 사람이 있습니다.",
+      "learnerRole": "하차 예정 승객",
+      "interlocutorRole": "동승객. 가방을 옮길 공간이 없다고 말하지만 좌석 아래는 비어 있다.",
+      "opening": "There is nowhere else to put my bag.",
+      "steps": [
+        {
+          "goal": "공동 문제로 설명하기",
+          "example": "We need to keep enough space for people to get off at the next stop.",
+          "cue": "enough space = 충분한 공간"
+        },
+        {
+          "goal": "구체 대안 제시하기",
+          "example": "Would it fit under the seat if we move this smaller bag first?",
+          "cue": "fit = 들어가다"
+        },
+        {
+          "goal": "동의와 도움 범위 확인하기",
+          "example": "May I move the small bag with your permission, or would you prefer to do it?",
+          "cue": "with your permission = 허락하신다면"
+        }
+      ],
+      "outcome": "비난 없이 통로 확보를 협의한다.",
+      "transfer": "가방이 아니라 보조기구다. 임의로 옮기지 않고 소유자의 안전한 방법을 묻는다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "B2",
+      "slug": "night-route-safety",
+      "title": "야간 이동의 상충 조건 비교하기",
+      "scenario": "빠른 경로는 도보 20분, 느린 경로는 호텔 앞에서 내리지만 마지막 환승이 불확실합니다.",
+      "learnerRole": "야간 이동 여행자",
+      "interlocutorRole": "교통 안내 직원. 도보 경로 조명 상태는 모른다고 밝히고 직행 택시와 버스 시간을 안내한다.",
+      "opening": "The quickest route includes a twenty-minute walk.",
+      "steps": [
+        {
+          "goal": "시간 외 우선순위 말하기",
+          "example": "I would prefer less walking at this hour, even if the journey takes longer.",
+          "cue": "even if = 그렇더라도"
+        },
+        {
+          "goal": "모르는 정보를 확인하기",
+          "example": "Do you know whether the final connection is still running, rather than just scheduled?",
+          "cue": "scheduled = 예정된"
+        },
+        {
+          "goal": "확실한 대안 선택하기",
+          "example": "If that cannot be confirmed, I will use the direct option and check the pickup point.",
+          "cue": "pickup point = 승차 위치"
+        }
+      ],
+      "outcome": "추정 운행과 실제 확인 정보를 구분해 경로를 선택한다.",
+      "transfer": "휴대전화 배터리가 부족하다. 이동 중 앱 필요 여부를 추가 조건으로 넣는다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "C1",
+      "slug": "passenger-rights-inquiry",
+      "title": "교통사 보상 안내의 조건과 절차 확인하기",
+      "scenario": "직원은 지연 보상이 가능할 수 있다고 하지만 신청처와 증빙을 설명하지 않습니다. 법률 결론을 요구하지 않고 절차를 확인합니다.",
+      "learnerRole": "지연 승객",
+      "interlocutorRole": "상담원. 구매처와 운행사 신청 경로가 다르며 승인 여부는 검토 후 결정된다고 안내한다.",
+      "opening": "You may be eligible for compensation, depending on the circumstances.",
+      "steps": [
+        {
+          "goal": "가능성과 확정을 분리하기",
+          "example": "I understand eligibility is not confirmed. Which facts will the assessment depend on?",
+          "cue": "eligibility = 대상 자격"
+        },
+        {
+          "goal": "책임 기관 확인하기",
+          "example": "Since I bought through an agent, who receives the claim and who decides it?",
+          "cue": "claim = 신청"
+        },
+        {
+          "goal": "증빙과 일정 확인하기",
+          "example": "Please identify the documents and submission window so I can make a complete request without assuming the outcome.",
+          "cue": "submission window = 제출 기간"
+        }
+      ],
+      "outcome": "권리 확약 없이 보상 검토 절차를 확보한다.",
+      "transfer": "지연 원인이 두 회사에 걸쳐 있다. 중복 제출 대신 담당 분배를 묻는다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "C1",
+      "slug": "rental-upgrade-pressure",
+      "title": "렌터카 무료 업그레이드의 추가 부담 따져보기",
+      "scenario": "더 큰 차량은 무료라지만 연료 방식과 보증금이 달라 주차 계획에 영향을 줍니다.",
+      "learnerRole": "차량 예약자",
+      "interlocutorRole": "직원. 큰 차는 보증금이 높고 연료비가 늘며 소형차는 두 시간 후 가능하다.",
+      "opening": "We have upgraded you at no extra rental charge.",
+      "steps": [
+        {
+          "goal": "혜택 명칭과 실제 필요 구분하기",
+          "example": "The rental price may be unchanged, but the larger vehicle is not necessarily an upgrade for my route.",
+          "cue": "not necessarily = 꼭 그렇지는 않다"
+        },
+        {
+          "goal": "변경 비용을 분해하기",
+          "example": "Could you compare the deposit, fuel arrangements, and parking dimensions with my original booking?",
+          "cue": "dimensions = 크기"
+        },
+        {
+          "goal": "선택 근거 말하기",
+          "example": "Given the narrow parking access, waiting for the smaller car may be preferable if the pickup delay is confirmed.",
+          "cue": "preferable = 더 적합한"
+        }
+      ],
+      "outcome": "무료라는 표현 뒤의 운용 비용과 적합성을 비교한다.",
+      "transfer": "작은 차가 전기차로 바뀐다. 충전 접근성과 반납 조건을 새 기준으로 검토한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "C1",
+      "slug": "staff-route-conflict",
+      "title": "역 직원 간 다른 안내 정리하기",
+      "scenario": "한 직원은 이 표로 급행 가능, 다른 직원은 불가라고 말합니다. 탑승 직전입니다.",
+      "learnerRole": "표 보유 승객",
+      "interlocutorRole": "감독 직원. 표의 제한 코드를 확인할 수 있고 급행 탑승 가능 여부를 판단한다.",
+      "opening": "My colleague may have been referring to a different ticket type.",
+      "steps": [
+        {
+          "goal": "사람 대신 조건 중심으로 재정의하기",
+          "example": "Rather than decide which explanation was right in general, could we check the restriction code on this ticket?",
+          "cue": "restriction code = 제한 코드"
+        },
+        {
+          "goal": "의사결정 시한 알리기",
+          "example": "The train leaves in eight minutes, so I need a usable answer before boarding, not a later refund process.",
+          "cue": "usable answer = 행동 가능한 답"
+        },
+        {
+          "goal": "확인 근거 남기기",
+          "example": "If it is valid, could you show me the relevant condition or add a note that the onboard staff can verify?",
+          "cue": "valid = 유효한"
+        }
+      ],
+      "outcome": "상충 안내를 해당 표의 조건과 탑승 판단으로 좁힌다.",
+      "transfer": "급행은 가능하지만 지정 좌석만 추가 구매해야 한다. 표 효력과 좌석 조건을 분리한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "C1",
+      "slug": "shared-ride-detour",
+      "title": "공유 차량 우회와 동승객 일정 중재하기",
+      "scenario": "한 승객은 병원 예약 시간, 다른 승객은 이미 약속한 하차 순서를 강조합니다.",
+      "learnerRole": "공유 차량 동승객",
+      "interlocutorRole": "기사. 첫 하차 순서를 바꾸면 10분 추가, 원래 순서면 예약자는 15분 늦는다고 설명한다.",
+      "opening": "Changing the drop-off order will delay the other passenger.",
+      "steps": [
+        {
+          "goal": "각 영향 중립적으로 요약하기",
+          "example": "Keeping the order risks one appointment, while changing it adds time to the other person’s agreed trip.",
+          "cue": "risks = 위태롭게 하다"
+        },
+        {
+          "goal": "강요 없이 선택지 열기",
+          "example": "Is there a safe transfer point where one of us could continue separately, and what would that cost?",
+          "cue": "transfer point = 갈아탈 장소"
+        },
+        {
+          "goal": "동의 조건 확인하기",
+          "example": "Any revised order should be agreed by both passengers, with the extra time made explicit.",
+          "cue": "made explicit = 명확히 알린"
+        }
+      ],
+      "outcome": "일정 충돌을 비용과 동의가 있는 대안으로 조율한다.",
+      "transfer": "별도 차량이 없어 순서만 선택해야 한다. 각 승객의 양보 가능 범위를 직접 확인한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "C2",
+      "slug": "service-guarantee-language",
+      "title": "정시 도착 보장의 예외 조항 명확히 하기",
+      "scenario": "셔틀 광고는 도착 보장, 상담원은 교통 상황에 따라 다르다고 설명합니다. 비행기를 놓칠 위험이 있습니다.",
+      "learnerRole": "공항 셔틀 예약자",
+      "interlocutorRole": "상담원. 도착 시각은 예상이며 보장은 셔틀 요금 환급에 한정되고 항공권 비용은 포함하지 않는다.",
+      "opening": "Arrival is guaranteed, subject to traffic conditions and our standard exclusions.",
+      "steps": [
+        {
+          "goal": "보장의 대상 분리하기",
+          "example": "Is the guarantee about arriving by a specified time, or about a remedy if that time is missed?",
+          "cue": "remedy = 문제 발생 시 조치"
+        },
+        {
+          "goal": "일상 의미와 약관 의미 차이 확인하기",
+          "example": "Those are materially different promises from a traveller’s perspective; I would like the limitation stated plainly.",
+          "cue": "limitation = 제한"
+        },
+        {
+          "goal": "선택에 필요한 실질 정보 요청하기",
+          "example": "Please separate the estimated journey time, the recommended buffer, and the exact remedy so I can judge the risk myself.",
+          "cue": "buffer = 여유 시간"
+        }
+      ],
+      "outcome": "광고상 보장을 시간 약속과 사후 조치로 구분한다.",
+      "transfer": "환급 대신 다음 이용권만 준다. 보상 수단의 실질 가치를 확인한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "C2",
+      "slug": "fairness-queue-mediation",
+      "title": "우선 탑승을 둘러싼 공정성 오해 중재하기",
+      "scenario": "일반 줄 승객이 우선 탑승자를 새치기로 오해합니다. 개인 사유 공개 없이 직원의 안내를 요청합니다.",
+      "learnerRole": "줄에 선 여행자",
+      "interlocutorRole": "역 직원. 우선 탑승 절차가 있으며 당사자의 개인 사유는 공개하지 않는다고 안내한다.",
+      "opening": "People are saying the boarding order is unfair.",
+      "steps": [
+        {
+          "goal": "관찰과 추정 구별하기",
+          "example": "What we can see is a different boarding route; that does not tell us whether someone has bypassed the rules.",
+          "cue": "bypassed = 우회하여 어겼다"
+        },
+        {
+          "goal": "정책 설명과 사생활 분리하기",
+          "example": "Could you explain the process without asking any passenger to justify their personal circumstances publicly?",
+          "cue": "justify = 정당성을 설명하다"
+        },
+        {
+          "goal": "긴장 낮추는 공통 목표 제시하기",
+          "example": "A clear announcement about how both queues will move may address the uncertainty better than debating individual entitlement.",
+          "cue": "entitlement = 이용 자격"
+        }
+      ],
+      "outcome": "규칙 설명을 통해 개인 공격과 정보 공개를 피한다.",
+      "transfer": "우선 줄 표지가 없었다. 승객 비난 대신 안내 개선을 요청한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "C2",
+      "slug": "algorithm-route-accountability",
+      "title": "앱 경로 오류와 현장 안내의 책임 정리하기",
+      "scenario": "앱이 폐쇄된 출구로 계속 안내하고 현장 직원은 앱 담당이 아니라고 합니다. 지금 이동과 오류 신고 둘 다 필요합니다.",
+      "learnerRole": "경로 안내 이용자",
+      "interlocutorRole": "직원. 안전한 출구를 안내할 수 있으나 앱 수정은 운영팀에 접수해야 한다.",
+      "opening": "The app is managed elsewhere, so there is nothing we can do about it here.",
+      "steps": [
+        {
+          "goal": "수정 권한과 현장 도움 분리하기",
+          "example": "I am not asking this desk to edit the app; I am asking for a safe route now and a way to ensure the incorrect guidance reaches the team that can act.",
+          "cue": "guidance = 안내"
+        },
+        {
+          "goal": "복합 문제를 두 과제로 나누기",
+          "example": "Could we handle the immediate journey and the persistent information error as separate issues?",
+          "cue": "persistent = 계속 남는"
+        },
+        {
+          "goal": "검증 가능한 인계 요청하기",
+          "example": "Please give me a usable route and a report reference, while making clear whether any warning can be posted locally in the meantime.",
+          "cue": "in the meantime = 그동안"
+        }
+      ],
+      "outcome": "권한 밖이라는 답을 즉시 지원과 오류 인계로 구체화한다.",
+      "transfer": "앱은 맞지만 현장 표지가 틀리다. 어느 정보가 검증됐는지부터 확인한다."
+    },
+    {
+      "subcategoryId": "transport",
+      "difficulty": "C2",
+      "slug": "fare-enforcement-nuance",
+      "title": "표 오류 사실과 고의 무임승차 함의 구분하기",
+      "scenario": "표 검사원이 무효 표를 보고 요금을 피하려 했다고 표현합니다. 구매 기록은 있으나 날짜를 잘못 선택했습니다.",
+      "learnerRole": "표 구매 승객",
+      "interlocutorRole": "검사원. 표가 무효인 사실은 유지하되 구매 기록과 경위를 보고서에 첨부할 수 있다.",
+      "opening": "You were travelling without a valid ticket, which means you were avoiding the fare.",
+      "steps": [
+        {
+          "goal": "무효 사실 인정과 의도 구분하기",
+          "example": "I accept that the ticket is not valid for today; I do not accept that this alone establishes an intention to avoid payment.",
+          "cue": "establishes = 입증한다"
+        },
+        {
+          "goal": "검증 가능한 자료 제시하기",
+          "example": "The purchase record shows payment before boarding, although I selected the wrong date.",
+          "cue": "although = 비록 그렇지만"
+        },
+        {
+          "goal": "판단 대신 절차와 중립 기록 요청하기",
+          "example": "Please record the purchase and the date error separately, and tell me how the decision can be reviewed without omitting either fact.",
+          "cue": "reviewed = 재검토되는"
+        }
+      ],
+      "outcome": "규칙 위반 사실과 의도 추정을 나눠 기록·절차를 요청한다.",
+      "transfer": "결제 승인만 있고 표 발행은 실패했다. 지불 완료로 과장하지 않고 상태를 구별한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "pre-A1",
+      "slug": "entry-ticket",
+      "title": "관광지 입장권 한 장 요청하기",
+      "scenario": "입구에서 성인 표 한 장을 요청합니다.",
+      "learnerRole": "방문객",
+      "interlocutorRole": "매표 직원. 수량을 확인하고 표를 준다.",
+      "opening": "Hello!",
+      "steps": [
+        {
+          "goal": "입장권 요청하기",
+          "example": "Ticket, please.",
+          "cue": "ticket = 표"
+        },
+        {
+          "goal": "수량 답하기",
+          "example": "One.",
+          "cue": "하나"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "원하는 표 수량을 말한다.",
+      "transfer": "두 명이 방문한다. two로 바꾸어 수량을 확인한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "pre-A1",
+      "slug": "ask-map",
+      "title": "안내 지도 요청하기",
+      "scenario": "큰 공원 입구에서 지도가 필요합니다. 가상 선택지는 [종이 지도]와 [QR 안내]입니다. [가리키기: 종이 지도]처럼 영어 옆에 표시하면 실제 이미지 없이 선택 동작으로 처리합니다.",
+      "learnerRole": "관광객",
+      "interlocutorRole": "안내 직원. 종이 지도와 QR 안내 중 종이 지도를 건넨다.",
+      "opening": "Hello!",
+      "steps": [
+        {
+          "goal": "지도 요청하기",
+          "example": "Map, please.",
+          "cue": "map = 지도"
+        },
+        {
+          "goal": "종이 지도 확인하기",
+          "example": "This one.",
+          "cue": "this one = 이것"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "필요한 지도 자료를 요청한다.",
+      "transfer": "종이 지도가 없다. QR 안내를 가리키며 this로 확인한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "pre-A1",
+      "slug": "photo-permission",
+      "title": "사진 촬영 가능 여부 묻기",
+      "scenario": "전시물 앞에서 카메라를 들기 전에 촬영 가능 여부를 묻습니다.",
+      "learnerRole": "박물관 방문객",
+      "interlocutorRole": "직원. 사진은 가능하지만 flash는 안 된다고 한 정보씩 말한다.",
+      "opening": "Hello.",
+      "steps": [
+        {
+          "goal": "사진 허락 묻기",
+          "example": "Photo?",
+          "cue": "photo = 사진"
+        },
+        {
+          "goal": "플래시 금지 확인하기",
+          "example": "No flash?",
+          "cue": "flash = 플래시"
+        },
+        {
+          "goal": "동의 알리기",
+          "example": "Okay. Thank you.",
+          "cue": "okay = 알겠어요"
+        }
+      ],
+      "outcome": "사진 촬영 허용과 제한을 확인한다.",
+      "transfer": "사진 자체가 금지된 공간이다. no를 듣고 카메라를 내린다고 알린다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "pre-A1",
+      "slug": "find-exit",
+      "title": "전시장 출구 찾기",
+      "scenario": "전시 관람을 마치고 출구 표시를 찾습니다.",
+      "learnerRole": "관람객",
+      "interlocutorRole": "직원. 출구는 오른쪽이고 화장실은 왼쪽이라고 짧게 알려준다.",
+      "opening": "Hello!",
+      "steps": [
+        {
+          "goal": "출구 묻기",
+          "example": "Exit?",
+          "cue": "exit = 출구"
+        },
+        {
+          "goal": "방향 확인하기",
+          "example": "Right?",
+          "cue": "오른쪽"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "출구를 다른 시설과 구분한다.",
+      "transfer": "입구로 다시 돌아가야 한다. entrance 뜻을 제공하고 구분한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "A1",
+      "slug": "opening-hours",
+      "title": "관광지 문 닫는 시간 확인하기",
+      "scenario": "오후에 도착해 남은 관람 시간을 알고 싶습니다. 현재 가상 시각은 오후 3시입니다.",
+      "learnerRole": "방문객",
+      "interlocutorRole": "직원. 폐관은 5시, 마지막 입장은 4시라고 안내한다. 현재 3시이므로 오늘의 마지막 입장 4시 전 입장이 가능하다고 답한다.",
+      "opening": "We close at five.",
+      "steps": [
+        {
+          "goal": "폐관 확인하기",
+          "example": "Do you close at five today?",
+          "cue": "close = 문 닫다"
+        },
+        {
+          "goal": "마지막 입장 묻기",
+          "example": "What time is the last entry?",
+          "cue": "last entry = 마지막 입장"
+        },
+        {
+          "goal": "지금 입장 가능 여부 묻기",
+          "example": "Can I go in now?",
+          "cue": "go in = 들어가다"
+        }
+      ],
+      "outcome": "폐관과 마지막 입장을 구분한다.",
+      "transfer": "특별 행사일에 일찍 닫는다. 오늘 시간을 따로 확인한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "A1",
+      "slug": "audio-guide-language",
+      "title": "오디오 가이드 언어 선택하기",
+      "scenario": "영어가 빠를까 걱정되어 한국어 가이드 유무를 묻습니다.",
+      "learnerRole": "전시 방문객",
+      "interlocutorRole": "직원. 한국어는 없고 쉬운 영어와 인쇄 안내지가 있다고 말한다.",
+      "opening": "Which language would you like?",
+      "steps": [
+        {
+          "goal": "원하는 언어 묻기",
+          "example": "Do you have Korean?",
+          "cue": "Korean = 한국어"
+        },
+        {
+          "goal": "대안 확인하기",
+          "example": "Is there a simple English guide?",
+          "cue": "simple = 쉬운"
+        },
+        {
+          "goal": "자료 선택하기",
+          "example": "The printed guide, please.",
+          "cue": "printed guide = 인쇄 안내지"
+        }
+      ],
+      "outcome": "이해 가능한 안내 자료를 선택한다.",
+      "transfer": "한국어는 있지만 일부 전시만 지원한다. 지원 범위를 묻는다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "A1",
+      "slug": "join-tour",
+      "title": "가이드 투어 시작 장소 찾기",
+      "scenario": "11시 영어 투어를 신청했고 모임 장소를 찾습니다.",
+      "learnerRole": "투어 참가자",
+      "interlocutorRole": "안내 직원. 투어는 정문 시계 아래에서 11시에 시작한다고 알려준다.",
+      "opening": "Which tour are you joining?",
+      "steps": [
+        {
+          "goal": "예약 투어 말하기",
+          "example": "The English tour at eleven.",
+          "cue": "at eleven = 11시에"
+        },
+        {
+          "goal": "모임 장소 묻기",
+          "example": "Where do we meet?",
+          "cue": "meet = 만나다"
+        },
+        {
+          "goal": "장소 확인하기",
+          "example": "Under the clock?",
+          "cue": "under = 아래"
+        }
+      ],
+      "outcome": "투어 모임 장소와 시간을 확인한다.",
+      "transfer": "비가 와서 로비로 바뀐다. 새 위치를 다시 말한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "A1",
+      "slug": "buy-postcard",
+      "title": "기념 엽서와 우표 찾기",
+      "scenario": "기념품점에서 엽서를 사고 현지에서 보내려 합니다.",
+      "learnerRole": "관광객",
+      "interlocutorRole": "점원. 엽서는 판매하지만 우표는 옆 우체국에서 산다고 안내한다.",
+      "opening": "Can I help you find something?",
+      "steps": [
+        {
+          "goal": "물건 요청하기",
+          "example": "I would like a postcard.",
+          "cue": "postcard = 엽서"
+        },
+        {
+          "goal": "우표 유무 묻기",
+          "example": "Do you sell stamps?",
+          "cue": "stamps = 우표"
+        },
+        {
+          "goal": "구입 장소 묻기",
+          "example": "Where can I buy them?",
+          "cue": "buy = 사다"
+        }
+      ],
+      "outcome": "기념품과 발송 준비물의 구입처를 구분한다.",
+      "transfer": "국제 우편용 우표가 필요하다. overseas 뜻을 제공하고 용도를 말한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "A2",
+      "slug": "short-visit-route",
+      "title": "한 시간 관람 경로 추천받기",
+      "scenario": "박물관에서 한 시간만 보낼 수 있고 사진 전시에 관심 있습니다.",
+      "learnerRole": "시간 제한 방문객",
+      "interlocutorRole": "안내 직원. 사진 전시 30분, 역사 전시 60분, 옥상 20분이라고 알려준다.",
+      "opening": "How much time do you have?",
+      "steps": [
+        {
+          "goal": "시간과 관심 말하기",
+          "example": "I have one hour, and I am interested in photography.",
+          "cue": "interested in = 관심 있는"
+        },
+        {
+          "goal": "우선 전시 묻기",
+          "example": "Which exhibition should I visit first?",
+          "cue": "first = 먼저"
+        },
+        {
+          "goal": "경로 확인하기",
+          "example": "Can I see the photos and the roof in one hour?",
+          "cue": "roof = 옥상"
+        }
+      ],
+      "outcome": "시간 안에 관심 전시를 포함한 경로를 고른다.",
+      "transfer": "사진 전시가 닫혔다. 새 관심 분야와 남은 시간을 바탕으로 다시 고른다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "A2",
+      "slug": "tour-question",
+      "title": "설명 중 모르는 부분 질문하기",
+      "scenario": "가이드가 오래된 다리의 용도를 설명했지만 누가 사용했는지 놓쳤습니다.",
+      "learnerRole": "투어 참가자",
+      "interlocutorRole": "가이드. 처음에는 상인들이 강을 건넜고 이후 마을 주민도 썼다고 설명한다.",
+      "opening": "This bridge was first used by local traders.",
+      "steps": [
+        {
+          "goal": "낱말 뜻 확인하기",
+          "example": "What does traders mean?",
+          "cue": "what does ... mean = 무슨 뜻인가요"
+        },
+        {
+          "goal": "사용자 확인하기",
+          "example": "Was it only for traders at first?",
+          "cue": "at first = 처음에"
+        },
+        {
+          "goal": "이해한 내용 되말하기",
+          "example": "Later, people in the village used it too?",
+          "cue": "later = 나중에"
+        }
+      ],
+      "outcome": "모르는 단어와 설명의 시간 순서를 확인한다.",
+      "transfer": "건물의 소유자와 이용자가 다르다. 두 역할을 구분해 질문한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "A2",
+      "slug": "workshop-materials",
+      "title": "체험 수업 준비물과 순서 확인하기",
+      "scenario": "도자기 체험에 참가하며 앞치마 제공과 완성품 수령을 확인합니다. 체험에서 만들 물건은 작은 그릇(bowl)입니다.",
+      "learnerRole": "체험 참가자",
+      "interlocutorRole": "강사. 앞치마 제공, 굽기 후 3일 뒤 수령 가능하다고 안내한다.",
+      "opening": "Have you tried pottery before?",
+      "steps": [
+        {
+          "goal": "경험 말하기",
+          "example": "No, this is my first time.",
+          "cue": "first time = 처음"
+        },
+        {
+          "goal": "준비물 묻기",
+          "example": "Do I need to bring an apron?",
+          "cue": "apron = 앞치마"
+        },
+        {
+          "goal": "수령 시점 확인하기",
+          "example": "Can I collect the bowl in three days?",
+          "cue": "collect = 찾아가다"
+        }
+      ],
+      "outcome": "체험 준비와 완성품 수령 계획을 확인한다.",
+      "transfer": "다음 날 출국한다. 배송 가능한지와 비용을 묻는다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "A2",
+      "slug": "respect-site-rules",
+      "title": "방문 장소의 복장·행동 안내 확인하기",
+      "scenario": "종교·문화 공간 입구에서 신발과 촬영 규칙을 확인합니다. 특정 문화의 규칙을 추측하지 않습니다.",
+      "learnerRole": "방문객",
+      "interlocutorRole": "현장 직원. 이 공간에서는 신발을 벗고 내부 촬영은 하지 않는다고 안내한다.",
+      "opening": "Please read the visitor notice before entering.",
+      "steps": [
+        {
+          "goal": "신발 규칙 묻기",
+          "example": "Should I take off my shoes here?",
+          "cue": "take off = 벗다"
+        },
+        {
+          "goal": "사진 규칙 묻기",
+          "example": "Are photos allowed inside?",
+          "cue": "allowed = 허용된"
+        },
+        {
+          "goal": "이해한 행동 확인하기",
+          "example": "I will leave my shoes here and keep my camera in my bag.",
+          "cue": "keep = 두다"
+        }
+      ],
+      "outcome": "현재 장소의 안내를 확인하고 따르겠다고 말한다.",
+      "transfer": "일부 구역만 신발을 벗는다. 구역 경계를 구체적으로 확인한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "B1",
+      "slug": "weather-alternative-tour",
+      "title": "날씨로 야외 투어가 어려울 때 대안 찾기",
+      "scenario": "비가 많이 와서 야외 걷기 투어 대신 실내 활동을 원합니다.",
+      "learnerRole": "투어 예약자",
+      "interlocutorRole": "운영자. 박물관 투어 전환 또는 다음 날 변경 가능하지만 가격 차이가 있다고 설명한다.",
+      "opening": "The walking tour is still running despite the rain.",
+      "steps": [
+        {
+          "goal": "우려와 목적 설명하기",
+          "example": "I would prefer an indoor option because I do not have suitable rain gear.",
+          "cue": "suitable = 적합한"
+        },
+        {
+          "goal": "대안 조건 묻기",
+          "example": "Could I switch to the museum tour, and is there a price difference?",
+          "cue": "switch = 바꾸다"
+        },
+        {
+          "goal": "결정과 확인 요청하기",
+          "example": "I will choose the indoor tour if my existing payment can be applied.",
+          "cue": "applied = 금액에 반영되는"
+        }
+      ],
+      "outcome": "날씨에 맞는 대체 활동과 비용을 확인한다.",
+      "transfer": "비는 그쳤지만 길이 폐쇄됐다. 날씨와 실제 접근 가능성을 구분한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "B1",
+      "slug": "lost-tour-group",
+      "title": "투어 일행과 떨어졌을 때 합류하기",
+      "scenario": "사진을 찍다 그룹을 놓쳤고 다음 집결지를 모릅니다. 현재 위치는 옛 시장(old market) 근처 분수 옆이며 시청 앞까지 걸어서 5분입니다.",
+      "learnerRole": "투어 참가자",
+      "interlocutorRole": "가이드. 그룹은 시청 앞에 있고 다음 출발까지 10분이라고 전화로 알려준다.",
+      "opening": "Where are you now?",
+      "steps": [
+        {
+          "goal": "현재 위치 설명하기",
+          "example": "I am beside the fountain near the old market.",
+          "cue": "beside = 옆에"
+        },
+        {
+          "goal": "합류 지점 묻기",
+          "example": "Where should I meet the group?",
+          "cue": "meet the group = 일행과 합류하다"
+        },
+        {
+          "goal": "시간과 행동 확인하기",
+          "example": "I can get there in five minutes. Please tell me if the meeting point changes.",
+          "cue": "changes = 바뀌다"
+        }
+      ],
+      "outcome": "현재 위치와 합류 계획을 전달한다.",
+      "transfer": "그룹이 이미 출발했다. 안전한 다음 집결지에서 만나는 계획을 요청한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "B1",
+      "slug": "ticket-date-mismatch",
+      "title": "관광지 표 날짜 오류 해결하기",
+      "scenario": "오늘 방문했는데 표가 내일 날짜로 되어 있습니다. 남은 현장 좌석을 확인합니다.",
+      "learnerRole": "관광지 방문객",
+      "interlocutorRole": "매표 직원. 오늘 오후 시간대는 가능하고 변경 수수료가 있다고 안내한다.",
+      "opening": "Your ticket is for tomorrow.",
+      "steps": [
+        {
+          "goal": "실수 인정하기",
+          "example": "I selected the wrong date when I booked.",
+          "cue": "selected = 선택했다"
+        },
+        {
+          "goal": "오늘 대안 묻기",
+          "example": "Is there any way to change it to an available slot today?",
+          "cue": "slot = 시간대"
+        },
+        {
+          "goal": "조건 확인 후 결정하기",
+          "example": "If the only extra cost is the change fee, I would like the afternoon slot.",
+          "cue": "change fee = 변경 수수료"
+        }
+      ],
+      "outcome": "날짜 오류를 인정하고 가능한 변경을 선택한다.",
+      "transfer": "표는 오늘이지만 다른 지점용이다. 장소 변경 가능 여부를 확인한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "B1",
+      "slug": "explain-interest",
+      "title": "현지 안내원에게 관심에 맞는 추천 받기",
+      "scenario": "유명한 명소는 이미 봤고 혼잡하지 않은 산업 역사 장소를 찾습니다.",
+      "learnerRole": "재방문 여행자",
+      "interlocutorRole": "안내원. 옛 공장 박물관은 예약 필요, 운하 산책은 자유 방문이라고 알려준다.",
+      "opening": "What have you visited so far?",
+      "steps": [
+        {
+          "goal": "방문 경험과 새 관심 말하기",
+          "example": "I have seen the main landmarks, and now I would like to learn about the city’s working history.",
+          "cue": "working history = 노동·산업 역사"
+        },
+        {
+          "goal": "비교 질문하기",
+          "example": "Which place is less crowded but still has useful information?",
+          "cue": "less crowded = 덜 붐비는"
+        },
+        {
+          "goal": "준비 확인하기",
+          "example": "Would I need to book before going to the old factory?",
+          "cue": "before going = 가기 전에"
+        }
+      ],
+      "outcome": "경험과 관심을 바탕으로 구체 추천을 받는다.",
+      "transfer": "산업 역사 대신 지역 정원에 관심이 생긴다. 원하는 체험 방식도 함께 설명한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "B2",
+      "slug": "tour-pace-adjustment",
+      "title": "투어 속도와 그룹 일정 조율하기",
+      "scenario": "설명이 흥미롭지만 이동 속도가 빨라 따라가기 어렵습니다. 전체 종료 시간을 늦추고 싶지는 않습니다.",
+      "learnerRole": "투어 참가자",
+      "interlocutorRole": "가이드. 한 선택 정류장을 생략하면 이동 속도를 낮추고 종료 시간은 유지할 수 있다고 안내한다.",
+      "opening": "We need to keep moving to finish on time.",
+      "steps": [
+        {
+          "goal": "필요와 공동 제약 인정하기",
+          "example": "I understand the finish time matters, but the current walking pace is difficult for me.",
+          "cue": "pace = 속도"
+        },
+        {
+          "goal": "대안 제안하기",
+          "example": "Could we reduce one optional stop so there is more time between the main sites?",
+          "cue": "optional = 선택적인"
+        },
+        {
+          "goal": "정보 손실 보완 묻기",
+          "example": "If we skip it, could you point us to a short explanation we can read later?",
+          "cue": "skip = 생략하다"
+        }
+      ],
+      "outcome": "개인 필요와 전체 일정을 함께 고려한 조정을 요청한다.",
+      "transfer": "정류장 생략이 불가하다. 중간 합류 지점과 놓칠 설명 보완을 협의한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "B2",
+      "slug": "exhibition-interpretations",
+      "title": "전시 설명의 서로 다른 해석 비교하기",
+      "scenario": "전시문은 사업가의 업적을 강조하고 오디오 가이드는 노동자의 어려움을 강조합니다.",
+      "learnerRole": "박물관 방문객",
+      "interlocutorRole": "해설사. 두 자료는 같은 시기의 다른 집단 경험을 다루며 추가 출처를 안내한다.",
+      "opening": "The two accounts focus on different parts of the same period.",
+      "steps": [
+        {
+          "goal": "관점 차이 구체화하기",
+          "example": "The wall text emphasizes economic growth, while the audio focuses on working conditions.",
+          "cue": "emphasizes = 강조하다"
+        },
+        {
+          "goal": "근거와 범위 질문하기",
+          "example": "What evidence supports each account, and whose experiences are less visible here?",
+          "cue": "evidence = 근거"
+        },
+        {
+          "goal": "단순 모순 아닌 요약하기",
+          "example": "So the accounts may coexist, but each leaves out part of the picture.",
+          "cue": "coexist = 함께 성립하다"
+        }
+      ],
+      "outcome": "자료의 관점과 근거를 비교해 균형 있게 요약한다.",
+      "transfer": "두 설명에 실제 연도 차이가 있다. 관점 차이와 사실 불일치를 구분한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "B2",
+      "slug": "ethical-visitor-choice",
+      "title": "체험 활동의 운영 방식 확인하고 선택하기",
+      "scenario": "야생동물 체험 광고는 가까이 볼 수 있다고만 합니다. 접촉 없이 관찰하고 싶습니다.",
+      "learnerRole": "관광객",
+      "interlocutorRole": "운영자. 일부 상품은 먹이 주기, 관찰 전용 상품은 거리 유지와 가이드 동행이라고 설명한다.",
+      "opening": "Our close-up experience is very popular.",
+      "steps": [
+        {
+          "goal": "자신의 선택 기준 설명하기",
+          "example": "I am looking for observation without handling or feeding the animals.",
+          "cue": "handling = 만지는 행위"
+        },
+        {
+          "goal": "구체 운영 질문하기",
+          "example": "What does close-up involve in practice, and are visitors required to take part in feeding?",
+          "cue": "in practice = 실제로"
+        },
+        {
+          "goal": "조건에 맞는 선택 전달하기",
+          "example": "I would prefer the observation-only option if that distance policy is maintained throughout.",
+          "cue": "throughout = 내내"
+        }
+      ],
+      "outcome": "모호한 광고 대신 활동 내용을 확인해 선택한다.",
+      "transfer": "관찰 코스에도 촬영용 접촉 시간이 있다. 참여 거절 가능 여부를 확인한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "B2",
+      "slug": "photo-privacy-consent",
+      "title": "체험 사진 게시 동의 범위 묻기",
+      "scenario": "수업 사진이 홍보에 쓰일 수 있다는 안내를 받았습니다. 참가하되 얼굴 공개는 원하지 않습니다.",
+      "learnerRole": "체험 참가자",
+      "interlocutorRole": "운영자. 활동 참여와 촬영 동의는 별개이고 비촬영 구역 또는 얼굴 제외 촬영이 가능하다.",
+      "opening": "We take photos for our social channels during the workshop.",
+      "steps": [
+        {
+          "goal": "선호와 참여 의사 분리하기",
+          "example": "I would like to join the activity but prefer not to appear in promotional photos.",
+          "cue": "promotional = 홍보용의"
+        },
+        {
+          "goal": "대안 묻기",
+          "example": "Can I stay outside the shots or agree only to photos of my work?",
+          "cue": "shots = 촬영 화면"
+        },
+        {
+          "goal": "실행 방식 확인하기",
+          "example": "How will the photographer know which participants have not consented?",
+          "cue": "consented = 동의한"
+        }
+      ],
+      "outcome": "참가와 공개 촬영 동의를 구분하고 실행 방법을 확인한다.",
+      "transfer": "단체 사진은 가능하지만 이름 태그는 싫다. 이미지와 이름 동의를 나눠 말한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "C1",
+      "slug": "contested-heritage",
+      "title": "논쟁적인 유산 설명을 질문으로 탐색하기",
+      "scenario": "가이드는 기념물을 도시의 자랑이라고 소개하지만 전시문은 강제 이주도 언급합니다.",
+      "learnerRole": "역사에 관심 있는 방문객",
+      "interlocutorRole": "가이드. 기념 목적과 이주 피해 기록을 모두 설명할 수 있으나 한 관점만 대표하지 않는다고 말한다.",
+      "opening": "This monument is a symbol of the city’s progress.",
+      "steps": [
+        {
+          "goal": "평가 표현의 범위 질문하기",
+          "example": "Progress for which groups is being described here, and over what period?",
+          "cue": "for which groups = 어떤 집단에게"
+        },
+        {
+          "goal": "충돌 자료를 비난 없이 연결하기",
+          "example": "The nearby panel mentions displacement; how does that experience fit into the account we have just heard?",
+          "cue": "displacement = 강제 이동·이주"
+        },
+        {
+          "goal": "복합 이해 확인하기",
+          "example": "Would it be fair to describe the site as representing both civic achievement and costs borne unevenly by different communities?",
+          "cue": "borne unevenly = 불균등하게 부담한"
+        }
+      ],
+      "outcome": "하나의 가치 판단을 여러 집단의 경험으로 확장한다.",
+      "transfer": "기념물 이전 자체가 논쟁 중이다. 역사 사실과 현재 정책 판단을 분리해 묻는다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "C1",
+      "slug": "translation-mediation",
+      "title": "문화 개념의 단순 번역을 보완하기",
+      "scenario": "안내서가 현지 관습을 단순히 festival이라고 번역해 의례와 가족 모임 의미가 사라졌습니다.",
+      "learnerRole": "영어로 묻는 방문객",
+      "interlocutorRole": "문화 해설사. 공개 축제뿐 아니라 가족 추모와 지역 공동체 의례가 포함된다고 설명한다.",
+      "opening": "Festival is the closest English word, but it does not cover everything.",
+      "steps": [
+        {
+          "goal": "번역 한계 확인하기",
+          "example": "Which part of the practice is lost when we call it a festival?",
+          "cue": "is lost = 전달되지 않다"
+        },
+        {
+          "goal": "설명형 대안 제안하기",
+          "example": "Could I explain it as a public celebration combined with private remembrance, or would that still mislead?",
+          "cue": "remembrance = 추모·기억"
+        },
+        {
+          "goal": "외부인 참여 경계 묻기",
+          "example": "What can visitors appropriately join, and what should remain for the community itself?",
+          "cue": "appropriately = 적절하게"
+        }
+      ],
+      "outcome": "단어 대응 대신 개념과 참여 경계를 설명한다.",
+      "transfer": "관습 안에서도 세대별 의미가 다르다. 하나의 설명을 전체 구성원 의견으로 일반화하지 않는다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "C1",
+      "slug": "tour-content-vs-promotion",
+      "title": "교육 투어 중 판매 중심 전환에 문제 제기하기",
+      "scenario": "역사 투어라 예약했는데 긴 상점 방문이 이어져 역사 설명이 줄었습니다.",
+      "learnerRole": "투어 참가자",
+      "interlocutorRole": "운영 책임자. 제휴 상점 30분이 일정에 있지만 광고에는 선택 방문처럼 표시됐다고 확인한다.",
+      "opening": "The shopping stop is part of the local cultural experience.",
+      "steps": [
+        {
+          "goal": "가치 부정 없이 약속 차이 설명하기",
+          "example": "I am not disputing that shopping can be cultural; the issue is the balance of time compared with the advertised historical focus.",
+          "cue": "balance of time = 시간 배분"
+        },
+        {
+          "goal": "선택성 의미 확인하기",
+          "example": "Was optional meant to describe whether we buy something, or whether we attend the stop at all?",
+          "cue": "optional = 선택 가능한"
+        },
+        {
+          "goal": "남은 일정 개선 요청하기",
+          "example": "Could the remaining time prioritize the historical sites, with a clear meeting arrangement for anyone who skips the shop?",
+          "cue": "prioritize = 우선하다"
+        }
+      ],
+      "outcome": "문화 가치 논쟁 대신 광고와 실제 일정의 차이를 조정한다.",
+      "transfer": "상점 방문은 명시돼 있지만 판매 압박이 강하다. 방문 동의와 구매 의무를 구분한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "C1",
+      "slug": "community-access-limits",
+      "title": "현지 행사 관람과 주민 생활 경계 조율하기",
+      "scenario": "행사 촬영 명소를 찾지만 좁은 골목에 주민 출입이 막히고 있습니다.",
+      "learnerRole": "행사 방문객",
+      "interlocutorRole": "자원봉사자. 지정 관람 구역은 있지만 사진 각도가 덜 좋고 일부 골목은 생활 통로라고 설명한다.",
+      "opening": "Visitors are welcome, but this lane needs to stay clear.",
+      "steps": [
+        {
+          "goal": "환영과 공간 제한 함께 이해하기",
+          "example": "Being welcome at the event does not necessarily mean every nearby space is open for viewing.",
+          "cue": "nearby = 인근의"
+        },
+        {
+          "goal": "다른 관람 방식 질문하기",
+          "example": "Where can we watch without blocking residents or entering areas that only appear public?",
+          "cue": "appear public = 공공처럼 보이는"
+        },
+        {
+          "goal": "동행인에게 전달할 이유 정리하기",
+          "example": "I will explain that moving is about maintaining access, not that visitors are unwanted.",
+          "cue": "maintaining access = 통행을 유지하는 것"
+        }
+      ],
+      "outcome": "관람 기회와 주민 통행 필요를 함께 존중하는 계획을 세운다.",
+      "transfer": "지도에는 공공길로 표시된다. 법적 판단 대신 행사 중 현장 동선을 확인한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "C2",
+      "slug": "irony-in-guide",
+      "title": "가이드의 반어와 사실 설명 구분하기",
+      "scenario": "가이드가 세금 때문에 지은 화려한 궁전을 모두가 사랑했다고 웃으며 말합니다. 문자 그대로 이해하면 오해가 생깁니다.",
+      "learnerRole": "고급 영어 학습 방문객",
+      "interlocutorRole": "가이드. 모두가 사랑했다는 말은 반어였고 기록된 반대도 있다고 설명한다.",
+      "opening": "Naturally, every taxpayer was delighted to fund this rather modest palace.",
+      "steps": [
+        {
+          "goal": "반어 해석을 잠정적으로 확인하기",
+          "example": "I take modest and every taxpayer as ironic here, rather than literal claims. Have I read the tone correctly?",
+          "cue": "ironic = 반어적인"
+        },
+        {
+          "goal": "표현과 역사 근거 분리하기",
+          "example": "Setting the joke aside, what do the records actually show about public reaction?",
+          "cue": "setting aside = 잠시 제쳐 두고"
+        },
+        {
+          "goal": "오해 없는 재진술하기",
+          "example": "So I should distinguish your humorous framing from the documented range of responses, rather than report unanimous opposition or support.",
+          "cue": "framing = 설명 방식"
+        }
+      ],
+      "outcome": "말투의 함의와 검증된 사실을 분리해 이해한다.",
+      "transfer": "농담인지 불명확한 과장을 듣는다. 단정 대신 두 해석을 제시하며 확인한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "C2",
+      "slug": "contested-label",
+      "title": "논쟁적 전시 명칭의 함의 비교하기",
+      "scenario": "같은 물건을 한 안내는 발견품, 다른 자료는 반출품이라 부릅니다. 명칭이 소유권 결론을 암시할 수 있습니다.",
+      "learnerRole": "박물관 방문객",
+      "interlocutorRole": "큐레이터. 반출 경로 일부는 기록됐지만 동의 문서는 불완전하며 반환 논의가 진행 중이라고 안내한다.",
+      "opening": "The label says discovered, while the catalogue discusses its removal from the original site.",
+      "steps": [
+        {
+          "goal": "명칭의 시점과 행위자 드러내기",
+          "example": "Discovered centres the finder’s perspective; removed foregrounds an action. Which parts of the object’s history are established independently of those labels?",
+          "cue": "foregrounds = 부각한다"
+        },
+        {
+          "goal": "증거와 판단 상태 구분하기",
+          "example": "Does the missing consent record establish absence of consent, or leave that question unresolved?",
+          "cue": "unresolved = 미해결의"
+        },
+        {
+          "goal": "신중한 요약 제안하기",
+          "example": "A useful summary might state the documented transfer and the current dispute separately, without using either label to settle ownership implicitly.",
+          "cue": "implicitly = 암묵적으로"
+        }
+      ],
+      "outcome": "단어의 관점과 역사 증거·현재 논의를 구분한다.",
+      "transfer": "새 문서가 발견돼 일부 경로가 밝혀졌다. 남은 불확실성만 한정해 표현한다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "C2",
+      "slug": "representation-consultation",
+      "title": "지역 문화 해설의 대표성 질문하기",
+      "scenario": "운영자는 지역 주민들이 이 체험을 지지한다고 말하지만 어떤 주민 의견인지 밝히지 않습니다.",
+      "learnerRole": "문화 체험 검토 방문객",
+      "interlocutorRole": "운영자. 주민 협회 일부와 협의했으며 전체 주민의 동의를 뜻하지는 않는다고 설명한다.",
+      "opening": "This experience has the support of the local community.",
+      "steps": [
+        {
+          "goal": "집합 표현의 범위 확인하기",
+          "example": "Does that refer to a particular association, a consultation process, or a claim of broad agreement?",
+          "cue": "broad agreement = 폭넓은 동의"
+        },
+        {
+          "goal": "협의와 전원 동의 구분하기",
+          "example": "I would not expect unanimity, but the phrase could imply more than participation by a few representatives.",
+          "cue": "unanimity = 만장일치"
+        },
+        {
+          "goal": "투명한 설명 요청하기",
+          "example": "Could you explain who was involved, how differing views are reflected, and what remains open to review?",
+          "cue": "differing views = 다른 견해"
+        }
+      ],
+      "outcome": "대표성과 협의 범위를 확인하되 완전 합의를 요구하지 않는다.",
+      "transfer": "협의는 과거 운영안에 대한 것이었다. 현재 변경안도 포함되는지 묻는다."
+    },
+    {
+      "subcategoryId": "sightseeing",
+      "difficulty": "C2",
+      "slug": "restoration-authenticity",
+      "title": "복원 유적의 진정성 주장 구체화하기",
+      "scenario": "광고는 완벽히 원형 그대로라고 하지만 현장에서는 현대 재료와 추정 복원이 보입니다.",
+      "learnerRole": "유적 방문객",
+      "interlocutorRole": "보존 해설사. 기초는 원래 것이고 상부는 문헌과 추정에 따른 복원이라고 설명한다.",
+      "opening": "The restoration lets you experience the site exactly as it was.",
+      "steps": [
+        {
+          "goal": "경험 비유와 사실 주장 나누기",
+          "example": "Is exactly as it was intended as an invitation to imagine, or as a claim that every reconstructed feature is evidenced?",
+          "cue": "evidenced = 근거로 확인된"
+        },
+        {
+          "goal": "확실성 단계 묻기",
+          "example": "Could you distinguish surviving fabric, documented reconstruction, and informed conjecture?",
+          "cue": "conjecture = 근거를 참고한 추정"
+        },
+        {
+          "goal": "과장 없는 설명 제안하기",
+          "example": "That distinction would help me appreciate the restoration without mistaking interpretive choices for untouched historical material.",
+          "cue": "interpretive choices = 해석에 따른 선택"
+        }
+      ],
+      "outcome": "원본·문헌 복원·추정 복원을 구분한다.",
+      "transfer": "복원은 외관만 원형이고 내부는 현대식이다. 보존 대상과 변경 범위를 설명한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "pre-A1",
+      "slug": "choose-day",
+      "title": "오늘과 내일 중 예약일 고르기",
+      "scenario": "예약 창구에서 오늘이 아닌 내일 체험을 원합니다.",
+      "learnerRole": "예약 희망자",
+      "interlocutorRole": "직원. today와 tomorrow를 한국어 뜻과 함께 제시하고 선택을 확인한다.",
+      "opening": "Today or tomorrow?",
+      "steps": [
+        {
+          "goal": "내일 선택하기",
+          "example": "Tomorrow, please.",
+          "cue": "tomorrow = 내일"
+        },
+        {
+          "goal": "재확인에 답하기",
+          "example": "Yes.",
+          "cue": "네"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "제시된 두 날짜 중 선택한다.",
+      "transfer": "오늘만 시간이 있다. today로 선택을 바꾼다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "pre-A1",
+      "slug": "party-size",
+      "title": "예약 인원 숫자로 답하기",
+      "scenario": "두 사람이 함께 체험 예약을 합니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "직원. 인원 수를 묻고 two인지 확인한다.",
+      "opening": "How many people?",
+      "steps": [
+        {
+          "goal": "인원 말하기",
+          "example": "Two.",
+          "cue": "둘"
+        },
+        {
+          "goal": "재확인에 답하기",
+          "example": "Yes, two.",
+          "cue": "네 두 명"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "예약 인원을 전달한다.",
+      "transfer": "혼자 참가한다. one을 말하고 인원 확인에 답한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "pre-A1",
+      "slug": "choose-time",
+      "title": "오전과 오후 시간 선택하기",
+      "scenario": "체험 시간이 10시와 2시 두 개입니다. 오후 2시를 선택합니다. 실제 시계 그림 대신 [10:00 morning]과 [14:00 afternoon]이라는 가상 시간표를 보고 선택합니다.",
+      "learnerRole": "예약 희망자",
+      "interlocutorRole": "직원. ten과 two를 한 번씩 말하고 가상 시간표 [10:00 morning], [14:00 afternoon]으로 확인한다.",
+      "opening": "Ten or two?",
+      "steps": [
+        {
+          "goal": "시간 선택하기",
+          "example": "Two, please.",
+          "cue": "two = 2시"
+        },
+        {
+          "goal": "오후인지 확인하기",
+          "example": "Afternoon?",
+          "cue": "afternoon = 오후"
+        },
+        {
+          "goal": "선택 확정하기",
+          "example": "Yes, please.",
+          "cue": "네 부탁해요"
+        }
+      ],
+      "outcome": "시간과 오전·오후를 확인한다.",
+      "transfer": "오전 10시로 바꾸고 morning 뜻을 확인한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "pre-A1",
+      "slug": "decline-full-slot",
+      "title": "예약 마감 안내에 다른 날 묻기",
+      "scenario": "오늘은 매진입니다. 내일 자리가 있는지 한 단어로 묻습니다.",
+      "learnerRole": "예약 희망자",
+      "interlocutorRole": "직원. today full이라고 말하고 내일은 가능하다고 답한다.",
+      "opening": "Today is full.",
+      "steps": [
+        {
+          "goal": "오늘 불가 이해 표시하기",
+          "example": "Okay.",
+          "cue": "알겠어요"
+        },
+        {
+          "goal": "내일 묻기",
+          "example": "Tomorrow?",
+          "cue": "내일"
+        },
+        {
+          "goal": "가능 안내에 수락하기",
+          "example": "Yes, please.",
+          "cue": "네 부탁해요"
+        }
+      ],
+      "outcome": "마감 안내를 이해하고 다른 날짜를 선택한다.",
+      "transfer": "내일도 마감이다. no thanks로 예약을 거절한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "A1",
+      "slug": "reservation-name-spelling",
+      "title": "예약 이름 철자 알려주기",
+      "scenario": "가상 이름 Mina가 Nina로 들려 철자를 알려줍니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "직원. 이름을 Nina로 확인하고 철자를 물으면 수정한다.",
+      "opening": "Is your name Nina?",
+      "steps": [
+        {
+          "goal": "이름 정정하기",
+          "example": "No, it is Mina.",
+          "cue": "it is = 그것은"
+        },
+        {
+          "goal": "철자 말하기",
+          "example": "M-I-N-A.",
+          "cue": "알파벳을 하나씩 말하기"
+        },
+        {
+          "goal": "맞는 기록 확인하기",
+          "example": "Yes, that is right.",
+          "cue": "that is right = 맞아요"
+        }
+      ],
+      "outcome": "이름 오해를 철자로 수정한다.",
+      "transfer": "가상 이름 Joon을 June으로 들었다. 철자 차이를 알려준다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "A1",
+      "slug": "booking-price",
+      "title": "예약 가격과 인원 기준 묻기",
+      "scenario": "광고의 20이 한 명 가격인지 전체 가격인지 확인합니다.",
+      "learnerRole": "체험 예약자",
+      "interlocutorRole": "직원. 20은 1인 가격, 두 명 총 40이라고 답한다.",
+      "opening": "The price is twenty.",
+      "steps": [
+        {
+          "goal": "가격 단위 묻기",
+          "example": "Is that for one person?",
+          "cue": "for one person = 한 명 기준"
+        },
+        {
+          "goal": "인원 말하기",
+          "example": "We are two people.",
+          "cue": "two people = 두 명"
+        },
+        {
+          "goal": "총액 확인하기",
+          "example": "So forty in total?",
+          "cue": "in total = 총합"
+        }
+      ],
+      "outcome": "인원당 가격과 총액을 구분한다.",
+      "transfer": "가족 단위 가격이다. 포함되는 인원 수를 확인한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "A1",
+      "slug": "confirm-date",
+      "title": "예약 날짜 다시 확인하기",
+      "scenario": "숫자 날짜 표기 순서가 헷갈려 월 이름으로 확인합니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "직원. 예약일은 June 7이라고 말하고 달력에서 보여준다.",
+      "opening": "Your booking is for the seventh of June.",
+      "steps": [
+        {
+          "goal": "월 확인하기",
+          "example": "June, not July?",
+          "cue": "June = 6월; July = 7월"
+        },
+        {
+          "goal": "날짜 되말하기",
+          "example": "June seven?",
+          "cue": "일과 월 함께 말하기"
+        },
+        {
+          "goal": "확인 요청하기",
+          "example": "Please write the month name.",
+          "cue": "month name = 월 이름"
+        }
+      ],
+      "outcome": "숫자 표기 대신 월 이름으로 날짜를 확인한다.",
+      "transfer": "03/04 표기를 받는다. March인지 April인지 직접 묻는다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "A1",
+      "slug": "receive-confirmation",
+      "title": "예약 확인서 받을 곳 정하기",
+      "scenario": "가상 이메일로 확인서를 받고 싶지만 직원이 종이만 제시합니다. 연습용 이메일은 mina@example.invalid입니다. [보여주기: mina@example.invalid]로 주소 전달을 표시하며 실제 발송은 하지 않습니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "직원. 이메일 발송 가능하며 가상 주소 확인 후 보낸다.",
+      "opening": "Would you like a paper confirmation?",
+      "steps": [
+        {
+          "goal": "이메일 요청하기",
+          "example": "Can you email it to me?",
+          "cue": "email = 이메일로 보내다"
+        },
+        {
+          "goal": "가상 주소 제시하기",
+          "example": "This is my email address.",
+          "cue": "email address = 이메일 주소"
+        },
+        {
+          "goal": "수신 여부 말하기",
+          "example": "I have it now. Thank you.",
+          "cue": "I have it = 받았어요"
+        }
+      ],
+      "outcome": "예약 확인서를 원하는 방식으로 받는다.",
+      "transfer": "이메일이 오지 않았다. 다시 보내 달라고 요청한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "A2",
+      "slug": "reschedule-time",
+      "title": "예약 시간을 같은 날로 변경하기",
+      "scenario": "기차 도착이 늦어 오전 11시 예약을 오후로 바꿉니다. 원래 예약 인원은 두 명이고 둘 다 같은 시간으로 옮깁니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "직원. 오후 2시는 마감이고 4시는 가능하며 인원은 그대로라고 안내한다.",
+      "opening": "What would you like to change?",
+      "steps": [
+        {
+          "goal": "변경 이유와 현재 시간 말하기",
+          "example": "My train arrives late, so I need to change my eleven o’clock booking.",
+          "cue": "change = 변경하다"
+        },
+        {
+          "goal": "가능 시간 묻기",
+          "example": "Do you have anything in the afternoon?",
+          "cue": "anything = 가능한 시간대"
+        },
+        {
+          "goal": "새 시간 확정하기",
+          "example": "Four works for us. Is it still for two people?",
+          "cue": "works for us = 우리에게 괜찮다"
+        }
+      ],
+      "outcome": "새 시간과 유지되는 인원을 확인한다.",
+      "transfer": "일부 인원만 시간이 된다. 인원 변경도 필요한지 함께 확인한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "A2",
+      "slug": "cancel-simple",
+      "title": "더 이상 필요 없는 예약 취소하기",
+      "scenario": "일정이 바뀌어 무료 취소 기간 안에 체험을 취소합니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "직원. 가상 예약 번호 확인 후 무료 취소 가능하며 이메일 확인서를 보낸다.",
+      "opening": "Do you have your booking number?",
+      "steps": [
+        {
+          "goal": "예약 지정하기",
+          "example": "My booking number is B204.",
+          "cue": "booking number = 예약 번호"
+        },
+        {
+          "goal": "취소 의사 말하기",
+          "example": "I would like to cancel because my plans have changed.",
+          "cue": "cancel = 취소하다"
+        },
+        {
+          "goal": "결과 확인하기",
+          "example": "Will you send me a cancellation confirmation?",
+          "cue": "cancellation confirmation = 취소 확인서"
+        }
+      ],
+      "outcome": "해당 예약을 지정하고 취소 결과를 확인한다.",
+      "transfer": "예약 두 개 중 하나만 취소한다. 남길 예약을 명확히 말한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "A2",
+      "slug": "equipment-included",
+      "title": "액티비티 포함 장비 확인하기",
+      "scenario": "자전거 투어 예약 전 헬멧과 자물쇠를 따로 가져와야 하는지 확인합니다.",
+      "learnerRole": "투어 예약자",
+      "interlocutorRole": "직원. 자전거와 헬멧은 포함, 물과 비옷은 개인 준비라고 안내한다. 자물쇠도 기본 요금에 포함되어 현장에서 제공하므로 따로 가져올 필요가 없다고 확인한다.",
+      "opening": "The tour includes a bicycle and helmet.",
+      "steps": [
+        {
+          "goal": "포함 장비 확인하기",
+          "example": "Do I need to bring a lock?",
+          "cue": "lock = 자물쇠"
+        },
+        {
+          "goal": "개인 준비물 묻기",
+          "example": "What should I bring myself?",
+          "cue": "myself = 직접"
+        },
+        {
+          "goal": "이해한 준비물 정리하기",
+          "example": "I will bring water and a raincoat.",
+          "cue": "raincoat = 비옷"
+        }
+      ],
+      "outcome": "포함 물품과 개인 준비물을 구분한다.",
+      "transfer": "헬멧 대여가 유료로 바뀐다. 포함 가격과 추가 비용을 확인한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "A2",
+      "slug": "arrival-cutoff",
+      "title": "예약 도착 마감 시간 확인하기",
+      "scenario": "입장권은 3시지만 버스가 2시 55분 도착입니다. 미리 와야 하는지 묻습니다.",
+      "learnerRole": "예약 방문객",
+      "interlocutorRole": "직원. 15분 전 체크인 권장, 3시 10분 이후 입장 불가라고 안내한다.",
+      "opening": "Please arrive before your session starts.",
+      "steps": [
+        {
+          "goal": "실제 도착 계획 말하기",
+          "example": "My bus arrives at two fifty-five.",
+          "cue": "arrives = 도착하다"
+        },
+        {
+          "goal": "필수 마감 묻기",
+          "example": "What is the latest time I can check in?",
+          "cue": "latest time = 가장 늦은 시각"
+        },
+        {
+          "goal": "계획 조정하기",
+          "example": "I will take the earlier bus to allow more time.",
+          "cue": "allow more time = 여유를 두다"
+        }
+      ],
+      "outcome": "권장 도착과 최종 마감을 확인해 이동을 조정한다.",
+      "transfer": "교통편이 하나뿐이다. 늦을 경우 다음 회차로 옮길 수 있는지 묻는다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "B1",
+      "slug": "weather-contingency",
+      "title": "야외 예약의 악천후 계획 확인하기",
+      "scenario": "다음 날 비 예보가 있지만 예약 취소 여부가 미정입니다.",
+      "learnerRole": "야외 체험 예약자",
+      "interlocutorRole": "운영자. 당일 오전 8시에 결정하며 운영자 취소 시 날짜 변경 또는 환불 신청 가능하다고 안내한다.",
+      "opening": "We will decide in the morning whether the trip can go ahead.",
+      "steps": [
+        {
+          "goal": "결정 시각 묻기",
+          "example": "What time will you make the final decision?",
+          "cue": "final decision = 최종 결정"
+        },
+        {
+          "goal": "통보 방법 확인하기",
+          "example": "How will you let us know before we leave the hotel?",
+          "cue": "let us know = 알려주다"
+        },
+        {
+          "goal": "선택 절차 묻기",
+          "example": "If you cancel, can we choose between another date and a refund request?",
+          "cue": "choose between = 둘 중 선택하다"
+        }
+      ],
+      "outcome": "날씨 관련 결정·통보·대안 절차를 확인한다.",
+      "transfer": "출발 후 중단 가능성도 있다. 사전 취소와 중도 중단 절차를 구분한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "B1",
+      "slug": "double-booking",
+      "title": "겹친 예약 중 우선순위 정하기",
+      "scenario": "미술관 예약과 요리 수업이 한 시간 겹칩니다. 미술관만 변경 가능할 수 있습니다.",
+      "learnerRole": "일정 관리 여행자",
+      "interlocutorRole": "미술관 직원. 입장 시각을 한 시간 앞당길 수 있지만 재입장은 불가하다고 안내한다.",
+      "opening": "Your ticket currently starts at two.",
+      "steps": [
+        {
+          "goal": "충돌 설명하기",
+          "example": "I accidentally booked another activity at three, so these plans overlap.",
+          "cue": "overlap = 시간이 겹치다"
+        },
+        {
+          "goal": "변경 대안 묻기",
+          "example": "Could I move this visit to an earlier slot?",
+          "cue": "earlier slot = 더 이른 시간대"
+        },
+        {
+          "goal": "체류 조건 확인하기",
+          "example": "If I enter at one, may I leave at two thirty without any other changes?",
+          "cue": "leave = 떠나다"
+        }
+      ],
+      "outcome": "겹친 일정을 변경 가능 조건에 맞춰 조정한다.",
+      "transfer": "두 예약 모두 변경 불가다. 하나를 포기할 때의 비용을 확인한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "B1",
+      "slug": "waiting-list",
+      "title": "매진 체험 대기 명단 조건 묻기",
+      "scenario": "원하는 수업이 매진됐고 취소 자리가 나면 참여하려 합니다. 오전 회차에 두 명이 함께 참여하기를 원합니다.",
+      "learnerRole": "체험 희망자",
+      "interlocutorRole": "직원. 대기 등록 가능, 연락 후 30분 내 회신해야 하며 자동 결제는 없다고 안내한다.",
+      "opening": "We can put you on the waiting list.",
+      "steps": [
+        {
+          "goal": "원하는 조건 알리기",
+          "example": "Please add two people for the morning session.",
+          "cue": "waiting list = 대기 명단"
+        },
+        {
+          "goal": "연락 방식과 응답 기한 묻기",
+          "example": "How will you contact me, and how long will I have to reply?",
+          "cue": "reply = 답하다"
+        },
+        {
+          "goal": "결제 시점 확인하기",
+          "example": "I only pay after I accept an available place, correct?",
+          "cue": "accept = 수락하다"
+        }
+      ],
+      "outcome": "대기 등록과 확정 예약의 차이를 확인한다.",
+      "transfer": "한 자리만 났다. 두 명 동시 참여가 필요한지 선택한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "B1",
+      "slug": "partial-group-change",
+      "title": "단체 예약 일부 인원만 변경하기",
+      "scenario": "네 명 중 한 명이 못 와서 3명으로 바꾸되 시간은 유지합니다.",
+      "learnerRole": "그룹 예약자",
+      "interlocutorRole": "직원. 3명 변경 가능하지만 최소 요금은 4명 기준이고 날짜 변경도 선택 가능하다고 안내한다.",
+      "opening": "You booked a private session for four.",
+      "steps": [
+        {
+          "goal": "변경 범위 명확히 말하기",
+          "example": "Only one person has cancelled; the other three still want the same time.",
+          "cue": "only one = 한 명만"
+        },
+        {
+          "goal": "가격 영향 묻기",
+          "example": "Does reducing the number change the total price?",
+          "cue": "reducing = 줄이는 것"
+        },
+        {
+          "goal": "조건 이해 후 선택하기",
+          "example": "We will keep the session for three, even if the minimum charge stays the same.",
+          "cue": "minimum charge = 최소 요금"
+        }
+      ],
+      "outcome": "인원 변경과 예약 유지·요금 조건을 구분한다.",
+      "transfer": "한 명은 대체 참가자를 보낸다. 명단 변경 가능 여부를 확인한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "B2",
+      "slug": "flexible-rate-comparison",
+      "title": "유연 예약 상품의 실제 가치 비교하기",
+      "scenario": "저렴한 표는 변경 불가, 비싼 표는 변경 가능하지만 차액은 따로 냅니다.",
+      "learnerRole": "예약 상품 선택자",
+      "interlocutorRole": "직원. 유연 상품은 변경 수수료만 면제이며 가격 차액과 마감은 남는다고 설명한다.",
+      "opening": "The flexible option gives you peace of mind if plans change.",
+      "steps": [
+        {
+          "goal": "유연성 범위 질문하기",
+          "example": "Does flexible waive only the change fee, or also any fare difference?",
+          "cue": "waive = 면제하다"
+        },
+        {
+          "goal": "마감과 횟수 확인하기",
+          "example": "How late can I change it, and is there a limit on the number of changes?",
+          "cue": "limit = 제한"
+        },
+        {
+          "goal": "불확실성과 비용 비교하기",
+          "example": "Since my dates are fairly stable, I may prefer the lower price unless cancellation is also covered.",
+          "cue": "fairly stable = 비교적 확정된"
+        }
+      ],
+      "outcome": "상품 이름 대신 변경·취소 조건으로 선택한다.",
+      "transfer": "날짜가 미정인 출장으로 바뀐다. 다른 우선순위로 비교한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "B2",
+      "slug": "third-party-change",
+      "title": "예약 플랫폼과 운영자 사이 변경 담당 찾기",
+      "scenario": "운영자는 플랫폼에서 바꾸라 하고 플랫폼은 운영자 승인이 필요하다고 합니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "운영 담당자. 가능 시간 승인 번호를 제공하면 플랫폼이 재발행한다고 설명한다.",
+      "opening": "The platform has to make the change, but they need our approval first.",
+      "steps": [
+        {
+          "goal": "업무 순서 정리하기",
+          "example": "So you approve availability, and the platform updates the ticket afterward?",
+          "cue": "afterward = 그다음"
+        },
+        {
+          "goal": "인계에 필요한 정보 묻기",
+          "example": "What reference should I give them so they can verify your approval?",
+          "cue": "verify = 확인하다"
+        },
+        {
+          "goal": "현재 예약 보호 확인하기",
+          "example": "Will my existing place remain held until the updated ticket is issued?",
+          "cue": "issued = 발급된"
+        }
+      ],
+      "outcome": "두 기관의 역할과 변경 순서를 확인한다.",
+      "transfer": "운영자가 새 예약부터 하라고 한다. 중복 결제와 기존 취소 순서를 먼저 확인한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "B2",
+      "slug": "hidden-fees",
+      "title": "결제 전 추가 요금의 전체 금액 확인하기",
+      "scenario": "광고 가격에는 예약 수수료와 현장 장비비가 빠져 있습니다. 함께 예약하려는 인원은 두 명이며 선택 사진은 구매하지 않을 예정입니다.",
+      "learnerRole": "예약 검토자",
+      "interlocutorRole": "직원. 기본 40, 예약비 5, 필수 장비 10이며 선택 사진은 8이라고 안내한다.",
+      "opening": "The activity starts from forty per person.",
+      "steps": [
+        {
+          "goal": "필수와 선택 비용 구분하기",
+          "example": "Which extra charges are unavoidable, and which are optional?",
+          "cue": "unavoidable = 피할 수 없는"
+        },
+        {
+          "goal": "총액 확인하기",
+          "example": "For two people without photos, what is the full amount we would have to pay?",
+          "cue": "full amount = 총액"
+        },
+        {
+          "goal": "결제 시점 확인하기",
+          "example": "Please separate what is charged now from what is collected at the venue.",
+          "cue": "venue = 현장 장소"
+        }
+      ],
+      "outcome": "기본 가격 대신 전체 필수 비용과 결제 시점을 안다.",
+      "transfer": "현장 현금 결제만 가능하다. 결제 수단까지 확인한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "B2",
+      "slug": "schedule-buffer",
+      "title": "빽빽한 여행 일정에 여유 시간 넣기",
+      "scenario": "투어 종료 4시, 기차 4시 30분이지만 역까지 보통 20분 걸립니다.",
+      "learnerRole": "일정 계획자",
+      "interlocutorRole": "투어 운영자. 종료는 10분 정도 늦어질 수 있고 역 이동은 교통에 따라 달라진다고 말한다.",
+      "opening": "The tour usually ends at four, so you should probably make the train.",
+      "steps": [
+        {
+          "goal": "예상과 보장 구분하기",
+          "example": "How often does the tour run late, and is four a firm end time?",
+          "cue": "firm = 확정적인"
+        },
+        {
+          "goal": "누적 위험 설명하기",
+          "example": "A small delay in the tour and the transfer would leave almost no margin.",
+          "cue": "margin = 여유"
+        },
+        {
+          "goal": "대안 선택하기",
+          "example": "I would rather book a later train than rely on both estimates being exact.",
+          "cue": "rely on = 의존하다"
+        }
+      ],
+      "outcome": "연결 일정의 누적 불확실성을 고려해 계획한다.",
+      "transfer": "나중 기차가 없다. 투어 중간 종료 가능성과 놓칠 내용을 확인한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "C1",
+      "slug": "nonrefundable-change",
+      "title": "환불 불가와 변경 불가의 차이 정리하기",
+      "scenario": "상담원은 환불 불가라 모든 요청이 불가하다고 답하지만 사용자는 시간 변경만 원합니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "상담원. 환불 불가 상품도 잔여 자리와 수수료에 따라 시간 변경은 검토 가능하다.",
+      "opening": "This is non-refundable, so we cannot help with cancellation.",
+      "steps": [
+        {
+          "goal": "요청 범위 정확히 재설정하기",
+          "example": "I am not asking to cancel or recover the payment; I am asking whether the same booking can move to a different time.",
+          "cue": "recover payment = 돈을 돌려받다"
+        },
+        {
+          "goal": "정책 범주 구분하기",
+          "example": "Could you check the amendment terms separately from the refund restriction?",
+          "cue": "amendment = 변경"
+        },
+        {
+          "goal": "가능 조건 확인하기",
+          "example": "If a change is permitted, please set out availability, any fee, and the point at which the original slot is released.",
+          "cue": "released = 배정 해제되는"
+        }
+      ],
+      "outcome": "환불과 변경 규정을 구분해 필요한 답을 얻는다.",
+      "transfer": "시간 변경은 불가하지만 참가자 교체가 가능하다. 대안 범주를 구분해 확인한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "C1",
+      "slug": "provisional-reservation",
+      "title": "임시 예약의 만료 조건 명확히 하기",
+      "scenario": "자리가 확보됐다는 메일을 받았지만 결제 전에는 보장되지 않을 수 있습니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "담당자. 오늘 6시까지 임시 보류, 입금 확인이 늦으면 자동 해제될 수 있다고 설명한다.",
+      "opening": "Your places are reserved pending payment.",
+      "steps": [
+        {
+          "goal": "확보 상태와 조건 확인하기",
+          "example": "Does reserved mean the places are held exclusively until a deadline, or only that my request has been received?",
+          "cue": "exclusively = 다른 예약 없이"
+        },
+        {
+          "goal": "결제와 확인 시점 구별하기",
+          "example": "Is the deadline based on when I submit payment or when your system confirms receipt?",
+          "cue": "receipt = 수신·수납 확인"
+        },
+        {
+          "goal": "실행 가능한 확인 계획 요청하기",
+          "example": "If confirmation is delayed, what evidence can I send to prevent the hold from expiring incorrectly?",
+          "cue": "expiring = 만료되는"
+        }
+      ],
+      "outcome": "임시 보류의 조건과 만료 방지를 확인한다.",
+      "transfer": "은행 송금 대신 카드 승인 지연이다. 거래 상태와 예약 확정 상태를 각각 확인한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "C1",
+      "slug": "multi-party-itinerary",
+      "title": "다른 목적의 동행인 일정 합의하기",
+      "scenario": "한 명은 박물관, 한 명은 휴식, 한 명은 예산 절약을 원하며 하루만 남았습니다.",
+      "learnerRole": "공동 여행 계획자",
+      "interlocutorRole": "동행 대표. 오전만 공동 활동 가능하고 오후 분리 이동에 동의할 수 있다.",
+      "opening": "We cannot fit everyone’s preferred activities into one day.",
+      "steps": [
+        {
+          "goal": "선호와 제한을 분리해 요약하기",
+          "example": "The issue is not whose activity wins; it is which parts need to be shared and which can happen independently.",
+          "cue": "independently = 따로"
+        },
+        {
+          "goal": "공동 구간과 선택 구간 제안하기",
+          "example": "Could we agree on one affordable morning visit, then split up with a fixed meeting point?",
+          "cue": "split up = 나뉘어 이동하다"
+        },
+        {
+          "goal": "합의 후 부담 확인하기",
+          "example": "Before booking, let us check that transport costs and meeting times work for the person who wants a quieter day too.",
+          "cue": "quieter day = 덜 바쁜 하루"
+        }
+      ],
+      "outcome": "다른 목표를 공동·개별 일정으로 조율한다.",
+      "transfer": "한 동행인은 혼자 이동하기 어렵다. 분리안의 지원 조건까지 조정한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "C1",
+      "slug": "guaranteed-availability",
+      "title": "재고 한정 표현에 휩쓸리지 않고 확인하기",
+      "scenario": "상담원이 마지막 자리라 지금 결제하라고 하지만 취소 조건은 아직 설명하지 않았습니다.",
+      "learnerRole": "예약 검토자",
+      "interlocutorRole": "상담원. 해당 시간대 마지막 두 자리이며 다른 시간대는 여유가 있고 결제 후 취소 수수료가 있다.",
+      "opening": "These are the last places, so I recommend paying immediately.",
+      "steps": [
+        {
+          "goal": "희소성의 범위 확인하기",
+          "example": "Are these the last places for the whole day, or only for this particular departure?",
+          "cue": "particular departure = 특정 출발 회차"
+        },
+        {
+          "goal": "결정 전 정보 요구하기",
+          "example": "I understand availability may change, but I need the cancellation terms before authorizing payment.",
+          "cue": "authorizing = 승인하는"
+        },
+        {
+          "goal": "대안과 수용 위험 표현하기",
+          "example": "If another departure offers the same experience, I would prefer to compare that rather than decide without the key terms.",
+          "cue": "key terms = 핵심 조건"
+        }
+      ],
+      "outcome": "마감 압박과 필요한 정보 확인을 분리한다.",
+      "transfer": "할인만 곧 끝나고 자리는 남아 있다. 할인 기한과 좌석 재고를 구분한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "C2",
+      "slug": "best-efforts-promise",
+      "title": "최선을 다한다는 예약 약속의 의미 좁히기",
+      "scenario": "운영자가 특별 요청을 최대한 반영한다면서 확답은 피합니다. 그 요청이 여행 참여의 필수 조건입니다. 이 연습에서 필수 조건은 체험용 탁자의 아래 공간이 높이 70cm, 폭 80cm 이상 확보되는 것입니다. 이동 보조기구를 사용하는 가상 역할이며 개인 의료정보는 필요하지 않습니다.",
+      "learnerRole": "조건부 예약 희망자",
+      "interlocutorRole": "운영자. 선호 요청은 노력만 약속하지만 특정 장비 제공 여부는 현장 확인 후 답할 수 있다. 필요한 탁자 아래 공간의 높이 70cm와 폭 80cm를 확인해야 하며, 아직 실측값은 없다. 현장 확인은 오늘 오후 4시까지 가능하고 확인 전 비환불 결제를 요구하지 않는다.",
+      "opening": "We always do our best to accommodate special requests, so it should be fine.",
+      "steps": [
+        {
+          "goal": "선호와 참여 조건 구별하기",
+          "example": "This is not an enhancement I can forgo; it determines whether I can take part at all.",
+          "cue": "forgo = 포기하다"
+        },
+        {
+          "goal": "노력 약속과 결과 확인 분리하기",
+          "example": "I appreciate the commitment to try, but could we avoid treating that as confirmation of the required arrangement?",
+          "cue": "commitment = 약속"
+        },
+        {
+          "goal": "조건부 결정 절차 요청하기",
+          "example": "Please mark the booking as awaiting verification of this point, with a clear decision deadline before any non-refundable payment is taken.",
+          "cue": "awaiting verification = 확인 대기"
+        }
+      ],
+      "outcome": "선의의 노력과 필요한 조건의 확정을 구분한다.",
+      "transfer": "필수 요청 중 일부만 확인됐다. 충족·미확인 항목을 나눠 결정한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "C2",
+      "slug": "silence-as-consent",
+      "title": "일정 변경에 침묵을 동의로 처리한 경우 정리하기",
+      "scenario": "운영자가 시간 변경 메일에 답하지 않았다는 이유로 동의했다고 기록했습니다. 메일에는 회신 필요가 없다고 적혀 있었습니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "운영 책임자. 자동 변경 기록은 있지만 안내 문구를 검토하고 대체 시간 또는 취소 절차를 확인할 수 있다.",
+      "opening": "Because we did not hear back, we treated the revised time as accepted.",
+      "steps": [
+        {
+          "goal": "문구와 절차의 불일치 지적하기",
+          "example": "The message said no reply was needed, so silence could reasonably have reflected that instruction rather than acceptance of a changed arrangement.",
+          "cue": "reflected = 반영했다"
+        },
+        {
+          "goal": "의도 추정 없이 기록 수정 요청하기",
+          "example": "Could the record distinguish receipt of a notice from affirmative agreement to the new time?",
+          "cue": "affirmative agreement = 명시적 동의"
+        },
+        {
+          "goal": "현재 해결과 안내 개선 분리하기",
+          "example": "For this booking, I need a workable option; separately, please review how future notices explain the consequences of not replying.",
+          "cue": "consequences = 결과"
+        }
+      ],
+      "outcome": "안내 수신과 변경 동의를 구분하고 해결을 요청한다.",
+      "transfer": "회신 요구는 있었지만 기한이 모호했다. 불명확한 기한과 개인 미회신을 함께 인정한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "C2",
+      "slug": "package-equivalence",
+      "title": "동급 대체 여행 상품의 동등성 따져보기",
+      "scenario": "운영자는 같은 가격의 다른 투어가 동급이라 하지만 예약 목적이었던 소규모 안내와 특정 유적 방문이 빠집니다. 원래 광고의 핵심 방문지는 일반 박물관이 아니라 예약된 기록보관소(archive)였으며, 점심 장소 변경은 괜찮습니다.",
+      "learnerRole": "패키지 예약자",
+      "interlocutorRole": "담당자. 가격과 기간은 같지만 그룹 크기와 방문지가 다르며 부분 환급 또는 재예약 검토 가능하다.",
+      "opening": "The replacement is an equivalent tour of the same value and duration.",
+      "steps": [
+        {
+          "goal": "동등성 기준 질문하기",
+          "example": "Equivalent in price and duration does not necessarily mean equivalent in the features that motivated the booking.",
+          "cue": "motivated = 결정하게 했다"
+        },
+        {
+          "goal": "핵심과 부수 요소 분리하기",
+          "example": "The small group and access to the archive were central; the lunch venue was incidental and could change without concern.",
+          "cue": "incidental = 부수적인"
+        },
+        {
+          "goal": "비례적 대안 요청하기",
+          "example": "Could we evaluate the replacement against those core features and discuss an adjustment that reflects what is actually missing?",
+          "cue": "adjustment = 조정"
+        }
+      ],
+      "outcome": "같은 가격과 같은 경험을 구분해 핵심 차이를 협의한다.",
+      "transfer": "대체안은 핵심 방문지는 유지하지만 안내 언어가 다르다. 이해 가능성을 중심 조건으로 설명한다."
+    },
+    {
+      "subcategoryId": "booking",
+      "difficulty": "C2",
+      "slug": "group-authority-boundary",
+      "title": "대표 예약자의 동의 권한 한계 밝히기",
+      "scenario": "운영자가 그룹 대표에게 전원의 일정·비용 변경 동의를 요청하지만 대표는 전달만 맡았습니다.",
+      "learnerRole": "연락 담당 예약자",
+      "interlocutorRole": "담당자. 개별 동의가 필요하면 결제 링크를 나눠 보낼 수 있으나 자리 보류는 24시간이라고 안내한다.",
+      "opening": "If you approve the revised package, we will charge the difference for the whole group.",
+      "steps": [
+        {
+          "goal": "역할과 권한 구분하기",
+          "example": "I coordinate communication, but that does not authorize me to accept additional charges on everyone’s behalf.",
+          "cue": "on behalf of = 대신하여"
+        },
+        {
+          "goal": "효율과 개별 동의 조화시키기",
+          "example": "I can circulate one clear summary, provided each traveller can confirm their own choice without it being inferred from mine.",
+          "cue": "inferred = 추정된"
+        },
+        {
+          "goal": "마감과 미응답 처리 합의하기",
+          "example": "Please specify the hold deadline and how non-responses will be handled, so coordination does not become assumed consent.",
+          "cue": "assumed consent = 추정 동의"
+        }
+      ],
+      "outcome": "연락 대표와 비용 승인 권한을 구분한다.",
+      "transfer": "일부 비용은 공동 예산에서 승인 가능하다. 위임된 범위만 한정해 말한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "pre-A1",
+      "slug": "ask-help",
+      "title": "모르는 상황에서 도움 요청하기",
+      "scenario": "역 안에서 길을 잃어 안내 직원의 도움을 원합니다.",
+      "learnerRole": "처음 여행하는 학습자",
+      "interlocutorRole": "안내 직원. help 요청에 응답하고 station map을 가리킨다.",
+      "opening": "Hello.",
+      "steps": [
+        {
+          "goal": "도움 요청하기",
+          "example": "Help, please.",
+          "cue": "help = 도움"
+        },
+        {
+          "goal": "모른다고 알리기",
+          "example": "I do not know.",
+          "cue": "모르겠어요"
+        },
+        {
+          "goal": "지도 받기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "막힌 상황에서 도움을 청한다.",
+      "transfer": "상대가 일반 행인이다. help 요청 후 안내소를 가리키는 설명을 확인한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "pre-A1",
+      "slug": "lost-phone",
+      "title": "휴대전화가 없다고 알리기",
+      "scenario": "카페에서 휴대전화를 두고 온 것 같아 직원에게 말합니다. 잃어버린 가상 휴대전화는 검정색입니다. [보여주기: 검정 휴대전화]라는 상대의 텍스트를 물건 제시로 처리합니다.",
+      "learnerRole": "휴대전화 소유자",
+      "interlocutorRole": "직원. phone 뜻을 확인하고 검은 휴대전화 하나를 보여준다.",
+      "opening": "Hello!",
+      "steps": [
+        {
+          "goal": "분실 물건 말하기",
+          "example": "Phone. Lost.",
+          "cue": "phone = 휴대전화; lost = 잃어버린"
+        },
+        {
+          "goal": "색 말하기",
+          "example": "Black.",
+          "cue": "black = 검정"
+        },
+        {
+          "goal": "맞는 물건 확인하기",
+          "example": "Yes. Mine.",
+          "cue": "mine = 내 것"
+        }
+      ],
+      "outcome": "잃어버린 물건과 색을 말한다.",
+      "transfer": "보여 준 물건은 자기 것이 아니다. no, not mine으로 답한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "pre-A1",
+      "slug": "need-interpreter",
+      "title": "통역 도움이 필요하다고 알리기",
+      "scenario": "중요한 안내를 이해하지 못해 한국어 도움을 요청합니다.",
+      "learnerRole": "여행자",
+      "interlocutorRole": "안내 직원. Korean 지원 가능 여부를 확인하고 잠시 기다리라고 말한다.",
+      "opening": "Do you understand?",
+      "steps": [
+        {
+          "goal": "이해 못함 알리기",
+          "example": "No, sorry.",
+          "cue": "아니요 죄송해요"
+        },
+        {
+          "goal": "한국어 요청하기",
+          "example": "Korean, please.",
+          "cue": "Korean = 한국어"
+        },
+        {
+          "goal": "기다림에 동의하기",
+          "example": "Okay.",
+          "cue": "알겠어요"
+        }
+      ],
+      "outcome": "언어 지원 필요를 알린다.",
+      "transfer": "한국어 통역이 없다. slowly please로 쉬운 반복을 요청한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "pre-A1",
+      "slug": "emergency-location",
+      "title": "긴급 도움과 위치 알리기",
+      "scenario": "역에서 안내소에 전화해 긴급한 도움이 필요하다고 말합니다. 실제 신고 번호를 외우는 과제가 아닙니다. 이 역할극은 역 2번 출입구(Station, Gate two)에서 안내소에 전화하는 상황입니다. [위치 가리키기: 2번 출입구]는 가상 동작으로 처리합니다.",
+      "learnerRole": "도움 요청 여행자",
+      "interlocutorRole": "안내 직원. 긴급 도움 요청을 접수하고 위치를 한 질문씩 확인한다.",
+      "opening": "Where are you?",
+      "steps": [
+        {
+          "goal": "긴급 도움 요청하기",
+          "example": "Help, please. Urgent.",
+          "cue": "urgent = 급한"
+        },
+        {
+          "goal": "장소 말하기",
+          "example": "Station. Gate two.",
+          "cue": "station = 역; gate two = 2번 입구"
+        },
+        {
+          "goal": "위치 확인에 답하기",
+          "example": "Yes, here.",
+          "cue": "네 여기예요"
+        }
+      ],
+      "outcome": "긴급성과 위치를 짧게 전달한다.",
+      "transfer": "호텔 로비로 장소를 바꾸고 hotel lobby를 제공한다. 진단이나 구조 행동 판단은 요구하지 않는다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "A1",
+      "slug": "lost-wallet",
+      "title": "분실 지갑의 특징 말하기",
+      "scenario": "박물관 안내소에 지갑을 두고 왔는지 문의합니다. 가상 지갑은 작고 갈색이며 마지막으로 있었던 곳은 박물관 입구 근처입니다.",
+      "learnerRole": "지갑 소유자",
+      "interlocutorRole": "직원. 지갑 색과 마지막 본 위치를 묻고 보관함을 확인한다.",
+      "opening": "What did you lose?",
+      "steps": [
+        {
+          "goal": "물건 말하기",
+          "example": "I lost my wallet.",
+          "cue": "wallet = 지갑"
+        },
+        {
+          "goal": "색과 크기 말하기",
+          "example": "It is small and brown.",
+          "cue": "brown = 갈색"
+        },
+        {
+          "goal": "장소 말하기",
+          "example": "I was near the entrance.",
+          "cue": "entrance = 입구"
+        }
+      ],
+      "outcome": "분실물 특징과 마지막 위치를 전달한다.",
+      "transfer": "지갑이 아니라 파란 파우치다. bag와 blue로 특징을 바꾼다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "A1",
+      "slug": "phone-battery",
+      "title": "배터리가 꺼져 충전 도움 받기",
+      "scenario": "예약 주소가 휴대전화에 있지만 배터리가 없습니다.",
+      "learnerRole": "여행자",
+      "interlocutorRole": "안내 직원. 충전기는 대여 가능하며 콘센트는 옆 테이블이라고 안내한다.",
+      "opening": "What do you need?",
+      "steps": [
+        {
+          "goal": "문제 말하기",
+          "example": "My phone battery is dead.",
+          "cue": "battery is dead = 배터리가 방전됐다"
+        },
+        {
+          "goal": "충전기 요청하기",
+          "example": "Can I use a charger?",
+          "cue": "charger = 충전기"
+        },
+        {
+          "goal": "위치 묻기",
+          "example": "Where can I charge it?",
+          "cue": "charge = 충전하다"
+        }
+      ],
+      "outcome": "충전 도움과 장소를 요청한다.",
+      "transfer": "충전기 종류가 맞지 않는다. 필요한 케이블을 보여주며 다른 것이 있는지 묻는다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "A1",
+      "slug": "wrong-delivery-place",
+      "title": "기사와 다른 만남 장소 바로잡기",
+      "scenario": "예약 차량 기사가 정문에 있지만 여행자는 옆문에 서 있습니다. 정문에는 큰 간판(big sign)이 있고 옆문에서는 보이지 않습니다. 두 장소를 구별해 확인합니다.",
+      "learnerRole": "차량 예약 여행자",
+      "interlocutorRole": "기사. main entrance에 있다고 말하고 옆문에서 정문까지 이동 가능한지 묻는다.",
+      "opening": "I am at the main entrance.",
+      "steps": [
+        {
+          "goal": "자신의 위치 말하기",
+          "example": "I am at the side entrance.",
+          "cue": "side entrance = 옆문"
+        },
+        {
+          "goal": "상대 위치 확인하기",
+          "example": "Are you by the big sign?",
+          "cue": "by = 옆에"
+        },
+        {
+          "goal": "이동 의사 말하기",
+          "example": "I will come there now.",
+          "cue": "come there = 그곳으로 가다"
+        }
+      ],
+      "outcome": "만남 장소 차이를 확인하고 합류한다.",
+      "transfer": "여행자가 이동하기 어렵다. 기사가 올 수 있는지 묻는다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "A1",
+      "slug": "broken-item",
+      "title": "빌린 물건이 깨졌다고 알리기",
+      "scenario": "빌린 우산 손잡이가 부러졌습니다. 숨기지 않고 상태를 알립니다.",
+      "learnerRole": "숙소 투숙객",
+      "interlocutorRole": "직원. 언제 발견했는지 묻고 우산을 확인한 뒤 처리 방법을 안내한다.",
+      "opening": "Is there a problem with the umbrella?",
+      "steps": [
+        {
+          "goal": "손상 알리기",
+          "example": "The handle is broken.",
+          "cue": "handle = 손잡이"
+        },
+        {
+          "goal": "확인 요청하기",
+          "example": "Please look at this.",
+          "cue": "look at = 보세요"
+        },
+        {
+          "goal": "다음 행동 묻기",
+          "example": "What should I do?",
+          "cue": "should I do = 무엇을 해야 하나요"
+        }
+      ],
+      "outcome": "손상을 알리고 처리 안내를 요청한다.",
+      "transfer": "이미 빌릴 때 손상돼 있었다. before 뜻을 써서 시점을 설명한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "A2",
+      "slug": "report-lost-passport",
+      "title": "여권 분실 상담처 찾기",
+      "scenario": "가방을 확인했지만 여권이 없어 공식 도움을 받을 곳을 찾습니다. 마지막으로 여권을 본 것은 오늘 아침 호텔에서입니다.",
+      "learnerRole": "여행자",
+      "interlocutorRole": "안내 직원. 마지막 본 장소를 묻고 해당 지역 공식 영사 안내와 분실 신고 창구를 찾는 것을 돕는다.",
+      "opening": "When did you last see your passport?",
+      "steps": [
+        {
+          "goal": "분실 사실 말하기",
+          "example": "I cannot find my passport.",
+          "cue": "cannot find = 찾을 수 없다"
+        },
+        {
+          "goal": "마지막 장소 말하기",
+          "example": "I last saw it at the hotel this morning.",
+          "cue": "last saw = 마지막으로 봤다"
+        },
+        {
+          "goal": "공식 연락처 요청하기",
+          "example": "Where can I contact my embassy or consulate?",
+          "cue": "embassy or consulate = 대사관 또는 영사관"
+        }
+      ],
+      "outcome": "분실 경위와 공식 문의 경로를 확인한다.",
+      "transfer": "여권은 찾았지만 심하게 젖었다. 유효성을 단정하지 않고 담당 기관 확인을 요청한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "A2",
+      "slug": "card-not-working",
+      "title": "여행 중 카드가 거절됐을 때 확인하기",
+      "scenario": "결제 단말기에서 카드가 거절됩니다. 매장 직원에게 재시도와 다른 결제 방법을 묻습니다.",
+      "learnerRole": "고객 여행자",
+      "interlocutorRole": "직원. 첫 거래는 declined이며 현금 또는 다른 카드가 가능하다고 안내한다.",
+      "opening": "Your card was declined.",
+      "steps": [
+        {
+          "goal": "거래 상태 확인하기",
+          "example": "Was the payment cancelled?",
+          "cue": "cancelled = 취소된"
+        },
+        {
+          "goal": "재시도 요청하기",
+          "example": "Can we try once more with the chip?",
+          "cue": "chip = 카드 칩"
+        },
+        {
+          "goal": "다른 수단 선택하기",
+          "example": "If that does not work, I will use another card.",
+          "cue": "another card = 다른 카드"
+        }
+      ],
+      "outcome": "결제 상태와 사용할 대안을 확인한다.",
+      "transfer": "카드 앱에는 승인 대기가 있다. 다시 결제 전 영수증 상태를 확인한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "A2",
+      "slug": "minor-illness-help",
+      "title": "몸이 좋지 않을 때 진료 안내 요청하기",
+      "scenario": "여행 중 어지럽고 열이 나는 느낌이라 숙소에 의료기관 안내를 부탁합니다. 진단은 요청하지 않습니다. 가상 증상은 오늘 아침부터 시작됐습니다.",
+      "learnerRole": "몸이 불편한 여행자",
+      "interlocutorRole": "프런트 직원. 증상을 진단하지 않고 가까운 진료 안내와 현지 긴급 도움 연결 가능성을 알려준다.",
+      "opening": "How can we help you?",
+      "steps": [
+        {
+          "goal": "증상과 시점 말하기",
+          "example": "I feel dizzy, and it started this morning.",
+          "cue": "dizzy = 어지러운"
+        },
+        {
+          "goal": "전문 도움 요청하기",
+          "example": "Could you help me find a clinic?",
+          "cue": "clinic = 진료소"
+        },
+        {
+          "goal": "이동·연락 도움 묻기",
+          "example": "Can you help me call them before I go?",
+          "cue": "before I go = 가기 전에"
+        }
+      ],
+      "outcome": "증상을 말하고 전문 진료 연결을 요청한다.",
+      "transfer": "증상 설명이 어려워 한국어 통역 지원을 추가로 요청한다. 치료 지시를 만들지 않는다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "A2",
+      "slug": "internet-unavailable",
+      "title": "인터넷 없이 예약 정보 확인하기",
+      "scenario": "데이터가 안 되어 전자 표를 열 수 없습니다. 예약 번호는 종이에 적어 두었습니다. 종이에 적힌 연습용 예약번호는 B204, 이름은 Mina Kim입니다. [보여주기: B204, Mina Kim]으로 종이 전달을 대신합니다.",
+      "learnerRole": "예약 방문객",
+      "interlocutorRole": "매표 직원. 예약 번호와 이름으로 확인 가능하며 확인 후 종이 표를 발급한다.",
+      "opening": "Can you show your mobile ticket?",
+      "steps": [
+        {
+          "goal": "접속 문제 설명하기",
+          "example": "My internet is not working, so I cannot open the ticket.",
+          "cue": "open the ticket = 표를 열다"
+        },
+        {
+          "goal": "대체 정보 제시하기",
+          "example": "I have the booking number written down.",
+          "cue": "written down = 적어 둔"
+        },
+        {
+          "goal": "대체 확인 요청하기",
+          "example": "Can you find it using my name and this number?",
+          "cue": "using = 이용해서"
+        }
+      ],
+      "outcome": "전자 표를 못 여는 상황에서 예약 확인 대안을 찾는다.",
+      "transfer": "번호도 없다. 가상 이메일 주소로 검색 가능한지 묻는다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "B1",
+      "slug": "police-report-facts",
+      "title": "분실과 도난을 구분해 사실 신고하기",
+      "scenario": "카페에서 가방이 없어졌지만 누가 가져갔는지는 보지 못했습니다. 가방은 오후 2시쯤 의자 옆에 두었고 돌아왔을 때 없어졌습니다. 사라진 정확한 시각은 모릅니다.",
+      "learnerRole": "물건을 잃은 여행자",
+      "interlocutorRole": "신고 접수 직원. 마지막 확인 시각과 위치, 직접 본 사실을 질문한다.",
+      "opening": "Did you see anyone take the bag?",
+      "steps": [
+        {
+          "goal": "확인한 사실 말하기",
+          "example": "I left it beside my chair at about two, and it was gone when I returned.",
+          "cue": "was gone = 없어졌다"
+        },
+        {
+          "goal": "모르는 부분 명시하기",
+          "example": "I did not see anyone take it, so I cannot say what happened.",
+          "cue": "cannot say = 단정할 수 없다"
+        },
+        {
+          "goal": "접수 정보 요청하기",
+          "example": "Could I have a report reference for follow-up?",
+          "cue": "report reference = 신고 접수 번호"
+        }
+      ],
+      "outcome": "관찰과 추측을 구분해 신고한다.",
+      "transfer": "가져가는 장면은 봤지만 얼굴은 못 봤다. 확실한 정보만 설명한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "B1",
+      "slug": "insurance-documents",
+      "title": "여행 보험 문의에 필요한 서류 확인하기",
+      "scenario": "수하물 지연으로 생필품을 샀고 보장 여부 심사를 신청하려 합니다. 가상 수하물은 이틀 늦게 도착했으며 그동안 기본 의류를 샀습니다.",
+      "learnerRole": "보험 문의 여행자",
+      "interlocutorRole": "상담원. 보장 확정 없이 지연 확인서·구매 영수증·예약 정보가 필요하다고 안내한다.",
+      "opening": "Please tell me what happened to your luggage.",
+      "steps": [
+        {
+          "goal": "경위와 비용 설명하기",
+          "example": "My bag arrived two days late, so I bought basic clothing.",
+          "cue": "basic clothing = 기본 의류"
+        },
+        {
+          "goal": "필요 자료 묻기",
+          "example": "Which receipts and airline documents should I provide?",
+          "cue": "provide = 제출하다"
+        },
+        {
+          "goal": "검토 절차 확인하기",
+          "example": "How will I know whether the request has been accepted for review?",
+          "cue": "review = 검토"
+        }
+      ],
+      "outcome": "보장 확약 대신 심사 서류와 절차를 확인한다.",
+      "transfer": "영수증 하나를 잃었다. 대체 증빙이 가능한지 솔직히 묻는다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "B1",
+      "slug": "missed-pickup",
+      "title": "예약 픽업 차량이 오지 않을 때 문의하기",
+      "scenario": "약속 장소에서 20분 기다렸지만 차량이 오지 않습니다. 예약 확인서와 현재 대기 장소는 모두 2번 터미널입니다.",
+      "learnerRole": "픽업 예약자",
+      "interlocutorRole": "업체 직원. 기사는 다른 터미널에 있으며 15분 후 도착 가능하다고 안내한다.",
+      "opening": "Our driver says they are waiting for you.",
+      "steps": [
+        {
+          "goal": "약속과 현재 위치 설명하기",
+          "example": "My confirmation says terminal two, and I have been waiting there for twenty minutes.",
+          "cue": "have been waiting = 계속 기다리고 있다"
+        },
+        {
+          "goal": "상대 위치 확인하기",
+          "example": "Could you check which terminal the driver is at?",
+          "cue": "which terminal = 어느 터미널"
+        },
+        {
+          "goal": "새 계획 확인하기",
+          "example": "If the driver comes here, please confirm the arrival time and car details.",
+          "cue": "car details = 차량 정보"
+        }
+      ],
+      "outcome": "위치 불일치와 새 픽업 계획을 확인한다.",
+      "transfer": "기사가 오려면 한 시간이 걸린다. 취소·대체 교통 비용 처리 가능성을 묻는다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "B1",
+      "slug": "send-left-item",
+      "title": "숙소에 두고 온 물건 배송 요청하기",
+      "scenario": "퇴실 후 태블릿을 두고 왔고 다음 도시에서 받을 수 있습니다. 가상 태블릿에는 초록색 덮개와 작은 별 스티커가 있습니다. 다음 호텔은 수령을 받아줄 의향이 있지만 도착 예정일은 아직 확인하지 않았습니다.",
+      "learnerRole": "이전 투숙객",
+      "interlocutorRole": "숙소 직원. 물건 확인 후 포장과 배송 비용을 안내하며 가상 주소를 요청한다.",
+      "opening": "We found a tablet in your former room.",
+      "steps": [
+        {
+          "goal": "소유 확인 특징 말하기",
+          "example": "Mine has a green cover and a small star sticker.",
+          "cue": "cover = 덮개"
+        },
+        {
+          "goal": "배송 가능 여부 묻기",
+          "example": "Could you send it to my next hotel if I cover the cost?",
+          "cue": "cover the cost = 비용을 부담하다"
+        },
+        {
+          "goal": "전달 정보 확인하기",
+          "example": "Please send a tracking number and check that the hotel can receive it.",
+          "cue": "tracking number = 배송 추적 번호"
+        }
+      ],
+      "outcome": "물건 확인과 수령 장소·배송 절차를 합의한다.",
+      "transfer": "다음 숙소 체류가 하루뿐이다. 도착 예상일을 확인하고 다른 수령지를 선택한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "B2",
+      "slug": "scam-suspicion",
+      "title": "의심스러운 결제 요청을 검증하기",
+      "scenario": "예약 업체를 사칭할 수 있는 메시지가 외부 링크로 추가 결제를 요구합니다. 공식 창구에서 확인합니다.",
+      "learnerRole": "예약자",
+      "interlocutorRole": "공식 고객센터 직원. 예약 번호로 미납 여부를 확인하며 메시지 링크는 공식 시스템에서 발송되지 않았다고 안내한다.",
+      "opening": "What message did you receive?",
+      "steps": [
+        {
+          "goal": "요청 내용과 확인하지 않은 점 설명하기",
+          "example": "It asks for an extra payment through a new link, but I have not verified the sender.",
+          "cue": "verified = 확인한"
+        },
+        {
+          "goal": "공식 기록 기준 질문하기",
+          "example": "Does my booking show any outstanding balance in your system?",
+          "cue": "outstanding balance = 미납 잔액"
+        },
+        {
+          "goal": "검증된 다음 행동 확인하기",
+          "example": "Please tell me how to report the message and check future requests through the official booking channel.",
+          "cue": "official channel = 공식 경로"
+        }
+      ],
+      "outcome": "의심과 확정 판단을 구분하고 공식 기록으로 확인한다.",
+      "transfer": "진짜 추가 요금이 있지만 링크는 다르다. 요금 유무와 결제 경로 진위를 따로 확인한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "B2",
+      "slug": "unexpected-closure",
+      "title": "숙소 영업 중단 시 급한 대안 조율하기",
+      "scenario": "도착했는데 숙소가 닫혀 있고 플랫폼은 확인 중입니다. 밤이 늦어 당장 머물 곳이 필요합니다.",
+      "learnerRole": "도착 여행자",
+      "interlocutorRole": "플랫폼 상담원. 영업 상태 조사와 별도로 대체 숙소 탐색을 돕고 비용 승인은 상한 검토가 필요하다.",
+      "opening": "We need to verify the property status before deciding on reimbursement.",
+      "steps": [
+        {
+          "goal": "즉시 필요와 비용 심사 분리하기",
+          "example": "I understand reimbursement needs review, but I need a safe place to stay tonight while that happens.",
+          "cue": "while = 그동안"
+        },
+        {
+          "goal": "실행 가능한 대안 요청하기",
+          "example": "Can you help locate available accommodation and state what costs you can authorize now?",
+          "cue": "authorize = 승인하다"
+        },
+        {
+          "goal": "기록과 후속 절차 확인하기",
+          "example": "Please record the closure report and explain which evidence I should retain for the later assessment.",
+          "cue": "retain = 보관하다"
+        }
+      ],
+      "outcome": "긴급 숙박 대안과 추후 비용 검토를 병행한다.",
+      "transfer": "숙소는 열려 있으나 객실이 없다. 폐쇄라고 과장하지 않고 사실을 수정한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "B2",
+      "slug": "unexpected-charge-evidence",
+      "title": "예상 못한 요금에 증빙 요청하기",
+      "scenario": "렌터카 반납 뒤 청소비가 청구됐는데 사진이나 항목 설명이 없습니다.",
+      "learnerRole": "이용 종료 고객",
+      "interlocutorRole": "상담원. 반납 점검 사진과 요금 기준을 요청 부서에서 받을 수 있고 검토 기간을 안내한다.",
+      "opening": "An additional cleaning charge was applied after inspection.",
+      "steps": [
+        {
+          "goal": "청구 근거 요청하기",
+          "example": "Could you provide the inspection record, photographs, and the rule used to calculate this charge?",
+          "cue": "calculate = 계산하다"
+        },
+        {
+          "goal": "보유 증빙 제시하기",
+          "example": "I have return photos, so I would like both sets of evidence reviewed together.",
+          "cue": "both sets = 양쪽 자료"
+        },
+        {
+          "goal": "검토 중 상태 확인하기",
+          "example": "Please confirm whether the charge remains under review and when I should expect a response.",
+          "cue": "under review = 검토 중"
+        }
+      ],
+      "outcome": "감정적 부인 대신 요금 근거와 상호 증빙 검토를 요청한다.",
+      "transfer": "사진이 있지만 촬영 시각이 불명확하다. 기록의 연결 근거를 확인한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "B2",
+      "slug": "travel-plan-disruption",
+      "title": "동행인과 사고 후 일정 우선순위 조정하기",
+      "scenario": "가방을 잃어 신고·재구매·관광 일정이 충돌합니다. 동행인에게 필요한 도움을 요청합니다.",
+      "learnerRole": "분실을 겪은 여행자",
+      "interlocutorRole": "동행인. 오늘 관광을 원하지만 한 시간 신고 동행은 가능하고 이후 합류를 제안한다.",
+      "opening": "Do we really have to cancel the whole day?",
+      "steps": [
+        {
+          "goal": "전체 취소 아닌 필요 설명하기",
+          "example": "I do not need to cancel everything, but reporting the loss and replacing essential items must come first.",
+          "cue": "essential = 필수적인"
+        },
+        {
+          "goal": "도움 범위 제안하기",
+          "example": "Could you come with me for the report, then continue your plans while I handle the shopping?",
+          "cue": "handle = 처리하다"
+        },
+        {
+          "goal": "합류 조건 합의하기",
+          "example": "Let us agree on a meeting time and a backup contact method in case this takes longer.",
+          "cue": "backup = 예비의"
+        }
+      ],
+      "outcome": "지원 요청과 동행인의 일정 자율성을 조율한다.",
+      "transfer": "잃은 물건이 여권이라 시간이 더 불확실하다. 고정 시각 대신 연락 기준으로 합의한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "C1",
+      "slug": "uncertain-incident-timeline",
+      "title": "불확실한 사고 시간표를 정확히 설명하기",
+      "scenario": "휴대전화 기록과 기억이 달라 분실 시각을 확정하기 어렵습니다. 휴대전화 사진의 확인된 시각은 14:05입니다. 이후 정차 시각은 기억에 의존하며 약 10분 오차가 있을 수 있습니다.",
+      "learnerRole": "신고자",
+      "interlocutorRole": "접수 담당자. 확인된 기록과 대략적인 기억을 따로 적을 수 있다.",
+      "opening": "What time exactly did the item go missing?",
+      "steps": [
+        {
+          "goal": "확실성 수준 밝히기",
+          "example": "I cannot give the exact time of the loss, but I can establish when I last used it and when I noticed it missing.",
+          "cue": "establish = 확인하다"
+        },
+        {
+          "goal": "자료와 기억 구분하기",
+          "example": "The photo timestamp confirms 14:05; the later stop is from memory and may be ten minutes out.",
+          "cue": "from memory = 기억에 따라"
+        },
+        {
+          "goal": "기록 방식 요청하기",
+          "example": "Please record that as a time window rather than convert my estimate into a precise claim.",
+          "cue": "time window = 시간 범위"
+        }
+      ],
+      "outcome": "추정 시각을 정확한 사실처럼 기록하지 않도록 설명한다.",
+      "transfer": "휴대전화 시간대가 바뀌었다. 기록 시각과 현지 시각 변환 여부를 확인한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "C1",
+      "slug": "agency-handoff",
+      "title": "기관 사이 반복 전가되는 문의 정리하기",
+      "scenario": "항공사·보험사·플랫폼이 서로 문의하라고 해 같은 설명을 반복합니다.",
+      "learnerRole": "수하물 지연 문의자",
+      "interlocutorRole": "상담 감독자. 항공사는 지연 사실, 플랫폼은 예약 정보, 보험사는 보장 심사를 담당한다고 정리할 수 있다.",
+      "opening": "That part should be handled by the airline, not by us.",
+      "steps": [
+        {
+          "goal": "요청을 기관별로 분해하기",
+          "example": "I am asking you to confirm the booking record, not to determine the airline’s liability or insurance coverage.",
+          "cue": "liability = 책임 여부"
+        },
+        {
+          "goal": "필요 인계물 지정하기",
+          "example": "Which document can your team issue so the next organization can assess its part without sending me back?",
+          "cue": "issue = 발급하다"
+        },
+        {
+          "goal": "연락과 완료 기준 합의하기",
+          "example": "Please identify a contact and the exact information being transferred, rather than simply directing me to another queue.",
+          "cue": "transferred = 전달되는"
+        }
+      ],
+      "outcome": "책임 판단과 사실 증빙의 역할을 구분해 인계를 요청한다.",
+      "transfer": "한 기관이 통합 접수하지만 심사는 분리된다. 접수 창구와 의사결정자를 구분한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "C1",
+      "slug": "witness-language-support",
+      "title": "목격 사실을 통역과 함께 정확히 전달하기",
+      "scenario": "사건을 목격했으나 세부 설명이 어려워 통역 지원을 요청합니다. 상대의 유도 질문은 확인되지 않은 내용을 포함합니다.",
+      "learnerRole": "목격 여행자",
+      "interlocutorRole": "접수 직원. 통역 연결 가능하며 목격자의 표현을 그대로 기록하고 확인되지 않은 추론을 분리한다.",
+      "opening": "So the person deliberately pushed the bag off the bench?",
+      "steps": [
+        {
+          "goal": "관찰과 의도 추정 구분하기",
+          "example": "I saw the bag fall after contact, but I cannot say whether it was deliberate.",
+          "cue": "deliberate = 고의적인"
+        },
+        {
+          "goal": "언어 지원 요청하기",
+          "example": "Because the distinction matters, I would like an interpreter before giving a detailed statement.",
+          "cue": "distinction = 구별"
+        },
+        {
+          "goal": "기록 확인 요청하기",
+          "example": "Please let me review the wording to ensure it reflects what I observed rather than the suggested interpretation.",
+          "cue": "observed = 직접 관찰한"
+        }
+      ],
+      "outcome": "유도된 해석을 피하고 언어 지원 아래 관찰을 진술한다.",
+      "transfer": "직접 보지 않고 다른 사람에게 들은 정보가 섞였다. 전달 정보임을 표시한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "C1",
+      "slug": "complaint-proportionate",
+      "title": "여행 문제 민원을 비례적으로 정리하기",
+      "scenario": "투어는 진행됐지만 핵심 장소 한 곳이 빠졌고 일부 식사 서비스도 늦었습니다. 전액 무효라고 과장하지 않습니다.",
+      "learnerRole": "투어 고객",
+      "interlocutorRole": "책임자. 누락 원인과 제공된 항목을 확인하고 부분 조정 검토를 할 수 있다.",
+      "opening": "You did receive most of the advertised service.",
+      "steps": [
+        {
+          "goal": "제공된 부분 인정하기",
+          "example": "I agree that much of the service was delivered, and I do not want to erase that from the account.",
+          "cue": "delivered = 제공된"
+        },
+        {
+          "goal": "중요도 다른 문제 구별하기",
+          "example": "The missing site was central to my booking; the meal delay was inconvenient but secondary.",
+          "cue": "secondary = 부차적인"
+        },
+        {
+          "goal": "근거 있는 검토 요청하기",
+          "example": "Could you assess a proportionate adjustment based on the omitted core element rather than treating every issue as equally serious?",
+          "cue": "proportionate = 정도에 맞는"
+        }
+      ],
+      "outcome": "제공분과 누락분·핵심과 부차 문제를 구분한다.",
+      "transfer": "누락 장소는 안전상 폐쇄됐다. 원인과 상품 가치 변화의 문제를 따로 검토한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "C2",
+      "slug": "apology-admission",
+      "title": "사과 표현과 책임 인정의 함의 구분하기",
+      "scenario": "직원은 유감이라는 말만 반복하고 사용자는 사실 오류 수정을 원합니다. 사과가 법적 책임 인정인지 논쟁하지 않고 해결을 좁힙니다.",
+      "learnerRole": "민원 제기 여행자",
+      "interlocutorRole": "관리자. 유감 표명과 원인 조사는 별개이며 잘못된 시간 기록은 증빙 확인 후 수정 가능하다.",
+      "opening": "We are sorry you feel that the service failed to meet your expectations.",
+      "steps": [
+        {
+          "goal": "감정 귀속과 사실 문제 구분하기",
+          "example": "I appreciate the acknowledgement, but the issue is not solely how I felt; the record shows a departure time that differs from the notice I received.",
+          "cue": "acknowledgement = 인정 표현"
+        },
+        {
+          "goal": "책임 판단 없이 사실 수정 요청하기",
+          "example": "You need not settle responsibility in this conversation to verify and correct that discrepancy.",
+          "cue": "discrepancy = 불일치"
+        },
+        {
+          "goal": "다음 단계 한정하기",
+          "example": "Could we first agree on the documented sequence, then identify who will assess its implications for my request?",
+          "cue": "implications = 요청에 미치는 영향"
+        }
+      ],
+      "outcome": "감정적 사과와 사실 정정·후속 판단을 분리한다.",
+      "transfer": "기록은 맞지만 전달 시점이 늦었다. 잘못된 정보와 늦은 전달을 구분해 쟁점을 수정한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "C2",
+      "slug": "settlement-scope",
+      "title": "문제 해결 제안의 종결 범위 확인하기",
+      "scenario": "부분 환급 제안서에 모든 사안이 해결됐다고 적혀 있지만 분실물 배송은 아직 진행 중입니다.",
+      "learnerRole": "여행 고객",
+      "interlocutorRole": "담당자. 요금 민원과 물건 배송을 별도 항목으로 명시할 수 있으며 법률 해석은 담당 검토로 연결한다.",
+      "opening": "Acceptance will be recorded as full resolution of the case.",
+      "steps": [
+        {
+          "goal": "복수 사안과 모호한 범위 제시하기",
+          "example": "The case currently contains both a pricing complaint and an outstanding property return, so full resolution could obscure an unfinished obligation.",
+          "cue": "outstanding = 아직 남은"
+        },
+        {
+          "goal": "원하는 범위 한정하기",
+          "example": "I can confirm resolution of the fee issue if the document expressly keeps the item return open.",
+          "cue": "expressly = 명시적으로"
+        },
+        {
+          "goal": "전문 검토 필요성과 실행 질문 분리하기",
+          "example": "If the wording has wider consequences, please refer it for clarification; meanwhile, who remains responsible for the shipment?",
+          "cue": "wider consequences = 더 넓은 영향"
+        }
+      ],
+      "outcome": "합의 범위를 명확히 하고 미완료 조치를 유지한다.",
+      "transfer": "물건은 배송됐지만 수령 미확인이다. 발송 완료와 반환 완료를 나눠 기록한다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "C2",
+      "slug": "media-summary-correction",
+      "title": "여행 사건 요약에서 과장된 표현 바로잡기",
+      "scenario": "업체의 공유 가능한 요약은 고객이 서비스를 거부했다고 쓰지만 실제로는 제공 조건을 확인하느라 기다렸습니다.",
+      "learnerRole": "사건 당사자",
+      "interlocutorRole": "담당자. 확인 질문 기록이 있으며 표현 정정과 배포 대상 통지가 가능하다.",
+      "opening": "The summary says you declined the replacement we offered.",
+      "steps": [
+        {
+          "goal": "행동과 해석을 분리하기",
+          "example": "I asked for the access details before deciding; that is different from declining an option whose suitability had already been established.",
+          "cue": "suitability = 적합성"
+        },
+        {
+          "goal": "검증 가능한 대체 문구 제시하기",
+          "example": "A more accurate account would say that acceptance remained pending clarification of the replacement conditions.",
+          "cue": "pending clarification = 설명을 기다리는"
+        },
+        {
+          "goal": "정정 범위 요청하기",
+          "example": "Could the correction reach the same recipients as the original summary, while leaving any unresolved assessment clearly labelled?",
+          "cue": "recipients = 수신자"
+        }
+      ],
+      "outcome": "보류·거절·조건 확인을 구별해 기록을 정정한다.",
+      "transfer": "실제로 대안을 거절했지만 일부 조건만 거절했다. 조건부 거절 범위를 정확히 쓴다."
+    },
+    {
+      "subcategoryId": "travel-problems",
+      "difficulty": "C2",
+      "slug": "cross-cultural-conflict-repair",
+      "title": "직설적 표현의 문화적 오해 수습하기",
+      "scenario": "급한 상황에서 한 말이 직원에게 명령과 비난처럼 들렸습니다. 요청의 긴급성은 유지하면서 관계를 회복합니다.",
+      "learnerRole": "문제 해결 중인 여행자",
+      "interlocutorRole": "직원. 무례하게 느꼈다고 말하지만 차분한 요청이면 가능한 조치를 설명할 의사가 있다.",
+      "opening": "It sounded as though you were blaming me personally and ordering me to fix everything.",
+      "steps": [
+        {
+          "goal": "영향 인정과 의도 변명 구분하기",
+          "example": "I can see how my wording put you in that position, even though I was trying to convey urgency rather than personal blame.",
+          "cue": "wording = 표현 방식"
+        },
+        {
+          "goal": "사과 후 요청을 구체적으로 재구성하기",
+          "example": "I am sorry for that. What I need now is confirmation of the next available option, not a promise to solve matters outside your authority.",
+          "cue": "outside your authority = 권한 밖"
+        },
+        {
+          "goal": "상호 실행 기준 합의하기",
+          "example": "Could we reset the conversation around what you can confirm now, what needs escalation, and when I should expect an update?",
+          "cue": "reset = 새롭게 정리하다"
+        }
+      ],
+      "outcome": "표현의 영향을 인정하고 긴급 요청을 실행 가능한 범위로 바꾼다.",
+      "transfer": "상대도 모욕적으로 반응했다. 상대 의도 추정 없이 자신의 경계와 대화 조건을 차분히 밝힌다."
+    }
+  ]
+}

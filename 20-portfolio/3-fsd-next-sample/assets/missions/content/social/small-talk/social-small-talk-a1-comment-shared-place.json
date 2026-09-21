@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "social-small-talk-a1-comment-shared-place",
+  "title": "같은 장소에 관해 대화 시작하기",
+  "categoryId": "social",
+  "subcategoryId": "small-talk",
+  "difficulty": "A1",
+  "scenario": "새 도서관 휴게실에서 옆 사람과 짧게 대화합니다.",
+  "practicalOutcome": "공유하는 장소를 주제로 짧은 대화를 나눈다.",
+  "roles": {
+    "learner": "상황 속 대화 참여자(가상 정보 사용)",
+    "interlocutor": "이용자. 처음 온 것은 아니며 창가 자리가 조용하다고 답한다."
+  },
+  "opening": "It's quiet here.",
+  "estimatedMinutes": 7,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "느낌에 반응하기",
+      "example": "Yes. I like it.",
+      "hints": [
+        "의도: 느낌에 반응하기",
+        "핵심 표현: quiet = 조용한",
+        "완성 문장 예시: Yes. I like it. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 느낌에 반응하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "방문 경험 묻기",
+      "example": "Is this your first visit?",
+      "hints": [
+        "의도: 방문 경험 묻기",
+        "핵심 표현: first visit = 첫 방문",
+        "완성 문장 예시: Is this your first visit? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 방문 경험 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "짧은 정보에 감사하기",
+      "example": "Thank you. I like quiet places.",
+      "hints": [
+        "의도: 짧은 정보에 감사하기",
+        "핵심 표현: like = 좋아하다",
+        "완성 문장 예시: Thank you. I like quiet places. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 짧은 정보에 감사하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "한 번에 한 질문; 필요하면 반복과 예시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 느낌에 반응하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '같은 장소에 관해 대화 시작하기' 상황에서 공유하는 장소를 주제로 짧은 대화를 나눈다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "장소가 시끄럽다. quiet 대신 noisy를 사용하고 조용한 자리를 묻는다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '같은 장소에 관해 대화 시작하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 장소가 시끄럽다. quiet 대신 noisy를 사용하고 조용한 자리를 묻는다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "공유하는 장소를 주제로 짧은 대화를 나눈다.",
+      "느낌에 반응하기",
+      "방문 경험 묻기",
+      "짧은 정보에 감사하기",
+      "수준별 관찰: 예측 가능한 질문과 답, 기본 정보 확인. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

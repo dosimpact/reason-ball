@@ -1,0 +1,337 @@
+{
+  "startedAt": "2026-09-20T16:50:39.897Z",
+  "base": "http://dodonet.iptime.org:13000",
+  "expectedCatalogCount": 752,
+  "checks": [
+    {
+      "kind": "manager",
+      "label": "navigate",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "observed-list",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "catalog-completeness",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "sample-daily-food-drink-pre-a1-water",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "detail-daily-food-drink-pre-a1-water",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "return-list",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "sample-work-collaboration-a2-developer-ask-reproduction",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "detail-work-collaboration-a2-developer-ask-reproduction",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "return-list",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "sample-work-collaboration-a2-designer-missing-mobile-state",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "detail-work-collaboration-a2-designer-missing-mobile-state",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "return-list",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "sample-work-customer-service-a2-it-login-blocked-call",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "detail-work-customer-service-a2-it-login-blocked-call",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "return-list",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "sample-work-meetings-a2-business-agenda-priority",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "detail-work-meetings-a2-business-agenda-priority",
+      "status": "PASS"
+    },
+    {
+      "kind": "manager",
+      "label": "return-list",
+      "status": "PASS"
+    },
+    {
+      "kind": "learner",
+      "label": "profile",
+      "status": "PASS"
+    },
+    {
+      "kind": "learner",
+      "label": "profile-save",
+      "status": "PASS"
+    },
+    {
+      "kind": "learner",
+      "label": "assigned-list",
+      "status": "PASS"
+    },
+    {
+      "kind": "learner",
+      "label": "five-assignments",
+      "status": "PASS"
+    },
+    {
+      "kind": "learner",
+      "label": "learner-evidence",
+      "status": "PASS"
+    },
+    {
+      "kind": "learner",
+      "label": "assignment-boundaries",
+      "status": "PASS"
+    },
+    {
+      "kind": "learner",
+      "label": "unassigned-api",
+      "status": "PASS"
+    }
+  ],
+  "server": {
+    "name": "Playwright",
+    "version": "1.64.0-alpha-1789764292000"
+  },
+  "status": "PASS",
+  "finishedAt": "2026-09-20T16:52:49.824Z",
+  "observations": [
+    {
+      "check": "19-profile-save",
+      "result": {
+        "saved": true
+      }
+    },
+    {
+      "check": "21-five-assignments",
+      "result": {
+        "provisioning": {
+          "mode": "assigned",
+          "assignedCount": 5
+        },
+        "missions": [
+          {
+            "id": "062883de-9ca7-81bd-ad5c-34c3eda179cf",
+            "title": "모호한 불만을 구체적인 문제로 확인하기",
+            "difficulty": "중급"
+          },
+          {
+            "id": "9fd84ec5-6752-8396-a5c5-e24d7db4a840",
+            "title": "업무 실수를 알리고 복구 제안하기",
+            "difficulty": "중급"
+          },
+          {
+            "id": "0e9caeb8-12cb-897c-a5ac-96be8a08aa8d",
+            "title": "벗어난 회의 주제를 되돌리기",
+            "difficulty": "중급"
+          },
+          {
+            "id": "ef8e95ad-bfdc-8f09-b02b-3cb7915d2d89",
+            "title": "첫 주 업무량과 학습 시간 조정하기",
+            "difficulty": "중급"
+          },
+          {
+            "id": "4b72b68b-d88f-8aff-be0f-93207a1f43a2",
+            "title": "직무의 초기 성공 기준 묻기",
+            "difficulty": "중급"
+          }
+        ]
+      }
+    },
+    {
+      "check": "23-assignment-boundaries",
+      "result": {
+        "forged": 400,
+        "crossOrigin": 403
+      }
+    },
+    {
+      "check": "24-unassigned-api",
+      "result": {
+        "deniedId": "39903f97-85bb-804e-ad31-236b3eaf50bd",
+        "status": 404
+      }
+    },
+    {
+      "check": "02-catalog-completeness",
+      "result": {
+        "total": 753,
+        "authoredCount": 752,
+        "missing": 0
+      }
+    },
+    {
+      "check": "03-sample-daily-food-drink-pre-a1-water",
+      "result": {
+        "title": "물 한 잔 부탁하기",
+        "url": "http://dodonet.iptime.org:13000/missions/39903f97-85bb-804e-ad31-236b3eaf50bd"
+      }
+    },
+    {
+      "check": "06-sample-work-collaboration-a2-developer-ask-reproduction",
+      "result": {
+        "title": "버그를 다시 볼 조건 요청하기",
+        "url": "http://dodonet.iptime.org:13000/missions/830c686f-28d7-8bc1-8f3b-277a1f063592"
+      }
+    },
+    {
+      "check": "09-sample-work-collaboration-a2-designer-missing-mobile-state",
+      "result": {
+        "title": "모바일 오류 화면이 빠진 핸드오프 정리하기",
+        "url": "http://dodonet.iptime.org:13000/missions/ca132cc4-3371-8450-891b-e58e38dd45d6"
+      }
+    },
+    {
+      "check": "12-sample-work-customer-service-a2-it-login-blocked-call",
+      "result": {
+        "title": "회의 직전 로그인 문의의 다음 행동 정하기",
+        "url": "http://dodonet.iptime.org:13000/missions/9b8765aa-0516-8ac2-b843-5ef071e11705"
+      }
+    },
+    {
+      "check": "15-sample-work-meetings-a2-business-agenda-priority",
+      "result": {
+        "title": "짧아진 회의에서 먼저 결정할 일 정하기",
+        "url": "http://dodonet.iptime.org:13000/missions/7d384c08-f8b0-8839-b846-7ff1f239d067"
+      }
+    }
+  ],
+  "manualChecks": {
+    "readyFalse": {
+      "mode": "catalog-empty",
+      "assignedCount": 0
+    },
+    "unassigned": {
+      "id": "39903f97-85bb-804e-ad31-236b3eaf50bd",
+      "ui": "미션을 찾을 수 없어요.",
+      "detailStatus": 404,
+      "startStatus": 404,
+      "directDataApiRows": 0
+    },
+    "realAi": {
+      "missionId": "9fd84ec5-6752-8396-a5c5-e24d7db4a840",
+      "conversationId": "26bcc4aa-0400-446d-9951-01109c877214",
+      "user": "I used the old date by mistake, and I will send a corrected copy now.",
+      "assistant": "Thanks for letting me know. Who received the old file—only our team, or the customer too?",
+      "reloadSameConversation": true,
+      "userCount": 1,
+      "assistantCount": 1
+    }
+  },
+  "limitations": [
+    "AI full completion/evaluation/reward not exercised",
+    "752 authored IDs verified by manager API; five sampled browser details",
+    "AI interaction checked separately through manual MCP tools; automated optional MCP_RUN_AI was not rerun"
+  ],
+  "finalOptimizedVerification": {
+    "startedAt": "2026-09-20T16:53:51.845Z",
+    "base": "http://dodonet.iptime.org:13000",
+    "expectedCatalogCount": 752,
+    "checks": [
+      {
+        "kind": "manager",
+        "label": "navigate",
+        "status": "PASS"
+      },
+      {
+        "kind": "manager",
+        "label": "observed-list",
+        "status": "PASS"
+      },
+      {
+        "kind": "manager",
+        "label": "catalog-completeness",
+        "status": "PASS"
+      },
+      {
+        "kind": "learner",
+        "label": "profile",
+        "status": "PASS"
+      },
+      {
+        "kind": "learner",
+        "label": "profile-save",
+        "status": "PASS"
+      },
+      {
+        "kind": "learner",
+        "label": "assigned-list",
+        "status": "PASS"
+      },
+      {
+        "kind": "learner",
+        "label": "five-assignments",
+        "status": "PASS"
+      },
+      {
+        "kind": "learner",
+        "label": "learner-evidence",
+        "status": "PASS"
+      },
+      {
+        "kind": "learner",
+        "label": "assignment-boundaries",
+        "status": "PASS"
+      },
+      {
+        "kind": "learner",
+        "label": "unassigned-api",
+        "status": "PASS"
+      }
+    ],
+    "server": {
+      "name": "Playwright",
+      "version": "1.64.0-alpha-1789764292000"
+    },
+    "status": "PASS",
+    "finishedAt": "2026-09-20T16:54:27.971Z",
+    "managerResult": {
+      "elapsedMs": 15146,
+      "total": 753,
+      "authoredCount": 752,
+      "missing": 0,
+      "privateFieldsAbsent": true,
+      "requestTimeoutMs": 30000
+    }
+  }
+}

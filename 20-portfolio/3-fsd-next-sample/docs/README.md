@@ -21,3 +21,16 @@
 3. 변경이 확정되면 비즈니스·시스템·테스트 저량 문서의 현재 상태를 갱신한다.
 4. 코드, 저량, 유량이 다르면 구현과 승인된 결정을 재확인하고 저량을 바로잡은 뒤 그 조정 내용을 유량에 기록한다.
 
+
+## 미션 교육과정·저작 자료
+
+현재 제품·시스템·검증 상태는 위 저량 문서의 `MISSION-CATALOG-01`, `MISSION-CURRICULUM-*`, `MISSION-PROBLEM-SOLVING-01`을 기준으로 한다. 세부 작성 자료는 다음과 같다.
+
+- [카탈로그와 작성·검증 명령](../assets/missions/README.md)
+- [연구 근거와 적용 한계](research/mission-learning-evidence.md)
+- [입문~심화 교육과정과 직무 문제 해결](research/mission-curriculum-design.md)
+- [이번 작성·교차 검토·검증 기록](flow/2026-09-21-research-based-mission-curriculum.md)
+
+- [원격 카탈로그 적재·개인 배정·MCP 검증](flow/2026-09-21-mission-catalog-remote-upload.md)
+
+- [게스트 전체 공개 미션 조회 변경·검증](flow/2026-09-21-guest-mission-browsing.md)

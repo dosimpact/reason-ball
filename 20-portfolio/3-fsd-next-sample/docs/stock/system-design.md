@@ -2,12 +2,41 @@
 
 > 문서 역할: 저량(Stock) — 최신 시스템·개발 설계의 단일 기준  
 > 최초 작성: 2026-09-05  
-> 최종 동기화: 2026-09-16  
+> 최종 동기화: 2026-09-21
 > 대상: Next.js 16 App Router + Feature-Sliced Design  
 > 제품 요구사항: `business-design.md`  
 > 테스트 기준 및 현재 검증 상태: `test-design.md`
 
 ## 1. 목적과 설계 원칙
+
+### 미션 작성 catalog (MISSION-CATALOG-01)
+
+원격 `20260920154920_mission_category_catalog.sql`은 `mission_categories`에 4개 대분류와 24개 세부 분류를 저장한다. id는 로컬 categories.json과 동일하며 depth=0/1과 복합 FK로 정확히 2계층을 강제한다. `missions.category_id`는 nullable 세부 분류 참조이고 generated `category_depth=1`은 대분류 연결을 방지하는 FK 보조값이다. FK 인덱스와 category_id/difficulty 복합 인덱스를 둔다. 분류는 공개 SELECT만 허용하고 관리 쓰기는 service_role로 제한한다. 기존 미션 소유권 RLS는 유지한다.
+
+기존 `scenario_category`와 CEFR `difficulty`는 그대로 유지하며 기존 행의 category_id는 NULL이다. 세부 분류를 추정해 이관하지 않는다. 신규 컬럼과 기존 문자열 사이 자동 동기화는 없고 importer가 세부 분류 ID와 기존 대분류 표시명을 함께 매핑한다. category_id는 현재 미션 분류이며 기존 display_metadata에 역사 분류 ID를 추가하지 않는다. JSON 변경만으로 원격 분류가 갱신되지 않으며 변경은 migration으로 관리한다.
+
+`assets/missions/categories.json`과 `levels.json`은 분류·수준 기준이고 루트 `catalog.json`은 4개 하위 catalog의 목차다. 하위 목록은 key·제목·분류·난이도·작성 상태·본문 경로·tags를 관리하며 본문은 `content/<categoryId>/<subcategoryId>/<key>.json`에 둔다. 기존 `hotel-check-in-001`을 보존한다.
+
+`authoring/<categoryId>.json`은 개별 상황·역할·단계·전이를 직접 작성한 편집 원본이다. `scripts/missions/compile-catalog.mjs`의 순수 변환이 스키마에 맞는 본문과 목록·`learning-paths.json`을 재현하고 I/O 경계에서 저장한다. 공통 교수 정책은 `curriculum.json`, 7개 근거와 한계는 `research-sources.json`으로 관리한다. 본문은 3단계 한국어 힌트·관찰 기준·지원 감소·회상·전이·초기 복습 간격을 담는다. `prerequisites: []`와 추천 경로를 사용하며 앱/DB 강제 잠금을 만들지 않는다.
+
+`pnpm missions:compile`은 재생성, `pnpm missions:check`는 재현성과 전체 752개(기본672개·24×7×4 + 직무80개·4×5×4) 범위 및 스키마·교차 참조·추천 경로 검증, `pnpm missions:test`는 Node 회귀 검사다. 제한된 JSON Schema 검사기는 지원하지 않는 키워드를 오류로 처리한다. 문자열상 동일 본문 검사와 별개로 영어·입력 완결성·의미 중복은 편집 검토가 필요하다. 원본에서 기존 key가 사라지면 generator는 삭제를 수행하지 않고 중단한다. 현재 generator는 초기 저작용으로 분류/수준/slug에서 key를 처음 발급하므로 이후 이동·폐기에는 기존 ID 보존 처리를 먼저 추가해야 한다.
+
+직무 추가 원본은 `authoring/work-developer.json`, `work-designer.json`, `work-it-operations.json`, `work-business-meetings.json`이다. `curriculum.specializationCoverage`가 원본 경로·직무·수준·개수 기준을 소유한다. 추가 본문의 `caseBrief`는 문제·확인 사실·제약·권한·상대 입장·미확인 질문·결과물·해결 기준·에스컬레이션을 필수로 검증한다. 해결 기준을 assessment에도 연결하고 `learning-paths.professionalTracks`가 직무별 수준 경로를 제공한다. 기본영역 coverage와 직무 coverage를 별도로 검사하므로 추가 사례로 기본 미션 누락을 숨길 수 없다.
+
+저작 상태는 로컬 `draft`이며 앱 게시 상태와 독립적이다. `scripts/missions/import-catalog.mjs`는 명시적 owner/character/visibility/reward 옵션으로 검증 후 저장한다. key+owner별 결정적 UUID, 원문·매핑·이미지 SHA256으로 재실행 시 충돌을 거부하고 같은 게시본은 쓰지 않는다. create RPC로 draft 생성→catalog 등록→category_id·3개 hints 보완→검증→publish RPC 순서다. 중단은 기존 ID로 재개하며 수정된 게시본을 자동 덮어쓰지 않는다. 공통 완료 배지를 미션별 비공개 Storage 경로에 저장한다.
+
+전체 저작 원문은 서버 전용 evaluator_config.catalogImport에 보존하고, 공개 DTO에는 검증한 catalogDisplay.location/description만 전달한다. `20260921100000_mission_catalog_instruction_projection.sql`의 service-only security_invoker 뷰는 DB에서 prerequisites/objectives/catalogDisplay 3필드만 추려 목록 조회 시 큰 catalogImport 원문을 전송하지 않는다. 누락과 명시적 JSON null을 구분해 기존 오류 정책을 유지한다. 영어 예문은 target_vocabulary의 english, 대응 수행 목표는 korean에 매핑한다. 목록과 하위 관계는 끝까지 페이지 조회하고 90개 ID 단위로 최대4묶음 병렬 hydration하여 행 제한과 URL 길이 제한에 대응한다. 오류나 반복 페이지를 부분 성공으로 반환하지 않는다. 부모 미션은 요청 사용자 RLS로 먼저 인가한다. 내부 hydration은 부모 ID와 버전 ID를 함께 제한하고 각 버전의 부모 일치를 검사한 뒤 버전·단계·공개 자산만 서버 client로 읽는다. 캐릭터 연결은 캐릭터 자체 가시성이 필요하므로 사용자 RLS를 유지한다. 검증한 ID 밖의 서비스 조회나 공개 필드 외 반환은 금지한다. offset pagination과 다중 요청은 동시 편집의 DB snapshot 보장은 아니다. 실제753개 관리자 목록 GET+JSON은 최종 약15.1초이며 서버 페이지검색 최적화는 별도다. 추천/복습 스케줄러와 음성 자료 생성은 별도다. 본문의 연구 ID는 공통 설계 근거이고 개별 미션의 효과 실험을 뜻하지 않는다. 콘텐츠 작성에서 DB 구조와 보안 경계를 바꾸지 않았다. 운영 규칙은 [`assets/missions/README.md`](../../assets/missions/README.md)를 따른다.
+
+### 게스트 전체 공개 카탈로그 조회 (MISSION-GUEST-BROWSE-01)
+
+`20260921110000_guest_mission_catalog_browsing.sql`은 `can_view_mission`에 공개·게시 상태와 게스트 조건을 함께 추가한다. auth.uid가 없는 방문자 또는 auth.users.is_anonymous=true인 익명 계정만 이 분기를 사용한다. 사용자가 수정 가능한 metadata나 오래된 JWT의 익명 claim으로 회원의 권한을 확대하지 않는다. 기존 소유자·관리자·배정 분기와 하위 버전/단계 RLS를 보존한다. 미션 시작 guard·배정 RPC·비공개 지침 권한은 변경하지 않는다. 권한 함수는 기존 security definer/search_path='' 경계를 유지한다.
+
+### 프로필 기반 최초 배정 (MISSION-PROVISION-01/02)
+
+`20260921090000_profile_mission_provisioning.sql`의 catalog_entries는 적재된 미션의 원장, catalog_managers는 카탈로그 전용 관리 권한, catalog_state.is_ready는 전체 적재 완료 gate, mission_assignments는 사용자별 배정과 선택 당시 프로필 snapshot을 소유한다. 서비스 역할 외 직접 쓰기는 허용하지 않는다. 사용자별 authenticated `provision_my_missions()`는 인자를 받지 않고 auth.uid와 저장된 learner_preferences를 읽는다. 사용자 잠금 안에서 기존 배정을 보존하고 최초 최대5개만 선택한다. 설정 PRE_A1은 DB pre-A1과 연결하고 직장은 work, 여행은 travel, 일상은 daily, 학업은 work, 문화는 social로 매핑한다.
+
+`POST /api/me/mission-assignments`는 빈 객체만 허용하고 인증 세션으로 RPC를 호출한다. 프로필이 없으면 needs-profile, 적재 미완료면 catalog-empty이며 배정 이력을 만들지 않는다. HTTP 목록 저장소는 이 POST 성공 후 RLS GET을 읽는다. 프로필 저장 시 목록 캐시를 무효화한다. 실패는 사용자에게 재시도로 표시하고 빈 목록으로 숨기지 않는다. `can_view_mission`과 새 conversation/run guard가 배정을 검사한다. 기존 소유자/전역 관리자 정책은 유지하며 신규 카탈로그 관리 역할을 전역 admin claim으로 확장하지 않는다. 기존 실행의 단순 진행 갱신은 재배정 검사로 잠그지 않는다.
+
 
 이 문서는 Persona English를 구현하는 단일 기술 기준이다. Vercel Chatbot의 AI 채팅 기능을 유지하면서 캐릭터 제작, 영어 학습 미션, TTS, 이미지 보상, 발견·프로필을 Feature-Sliced Design(FSD)으로 분리한다.
 
@@ -525,6 +554,12 @@ interface MissionRun {
 DB 함수는 mission run 결과와 `reward_unlocks` insert를 한 트랜잭션으로 수행하고 unique constraint로 멱등성을 보장한다.
 
 ## 8. Supabase 데이터 설계
+
+2026-09-21 원격 DB에 `20260911000705_automatic_mission_goal_tracking.sql`까지
+32개 migration이 적용되었다. 자동 목표 추적 receipt 및 서버 전용 RPC를 사용하며,
+일반 사용자의 `mission_step_progress` 직접 INSERT/UPDATE/DELETE 권한은 회수한다.
+진행 갱신은 최종 평가·보상과 구분한다. 실제 AI E2E는 별도 미완료 항목이다.
+검증 근거는 [원격 동기화 기록](../flow/2026-09-21-remote-migration-sync.md)을 따른다.
 
 ### 8.1 테이블
 

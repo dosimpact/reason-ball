@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-meetings-b1-raise-blocker",
+  "title": "회의에서 의존 작업 지연 알리기",
+  "categoryId": "work",
+  "subcategoryId": "meetings",
+  "difficulty": "B1",
+  "scenario": "보고서를 만들려면 다른 팀 데이터가 필요한데 아직 오지 않았습니다. 형식 정리는 먼저 할 수 있습니다.",
+  "practicalOutcome": "막힌 원인 설명하기 / 가능한 작업 제시하기 / 도움 요청하기",
+  "roles": {
+    "learner": "가상 팀 회의의 참여자 또는 진행자",
+    "interlocutor": "회의 진행자. 늦어지는 이유를 단정하지 말고 가능한 다음 행동을 묻는다."
+  },
+  "opening": "Are we on track for Friday?",
+  "estimatedMinutes": 12,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "막힌 원인 설명하기",
+      "example": "We haven't received the figures, so I can't finish the report yet.",
+      "hints": [
+        "의도: 막힌 원인 설명하기",
+        "핵심 표현: figures = 수치",
+        "완성 문장 예시: We haven't received the figures, so I can't finish the report yet. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 막힌 원인 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "가능한 작업 제시하기",
+      "example": "I can prepare the layout while we wait.",
+      "hints": [
+        "의도: 가능한 작업 제시하기",
+        "핵심 표현: while = ...동안",
+        "완성 문장 예시: I can prepare the layout while we wait. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 가능한 작업 제시하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "도움 요청하기",
+      "example": "Could someone confirm when the data will arrive?",
+      "hints": [
+        "의도: 도움 요청하기",
+        "핵심 표현: confirm = 확인하다",
+        "완성 문장 예시: Could someone confirm when the data will arrive? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 도움 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "이유·경험 연결; 요청 시 핵심 표현 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 막힌 원인 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '회의에서 의존 작업 지연 알리기' 상황에서 막힌 원인 설명하기 / 가능한 작업 제시하기 / 도움 요청하기 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "다음에는 일부 데이터만 도착해 잠정 보고와 완성 보고를 나누어 제안한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '회의에서 의존 작업 지연 알리기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 다음에는 일부 데이터만 도착해 잠정 보고와 완성 보고를 나누어 제안한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "막힌 원인 설명하기 / 가능한 작업 제시하기 / 도움 요청하기",
+      "막힌 원인 설명하기",
+      "가능한 작업 제시하기",
+      "도움 요청하기",
+      "수준별 관찰: 예상 밖 문제 설명과 복구. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

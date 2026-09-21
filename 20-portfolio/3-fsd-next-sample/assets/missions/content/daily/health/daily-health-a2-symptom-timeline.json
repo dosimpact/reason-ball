@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-health-a2-symptom-timeline",
+  "title": "증상 변화 순서 설명하기",
+  "categoryId": "daily",
+  "subcategoryId": "health",
+  "difficulty": "A2",
+  "scenario": "가상 증상은 월요일 가벼운 두통, 화요일 더 심한 두통입니다. 현재는 조금 나아졌습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+  "practicalOutcome": "처음·중간·현재의 상태를 구분해 전달한다.",
+  "roles": {
+    "learner": "의료 서비스 이용자",
+    "interlocutor": "의료진. 시작과 변화, 현재 상태를 묻는다. 원인을 단정하지 않는다."
+  },
+  "opening": "When did this start?",
+  "estimatedMinutes": 10,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "시작 시점 설명하기",
+      "example": "It started as a mild headache on Monday.",
+      "hints": [
+        "의도: 시작 시점 설명하기",
+        "핵심 표현: mild = 약한",
+        "완성 문장 예시: It started as a mild headache on Monday. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 시작 시점 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "변화 설명하기",
+      "example": "It was worse on Tuesday.",
+      "hints": [
+        "의도: 변화 설명하기",
+        "핵심 표현: was worse = 더 심했다",
+        "완성 문장 예시: It was worse on Tuesday. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 변화 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "현재 상태 구분하기",
+      "example": "It is a little better now, but it has not gone away.",
+      "hints": [
+        "의도: 현재 상태 구분하기",
+        "핵심 표현: has not gone away = 아직 남아 있다",
+        "완성 문장 예시: It is a little better now, but it has not gone away. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 현재 상태 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "표현 틀을 선택적으로 제공; 세부 정보와 다음 행동 확인. 먼저 상황과 첫 발화의 뜻을 확인하고 시작 시점 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '증상 변화 순서 설명하기' 상황에서 처음·중간·현재의 상태를 구분해 전달한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "증상이 나았다가 다시 나타난 경우 연결어 then과 again으로 순서를 설명한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '증상 변화 순서 설명하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 증상이 나았다가 다시 나타난 경우 연결어 then과 again으로 순서를 설명한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "처음·중간·현재의 상태를 구분해 전달한다.",
+      "시작 시점 설명하기",
+      "변화 설명하기",
+      "현재 상태 구분하기",
+      "수준별 관찰: 일상 거래와 간단한 문제 해결. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

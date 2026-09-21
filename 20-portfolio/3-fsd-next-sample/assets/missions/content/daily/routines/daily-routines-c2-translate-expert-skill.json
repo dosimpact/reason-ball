@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-routines-c2-translate-expert-skill",
+  "title": "전문가의 암묵적 감각을 초보에게 풀어 설명하기",
+  "categoryId": "daily",
+  "subcategoryId": "routines",
+  "difficulty": "C2",
+  "scenario": "도예 장인이 흙이 말하는 소리를 들으라고 조언하지만 초보는 실제 소리를 들으라는 뜻인지 혼동합니다. 실제 흙을 만지는 검사는 하지 않습니다. 가상 관찰 카드 A는 눌렀을 때 부드럽게 움직이고 표면이 매끈함, B는 저항이 크고 표면에 작은 갈라짐이 보임입니다. 비교는 이 묘사로만 진행하며 손기술이나 촉각 수행을 평가하지 않습니다.",
+  "practicalOutcome": "전문가 비유를 초보가 관찰할 단서로 바꾸되 판단의 한계를 보존한다.",
+  "roles": {
+    "learner": "장인과 초보 사이의 진행자",
+    "interlocutor": "장인. 실제 소리만이 아니라 손의 저항과 표면 변화를 느끼라는 뜻이며 익숙하면 함께 판단한다고 설명한다. 한국어 관찰 카드의 차이를 영어로 정리하도록 도와주며 실제 공예 수행이나 촉감 측정을 주장하지 않는다."
+  },
+  "opening": "You have to listen to what the clay is telling you; I cannot reduce that to a formula.",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "비유를 존중하며 관찰 단서 요청하기",
+      "example": "I would like to preserve the idea of responsiveness without leaving a beginner to guess what to notice. What changes first in your hands or in the surface?",
+      "hints": [
+        "의도: 비유를 존중하며 관찰 단서 요청하기",
+        "핵심 표현: responsiveness = 변화에 맞춰 반응하는 것",
+        "완성 문장 예시: I would like to preserve the idea of responsiveness without leaving a beginner to guess what to notice. What changes first in your hands or in the surface? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 비유를 존중하며 관찰 단서 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "확실한 절차 아닌 임시 도움으로 번역하기",
+      "example": "Could we offer those as provisional cues, rather than pretend they form a rule that works for every piece of clay?",
+      "hints": [
+        "의도: 확실한 절차 아닌 임시 도움으로 번역하기",
+        "핵심 표현: provisional cues = 임시 판단 단서",
+        "완성 문장 예시: Could we offer those as provisional cues, rather than pretend they form a rule that works for every piece of clay? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 확실한 절차 아닌 임시 도움으로 번역하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "초보의 독립 판단을 확인할 연습 제안하기",
+      "example": "Let the learner compare two samples and describe the difference before you name it, then discuss where the cues stop being reliable.",
+      "hints": [
+        "의도: 초보의 독립 판단을 확인할 연습 제안하기",
+        "핵심 표현: reliable = 믿고 쓸 수 있는",
+        "완성 문장 예시: Let the learner compare two samples and describe the difference before you name it, then discuss where the cues stop being reliable. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 초보의 독립 판단을 확인할 연습 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 비유를 존중하며 관찰 단서 요청하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '전문가의 암묵적 감각을 초보에게 풀어 설명하기' 상황에서 전문가 비유를 초보가 관찰할 단서로 바꾸되 판단의 한계를 보존한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "시각 단서는 비슷하고 촉감만 다르다. 관찰 채널을 바꾸되 같은 정답을 강요하지 않는다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '전문가의 암묵적 감각을 초보에게 풀어 설명하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 시각 단서는 비슷하고 촉감만 다르다. 관찰 채널을 바꾸되 같은 정답을 강요하지 않는다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "전문가 비유를 초보가 관찰할 단서로 바꾸되 판단의 한계를 보존한다.",
+      "비유를 존중하며 관찰 단서 요청하기",
+      "확실한 절차 아닌 임시 도움으로 번역하기",
+      "초보의 독립 판단을 확인할 연습 제안하기",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

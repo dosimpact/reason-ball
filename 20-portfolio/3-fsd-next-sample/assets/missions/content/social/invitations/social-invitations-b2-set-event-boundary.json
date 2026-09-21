@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "social-invitations-b2-set-event-boundary",
+  "title": "초대를 수락하면서 참여 범위 정하기",
+  "categoryId": "social",
+  "subcategoryId": "invitations",
+  "difficulty": "B2",
+  "scenario": "동창 모임이 저녁 식사 뒤 늦은 술자리로 이어집니다. 식사만 참여하고 싶습니다.",
+  "practicalOutcome": "참여 의지를 보이면서 예약과 기대를 정확히 조정한다.",
+  "roles": {
+    "learner": "상황 속 대화 참여자(가상 정보 사용)",
+    "interlocutor": "친구. 모두 끝까지 있을 거라고 예상하지만 부분 참여도 가능하다고 답한다."
+  },
+  "opening": "You're coming for the whole evening, right?",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "참여 의사와 한계 함께 말하기",
+      "example": "I'd love to join dinner, but I'll leave before the late-night plans.",
+      "hints": [
+        "의도: 참여 의사와 한계 함께 말하기",
+        "핵심 표현: join dinner = 저녁 식사에 참여하다; leave before = 전에 떠나다",
+        "완성 문장 예시: I'd love to join dinner, but I'll leave before the late-night plans. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 참여 의사와 한계 함께 말하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "모호한 기대 정리하기",
+      "example": "Please count me for the meal only, so the later booking doesn't include me.",
+      "hints": [
+        "의도: 모호한 기대 정리하기",
+        "핵심 표현: count me = 인원에 넣다",
+        "완성 문장 예시: Please count me for the meal only, so the later booking doesn't include me. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 모호한 기대 정리하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "관계를 이어 갈 의도 표현하기",
+      "example": "I still want a chance to catch up properly during dinner.",
+      "hints": [
+        "의도: 관계를 이어 갈 의도 표현하기",
+        "핵심 표현: catch up properly = 충분히 근황을 나누다",
+        "완성 문장 예시: I still want a chance to catch up properly during dinner. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 관계를 이어 갈 의도 표현하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 참여 의사와 한계 함께 말하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '초대를 수락하면서 참여 범위 정하기' 상황에서 참여 의지를 보이면서 예약과 기대를 정확히 조정한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "주최자가 일괄 결제를 이미 했다. 사전 안내 내용과 비용 분담 가능성을 차분히 확인한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '초대를 수락하면서 참여 범위 정하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 주최자가 일괄 결제를 이미 했다. 사전 안내 내용과 비용 분담 가능성을 차분히 확인한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "참여 의지를 보이면서 예약과 기대를 정확히 조정한다.",
+      "참여 의사와 한계 함께 말하기",
+      "모호한 기대 정리하기",
+      "관계를 이어 갈 의도 표현하기",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

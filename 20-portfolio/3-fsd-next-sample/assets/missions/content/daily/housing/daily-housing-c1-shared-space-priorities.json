@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-housing-c1-shared-space-priorities",
+  "title": "공용 공간의 경쟁하는 필요 중재하기",
+  "categoryId": "daily",
+  "subcategoryId": "housing",
+  "difficulty": "C1",
+  "scenario": "동거인 한 명은 거실을 운동 공간으로, 다른 한 명은 온라인 수업에 쓰려 합니다. 둘 다 저녁 7~8시만 가능합니다.",
+  "practicalOutcome": "시간의 균등 분할과 실제 제약을 함께 고려한 공용 공간 합의를 만든다.",
+  "roles": {
+    "learner": "거주자",
+    "interlocutor": "동거인 대표. 번갈아 쓰면 된다고 하지만 수업은 매주 화요일 고정이라고 설명한다."
+  },
+  "opening": "Taking turns seems like the only fair solution.",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "공평함의 서로 다른 기준 설명하기",
+      "example": "Equal time is one kind of fairness, but a fixed class and a flexible workout do not face the same constraints.",
+      "hints": [
+        "의도: 공평함의 서로 다른 기준 설명하기",
+        "핵심 표현: same constraints = 동일한 제약",
+        "완성 문장 예시: Equal time is one kind of fairness, but a fixed class and a flexible workout do not face the same constraints. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 공평함의 서로 다른 기준 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "고정과 조정 가능한 요구 구분하기",
+      "example": "Could we protect Tuesday for the class and look at alternatives for exercise on that evening?",
+      "hints": [
+        "의도: 고정과 조정 가능한 요구 구분하기",
+        "핵심 표현: protect Tuesday = 화요일 시간 확보",
+        "완성 문장 예시: Could we protect Tuesday for the class and look at alternatives for exercise on that evening? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 고정과 조정 가능한 요구 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "일방 양보를 피하는 보완안 제안하기",
+      "example": "In return, the exercise slot could take priority on another evening, with a review after two weeks.",
+      "hints": [
+        "의도: 일방 양보를 피하는 보완안 제안하기",
+        "핵심 표현: in return = 상호 보완",
+        "완성 문장 예시: In return, the exercise slot could take priority on another evening, with a review after two weeks. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 일방 양보를 피하는 보완안 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 공평함의 서로 다른 기준 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '공용 공간의 경쟁하는 필요 중재하기' 상황에서 시간의 균등 분할과 실제 제약을 함께 고려한 공용 공간 합의를 만든다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "운동도 강사 수업으로 시간이 고정되면 기존 공정성 판단을 재검토한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '공용 공간의 경쟁하는 필요 중재하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 운동도 강사 수업으로 시간이 고정되면 기존 공정성 판단을 재검토한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "시간의 균등 분할과 실제 제약을 함께 고려한 공용 공간 합의를 만든다.",
+      "공평함의 서로 다른 기준 설명하기",
+      "고정과 조정 가능한 요구 구분하기",
+      "일방 양보를 피하는 보완안 제안하기",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

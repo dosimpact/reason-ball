@@ -218,14 +218,14 @@ export function AppShell({ children }: AppShellProps) {
           })}
         </nav>
         <div className="mt-6 border-t border-black/6 pt-5 dark:border-white/10">
-          <p className="px-3 text-[10px] font-black uppercase tracking-[.16em] text-neutral-400">빠른 연습</p>
-          <Link href="/missions/hotel-check-in" className="mt-2 flex items-center gap-3 rounded-xl px-3 py-3 text-xs font-bold hover:bg-white dark:hover:bg-neutral-900">
-            <span className="grid size-8 place-items-center rounded-lg bg-[#fff0eb]">🏨</span>
-            호텔 체크인
+          <p className="px-3 text-[10px] font-black uppercase tracking-[.16em] text-neutral-400">학습 바로가기</p>
+          <Link href="/missions" className="mt-2 flex items-center gap-3 rounded-xl px-3 py-3 text-xs font-bold hover:bg-white dark:hover:bg-neutral-900">
+            <span className="grid size-8 place-items-center rounded-lg bg-[#fff0eb]">🎯</span>
+            배정 미션 보기
           </Link>
-          <Link href="/missions/coffee-order" className="flex items-center gap-3 rounded-xl px-3 py-3 text-xs font-bold hover:bg-white dark:hover:bg-neutral-900">
-            <span className="grid size-8 place-items-center rounded-lg bg-amber-50">☕</span>
-            카페 주문
+          <Link href="/profile" className="flex items-center gap-3 rounded-xl px-3 py-3 text-xs font-bold hover:bg-white dark:hover:bg-neutral-900">
+            <span className="grid size-8 place-items-center rounded-lg bg-amber-50">📝</span>
+            학습 프로필 설정
           </Link>
         </div>
         <div className="mt-auto rounded-2xl bg-[#f1f2ff] p-4 text-[#353b84] dark:bg-indigo-950 dark:text-indigo-100">

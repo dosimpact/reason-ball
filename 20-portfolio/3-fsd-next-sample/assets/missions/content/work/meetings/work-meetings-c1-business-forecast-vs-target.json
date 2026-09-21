@@ -1,0 +1,128 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-meetings-c1-business-forecast-vs-target",
+  "title": "목표 숫자와 현재 전망을 구분해 보고하기",
+  "categoryId": "work",
+  "subcategoryId": "meetings",
+  "difficulty": "C1",
+  "scenario": "분기 목표는 100건이지만 현재 확인된 전망은 70~80건입니다. 보고서에는 목표만 넣자는 요청이 나옵니다.",
+  "practicalOutcome": "확정 실적·예상 범위·목표·추가 행동을 분리해 보고한다.",
+  "roles": {
+    "learner": "사업 운영 분석자. 현재 근거와 불확실성을 보고하고 목표 변경은 경영 책임자에게 맡긴다.",
+    "interlocutor": "영업 책임자. 목표를 낮췄다는 인상을 우려하며 의욕을 보여 주는 보고를 원한다."
+  },
+  "caseBrief": {
+    "professionalRole": "cross-functional",
+    "situation": "분기 목표는 100건이지만 현재 확인된 전망은 70~80건입니다. 보고서에는 목표만 넣자는 요청이 나옵니다.",
+    "facts": [
+      "확정 주문은 60건이다.",
+      "추가 가능 주문은 10~20건이다.",
+      "목표는 100건으로 유지 중이다."
+    ],
+    "constraints": [
+      "확정되지 않은 주문을 확정으로 세지 않는다.",
+      "목표를 낮출 권한은 학습자에게 없다."
+    ],
+    "learnerAuthority": "사업 운영 분석자. 현재 근거와 불확실성을 보고하고 목표 변경은 경영 책임자에게 맡긴다.",
+    "counterpartPosition": "영업 책임자. 목표를 낮췄다는 인상을 우려하며 의욕을 보여 주는 보고를 원한다.",
+    "unresolvedQuestions": [
+      "목표와 예측은 각각 무엇을 뜻하는가?",
+      "차이를 줄일 실행 계획과 책임자는 누구인가?"
+    ],
+    "deliverable": "확정 실적·예상 범위·목표·추가 행동을 분리해 보고한다.",
+    "resolutionCriteria": [
+      "세 숫자의 지위를 정확히 표시한다.",
+      "낙관과 사실 왜곡을 구분한다.",
+      "격차 해소 행동과 확인 날짜를 정한다."
+    ],
+    "escalationPath": "목표 변경이나 추가 자원은 경영 책임자에게 근거와 함께 제안한다."
+  },
+  "opening": "If we show seventy to eighty, people will think we have given up on one hundred.",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "목적 다른 숫자 구분하기",
+      "example": "One hundred is the target we are working toward; seventy to eighty is the current forecast based on sixty confirmed orders and the remaining pipeline.",
+      "hints": [
+        "의도: 목적 다른 숫자 구분하기",
+        "핵심 표현: forecast = 전망",
+        "완성 문장 예시: One hundred is the target we are working toward; seventy to eighty is the current forecast based on sixty confirmed orders and the remaining pipeline. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 목적 다른 숫자 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "보고 위험 설명하기",
+      "example": "Presenting the target as the forecast would hide the gap that needs management attention, rather than demonstrate commitment.",
+      "hints": [
+        "의도: 보고 위험 설명하기",
+        "핵심 표현: gap = 차이",
+        "완성 문장 예시: Presenting the target as the forecast would hide the gap that needs management attention, rather than demonstrate commitment. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 보고 위험 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "행동 중심 보고 제안하기",
+      "example": "Could we keep the target visible and pair the forecast range with specific actions intended to close the gap?",
+      "hints": [
+        "의도: 행동 중심 보고 제안하기",
+        "핵심 표현: pair with = 함께 제시하다",
+        "완성 문장 예시: Could we keep the target visible and pair the forecast range with specific actions intended to close the gap? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 행동 중심 보고 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "담당·검토 시점 요청하기",
+      "example": "Let us name owners for those actions and update the forecast next Friday as evidence changes.",
+      "hints": [
+        "의도: 담당·검토 시점 요청하기",
+        "핵심 표현: as evidence changes = 근거가 바뀔 때",
+        "완성 문장 예시: Let us name owners for those actions and update the forecast next Friday as evidence changes. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 담당·검토 시점 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 목적 다른 숫자 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '목표 숫자와 현재 전망을 구분해 보고하기' 상황에서 확정 실적·예상 범위·목표·추가 행동을 분리해 보고한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "추가 계약 15건이 확정됐다. 숫자를 상향하되 남은 예상 건을 확정과 합치지 않는다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '목표 숫자와 현재 전망을 구분해 보고하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 추가 계약 15건이 확정됐다. 숫자를 상향하되 남은 예상 건을 확정과 합치지 않는다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "확정 실적·예상 범위·목표·추가 행동을 분리해 보고한다.",
+      "목적 다른 숫자 구분하기",
+      "보고 위험 설명하기",
+      "행동 중심 보고 제안하기",
+      "담당·검토 시점 요청하기",
+      "세 숫자의 지위를 정확히 표시한다.",
+      "낙관과 사실 왜곡을 구분한다.",
+      "격차 해소 행동과 확인 날짜를 정한다.",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

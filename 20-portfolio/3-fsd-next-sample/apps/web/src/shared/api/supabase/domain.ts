@@ -14,7 +14,7 @@ import type {
 } from "@/shared/api/learning/contracts";
 
 import { assertDatabaseSuccess, createPrivilegedClient, SupabaseHttpError } from "./http";
-import { readMissionObjectives, readMissionPrerequisites } from "./mission-version-fields";
+import { readMissionCatalogDisplay, readMissionObjectives, readMissionPrerequisites } from "./mission-version-fields";
 import { restoreCharacterDisplayMetadata, restoreMissionDisplayMetadata } from "./version-display-metadata";
 import { missionPhraseLengthIssues } from "./mission-level-validation";
 
@@ -213,6 +213,7 @@ type MissionRow = {
 };
 
 type MissionVersionRow = {
+  mission_id: string;
   display_metadata: unknown;
   id: string;
   version_number: number;
@@ -245,6 +246,7 @@ type MissionCharacterRow = {
 };
 
 type PublicMissionAssetRow = {
+  id: string;
   mission_id: string;
   storage_bucket: string;
   storage_path: string;
@@ -632,6 +634,31 @@ export async function getCharacter(client: SupabaseClient, identifier: string, p
   return items[0] ?? null;
 }
 
+// Match history pagination: a short page can be the configured Data API cap,
+// so only an empty page ends traversal. Repeated identities fail closed.
+async function readMissionPages<T>(
+  page: (offset: number) => PromiseLike<{ data: T[] | null; error: { code?: string } | null }>,
+  identity: (row: T) => string,
+  operation: string,
+): Promise<{ data: T[]; error: null }> {
+  const data: T[] = [];
+  const seen = new Set<string>();
+  for (;;) {
+    const result = await page(data.length);
+    assertDatabaseSuccess(result.error, operation);
+    const batch = result.data ?? [];
+    if (!batch.length) return { data, error: null };
+    for (const row of batch) {
+      const id = identity(row);
+      if (seen.has(id)) {
+        throw new SupabaseHttpError(502, "MISSION_PAGE_INCONSISTENT", "The mission catalog changed during retrieval. Please retry.", true);
+      }
+      seen.add(id);
+      data.push(row);
+    }
+  }
+}
+
 async function hydrateMissions(
   client: SupabaseClient,
   rows: MissionRow[],
@@ -640,44 +667,63 @@ async function hydrateMissions(
 
   const missionIds = rows.map((row) => row.id);
   const versionIds = uniqueStrings(rows.map((row) => row.current_version_id));
-  const [versionsResult, stepsResult, charactersResult, assetsResult, conditionsResult] =
+  // Private helper: callers must first load parent rows through the request's
+  // RLS client. getMission also authorizes a pinned version under that parent.
+  const privileged = createPrivilegedClient();
+  const versionsResult = versionIds.length > 0
+    ? await readMissionPages<MissionVersionRow>(
+        (offset) => privileged.from("mission_versions")
+          .select("id, mission_id, version_number, learning_goals, scenario_context, learner_role, character_role, opening_instruction, target_vocabulary, target_grammar, pass_score, display_metadata")
+          .in("id", versionIds).in("mission_id", missionIds)
+          .order("id", { ascending: true }).range(offset, offset + 199),
+        (row) => row.id, "mission_versions.select",
+      )
+    : { data: [], error: null };
+  const authorizedVersions = new Map(versionsResult.data.map((version) => [version.id, version]));
+  for (const row of rows) {
+    if (row.current_version_id && authorizedVersions.get(row.current_version_id)?.mission_id !== row.id) {
+      throw new SupabaseHttpError(502, "MISSION_VERSION_UNAVAILABLE", "The mission version could not be loaded.", true);
+    }
+  }
+  const [stepsResult, charactersResult, assetsResult, conditionsResult] =
     await Promise.all([
       versionIds.length > 0
-        ? client
-            .from("mission_versions")
-            .select(
-              "id, version_number, learning_goals, scenario_context, learner_role, character_role, opening_instruction, target_vocabulary, target_grammar, pass_score, display_metadata",
-            )
-            .in("id", versionIds)
+        ? readMissionPages<MissionStepRow>(
+            (offset) => privileged.from("mission_steps")
+              .select("id, mission_version_id, step_order, title, objective, learner_goal, hints, success_criteria, is_optional")
+              .in("mission_version_id", versionIds)
+              .order("step_order", { ascending: true }).order("id", { ascending: true })
+              .range(offset, offset + 199),
+            (row) => row.id, "mission_steps.select",
+          )
         : Promise.resolve({ data: [], error: null }),
+      readMissionPages<MissionCharacterRow>(
+        (offset) => client.from("mission_characters")
+          .select("mission_id, character_id, is_recommended")
+          .in("mission_id", missionIds)
+          .order("is_recommended", { ascending: false })
+          .order("mission_id", { ascending: true }).order("character_id", { ascending: true })
+          .range(offset, offset + 199),
+        (row) => `${row.mission_id}:${row.character_id}`, "mission_characters.select",
+      ),
+      readMissionPages<PublicMissionAssetRow>(
+        (offset) => privileged.from("mission_assets")
+          .select("id, mission_id, storage_bucket, storage_path, asset_type, is_primary")
+          .in("mission_id", missionIds).eq("access_level", "public")
+          .order("is_primary", { ascending: false }).order("id", { ascending: true })
+          .range(offset, offset + 199),
+        (row) => row.id, "mission_assets.select",
+      ),
+      // IDs come only from RLS-visible missions. The server-only projection also
+      // excludes imported source snapshots before the network transfer.
       versionIds.length > 0
-        ? client
-            .from("mission_steps")
-            .select(
-              "id, mission_version_id, step_order, title, objective, learner_goal, hints, success_criteria, is_optional",
-            )
-            .in("mission_version_id", versionIds)
-            .order("step_order", { ascending: true })
-        : Promise.resolve({ data: [], error: null }),
-      client
-        .from("mission_characters")
-        .select("mission_id, character_id, is_recommended")
-        .in("mission_id", missionIds)
-        .order("is_recommended", { ascending: false }),
-      client
-        .from("mission_assets")
-        .select(
-          "mission_id, storage_bucket, storage_path, asset_type, is_primary",
-        )
-        .in("mission_id", missionIds)
-        .eq("access_level", "public")
-        .order("is_primary", { ascending: false }),
-      // IDs come only from RLS-visible missions. Do not return private settings.
-      versionIds.length > 0
-        ? createPrivilegedClient()
-            .from("mission_version_instructions")
-            .select("mission_version_id, evaluator_config")
-            .in("mission_version_id", versionIds)
+        ? readMissionPages<{ mission_version_id: string; evaluator_config: unknown }>(
+            (offset) => privileged.from("mission_catalog_instruction_fields")
+              .select("mission_version_id, evaluator_config")
+              .in("mission_version_id", versionIds).order("mission_version_id", { ascending: true })
+              .range(offset, offset + 199),
+            (row) => row.mission_version_id, "mission_version_instructions.conditions",
+          )
         : Promise.resolve({ data: [], error: null }),
     ]);
 
@@ -725,15 +771,18 @@ async function hydrateMissions(
     const rewardAsset = assetsByMission
       .get(row.id)
       ?.find((asset) => asset.asset_type === "badge");
+    const catalogDisplay = readMissionCatalogDisplay(
+      version ? objectiveConfigByVersion.get(version.id) : undefined,
+    );
 
     return {
       id: row.id,
       title: row.title,
       metadataSource: display.metadataSource,
       subtitle: version?.opening_instruction ?? row.summary,
-      description: row.summary || version?.scenario_context || "",
-      category: ({ travel: "여행", daily: "일상", everyday: "일상", relationships: "관계", relationship: "관계", work: "업무", business: "업무" } as Record<string, string>)[row.scenario_category] ?? row.scenario_category,
-      location: version?.scenario_context ?? row.scenario_category,
+      description: catalogDisplay?.description ?? (row.summary || version?.scenario_context || ""),
+      category: ({ travel: "여행", daily: "일상", everyday: "일상", social: "관계", relationships: "관계", relationship: "관계", work: "업무", business: "업무" } as Record<string, string>)[row.scenario_category] ?? row.scenario_category,
+      location: catalogDisplay?.location ?? version?.scenario_context ?? row.scenario_category,
       difficulty: missionDifficulty(row.difficulty),
       durationMinutes: row.estimated_minutes,
       ...(version?.learner_role ? { learnerRole: version.learner_role } : {}),
@@ -792,17 +841,30 @@ async function hydrateMissions(
 }
 
 export async function listMissions(client: SupabaseClient) {
-  const result = await client
-    .from("missions")
-    .select(
-      "id, slug, title, summary, scenario_category, difficulty, estimated_minutes, status, current_version_id, reward_experience_points, completion_count, featured, created_at",
-    )
-    .order("featured", { ascending: false })
-    .order("created_at", { ascending: false })
-    .limit(100);
-
-  assertDatabaseSuccess(result.error, "missions.select");
-  return hydrateMissions(client, (result.data ?? []) as MissionRow[]);
+  const result = await readMissionPages<MissionRow>(
+    (offset) => client.from("missions")
+      .select("id, slug, title, summary, scenario_category, difficulty, estimated_minutes, status, current_version_id, reward_experience_points, completion_count, featured, created_at")
+      .order("id", { ascending: true }).range(offset, offset + 199),
+    (row) => row.id, "missions.select",
+  );
+  // Fetch with an immutable unique order; preserve featured/newest presentation.
+  const rows = result.data.sort((left, right) =>
+    Number(right.featured) - Number(left.featured)
+    || right.created_at.localeCompare(left.created_at)
+    || left.id.localeCompare(right.id));
+  const missions: Mission[] = [];
+  // Bound IN filters (and URL size) independently of row pagination. Each child
+  // relation is paged too: one mission alone can have over 1,000 related rows.
+  // Ninety UUIDs keep the two version/parent IN filters below an 8 KB URL.
+  for (let offset = 0; offset < rows.length; offset += 360) {
+    const batches: MissionRow[][] = [];
+    for (let start = offset; start < Math.min(offset + 360, rows.length); start += 90) {
+      batches.push(rows.slice(start, start + 90));
+    }
+    const hydrated = await Promise.all(batches.map((batch) => hydrateMissions(client, batch)));
+    missions.push(...hydrated.flat());
+  }
+  return missions;
 }
 
 export async function getMission(client: SupabaseClient, identifier: string, pinnedVersionId?: string) {

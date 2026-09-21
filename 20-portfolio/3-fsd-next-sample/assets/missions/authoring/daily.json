@@ -1,0 +1,4878 @@
+{
+  "schemaVersion": 1,
+  "categoryId": "daily",
+  "missions": [
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "pre-A1",
+      "slug": "water",
+      "title": "물 한 잔 부탁하기",
+      "scenario": "카페에서 물 한 잔을 받고 싶습니다. water는 물, one은 하나입니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 인사 후 수량을 한 번 묻고 물을 건넨다.",
+      "opening": "Hello!",
+      "steps": [
+        {
+          "goal": "물을 부탁하기",
+          "example": "Water, please.",
+          "cue": "water = 물; please = 부탁해요"
+        },
+        {
+          "goal": "한 잔이라고 답하기",
+          "example": "One, please.",
+          "cue": "one = 하나"
+        },
+        {
+          "goal": "받은 물에 감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "물 한 잔을 요청하고 수량을 전달한다.",
+      "transfer": "물 대신 차 두 잔을 주문한다. tea=차, two=둘을 먼저 알려주고 완성 문장은 가린다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "pre-A1",
+      "slug": "point-menu",
+      "title": "메뉴를 가리켜 고르기",
+      "scenario": "글로 표시된 가상 메뉴는 1번 sandwich(샌드위치), 2번 soup(수프)입니다. 1번 하나를 원합니다. 실제 사진 없이 [가리키기: 1번 샌드위치]라는 한국어 동작 표시와 짧은 영어를 함께 입력할 수 있습니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 가상 메뉴 1번 샌드위치, 2번 수프를 알고 있다. 학습자의 한국어 가리키기 표시는 역할극 속 동작으로 이해하고 영어로 메뉴와 수량을 한 번에 하나씩 확인한다.",
+      "opening": "This one?",
+      "steps": [
+        {
+          "goal": "원하는 메뉴를 가리키기",
+          "example": "This, please.",
+          "cue": "this = 이것"
+        },
+        {
+          "goal": "한 개라고 답하기",
+          "example": "One.",
+          "cue": "one = 하나"
+        },
+        {
+          "goal": "주문 확인에 동의하기",
+          "example": "Yes, thank you.",
+          "cue": "yes = 네"
+        }
+      ],
+      "outcome": "모르는 메뉴 이름을 대신해 가리키기 표현으로 주문한다.",
+      "transfer": "다음에는 2번 soup(수프)를 고른다. 직원이 1번을 잘못 확인하면 [가리키기: 2번 수프] No. This.라고 정정한다. 실제 사진은 필요 없다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "pre-A1",
+      "slug": "takeaway",
+      "title": "포장인지 매장 식사인지 답하기",
+      "scenario": "빵을 샀고 밖에서 먹으려 합니다. take away는 포장이라는 뜻입니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 매장 또는 포장을 묻고 봉투를 제안한다.",
+      "opening": "Eat here or take away?",
+      "steps": [
+        {
+          "goal": "포장을 선택하기",
+          "example": "Take away, please.",
+          "cue": "take away = 포장"
+        },
+        {
+          "goal": "봉투 제안에 답하기",
+          "example": "Yes, please.",
+          "cue": "yes, please = 네 부탁해요"
+        },
+        {
+          "goal": "마무리 인사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "짧은 선택 응답으로 포장 주문을 마친다.",
+      "transfer": "이번에는 매장에서 먹는다. here=여기라는 뜻을 보고 Here, please.로 답한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "pre-A1",
+      "slug": "bill",
+      "title": "계산 부탁하기",
+      "scenario": "식사를 마쳤습니다. bill은 계산서, card는 카드입니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 계산서를 주고 결제 수단을 물은 뒤 결제를 확인한다.",
+      "opening": "Finished?",
+      "steps": [
+        {
+          "goal": "식사가 끝났다고 답하기",
+          "example": "Yes.",
+          "cue": "yes = 네"
+        },
+        {
+          "goal": "계산서를 요청하기",
+          "example": "The bill, please.",
+          "cue": "bill = 계산서"
+        },
+        {
+          "goal": "카드 결제 의사 전달하기",
+          "example": "Card, please.",
+          "cue": "card = 카드"
+        }
+      ],
+      "outcome": "계산서를 받고 결제 수단을 알린다.",
+      "transfer": "카드 대신 cash=현금으로 답한다. 실제 카드 번호는 사용하지 않는다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "A1",
+      "slug": "table-two",
+      "title": "두 사람 자리 요청하기",
+      "scenario": "두 명이 저녁 식사를 하려 합니다. 예약은 없습니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 인원과 예약 여부를 묻고 창가 자리를 안내한다.",
+      "opening": "How many people?",
+      "steps": [
+        {
+          "goal": "두 명이라고 알리기",
+          "example": "A table for two, please.",
+          "cue": "a table for two = 두 명 자리"
+        },
+        {
+          "goal": "예약이 없다고 답하기",
+          "example": "We do not have a reservation.",
+          "cue": "do not have = 없다"
+        },
+        {
+          "goal": "제안된 자리 수락하기",
+          "example": "This table is fine.",
+          "cue": "is fine = 괜찮다"
+        }
+      ],
+      "outcome": "인원과 예약 여부를 알려 앉을 자리를 정한다.",
+      "transfer": "혼자 방문하고 야외 자리를 원하는 상황으로 바꾼다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "A1",
+      "slug": "drink-size",
+      "title": "음료 크기와 온도 선택하기",
+      "scenario": "작고 따뜻한 라테를 주문합니다. large는 원하지 않습니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "바리스타. 크기와 온도를 한 질문씩 확인한다.",
+      "opening": "What would you like?",
+      "steps": [
+        {
+          "goal": "라테 주문하기",
+          "example": "A latte, please.",
+          "cue": "a latte = 라테 한 잔"
+        },
+        {
+          "goal": "작은 크기 선택하기",
+          "example": "A small one, please.",
+          "cue": "small = 작은"
+        },
+        {
+          "goal": "따뜻하게 요청하기",
+          "example": "Hot, please.",
+          "cue": "hot = 따뜻한"
+        }
+      ],
+      "outcome": "음료 종류·크기·온도를 정확히 전달한다.",
+      "transfer": "큰 아이스 티로 주문을 바꾸고 small/large와 hot/iced를 구별한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "A1",
+      "slug": "no-onion",
+      "title": "싫어하는 재료 빼 달라고 하기",
+      "scenario": "양파 맛을 좋아하지 않아 버거에서 양파를 빼려 합니다. 알레르기라고 말하지 않습니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 버거 주문을 받은 후 빼고 싶은 재료를 묻고 치즈 포함 여부를 확인한다.",
+      "opening": "What would you like on your burger?",
+      "steps": [
+        {
+          "goal": "버거 선택하기",
+          "example": "A burger, please.",
+          "cue": "burger = 버거"
+        },
+        {
+          "goal": "양파 제외 요청하기",
+          "example": "No onions, please.",
+          "cue": "no onions = 양파 없이"
+        },
+        {
+          "goal": "치즈는 괜찮다고 답하기",
+          "example": "Cheese is fine.",
+          "cue": "is fine = 괜찮다"
+        }
+      ],
+      "outcome": "취향 때문에 제외할 재료와 유지할 재료를 구분한다.",
+      "transfer": "토마토를 빼고 양파를 넣는 요청으로 바꾼다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "A1",
+      "slug": "opening-time",
+      "title": "아침 영업시간 묻기",
+      "scenario": "내일 아침 8시에 카페에 가고 싶습니다. 카페는 7시에 엽니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 영업 시작은 7시, 아침 식사는 8시부터라고 답한다.",
+      "opening": "Can I help you?",
+      "steps": [
+        {
+          "goal": "내일 여는 시간 묻기",
+          "example": "What time do you open tomorrow?",
+          "cue": "what time = 몇 시"
+        },
+        {
+          "goal": "7시인지 재확인하기",
+          "example": "At seven?",
+          "cue": "at seven = 7시에"
+        },
+        {
+          "goal": "아침 식사 시간 묻기",
+          "example": "Is breakfast available at eight?",
+          "cue": "breakfast = 아침 식사"
+        }
+      ],
+      "outcome": "영업 시작과 아침 식사 시간을 구분해 방문 시간을 정한다.",
+      "transfer": "일요일에는 9시에 열고 아침 식사는 10시부터인 조건을 확인한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "A2",
+      "slug": "wrong-drink",
+      "title": "잘못 나온 음료 바꾸기",
+      "scenario": "아이스 라테를 주문했는데 따뜻한 라테가 나왔습니다. 받은 음료를 아직 마시지 않았습니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 주문을 다시 물어보고 무료로 바꿔 주되 3분 걸린다고 설명한다.",
+      "opening": "Is everything OK?",
+      "steps": [
+        {
+          "goal": "주문과 받은 음료 차이 설명하기",
+          "example": "I ordered an iced latte, but this one is hot.",
+          "cue": "I ordered ... but ... = 주문과 차이"
+        },
+        {
+          "goal": "교환 요청하기",
+          "example": "Could you change it, please?",
+          "cue": "could you change it = 바꿔 주세요"
+        },
+        {
+          "goal": "기다릴 수 있다고 알리기",
+          "example": "Three minutes is fine. Thank you.",
+          "cue": "is fine = 괜찮다"
+        }
+      ],
+      "outcome": "주문 오류를 설명하고 교체와 대기 시간에 합의한다.",
+      "transfer": "잘못 나온 크기를 설명하고 급해서 환불이 필요한 상황으로 바꾼다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "A2",
+      "slug": "split-bill",
+      "title": "나누어 결제하기",
+      "scenario": "두 사람이 각자 주문한 음식값을 내고 싶습니다. 본인은 파스타와 주스를 먹었습니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 누가 무엇을 먹었는지 묻고 별도 계산이 가능하다고 답한다. 연습용 가격은 파스타 14파운드, 주스 4파운드이며 학습자의 합계는 18파운드다.",
+      "opening": "Would you like the bill?",
+      "steps": [
+        {
+          "goal": "각자 결제 요청하기",
+          "example": "Can we pay separately?",
+          "cue": "pay separately = 따로 계산하다"
+        },
+        {
+          "goal": "자기 주문 알리기",
+          "example": "I had the pasta and the juice.",
+          "cue": "I had = 제가 먹은 것은"
+        },
+        {
+          "goal": "자기 금액 확인하기",
+          "example": "Is my total eighteen pounds?",
+          "cue": "my total = 제 합계"
+        }
+      ],
+      "outcome": "각자 주문과 금액을 확인해 별도 결제한다.",
+      "transfer": "따로 결제가 안 되는 식당에서 총액을 반씩 낼 수 있는지 묻는다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "A2",
+      "slug": "allergy-check",
+      "title": "알레르기 재료 확인하기",
+      "scenario": "가상 연습에서 땅콩 알레르기가 있습니다. 소스에 땅콩이 있는지 모르며 추측한 안전 보장은 받아들이지 않습니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 처음에는 소스 성분을 모르며 주방 확인이 필요하다. 확인 후 땅콩이 포함되어 있다고 답한다.",
+      "opening": "Have you chosen a dish?",
+      "steps": [
+        {
+          "goal": "알레르기 알리기",
+          "example": "I have a peanut allergy.",
+          "cue": "peanut allergy = 땅콩 알레르기"
+        },
+        {
+          "goal": "소스 재료 확인 요청하기",
+          "example": "Could you check if the sauce contains peanuts?",
+          "cue": "check if = 여부를 확인하다"
+        },
+        {
+          "goal": "해당 음식 주문하지 않기",
+          "example": "Then I will not order this dish.",
+          "cue": "will not order = 주문하지 않겠다"
+        }
+      ],
+      "outcome": "알레르기를 알리고 확인된 성분에 따라 주문을 거절한다.",
+      "transfer": "직원이 성분 확인을 못 하는 상황에서 안전하다고 추측하지 않고 다른 선택을 요청한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "A2",
+      "slug": "reservation-change",
+      "title": "식당 예약 인원 변경하기",
+      "scenario": "금요일 7시 Lee 이름의 2인 예약을 3인으로 바꾸려 합니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 7시에는 3인 자리가 없고 7시 30분은 가능하다고 답한다.",
+      "opening": "How can I help with your booking?",
+      "steps": [
+        {
+          "goal": "기존 예약 식별하기",
+          "example": "I have a booking for two on Friday at seven, under Lee.",
+          "cue": "under Lee = Lee 이름으로"
+        },
+        {
+          "goal": "인원 변경 요청하기",
+          "example": "Can I change it to three people?",
+          "cue": "change it to = 변경하다"
+        },
+        {
+          "goal": "새 시간 확인하기",
+          "example": "Seven thirty works. Is that now confirmed for three?",
+          "cue": "confirmed for three = 세 명으로 확정"
+        }
+      ],
+      "outcome": "기존 예약을 찾아 인원과 새 시간을 확정한다.",
+      "transfer": "시간을 바꿀 수 없는 조건으로 전화하고 다른 날짜 가능 여부를 확인한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "B1",
+      "slug": "missed-train-meal",
+      "title": "기차 시간에 맞춰 식사 조정하기",
+      "scenario": "기차가 40분 뒤 출발하고 역까지 10분입니다. 주문한 음식은 25분 걸린다고 합니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 수프는 8분, 원래 음식은 25분 소요되며 아직 조리를 시작하지 않았다.",
+      "opening": "Your meal will take about twenty-five minutes.",
+      "steps": [
+        {
+          "goal": "시간 제약 설명하기",
+          "example": "My train leaves in forty minutes, and I need ten minutes to get there.",
+          "cue": "leaves in = 지금부터 몇 분 뒤 출발"
+        },
+        {
+          "goal": "빠른 대안 묻기",
+          "example": "Is there something you can serve within ten minutes?",
+          "cue": "within ten minutes = 10분 이내"
+        },
+        {
+          "goal": "주문 변경과 계산 요청하기",
+          "example": "I will have the soup instead, and could I pay now?",
+          "cue": "instead = 대신"
+        }
+      ],
+      "outcome": "이동 시간을 고려해 가능한 메뉴로 변경하고 결제한다.",
+      "transfer": "이미 조리를 시작해 변경할 수 없을 때 포장 가능 여부와 출발 시각을 조율한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "B1",
+      "slug": "unexpected-charge",
+      "title": "예상 못 한 추가 요금 확인하기",
+      "scenario": "메뉴에는 세트 20파운드였지만 계산서에 별도 5파운드가 있습니다. 포함 항목을 확인하려 합니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 추가 5파운드는 주문한 생수이며 메뉴의 음료 포함은 차에만 해당한다고 설명한다.",
+      "opening": "The total is twenty-five pounds.",
+      "steps": [
+        {
+          "goal": "예상과 차이 알리기",
+          "example": "I thought the set included a drink, so I expected twenty pounds.",
+          "cue": "I thought ... = 그렇게 이해했다"
+        },
+        {
+          "goal": "추가 항목 설명 요청하기",
+          "example": "Could you explain what the extra five pounds is for?",
+          "cue": "extra ... is for = 추가 금액의 이유"
+        },
+        {
+          "goal": "이해한 내용을 확인하기",
+          "example": "So tea is included, but bottled water is extra. Is that right?",
+          "cue": "included / extra = 포함 / 추가"
+        }
+      ],
+      "outcome": "추가 요금의 근거를 확인하고 오해를 풀어 결제 판단을 한다.",
+      "transfer": "직원이 같은 음료를 두 번 입력한 상황으로 바꾸어 계산서 수정을 요청한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "B1",
+      "slug": "group-menu",
+      "title": "친구들의 식단에 맞는 식당 고르기",
+      "scenario": "네 명 중 한 명은 채식하고 한 명은 매운 음식을 못 먹습니다. 한 사람 예산은 20파운드입니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "식당 직원. 채식 파스타 16파운드와 맵지 않은 수프 8파운드를 안내하며 세트는 24파운드라고 답한다.",
+      "opening": "Are you looking for a group menu?",
+      "steps": [
+        {
+          "goal": "일행의 서로 다른 필요 설명하기",
+          "example": "One of us is vegetarian, and another cannot eat spicy food.",
+          "cue": "one of us / another = 일행 중 한 명 / 다른 한 명"
+        },
+        {
+          "goal": "예산 내 선택 묻기",
+          "example": "What can you offer for under twenty pounds per person?",
+          "cue": "per person = 한 사람당"
+        },
+        {
+          "goal": "모두 가능한 선택 확인하기",
+          "example": "The pasta and soup sound suitable. Can we order them separately?",
+          "cue": "suitable = 적합한"
+        }
+      ],
+      "outcome": "식단과 예산을 비교해 일행에게 가능한 주문 방식을 정한다.",
+      "transfer": "채식 메뉴가 품절되었을 때 재료 변경 가능 여부를 확인하고 대안을 정한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "B1",
+      "slug": "long-wait",
+      "title": "안내보다 긴 대기 해결하기",
+      "scenario": "10분이라고 안내받았으나 30분 기다렸습니다. 아직 음식이 나오지 않았고 15분 뒤 떠나야 합니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 주방 지연을 인정하고 10분 추가 대기 또는 아직 만들지 않은 주문 취소를 제안한다.",
+      "opening": "Sorry, we are very busy tonight.",
+      "steps": [
+        {
+          "goal": "실제 대기 상황 설명하기",
+          "example": "We were told ten minutes, but we have been waiting for half an hour.",
+          "cue": "we were told = 안내받았다"
+        },
+        {
+          "goal": "남은 시간과 가능성 묻기",
+          "example": "We need to leave in fifteen minutes. Can you give us a realistic time?",
+          "cue": "realistic time = 실제 가능한 시간"
+        },
+        {
+          "goal": "불확실한 대기 대신 취소 선택하기",
+          "example": "If the food is not ready yet, we would prefer to cancel.",
+          "cue": "would prefer to = 원하다"
+        }
+      ],
+      "outcome": "대기 차이를 설명하고 남은 시간에 맞는 해결책을 선택한다.",
+      "transfer": "일부 음식만 나온 상황에서 이미 제공된 음식과 미제공 음식을 구분해 해결한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "B2",
+      "slug": "event-catering",
+      "title": "행사 식사 구성 협의하기",
+      "scenario": "12명 모임에 240파운드 예산이 있습니다. 채식 3명과 글루텐 제한 1명이 있고 뷔페 또는 개별 접시를 비교합니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "담당자. 뷔페 220파운드는 공용 집게, 개별 접시 260파운드는 분리 준비 가능하다. 음료 제외 시 개별 접시 240파운드 가능.",
+      "opening": "The buffet is our best-value option.",
+      "steps": [
+        {
+          "goal": "가격 외 조건 비교하기",
+          "example": "The buffet is cheaper, but shared utensils may not meet our guest requirements.",
+          "cue": "shared utensils = 공용 집게·식기"
+        },
+        {
+          "goal": "예산 내 절충안 요청하기",
+          "example": "Could we keep individual plates and remove the drinks to stay within budget?",
+          "cue": "stay within budget = 예산을 지키다"
+        },
+        {
+          "goal": "확인할 책임과 조건 정리하기",
+          "example": "Please confirm the ingredient and preparation arrangements in writing before we book.",
+          "cue": "confirm in writing = 서면 확인"
+        }
+      ],
+      "outcome": "가격·식단·준비 방식을 비교해 확인 조건이 있는 주문안을 만든다.",
+      "transfer": "음료 제외로도 예산이 맞지 않을 때 인원 변경 없이 메뉴 간소화안을 협의한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "B2",
+      "slug": "noise-seating",
+      "title": "소음 문제를 해결하며 자리 옮기기",
+      "scenario": "예약한 조용한 자리가 스피커 옆입니다. 일행 중 한 명이 대화를 듣기 어렵습니다. 실내 안쪽은 20분 뒤 가능합니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "매니저. 지금 야외 또는 20분 뒤 안쪽 테이블을 제안하며 야외는 추울 수 있다고 알린다.",
+      "opening": "Would the outdoor table solve the problem?",
+      "steps": [
+        {
+          "goal": "필요를 비난 없이 설명하기",
+          "example": "The issue is hearing each other, rather than the music itself.",
+          "cue": "rather than = 문제의 초점을 구분"
+        },
+        {
+          "goal": "대안의 장단점 비교하기",
+          "example": "Outside would be quieter, but the cold would make it difficult for one guest.",
+          "cue": "would be ... but = 대안의 제약"
+        },
+        {
+          "goal": "실행 가능한 임시안 합의하기",
+          "example": "Could we wait away from the speaker and move inside when the table is ready?",
+          "cue": "when ... is ready = 준비되면"
+        }
+      ],
+      "outcome": "접근성 필요를 설명하고 임시 자리와 최종 자리 이동을 합의한다.",
+      "transfer": "안쪽 자리가 끝내 비지 않을 때 다른 날짜 변경과 비용 조건을 확인한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "B2",
+      "slug": "review-dispute",
+      "title": "식당 후기의 사실관계 설명하기",
+      "scenario": "온라인 후기에 음식이 늦었다고 썼습니다. 식당은 주문 변경 때문이라고 반박합니다. 실제로 변경 전 20분과 후 15분을 기다렸습니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "매니저. 전체 35분이 변경 때문이라고 주장하다 시간대 구분을 요청한다.",
+      "opening": "Your review leaves out the fact that you changed the order.",
+      "steps": [
+        {
+          "goal": "시간 순서 구분하기",
+          "example": "We waited twenty minutes before changing the order and another fifteen afterwards.",
+          "cue": "before / afterwards = 전후 구분"
+        },
+        {
+          "goal": "상대의 타당한 지점 인정하기",
+          "example": "I agree the change added time, but it does not explain the initial delay.",
+          "cue": "I agree ... but = 부분 인정"
+        },
+        {
+          "goal": "정확한 수정안 제안하기",
+          "example": "I can clarify the sequence in the review without removing the part about the first wait.",
+          "cue": "clarify the sequence = 순서 명확화"
+        }
+      ],
+      "outcome": "책임을 단정하지 않고 사실과 해석을 나눠 후기 정정 범위를 합의한다.",
+      "transfer": "식당 기록에서 처음 주문 시각이 다르게 나올 때 확인 가능한 자료와 불확실한 기억을 구분한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "B2",
+      "slug": "waste-plan",
+      "title": "남은 음식과 일행의 선호 조율하기",
+      "scenario": "모임에서 음식이 많이 남았습니다. 한 사람은 포장, 다른 사람은 위생 때문에 거절합니다. 직원은 포장은 가능하지만 보관 조언은 확인해야 합니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "직원. 작은 용기를 제공할 수 있고 개별 음식의 보관 조건은 주방 확인이 필요하다.",
+      "opening": "Would you like everything packed together?",
+      "steps": [
+        {
+          "goal": "서로 다른 선호 구분하기",
+          "example": "Some of us would like leftovers, but others would rather not take any.",
+          "cue": "would rather not = 원치 않다"
+        },
+        {
+          "goal": "일괄 포장 대신 대안 요청하기",
+          "example": "Could you separate the dishes so people can choose what to take?",
+          "cue": "separate the dishes = 음식별 분리"
+        },
+        {
+          "goal": "확인되지 않은 보관 조건 질문하기",
+          "example": "Please check which dishes need special storage; we do not want to guess.",
+          "cue": "check which = 어떤 것인지 확인"
+        }
+      ],
+      "outcome": "선호를 강요하지 않고 분리 포장과 필요한 정보 확인을 요청한다.",
+      "transfer": "포장 용기가 부족할 때 원하는 사람 수와 우선 포장할 음식을 협의한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "C1",
+      "slug": "ambiguous-minimum",
+      "title": "최소 주문 금액의 모호함 풀기",
+      "scenario": "단체 예약 이메일에는 minimum spend 300이라고만 적혔습니다. 직원은 음식만 300이라고 하고 이전 담당자는 총액이라고 말했습니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "행사 담당자. 음식만 포함한다고 해석하지만 최초 이메일에는 음료 제외 문구가 없음을 인정한다.",
+      "opening": "The minimum always refers to food, not drinks.",
+      "steps": [
+        {
+          "goal": "주장과 문서 근거 구분하기",
+          "example": "That may be your usual policy, but the confirmation we received does not make that distinction.",
+          "cue": "usual policy / confirmation = 관행과 확인 문서"
+        },
+        {
+          "goal": "상대가 수용할 해석 제시하기",
+          "example": "We budgeted on the reasonable understanding that the total bill would count towards the minimum.",
+          "cue": "on the understanding that = 그렇게 이해하고"
+        },
+        {
+          "goal": "이번 예약 해결과 향후 명료화 요청하기",
+          "example": "Could you honour that understanding for this booking and specify the exclusions in future confirmations?",
+          "cue": "honour that understanding = 그 이해를 존중해 이행"
+        }
+      ],
+      "outcome": "모호한 조건의 서로 다른 해석을 설명하고 이번 예약의 명시적 합의안을 만든다.",
+      "transfer": "음료 제외 문구가 작은 첨부파일에 있었을 때 확인 책임을 인정하면서 현실적인 조정을 요청한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "C1",
+      "slug": "private-feedback",
+      "title": "동행 앞에서 곤란하지 않게 불만 전달하기",
+      "scenario": "중요한 가족 식사에서 반복적으로 주문이 누락되었습니다. 분위기를 망치지 않으면서 매니저에게 따로 개선을 요청합니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "매니저. 테이블에서 공개 사과를 하겠다고 제안한다. 대체로 선의지만 손님의 선호는 모른다.",
+      "opening": "I can come over and apologise to everyone right now.",
+      "steps": [
+        {
+          "goal": "공개 사과를 부드럽게 사양하기",
+          "example": "I appreciate the offer, but I would rather not draw everyone's attention to it during dinner.",
+          "cue": "I appreciate ... but = 감사와 조정"
+        },
+        {
+          "goal": "구체적 영향과 요청 설명하기",
+          "example": "Two dishes were missed, so some guests are eating while others are waiting. Could you coordinate the remaining courses?",
+          "cue": "coordinate the courses = 제공 순서 조정"
+        },
+        {
+          "goal": "조용한 후속 조치 합의하기",
+          "example": "A quiet update to me and a clear plan for the next course would help more than a public announcement.",
+          "cue": "would help more than = 우선순위 설명"
+        }
+      ],
+      "outcome": "일행의 분위기를 배려하며 주문 누락의 구체적 복구 방식을 요청한다.",
+      "transfer": "다른 일행이 공개 항의를 원할 때 그 요구와 자신의 우려를 매니저에게 균형 있게 전달한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "C1",
+      "slug": "inclusive-menu",
+      "title": "식단 선호를 낙인찍지 않는 모임 안내 만들기",
+      "scenario": "모임 안내가 special diets are a hassle이라고 적혀 일부 참석자가 불편해합니다. 음식 준비 현실과 포용적 표현을 조율합니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "주최자. 특별 메뉴 추가 비용과 3일 전 확정 필요성을 걱정하며 문구 수정을 귀찮아한다.",
+      "opening": "We cannot rewrite everything just because a few people are sensitive.",
+      "steps": [
+        {
+          "goal": "의도와 영향 구분하기",
+          "example": "I do not think you meant to exclude anyone, but the wording makes reasonable needs sound like a burden.",
+          "cue": "meant to / wording makes = 의도와 표현 효과"
+        },
+        {
+          "goal": "운영 제약을 살린 문구 제안하기",
+          "example": "We could say: Please let us know your dietary requirements by Tuesday so we can confirm the available options and any extra cost.",
+          "cue": "so we can confirm = 확인 목적 설명"
+        },
+        {
+          "goal": "약속 범위 명확화하기",
+          "example": "That invites people to ask without implying we can accommodate every request.",
+          "cue": "without implying = 잘못된 암시 없이"
+        }
+      ],
+      "outcome": "실제 운영 한계를 보존하면서 식단 문의를 환영하는 안내를 만든다.",
+      "transfer": "정해진 메뉴만 가능한 행사에서 선택권을 과장하지 않는 안내로 다시 쓴다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "C1",
+      "slug": "service-fee-consent",
+      "title": "선택적 서비스 요금과 압박 구분하기",
+      "scenario": "계산서에 optional service charge가 있는데 직원은 모두 내는 것이라고 말합니다. 만족하지 못한 부분을 설명하고 선택권을 확인하려 합니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "매니저. 요금이 선택적이라고 인정하지만 직원에게 전액 간다고 설명한다. 법적 의무라고 주장하지 않는다.",
+      "opening": "It is optional, but almost all our guests leave it on.",
+      "steps": [
+        {
+          "goal": "관행과 선택 여부 분리하기",
+          "example": "I understand it is customary; I am asking whether the amount can be adjusted, not whether other guests pay it.",
+          "cue": "customary / optional = 관행과 선택"
+        },
+        {
+          "goal": "불만의 범위를 구체화하기",
+          "example": "The concern is the repeated missed orders, not the effort of the individual server.",
+          "cue": "the concern is ... not ... = 비판 대상 구분"
+        },
+        {
+          "goal": "실행할 선택과 금액 확인하기",
+          "example": "Please remove the suggested charge and let me choose a separate amount. Could you show me the revised total first?",
+          "cue": "revised total = 조정된 합계"
+        }
+      ],
+      "outcome": "직원 개인 비난 없이 선택적 요금의 조정 방법과 결제 총액을 확인한다.",
+      "transfer": "요금이 사전에 명시된 고정 단체 요금일 때 선택적 팁과 계약 조건의 차이를 확인한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "C2",
+      "slug": "conditional-event-offer",
+      "title": "친절한 제안에 숨은 조건 명확히 하기",
+      "scenario": "행사장이 공간을 무료로 제공하겠다고 했지만 기대하는 홍보 게시물의 횟수와 승인 권한은 명시하지 않았습니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "행사장 담당자. free라는 말을 유지하면서 게시물 3회와 내용 사전 승인을 기대한다.",
+      "opening": "There is no fee; we would simply expect you to tell your followers about us in the usual way.",
+      "steps": [
+        {
+          "goal": "호의와 교환 조건 구분하기",
+          "example": "If posting is a condition of the offer, it would be clearer to treat this as an exchange rather than an unconditional invitation.",
+          "cue": "a condition / unconditional = 조건부 여부"
+        },
+        {
+          "goal": "모호한 기대를 구체화하기",
+          "example": "By the usual way, do you mean a mention at our discretion, or a set number of posts subject to your approval?",
+          "cue": "at our discretion = 우리 판단에 따라"
+        },
+        {
+          "goal": "독립성과 상호 이익을 보존한 대안 제시하기",
+          "example": "We could agree to acknowledge the venue and disclose the arrangement, while retaining control over what we say about the experience.",
+          "cue": "retain control = 편집 결정권 유지"
+        }
+      ],
+      "outcome": "친절한 표현 속 교환 조건을 드러내고 홍보 범위와 표현의 독립성을 합의한다.",
+      "transfer": "후기 내용까지 긍정적으로 써 달라는 요청이 추가되었을 때 관계를 해치지 않으며 수락 가능한 선을 제시한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "C2",
+      "slug": "conflicting-event-accounts",
+      "title": "엇갈리는 행사 식사 기록을 중재하기",
+      "scenario": "주최자는 식사 30개 주문, 식당은 28개 확정, 참석자는 두 명이 못 먹었다고 말합니다. 메시지에는 up to 30과 28 confirmed가 모두 있습니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "식당 매니저. 확정 28개를 제공했지만 추가 두 명 수용 가능 여부를 명확히 답하지 않았다고 인정한다.",
+      "opening": "We delivered every meal that was confirmed, so there was no shortfall on our side.",
+      "steps": [
+        {
+          "goal": "사실과 기대의 서로 다른 기준 요약하기",
+          "example": "You are counting confirmed orders, while the organiser is counting people they believed the venue had agreed to accommodate.",
+          "cue": "while = 대비되는 판단 기준"
+        },
+        {
+          "goal": "문구의 불확실성 정확히 표현하기",
+          "example": "Up to thirty set a ceiling, but it did not by itself establish either a final order or a promise to cover late additions.",
+          "cue": "by itself establish = 그것만으로 확정하지 않다"
+        },
+        {
+          "goal": "원인 단정 없는 해결과 재발 방지안 제시하기",
+          "example": "Could we agree on a goodwill remedy for the two guests, while documenting a separate final headcount and late-change process for future events?",
+          "cue": "goodwill remedy = 책임 확정과 별개의 배려 조치"
+        }
+      ],
+      "outcome": "서로 다른 기준의 기록을 재구성해 책임을 성급히 확정하지 않고 복구 절차를 제안한다.",
+      "transfer": "추가 두 명을 수락했다는 새 메시지가 발견되면 기존 요약의 어느 부분을 수정해야 하는지 설명한다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "C2",
+      "slug": "cultural-hosting-tension",
+      "title": "대접하는 문화와 개인 경계 중재하기",
+      "scenario": "주최자는 음식을 더 권하는 것이 환대라고 생각하지만 손님은 거절이 무시된다고 느낍니다. 둘 다 관계를 소중히 여깁니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "주최자. 더 주지 않으면 무관심하게 보일까 걱정하고 손님의 거절을 예의상 표현으로 해석한다.",
+      "opening": "In my family, stopping after the first no would look as if we did not care.",
+      "steps": [
+        {
+          "goal": "두 해석을 가치 판단 없이 요약하기",
+          "example": "For you, offering again signals care; for our guest, having a refusal accepted is what makes the offer feel considerate.",
+          "cue": "signals care = 배려를 나타내다"
+        },
+        {
+          "goal": "문화 일반화 없이 이번 상황의 기준 요청하기",
+          "example": "Rather than deciding what people from either culture normally mean, could we take this guest at their word today?",
+          "cue": "take someone at their word = 말한 의도를 그대로 존중"
+        },
+        {
+          "goal": "환대와 선택을 함께 보존하는 표현 제안하기",
+          "example": "You might say, There is more whenever you want it, and then leave the choice with them. The warmth remains without another decision being demanded.",
+          "cue": "leave the choice with = 선택권을 남기다"
+        }
+      ],
+      "outcome": "각자의 환대 해석을 중재해 거절을 존중하면서 관계를 유지하는 말과 행동을 제안한다.",
+      "transfer": "손님이 거절을 너무 단호하게 한 것 같아 걱정할 때 감사와 경계를 함께 표현하도록 돕는다."
+    },
+    {
+      "subcategoryId": "food-drink",
+      "difficulty": "C2",
+      "slug": "sustainability-claim",
+      "title": "식당의 지속가능성 설명을 정밀하게 묻기",
+      "scenario": "식당이 zero-impact dining이라고 홍보하지만 설명에는 지역 식재료 사용만 있습니다. 행사 예약을 위해 실제 의미를 확인합니다.",
+      "learnerRole": "식당·카페 손님",
+      "interlocutorRole": "담당자. 지역 조달은 일부 채소에만 해당하고 에너지·운송 영향은 측정하지 않았지만 홍보 문구를 긍정적 표현이라고 여긴다.",
+      "opening": "Zero-impact is really our way of saying that we care about the planet.",
+      "steps": [
+        {
+          "goal": "가치 표현과 검증 가능한 주장 구별하기",
+          "example": "Caring about the planet expresses an intention; zero-impact sounds like a measurable claim about the whole service.",
+          "cue": "intention / measurable claim = 의도와 검증 주장"
+        },
+        {
+          "goal": "확인 가능한 범위 묻기",
+          "example": "Which ingredients are locally sourced, and which parts of the footprint have actually been assessed?",
+          "cue": "which parts ... assessed = 실제 평가 범위"
+        },
+        {
+          "goal": "과장 없는 전달문 합의하기",
+          "example": "We can tell guests that some produce is locally sourced, but I would avoid implying that the event has no environmental impact unless that broader claim can be supported.",
+          "cue": "avoid implying = 근거 이상 암시를 피하다"
+        }
+      ],
+      "outcome": "홍보의 의도와 사실 주장 범위를 구분해 참석자에게 정확한 안내를 만든다.",
+      "transfer": "전체 환경 영향 보고서가 제공되었으나 기간이 지난 경우 현재 행사에 적용되는 범위를 다시 확인한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "pre-A1",
+      "slug": "price",
+      "title": "가격 한 번 묻기",
+      "scenario": "작은 노트가 마음에 듭니다. 가격표를 읽기 어려워 점원에게 묻습니다. 가상 진열은 1번 작은 노트, 2번 큰 노트이며 1번을 원합니다. [가리키기: 1번 작은 노트]를 함께 입력해 실제 사진 없이 대상을 지정할 수 있습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "점원. 노트는 5파운드라고 천천히 말하고 한 번 더 확인해 준다.",
+      "opening": "Hello!",
+      "steps": [
+        {
+          "goal": "물건 가리키기",
+          "example": "This one.",
+          "cue": "this one = 이것"
+        },
+        {
+          "goal": "가격 묻기",
+          "example": "How much?",
+          "cue": "how much = 얼마"
+        },
+        {
+          "goal": "5인지 확인하기",
+          "example": "Five?",
+          "cue": "five = 다섯"
+        }
+      ],
+      "outcome": "물건 하나를 가리키고 가격을 확인한다.",
+      "transfer": "다른 노트를 선택한다. 점원은 ten=10이라고 말하고 학습자는 다시 확인한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "pre-A1",
+      "slug": "size",
+      "title": "옷 크기 한 단어로 말하기",
+      "scenario": "티셔츠의 작은 사이즈를 찾습니다. small=작은, large=큰입니다. 제안된 가상 물건은 1번 small 티셔츠, 2번 large 티셔츠입니다. [가리키기: 1번]을 영어 옆에 입력하면 동작으로 처리합니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "점원. 사이즈를 묻고 작은 티셔츠를 보여준다.",
+      "opening": "Small or large?",
+      "steps": [
+        {
+          "goal": "작은 사이즈 고르기",
+          "example": "Small, please.",
+          "cue": "small = 작은"
+        },
+        {
+          "goal": "보여 준 물건 확인하기",
+          "example": "Yes, this one.",
+          "cue": "yes = 네"
+        },
+        {
+          "goal": "도움에 감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "선택 질문을 이해하고 원하는 사이즈를 전달한다.",
+      "transfer": "큰 사이즈로 바꾸고 점원이 small이라고 잘못 확인하면 No, large.라고 정정한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "pre-A1",
+      "slug": "colour",
+      "title": "원하는 색 고르기",
+      "scenario": "빨간 컵 대신 파란 컵을 찾습니다. blue는 파란색입니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "점원. 먼저 빨간 컵을 보여주고 다른 색을 물어본다.",
+      "opening": "Red?",
+      "steps": [
+        {
+          "goal": "원치 않는 색 거절하기",
+          "example": "No, thank you.",
+          "cue": "no = 아니요"
+        },
+        {
+          "goal": "파란색 요청하기",
+          "example": "Blue, please.",
+          "cue": "blue = 파란색"
+        },
+        {
+          "goal": "파란 컵을 확인하기",
+          "example": "Yes.",
+          "cue": "yes = 네"
+        }
+      ],
+      "outcome": "색 이름으로 물건 선택을 정정한다.",
+      "transfer": "검은 가방 대신 흰 가방을 요청한다. black=검은색, white=흰색을 먼저 익힌다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "pre-A1",
+      "slug": "bag",
+      "title": "봉투 필요 여부 답하기",
+      "scenario": "작은 물건을 샀고 가져온 가방이 있어 봉투가 필요 없습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "계산원. 봉투와 영수증 필요 여부를 한 번에 하나씩 묻는다.",
+      "opening": "A bag?",
+      "steps": [
+        {
+          "goal": "봉투 사양하기",
+          "example": "No, thank you.",
+          "cue": "no, thank you = 괜찮아요"
+        },
+        {
+          "goal": "영수증 요청하기",
+          "example": "Receipt, please.",
+          "cue": "receipt = 영수증"
+        },
+        {
+          "goal": "인사하고 끝내기",
+          "example": "Bye.",
+          "cue": "bye = 안녕히 계세요"
+        }
+      ],
+      "outcome": "계산대의 두 가지 선택에 짧게 답한다.",
+      "transfer": "봉투는 필요하지만 종이 영수증은 필요 없는 상황으로 바꾼다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "A1",
+      "slug": "find-item",
+      "title": "필요한 물건의 위치 묻기",
+      "scenario": "마트에서 우유를 찾고 있습니다. 직원이 3번 통로라고 알려줍니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "직원. 우유는 3번 통로 오른쪽이라고 한 단계씩 안내한다.",
+      "opening": "Can I help you?",
+      "steps": [
+        {
+          "goal": "찾는 물건 말하기",
+          "example": "I am looking for milk.",
+          "cue": "looking for = 찾고 있다"
+        },
+        {
+          "goal": "통로 번호 확인하기",
+          "example": "Is that aisle three?",
+          "cue": "aisle = 통로"
+        },
+        {
+          "goal": "방향 재확인하기",
+          "example": "On the right?",
+          "cue": "on the right = 오른쪽"
+        }
+      ],
+      "outcome": "물건과 통로·방향을 확인해 찾을 곳을 정한다.",
+      "transfer": "우유 대신 빵을 찾고 5번 통로 왼쪽이라는 안내를 확인한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "A1",
+      "slug": "try-on",
+      "title": "옷 입어 봐도 되는지 묻기",
+      "scenario": "재킷을 사기 전에 입어 보고 싶고 탈의실 위치를 모릅니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "점원. 입어 볼 수 있다고 답하고 탈의실은 뒤쪽이라고 안내한다.",
+      "opening": "Do you like this jacket?",
+      "steps": [
+        {
+          "goal": "입어 보기 허락 요청하기",
+          "example": "Can I try it on?",
+          "cue": "try it on = 입어 보다"
+        },
+        {
+          "goal": "탈의실 위치 묻기",
+          "example": "Where is the fitting room?",
+          "cue": "fitting room = 탈의실"
+        },
+        {
+          "goal": "조금 크다고 알리기",
+          "example": "It is a little big.",
+          "cue": "a little big = 조금 크다"
+        }
+      ],
+      "outcome": "물건을 입어 보고 기본적인 맞음새를 전달한다.",
+      "transfer": "신발을 신어 보고 너무 작다고 말하며 큰 사이즈를 묻는다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "A1",
+      "slug": "quantity",
+      "title": "필요한 수량 주문하기",
+      "scenario": "시장에 사과 두 개와 바나나 세 개를 사러 왔습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "상인. 사과 수량을 묻고 추가 구매와 바나나 수량을 차례로 확인한다.",
+      "opening": "How many apples?",
+      "steps": [
+        {
+          "goal": "사과 수량 말하기",
+          "example": "Two apples, please.",
+          "cue": "two apples = 사과 두 개"
+        },
+        {
+          "goal": "바나나 추가하기",
+          "example": "And three bananas, please.",
+          "cue": "and = 그리고"
+        },
+        {
+          "goal": "더 필요한 것이 없다고 말하기",
+          "example": "That is all, thank you.",
+          "cue": "that is all = 그게 전부"
+        }
+      ],
+      "outcome": "두 품목의 서로 다른 수량을 알려 주문한다.",
+      "transfer": "사과 세 개와 오렌지 한 개로 바꾸고 잘못 반복한 수량을 정정한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "A1",
+      "slug": "stock",
+      "title": "품절 여부와 다른 색 묻기",
+      "scenario": "검은 운동화 작은 사이즈를 찾는데 진열되어 있지 않습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "점원. 검은색은 없고 흰색 작은 사이즈만 있다고 답한다.",
+      "opening": "Which shoes are you looking for?",
+      "steps": [
+        {
+          "goal": "상품과 사이즈 말하기",
+          "example": "Do you have these in a small size?",
+          "cue": "do you have = 있나요"
+        },
+        {
+          "goal": "검은색 묻기",
+          "example": "Do you have black ones?",
+          "cue": "black ones = 검은 것들"
+        },
+        {
+          "goal": "흰색 제안에 답하기",
+          "example": "White is OK.",
+          "cue": "is OK = 괜찮다"
+        }
+      ],
+      "outcome": "사이즈·색 재고를 확인하고 가능한 대체품을 고른다.",
+      "transfer": "대체 색을 원하지 않을 때 감사 인사 후 구매하지 않겠다고 말한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "A2",
+      "slug": "return-receipt",
+      "title": "영수증으로 미사용 상품 반품하기",
+      "scenario": "어제 산 미사용 셔츠를 반품하고 싶습니다. 영수증을 갖고 있으며 사이즈가 맞지 않습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "점원. 구매일·이유·영수증을 묻고 원래 결제 수단으로 환불 가능하다고 설명한다.",
+      "opening": "What is the problem with the shirt?",
+      "steps": [
+        {
+          "goal": "반품 이유 설명하기",
+          "example": "I bought it yesterday, but it is too small.",
+          "cue": "too small = 너무 작다"
+        },
+        {
+          "goal": "영수증 제시하기",
+          "example": "Here is the receipt. I would like a refund.",
+          "cue": "refund = 환불"
+        },
+        {
+          "goal": "환불 방식 확인하기",
+          "example": "Will it go back to the same card?",
+          "cue": "go back to = 되돌아오다"
+        }
+      ],
+      "outcome": "구매 정보와 이유를 알려 반품 및 환불 방식을 확인한다.",
+      "transfer": "영수증 대신 주문 확인 이메일만 있을 때 인정되는 증빙을 묻는다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "A2",
+      "slug": "delivery-time",
+      "title": "배송 날짜 조정하기",
+      "scenario": "토요일 배송 예정이지만 그날 집에 없습니다. 월요일 오후에는 받을 수 있습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "고객센터 직원. 월요일 오후 2~6시 배송이 가능하며 시간대를 더 좁힐 수 없다고 답한다.",
+      "opening": "Your parcel is due on Saturday.",
+      "steps": [
+        {
+          "goal": "기존 날짜가 어려운 이유 말하기",
+          "example": "I will not be home on Saturday.",
+          "cue": "will not be home = 집에 없다"
+        },
+        {
+          "goal": "가능한 날짜 제안하기",
+          "example": "Could you deliver it on Monday afternoon?",
+          "cue": "deliver it on = 그날 배송하다"
+        },
+        {
+          "goal": "시간대 확인하기",
+          "example": "So I need to be home from two to six?",
+          "cue": "from ... to ... = 시작과 끝"
+        }
+      ],
+      "outcome": "배송 가능 날짜와 수령 시간대를 확인한다.",
+      "transfer": "월요일도 불가능할 때 매장 수령 장소와 필요한 증빙을 확인한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "A2",
+      "slug": "discount-check",
+      "title": "할인 적용 조건 묻기",
+      "scenario": "진열대에 두 개 구매 시 할인이라고 쓰여 있습니다. 다른 색 두 개에도 적용되는지 묻습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "점원. 같은 종류면 다른 색도 가능하며 2개 15파운드, 한 개 9파운드라고 설명한다.",
+      "opening": "These are on offer today.",
+      "steps": [
+        {
+          "goal": "다른 색 조합 가능 여부 묻기",
+          "example": "Can I choose two different colours?",
+          "cue": "different colours = 다른 색"
+        },
+        {
+          "goal": "두 개 합계 확인하기",
+          "example": "Is it fifteen pounds for both?",
+          "cue": "for both = 둘 다 합쳐"
+        },
+        {
+          "goal": "선택한 조합 알리기",
+          "example": "I will take one blue and one green.",
+          "cue": "one ... and one ... = 각각 하나"
+        }
+      ],
+      "outcome": "할인 조합과 합계를 확인해 구매한다.",
+      "transfer": "할인이 같은 색에만 적용될 때 원래 원하는 조합의 가격을 다시 묻는다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "A2",
+      "slug": "wrong-item",
+      "title": "온라인 주문과 다른 상품 신고하기",
+      "scenario": "파란 컵을 주문했지만 초록 컵이 왔습니다. 가상 주문 번호는 A204입니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "상담원. 주문 번호를 확인하고 사진 요청 후 무료 교환과 반송 안내를 제공한다.",
+      "opening": "Please tell me your order number.",
+      "steps": [
+        {
+          "goal": "주문 번호 제공하기",
+          "example": "My order number is A two zero four.",
+          "cue": "order number = 주문 번호"
+        },
+        {
+          "goal": "주문과 도착 상품 비교하기",
+          "example": "I ordered a blue mug, but I received a green one.",
+          "cue": "ordered / received = 주문과 수령"
+        },
+        {
+          "goal": "교환 및 반송 방법 묻기",
+          "example": "Can you send the blue one, and how do I return this one?",
+          "cue": "return this one = 받은 물건 반송"
+        }
+      ],
+      "outcome": "오배송을 설명하고 교환과 반송 절차를 확인한다.",
+      "transfer": "맞는 색이 품절되었을 때 대체품 대신 환불 가능 여부를 묻는다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "B1",
+      "slug": "defect-proof",
+      "title": "간헐적 고장 설명하기",
+      "scenario": "헤드폰 한쪽이 가끔 안 들립니다. 매장에서는 지금 정상 작동하지만 걸을 때 증상이 반복됩니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "점원. 현재 재현되지 않아 고장을 확인하기 어렵다고 말하고 사용 조건과 기록을 요청한다.",
+      "opening": "They seem to be working now.",
+      "steps": [
+        {
+          "goal": "발생 조건 설명하기",
+          "example": "The sound cuts out on the left when I walk, but it works while I am sitting still.",
+          "cue": "cuts out = 끊기다"
+        },
+        {
+          "goal": "이미 해 본 조치 말하기",
+          "example": "I have charged them and tried another phone, but the problem continues.",
+          "cue": "tried ... but = 시도와 결과"
+        },
+        {
+          "goal": "확인 방법과 접수 요청하기",
+          "example": "Can you record the problem and tell me what evidence the repair team needs?",
+          "cue": "record the problem = 증상을 접수하다"
+        }
+      ],
+      "outcome": "간헐적 증상과 시도한 해결책을 설명하고 검사 절차를 정한다.",
+      "transfer": "증상 영상이 있지만 제품 번호가 안 보일 때 추가로 필요한 정보를 확인한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "B1",
+      "slug": "missed-delivery",
+      "title": "배송 완료인데 못 받은 물건 찾기",
+      "scenario": "배송 앱은 완료로 표시하지만 문 앞에 물건이 없습니다. 이웃에게도 확인했습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "상담원. 사진은 다른 건물 문으로 보이고 배송 기사 확인에 하루가 걸린다고 설명한다.",
+      "opening": "Our system says the parcel was delivered.",
+      "steps": [
+        {
+          "goal": "표시와 실제 상황 차이 설명하기",
+          "example": "It says delivered, but there is no parcel at my door. I have also checked with my neighbours.",
+          "cue": "says delivered = 배송 완료 표시"
+        },
+        {
+          "goal": "사진의 차이 알리기",
+          "example": "The door in the photo is not our building entrance.",
+          "cue": "not our entrance = 우리 건물 입구 아님"
+        },
+        {
+          "goal": "조사와 후속 연락 확인하기",
+          "example": "When will you update me, and what happens if the parcel cannot be found?",
+          "cue": "what happens if = 실패 시 다음 절차"
+        }
+      ],
+      "outcome": "확인한 사실과 배송 증거의 차이를 설명하고 후속 확인 일정을 정한다.",
+      "transfer": "사진은 맞지만 수령 서명이 다른 사람일 때 개인정보를 추측하지 않고 서명 확인 절차를 묻는다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "B1",
+      "slug": "budget-comparison",
+      "title": "예산 안에서 필요한 기능 고르기",
+      "scenario": "재택 수업용 헤드셋 예산은 60파운드입니다. 모델 A는 40파운드 유선, B는 75파운드 무선입니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "점원. 두 모델 마이크는 같고 무선 모델만 이동성이 좋다고 설명한다.",
+      "opening": "The wireless model is very popular.",
+      "steps": [
+        {
+          "goal": "실제 용도와 예산 설명하기",
+          "example": "I mainly use it at my desk for lessons, and my budget is sixty pounds.",
+          "cue": "mainly use it for = 주된 사용 목적"
+        },
+        {
+          "goal": "차이 확인하기",
+          "example": "Is the microphone better, or am I paying extra just for wireless use?",
+          "cue": "paying extra for = 추가 비용의 이유"
+        },
+        {
+          "goal": "근거를 들어 선택하기",
+          "example": "I do not need to move around, so the wired model makes more sense for me.",
+          "cue": "makes more sense = 더 합리적"
+        }
+      ],
+      "outcome": "인기보다 용도와 예산을 기준으로 필요한 제품을 선택한다.",
+      "transfer": "수업 중 움직여야 하는 필요가 생기면 다른 가격대 무선 제품을 문의한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "B1",
+      "slug": "gift-exchange",
+      "title": "선물받은 상품 교환하기",
+      "scenario": "선물받은 스웨터가 너무 큽니다. 결제 영수증은 없고 선물 영수증만 있습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "점원. 환불은 구매자에게만 가능하지만 선물 영수증으로 다른 사이즈나 매장 크레딧 교환은 가능하다.",
+      "opening": "Did you buy it yourself?",
+      "steps": [
+        {
+          "goal": "선물과 증빙 설명하기",
+          "example": "It was a gift, and I have the gift receipt but not the payment receipt.",
+          "cue": "gift receipt = 선물용 영수증"
+        },
+        {
+          "goal": "가능한 교환 문의하기",
+          "example": "Could I exchange it for a smaller size?",
+          "cue": "exchange it for = 다른 것으로 교환"
+        },
+        {
+          "goal": "품절 시 대안 확인하기",
+          "example": "If the smaller one is unavailable, can I use the credit later?",
+          "cue": "use the credit later = 적립된 교환 금액 추후 사용"
+        }
+      ],
+      "outcome": "구매자와 수령자 차이를 설명하고 가능한 교환 방식을 정한다.",
+      "transfer": "교환 크레딧에 유효기간이 있을 때 사용 시한과 다른 지점 사용 가능 여부를 확인한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "B2",
+      "slug": "warranty-exclusions",
+      "title": "보증 범위와 추가 보험 비교하기",
+      "scenario": "노트북을 사며 추가 보험을 권유받았습니다. 기본 보증은 제조 결함, 보험은 사고 손상을 다루지만 자기 부담금이 있습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "판매원. 보험 연 80파운드, 건당 부담금 60파운드이며 분실은 제외된다고 답한다.",
+      "opening": "For peace of mind, I would definitely add the protection plan.",
+      "steps": [
+        {
+          "goal": "보장 범위를 구체적으로 묻기",
+          "example": "Which problems are covered by this plan but excluded from the standard warranty?",
+          "cue": "covered / excluded = 포함과 제외"
+        },
+        {
+          "goal": "총비용과 제한 비교하기",
+          "example": "With the annual fee and the excess, what would I pay for a single accidental repair?",
+          "cue": "excess = 자기 부담금"
+        },
+        {
+          "goal": "필요에 따른 보류 의사 전달하기",
+          "example": "I would like to read the exclusions before deciding; reassurance alone is not enough to compare the options.",
+          "cue": "read the exclusions = 제외 조건 확인"
+        }
+      ],
+      "outcome": "기본 보증과 추가 보험의 범위·비용을 비교하고 검토 후 결정한다.",
+      "transfer": "기본 보증에도 일부 사고 수리가 포함된 신제품일 때 중복 보장 여부를 확인한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "B2",
+      "slug": "repair-or-replace",
+      "title": "수리와 교체의 현실적 비용 비교하기",
+      "scenario": "세탁기 수리는 150파운드·7일, 새 제품은 350파운드·2일 배송입니다. 수리 후 보증은 3개월입니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "수리 담당자. 추가 부품 불량 가능성은 점검 전 알 수 없고 점검비 30파운드는 수리비에 포함된다.",
+      "opening": "Repairing it is clearly the cheaper option.",
+      "steps": [
+        {
+          "goal": "초기 가격 외 요소 비교하기",
+          "example": "It costs less upfront, but a week without the machine and possible extra repairs also matter.",
+          "cue": "upfront = 처음 지불하는"
+        },
+        {
+          "goal": "불확실한 비용 범위 묻기",
+          "example": "Can you give me an estimate range and contact me before doing work beyond it?",
+          "cue": "estimate range = 견적 범위"
+        },
+        {
+          "goal": "결정 조건 제시하기",
+          "example": "I am willing to repair it if the total stays under two hundred and the work has a written guarantee.",
+          "cue": "if the total stays under = 비용 상한 조건"
+        }
+      ],
+      "outcome": "가격·기간·불확실성을 비교해 조건부 수리 결정을 전달한다.",
+      "transfer": "수리 기간이 3주로 늘어날 때 기존 결정을 어떤 이유로 바꾸는지 설명한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "B2",
+      "slug": "subscription-renewal",
+      "title": "자동 갱신 비용 이의 제기하기",
+      "scenario": "무료 체험 뒤 연간 요금이 결제되었습니다. 알림은 받았지만 월 요금으로 이해했습니다. 서비스를 거의 쓰지 않았습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "상담원. 가입 시 연간 갱신이 표시되었다고 설명하고 부분 환불 검토가 가능하다고 한다.",
+      "opening": "The annual renewal was included in the sign-up terms.",
+      "steps": [
+        {
+          "goal": "자신의 오해를 인정하며 사실 설명하기",
+          "example": "I accept that I missed the annual term, but I understood the displayed price as a monthly payment.",
+          "cue": "I accept ... but = 인정과 설명"
+        },
+        {
+          "goal": "사용량과 요청 구분하기",
+          "example": "I have barely used the service since renewal. Could you review whether a partial refund is possible?",
+          "cue": "partial refund = 부분 환불"
+        },
+        {
+          "goal": "미래 갱신과 현재 청구 별도 확인하기",
+          "example": "Please stop future renewals regardless of the refund decision and confirm both outcomes separately.",
+          "cue": "regardless of = 결과와 무관하게"
+        }
+      ],
+      "outcome": "오해와 실제 사용 상황을 설명하고 갱신 중단과 환불 검토를 구분한다.",
+      "transfer": "환불은 불가능하지만 낮은 요금제로 전환 가능한 경우 남은 기간과 차액 처리를 확인한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "B2",
+      "slug": "marketplace-responsibility",
+      "title": "플랫폼과 판매자 사이 문의 경로 정하기",
+      "scenario": "장터 앱에서 산 상품이 설명과 다릅니다. 판매자는 플랫폼에, 플랫폼은 판매자에게 연락하라고 합니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "플랫폼 상담원. 판매자에게 먼저 메시지를 보내고 48시간 미응답이면 분쟁 접수 가능하다고 설명한다.",
+      "opening": "You need to resolve this with the seller first.",
+      "steps": [
+        {
+          "goal": "이미 진행한 조치 요약하기",
+          "example": "I contacted the seller yesterday, and they referred me back to you without addressing the mismatch.",
+          "cue": "referred me back = 다시 돌려보냈다"
+        },
+        {
+          "goal": "책임 추궁 대신 절차 확인하기",
+          "example": "Who can open a case, and at what point can your team review the evidence?",
+          "cue": "at what point = 어떤 시점에"
+        },
+        {
+          "goal": "구체적 다음 행동과 기록 확인하기",
+          "example": "Please give me the deadline and case reference so I can follow the process without starting again.",
+          "cue": "case reference = 문의 사건 번호"
+        }
+      ],
+      "outcome": "순환 안내를 끊고 증빙·기한·접수 주체를 명확히 한다.",
+      "transfer": "판매자가 답했지만 해결을 거부한 경우 미응답 기준과 다른 접수 조건을 확인한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "C1",
+      "slug": "sales-pressure",
+      "title": "개인화된 판매 압박에서 판단 시간 확보하기",
+      "scenario": "판매원이 오늘만 혜택이라며 즉시 계약을 권합니다. 할인 마감의 근거와 전체 비용을 아직 못 봤습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "판매원. 오늘 제안이 끝나지만 비슷한 프로모션이 다음 달 있을 수 있다고 인정한다.",
+      "opening": "You said quality matters to you, so I would hate to see you miss this opportunity.",
+      "steps": [
+        {
+          "goal": "가치 인정과 구매 시점 분리하기",
+          "example": "Quality does matter to me, but that does not remove the need to compare the full terms before committing.",
+          "cue": "before committing = 확정하기 전에"
+        },
+        {
+          "goal": "모호한 긴급성 확인하기",
+          "example": "Is the product becoming unavailable, or is it only this particular promotion that ends today?",
+          "cue": "only this promotion = 이번 할인에 한정"
+        },
+        {
+          "goal": "관계를 유지하며 결정을 보류하기",
+          "example": "Thank you for outlining it. Please send the complete offer in writing; I will decide after reviewing it, even if that means losing this discount.",
+          "cue": "even if that means = 그 결과를 감수"
+        }
+      ],
+      "outcome": "개인 가치에 호소하는 압박을 분리해 정보와 판단 시간을 확보한다.",
+      "transfer": "판매원이 예약금만 걸면 된다고 할 때 반환 조건과 실제 확정 효과를 묻는다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "C1",
+      "slug": "reconditioned-label",
+      "title": "재생 제품 표시의 의미 확인하기",
+      "scenario": "상품 설명은 like new인데 작은 글씨에는 refurbished라고 적혀 있습니다. 외관·부품·보증의 실제 기준을 확인합니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "판매원. 배터리 용량 최소 80%, 외관 작은 흠 허용, 보증 6개월이라고 설명한다.",
+      "opening": "Like new means it is essentially the same as buying new.",
+      "steps": [
+        {
+          "goal": "광고 표현을 구체적 기준으로 바꾸기",
+          "example": "Could we separate cosmetic condition, battery capacity, and warranty rather than treating like new as a single standard?",
+          "cue": "separate ... rather than = 기준 분리"
+        },
+        {
+          "goal": "의미 있는 차이 확인하기",
+          "example": "A battery at eighty per cent and a shorter warranty would affect my decision, even if the case looks unused.",
+          "cue": "would affect my decision = 선택에 영향을 준다"
+        },
+        {
+          "goal": "검증 가능한 정보 요청하기",
+          "example": "Please confirm the actual battery test result for this unit and the return window if it does not match the description.",
+          "cue": "this unit = 이 개별 제품"
+        }
+      ],
+      "outcome": "재생 제품의 모호한 품질 표현을 측정 기준과 반품 조건으로 명확히 한다.",
+      "transfer": "제품별 수치 제공이 불가능할 때 최소 기준으로만 안내되었다는 점을 확인하고 구매 여부를 정한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "C1",
+      "slug": "accessibility-shopping",
+      "title": "접근 가능한 매장 이용 방식 협의하기",
+      "scenario": "이동 보조 기구를 사용해 좁은 통로를 지나기 어렵습니다. 점원은 온라인으로 사면 된다고 제안하지만 직접 비교하고 싶습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "매장 책임자. 통로 전체 재배치는 어렵지만 넓은 상담 공간으로 제품을 가져올 수 있다.",
+      "opening": "Would it not be easier for you to order online?",
+      "steps": [
+        {
+          "goal": "선의 인정과 빠진 필요 설명하기",
+          "example": "I appreciate the suggestion, but ordering online would not let me compare the controls and fit in person.",
+          "cue": "would not let me = 필요 충족의 한계"
+        },
+        {
+          "goal": "동등한 선택권을 위한 조정 제안하기",
+          "example": "Could we use the accessible counter and bring two models there, so I can make the same comparison as other customers?",
+          "cue": "make the same comparison = 동일한 비교 기회"
+        },
+        {
+          "goal": "진행 방식과 동의 확인하기",
+          "example": "Please ask before moving my equipment, and let me know if any demonstration cannot be done at that counter.",
+          "cue": "ask before = 행동 전 동의"
+        }
+      ],
+      "outcome": "온라인 대체 제안의 한계를 설명하고 대면 비교를 가능하게 하는 조정을 합의한다.",
+      "transfer": "해당 공간에 전원이 없을 때 작동 시연이 가능한 다른 위치를 협의한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "C1",
+      "slug": "refund-settlement",
+      "title": "환불 수락의 범위 명확히 하기",
+      "scenario": "상담원이 환불을 해 주며 문제는 완전히 해결됐다고 답해 달라고 합니다. 금전은 해결되지만 잘못된 상품 설명은 남아 있습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "상담원. 재정 보상 접수는 닫아야 하지만 상품 설명 검토 요청은 별도 부서로 보낼 수 있다.",
+      "opening": "Please confirm that this fully resolves your complaint.",
+      "steps": [
+        {
+          "goal": "해결된 부분과 남은 문제 구분하기",
+          "example": "The refund resolves the payment issue, but it does not address the inaccurate description that led to the purchase.",
+          "cue": "resolves ... but does not address = 해결 범위"
+        },
+        {
+          "goal": "수락 문구를 제한해 제안하기",
+          "example": "I can confirm receipt of the refund without stating that every aspect of the complaint has been resolved.",
+          "cue": "without stating = 과도한 확인 피하기"
+        },
+        {
+          "goal": "별도 후속 검토 요청하기",
+          "example": "Could you close the refund request and keep a separate record for reviewing the listing?",
+          "cue": "separate record = 별도 기록"
+        }
+      ],
+      "outcome": "금전 해결 수락을 전체 문제 해결로 확대하지 않고 남은 문의를 분리한다.",
+      "transfer": "상품 설명이 수정된 경우 변경 내용을 확인한 뒤 해결 확인 문구를 다시 정한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "C2",
+      "slug": "ethical-labels",
+      "title": "윤리적 상품 설명의 판단 기준 따져 묻기",
+      "scenario": "브랜드가 ethically made라고 하지만 외부 인증 없이 공급업체 자체 확인만 있습니다. 선물 구매 기준을 정해야 합니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "브랜드 담당자. 윤리 정책에 서명한 공급업체를 쓰지만 전 생산시설 독립 실사는 없다고 설명한다.",
+      "opening": "Our suppliers share our values, so customers can buy with a clear conscience.",
+      "steps": [
+        {
+          "goal": "가치 동의와 검증의 차이 정밀하게 표현하기",
+          "example": "A supplier commitment may be a useful starting point, but it is not the same as independent evidence of conditions throughout the supply chain.",
+          "cue": "commitment / independent evidence = 약속과 독립 증거"
+        },
+        {
+          "goal": "검증 범위와 미확인 범위 나누기",
+          "example": "Which parts are independently checked, which rely on self-reporting, and where do you currently lack visibility?",
+          "cue": "lack visibility = 확인할 수 없는 범위"
+        },
+        {
+          "goal": "단정 없이 자신의 구매 기준 설명하기",
+          "example": "I am not claiming the product is unethically made; I am saying the assurance offered is broader than the evidence I can assess.",
+          "cue": "not claiming ... saying ... = 주장 범위 정교화"
+        }
+      ],
+      "outcome": "윤리적이라는 보증의 근거 범위를 묻고 과도한 단정 없이 구매 판단을 설명한다.",
+      "transfer": "일부 공장 인증이 제시되면 제품 전체와 해당 공장의 관계를 추가 확인한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "C2",
+      "slug": "recall-wording",
+      "title": "리콜과 자발적 교환의 표현 차이 확인하기",
+      "scenario": "제품 안내는 precautionary replacement라고 쓰고 상담원은 안전 문제가 없다고 말합니다. 동시에 사용 중단 권고가 있습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "상담원. 원인 조사 중이고 위험 확정은 없지만 조사 종료 전 사용 중단을 권고한다고 설명한다.",
+      "opening": "It is not a safety recall; it is just a precautionary replacement.",
+      "steps": [
+        {
+          "goal": "분류 명칭과 행동 권고의 차이 짚기",
+          "example": "Whatever the programme is called, the request to stop using the product suggests customers need a clear interim instruction.",
+          "cue": "whatever it is called = 명칭과 무관한 핵심"
+        },
+        {
+          "goal": "확인된 사실과 조사 중인 사항 구분 요청하기",
+          "example": "Could you distinguish what has been ruled out from what is still being investigated, without giving an assurance the evidence does not support?",
+          "cue": "ruled out / investigated = 배제와 조사 중"
+        },
+        {
+          "goal": "실행 가능한 지침 요약 확인하기",
+          "example": "So I should stop using it, retain the serial number, and arrange collection; the absence of a confirmed fault is not an instruction to continue using it.",
+          "cue": "absence of ... is not ... = 부재의 의미 한정"
+        }
+      ],
+      "outcome": "표현상 안심과 실제 권고를 분리해 검증되지 않은 안전 결론 없이 다음 행동을 확인한다.",
+      "transfer": "새 조사 결과로 사용 재개 안내가 오면 적용 제품 번호와 남은 예외를 확인한다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "C2",
+      "slug": "dynamic-price",
+      "title": "개인별 가격 차이 설명 요청하기",
+      "scenario": "동일 시간 친구와 같은 상품 페이지를 보는데 가격이 다릅니다. 차별이라고 단정하지 않고 할인 조건과 표시 기준을 확인합니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "고객 담당자. 친구는 회원 쿠폰이 있지만 표시에는 쿠폰 적용 여부가 눈에 띄지 않았다고 설명한다.",
+      "opening": "Prices can vary for many reasons; there is nothing unusual about that.",
+      "steps": [
+        {
+          "goal": "일반 설명과 구체적 차이 구분하기",
+          "example": "I am not disputing that prices can vary; I am asking which condition explains this particular difference for the same item at the same time.",
+          "cue": "this particular difference = 구체적 차이"
+        },
+        {
+          "goal": "확인할 증거와 개인정보 최소화하기",
+          "example": "We can provide the displayed prices and membership status without sharing account passwords or payment details.",
+          "cue": "without sharing = 불필요 정보 제외"
+        },
+        {
+          "goal": "투명한 비교 기준 제안하기",
+          "example": "Could the page distinguish the base price from conditional discounts so customers are comparing like with like?",
+          "cue": "like with like = 같은 기준끼리"
+        }
+      ],
+      "outcome": "근거 없는 의도 추정을 피하면서 가격 차이의 구체적 조건과 표시 개선을 요청한다.",
+      "transfer": "회원 상태가 같은데도 차이가 남으면 단정 대신 추가 조사에 필요한 최소 정보를 묻는다."
+    },
+    {
+      "subcategoryId": "shopping",
+      "difficulty": "C2",
+      "slug": "secondhand-dispute",
+      "title": "중고 거래의 상태 표현과 기대 조정하기",
+      "scenario": "중고 카메라 설명은 fully functional, minor wear였지만 녹화 20분 뒤 꺼집니다. 판매자는 짧은 촬영만 해 봤고 구매자는 장시간 녹화를 기대했습니다.",
+      "learnerRole": "구매자",
+      "interlocutorRole": "판매자. 사진 기능은 정상이었고 장시간 테스트는 안 했으며 고의 은폐 주장을 불편해한다.",
+      "opening": "I never said it was suitable for professional filming, and I did not hide anything.",
+      "steps": [
+        {
+          "goal": "고의 주장과 기능 기대를 분리하기",
+          "example": "I am not alleging deliberate concealment. The issue is whether fully functional reasonably covered sustained recording, given that recording was an advertised feature.",
+          "cue": "not alleging = 단정하지 않음"
+        },
+        {
+          "goal": "불확실한 원인과 확인 가능한 증상 구분하기",
+          "example": "We do not yet know why it shuts down, but we can document that it happens after roughly twenty minutes under the stated settings.",
+          "cue": "under the stated settings = 명시한 조건에서"
+        },
+        {
+          "goal": "공동 검사와 조건부 해결 제안하기",
+          "example": "Could we agree on a neutral test and a return or price adjustment depending on the result, rather than trying to settle intent first?",
+          "cue": "depending on the result = 결과에 따른 조건"
+        }
+      ],
+      "outcome": "서로 다른 기대와 고의 여부를 분리해 공동 확인과 조건부 해결 절차를 제안한다.",
+      "transfer": "제품 설명에 10분 녹화 제한이 실제로 적혀 있었을 때 자신의 주장 범위를 수정한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "pre-A1",
+      "slug": "key",
+      "title": "집 열쇠 받기",
+      "scenario": "가상 주소의 새집에서 열쇠를 받습니다. key는 열쇠입니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "관리인. 이름을 묻고 열쇠를 건네며 맞는지 확인한다.",
+      "opening": "Your name?",
+      "steps": [
+        {
+          "goal": "연습용 이름 말하기",
+          "example": "Mina.",
+          "cue": "Mina = 연습용 이름"
+        },
+        {
+          "goal": "열쇠 요청하기",
+          "example": "Key, please.",
+          "cue": "key = 열쇠"
+        },
+        {
+          "goal": "받고 감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "이름을 알려 열쇠를 받는다.",
+      "transfer": "열쇠 두 개를 요청한다. two keys=열쇠 두 개를 먼저 익힌다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "pre-A1",
+      "slug": "room-number",
+      "title": "호수 확인하기",
+      "scenario": "가상 집 번호 12를 확인합니다. twelve는 12입니다. 가상 복도에는 12호 문과 20호 문이 있습니다. [가리키기: 12호 문]을 함께 입력해 실제 사진 없이 문을 지정할 수 있습니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "관리인. 12호라고 말하고 문을 가리킨다.",
+      "opening": "Number twelve.",
+      "steps": [
+        {
+          "goal": "번호 다시 묻기",
+          "example": "Twelve?",
+          "cue": "twelve = 12"
+        },
+        {
+          "goal": "해당 문 가리켜 확인하기",
+          "example": "This one?",
+          "cue": "this one = 이것"
+        },
+        {
+          "goal": "안내 이해 표시하기",
+          "example": "OK, thank you.",
+          "cue": "OK = 알겠습니다"
+        }
+      ],
+      "outcome": "들은 호수와 해당 문을 연결해 확인한다.",
+      "transfer": "호수를 20으로 바꾸고 twenty와 twelve를 다시 확인한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "pre-A1",
+      "slug": "cold",
+      "title": "방이 춥다고 말하기",
+      "scenario": "방에 들어왔는데 춥습니다. cold는 춥다는 뜻입니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "동거인. 춥다는 말을 듣고 창문을 닫아도 되는지 묻는다.",
+      "opening": "Are you OK?",
+      "steps": [
+        {
+          "goal": "춥다고 알리기",
+          "example": "Cold.",
+          "cue": "cold = 추운"
+        },
+        {
+          "goal": "창문 닫기 제안 수락하기",
+          "example": "Yes, please.",
+          "cue": "yes, please = 네 부탁해요"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "불편을 한 단어로 알리고 도움 제안에 답한다.",
+      "transfer": "방이 더운 상황에서 hot이라고 말하고 창문 열기 제안에 답한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "pre-A1",
+      "slug": "bathroom",
+      "title": "화장실 위치 묻기",
+      "scenario": "처음 방문한 집에서 화장실을 찾습니다. bathroom은 화장실입니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "집주인. 화장실을 가리키며 왼쪽이라고 말한다.",
+      "opening": "Come in!",
+      "steps": [
+        {
+          "goal": "화장실 묻기",
+          "example": "Bathroom?",
+          "cue": "bathroom = 화장실"
+        },
+        {
+          "goal": "왼쪽인지 확인하기",
+          "example": "Left?",
+          "cue": "left = 왼쪽"
+        },
+        {
+          "goal": "안내에 감사하기",
+          "example": "Thanks.",
+          "cue": "thanks = 고마워요"
+        }
+      ],
+      "outcome": "필요한 공간과 방향을 확인한다.",
+      "transfer": "주방 kitchen의 위치를 묻고 right=오른쪽 안내를 확인한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "A1",
+      "slug": "wifi",
+      "title": "와이파이 접속 정보 묻기",
+      "scenario": "새집에서 인터넷을 쓰려 합니다. 연습용 네트워크는 HomeGuest입니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "동거인. 네트워크 이름과 적힌 연습용 비밀번호를 보여준다. 실제 비밀값을 묻지 않는다.",
+      "opening": "Do you need the Wi-Fi?",
+      "steps": [
+        {
+          "goal": "네트워크 이름 묻기",
+          "example": "What is the Wi-Fi name?",
+          "cue": "name = 이름"
+        },
+        {
+          "goal": "비밀번호 보여 달라고 하기",
+          "example": "Can you write the password down?",
+          "cue": "write ... down = 적다"
+        },
+        {
+          "goal": "접속 여부 알리기",
+          "example": "It works. Thank you.",
+          "cue": "it works = 된다"
+        }
+      ],
+      "outcome": "말로 받은 접속 정보를 적어 달라고 요청하고 접속 여부를 알린다.",
+      "transfer": "접속이 안 될 때 It does not work라고 말하고 이름을 다시 확인한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "A1",
+      "slug": "bins",
+      "title": "쓰레기 버리는 날 묻기",
+      "scenario": "월요일 저녁에 처음 쓰레기를 버리려 합니다. 종이와 일반 쓰레기의 수거일이 다릅니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "이웃. 일반 쓰레기 화요일, 종이 금요일이라고 천천히 답한다.",
+      "opening": "Which bin do you mean?",
+      "steps": [
+        {
+          "goal": "일반 쓰레기 수거일 묻기",
+          "example": "What day is the rubbish collected?",
+          "cue": "what day = 무슨 요일"
+        },
+        {
+          "goal": "화요일 확인하기",
+          "example": "On Tuesday?",
+          "cue": "on Tuesday = 화요일에"
+        },
+        {
+          "goal": "종이 분리수거일 묻기",
+          "example": "And what day is paper collected?",
+          "cue": "paper = 종이"
+        }
+      ],
+      "outcome": "두 종류 쓰레기의 수거일을 구분한다.",
+      "transfer": "공휴일로 하루 늦어지는 주의 수거일을 다시 확인한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "A1",
+      "slug": "house-chore",
+      "title": "집안일 순서 정하기",
+      "scenario": "동거인과 저녁 설거지와 바닥 청소를 나눕니다. 본인은 설거지를 할 수 있습니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "동거인. 청소할 일을 묻고 본인은 바닥을 맡겠다고 제안한다.",
+      "opening": "Can you clean tonight?",
+      "steps": [
+        {
+          "goal": "가능한 일 말하기",
+          "example": "I can wash the dishes.",
+          "cue": "wash the dishes = 설거지하다"
+        },
+        {
+          "goal": "상대에게 바닥 청소 요청하기",
+          "example": "Can you clean the floor?",
+          "cue": "clean the floor = 바닥 청소"
+        },
+        {
+          "goal": "시각 정하기",
+          "example": "After dinner is good.",
+          "cue": "after dinner = 저녁 식사 후"
+        }
+      ],
+      "outcome": "간단한 집안일과 실행 시간을 나눈다.",
+      "transfer": "오늘은 늦게 귀가하므로 내일 아침에 할 수 있다고 말한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "A1",
+      "slug": "parcel-neighbour",
+      "title": "이웃에게 맡긴 택배 받기",
+      "scenario": "가상 이름 Mina의 택배를 옆집에서 받으려 합니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "이웃. 이름을 묻고 작은 상자를 보여준 뒤 맞는지 확인한다.",
+      "opening": "Hello. Can I help?",
+      "steps": [
+        {
+          "goal": "방문 이유 말하기",
+          "example": "I am here for my parcel.",
+          "cue": "here for = 받으러 왔다"
+        },
+        {
+          "goal": "연습용 이름 알려주기",
+          "example": "My name is Mina.",
+          "cue": "my name is = 제 이름은"
+        },
+        {
+          "goal": "상자 확인하기",
+          "example": "Yes, that is mine. Thank you.",
+          "cue": "that is mine = 제 것입니다"
+        }
+      ],
+      "outcome": "본인 이름으로 맡겨진 택배를 확인해 받는다.",
+      "transfer": "보여 준 상자가 자기 것이 아니면 No, mine is a small bag이라고 정정한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "A2",
+      "slug": "leaking-tap",
+      "title": "수도꼭지 누수 신고하기",
+      "scenario": "주방 수도꼭지가 잠가도 계속 샙니다. 화요일 오전에 집에 있습니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "관리인. 위치와 증상을 묻고 화요일 10시에 수리 방문 가능하다고 답한다.",
+      "opening": "What needs repairing?",
+      "steps": [
+        {
+          "goal": "위치와 증상 말하기",
+          "example": "The kitchen tap keeps dripping when it is turned off.",
+          "cue": "keeps dripping = 계속 물이 떨어지다"
+        },
+        {
+          "goal": "방문 가능 시간 알리기",
+          "example": "I am home on Tuesday morning.",
+          "cue": "on Tuesday morning = 화요일 오전"
+        },
+        {
+          "goal": "방문 시각 확인하기",
+          "example": "Will someone come at ten?",
+          "cue": "will someone come = 방문하는지"
+        }
+      ],
+      "outcome": "누수 위치·증상을 설명하고 방문 시간을 확인한다.",
+      "transfer": "방문 가능한 날이 바뀌면 기존 약속을 언급하고 새 시간을 요청한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "A2",
+      "slug": "quiet-evening",
+      "title": "밤에 소리 줄여 달라고 부탁하기",
+      "scenario": "내일 일찍 출근해야 하는데 동거인의 음악 소리가 큽니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "동거인. 소리가 큰 줄 몰랐다고 답하고 헤드폰을 쓸 수 있다고 제안한다.",
+      "opening": "Is the music bothering you?",
+      "steps": [
+        {
+          "goal": "이유 설명하기",
+          "example": "I need to get up early tomorrow.",
+          "cue": "get up early = 일찍 일어나다"
+        },
+        {
+          "goal": "소리 줄이기 요청하기",
+          "example": "Could you turn it down, please?",
+          "cue": "turn it down = 소리를 줄이다"
+        },
+        {
+          "goal": "대안에 감사하기",
+          "example": "Headphones would be great. Thank you.",
+          "cue": "would be great = 좋겠다"
+        }
+      ],
+      "outcome": "상대를 비난하지 않고 조용히 지낼 방법을 요청한다.",
+      "transfer": "상대가 온라인 회의 중이라 헤드폰만으로 부족할 때 다른 방 사용을 요청한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "A2",
+      "slug": "viewing-flat",
+      "title": "집 보러 갈 약속 잡기",
+      "scenario": "매물 2번 집을 보고 싶습니다. 수요일 6시 이후에 가능합니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "중개인. 수요일은 5시까지만 가능하며 목요일 6시 30분을 제안한다.",
+      "opening": "When would you like to view the flat?",
+      "steps": [
+        {
+          "goal": "매물 식별하기",
+          "example": "I would like to see flat number two.",
+          "cue": "would like to see = 보고 싶다"
+        },
+        {
+          "goal": "가능한 시간 제시하기",
+          "example": "I am free after six on Wednesday.",
+          "cue": "free after = 그 이후 시간이 된다"
+        },
+        {
+          "goal": "대체 약속 확인하기",
+          "example": "Thursday at six thirty works. Where should we meet?",
+          "cue": "where should we meet = 만날 장소"
+        }
+      ],
+      "outcome": "방문할 매물과 가능한 시간을 알려 약속 장소까지 확정한다.",
+      "transfer": "직접 방문이 어려워 영상 안내가 가능한지 묻고 시작 시간을 정한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "A2",
+      "slug": "move-checklist",
+      "title": "입주 때 물품 상태 알리기",
+      "scenario": "입주 확인표를 작성합니다. 의자 하나가 흔들리고 램프는 켜지지 않습니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "관리인. 사진과 위치를 받고 기존 상태로 기록하겠다고 답한다.",
+      "opening": "Does everything match the inventory?",
+      "steps": [
+        {
+          "goal": "목록과 상태 차이 말하기",
+          "example": "The chair is here, but one leg is loose.",
+          "cue": "one leg is loose = 다리 하나가 헐겁다"
+        },
+        {
+          "goal": "추가 문제 알리기",
+          "example": "The lamp in the bedroom does not turn on.",
+          "cue": "does not turn on = 켜지지 않는다"
+        },
+        {
+          "goal": "기존 상태 기록 요청하기",
+          "example": "Can you add these to the check-in report?",
+          "cue": "add to the report = 기록에 추가"
+        }
+      ],
+      "outcome": "입주 시 물품 존재와 상태를 구분해 기록한다.",
+      "transfer": "물품은 정상인데 목록에 없는 것이 있을 때 소유 여부와 목록 수정을 확인한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "B1",
+      "slug": "heating-delay",
+      "title": "난방 수리 지연에 임시 해결 묻기",
+      "scenario": "난방이 사흘째 안 됩니다. 수리 담당자는 부품을 기다리며 이틀 더 필요하다고 합니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "관리인. 임시 전기난로 제공 가능 여부를 확인할 수 있고 새 부품 도착은 아직 확정되지 않았다.",
+      "opening": "The part should arrive in a couple of days.",
+      "steps": [
+        {
+          "goal": "기간과 생활 영향 설명하기",
+          "example": "The heating has been off for three days, and the bedroom is too cold to use comfortably.",
+          "cue": "has been off for = 작동 안 한 기간"
+        },
+        {
+          "goal": "확정과 예상 구분하기",
+          "example": "Is the delivery date confirmed, or is that an estimate?",
+          "cue": "confirmed / estimate = 확정과 예상"
+        },
+        {
+          "goal": "임시 지원과 연락 약속 요청하기",
+          "example": "Could you check whether a temporary heater is available and update me tomorrow?",
+          "cue": "temporary = 임시"
+        }
+      ],
+      "outcome": "수리 예상과 확정을 구분하고 임시 지원·연락 계획을 정한다.",
+      "transfer": "부품이 도착했지만 기사 일정이 밀린 경우 수리 완료 날짜를 별도로 확인한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "B1",
+      "slug": "shared-bills",
+      "title": "공동 공과금 오류 확인하기",
+      "scenario": "세 사람이 공과금을 나누는데 자신에게 청구된 금액만 높습니다. 청구서에 지난달 미납액이 포함되었습니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "동거인. 총액을 세 명으로 나눴지만 한 명이 지난달 몫을 이미 낸 사실을 놓쳤다.",
+      "opening": "I split the total equally, so it should be fair.",
+      "steps": [
+        {
+          "goal": "계산 차이 설명하기",
+          "example": "The total includes last month, but I already paid my share of that.",
+          "cue": "my share = 제 몫"
+        },
+        {
+          "goal": "항목별 확인 제안하기",
+          "example": "Can we separate the current bill from the old balance?",
+          "cue": "old balance = 이전 미납액"
+        },
+        {
+          "goal": "수정 금액과 기록 합의하기",
+          "example": "Let us record each payment so we do not count it twice next month.",
+          "cue": "count it twice = 중복 계산"
+        }
+      ],
+      "outcome": "이번 청구와 이전 납부를 구분해 공동 비용을 조정한다.",
+      "transfer": "거주 기간이 서로 다른 달에 날짜 기준과 균등 분할 중 어떤 방법을 쓸지 논의한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "B1",
+      "slug": "guest-stay",
+      "title": "동거인의 손님 숙박 기간 조율하기",
+      "scenario": "동거인의 친구가 이틀 온다고 했는데 일주일 머무르려 합니다. 공용 공간 사용이 겹칩니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "동거인. 친구 일정이 바뀌어 일주일이 필요하며 낮에는 외출할 예정이라고 설명한다.",
+      "opening": "My friend needs to stay a bit longer than we planned.",
+      "steps": [
+        {
+          "goal": "기존 이해와 변경 확인하기",
+          "example": "I agreed to two nights, so a full week is quite a change.",
+          "cue": "agreed to = 동의했던 범위"
+        },
+        {
+          "goal": "구체적 불편 설명하기",
+          "example": "I work from the living room during the day and need it to be available.",
+          "cue": "need it to be available = 사용 필요"
+        },
+        {
+          "goal": "기간과 공간 조건 제안하기",
+          "example": "Could we agree on a final leaving date and keep the living room free during work hours?",
+          "cue": "final leaving date = 확정 퇴실 날짜"
+        }
+      ],
+      "outcome": "숙박 변경의 영향을 설명하고 기간·공용 공간 조건을 합의한다.",
+      "transfer": "손님이 낮에도 집에 있어야 할 때 대체 작업 공간과 조용한 시간을 협의한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "B1",
+      "slug": "lost-key",
+      "title": "열쇠 분실 후 출입 도움 요청하기",
+      "scenario": "열쇠를 잃어 집에 못 들어갑니다. 가상 주소와 신분 확인 절차로 관리인 도움을 받습니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "관리인. 거주 확인 후 예비 열쇠 수령 장소와 시간, 교체 문의 절차를 설명한다.",
+      "opening": "Can you confirm which flat you live in?",
+      "steps": [
+        {
+          "goal": "분실 상황 알리기",
+          "example": "I have lost my key and cannot get into the flat.",
+          "cue": "cannot get into = 들어갈 수 없다"
+        },
+        {
+          "goal": "안전한 확인 절차 묻기",
+          "example": "What do you need to verify that I live there?",
+          "cue": "verify = 확인하다"
+        },
+        {
+          "goal": "수령과 추가 조치 확인하기",
+          "example": "Where can I collect the spare, and do I need to report the lost key separately?",
+          "cue": "spare = 예비 열쇠"
+        }
+      ],
+      "outcome": "분실을 설명하고 거주 확인·예비 열쇠·후속 신고 절차를 확인한다.",
+      "transfer": "관리인이 부재인 야간 상황에서 승인된 연락처와 가능한 대기 장소를 문의한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "B2",
+      "slug": "renewal-options",
+      "title": "임대 연장 조건 비교하기",
+      "scenario": "계약 연장은 12개월에 월 900, 6개월에 월 950입니다. 직장 이동 여부가 4개월 뒤 결정됩니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "담당자. 중도 종료 가능 여부는 계약 조항 확인이 필요하고 가격을 즉시 낮출 권한은 없다.",
+      "opening": "The twelve-month option is better value.",
+      "steps": [
+        {
+          "goal": "가격과 유연성 비교하기",
+          "example": "It is cheaper each month, but the longer commitment creates a risk if I need to move.",
+          "cue": "longer commitment = 장기 약정"
+        },
+        {
+          "goal": "판단에 필요한 조건 묻기",
+          "example": "Could you show me the notice and early-exit terms for both options?",
+          "cue": "notice / early-exit terms = 통보·중도 종료 조건"
+        },
+        {
+          "goal": "조건부 선호 전달하기",
+          "example": "I would consider twelve months if there is a clearly agreed break option; otherwise six months may fit my situation better.",
+          "cue": "otherwise = 그렇지 않으면"
+        }
+      ],
+      "outcome": "월 비용과 이동 가능성을 비교해 확인할 조항과 선호를 전달한다.",
+      "transfer": "직장 이동이 취소되면 유연성과 비용의 우선순위가 어떻게 달라지는지 설명한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "B2",
+      "slug": "repair-access",
+      "title": "수리 출입과 재택근무 조율하기",
+      "scenario": "수리 업체는 오전 8시~오후 5시 방문이라는데 10시~12시는 기밀 회의가 있습니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "담당자. 정확한 시각 확정은 어렵지만 30분 전 연락과 오후 우선 배정은 요청할 수 있다.",
+      "opening": "We cannot promise a narrow time slot.",
+      "steps": [
+        {
+          "goal": "방문 필요와 제약 함께 설명하기",
+          "example": "I want the repair done, but I cannot allow access to the study during a confidential call from ten to twelve.",
+          "cue": "allow access = 출입을 허용하다"
+        },
+        {
+          "goal": "실행 가능한 대안 비교하기",
+          "example": "Would an afternoon preference plus a call ahead be more reliable than an early slot?",
+          "cue": "call ahead = 방문 전 연락"
+        },
+        {
+          "goal": "허용 범위와 예외 정리하기",
+          "example": "Please note that other rooms are accessible, but the study needs my confirmation before entry.",
+          "cue": "needs my confirmation = 내 확인이 필요"
+        }
+      ],
+      "outcome": "수리 접근과 업무 제약을 조율해 출입 범위를 명확히 한다.",
+      "transfer": "긴급 누수로 회의 시간에도 접근해야 할 때 안전한 업무 이동과 연락 절차를 합의한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "B2",
+      "slug": "deposit-record",
+      "title": "퇴거 정산의 항목별 근거 묻기",
+      "scenario": "퇴거 정산에 청소비와 의자 수리비가 있습니다. 입주 사진에는 의자가 이미 손상되어 있습니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "관리 담당자. 청소 사진은 있으나 의자의 입주 사진을 아직 확인하지 않았다.",
+      "opening": "The deductions reflect the condition when you left.",
+      "steps": [
+        {
+          "goal": "동의와 이의 항목 구분하기",
+          "example": "I can discuss the cleaning charge, but the chair damage was recorded when I moved in.",
+          "cue": "recorded when = 당시 기록"
+        },
+        {
+          "goal": "비교 근거 제시하기",
+          "example": "Could you compare the dated check-in photo with the checkout report before treating it as new damage?",
+          "cue": "dated photo = 날짜 있는 사진"
+        },
+        {
+          "goal": "재검토 결과와 일정 요청하기",
+          "example": "Please itemise any revised charges and tell me when the review will be completed.",
+          "cue": "itemise = 항목별 명시"
+        }
+      ],
+      "outcome": "감정적 총액 논쟁 대신 항목·기존 상태·재검토 일정을 확인한다.",
+      "transfer": "사진 날짜가 불명확할 때 증거의 한계를 인정하고 다른 기록을 요청한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "B2",
+      "slug": "energy-upgrade",
+      "title": "단열 공사 일정과 효과 논의하기",
+      "scenario": "건물 단열 공사가 2주 예정이며 소음이 있습니다. 비용 절감 수치는 평균값이고 자기 집 효과는 미확인입니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "관리자. 하루 작업 시간은 9~5시, 창문 접근 하루 필요, 절감량은 추정치라고 답한다.",
+      "opening": "The work should pay for itself through lower bills.",
+      "steps": [
+        {
+          "goal": "일반 기대와 개별 보장 구분하기",
+          "example": "Lower bills would be welcome, but is that an estimate for the building or a guarantee for each flat?",
+          "cue": "estimate / guarantee = 예상과 보장"
+        },
+        {
+          "goal": "일상 영향 구체화하기",
+          "example": "Which days require access inside, and when will the noisiest work happen?",
+          "cue": "require access = 출입 필요"
+        },
+        {
+          "goal": "조정과 평가 방법 제안하기",
+          "example": "Could you give us a staged schedule and explain how the savings will be assessed afterwards?",
+          "cue": "staged schedule = 단계별 일정"
+        }
+      ],
+      "outcome": "공사 편익의 불확실성과 생활 영향을 확인하고 일정·평가 정보를 요청한다.",
+      "transfer": "공사 지연으로 기간이 늘어날 때 변경 이유와 우선 완료 구간을 협의한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "C1",
+      "slug": "shared-space-priorities",
+      "title": "공용 공간의 경쟁하는 필요 중재하기",
+      "scenario": "동거인 한 명은 거실을 운동 공간으로, 다른 한 명은 온라인 수업에 쓰려 합니다. 둘 다 저녁 7~8시만 가능합니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "동거인 대표. 번갈아 쓰면 된다고 하지만 수업은 매주 화요일 고정이라고 설명한다.",
+      "opening": "Taking turns seems like the only fair solution.",
+      "steps": [
+        {
+          "goal": "공평함의 서로 다른 기준 설명하기",
+          "example": "Equal time is one kind of fairness, but a fixed class and a flexible workout do not face the same constraints.",
+          "cue": "same constraints = 동일한 제약"
+        },
+        {
+          "goal": "고정과 조정 가능한 요구 구분하기",
+          "example": "Could we protect Tuesday for the class and look at alternatives for exercise on that evening?",
+          "cue": "protect Tuesday = 화요일 시간 확보"
+        },
+        {
+          "goal": "일방 양보를 피하는 보완안 제안하기",
+          "example": "In return, the exercise slot could take priority on another evening, with a review after two weeks.",
+          "cue": "in return = 상호 보완"
+        }
+      ],
+      "outcome": "시간의 균등 분할과 실제 제약을 함께 고려한 공용 공간 합의를 만든다.",
+      "transfer": "운동도 강사 수업으로 시간이 고정되면 기존 공정성 판단을 재검토한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "C1",
+      "slug": "indirect-noise",
+      "title": "돌려 말한 이웃 불만 확인하기",
+      "scenario": "이웃이 밤마다 활기차시네요라고 말했습니다. 칭찬인지 소음 불만인지 확실하지 않습니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "이웃. 직접 말하기 어려워 완곡하게 표현했으며 실제로 밤 11시 이후 발소리가 문제다.",
+      "opening": "You certainly keep lively hours upstairs.",
+      "steps": [
+        {
+          "goal": "암시를 단정 없이 확인하기",
+          "example": "I may be reading too much into that, but has noise from our flat been disturbing you?",
+          "cue": "I may be ... = 해석의 불확실성"
+        },
+        {
+          "goal": "구체적 소리와 시간 묻기",
+          "example": "Is it music, voices, or footsteps, and roughly what time is it noticeable?",
+          "cue": "noticeable = 들려서 신경 쓰이는"
+        },
+        {
+          "goal": "가능한 조치와 확인 방법 제안하기",
+          "example": "We can avoid moving things late at night. Please let me know whether that makes a difference before we assume the source is settled.",
+          "cue": "makes a difference = 개선 효과"
+        }
+      ],
+      "outcome": "완곡한 불만의 의미와 실제 원인을 확인해 구체적인 개선을 약속한다.",
+      "transfer": "소리가 다른 집에서 난 것으로 밝혀지면 관계를 유지하며 사실을 정정한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "C1",
+      "slug": "sublet-request",
+      "title": "전대 요청의 조건과 책임 묻기",
+      "scenario": "두 달 출장을 가며 친구가 빈방에 머물러도 되는지 묻습니다. 친구 체류와 정식 전대의 구분이 불분명합니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "관리 담당자. 방문객은 허용되나 장기 독점 사용은 별도 검토가 필요하다고 설명한다.",
+      "opening": "If it is just a friend staying, it may be fine.",
+      "steps": [
+        {
+          "goal": "완곡한 설명 대신 실제 계획 명시하기",
+          "example": "To avoid a misunderstanding, I would be away for the full two months, and my friend would use the room throughout that period.",
+          "cue": "throughout = 전체 기간"
+        },
+        {
+          "goal": "분류와 승인 절차 확인하기",
+          "example": "Would you treat that as an extended guest stay or a subletting request, and what written approval would be needed?",
+          "cue": "treat that as = 어떻게 분류하다"
+        },
+        {
+          "goal": "승인 전 실행하지 않겠다고 정리하기",
+          "example": "I will not promise the room until the conditions and responsibilities are clear in writing.",
+          "cue": "until ... clear = 확인 전 유보"
+        }
+      ],
+      "outcome": "실제 사용 계획을 숨기지 않고 적용되는 승인 절차와 책임 범위를 확인한다.",
+      "transfer": "친구가 비용을 내지 않는 경우 그 사실이 분류를 바꾸는지 추측하지 않고 문의한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "C1",
+      "slug": "works-update",
+      "title": "공사 공지의 낙관적 표현 바로잡기",
+      "scenario": "건물 공지는 minor inconvenience라고 하지만 하루 물 공급 중단과 승강기 제한이 있습니다. 주민 안내문을 수정하려 합니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "관리자. 불안을 줄이고 싶어 세부 영향을 작게 표현했지만 단수 9~3시와 엘리베이터 1대 중단을 확인한다.",
+      "opening": "We do not want residents to worry unnecessarily.",
+      "steps": [
+        {
+          "goal": "안심과 준비에 필요한 정보 구분하기",
+          "example": "Avoiding alarm is sensible, but understating the disruption may leave people unable to plan for it.",
+          "cue": "understate = 영향을 작게 표현"
+        },
+        {
+          "goal": "구체적 공지 문구 제안하기",
+          "example": "Could we state the water-off period, the remaining lift access, and the contact for residents who need assistance?",
+          "cue": "water-off period = 단수 시간"
+        },
+        {
+          "goal": "불확실한 종료 시간 표현 조정하기",
+          "example": "If three o'clock is an estimate, please say so and specify when the next update will be issued.",
+          "cue": "next update = 다음 상황 안내"
+        }
+      ],
+      "outcome": "안심 의도는 유지하면서 주민이 실제 준비할 수 있는 공지로 조정한다.",
+      "transfer": "단수 시간이 확정되지 않았을 때 확정 정보와 예상 범위를 분리해 안내한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "C2",
+      "slug": "community-consent",
+      "title": "주민 침묵을 동의로 해석하지 않기",
+      "scenario": "공용 정원 변경 설문에 40세대 중 8세대만 답했고 6세대가 찬성했습니다. 관리자는 overwhelming support라고 보고하려 합니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "주민 대표. 응답자의 75% 찬성을 근거로 전체 지지라고 말하지만 미응답 이유를 모른다.",
+      "opening": "Three quarters supported it, so we can say residents clearly want the change.",
+      "steps": [
+        {
+          "goal": "비율의 분모를 명확히 하기",
+          "example": "Three quarters of respondents supported it; that is not equivalent to three quarters of households, given the low response rate.",
+          "cue": "of respondents = 응답자 중"
+        },
+        {
+          "goal": "침묵의 해석 한계 설명하기",
+          "example": "Non-response could mean indifference, lack of access, or simply missing the survey; we do not have evidence to choose among those explanations.",
+          "cue": "choose among explanations = 여러 가능한 설명 중 하나를 고르다"
+        },
+        {
+          "goal": "실행 가능하고 정확한 결론 제안하기",
+          "example": "We could report the eight responses transparently, offer another accessible way to comment, and distinguish a provisional proposal from a mandate.",
+          "cue": "provisional proposal / mandate = 잠정안과 위임된 결정"
+        }
+      ],
+      "outcome": "응답 결과와 전체 주민의 동의를 구분해 정확한 보고와 후속 의견 수렴을 제안한다.",
+      "transfer": "응답률이 높아져도 특정 동의 세대가 과소 대표되었을 때 남은 편향을 설명한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "C2",
+      "slug": "privacy-security",
+      "title": "공용 카메라의 안전과 사생활 논점 조정하기",
+      "scenario": "도난 뒤 공용 복도 카메라 설치가 제안되었습니다. 찬성자는 안전, 반대자는 방문 기록 노출을 걱정합니다. 보관 기간은 미정입니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "주민 대표. 반대는 안전에 무관심한 태도라고 말하지만 촬영 범위와 접근 권한은 아직 설계되지 않았다고 인정한다.",
+      "opening": "If people have nothing to hide, I do not see why they would object.",
+      "steps": [
+        {
+          "goal": "도덕적 양자택일을 재구성하기",
+          "example": "The question is not whether residents value safety; it is whether this particular arrangement delivers it with proportionate limits on observation.",
+          "cue": "proportionate limits = 목적에 맞는 제한"
+        },
+        {
+          "goal": "추상적 찬반을 설계 조건으로 전환하기",
+          "example": "We need to discuss the field of view, who can access recordings, the retention period, and what evidence would show the measure is useful.",
+          "cue": "retention period = 보관 기간"
+        },
+        {
+          "goal": "조건부 합의와 검토 절차 제안하기",
+          "example": "Could we evaluate a narrowly scoped proposal and a review date, without treating a request for safeguards as rejection of security itself?",
+          "cue": "safeguards = 보호 장치"
+        }
+      ],
+      "outcome": "안전 대 사생활의 단순 대립을 구체적 설계·책임·검토 조건으로 바꾼다.",
+      "transfer": "범죄 예방 효과 자료가 약한 경우 대체 조명·출입 개선안과 비교할 기준을 정한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "C2",
+      "slug": "informal-promise",
+      "title": "구두 약속과 새로운 관리 방침 조정하기",
+      "scenario": "이전 관리인은 자전거를 현관에 둬도 된다고 했지만 새 관리인은 모두 금지라고 합니다. 서면 기록이 없고 통행 폭 문제가 있습니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "새 관리인. 이전 약속은 확인할 수 없으나 통행 방해 없는 지정 공간을 검토할 수 있다고 답한다.",
+      "opening": "Whatever you were told before, the rule now applies to everyone.",
+      "steps": [
+        {
+          "goal": "기대 형성의 근거와 증거 한계 인정하기",
+          "example": "I cannot document the earlier permission, but we relied on it in good faith; acknowledging that history is different from asking for a permanent exemption.",
+          "cue": "good faith / exemption = 선의와 예외"
+        },
+        {
+          "goal": "현재 목적을 중심으로 쟁점 재구성하기",
+          "example": "If the aim is clear access rather than removing bicycles as such, could a marked storage area meet the same objective?",
+          "cue": "as such = 그 자체로"
+        },
+        {
+          "goal": "전환 기간과 동일 기준 제안하기",
+          "example": "We could agree on a short transition and a location assessed against the same access standard for everyone.",
+          "cue": "transition = 전환 기간"
+        }
+      ],
+      "outcome": "확인 못 한 과거 약속을 절대화하지 않으면서 신뢰·접근성·공평한 전환을 조율한다.",
+      "transfer": "이전 허용 이메일을 찾았을 때 새 안전 조건과 과거 약속을 함께 고려해 요청을 갱신한다."
+    },
+    {
+      "subcategoryId": "housing",
+      "difficulty": "C2",
+      "slug": "housing-consultation",
+      "title": "이름뿐인 주민 협의의 결정 범위 확인하기",
+      "scenario": "관리회사가 renovation consultation을 열지만 이미 업체와 계약했습니다. 주민들은 공사 자체를 바꿀 수 있다고 이해했습니다.",
+      "learnerRole": "거주자",
+      "interlocutorRole": "담당자. 업체 선정과 총예산은 확정됐고 작업 시간·진입 경로·임시 시설은 조정 가능하다.",
+      "opening": "We genuinely want your input, even though the main decisions have been made.",
+      "steps": [
+        {
+          "goal": "참여 의도와 실제 영향 범위 분리하기",
+          "example": "Inviting comments is useful, but calling this an open consultation may imply that residents can influence decisions that are already fixed.",
+          "cue": "may imply = 잘못 기대하게 할 수 있다"
+        },
+        {
+          "goal": "확정과 변경 가능 영역 목록 요청하기",
+          "example": "Could you distinguish what is closed, what remains negotiable, and who has authority to act on each suggestion?",
+          "cue": "closed / negotiable = 확정과 조정 가능"
+        },
+        {
+          "goal": "의미 있는 참여 절차 재정의하기",
+          "example": "If the scope is implementation, let us describe it that way and commit to explaining which practical changes were accepted and why.",
+          "cue": "scope is implementation = 실행 방식에 한정된 범위"
+        }
+      ],
+      "outcome": "주민 참여의 실제 결정 범위를 명확히 하고 반영 결과가 보이는 협의 절차를 제안한다.",
+      "transfer": "예산 일부도 조정 가능해지면 새롭게 의견을 받을 항목과 의사결정권자를 확인한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "pre-A1",
+      "slug": "reception-name",
+      "title": "접수대에서 이름 말하기",
+      "scenario": "연습용 이름 Mina Kim으로 진료 접수를 합니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "접수 직원. 이름과 예약 여부를 한 질문씩 묻는다.",
+      "opening": "Your name, please?",
+      "steps": [
+        {
+          "goal": "연습용 이름 말하기",
+          "example": "Mina Kim.",
+          "cue": "name = 이름"
+        },
+        {
+          "goal": "예약 있다고 답하기",
+          "example": "Yes.",
+          "cue": "yes = 네"
+        },
+        {
+          "goal": "천천히 말해 달라고 하기",
+          "example": "Slowly, please.",
+          "cue": "slowly = 천천히"
+        }
+      ],
+      "outcome": "이름과 예약 여부를 전달하고 필요한 말하기 속도를 요청한다.",
+      "transfer": "예약이 없는 상황에서 No라고 답하고 help=도움을 요청한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "pre-A1",
+      "slug": "pain-location",
+      "title": "아픈 부위 가리키기",
+      "scenario": "무릎이 아파 의료진에게 위치를 알립니다. knee는 무릎입니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다. [가리키기: 오른쪽 무릎]이라는 한국어 동작을 영어 옆에 입력할 수 있으며 상대는 이를 역할극 속 지목으로 이해합니다. 실제 신체 사진은 사용하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "간호사. 아픈 곳을 묻고 가리킨 무릎이 맞는지 확인한다. 진단하지 않는다.",
+      "opening": "Where does it hurt?",
+      "steps": [
+        {
+          "goal": "아픈 곳 가리키기",
+          "example": "Here.",
+          "cue": "here = 여기"
+        },
+        {
+          "goal": "무릎이라고 말하기",
+          "example": "My knee.",
+          "cue": "knee = 무릎"
+        },
+        {
+          "goal": "맞는 위치인지 확인해 주기",
+          "example": "Yes.",
+          "cue": "yes = 네"
+        }
+      ],
+      "outcome": "가리키기와 단어로 불편한 위치를 전달한다.",
+      "transfer": "arm=팔을 가리키고 상대가 다른 쪽을 가리키면 No. Here.로 정정한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "pre-A1",
+      "slug": "repeat-question",
+      "title": "못 알아들은 질문 다시 듣기",
+      "scenario": "접수 직원의 질문을 이해하지 못했습니다. 도움 요청 표현부터 연습합니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "접수 직원. 이름을 빠르게 물었다가 반복 요청 시 짧고 천천히 다시 묻는다.",
+      "opening": "Could you confirm your full name?",
+      "steps": [
+        {
+          "goal": "반복 요청하기",
+          "example": "Again, please.",
+          "cue": "again = 다시"
+        },
+        {
+          "goal": "속도 조절 요청하기",
+          "example": "Slowly, please.",
+          "cue": "slowly = 천천히"
+        },
+        {
+          "goal": "알아들은 이름 답하기",
+          "example": "Mina Kim.",
+          "cue": "name = 이름"
+        }
+      ],
+      "outcome": "이해하지 못한 상태에서 추측 대신 반복을 요청한다.",
+      "transfer": "질문을 다시 들어도 모르겠으면 Help, please라고 말하고 한국어 지원을 요청한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "pre-A1",
+      "slug": "appointment-time",
+      "title": "진료 시간 숫자 확인하기",
+      "scenario": "직원이 예약 시간을 ten이라고 말합니다. ten은 10입니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "접수 직원. 내일 10시 예약을 한 정보씩 확인한다.",
+      "opening": "Ten tomorrow.",
+      "steps": [
+        {
+          "goal": "시간 확인하기",
+          "example": "Ten?",
+          "cue": "ten = 열"
+        },
+        {
+          "goal": "내일인지 확인하기",
+          "example": "Tomorrow?",
+          "cue": "tomorrow = 내일"
+        },
+        {
+          "goal": "안내에 감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "짧은 확인 질문으로 예약 날짜와 시간을 구분한다.",
+      "transfer": "two=2시 today=오늘로 바꾸어 들은 정보를 확인한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "A1",
+      "slug": "book-visit",
+      "title": "진료 예약 가능 시간 묻기",
+      "scenario": "이번 주 진료 예약을 원하며 금요일 오전에 가능합니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "접수 직원. 금요일 9시와 11시를 제안하고 이름을 확인한다.",
+      "opening": "When are you available?",
+      "steps": [
+        {
+          "goal": "예약 요청하기",
+          "example": "I would like an appointment.",
+          "cue": "appointment = 예약"
+        },
+        {
+          "goal": "가능한 시간 말하기",
+          "example": "Friday morning, please.",
+          "cue": "Friday morning = 금요일 오전"
+        },
+        {
+          "goal": "제안된 시각 선택하기",
+          "example": "Eleven is good.",
+          "cue": "eleven = 11시"
+        }
+      ],
+      "outcome": "예약 목적과 가능한 시간을 알려 제안된 시각을 선택한다.",
+      "transfer": "금요일이 안 되는 경우 월요일 오후 가능 여부를 묻는다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "A1",
+      "slug": "basic-symptom",
+      "title": "간단한 증상과 시작 시점 말하기",
+      "scenario": "목이 어제부터 아픈 상황을 설명합니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "의료진. 어디가 불편한지와 언제 시작했는지만 차례로 묻고 치료를 제시하지 않는다.",
+      "opening": "What is the problem?",
+      "steps": [
+        {
+          "goal": "목이 아프다고 말하기",
+          "example": "My throat hurts.",
+          "cue": "throat = 목"
+        },
+        {
+          "goal": "어제 시작했다고 말하기",
+          "example": "It started yesterday.",
+          "cue": "started yesterday = 어제 시작"
+        },
+        {
+          "goal": "이해 못 한 말 반복 요청하기",
+          "example": "Please say that again.",
+          "cue": "say ... again = 다시 말하다"
+        }
+      ],
+      "outcome": "증상과 시작 시점을 짧은 문장으로 전달한다.",
+      "transfer": "배가 오늘 아침부터 아픈 상황으로 바꿔 위치와 시점을 말한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "A1",
+      "slug": "pharmacy-person",
+      "title": "약사에게 직접 묻기",
+      "scenario": "약 포장 설명을 이해하지 못해 약사에게 묻고 싶습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다. 가상 포장에는 For external use only라는 영어가 있지만 아직 뜻을 모릅니다. [보여주기: 가상 포장]이라고 적으면 보여주는 동작으로 처리하며, 이 문구를 근거로 복용 행동을 지시하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "약국 직원. 약사가 곧 온다고 답하고 포장지를 보여 달라고 한다. 복용법을 대신 지시하지 않는다.",
+      "opening": "Can I help you?",
+      "steps": [
+        {
+          "goal": "약사와 대화 요청하기",
+          "example": "Can I speak to the pharmacist?",
+          "cue": "pharmacist = 약사"
+        },
+        {
+          "goal": "이해 못 한 부분 알리기",
+          "example": "I do not understand this label.",
+          "cue": "label = 라벨·설명"
+        },
+        {
+          "goal": "포장지 보여주기",
+          "example": "Here it is.",
+          "cue": "here it is = 여기 있습니다"
+        }
+      ],
+      "outcome": "임의로 추측하지 않고 약사에게 설명을 요청한다.",
+      "transfer": "전화 상담에서 포장을 보여줄 수 없을 때 읽어도 되는지 묻는다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "A1",
+      "slug": "interpreter",
+      "title": "한국어 통역 가능 여부 묻기",
+      "scenario": "중요한 진료 설명을 이해하기 어려워 한국어 통역을 원합니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "접수 직원. 가능한 통역 방식과 대기 시간을 확인하겠다고 답한다.",
+      "opening": "Do you understand the form?",
+      "steps": [
+        {
+          "goal": "이해 어려움 알리기",
+          "example": "My English is limited.",
+          "cue": "limited = 제한적인"
+        },
+        {
+          "goal": "한국어 통역 요청하기",
+          "example": "Is a Korean interpreter available?",
+          "cue": "Korean interpreter = 한국어 통역사"
+        },
+        {
+          "goal": "기다릴 수 있다고 답하기",
+          "example": "I can wait.",
+          "cue": "can wait = 기다릴 수 있다"
+        }
+      ],
+      "outcome": "언어 지원 필요를 알리고 통역 가능 여부를 문의한다.",
+      "transfer": "현장 통역이 없을 때 전화 통역이 가능한지 묻는다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "A2",
+      "slug": "symptom-timeline",
+      "title": "증상 변화 순서 설명하기",
+      "scenario": "가상 증상은 월요일 가벼운 두통, 화요일 더 심한 두통입니다. 현재는 조금 나아졌습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "의료진. 시작과 변화, 현재 상태를 묻는다. 원인을 단정하지 않는다.",
+      "opening": "When did this start?",
+      "steps": [
+        {
+          "goal": "시작 시점 설명하기",
+          "example": "It started as a mild headache on Monday.",
+          "cue": "mild = 약한"
+        },
+        {
+          "goal": "변화 설명하기",
+          "example": "It was worse on Tuesday.",
+          "cue": "was worse = 더 심했다"
+        },
+        {
+          "goal": "현재 상태 구분하기",
+          "example": "It is a little better now, but it has not gone away.",
+          "cue": "has not gone away = 아직 남아 있다"
+        }
+      ],
+      "outcome": "처음·중간·현재의 상태를 구분해 전달한다.",
+      "transfer": "증상이 나았다가 다시 나타난 경우 연결어 then과 again으로 순서를 설명한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "A2",
+      "slug": "medication-list",
+      "title": "복용 중인 약 목록 전달하기",
+      "scenario": "연습용 약 목록을 갖고 왔으나 약 이름 발음이 어렵습니다. 새로운 조언을 받기 전에 의료진에게 보여 줍니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다. 목록은 연습용 제품명 Lumarin-A(가상), Toravin-B(가상) 두 개이며 실재 약이나 용량이 아닙니다. [보여주기: 가상 목록]을 입력하면 목록 전달로 처리합니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "의료진. 적힌 목록을 확인하며 추가 복용 여부를 묻는다. 실제 제품이나 용량 조언을 만들지 않는다.",
+      "opening": "Are you taking any medicines?",
+      "steps": [
+        {
+          "goal": "목록이 있다고 알리기",
+          "example": "I have written them down here.",
+          "cue": "written ... down = 적어 두었다"
+        },
+        {
+          "goal": "정확한 발음을 모른다고 말하기",
+          "example": "I am not sure how to pronounce the names.",
+          "cue": "pronounce = 발음하다"
+        },
+        {
+          "goal": "목록 확인 요청하기",
+          "example": "Could you check this list before we continue?",
+          "cue": "check this list = 목록 확인"
+        }
+      ],
+      "outcome": "약 이름을 추측해 말하지 않고 준비한 목록으로 정확히 전달한다.",
+      "transfer": "목록에 빠진 비처방 제품이 생각나면 추가할 정보가 있다고 알린다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "A2",
+      "slug": "form-correction",
+      "title": "접수 기록 오류 바로잡기",
+      "scenario": "가상 기록에서 생년월일의 월과 일이 바뀌어 있습니다. April 5가 맞습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "접수 직원. May 4로 입력된 기록을 읽고 수정 확인을 요청한다.",
+      "opening": "Your date of birth is the fourth of May, correct?",
+      "steps": [
+        {
+          "goal": "오류를 정중히 알리기",
+          "example": "Sorry, that date is not correct.",
+          "cue": "not correct = 맞지 않다"
+        },
+        {
+          "goal": "월을 단어로 정확히 말하기",
+          "example": "It is the fifth of April.",
+          "cue": "the fifth of April = 4월 5일"
+        },
+        {
+          "goal": "수정 내용 재확인 요청하기",
+          "example": "Could you read it back after changing it?",
+          "cue": "read it back = 다시 읽어 확인"
+        }
+      ],
+      "outcome": "숫자 날짜의 모호함을 피하고 수정된 기록을 확인한다.",
+      "transfer": "이름 철자가 바뀐 경우 연습용 이름을 글자별로 말하고 재확인한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "A2",
+      "slug": "followup-instructions",
+      "title": "후속 방문 안내를 다시 확인하기",
+      "scenario": "진료 뒤 2주 후 연락하라는 안내를 들었지만 직접 방문인지 전화인지 모릅니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "접수 직원. 2주 후 전화 예약이며 날짜 확정은 접수대에서 해야 한다고 설명한다.",
+      "opening": "Please arrange a follow-up in two weeks.",
+      "steps": [
+        {
+          "goal": "연락 방식 확인하기",
+          "example": "Is that a phone appointment or a visit here?",
+          "cue": "phone appointment = 전화 예약"
+        },
+        {
+          "goal": "예약 주체 묻기",
+          "example": "Do I book it now, or will someone call me?",
+          "cue": "do I ... or will ... = 담당 구분"
+        },
+        {
+          "goal": "이해한 다음 행동 말하기",
+          "example": "So I should book a phone appointment at reception today.",
+          "cue": "so I should = 이해한 행동 확인"
+        }
+      ],
+      "outcome": "후속 연락의 방식·예약 주체·다음 행동을 확인한다.",
+      "transfer": "검사 결과가 나온 뒤 예약해야 한다는 조건으로 바꾸어 연락 시점을 확인한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "B1",
+      "slug": "appointment-impact",
+      "title": "늦어진 진료와 다른 일정 조율하기",
+      "scenario": "예약보다 50분 지연되었고 30분 뒤 아이를 데리러 가야 합니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "접수 직원. 진료 시각을 확정할 수 없지만 재예약 또는 담당자에게 상황 전달은 가능하다.",
+      "opening": "The doctor is running late today.",
+      "steps": [
+        {
+          "goal": "상황과 남은 시간 설명하기",
+          "example": "I have been waiting for fifty minutes, and I need to leave in half an hour to collect my child.",
+          "cue": "need to leave in = 떠나야 하는 시점"
+        },
+        {
+          "goal": "현실적인 예상 질문하기",
+          "example": "Is there a realistic chance I will be seen before then?",
+          "cue": "realistic chance = 실제 가능성"
+        },
+        {
+          "goal": "가능한 절차 요청하기",
+          "example": "If not, could you check how I can rearrange the appointment without losing the referral?",
+          "cue": "rearrange = 예약 변경"
+        }
+      ],
+      "outcome": "지연과 생활 제약을 설명하고 진료 지속 여부와 재예약 절차를 확인한다.",
+      "transfer": "접수 직원이 의료진의 확인이 필요하다고 할 때 기다릴 시간과 연락 방법을 정한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "B1",
+      "slug": "side-effect-question",
+      "title": "복용 뒤 생긴 변화를 의료진에게 전달하기",
+      "scenario": "새 약을 받은 뒤 졸림이 생겼다고 가정합니다. 약이 원인인지는 모릅니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "약사. 시작 시점과 다른 변경 사항을 확인한다. 이 연습에서는 복용 중단·변경을 지시하지 않고 담당자 확인을 안내한다.",
+      "opening": "When did you first notice the drowsiness?",
+      "steps": [
+        {
+          "goal": "시간적 관계 설명하기",
+          "example": "I noticed it the day after I started the new medicine.",
+          "cue": "the day after = 다음 날"
+        },
+        {
+          "goal": "원인 단정 피하기",
+          "example": "I do not know if the medicine caused it, but that is the only recent change I can think of.",
+          "cue": "do not know if = 인과 불확실성"
+        },
+        {
+          "goal": "담당자 확인할 질문 만들기",
+          "example": "Who should I speak to about whether this affects my treatment plan?",
+          "cue": "treatment plan = 치료 계획"
+        }
+      ],
+      "outcome": "증상과 복용의 시간 관계를 설명하되 원인을 단정하지 않고 확인 경로를 묻는다.",
+      "transfer": "같은 시기에 수면 시간도 바뀌었다면 추가 정보를 전달하고 원인 추측을 수정한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "B1",
+      "slug": "test-process",
+      "title": "검사 전 준비 안내 확인하기",
+      "scenario": "검사 예약 문자를 받았으나 준비사항 링크가 열리지 않습니다. 준비를 추측하지 않으려 합니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "검사실 직원. 정확한 검사 종류 확인 후 공식 안내를 다시 보내고 질문 담당자를 알려 준다.",
+      "opening": "The preparation details are in the message.",
+      "steps": [
+        {
+          "goal": "안내 접근 문제 설명하기",
+          "example": "The link in the message will not open, so I cannot read the preparation instructions.",
+          "cue": "will not open = 열리지 않는다"
+        },
+        {
+          "goal": "정확한 안내 재전송 요청하기",
+          "example": "Could you send the instructions for my specific test again?",
+          "cue": "specific test = 해당 검사"
+        },
+        {
+          "goal": "남은 질문 연락처 확인하기",
+          "example": "If I am still unsure about anything, which team should I call before the appointment?",
+          "cue": "still unsure = 여전히 불확실"
+        }
+      ],
+      "outcome": "검사 종류에 맞는 공식 준비 안내와 문의 경로를 확보한다.",
+      "transfer": "같은 이름의 검사가 두 종류일 때 예약 번호로 해당 안내를 식별한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "B1",
+      "slug": "symptom-not-heard",
+      "title": "놓친 증상 설명을 다시 꺼내기",
+      "scenario": "상담에서 수면 문제만 이야기했으나 일할 때 어지러움도 있다는 사실을 전달하지 못했습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "의료진. 상담을 마무리하려다가 추가 정보를 듣고 질문한다. 진단 결론을 생성하지 않는다.",
+      "opening": "We have covered your sleep concerns. Anything else?",
+      "steps": [
+        {
+          "goal": "추가 정보가 있다고 알리기",
+          "example": "There is one symptom I have not explained yet.",
+          "cue": "have not explained yet = 아직 전달 못 함"
+        },
+        {
+          "goal": "상황과 영향을 설명하기",
+          "example": "I sometimes feel dizzy at work, and I need to sit down until it passes.",
+          "cue": "until it passes = 지나갈 때까지"
+        },
+        {
+          "goal": "함께 검토 요청하기",
+          "example": "Could we include that when discussing the next steps?",
+          "cue": "include that = 함께 고려"
+        }
+      ],
+      "outcome": "상담 종료 전에 누락된 증상과 생활 영향을 전달한다.",
+      "transfer": "동반자가 대신 말해 자기 경험이 빠졌을 때 직접 설명할 시간을 요청한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "B2",
+      "slug": "choice-questions",
+      "title": "치료 선택의 비교 질문 준비하기",
+      "scenario": "의료진이 두 선택을 설명했습니다. A는 방문 횟수가 적지만 회복 기간이 길고 B는 정기 방문이 필요합니다. 결정은 전문 설명 후 합니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "의료진. 효과·위험·생활 영향에 관한 어떤 정보가 필요한지 묻는다. 수치나 권고를 임의로 만들지 않는다.",
+      "opening": "Which option do you feel more comfortable with?",
+      "steps": [
+        {
+          "goal": "판단 기준 설명하기",
+          "example": "I need to understand both the expected benefit and how each option would affect my work and caring responsibilities.",
+          "cue": "expected benefit = 기대되는 이익"
+        },
+        {
+          "goal": "정보 부족을 질문으로 만들기",
+          "example": "Could you compare the main risks, recovery time, and what happens if either option does not work?",
+          "cue": "what happens if = 실패 시 다음 단계"
+        },
+        {
+          "goal": "즉시 결정 대신 확인 요청하기",
+          "example": "I would like a written summary and a chance to ask follow-up questions before deciding.",
+          "cue": "before deciding = 결정 전에"
+        }
+      ],
+      "outcome": "효과·위험·생활 영향·실패 시 절차를 묻고 숙고할 정보를 요청한다.",
+      "transfer": "의료진이 시간 제한을 설명하면 지금 결정해야 하는 부분과 더 생각할 수 있는 부분을 구분한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "B2",
+      "slug": "insurance-estimate",
+      "title": "예상 의료비와 보장 확인하기",
+      "scenario": "진료실은 예상 비용을 안내하지만 보험 적용은 확정되지 않았습니다. 검사비가 별도일 수 있습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "청구 담당자. 진료비 추정에는 외부 검사비가 없고 보험사의 사전 확인이 필요할 수 있다고 설명한다.",
+      "opening": "Your insurance should cover most of it.",
+      "steps": [
+        {
+          "goal": "예상과 확정 구분하기",
+          "example": "Does should cover mean you have confirmed it, or is that an estimate based on similar cases?",
+          "cue": "should / confirmed = 예상과 확인"
+        },
+        {
+          "goal": "항목 범위 확인하기",
+          "example": "Does this figure include the external laboratory and any follow-up appointment?",
+          "cue": "include = 포함 범위"
+        },
+        {
+          "goal": "확인 주체와 문서 요청하기",
+          "example": "Please give me an itemised estimate and tell me which details I need to check with the insurer.",
+          "cue": "itemised estimate = 항목별 예상 비용"
+        }
+      ],
+      "outcome": "비용 추정 범위와 보험 확인 주체를 구분해 문서를 요청한다.",
+      "transfer": "보험사가 일부 항목만 승인했을 때 승인 항목과 미확인 비용을 다시 나눈다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "B2",
+      "slug": "access-needs",
+      "title": "진료 접근성 필요 설명하기",
+      "scenario": "전화로 긴 설명을 듣기 어렵고 글로 정리된 안내가 필요합니다. 다른 사람에게 대신 결정하게 하고 싶지는 않습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "접수 직원. 가족에게 설명하겠다고 제안하지만 본인에게 서면 안내도 제공할 수 있다.",
+      "opening": "Would you prefer us to explain everything to a family member?",
+      "steps": [
+        {
+          "goal": "지원과 결정권 구분하기",
+          "example": "I would like support with the format, but I want the information and decisions to come to me directly.",
+          "cue": "format = 정보 제공 방식"
+        },
+        {
+          "goal": "구체적 조정 요청하기",
+          "example": "Could you provide the main points in writing and give me time to check my understanding?",
+          "cue": "in writing = 글로"
+        },
+        {
+          "goal": "지원인 역할 한정하기",
+          "example": "My support person can help me keep track, but please ask me before sharing additional details.",
+          "cue": "ask me before sharing = 공유 전 동의"
+        }
+      ],
+      "outcome": "본인 결정권을 유지하면서 필요한 정보 전달 방식을 요청한다.",
+      "transfer": "서면 안내가 바로 불가능할 때 이해 확인 시간을 나누고 후속 문서 전달을 합의한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "B2",
+      "slug": "conflicting-instructions",
+      "title": "서로 다른 진료 안내 확인하기",
+      "scenario": "퇴원 문서와 전화 안내의 후속 방문 시점이 다릅니다. 어느 것이 최신인지 모르며 임의로 선택하지 않습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "간호사. 문서 작성일과 전화 연락 시각을 확인하고 담당팀에 정정 요청을 보낼 수 있다.",
+      "opening": "Please follow the discharge instructions.",
+      "steps": [
+        {
+          "goal": "상충하는 정보를 구체화하기",
+          "example": "The letter says next week, but yesterday's caller said to wait for a new appointment notice.",
+          "cue": "letter says / caller said = 출처 구분"
+        },
+        {
+          "goal": "자기 해석을 보류하기",
+          "example": "I do not want to choose between the two without checking which is current.",
+          "cue": "which is current = 최신 안내"
+        },
+        {
+          "goal": "확인 책임과 연락 시점 요청하기",
+          "example": "Could the responsible team confirm the current plan and tell me when I should expect a reply?",
+          "cue": "responsible team = 담당팀"
+        }
+      ],
+      "outcome": "두 출처를 제시해 최신 계획을 확인할 담당자와 연락 시점을 정한다.",
+      "transfer": "두 안내가 사실 서로 다른 검사에 관한 것이면 검사별 후속 절차를 따로 정리한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "C1",
+      "slug": "risk-language",
+      "title": "상대 위험과 실제 규모 구분해 질문하기",
+      "scenario": "설명 자료에는 위험이 두 배라고 쓰여 있지만 원래 빈도는 없습니다. 의료진에게 숫자의 의미를 묻습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "의료진. 기본 빈도와 시간 범위가 필요하다는 점을 설명할 수 있으나 연습에서 실제 수치를 만들지 않는다.",
+      "opening": "The relative risk is approximately doubled.",
+      "steps": [
+        {
+          "goal": "상대 변화의 이해와 한계 설명하기",
+          "example": "I understand the relative increase, but I cannot put it in context without knowing the baseline risk.",
+          "cue": "baseline risk = 원래 위험도"
+        },
+        {
+          "goal": "동일 기준의 수치 요청하기",
+          "example": "Could you express both possibilities using the same number of people over the same period?",
+          "cue": "same period = 동일 기간"
+        },
+        {
+          "goal": "개인 적용의 불확실성 확인하기",
+          "example": "Which factors make those figures more or less applicable to my situation?",
+          "cue": "applicable = 적용 가능한"
+        }
+      ],
+      "outcome": "상대 위험 표현을 기본 빈도·시간·개인 적용 범위의 질문으로 바꾼다.",
+      "transfer": "자료가 위험 감소를 강조할 때도 같은 분모와 기간으로 이익과 부담을 물어본다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "C1",
+      "slug": "preference-not-refusal",
+      "title": "질문을 치료 거부로 오해하지 않게 하기",
+      "scenario": "다른 선택을 묻자 의료진이 권고를 따르기 싫은 것인지 질문합니다. 신뢰는 유지하면서 이해와 가치관을 설명합니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "의료진. 결정에 필요한 정보를 다시 설명할 의향이 있으며 무엇이 걱정되는지 묻는다.",
+      "opening": "Are you saying you do not want to follow the recommendation?",
+      "steps": [
+        {
+          "goal": "질문의 의도 정정하기",
+          "example": "I am not rejecting the recommendation; I am trying to understand how it fits with the responsibilities I need to plan around.",
+          "cue": "not rejecting = 거부 의도가 아님"
+        },
+        {
+          "goal": "중요한 가치와 제약 설명하기",
+          "example": "A longer recovery would affect the person I care for, so that practical consequence matters alongside the clinical benefit.",
+          "cue": "alongside = 함께 고려"
+        },
+        {
+          "goal": "공동 의사결정 질문하기",
+          "example": "Could we discuss what can be adjusted and which parts you consider medically essential before I decide?",
+          "cue": "medically essential = 의학적으로 필수인 부분"
+        }
+      ],
+      "outcome": "질문과 거부를 구분하고 개인 가치·실행 조건을 의료진과 논의한다.",
+      "transfer": "의료진이 지연의 위험을 설명하면 그 정보를 반영해 질문과 판단의 우선순위를 갱신한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "C1",
+      "slug": "record-language",
+      "title": "의무 기록의 해석적 표현 정정 요청하기",
+      "scenario": "상담 기록에 non-compliant라고 적혀 있지만 실제로는 비용 때문에 처방을 받지 못했습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "진료팀 담당자. 기록 정정 요청 절차를 설명하며 원래 메모를 임의 삭제할 수는 없다고 알린다.",
+      "opening": "The note says you did not follow the plan.",
+      "steps": [
+        {
+          "goal": "행동 사실과 의도 추정 구분하기",
+          "example": "It is true that I did not obtain the prescription, but the wording suggests unwillingness rather than the cost barrier I explained.",
+          "cue": "unwillingness / barrier = 의지 부족과 장벽"
+        },
+        {
+          "goal": "사실 기반 대체 설명 제시하기",
+          "example": "Could the record state that I was unable to afford it and contacted the clinic to ask about alternatives?",
+          "cue": "unable to afford = 비용 감당 불가"
+        },
+        {
+          "goal": "정정 절차 요청하기",
+          "example": "What is the process for adding that clarification while preserving the original record appropriately?",
+          "cue": "clarification = 보충 설명"
+        }
+      ],
+      "outcome": "이행하지 못한 사실과 원인을 구분해 기록의 정확성을 위한 절차를 요청한다.",
+      "transfer": "연락한 기록이 확인되지 않으면 확인된 사실만 유지하고 기억에 근거한 부분을 구분한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "C1",
+      "slug": "family-mediation",
+      "title": "가족의 걱정과 본인의 선호 조율하기",
+      "scenario": "가족은 가능한 모든 검사를 원하고 본인은 검사 부담과 이익을 이해한 뒤 결정하고 싶습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "가족 역할 상대. 검사를 덜 하면 포기하는 것 같아 걱정하지만 본인이 결정해야 함은 인정한다.",
+      "opening": "I just want you to do everything possible.",
+      "steps": [
+        {
+          "goal": "걱정의 의도 인정하기",
+          "example": "I know you are asking because you care, and I do want to take this seriously.",
+          "cue": "because you care = 걱정의 의도"
+        },
+        {
+          "goal": "가능한 모든 것과 유용한 것 구분하기",
+          "example": "For me, taking it seriously means understanding which tests would change the plan, not automatically choosing every available test.",
+          "cue": "change the plan = 실제 계획에 영향"
+        },
+        {
+          "goal": "전문가에게 물을 공동 질문 제안하기",
+          "example": "Could we ask the clinician together what each test could tell us and what decisions would follow?",
+          "cue": "what decisions would follow = 결과에 따른 결정"
+        }
+      ],
+      "outcome": "가족의 돌봄 의도를 인정하면서 본인의 선택 기준과 공동 질문을 제안한다.",
+      "transfer": "가족이 비용을 걱정하는 경우 비용과 의학적 필요를 각각 질문하도록 조율한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "C2",
+      "slug": "uncertainty-assurance",
+      "title": "불확실성 설명을 무관심으로 오해하지 않기",
+      "scenario": "의료진은 검사로 일부 가능성을 낮췄지만 모든 원인을 배제한 것은 아니라고 설명했습니다. 동행인은 아무것도 모른다는 뜻으로 받아들입니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "동행인. 확실한 답이 없으면 검사가 소용없었다고 느끼며 다음 행동도 모른다.",
+      "opening": "So after all those tests, they still know nothing?",
+      "steps": [
+        {
+          "goal": "지식의 범위와 잔여 불확실성 재구성하기",
+          "example": "They have narrowed the possibilities; that is different from either knowing nothing or having ruled out every explanation.",
+          "cue": "narrowed the possibilities = 가능성 범위를 좁힘"
+        },
+        {
+          "goal": "거짓 확신 없이 의미 전달하기",
+          "example": "The reassuring part concerns what the tests were designed to assess, not a blanket guarantee about everything that could cause the symptoms.",
+          "cue": "blanket guarantee = 전면적 보장"
+        },
+        {
+          "goal": "전문가에게 확인할 행동 계획 정리하기",
+          "example": "What we should clarify is the follow-up plan, what changes to report, and who to contact if the agreed plan no longer fits.",
+          "cue": "follow-up plan = 후속 계획"
+        }
+      ],
+      "outcome": "검사가 알려 준 범위와 남은 불확실성을 과장 없이 매개하고 후속 질문을 정한다.",
+      "transfer": "새 증상이 생겨 기존 설명 범위를 벗어나면 이전 안심을 그대로 일반화하지 않도록 말한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "C2",
+      "slug": "research-headline",
+      "title": "건강 연구 제목과 연구 결과의 거리 설명하기",
+      "scenario": "친구가 가상 연구 기사 제목인 Habit X prevents condition Y를 봤습니다. 본문은 자기보고 관찰연구의 연관성만 설명합니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "친구. 제목을 행동 지침으로 받아들이지만 연구가 무작위 실험은 아니란 점은 읽지 않았다.",
+      "opening": "If it prevents the condition, surely everyone should start doing it.",
+      "steps": [
+        {
+          "goal": "주장의 강도를 연구 설계와 연결하기",
+          "example": "The study reports an association; the headline turns that into prevention, which would require stronger evidence about causation.",
+          "cue": "association / causation = 연관과 인과"
+        },
+        {
+          "goal": "대안 설명과 정보 한계 제시하기",
+          "example": "People who report habit X may differ in other relevant ways, and the summary does not show how fully those differences were addressed.",
+          "cue": "other relevant ways = 다른 관련 차이"
+        },
+        {
+          "goal": "정보 확인과 개인 결정을 분리하기",
+          "example": "We can look for the original methods and absolute figures, but that still would not turn a news summary into individual medical advice.",
+          "cue": "individual medical advice = 개인별 의료 조언"
+        }
+      ],
+      "outcome": "기사의 인과 표현을 연구가 실제 뒷받침하는 범위로 조정한다.",
+      "transfer": "무작위 연구였지만 표본이 작고 추적 기간이 짧았다면 비판을 그 설계에 맞게 수정한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "C2",
+      "slug": "consent-comprehension",
+      "title": "설명 들음과 이해·동의의 차이 전달하기",
+      "scenario": "서명란에는 explained and understood라고 적혀 있지만 빠른 설명을 따라가지 못했습니다. 절차를 무조건 거부하려는 것은 아닙니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "담당자. 서류가 표준 양식이라고 말하지만 추가 설명과 통역 요청을 전달할 수 있다.",
+      "opening": "It is a standard form; signing just confirms that we explained it.",
+      "steps": [
+        {
+          "goal": "표준 양식의 두 주장 구별하기",
+          "example": "The form does more than record that information was given; it also states that I understood it, which I cannot honestly confirm yet.",
+          "cue": "does more than = 단순 기록 이상의 의미"
+        },
+        {
+          "goal": "필요한 설명의 범위 구체화하기",
+          "example": "I need the purpose, main alternatives, and the consequences of waiting explained in a form I can follow.",
+          "cue": "in a form I can follow = 이해 가능한 방식"
+        },
+        {
+          "goal": "거부와 미완성 동의를 구분하기",
+          "example": "I am asking to complete the understanding stage, not making a final refusal. Could we pause the paperwork and arrange that discussion?",
+          "cue": "not a final refusal = 최종 거부 아님"
+        }
+      ],
+      "outcome": "설명 제공·이해·동의를 구별하고 이해 가능한 추가 설명 절차를 요청한다.",
+      "transfer": "급히 결정해야 하는 상황이라면 가능한 시간 안에 핵심 정보와 질문 기회를 확인한다."
+    },
+    {
+      "subcategoryId": "health",
+      "difficulty": "C2",
+      "slug": "care-transition",
+      "title": "기관 사이 인수인계의 책임 공백 확인하기",
+      "scenario": "병원은 지역팀이 연락할 것이라 하고 지역팀은 의뢰서를 아직 못 받았다고 합니다. 계획은 있다고 하나 실행 주체가 불분명합니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+      "learnerRole": "의료 서비스 이용자",
+      "interlocutorRole": "퇴원 담당자. 의뢰 전송은 요청됐지만 수신 확인과 첫 연락 날짜는 확인되지 않았다고 인정한다.",
+      "opening": "The referral is in progress, so the community team will take it from here.",
+      "steps": [
+        {
+          "goal": "진행 상태와 인계 완료 구분하기",
+          "example": "A referral being in progress is not the same as another team having accepted responsibility for the next step.",
+          "cue": "accepted responsibility = 다음 행동 책임 수락"
+        },
+        {
+          "goal": "책임 공백을 비난 없이 명료화하기",
+          "example": "Until receipt and an initial contact are confirmed, who is the named point of contact for questions about the plan?",
+          "cue": "named point of contact = 지정 연락 담당"
+        },
+        {
+          "goal": "확인 가능한 인계 기준 요청하기",
+          "example": "Could we record when the receiving team confirms, what they have agreed to do, and what I should do if that contact does not happen?",
+          "cue": "if ... does not happen = 미이행 시 절차"
+        }
+      ],
+      "outcome": "요청 전송과 인계 수락을 구분해 담당자·확인 기준·미연락 시 절차를 명확히 한다.",
+      "transfer": "지역팀이 수신했지만 서비스 범위가 다를 때 인계된 책임과 남은 책임을 다시 나눈다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "pre-A1",
+      "slug": "stamp",
+      "title": "우표 한 장 사기",
+      "scenario": "우체국에서 우표 한 장을 삽니다. stamp는 우표입니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "직원. 필요한 것과 수량을 한 질문씩 묻고 우표를 보여준다.",
+      "opening": "Hello!",
+      "steps": [
+        {
+          "goal": "우표 요청하기",
+          "example": "A stamp, please.",
+          "cue": "stamp = 우표"
+        },
+        {
+          "goal": "한 장이라고 답하기",
+          "example": "One.",
+          "cue": "one = 하나"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "물건 이름과 수량으로 우표를 요청한다.",
+      "transfer": "우표 두 장으로 바꾸고 two=둘을 사용한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "pre-A1",
+      "slug": "queue",
+      "title": "줄의 위치 확인하기",
+      "scenario": "번호표를 뽑아야 하는지 줄을 서야 하는지 모릅니다. 가상 안내 화면에는 [번호표 기계]와 [대기 의자]가 있습니다. [가리키기: 번호표 기계] 또는 [가리키기: 대기 의자]를 영어 옆에 입력해 대상을 지정합니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "안내 직원. 표를 뽑고 기다릴 의자를 가리킨다. 한국어 가리키기 표시는 역할극 동작으로 처리하며 실제 화면 조작을 요구하지 않는다.",
+      "opening": "Ticket, please.",
+      "steps": [
+        {
+          "goal": "표 위치 묻기",
+          "example": "Ticket?",
+          "cue": "ticket = 번호표"
+        },
+        {
+          "goal": "해당 표인지 확인하기",
+          "example": "This one?",
+          "cue": "this one = 이것"
+        },
+        {
+          "goal": "기다릴 자리 확인하기",
+          "example": "Here?",
+          "cue": "here = 여기"
+        }
+      ],
+      "outcome": "번호표와 기다릴 위치를 확인한다.",
+      "transfer": "표 없이 줄을 서는 곳에서 line=줄이라는 말을 듣고 위치를 확인한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "pre-A1",
+      "slug": "help-counter",
+      "title": "안내 창구에서 도움 요청하기",
+      "scenario": "처음 방문한 주민센터에서 어느 창구로 갈지 모릅니다. 가상 안내 종이에 2번 information(안내)이라고 적혀 있습니다. 실제 서류 없이 이 표기를 보고 확인합니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "안내원. 도움 요청을 받고 안내 종이를 가리키며 창구 2번이라고 말한다.",
+      "opening": "Hello. Yes?",
+      "steps": [
+        {
+          "goal": "도움 요청하기",
+          "example": "Help, please.",
+          "cue": "help = 도움"
+        },
+        {
+          "goal": "다시 말해 달라고 하기",
+          "example": "Again, please.",
+          "cue": "again = 다시"
+        },
+        {
+          "goal": "2번 확인하기",
+          "example": "Two?",
+          "cue": "two = 둘"
+        }
+      ],
+      "outcome": "모르는 장소에서 도움을 청하고 창구 번호를 확인한다.",
+      "transfer": "안내가 4번으로 바뀌면 four=넷을 익히고 재확인한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "pre-A1",
+      "slug": "copy-count",
+      "title": "복사 장수 말하기",
+      "scenario": "복사 가게에서 문서 한 장을 두 부 복사하려 합니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "직원. 복사 수량과 흑백 여부를 한 번에 하나씩 확인한다.",
+      "opening": "How many copies?",
+      "steps": [
+        {
+          "goal": "두 부 요청하기",
+          "example": "Two, please.",
+          "cue": "two = 둘"
+        },
+        {
+          "goal": "흑백 선택하기",
+          "example": "Black and white.",
+          "cue": "black and white = 흑백"
+        },
+        {
+          "goal": "마무리 감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 고마워요"
+        }
+      ],
+      "outcome": "복사 수량과 흑백 선택을 짧게 전달한다.",
+      "transfer": "한 부를 컬러로 요청한다. colour=컬러를 먼저 확인한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "A1",
+      "slug": "post-destination",
+      "title": "우편물 목적지 말하기",
+      "scenario": "한국으로 작은 소포를 보내려 합니다. 실제 주소 대신 연습용 라벨을 사용합니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "직원. 목적지와 일반/빠른 배송을 묻는다.",
+      "opening": "Where is it going?",
+      "steps": [
+        {
+          "goal": "목적지 말하기",
+          "example": "To South Korea, please.",
+          "cue": "to = 목적지로"
+        },
+        {
+          "goal": "빠른 배송 선택하기",
+          "example": "Express, please.",
+          "cue": "express = 빠른 배송"
+        },
+        {
+          "goal": "가격 묻기",
+          "example": "How much is it?",
+          "cue": "how much = 얼마"
+        }
+      ],
+      "outcome": "목적지와 배송 방식을 알려 가격을 확인한다.",
+      "transfer": "일반 배송을 선택하고 예상 소요 일수를 묻는다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "A1",
+      "slug": "haircut",
+      "title": "머리 길이 간단히 요청하기",
+      "scenario": "미용실에서 머리 끝만 조금 자르고 싶습니다. 현재 가상 머리 길이는 어깨까지이며 귓불 아래 길이를 유지해야 합니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "미용사. 원하는 길이를 묻고 손가락으로 자를 길이를 보여준다.",
+      "opening": "How much would you like off?",
+      "steps": [
+        {
+          "goal": "조금만 자르기 요청하기",
+          "example": "Just a little, please.",
+          "cue": "just a little = 조금만"
+        },
+        {
+          "goal": "귀보다 아래 길이 원하기",
+          "example": "Below my ears, please.",
+          "cue": "below my ears = 귀 아래"
+        },
+        {
+          "goal": "보여준 길이 확인하기",
+          "example": "Yes, that is good.",
+          "cue": "that is good = 그 정도 좋다"
+        }
+      ],
+      "outcome": "말과 보여 주는 길이를 함께 사용해 원하는 이발 길이를 확인한다.",
+      "transfer": "보여 준 길이가 너무 짧으면 No, longer please라고 정정한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "A1",
+      "slug": "laundry-pickup",
+      "title": "세탁물 찾는 날짜 묻기",
+      "scenario": "셔츠 두 장을 맡기며 찾을 날짜를 알고 싶습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "세탁소 직원. 금요일 오후에 준비된다고 답하고 영수증을 준다.",
+      "opening": "Two shirts?",
+      "steps": [
+        {
+          "goal": "수량 확인하기",
+          "example": "Yes, two shirts.",
+          "cue": "two shirts = 셔츠 두 장"
+        },
+        {
+          "goal": "수령 시점 묻기",
+          "example": "When can I collect them?",
+          "cue": "collect = 찾다"
+        },
+        {
+          "goal": "금요일 오후 재확인하기",
+          "example": "Friday afternoon?",
+          "cue": "Friday afternoon = 금요일 오후"
+        }
+      ],
+      "outcome": "맡긴 물건의 수량과 수령 시간을 확인한다.",
+      "transfer": "급히 목요일에 필요한 경우 가능 여부를 먼저 묻는다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "A1",
+      "slug": "library-card",
+      "title": "도서관 회원증 신청하기",
+      "scenario": "도서관 회원증을 만들려 하며 필요한 서류를 모릅니다. 실제 개인정보를 사용하지 않습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "직원. 신분 확인과 주소 증빙이 필요하다고 안내하고 신청서를 준다.",
+      "opening": "Do you have a library card?",
+      "steps": [
+        {
+          "goal": "회원증 없다고 답하기",
+          "example": "No, I do not.",
+          "cue": "do not = 없다"
+        },
+        {
+          "goal": "신청 의사 말하기",
+          "example": "I would like a library card.",
+          "cue": "would like = 원한다"
+        },
+        {
+          "goal": "필요한 서류 묻기",
+          "example": "What do I need to bring?",
+          "cue": "need to bring = 가져올 것"
+        }
+      ],
+      "outcome": "회원 가입 의사를 알리고 필요한 준비물을 묻는다.",
+      "transfer": "주소 증빙이 아직 없으면 가능한 대체 서류가 있는지 묻는다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "A2",
+      "slug": "cancel-booking",
+      "title": "서비스 예약 취소하기",
+      "scenario": "목요일 3시 미용실 예약에 못 갑니다. 가상 이름 Lee로 예약했습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "직원. 예약을 확인하고 24시간 전이라 취소 비용이 없다고 답한다.",
+      "opening": "How can I help?",
+      "steps": [
+        {
+          "goal": "예약 식별하기",
+          "example": "I have an appointment on Thursday at three, under Lee.",
+          "cue": "under Lee = Lee 이름으로"
+        },
+        {
+          "goal": "취소 요청하기",
+          "example": "I need to cancel it, please.",
+          "cue": "cancel = 취소"
+        },
+        {
+          "goal": "취소 확인 요청하기",
+          "example": "Could you send me a confirmation?",
+          "cue": "confirmation = 확인 안내"
+        }
+      ],
+      "outcome": "예약을 정확히 식별해 취소하고 확인을 요청한다.",
+      "transfer": "취소 대신 다음 주로 바꾸고 변경 비용 여부를 확인한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "A2",
+      "slug": "bank-hours",
+      "title": "은행에서 필요한 업무 창구 찾기",
+      "scenario": "계좌 정보를 수정하려 하며 어떤 창구가 담당하는지 모릅니다. 가상 정보만 사용합니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "안내원. 현금 창구가 아닌 상담 창구이며 예약 필요 여부를 확인해 준다.",
+      "opening": "Are you here to make a payment?",
+      "steps": [
+        {
+          "goal": "방문 목적 정정하기",
+          "example": "No, I need to update my address.",
+          "cue": "update my address = 주소 변경"
+        },
+        {
+          "goal": "담당 창구 묻기",
+          "example": "Which counter should I go to?",
+          "cue": "which counter = 어느 창구"
+        },
+        {
+          "goal": "준비물과 예약 필요 확인하기",
+          "example": "Do I need an appointment or any documents?",
+          "cue": "any documents = 필요한 서류"
+        }
+      ],
+      "outcome": "현금 업무와 정보 변경을 구분해 담당 창구·준비물을 확인한다.",
+      "transfer": "온라인으로만 처리 가능하다는 안내를 들으면 공식 절차와 도움받을 방법을 묻는다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "A2",
+      "slug": "internet-visit",
+      "title": "인터넷 설치 방문 예약하기",
+      "scenario": "다음 주 새집에 인터넷 설치가 필요합니다. 화요일 오후만 집에 있습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "상담원. 화요일 1~5시 방문과 성인 현장 대기 필요를 설명한다.",
+      "opening": "When will you be at the property?",
+      "steps": [
+        {
+          "goal": "설치 목적 말하기",
+          "example": "I need an internet installation at my new flat.",
+          "cue": "installation = 설치"
+        },
+        {
+          "goal": "가능 시간 전달하기",
+          "example": "I will be there on Tuesday afternoon.",
+          "cue": "will be there = 현장에 있다"
+        },
+        {
+          "goal": "현장 대기 조건 확인하기",
+          "example": "Does someone need to stay for the whole time slot?",
+          "cue": "whole time slot = 전체 시간대"
+        }
+      ],
+      "outcome": "설치 날짜와 현장 대기 조건을 확인한다.",
+      "transfer": "방문 전에 건물 관리자 허가가 필요하면 누가 확인해야 하는지 묻는다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "A2",
+      "slug": "print-format",
+      "title": "인쇄 형식과 오류 정정하기",
+      "scenario": "문서 세 장을 양면 흑백으로 인쇄하려 합니다. 직원은 단면으로 이해했습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "직원. 장수·색·양면 여부를 확인하고 수정한다.",
+      "opening": "Three pages, single-sided?",
+      "steps": [
+        {
+          "goal": "문서 수량 말하기",
+          "example": "There are three pages.",
+          "cue": "three pages = 세 페이지"
+        },
+        {
+          "goal": "양면으로 정정하기",
+          "example": "Double-sided, please, not single-sided.",
+          "cue": "double-sided = 양면"
+        },
+        {
+          "goal": "흑백 확인하기",
+          "example": "And black and white, please.",
+          "cue": "black and white = 흑백"
+        }
+      ],
+      "outcome": "페이지 수와 양면·색 형식을 구분해 인쇄한다.",
+      "transfer": "총 부수 두 부까지 추가해 페이지 수와 복사 부수를 구분한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "B1",
+      "slug": "parcel-delay",
+      "title": "추적이 멈춘 소포 문의하기",
+      "scenario": "소포 추적이 5일째 같은 곳에 머물러 있습니다. 예상 도착일은 어제였습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "우편 상담원. 추적번호로 조사 요청 가능하며 답변에 2영업일이 걸린다고 설명한다.",
+      "opening": "What does the tracking page show?",
+      "steps": [
+        {
+          "goal": "시간 순서 설명하기",
+          "example": "It has shown the same location for five days, and the expected delivery date was yesterday.",
+          "cue": "has shown ... for = 같은 표시 기간"
+        },
+        {
+          "goal": "조사 요청하기",
+          "example": "Could you check whether it is delayed or whether a scan was missed?",
+          "cue": "a scan was missed = 기록 누락"
+        },
+        {
+          "goal": "연락과 재문의 시점 정하기",
+          "example": "When should I expect an update, and which reference should I use if I call again?",
+          "cue": "reference = 문의 번호"
+        }
+      ],
+      "outcome": "추적 기록의 상태와 기간을 설명하고 조사·후속 연락을 요청한다.",
+      "transfer": "소포가 다시 이동하기 시작했지만 도착 예상일이 없을 때 새 일정을 문의한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "B1",
+      "slug": "utility-reading",
+      "title": "잘못된 계량기 수치 알리기",
+      "scenario": "공과금 청구가 예상보다 큽니다. 청구서는 추정치이고 현재 계량기 사진이 있습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "상담원. 추정 청구를 확인하고 현재 수치 제출 절차를 알려 준다.",
+      "opening": "Your bill is based on estimated usage.",
+      "steps": [
+        {
+          "goal": "추정과 실제 자료 차이 설명하기",
+          "example": "The estimate is much higher than the reading on my meter today.",
+          "cue": "meter reading = 계량기 수치"
+        },
+        {
+          "goal": "수정 자료 제출 방법 묻기",
+          "example": "Can I send a dated photo and the current reading?",
+          "cue": "dated photo = 날짜 있는 사진"
+        },
+        {
+          "goal": "청구 수정과 납부 일정 확인하기",
+          "example": "Will you issue a corrected bill, and what should I do about the current payment date?",
+          "cue": "corrected bill = 수정 청구서"
+        }
+      ],
+      "outcome": "추정치와 실제 수치를 구분해 청구 수정 절차를 확인한다.",
+      "transfer": "지난달 수치도 틀렸을 때 기간별 자료와 재계산 범위를 문의한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "B1",
+      "slug": "service-damage",
+      "title": "서비스 후 생긴 손상 설명하기",
+      "scenario": "세탁 후 셔츠 단추가 없어졌습니다. 맡길 때는 있었다고 기억하지만 사진은 없습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "세탁소 직원. 맡길 때 상태 기록은 없고 단추 교체를 검토할 수 있다.",
+      "opening": "We do not have a note of a missing button.",
+      "steps": [
+        {
+          "goal": "관찰과 기억 구분하기",
+          "example": "I noticed the button was missing when I collected it. I remember it being there before, but I do not have a photo.",
+          "cue": "noticed / remember = 관찰과 기억"
+        },
+        {
+          "goal": "확인 요청하기",
+          "example": "Could you check whether it came off during cleaning?",
+          "cue": "came off = 떨어졌다"
+        },
+        {
+          "goal": "실용적 해결 묻기",
+          "example": "If it cannot be found, could you arrange a matching replacement?",
+          "cue": "matching replacement = 어울리는 대체품"
+        }
+      ],
+      "outcome": "확실한 관찰과 기억을 나눠 손상 확인과 현실적 해결을 요청한다.",
+      "transfer": "단추가 원래 느슨했다는 기록이 있으면 그 사실을 반영해 해결 요청을 조정한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "B1",
+      "slug": "missed-technician",
+      "title": "오지 않은 방문 기사 재예약하기",
+      "scenario": "오후 1~5시 방문을 기다렸지만 기사가 오지 않았고 앱에는 고객 부재라고 표시됩니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "상담원. 기사 연락 기록을 확인하고 다음 날 재예약을 제안한다.",
+      "opening": "The note says nobody was home.",
+      "steps": [
+        {
+          "goal": "표시와 실제 상황 설명하기",
+          "example": "I was home throughout the time slot and did not receive a call or hear the doorbell.",
+          "cue": "throughout = 내내"
+        },
+        {
+          "goal": "연락 기록 확인 요청하기",
+          "example": "Could you check which number the technician tried?",
+          "cue": "which number = 연락한 번호"
+        },
+        {
+          "goal": "재방문 조건 정하기",
+          "example": "Please confirm the contact details and ask the technician to call before arriving tomorrow.",
+          "cue": "call before arriving = 도착 전 연락"
+        }
+      ],
+      "outcome": "고객 부재 표시를 확인하고 연락 방식과 새 방문을 정한다.",
+      "transfer": "등록된 전화번호가 잘못되었음을 알게 되면 정정하고 재예약 비용 여부를 확인한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "B2",
+      "slug": "fee-comparison",
+      "title": "서비스 요금의 총비용 비교하기",
+      "scenario": "인터넷 A는 첫 3개월 15파운드 이후 30, B는 매달 25이며 A는 설치비 40이 있습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "상담원. 두 상품 모두 12개월이고 중도 종료 조건은 별도 문서에 있다고 설명한다.",
+      "opening": "Plan A has the lowest monthly price.",
+      "steps": [
+        {
+          "goal": "홍보 가격과 전체 기간 비용 구분하기",
+          "example": "That is the introductory rate. Could we compare the total over the full twelve months, including installation?",
+          "cue": "introductory rate = 초기 할인 요금"
+        },
+        {
+          "goal": "계약 변경 조건 묻기",
+          "example": "What happens to the cost if I move before the contract ends?",
+          "cue": "before ... ends = 약정 종료 전"
+        },
+        {
+          "goal": "비교 가능한 서면 요약 요청하기",
+          "example": "Please send both plans with recurring charges, one-off fees, and exit terms listed separately.",
+          "cue": "one-off fees = 일회성 요금"
+        }
+      ],
+      "outcome": "초기 할인과 반복·일회성 비용을 구분해 동일 기간으로 비교한다.",
+      "transfer": "B 상품도 6개월 뒤 가격이 바뀌면 기존 비교표의 기준을 다시 확인한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "B2",
+      "slug": "municipal-request",
+      "title": "거리 시설 수리 우선순위 요청하기",
+      "scenario": "동네 가로등 두 개가 고장 나 보행로가 어둡습니다. 담당 부서는 단순 민원으로 접수했습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "담당자. 위치·고장 기간·통행 영향을 받아 우선순위를 검토할 수 있다.",
+      "opening": "It will be added to the general maintenance list.",
+      "steps": [
+        {
+          "goal": "영향을 구체적으로 설명하기",
+          "example": "The two failed lights cover the crossing used by residents walking from the bus stop after dark.",
+          "cue": "cover the crossing = 횡단 구역을 비추다"
+        },
+        {
+          "goal": "과장 없이 재분류 요청하기",
+          "example": "Could the location and pedestrian access be considered when setting the priority?",
+          "cue": "setting the priority = 우선순위 결정"
+        },
+        {
+          "goal": "일정과 진행 확인 방법 묻기",
+          "example": "Can you provide a case number and a date when the status will be reviewed?",
+          "cue": "status reviewed = 진행 상태 검토"
+        }
+      ],
+      "outcome": "시설 위치와 통행 영향을 근거로 접수 검토와 확인 일정을 요청한다.",
+      "transfer": "고장 하나는 복구됐지만 횡단 구역은 여전히 어두울 때 남은 영향을 설명한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "B2",
+      "slug": "digital-access",
+      "title": "온라인 전용 절차의 대체 경로 요청하기",
+      "scenario": "신청 사이트가 보조 기술로 읽히지 않아 제출할 수 없습니다. 직원은 온라인으로 하라고 반복합니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "담당자. 전화 접수 또는 접근 가능한 파일 제출 가능 여부를 확인할 수 있다.",
+      "opening": "All applications must go through the website.",
+      "steps": [
+        {
+          "goal": "불편과 접근 불가 구분하기",
+          "example": "The issue is not a preference for paper; the required fields are not accessible with the tool I use.",
+          "cue": "required fields = 필수 입력란"
+        },
+        {
+          "goal": "동등한 접수 대안 요청하기",
+          "example": "Is there an assisted submission route or an accessible version that meets the same requirements?",
+          "cue": "assisted submission = 도움받는 접수"
+        },
+        {
+          "goal": "마감과 접수 증거 확인하기",
+          "example": "Please record that I contacted you before the deadline and explain how the submission date will be treated.",
+          "cue": "submission date = 접수일"
+        }
+      ],
+      "outcome": "접근성 장벽과 편의를 구별해 동일 조건의 대체 제출 방법을 요청한다.",
+      "transfer": "기술 문제가 해결될 날짜가 마감 후일 때 임시 접수 방법을 구체화한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "B2",
+      "slug": "data-correction",
+      "title": "서비스 계정의 잘못된 정보 정정하기",
+      "scenario": "공공 도서관 계정의 가상 주소가 이전 주소로 남아 안내가 잘못 배달됩니다. 온라인 수정은 실패했습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "담당자. 본인 확인 뒤 주소 정정과 미처리 발송 건 확인을 할 수 있다.",
+      "opening": "Have you tried changing it online?",
+      "steps": [
+        {
+          "goal": "이미 한 조치 설명하기",
+          "example": "I submitted the new address twice, but the account still shows the old one.",
+          "cue": "still shows = 여전히 표시된다"
+        },
+        {
+          "goal": "안전한 확인과 수정 요청하기",
+          "example": "What is the approved way to verify my identity and correct the record?",
+          "cue": "approved way = 공식 확인 방법"
+        },
+        {
+          "goal": "후속 데이터 사용 확인하기",
+          "example": "Will the correction also apply to letters that are already scheduled to be sent?",
+          "cue": "scheduled to be sent = 발송 예정"
+        }
+      ],
+      "outcome": "실패한 변경을 설명하고 공식 정정 절차와 후속 발송 영향을 확인한다.",
+      "transfer": "계정 주소는 바뀌었지만 별도 알림 시스템은 그대로일 때 담당 시스템을 구분해 문의한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "C1",
+      "slug": "assumed-consent",
+      "title": "추가 서비스 동의 여부 명확히 하기",
+      "scenario": "수리 견적 문의를 했는데 유료 점검 예약이 확정됐다는 문자를 받았습니다. 직원은 문의를 예약 의사로 이해했습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "상담원. 통화에 일정 질문은 있었으나 비용 동의 확인은 없었다고 인정한다.",
+      "opening": "When you asked about Tuesday, we understood that as agreement to book.",
+      "steps": [
+        {
+          "goal": "관심과 확정 동의 구분하기",
+          "example": "Asking whether Tuesday was available was part of exploring the options, not confirmation that I accepted a paid visit.",
+          "cue": "exploring options = 선택지 확인"
+        },
+        {
+          "goal": "동의의 전제가 되는 정보 묻기",
+          "example": "At what point was the inspection fee disclosed and my acceptance recorded?",
+          "cue": "disclosed / acceptance recorded = 고지와 동의 기록"
+        },
+        {
+          "goal": "앞으로의 명시적 절차 제안하기",
+          "example": "Please hold the booking until I have the written fee and cancellation terms and explicitly confirm whether to proceed.",
+          "cue": "explicitly confirm = 명시적으로 확정"
+        }
+      ],
+      "outcome": "일정 문의를 유료 예약 동의로 확대하지 않고 명시적 확정 절차를 정한다.",
+      "transfer": "통화 기록에 비용 설명이 있었다면 설명을 들은 것과 실제 수락 표현을 구분해 확인한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "C1",
+      "slug": "apology-action",
+      "title": "사과와 실제 복구 계획 연결하기",
+      "scenario": "인터넷 장애에 사과 메일만 반복되고 복구 일정이 없습니다. 재택 수업에 영향이 있습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "상담 책임자. 원인 조사 중이며 복구 시간은 미정이나 4시간 뒤 진행 업데이트는 약속할 수 있다.",
+      "opening": "We sincerely apologise and appreciate your patience.",
+      "steps": [
+        {
+          "goal": "사과 인정과 정보 필요 연결하기",
+          "example": "I appreciate the acknowledgement, but patience is difficult to plan around without knowing when we will receive a meaningful update.",
+          "cue": "meaningful update = 판단에 쓸 수 있는 안내"
+        },
+        {
+          "goal": "불확실한 약속 대신 통제 가능한 행동 요청하기",
+          "example": "If a restoration time is not yet reliable, please commit to an update time and explain what has actually been established.",
+          "cue": "what has been established = 확인된 사실"
+        },
+        {
+          "goal": "대안과 비용 확인 요청하기",
+          "example": "Could you also clarify whether any temporary access option is available and on what terms?",
+          "cue": "on what terms = 어떤 조건으로"
+        }
+      ],
+      "outcome": "근거 없는 복구 보장 대신 확인된 사실·업데이트 시점·임시 지원을 요청한다.",
+      "transfer": "복구 예상이 다시 밀리면 예측 변경 이유와 다음 검증 시점을 확인한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "C1",
+      "slug": "scope-creep",
+      "title": "수리 견적의 범위 확대 조율하기",
+      "scenario": "수도꼭지 교체 견적이 배관 전체 교체로 바뀌었습니다. 추가 필요성의 근거와 선택지가 아직 없습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "기사. 오래된 배관을 발견했으나 현재 문제와 연결되는지는 추가 점검이 필요하다.",
+      "opening": "While we are here, it really makes sense to replace the whole section.",
+      "steps": [
+        {
+          "goal": "필수 작업과 권장 작업 분리하기",
+          "example": "Could we distinguish what is necessary to fix the reported problem from work you recommend as a precaution?",
+          "cue": "necessary / precaution = 필수와 예방 권장"
+        },
+        {
+          "goal": "근거와 대안 묻기",
+          "example": "What have you observed that supports the wider work, and what would be the consequence of deferring it?",
+          "cue": "deferring = 미루기"
+        },
+        {
+          "goal": "추가 승인 조건 정하기",
+          "example": "Please provide a separate estimate and do not proceed beyond the agreed scope until I approve it.",
+          "cue": "agreed scope = 합의된 작업 범위"
+        }
+      ],
+      "outcome": "추가 권장과 현재 필수 수리를 구분해 근거·견적·승인 범위를 정한다.",
+      "transfer": "실제 즉시 조치가 필요한 손상이 확인되면 안전한 중단과 필요한 전문가 확인 절차를 묻는다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "C1",
+      "slug": "policy-exception",
+      "title": "예외 요청을 특혜처럼 들리지 않게 하기",
+      "scenario": "신청 마감 전 제출을 시도했지만 기관 사이트 장애가 있었습니다. 마감 후 접수 요청을 설명합니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "접수 책임자. 일반적 기한 연장은 어렵지만 장애 로그와 시도 기록을 검토할 수 있다.",
+      "opening": "We cannot make exceptions simply because someone missed the deadline.",
+      "steps": [
+        {
+          "goal": "일반 늦은 신청과 구별하기",
+          "example": "I understand that rule. My request concerns a documented access failure before the deadline, rather than a late decision to apply.",
+          "cue": "rather than = 차이 명확화"
+        },
+        {
+          "goal": "확인 가능한 자료 제시하기",
+          "example": "I can provide the error time and the support message sent that evening; please compare them with your outage record.",
+          "cue": "outage record = 장애 기록"
+        },
+        {
+          "goal": "동일한 기준의 검토 요청하기",
+          "example": "Could this be reviewed under the process used for other applicants affected by the same failure?",
+          "cue": "same process = 동일한 처리 기준"
+        }
+      ],
+      "outcome": "특별 대우를 요구하기보다 동일 장애 상황의 검토 절차를 요청한다.",
+      "transfer": "로그가 일부만 남은 경우 증거의 한계를 인정하면서 가능한 추가 확인을 묻는다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "C2",
+      "slug": "automated-decision",
+      "title": "자동 거절 안내의 설명 범위 묻기",
+      "scenario": "서비스 신청이 자동 점검에서 거절되었고 답변에는 requirements not met만 있습니다. 내부 기밀이나 우회법 대신 수정 가능한 정보를 원합니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "담당자. 정확한 내부 점수는 공개 못 하지만 누락 서류 범주와 재검토 절차는 안내할 수 있다.",
+      "opening": "The system decision is based on several factors we cannot disclose.",
+      "steps": [
+        {
+          "goal": "비공개 논리와 실용적 설명 구분하기",
+          "example": "I am not asking for proprietary scoring details; I need enough explanation to distinguish missing information from a condition I do not meet.",
+          "cue": "distinguish ... from = 거절 유형 구분"
+        },
+        {
+          "goal": "바로잡을 수 있는 사실 확인하기",
+          "example": "Which input can I verify or correct, and is there a route for a person to review a possible factual error?",
+          "cue": "factual error = 사실 오류"
+        },
+        {
+          "goal": "결과 보장 없이 절차 명료화하기",
+          "example": "I understand review may not change the outcome, but please explain what will be reconsidered and how I will be told the reason.",
+          "cue": "reconsidered = 재검토 대상"
+        }
+      ],
+      "outcome": "알고리즘 비공개와 설명 필요를 구별해 사실 정정·사람의 재검토 범위를 요청한다.",
+      "transfer": "거절이 누락이 아닌 자격 조건 때문이면 필요한 설명과 다음 행동을 그에 맞게 바꾼다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "C2",
+      "slug": "public-service-metrics",
+      "title": "서비스 만족도 수치의 의미 확인하기",
+      "scenario": "센터는 만족도 95%를 홍보하지만 설문은 서비스를 완료한 사람에게만 보냈습니다. 중도 포기자는 포함 안 됐습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "센터 담당자. 완료 이용자 중 응답자의 점수이며 접수 실패 경험은 별도 기록한다고 답한다.",
+      "opening": "The survey shows that almost everyone is happy with the service.",
+      "steps": [
+        {
+          "goal": "측정 대상과 일반화 범위 구분하기",
+          "example": "It shows high satisfaction among respondents who completed the process, which is narrower than satisfaction among everyone who tried to use it.",
+          "cue": "narrower than = 더 좁은 범위"
+        },
+        {
+          "goal": "빠진 경험의 중요성 설명하기",
+          "example": "People unable to complete the process may have a systematically different experience, so excluding them could conceal the barrier we need to understand.",
+          "cue": "systematically different = 체계적으로 다른"
+        },
+        {
+          "goal": "수치를 버리지 않고 보완안 제안하기",
+          "example": "Could you retain the completion survey, label its population clearly, and report access failures alongside it?",
+          "cue": "alongside = 함께 제시"
+        }
+      ],
+      "outcome": "유효한 만족도 결과를 존중하면서 대상 범위와 누락된 접근 경험을 명시하도록 제안한다.",
+      "transfer": "완료자 응답률도 낮다면 완료와 응답의 두 선택 단계를 구분한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "C2",
+      "slug": "shared-liability",
+      "title": "여러 업체 사이 복구 책임 조율하기",
+      "scenario": "통신사와 건물 관리 업체가 인터넷 장애를 서로 상대 구간 문제라고 합니다. 사용자는 기술 원인을 판단할 수 없습니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "통신사 책임자. 외부 선로 검사는 통과했지만 건물 내부 접속점의 공동 검사는 안 했다고 설명한다.",
+      "opening": "Our tests are clear, so you need to take it up with the building manager.",
+      "steps": [
+        {
+          "goal": "한 검사의 결론 범위 한정하기",
+          "example": "A clear result on your segment narrows the search; it does not by itself establish where the end-to-end failure lies.",
+          "cue": "end-to-end = 전체 연결 경로"
+        },
+        {
+          "goal": "사용자에게 넘어온 조정 부담 설명하기",
+          "example": "I cannot verify the boundary between the systems, so referring me back and forth does not produce a testable next step.",
+          "cue": "testable next step = 확인 가능한 다음 조치"
+        },
+        {
+          "goal": "공동 검증과 담당 창구 제안하기",
+          "example": "Could the two teams agree on a boundary test, record the result, and nominate one contact to coordinate updates?",
+          "cue": "boundary test = 구간 경계 검사"
+        }
+      ],
+      "outcome": "부분 검사 성공과 전체 원인 판정을 구별해 공동 확인·연락 책임을 요청한다.",
+      "transfer": "한 업체의 문제로 확인된 뒤에는 원인 논쟁 대신 복구와 사용자 안내 책임을 정리한다."
+    },
+    {
+      "subcategoryId": "services",
+      "difficulty": "C2",
+      "slug": "consultation-language",
+      "title": "서비스 개선안의 편향된 질문 수정하기",
+      "scenario": "설문 질문이 faster modern service or old-fashioned paper라고 되어 있습니다. 디지털 접근이 어려운 이용자의 선택이 부정적으로 보입니다.",
+      "learnerRole": "생활 서비스 이용자",
+      "interlocutorRole": "설문 작성자. 온라인 전환 지지를 확인하고 싶었으나 접근성 경험도 필요하다고 인정한다.",
+      "opening": "We are simply asking whether people support modernisation.",
+      "steps": [
+        {
+          "goal": "선택지의 가치 판단 짚기",
+          "example": "The wording bundles speed and progress into one option and stigma into the other, so it may measure the appeal of the labels rather than people's needs.",
+          "cue": "bundles ... into = 여러 가치 묶기"
+        },
+        {
+          "goal": "분리해 물을 변수 제시하기",
+          "example": "We could ask separately about preferred channels, ability to complete tasks, waiting time, and support requirements.",
+          "cue": "separately = 요소별로"
+        },
+        {
+          "goal": "중립적이고 실행 가능한 질문 제안하기",
+          "example": "Which channels can you use reliably, and what support would make other channels usable? would give you clearer design information without presuming a preferred answer.",
+          "cue": "without presuming = 답을 전제하지 않고"
+        }
+      ],
+      "outcome": "유도적인 양자택일을 이용 능력·선호·지원 필요의 중립적 질문으로 바꾼다.",
+      "transfer": "온라인 전환이 이미 확정된 경우 선호 조사라고 하지 않고 필요한 지원을 묻는 질문으로 바꾼다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "pre-A1",
+      "slug": "choose-hobby",
+      "title": "해 보고 싶은 취미 고르기",
+      "scenario": "취미 체험 안내소에서 그림과 춤 중 그림을 선택합니다. 두 활동의 영어 이름과 한국어 뜻이 제공됩니다. 실제 그림 대신 [drawing = 그림 그리기]와 [dance = 춤]이라는 글자 선택지가 제공됩니다.",
+      "learnerRole": "취미를 시작하는 학습자",
+      "interlocutorRole": "안내자. drawing과 dance를 한국어 뜻으로 설명한 뒤 한 가지를 고르게 하고 재확인한다.",
+      "opening": "Drawing or dance?",
+      "steps": [
+        {
+          "goal": "그림 선택하기",
+          "example": "Drawing, please.",
+          "cue": "drawing = 그림 그리기"
+        },
+        {
+          "goal": "맞다고 답하기",
+          "example": "Yes.",
+          "cue": "네"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "활동 선택을 간단한 말로 전달한다.",
+      "transfer": "음악과 그림 중 고른다. music 뜻을 먼저 제공하고 새로운 선호를 말한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "pre-A1",
+      "slug": "say-wakeup-time",
+      "title": "일어나는 시각 짧게 말하기",
+      "scenario": "생활 습관 대화에서 아침 7시에 일어난다고 말합니다. 숫자와 오전을 나타내는 텍스트가 제공됩니다. 실제 숫자 카드 없이 가상 표시 [07:00 morning]을 보고 답합니다.",
+      "learnerRole": "생활 습관을 소개하는 학습자",
+      "interlocutorRole": "대화 상대. seven인지 확인한 뒤 morning인지 한 번 더 묻는다.",
+      "opening": "What time?",
+      "steps": [
+        {
+          "goal": "시각 말하기",
+          "example": "Seven.",
+          "cue": "seven = 7"
+        },
+        {
+          "goal": "아침이라고 말하기",
+          "example": "Morning.",
+          "cue": "morning = 아침"
+        },
+        {
+          "goal": "재확인에 답하기",
+          "example": "Yes, seven.",
+          "cue": "네 7시"
+        }
+      ],
+      "outcome": "일어나는 시각과 오전을 전달한다.",
+      "transfer": "주말에는 9시에 일어난다. nine 뜻을 제공하고 바뀐 시각을 말한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "pre-A1",
+      "slug": "request-pause",
+      "title": "운동 체험 중 잠깐 쉬기 요청하기",
+      "scenario": "새 동작을 배우던 중 잠깐 쉬고 물을 마시고 싶습니다. 운동 처방은 하지 않습니다.",
+      "learnerRole": "체험 참가자",
+      "interlocutorRole": "강사. break 요청에 활동을 멈추고 water가 필요한지 묻는다.",
+      "opening": "Ready?",
+      "steps": [
+        {
+          "goal": "잠깐 쉬기 요청하기",
+          "example": "Break, please.",
+          "cue": "break = 쉬는 시간"
+        },
+        {
+          "goal": "물 요청에 답하기",
+          "example": "Yes, please.",
+          "cue": "네 부탁해요"
+        },
+        {
+          "goal": "준비가 되면 알리기",
+          "example": "Ready now.",
+          "cue": "ready = 준비된; now = 이제"
+        }
+      ],
+      "outcome": "멈춤과 재시작 의사를 표현한다.",
+      "transfer": "바로 재시작하고 싶지 않다. not yet(아직이요)을 사용한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "pre-A1",
+      "slug": "borrow-pencil",
+      "title": "취미 수업에서 연필 빌리기",
+      "scenario": "그림 수업에 연필을 가져오지 않았습니다. 공용 연필 한 자루를 요청합니다. 가상 준비물 선택지는 [연필 pencil]과 [붓 brush]입니다. 영어 옆의 [가리키기: 연필]은 실제 이미지 없이 지목한 동작으로 처리합니다.",
+      "learnerRole": "그림 수업 참가자",
+      "interlocutorRole": "진행자. 연필과 붓을 보여주고 요청 물건과 수량을 확인한다.",
+      "opening": "What do you need?",
+      "steps": [
+        {
+          "goal": "연필 요청하기",
+          "example": "Pencil, please.",
+          "cue": "pencil = 연필"
+        },
+        {
+          "goal": "수량 말하기",
+          "example": "One.",
+          "cue": "하나"
+        },
+        {
+          "goal": "받고 감사하기",
+          "example": "Thank you.",
+          "cue": "고마워요"
+        }
+      ],
+      "outcome": "필요한 준비물을 요청한다.",
+      "transfer": "붓이 필요하다. brush 뜻을 제공하고 연필 대신 고른다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "A1",
+      "slug": "introduce-daily-routine",
+      "title": "평일 일과 간단히 소개하기",
+      "scenario": "새 언어교환 상대에게 기상·일·저녁 활동을 소개합니다. 평일과 주말을 구분합니다. 연습용 평일은 7시 기상, 9시 업무 시작, 저녁 독서이며 본인 개인정보 대신 이 설정을 사용합니다.",
+      "learnerRole": "언어교환 참여자",
+      "interlocutorRole": "대화 상대. 평일 기상 시각을 묻고 일 시작 시간과 저녁 취미를 한 번에 하나씩 질문한다.",
+      "opening": "What time do you get up on weekdays?",
+      "steps": [
+        {
+          "goal": "기상 시각 말하기",
+          "example": "I get up at seven.",
+          "cue": "get up = 일어나다"
+        },
+        {
+          "goal": "일 시작 시각 말하기",
+          "example": "I start work at nine.",
+          "cue": "start work = 일을 시작하다"
+        },
+        {
+          "goal": "저녁 활동 말하기",
+          "example": "I read in the evening.",
+          "cue": "in the evening = 저녁에"
+        }
+      ],
+      "outcome": "평일의 세 활동을 시간과 연결해 소개한다.",
+      "transfer": "주말에는 일을 하지 않는다. 일과가 없는 부분을 억지로 채우지 않고 주말 활동을 소개한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "A1",
+      "slug": "club-meeting-time",
+      "title": "취미 모임 시간과 장소 묻기",
+      "scenario": "동네 사진 모임에 가고 싶어 시작 시간과 만남 장소를 확인합니다.",
+      "learnerRole": "새 모임 참가자",
+      "interlocutorRole": "운영자. 토요일 10시, 도서관 앞에서 만나고 카메라 대신 휴대전화도 가능하다고 답한다.",
+      "opening": "We meet on Saturday.",
+      "steps": [
+        {
+          "goal": "시작 시각 묻기",
+          "example": "What time do you meet?",
+          "cue": "meet = 만나다"
+        },
+        {
+          "goal": "장소 묻기",
+          "example": "Where do we meet?",
+          "cue": "where = 어디"
+        },
+        {
+          "goal": "도구 가능 여부 묻기",
+          "example": "Can I use my phone?",
+          "cue": "use = 사용하다"
+        }
+      ],
+      "outcome": "첫 모임에 필요한 시간·장소·준비물을 안다.",
+      "transfer": "비가 와서 실내로 바뀌었다. 바뀐 장소와 시각 유지 여부를 확인한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "A1",
+      "slug": "like-and-frequency",
+      "title": "좋아하는 운동과 횟수 말하기",
+      "scenario": "동네 모임에서 즐기는 활동과 자주 하는 정도를 소개합니다. 경쟁 성적은 필요 없습니다. 가상 역할은 걷기를 좋아하고 일주일에 세 번 걷습니다.",
+      "learnerRole": "모임 참가자",
+      "interlocutorRole": "대화 상대. 좋아하는 활동과 주당 횟수를 묻고 자신은 주말 산책을 한다고 말한다.",
+      "opening": "What do you like doing?",
+      "steps": [
+        {
+          "goal": "활동 말하기",
+          "example": "I like walking.",
+          "cue": "walking = 걷기"
+        },
+        {
+          "goal": "횟수 말하기",
+          "example": "I walk three times a week.",
+          "cue": "three times a week = 일주일에 세 번"
+        },
+        {
+          "goal": "상대에게 질문하기",
+          "example": "What about you?",
+          "cue": "what about you = 당신은요"
+        }
+      ],
+      "outcome": "취미와 빈도를 말하고 대화를 돌려준다.",
+      "transfer": "매주 횟수가 다르다. on weekends(주말에)를 써서 일정한 숫자 대신 실제 패턴을 말한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "A1",
+      "slug": "understand-simple-instruction",
+      "title": "간단한 수업 지시 되묻기",
+      "scenario": "공예 수업에서 fold라는 낱말을 몰라 동작을 보여 달라고 합니다. 실제 영상 없이 강사는 [종이의 아래 가장자리를 위 가장자리에 맞춰 반으로 접는다]라는 한국어 시범 묘사를 제공합니다. 학습자는 [종이를 반으로 접기]를 영어 옆에 입력해 수행을 표현합니다.",
+      "learnerRole": "공예 수업 초보자",
+      "interlocutorRole": "강사. fold the paper라고 말하고 요청하면 종이를 접는 동작을 보여준 뒤 따라 해 보게 한다.",
+      "opening": "Fold the paper, please.",
+      "steps": [
+        {
+          "goal": "낱말 확인하기",
+          "example": "Fold?",
+          "cue": "fold = 접다"
+        },
+        {
+          "goal": "시범 요청하기",
+          "example": "Please show me.",
+          "cue": "show me = 보여 주세요"
+        },
+        {
+          "goal": "행동 확인하기",
+          "example": "Like this?",
+          "cue": "like this = 이렇게요"
+        }
+      ],
+      "outcome": "모르는 지시를 시범과 확인으로 이해한다.",
+      "transfer": "다음 지시는 turn(돌리다)이다. 뜻을 먼저 묻고 동작을 확인한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "A2",
+      "slug": "plan-weekly-practice",
+      "title": "바쁜 주에 짧은 연습 시간 정하기",
+      "scenario": "평일 저녁은 바쁘지만 점심에 15분 여유가 있고 주말에는 한 시간이 있습니다. 이번 주 화요일과 목요일의 빈 시간은 12시 30분부터 12시 45분이며 토요일 오전도 가능합니다.",
+      "learnerRole": "취미 학습자",
+      "interlocutorRole": "연습 파트너. 매일 긴 연습 대신 화·목 점심과 토요일 오전을 제안한다.",
+      "opening": "When could we practise this week?",
+      "steps": [
+        {
+          "goal": "가능 시간 설명하기",
+          "example": "I am busy in the evenings, but I have fifteen minutes at lunch.",
+          "cue": "at lunch = 점심시간에"
+        },
+        {
+          "goal": "구체 일정 제안하기",
+          "example": "Could we practise on Tuesday and Thursday at twelve thirty?",
+          "cue": "could we = 우리 할 수 있을까요"
+        },
+        {
+          "goal": "긴 연습일 확인하기",
+          "example": "Let us use Saturday morning for a longer session.",
+          "cue": "session = 한 번의 연습"
+        }
+      ],
+      "outcome": "시간 제약에 맞는 주간 연습 약속을 정한다.",
+      "transfer": "점심시간이 사라졌다. 긴 연습 약속 하나를 유지하고 짧은 복습 시간을 새로 찾는다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "A2",
+      "slug": "share-recipe-sequence",
+      "title": "함께 만들 간식 순서 설명하기",
+      "scenario": "취미 모임에서 요거트 과일 컵을 만듭니다. 과일은 씻어 두었고 견과류는 선택 재료입니다.",
+      "learnerRole": "간식 만들기 참가자",
+      "interlocutorRole": "파트너. 과일과 요거트 순서를 묻고 견과류는 원하지 않는다고 말한다.",
+      "opening": "What should we do first?",
+      "steps": [
+        {
+          "goal": "첫 단계 설명하기",
+          "example": "First, cut the washed fruit into small pieces.",
+          "cue": "first = 먼저; pieces = 조각"
+        },
+        {
+          "goal": "다음 단계 설명하기",
+          "example": "Then put yogurt in the cups and add the fruit.",
+          "cue": "then = 그다음"
+        },
+        {
+          "goal": "선호 반영하기",
+          "example": "We can leave out the nuts and use more fruit.",
+          "cue": "leave out = 빼다"
+        }
+      ],
+      "outcome": "순서를 설명하고 상대의 재료 선호를 반영한다.",
+      "transfer": "요거트가 없다. 사용할 수 있는 대체 재료를 상대에게 물어보고 순서를 조정한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "A2",
+      "slug": "join-beginner-class",
+      "title": "초보 수업인지 확인하고 참여하기",
+      "scenario": "댄스 수업에 처음 참가합니다. 준비물과 초보 지원을 확인합니다.",
+      "learnerRole": "수업 신규 참가자",
+      "interlocutorRole": "강사. 입문반은 경험 불필요, 편한 신발 필요, 처음 10분 기본 동작 설명이라고 안내한다.",
+      "opening": "Have you danced before?",
+      "steps": [
+        {
+          "goal": "경험 수준 말하기",
+          "example": "No, I am a complete beginner.",
+          "cue": "complete beginner = 완전 초보"
+        },
+        {
+          "goal": "수업 방식 묻기",
+          "example": "Do you explain the basic steps first?",
+          "cue": "basic steps = 기본 동작"
+        },
+        {
+          "goal": "준비물 확인하기",
+          "example": "Should I bring comfortable shoes and water?",
+          "cue": "comfortable = 편한"
+        }
+      ],
+      "outcome": "자신의 수준과 수업 준비 조건을 확인한다.",
+      "transfer": "기존 수업이 중급으로 바뀌었다. 입문반 일정이나 참관 가능 여부를 묻는다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "A2",
+      "slug": "swap-duty",
+      "title": "동네 정원 물 주기 순서 바꾸기",
+      "scenario": "화요일 물 주기 담당이지만 그날 외출합니다. 목요일 담당자와 바꾸려 합니다.",
+      "learnerRole": "공동 정원 참여자",
+      "interlocutorRole": "동료. 화요일 아침은 가능하지만 저녁은 안 되며 목요일 자신의 담당을 넘길 수 있다.",
+      "opening": "I usually water the plants on Thursday.",
+      "steps": [
+        {
+          "goal": "변경 필요 설명하기",
+          "example": "I will be away on Tuesday, so I cannot do my turn.",
+          "cue": "my turn = 내 차례"
+        },
+        {
+          "goal": "교환 제안하기",
+          "example": "Could we swap Tuesday and Thursday this week?",
+          "cue": "swap = 맞바꾸다"
+        },
+        {
+          "goal": "시각과 인계 확인하기",
+          "example": "Tuesday morning is fine. I will leave the watering can by the door.",
+          "cue": "watering can = 물뿌리개"
+        }
+      ],
+      "outcome": "일회성 담당 교환과 도구 인계를 합의한다.",
+      "transfer": "비가 예보된다. 물 주기 여부를 스스로 단정하지 않고 정원 담당자 안내를 확인하기로 한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "B1",
+      "slug": "habit-restart",
+      "title": "중단한 취미를 무리 없이 다시 시작하기",
+      "scenario": "한 달 쉬었던 기타 연습을 재개하려 합니다. 예전처럼 매일 한 시간은 어렵습니다.",
+      "learnerRole": "취미 재개 학습자",
+      "interlocutorRole": "연습 친구. 익숙한 곡 10분부터 시작하고 다음 주 다시 목표를 보자고 제안한다.",
+      "opening": "Would you like to return to our old one-hour practice routine?",
+      "steps": [
+        {
+          "goal": "상황과 부담 설명하기",
+          "example": "I want to start again, but an hour every day would be hard to maintain.",
+          "cue": "maintain = 유지하다"
+        },
+        {
+          "goal": "실행 가능한 대안 제시하기",
+          "example": "Could we begin with ten minutes on a familiar song three times this week?",
+          "cue": "familiar = 익숙한"
+        },
+        {
+          "goal": "확인 시점 합의하기",
+          "example": "Let us see how it goes on Sunday before adding more.",
+          "cue": "see how it goes = 해 보고 확인하다"
+        }
+      ],
+      "outcome": "현재 여건에 맞는 재개 계획과 점검일을 정한다.",
+      "transfer": "시간은 충분하지만 악기를 빌려야 한다. 접근 가능한 연습 방법을 먼저 조율한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "B1",
+      "slug": "recommend-hobby-from-experience",
+      "title": "경험을 바탕으로 취미 추천하기",
+      "scenario": "친구는 화면을 오래 보는 일 때문에 손으로 하는 저렴한 취미를 찾습니다.",
+      "learnerRole": "취미 경험자",
+      "interlocutorRole": "친구. 주당 한 시간, 예산 20이며 집에 공간이 작다고 설명한다.",
+      "opening": "I want something away from screens, but I do not have much space.",
+      "steps": [
+        {
+          "goal": "경험과 추천 이유 설명하기",
+          "example": "I enjoyed sketching because it only needed a small notebook and a pencil.",
+          "cue": "only needed = 그것만 필요했다"
+        },
+        {
+          "goal": "상대 조건에 맞추기",
+          "example": "It might suit your space and budget better than buying large craft equipment.",
+          "cue": "suit = 맞다"
+        },
+        {
+          "goal": "시작 방법 제안하기",
+          "example": "You could try a free library session before deciding whether to buy materials.",
+          "cue": "before deciding = 결정 전에"
+        }
+      ],
+      "outcome": "상대의 조건과 자신의 경험을 연결해 추천한다.",
+      "transfer": "친구는 혼자보다 사람들과 하는 활동을 원한다. 같은 예산 안에서 추천 기준을 조정한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "B1",
+      "slug": "explain-game-rules",
+      "title": "처음 온 사람에게 협동 게임 설명하기",
+      "scenario": "협동 보드게임에 새 친구가 왔습니다. 같은 팀으로 목표를 달성하며 제한 시간이 있습니다. 가상 게임은 서로 다른 그림 네 종류를 모으면 팀이 이깁니다. 자기 차례에는 아직 없는 그림 카드 하나를 고르고 고른 이유를 말해 공동 판에 놓습니다. 제한 시간은 5분이며 시간 없이 연습 한 차례를 해 볼 수 있습니다.",
+      "learnerRole": "게임 진행 참가자",
+      "interlocutorRole": "새 참가자. 자신의 차례와 팀 승리 조건을 질문하며 먼저 연습 한 판을 원한다.",
+      "opening": "How do we know when we have won?",
+      "steps": [
+        {
+          "goal": "공동 목표 설명하기",
+          "example": "We win together if we collect all four cards before the timer ends.",
+          "cue": "win together = 함께 이기다"
+        },
+        {
+          "goal": "차례 규칙 설명하기",
+          "example": "On your turn, choose one card and explain your choice to the group.",
+          "cue": "on your turn = 당신 차례에"
+        },
+        {
+          "goal": "이해 확인과 연습 제안하기",
+          "example": "Shall we try one round without the timer so everyone can check the rules?",
+          "cue": "round = 한 차례 진행"
+        }
+      ],
+      "outcome": "목표·차례·연습 방식으로 새 참가자의 이해를 돕는다.",
+      "transfer": "참가자가 글자를 읽기 어렵다. 카드 내용을 읽어 주는 방식이 가능한지 그룹과 합의한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "B1",
+      "slug": "activity-access-options",
+      "title": "야외 모임 참여 방식 조정하기",
+      "scenario": "주말 산책 모임의 전체 코스는 길어서 중간부터 참여하고 싶습니다.",
+      "learnerRole": "산책 모임 참가자",
+      "interlocutorRole": "운영자. 전체 8km, 중간 카페에서 합류하면 평지 3km이며 합류 시각은 11시라고 답한다.",
+      "opening": "The full walk is eight kilometres.",
+      "steps": [
+        {
+          "goal": "참여 의사와 제한 말하기",
+          "example": "I would like to join, but the full distance is more than I want to do this week.",
+          "cue": "full distance = 전체 거리"
+        },
+        {
+          "goal": "부분 참여 대안 묻기",
+          "example": "Could I meet you at the halfway café and finish the shorter section?",
+          "cue": "halfway = 중간 지점"
+        },
+        {
+          "goal": "합류 정보 확인하기",
+          "example": "Please let me know if the meeting time changes because of your pace.",
+          "cue": "pace = 걷는 속도"
+        }
+      ],
+      "outcome": "부분 참여 경로와 연락 계획을 합의한다.",
+      "transfer": "중간 지점 대중교통이 없다. 출발점 근처 짧은 구간만 함께하는 대안을 제안한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "B2",
+      "slug": "choose-class-format",
+      "title": "온라인과 대면 취미 수업 비교하기",
+      "scenario": "온라인은 녹화 복습 가능, 대면은 즉시 피드백 가능하지만 이동에 한 시간이 듭니다.",
+      "learnerRole": "수업 선택 학습자",
+      "interlocutorRole": "강사. 온라인은 주 1회 질문 시간, 대면은 도구 제공, 두 형식 모두 같은 기초 내용을 다룬다고 설명한다. 대면 수업을 먼저 들은 사람도 이후 온라인 과정으로 전환해 녹화본을 이용할 수 있지만 별도 등록이 필요하다고 안내한다.",
+      "opening": "Both courses cover the same material, so either would work.",
+      "steps": [
+        {
+          "goal": "내용 외 학습 조건 구분하기",
+          "example": "The content is the same, but the feedback and time demands affect how consistently I can participate.",
+          "cue": "consistently = 꾸준히"
+        },
+        {
+          "goal": "자신의 필요에 맞게 질문하기",
+          "example": "For someone who needs help correcting hand movements, what kind of feedback is available online?",
+          "cue": "hand movements = 손동작"
+        },
+        {
+          "goal": "근거를 들어 선택하기",
+          "example": "I would choose the in-person course initially, then use recordings once I can check the basics myself.",
+          "cue": "initially = 처음에는"
+        }
+      ],
+      "outcome": "학습 내용과 지원·시간 조건을 비교해 선택한다.",
+      "transfer": "통학은 가능하지만 녹화 자막이 없다. 접근 가능한 설명 방식을 추가 기준으로 검토한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "B2",
+      "slug": "balanced-community-session",
+      "title": "실력 차이가 있는 취미 모임 구성하기",
+      "scenario": "글쓰기 모임에 초보와 숙련자가 함께 있습니다. 초보는 예시, 숙련자는 자유 창작 시간을 원합니다.",
+      "learnerRole": "모임 진행자",
+      "interlocutorRole": "공동 진행자. 60분 중 15분 예시, 30분 개별 창작, 15분 선택 공유가 가능하다고 제안한다.",
+      "opening": "If we explain every step, experienced members may get bored.",
+      "steps": [
+        {
+          "goal": "두 요구 모두 요약하기",
+          "example": "Beginners need a way in, while experienced writers need enough room to make their own choices.",
+          "cue": "a way in = 시작할 수 있는 도움"
+        },
+        {
+          "goal": "병행할 방식 제안하기",
+          "example": "Could we offer an optional prompt sheet during independent writing, rather than make everyone follow it?",
+          "cue": "optional prompt = 선택 안내문"
+        },
+        {
+          "goal": "검토 기준 합의하기",
+          "example": "After the session, let us ask whether each group had enough support and useful writing time.",
+          "cue": "support = 지원"
+        }
+      ],
+      "outcome": "공통 활동 안에서 선택 가능한 지원을 설계한다.",
+      "transfer": "예시 설명 시간이 길어졌다. 필수 설명과 나중에 볼 자료를 구분해 시간을 조정한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "B2",
+      "slug": "track-practice-progress",
+      "title": "연습 시간과 실제 발전을 함께 돌아보기",
+      "scenario": "그림을 매일 했지만 시간이 늘수록 잘하는지 모르겠습니다. 선생님과 지난달 작업을 비교합니다.",
+      "learnerRole": "그림 학습자",
+      "interlocutorRole": "교사. 최근 그림은 형태가 안정됐지만 빛 방향 표현은 아직 일관되지 않는다고 구체 피드백을 준다.",
+      "opening": "You have practised more, but time alone does not show what has improved.",
+      "steps": [
+        {
+          "goal": "시간 기록과 성취 구분하기",
+          "example": "I logged the minutes, but I would also like to compare how accurately I can show shape and light.",
+          "cue": "accurately = 정확하게"
+        },
+        {
+          "goal": "피드백을 다음 목표로 바꾸기",
+          "example": "If shape is more stable, could our next task focus on one light source rather than adding more objects?",
+          "cue": "light source = 광원"
+        },
+        {
+          "goal": "확인 방법 제안하기",
+          "example": "I can draw a new object under similar lighting next week to check whether the skill transfers.",
+          "cue": "transfers = 새 과제에도 적용된다"
+        }
+      ],
+      "outcome": "연습량과 수행 증거를 구분하고 다음 확인 과제를 정한다.",
+      "transfer": "새 그림이 낯설어 성적이 낮다. 난이도 차이와 능력 변화를 함께 검토한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "B2",
+      "slug": "sustainable-volunteer-rota",
+      "title": "취미 모임 운영을 지속 가능한 분담으로 바꾸기",
+      "scenario": "매주 같은 사람이 정리와 준비를 맡아 지칩니다. 참여 부담은 크게 늘리고 싶지 않습니다.",
+      "learnerRole": "동호회 운영 참여자",
+      "interlocutorRole": "동료. 참석자는 매주 다르지만 10분짜리 준비·정리 역할은 돌아가며 맡을 수 있다고 말한다.",
+      "opening": "Most people come for the activity, not for extra responsibilities.",
+      "steps": [
+        {
+          "goal": "분담 목적 설명하기",
+          "example": "A small shared contribution could keep the activity running without relying on the same two people every week.",
+          "cue": "relying on = 의존하는"
+        },
+        {
+          "goal": "작은 선택 역할 제안하기",
+          "example": "Could members choose one ten-minute role on the days they attend, with an option to swap?",
+          "cue": "contribution = 기여; swap = 교환하다"
+        },
+        {
+          "goal": "시범 운영과 조정 합의하기",
+          "example": "Let us try it for a month and check whether the workload is actually more even.",
+          "cue": "workload = 작업 부담"
+        }
+      ],
+      "outcome": "모임 유지에 필요한 일을 작은 선택 역할로 나눈다.",
+      "transfer": "준비 역할은 장비 지식이 필요하다. 짧은 인수인계와 쉬운 역할을 분리한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "C1",
+      "slug": "mentor-without-taking-over",
+      "title": "초보의 선택권을 지키며 취미 지도하기",
+      "scenario": "사진 멘토링에서 멘티는 시행착오로 배우고 싶지만 멘토가 구도를 매번 정해 줍니다.",
+      "learnerRole": "동료 멘토",
+      "interlocutorRole": "다른 멘토. 시간 안에 좋은 결과를 내야 한다고 생각하지만 질문 중심 지원도 시도할 의사가 있다.",
+      "opening": "If we do not tell them the best composition, they may leave with disappointing photos.",
+      "steps": [
+        {
+          "goal": "결과와 학습 목적 구분하기",
+          "example": "A stronger photograph today is valuable, but it may not show whether the learner can make the next decision independently.",
+          "cue": "independently = 스스로"
+        },
+        {
+          "goal": "선택을 남기는 질문 제안하기",
+          "example": "Could we ask what they want the viewer to notice, then discuss two framing options instead of choosing for them?",
+          "cue": "framing = 화면 구성"
+        },
+        {
+          "goal": "지원 강도 조절 기준 합의하기",
+          "example": "Let us step in with a model when they are genuinely stuck, and then give them a new scene to interpret themselves.",
+          "cue": "step in = 개입하다"
+        }
+      ],
+      "outcome": "좋은 산출물과 독립 학습을 함께 고려한 지도 방식을 합의한다.",
+      "transfer": "멘티가 이번에는 정확한 시범을 원한다. 자율성을 명분으로 요청된 도움을 거절하지 않고 조정한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "C1",
+      "slug": "mixed-goal-creative-project",
+      "title": "다른 창작 목표를 하나의 공동 작품에 반영하기",
+      "scenario": "동네 사진전에서 한 사람은 아름다운 풍경, 다른 사람은 일상 노동을 보여주고 싶습니다.",
+      "learnerRole": "공동 전시 기획자",
+      "interlocutorRole": "동료 기획자. 하나의 주제가 필요하다고 생각하며 작품은 총 12점만 걸 수 있다고 설명한다.",
+      "opening": "If we include everything, the exhibition may not have a clear identity.",
+      "steps": [
+        {
+          "goal": "공통 질문으로 관점 연결하기",
+          "example": "Both approaches could explore what makes this neighbourhood feel lived in, one through place and the other through activity.",
+          "cue": "lived in = 사람들이 살아가는 느낌의"
+        },
+        {
+          "goal": "통일성과 차이를 함께 설계하기",
+          "example": "Could we pair images around shared locations, allowing each pair to offer a different kind of attention?",
+          "cue": "pair = 짝짓다"
+        },
+        {
+          "goal": "제약 안에서 선택 기준 합의하기",
+          "example": "With twelve spaces, let us choose six pairs that develop the question rather than divide the wall equally by photographer.",
+          "cue": "develop the question = 주제를 발전시키다"
+        }
+      ],
+      "outcome": "서로 다른 관심을 공동 질문과 편집 기준으로 연결한다.",
+      "transfer": "사진 대신 음성 이야기도 들어온다. 전시 형식의 일관성과 새로운 표현의 가치를 함께 검토한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "C1",
+      "slug": "reflect-on-productivity",
+      "title": "빽빽한 일과보다 목적에 맞는 하루 설계하기",
+      "scenario": "시간표를 모두 지켜도 창작에 쓸 에너지가 남지 않습니다. 친구는 빈 시간을 낭비로 봅니다.",
+      "learnerRole": "생활 습관을 재설계하는 사람",
+      "interlocutorRole": "친구. 계획표 유지가 성실함을 보여 준다고 생각하지만 핵심 목표는 작품 완성임을 인정한다.",
+      "opening": "If you leave blocks empty, how will you know you have used the day well?",
+      "steps": [
+        {
+          "goal": "활동 수와 목적 달성 분리하기",
+          "example": "I want to judge the day by whether I can do meaningful creative work, not just by how completely I fill the schedule.",
+          "cue": "meaningful = 의미 있는"
+        },
+        {
+          "goal": "빈 시간의 기능 설명하기",
+          "example": "A protected gap could serve as recovery and preparation, rather than an unplanned failure to do something.",
+          "cue": "protected gap = 확보해 둔 여유 시간"
+        },
+        {
+          "goal": "작은 실험과 평가 기준 제안하기",
+          "example": "For two weeks, I will keep one open block and compare completed drafts, concentration, and how sustainable the routine feels.",
+          "cue": "sustainable = 지속 가능한"
+        }
+      ],
+      "outcome": "일과의 목적을 설명하고 여유 시간의 효과를 확인할 실험을 정한다.",
+      "transfer": "빈 시간이 미루기로 이어진다. 여유 시간 자체를 실패로 보지 않고 시작 신호와 평가 기준을 수정한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "C1",
+      "slug": "inclusive-sports-session",
+      "title": "경쟁과 참여를 함께 살리는 운동 모임 구성하기",
+      "scenario": "배드민턴 모임에서 승부를 즐기는 사람과 기술을 배우려는 사람이 섞여 있습니다. 코트는 두 개입니다.",
+      "learnerRole": "모임 운영자",
+      "interlocutorRole": "공동 운영자. 실력별 고정 분리는 낙인이 될 수 있다고 걱정하며 90분 코트 사용이 가능하다고 설명한다.",
+      "opening": "A competitive court and a beginner court could make people feel labelled.",
+      "steps": [
+        {
+          "goal": "구분 목적을 능력 아닌 활동으로 설명하기",
+          "example": "We could label the formats rather than the people: one court for scored games and one for practice rallies, with movement between them.",
+          "cue": "formats = 진행 형식"
+        },
+        {
+          "goal": "선택권과 자원 배분 조율하기",
+          "example": "Could everyone choose a format for each short block, while we monitor waiting time on both courts?",
+          "cue": "block = 시간 구간"
+        },
+        {
+          "goal": "성공 기준 넓히기",
+          "example": "Let us look at whether people got meaningful play and felt able to switch, not only at who won matches.",
+          "cue": "meaningful play = 목적에 맞는 참여"
+        }
+      ],
+      "outcome": "낙인 없는 선택 형식으로 경쟁과 연습을 함께 운영한다.",
+      "transfer": "경쟁 코트 수요가 대부분이다. 소수의 연습 기회도 보장하는 시간 배분을 협의한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "C2",
+      "slug": "interpret-playful-feedback",
+      "title": "창작 피드백의 장난과 핵심 제안 구별하기",
+      "scenario": "글쓰기 친구가 초고를 두고 작은 문단이 장편을 꿈꾼다고 농담합니다. 유머를 살리면서 실제 수정 제안을 듣습니다. 검토할 가상 초고는 다음 세 문장입니다: The empty chair held a square of afternoon light. It was empty because Mara had moved away last spring. She had moved because she had found a job in another town. 작가는 빈 의자에 비친 빛의 이미지와 천천히 머무는 분위기를 남기고 싶습니다.",
+      "learnerRole": "초고를 공유한 작가",
+      "interlocutorRole": "동료 작가. 농담은 설명이 길다는 뜻이며 이미지 하나는 유지하고 배경 설명 둘을 줄이면 좋겠다고 말한다.",
+      "opening": "This little paragraph seems determined to become a novel of its own.",
+      "steps": [
+        {
+          "goal": "비유의 뜻을 가볍게 확인하기",
+          "example": "I take it my paragraph has ambitions beyond its job description. Is the main issue the amount of background, or the pace of the scene?",
+          "cue": "pace = 전개 속도"
+        },
+        {
+          "goal": "의도한 효과와 피드백 연결하기",
+          "example": "I wanted a lingering mood, but I do not want the explanation to drown out the image. Which detail still earns its place?",
+          "cue": "earns its place = 꼭 남길 가치가 있다"
+        },
+        {
+          "goal": "자기 목소리를 유지하는 수정안 제시하기",
+          "example": "I will keep the central image and try removing the two explanations, then see whether the slower rhythm survives without the weight.",
+          "cue": "rhythm = 문장의 리듬"
+        }
+      ],
+      "outcome": "유머 속 피드백을 정확히 해석하고 창작 의도를 지키는 수정안을 만든다.",
+      "transfer": "농담은 긴 분량이 아니라 과장된 어조를 뜻했다. 처음 해석을 수정하고 목표를 다시 잡는다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "C2",
+      "slug": "reframe-authentic-practice",
+      "title": "진짜 취미라는 기준을 넓혀 공동 활동 설계하기",
+      "scenario": "정원 모임에서 한 사람은 자급용 작물만 진짜 정원이라 하고 다른 사람은 감각적 즐거움과 쉼을 원합니다.",
+      "learnerRole": "공동 정원 설계자",
+      "interlocutorRole": "동료. 작은 땅에서 수확량을 확보해야 한다고 생각하지만 일부 공간은 공동 체험에 쓸 수 있다고 말한다.",
+      "opening": "If most of the space is for sitting and flowers, are we still doing real gardening?",
+      "steps": [
+        {
+          "goal": "평가 단어의 숨은 기준 드러내기",
+          "example": "Real seems to mean productive in a food-growing sense here; others are using care, observation, and shared enjoyment as their measures.",
+          "cue": "measures = 판단 기준"
+        },
+        {
+          "goal": "차이를 지우지 않고 공통 목적 만들기",
+          "example": "We need not claim those purposes are identical to ask how one small garden could support more than one of them.",
+          "cue": "identical = 같은"
+        },
+        {
+          "goal": "제약 안의 공동 실험 제안하기",
+          "example": "Could we protect a defined food plot and design the remaining edge for seating and pollinator plants, then assess each area against its intended purpose?",
+          "cue": "intended purpose = 의도한 목적"
+        }
+      ],
+      "outcome": "진짜라는 배타적 기준을 여러 명시적 목적과 공간 설계로 바꾼다.",
+      "transfer": "식량 기부가 모임의 공식 목적이었다. 취향 다양성과 기존 약속을 함께 반영해 범위를 다시 정한다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "C2",
+      "slug": "translate-expert-skill",
+      "title": "전문가의 암묵적 감각을 초보에게 풀어 설명하기",
+      "scenario": "도예 장인이 흙이 말하는 소리를 들으라고 조언하지만 초보는 실제 소리를 들으라는 뜻인지 혼동합니다. 실제 흙을 만지는 검사는 하지 않습니다. 가상 관찰 카드 A는 눌렀을 때 부드럽게 움직이고 표면이 매끈함, B는 저항이 크고 표면에 작은 갈라짐이 보임입니다. 비교는 이 묘사로만 진행하며 손기술이나 촉각 수행을 평가하지 않습니다.",
+      "learnerRole": "장인과 초보 사이의 진행자",
+      "interlocutorRole": "장인. 실제 소리만이 아니라 손의 저항과 표면 변화를 느끼라는 뜻이며 익숙하면 함께 판단한다고 설명한다. 한국어 관찰 카드의 차이를 영어로 정리하도록 도와주며 실제 공예 수행이나 촉감 측정을 주장하지 않는다.",
+      "opening": "You have to listen to what the clay is telling you; I cannot reduce that to a formula.",
+      "steps": [
+        {
+          "goal": "비유를 존중하며 관찰 단서 요청하기",
+          "example": "I would like to preserve the idea of responsiveness without leaving a beginner to guess what to notice. What changes first in your hands or in the surface?",
+          "cue": "responsiveness = 변화에 맞춰 반응하는 것"
+        },
+        {
+          "goal": "확실한 절차 아닌 임시 도움으로 번역하기",
+          "example": "Could we offer those as provisional cues, rather than pretend they form a rule that works for every piece of clay?",
+          "cue": "provisional cues = 임시 판단 단서"
+        },
+        {
+          "goal": "초보의 독립 판단을 확인할 연습 제안하기",
+          "example": "Let the learner compare two samples and describe the difference before you name it, then discuss where the cues stop being reliable.",
+          "cue": "reliable = 믿고 쓸 수 있는"
+        }
+      ],
+      "outcome": "전문가 비유를 초보가 관찰할 단서로 바꾸되 판단의 한계를 보존한다.",
+      "transfer": "시각 단서는 비슷하고 촉감만 다르다. 관찰 채널을 바꾸되 같은 정답을 강요하지 않는다."
+    },
+    {
+      "subcategoryId": "routines",
+      "difficulty": "C2",
+      "slug": "collective-celebration",
+      "title": "개인 성취와 보이지 않는 기여를 함께 축하하기",
+      "scenario": "동호회 공연이 잘 끝나 대표 연주자만 칭찬하는 소개문을 준비 중입니다. 준비·접근성 지원·신규 참여의 가치도 자연스럽게 전하고 싶습니다. 실제로 언급할 가상 기여는 대표 연주자의 마지막 독주, 준비팀의 공연 전 음향 점검, 새 참가자를 맞아 자리와 진행 순서를 안내한 환영팀의 도움입니다.",
+      "learnerRole": "마무리 모임 진행자",
+      "interlocutorRole": "공동 진행자. 대표 성취가 흐려질까 걱정하며 감사 인사는 2분 이내로 끝내야 한다고 말한다.",
+      "opening": "If we thank everyone equally, the exceptional performance may disappear into a long list.",
+      "steps": [
+        {
+          "goal": "동일 칭찬과 여러 기여 인정 구분하기",
+          "example": "We do not have to flatten different contributions into equal praise; we can name what each made possible while still celebrating the outstanding performance.",
+          "cue": "flatten = 차이를 없애다"
+        },
+        {
+          "goal": "짧은 공동 이야기 구성하기",
+          "example": "Could the introduction move from the performance itself to the conditions that enabled it, with one concrete example of preparation and one of welcoming newcomers?",
+          "cue": "enabled = 가능하게 했다"
+        },
+        {
+          "goal": "의도치 않은 서열 없이 마무리 제안하기",
+          "example": "Let us close by inviting people to carry that shared practice forward, rather than imply that visible talent is the only route to belonging.",
+          "cue": "belonging = 소속감"
+        }
+      ],
+      "outcome": "탁월한 개인 성취와 다양한 공동 기여를 구체적이고 짧게 축하한다.",
+      "transfer": "기여자가 공개 호명을 원하지 않는다. 구체성은 유지하되 이름 공개 없이 기여를 인정하는 문구를 만든다."
+    }
+  ]
+}

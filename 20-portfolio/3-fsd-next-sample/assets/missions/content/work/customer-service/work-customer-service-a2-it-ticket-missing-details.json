@@ -1,0 +1,144 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-customer-service-a2-it-ticket-missing-details",
+  "title": "정보가 부족한 장애 티켓 보완하기",
+  "categoryId": "work",
+  "subcategoryId": "customer-service",
+  "difficulty": "A2",
+  "scenario": "고객 문의에는 It is broken만 적혀 있습니다. 오전 11시까지 안내가 필요하지만 제품명과 화면 증상이 없습니다. 첫 응답에서 필요한 정보만 모읍니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+  "practicalOutcome": "프린터의 오류 문구·시작 시점·업무 기한을 확인해 장비팀에 넘길 수 있는 요약과 10:40 안내를 합의한다.",
+  "roles": {
+    "learner": "가상 IT 운영 담당자",
+    "interlocutor": "사용자 역할. 질문하면 Desk Print라는 가상 프린터가 10:00부터 No paper라고 표시되고 출력되지 않는다고 답한다. 종이는 확인하지 않았으며 11시 전 명단 출력이 필요하다."
+  },
+  "caseBrief": {
+    "professionalRole": "it-operations",
+    "situation": "고객 문의에는 It is broken만 적혀 있습니다. 오전 11시까지 안내가 필요하지만 제품명과 화면 증상이 없습니다. 첫 응답에서 필요한 정보만 모읍니다.",
+    "facts": [
+      "현재 10:20이며 사용자는 11:00에 업무를 재개하려 한다.",
+      "티켓에는 이름 없는 도구가 broken이라고만 적혀 있다.",
+      "민감 정보가 없는 오류 문구를 텍스트로 받을 수 있다.",
+      "접속 오류는 로그인팀, 출력 문제는 장비팀에 전달한다."
+    ],
+    "constraints": [
+      "화면 전체에 개인정보가 있을 수 있어 무조건 스크린샷을 요청하지 않는다.",
+      "원인이 확인되기 전에 고장 부품을 단정하지 않는다."
+    ],
+    "learnerAuthority": "도구·증상·시작 시점을 질문하고 확인한 내용을 요약해 담당팀에 전달할 수 있다.",
+    "counterpartPosition": "사용자 역할. 질문하면 Desk Print라는 가상 프린터가 10:00부터 No paper라고 표시되고 출력되지 않는다고 답한다. 종이는 확인하지 않았으며 11시 전 명단 출력이 필요하다.",
+    "unresolvedQuestions": [
+      "어떤 도구가 어떤 메시지를 표시하는가?",
+      "언제부터 발생했는가?",
+      "사용자의 실제로 막힌 업무는 무엇인가?"
+    ],
+    "deliverable": "프린터의 오류 문구·시작 시점·업무 기한을 확인해 장비팀에 넘길 수 있는 요약과 10:40 안내를 합의한다.",
+    "resolutionCriteria": [
+      "증상을 설명할 짧은 질문을 하나씩 한다.",
+      "관찰된 표시와 확인하지 않은 원인을 구분한다.",
+      "필요한 업무와 시간 제약을 담아 요약한다.",
+      "다음 담당팀과 안내 시간을 명시한다."
+    ],
+    "escalationPath": "10:40까지 장비팀 응답이 없으면 헬프데스크 리드에게 11시 인쇄 필요를 알리고 승인된 다른 인쇄 위치를 문의한다."
+  },
+  "opening": "It is broken, and I need it before eleven.",
+  "estimatedMinutes": 10,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "문제가 있는 도구 묻기",
+      "example": "Which tool is not working?",
+      "hints": [
+        "의도: 문제가 있는 도구 묻기",
+        "핵심 표현: which tool = 어떤 도구",
+        "완성 문장 예시: Which tool is not working? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 문제가 있는 도구 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "관찰된 오류 문구 묻기",
+      "example": "What message do you see?",
+      "hints": [
+        "의도: 관찰된 오류 문구 묻기",
+        "핵심 표현: message = 표시 문구",
+        "완성 문장 예시: What message do you see? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 관찰된 오류 문구 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "시작 시점 묻기",
+      "example": "When did it start?",
+      "hints": [
+        "의도: 시작 시점 묻기",
+        "핵심 표현: start = 시작되다",
+        "완성 문장 예시: When did it start? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 시작 시점 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "사실을 요약해 확인하기",
+      "example": "So Desk Print has shown No paper since ten, and you need to print a list. Is that right?",
+      "hints": [
+        "의도: 사실을 요약해 확인하기",
+        "핵심 표현: since ten = 10시부터",
+        "완성 문장 예시: So Desk Print has shown No paper since ten, and you need to print a list. Is that right? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 사실을 요약해 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-5",
+      "goal": "전달과 안내 시각 말하기",
+      "example": "I'll send this to the equipment team and update you at ten forty.",
+      "hints": [
+        "의도: 전달과 안내 시각 말하기",
+        "핵심 표현: equipment team = 장비팀",
+        "완성 문장 예시: I'll send this to the equipment team and update you at ten forty. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 전달과 안내 시각 말하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "표현 틀을 선택적으로 제공; 세부 정보와 다음 행동 확인. 먼저 상황과 첫 발화의 뜻을 확인하고 문제가 있는 도구 묻기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '정보가 부족한 장애 티켓 보완하기' 상황에서 프린터의 오류 문구·시작 시점·업무 기한을 확인해 장비팀에 넘길 수 있는 요약과 10:40 안내를 합의한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "같은 broken 문의가 프린터가 아니라 로그인 화면입니다. 암기한 팀 이름을 반복하지 않고 확인한 증상에 맞는 담당팀으로 요약을 바꿉니다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '정보가 부족한 장애 티켓 보완하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 같은 broken 문의가 프린터가 아니라 로그인 화면입니다. 암기한 팀 이름을 반복하지 않고 확인한 증상에 맞는 담당팀으로 요약을 바꿉니다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "프린터의 오류 문구·시작 시점·업무 기한을 확인해 장비팀에 넘길 수 있는 요약과 10:40 안내를 합의한다.",
+      "문제가 있는 도구 묻기",
+      "관찰된 오류 문구 묻기",
+      "시작 시점 묻기",
+      "사실을 요약해 확인하기",
+      "전달과 안내 시각 말하기",
+      "증상을 설명할 짧은 질문을 하나씩 한다.",
+      "관찰된 표시와 확인하지 않은 원인을 구분한다.",
+      "필요한 업무와 시간 제약을 담아 요약한다.",
+      "다음 담당팀과 안내 시간을 명시한다.",
+      "수준별 관찰: 일상 거래와 간단한 문제 해결. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

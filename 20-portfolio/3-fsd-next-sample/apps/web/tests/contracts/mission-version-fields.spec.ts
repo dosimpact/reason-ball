@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { compileMissionLearningFields, readMissionObjectives, readMissionPrerequisites } from "../../src/shared/api/supabase/mission-version-fields";
+import { compileMissionLearningFields, readMissionCatalogDisplay, readMissionObjectives, readMissionPrerequisites } from "../../src/shared/api/supabase/mission-version-fields";
 
 test("keeps learning goals and prerequisite IDs separate without mutating drafts", () => {
   const draft = { objectives: [{ id: "name", label: "Give your name", hint: "My name is" }], prerequisites: ["coffee-order"] };
@@ -38,4 +38,31 @@ test("authored goals and hints round trip independently from execution steps", (
 
 test("malformed explicit goals are not replaced with execution steps", () => {
   expect(() => readMissionObjectives({ objectives: [{ id: "x", label: "", hint: "" }] }, ["Say hello"], [])).toThrow();
+});
+
+
+test("catalog display exposes only the two public strings and preserves paragraph breaks", () => {
+  const config = {
+    catalogDisplay: { location: " 업무 · 회의 ", description: "문제 상황\n\n제약과 다음 행동" },
+    catalogImport: { source: { privateInstruction: "Do not disclose" } },
+    internalRubric: "Private evaluator policy",
+  };
+  const before = structuredClone(config);
+  expect(readMissionCatalogDisplay(config)).toEqual({
+    location: "업무 · 회의", description: "문제 상황\n\n제약과 다음 행동",
+  });
+  expect(config).toEqual(before);
+  for (const legacy of [undefined, null, {}, { catalogImport: { source: config } }]) {
+    expect(readMissionCatalogDisplay(legacy)).toBeUndefined();
+  }
+});
+
+test("malformed catalog display fails closed rather than leaking or silently falling back", () => {
+  for (const display of [null, [], "raw source", { location: "업무" },
+    { location: " ", description: "내용" }, { location: "업무", description: 42 },
+    { location: "업무", description: "내용", privateInstruction: "secret" },
+    { location: "x".repeat(1001), description: "내용" },
+    { location: "업무", description: "x".repeat(20001) }]) {
+    expect(() => readMissionCatalogDisplay({ catalogDisplay: display })).toThrow();
+  }
 });

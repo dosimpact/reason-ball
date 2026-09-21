@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "travel-transport-c2-algorithm-route-accountability",
+  "title": "앱 경로 오류와 현장 안내의 책임 정리하기",
+  "categoryId": "travel",
+  "subcategoryId": "transport",
+  "difficulty": "C2",
+  "scenario": "앱이 폐쇄된 출구로 계속 안내하고 현장 직원은 앱 담당이 아니라고 합니다. 지금 이동과 오류 신고 둘 다 필요합니다.",
+  "practicalOutcome": "권한 밖이라는 답을 즉시 지원과 오류 인계로 구체화한다.",
+  "roles": {
+    "learner": "경로 안내 이용자",
+    "interlocutor": "직원. 안전한 출구를 안내할 수 있으나 앱 수정은 운영팀에 접수해야 한다."
+  },
+  "opening": "The app is managed elsewhere, so there is nothing we can do about it here.",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "수정 권한과 현장 도움 분리하기",
+      "example": "I am not asking this desk to edit the app; I am asking for a safe route now and a way to ensure the incorrect guidance reaches the team that can act.",
+      "hints": [
+        "의도: 수정 권한과 현장 도움 분리하기",
+        "핵심 표현: guidance = 안내",
+        "완성 문장 예시: I am not asking this desk to edit the app; I am asking for a safe route now and a way to ensure the incorrect guidance reaches the team that can act. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 수정 권한과 현장 도움 분리하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "복합 문제를 두 과제로 나누기",
+      "example": "Could we handle the immediate journey and the persistent information error as separate issues?",
+      "hints": [
+        "의도: 복합 문제를 두 과제로 나누기",
+        "핵심 표현: persistent = 계속 남는",
+        "완성 문장 예시: Could we handle the immediate journey and the persistent information error as separate issues? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 복합 문제를 두 과제로 나누기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "검증 가능한 인계 요청하기",
+      "example": "Please give me a usable route and a report reference, while making clear whether any warning can be posted locally in the meantime.",
+      "hints": [
+        "의도: 검증 가능한 인계 요청하기",
+        "핵심 표현: in the meantime = 그동안",
+        "완성 문장 예시: Please give me a usable route and a report reference, while making clear whether any warning can be posted locally in the meantime. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 검증 가능한 인계 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 수정 권한과 현장 도움 분리하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '앱 경로 오류와 현장 안내의 책임 정리하기' 상황에서 권한 밖이라는 답을 즉시 지원과 오류 인계로 구체화한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "앱은 맞지만 현장 표지가 틀리다. 어느 정보가 검증됐는지부터 확인한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '앱 경로 오류와 현장 안내의 책임 정리하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 앱은 맞지만 현장 표지가 틀리다. 어느 정보가 검증됐는지부터 확인한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "권한 밖이라는 답을 즉시 지원과 오류 인계로 구체화한다.",
+      "수정 권한과 현장 도움 분리하기",
+      "복합 문제를 두 과제로 나누기",
+      "검증 가능한 인계 요청하기",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

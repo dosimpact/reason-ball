@@ -36,7 +36,7 @@ export function MissionDetailPage({ id }: { id: string }) {
               <h1 className="mt-6 max-w-3xl text-4xl font-black tracking-[-.05em] sm:text-6xl">{mission.title}</h1>
               <div className="mt-5"><SaveMissionButton key={mission.id} missionId={mission.id} /></div>
               <p className="mt-4 text-xl font-semibold text-white/80">{mission.subtitle}</p>
-              <p className="mt-5 max-w-2xl leading-7 text-white/55">{mission.description}</p>
+              <p className="mt-5 max-w-2xl whitespace-pre-line leading-7 text-white/55">{mission.description}</p>
               <div className="mt-7 flex flex-wrap gap-5 text-xs font-semibold text-white/60"><span className="flex items-center gap-2"><MapPin className="size-4 text-[#f06f52]" />{mission.location}</span><span className="flex items-center gap-2"><Clock3 className="size-4" />약 {mission.durationMinutes}분</span></div>
               {unmetPrerequisites.length === 0 ? <Link href={`/chat/${mission.recommendedCharacterId}?mission=${mission.id}&attempt=new`} className="mt-9 inline-flex min-h-13 items-center gap-2 rounded-full bg-white px-7 text-sm font-black text-neutral-950 transition hover:bg-[#f5c758]" data-testid="start-mission"><Play className="size-4 fill-current" /> {completed ? "새 실행으로 다시 연습하기" : "미션 시작하기"}</Link> : <div className="mt-9 inline-flex min-h-13 items-center rounded-full bg-white/15 px-7 text-sm font-black text-white/65" role="status" data-testid="mission-prerequisite-gate">선수 미션을 먼저 완료해 주세요</div>}
             </div>

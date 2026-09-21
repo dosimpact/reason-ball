@@ -1,0 +1,128 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-collaboration-c2-developer-deprecation-assurance",
+  "title": "지원 종료 안내의 호환 약속과 이용자 기대 조율하기",
+  "categoryId": "work",
+  "subcategoryId": "collaboration",
+  "difficulty": "C2",
+  "scenario": "이전 입력 형식 지원을 끝내면서 대부분 영향 없다고 안내하려 하지만 일부 고객의 자동화가 계속 사용 중입니다.",
+  "practicalOutcome": "집계 수치와 고객별 영향·안내·종료 조건을 구분한다.",
+  "roles": {
+    "learner": "API 개발자. 영향 근거와 확인 조건을 설명하며 고객 확약과 종료일은 단독 결정하지 않는다.",
+    "interlocutor": "지원 리드. 대부분 영향 없다는 짧은 안내를 원하며 세 고객의 사용 목적은 아직 모른다."
+  },
+  "caseBrief": {
+    "professionalRole": "developer",
+    "situation": "이전 입력 형식 지원을 끝내면서 대부분 영향 없다고 안내하려 하지만 일부 고객의 자동화가 계속 사용 중입니다.",
+    "facts": [
+      "활성 호출의 8%가 이전 형식이다.",
+      "그 호출은 3개 고객 계정에 집중돼 있다.",
+      "새 형식 변환 안내는 작성됐지만 해당 고객 확인은 없다."
+    ],
+    "constraints": [
+      "호출 비율이 작다고 고객 영향이 작다고 단정하지 않는다.",
+      "종료일 연장 결정은 제품·지원 리드 권한이다."
+    ],
+    "learnerAuthority": "API 개발자. 영향 근거와 확인 조건을 설명하며 고객 확약과 종료일은 단독 결정하지 않는다.",
+    "counterpartPosition": "지원 리드. 대부분 영향 없다는 짧은 안내를 원하며 세 고객의 사용 목적은 아직 모른다.",
+    "unresolvedQuestions": [
+      "영향받는 자동화가 핵심 업무인가?",
+      "고객 확인 없이 어떤 문구를 말할 수 있는가?"
+    ],
+    "deliverable": "집계 수치와 고객별 영향·안내·종료 조건을 구분한다.",
+    "resolutionCriteria": [
+      "8%와 세 고객 집중을 함께 설명한다.",
+      "호환 안내와 전환 완료를 구분한다.",
+      "확인되지 않은 영향과 에스컬레이션을 기록한다."
+    ],
+    "escalationPath": "세 고객 확인이 종료일까지 안 되면 제품·지원 리드에게 연장 또는 명시적 영향 안내 결정을 요청한다."
+  },
+  "opening": "Only eight percent of calls use the old format. Can we say the change is effectively impact-free?",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "집계와 영향의 불일치 설명하기",
+      "example": "A small share of calls can still carry a critical workflow for a small number of customers; the aggregate does not establish negligible impact.",
+      "hints": [
+        "의도: 집계와 영향의 불일치 설명하기",
+        "핵심 표현: negligible = 무시할 만한",
+        "완성 문장 예시: A small share of calls can still carry a critical workflow for a small number of customers; the aggregate does not establish negligible impact. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 집계와 영향의 불일치 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "현재 말할 수 있는 범위 한정하기",
+      "example": "We can say a migration path is available, but not that these customers have validated it or will be unaffected.",
+      "hints": [
+        "의도: 현재 말할 수 있는 범위 한정하기",
+        "핵심 표현: validated = 확인한",
+        "완성 문장 예시: We can say a migration path is available, but not that these customers have validated it or will be unaffected. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 현재 말할 수 있는 범위 한정하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "고객 확인 과제 제안하기",
+      "example": "Could support establish the role of those calls while engineering checks the conversion against representative examples?",
+      "hints": [
+        "의도: 고객 확인 과제 제안하기",
+        "핵심 표현: representative examples = 대표 사례",
+        "완성 문장 예시: Could support establish the role of those calls while engineering checks the conversion against representative examples? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 고객 확인 과제 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "미확인 시 판단 경로 명시하기",
+      "example": "If that remains unresolved at the deadline, the owners should explicitly decide whether to extend support or communicate the remaining impact, rather than let silence stand for readiness.",
+      "hints": [
+        "의도: 미확인 시 판단 경로 명시하기",
+        "핵심 표현: readiness = 준비 완료 상태",
+        "완성 문장 예시: If that remains unresolved at the deadline, the owners should explicitly decide whether to extend support or communicate the remaining impact, rather than let silence stand for readiness. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 미확인 시 판단 경로 명시하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 집계와 영향의 불일치 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '지원 종료 안내의 호환 약속과 이용자 기대 조율하기' 상황에서 집계 수치와 고객별 영향·안내·종료 조건을 구분한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "호출은 줄었지만 한 고객의 월말 작업이 남았다. 관찰 기간과 실제 실행 주기를 고려해 종료 판단을 다시 논의한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '지원 종료 안내의 호환 약속과 이용자 기대 조율하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 호출은 줄었지만 한 고객의 월말 작업이 남았다. 관찰 기간과 실제 실행 주기를 고려해 종료 판단을 다시 논의한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "집계 수치와 고객별 영향·안내·종료 조건을 구분한다.",
+      "집계와 영향의 불일치 설명하기",
+      "현재 말할 수 있는 범위 한정하기",
+      "고객 확인 과제 제안하기",
+      "미확인 시 판단 경로 명시하기",
+      "8%와 세 고객 집중을 함께 설명한다.",
+      "호환 안내와 전환 완료를 구분한다.",
+      "확인되지 않은 영향과 에스컬레이션을 기록한다.",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

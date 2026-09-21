@@ -1,0 +1,130 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-meetings-c2-business-frame-decision-question",
+  "title": "성공을 전제한 회의 질문을 검토 가능한 질문으로 바꾸기",
+  "categoryId": "work",
+  "subcategoryId": "meetings",
+  "difficulty": "C2",
+  "scenario": "회의 안건은 어떻게 성공적인 신제품을 빠르게 확대할 것인가이지만 시범 이용은 높아도 재사용은 확인되지 않았습니다.",
+  "practicalOutcome": "확대 속도 질문을 확대 조건·증거·가역적 준비로 재구성한다.",
+  "roles": {
+    "learner": "기획 검토자. 의사결정 질문과 증거 기준을 조정할 것을 제안한다.",
+    "interlocutor": "사업 책임자. 초기 반응이 좋아 기회를 놓치기 싫어하며 확대 준비를 일부 병행하고 싶다."
+  },
+  "caseBrief": {
+    "professionalRole": "cross-functional",
+    "situation": "회의 안건은 어떻게 성공적인 신제품을 빠르게 확대할 것인가이지만 시범 이용은 높아도 재사용은 확인되지 않았습니다.",
+    "facts": [
+      "시범 첫 사용자는 200명이다.",
+      "재사용 관찰 기간은 아직 지나지 않았다.",
+      "확대 비용은 되돌리기 어렵다.",
+      "첫 사용 뒤 2주 관찰이 끝나는 다음 목요일에 분석 담당자가 재사용 자료를 제공할 수 있다. 비용을 확정하는 권한은 사업 책임자에게 있다."
+    ],
+    "constraints": [
+      "첫 사용을 지속 가치의 증거로 과장하지 않는다.",
+      "무조건 중단을 전제하지도 않는다."
+    ],
+    "learnerAuthority": "기획 검토자. 의사결정 질문과 증거 기준을 조정할 것을 제안한다.",
+    "counterpartPosition": "사업 책임자. 초기 반응이 좋아 기회를 놓치기 싫어하며 확대 준비를 일부 병행하고 싶다.",
+    "unresolvedQuestions": [
+      "성공의 정의는 무엇인가?",
+      "확대 전 어떤 결과가 필요한가?",
+      "되돌릴 수 있는 준비는 무엇인가?"
+    ],
+    "deliverable": "확대 속도 질문을 확대 조건·증거·가역적 준비로 재구성한다.",
+    "resolutionCriteria": [
+      "첫 사용 성과를 인정한다.",
+      "질문에 들어간 성공 전제를 드러낸다.",
+      "병행 가능한 준비와 확정 투자를 나눈다."
+    ],
+    "escalationPath": "재사용 증거 전 확정 투자를 요구하면 책임자가 불확실성을 알고 승인하도록 근거를 올린다."
+  },
+  "opening": "The question is how quickly we scale this successful pilot, not whether we believe in it.",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "질문에 포함된 결론 드러내기",
+      "example": "The wording treats sustained success as settled, whereas the evidence so far establishes initial uptake. Belief in the idea does not resolve that difference.",
+      "hints": [
+        "의도: 질문에 포함된 결론 드러내기",
+        "핵심 표현: initial uptake = 초기 사용 참여",
+        "완성 문장 예시: The wording treats sustained success as settled, whereas the evidence so far establishes initial uptake. Belief in the idea does not resolve that difference. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 질문에 포함된 결론 드러내기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "성과 인정과 검증 필요 연결하기",
+      "example": "Two hundred first users is encouraging; it gives us a reason to investigate retention, not yet a measure of it.",
+      "hints": [
+        "의도: 성과 인정과 검증 필요 연결하기",
+        "핵심 표현: retention = 반복 사용 유지",
+        "완성 문장 예시: Two hundred first users is encouraging; it gives us a reason to investigate retention, not yet a measure of it. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 성과 인정과 검증 필요 연결하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "선택지를 넓히기",
+      "example": "Could we ask what would justify expansion while advancing only the preparations we can reverse at modest cost?",
+      "hints": [
+        "의도: 선택지를 넓히기",
+        "핵심 표현: reverse = 되돌리다",
+        "완성 문장 예시: Could we ask what would justify expansion while advancing only the preparations we can reverse at modest cost? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 선택지를 넓히기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "판단 시점과 기준 요청하기",
+      "example": "Could the analyst bring the retention evidence next Thursday and the business owner then decide whether it meets the agreed threshold for irreversible spend? Preparation itself should not count as approval.",
+      "hints": [
+        "의도: 판단 시점과 기준 요청하기",
+        "핵심 표현: irreversible spend = 되돌리기 어려운 지출",
+        "완성 문장 예시: Could the analyst bring the retention evidence next Thursday and the business owner then decide whether it meets the agreed threshold for irreversible spend? Preparation itself should not count as approval. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 판단 시점과 기준 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 질문에 포함된 결론 드러내기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '성공을 전제한 회의 질문을 검토 가능한 질문으로 바꾸기' 상황에서 확대 속도 질문을 확대 조건·증거·가역적 준비로 재구성한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "재사용이 낮지만 단발성 용도가 핵심이라고 밝혀진다. 기존 지표를 고집하지 않고 제품 목적에 맞는 성공 기준을 재논의한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '성공을 전제한 회의 질문을 검토 가능한 질문으로 바꾸기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 재사용이 낮지만 단발성 용도가 핵심이라고 밝혀진다. 기존 지표를 고집하지 않고 제품 목적에 맞는 성공 기준을 재논의한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "확대 속도 질문을 확대 조건·증거·가역적 준비로 재구성한다.",
+      "질문에 포함된 결론 드러내기",
+      "성과 인정과 검증 필요 연결하기",
+      "선택지를 넓히기",
+      "판단 시점과 기준 요청하기",
+      "첫 사용 성과를 인정한다.",
+      "질문에 들어간 성공 전제를 드러낸다.",
+      "병행 가능한 준비와 확정 투자를 나눈다.",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

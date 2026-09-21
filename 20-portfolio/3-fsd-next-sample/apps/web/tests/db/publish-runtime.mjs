@@ -1,3 +1,6 @@
+import { verifyGuestMissionBrowsing } from "./guest-mission-browsing.mjs";
+import { verifyMissionCatalogProjection } from './mission-catalog-projection.mjs';
+import { verifyMissionProvisioning } from './mission-provisioning.mjs';
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -1164,6 +1167,36 @@ try {
 
   await verifyPublishedParentDelete(db, ownerId);
   await verifyConversationReturning(db, ownerId, reporterId);
+  await db.exec(await migration("20260920154920_mission_category_catalog.sql"));
+  const taxonomy = JSON.parse(await readFile(`${workspaceDirectory}/assets/missions/categories.json`, "utf8"));
+  const expectedCategories = taxonomy.categories.flatMap((category, index) => [
+    { id: category.id, name: category.name, parent_id: null, depth: 0, sort_order: index },
+    ...category.subcategories.map((child, position) => ({ id: child.id, name: child.name, parent_id: category.id, depth: 1, sort_order: position })),
+  ]).sort((a, b) => a.id.localeCompare(b.id));
+  const actualCategories = (await db.query('select id,name,parent_id,depth,sort_order from public.mission_categories')).rows;
+  assert.deepEqual(actualCategories.sort((a, b) => a.id.localeCompare(b.id)), expectedCategories);
+  assert.equal((await db.query('select count(*)::int as n from public.missions where category_id is not null')).rows[0].n, 0);
+  await assert.rejects(db.exec("insert into public.mission_categories(id,name,parent_id,depth) values ('invalid','Invalid','hotel',1)"));
+  await assert.rejects(db.exec("update public.missions set category_id='travel'"));
+  await assert.rejects(db.exec("update public.missions set category_id='missing-category'"));
+  await db.exec('begin');
+  await db.exec("update public.missions set category_id='hotel'");
+  assert.ok((await db.query("select count(*)::int as n from public.missions where category_id='hotel'")).rows[0].n > 0);
+  await db.exec('rollback');
+  await db.exec('set role anon');
+  assert.equal((await db.query('select count(*)::int as n from public.mission_categories')).rows[0].n, 28);
+  await assert.rejects(db.exec("delete from public.mission_categories where id='hotel'"));
+  await db.exec('reset role');
+  await db.exec('set role authenticated');
+  await assert.rejects(db.exec("update public.mission_categories set name='changed' where id='hotel'"));
+  await db.exec('reset role');
+  console.log('Mission categories PASS: catalog parity, nullable legacy rows, leaf-only FK, depth guard and read-only browser grants');
+  await db.exec(await migration('20260921090000_profile_mission_provisioning.sql'));
+  await verifyMissionProvisioning(db, { ownerId, expectDatabaseError });
+  await db.exec(await migration('20260921100000_mission_catalog_instruction_projection.sql'));
+  await verifyMissionCatalogProjection(db, { ownerId, expectDatabaseError });
+  await db.exec(await migration('20260921110000_guest_mission_catalog_browsing.sql'));
+  await verifyGuestMissionBrowsing(db, { expectDatabaseError });
   console.log(`PGlite database contract PASS (${webDirectory}/tests/db/publish-runtime.mjs)`);
 } finally {
   await db.close();

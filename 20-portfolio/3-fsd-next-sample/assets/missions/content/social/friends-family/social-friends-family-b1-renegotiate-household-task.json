@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "social-friends-family-b1-renegotiate-household-task",
+  "title": "집안일 약속이 지켜지지 않아 다시 정하기",
+  "categoryId": "social",
+  "subcategoryId": "friends-family",
+  "difficulty": "B1",
+  "scenario": "쓰레기 배출을 번갈아 하기로 했지만 최근 두 번 당신이 대신했습니다.",
+  "practicalOutcome": "비난보다 관찰에 근거해 현실적인 분담을 다시 만든다.",
+  "roles": {
+    "learner": "상황 속 대화 참여자(가상 정보 사용)",
+    "interlocutor": "동거인. 저녁에 늦게 와서 놓쳤고 아침 준비는 할 수 있다고 답한다."
+  },
+  "opening": "I forgot again. Sorry.",
+  "estimatedMinutes": 12,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "구체적인 상황 설명하기",
+      "example": "I've taken it out the last two times, so the current plan isn't working for me.",
+      "hints": [
+        "의도: 구체적인 상황 설명하기",
+        "핵심 표현: last two times = 최근 두 번",
+        "완성 문장 예시: I've taken it out the last two times, so the current plan isn't working for me. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 구체적인 상황 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "원인과 가능한 역할 묻기",
+      "example": "Would getting the bags ready in the morning be easier for you?",
+      "hints": [
+        "의도: 원인과 가능한 역할 묻기",
+        "핵심 표현: getting the bags ready = 봉투를 미리 준비하기",
+        "완성 문장 예시: Would getting the bags ready in the morning be easier for you? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 원인과 가능한 역할 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "새 분담 확인하기",
+      "example": "Then you prepare them, and I'll take them out on the correct evening.",
+      "hints": [
+        "의도: 새 분담 확인하기",
+        "핵심 표현: prepare = 준비하다",
+        "완성 문장 예시: Then you prepare them, and I'll take them out on the correct evening. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 새 분담 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "이유·경험 연결; 요청 시 핵심 표현 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 구체적인 상황 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '집안일 약속이 지켜지지 않아 다시 정하기' 상황에서 비난보다 관찰에 근거해 현실적인 분담을 다시 만든다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "아침 준비도 어렵다고 한다. 다른 집안일과 교환해 전체 부담을 조정한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '집안일 약속이 지켜지지 않아 다시 정하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 아침 준비도 어렵다고 한다. 다른 집안일과 교환해 전체 부담을 조정한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "비난보다 관찰에 근거해 현실적인 분담을 다시 만든다.",
+      "구체적인 상황 설명하기",
+      "원인과 가능한 역할 묻기",
+      "새 분담 확인하기",
+      "수준별 관찰: 예상 밖 문제 설명과 복구. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

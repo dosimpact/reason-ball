@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-collaboration-c1-mediate-quality-speed",
+  "title": "협업 검토의 품질과 속도 갈등 중재하기",
+  "categoryId": "work",
+  "subcategoryId": "collaboration",
+  "difficulty": "C1",
+  "scenario": "검토자는 모든 문장 수정을 요구하고 작성자는 핵심 오류만 고치면 된다고 생각합니다. 고객 발송은 오늘입니다.",
+  "practicalOutcome": "수정 유형 분리하기 / 현재 기준 제안하기 / 후속 기준 수립하기",
+  "roles": {
+    "learner": "가상 팀에서 공동 업무를 맡은 동료",
+    "interlocutor": "검토자. 몇몇 수정은 안전 관련 사실이고 나머지는 문체 선호라고 인정한다."
+  },
+  "opening": "It all needs fixing before we can send it.",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "수정 유형 분리하기",
+      "example": "Could we separate factual or safety issues from stylistic preferences?",
+      "hints": [
+        "의도: 수정 유형 분리하기",
+        "핵심 표현: stylistic = 문체상의",
+        "완성 문장 예시: Could we separate factual or safety issues from stylistic preferences? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 수정 유형 분리하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "현재 기준 제안하기",
+      "example": "For today's version, I suggest we require the former and defer optional wording changes.",
+      "hints": [
+        "의도: 현재 기준 제안하기",
+        "핵심 표현: defer = 미루다",
+        "완성 문장 예시: For today's version, I suggest we require the former and defer optional wording changes. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 현재 기준 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "후속 기준 수립하기",
+      "example": "After delivery, let's agree a style guide so preference doesn't become a last-minute blocker.",
+      "hints": [
+        "의도: 후속 기준 수립하기",
+        "핵심 표현: blocker = 진행을 막는 요인",
+        "완성 문장 예시: After delivery, let's agree a style guide so preference doesn't become a last-minute blocker. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 후속 기준 수립하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 수정 유형 분리하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '협업 검토의 품질과 속도 갈등 중재하기' 상황에서 수정 유형 분리하기 / 현재 기준 제안하기 / 후속 기준 수립하기 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "다음에는 문체가 오해를 유발하는 사례를 만나 단순 취향으로 분류하지 않는다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '협업 검토의 품질과 속도 갈등 중재하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 다음에는 문체가 오해를 유발하는 사례를 만나 단순 취향으로 분류하지 않는다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "수정 유형 분리하기 / 현재 기준 제안하기 / 후속 기준 수립하기",
+      "수정 유형 분리하기",
+      "현재 기준 제안하기",
+      "후속 기준 수립하기",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

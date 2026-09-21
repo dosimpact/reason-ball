@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "travel-hotel-c1-discretionary-refund",
+  "title": "예외 환불 요청을 압박 없이 설득하기",
+  "categoryId": "travel",
+  "subcategoryId": "hotel",
+  "difficulty": "C1",
+  "scenario": "환불 불가 예약이지만 가족 일정이 갑자기 바뀌었습니다. 규정을 인정하며 가능한 예외를 요청합니다.",
+  "practicalOutcome": "권리 단정 없이 예외 대안을 요청하고 조건을 확인한다.",
+  "roles": {
+    "learner": "예약 취소 희망자",
+    "interlocutor": "매니저. 현금 환불은 권한 밖이고 날짜 변경 또는 일부 크레딧은 검토할 수 있다."
+  },
+  "opening": "The reservation is non-refundable under the agreed terms.",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "규정 인정과 요청 범위 밝히기",
+      "example": "I recognize the rate conditions. I am asking whether there is any discretionary flexibility, not assuming a refund is due.",
+      "hints": [
+        "의도: 규정 인정과 요청 범위 밝히기",
+        "핵심 표현: discretionary = 재량에 따른",
+        "완성 문장 예시: I recognize the rate conditions. I am asking whether there is any discretionary flexibility, not assuming a refund is due. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 규정 인정과 요청 범위 밝히기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "상대 권한에 맞춰 대안 제시하기",
+      "example": "If cash reimbursement is outside your authority, could a date change or partial credit be considered?",
+      "hints": [
+        "의도: 상대 권한에 맞춰 대안 제시하기",
+        "핵심 표현: outside your authority = 권한 밖",
+        "완성 문장 예시: If cash reimbursement is outside your authority, could a date change or partial credit be considered? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 상대 권한에 맞춰 대안 제시하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "불확실한 제안의 조건 확인하기",
+      "example": "Before I accept a credit, could you specify its restrictions and whether accepting it closes this request?",
+      "hints": [
+        "의도: 불확실한 제안의 조건 확인하기",
+        "핵심 표현: restrictions = 제한 조건",
+        "완성 문장 예시: Before I accept a credit, could you specify its restrictions and whether accepting it closes this request? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 불확실한 제안의 조건 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 규정 인정과 요청 범위 밝히기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '예외 환불 요청을 압박 없이 설득하기' 상황에서 권리 단정 없이 예외 대안을 요청하고 조건을 확인한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "호텔이 객실을 재판매한 경우만 검토 가능하다. 확인 시점과 연락 절차를 합의한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '예외 환불 요청을 압박 없이 설득하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 호텔이 객실을 재판매한 경우만 검토 가능하다. 확인 시점과 연락 절차를 합의한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "권리 단정 없이 예외 대안을 요청하고 조건을 확인한다.",
+      "규정 인정과 요청 범위 밝히기",
+      "상대 권한에 맞춰 대안 제시하기",
+      "불확실한 제안의 조건 확인하기",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

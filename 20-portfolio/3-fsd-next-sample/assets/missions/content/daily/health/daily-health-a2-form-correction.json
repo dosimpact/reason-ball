@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-health-a2-form-correction",
+  "title": "접수 기록 오류 바로잡기",
+  "categoryId": "daily",
+  "subcategoryId": "health",
+  "difficulty": "A2",
+  "scenario": "가상 기록에서 생년월일의 월과 일이 바뀌어 있습니다. April 5가 맞습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+  "practicalOutcome": "숫자 날짜의 모호함을 피하고 수정된 기록을 확인한다.",
+  "roles": {
+    "learner": "의료 서비스 이용자",
+    "interlocutor": "접수 직원. May 4로 입력된 기록을 읽고 수정 확인을 요청한다."
+  },
+  "opening": "Your date of birth is the fourth of May, correct?",
+  "estimatedMinutes": 10,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "오류를 정중히 알리기",
+      "example": "Sorry, that date is not correct.",
+      "hints": [
+        "의도: 오류를 정중히 알리기",
+        "핵심 표현: not correct = 맞지 않다",
+        "완성 문장 예시: Sorry, that date is not correct. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 오류를 정중히 알리기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "월을 단어로 정확히 말하기",
+      "example": "It is the fifth of April.",
+      "hints": [
+        "의도: 월을 단어로 정확히 말하기",
+        "핵심 표현: the fifth of April = 4월 5일",
+        "완성 문장 예시: It is the fifth of April. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 월을 단어로 정확히 말하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "수정 내용 재확인 요청하기",
+      "example": "Could you read it back after changing it?",
+      "hints": [
+        "의도: 수정 내용 재확인 요청하기",
+        "핵심 표현: read it back = 다시 읽어 확인",
+        "완성 문장 예시: Could you read it back after changing it? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 수정 내용 재확인 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "표현 틀을 선택적으로 제공; 세부 정보와 다음 행동 확인. 먼저 상황과 첫 발화의 뜻을 확인하고 오류를 정중히 알리기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '접수 기록 오류 바로잡기' 상황에서 숫자 날짜의 모호함을 피하고 수정된 기록을 확인한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "이름 철자가 바뀐 경우 연습용 이름을 글자별로 말하고 재확인한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '접수 기록 오류 바로잡기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 이름 철자가 바뀐 경우 연습용 이름을 글자별로 말하고 재확인한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "숫자 날짜의 모호함을 피하고 수정된 기록을 확인한다.",
+      "오류를 정중히 알리기",
+      "월을 단어로 정확히 말하기",
+      "수정 내용 재확인 요청하기",
+      "수준별 관찰: 일상 거래와 간단한 문제 해결. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

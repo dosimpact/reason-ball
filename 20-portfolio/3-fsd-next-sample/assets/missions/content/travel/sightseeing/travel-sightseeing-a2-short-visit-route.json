@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "travel-sightseeing-a2-short-visit-route",
+  "title": "한 시간 관람 경로 추천받기",
+  "categoryId": "travel",
+  "subcategoryId": "sightseeing",
+  "difficulty": "A2",
+  "scenario": "박물관에서 한 시간만 보낼 수 있고 사진 전시에 관심 있습니다.",
+  "practicalOutcome": "시간 안에 관심 전시를 포함한 경로를 고른다.",
+  "roles": {
+    "learner": "시간 제한 방문객",
+    "interlocutor": "안내 직원. 사진 전시 30분, 역사 전시 60분, 옥상 20분이라고 알려준다."
+  },
+  "opening": "How much time do you have?",
+  "estimatedMinutes": 10,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "시간과 관심 말하기",
+      "example": "I have one hour, and I am interested in photography.",
+      "hints": [
+        "의도: 시간과 관심 말하기",
+        "핵심 표현: interested in = 관심 있는",
+        "완성 문장 예시: I have one hour, and I am interested in photography. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 시간과 관심 말하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "우선 전시 묻기",
+      "example": "Which exhibition should I visit first?",
+      "hints": [
+        "의도: 우선 전시 묻기",
+        "핵심 표현: first = 먼저",
+        "완성 문장 예시: Which exhibition should I visit first? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 우선 전시 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "경로 확인하기",
+      "example": "Can I see the photos and the roof in one hour?",
+      "hints": [
+        "의도: 경로 확인하기",
+        "핵심 표현: roof = 옥상",
+        "완성 문장 예시: Can I see the photos and the roof in one hour? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 경로 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "표현 틀을 선택적으로 제공; 세부 정보와 다음 행동 확인. 먼저 상황과 첫 발화의 뜻을 확인하고 시간과 관심 말하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '한 시간 관람 경로 추천받기' 상황에서 시간 안에 관심 전시를 포함한 경로를 고른다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "사진 전시가 닫혔다. 새 관심 분야와 남은 시간을 바탕으로 다시 고른다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '한 시간 관람 경로 추천받기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 사진 전시가 닫혔다. 새 관심 분야와 남은 시간을 바탕으로 다시 고른다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "시간 안에 관심 전시를 포함한 경로를 고른다.",
+      "시간과 관심 말하기",
+      "우선 전시 묻기",
+      "경로 확인하기",
+      "수준별 관찰: 일상 거래와 간단한 문제 해결. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

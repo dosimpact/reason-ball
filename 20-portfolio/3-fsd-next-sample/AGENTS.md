@@ -158,6 +158,8 @@ Worker 번들 변경은 `PLAYWRIGHT_PRODUCTION=1 CI=1 pnpm test:e2e code-executi
 - 의미 있는 정책·경계 조건은 순수함수 테스트로, I/O와 사용자 흐름은 해당 통합·E2E 테스트로 검증한다. 줄 수를 줄이기 위한 무의미한 래퍼와 추측성 범용화를 피한다.
 - 변경 전 대상 함수의 업무 흐름·정책 계산·I/O를 구분하고, 혼합된 계산부터 추출한다. SLAP과 순수성은 별도 기준으로 리뷰한다. 순수함수도 서로 다른 추상화 수준을 섞을 수 있으며, I/O를 조합하는 상위 함수도 SLAP을 지킬 수 있다.
 
+미션 저작 원본은 `assets/missions/authoring/`에서 수정하고 `pnpm missions:compile`로 catalog와 본문을 재생성한다. `pnpm missions:check`는 재현성·전체 교육과정 범위·교차 참조를, `pnpm missions:test`는 validator 회귀를 검사한다. 로컬 `draft`와 실제 AI/학습자 검증·원격 게시를 구분하고 `assets/missions/README.md`의 작성 규칙을 따른다.
+
 실행 명령은 이 디렉터리의 `package.json`을 기준으로 한다. Next.js 관련 코드를 수정할 때는 `apps/web/AGENTS.md`의 로컬 문서 확인 지침도 따른다.
 
 `pnpm test:contracts`는 기존 Playwright 실행기를 사용하는 브라우저 없는 Node 계약 검사다. `tests/contracts/`의 정상·경계·실패 사례를 실행하며, 실제 브라우저 E2E나 Supabase 통합 검사로 표기하지 않는다. 서버 채팅 저장 기능을 배포할 때는 `20260910000000_chat_generation_persistence.sql` migration을 먼저 적용해야 한다.
@@ -199,3 +201,12 @@ Artifact 제안 복원은 `20260910215332_persisted_artifact_suggestions.sql` �
 실제 새 미션 평가는 과업 달성·이해 가능성·문법·어휘/표현·상호작용의 다섯 축을 사용한다. `evaluation-rubric.ts`가 생성 스키마, 실제 소유자 사용자 메시지 인용, 최종 근거 검증, 가중 합계를 소유한다. 모든 점수 축에 유효한 사용자 근거가 남아야 저장한다. 새 rubric_scores에는 version2와 과업40%/나머지 각15% 가중치를 기록한다. 과거 appropriateness 축·라벨·저장 총점은 새 의미나 계산식으로 덮어쓰지 않는다.
 
 개별 발화의 “이 발화 평가”는 `/api/ai/turn-evaluation`의 별도 읽기 전용 요청이다. 서버가 인증 소유자의 완료된 사용자 원문과 이전7개 메시지를 읽고, 고정 미션과 서버 CEFR을 사용한다. 이후 발화는 포함하지 않으며 모든 점수 근거는 선택한 원문 ID만 허용한다. 생성 후 같은 문맥을 다시 읽어 변경된 결과는 거부한다. 진행/실행/평가/보상 테이블에 쓰지 않으며 임시 결과임을 UI에 명시한다. 전체 미션 평가 endpoint를 발화 도움말에서 호출하지 않는다.
+
+
+## 프로필 기반 미션 배정
+
+`20260921090000_profile_mission_provisioning.sql`의 배정·카탈로그 권한을 유지한다. 일반 학습자는 저장된 프로필로 최초 5개만 배정받고 미배정 미션은 직접 조회·신규 시작도 차단한다. 카탈로그 관리 권한을 전역 admin으로 확대하지 않는다. `mission_catalog_state.is_ready`는 전체 적재 검증 뒤에만 활성화한다. 사용자 ID·후보·개수·수준을 브라우저에서 받아 RPC에 전달하지 않는다. 초기 배정 재시도와 프로필 변경으로 미션을 추가 누적하거나 기존 진행을 지우지 않는다. 상세 정책은 저량 설계서의 MISSION-PROVISION-01/02를 따른다.
+
+## 게스트 공개 미션 조회
+
+`20260921110000_guest_mission_catalog_browsing.sql` 이후 미로그인 방문자와 auth.users.is_anonymous=true 계정은 게시된 공개 미션 전체를 조회한다. 일반 회원은 기존 배정 범위를 유지한다. 사용자 metadata·오래된 익명 JWT를 권한 근거로 쓰지 않는다. 조회 확대를 시작 권한이나 비공개 지침 공개로 확장하지 않는다.

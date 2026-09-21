@@ -48,6 +48,7 @@ function SettingsForm({ initial, save, reload, remote }: {
   return <section className="mt-8 max-w-2xl" data-testid="profile-settings">
     <h2 className="text-2xl font-black">프로필과 학습 설정</h2>
     <p className="mt-2 text-sm text-neutral-500">{remote ? "현재 계정에 비공개로 저장합니다." : "데모 설정은 이 브라우저에 저장합니다."} 저장한 음성·속도는 학습 음성에, CEFR·목표·교정 선호는 다음 채팅 요청에 적용됩니다. 미션 판정 기준은 바꾸지 않습니다.</p>
+    {remote ? <p className="mt-2 text-sm text-neutral-500">미션을 아직 배정받지 않았다면, 저장한 수준과 관심 상황으로 미션 목록에서 첫 5개를 배정받아요. 이미 배정된 미션은 설정을 바꿔도 유지돼요.</p> : null}
     <fieldset disabled={busy} className="mt-5 space-y-5 rounded-[1.5rem] border border-black/7 bg-white p-6 disabled:opacity-70">
       <label className="block text-sm font-bold">표시 이름<input aria-label="표시 이름" className="form-field" maxLength={40} value={draft.displayName} onChange={(event) => change("displayName", event.target.value)} /></label>
       <label className="block text-sm font-bold">학습자 레벨<select aria-label="학습자 레벨" className="form-field" value={draft.learnerLevel} onChange={(event) => change("learnerLevel", event.target.value as LearningPreferences["learnerLevel"])}>{cefrLevels.map((level) => <option key={level} value={level}>{level === "PRE_A1" ? "Pre-A1 · 입문" : level}</option>)}</select></label>

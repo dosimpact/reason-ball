@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-food-drink-c1-service-fee-consent",
+  "title": "선택적 서비스 요금과 압박 구분하기",
+  "categoryId": "daily",
+  "subcategoryId": "food-drink",
+  "difficulty": "C1",
+  "scenario": "계산서에 optional service charge가 있는데 직원은 모두 내는 것이라고 말합니다. 만족하지 못한 부분을 설명하고 선택권을 확인하려 합니다.",
+  "practicalOutcome": "직원 개인 비난 없이 선택적 요금의 조정 방법과 결제 총액을 확인한다.",
+  "roles": {
+    "learner": "식당·카페 손님",
+    "interlocutor": "매니저. 요금이 선택적이라고 인정하지만 직원에게 전액 간다고 설명한다. 법적 의무라고 주장하지 않는다."
+  },
+  "opening": "It is optional, but almost all our guests leave it on.",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "관행과 선택 여부 분리하기",
+      "example": "I understand it is customary; I am asking whether the amount can be adjusted, not whether other guests pay it.",
+      "hints": [
+        "의도: 관행과 선택 여부 분리하기",
+        "핵심 표현: customary / optional = 관행과 선택",
+        "완성 문장 예시: I understand it is customary; I am asking whether the amount can be adjusted, not whether other guests pay it. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 관행과 선택 여부 분리하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "불만의 범위를 구체화하기",
+      "example": "The concern is the repeated missed orders, not the effort of the individual server.",
+      "hints": [
+        "의도: 불만의 범위를 구체화하기",
+        "핵심 표현: the concern is ... not ... = 비판 대상 구분",
+        "완성 문장 예시: The concern is the repeated missed orders, not the effort of the individual server. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 불만의 범위를 구체화하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "실행할 선택과 금액 확인하기",
+      "example": "Please remove the suggested charge and let me choose a separate amount. Could you show me the revised total first?",
+      "hints": [
+        "의도: 실행할 선택과 금액 확인하기",
+        "핵심 표현: revised total = 조정된 합계",
+        "완성 문장 예시: Please remove the suggested charge and let me choose a separate amount. Could you show me the revised total first? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 실행할 선택과 금액 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 관행과 선택 여부 분리하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '선택적 서비스 요금과 압박 구분하기' 상황에서 직원 개인 비난 없이 선택적 요금의 조정 방법과 결제 총액을 확인한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "요금이 사전에 명시된 고정 단체 요금일 때 선택적 팁과 계약 조건의 차이를 확인한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '선택적 서비스 요금과 압박 구분하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 요금이 사전에 명시된 고정 단체 요금일 때 선택적 팁과 계약 조건의 차이를 확인한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "직원 개인 비난 없이 선택적 요금의 조정 방법과 결제 총액을 확인한다.",
+      "관행과 선택 여부 분리하기",
+      "불만의 범위를 구체화하기",
+      "실행할 선택과 금액 확인하기",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

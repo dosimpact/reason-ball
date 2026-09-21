@@ -1,0 +1,129 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-meetings-c2-business-qualified-assent",
+  "title": "원칙적 동의에 숨은 조건을 결정 기록으로 바꾸기",
+  "categoryId": "work",
+  "subcategoryId": "meetings",
+  "difficulty": "C2",
+  "scenario": "회의에서 모두 원칙적으로 찬성했지만 한 팀은 추가 인력을, 다른 팀은 일정 연기를 전제로 합니다. 회의록에는 전원 확정으로 남기려 합니다.",
+  "practicalOutcome": "방향 합의와 실행 조건·미승인 항목을 분리한 결정을 만든다.",
+  "roles": {
+    "learner": "부서 간 조율자. 조건부 지지를 정리하지만 자원과 일정 승인은 사업 책임자 권한이다.",
+    "interlocutor": "진행자. 큰 방향 합의를 성과로 기록하고 싶고 조건을 너무 강조하면 진전이 없어 보인다고 걱정한다."
+  },
+  "caseBrief": {
+    "professionalRole": "cross-functional",
+    "situation": "회의에서 모두 원칙적으로 찬성했지만 한 팀은 추가 인력을, 다른 팀은 일정 연기를 전제로 합니다. 회의록에는 전원 확정으로 남기려 합니다.",
+    "facts": [
+      "A팀은 인력 1명 추가 시 가능하다고 했다.",
+      "B팀은 출시를 2주 미루면 가능하다고 했다.",
+      "예산과 일정 변경은 아직 승인되지 않았다."
+    ],
+    "constraints": [
+      "서로 다른 조건을 지운 합의로 실행하지 않는다.",
+      "오늘은 조건을 정리하고 결정권자에게 올릴 수 있다.",
+      "진행자는 오늘 오후 5시까지 사업 책임자에게 조건 목록을 보낼 수 있고 내일 정오까지 판단 상태를 공유할 수 있다."
+    ],
+    "learnerAuthority": "부서 간 조율자. 조건부 지지를 정리하지만 자원과 일정 승인은 사업 책임자 권한이다.",
+    "counterpartPosition": "진행자. 큰 방향 합의를 성과로 기록하고 싶고 조건을 너무 강조하면 진전이 없어 보인다고 걱정한다.",
+    "unresolvedQuestions": [
+      "무엇에 대한 합의가 실제로 있는가?",
+      "어느 조건을 누가 충족시킬 수 있는가?"
+    ],
+    "deliverable": "방향 합의와 실행 조건·미승인 항목을 분리한 결정을 만든다.",
+    "resolutionCriteria": [
+      "공통 목표의 진전을 인정한다.",
+      "팀별 전제를 구별한다.",
+      "실행 승인 전 조건과 판단자를 기록한다."
+    ],
+    "escalationPath": "사업 책임자가 자원·일정 조합을 선택하거나 추가 협의를 지시한다."
+  },
+  "opening": "Everyone has agreed in principle. Can we record a unanimous decision to proceed?",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "합의의 실질과 한계 함께 설명하기",
+      "example": "We have convergence on the objective, but assent rests on different, currently unapproved conditions; that is progress without yet being a shared executable commitment.",
+      "hints": [
+        "의도: 합의의 실질과 한계 함께 설명하기",
+        "핵심 표현: assent = 동의",
+        "완성 문장 예시: We have convergence on the objective, but assent rests on different, currently unapproved conditions; that is progress without yet being a shared executable commitment. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 합의의 실질과 한계 함께 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "서로 다른 전제 드러내기",
+      "example": "A assumes an extra person and B assumes two more weeks. Removing those qualifications would change what each team actually accepted.",
+      "hints": [
+        "의도: 서로 다른 전제 드러내기",
+        "핵심 표현: qualifications = 붙인 조건",
+        "완성 문장 예시: A assumes an extra person and B assumes two more weeks. Removing those qualifications would change what each team actually accepted. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 서로 다른 전제 드러내기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "결정 기록 구조 제안하기",
+      "example": "Could we record the common direction and the two dependencies, and send them to the business owner by five today for a decision update by noon tomorrow?",
+      "hints": [
+        "의도: 결정 기록 구조 제안하기",
+        "핵심 표현: viable combination = 실행 가능한 조합",
+        "완성 문장 예시: Could we record the common direction and the two dependencies, and send them to the business owner by five today for a decision update by noon tomorrow? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 결정 기록 구조 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "승인 전 상태 명시하기",
+      "example": "Until that choice is made, the accurate outcome is conditional support with an escalation, not a go-ahead that teams must later retract.",
+      "hints": [
+        "의도: 승인 전 상태 명시하기",
+        "핵심 표현: retract = 철회하다",
+        "완성 문장 예시: Until that choice is made, the accurate outcome is conditional support with an escalation, not a go-ahead that teams must later retract. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 승인 전 상태 명시하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 합의의 실질과 한계 함께 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '원칙적 동의에 숨은 조건을 결정 기록으로 바꾸기' 상황에서 방향 합의와 실행 조건·미승인 항목을 분리한 결정을 만든다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "책임자가 인력만 승인한다. 일정 조건이 남은 팀의 동의까지 자동 확정하지 않는다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '원칙적 동의에 숨은 조건을 결정 기록으로 바꾸기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 책임자가 인력만 승인한다. 일정 조건이 남은 팀의 동의까지 자동 확정하지 않는다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "방향 합의와 실행 조건·미승인 항목을 분리한 결정을 만든다.",
+      "합의의 실질과 한계 함께 설명하기",
+      "서로 다른 전제 드러내기",
+      "결정 기록 구조 제안하기",
+      "승인 전 상태 명시하기",
+      "공통 목표의 진전을 인정한다.",
+      "팀별 전제를 구별한다.",
+      "실행 승인 전 조건과 판단자를 기록한다.",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

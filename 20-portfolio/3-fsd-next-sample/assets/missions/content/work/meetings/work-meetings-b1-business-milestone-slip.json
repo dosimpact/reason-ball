@@ -1,0 +1,128 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-meetings-b1-business-milestone-slip",
+  "title": "중간 일정 지연을 숨기지 않고 재계획하기",
+  "categoryId": "work",
+  "subcategoryId": "meetings",
+  "difficulty": "B1",
+  "scenario": "사용자 인터뷰가 이틀 늦어져 보고서 작성 시작도 늦어집니다. 전체 완료일은 다음 주 월요일입니다.",
+  "practicalOutcome": "지연 영향과 병렬 작업·리드의 일정 판단을 정리한다.",
+  "roles": {
+    "learner": "프로젝트 담당자. 영향과 병렬 작업을 보고한다.",
+    "interlocutor": "리드. 월요일 일정 유지가 중요하지만 인터뷰 없는 결론은 원하지 않는다."
+  },
+  "caseBrief": {
+    "professionalRole": "cross-functional",
+    "situation": "사용자 인터뷰가 이틀 늦어져 보고서 작성 시작도 늦어집니다. 전체 완료일은 다음 주 월요일입니다.",
+    "facts": [
+      "인터뷰는 원래 오늘 끝날 예정이었다.",
+      "마지막 인터뷰는 금요일이다.",
+      "자료 표는 미리 만들 수 있지만 결론은 인터뷰 후 작성해야 한다."
+    ],
+    "constraints": [
+      "미완료 인터뷰를 완료로 보고하지 않는다.",
+      "고객에게 새 날짜를 약속할 권한은 프로젝트 리드에게 있다."
+    ],
+    "learnerAuthority": "프로젝트 담당자. 영향과 병렬 작업을 보고한다.",
+    "counterpartPosition": "리드. 월요일 일정 유지가 중요하지만 인터뷰 없는 결론은 원하지 않는다.",
+    "unresolvedQuestions": [
+      "미리 할 수 있는 일은 무엇인가?",
+      "월요일에 무엇까지 검토 가능한가?"
+    ],
+    "deliverable": "지연 영향과 병렬 작업·리드의 일정 판단을 정리한다.",
+    "resolutionCriteria": [
+      "지연 원인과 영향 범위를 설명한다.",
+      "결론과 사전 준비를 구분한다.",
+      "새 상태 공유 시각을 정한다."
+    ],
+    "escalationPath": "금요일에도 인터뷰가 미완료면 리드가 고객 안내와 제출 범위를 결정한다."
+  },
+  "opening": "Can we still say the report is on track for Monday?",
+  "estimatedMinutes": 12,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "지연 영향 설명하기",
+      "example": "The last interview moved to Friday, so the findings will not be ready as originally planned.",
+      "hints": [
+        "의도: 지연 영향 설명하기",
+        "핵심 표현: findings = 조사 결과",
+        "완성 문장 예시: The last interview moved to Friday, so the findings will not be ready as originally planned. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 지연 영향 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "가능한 병렬 작업 말하기",
+      "example": "I can prepare the tables and structure before then, but not the final conclusions.",
+      "hints": [
+        "의도: 가능한 병렬 작업 말하기",
+        "핵심 표현: conclusions = 결론",
+        "완성 문장 예시: I can prepare the tables and structure before then, but not the final conclusions. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 가능한 병렬 작업 말하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "조건부 일정 제안하기",
+      "example": "If the interview finishes Friday morning, I can send a working draft that afternoon.",
+      "hints": [
+        "의도: 조건부 일정 제안하기",
+        "핵심 표현: working draft = 검토용 초안",
+        "완성 문장 예시: If the interview finishes Friday morning, I can send a working draft that afternoon. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 조건부 일정 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "리드 판단 요청하기",
+      "example": "Could you review that plan and decide what we should promise the customer?",
+      "hints": [
+        "의도: 리드 판단 요청하기",
+        "핵심 표현: promise = 약속하다",
+        "완성 문장 예시: Could you review that plan and decide what we should promise the customer? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 리드 판단 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "이유·경험 연결; 요청 시 핵심 표현 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 지연 영향 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '중간 일정 지연을 숨기지 않고 재계획하기' 상황에서 지연 영향과 병렬 작업·리드의 일정 판단을 정리한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "금요일 인터뷰도 취소됐다. 조건이 충족되지 않았음을 알리고 가정 기반 초안과 최종 결과를 구분한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '중간 일정 지연을 숨기지 않고 재계획하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 금요일 인터뷰도 취소됐다. 조건이 충족되지 않았음을 알리고 가정 기반 초안과 최종 결과를 구분한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "지연 영향과 병렬 작업·리드의 일정 판단을 정리한다.",
+      "지연 영향 설명하기",
+      "가능한 병렬 작업 말하기",
+      "조건부 일정 제안하기",
+      "리드 판단 요청하기",
+      "지연 원인과 영향 범위를 설명한다.",
+      "결론과 사전 준비를 구분한다.",
+      "새 상태 공유 시각을 정한다.",
+      "수준별 관찰: 예상 밖 문제 설명과 복구. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

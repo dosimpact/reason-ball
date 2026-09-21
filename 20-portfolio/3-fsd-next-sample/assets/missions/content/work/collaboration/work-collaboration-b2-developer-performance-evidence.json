@@ -1,0 +1,128 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-collaboration-b2-developer-performance-evidence",
+  "title": "느리다는 제보를 측정 가능한 조사로 바꾸기",
+  "categoryId": "work",
+  "subcategoryId": "collaboration",
+  "difficulty": "B2",
+  "scenario": "동료는 모든 검색이 느리다고 말하지만 측정된 것은 큰 데이터 한 사례뿐입니다.",
+  "practicalOutcome": "측정 조건·목표 확인 담당·대안 비교 순서를 정한다.",
+  "roles": {
+    "learner": "성능 조사 개발자. 테스트 조건과 성공 기준을 제안하며 제품 목표는 담당자와 정한다.",
+    "interlocutor": "동료. 캐시를 추가하면 해결된다고 생각하지만 실제 느린 단계는 아직 분리하지 않았다."
+  },
+  "caseBrief": {
+    "professionalRole": "developer",
+    "situation": "동료는 모든 검색이 느리다고 말하지만 측정된 것은 큰 데이터 한 사례뿐입니다.",
+    "facts": [
+      "가상 10만 건 검색은 4초 걸렸다.",
+      "작은 데이터 조건은 아직 측정하지 않았다.",
+      "사용자가 기다릴 수 있는 목표 시간도 미정이다."
+    ],
+    "constraints": [
+      "측정 전 특정 라이브러리 교체를 결정하지 않는다.",
+      "오늘은 조사 계획만 합의한다."
+    ],
+    "learnerAuthority": "성능 조사 개발자. 테스트 조건과 성공 기준을 제안하며 제품 목표는 담당자와 정한다.",
+    "counterpartPosition": "동료. 캐시를 추가하면 해결된다고 생각하지만 실제 느린 단계는 아직 분리하지 않았다.",
+    "unresolvedQuestions": [
+      "어떤 데이터와 환경에서 느린가?",
+      "사용자 흐름에서 필요한 응답 목표는 무엇인가?"
+    ],
+    "deliverable": "측정 조건·목표 확인 담당·대안 비교 순서를 정한다.",
+    "resolutionCriteria": [
+      "관찰 한 건을 전체로 일반화하지 않는다.",
+      "해결책보다 측정 범위를 먼저 합의한다.",
+      "사용자 기준을 별도로 확인한다."
+    ],
+    "escalationPath": "성능 목표와 일정이 충돌하면 제품·플랫폼 리드가 선택하도록 근거를 전달한다."
+  },
+  "opening": "Search is slow everywhere. We should add a cache.",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "증거 범위 한정하기",
+      "example": "We have one four-second result on a large dataset, but not enough evidence to say every search is slow.",
+      "hints": [
+        "의도: 증거 범위 한정하기",
+        "핵심 표현: dataset = 데이터 집합",
+        "완성 문장 예시: We have one four-second result on a large dataset, but not enough evidence to say every search is slow. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 증거 범위 한정하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "추가 측정 제안하기",
+      "example": "Could we compare small and large inputs and separate server time from rendering time?",
+      "hints": [
+        "의도: 추가 측정 제안하기",
+        "핵심 표현: rendering time = 화면 표시 시간",
+        "완성 문장 예시: Could we compare small and large inputs and separate server time from rendering time? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 추가 측정 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "사용자 목표 묻기",
+      "example": "Who can confirm the acceptable wait for this user flow?",
+      "hints": [
+        "의도: 사용자 목표 묻기",
+        "핵심 표현: acceptable wait = 받아들일 수 있는 대기",
+        "완성 문장 예시: Who can confirm the acceptable wait for this user flow? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 사용자 목표 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "순서와 담당 정하기",
+      "example": "I will collect the measurements today; let us compare options after the product owner confirms the target.",
+      "hints": [
+        "의도: 순서와 담당 정하기",
+        "핵심 표현: measurements = 측정값",
+        "완성 문장 예시: I will collect the measurements today; let us compare options after the product owner confirms the target. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 순서와 담당 정하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 증거 범위 한정하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '느리다는 제보를 측정 가능한 조사로 바꾸기' 상황에서 측정 조건·목표 확인 담당·대안 비교 순서를 정한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "측정상 서버는 빠르고 화면만 느리다. 초기 캐시 제안을 고집하지 않고 조사 범위를 수정한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '느리다는 제보를 측정 가능한 조사로 바꾸기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 측정상 서버는 빠르고 화면만 느리다. 초기 캐시 제안을 고집하지 않고 조사 범위를 수정한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "측정 조건·목표 확인 담당·대안 비교 순서를 정한다.",
+      "증거 범위 한정하기",
+      "추가 측정 제안하기",
+      "사용자 목표 묻기",
+      "순서와 담당 정하기",
+      "관찰 한 건을 전체로 일반화하지 않는다.",
+      "해결책보다 측정 범위를 먼저 합의한다.",
+      "사용자 기준을 별도로 확인한다.",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

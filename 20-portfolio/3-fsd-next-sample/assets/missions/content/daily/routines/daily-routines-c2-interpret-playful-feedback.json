@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-routines-c2-interpret-playful-feedback",
+  "title": "창작 피드백의 장난과 핵심 제안 구별하기",
+  "categoryId": "daily",
+  "subcategoryId": "routines",
+  "difficulty": "C2",
+  "scenario": "글쓰기 친구가 초고를 두고 작은 문단이 장편을 꿈꾼다고 농담합니다. 유머를 살리면서 실제 수정 제안을 듣습니다. 검토할 가상 초고는 다음 세 문장입니다: The empty chair held a square of afternoon light. It was empty because Mara had moved away last spring. She had moved because she had found a job in another town. 작가는 빈 의자에 비친 빛의 이미지와 천천히 머무는 분위기를 남기고 싶습니다.",
+  "practicalOutcome": "유머 속 피드백을 정확히 해석하고 창작 의도를 지키는 수정안을 만든다.",
+  "roles": {
+    "learner": "초고를 공유한 작가",
+    "interlocutor": "동료 작가. 농담은 설명이 길다는 뜻이며 이미지 하나는 유지하고 배경 설명 둘을 줄이면 좋겠다고 말한다."
+  },
+  "opening": "This little paragraph seems determined to become a novel of its own.",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "비유의 뜻을 가볍게 확인하기",
+      "example": "I take it my paragraph has ambitions beyond its job description. Is the main issue the amount of background, or the pace of the scene?",
+      "hints": [
+        "의도: 비유의 뜻을 가볍게 확인하기",
+        "핵심 표현: pace = 전개 속도",
+        "완성 문장 예시: I take it my paragraph has ambitions beyond its job description. Is the main issue the amount of background, or the pace of the scene? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 비유의 뜻을 가볍게 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "의도한 효과와 피드백 연결하기",
+      "example": "I wanted a lingering mood, but I do not want the explanation to drown out the image. Which detail still earns its place?",
+      "hints": [
+        "의도: 의도한 효과와 피드백 연결하기",
+        "핵심 표현: earns its place = 꼭 남길 가치가 있다",
+        "완성 문장 예시: I wanted a lingering mood, but I do not want the explanation to drown out the image. Which detail still earns its place? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 의도한 효과와 피드백 연결하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "자기 목소리를 유지하는 수정안 제시하기",
+      "example": "I will keep the central image and try removing the two explanations, then see whether the slower rhythm survives without the weight.",
+      "hints": [
+        "의도: 자기 목소리를 유지하는 수정안 제시하기",
+        "핵심 표현: rhythm = 문장의 리듬",
+        "완성 문장 예시: I will keep the central image and try removing the two explanations, then see whether the slower rhythm survives without the weight. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 자기 목소리를 유지하는 수정안 제시하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 비유의 뜻을 가볍게 확인하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '창작 피드백의 장난과 핵심 제안 구별하기' 상황에서 유머 속 피드백을 정확히 해석하고 창작 의도를 지키는 수정안을 만든다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "농담은 긴 분량이 아니라 과장된 어조를 뜻했다. 처음 해석을 수정하고 목표를 다시 잡는다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '창작 피드백의 장난과 핵심 제안 구별하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 농담은 긴 분량이 아니라 과장된 어조를 뜻했다. 처음 해석을 수정하고 목표를 다시 잡는다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "유머 속 피드백을 정확히 해석하고 창작 의도를 지키는 수정안을 만든다.",
+      "비유의 뜻을 가볍게 확인하기",
+      "의도한 효과와 피드백 연결하기",
+      "자기 목소리를 유지하는 수정안 제시하기",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

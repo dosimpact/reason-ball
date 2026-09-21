@@ -1,0 +1,1229 @@
+{
+  "schemaVersion": 1,
+  "categoryId": "work",
+  "missions": [
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "A2",
+      "slug": "designer-missing-mobile-state",
+      "title": "모바일 오류 화면이 빠진 핸드오프 정리하기",
+      "scenario": "개발자가 가입 화면을 구현하다 오류 화면이 없다고 연락했습니다. 디자인 파일에는 기본 화면만 있고 내일 테스트가 시작됩니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "가입 화면 담당 개발자. 처음에는 오류 화면이 없다고만 말한다. 질문하면 이메일이 이미 등록된 경우가 테스트를 막으며 입력칸 아래 짧은 안내가 필요하다고 설명한다. 오늘 4시에 확인할 수 있다. 전체 실패 화면이 제안되면 입력을 보존하고 싶다고 말한다.",
+      "opening": "I cannot find the error screen. Which design should I use?",
+      "steps": [
+        {
+          "goal": "필요한 오류 상황 묻기",
+          "example": "Which error do you need first?",
+          "cue": "which error = 어떤 오류"
+        },
+        {
+          "goal": "표시 위치 확인하기",
+          "example": "Should the message go below the email box?",
+          "cue": "below = 아래에"
+        },
+        {
+          "goal": "작업과 검토 시간 제안하기",
+          "example": "I'll add that screen today. Can you check it at four?",
+          "cue": "check at four = 4시에 확인하다"
+        },
+        {
+          "goal": "합의한 담당과 다음 행동 정리하기",
+          "example": "I'll update the file, and you'll check the message before tomorrow's test.",
+          "cue": "update the file = 파일을 수정하다"
+        }
+      ],
+      "outcome": "먼저 필요한 오류 화면과 검토 담당·시간을 합의한다.",
+      "transfer": "개발자가 네트워크 오류가 더 급하다고 답한다. 이메일 오류로 단정하지 말고 먼저 필요한 화면과 검토 시간을 다시 정한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "개발자가 가입 화면을 구현하다 오류 화면이 없다고 연락했습니다. 디자인 파일에는 기본 화면만 있고 내일 테스트가 시작됩니다.",
+        "facts": [
+          "기본 가입 화면은 전달했다.",
+          "오류 화면은 아직 그리지 않았다.",
+          "내일 오전에 개발 테스트를 시작한다."
+        ],
+        "constraints": [
+          "오늘 오후에 화면 하나를 추가할 시간이 있다.",
+          "실제 오류 종류는 개발자에게 확인해야 한다."
+        ],
+        "learnerAuthority": "디자인 파일에 상태 하나를 추가할 수 있지만 개발 동작을 임의로 정할 수 없다.",
+        "counterpartPosition": "개발자는 테스트를 막는 오류 상태가 먼저 필요하다.",
+        "unresolvedQuestions": [
+          "어떤 오류가 먼저 필요한가?",
+          "오류를 화면 전체에 보여야 하는가, 입력 옆에 보여야 하는가?",
+          "개발자는 언제 확인할 수 있는가?"
+        ],
+        "deliverable": "먼저 필요한 오류 화면과 검토 담당·시간을 합의한다.",
+        "resolutionCriteria": [
+          "현재 누락된 화면을 확인한다.",
+          "상대가 설명한 오류 상황에 맞는 화면을 제안한다.",
+          "작성자와 확인 시점을 정한다."
+        ],
+        "escalationPath": "필요한 오류 화면이 여러 개라 오늘 끝낼 수 없으면 제품 담당자에게 우선순위를 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "A2",
+      "slug": "designer-blurry-export",
+      "title": "고객에게 보낸 이미지가 흐릴 때 파일 용도 확인하기",
+      "scenario": "고객이 행사 이미지가 흐리다고 합니다. 작은 미리보기 파일을 보냈지만 실제로 어디에 사용할지는 확인하지 않았습니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "행사 고객. 질문하면 웹페이지 배너에 쓰며 사이트에서 요구하는 너비는 1600픽셀이라고 알려 준다. 오늘 3시까지 받아 직접 화면에서 확인할 수 있다. 인쇄에도 쓸 수 있냐고 추가 질문하면 아직 인쇄 사양은 모른다고 한다.",
+      "opening": "The image looks blurry on our page. Can you send a better one?",
+      "steps": [
+        {
+          "goal": "사용 장소 확인하기",
+          "example": "Is this for a website or for print?",
+          "cue": "for print = 인쇄용"
+        },
+        {
+          "goal": "필요한 크기 묻기",
+          "example": "What size does the website need?",
+          "cue": "what size = 어떤 크기"
+        },
+        {
+          "goal": "새 파일 전달 제안하기",
+          "example": "I can send a larger file by three.",
+          "cue": "larger file = 더 큰 파일"
+        },
+        {
+          "goal": "실제 화면 확인 요청하기",
+          "example": "Could you check the new image on the page and tell me if it is clear?",
+          "cue": "clear = 선명한"
+        }
+      ],
+      "outcome": "사용 용도와 크기를 확인하고 새 파일 전달·확인 시간을 정한다.",
+      "transfer": "고객이 웹이 아닌 포스터 인쇄라고 답한다. 같은 크기를 재사용하지 말고 인쇄 담당자의 요구 사양을 받기로 정한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "고객이 행사 이미지가 흐리다고 합니다. 작은 미리보기 파일을 보냈지만 실제로 어디에 사용할지는 확인하지 않았습니다.",
+        "facts": [
+          "보낸 파일은 400픽셀 너비의 미리보기다.",
+          "큰 원본 이미지는 디자인 파일에 있다.",
+          "고객은 오늘 오후까지 새 파일을 원한다."
+        ],
+        "constraints": [
+          "고객이 필요한 크기와 사용 장소를 먼저 알려 줘야 한다.",
+          "원본을 다시 만들 시간은 없다."
+        ],
+        "learnerAuthority": "기존 원본에서 새 파일을 내보낼 수 있으며 인쇄 품질을 확인 없이 보증할 수는 없다.",
+        "counterpartPosition": "고객은 빨리 선명한 파일을 받고 싶어 한다.",
+        "unresolvedQuestions": [
+          "화면용인가 인쇄용인가?",
+          "필요한 이미지 너비는 얼마인가?",
+          "새 파일을 누가 열어 확인하는가?"
+        ],
+        "deliverable": "사용 용도와 크기를 확인하고 새 파일 전달·확인 시간을 정한다.",
+        "resolutionCriteria": [
+          "흐림 문제를 인정한다.",
+          "용도와 필요한 크기를 질문한다.",
+          "새 파일 전달과 고객 확인을 정한다."
+        ],
+        "escalationPath": "고객이 인쇄용 사양을 모르면 인쇄 담당자에게 요구 크기를 확인하도록 연결한다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "A2",
+      "slug": "designer-missing-button-copy",
+      "title": "버튼 문구가 비어 있어 테스트를 못 하는 상황 해결하기",
+      "scenario": "내일 프로토타입 테스트인데 마지막 화면의 버튼 문구가 비어 있습니다. 버튼을 누르면 무엇이 일어나는지 제품 담당자에게 확인해야 합니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "제품 담당자. 질문하면 버튼은 요청을 팀에 보내며 보낸 뒤에는 이 화면에서 수정할 수 없다고 설명한다. Continue를 제안하지만 더 명확한 문구도 가능하다. 오늘 4시에 확인한다.",
+      "opening": "Can we just put Continue on this button?",
+      "steps": [
+        {
+          "goal": "버튼의 동작 묻기",
+          "example": "What happens when people press it?",
+          "cue": "what happens = 무슨 일이 일어나다"
+        },
+        {
+          "goal": "수정 가능 여부 확인하기",
+          "example": "Can they change the request after that?",
+          "cue": "after that = 그 뒤에"
+        },
+        {
+          "goal": "확인한 동작에 맞는 문구 제안하기",
+          "example": "Could we use Send request instead?",
+          "cue": "instead = 대신"
+        },
+        {
+          "goal": "검토와 반영 정하기",
+          "example": "Please check it at four. I'll use the agreed words in tomorrow's test.",
+          "cue": "agreed words = 합의한 문구"
+        }
+      ],
+      "outcome": "버튼 동작과 맞는 임시 문구를 정하고 확인 담당자를 남긴다.",
+      "transfer": "버튼이 발송이 아니라 초안 저장이라고 밝혀진다. Send를 유지하지 말고 저장 의미가 분명한 문구를 다시 제안한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "내일 프로토타입 테스트인데 마지막 화면의 버튼 문구가 비어 있습니다. 버튼을 누르면 무엇이 일어나는지 제품 담당자에게 확인해야 합니다.",
+        "facts": [
+          "마지막 화면에는 입력 내용 요약이 있다.",
+          "버튼 문구가 비어 있다.",
+          "내일 세 명과 가상 사용성 테스트를 진행한다."
+        ],
+        "constraints": [
+          "오늘 오후까지만 문구를 수정할 수 있다.",
+          "버튼의 실제 동작은 제품 담당자가 정한다."
+        ],
+        "learnerAuthority": "동작을 확인한 뒤 쉬운 버튼 문구를 제안하고 테스트 파일에 반영할 수 있다.",
+        "counterpartPosition": "제품 담당자는 짧은 문구를 빨리 정하고 싶어 한다.",
+        "unresolvedQuestions": [
+          "버튼은 저장인가 발송인가?",
+          "누른 뒤 수정할 수 있는가?",
+          "누가 오늘 문구를 확인하는가?"
+        ],
+        "deliverable": "버튼 동작과 맞는 임시 문구를 정하고 확인 담당자를 남긴다.",
+        "resolutionCriteria": [
+          "동작을 추정하지 않고 질문한다.",
+          "확인한 동작에 맞는 짧은 문구를 제안한다.",
+          "오늘 확인과 내일 테스트 반영을 합의한다."
+        ],
+        "escalationPath": "제품 담당자도 동작을 확정하지 못하면 개발 담당자와 확인하기 전 테스트를 확정 동작처럼 설명하지 않는다."
+      }
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "A2",
+      "slug": "designer-wrong-file-access",
+      "title": "수정 권한 없는 디자인 파일로 첫 작업이 막혔을 때 요청하기",
+      "scenario": "새 디자이너로 첫 업무를 받았지만 링크는 보기 전용입니다. 복사본을 만들면 다른 사람이 수정한 내용과 달라질 수 있습니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "안내 동료. 질문하면 Home-v3가 최신이며 Home-v2는 보관용이라고 답한다. 직접 권한을 줄 수 없고 소유자 Ana에게 연락할 수 있다. Ana는 오후 2시에 확인 가능하다.",
+      "opening": "Could you change the title before the end of today?",
+      "steps": [
+        {
+          "goal": "접근 문제 말하기",
+          "example": "I can open the file, but I can't edit it.",
+          "cue": "edit = 수정하다"
+        },
+        {
+          "goal": "최신 파일 확인하기",
+          "example": "Is Home-v3 the current file?",
+          "cue": "current file = 현재 사용하는 파일"
+        },
+        {
+          "goal": "필요한 권한 요청하기",
+          "example": "Could Ana give me edit access to this file?",
+          "cue": "edit access = 편집 권한"
+        },
+        {
+          "goal": "확인 후 작업 시간 정하기",
+          "example": "I'll check access after two and send the change by four if it works.",
+          "cue": "if it works = 가능해지면"
+        }
+      ],
+      "outcome": "정확한 작업 파일과 필요한 편집 권한을 확인하고 첫 수정 전달 시간을 정한다.",
+      "transfer": "편집 권한이 오늘 제공되지 않는다. 접근 가능 시간을 확인하고 제목 제안만 댓글로 전달할 수 있는지 합의한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "새 디자이너로 첫 업무를 받았지만 링크는 보기 전용입니다. 복사본을 만들면 다른 사람이 수정한 내용과 달라질 수 있습니다.",
+        "facts": [
+          "공유받은 파일은 열리지만 수정할 수 없다.",
+          "요청받은 일은 홈 화면 제목 수정이다.",
+          "팀에 비슷한 이름의 파일이 두 개 있다."
+        ],
+        "constraints": [
+          "실제 계정 비밀번호를 공유하지 않는다.",
+          "최신 파일과 허용 권한을 팀 담당자에게 확인해야 한다."
+        ],
+        "learnerAuthority": "업무에 필요한 파일 접근을 요청할 수 있지만 팀 전체 관리자 권한은 요청하지 않는다.",
+        "counterpartPosition": "안내 동료는 첫 작업을 오늘 끝내길 원한다.",
+        "unresolvedQuestions": [
+          "어느 파일이 최신 작업용인가?",
+          "편집 권한을 누가 줄 수 있는가?",
+          "언제 다시 확인할 것인가?"
+        ],
+        "deliverable": "정확한 작업 파일과 필요한 편집 권한을 확인하고 첫 수정 전달 시간을 정한다.",
+        "resolutionCriteria": [
+          "보기만 가능하다는 문제를 설명한다.",
+          "최신 파일을 확인한다.",
+          "권한 담당자와 확인 시점을 합의한다."
+        ],
+        "escalationPath": "안내 동료가 권한을 줄 수 없으면 파일 소유자에게 요청하고 답을 기다리는 동안 임의 복제본에 확정 수정하지 않는다."
+      }
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B1",
+      "slug": "designer-color-only-status",
+      "title": "색만으로 구분한 상태 표시를 수정하도록 협의하기",
+      "scenario": "오늘은 화요일입니다. 신청 목록은 초록과 빨강 점만으로 승인과 거절을 구분합니다. 테스트 참가자가 상태를 구별하지 못했지만 개발자는 화면을 크게 바꾸기 어렵다고 합니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "개발자. 질문하면 상태값 Approved와 Declined가 있고 점 옆에 짧은 문구를 넣는 것은 반나절 작업이라고 답한다. 내일 정오까지 구현 가능하다. 아이콘만 바꾸자는 제안에는 참가자가 의미를 모를 수 있음을 확인해야 한다고 말한다. 수정 후보는 수요일 정오까지 가능하고, 리서치 운영자가 같은 상태 구별 과업을 목요일 오전에 다시 진행할 수 있다.",
+      "opening": "We cannot add another column before release. Can the colours stay?",
+      "steps": [
+        {
+          "goal": "문제와 관찰 범위 설명하기",
+          "example": "One participant could not tell whether the request was approved or declined.",
+          "cue": "could not tell = 구별하지 못했다"
+        },
+        {
+          "goal": "구현 가능한 단서 확인하기",
+          "example": "Can we show the status name beside the dot without adding a column?",
+          "cue": "beside the dot = 점 옆에"
+        },
+        {
+          "goal": "수정과 검토 제안하기",
+          "example": "Let's try a short label and check that it fits at the smallest screen size.",
+          "cue": "short label = 짧은 표시 문구"
+        },
+        {
+          "goal": "담당과 확인 시점 정하기",
+          "example": "If you can build it by noon tomorrow, I'll check the layout and arrange another task test for Thursday morning.",
+          "cue": "by noon tomorrow / Thursday morning = 내일 정오까지 / 목요일 오전"
+        }
+      ],
+      "outcome": "색 외의 상태 단서를 추가할 방법과 구현·확인 일정을 합의한다.",
+      "transfer": "상태명이 길어 줄이 잘린다. 의미를 잃는 축약을 정답으로 고정하지 말고 다른 표시 방식과 추가 검토를 협의한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "오늘은 화요일입니다. 신청 목록은 초록과 빨강 점만으로 승인과 거절을 구분합니다. 테스트 참가자가 상태를 구별하지 못했지만 개발자는 화면을 크게 바꾸기 어렵다고 합니다.",
+        "facts": [
+          "가상 테스트 참가자 한 명이 두 상태를 혼동했다.",
+          "현재 목록에는 상태 문구가 없다.",
+          "색상 자체를 전면 교체할 계획은 없다.",
+          "현재 화요일이며 수요일 정오 구현 확인, 목요일 오전 재관찰이 가능하다."
+        ],
+        "constraints": [
+          "이번 수정에는 열 너비를 늘릴 수 없다.",
+          "상태를 구별할 수 있는지는 수정 후 다시 확인해야 한다."
+        ],
+        "learnerAuthority": "문구와 표시 대안을 제안할 수 있으며 접근성 전체 충족을 판정할 권한은 없다.",
+        "counterpartPosition": "개발자는 일정과 기존 목록 레이아웃을 지키려 한다.",
+        "unresolvedQuestions": [
+          "현재 상태값의 이름을 화면에 쓸 수 있는가?",
+          "짧은 문구가 들어갈 공간이 있는가?",
+          "누가 수정 후 구별 가능성을 확인하는가?"
+        ],
+        "deliverable": "색 외의 상태 단서를 추가할 방법과 구현·확인 일정을 합의한다.",
+        "resolutionCriteria": [
+          "관찰된 혼동을 한 참가자의 사실로 전달한다.",
+          "레이아웃 제약을 확인하고 대안을 제안한다.",
+          "구현과 사용자 확인 담당·시점을 정한다."
+        ],
+        "escalationPath": "공간이나 구현 제약 때문에 상태 의미를 전달할 수 없으면 제품 담당자에게 범위·일정 조정을 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B1",
+      "slug": "designer-delete-dialog-confusion",
+      "title": "삭제 확인창에서 사용자가 잘못 누르는 문제 설명하기",
+      "scenario": "가상 테스트 두 번에서 사용자가 Cancel 버튼을 작업 취소가 아닌 파일 삭제로 이해했습니다. 디자이너와 제품 담당자가 확인창을 고쳐야 합니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "제품 담당자. 질문하면 삭제 후 복구는 현재 불가능하다고 알려 준다. Delete project와 Keep project 문구 사용은 가능하며 오늘 5시에 두 문구안을 검토할 수 있다. 본인은 OK만 Delete로 바꾸면 충분하다고 생각한다.",
+      "opening": "Can we just replace OK with Delete and move on?",
+      "steps": [
+        {
+          "goal": "남은 혼동 설명하기",
+          "example": "The title and the other button still use Cancel, so people may not know which action keeps their work.",
+          "cue": "keeps their work = 작업물을 보존하다"
+        },
+        {
+          "goal": "동작 결과 확인하기",
+          "example": "Can a deleted project be recovered, or is it permanent?",
+          "cue": "recovered = 복구된"
+        },
+        {
+          "goal": "비교할 대안 제안하기",
+          "example": "I'll prepare one version with clear action labels and one with an extra sentence about the result.",
+          "cue": "action labels = 행동을 나타내는 버튼 문구"
+        },
+        {
+          "goal": "검토와 테스트 정하기",
+          "example": "Let's review both at five and test which one people understand before we choose.",
+          "cue": "before we choose = 선택하기 전에"
+        }
+      ],
+      "outcome": "버튼 동작을 분명히 드러내는 두 문구안과 재확인 일정을 정한다.",
+      "transfer": "개발자가 복구 기능이 이미 있다고 알려 준다. 영구 삭제라는 문구를 쓰지 말고 실제 복구 조건을 확인한 뒤 두 대안을 수정한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "가상 테스트 두 번에서 사용자가 Cancel 버튼을 작업 취소가 아닌 파일 삭제로 이해했습니다. 디자이너와 제품 담당자가 확인창을 고쳐야 합니다.",
+        "facts": [
+          "창 제목은 Cancel project?다.",
+          "버튼은 Cancel과 OK다.",
+          "확인하면 프로젝트가 목록에서 제거된다."
+        ],
+        "constraints": [
+          "삭제 복구 기능은 이번 주에 추가할 수 없다.",
+          "사용자 테스트는 문구 두 가지를 비교할 시간이 있다."
+        ],
+        "learnerAuthority": "확인창의 문구와 배치를 제안할 수 있지만 복구 동작을 있다고 안내할 수 없다.",
+        "counterpartPosition": "제품 담당자는 문구만 조금 바꾸고 일정을 유지하려 한다.",
+        "unresolvedQuestions": [
+          "목록에서 제거된 뒤 되돌릴 수 있는가?",
+          "기존 용어를 바꿔도 되는가?",
+          "누가 두 문구안을 확인할 것인가?"
+        ],
+        "deliverable": "버튼 동작을 분명히 드러내는 두 문구안과 재확인 일정을 정한다.",
+        "resolutionCriteria": [
+          "관찰된 행동과 해석을 구분한다.",
+          "실제 삭제 결과를 확인한다.",
+          "검토할 대안과 담당·기한을 정한다."
+        ],
+        "escalationPath": "되돌릴 수 없는 동작의 결과를 팀도 모르면 개발 담당자에게 확인하고 확정 안내를 보류한다."
+      }
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B1",
+      "slug": "designer-long-translation-layout",
+      "title": "번역 문구가 버튼 밖으로 넘치는 문제 조율하기",
+      "scenario": "영어 화면은 맞지만 독일어 번역이 버튼 밖으로 넘칩니다. 번역을 임의로 줄이지 않고 레이아웃과 의미를 함께 확인해야 합니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "개발자. 질문하면 높이를 두 줄로 늘리는 것은 가능하지만 옆 버튼과 높이를 맞춰야 한다고 답한다. 금요일 오전까지 구현 가능하다. 번역 담당자는 목요일 오후에 문구를 확인할 수 있다.",
+      "opening": "Could you just make the German text shorter?",
+      "steps": [
+        {
+          "goal": "의미 변경 위험 설명하기",
+          "example": "I can see the overflow, but I can't shorten the translation without checking its meaning.",
+          "cue": "overflow = 영역 밖 넘침"
+        },
+        {
+          "goal": "구현 가능한 대안 묻기",
+          "example": "Could both buttons use two lines and the same height?",
+          "cue": "same height = 같은 높이"
+        },
+        {
+          "goal": "검토 역할 나누기",
+          "example": "I'll check the layout, and the translator should review any wording change.",
+          "cue": "wording change = 문구 변경"
+        },
+        {
+          "goal": "일정과 확인 화면 합의하기",
+          "example": "Let's get the language review on Thursday and check the mobile build on Friday morning.",
+          "cue": "mobile build = 모바일 구현 화면"
+        }
+      ],
+      "outcome": "의미를 임의로 줄이지 않는 레이아웃 수정과 언어 검토 담당·시간을 정한다.",
+      "transfer": "이번에는 오른쪽에서 왼쪽으로 읽는 언어에서 순서가 어색하다. 단순 글자 수 문제로 취급하지 말고 언어 검토와 화면 순서 확인을 요청한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "영어 화면은 맞지만 독일어 번역이 버튼 밖으로 넘칩니다. 번역을 임의로 줄이지 않고 레이아웃과 의미를 함께 확인해야 합니다.",
+        "facts": [
+          "현재 버튼 너비는 고정되어 있다.",
+          "영어 Continue는 맞지만 번역 문구가 넘친다.",
+          "모바일 화면에서도 같은 문제가 있다."
+        ],
+        "constraints": [
+          "디자이너는 해당 언어의 전문 번역자가 아니다.",
+          "이번 주에는 전체 화면 재설계가 어렵다."
+        ],
+        "learnerAuthority": "버튼 크기와 줄바꿈 대안을 제안할 수 있지만 번역 의미를 승인할 수 없다.",
+        "counterpartPosition": "개발자는 짧은 번역으로 바꾸는 것이 빠르다고 본다.",
+        "unresolvedQuestions": [
+          "버튼이 두 줄이 되어도 동작하는가?",
+          "내용에 따라 너비를 바꿀 수 있는가?",
+          "번역 문구는 누가 검토하는가?"
+        ],
+        "deliverable": "의미를 임의로 줄이지 않는 레이아웃 수정과 언어 검토 담당·시간을 정한다.",
+        "resolutionCriteria": [
+          "영향받는 언어와 화면을 특정한다.",
+          "구현 제약을 질문한다.",
+          "레이아웃·번역 확인을 별도 담당자에게 배정한다."
+        ],
+        "escalationPath": "안전한 줄바꿈이나 크기 조정이 불가능하면 제품 담당자와 번역 담당자에게 수정 범위와 출시 조건을 확인한다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B1",
+      "slug": "designer-participant-no-show",
+      "title": "참가자 결석으로 사용성 검증 범위가 줄었을 때 보고하기",
+      "scenario": "사용성 테스트에 예정된 5명 중 2명만 왔습니다. 내일 보고해야 하지만 현재 결과로 전체 사용자의 의견을 말할 수는 없습니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "제품 담당자. 내일은 메뉴 전체 출시가 아니라 다음 시안을 고르는 회의라고 답한다. 운영 담당자 Jo가 오늘 4시까지 결석자 연락 결과를 줄 수 있다. 결석한 세 명 중 한 명이 목요일 참여 가능하다는 사실은 질문하면 알려 준다.",
+      "opening": "We still need a conclusion tomorrow. Did users like the new menu?",
+      "steps": [
+        {
+          "goal": "실행한 검증 범위 말하기",
+          "example": "We completed two sessions, not five, and both people struggled with the same menu item.",
+          "cue": "completed sessions = 완료한 세션"
+        },
+        {
+          "goal": "필요한 결정 확인하기",
+          "example": "Are we choosing the next design or approving a full release?",
+          "cue": "approving a release = 출시를 승인하다"
+        },
+        {
+          "goal": "현재 근거에 맞는 사용 제안하기",
+          "example": "We can use this to improve the next design, but we should not describe it as feedback from all users.",
+          "cue": "describe as = ~라고 설명하다"
+        },
+        {
+          "goal": "후속 담당과 시점 정하기",
+          "example": "I'll report the limits tomorrow. Can Jo confirm the extra session plan by four today?",
+          "cue": "confirm the plan = 계획을 확인하다"
+        }
+      ],
+      "outcome": "확인된 관찰과 남은 질문을 구분한 보고 범위 및 추가 세션 계획을 정한다.",
+      "transfer": "두 참가자의 행동이 서로 달랐다. 억지로 공통 결론을 만들지 말고 다른 조건과 추가 확인 질문을 보고한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "사용성 테스트에 예정된 5명 중 2명만 왔습니다. 내일 보고해야 하지만 현재 결과로 전체 사용자의 의견을 말할 수는 없습니다.",
+        "facts": [
+          "예정된 참가자는 5명이다.",
+          "실제 세션은 2명과 완료했다.",
+          "두 사람 모두 같은 메뉴에서 헤맸다."
+        ],
+        "constraints": [
+          "내일 보고 일정은 유지한다.",
+          "이번 주 추가 세션 가능 여부는 운영 담당자가 확인해야 한다."
+        ],
+        "learnerAuthority": "관찰된 결과와 한계를 보고하고 추가 세션을 제안할 수 있으며 대표성 있는 결론을 보장할 수 없다.",
+        "counterpartPosition": "제품 담당자는 내일 의사결정에 쓸 짧은 결론을 원한다.",
+        "unresolvedQuestions": [
+          "결석자 중 다시 참여할 수 있는 사람이 있는가?",
+          "추가 세션을 누가 조율하는가?",
+          "내일 어떤 결정을 반드시 해야 하는가?"
+        ],
+        "deliverable": "확인된 관찰과 남은 질문을 구분한 보고 범위 및 추가 세션 계획을 정한다.",
+        "resolutionCriteria": [
+          "실제 참가자 수를 정확히 전달한다.",
+          "모든 사용자에게 일반화하지 않는다.",
+          "추가 확인 담당과 시간을 합의한다."
+        ],
+        "escalationPath": "추가 모집이 불가능하면 제품 책임자에게 제한된 근거로 결정해야 할 범위와 나중에 재검토할 조건을 기록하도록 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B2",
+      "slug": "designer-brand-versus-readable",
+      "title": "브랜드 색상과 읽기 어려운 가격 표시 조율하기",
+      "scenario": "마케팅은 연한 브랜드 색상의 가격 문구를 유지하려 하지만 가상 테스트에서 일부 참가자가 가격을 놓쳤습니다. 브랜드를 전면 변경하지 않고 정보 전달을 개선해야 합니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "브랜드 담당자. 처음에는 모든 색을 그대로 쓰자고 한다. 질문하면 로고만 고정이고 정보 텍스트는 진한 색을 사용한 전례가 있다고 밝힌다. 금요일에 두 시안을 비교할 수 있으며 브랜드 리드가 최종 확인한다. 리서치 운영자는 금요일 오전 두 명과 가격 찾기 과업을 진행할 수 있고, 브랜드 리드는 오후에 시안의 시각적 조화를 검토할 수 있다.",
+      "opening": "If we darken the text, the page will stop feeling like our campaign.",
+      "steps": [
+        {
+          "goal": "공유 목표와 문제 연결하기",
+          "example": "We want the campaign to feel consistent, but people also need to notice the price before choosing.",
+          "cue": "notice the price = 가격을 알아보다"
+        },
+        {
+          "goal": "필수 규칙의 범위 묻기",
+          "example": "Does the fixed colour apply to the logo only, or to all information text?",
+          "cue": "apply to = 적용되다"
+        },
+        {
+          "goal": "비교 가능한 대안 제안하기",
+          "example": "Could we compare darker price text with a different background behind the price, while keeping the logo unchanged?",
+          "cue": "compare alternatives = 대안을 비교하다"
+        },
+        {
+          "goal": "기준과 다음 검토 합의하기",
+          "example": "I'll prepare both by Thursday. On Friday, let's check whether people can find the price and ask the brand lead to review the visual fit.",
+          "cue": "visual fit = 시각적 조화"
+        }
+      ],
+      "outcome": "브랜드의 필수 요소와 조정 가능한 요소를 나누고 가격 식별 비교 시안·검토 담당·날짜를 정한다.",
+      "transfer": "브랜드팀이 정보 문구 색도 고정해야 한다고 답한다. 전례를 있다고 가정하지 말고 배경·배치 대안과 예외 승인 필요성을 분리한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "마케팅은 연한 브랜드 색상의 가격 문구를 유지하려 하지만 가상 테스트에서 일부 참가자가 가격을 놓쳤습니다. 브랜드를 전면 변경하지 않고 정보 전달을 개선해야 합니다.",
+        "facts": [
+          "가격과 배경이 모두 밝은 색이다.",
+          "가상 참가자 4명 중 2명이 가격이 없다고 말했다.",
+          "브랜드팀은 로고 색상 변경을 허용하지 않았다."
+        ],
+        "constraints": [
+          "로고와 캠페인 사진은 그대로 유지한다.",
+          "오늘 회의에서 다음 비교 시안을 정해야 한다."
+        ],
+        "learnerAuthority": "정보 텍스트의 대안 시안을 제안할 수 있지만 브랜드 규칙 예외를 혼자 승인할 수 없다.",
+        "counterpartPosition": "브랜드 담당자는 화면의 일관된 느낌이 흐려질까 우려한다.",
+        "unresolvedQuestions": [
+          "로고 외 정보 문구에도 같은 색을 반드시 써야 하는가?",
+          "가격 영역의 배경을 바꿀 수 있는가?",
+          "어떤 비교 결과로 결정할 것인가?"
+        ],
+        "deliverable": "브랜드의 필수 요소와 조정 가능한 요소를 나누고 가격 식별 비교 시안·검토 담당·날짜를 정한다.",
+        "resolutionCriteria": [
+          "관찰과 브랜드 우려를 모두 요약한다.",
+          "실제 변경 가능한 영역을 확인한다.",
+          "비교 기준과 결정 책임자를 명시한다."
+        ],
+        "escalationPath": "브랜드 규칙과 핵심 정보 전달이 양립하지 않으면 브랜드 리드와 제품 책임자에게 예외 검토를 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B2",
+      "slug": "designer-handoff-scope-cut",
+      "title": "개발 마감 전에 모든 화면을 요구받을 때 범위 합의하기",
+      "scenario": "개발팀은 금요일까지 12개 상태의 디자인을 원하지만 디자이너는 6개만 검토 완료할 수 있습니다. 빈 상태와 실패 상태를 모두 나중으로 미루자는 제안이 나왔습니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "개발 리드. 질문하면 첫 출시에는 업로드만 열리고 신규 계정은 반드시 빈 목록을 보며 파일 오류도 발생할 수 있다고 답한다. 업로드 관련 5개 상태가 우선이고 나머지는 다음 주 수요일부터 구현한다. 제품 담당자는 오늘 5시에 목록을 확인할 수 있다.",
+      "opening": "Just give us the happy-path screens by Friday. We can invent the empty and error states.",
+      "steps": [
+        {
+          "goal": "미확정 구현의 위험 설명하기",
+          "example": "If we leave those states undefined, the first users may hit a flow that neither team has reviewed.",
+          "cue": "undefined = 정해지지 않은"
+        },
+        {
+          "goal": "실제 노출 범위 묻기",
+          "example": "Which actions will be available to the first group, and which states can those actions trigger?",
+          "cue": "trigger = 발생시키다"
+        },
+        {
+          "goal": "흐름 기준 우선순위 제안하기",
+          "example": "Let us prioritise the complete upload flow rather than six unrelated screens.",
+          "cue": "complete flow = 처음부터 끝까지 갖춘 흐름"
+        },
+        {
+          "goal": "담당·기한·표시 합의하기",
+          "example": "I'll list the five upload states for the product review at five today, deliver them by Friday, and mark the rest as not approved for implementation.",
+          "cue": "not approved = 승인되지 않은"
+        }
+      ],
+      "outcome": "첫 흐름에 필요한 상태를 우선 전달하고 미확정 상태의 담당·기한·사용 제한을 기록한다.",
+      "transfer": "새로운 필수 상태가 추가돼 6개를 넘는다. 검토하지 않은 상태를 숨기지 말고 제품 책임자와 출시 범위를 다시 정한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "개발팀은 금요일까지 12개 상태의 디자인을 원하지만 디자이너는 6개만 검토 완료할 수 있습니다. 빈 상태와 실패 상태를 모두 나중으로 미루자는 제안이 나왔습니다.",
+        "facts": [
+          "전체 요청은 기본·빈 상태·실패 상태를 포함한 12개다.",
+          "금요일까지 검토 완료 가능한 수량은 6개다.",
+          "현재 어떤 상태가 첫 사용자 흐름에 필요한지 합의되지 않았다."
+        ],
+        "constraints": [
+          "검토하지 않은 화면을 확정본으로 표시하지 않는다.",
+          "첫 출시 대상 흐름은 제품 담당자가 정한다."
+        ],
+        "learnerAuthority": "준비 상태와 비용을 설명하고 단계별 전달을 제안할 수 있으며 필수 흐름 제외를 단독 결정할 수 없다.",
+        "counterpartPosition": "개발 리드는 상태를 줄여도 기본 흐름을 먼저 구현하고 싶다.",
+        "unresolvedQuestions": [
+          "첫 사용자에게 열리는 기능은 무엇인가?",
+          "그 흐름에서 빈 상태나 실패 상태가 실제 발생하는가?",
+          "나머지 상태의 구현은 언제 시작하는가?"
+        ],
+        "deliverable": "첫 흐름에 필요한 상태를 우선 전달하고 미확정 상태의 담당·기한·사용 제한을 기록한다.",
+        "resolutionCriteria": [
+          "수량만으로 범위를 자르지 않는다.",
+          "실제 노출되는 경로와 예외 상태를 확인한다.",
+          "전달 목록과 미확정 항목의 후속을 합의한다."
+        ],
+        "escalationPath": "필수 상태가 처리 가능 범위를 넘으면 제품 책임자에게 출시 흐름 축소나 일정 조정을 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "B2",
+      "slug": "designer-expert-sample-bias",
+      "title": "숙련 사용자만 본 결과를 신규 사용자에게 일반화하지 않기",
+      "scenario": "기존 고객 6명 중 5명은 도움 없이 새 기능을 찾았지만 팀은 이를 처음 쓰는 사람도 쉽다는 근거로 발표하려 합니다. 참가자는 모두 주간 사용자였습니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "제품 담당자. 질문하면 발표는 신규 고객 대상으로 출시할지 결정하는 자리라고 답한다. 리서치 운영자가 금요일까지 신규 참가자 3명을 모집할 수 있지만 결과 보고는 월요일 오후이며 발표는 화요일이다.",
+      "opening": "Can the slide say five out of six users found it easily, so it is ready for new customers?",
+      "steps": [
+        {
+          "goal": "관찰과 결론 범위 분리하기",
+          "example": "Five of six regular users found it without help; that does not tell us how first-time users will navigate it.",
+          "cue": "regular users = 정기 사용자"
+        },
+        {
+          "goal": "결정 대상 확인하기",
+          "example": "Is the decision about existing customers or opening this to new sign-ups?",
+          "cue": "new sign-ups = 신규 가입자"
+        },
+        {
+          "goal": "후속 검증 제안하기",
+          "example": "Use the three available sessions for first-time users and keep the task wording comparable.",
+          "cue": "comparable = 비교 가능한"
+        },
+        {
+          "goal": "발표 문구와 일정 합의하기",
+          "example": "I'll revise the claim today. If recruitment is confirmed by Friday, we'll add Monday's findings before Tuesday's decision.",
+          "cue": "revise the claim = 주장 표현을 수정하다"
+        }
+      ],
+      "outcome": "현재 결과의 정확한 표현과 신규 사용자 확인 계획·담당·시점을 합의한다.",
+      "transfer": "발표가 월요일 오전으로 앞당겨진다. 미실행 검증을 완료처럼 쓰지 않고 조건부 결정이나 발표 범위 축소를 제안한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "기존 고객 6명 중 5명은 도움 없이 새 기능을 찾았지만 팀은 이를 처음 쓰는 사람도 쉽다는 근거로 발표하려 합니다. 참가자는 모두 주간 사용자였습니다.",
+        "facts": [
+          "테스트 참가자 6명은 모두 기존 주간 사용자다.",
+          "6명 중 5명이 도움 없이 기능을 찾았다.",
+          "신규 가입자는 아직 참여하지 않았다."
+        ],
+        "constraints": [
+          "다음 주 발표가 예정되어 있다.",
+          "추가 모집 예산으로 세 세션만 할 수 있다."
+        ],
+        "learnerAuthority": "결과의 적용 범위를 설명하고 후속 표본을 제안할 수 있으며 신규 사용자 성공을 확정할 수 없다.",
+        "counterpartPosition": "제품 담당자는 성공 결과를 투자 검토 자료에 간단히 쓰고 싶다.",
+        "unresolvedQuestions": [
+          "발표에서 의사결정할 사용자 범위는 누구인가?",
+          "신규 사용자를 모집할 수 있는가?",
+          "추가 결과가 발표 전에 필요한가?"
+        ],
+        "deliverable": "현재 결과의 정확한 표현과 신규 사용자 확인 계획·담당·시점을 합의한다.",
+        "resolutionCriteria": [
+          "숫자와 참가자 성격을 함께 전달한다.",
+          "근거가 없는 사용자 집단을 구분한다.",
+          "다음 검증을 실제 결정 대상에 맞춘다."
+        ],
+        "escalationPath": "새 표본을 얻지 못하면 의사결정 문서에 미검증 집단과 사후 확인 책임자를 명시하도록 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B2",
+      "slug": "designer-component-exception",
+      "title": "새 화면만 다른 컴포넌트를 쓰자는 요청 조율하기",
+      "scenario": "팀 공통 날짜 선택기는 날짜 하나만 고르는데 새 예약 흐름은 시작일과 종료일이 필요합니다. 다른 팀은 공통 컴포넌트를 무조건 재사용하라고 합니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "디자인 시스템 담당자. 질문하면 기간 선택 컴포넌트는 6주 뒤 후보일 뿐 확정이 아니다. 기존 선택기 두 개를 조합하는 것은 가능하며 순서 오류 안내는 제품팀이 소유해야 한다. 다음 달 첫 월요일에 예외들을 검토한다.",
+      "opening": "We cannot approve another date picker. Please use the standard one.",
+      "steps": [
+        {
+          "goal": "기능 차이를 구체화하기",
+          "example": "The standard control captures one date, while this task requires a start and an end date.",
+          "cue": "captures = 입력받다"
+        },
+        {
+          "goal": "재사용 가능한 범위 묻기",
+          "example": "Could we compose two standard controls, and who would own the validation between them?",
+          "cue": "compose = 조합하다"
+        },
+        {
+          "goal": "한시적 예외 조건 제안하기",
+          "example": "We can document the combined pattern as local, with explicit checks for reversed dates.",
+          "cue": "reversed dates = 앞뒤가 뒤바뀐 날짜"
+        },
+        {
+          "goal": "소유자와 재검토 합의하기",
+          "example": "I'll document the pattern this week, our product team will own its errors, and we'll review it at next month's system meeting.",
+          "cue": "local pattern = 해당 제품의 구성 방식"
+        }
+      ],
+      "outcome": "기간 선택의 한시적 구현과 검토 기준·유지 담당·공통화 재검토 날짜를 정한다.",
+      "transfer": "공통 기간 선택기가 이번 주에 실제 제공된다. 기존 예외를 고집하지 말고 기능·검토 범위와 이전 작업을 비교한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "팀 공통 날짜 선택기는 날짜 하나만 고르는데 새 예약 흐름은 시작일과 종료일이 필요합니다. 다른 팀은 공통 컴포넌트를 무조건 재사용하라고 합니다.",
+        "facts": [
+          "기존 컴포넌트는 날짜 하나를 반환한다.",
+          "예약에는 시작일과 종료일이 모두 필요하다.",
+          "다음 달 두 팀도 기간 선택을 계획 중이다."
+        ],
+        "constraints": [
+          "이번 주에 공통 라이브러리를 큰 폭으로 변경할 수 없다.",
+          "날짜 오류와 입력 순서를 새 흐름에서 검토해야 한다."
+        ],
+        "learnerAuthority": "예외 시안을 제안하고 공통화 후보를 기록할 수 있지만 디자인 시스템에 독단적으로 새 표준을 추가할 수 없다.",
+        "counterpartPosition": "디자인 시스템 담당자는 중복 컴포넌트가 늘어 유지보수가 어려워질까 걱정한다.",
+        "unresolvedQuestions": [
+          "기간 선택 기능의 예정 작업이 있는가?",
+          "기존 선택기 두 개를 조합할 수 있는가?",
+          "한시적 예외의 소유자는 누가 되는가?"
+        ],
+        "deliverable": "기간 선택의 한시적 구현과 검토 기준·유지 담당·공통화 재검토 날짜를 정한다.",
+        "resolutionCriteria": [
+          "재사용 규칙과 과업 요구의 차이를 설명한다.",
+          "기존 구성의 활용 가능성을 확인한다.",
+          "예외의 종료·재검토 조건을 명시한다."
+        ],
+        "escalationPath": "조합 방식으로 날짜 오류를 다룰 수 없으면 디자인 시스템 리드와 제품 책임자에게 일정·공통 기능 작업을 조율하도록 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C1",
+      "slug": "designer-keyboard-blocker-signoff",
+      "title": "출시 전 키보드로 닿지 않는 버튼의 처리 권한 확인하기",
+      "scenario": "출시 검토에서 키보드만으로는 결제 요약의 계속 버튼에 갈 수 없다는 문제가 재현됐습니다. 매니저는 대부분 마우스를 쓴다며 디자인 승인만 먼저 요청합니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "제품 매니저. 개발자 Lee가 오늘 원인을 볼 수 있고 목요일 정오에 수정 후보를 공유할 수 있다고 답한다. 다른 결제 경로는 없으며 최종 출시는 제품 디렉터가 결정한다. 문구를 approved with minor issues로 쓰자고 제안한다.",
+      "opening": "Can you sign this off as a minor issue? Most people will use a mouse.",
+      "steps": [
+        {
+          "goal": "영향과 확률 추정 분리하기",
+          "example": "We don't know how many people will encounter it, but we do know that the affected interaction blocks completion.",
+          "cue": "blocks completion = 완료를 막다"
+        },
+        {
+          "goal": "조사 책임과 시점 확인하기",
+          "example": "Who can investigate the focus behaviour, and when can we retest a candidate fix?",
+          "cue": "candidate fix = 수정 후보"
+        },
+        {
+          "goal": "승인 범위를 정확히 제안하기",
+          "example": "I can confirm the reviewed visuals, but the record should keep this flow unresolved rather than label the issue minor.",
+          "cue": "unresolved = 미해결인"
+        },
+        {
+          "goal": "재검토와 상위 판단 경로 정하기",
+          "example": "Let's retest with Lee at noon tomorrow. If completion is still blocked, the release owner needs the evidence and alternatives before deciding.",
+          "cue": "release owner = 출시 판단 책임자"
+        }
+      ],
+      "outcome": "해당 문제를 숨기지 않는 승인 범위와 조사·재검토·출시 판단 책임자를 정한다.",
+      "transfer": "수정 후 키보드 경로는 작동하지만 모바일에서 버튼이 사라진다. 한 문제가 해결됐다고 전체 승인하지 말고 새 영향과 재검토 범위를 기록한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "출시 검토에서 키보드만으로는 결제 요약의 계속 버튼에 갈 수 없다는 문제가 재현됐습니다. 매니저는 대부분 마우스를 쓴다며 디자인 승인만 먼저 요청합니다.",
+        "facts": [
+          "가상 테스트 환경에서 키보드로 계속 버튼에 도달하지 못했다.",
+          "마우스로는 같은 버튼이 작동한다.",
+          "원인이 디자인 순서인지 구현인지 아직 확인하지 않았다."
+        ],
+        "constraints": [
+          "금요일 공개 예정이며 현재는 수요일이다.",
+          "디자이너 한 명의 승인이 모든 접근성 검증을 대체하지 않는다."
+        ],
+        "learnerAuthority": "재현 조건과 미해결 문제를 승인 기록에 남길 수 있으며 제품 출시나 법적 적합성을 단독 결정할 수 없다.",
+        "counterpartPosition": "제품 매니저는 문제를 출시 후 목록으로 옮겨 일정을 유지하고 싶다.",
+        "unresolvedQuestions": [
+          "누가 원인을 조사하고 언제 결과를 주는가?",
+          "영향받는 흐름을 제외하거나 대체 경로를 제공할 수 있는가?",
+          "미해결 상태의 출시 판단 권한은 누구에게 있는가?"
+        ],
+        "deliverable": "해당 문제를 숨기지 않는 승인 범위와 조사·재검토·출시 판단 책임자를 정한다.",
+        "resolutionCriteria": [
+          "재현된 문제와 전체 사용자 비율 추정을 구분한다.",
+          "디자인 확인과 출시 승인을 분리한다.",
+          "확인 담당·기한·미해결 시 판단 경로를 정한다."
+        ],
+        "escalationPath": "목요일 재검토에도 핵심 흐름을 진행할 수 없으면 제품 출시 책임자와 접근성 담당자에게 영향과 대안을 포함한 판단을 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "C1",
+      "slug": "designer-conversion-quality-tradeoff",
+      "title": "전환 증가가 취소 증가와 함께 나타난 실험 설명하기",
+      "scenario": "새 가입 디자인을 사용한 기간에는 완료율이 높았지만 다음 날 취소 문의도 더 많았습니다. 마케팅은 완료율 상승만으로 디자인 성공을 선언하려 합니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "마케팅 리드. 질문하면 A와 B는 각각 다른 요일에 노출돼 배정이 무작위가 아니라고 밝힌다. 지원팀이 금요일까지 문의 이유를 분류할 수 있다. 제품 디렉터가 확대 여부를 월요일 결정한다.",
+      "opening": "Sign-ups rose from 120 to 160. Why are we not calling B the winner?",
+      "steps": [
+        {
+          "goal": "관찰을 균형 있게 설명하기",
+          "example": "B recorded more sign-ups, but cancellation enquiries also rose from six to twenty-four; those are part of the same decision.",
+          "cue": "enquiries = 문의"
+        },
+        {
+          "goal": "비교 조건 확인하기",
+          "example": "Were visitors assigned at random, and do we know what prompted the cancellation enquiries?",
+          "cue": "assigned at random = 무작위로 배정된"
+        },
+        {
+          "goal": "주장 범위 조정하기",
+          "example": "We can report the observed lift without attributing it solely to the design or treating it as evidence of lasting value.",
+          "cue": "attributing solely = 오직 ~때문이라고 돌리다"
+        },
+        {
+          "goal": "후속과 판단 조건 제안하기",
+          "example": "Let's have support classify the enquiries by Friday and give the director both signals on Monday, with the remaining concerns documented before any expansion is approved.",
+          "cue": "before any expansion is approved = 확대가 승인되기 전에"
+        }
+      ],
+      "outcome": "가입과 취소 신호를 함께 반영한 보고 문구, 추가 확인 담당·기한, 확대 판단 조건을 정한다.",
+      "transfer": "무작위 배정이 확인되고 취소 문의의 대부분이 별도 장애 때문으로 분류된다. 우려를 고정하지 말고 수정된 근거로 주장의 확신 수준을 조정한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "새 가입 디자인을 사용한 기간에는 완료율이 높았지만 다음 날 취소 문의도 더 많았습니다. 마케팅은 완료율 상승만으로 디자인 성공을 선언하려 합니다.",
+        "facts": [
+          "가상 실험 A의 방문자 1000명 중 가입 120명, 다음 날 취소 문의 6건이다.",
+          "B의 방문자 1000명 중 가입 160명, 다음 날 취소 문의 24건이다.",
+          "장기 유지 여부와 문의 사유는 아직 분류하지 않았다."
+        ],
+        "constraints": [
+          "단기 관찰이며 무작위 배정 여부도 확인해야 한다.",
+          "이번 회의에서 추가 노출 여부를 검토한다."
+        ],
+        "learnerAuthority": "지표의 차이와 누락된 확인을 설명할 수 있으며 디자인이 취소를 유발했다고 확정할 수 없다.",
+        "counterpartPosition": "마케팅 리드는 빠른 성과를 보고하고 B를 전체에 적용하고 싶다.",
+        "unresolvedQuestions": [
+          "두 집단은 어떻게 배정했는가?",
+          "문의 내용에 결제 조건 오해가 있는가?",
+          "추가 노출의 결정 기준을 누가 정하는가?"
+        ],
+        "deliverable": "가입과 취소 신호를 함께 반영한 보고 문구, 추가 확인 담당·기한, 확대 판단 조건을 정한다.",
+        "resolutionCriteria": [
+          "완료 증가만을 전체 성공으로 표현하지 않는다.",
+          "인과와 상관의 범위를 구분한다.",
+          "결정에 필요한 추가 자료와 소유자를 지정한다."
+        ],
+        "escalationPath": "문의 분석에서 중대한 조건 오해가 발견되면 제품 책임자와 고객지원 리드에게 확대 중단 여부 검토를 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "C1",
+      "slug": "designer-scope-hidden-in-polish",
+      "title": "고객의 작은 수정 요청에 새 흐름이 포함됐을 때 협의하기",
+      "scenario": "오늘은 화요일입니다. 고객은 마무리 다듬기라며 관리자 승인 단계와 이메일 알림 설정을 추가해 달라고 합니다. 원래 합의는 개인 예약 화면 세 개의 시각 수정입니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "고객 담당자. 질문하면 이번 주 데모에는 관리자가 승인할 수 있다는 개념만 필요하며 실제 이메일 설정은 다음 달에 필요하다고 답한다. 담당 임원이 범위 변경을 승인하며 수요일 3시 회의가 가능하다.",
+      "opening": "This is just a little polish. Surely the approval step can fit into Thursday?",
+      "steps": [
+        {
+          "goal": "표현보다 실제 변화 설명하기",
+          "example": "The request introduces a second role and new decision states, rather than only changing the appearance of the existing screens.",
+          "cue": "decision states = 판단 결과 상태"
+        },
+        {
+          "goal": "이번 전달의 필수 결과 묻기",
+          "example": "For Thursday, do you need a demonstrable approval concept or a fully specified workflow, including rejection and notifications?",
+          "cue": "demonstrable concept = 시연 가능한 개념"
+        },
+        {
+          "goal": "선택지와 한계 제안하기",
+          "example": "We could separate a clearly labelled concept from the production specification, provided the team does not treat the concept as build-ready.",
+          "cue": "build-ready = 구현 준비가 된"
+        },
+        {
+          "goal": "승인 경로와 후속 정하기",
+          "example": "I'll outline those options today, and our project manager can review scope and timing with your sponsor at three tomorrow.",
+          "cue": "sponsor = 범위 승인 담당자"
+        }
+      ],
+      "outcome": "기존 수정과 신규 기능을 구분하고 우선안·미확정 사항·변경 검토 담당과 시간을 기록한다.",
+      "transfer": "고객이 실제 운영 가능한 승인 흐름이 목요일 필수라고 답한다. 개념안을 완성품처럼 제안하지 말고 프로젝트 매니저와 범위·일정 충돌을 명확히 다룬다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "오늘은 화요일입니다. 고객은 마무리 다듬기라며 관리자 승인 단계와 이메일 알림 설정을 추가해 달라고 합니다. 원래 합의는 개인 예약 화면 세 개의 시각 수정입니다.",
+        "facts": [
+          "기존 합의 범위는 개인 예약 화면 세 개의 시각 수정이다.",
+          "새 요청에는 관리자 역할과 승인 결과 알림이 포함된다.",
+          "목요일 전달 일정이 잡혀 있다.",
+          "오늘은 화요일이며 범위 승인 담당자와 수요일 회의가 가능하다."
+        ],
+        "constraints": [
+          "디자이너는 변경 계약이나 추가 예산을 확약할 권한이 없다.",
+          "새 역할의 오류·거절 흐름도 아직 정의되지 않았다."
+        ],
+        "learnerAuthority": "범위 차이와 필요한 확인을 설명하고 변경안을 정리할 수 있으며 상업 조건 승인은 프로젝트 매니저가 한다.",
+        "counterpartPosition": "고객은 기존 버튼을 조금 추가하는 수준이라 원래 일정에 포함된다고 본다.",
+        "unresolvedQuestions": [
+          "현재 일정에 반드시 필요한 사용자 결과는 무엇인가?",
+          "승인 거절 시 어떤 결과가 필요한가?",
+          "추가 범위의 예산과 일정을 누가 승인하는가?"
+        ],
+        "deliverable": "기존 수정과 신규 기능을 구분하고 우선안·미확정 사항·변경 검토 담당과 시간을 기록한다.",
+        "resolutionCriteria": [
+          "작다거나 크다는 감정적 평가 대신 역할·상태 변화를 설명한다.",
+          "고객의 필수 결과를 확인한다.",
+          "일정·비용을 임의 확약하지 않고 검토 경로를 제안한다."
+        ],
+        "escalationPath": "필수 일정과 신규 범위가 양립하지 않으면 프로젝트 매니저에게 축소·분리 전달·일정 변경 대안을 올린다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C1",
+      "slug": "designer-research-disagreement",
+      "title": "사용자 칭찬과 실제 과업 실패가 엇갈릴 때 해석 조율하기",
+      "scenario": "오늘은 수요일입니다. 테스트 참가자는 화면이 좋다고 말했지만 과업을 완료하지 못했습니다. 한 팀은 긍정 의견, 다른 팀은 실패 행동만으로 결론내리려 합니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "제품 담당자와 디자인 리드 두 입장을 대변하는 진행자. 질문하면 실패한 3명은 모두 Edit address 링크를 찾지 못했고 찾은 뒤에는 저장까지 완료했다고 답한다. 분석 담당 Ana가 오늘 클립을 표시할 수 있고 금요일 후속 테스트가 가능하다. 진행자가 Edit address 링크의 위치를 알려 준 뒤 세 사람이 저장을 마쳤으므로 그 이후 성공은 도움받은 수행이다.",
+      "opening": "Users said it looked great, but they failed the task. Which result should we believe?",
+      "steps": [
+        {
+          "goal": "서로 다른 질문으로 재구성하기",
+          "example": "Both may be accurate: the comments concern visual impression, while the task shows whether people can complete a specific action unaided.",
+          "cue": "unaided = 도움 없이"
+        },
+        {
+          "goal": "실패의 위치와 지원 확인하기",
+          "example": "Where did the three participants stop, and what assistance allowed them to continue?",
+          "cue": "assistance = 도움"
+        },
+        {
+          "goal": "비례적인 수정 제안하기",
+          "example": "If the difficulty is finding the link, we should test its visibility before assuming the entire flow needs replacing.",
+          "cue": "proportionate change = 문제 범위에 맞는 변경"
+        },
+        {
+          "goal": "관찰·수정·재확인 담당 정하기",
+          "example": "Ana can mark the relevant clips today; I'll propose a focused change tomorrow, and we'll compare unaided completion on Friday.",
+          "cue": "focused change = 범위를 좁힌 변경"
+        }
+      ],
+      "outcome": "외관 평가와 독립 과업 완료를 분리한 결론 및 후속 관찰 담당·일정을 정한다.",
+      "transfer": "후속 검토에서 링크를 찾은 뒤 저장 단계에도 실패가 있었다고 밝혀진다. 단일 문제 가설을 수정하고 도움 전후의 행동을 다시 분리한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "오늘은 수요일입니다. 테스트 참가자는 화면이 좋다고 말했지만 과업을 완료하지 못했습니다. 한 팀은 긍정 의견, 다른 팀은 실패 행동만으로 결론내리려 합니다.",
+        "facts": [
+          "가상 참가자 5명 중 4명이 화면이 깔끔하다고 말했다.",
+          "같은 5명 중 3명은 도움 없이는 주소 변경을 마치지 못했다.",
+          "질문은 마지막에 전체 느낌을 묻는 방식이었다.",
+          "현재 수요일이며 수정안은 목요일에 준비하고 금요일에 다시 관찰할 수 있다."
+        ],
+        "constraints": [
+          "발언과 행동은 서로 다른 질문의 근거일 수 있다.",
+          "이번 주에는 화면 전체 재설계보다 막힌 지점을 확인할 시간이 있다."
+        ],
+        "learnerAuthority": "서로 다른 자료의 적용 범위를 설명하고 후속 과업을 제안할 수 있으며 참가자의 숨은 감정을 추정할 수 없다.",
+        "counterpartPosition": "제품 담당자는 칭찬을 만족도의 근거로 보고 디자인 리드는 실패를 전면 재설계의 근거로 본다.",
+        "unresolvedQuestions": [
+          "참가자가 어느 단계에서 막혔는가?",
+          "도움은 정확히 언제 주어졌는가?",
+          "이번 결정은 외관 수정인가 과업 흐름 수정인가?"
+        ],
+        "deliverable": "외관 평가와 독립 과업 완료를 분리한 결론 및 후속 관찰 담당·일정을 정한다.",
+        "resolutionCriteria": [
+          "칭찬을 거짓말이라고 단정하지 않는다.",
+          "서로 다른 측정 대상과 지원 조건을 구분한다.",
+          "후속 변경의 범위와 판단 기준을 합의한다."
+        ],
+        "escalationPath": "녹화나 관찰 기록이 부족하면 리서치 리드에게 재관찰 필요성과 현재 결론의 한계를 기록한다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C2",
+      "slug": "designer-cancellation-friction",
+      "title": "해지 실수를 막는다는 명분과 해지 방해를 구분하기",
+      "scenario": "비즈니스 회의에서 해지 버튼을 숨기고 세 번 확인하게 하자는 요청이 나왔습니다. 요청자는 실수 방지라고 설명하지만 성공 지표는 해지 완료 수 감소뿐입니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "성장 담당자. 질문하면 실수 해지 문의를 아직 분류하지 않았고 지원팀이 수요일까지 확인할 수 있다고 답한다. 버튼을 숨기지 않고 해지 결과를 설명하는 안에는 관심이 있다. 금요일 제품 책임자가 목표와 지표를 검토할 수 있다.",
+      "opening": "We are protecting people from cancelling by mistake. Fewer completed cancellations will prove the design works.",
+      "steps": [
+        {
+          "goal": "목적과 지표의 논리 차이 짚기",
+          "example": "Fewer completions would not distinguish prevented mistakes from intended cancellations that became harder to finish.",
+          "cue": "distinguish = 구분하다"
+        },
+        {
+          "goal": "주장을 검증할 자료 묻기",
+          "example": "What evidence identifies accidental cancellations, and could support separate those from deliberate requests?",
+          "cue": "deliberate requests = 의도적인 요청"
+        },
+        {
+          "goal": "대안과 균형 지표 제안하기",
+          "example": "We could clarify the consequences without hiding the action, then check both understanding and whether people can carry out their stated choice.",
+          "cue": "stated choice = 명시한 선택"
+        },
+        {
+          "goal": "자료·책임·재검토 합의하기",
+          "example": "I'll bring that alternative to Friday's product review, with support's Wednesday findings and an explicit question about which outcomes we are prepared to optimise.",
+          "cue": "optimise = 개선 대상으로 삼다"
+        }
+      ],
+      "outcome": "실수 방지와 의도적 해지 방해를 구분한 설계 목표·검증 기준·책임자·재검토 일정을 기록한다.",
+      "transfer": "문의 분석에서 실수 해지가 상당수 확인된다. 우려만 반복하지 말고 확인 단계의 필요성과 정상 해지 경로 보존을 함께 검토한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "비즈니스 회의에서 해지 버튼을 숨기고 세 번 확인하게 하자는 요청이 나왔습니다. 요청자는 실수 방지라고 설명하지만 성공 지표는 해지 완료 수 감소뿐입니다.",
+        "facts": [
+          "현재 해지는 계정 설정에서 한 번 확인한 뒤 완료된다.",
+          "제안은 버튼 위치 변경과 확인 단계 두 개 추가다.",
+          "실수로 해지했다는 문의의 실제 수는 아직 없다."
+        ],
+        "constraints": [
+          "정책·법적 적합성을 디자이너 혼자 판정하지 않는다.",
+          "새 디자인의 효과를 사용자 선택과 사업 지표 양쪽에서 검토해야 한다."
+        ],
+        "learnerAuthority": "요청의 목적과 측정 기준을 질문하고 대안을 제안할 수 있으며 사업 정책의 최종 승인자는 아니다.",
+        "counterpartPosition": "성장 담당자는 해지율을 낮춰야 한다는 압박을 받으며 실수 방지라는 표현으로 제안을 설명한다.",
+        "unresolvedQuestions": [
+          "실수 해지의 근거는 무엇인가?",
+          "정상적인 해지 의도를 방해하지 않았음을 무엇으로 확인할 것인가?",
+          "어떤 지표를 제품 책임자가 함께 검토할 것인가?"
+        ],
+        "deliverable": "실수 방지와 의도적 해지 방해를 구분한 설계 목표·검증 기준·책임자·재검토 일정을 기록한다.",
+        "resolutionCriteria": [
+          "좋은 의도를 부정하지 않으면서 지표와 주장 간 불일치를 지적한다.",
+          "사용자 의도 확인과 선택 방해를 구분하는 대안을 제안한다.",
+          "상위 검토에 올릴 쟁점과 자료·담당·시점을 정한다."
+        ],
+        "escalationPath": "사용자 선택을 어렵게 만드는 요구가 유지되면 제품 책임자와 관련 정책 검토 담당자에게 목적·근거·영향을 명시해 판단을 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "C2",
+      "slug": "designer-uncertainty-investment-decision",
+      "title": "리서치의 불확실성이 아무것도 모른다는 뜻은 아님을 설명하기",
+      "scenario": "새 탐색 방식이 유망하지만 표본이 작고 학습 효과가 섞여 있습니다. 임원은 확실하지 않다면 리서치가 쓸모없다며 전면 도입 또는 폐기 중 하나를 요구합니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "임원. 질문하면 이번 주 필요한 것은 전체 개발 승인이 아니라 다음 달 개발자 한 명의 3일 배정이라고 답한다. 개발 리드는 제한된 화면 시범을 만들 수 있다. 리서치 리드가 다음 주 수요일까지 순서를 나누는 시험 계획을 제안할 수 있다.",
+      "opening": "If you cannot prove the new navigation caused the improvement, what exactly are we paying for?",
+      "steps": [
+        {
+          "goal": "관찰의 가치와 인과 한계 분리하기",
+          "example": "The observation gives us a reason to investigate; the fixed order limits attribution, rather than making the observed performance meaningless.",
+          "cue": "attribution = 원인 귀속"
+        },
+        {
+          "goal": "현재 결정의 실제 규모 확인하기",
+          "example": "Are we deciding on full implementation today, or on a bounded allocation to reduce that uncertainty?",
+          "cue": "bounded allocation = 범위를 제한한 자원 배정"
+        },
+        {
+          "goal": "결정 관련 검증 제안하기",
+          "example": "A comparison with varied task order could tell us whether the advantage persists without relying on everyone learning the old flow first.",
+          "cue": "persists = 유지되다"
+        },
+        {
+          "goal": "담당과 판단 시점 합의하기",
+          "example": "Let's confirm the three-day prototype scope with engineering and ask the research lead for Wednesday's test plan, including what result would change our recommendation.",
+          "cue": "change our recommendation = 권고를 바꾸다"
+        }
+      ],
+      "outcome": "현재 근거가 지지하는 제한적 결정과 남은 불확실성을 줄일 시험·담당·결정 날짜를 정한다.",
+      "transfer": "순서를 바꾼 후에도 차이가 유지된다. 계속 불확실하다는 말만 하지 말고 강화된 근거와 여전히 남은 적용 범위를 설명한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "새 탐색 방식이 유망하지만 표본이 작고 학습 효과가 섞여 있습니다. 임원은 확실하지 않다면 리서치가 쓸모없다며 전면 도입 또는 폐기 중 하나를 요구합니다.",
+        "facts": [
+          "가상 참가자 8명이 기존 방식 다음에 새 방식을 사용했다.",
+          "새 방식에서 6명의 수행 시간이 줄었다.",
+          "순서가 고정되어 학습 효과와 디자인 효과를 분리하지 못했다."
+        ],
+        "constraints": [
+          "이번 주에는 다음 달의 3일 시범 제작 배정이 필요하고, 다음 분기 전면 개발 배정은 별도 결정이다.",
+          "전면 도입 비용을 약속할 수 없으며 추가 소규모 시험은 가능하다."
+        ],
+        "learnerAuthority": "근거의 의미와 한계를 설명하고 단계적 결정을 제안할 수 있으며 투자 결정을 단독 확정할 수 없다.",
+        "counterpartPosition": "임원은 설명이 복잡해지면 결정을 미루는 것으로 해석한다.",
+        "unresolvedQuestions": [
+          "지금 확정해야 하는 투자 범위는 어디까지인가?",
+          "개발팀이 되돌릴 수 있는 시범 범위를 만들 수 있는가?",
+          "추가 시험에서 어떤 차이가 의사결정을 바꾸는가?"
+        ],
+        "deliverable": "현재 근거가 지지하는 제한적 결정과 남은 불확실성을 줄일 시험·담당·결정 날짜를 정한다.",
+        "resolutionCriteria": [
+          "학습 효과를 제거한 것처럼 주장하지 않는다.",
+          "불확실성과 무용함의 이분법을 해소한다.",
+          "결정을 바꿀 자료와 구체적인 후속 책임을 합의한다."
+        ],
+        "escalationPath": "제한된 시험도 불가능하면 제품 책임자에게 현재 근거로 감수할 불확실성과 투자 범위를 명시하도록 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C2",
+      "slug": "designer-executive-solution-mandate",
+      "title": "임원이 정한 해결책을 무시하지 않고 실제 문제 재정의하기",
+      "scenario": "임원은 경쟁사처럼 모든 기능을 대시보드에 넣으라고 합니다. 지원팀의 실제 문의는 처음 시작할 일을 모르겠다는 내용이지만 해법이 이미 확정된 것처럼 전달됩니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "임원. 질문하면 다음 주 발표의 목표는 신규 고객이 첫 작업을 쉽게 시작할 수 있음을 보여 주는 것이라고 답한다. 전체 기능 목록은 반드시 첫 화면에 있을 필요는 없다. 금요일 오전 두 안을 비교할 20분이 있고 제품 리드가 질문 과업을 준비할 수 있다.",
+      "opening": "Our competitor shows everything up front. I need that dashboard ready for next week, not another discovery exercise.",
+      "steps": [
+        {
+          "goal": "목표와 해법의 관계 확인하기",
+          "example": "I can work towards the presentation, but I want to distinguish showing the breadth of the product from helping someone choose a first action.",
+          "cue": "breadth = 기능의 폭"
+        },
+        {
+          "goal": "현재 근거와 가정 연결하기",
+          "example": "The support messages point to uncertainty about where to begin; adding equal prominence to every feature may not resolve that uncertainty.",
+          "cue": "equal prominence = 똑같은 주목도"
+        },
+        {
+          "goal": "비교 가능한 해결책 제안하기",
+          "example": "Could we compare the comprehensive dashboard with a guided starting point that still makes the other functions reachable?",
+          "cue": "guided starting point = 시작을 안내하는 구성"
+        },
+        {
+          "goal": "시간·담당·결정 연결하기",
+          "example": "I'll prepare both for Friday's twenty-minute review, ask the product lead for a first-task scenario, and bring the trade-offs for your decision before the presentation.",
+          "cue": "trade-offs = 선택에 따른 이득과 손실"
+        }
+      ],
+      "outcome": "사업 목표와 특정 화면 해법을 분리하고 비교할 대안·평가 과업·담당·발표 전 검토 시간을 합의한다.",
+      "transfer": "임원이 실제 목표는 기존 고객에게 기능 폭을 보여 주는 것이라고 정정한다. 신규 사용자 가정에 집착하지 말고 평가 대상과 과업을 바꾼다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "임원은 경쟁사처럼 모든 기능을 대시보드에 넣으라고 합니다. 지원팀의 실제 문의는 처음 시작할 일을 모르겠다는 내용이지만 해법이 이미 확정된 것처럼 전달됩니다.",
+        "facts": [
+          "경쟁사 화면 캡처가 요구사항 문서에 첨부되어 있다.",
+          "가상 지원 문의 30건 중 12건은 첫 작업을 어디서 시작할지 모른다는 내용이다.",
+          "자사 사용자의 기능별 우선순위는 아직 확인하지 않았다."
+        ],
+        "constraints": [
+          "임원 발표는 다음 주이고 반대만 하는 것으로 보이면 논의가 닫힐 수 있다.",
+          "경쟁사 화면을 그대로 복제하는 것을 학습 목표로 삼지 않는다."
+        ],
+        "learnerAuthority": "요구의 의도와 미확인 가정을 질문하고 비교 가능한 안을 제시할 수 있으며 임원 우선순위를 임의로 폐기할 수 없다.",
+        "counterpartPosition": "임원은 모든 기능 노출이 제품 가치와 사용성을 동시에 설명한다고 생각한다.",
+        "unresolvedQuestions": [
+          "목표는 가치 소개인가 첫 작업 완료인가?",
+          "모든 기능 동시 노출이 승인된 필수 조건인가 비교할 가설인가?",
+          "발표 전 어떤 증거를 검토할 시간이 있는가?"
+        ],
+        "deliverable": "사업 목표와 특정 화면 해법을 분리하고 비교할 대안·평가 과업·담당·발표 전 검토 시간을 합의한다.",
+        "resolutionCriteria": [
+          "임원의 의도를 부정하지 않고 해법에 내재한 가정을 명시한다.",
+          "두 목적이 충돌할 수 있는 지점을 설명한다.",
+          "대안 비교와 최종 결정권자를 정한다."
+        ],
+        "escalationPath": "해법이 이미 확정되어 비교가 허용되지 않으면 제품 책임자에게 미검증 가정과 추후 관찰·수정 조건을 남긴다."
+      }
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "C2",
+      "slug": "designer-research-consent-reuse",
+      "title": "고객 발표에 연구 참가자의 화면을 재사용하려는 요청 조율하기",
+      "scenario": "고객이 내부 사용성 연구의 화면 녹화를 영업 발표에 넣으려 합니다. 이름을 가리면 된다고 하지만 참가자가 허용한 것은 내부 분석뿐입니다.",
+      "learnerRole": "가상 제품팀의 디자이너",
+      "interlocutorRole": "고객 발표 담당자. 질문하면 발표는 외부 40명 대상이며 녹화본을 이후 웹에 올릴 계획이라고 답한다. 연구 책임자가 목요일까지 재동의 가능 여부를 확인할 수 있다. 대체로 가상 데이터로 재현한 시연도 가능하지만 실제 사용자 증언처럼 보이면 안 된다.",
+      "opening": "If we blur the name, surely the research clip is fine for the sales deck?",
+      "steps": [
+        {
+          "goal": "익명화와 목적 변경 분리하기",
+          "example": "Blurring a name addresses one identifying detail; it does not by itself extend permission from internal research to an external sales presentation.",
+          "cue": "extend permission = 허용 범위를 넓히다"
+        },
+        {
+          "goal": "노출 범위 확인하기",
+          "example": "Who will see the presentation, and will either the slides or the recording be distributed afterwards?",
+          "cue": "distributed afterwards = 이후 배포되는"
+        },
+        {
+          "goal": "허용 가능한 대안 제안하기",
+          "example": "Until permission is confirmed, we can create a clearly labelled demonstration using fictional data rather than presenting a reenactment as participant evidence.",
+          "cue": "reenactment = 재현 장면"
+        },
+        {
+          "goal": "책임과 기한·미승인 조건 합의하기",
+          "example": "Let's have the research lead confirm the permission route by Thursday. I'll prepare the labelled alternative, and the original clip stays out unless the appropriate approval is documented.",
+          "cue": "documented approval = 기록된 승인"
+        }
+      ],
+      "outcome": "허용 범위가 확인되지 않은 클립을 보류하고 목적별 검토·대체 자료·담당·최종 확인 시점을 정한다.",
+      "transfer": "참가자가 외부 발표에는 동의하지만 공개 웹 게시에는 동의하지 않는다. 하나의 포괄 승인으로 취급하지 말고 자료와 배포 범위를 분리한다.",
+      "caseBrief": {
+        "professionalRole": "designer",
+        "situation": "고객이 내부 사용성 연구의 화면 녹화를 영업 발표에 넣으려 합니다. 이름을 가리면 된다고 하지만 참가자가 허용한 것은 내부 분석뿐입니다.",
+        "facts": [
+          "가상 동의 안내의 사용 목적은 내부 제품 개선 분석이다.",
+          "녹화에는 화면 내용과 음성이 포함된다.",
+          "고객은 다음 주 외부 영업 발표에 30초 클립을 쓰려 한다."
+        ],
+        "constraints": [
+          "이름을 가려도 목적 변경이나 다른 식별 단서를 자동 해결하지 않는다.",
+          "새 동의를 받을 수 있을지는 확인 전이다."
+        ],
+        "learnerAuthority": "동의 범위의 불일치를 설명하고 대체 자료를 제안할 수 있으며 개인정보·법적 승인이나 참가자의 동의를 대신할 수 없다.",
+        "counterpartPosition": "고객은 실제 사용자 반응이 있어야 설득력이 있다며 이름 가리기만으로 충분하다고 본다.",
+        "unresolvedQuestions": [
+          "외부 발표의 청중과 이후 재배포 범위는 무엇인가?",
+          "참가자에게 목적을 구체화해 새로 문의할 수 있는가?",
+          "동의를 못 받으면 어떤 대체 자료를 쓸 것인가?"
+        ],
+        "deliverable": "허용 범위가 확인되지 않은 클립을 보류하고 목적별 검토·대체 자료·담당·최종 확인 시점을 정한다.",
+        "resolutionCriteria": [
+          "식별 정보 제거와 사용 목적 동의를 구분한다.",
+          "확인되지 않은 승인 가능성을 약속하지 않는다.",
+          "동의 없는 경우의 실행 가능한 대안과 책임자를 정한다."
+        ],
+        "escalationPath": "목적 변경 판단이나 재사용 승인에 이견이 있으면 연구 책임자와 관련 개인정보 검토 담당자에게 원래 동의 문구와 예정 배포 범위를 전달한다."
+      }
+    }
+  ]
+}

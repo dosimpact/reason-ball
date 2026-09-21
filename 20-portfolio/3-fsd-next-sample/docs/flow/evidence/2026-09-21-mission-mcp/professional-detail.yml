@@ -1,0 +1,110 @@
+- main [ref=e68]:
+  - generic [ref=e112]:
+    - generic [ref=e114]:
+      - link "미션 목록" [ref=e115] [cursor=pointer]:
+        - /url: /missions
+      - generic [ref=e118]:
+        - generic [ref=e119]:
+          - generic [ref=e120]:
+            - generic [ref=e121]: 업무
+            - generic [ref=e122]: 초급
+          - heading "버그를 다시 볼 조건 요청하기" [level=1] [ref=e123]
+          - button "미션 저장" [ref=e126]
+          - paragraph [ref=e129]: The save button did not work this morning.
+          - paragraph [ref=e130]: "테스트 담당자가 저장이 안 된다고 했지만 어떤 입력을 썼는지 없어 개발자가 재현하지 못합니다. 실용적 결과: 가상 입력으로 버그 재현 절차와 다음 확인 시각을 정한다. 문제 상황: 테스트 담당자가 저장이 안 된다고 했지만 어떤 입력을 썼는지 없어 개발자가 재현하지 못합니다. 확인된 사실: 담당자는 오늘 오전 Chrome에서 긴 제목을 입력했다. / 개발자는 짧은 제목으로는 저장 성공을 확인했다. / 테스트용 자료만 공유할 수 있다. 제약: 실제 고객 데이터는 보내지 않는다. / 오늘 오후 3시까지 상태를 알려야 한다. 내 권한: 재현 정보를 요청하는 개발자. 원인을 확인하기 전 수정 완료를 약속하지 않는다. 상대 입장: 테스트 담당자. 제목 120자를 사용했고 Save를 눌렀을 때 오류 문구가 없었다. 요청하면 가상 제목과 화면 절차를 제공한다. 확인이 필요한 질문: 사용한 제목 길이와 실행 순서는 무엇인가? / 같은 조건으로 다시 발생하는가? 결과물: 가상 입력으로 버그 재현 절차와 다음 확인 시각을 정한다. 해결 기준: 입력과 실행 순서를 확인한다. / 고객 정보 없이 테스트 자료를 받는다. / 오후 3시 상태 공유를 합의한다. 에스컬레이션 경로: 재현되지 않으면 테스트 담당자와 함께 화면을 확인하고 담당 리드에게 미재현 상태를 알린다."
+          - generic [ref=e131]:
+            - generic [ref=e132]: 업무 · 업무 요청·진행 공유
+            - generic [ref=e136]: 약 10분
+          - link "미션 시작하기" [ref=e140] [cursor=pointer]:
+            - /url: /chat/11111111-1111-4111-8111-111111111111?mission=830c686f-28d7-8bc1-8f3b-277a1f063592&attempt=new
+        - generic [ref=e145]:
+          - img "잠긴 보상 실루엣" [ref=e147]
+          - paragraph [ref=e155]: 완료하면 열리는 장면
+          - paragraph [ref=e156]: 버그를 다시 볼 조건 요청하기 완료 장면 · 120 XP
+    - generic [ref=e157]:
+      - generic [ref=e158]:
+        - region [ref=e159]:
+          - paragraph [ref=e160]: Success checklist
+          - heading "이것만 해내면 성공이에요" [level=2] [ref=e161]
+          - list [ref=e162]:
+            - listitem [ref=e163]:
+              - generic [ref=e164]: "1"
+              - generic [ref=e165]:
+                - paragraph [ref=e166]: 사용 환경 묻기
+                - paragraph [ref=e167]: "힌트 · 의도: 사용 환경 묻기"
+            - listitem [ref=e168]:
+              - generic [ref=e169]: "2"
+              - generic [ref=e170]:
+                - paragraph [ref=e171]: 입력 조건 묻기
+                - paragraph [ref=e172]: "힌트 · 의도: 입력 조건 묻기"
+            - listitem [ref=e173]:
+              - generic [ref=e174]: "3"
+              - generic [ref=e175]:
+                - paragraph [ref=e176]: 안전한 예시 요청하기
+                - paragraph [ref=e177]: "힌트 · 의도: 안전한 예시 요청하기"
+            - listitem [ref=e178]:
+              - generic [ref=e179]: "4"
+              - generic [ref=e180]:
+                - paragraph [ref=e181]: 후속 시각 말하기
+                - paragraph [ref=e182]: "힌트 · 의도: 후속 시각 말하기"
+        - region [ref=e183]:
+          - paragraph [ref=e184]: Mission flow
+          - heading "대화는 이 순서로 진행해요" [level=2] [ref=e185]
+          - list [ref=e186]:
+            - listitem [ref=e187]:
+              - generic [ref=e188]:
+                - generic [ref=e189]: STEP 1
+                - generic [ref=e190]: 필수
+              - paragraph [ref=e191]: 사용 환경 묻기
+              - paragraph [ref=e192]: "판정 근거 · 상대가 이해할 수 있게 다음 행동을 수행한다: 사용 환경 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+            - listitem [ref=e193]:
+              - generic [ref=e194]:
+                - generic [ref=e195]: STEP 2
+                - generic [ref=e196]: 필수
+              - paragraph [ref=e197]: 입력 조건 묻기
+              - paragraph [ref=e198]: "판정 근거 · 상대가 이해할 수 있게 다음 행동을 수행한다: 입력 조건 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+            - listitem [ref=e199]:
+              - generic [ref=e200]:
+                - generic [ref=e201]: STEP 3
+                - generic [ref=e202]: 필수
+              - paragraph [ref=e203]: 안전한 예시 요청하기
+              - paragraph [ref=e204]: "판정 근거 · 상대가 이해할 수 있게 다음 행동을 수행한다: 안전한 예시 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+            - listitem [ref=e205]:
+              - generic [ref=e206]:
+                - generic [ref=e207]: STEP 4
+                - generic [ref=e208]: 필수
+              - paragraph [ref=e209]: 후속 시각 말하기
+              - paragraph [ref=e210]: "판정 근거 · 상대가 이해할 수 있게 다음 행동을 수행한다: 후속 시각 말하기. 예문과 단어가 같아야 하는 것은 아니다."
+        - region [ref=e211]:
+          - paragraph [ref=e212]: Useful phrases
+          - heading "막힐 때 꺼내 쓸 표현" [level=2] [ref=e213]
+          - generic [ref=e214]:
+            - article [ref=e215]:
+              - paragraph [ref=e219]: Which browser did you use?
+              - paragraph [ref=e220]: 사용 환경 묻기
+            - article [ref=e221]:
+              - paragraph [ref=e225]: Was the title long or short?
+              - paragraph [ref=e226]: 입력 조건 묻기
+            - article [ref=e227]:
+              - paragraph [ref=e231]: Can you send a test title and the steps?
+              - paragraph [ref=e232]: 안전한 예시 요청하기
+            - article [ref=e233]:
+              - paragraph [ref=e237]: I will try those steps and update you at three.
+              - paragraph [ref=e238]: 후속 시각 말하기
+      - complementary [ref=e239]:
+        - article [ref=e240]:
+          - paragraph [ref=e241]: 함께할 캐릭터
+          - generic [ref=e242]:
+            - img "Mina 캐릭터 이미지" [ref=e243]:
+              - generic [aria-hidden] [ref=e246]: 🧭
+            - generic [ref=e247]:
+              - heading "Mina" [level=2] [ref=e248]
+              - paragraph [ref=e249]: 영어 회화 파트너
+          - paragraph [ref=e250]: A patient local friend for your first English conversations.
+          - link "캐릭터 자세히" [ref=e251] [cursor=pointer]:
+            - /url: /characters/11111111-1111-4111-8111-111111111111
+        - article [ref=e254]:
+          - heading "평가는 이렇게 해요" [level=2] [ref=e259]
+          - paragraph [ref=e260]: 문법 완벽성보다 의도 전달과 목표 표현 사용을 우선해요. 대화 흐름을 유지한 채 짧게 교정합니다.
+          - generic [ref=e261]: 필수 단계 + 70점 이상이면 완료
+        - generic [ref=e265]: AI가 난이도를 대화 속도에 맞게 조절해요.

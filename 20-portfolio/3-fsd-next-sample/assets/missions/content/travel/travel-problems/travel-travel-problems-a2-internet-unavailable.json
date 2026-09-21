@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "travel-travel-problems-a2-internet-unavailable",
+  "title": "인터넷 없이 예약 정보 확인하기",
+  "categoryId": "travel",
+  "subcategoryId": "travel-problems",
+  "difficulty": "A2",
+  "scenario": "데이터가 안 되어 전자 표를 열 수 없습니다. 예약 번호는 종이에 적어 두었습니다. 종이에 적힌 연습용 예약번호는 B204, 이름은 Mina Kim입니다. [보여주기: B204, Mina Kim]으로 종이 전달을 대신합니다.",
+  "practicalOutcome": "전자 표를 못 여는 상황에서 예약 확인 대안을 찾는다.",
+  "roles": {
+    "learner": "예약 방문객",
+    "interlocutor": "매표 직원. 예약 번호와 이름으로 확인 가능하며 확인 후 종이 표를 발급한다."
+  },
+  "opening": "Can you show your mobile ticket?",
+  "estimatedMinutes": 10,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "접속 문제 설명하기",
+      "example": "My internet is not working, so I cannot open the ticket.",
+      "hints": [
+        "의도: 접속 문제 설명하기",
+        "핵심 표현: open the ticket = 표를 열다",
+        "완성 문장 예시: My internet is not working, so I cannot open the ticket. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 접속 문제 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "대체 정보 제시하기",
+      "example": "I have the booking number written down.",
+      "hints": [
+        "의도: 대체 정보 제시하기",
+        "핵심 표현: written down = 적어 둔",
+        "완성 문장 예시: I have the booking number written down. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 대체 정보 제시하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "대체 확인 요청하기",
+      "example": "Can you find it using my name and this number?",
+      "hints": [
+        "의도: 대체 확인 요청하기",
+        "핵심 표현: using = 이용해서",
+        "완성 문장 예시: Can you find it using my name and this number? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 대체 확인 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "표현 틀을 선택적으로 제공; 세부 정보와 다음 행동 확인. 먼저 상황과 첫 발화의 뜻을 확인하고 접속 문제 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '인터넷 없이 예약 정보 확인하기' 상황에서 전자 표를 못 여는 상황에서 예약 확인 대안을 찾는다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "번호도 없다. 가상 이메일 주소로 검색 가능한지 묻는다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '인터넷 없이 예약 정보 확인하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 번호도 없다. 가상 이메일 주소로 검색 가능한지 묻는다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "전자 표를 못 여는 상황에서 예약 확인 대안을 찾는다.",
+      "접속 문제 설명하기",
+      "대체 정보 제시하기",
+      "대체 확인 요청하기",
+      "수준별 관찰: 일상 거래와 간단한 문제 해결. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

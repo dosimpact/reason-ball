@@ -1,0 +1,4878 @@
+{
+  "schemaVersion": 1,
+  "categoryId": "work",
+  "missions": [
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "pre-A1",
+      "slug": "reception-name",
+      "title": "면접 접수에서 이름 말하기",
+      "scenario": "예약한 면접에 도착했습니다. 접수 직원에게 가상 이름 Mina Lee를 말하고 면접 목적을 알립니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "접수 직원. 이름과 방문 목적을 한 번에 하나씩 묻는다.",
+      "opening": "Hello. Your name, please?",
+      "steps": [
+        {
+          "goal": "이름 말하기",
+          "example": "Mina Lee.",
+          "cue": "name = 이름"
+        },
+        {
+          "goal": "면접 목적 알리기",
+          "example": "Interview, please.",
+          "cue": "interview = 면접"
+        },
+        {
+          "goal": "안내에 감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 감사합니다"
+        }
+      ],
+      "outcome": "이름 말하기 / 면접 목적 알리기 / 안내에 감사하기",
+      "transfer": "다음에는 가상 이름 Jin Park를 사용하고 reception에 먼저 인사한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "pre-A1",
+      "slug": "spell-surname",
+      "title": "지원자 성 철자 확인하기",
+      "scenario": "접수 명단에서 가상 성 Kim을 찾지 못합니다. 철자를 말하고 맞는 이름표를 선택합니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "접수 직원. 처음 이름을 Kin으로 보여주고 철자를 물은 뒤 Kim으로 고친다.",
+      "opening": "Kim or Kin?",
+      "steps": [
+        {
+          "goal": "맞는 성 말하기",
+          "example": "Kim.",
+          "cue": "성 Kim을 또렷하게 말해요"
+        },
+        {
+          "goal": "철자 전달하기",
+          "example": "K, I, M.",
+          "cue": "spell = 철자로 말하다"
+        },
+        {
+          "goal": "수정된 이름 확인하기",
+          "example": "Yes. Thank you.",
+          "cue": "yes = 맞아요"
+        }
+      ],
+      "outcome": "맞는 성 말하기 / 철자 전달하기 / 수정된 이름 확인하기",
+      "transfer": "다음에는 Lee의 철자를 말한다. 처음 표시된 이름은 Li이며 틀렸다고 알린다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "pre-A1",
+      "slug": "choose-interview-day",
+      "title": "가능한 면접 요일 고르기",
+      "scenario": "면접을 월요일 또는 화요일에 볼 수 있습니다. 월요일은 어렵고 화요일은 가능합니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "채용 담당자. Monday와 Tuesday를 하나씩 제안하고 선택을 재확인한다.",
+      "opening": "Monday?",
+      "steps": [
+        {
+          "goal": "불가능한 요일 거절하기",
+          "example": "No, sorry.",
+          "cue": "no = 아니요"
+        },
+        {
+          "goal": "가능한 요일 말하기",
+          "example": "Tuesday, please.",
+          "cue": "Tuesday = 화요일"
+        },
+        {
+          "goal": "확정에 감사하기",
+          "example": "Thank you.",
+          "cue": "thank you = 감사합니다"
+        }
+      ],
+      "outcome": "불가능한 요일 거절하기 / 가능한 요일 말하기 / 확정에 감사하기",
+      "transfer": "다음에는 Tuesday가 어렵고 Friday가 가능하다. 새 요일 하나만 보고 답한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "pre-A1",
+      "slug": "name-job",
+      "title": "지원하는 직무 알려주기",
+      "scenario": "행사장의 접수대는 요리사와 운전기사 지원자를 나눕니다. 당신은 가상 운전기사 지원자입니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "채용 안내자. 두 직무 카드를 보여주고 운전기사 줄은 오른쪽이라고 알려준다.",
+      "opening": "Cook or driver?",
+      "steps": [
+        {
+          "goal": "지원 직무 말하기",
+          "example": "Driver.",
+          "cue": "driver = 운전기사"
+        },
+        {
+          "goal": "본인임을 확인하기",
+          "example": "Yes, driver.",
+          "cue": "yes = 맞습니다"
+        },
+        {
+          "goal": "안내받고 인사하기",
+          "example": "Thank you.",
+          "cue": "감사 인사 표현"
+        }
+      ],
+      "outcome": "지원 직무 말하기 / 본인임을 확인하기 / 안내받고 인사하기",
+      "transfer": "다음에는 요리사 역할로 바꾸고 cook이라고 먼저 말한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "pre-A1",
+      "slug": "say-first-name",
+      "title": "첫 출근 때 이름 교환하기",
+      "scenario": "첫 출근입니다. 가상 이름 Mina로 동료 Sam에게 인사합니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "동료 Sam. 자신의 이름을 말하고 학습자의 이름을 기다린다.",
+      "opening": "Hi. I'm Sam.",
+      "steps": [
+        {
+          "goal": "인사하기",
+          "example": "Hi.",
+          "cue": "hi = 안녕하세요"
+        },
+        {
+          "goal": "이름 말하기",
+          "example": "I'm Mina.",
+          "cue": "I'm = 저는 ...입니다"
+        },
+        {
+          "goal": "만남에 인사하기",
+          "example": "Nice to meet you.",
+          "cue": "만나서 반갑습니다"
+        }
+      ],
+      "outcome": "인사하기 / 이름 말하기 / 만남에 인사하기",
+      "transfer": "다음에는 이름을 Alex로 바꾸고 상대보다 먼저 인사한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "pre-A1",
+      "slug": "find-desk",
+      "title": "자기 책상 확인하기",
+      "scenario": "책상 두 개 중 3번이 본인 자리입니다. 잘못 안내된 2번을 바로잡습니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "안내 동료. 먼저 Desk two?라고 묻고 수정하면 3번으로 안내한다.",
+      "opening": "Desk two?",
+      "steps": [
+        {
+          "goal": "틀린 번호 알리기",
+          "example": "No.",
+          "cue": "no = 아니요"
+        },
+        {
+          "goal": "맞는 번호 말하기",
+          "example": "Three, please.",
+          "cue": "three = 셋"
+        },
+        {
+          "goal": "자리 확인하기",
+          "example": "Yes. Thank you.",
+          "cue": "yes = 맞아요"
+        }
+      ],
+      "outcome": "틀린 번호 알리기 / 맞는 번호 말하기 / 자리 확인하기",
+      "transfer": "다음에는 5번 책상을 찾으며 잘못 들은 4번을 수정한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "pre-A1",
+      "slug": "ask-pen",
+      "title": "업무 시작에 펜 빌리기",
+      "scenario": "입사 서류에 서명하려는데 펜이 없습니다. 옆 동료에게 펜 하나를 빌립니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "동료. 펜과 연필을 갖고 있으며 요청 물건을 확인한 뒤 빌려준다.",
+      "opening": "Hello.",
+      "steps": [
+        {
+          "goal": "물건 요청하기",
+          "example": "Pen, please.",
+          "cue": "pen = 펜"
+        },
+        {
+          "goal": "펜인지 확인하기",
+          "example": "Yes, a pen.",
+          "cue": "a pen = 펜 하나"
+        },
+        {
+          "goal": "받고 감사하기",
+          "example": "Thank you.",
+          "cue": "감사 표현"
+        }
+      ],
+      "outcome": "물건 요청하기 / 펜인지 확인하기 / 받고 감사하기",
+      "transfer": "다음에는 pencil을 요청한다. 상대가 펜을 건네면 원하는 물건을 다시 말한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "pre-A1",
+      "slug": "locate-restroom",
+      "title": "사무실 화장실 찾기",
+      "scenario": "사무실에서 화장실을 찾습니다. 동료가 왼쪽인지 오른쪽인지 확인합니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "동료. 화장실은 왼쪽에 있다고 간단히 답하고 이해했는지 묻는다.",
+      "opening": "Need help?",
+      "steps": [
+        {
+          "goal": "장소 묻기",
+          "example": "Restroom, please?",
+          "cue": "restroom = 화장실"
+        },
+        {
+          "goal": "방향 재확인하기",
+          "example": "Left?",
+          "cue": "left = 왼쪽"
+        },
+        {
+          "goal": "안내에 감사하기",
+          "example": "Thank you.",
+          "cue": "감사 표현"
+        }
+      ],
+      "outcome": "장소 묻기 / 방향 재확인하기 / 안내에 감사하기",
+      "transfer": "다음에는 부엌을 찾고 right라는 안내를 재확인한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "pre-A1",
+      "slug": "mic-check",
+      "title": "온라인 회의 마이크 확인하기",
+      "scenario": "온라인 회의에 들어왔습니다. 음성이 들리는지 확인하고 준비됐다고 알립니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "회의 진행자. 첫 음성 확인에는 잘 들린다고 답하고 시작할지 묻는다.",
+      "opening": "Can you hear me?",
+      "steps": [
+        {
+          "goal": "들린다고 답하기",
+          "example": "Yes.",
+          "cue": "yes = 네"
+        },
+        {
+          "goal": "내 음성 확인하기",
+          "example": "Can you hear me?",
+          "cue": "hear = 듣다"
+        },
+        {
+          "goal": "준비 상태 알리기",
+          "example": "Ready.",
+          "cue": "ready = 준비된"
+        }
+      ],
+      "outcome": "들린다고 답하기 / 내 음성 확인하기 / 준비 상태 알리기",
+      "transfer": "다음에는 처음 소리가 안 들리는 상황에서 No라고 말한 뒤 재확인한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "pre-A1",
+      "slug": "ask-repeat",
+      "title": "회의에서 다시 말해 달라고 하기",
+      "scenario": "회의 시간이 잘 안 들렸습니다. 다시 듣고 숫자 ten을 확인합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 처음엔 시간을 말한 뒤 재요청에 Ten이라고 천천히 답한다.",
+      "opening": "At ten.",
+      "steps": [
+        {
+          "goal": "반복 요청하기",
+          "example": "Again, please.",
+          "cue": "again = 다시"
+        },
+        {
+          "goal": "시간 확인하기",
+          "example": "Ten?",
+          "cue": "ten = 열"
+        },
+        {
+          "goal": "이해했음을 알리기",
+          "example": "OK. Thank you.",
+          "cue": "OK = 알겠습니다"
+        }
+      ],
+      "outcome": "반복 요청하기 / 시간 확인하기 / 이해했음을 알리기",
+      "transfer": "다음에는 eleven을 다시 듣고 확인한다. ten으로 잘못 추측하지 않는다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "pre-A1",
+      "slug": "choose-break",
+      "title": "회의 휴식 때 음료 선택하기",
+      "scenario": "회의 휴식 시간입니다. 차와 커피 중 차를 선택하고 한 잔이라고 답합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "동료. Tea or coffee?를 묻고 수량을 확인한다.",
+      "opening": "Tea or coffee?",
+      "steps": [
+        {
+          "goal": "음료 선택하기",
+          "example": "Tea, please.",
+          "cue": "tea = 차"
+        },
+        {
+          "goal": "수량 답하기",
+          "example": "One, please.",
+          "cue": "one = 하나"
+        },
+        {
+          "goal": "받고 감사하기",
+          "example": "Thank you.",
+          "cue": "감사 표현"
+        }
+      ],
+      "outcome": "음료 선택하기 / 수량 답하기 / 받고 감사하기",
+      "transfer": "다음에는 물 두 잔을 요청한다. water와 two를 보고 표현한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "pre-A1",
+      "slug": "signal-question",
+      "title": "회의에서 질문이 있음을 알리기",
+      "scenario": "회의 진행자가 질문을 받습니다. 질문 순서를 얻고 화면의 날짜를 가리키며 확인합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 손을 든 학습자에게 발언을 주고 Friday라고 날짜를 알려준다.",
+      "opening": "Any questions?",
+      "steps": [
+        {
+          "goal": "질문 의사 알리기",
+          "example": "Question, please.",
+          "cue": "question = 질문"
+        },
+        {
+          "goal": "날짜 짧게 묻기",
+          "example": "Friday?",
+          "cue": "Friday = 금요일"
+        },
+        {
+          "goal": "확인받고 인사하기",
+          "example": "Thank you.",
+          "cue": "감사 표현"
+        }
+      ],
+      "outcome": "질문 의사 알리기 / 날짜 짧게 묻기 / 확인받고 인사하기",
+      "transfer": "다음에는 날짜가 Monday인지 묻는다. 발언 허락을 받은 뒤 질문한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "pre-A1",
+      "slug": "pass-folder",
+      "title": "동료에게 폴더 건네기",
+      "scenario": "동료가 파란 폴더를 찾습니다. 빨간 폴더가 아닌 파란 폴더를 건넵니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. Blue folder, please라고 요청하고 맞는 물건을 받으면 감사한다.",
+      "opening": "Blue folder, please.",
+      "steps": [
+        {
+          "goal": "색 확인하기",
+          "example": "Blue?",
+          "cue": "blue = 파란색"
+        },
+        {
+          "goal": "물건 건네기",
+          "example": "Here you are.",
+          "cue": "여기 있습니다"
+        },
+        {
+          "goal": "감사에 답하기",
+          "example": "You're welcome.",
+          "cue": "천만에요"
+        }
+      ],
+      "outcome": "색 확인하기 / 물건 건네기 / 감사에 답하기",
+      "transfer": "다음에는 red folder를 요청받는다. 색을 먼저 확인한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "pre-A1",
+      "slug": "report-done",
+      "title": "짧은 작업 완료 알리기",
+      "scenario": "가상 파일 복사를 마쳤습니다. 동료에게 완료 사실을 말하고 다음 안내를 받습니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 완료 여부를 묻고 끝났다면 기다려 달라고 말한다.",
+      "opening": "Done?",
+      "steps": [
+        {
+          "goal": "완료 알리기",
+          "example": "Done.",
+          "cue": "done = 끝난"
+        },
+        {
+          "goal": "다음 요청 확인하기",
+          "example": "Wait?",
+          "cue": "wait = 기다리다"
+        },
+        {
+          "goal": "요청 수락하기",
+          "example": "OK.",
+          "cue": "OK = 알겠습니다"
+        }
+      ],
+      "outcome": "완료 알리기 / 다음 요청 확인하기 / 요청 수락하기",
+      "transfer": "다음에는 아직 끝나지 않았으므로 Not yet라고 답하고 기다려 달라고 한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "pre-A1",
+      "slug": "ask-help-box",
+      "title": "무거운 상자 옮길 도움 구하기",
+      "scenario": "빈 사무실에서 큰 상자를 옮겨야 합니다. 동료에게 도움을 청하고 함께 이동합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 도움 요청을 받으면 어떤 상자인지 묻고 함께 들 준비를 한다.",
+      "opening": "Hello.",
+      "steps": [
+        {
+          "goal": "도움 요청하기",
+          "example": "Help, please.",
+          "cue": "help = 도움"
+        },
+        {
+          "goal": "대상 지목하기",
+          "example": "This box.",
+          "cue": "this box = 이 상자"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "감사 표현"
+        }
+      ],
+      "outcome": "도움 요청하기 / 대상 지목하기 / 감사하기",
+      "transfer": "다음에는 bag을 옮길 도움을 요청한다. 상자와 가방 중 대상을 구별한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "pre-A1",
+      "slug": "check-page-number",
+      "title": "복사할 페이지 번호 확인하기",
+      "scenario": "동료가 문서 한 장을 복사해 달라고 합니다. 2쪽인지 3쪽인지 재확인합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. Page three라고 요청하고 학습자가 되물으면 Three라고 답한다.",
+      "opening": "Page three, please.",
+      "steps": [
+        {
+          "goal": "번호 재확인하기",
+          "example": "Three?",
+          "cue": "three = 셋"
+        },
+        {
+          "goal": "수락하기",
+          "example": "OK.",
+          "cue": "알겠습니다"
+        },
+        {
+          "goal": "결과 건네기",
+          "example": "Here you are.",
+          "cue": "여기 있습니다"
+        }
+      ],
+      "outcome": "번호 재확인하기 / 수락하기 / 결과 건네기",
+      "transfer": "다음에는 8쪽을 요청받고 번호를 소리내어 확인한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "pre-A1",
+      "slug": "introduce-self-slide",
+      "title": "발표 시작에 자기 이름 말하기",
+      "scenario": "첫 짧은 발표입니다. 가상 이름 Mina를 소개하고 화면의 팀 사진을 가리킵니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중 역할 동료. 인사를 받고 팀 사진 소개를 기다린다.",
+      "opening": "Hello.",
+      "steps": [
+        {
+          "goal": "청중에게 인사하기",
+          "example": "Hello.",
+          "cue": "hello = 안녕하세요"
+        },
+        {
+          "goal": "이름 소개하기",
+          "example": "I'm Mina.",
+          "cue": "I'm = 저는 ...입니다"
+        },
+        {
+          "goal": "사진 지목하기",
+          "example": "My team.",
+          "cue": "my team = 우리 팀"
+        }
+      ],
+      "outcome": "청중에게 인사하기 / 이름 소개하기 / 사진 지목하기",
+      "transfer": "다음에는 my office 사진으로 바꾸어 소개한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "pre-A1",
+      "slug": "point-color",
+      "title": "발표에서 색으로 대상을 구분하기",
+      "scenario": "화면에 파란 제품과 빨간 제품이 있습니다. 파란 제품을 먼저 소개합니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "동료 청중. 어느 제품인지 묻고 색을 확인한다.",
+      "opening": "Which one?",
+      "steps": [
+        {
+          "goal": "대상 선택하기",
+          "example": "Blue.",
+          "cue": "blue = 파란색"
+        },
+        {
+          "goal": "가리키며 확인하기",
+          "example": "This one.",
+          "cue": "this one = 이것"
+        },
+        {
+          "goal": "마무리하기",
+          "example": "Thank you.",
+          "cue": "감사 표현"
+        }
+      ],
+      "outcome": "대상 선택하기 / 가리키며 확인하기 / 마무리하기",
+      "transfer": "다음에는 빨간 제품을 고르고 red라고 먼저 말한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "pre-A1",
+      "slug": "show-two-options",
+      "title": "발표에서 선택지 개수 말하기",
+      "scenario": "화면에 옵션 두 개가 있습니다. 개수를 말하고 두 번째 옵션을 가리킵니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 선택지가 몇 개인지와 어느 것을 고르는지 순서대로 묻는다.",
+      "opening": "How many?",
+      "steps": [
+        {
+          "goal": "개수 말하기",
+          "example": "Two.",
+          "cue": "two = 둘"
+        },
+        {
+          "goal": "선택 번호 말하기",
+          "example": "Number two.",
+          "cue": "number two = 2번"
+        },
+        {
+          "goal": "확인에 응답하기",
+          "example": "Yes.",
+          "cue": "yes = 맞아요"
+        }
+      ],
+      "outcome": "개수 말하기 / 선택 번호 말하기 / 확인에 응답하기",
+      "transfer": "다음에는 선택지 세 개 중 1번을 고른다. three와 one을 구분한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "pre-A1",
+      "slug": "close-short-talk",
+      "title": "짧은 발표를 마치고 질문 받기",
+      "scenario": "팀 사진 소개가 끝났습니다. 감사를 말하고 질문이 있는지 묻습니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 질문을 받으면 No, thank you라고 답한다.",
+      "opening": "Go ahead.",
+      "steps": [
+        {
+          "goal": "소개 마무리하기",
+          "example": "That's all.",
+          "cue": "이상입니다"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "감사합니다"
+        },
+        {
+          "goal": "질문 받기",
+          "example": "Questions?",
+          "cue": "questions = 질문들"
+        }
+      ],
+      "outcome": "소개 마무리하기 / 감사하기 / 질문 받기",
+      "transfer": "다음에는 청중이 질문을 하도록 바꾸고 Yes, please로 발언을 허용한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "pre-A1",
+      "slug": "greet-customer",
+      "title": "손님에게 첫 인사 건네기",
+      "scenario": "가게에 손님 한 명이 들어옵니다. 인사하고 물이 필요한지 묻습니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "손님. 인사를 받고 물 제안에는 Yes, please라고 답한다.",
+      "opening": "Hello.",
+      "steps": [
+        {
+          "goal": "인사하기",
+          "example": "Hello.",
+          "cue": "hello = 안녕하세요"
+        },
+        {
+          "goal": "물 제안하기",
+          "example": "Water?",
+          "cue": "water = 물"
+        },
+        {
+          "goal": "물 건네기",
+          "example": "Here you are.",
+          "cue": "여기 있습니다"
+        }
+      ],
+      "outcome": "인사하기 / 물 제안하기 / 물 건네기",
+      "transfer": "다음에는 tea를 제안한다. 손님이 No라고 하면 강요하지 않는다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "pre-A1",
+      "slug": "confirm-quantity",
+      "title": "고객의 주문 개수 확인하기",
+      "scenario": "고객이 사과를 주문합니다. 주문 수량 두 개를 확인하고 건넵니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. Two apples, please라고 말하고 재확인에 동의한다.",
+      "opening": "Two apples, please.",
+      "steps": [
+        {
+          "goal": "수량 확인하기",
+          "example": "Two?",
+          "cue": "two = 둘"
+        },
+        {
+          "goal": "수락하기",
+          "example": "OK.",
+          "cue": "알겠습니다"
+        },
+        {
+          "goal": "물건 건네기",
+          "example": "Here you are.",
+          "cue": "여기 있습니다"
+        }
+      ],
+      "outcome": "수량 확인하기 / 수락하기 / 물건 건네기",
+      "transfer": "다음에는 three apples 주문을 받고 수량을 확인한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "pre-A1",
+      "slug": "state-price",
+      "title": "고객에게 간단한 가격 말하기",
+      "scenario": "상품 가격표가 가상 금액 5달러입니다. 고객에게 가격을 말하고 감사 인사를 합니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 가격을 묻고 Five?라고 재확인한 뒤 구매한다.",
+      "opening": "How much?",
+      "steps": [
+        {
+          "goal": "가격 말하기",
+          "example": "Five dollars.",
+          "cue": "five dollars = 5달러"
+        },
+        {
+          "goal": "가격 확인하기",
+          "example": "Yes, five.",
+          "cue": "yes = 맞습니다"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thank you.",
+          "cue": "감사 표현"
+        }
+      ],
+      "outcome": "가격 말하기 / 가격 확인하기 / 감사하기",
+      "transfer": "다음에는 가상 가격 8달러를 말한다. 실제 결제 정보는 사용하지 않는다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "pre-A1",
+      "slug": "ask-wait",
+      "title": "고객에게 잠깐 기다려 달라고 하기",
+      "scenario": "다른 직원에게 재고를 확인해야 합니다. 고객에게 잠시 기다려 달라고 말합니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 요청에 동의하고 직원이 돌아오면 응답한다.",
+      "opening": "Hello.",
+      "steps": [
+        {
+          "goal": "기다림 요청하기",
+          "example": "One moment, please.",
+          "cue": "잠깐만 기다려 주세요"
+        },
+        {
+          "goal": "기다려준 데 감사하기",
+          "example": "Thank you.",
+          "cue": "감사합니다"
+        },
+        {
+          "goal": "준비됐음을 알리기",
+          "example": "Ready.",
+          "cue": "준비됐습니다"
+        }
+      ],
+      "outcome": "기다림 요청하기 / 기다려준 데 감사하기 / 준비됐음을 알리기",
+      "transfer": "다음에는 자리 확인 때문에 기다려 달라고 하고 준비되면 Here, please라고 안내한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "A1",
+      "slug": "give-basic-background",
+      "title": "면접에서 사는 곳과 직업 말하기",
+      "scenario": "가상 지원자 Mina는 부산에 살며 학생입니다. 면접관에게 기본 정보를 소개합니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 이름, 거주 도시, 현재 역할을 차례로 묻는다.",
+      "opening": "Tell me your name, please.",
+      "steps": [
+        {
+          "goal": "이름 소개하기",
+          "example": "My name is Mina Lee.",
+          "cue": "my name is = 제 이름은"
+        },
+        {
+          "goal": "거주 도시 말하기",
+          "example": "I live in Busan.",
+          "cue": "live in = ...에 살다"
+        },
+        {
+          "goal": "현재 역할 말하기",
+          "example": "I'm a student.",
+          "cue": "student = 학생"
+        }
+      ],
+      "outcome": "이름 소개하기 / 거주 도시 말하기 / 현재 역할 말하기",
+      "transfer": "다음에는 가상 직장인 Alex로 바꾸고 서울에 산다고 소개한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "A1",
+      "slug": "state-simple-skill",
+      "title": "잘하는 작업 한 가지 말하기",
+      "scenario": "가상의 카페 지원자입니다. 커피를 만들 수 있지만 운전은 못합니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 커피 제조와 운전 가능 여부를 각각 묻는다.",
+      "opening": "Can you make coffee?",
+      "steps": [
+        {
+          "goal": "가능한 일 답하기",
+          "example": "Yes, I can make coffee.",
+          "cue": "can = 할 수 있다"
+        },
+        {
+          "goal": "못하는 일 답하기",
+          "example": "I can't drive.",
+          "cue": "can't = 할 수 없다"
+        },
+        {
+          "goal": "배울 의향 알리기",
+          "example": "I want to learn.",
+          "cue": "want to = 하고 싶다"
+        }
+      ],
+      "outcome": "가능한 일 답하기 / 못하는 일 답하기 / 배울 의향 알리기",
+      "transfer": "다음에는 컴퓨터 사용은 가능하고 요리는 어렵다는 설정으로 바꾼다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "A1",
+      "slug": "confirm-interview-time",
+      "title": "면접 시간과 장소 확인하기",
+      "scenario": "면접 안내에 화요일 10시라고 적혀 있습니다. 장소는 3층인지 확인해야 합니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "담당자. Tuesday at ten을 확인하고 면접은 Room 301이라고 알려준다.",
+      "opening": "Your interview is on Tuesday.",
+      "steps": [
+        {
+          "goal": "시간 확인하기",
+          "example": "Is it at ten?",
+          "cue": "at ten = 10시에"
+        },
+        {
+          "goal": "장소 묻기",
+          "example": "Which room is it?",
+          "cue": "which room = 어느 방"
+        },
+        {
+          "goal": "정보 재진술하기",
+          "example": "Tuesday, ten, room three-oh-one.",
+          "cue": "날짜 시간 방 순서로 확인"
+        }
+      ],
+      "outcome": "시간 확인하기 / 장소 묻기 / 정보 재진술하기",
+      "transfer": "다음에는 목요일 2시 온라인 면접으로 바꾸고 회의 링크를 요청한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "A1",
+      "slug": "ask-working-days",
+      "title": "일하는 요일 물어보기",
+      "scenario": "가상 주말 일자리를 알아봅니다. 토요일은 가능하고 일요일은 수업이 있습니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "담당자. 토요일과 일요일 근무를 제안하고 가능한 날을 확인한다.",
+      "opening": "Can you work at weekends?",
+      "steps": [
+        {
+          "goal": "근무 요일 묻기",
+          "example": "Which days?",
+          "cue": "which days = 무슨 요일들"
+        },
+        {
+          "goal": "가능한 날 말하기",
+          "example": "I can work on Saturday.",
+          "cue": "on Saturday = 토요일에"
+        },
+        {
+          "goal": "불가능한 날 말하기",
+          "example": "I can't work on Sunday.",
+          "cue": "can't = 할 수 없다"
+        }
+      ],
+      "outcome": "근무 요일 묻기 / 가능한 날 말하기 / 불가능한 날 말하기",
+      "transfer": "다음에는 평일 오전만 가능한 설정에서 시간을 확인한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "A1",
+      "slug": "find-kitchen",
+      "title": "사무실 부엌 위치 묻기",
+      "scenario": "새 사무실에서 점심을 데울 부엌을 찾습니다. 부엌은 복도 끝 오른쪽입니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "동료. 부엌 위치를 짧게 말하고 냉장고 사용이 가능하다고 알려준다.",
+      "opening": "Can I help you?",
+      "steps": [
+        {
+          "goal": "장소 묻기",
+          "example": "Where is the kitchen?",
+          "cue": "where = 어디"
+        },
+        {
+          "goal": "방향 확인하기",
+          "example": "On the right?",
+          "cue": "on the right = 오른쪽에"
+        },
+        {
+          "goal": "이용 가능 여부 묻기",
+          "example": "Can I use the fridge?",
+          "cue": "use = 사용하다"
+        }
+      ],
+      "outcome": "장소 묻기 / 방향 확인하기 / 이용 가능 여부 묻기",
+      "transfer": "다음에는 프린터 위치와 사용 가능 여부를 묻는다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "A1",
+      "slug": "introduce-team-role",
+      "title": "팀 동료에게 맡은 일 소개하기",
+      "scenario": "가상 디자인팀에 합류했습니다. 이름과 팀을 소개하고 동료의 팀을 묻습니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "동료 Sam. 영업팀에서 일하며 학습자가 질문하면 알려준다.",
+      "opening": "Hi. I'm Sam.",
+      "steps": [
+        {
+          "goal": "이름 알리기",
+          "example": "I'm Mina.",
+          "cue": "이름 소개"
+        },
+        {
+          "goal": "소속 팀 말하기",
+          "example": "I'm in the design team.",
+          "cue": "in the team = 팀 소속"
+        },
+        {
+          "goal": "상대 소속 묻기",
+          "example": "Which team are you in?",
+          "cue": "which team = 어느 팀"
+        }
+      ],
+      "outcome": "이름 알리기 / 소속 팀 말하기 / 상대 소속 묻기",
+      "transfer": "다음에는 지원팀 소속으로 소개하고 상대 이름도 확인한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "A1",
+      "slug": "check-start-time",
+      "title": "첫날 출근과 점심시간 확인하기",
+      "scenario": "첫 근무일 안내를 받습니다. 근무는 9시에 시작하고 점심은 12시입니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "동료. 질문한 시간만 하나씩 알려준다.",
+      "opening": "Welcome to the team.",
+      "steps": [
+        {
+          "goal": "시작 시간 묻기",
+          "example": "What time do we start?",
+          "cue": "what time = 몇 시"
+        },
+        {
+          "goal": "점심시간 묻기",
+          "example": "When is lunch?",
+          "cue": "lunch = 점심"
+        },
+        {
+          "goal": "시작 시간 확인하기",
+          "example": "We start at nine, right?",
+          "cue": "right = 맞죠"
+        }
+      ],
+      "outcome": "시작 시간 묻기 / 점심시간 묻기 / 시작 시간 확인하기",
+      "transfer": "다음에는 8시 시작과 1시 점심을 듣고 다시 확인한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "A1",
+      "slug": "request-login-help",
+      "title": "첫 로그인에서 도움 요청하기",
+      "scenario": "교육용 계정으로 로그인하려는데 작동하지 않습니다. 실제 비밀번호는 말하지 않습니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "IT 동료. 문제를 묻고 로그인 화면을 확인한 뒤 다시 시도하라고 한다.",
+      "opening": "What's the problem?",
+      "steps": [
+        {
+          "goal": "문제 말하기",
+          "example": "I can't log in.",
+          "cue": "log in = 로그인하다"
+        },
+        {
+          "goal": "도움 요청하기",
+          "example": "Can you help me?",
+          "cue": "help me = 저를 도와주다"
+        },
+        {
+          "goal": "해결 확인하기",
+          "example": "It works now. Thank you.",
+          "cue": "works = 작동한다"
+        }
+      ],
+      "outcome": "문제 말하기 / 도움 요청하기 / 해결 확인하기",
+      "transfer": "다음에는 프린터가 작동하지 않는다고 말하고 도움을 구한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "A1",
+      "slug": "join-and-name",
+      "title": "회의에 들어가 자기소개하기",
+      "scenario": "다른 팀과 처음 화상회의를 합니다. 가상 이름과 디자인팀 소속을 밝힙니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 새 참여자에게 이름과 팀을 묻고 자료가 보이는지 확인한다.",
+      "opening": "Welcome. What's your name?",
+      "steps": [
+        {
+          "goal": "이름 말하기",
+          "example": "I'm Mina Lee.",
+          "cue": "이름 소개"
+        },
+        {
+          "goal": "소속 말하기",
+          "example": "I'm from the design team.",
+          "cue": "from = 소속에서 온"
+        },
+        {
+          "goal": "화면 확인하기",
+          "example": "Yes, I can see it.",
+          "cue": "see = 보다"
+        }
+      ],
+      "outcome": "이름 말하기 / 소속 말하기 / 화면 확인하기",
+      "transfer": "다음에는 자료가 안 보인다고 답하고 다시 공유해 달라고 한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "A1",
+      "slug": "ask-slower",
+      "title": "빠른 회의 안내 속도 조절 요청하기",
+      "scenario": "회의 시작 시간이 빠르게 안내되었습니다. 천천히 말해 달라고 요청합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 요청하면 Next Monday at nine라고 천천히 반복한다.",
+      "opening": "The next meeting is next Monday at nine.",
+      "steps": [
+        {
+          "goal": "속도 요청하기",
+          "example": "Please speak slowly.",
+          "cue": "slowly = 천천히"
+        },
+        {
+          "goal": "요일 확인하기",
+          "example": "Next Monday?",
+          "cue": "next = 다음"
+        },
+        {
+          "goal": "시간 확인하기",
+          "example": "At nine, right?",
+          "cue": "at = 시간에"
+        }
+      ],
+      "outcome": "속도 요청하기 / 요일 확인하기 / 시간 확인하기",
+      "transfer": "다음에는 시간은 들었지만 방 번호를 못 들어 그 부분만 반복 요청한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "A1",
+      "slug": "check-meeting-end",
+      "title": "회의 종료 시간 확인하기",
+      "scenario": "회의 뒤 11시에 다른 약속이 있습니다. 종료 시간을 확인합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 회의는 10시 45분에 끝난다고 알려준다.",
+      "opening": "Do you have a question?",
+      "steps": [
+        {
+          "goal": "종료 시간 묻기",
+          "example": "What time does it end?",
+          "cue": "end = 끝나다"
+        },
+        {
+          "goal": "다음 일정 알리기",
+          "example": "I have a call at eleven.",
+          "cue": "have a call = 통화 일정이 있다"
+        },
+        {
+          "goal": "이해 확인하기",
+          "example": "Ten forty-five. Thank you.",
+          "cue": "forty-five = 45"
+        }
+      ],
+      "outcome": "종료 시간 묻기 / 다음 일정 알리기 / 이해 확인하기",
+      "transfer": "다음에는 회의가 다음 일정과 겹치므로 일찍 나가도 되는지 묻는다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "A1",
+      "slug": "choose-meeting-day",
+      "title": "팀 회의 요일 정하기",
+      "scenario": "팀이 화요일 또는 수요일에 회의를 하려 합니다. 화요일에는 수업이 있습니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 두 요일을 제시하고 가능한 날을 기록한다.",
+      "opening": "Tuesday or Wednesday?",
+      "steps": [
+        {
+          "goal": "어려운 날 말하기",
+          "example": "Tuesday is not good for me.",
+          "cue": "not good for me = 제게 어렵다"
+        },
+        {
+          "goal": "가능한 날 제안하기",
+          "example": "Wednesday is good.",
+          "cue": "good = 가능하다"
+        },
+        {
+          "goal": "확정 묻기",
+          "example": "Wednesday at two?",
+          "cue": "at two = 2시에"
+        }
+      ],
+      "outcome": "어려운 날 말하기 / 가능한 날 제안하기 / 확정 묻기",
+      "transfer": "다음에는 요일은 같지만 오전과 오후 중 가능한 시간을 고른다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "A1",
+      "slug": "borrow-charger",
+      "title": "충전기 잠깐 빌리기",
+      "scenario": "업무용 노트북 배터리가 부족합니다. 동료의 충전기를 10분 빌리고 싶습니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 잠시 빌려줄 수 있으며 필요한 시간을 묻는다.",
+      "opening": "Do you need something?",
+      "steps": [
+        {
+          "goal": "물건 빌리기 요청하기",
+          "example": "Can I borrow your charger?",
+          "cue": "borrow = 빌리다"
+        },
+        {
+          "goal": "필요 시간 알리기",
+          "example": "For ten minutes, please.",
+          "cue": "for = ...동안"
+        },
+        {
+          "goal": "반납 약속하기",
+          "example": "I'll bring it back.",
+          "cue": "bring back = 돌려주다"
+        }
+      ],
+      "outcome": "물건 빌리기 요청하기 / 필요 시간 알리기 / 반납 약속하기",
+      "transfer": "다음에는 충전기 규격이 맞는지 먼저 확인하고 빌린다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "A1",
+      "slug": "ask-file-location",
+      "title": "팀 문서 위치 묻기",
+      "scenario": "회의에 쓸 가상 일정표를 찾지 못했습니다. 팀 폴더의 파일 이름은 plan입니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 일정표는 team 폴더 안 plan 파일이라고 알려준다.",
+      "opening": "What are you looking for?",
+      "steps": [
+        {
+          "goal": "찾는 파일 말하기",
+          "example": "I need the schedule.",
+          "cue": "schedule = 일정표"
+        },
+        {
+          "goal": "위치 묻기",
+          "example": "Where is it?",
+          "cue": "where = 어디"
+        },
+        {
+          "goal": "찾은 파일 확인하기",
+          "example": "Is it the plan file?",
+          "cue": "file = 파일"
+        }
+      ],
+      "outcome": "찾는 파일 말하기 / 위치 묻기 / 찾은 파일 확인하기",
+      "transfer": "다음에는 파일 이름이 같고 날짜가 다른 두 파일 중 최신 것을 확인한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "A1",
+      "slug": "request-short-task",
+      "title": "동료에게 인쇄 부탁하기",
+      "scenario": "회의 전 일정표 두 부가 필요합니다. 동료에게 간단히 인쇄를 부탁합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 문서 이름과 부수를 확인한 뒤 수락한다.",
+      "opening": "What do you need?",
+      "steps": [
+        {
+          "goal": "인쇄 요청하기",
+          "example": "Can you print this?",
+          "cue": "print = 인쇄하다"
+        },
+        {
+          "goal": "부수 말하기",
+          "example": "Two copies, please.",
+          "cue": "copies = 부수"
+        },
+        {
+          "goal": "감사하기",
+          "example": "Thanks for your help.",
+          "cue": "help = 도움"
+        }
+      ],
+      "outcome": "인쇄 요청하기 / 부수 말하기 / 감사하기",
+      "transfer": "다음에는 양면 한 부만 필요하다고 덧붙인다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "A1",
+      "slug": "report-not-ready",
+      "title": "작업이 아직 안 끝났다고 알리기",
+      "scenario": "정리할 파일 세 개 중 두 개만 끝났습니다. 동료가 완료 여부를 묻습니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 끝났는지 묻고 남은 시간을 확인한다.",
+      "opening": "Is it ready?",
+      "steps": [
+        {
+          "goal": "미완료 알리기",
+          "example": "Not yet.",
+          "cue": "아직입니다"
+        },
+        {
+          "goal": "남은 시간 말하기",
+          "example": "I need ten minutes.",
+          "cue": "need = 필요하다"
+        },
+        {
+          "goal": "전달 약속하기",
+          "example": "I'll send it soon.",
+          "cue": "send = 보내다"
+        }
+      ],
+      "outcome": "미완료 알리기 / 남은 시간 말하기 / 전달 약속하기",
+      "transfer": "다음에는 완료됐지만 확인이 필요하므로 확인을 요청한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "A1",
+      "slug": "present-simple-object",
+      "title": "새 제품의 색과 가격 소개하기",
+      "scenario": "가상 머그잔 제품을 소개합니다. 파란색이며 가격은 5달러입니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 제품이 무엇인지, 색과 가격을 차례로 확인한다.",
+      "opening": "What is this?",
+      "steps": [
+        {
+          "goal": "제품 이름 말하기",
+          "example": "This is a mug.",
+          "cue": "mug = 머그잔"
+        },
+        {
+          "goal": "색 설명하기",
+          "example": "It's blue.",
+          "cue": "blue = 파란색"
+        },
+        {
+          "goal": "가격 말하기",
+          "example": "It's five dollars.",
+          "cue": "dollars = 달러"
+        }
+      ],
+      "outcome": "제품 이름 말하기 / 색 설명하기 / 가격 말하기",
+      "transfer": "다음에는 빨간 가방과 10달러 가격으로 바꾸어 소개한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "A1",
+      "slug": "explain-daily-job",
+      "title": "내 하루 업무 간단히 소개하기",
+      "scenario": "신입 동료에게 하루 일과를 소개합니다. 9시에 시작해 오전에는 이메일을 확인합니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "신입 동료. 시작 시간과 오전 업무를 묻는다.",
+      "opening": "What do you do in the morning?",
+      "steps": [
+        {
+          "goal": "시작 시간 말하기",
+          "example": "I start at nine.",
+          "cue": "start = 시작하다"
+        },
+        {
+          "goal": "주요 업무 말하기",
+          "example": "I check emails.",
+          "cue": "check = 확인하다"
+        },
+        {
+          "goal": "점심시간 말하기",
+          "example": "I have lunch at twelve.",
+          "cue": "have lunch = 점심 먹다"
+        }
+      ],
+      "outcome": "시작 시간 말하기 / 주요 업무 말하기 / 점심시간 말하기",
+      "transfer": "다음에는 오후 일과 두 가지를 순서대로 설명한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "A1",
+      "slug": "show-team-photo",
+      "title": "팀 사진에서 사람 소개하기",
+      "scenario": "가상 사진 속 Sam은 매니저이고 Ana는 디자이너입니다. 동료에게 두 사람을 소개합니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 사진 속 두 사람이 누구인지 질문한다.",
+      "opening": "Who is this?",
+      "steps": [
+        {
+          "goal": "첫 사람 소개하기",
+          "example": "This is Sam.",
+          "cue": "this is = 이 사람은"
+        },
+        {
+          "goal": "역할 말하기",
+          "example": "Sam is our manager.",
+          "cue": "manager = 관리자"
+        },
+        {
+          "goal": "다른 사람 소개하기",
+          "example": "Ana is a designer.",
+          "cue": "designer = 디자이너"
+        }
+      ],
+      "outcome": "첫 사람 소개하기 / 역할 말하기 / 다른 사람 소개하기",
+      "transfer": "다음에는 직함 대신 각 사람이 담당하는 간단한 업무를 말한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "A1",
+      "slug": "state-three-items",
+      "title": "준비물 세 가지 안내하기",
+      "scenario": "교육 참가자에게 필요한 노트, 펜, 노트북을 알려줍니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "참가자. 필요한 물건을 묻고 휴대전화로 대신해도 되는지 확인한다.",
+      "opening": "What do we need?",
+      "steps": [
+        {
+          "goal": "첫 준비물 말하기",
+          "example": "You need a notebook.",
+          "cue": "need = 필요하다"
+        },
+        {
+          "goal": "두 번째 물건 추가하기",
+          "example": "And a pen.",
+          "cue": "and = 그리고"
+        },
+        {
+          "goal": "마지막 물건 말하기",
+          "example": "Please bring a laptop.",
+          "cue": "bring = 가져오다"
+        }
+      ],
+      "outcome": "첫 준비물 말하기 / 두 번째 물건 추가하기 / 마지막 물건 말하기",
+      "transfer": "다음에는 노트북이 필요 없는 교육으로 바꾸어 준비물 두 개만 안내한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "A1",
+      "slug": "take-simple-order",
+      "title": "간단한 음료 주문 받기",
+      "scenario": "가상 카페에서 차 한 잔 주문을 받습니다. 뜨거운 차인지 확인해야 합니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 차 한 잔을 원하며 질문하면 hot이라고 답한다.",
+      "opening": "A tea, please.",
+      "steps": [
+        {
+          "goal": "수량 확인하기",
+          "example": "One tea?",
+          "cue": "one = 하나"
+        },
+        {
+          "goal": "온도 묻기",
+          "example": "Hot or cold?",
+          "cue": "hot/cold = 뜨거운/차가운"
+        },
+        {
+          "goal": "주문 마무리하기",
+          "example": "One hot tea. Thank you.",
+          "cue": "주문을 짧게 확인"
+        }
+      ],
+      "outcome": "수량 확인하기 / 온도 묻기 / 주문 마무리하기",
+      "transfer": "다음에는 차 두 잔 중 한 잔만 차갑게 해 달라는 주문을 받는다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "A1",
+      "slug": "point-to-counter",
+      "title": "고객에게 계산대 안내하기",
+      "scenario": "손님이 결제할 곳을 찾습니다. 계산대는 오른쪽에 있습니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "손님. 계산 위치를 묻고 오른쪽인지 재확인한다.",
+      "opening": "Where can I pay?",
+      "steps": [
+        {
+          "goal": "위치 말하기",
+          "example": "At the counter.",
+          "cue": "counter = 계산대"
+        },
+        {
+          "goal": "방향 안내하기",
+          "example": "It's on the right.",
+          "cue": "on the right = 오른쪽에"
+        },
+        {
+          "goal": "추가 도움 제안하기",
+          "example": "Can I help you?",
+          "cue": "help = 돕다"
+        }
+      ],
+      "outcome": "위치 말하기 / 방향 안내하기 / 추가 도움 제안하기",
+      "transfer": "다음에는 계산대가 위층이라 계단 위치도 안내한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "A1",
+      "slug": "check-size",
+      "title": "고객이 원하는 사이즈 확인하기",
+      "scenario": "손님이 티셔츠를 찾습니다. 원하는 사이즈는 미디엄이며 파란색을 원합니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "손님. 사이즈와 색을 질문받으면 medium과 blue라고 답한다.",
+      "opening": "I'm looking for a T-shirt.",
+      "steps": [
+        {
+          "goal": "사이즈 묻기",
+          "example": "What size?",
+          "cue": "size = 크기"
+        },
+        {
+          "goal": "색 묻기",
+          "example": "What color?",
+          "cue": "color = 색"
+        },
+        {
+          "goal": "요청 확인하기",
+          "example": "A blue medium?",
+          "cue": "medium = 중간 크기"
+        }
+      ],
+      "outcome": "사이즈 묻기 / 색 묻기 / 요청 확인하기",
+      "transfer": "다음에는 해당 색이 없어서 다른 색을 제안한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "A1",
+      "slug": "state-opening-hours",
+      "title": "가게 영업시간 알려주기",
+      "scenario": "가상 매장은 평일 9시에 열고 6시에 닫습니다. 고객이 오늘 이용 시간을 묻습니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 여는 시간과 닫는 시간을 각각 묻는다.",
+      "opening": "What time do you open?",
+      "steps": [
+        {
+          "goal": "개점 시간 말하기",
+          "example": "We open at nine.",
+          "cue": "open = 문을 열다"
+        },
+        {
+          "goal": "폐점 시간 말하기",
+          "example": "We close at six.",
+          "cue": "close = 문을 닫다"
+        },
+        {
+          "goal": "확인에 답하기",
+          "example": "Yes, today.",
+          "cue": "today = 오늘"
+        }
+      ],
+      "outcome": "개점 시간 말하기 / 폐점 시간 말하기 / 확인에 답하기",
+      "transfer": "다음에는 토요일 시간이 달라 10시부터 4시라고 안내한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "A2",
+      "slug": "describe-experience",
+      "title": "지원 직무와 관련된 경험 설명하기",
+      "scenario": "가상 매장 지원자입니다. 학교 행사에서 손님 안내를 세 번 했고 계산 경험은 없습니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 관련 경험과 아직 안 해본 업무를 묻는다.",
+      "opening": "What experience do you have?",
+      "steps": [
+        {
+          "goal": "경험 설명하기",
+          "example": "I helped visitors at three school events.",
+          "cue": "helped = 도왔다"
+        },
+        {
+          "goal": "할 수 있는 일 연결하기",
+          "example": "I can welcome customers and answer simple questions.",
+          "cue": "answer = 답하다"
+        },
+        {
+          "goal": "배울 점 밝히기",
+          "example": "I haven't used a till, but I'd like to learn.",
+          "cue": "till = 계산대"
+        }
+      ],
+      "outcome": "경험 설명하기 / 할 수 있는 일 연결하기 / 배울 점 밝히기",
+      "transfer": "다음에는 봉사 경험을 재고 정리 업무와 연결해 설명한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "A2",
+      "slug": "reschedule-interview",
+      "title": "면접 일정 변경 요청하기",
+      "scenario": "목요일 2시 면접이 수업 시험과 겹칩니다. 금요일 오전 10시가 가능합니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "채용 담당자. 변경 이유를 듣고 금요일 10시 또는 11시를 제안한다.",
+      "opening": "How can I help?",
+      "steps": [
+        {
+          "goal": "변경 요청하기",
+          "example": "Could we move my interview?",
+          "cue": "move = 일정을 옮기다"
+        },
+        {
+          "goal": "간단한 이유 말하기",
+          "example": "I have an exam on Thursday afternoon.",
+          "cue": "exam = 시험"
+        },
+        {
+          "goal": "새 시간 확정하기",
+          "example": "Friday at ten works for me.",
+          "cue": "works for me = 제게 가능하다"
+        }
+      ],
+      "outcome": "변경 요청하기 / 간단한 이유 말하기 / 새 시간 확정하기",
+      "transfer": "다음에는 제안된 두 시간 모두 어려워 다른 날짜를 직접 제안한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "A2",
+      "slug": "ask-role-routine",
+      "title": "일자리의 실제 업무 확인하기",
+      "scenario": "가상 사무 보조 공고에는 업무 설명이 짧습니다. 전화 응대와 교육 기간을 확인합니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 서류 정리가 주업무이며 전화는 하루 한 시간, 교육은 사흘이라고 답한다.",
+      "opening": "Do you have any questions about the job?",
+      "steps": [
+        {
+          "goal": "일상 업무 묻기",
+          "example": "What would I do on a typical day?",
+          "cue": "typical = 보통의"
+        },
+        {
+          "goal": "전화 업무 확인하기",
+          "example": "Would I answer phone calls?",
+          "cue": "answer calls = 전화받다"
+        },
+        {
+          "goal": "교육 묻기",
+          "example": "How long is the training?",
+          "cue": "training = 교육"
+        }
+      ],
+      "outcome": "일상 업무 묻기 / 전화 업무 확인하기 / 교육 묻기",
+      "transfer": "다음에는 주말 근무 여부와 교대 일정을 구체적으로 확인한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "A2",
+      "slug": "explain-availability",
+      "title": "근무 가능 시간과 제약 알리기",
+      "scenario": "수업 때문에 월수 오전은 불가능하지만 나머지 오후에 근무할 수 있습니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "담당자. 월요일 오전을 요청하고 다른 가능한 시간을 물어본다.",
+      "opening": "Can you start on Monday morning?",
+      "steps": [
+        {
+          "goal": "제약 말하기",
+          "example": "I have classes on Monday mornings.",
+          "cue": "classes = 수업들"
+        },
+        {
+          "goal": "가능 시간 제안하기",
+          "example": "I'm available every afternoon.",
+          "cue": "available = 시간이 되는"
+        },
+        {
+          "goal": "시작일 확인하기",
+          "example": "Could I start on Tuesday afternoon?",
+          "cue": "start = 시작하다"
+        }
+      ],
+      "outcome": "제약 말하기 / 가능 시간 제안하기 / 시작일 확인하기",
+      "transfer": "다음에는 일주일만 특별 일정이 있어 임시 가능 시간과 평소 시간을 구분한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "A2",
+      "slug": "request-access",
+      "title": "필요한 공유 폴더 접근 요청하기",
+      "scenario": "입사 후 프로젝트 폴더가 보이지 않습니다. 가상 팀 이름은 Green이고 첫 업무는 일정표 확인입니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "IT 담당자. 프로젝트 이름과 필요한 접근 범위를 묻고 읽기 권한을 제공한다.",
+      "opening": "Which folder do you need?",
+      "steps": [
+        {
+          "goal": "문제 설명하기",
+          "example": "I can't open the Green project folder.",
+          "cue": "open = 열다"
+        },
+        {
+          "goal": "필요 설명하기",
+          "example": "I need to read the schedule for my first task.",
+          "cue": "read = 읽다"
+        },
+        {
+          "goal": "해결 확인하기",
+          "example": "I can open it now. Thank you.",
+          "cue": "now = 이제"
+        }
+      ],
+      "outcome": "문제 설명하기 / 필요 설명하기 / 해결 확인하기",
+      "transfer": "다음에는 읽기는 되지만 파일 올리기가 안 되어 필요한 권한만 요청한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "A2",
+      "slug": "ask-office-rules",
+      "title": "공용 회의실 이용 규칙 확인하기",
+      "scenario": "공용 회의실에서 짧은 통화를 하려 합니다. 예약은 달력에서 하며 음식은 안 됩니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "동료. 예약 방법과 음식 규칙을 알려준다.",
+      "opening": "Are you planning to use the meeting room?",
+      "steps": [
+        {
+          "goal": "예약 방법 묻기",
+          "example": "How do I book the room?",
+          "cue": "book = 예약하다"
+        },
+        {
+          "goal": "이용 범위 확인하기",
+          "example": "Can I use it for a short call?",
+          "cue": "short call = 짧은 통화"
+        },
+        {
+          "goal": "규칙 확인하기",
+          "example": "So no food in the room, right?",
+          "cue": "no food = 음식 금지"
+        }
+      ],
+      "outcome": "예약 방법 묻기 / 이용 범위 확인하기 / 규칙 확인하기",
+      "transfer": "다음에는 장비 반납 규칙을 묻고 언제 어디에 두는지 확인한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "A2",
+      "slug": "understand-first-task",
+      "title": "첫 업무의 완료 조건 확인하기",
+      "scenario": "동료가 명단을 정리해 달라고 합니다. 중복 제거가 필요하지만 연락처 수정은 하면 안 됩니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "담당 동료. 중복 이름만 지우고 원본은 보존한 사본을 오후 3시까지 달라고 한다.",
+      "opening": "Please tidy up this list.",
+      "steps": [
+        {
+          "goal": "작업 범위 묻기",
+          "example": "Should I remove duplicate names?",
+          "cue": "duplicate = 중복된"
+        },
+        {
+          "goal": "원본 처리 확인하기",
+          "example": "Shall I make a copy first?",
+          "cue": "copy = 사본"
+        },
+        {
+          "goal": "기한 재확인하기",
+          "example": "I'll send the copy by three.",
+          "cue": "by = ...까지"
+        }
+      ],
+      "outcome": "작업 범위 묻기 / 원본 처리 확인하기 / 기한 재확인하기",
+      "transfer": "다음에는 일부 빈칸은 확인이 필요하므로 추측해 채우지 않고 질문한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "A2",
+      "slug": "arrange-buddy-checkin",
+      "title": "입사 안내 동료와 확인 시간 잡기",
+      "scenario": "첫날 질문이 여러 개 생겼습니다. 담당 동료에게 15분 확인 시간을 요청합니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "안내 동료. 오전은 바쁘지만 오후 2시 30분은 가능하다고 답한다.",
+      "opening": "How's your first day going?",
+      "steps": [
+        {
+          "goal": "짧은 시간 요청하기",
+          "example": "Could we talk for fifteen minutes?",
+          "cue": "for = ...동안"
+        },
+        {
+          "goal": "질문 주제 알리기",
+          "example": "I have questions about the team tools.",
+          "cue": "tools = 도구들"
+        },
+        {
+          "goal": "시간 확정하기",
+          "example": "Two thirty is good. I'll bring my questions.",
+          "cue": "bring = 가져오다"
+        }
+      ],
+      "outcome": "짧은 시간 요청하기 / 질문 주제 알리기 / 시간 확정하기",
+      "transfer": "다음에는 상대가 5분만 가능해서 가장 중요한 질문 두 개를 먼저 고른다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "A2",
+      "slug": "give-brief-update",
+      "title": "회의에서 진행과 다음 작업 보고하기",
+      "scenario": "자료 세 개 중 두 개를 정리했고 마지막 자료는 내일 받을 예정입니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 완료분, 남은 일, 다음 공유 시점을 묻는다.",
+      "opening": "Could you give us a quick update?",
+      "steps": [
+        {
+          "goal": "완료분 말하기",
+          "example": "I've finished two of the three files.",
+          "cue": "finished = 끝냈다"
+        },
+        {
+          "goal": "남은 일 설명하기",
+          "example": "I'm waiting for the last file, which should arrive tomorrow.",
+          "cue": "should arrive = 도착할 것으로 예상된다"
+        },
+        {
+          "goal": "다음 공유 약속하기",
+          "example": "I'll send an update tomorrow afternoon.",
+          "cue": "update = 진행 소식"
+        }
+      ],
+      "outcome": "완료분 말하기 / 남은 일 설명하기 / 다음 공유 약속하기",
+      "transfer": "다음에는 마지막 자료가 늦어져 가능한 작업부터 진행한다고 설명한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "A2",
+      "slug": "clarify-assignment",
+      "title": "회의에서 담당자와 기한 확인하기",
+      "scenario": "회의가 끝나는데 포스터 수정 담당이 모호합니다. 본인은 제목을, Sam은 이미지를 수정합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 업무 분담과 금요일 정오 마감을 확인해 준다.",
+      "opening": "Let's finish the poster this week.",
+      "steps": [
+        {
+          "goal": "본인 업무 확인하기",
+          "example": "Am I changing the title?",
+          "cue": "change = 바꾸다"
+        },
+        {
+          "goal": "다른 담당 확인하기",
+          "example": "Is Sam updating the image?",
+          "cue": "update = 갱신하다"
+        },
+        {
+          "goal": "기한 확인하기",
+          "example": "Do we need it by Friday noon?",
+          "cue": "noon = 정오"
+        }
+      ],
+      "outcome": "본인 업무 확인하기 / 다른 담당 확인하기 / 기한 확인하기",
+      "transfer": "다음에는 두 사람이 같은 일을 맡은 상태라 중복을 발견하고 분담을 확인한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "A2",
+      "slug": "express-simple-preference",
+      "title": "회의에서 대안과 이유 말하기",
+      "scenario": "팀 모임 장소로 공원 또는 실내 카페를 고릅니다. 비 예보가 있어 카페를 선호합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 두 장소를 제안하고 이유를 요청한다.",
+      "opening": "Would you prefer the park or the café?",
+      "steps": [
+        {
+          "goal": "선호 말하기",
+          "example": "I'd prefer the café.",
+          "cue": "prefer = 더 선호하다"
+        },
+        {
+          "goal": "이유 덧붙이기",
+          "example": "It may rain on Saturday.",
+          "cue": "may = ...일 수 있다"
+        },
+        {
+          "goal": "상대 의견 묻기",
+          "example": "What do you think?",
+          "cue": "의견 묻는 표현"
+        }
+      ],
+      "outcome": "선호 말하기 / 이유 덧붙이기 / 상대 의견 묻기",
+      "transfer": "다음에는 날씨는 좋지만 이동이 불편한 장소를 비교해 선호를 말한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "A2",
+      "slug": "confirm-call-actions",
+      "title": "온라인 회의 뒤 할 일 요약하기",
+      "scenario": "회의 결과 팀은 파일을 오늘 보내고 내일 다시 확인하기로 했습니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 학습자가 요약하면 빠진 수신자 Ana를 알려준다.",
+      "opening": "Let's check the next steps.",
+      "steps": [
+        {
+          "goal": "첫 행동 요약하기",
+          "example": "We'll send the file today.",
+          "cue": "will = 할 것이다"
+        },
+        {
+          "goal": "수신자 확인하기",
+          "example": "Should I send it to Ana?",
+          "cue": "send to = ...에게 보내다"
+        },
+        {
+          "goal": "다음 확인 잡기",
+          "example": "Then we'll check it together tomorrow.",
+          "cue": "then = 그다음"
+        }
+      ],
+      "outcome": "첫 행동 요약하기 / 수신자 확인하기 / 다음 확인 잡기",
+      "transfer": "다음에는 확인 순서가 바뀌어 검토 후 발송해야 함을 구분한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "A2",
+      "slug": "ask-deadline-extension",
+      "title": "작업 기한을 짧게 연장 요청하기",
+      "scenario": "정리 작업에 예상보다 시간이 걸립니다. 오늘 3시 대신 5시까지 제출할 수 있습니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 다른 팀 전달은 6시라 5시까지는 가능하다고 답한다.",
+      "opening": "Will the file be ready by three?",
+      "steps": [
+        {
+          "goal": "현재 지연 알리기",
+          "example": "I need a little more time.",
+          "cue": "more time = 더 많은 시간"
+        },
+        {
+          "goal": "새 기한 제안하기",
+          "example": "Could I send it by five instead?",
+          "cue": "instead = 대신"
+        },
+        {
+          "goal": "후속 확인하기",
+          "example": "Will that still work for your team?",
+          "cue": "work = 가능하다"
+        }
+      ],
+      "outcome": "현재 지연 알리기 / 새 기한 제안하기 / 후속 확인하기",
+      "transfer": "다음에는 최종 기한은 못 바꾸므로 핵심 부분 먼저 보내는 방법을 제안한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "A2",
+      "slug": "report-broken-printer",
+      "title": "공용 장비 고장 설명하기",
+      "scenario": "프린터에 종이가 있지만 출력이 멈췄습니다. 재시작해도 같은 표시가 납니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "IT 동료. 이미 시도한 방법을 묻고 다른 프린터를 안내한다.",
+      "opening": "What's happening with the printer?",
+      "steps": [
+        {
+          "goal": "증상 설명하기",
+          "example": "The printer stops after one page.",
+          "cue": "after = ...후에"
+        },
+        {
+          "goal": "시도한 방법 말하기",
+          "example": "I restarted it, but it still stops.",
+          "cue": "restarted = 다시 시작했다"
+        },
+        {
+          "goal": "대안 요청하기",
+          "example": "Can I use another printer?",
+          "cue": "another = 다른"
+        }
+      ],
+      "outcome": "증상 설명하기 / 시도한 방법 말하기 / 대안 요청하기",
+      "transfer": "다음에는 네트워크 연결 문제로 화면의 오류 문구를 정확히 전달한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "A2",
+      "slug": "check-version",
+      "title": "공동 문서의 최신 버전 확인하기",
+      "scenario": "공유 폴더에 plan-final과 plan-new 두 파일이 있습니다. 수정 전 어느 것이 최신인지 묻습니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "담당 동료. plan-new가 최신이며 plan-final은 어제 것이라고 답한다.",
+      "opening": "Which file are you using?",
+      "steps": [
+        {
+          "goal": "혼동 설명하기",
+          "example": "I can see two plan files.",
+          "cue": "two files = 두 파일"
+        },
+        {
+          "goal": "최신 파일 묻기",
+          "example": "Which one is the latest?",
+          "cue": "latest = 가장 최신"
+        },
+        {
+          "goal": "작업 대상 확인하기",
+          "example": "I'll edit plan-new, then.",
+          "cue": "edit = 수정하다"
+        }
+      ],
+      "outcome": "혼동 설명하기 / 최신 파일 묻기 / 작업 대상 확인하기",
+      "transfer": "다음에는 파일명보다 수정 날짜가 다르므로 날짜와 담당자를 함께 확인한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "A2",
+      "slug": "hand-over-task",
+      "title": "자리를 비우기 전 업무 인계하기",
+      "scenario": "오후에 자리를 비웁니다. 고객 회신을 기다리는 중이며 오면 팀 폴더에 넣어야 합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "대신 맡는 동료. 기다리는 회신과 처리 방법을 묻는다.",
+      "opening": "What should I do while you're away?",
+      "steps": [
+        {
+          "goal": "현재 상태 전달하기",
+          "example": "We're waiting for the customer's reply.",
+          "cue": "reply = 답장"
+        },
+        {
+          "goal": "해야 할 일 요청하기",
+          "example": "Please save it in the team folder.",
+          "cue": "save = 저장하다"
+        },
+        {
+          "goal": "긴급 연락 기준 알리기",
+          "example": "Call me if the date changes.",
+          "cue": "if = ...이면"
+        }
+      ],
+      "outcome": "현재 상태 전달하기 / 해야 할 일 요청하기 / 긴급 연락 기준 알리기",
+      "transfer": "다음에는 연락 불가능한 일정이므로 다른 담당자에게 넘기는 기준을 말한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "A2",
+      "slug": "describe-simple-process",
+      "title": "세 단계 업무 절차 설명하기",
+      "scenario": "새 동료에게 가상 요청서를 작성하고 검토받고 보내는 절차를 알려줍니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "신입 동료. 바로 보내도 되는지 물으며 순서를 확인한다.",
+      "opening": "How do I send a request?",
+      "steps": [
+        {
+          "goal": "첫 단계 설명하기",
+          "example": "First, fill in the form.",
+          "cue": "fill in = 작성하다"
+        },
+        {
+          "goal": "검토 단계 알리기",
+          "example": "Then ask Ana to check it.",
+          "cue": "then = 다음"
+        },
+        {
+          "goal": "발송 조건 말하기",
+          "example": "Send it after Ana approves it.",
+          "cue": "after = ...후에"
+        }
+      ],
+      "outcome": "첫 단계 설명하기 / 검토 단계 알리기 / 발송 조건 말하기",
+      "transfer": "다음에는 검토에서 수정 요청이 와 되돌아가는 절차도 설명한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "A2",
+      "slug": "compare-two-products",
+      "title": "두 제품의 차이 소개하기",
+      "scenario": "가상 가방 A는 싸고 작으며 B는 비싸고 큽니다. 짧은 여행용 선택을 돕습니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 가격과 크기를 듣고 짧은 여행에는 무엇을 고를지 묻는다.",
+      "opening": "How are these bags different?",
+      "steps": [
+        {
+          "goal": "첫 특징 설명하기",
+          "example": "Bag A is smaller and cheaper.",
+          "cue": "cheaper = 더 저렴한"
+        },
+        {
+          "goal": "대안 설명하기",
+          "example": "Bag B has more space.",
+          "cue": "more space = 더 넓은 공간"
+        },
+        {
+          "goal": "용도별 추천하기",
+          "example": "For a short trip, I'd choose A.",
+          "cue": "choose = 고르다"
+        }
+      ],
+      "outcome": "첫 특징 설명하기 / 대안 설명하기 / 용도별 추천하기",
+      "transfer": "다음에는 크기는 같고 무게와 방수 성능이 다른 두 제품을 설명한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "A2",
+      "slug": "report-simple-numbers",
+      "title": "간단한 판매 수치 전달하기",
+      "scenario": "가상 행사에서 월요일 20개, 화요일 30개를 팔았습니다. 숫자와 변화만 전달합니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 이틀 수치와 어느 날이 더 높았는지 묻는다.",
+      "opening": "How did the event go?",
+      "steps": [
+        {
+          "goal": "첫날 수치 말하기",
+          "example": "We sold twenty on Monday.",
+          "cue": "sold = 팔았다"
+        },
+        {
+          "goal": "다음 날 수치 말하기",
+          "example": "We sold thirty on Tuesday.",
+          "cue": "thirty = 서른"
+        },
+        {
+          "goal": "변화 설명하기",
+          "example": "We sold ten more on Tuesday.",
+          "cue": "ten more = 열 개 더"
+        }
+      ],
+      "outcome": "첫날 수치 말하기 / 다음 날 수치 말하기 / 변화 설명하기",
+      "transfer": "다음에는 수치가 줄어든 데이터를 보고 좋았다고 단정하지 않고 변화만 말한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "A2",
+      "slug": "explain-team-plan",
+      "title": "팀 행사 계획 소개하기",
+      "scenario": "가상 팀 워크숍은 금요일 10시 회의실에서 열며 노트북이 필요합니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 시간, 장소, 준비물을 묻는다.",
+      "opening": "What's the plan for Friday?",
+      "steps": [
+        {
+          "goal": "일정 소개하기",
+          "example": "We'll start at ten on Friday.",
+          "cue": "start = 시작하다"
+        },
+        {
+          "goal": "장소 알리기",
+          "example": "We'll meet in the main meeting room.",
+          "cue": "meet = 모이다"
+        },
+        {
+          "goal": "준비물 안내하기",
+          "example": "Please bring your laptop.",
+          "cue": "bring = 가져오다"
+        }
+      ],
+      "outcome": "일정 소개하기 / 장소 알리기 / 준비물 안내하기",
+      "transfer": "다음에는 행사가 온라인으로 바뀌어 접속 방법과 준비 시간을 안내한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "A2",
+      "slug": "handle-unavailable-item",
+      "title": "품절 상품 대신 대안 안내하기",
+      "scenario": "고객이 파란 미디엄 셔츠를 찾지만 재고는 검정 미디엄과 파란 라지뿐입니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 파란 미디엄을 원하고 대안의 색과 사이즈를 확인한다.",
+      "opening": "Do you have this in a blue medium?",
+      "steps": [
+        {
+          "goal": "품절 알리기",
+          "example": "I'm sorry, we don't have that size in blue.",
+          "cue": "that size = 그 크기"
+        },
+        {
+          "goal": "대안 제시하기",
+          "example": "We have a black medium or a blue large.",
+          "cue": "or = 또는"
+        },
+        {
+          "goal": "선호 확인하기",
+          "example": "Would you like to try either one?",
+          "cue": "try = 입어 보다"
+        }
+      ],
+      "outcome": "품절 알리기 / 대안 제시하기 / 선호 확인하기",
+      "transfer": "다음에는 대안도 원치 않아 재입고 여부를 확인해 안내한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "A2",
+      "slug": "correct-order",
+      "title": "잘못 받은 주문 바로잡기",
+      "scenario": "고객은 차가운 차를 주문했는데 뜨거운 차를 받았습니다. 확인 후 교체합니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 원래 주문이 iced tea였다고 설명하고 교체에 동의한다.",
+      "opening": "I ordered an iced tea.",
+      "steps": [
+        {
+          "goal": "주문 확인하기",
+          "example": "You wanted an iced tea, right?",
+          "cue": "wanted = 원했다"
+        },
+        {
+          "goal": "사과와 조치 말하기",
+          "example": "I'm sorry. I'll replace it.",
+          "cue": "replace = 교체하다"
+        },
+        {
+          "goal": "새 주문 확인하기",
+          "example": "Here is your iced tea. Is this right?",
+          "cue": "right = 맞는"
+        }
+      ],
+      "outcome": "주문 확인하기 / 사과와 조치 말하기 / 새 주문 확인하기",
+      "transfer": "다음에는 음료 종류가 잘못된 상황에서 온도와 종류를 모두 확인한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "A2",
+      "slug": "explain-simple-return",
+      "title": "반품에 필요한 정보 확인하기",
+      "scenario": "가상 매장의 반품 접수 기준은 구매 7일 이내와 영수증 지참입니다. 실제 환불 승인 여부는 담당 창구가 확인하며, 여기서는 접수에 필요한 정보를 묻습니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 이틀 전 샀고 영수증이 있다고 답한다.",
+      "opening": "Can I return this?",
+      "steps": [
+        {
+          "goal": "구매일 묻기",
+          "example": "When did you buy it?",
+          "cue": "buy = 사다"
+        },
+        {
+          "goal": "증빙 확인하기",
+          "example": "Do you have the receipt?",
+          "cue": "receipt = 영수증"
+        },
+        {
+          "goal": "다음 절차 안내하기",
+          "example": "Please take it to our returns desk.",
+          "cue": "returns desk = 반품 창구"
+        }
+      ],
+      "outcome": "구매일 묻기 / 증빙 확인하기 / 다음 절차 안내하기",
+      "transfer": "다음에는 영수증이 없어 다른 증빙 가능 여부를 담당자에게 확인하겠다고 안내한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "A2",
+      "slug": "give-delay-update",
+      "title": "고객에게 짧은 대기 시간 안내하기",
+      "scenario": "가상 수리 접수에서 작업이 10분 늦어집니다. 예상 시간과 대기 장소를 안내합니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 지금 완료됐는지 묻고 기다릴 곳을 확인한다.",
+      "opening": "Is it ready yet?",
+      "steps": [
+        {
+          "goal": "지연 알리기",
+          "example": "I'm sorry, it's not ready yet.",
+          "cue": "not yet = 아직 아닌"
+        },
+        {
+          "goal": "예상 시간 안내하기",
+          "example": "It should take about ten more minutes.",
+          "cue": "about = 약"
+        },
+        {
+          "goal": "대기 장소 제안하기",
+          "example": "You can wait in the seating area.",
+          "cue": "seating area = 대기 좌석"
+        }
+      ],
+      "outcome": "지연 알리기 / 예상 시간 안내하기 / 대기 장소 제안하기",
+      "transfer": "다음에는 예상 시간을 모르는 상황에서 확정처럼 말하지 않고 확인 후 알려주겠다고 한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "B1",
+      "slug": "explain-project-problem",
+      "title": "면접에서 문제 해결 경험 설명하기",
+      "scenario": "가상 학교 행사에서 안내 표지가 부족해 줄이 꼬였습니다. 팀과 표지를 만들어 대기를 줄였던 경험을 말합니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 무슨 문제가 있었고 본인이 한 행동과 결과를 묻는다.",
+      "opening": "Tell me about a problem you solved.",
+      "steps": [
+        {
+          "goal": "문제와 영향 설명하기",
+          "example": "Visitors couldn't find the right queue, so they kept asking volunteers.",
+          "cue": "queue = 줄"
+        },
+        {
+          "goal": "본인 행동 설명하기",
+          "example": "I suggested clear signs and checked them with the team.",
+          "cue": "suggested = 제안했다"
+        },
+        {
+          "goal": "결과와 배운 점 연결하기",
+          "example": "The queue moved faster, and I learned to check instructions early.",
+          "cue": "learned = 배웠다"
+        }
+      ],
+      "outcome": "문제와 영향 설명하기 / 본인 행동 설명하기 / 결과와 배운 점 연결하기",
+      "transfer": "다음에는 결과가 완전히 해결되지 않은 경험을 골라 남은 문제도 인정한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "B1",
+      "slug": "explain-career-change",
+      "title": "다른 직무 지원 이유 설명하기",
+      "scenario": "가상 매장 직원이 사무 보조에 지원합니다. 고객 응대 경험은 있지만 문서 프로그램 경험은 적습니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 전환 이유와 옮겨 쓸 수 있는 역량, 부족한 역량을 묻는다.",
+      "opening": "Why are you moving into office work?",
+      "steps": [
+        {
+          "goal": "지원 동기 설명하기",
+          "example": "I enjoy organizing information and want to develop that skill.",
+          "cue": "develop = 발전시키다"
+        },
+        {
+          "goal": "관련 역량 연결하기",
+          "example": "In retail, I learned to explain things clearly to different people.",
+          "cue": "retail = 소매업"
+        },
+        {
+          "goal": "학습 계획 말하기",
+          "example": "I'm taking a spreadsheet course and practicing with sample data.",
+          "cue": "sample data = 예시 자료"
+        }
+      ],
+      "outcome": "지원 동기 설명하기 / 관련 역량 연결하기 / 학습 계획 말하기",
+      "transfer": "다음에는 기술직에서 고객 지원직으로 옮기는 이유와 준비를 설명한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "B1",
+      "slug": "discuss-gap",
+      "title": "이력 공백을 필요한 범위에서 설명하기",
+      "scenario": "가상 지원자는 6개월간 가족 사정으로 쉬었고 지금은 근무 가능합니다. 세부 사생활을 공개할 필요는 없습니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 공백 기간과 현재 근무 가능 여부를 묻되 사생활 설명을 강요하지 않는다.",
+      "opening": "Could you explain this six-month gap?",
+      "steps": [
+        {
+          "goal": "공백을 간단히 설명하기",
+          "example": "I took time away for personal responsibilities.",
+          "cue": "personal responsibilities = 개인적 책임"
+        },
+        {
+          "goal": "현재 상태 밝히기",
+          "example": "Those arrangements are now in place, so I'm available to work.",
+          "cue": "arrangements = 준비와 조치"
+        },
+        {
+          "goal": "직무 준비로 전환하기",
+          "example": "During that time, I kept practicing my writing skills.",
+          "cue": "kept practicing = 계속 연습했다"
+        }
+      ],
+      "outcome": "공백을 간단히 설명하기 / 현재 상태 밝히기 / 직무 준비로 전환하기",
+      "transfer": "다음에는 건강 관련 세부 질문에 정중히 경계를 두고 근무 가능성으로 초점을 옮긴다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "B1",
+      "slug": "ask-success-measures",
+      "title": "직무의 초기 성공 기준 묻기",
+      "scenario": "가상 고객 지원 직무 제안을 검토합니다. 첫 3개월에 무엇을 기대하는지 공고에는 없습니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 응답 속도보다 정확도를 먼저 익혀야 하며 주간 코칭이 있다고 답한다.",
+      "opening": "What would you like to know about the role?",
+      "steps": [
+        {
+          "goal": "기대 성과 묻기",
+          "example": "What would success look like in the first three months?",
+          "cue": "success = 성공 기준"
+        },
+        {
+          "goal": "우선순위 확인하기",
+          "example": "Would accuracy be more important than speed at first?",
+          "cue": "accuracy = 정확성"
+        },
+        {
+          "goal": "지원 방법 확인하기",
+          "example": "How would I get feedback on my progress?",
+          "cue": "feedback = 피드백"
+        }
+      ],
+      "outcome": "기대 성과 묻기 / 우선순위 확인하기 / 지원 방법 확인하기",
+      "transfer": "다음에는 서로 충돌하는 두 성과 기준의 우선순위를 구체적으로 묻는다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "B1",
+      "slug": "clarify-unclear-guide",
+      "title": "온보딩 문서의 모호한 지침 확인하기",
+      "scenario": "문서에는 자료를 곧 제출하라고만 적혀 있습니다. 누구에게 어느 형식으로 언제까지인지 불명확합니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "담당 동료. 금요일 3시까지 Ana에게 PDF 사본을 보내라고 구체화한다.",
+      "opening": "Please send the documents soon.",
+      "steps": [
+        {
+          "goal": "모호한 부분 지적하기",
+          "example": "The guide says soon, but I can't see a deadline.",
+          "cue": "deadline = 마감"
+        },
+        {
+          "goal": "형식과 대상 확인하기",
+          "example": "Should I send a PDF to you or to Ana?",
+          "cue": "format = 형식"
+        },
+        {
+          "goal": "합의 재진술하기",
+          "example": "I'll send Ana a PDF by Friday at three.",
+          "cue": "by = ...까지"
+        }
+      ],
+      "outcome": "모호한 부분 지적하기 / 형식과 대상 확인하기 / 합의 재진술하기",
+      "transfer": "다음에는 두 안내 문서의 마감이 서로 달라 어떤 것이 최신인지 확인한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "B1",
+      "slug": "request-accessible-setup",
+      "title": "업무에 필요한 접근성 조정 요청하기",
+      "scenario": "교육 영상의 소리가 잘 들리지 않아 자막이 필요합니다. 개인 진단 정보 대신 필요한 지원을 설명합니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "교육 담당자. 자막 파일은 오늘 가능하고 녹화본은 내일 공유할 수 있다.",
+      "opening": "Is the training format working for you?",
+      "steps": [
+        {
+          "goal": "업무 장벽 설명하기",
+          "example": "I'm missing parts of the audio in the training videos.",
+          "cue": "missing = 놓치고 있는"
+        },
+        {
+          "goal": "구체적 지원 요청하기",
+          "example": "Could we turn on captions or share a transcript?",
+          "cue": "captions = 자막"
+        },
+        {
+          "goal": "이용 계획 합의하기",
+          "example": "Captions today would help me follow the session.",
+          "cue": "follow = 이해하며 따라가다"
+        }
+      ],
+      "outcome": "업무 장벽 설명하기 / 구체적 지원 요청하기 / 이용 계획 합의하기",
+      "transfer": "다음에는 작은 글씨 자료를 읽기 어려워 편집 가능한 큰 글씨 자료를 요청한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "B1",
+      "slug": "resolve-wrong-permissions",
+      "title": "과도하게 부여된 접근 권한 알리기",
+      "scenario": "신입 계정에서 본인 업무와 무관한 가상 인사 폴더가 보입니다. 내용을 열지 않고 IT에 알립니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "IT 담당자. 어떤 경로가 보이는지 묻고 접근을 제한한 뒤 확인한다.",
+      "opening": "What access issue are you reporting?",
+      "steps": [
+        {
+          "goal": "예상 밖 접근 설명하기",
+          "example": "I can see a folder that doesn't seem related to my role.",
+          "cue": "related to = 관련된"
+        },
+        {
+          "goal": "안전하게 처리한 사실 말하기",
+          "example": "I haven't opened the files inside it.",
+          "cue": "haven't opened = 열지 않았다"
+        },
+        {
+          "goal": "필요 범위 확인하기",
+          "example": "Could you check that I only have the access I need?",
+          "cue": "access = 접근 권한"
+        }
+      ],
+      "outcome": "예상 밖 접근 설명하기 / 안전하게 처리한 사실 말하기 / 필요 범위 확인하기",
+      "transfer": "다음에는 업무 폴더와 민감 폴더 이름이 비슷해 정확한 경로만 전달한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "B1",
+      "slug": "align-first-week",
+      "title": "첫 주 업무량과 학습 시간 조정하기",
+      "scenario": "첫 주 교육 3개와 제출 작업 2개가 같은 날 잡혔습니다. 중요한 고객 작업과 필수 교육부터 하고 싶습니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "매니저. 고객 자료는 오늘, 내부 소개 자료는 다음 주로 옮길 수 있다고 답한다.",
+      "opening": "How is your first week going?",
+      "steps": [
+        {
+          "goal": "충돌 설명하기",
+          "example": "Two tasks are due on the same day as the required training.",
+          "cue": "required = 필수인"
+        },
+        {
+          "goal": "우선순위 확인하기",
+          "example": "Which task should I focus on first?",
+          "cue": "focus on = 집중하다"
+        },
+        {
+          "goal": "현실적 계획 제안하기",
+          "example": "I can finish the customer file today and move the introduction to next week.",
+          "cue": "move = 옮기다"
+        }
+      ],
+      "outcome": "충돌 설명하기 / 우선순위 확인하기 / 현실적 계획 제안하기",
+      "transfer": "다음에는 둘 다 오늘 필요하다는 답을 듣고 지원 인력 또는 범위 조정을 요청한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B1",
+      "slug": "raise-blocker",
+      "title": "회의에서 의존 작업 지연 알리기",
+      "scenario": "보고서를 만들려면 다른 팀 데이터가 필요한데 아직 오지 않았습니다. 형식 정리는 먼저 할 수 있습니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "회의 진행자. 늦어지는 이유를 단정하지 말고 가능한 다음 행동을 묻는다.",
+      "opening": "Are we on track for Friday?",
+      "steps": [
+        {
+          "goal": "막힌 원인 설명하기",
+          "example": "We haven't received the figures, so I can't finish the report yet.",
+          "cue": "figures = 수치"
+        },
+        {
+          "goal": "가능한 작업 제시하기",
+          "example": "I can prepare the layout while we wait.",
+          "cue": "while = ...동안"
+        },
+        {
+          "goal": "도움 요청하기",
+          "example": "Could someone confirm when the data will arrive?",
+          "cue": "confirm = 확인하다"
+        }
+      ],
+      "outcome": "막힌 원인 설명하기 / 가능한 작업 제시하기 / 도움 요청하기",
+      "transfer": "다음에는 일부 데이터만 도착해 잠정 보고와 완성 보고를 나누어 제안한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B1",
+      "slug": "polite-disagreement",
+      "title": "회의에서 근거를 들어 다르게 제안하기",
+      "scenario": "팀은 금요일에 새 도구를 도입하려 하지만 그날 지원 담당자가 없습니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "제안자. 금요일 도입을 선호하며 학습자가 근거와 대안을 말하면 검토한다.",
+      "opening": "Let's launch the tool this Friday.",
+      "steps": [
+        {
+          "goal": "제안의 장점 인정하기",
+          "example": "I understand that we'd like to start soon.",
+          "cue": "understand = 이해하다"
+        },
+        {
+          "goal": "우려와 근거 말하기",
+          "example": "My concern is that support won't be available on Friday.",
+          "cue": "concern = 우려"
+        },
+        {
+          "goal": "대안 제안하기",
+          "example": "Could we start on Monday when the support team is here?",
+          "cue": "available = 가능한"
+        }
+      ],
+      "outcome": "제안의 장점 인정하기 / 우려와 근거 말하기 / 대안 제안하기",
+      "transfer": "다음에는 일정 변경이 안 돼 제한된 사용자부터 시작하는 대안을 제시한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B1",
+      "slug": "bring-back-topic",
+      "title": "벗어난 회의 주제를 되돌리기",
+      "scenario": "배송 지연 해결 회의가 사무실 가구 이야기로 흘렀습니다. 남은 시간은 10분입니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "동료. 관련 없는 주제를 꺼내지만 일정과 목적을 상기시키면 원래 논의로 돌아온다.",
+      "opening": "We should also replace the office chairs.",
+      "steps": [
+        {
+          "goal": "다른 주제 인정하기",
+          "example": "That's worth discussing in another meeting.",
+          "cue": "worth = 할 가치가 있는"
+        },
+        {
+          "goal": "현재 목적 상기시키기",
+          "example": "We still need a decision on the delivery issue.",
+          "cue": "decision = 결정"
+        },
+        {
+          "goal": "구체적 질문으로 복귀하기",
+          "example": "Can we agree who will contact the supplier today?",
+          "cue": "supplier = 공급업체"
+        }
+      ],
+      "outcome": "다른 주제 인정하기 / 현재 목적 상기시키기 / 구체적 질문으로 복귀하기",
+      "transfer": "다음에는 벗어난 주제가 실제 관련 위험이라 짧게 기록한 뒤 우선순위를 다시 정한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B1",
+      "slug": "resolve-misheard-decision",
+      "title": "잘못 들은 회의 결정을 바로잡기",
+      "scenario": "회의 중 출시가 15일인지 50개 시험 사용자 제한인지 혼동했습니다. 기록 전 확인합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 날짜는 18일이고 처음 사용자 수는 50명이라고 정정한다.",
+      "opening": "Any final checks before we finish?",
+      "steps": [
+        {
+          "goal": "혼동을 인정하기",
+          "example": "I may have mixed up the date and the test group size.",
+          "cue": "mixed up = 혼동했다"
+        },
+        {
+          "goal": "두 정보 분리해 묻기",
+          "example": "Is the launch date the fifteenth, or was fifty the number of users?",
+          "cue": "number = 수량"
+        },
+        {
+          "goal": "정정된 결정 요약하기",
+          "example": "So it's the eighteenth, with fifty test users.",
+          "cue": "so = 그러므로"
+        }
+      ],
+      "outcome": "혼동을 인정하기 / 두 정보 분리해 묻기 / 정정된 결정 요약하기",
+      "transfer": "다음에는 실제 합의가 아니라 제안만 나온 수치를 결정처럼 기록하지 않도록 확인한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B1",
+      "slug": "negotiate-priority",
+      "title": "동시 요청 두 개의 우선순위 조율하기",
+      "scenario": "두 동료가 오늘 자료 수정을 요청했습니다. 두 작업을 모두 끝낼 시간은 부족합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 고객 자료는 오늘 꼭 필요하지만 내부 표는 내일 가능하다고 설명한다.",
+      "opening": "Can you update both files today?",
+      "steps": [
+        {
+          "goal": "수용 한계 설명하기",
+          "example": "I can finish one carefully today, but not both.",
+          "cue": "carefully = 꼼꼼하게"
+        },
+        {
+          "goal": "영향 확인하기",
+          "example": "Which one will affect the customer deadline?",
+          "cue": "affect = 영향을 주다"
+        },
+        {
+          "goal": "작업 순서 합의하기",
+          "example": "I'll do the customer file first and the internal table tomorrow.",
+          "cue": "internal = 내부의"
+        }
+      ],
+      "outcome": "수용 한계 설명하기 / 영향 확인하기 / 작업 순서 합의하기",
+      "transfer": "다음에는 요청자가 달라 공동으로 우선순위를 정할 짧은 대화를 제안한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B1",
+      "slug": "give-actionable-feedback",
+      "title": "동료 초안에 구체적인 수정 의견 주기",
+      "scenario": "안내문 초안은 친절하지만 신청 마감과 링크가 없습니다. 오늘 보내기 전에 보완을 제안합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "작성 동료. 전반적 느낌보다 고칠 부분과 예시를 요청한다.",
+      "opening": "Could you look at my draft?",
+      "steps": [
+        {
+          "goal": "잘된 부분 말하기",
+          "example": "The opening makes the purpose clear.",
+          "cue": "purpose = 목적"
+        },
+        {
+          "goal": "누락을 구체화하기",
+          "example": "I couldn't find the deadline or the application link.",
+          "cue": "deadline = 마감"
+        },
+        {
+          "goal": "수정 행동 제안하기",
+          "example": "Could you add both in the last paragraph?",
+          "cue": "paragraph = 문단"
+        }
+      ],
+      "outcome": "잘된 부분 말하기 / 누락을 구체화하기 / 수정 행동 제안하기",
+      "transfer": "다음에는 문법보다 오해를 만드는 모호한 표현 한 곳을 골라 대안을 제안한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B1",
+      "slug": "admit-mistake",
+      "title": "업무 실수를 알리고 복구 제안하기",
+      "scenario": "가상 안내 파일에 옛 날짜를 넣어 동료에게 보냈습니다. 고객에게는 아직 전달되지 않았습니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 영향 범위와 올바른 파일 전달 시점을 묻는다.",
+      "opening": "Is this the latest date?",
+      "steps": [
+        {
+          "goal": "실수 인정하기",
+          "example": "I used the old date by mistake.",
+          "cue": "by mistake = 실수로"
+        },
+        {
+          "goal": "영향 범위 밝히기",
+          "example": "It only went to our team, not the customer.",
+          "cue": "only = ...만"
+        },
+        {
+          "goal": "복구 요청하기",
+          "example": "I'll send a corrected copy now. Please delete the old one.",
+          "cue": "corrected = 수정된"
+        }
+      ],
+      "outcome": "실수 인정하기 / 영향 범위 밝히기 / 복구 요청하기",
+      "transfer": "다음에는 외부 전달 여부가 불명확하므로 확인 전 영향이 없다고 단정하지 않는다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B1",
+      "slug": "set-message-boundary",
+      "title": "집중 시간 동안 연락 방식 합의하기",
+      "scenario": "보고서 마감 전 1시간 집중이 필요합니다. 긴급 연락은 전화로 받고 일반 질문은 이후 답합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 급한 질문이 생길 수 있다며 예외 연락 방식을 묻는다.",
+      "opening": "Will you be available this afternoon?",
+      "steps": [
+        {
+          "goal": "집중 시간 알리기",
+          "example": "I'll be focusing on the report from two to three.",
+          "cue": "focusing = 집중하는"
+        },
+        {
+          "goal": "일반 응답 약속하기",
+          "example": "I'll check messages after three.",
+          "cue": "after = ...뒤에"
+        },
+        {
+          "goal": "긴급 예외 합의하기",
+          "example": "If something is urgent, please call me.",
+          "cue": "urgent = 긴급한"
+        }
+      ],
+      "outcome": "집중 시간 알리기 / 일반 응답 약속하기 / 긴급 예외 합의하기",
+      "transfer": "다음에는 시간대가 다른 동료와 서로 가능한 응답 시간 구간을 합의한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "B1",
+      "slug": "explain-change-reason",
+      "title": "바뀐 업무 절차의 이유 설명하기",
+      "scenario": "신청서를 이메일 대신 공유 양식으로 받습니다. 이메일 누락이 있었고 상태 추적이 필요합니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "동료 청중. 바꾸는 이유와 기존 요청 처리 방법을 묻는다.",
+      "opening": "Why are we changing the process?",
+      "steps": [
+        {
+          "goal": "기존 문제 설명하기",
+          "example": "Some email requests were getting missed.",
+          "cue": "missed = 누락된"
+        },
+        {
+          "goal": "변경 이점 연결하기",
+          "example": "The shared form lets us track every request in one place.",
+          "cue": "track = 추적하다"
+        },
+        {
+          "goal": "전환 규칙 알리기",
+          "example": "Existing requests stay in the old queue; new ones use the form.",
+          "cue": "existing = 기존의"
+        }
+      ],
+      "outcome": "기존 문제 설명하기 / 변경 이점 연결하기 / 전환 규칙 알리기",
+      "transfer": "다음에는 새 절차의 불편도 인정하고 예외 처리 방법을 설명한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "B1",
+      "slug": "explain-survey-result",
+      "title": "작은 설문 결과와 한계 소개하기",
+      "scenario": "가상 팀 설문 10명 중 7명이 오전 교육을 선호했습니다. 다른 팀의 선호는 모릅니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 전체 회사도 오전이 좋다는 뜻인지 묻는다.",
+      "opening": "What did the survey show?",
+      "steps": [
+        {
+          "goal": "관찰 결과 말하기",
+          "example": "Seven of ten people in our team preferred morning training.",
+          "cue": "preferred = 선호했다"
+        },
+        {
+          "goal": "한계 설명하기",
+          "example": "We only asked our team, so this may not represent everyone.",
+          "cue": "represent = 대표하다"
+        },
+        {
+          "goal": "다음 행동 제안하기",
+          "example": "We could try one morning session and ask for feedback.",
+          "cue": "try = 시험하다"
+        }
+      ],
+      "outcome": "관찰 결과 말하기 / 한계 설명하기 / 다음 행동 제안하기",
+      "transfer": "다음에는 응답 수가 적고 응답자가 자원자였음을 추가로 설명한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "B1",
+      "slug": "answer-unknown-question",
+      "title": "발표 중 모르는 질문에 대응하기",
+      "scenario": "도구 소개 발표 중 확정되지 않은 다음 달 가격을 질문받았습니다. 현재 가격만 알고 있습니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 다음 달 가격을 묻고 언제 확인할 수 있는지 질문한다.",
+      "opening": "Will the price change next month?",
+      "steps": [
+        {
+          "goal": "모르는 범위 밝히기",
+          "example": "I don't have the confirmed price for next month.",
+          "cue": "confirmed = 확정된"
+        },
+        {
+          "goal": "아는 정보 구분하기",
+          "example": "The current price is unchanged for this month.",
+          "cue": "current = 현재의"
+        },
+        {
+          "goal": "확인 후속 약속하기",
+          "example": "I'll check with the supplier and update you tomorrow.",
+          "cue": "supplier = 공급업체"
+        }
+      ],
+      "outcome": "모르는 범위 밝히기 / 아는 정보 구분하기 / 확인 후속 약속하기",
+      "transfer": "다음에는 확인 시점도 불명확해 추측 날짜를 약속하지 않고 진행 소식을 주겠다고 한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "B1",
+      "slug": "structure-project-story",
+      "title": "프로젝트 경과를 순서 있게 설명하기",
+      "scenario": "팀 행사 준비가 장소 취소로 어려웠지만 온라인으로 바꿔 진행했습니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 원래 계획, 문제, 대응과 결과를 순서대로 듣고 싶어 한다.",
+      "opening": "How did the workshop project go?",
+      "steps": [
+        {
+          "goal": "원래 계획과 문제 말하기",
+          "example": "We planned an in-person workshop, but the venue cancelled.",
+          "cue": "venue = 장소"
+        },
+        {
+          "goal": "대응 설명하기",
+          "example": "We moved it online and sent a short guide to participants.",
+          "cue": "participants = 참가자"
+        },
+        {
+          "goal": "결과와 개선점 말하기",
+          "example": "Most joined successfully, but we need an earlier sound check next time.",
+          "cue": "sound check = 음향 확인"
+        }
+      ],
+      "outcome": "원래 계획과 문제 말하기 / 대응 설명하기 / 결과와 개선점 말하기",
+      "transfer": "다음에는 성공 지표와 참가자의 불편을 함께 포함해 균형 있게 보고한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "B1",
+      "slug": "handle-frustrated-delay",
+      "title": "지연에 화난 고객에게 상황 설명하기",
+      "scenario": "가상 주문이 하루 늦었고 운송사는 오늘 저녁 도착 예정이라고 했지만 확정은 아닙니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 약속한 날짜를 지키지 못했다며 항의하고 확정 도착 시간을 요구한다.",
+      "opening": "You said it would arrive yesterday!",
+      "steps": [
+        {
+          "goal": "불편 인정하기",
+          "example": "I'm sorry you've had to wait beyond the promised date.",
+          "cue": "beyond = ...를 넘어서"
+        },
+        {
+          "goal": "확인된 정보 구분하기",
+          "example": "The carrier expects it this evening, but hasn't confirmed a time.",
+          "cue": "expects = 예상한다"
+        },
+        {
+          "goal": "후속 조치 제안하기",
+          "example": "I'll check the status and contact you by four with an update.",
+          "cue": "status = 상태"
+        }
+      ],
+      "outcome": "불편 인정하기 / 확인된 정보 구분하기 / 후속 조치 제안하기",
+      "transfer": "다음에는 오늘 도착도 불가능해 가능한 취소 절차를 담당자에게 확인한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "B1",
+      "slug": "clarify-ambiguous-complaint",
+      "title": "모호한 불만을 구체적인 문제로 확인하기",
+      "scenario": "고객은 제품이 이상하다고만 말합니다. 가상 기기는 켜지지만 5분 뒤 꺼집니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 질문을 받으면 작동 시점과 증상을 단계적으로 알려준다.",
+      "opening": "This thing doesn't work properly.",
+      "steps": [
+        {
+          "goal": "증상 질문하기",
+          "example": "Could you tell me what happens when you turn it on?",
+          "cue": "turn on = 켜다"
+        },
+        {
+          "goal": "발생 조건 확인하기",
+          "example": "Does it stop immediately or after a few minutes?",
+          "cue": "immediately = 즉시"
+        },
+        {
+          "goal": "이해 요약하기",
+          "example": "So it starts normally, then shuts off after five minutes.",
+          "cue": "shuts off = 꺼진다"
+        }
+      ],
+      "outcome": "증상 질문하기 / 발생 조건 확인하기 / 이해 요약하기",
+      "transfer": "다음에는 증상이 간헐적이라 발생 빈도와 오류 표시를 확인한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "B1",
+      "slug": "explain-policy-boundary",
+      "title": "정책 제한과 가능한 도움 구분하기",
+      "scenario": "가상 매장 규칙상 사용한 물품은 즉시 환불이 어렵지만 결함 검사는 가능합니다. 고객은 제품이 멈춰서 환불을 원한다고 접수했습니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 사용한 상품의 환불을 요구하고 가능한 다른 절차를 묻는다.",
+      "opening": "This stopped working. I want a refund.",
+      "steps": [
+        {
+          "goal": "요청 이해 확인하기",
+          "example": "You'd like a refund because it stopped working, correct?",
+          "cue": "correct = 맞는"
+        },
+        {
+          "goal": "권한과 정책 설명하기",
+          "example": "I can't approve an immediate refund for a used item.",
+          "cue": "approve = 승인하다"
+        },
+        {
+          "goal": "가능한 절차 제안하기",
+          "example": "I can arrange a fault check and explain the next options.",
+          "cue": "fault check = 결함 검사"
+        }
+      ],
+      "outcome": "요청 이해 확인하기 / 권한과 정책 설명하기 / 가능한 절차 제안하기",
+      "transfer": "다음에는 정책 자체가 불명확해 거절을 단정하지 않고 매니저 확인을 요청한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "B1",
+      "slug": "confirm-resolution",
+      "title": "고객 지원 종료 전 해결 확인하기",
+      "scenario": "가상 계정 접속은 복구됐지만 파일 다운로드까지 되는지 확인해야 합니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 로그인은 되지만 다운로드는 아직 시도하지 않았다고 답한다.",
+      "opening": "I can log in now.",
+      "steps": [
+        {
+          "goal": "복구 범위 확인하기",
+          "example": "Can you also download the file you needed?",
+          "cue": "download = 내려받다"
+        },
+        {
+          "goal": "남은 문제 확인하기",
+          "example": "Is anything else stopping you from finishing your task?",
+          "cue": "stopping = 방해하는"
+        },
+        {
+          "goal": "후속 안내하기",
+          "example": "If it happens again, mention this reference number when you contact us.",
+          "cue": "reference number = 문의 번호"
+        }
+      ],
+      "outcome": "복구 범위 확인하기 / 남은 문제 확인하기 / 후속 안내하기",
+      "transfer": "다음에는 일부만 해결돼 완료로 종료하지 않고 남은 문제와 다음 담당자를 합의한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "B2",
+      "slug": "balance-team-credit",
+      "title": "면접에서 팀 성과와 자기 기여 구분하기",
+      "scenario": "가상 프로젝트가 일주일 빨리 끝났습니다. 본인은 일정표를 개선했고 개발과 검토는 동료들이 했습니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 성공을 전부 본인 덕분이라고 볼 수 있는지 묻는다.",
+      "opening": "What was your contribution to that result?",
+      "steps": [
+        {
+          "goal": "공동 성과 설정하기",
+          "example": "The early finish was a team result, rather than something I achieved alone.",
+          "cue": "team result = 팀 성과"
+        },
+        {
+          "goal": "기여를 구체화하기",
+          "example": "I made dependencies visible in the schedule, which helped us spot delays earlier.",
+          "cue": "dependencies = 작업 의존 관계"
+        },
+        {
+          "goal": "기여 한계 인정하기",
+          "example": "That helped coordination, but the delivery depended on the developers and reviewers.",
+          "cue": "depended on = ...에 달렸다"
+        }
+      ],
+      "outcome": "공동 성과 설정하기 / 기여를 구체화하기 / 기여 한계 인정하기",
+      "transfer": "다음에는 수치 개선에 다른 변화도 기여해 인과를 과장하지 않고 설명한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "B2",
+      "slug": "challenge-role-mismatch",
+      "title": "면접에서 공고와 실제 역할 차이 확인하기",
+      "scenario": "공고는 기획 중심인데 면접 설명은 대부분 문의 처리입니다. 두 업무의 비중과 성장 경로를 확인합니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 현재는 지원 업무 70%이며 6개월 뒤 비중은 확정하지 못한다고 답한다.",
+      "opening": "Most of the first few months will be customer support.",
+      "steps": [
+        {
+          "goal": "차이를 중립적으로 짚기",
+          "example": "The advert emphasized planning, so I'd like to understand how the two fit together.",
+          "cue": "emphasized = 강조했다"
+        },
+        {
+          "goal": "비중과 기간 묻기",
+          "example": "Roughly what proportion is support, and is that expected to change?",
+          "cue": "proportion = 비중"
+        },
+        {
+          "goal": "판단에 필요한 조건 말하기",
+          "example": "I'd be interested if there is a clear opportunity to develop planning experience.",
+          "cue": "opportunity = 기회"
+        }
+      ],
+      "outcome": "차이를 중립적으로 짚기 / 비중과 기간 묻기 / 판단에 필요한 조건 말하기",
+      "transfer": "다음에는 성장 기회가 구두 기대인지 실제 합의 가능한 목표인지 확인한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "B2",
+      "slug": "respond-to-hypothetical",
+      "title": "면접에서 모호한 가상 과제 풀기",
+      "scenario": "면접관이 내일까지 매출을 높이라는 과제를 냅니다. 예산과 고객 범위는 알려주지 않았습니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 질문하면 예산 없음, 기존 고객, 목표는 주문 문의 증가라고 알려준다.",
+      "opening": "How would you increase sales by tomorrow?",
+      "steps": [
+        {
+          "goal": "과제 전제 확인하기",
+          "example": "Before proposing an action, could I clarify the budget and target customers?",
+          "cue": "clarify = 명확히 하다"
+        },
+        {
+          "goal": "제약에 맞춘 제안하기",
+          "example": "With no budget, I'd test a clear follow-up message to existing customers.",
+          "cue": "existing = 기존의"
+        },
+        {
+          "goal": "검증 방식과 한계 말하기",
+          "example": "I'd track responses first; one day is too short to judge sustained sales growth.",
+          "cue": "sustained = 지속적인"
+        }
+      ],
+      "outcome": "과제 전제 확인하기 / 제약에 맞춘 제안하기 / 검증 방식과 한계 말하기",
+      "transfer": "다음에는 단기 전환과 고객 신뢰가 충돌하는 제안을 검토한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "B2",
+      "slug": "negotiate-offer-detail",
+      "title": "제안 조건에서 우선순위 조율하기",
+      "scenario": "가상 채용 제안의 시작일이 이르고 교육 지원은 미정입니다. 급여보다 시작일 2주 연기가 중요합니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "채용 담당자. 시작일은 1주 연기 가능하며 교육 예산은 확인해야 한다.",
+      "opening": "What would you like to discuss about the offer?",
+      "steps": [
+        {
+          "goal": "우선순위 명시하기",
+          "example": "My main concern is the start date, rather than the salary.",
+          "cue": "main concern = 핵심 쟁점"
+        },
+        {
+          "goal": "이유와 대안 제시하기",
+          "example": "I need time for a proper handover; could I start two weeks later?",
+          "cue": "handover = 인계"
+        },
+        {
+          "goal": "부분 합의와 미확정 구분하기",
+          "example": "One week helps. Could we also confirm the training arrangement in writing?",
+          "cue": "in writing = 서면으로"
+        }
+      ],
+      "outcome": "우선순위 명시하기 / 이유와 대안 제시하기 / 부분 합의와 미확정 구분하기",
+      "transfer": "다음에는 시작일 조정 대신 첫 주 시간제 전환 가능성을 협의한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "B2",
+      "slug": "resolve-conflicting-instructions",
+      "title": "신입 업무에 대한 상충 지시 조율하기",
+      "scenario": "매니저는 속도를, 검토자는 정확한 출처 확인을 강조합니다. 둘을 모두 만족할 기한이 부족합니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "매니저. 고객 발송은 내일이며 출처 누락은 허용할 수 없다고 답한다.",
+      "opening": "Why isn't the draft ready yet?",
+      "steps": [
+        {
+          "goal": "충돌을 비난 없이 설명하기",
+          "example": "I've been asked to shorten the turnaround and also verify every source.",
+          "cue": "turnaround = 처리 기간"
+        },
+        {
+          "goal": "위험과 선택지 제시하기",
+          "example": "I can finish a verified summary today or the full draft tomorrow.",
+          "cue": "verified = 확인된"
+        },
+        {
+          "goal": "공통 기준 합의하기",
+          "example": "Shall we prioritize the summary and keep the source checks mandatory?",
+          "cue": "mandatory = 필수의"
+        }
+      ],
+      "outcome": "충돌을 비난 없이 설명하기 / 위험과 선택지 제시하기 / 공통 기준 합의하기",
+      "transfer": "다음에는 검토자도 대화에 포함해 서로 다른 완료 기준을 하나로 정리한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "B2",
+      "slug": "question-unofficial-shortcut",
+      "title": "비공식 지름길을 정중히 확인하기",
+      "scenario": "동료가 교육용 고객 자료를 개인 계정으로 보내면 빠르다고 합니다. 승인된 공유 도구가 있는지 확인합니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "동료. 늘 그렇게 했다며 재촉하지만 공식 도구가 있는지는 모른다.",
+      "opening": "Just send it to your personal account. It's quicker.",
+      "steps": [
+        {
+          "goal": "위험을 질문으로 짚기",
+          "example": "Is that an approved way to share this type of data?",
+          "cue": "approved = 승인된"
+        },
+        {
+          "goal": "경계와 대안 말하기",
+          "example": "I'd rather use the team system until we've checked the policy.",
+          "cue": "policy = 정책"
+        },
+        {
+          "goal": "확인 담당 정하기",
+          "example": "Could we ask IT which method is supported?",
+          "cue": "supported = 공식 지원되는"
+        }
+      ],
+      "outcome": "위험을 질문으로 짚기 / 경계와 대안 말하기 / 확인 담당 정하기",
+      "transfer": "다음에는 지름길이 실제 허용된 경우에도 적용 범위와 보존 규칙을 확인한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "B2",
+      "slug": "propose-learning-plan",
+      "title": "새 역할 학습 계획 협의하기",
+      "scenario": "처음 맡는 업무에 도구와 고객 지식이 모두 필요합니다. 2주 안에 모든 것을 독립 수행하라는 기대를 조정합니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "매니저. 기본 문의는 2주 안에, 복잡한 건은 한 달 뒤 독립 처리 가능하다고 한다.",
+      "opening": "I'd like you to be fully independent in two weeks.",
+      "steps": [
+        {
+          "goal": "과업별 차이 설명하기",
+          "example": "Routine questions and complex cases require different levels of preparation.",
+          "cue": "routine = 일상적인"
+        },
+        {
+          "goal": "단계 계획 제시하기",
+          "example": "Could I handle routine cases first and shadow complex ones?",
+          "cue": "shadow = 옆에서 배우다"
+        },
+        {
+          "goal": "확인 기준 합의하기",
+          "example": "Let's review a few real examples before deciding I'm ready to work alone.",
+          "cue": "review = 검토하다"
+        }
+      ],
+      "outcome": "과업별 차이 설명하기 / 단계 계획 제시하기 / 확인 기준 합의하기",
+      "transfer": "다음에는 학습 속도가 빠르지만 실수 유형이 남아 독립 범위를 세분화한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "B2",
+      "slug": "align-remote-norms",
+      "title": "분산 팀의 응답 규칙 합의하기",
+      "scenario": "세 시간대 팀에서 모든 메시지에 즉답하라는 기대가 생겼습니다. 집중 시간과 긴급 대응을 구분합니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "팀 리드. 고객 장애는 즉시 대응이 필요하지만 일반 질문은 하루 안에 가능하다고 답한다.",
+      "opening": "We need everyone to be responsive.",
+      "steps": [
+        {
+          "goal": "모호한 기대 구체화하기",
+          "example": "Could we distinguish urgent incidents from normal questions?",
+          "cue": "distinguish = 구분하다"
+        },
+        {
+          "goal": "실행 가능한 규칙 제안하기",
+          "example": "Normal questions could have a one-business-day response window.",
+          "cue": "response window = 응답 시간 범위"
+        },
+        {
+          "goal": "긴급 경로 합의하기",
+          "example": "For incidents, let's use the on-call channel rather than message everyone.",
+          "cue": "on-call = 당직"
+        }
+      ],
+      "outcome": "모호한 기대 구체화하기 / 실행 가능한 규칙 제안하기 / 긴급 경로 합의하기",
+      "transfer": "다음에는 긴급 표시가 남용돼 실제 긴급 판단 예시를 함께 정한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B2",
+      "slug": "compare-delivery-options",
+      "title": "속도와 품질의 상충 대안 비교하기",
+      "scenario": "이번 주 전체 출시에는 검토 시간이 부족합니다. 일부 기능만 출시하거나 다음 주 전체 출시할 수 있습니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 고객은 핵심 기능만 우선 필요하지만 홍보는 전체 기능을 기대한다.",
+      "opening": "Which release option should we choose?",
+      "steps": [
+        {
+          "goal": "비교 기준 제시하기",
+          "example": "We should compare customer value, review time, and the cost of rework.",
+          "cue": "rework = 재작업"
+        },
+        {
+          "goal": "대안별 손익 설명하기",
+          "example": "A smaller release meets the core need but requires clearer messaging.",
+          "cue": "core need = 핵심 필요"
+        },
+        {
+          "goal": "조건부 추천하기",
+          "example": "I'd choose the smaller release if we can explicitly state what's excluded.",
+          "cue": "excluded = 제외된"
+        }
+      ],
+      "outcome": "비교 기준 제시하기 / 대안별 손익 설명하기 / 조건부 추천하기",
+      "transfer": "다음에는 핵심 기능도 검토가 부족해 출시 연기 근거를 제시한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B2",
+      "slug": "mediate-team-disagreement",
+      "title": "회의에서 두 팀의 이해관계 조율하기",
+      "scenario": "영업은 빠른 납기를, 운영은 예측 가능한 일정표를 원합니다. 공통 기준을 찾습니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "두 팀 대표 역할. 영업은 예외 주문을 원하고 운영은 당일 변경이 부담이라고 설명한다.",
+      "opening": "Sales needs flexibility, but operations needs a stable schedule.",
+      "steps": [
+        {
+          "goal": "양쪽 요구 요약하기",
+          "example": "One team needs room for urgent orders, while the other needs a reliable baseline.",
+          "cue": "baseline = 기준 계획"
+        },
+        {
+          "goal": "공통 이익 제시하기",
+          "example": "Both teams want promises we can actually keep.",
+          "cue": "keep promises = 약속을 지키다"
+        },
+        {
+          "goal": "절충안 제안하기",
+          "example": "Could we reserve limited capacity for urgent work and freeze the rest daily?",
+          "cue": "reserve capacity = 여력을 남기다"
+        }
+      ],
+      "outcome": "양쪽 요구 요약하기 / 공통 이익 제시하기 / 절충안 제안하기",
+      "transfer": "다음에는 예외 용량이 넘칠 때 승인권자와 우선순위를 합의한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B2",
+      "slug": "separate-fact-assumption",
+      "title": "회의에서 사실과 추정을 구분하기",
+      "scenario": "문의가 줄었다는 이유로 고객 만족이 올랐다고 결론내립니다. 서비스 방문 수도 줄었습니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "발표자. 문의 감소만 알고 있으며 방문 수 감소 자료는 학습자가 제시해야 한다.",
+      "opening": "Fewer complaints means customers are happier.",
+      "steps": [
+        {
+          "goal": "관찰과 해석 분리하기",
+          "example": "We know complaints fell; improved satisfaction is one possible explanation.",
+          "cue": "explanation = 설명"
+        },
+        {
+          "goal": "다른 해석 제시하기",
+          "example": "Lower traffic might also explain fewer complaints.",
+          "cue": "traffic = 방문량"
+        },
+        {
+          "goal": "추가 확인 제안하기",
+          "example": "Could we compare complaint rates per visit and ask customers directly?",
+          "cue": "rates = 비율"
+        }
+      ],
+      "outcome": "관찰과 해석 분리하기 / 다른 해석 제시하기 / 추가 확인 제안하기",
+      "transfer": "다음에는 만족도 설문도 일부 고객만 응답해 대표성 한계를 함께 짚는다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B2",
+      "slug": "reopen-decision",
+      "title": "새 정보로 이미 정한 결정 재검토하기",
+      "scenario": "외부 공급업체 선택 후 지원 종료가 예상보다 빠르다는 사실을 알았습니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 이미 결정한 사안을 다시 논의할 시간이 부족하다고 반응한다.",
+      "opening": "We already agreed on that supplier.",
+      "steps": [
+        {
+          "goal": "재검토 이유를 새 정보로 한정하기",
+          "example": "I'm not reopening the whole discussion; the support end date has changed.",
+          "cue": "end date = 종료일"
+        },
+        {
+          "goal": "영향 설명하기",
+          "example": "It leaves us without support halfway through the project.",
+          "cue": "halfway = 중간에"
+        },
+        {
+          "goal": "범위 제한한 재검토 제안하기",
+          "example": "Could we spend ten minutes checking an extension before confirming the order?",
+          "cue": "extension = 연장"
+        }
+      ],
+      "outcome": "재검토 이유를 새 정보로 한정하기 / 영향 설명하기 / 범위 제한한 재검토 제안하기",
+      "transfer": "다음에는 정보가 아직 미확인이라 결정을 취소하기보다 확인 조건을 정한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B2",
+      "slug": "negotiate-scope",
+      "title": "요청 증가에 범위와 기한 조율하기",
+      "scenario": "원래 보고서에 새 분석 두 개가 추가됐지만 마감은 같습니다. 핵심 분석 하나만 우선 가능할 듯합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "요청자. 고객 발표에는 첫 분석만 필요하고 두 번째는 내부 참고라고 답한다.",
+      "opening": "Can you add these two analyses by tomorrow?",
+      "steps": [
+        {
+          "goal": "변경 영향 설명하기",
+          "example": "Adding both would require more time than the current deadline allows.",
+          "cue": "allows = 허용한다"
+        },
+        {
+          "goal": "필수 범위 확인하기",
+          "example": "Which analysis is essential for the customer presentation?",
+          "cue": "essential = 필수의"
+        },
+        {
+          "goal": "단계 납품 제안하기",
+          "example": "I can deliver that one tomorrow and the internal analysis on Friday.",
+          "cue": "deliver = 제공하다"
+        }
+      ],
+      "outcome": "변경 영향 설명하기 / 필수 범위 확인하기 / 단계 납품 제안하기",
+      "transfer": "다음에는 두 분석 모두 필수라 다른 업무 중단 또는 지원을 협의한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B2",
+      "slug": "repair-critical-feedback",
+      "title": "거칠게 전달된 피드백 관계 회복하기",
+      "scenario": "동료의 초안을 쓸 수 없다고 말해 분위기가 나빠졌습니다. 비난을 바로잡고 수정 기준을 설명합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 자신의 노력이 무시당했다고 말하고 구체적 수정점을 묻는다.",
+      "opening": "It sounded like you thought my work was useless.",
+      "steps": [
+        {
+          "goal": "표현 영향 인정하기",
+          "example": "My wording dismissed the work you put in, and I'm sorry.",
+          "cue": "dismissed = 가볍게 여겼다"
+        },
+        {
+          "goal": "문제 범위를 좁히기",
+          "example": "The issue is the missing evidence in section two, not the whole draft.",
+          "cue": "evidence = 근거"
+        },
+        {
+          "goal": "협력 제안하기",
+          "example": "Could we work through one example together and agree on the standard?",
+          "cue": "standard = 기준"
+        }
+      ],
+      "outcome": "표현 영향 인정하기 / 문제 범위를 좁히기 / 협력 제안하기",
+      "transfer": "다음에는 사과만 반복하지 않고 이후 검토 방식과 시간도 합의한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B2",
+      "slug": "manage-dependency-contract",
+      "title": "팀 간 전달물의 완료 기준 합의하기",
+      "scenario": "다른 팀은 초안 데이터를 완료라고 부르지만 우리 팀은 검증된 표가 필요합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "다른 팀 담당자. 초안은 오늘, 검증본은 목요일 가능하다고 답한다.",
+      "opening": "The data is done. Why can't you start?",
+      "steps": [
+        {
+          "goal": "완료 의미 차이 설명하기",
+          "example": "We seem to be using done for two different stages.",
+          "cue": "stages = 단계"
+        },
+        {
+          "goal": "필요 조건 명시하기",
+          "example": "For our analysis, we need checked totals and clearly marked missing values.",
+          "cue": "missing values = 누락값"
+        },
+        {
+          "goal": "전달 단계 합의하기",
+          "example": "Let's label today's file provisional and use Thursday's verified version for the report.",
+          "cue": "provisional = 잠정적인"
+        }
+      ],
+      "outcome": "완료 의미 차이 설명하기 / 필요 조건 명시하기 / 전달 단계 합의하기",
+      "transfer": "다음에는 검증본 일부가 늦어 사용 가능한 열과 제외할 열을 합의한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B2",
+      "slug": "handle-credit-dispute",
+      "title": "공동 작업의 기여 표시 문제 해결하기",
+      "scenario": "팀 발표에서 본인의 조사 작업이 빠졌습니다. 동료를 공격하지 않고 기록 수정과 이후 방식을 요청합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "발표 담당자. 의도적 배제는 아니며 다음 자료를 수정할 수 있다고 답한다.",
+      "opening": "You wanted to talk about yesterday's presentation?",
+      "steps": [
+        {
+          "goal": "사실과 영향 설명하기",
+          "example": "The research section used my work, but the contributors slide didn't mention it.",
+          "cue": "contributors = 기여자"
+        },
+        {
+          "goal": "구체적 수정 요청하기",
+          "example": "Could we add my contribution to the version we're circulating?",
+          "cue": "circulating = 배포하는"
+        },
+        {
+          "goal": "재발 방지 제안하기",
+          "example": "For future presentations, let's check the contributor list together.",
+          "cue": "future = 앞으로의"
+        }
+      ],
+      "outcome": "사실과 영향 설명하기 / 구체적 수정 요청하기 / 재발 방지 제안하기",
+      "transfer": "다음에는 기여 범위에 서로 다른 기억이 있어 근거 자료를 함께 확인한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "B2",
+      "slug": "recommend-with-tradeoffs",
+      "title": "장단점을 포함해 도구 도입 추천하기",
+      "scenario": "가상 도구 A는 싸지만 수작업이 많고 B는 비싸지만 시간이 절약됩니다. 팀 예산은 B를 간신히 감당합니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 비용이 높은 B를 왜 추천하는지, 실패하면 어떻게 할지 묻는다.",
+      "opening": "Why should we pay more for option B?",
+      "steps": [
+        {
+          "goal": "판단 기준 설명하기",
+          "example": "The key question is total staff time, not just the subscription price.",
+          "cue": "subscription = 이용료"
+        },
+        {
+          "goal": "손익과 불확실성 설명하기",
+          "example": "B could save time, but only if the team actually uses the automation.",
+          "cue": "automation = 자동화"
+        },
+        {
+          "goal": "제한된 검증 제안하기",
+          "example": "I'd recommend a short trial with a clear time-saving target before committing.",
+          "cue": "committing = 확약하는"
+        }
+      ],
+      "outcome": "판단 기준 설명하기 / 손익과 불확실성 설명하기 / 제한된 검증 제안하기",
+      "transfer": "다음에는 무료 도구에 교육 비용이 숨어 있어 총비용 기준으로 다시 비교한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "B2",
+      "slug": "explain-counterintuitive-data",
+      "title": "직관과 다른 지표 변화 설명하기",
+      "scenario": "가상 웹페이지 클릭 수는 늘었지만 문의 전환율은 줄었습니다. 신규 유입 비중이 높아졌습니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 클릭 증가가 무조건 성공이 아닌지 묻는다.",
+      "opening": "Clicks are up, so the campaign worked, right?",
+      "steps": [
+        {
+          "goal": "지표 차이 설명하기",
+          "example": "Clicks show interest, while the conversion rate shows how many take the next step.",
+          "cue": "conversion rate = 전환율"
+        },
+        {
+          "goal": "가능한 원인 제시하기",
+          "example": "The larger group of new visitors may behave differently from returning users.",
+          "cue": "returning = 재방문하는"
+        },
+        {
+          "goal": "추가 분석 제안하기",
+          "example": "We should compare the two groups before deciding whether the page got worse.",
+          "cue": "compare = 비교하다"
+        }
+      ],
+      "outcome": "지표 차이 설명하기 / 가능한 원인 제시하기 / 추가 분석 제안하기",
+      "transfer": "다음에는 표본 수가 작아 단기 변화로 추세를 단정하지 않는다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "B2",
+      "slug": "respond-to-skeptical-audience",
+      "title": "회의적 청중 질문에 근거로 답하기",
+      "scenario": "시범 운영 참여자 12명의 긍정 평가를 근거로 확대를 제안합니다. 청중은 선택 편향을 지적합니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "회의적 청중. 자원자만 참여한 결과를 전체 팀에 적용할 수 있는지 묻는다.",
+      "opening": "Aren't those volunteers already enthusiastic about the tool?",
+      "steps": [
+        {
+          "goal": "지적의 타당성 인정하기",
+          "example": "Yes, volunteers may be more motivated than the wider team.",
+          "cue": "motivated = 의욕이 있는"
+        },
+        {
+          "goal": "현재 근거 범위 제한하기",
+          "example": "The pilot shows feasibility, not guaranteed adoption across the company.",
+          "cue": "feasibility = 실행 가능성"
+        },
+        {
+          "goal": "다음 검증 수정하기",
+          "example": "The next trial should include people with different levels of interest and experience.",
+          "cue": "include = 포함하다"
+        }
+      ],
+      "outcome": "지적의 타당성 인정하기 / 현재 근거 범위 제한하기 / 다음 검증 수정하기",
+      "transfer": "다음에는 지적이 자료 오해에서 나온 경우 차분히 범위를 정정한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "B2",
+      "slug": "present-risk-response",
+      "title": "계획 위험과 대응 조건 설명하기",
+      "scenario": "행사 장소 계약은 가상이지만 취소 가능성이 있습니다. 대체 온라인 전환은 3일 준비가 필요합니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 어떤 조건에서 대안으로 바꿀지 묻는다.",
+      "opening": "What's our backup if the venue becomes unavailable?",
+      "steps": [
+        {
+          "goal": "주요 위험 설명하기",
+          "example": "If the venue cancels late, we won't have time for another physical location.",
+          "cue": "physical location = 실제 장소"
+        },
+        {
+          "goal": "전환 조건 제시하기",
+          "example": "We should switch online if availability isn't confirmed four days before the event.",
+          "cue": "confirmed = 확정된"
+        },
+        {
+          "goal": "책임과 알림 정하기",
+          "example": "I'll check the venue, and Ana will notify participants if we switch.",
+          "cue": "notify = 알리다"
+        }
+      ],
+      "outcome": "주요 위험 설명하기 / 전환 조건 제시하기 / 책임과 알림 정하기",
+      "transfer": "다음에는 대안도 참가자 접근성 문제를 만들어 별도 지원을 포함한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "B2",
+      "slug": "deescalate-with-options",
+      "title": "격앙된 고객에게 권한 내 선택지 제시하기",
+      "scenario": "고객은 배송 지연 때문에 즉시 전액 보상을 요구합니다. 상담원은 보상 승인권이 없지만 우선 확인과 매니저 검토를 요청할 수 있습니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 자동 사과에 불만을 보이며 실제 가능한 조치를 요구한다.",
+      "opening": "Don't just apologize. Fix this now.",
+      "steps": [
+        {
+          "goal": "구체적 불편 인정하기",
+          "example": "The delay has disrupted your plans, and I understand why another apology isn't enough.",
+          "cue": "disrupted = 차질을 준"
+        },
+        {
+          "goal": "가능한 조치와 한계 말하기",
+          "example": "I can request an urgent delivery check and ask a manager to review compensation.",
+          "cue": "compensation = 보상"
+        },
+        {
+          "goal": "선택과 다음 연락 합의하기",
+          "example": "Would you like me to start both, and update you by three even if the review is ongoing?",
+          "cue": "ongoing = 진행 중인"
+        }
+      ],
+      "outcome": "구체적 불편 인정하기 / 가능한 조치와 한계 말하기 / 선택과 다음 연락 합의하기",
+      "transfer": "다음에는 고객이 비현실적인 시간 보장을 요구해 약속 가능한 연락과 해결을 구분한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "B2",
+      "slug": "clarify-technical-issue",
+      "title": "전문 용어 없이 기술 문제 안내하기",
+      "scenario": "가상 계정 동기화가 늦어 새 자료가 안 보입니다. 고객은 데이터가 삭제됐다고 걱정합니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 화면에는 예전 자료만 보이며 삭제됐는지 묻는다.",
+      "opening": "Have you lost my files?",
+      "steps": [
+        {
+          "goal": "관찰과 진단 구분하기",
+          "example": "You're seeing the old list; that doesn't by itself tell us whether files are missing.",
+          "cue": "by itself = 그것만으로"
+        },
+        {
+          "goal": "간단한 확인 안내하기",
+          "example": "Let's refresh the list and check the latest update time.",
+          "cue": "refresh = 새로 고치다"
+        },
+        {
+          "goal": "확인 후 경로 설명하기",
+          "example": "If the new items still don't appear, I'll pass the details to our technical team.",
+          "cue": "pass details = 내용을 전달하다"
+        }
+      ],
+      "outcome": "관찰과 진단 구분하기 / 간단한 확인 안내하기 / 확인 후 경로 설명하기",
+      "transfer": "다음에는 새로고침도 실패해 같은 안내를 반복하지 않고 증거를 정리해 전달한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "B2",
+      "slug": "handle-exception-request",
+      "title": "고객의 정책 예외 요청 검토 안내하기",
+      "scenario": "가상 환불 기한을 이틀 넘긴 고객이 입원 때문에 늦었다고 말합니다. 상담원은 증빙 세부를 직접 수집하지 않습니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 예외 가능성을 묻고 민감한 자료를 바로 보내려 한다.",
+      "opening": "I was in hospital. Can you make an exception?",
+      "steps": [
+        {
+          "goal": "사정 인정하기",
+          "example": "I'm sorry you've been dealing with that.",
+          "cue": "dealing with = 겪고 있는"
+        },
+        {
+          "goal": "예외 절차와 한계 설명하기",
+          "example": "A manager can review the request, but I can't promise approval.",
+          "cue": "review = 검토하다"
+        },
+        {
+          "goal": "민감 자료 경계 안내하기",
+          "example": "Please don't send medical details here; I'll confirm what information is actually needed.",
+          "cue": "actually needed = 실제 필요한"
+        }
+      ],
+      "outcome": "사정 인정하기 / 예외 절차와 한계 설명하기 / 민감 자료 경계 안내하기",
+      "transfer": "다음에는 다른 사정의 예외 요청을 공정한 검토 절차로 안내한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "B2",
+      "slug": "reconcile-conflicting-advice",
+      "title": "서로 다른 안내를 받은 고객 응대하기",
+      "scenario": "이전 상담원은 교환 가능, 안내문은 불가라고 했습니다. 현재 상담원은 정확한 구매 조건부터 확인해야 합니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 앞선 약속을 근거로 화를 내며 지금 확답을 요구한다.",
+      "opening": "Your colleague said I could exchange it!",
+      "steps": [
+        {
+          "goal": "안내 불일치 인정하기",
+          "example": "You've received conflicting information, and that has made this more frustrating.",
+          "cue": "conflicting = 상충하는"
+        },
+        {
+          "goal": "확인 범위 설명하기",
+          "example": "I'll review the earlier note and the conditions that apply to your purchase.",
+          "cue": "conditions = 조건"
+        },
+        {
+          "goal": "기록된 후속 약속하기",
+          "example": "I'll send one clear explanation after checking, rather than give you another uncertain answer.",
+          "cue": "uncertain = 불확실한"
+        }
+      ],
+      "outcome": "안내 불일치 인정하기 / 확인 범위 설명하기 / 기록된 후속 약속하기",
+      "transfer": "다음에는 이전 안내가 실제 잘못됐음을 확인하고 책임 회피 없이 가능한 시정 절차를 설명한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "C1",
+      "slug": "qualify-leadership-claim",
+      "title": "면접에서 리더십 성과를 조건부로 설명하기",
+      "scenario": "가상 팀의 처리 시간이 20% 줄었지만 인원 증원과 일정 단순화도 동시에 있었습니다. 자신의 역할을 과장하지 않습니다. 확인 가능한 본인 조치는 인계 절차 변경과 중복 검사 두 개 제거입니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 개선의 몇 퍼센트가 지원자 덕인지 수치로 답하라고 압박한다.",
+      "opening": "How much of that twenty-percent improvement was down to you?",
+      "steps": [
+        {
+          "goal": "측정 한계 명확히 하기",
+          "example": "I wouldn't assign a percentage to my contribution without a way to separate those effects.",
+          "cue": "separate effects = 효과를 분리하다"
+        },
+        {
+          "goal": "입증 가능한 행동 설명하기",
+          "example": "What I can substantiate is that I redesigned the handover and removed two duplicate checks.",
+          "cue": "substantiate = 근거로 뒷받침하다"
+        },
+        {
+          "goal": "의미 있는 결론 재구성하기",
+          "example": "The strongest claim is that my changes contributed to a broader improvement, not that they caused it alone.",
+          "cue": "contributed = 기여했다"
+        }
+      ],
+      "outcome": "측정 한계 명확히 하기 / 입증 가능한 행동 설명하기 / 의미 있는 결론 재구성하기",
+      "transfer": "다음에는 성과가 악화된 프로젝트에서 본인 통제 범위와 책임을 균형 있게 설명한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "C1",
+      "slug": "probe-culture-euphemism",
+      "title": "채용 문화 표현의 실제 의미 확인하기",
+      "scenario": "면접관은 늘 최선을 다하고 상황에 맞게 유연한 팀이라고 말합니다. 정규 시간 외 연락 기대와 보상 규칙은 설명하지 않았습니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 성수기에는 야간 연락이 있지만 빈도와 보상은 팀별로 다르다고 답한다.",
+      "opening": "We're a flexible team that always goes the extra mile.",
+      "steps": [
+        {
+          "goal": "긍정 표현을 구체화하기",
+          "example": "Could you give me a recent example of what flexibility looked like in practice?",
+          "cue": "in practice = 실제로"
+        },
+        {
+          "goal": "기대와 예외 구분하기",
+          "example": "How do you distinguish occasional peak periods from a routine expectation of out-of-hours work?",
+          "cue": "routine expectation = 상시 기대"
+        },
+        {
+          "goal": "판단 조건 정중히 명시하기",
+          "example": "I'm comfortable with planned exceptions, but I'd want clarity on frequency and time-off arrangements.",
+          "cue": "arrangements = 운영 방식"
+        }
+      ],
+      "outcome": "긍정 표현을 구체화하기 / 기대와 예외 구분하기 / 판단 조건 정중히 명시하기",
+      "transfer": "다음에는 면접관이 질문을 헌신 부족으로 해석해 신뢰를 유지하며 의도를 바로잡는다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "C1",
+      "slug": "challenge-case-assumption",
+      "title": "면접 과제의 잘못된 전제를 정중히 재구성하기",
+      "scenario": "가상 과제는 응답 시간을 절반으로 줄이라지만 재문의가 늘어난 원인은 미해결 답변입니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 빠른 응답이 고객 만족을 높인다는 전제를 두고 비용 증가 없이 개선하라고 한다.",
+      "opening": "Cut response time in half without adding staff.",
+      "steps": [
+        {
+          "goal": "목표와 지표 분리하기",
+          "example": "If the aim is better service, I'd first check whether response time is the actual bottleneck.",
+          "cue": "bottleneck = 병목"
+        },
+        {
+          "goal": "반대 근거 연결하기",
+          "example": "Repeat contacts suggest that faster initial replies may be masking unresolved problems.",
+          "cue": "masking = 가리고 있는"
+        },
+        {
+          "goal": "대안적 실험 제시하기",
+          "example": "I'd test first-contact resolution on a narrow case type and track both time and repeat demand.",
+          "cue": "first-contact resolution = 첫 문의 해결"
+        }
+      ],
+      "outcome": "목표와 지표 분리하기 / 반대 근거 연결하기 / 대안적 실험 제시하기",
+      "transfer": "다음에는 응답 속도도 실제 중요한 고객군이 있어 구간별로 목표를 나눈다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "C1",
+      "slug": "discuss-ethical-disagreement",
+      "title": "면접에서 과거 상사와의 원칙 충돌 설명하기",
+      "scenario": "가상 상사가 잠정 데이터를 확정 성과처럼 발표하라고 했습니다. 지원자는 표현을 수정하도록 설득했고 관계를 유지했습니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 상사의 판단을 공개적으로 반박한 것인지, 본인이 경직된 것인지 질문한다.",
+      "opening": "Did you challenge your manager in front of everyone?",
+      "steps": [
+        {
+          "goal": "상황을 비난 없이 한정하기",
+          "example": "The disagreement concerned how strongly we could state the result, not the value of the project.",
+          "cue": "concerned = ...에 관한 것이었다"
+        },
+        {
+          "goal": "대응 방식 설명하기",
+          "example": "I raised it privately and offered wording that preserved the positive finding while making its provisional status clear.",
+          "cue": "provisional = 잠정적인"
+        },
+        {
+          "goal": "판단 원칙 설명하기",
+          "example": "I try to make concerns actionable rather than leave colleagues with a simple refusal.",
+          "cue": "actionable = 실행 가능한"
+        }
+      ],
+      "outcome": "상황을 비난 없이 한정하기 / 대응 방식 설명하기 / 판단 원칙 설명하기",
+      "transfer": "다음에는 사적 논의로 해결되지 않아 적절한 검토 경로를 선택한 이유를 설명한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "C1",
+      "slug": "map-unwritten-decisions",
+      "title": "비공식 의사결정 규칙 파악하기",
+      "scenario": "공식 문서는 팀장이 승인하지만 실제로는 다른 부서가 반대하면 진행되지 않습니다. 새 담당자는 권한과 자문을 구분해야 합니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "안내 동료. 운영팀 자문은 필수지만 최종 책임은 팀장에게 있다고 설명한다.",
+      "opening": "Officially your manager signs off, but you should keep operations happy.",
+      "steps": [
+        {
+          "goal": "완곡한 표현의 뜻 확인하기",
+          "example": "When you say keep operations happy, do you mean consultation or a separate approval requirement?",
+          "cue": "consultation = 자문"
+        },
+        {
+          "goal": "충돌 시 절차 질문하기",
+          "example": "If their advice conflicts with the project priorities, who resolves that trade-off?",
+          "cue": "trade-off = 상충 선택"
+        },
+        {
+          "goal": "실행 가능한 기록 제안하기",
+          "example": "Could we document the required input and the final decision owner so I don't mistake influence for authority?",
+          "cue": "authority = 권한"
+        }
+      ],
+      "outcome": "완곡한 표현의 뜻 확인하기 / 충돌 시 절차 질문하기 / 실행 가능한 기록 제안하기",
+      "transfer": "다음에는 공식 규칙과 실제 운영이 달라 최신 담당자에게 확인한 뒤 기록한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "C1",
+      "slug": "negotiate-role-ambiguity",
+      "title": "새 역할의 넓은 책임 범위 조정하기",
+      "scenario": "가상 직무 설명은 고객 경험 전반을 소유한다고 쓰지만 제품 변경 권한은 없습니다. 책임과 의존 관계를 협의합니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "매니저. 지표 책임은 맡기되 제품 우선순위는 다른 팀이 결정한다고 설명한다.",
+      "opening": "You'll own the end-to-end customer experience.",
+      "steps": [
+        {
+          "goal": "포괄 표현을 구체화하기",
+          "example": "Could we distinguish outcomes I'm accountable for from decisions I can actually make?",
+          "cue": "accountable = 결과 책임이 있는"
+        },
+        {
+          "goal": "의존 관계 위험 설명하기",
+          "example": "Without a route to influence product priorities, that accountability could exceed my authority.",
+          "cue": "exceed = 초과하다"
+        },
+        {
+          "goal": "공동 운영 방식 제안하기",
+          "example": "I'd suggest shared review points and an escalation path for changes outside my control.",
+          "cue": "escalation path = 상위 조정 경로"
+        }
+      ],
+      "outcome": "포괄 표현을 구체화하기 / 의존 관계 위험 설명하기 / 공동 운영 방식 제안하기",
+      "transfer": "다음에는 권한 확대 없이 성과 목표만 높아져 합의 가능한 지표 범위를 조정한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "C1",
+      "slug": "question-legacy-norm",
+      "title": "오래된 관행의 근거를 관계 손상 없이 묻기",
+      "scenario": "팀은 같은 표를 세 시스템에 수동 입력합니다. 신입은 낭비로 보지만 감사상 필요가 있을 수 있습니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "선임. 과거 감사 때문에 시작했으나 현재 세 곳 모두 필요한지는 확신하지 못한다.",
+      "opening": "We've always entered it in all three places.",
+      "steps": [
+        {
+          "goal": "관행의 목적 탐색하기",
+          "example": "Before suggesting a change, I'd like to understand what each copy is protecting us against.",
+          "cue": "protect against = 예방하다"
+        },
+        {
+          "goal": "추측과 확인 필요 구분하기",
+          "example": "It may be necessary, but we shouldn't assume the original requirement still applies unchanged.",
+          "cue": "applies = 적용된다"
+        },
+        {
+          "goal": "작은 확인 제안하기",
+          "example": "Could we trace one example with the audit owner before redesigning the process?",
+          "cue": "trace = 추적하다"
+        }
+      ],
+      "outcome": "관행의 목적 탐색하기 / 추측과 확인 필요 구분하기 / 작은 확인 제안하기",
+      "transfer": "다음에는 관행에 실제 안전 기능이 있어 제거 대신 중복 입력 자동화를 검토한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "C1",
+      "slug": "handle-identity-assumptions",
+      "title": "새 팀의 개인 배경 추정을 정중히 바로잡기",
+      "scenario": "동료가 출신 지역만 보고 특정 언어 통역과 문화 설명을 당연히 맡깁니다. 본인의 역할과 가능 범위를 설명합니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "동료. 편한 부탁이라고 생각했으나 설명을 들으면 담당 업무를 조정한다.",
+      "opening": "You're from that region, so you can handle all the interpreting for us.",
+      "steps": [
+        {
+          "goal": "추정과 실제 능력 구분하기",
+          "example": "My background doesn't necessarily mean I can provide professional interpreting.",
+          "cue": "necessarily = 반드시"
+        },
+        {
+          "goal": "가능한 도움과 한계 제시하기",
+          "example": "I can help with a brief informal exchange, but complex discussions need a qualified interpreter.",
+          "cue": "qualified = 자격을 갖춘"
+        },
+        {
+          "goal": "공정한 업무 배분 요청하기",
+          "example": "Let's agree the support needed rather than assigning it on the basis of where I'm from.",
+          "cue": "on the basis of = ...을 기준으로"
+        }
+      ],
+      "outcome": "추정과 실제 능력 구분하기 / 가능한 도움과 한계 제시하기 / 공정한 업무 배분 요청하기",
+      "transfer": "다음에는 실제 해당 역량이 있어도 추가 업무 시간과 역할 범위를 협의한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C1",
+      "slug": "surface-hidden-disagreement",
+      "title": "겉으로 동의한 회의의 숨은 이견 확인하기",
+      "scenario": "모두 괜찮다고 하지만 운영팀은 일정에 대해 말을 줄였습니다. 침묵을 동의로 기록하기 전 확인합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "운영 담당자. 대놓고 반대하진 않지만 인력 배치가 확정되지 않았다고 나중에 밝힌다.",
+      "opening": "If nobody objects, we'll call this agreed.",
+      "steps": [
+        {
+          "goal": "동의 기준 점검하기",
+          "example": "Before we record consensus, could we check whether the silence reflects agreement or unresolved concerns?",
+          "cue": "consensus = 합의"
+        },
+        {
+          "goal": "구체적 제약을 말할 공간 주기",
+          "example": "Are there staffing assumptions that operations hasn't yet been able to confirm?",
+          "cue": "assumptions = 전제"
+        },
+        {
+          "goal": "조건부 합의 기록 제안하기",
+          "example": "Let's mark the date as provisional until those assumptions are checked.",
+          "cue": "provisional = 잠정적인"
+        }
+      ],
+      "outcome": "동의 기준 점검하기 / 구체적 제약을 말할 공간 주기 / 조건부 합의 기록 제안하기",
+      "transfer": "다음에는 이견이 없지만 의사결정에 필요한 담당자가 불참해 동의 범위를 한정한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C1",
+      "slug": "reframe-zero-sum",
+      "title": "제로섬으로 흐른 회의 논점 재구성하기",
+      "scenario": "영업과 품질팀은 빠른 출시 또는 완벽한 품질 중 하나만 선택해야 한다고 주장합니다. 단계별 출시가 가능한지 탐색합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 둘 중 한 팀이 양보하라며 빨리 결론내려 한다.",
+      "opening": "We either ship now or protect quality. Which is it?",
+      "steps": [
+        {
+          "goal": "이분법 전제 짚기",
+          "example": "That frames speed and quality as mutually exclusive, which may be too narrow.",
+          "cue": "mutually exclusive = 양립 불가능한"
+        },
+        {
+          "goal": "숨은 선택지 드러내기",
+          "example": "Could we separate a limited trial from a full public release?",
+          "cue": "separate = 분리하다"
+        },
+        {
+          "goal": "재구성된 기준 제시하기",
+          "example": "The question becomes which risks are acceptable for which users at each stage.",
+          "cue": "acceptable = 수용 가능한"
+        }
+      ],
+      "outcome": "이분법 전제 짚기 / 숨은 선택지 드러내기 / 재구성된 기준 제시하기",
+      "transfer": "다음에는 제한 출시도 위험이 큰 영역이라 실제로 가능한 선택지만 남긴다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C1",
+      "slug": "manage-power-interruption",
+      "title": "직급 높은 참석자의 반복 끼어들기 조정하기",
+      "scenario": "고위 참석자가 설명 중인 실무자의 말을 반복해서 끊어 위험 정보가 전달되지 않습니다. 진행자로 발언권을 조정합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "고위 참석자. 시간이 없다며 결론만 원하지만 위험 설명이 필요한 근거를 들으면 기다린다.",
+      "opening": "We don't need all that detail. Just move on.",
+      "steps": [
+        {
+          "goal": "시간 우려 인정하기",
+          "example": "I appreciate the need to keep us moving.",
+          "cue": "keep moving = 진행을 이어가다"
+        },
+        {
+          "goal": "정보의 결정 관련성 설명하기",
+          "example": "This particular risk changes the decision we're being asked to make.",
+          "cue": "changes the decision = 결정에 영향을 준다"
+        },
+        {
+          "goal": "구체적 발언 시간 확보하기",
+          "example": "Could we give Ana one uninterrupted minute, then take your question?",
+          "cue": "uninterrupted = 중단 없는"
+        }
+      ],
+      "outcome": "시간 우려 인정하기 / 정보의 결정 관련성 설명하기 / 구체적 발언 시간 확보하기",
+      "transfer": "다음에는 설명이 실제 반복되어 발언권 보호와 시간 관리 둘 다 수행한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C1",
+      "slug": "record-dissent",
+      "title": "합의되지 않은 우려를 결정 기록에 남기기",
+      "scenario": "다수는 출시를 승인했지만 한 팀은 검증 부족을 이유로 반대합니다. 의결 결과와 이견을 모두 정확히 기록합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 회의록에는 전원 합의라고 적자고 제안한다.",
+      "opening": "Let's say we're aligned and move forward.",
+      "steps": [
+        {
+          "goal": "기록 표현 정정하기",
+          "example": "We have a decision to proceed, but not unanimous agreement on the risk.",
+          "cue": "unanimous = 만장일치의"
+        },
+        {
+          "goal": "이견을 비난 없이 요약하기",
+          "example": "The concern is that the test coverage may not support the proposed scale.",
+          "cue": "coverage = 검증 범위"
+        },
+        {
+          "goal": "후속 조건 명시하기",
+          "example": "Let's record that concern alongside the monitoring threshold and the person authorized to pause rollout.",
+          "cue": "authorized = 권한을 받은"
+        }
+      ],
+      "outcome": "기록 표현 정정하기 / 이견을 비난 없이 요약하기 / 후속 조건 명시하기",
+      "transfer": "다음에는 반대 의견이 철회돼 그 조건과 새 합의 시점을 구분해 기록한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "C1",
+      "slug": "renegotiate-implicit-promise",
+      "title": "암묵적 약속이 된 초안 기한 재협상하기",
+      "scenario": "동료가 가능할 것 같다고 한 날짜를 고객에게 확정 전달했습니다. 신뢰를 지키며 상태를 바로잡습니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 이미 고객에게 말했다며 날짜를 유지하라고 한다.",
+      "opening": "But I told the customer you'd have it by Friday.",
+      "steps": [
+        {
+          "goal": "예상과 약속 구분하기",
+          "example": "Friday was an estimate pending the data check, not a confirmed delivery commitment.",
+          "cue": "pending = ...을 기다리는"
+        },
+        {
+          "goal": "현재 선택지 설명하기",
+          "example": "We can deliver a limited verified version then, or the complete version on Tuesday.",
+          "cue": "verified = 확인된"
+        },
+        {
+          "goal": "공동 커뮤니케이션 제안하기",
+          "example": "Let's contact the customer together with those options and explain the dependency clearly.",
+          "cue": "dependency = 의존 조건"
+        }
+      ],
+      "outcome": "예상과 약속 구분하기 / 현재 선택지 설명하기 / 공동 커뮤니케이션 제안하기",
+      "transfer": "다음에는 본인 표현도 모호했음을 인정하고 앞으로 확정 표시 규칙을 합의한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "C1",
+      "slug": "repair-cross-cultural-tone",
+      "title": "문체 차이로 생긴 협업 갈등 풀기",
+      "scenario": "짧은 작업 메시지가 무례하게 받아들여졌습니다. 문화 전체를 일반화하지 않고 개인 간 의도를 확인합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 명령문만 오는 메시지가 자신의 판단을 무시하는 느낌이라고 말한다.",
+      "opening": "Your messages sound like orders, not requests.",
+      "steps": [
+        {
+          "goal": "수신자의 경험 인정하기",
+          "example": "I can see how those short messages could sound dismissive.",
+          "cue": "dismissive = 무시하는 듯한"
+        },
+        {
+          "goal": "의도 설명과 변명 구분하기",
+          "example": "I meant to be concise, but that doesn't remove the effect of the wording.",
+          "cue": "concise = 간결한"
+        },
+        {
+          "goal": "구체적 소통 규칙 합의하기",
+          "example": "I'll include the reason and ask about timing; please flag anything that still feels abrupt.",
+          "cue": "abrupt = 퉁명스러운"
+        }
+      ],
+      "outcome": "수신자의 경험 인정하기 / 의도 설명과 변명 구분하기 / 구체적 소통 규칙 합의하기",
+      "transfer": "다음에는 상대의 매우 간접적인 거절을 오해해 명확한 확인 문구를 합의한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "C1",
+      "slug": "mediate-quality-speed",
+      "title": "협업 검토의 품질과 속도 갈등 중재하기",
+      "scenario": "검토자는 모든 문장 수정을 요구하고 작성자는 핵심 오류만 고치면 된다고 생각합니다. 고객 발송은 오늘입니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "검토자. 몇몇 수정은 안전 관련 사실이고 나머지는 문체 선호라고 인정한다.",
+      "opening": "It all needs fixing before we can send it.",
+      "steps": [
+        {
+          "goal": "수정 유형 분리하기",
+          "example": "Could we separate factual or safety issues from stylistic preferences?",
+          "cue": "stylistic = 문체상의"
+        },
+        {
+          "goal": "현재 기준 제안하기",
+          "example": "For today's version, I suggest we require the former and defer optional wording changes.",
+          "cue": "defer = 미루다"
+        },
+        {
+          "goal": "후속 기준 수립하기",
+          "example": "After delivery, let's agree a style guide so preference doesn't become a last-minute blocker.",
+          "cue": "blocker = 진행을 막는 요인"
+        }
+      ],
+      "outcome": "수정 유형 분리하기 / 현재 기준 제안하기 / 후속 기준 수립하기",
+      "transfer": "다음에는 문체가 오해를 유발하는 사례를 만나 단순 취향으로 분류하지 않는다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "C1",
+      "slug": "challenge-unfair-allocation",
+      "title": "눈에 안 띄는 반복 업무의 불공정 배분 논의하기",
+      "scenario": "매번 같은 사람이 회의록과 정리를 맡아 핵심 프로젝트 시간이 줄어듭니다. 업무 가치를 낮추지 않고 배분을 바꿉니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "팀 리드. 그 사람이 가장 잘해서 맡겼다고 설명한다.",
+      "opening": "You do it so well, so it makes sense for you to keep doing it.",
+      "steps": [
+        {
+          "goal": "역량 인정과 비용 분리하기",
+          "example": "I'm glad the work is useful, but doing it every time reduces my capacity for project responsibilities.",
+          "cue": "capacity = 업무 여력"
+        },
+        {
+          "goal": "분배 문제 구체화하기",
+          "example": "The issue isn't the value of the task; it's how consistently it falls to one person.",
+          "cue": "falls to = 맡겨진다"
+        },
+        {
+          "goal": "대안 제시하기",
+          "example": "Could we rotate it and use a template so others can build the same skill?",
+          "cue": "rotate = 순환하다"
+        }
+      ],
+      "outcome": "역량 인정과 비용 분리하기 / 분배 문제 구체화하기 / 대안 제시하기",
+      "transfer": "다음에는 담당 순환이 접근성 장벽을 만들 수 있어 가능한 방식으로 역할을 나눈다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "C1",
+      "slug": "communicate-uncertain-forecast",
+      "title": "불확실한 전망을 의사결정 가능하게 설명하기",
+      "scenario": "가상 수요 예상은 100~180건이고 공급은 150건입니다. 점추정 140만 발표하면 부족 위험이 가려집니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "임원 청중. 한 숫자로 목표를 정해 달라고 하며 범위가 회피처럼 들린다고 한다.",
+      "opening": "Just tell us the number we should plan for.",
+      "steps": [
+        {
+          "goal": "범위의 의미 설명하기",
+          "example": "A single midpoint would hide the risk that demand exceeds our capacity.",
+          "cue": "midpoint = 중간값"
+        },
+        {
+          "goal": "의사결정과 불확실성 연결하기",
+          "example": "The planning choice depends on how costly a shortage is compared with unused capacity.",
+          "cue": "shortage = 부족"
+        },
+        {
+          "goal": "조건부 실행안 제시하기",
+          "example": "I'd plan the base for 140 and secure a flexible option if confirmed demand crosses 150.",
+          "cue": "crosses = 넘는다"
+        }
+      ],
+      "outcome": "범위의 의미 설명하기 / 의사결정과 불확실성 연결하기 / 조건부 실행안 제시하기",
+      "transfer": "다음에는 범위 자체도 근거가 약해 수치의 출처와 갱신 시점을 명시한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "C1",
+      "slug": "correct-public-overstatement",
+      "title": "발표 중 과장된 해석 바로잡기",
+      "scenario": "진행자가 시범 결과를 성공이 입증됐다고 소개합니다. 실제 자료는 자원자 12명이 정해진 과업을 수행한 소규모 사용성 관찰뿐이며 회사 전체 효과는 검증하지 않았습니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "진행자. 행사 분위기를 유지하면서도 정확한 정정을 받아들일 수 있다.",
+      "opening": "Our pilot proves this will work across the organization.",
+      "steps": [
+        {
+          "goal": "관계 지키며 주장 한정하기",
+          "example": "I'd make one small but important distinction: the pilot supports usability, not organization-wide effectiveness.",
+          "cue": "distinction = 구분"
+        },
+        {
+          "goal": "관찰 범위 설명하기",
+          "example": "We observed twelve volunteers completing a defined set of tasks.",
+          "cue": "defined = 정해진"
+        },
+        {
+          "goal": "다음 검증 연결하기",
+          "example": "The next stage tests whether those gains hold across different roles and workloads.",
+          "cue": "hold = 유지되다"
+        }
+      ],
+      "outcome": "관계 지키며 주장 한정하기 / 관찰 범위 설명하기 / 다음 검증 연결하기",
+      "transfer": "다음에는 발표 자료 자체에 본인 과장이 있어 명시적으로 정정 책임을 진다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "C1",
+      "slug": "tailor-technical-summary",
+      "title": "기술 결과를 비전문 의사결정자에게 설명하기",
+      "scenario": "가상 처리 지연의 평균은 낮지만 일부 요청은 매우 오래 걸립니다. 청중은 평균만 보고 문제없다고 합니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "비전문 리더. 기술 용어보다 고객 영향과 투자 판단을 원한다.",
+      "opening": "The average looks fine. Why should we spend time on this?",
+      "steps": [
+        {
+          "goal": "전문 지표를 경험으로 번역하기",
+          "example": "Most customers get a quick response, but a small group waits long enough to abandon the task.",
+          "cue": "abandon = 포기하다"
+        },
+        {
+          "goal": "평균의 한계 설명하기",
+          "example": "The average smooths over those unusually long waits.",
+          "cue": "smooths over = 차이를 가린다"
+        },
+        {
+          "goal": "결정 가능한 조치 제안하기",
+          "example": "I'd prioritize the slowest cases and compare the improvement against the engineering cost.",
+          "cue": "prioritize = 우선하다"
+        }
+      ],
+      "outcome": "전문 지표를 경험으로 번역하기 / 평균의 한계 설명하기 / 결정 가능한 조치 제안하기",
+      "transfer": "다음에는 청중이 기술자라 측정 정의와 재현 조건까지 추가한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "C1",
+      "slug": "present-failed-experiment",
+      "title": "실패한 실험에서 과장 없이 배운 점 발표하기",
+      "scenario": "가상 안내문 변경 실험은 전환 개선을 보이지 않았습니다. 표본이 작아 효과 없음도 확정할 수 없습니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 실패라면 당장 중단해야 하는지 묻는다.",
+      "opening": "So the experiment didn't work at all?",
+      "steps": [
+        {
+          "goal": "관찰된 결과 명시하기",
+          "example": "We didn't observe a clear improvement in this test.",
+          "cue": "observe = 관찰하다"
+        },
+        {
+          "goal": "부정 결론의 한계 설명하기",
+          "example": "That isn't the same as establishing that the change has no effect, given the small sample.",
+          "cue": "establishing = 확립하는"
+        },
+        {
+          "goal": "판단 기준 제시하기",
+          "example": "We should only extend the test if the remaining uncertainty is worth the cost of resolving it.",
+          "cue": "uncertainty = 불확실성"
+        }
+      ],
+      "outcome": "관찰된 결과 명시하기 / 부정 결론의 한계 설명하기 / 판단 기준 제시하기",
+      "transfer": "다음에는 충분한 표본에서도 실용적 이득이 작아 중단을 추천한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "C1",
+      "slug": "separate-empathy-admission",
+      "title": "공감과 확인 안 된 책임 인정을 구분하기",
+      "scenario": "고객은 서비스 오류로 가상 업무 손실이 생겼다고 주장합니다. 상담원은 장애 여부를 아직 확인하지 못했습니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 지금 회사 잘못이라고 인정해 달라고 요구한다.",
+      "opening": "Just admit your system caused the whole loss.",
+      "steps": [
+        {
+          "goal": "경험과 불편 인정하기",
+          "example": "I recognize that the interruption has had serious consequences for your work.",
+          "cue": "consequences = 결과와 영향"
+        },
+        {
+          "goal": "확인 범위 정중히 한정하기",
+          "example": "I can't yet confirm the cause or the full extent of the impact.",
+          "cue": "extent = 범위"
+        },
+        {
+          "goal": "실질적 조사 경로 제안하기",
+          "example": "I can preserve the details you provide and arrange a review with a named contact and update time.",
+          "cue": "preserve = 보존하다"
+        }
+      ],
+      "outcome": "경험과 불편 인정하기 / 확인 범위 정중히 한정하기 / 실질적 조사 경로 제안하기",
+      "transfer": "다음에는 장애가 확인돼 확인된 책임 범위와 미확정 손실 범위를 구분한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "C1",
+      "slug": "manage-repeat-escalation",
+      "title": "반복 이관된 고객 문의의 소유권 정하기",
+      "scenario": "고객이 세 부서에 같은 설명을 반복했습니다. 현재 상담원은 기술 해결 권한은 없지만 연락 창구가 될 수 있습니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 또 이관하면 더는 설명하지 않겠다고 말한다.",
+      "opening": "You're the fourth person I've spoken to.",
+      "steps": [
+        {
+          "goal": "반복 부담 인정하기",
+          "example": "You shouldn't have to reconstruct the same history at every handover.",
+          "cue": "reconstruct = 다시 설명해 구성하다"
+        },
+        {
+          "goal": "소유권과 권한 구분하기",
+          "example": "I can't perform the technical fix myself, but I can own the communication from here.",
+          "cue": "own the communication = 연락 책임을 맡다"
+        },
+        {
+          "goal": "다음 전달 내용 확인하기",
+          "example": "I'll summarize the issue for the specialist and ask you only to correct anything I've missed.",
+          "cue": "specialist = 전문 담당자"
+        }
+      ],
+      "outcome": "반복 부담 인정하기 / 소유권과 권한 구분하기 / 다음 전달 내용 확인하기",
+      "transfer": "다음에는 상담 교대가 필요해 다음 담당자와 고객에게 인계 내용을 같이 확인한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "C1",
+      "slug": "explain-discretion-fairly",
+      "title": "예외 재량과 공정한 절차 설명하기",
+      "scenario": "고객은 다른 사람이 예외를 받았으니 자신도 동일 결과를 요구합니다. 각 사례 조건은 확인되지 않았습니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 온라인 후기의 사례를 들며 차별 대우라고 주장한다.",
+      "opening": "Someone else got an exception. Why are you treating me differently?",
+      "steps": [
+        {
+          "goal": "비교의 한계 설명하기",
+          "example": "I don't have the verified circumstances of that case, so I shouldn't assume the situations are identical.",
+          "cue": "circumstances = 구체적 사정"
+        },
+        {
+          "goal": "일관된 절차 설명하기",
+          "example": "What I can ensure is that your request is reviewed against the same published criteria.",
+          "cue": "criteria = 기준"
+        },
+        {
+          "goal": "검토에 필요한 정보 확인하기",
+          "example": "Let's identify the facts relevant to those criteria without asking for unrelated personal details.",
+          "cue": "relevant = 관련된"
+        }
+      ],
+      "outcome": "비교의 한계 설명하기 / 일관된 절차 설명하기 / 검토에 필요한 정보 확인하기",
+      "transfer": "다음에는 실제 기준 적용 오류가 확인돼 시정 절차와 재검토를 안내한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "C1",
+      "slug": "respond-public-private",
+      "title": "공개 불만을 사생활 보호하며 처리하기",
+      "scenario": "가상 공개 채팅에서 고객이 계정 상세를 올리려 합니다. 문제 자체를 숨기는 듯 보이지 않게 개인 채널로 옮깁니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 개인 채널로 가면 책임을 회피할까 걱정한다고 말한다.",
+      "opening": "Why move this private? Are you trying to hide the complaint?",
+      "steps": [
+        {
+          "goal": "공개 문제 제기 인정하기",
+          "example": "You're entitled to raise the concern here; the move is to protect account details, not remove the issue.",
+          "cue": "entitled = 권리가 있는"
+        },
+        {
+          "goal": "채널별 정보 분리하기",
+          "example": "We can acknowledge the problem publicly while checking identifying information privately.",
+          "cue": "identifying = 신원을 식별하는"
+        },
+        {
+          "goal": "추적 가능한 후속 제안하기",
+          "example": "I'll provide a case reference and a clear next update so the conversation doesn't disappear.",
+          "cue": "case reference = 문의 식별번호"
+        }
+      ],
+      "outcome": "공개 문제 제기 인정하기 / 채널별 정보 분리하기 / 추적 가능한 후속 제안하기",
+      "transfer": "다음에는 고객이 개인 채널을 거절해 공개해도 되는 일반 절차만 안내한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "C2",
+      "slug": "unpack-loaded-question",
+      "title": "유도성 면접 질문의 전제를 풀어 답하기",
+      "scenario": "면접관은 혁신보다 절차를 중시하는 사람 같다고 평가합니다. 실제 경험에는 규칙을 수정해 안전한 실험을 만든 사례가 있습니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 속도와 통제 중 어느 편인지 이분법적으로 답하라고 압박한다.",
+      "opening": "Are you the sort of person who puts process ahead of innovation?",
+      "steps": [
+        {
+          "goal": "평가의 전제 재구성하기",
+          "example": "I'd resist treating those as opposing loyalties; the question is whether the process enables responsible experimentation or merely preserves habit.",
+          "cue": "opposing loyalties = 서로 반대되는 충성 대상"
+        },
+        {
+          "goal": "구체적 반례 제시하기",
+          "example": "In one project, I replaced a blanket approval rule with a bounded trial and explicit stop conditions.",
+          "cue": "bounded = 범위를 제한한"
+        },
+        {
+          "goal": "역할 적합성으로 연결하기",
+          "example": "That approach protects room to innovate while making responsibility visible, which seems relevant to this role.",
+          "cue": "visible responsibility = 드러나는 책임"
+        }
+      ],
+      "outcome": "평가의 전제 재구성하기 / 구체적 반례 제시하기 / 역할 적합성으로 연결하기",
+      "transfer": "다음에는 실제로 통제가 과했던 본인 사례를 인정하면서 판단 기준을 수정한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "C2",
+      "slug": "handle-confidential-probing",
+      "title": "비밀 정보를 요구하는 면접 질문 우회하기",
+      "scenario": "면접관이 이전 회사의 비공개 고객 전략을 구체적으로 묻습니다. 공개할 수 있는 일반 판단 과정으로 역량을 보여줍니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 이름을 빼면 괜찮지 않냐며 수치와 전략 세부를 재차 요구한다.",
+      "opening": "Without naming names, what exactly was their pricing strategy?",
+      "steps": [
+        {
+          "goal": "익명화와 비밀성 구분하기",
+          "example": "Removing names wouldn't necessarily make the underlying strategy appropriate to disclose.",
+          "cue": "disclose = 공개하다"
+        },
+        {
+          "goal": "관계 유지하며 경계 설정하기",
+          "example": "I can explain the decision framework I used without revealing commercially sensitive inputs.",
+          "cue": "commercially sensitive = 영업상 민감한"
+        },
+        {
+          "goal": "대체 증거 제공하기",
+          "example": "For a hypothetical product, I'd compare customer value, switching costs, and the risks of short-term discounting.",
+          "cue": "hypothetical = 가상의"
+        }
+      ],
+      "outcome": "익명화와 비밀성 구분하기 / 관계 유지하며 경계 설정하기 / 대체 증거 제공하기",
+      "transfer": "다음에는 공개 자료와 비공개 경험이 섞여 출처별로 말할 수 있는 범위를 나눈다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "C2",
+      "slug": "reconcile-career-narratives",
+      "title": "서로 달라 보이는 경력 선택의 일관성 설명하기",
+      "scenario": "가상 지원자는 작은 조직과 큰 조직을 오가며 역할을 바꿨습니다. 면접관은 일관성이 부족하다고 해석합니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "면접관. 새로운 환경에 싫증을 내서 옮긴 것 아니냐고 묻는다.",
+      "opening": "This looks less like a career plan and more like restlessness.",
+      "steps": [
+        {
+          "goal": "표면적 해석을 인정하며 재구성하기",
+          "example": "Seen only by company size, the moves can look inconsistent; the common thread was taking responsibility for increasingly ambiguous problems.",
+          "cue": "common thread = 공통 흐름"
+        },
+        {
+          "goal": "과장 없는 증거 연결하기",
+          "example": "The smaller team taught me to build a process, while the larger one taught me to make it work across competing priorities.",
+          "cue": "competing priorities = 충돌하는 우선순위"
+        },
+        {
+          "goal": "현재 선택의 검증 조건 제시하기",
+          "example": "I'm looking for a role where that combination is needed, rather than another change of setting for its own sake.",
+          "cue": "for its own sake = 그 자체를 위해"
+        }
+      ],
+      "outcome": "표면적 해석을 인정하며 재구성하기 / 과장 없는 증거 연결하기 / 현재 선택의 검증 조건 제시하기",
+      "transfer": "다음에는 이동 중 한 번은 실패 회피였음을 인정하고 이후 달라진 선택 방식을 설명한다."
+    },
+    {
+      "subcategoryId": "job-interviews",
+      "difficulty": "C2",
+      "slug": "negotiate-mutual-fit",
+      "title": "최종 면접에서 상호 적합성과 한계 협의하기",
+      "scenario": "기업은 빠른 방향 전환을 원하고 지원자는 결정 근거와 책임의 명확성을 원합니다. 무조건적 유연함을 약속하지 않습니다.",
+      "learnerRole": "가상의 지원자",
+      "interlocutorRole": "임원 면접관. 불확실성을 즐기지 않으면 맞지 않을 수 있다고 말한다.",
+      "opening": "If you need clarity, perhaps this isn't the environment for you.",
+      "steps": [
+        {
+          "goal": "명확성의 뜻 세분화하기",
+          "example": "I don't need certainty about the outcome; I do need clarity about who can change the direction and on what basis.",
+          "cue": "certainty = 결과의 확실성"
+        },
+        {
+          "goal": "상대 요구와 공통점 찾기",
+          "example": "Frequent revision can be productive when decisions remain traceable rather than arbitrary.",
+          "cue": "traceable = 근거를 추적할 수 있는"
+        },
+        {
+          "goal": "상호 판단 가능한 사례 요청하기",
+          "example": "Could we walk through a recent reversal and how the team handled its consequences?",
+          "cue": "reversal = 결정 번복"
+        }
+      ],
+      "outcome": "명확성의 뜻 세분화하기 / 상대 요구와 공통점 찾기 / 상호 판단 가능한 사례 요청하기",
+      "transfer": "다음에는 실제 사례가 기대와 안 맞아 존중을 유지하며 제안 수락 조건을 명시한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "C2",
+      "slug": "decode-strategic-ambiguity",
+      "title": "조직의 의도적 모호함 속 실행 범위 확인하기",
+      "scenario": "신규 담당자에게 과감히 추진하라고 하면서 실패는 없어야 한다고 합니다. 탐색 허용 범위와 되돌릴 수 없는 결정을 나눕니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "임원. 모호함을 세부 규정으로 모두 없애고 싶지는 않지만 대외 약속에는 승인이 필요하다고 밝힌다.",
+      "opening": "Be bold, but don't create surprises.",
+      "steps": [
+        {
+          "goal": "서로 다른 기대를 해석하기",
+          "example": "I take that to mean initiative within agreed limits of risk, rather than either unrestricted autonomy or zero experimentation.",
+          "cue": "agreed limits of risk = 합의된 위험 허용 범위"
+        },
+        {
+          "goal": "구체적인 경계 탐색하기",
+          "example": "Which decisions are reversible enough for me to test, and which create commitments you need to approve?",
+          "cue": "reversible = 되돌릴 수 있는"
+        },
+        {
+          "goal": "모호함을 남길 부분 합의하기",
+          "example": "We can keep the method open while making the escalation thresholds explicit.",
+          "cue": "thresholds = 상위 보고 기준"
+        }
+      ],
+      "outcome": "서로 다른 기대를 해석하기 / 구체적인 경계 탐색하기 / 모호함을 남길 부분 합의하기",
+      "transfer": "다음에는 임원이 사후 기준을 바꾸어 합의 기록을 근거로 책임 범위를 재확인한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "C2",
+      "slug": "reconcile-official-unofficial",
+      "title": "공식 가치와 실제 보상 사이 긴장 확인하기",
+      "scenario": "조직은 협업을 강조하지만 평가에는 개인 납품 수만 보입니다. 신입은 냉소 없이 협업 시간이 어떻게 인정되는지 묻습니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "매니저. 협업 기여는 서술 평가로 반영하지만 팀마다 기록 방식이 다르다고 한다.",
+      "opening": "We value collaboration, although your targets are individual.",
+      "steps": [
+        {
+          "goal": "가치 판단 없이 긴장 명시하기",
+          "example": "I can see how the individual targets are measured; I'm less clear on how enabling someone else's work is recognized.",
+          "cue": "enabling = 가능하게 하는"
+        },
+        {
+          "goal": "현실 사례 요청하기",
+          "example": "Could you show me a case where collaborative work affected an evaluation, positively or negatively?",
+          "cue": "evaluation = 평가"
+        },
+        {
+          "goal": "실천 가능한 기록 합의하기",
+          "example": "It would help to agree how we document shared outcomes so the stated value has a practical route into assessment.",
+          "cue": "stated value = 표방한 가치"
+        }
+      ],
+      "outcome": "가치 판단 없이 긴장 명시하기 / 현실 사례 요청하기 / 실천 가능한 기록 합의하기",
+      "transfer": "다음에는 실제 인정 사례가 없어 새로운 기록 실험과 검토 시점을 제안한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "C2",
+      "slug": "question-consensus-history",
+      "title": "과거 합의라는 말 뒤의 현재 동의 범위 확인하기",
+      "scenario": "신입이 오래된 제품 방향을 질문하자 모두 합의한 일이라는 답을 듣습니다. 당시 조건과 현재 조건이 달라졌습니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "선임. 과거 합의는 시장이 작을 때였으며 변경을 논의하면 과거 판단 비난처럼 느껴진다고 말한다.",
+      "opening": "We settled this years ago. Everyone was aligned.",
+      "steps": [
+        {
+          "goal": "역사적 판단 존중하기",
+          "example": "I'm not questioning whether that was a sound decision under the conditions at the time.",
+          "cue": "sound decision = 타당한 판단"
+        },
+        {
+          "goal": "유효 조건 탐색하기",
+          "example": "I'm trying to identify which assumptions made it sound and whether those assumptions still hold.",
+          "cue": "hold = 여전히 유효하다"
+        },
+        {
+          "goal": "재검토를 책임 추궁과 분리하기",
+          "example": "Could we review the decision's current fit without turning it into a verdict on the people who made it?",
+          "cue": "verdict = 판정"
+        }
+      ],
+      "outcome": "역사적 판단 존중하기 / 유효 조건 탐색하기 / 재검토를 책임 추궁과 분리하기",
+      "transfer": "다음에는 조건이 변하지 않아 원래 결정을 유지하는 근거를 명확히 정리한다."
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "C2",
+      "slug": "position-as-new-expert",
+      "title": "새 전문가로서 기존 지식을 존중하며 이견 제시하기",
+      "scenario": "새 전문가가 분석 방식의 약점을 발견했지만 현장팀은 외부 사람이 맥락을 모른다고 느낍니다.",
+      "learnerRole": "가상 조직에 새로 합류한 구성원",
+      "interlocutorRole": "현장 리드. 과거 도입 실패를 설명하며 새 이론이 현장에 안 맞을 수 있다고 반응한다.",
+      "opening": "We've tried textbook fixes before. They don't survive contact with reality.",
+      "steps": [
+        {
+          "goal": "전문성의 범위 인정하기",
+          "example": "I bring a different analytical lens, but not your history of how the system behaves in practice.",
+          "cue": "analytical lens = 분석 관점"
+        },
+        {
+          "goal": "상대 지식을 검증에 포함하기",
+          "example": "Could you help identify where this explanation would predict something you know to be wrong?",
+          "cue": "predict = 예측하다"
+        },
+        {
+          "goal": "공동 탐색으로 재구성하기",
+          "example": "Rather than replace your account with mine, let's use the mismatch to design a small test.",
+          "cue": "mismatch = 불일치"
+        }
+      ],
+      "outcome": "전문성의 범위 인정하기 / 상대 지식을 검증에 포함하기 / 공동 탐색으로 재구성하기",
+      "transfer": "다음에는 현장 반례가 새 가설을 지지해도 승패처럼 말하지 않고 공동 수정한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C2",
+      "slug": "resolve-equivocal-agreement",
+      "title": "같은 단어로 다른 합의를 한 회의 정리하기",
+      "scenario": "두 팀이 개방성에 동의하지만 한쪽은 데이터 공개, 다른 쪽은 내부 검토 투명성을 뜻합니다. 합의 착시를 해소합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "두 팀 대표 역할. 모두 open에 동의했다고 생각하지만 공개 범위를 물으면 차이가 드러난다.",
+      "opening": "At least we're all committed to openness.",
+      "steps": [
+        {
+          "goal": "공통어의 다의성 드러내기",
+          "example": "We may share the word without sharing the proposed action; openness seems to be doing two different jobs here.",
+          "cue": "doing two jobs = 두 의미로 쓰이는"
+        },
+        {
+          "goal": "각 의미를 공정하게 재진술하기",
+          "example": "One proposal concerns public access to data, while the other concerns visibility of our internal reasoning.",
+          "cue": "visibility = 볼 수 있음"
+        },
+        {
+          "goal": "분리된 결정으로 전환하기",
+          "example": "Could we decide those separately, including the limits and audience for each?",
+          "cue": "limits = 경계"
+        }
+      ],
+      "outcome": "공통어의 다의성 드러내기 / 각 의미를 공정하게 재진술하기 / 분리된 결정으로 전환하기",
+      "transfer": "다음에는 효율이라는 단어가 비용 절감과 대기시간 단축을 혼용해 기준을 나눈다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C2",
+      "slug": "challenge-performative-consensus",
+      "title": "체면을 위한 합의와 실행 약속 구분하기",
+      "scenario": "임원이 회의 종료 직전 모두 함께 가는 것이라고 선언하지만 담당자들은 자원을 약속하지 않았습니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 부정적인 말로 분위기를 깨지 말고 동의로 정리하자고 한다.",
+      "opening": "Let's end on a positive note: we're all behind the plan.",
+      "steps": [
+        {
+          "goal": "지지와 이행 능력 구분하기",
+          "example": "We can support the direction without yet having committed the resources needed to deliver it.",
+          "cue": "committed resources = 확약한 자원"
+        },
+        {
+          "goal": "체면을 유지하며 확인 요청하기",
+          "example": "To make that positive statement reliable, could we confirm the specific commitments rather than assume them?",
+          "cue": "reliable = 믿을 수 있는"
+        },
+        {
+          "goal": "기록의 정확도 확보하기",
+          "example": "Let's record support in principle, with resource confirmation outstanding, instead of an unconditional delivery promise.",
+          "cue": "in principle = 원칙적으로"
+        }
+      ],
+      "outcome": "지지와 이행 능력 구분하기 / 체면을 유지하며 확인 요청하기 / 기록의 정확도 확보하기",
+      "transfer": "다음에는 자원 확인이 끝났어도 반대 위험 의견이 남아 약속과 우려를 함께 기록한다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C2",
+      "slug": "reframe-blame-debate",
+      "title": "책임 공방 회의를 학습 가능한 분석으로 전환하기",
+      "scenario": "일정 실패 뒤 한 팀은 요구 변경을, 다른 팀은 느린 개발을 탓합니다. 두 요소가 상호작용했을 수 있습니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "양 팀 대표 역할. 각자 상대 원인만 강조하며 자신은 계획대로 했다고 말한다.",
+      "opening": "If they hadn't changed the requirements, we'd have delivered.",
+      "steps": [
+        {
+          "goal": "단일 원인 서사 한정하기",
+          "example": "That may identify one contributing condition, but it doesn't yet explain how the system allowed the delay to grow unnoticed.",
+          "cue": "contributing condition = 기여한 조건"
+        },
+        {
+          "goal": "책임 면제 없이 분석 확대하기",
+          "example": "We can examine the interaction without implying that nobody was responsible for particular decisions.",
+          "cue": "interaction = 상호작용"
+        },
+        {
+          "goal": "재발 방지 질문 전환하기",
+          "example": "At which point could either team have seen the combined effect, and what signal was missing?",
+          "cue": "combined effect = 결합된 영향"
+        }
+      ],
+      "outcome": "단일 원인 서사 한정하기 / 책임 면제 없이 분석 확대하기 / 재발 방지 질문 전환하기",
+      "transfer": "다음에는 명백한 개별 위반도 있어 시스템 분석으로 개인 책임을 흐리지 않는다."
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C2",
+      "slug": "moderate-contested-framing",
+      "title": "논쟁의 의제 설정 자체를 중재하기",
+      "scenario": "한 팀은 도입 여부가, 다른 팀은 도입 방법만 논의 대상이라고 생각합니다. 회의 권한부터 합의합니다.",
+      "learnerRole": "가상 팀 회의의 참여자 또는 진행자",
+      "interlocutorRole": "진행자. 도입은 이미 결정됐다지만 공식 결정 문서는 조건부 검토만 승인했다고 설명한다.",
+      "opening": "We're here to discuss how, not whether.",
+      "steps": [
+        {
+          "goal": "절차적 불일치 명시하기",
+          "example": "There appears to be a disagreement about the status of the decision, before we even reach the implementation options.",
+          "cue": "status = 결정 상태"
+        },
+        {
+          "goal": "근거 문서 확인 요청하기",
+          "example": "Could we distinguish authorization to explore from authorization to proceed?",
+          "cue": "authorization = 승인"
+        },
+        {
+          "goal": "의제와 후속 권한 재설정하기",
+          "example": "Once that's clear, we can frame today's output as either a recommendation or an implementation plan.",
+          "cue": "recommendation = 권고안"
+        }
+      ],
+      "outcome": "절차적 불일치 명시하기 / 근거 문서 확인 요청하기 / 의제와 후속 권한 재설정하기",
+      "transfer": "다음에는 결정이 실제 확정됐지만 중대한 새 정보가 있어 재검토 권한을 확인한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "C2",
+      "slug": "repair-ironic-message",
+      "title": "반어적 메시지로 생긴 신뢰 손상 회복하기",
+      "scenario": "동료에게 정말 완벽한 타이밍이네요라는 메시지를 지연 직후 보내 비꼼으로 받아들여졌습니다. 의도보다 영향을 다룹니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 농담이라 해도 공개 채널에서 망신을 줬다고 말한다.",
+      "opening": "Calling it a joke doesn't make it less humiliating.",
+      "steps": [
+        {
+          "goal": "반어의 실제 효과 인정하기",
+          "example": "You're right; in that context the line reads as ridicule, regardless of the tone I imagined.",
+          "cue": "ridicule = 조롱"
+        },
+        {
+          "goal": "변명 없이 책임 구체화하기",
+          "example": "I used a public channel to express frustration instead of asking what had happened.",
+          "cue": "frustration = 답답함"
+        },
+        {
+          "goal": "비례적인 복구 제안하기",
+          "example": "I'll correct the impression in that channel and discuss the delay privately, without asking you to excuse the remark.",
+          "cue": "correct the impression = 인상을 바로잡다"
+        }
+      ],
+      "outcome": "반어의 실제 효과 인정하기 / 변명 없이 책임 구체화하기 / 비례적인 복구 제안하기",
+      "transfer": "다음에는 공개 정정이 오히려 주목을 키울 수 있어 상대가 원하는 복구 방식을 먼저 확인한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "C2",
+      "slug": "negotiate-knowledge-ownership",
+      "title": "공동 아이디어의 소유 표현 조율하기",
+      "scenario": "서로 다른 두 팀이 같은 개선안을 함께 발전시켰는데 발표문은 한 팀이 발명했다고 씁니다. 과거 기여와 실행 책임을 나눕니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "발표 담당자. 출처를 복잡하게 쓰면 메시지가 약해진다며 단순 표현을 원한다.",
+      "opening": "We need a clean story, not a genealogy of every idea.",
+      "steps": [
+        {
+          "goal": "간결함과 왜곡 구분하기",
+          "example": "We can keep the story clear without turning a collaborative development into a single-origin claim.",
+          "cue": "single-origin claim = 단일 기원 주장"
+        },
+        {
+          "goal": "기여 종류 분리하기",
+          "example": "One team raised the problem, another tested the approach, and both shaped the final design.",
+          "cue": "shaped = 형성했다"
+        },
+        {
+          "goal": "간결한 대체 문구 제시하기",
+          "example": "We could say jointly developed, led into implementation by your team, which preserves both credit and accountability.",
+          "cue": "accountability = 실행 책임"
+        }
+      ],
+      "outcome": "간결함과 왜곡 구분하기 / 기여 종류 분리하기 / 간결한 대체 문구 제시하기",
+      "transfer": "다음에는 제3자의 선행 공개 아이디어도 있어 최초 발명 주장 자체를 수정한다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "C2",
+      "slug": "manage-deniable-request",
+      "title": "명시하지 않은 부적절한 요청의 뜻 확인하기",
+      "scenario": "상대가 보고서를 보기 좋게 정리해 달라며 불리한 결과가 눈에 띄지 않길 암시합니다. 의미를 단정하지 않고 확인합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 처음에는 표현을 부드럽게 하자는 뜻이라지만 제외할 결과를 구체적으로 언급한다.",
+      "opening": "We don't need to draw attention to every awkward result.",
+      "steps": [
+        {
+          "goal": "모호한 의도 구체화하기",
+          "example": "Do you mean improving the explanation, or omitting results that materially change the conclusion?",
+          "cue": "materially = 실질적으로"
+        },
+        {
+          "goal": "허용 가능한 수정 제시하기",
+          "example": "I can make the limitations clearer and the narrative more readable without removing relevant evidence.",
+          "cue": "limitations = 한계"
+        },
+        {
+          "goal": "정확성 경계 합의하기",
+          "example": "If the result affects the recommendation, it needs to remain visible even if we change its presentation.",
+          "cue": "remain visible = 드러나 있어야 하다"
+        }
+      ],
+      "outcome": "모호한 의도 구체화하기 / 허용 가능한 수정 제시하기 / 정확성 경계 합의하기",
+      "transfer": "다음에는 실제 중복 자료만 줄이자는 요청임이 밝혀져 불필요한 의심을 바로잡는다."
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "C2",
+      "slug": "reconcile-trust-controls",
+      "title": "신뢰와 확인 절차를 대립시키는 갈등 풀기",
+      "scenario": "동료는 공동 검토를 믿지 못한다는 뜻으로 받아들입니다. 검토는 누구에게나 같은 기준이며 책임 있는 협업에 필요합니다.",
+      "learnerRole": "가상 팀에서 공동 업무를 맡은 동료",
+      "interlocutorRole": "동료. 자신에게만 추가 확인을 요구한다고 느끼며 불쾌감을 표현한다.",
+      "opening": "If you trusted me, you wouldn't ask someone else to check it.",
+      "steps": [
+        {
+          "goal": "감정과 규칙의 목적 구분하기",
+          "example": "I understand why it can feel personal, but the check is designed to catch what any of us might miss.",
+          "cue": "personal = 개인에 대한 것으로"
+        },
+        {
+          "goal": "상호성으로 신뢰 재구성하기",
+          "example": "I'd expect my own work to receive the same review; trust includes making our assumptions open to challenge.",
+          "cue": "open to challenge = 검토와 질문에 열려 있는"
+        },
+        {
+          "goal": "실제 공정성 확인하기",
+          "example": "Let's check that the process is being applied consistently rather than simply assert that it is.",
+          "cue": "consistently = 일관되게"
+        }
+      ],
+      "outcome": "감정과 규칙의 목적 구분하기 / 상호성으로 신뢰 재구성하기 / 실제 공정성 확인하기",
+      "transfer": "다음에는 규칙이 실제로 불균등 적용됐음을 발견해 원칙 설명보다 절차 시정을 우선한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "C2",
+      "slug": "distinguish-absence-evidence",
+      "title": "근거 부재를 안전 입증으로 오해하는 청중 설득하기",
+      "scenario": "시범 운영에서 사고가 없었지만 참여자 20명과 하루 운영뿐입니다. 청중은 위험이 없다고 발표하려 합니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "임원 청중. 문제를 못 찾았는데 왜 부정적으로 말하느냐고 묻는다.",
+      "opening": "No incidents were reported, so it's safe to scale.",
+      "steps": [
+        {
+          "goal": "관찰과 보증의 논리 차이 설명하기",
+          "example": "An absence of reported incidents under narrow conditions isn't the same as evidence that the risk is negligible at scale.",
+          "cue": "negligible = 무시할 만큼 작은"
+        },
+        {
+          "goal": "청중 목적과 연결하기",
+          "example": "The distinction matters because scaling changes both exposure and the chance of encountering rare cases.",
+          "cue": "rare cases = 드문 사례"
+        },
+        {
+          "goal": "정확한 주장과 실행안 제안하기",
+          "example": "We can say the pilot revealed no incidents, then specify the monitoring and stop rules for the next stage.",
+          "cue": "stop rules = 중단 기준"
+        }
+      ],
+      "outcome": "관찰과 보증의 논리 차이 설명하기 / 청중 목적과 연결하기 / 정확한 주장과 실행안 제안하기",
+      "transfer": "다음에는 충분한 검증 근거가 추가돼 계속 모호하게만 말하지 않고 확신 수준을 갱신한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "C2",
+      "slug": "present-rival-explanations",
+      "title": "같은 자료에 대한 경쟁 설명 비교하기",
+      "scenario": "교육 후 성과가 올랐지만 인력 충원과 계절 변화가 겹쳤습니다. 세 설명을 동일하게 가능하다고 하지는 않습니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "청중. 그렇다면 아무것도 알 수 없다는 뜻이냐고 반응한다.",
+      "opening": "If there are three explanations, does the study tell us anything?",
+      "steps": [
+        {
+          "goal": "불확실성과 무지 구분하기",
+          "example": "Competing explanations limit a causal claim; they don't make the observed improvement meaningless.",
+          "cue": "causal claim = 인과 주장"
+        },
+        {
+          "goal": "설명별 근거의 차이 전달하기",
+          "example": "The timing supports a role for the training, but the staffing change remains a plausible alternative we haven't isolated.",
+          "cue": "isolated = 분리 확인한"
+        },
+        {
+          "goal": "의사결정에 맞는 다음 검증 제시하기",
+          "example": "A staggered rollout could help distinguish those effects before we treat the training as the main driver.",
+          "cue": "staggered rollout = 시차를 둔 도입"
+        }
+      ],
+      "outcome": "불확실성과 무지 구분하기 / 설명별 근거의 차이 전달하기 / 의사결정에 맞는 다음 검증 제시하기",
+      "transfer": "다음에는 대안 설명 중 하나가 자료와 충돌해 동등한 비중으로 제시하지 않는다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "C2",
+      "slug": "translate-specialist-dispute",
+      "title": "전문가 간 용어 논쟁을 실행 선택으로 번역하기",
+      "scenario": "두 전문가가 모델이 편향됐는지 논쟁합니다. 한쪽은 통계 오차, 다른 쪽은 집단별 피해를 말합니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "비전문 결정자. 편향 여부를 yes/no로 정리해 달라고 한다.",
+      "opening": "Can you just tell us whether the model is biased?",
+      "steps": [
+        {
+          "goal": "용어가 담은 다른 질문 분리하기",
+          "example": "They're using bias to refer to different questions: systematic prediction error and unequal consequences for users.",
+          "cue": "systematic = 체계적인"
+        },
+        {
+          "goal": "논점을 일상 결정과 연결하기",
+          "example": "A model can perform similarly on average while errors carry different costs for different groups.",
+          "cue": "carry costs = 비용이나 부담을 낳다"
+        },
+        {
+          "goal": "검토할 결정 제안하기",
+          "example": "We should assess both performance and consequences before deciding where the model may be used.",
+          "cue": "consequences = 결과와 영향"
+        }
+      ],
+      "outcome": "용어가 담은 다른 질문 분리하기 / 논점을 일상 결정과 연결하기 / 검토할 결정 제안하기",
+      "transfer": "다음에는 청중이 공정성을 단일 수치로 요구해 충돌 가능한 기준과 선택 책임을 설명한다."
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "C2",
+      "slug": "handle-hostile-paraphrase",
+      "title": "발표 내용을 왜곡한 질문에 침착하게 응답하기",
+      "scenario": "발표자는 자발적으로 참여한 10명에게만 시범 도구를 제공하고, 기존 도구를 함께 유지하며, 자료 손실 징후가 있으면 즉시 중단하는 방안을 제안했습니다. 청중은 고객을 실험 대상으로 삼겠다는 말로 재진술합니다.",
+      "learnerRole": "가상 업무 자료를 설명하는 발표자",
+      "interlocutorRole": "회의적 청중. 더 강한 표현으로 제안을 비판하며 고객 보호를 요구한다.",
+      "opening": "So you're happy to experiment on customers and hope for the best?",
+      "steps": [
+        {
+          "goal": "왜곡된 요약을 정중히 정정하기",
+          "example": "That isn't the proposal I'm making; an uncontrolled rollout would contradict the safeguards I described.",
+          "cue": "safeguards = 보호 조치"
+        },
+        {
+          "goal": "우려의 타당한 핵심 인정하기",
+          "example": "The concern about exposing people to avoidable harm is entirely relevant.",
+          "cue": "avoidable = 피할 수 있는"
+        },
+        {
+          "goal": "정확한 논점으로 복귀하기",
+          "example": "The decision is whether the defined safeguards and limits are adequate, and if not, which condition remains unmet.",
+          "cue": "unmet condition = 충족되지 않은 조건"
+        }
+      ],
+      "outcome": "왜곡된 요약을 정중히 정정하기 / 우려의 타당한 핵심 인정하기 / 정확한 논점으로 복귀하기",
+      "transfer": "다음에는 비판에서 실제 빠진 보호 조치가 드러나 제안 일부를 수정한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "C2",
+      "slug": "navigate-impossible-assurance",
+      "title": "고객의 절대 보증 요구에 신뢰를 유지하며 답하기",
+      "scenario": "가상 장애 복구 후 고객은 다시는 발생하지 않는다는 보증을 요구합니다. 원인 하나는 해결됐지만 모든 장애를 배제할 수 없습니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 불가능하다는 말은 믿을 수 없다는 뜻이라고 받아들인다.",
+      "opening": "If you can't guarantee it will never happen again, why should I trust you?",
+      "steps": [
+        {
+          "goal": "보증 범위를 정밀하게 설명하기",
+          "example": "I can confirm the specific fault has been corrected; I can't honestly extend that to a promise of zero future disruption.",
+          "cue": "extend = 확대하다"
+        },
+        {
+          "goal": "신뢰 기준 재구성하기",
+          "example": "What we can be held to is the corrective action, the monitoring, and how we respond if a problem recurs.",
+          "cue": "held to = 책임 기준으로 삼다"
+        },
+        {
+          "goal": "검증 가능한 약속 제시하기",
+          "example": "I'll provide the confirmed actions and the review date, so you're not being asked to rely on reassurance alone.",
+          "cue": "reassurance = 안심시키는 말"
+        }
+      ],
+      "outcome": "보증 범위를 정밀하게 설명하기 / 신뢰 기준 재구성하기 / 검증 가능한 약속 제시하기",
+      "transfer": "다음에는 원인도 미확정인 상황이라 수정 완료를 주장하지 않고 현재 보호 조치만 설명한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "C2",
+      "slug": "respond-to-moral-accusation",
+      "title": "도덕적 비난을 실제 해결 쟁점으로 다루기",
+      "scenario": "고객은 자동 안내로 반복 대기한 뒤 회사가 사람을 신경 쓰지 않는다고 비난합니다. 의도 논쟁 대신 경험과 조치를 다룹니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 정책을 설명하면 핑계라고 반응하며 자신의 시간이 무시됐다고 말한다.",
+      "opening": "Your company clearly doesn't care what this does to people.",
+      "steps": [
+        {
+          "goal": "내면의 의도 반박 대신 경험 인정하기",
+          "example": "The repeated waiting and inconsistent messages have given you good reason to feel disregarded.",
+          "cue": "disregarded = 존중받지 못한"
+        },
+        {
+          "goal": "추상 논쟁을 구체화하기",
+          "example": "Rather than ask you to accept a claim about our intentions, I'd like to address the failures you've actually experienced.",
+          "cue": "intentions = 의도"
+        },
+        {
+          "goal": "책임 있는 다음 행동 합의하기",
+          "example": "I'll take ownership of the update and identify which unresolved point needs a decision from someone with authority.",
+          "cue": "authority = 권한"
+        }
+      ],
+      "outcome": "내면의 의도 반박 대신 경험 인정하기 / 추상 논쟁을 구체화하기 / 책임 있는 다음 행동 합의하기",
+      "transfer": "다음에는 고객 요구 중 실현 불가능한 부분도 있어 공감과 수락을 분명히 구분한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "C2",
+      "slug": "explain-conflicting-entitlements",
+      "title": "상충하는 고객 요구의 공정한 처리 설명하기",
+      "scenario": "가상 예약 공간을 두 고객이 동시에 독점 사용했다고 믿습니다. 기록에는 한쪽 확정, 다른 쪽 문의만 남아 있습니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 자신이 먼저 연락했으니 권리가 있다고 주장하며 다른 고객 정보를 요구한다.",
+      "opening": "I asked first, so their booking should be cancelled.",
+      "steps": [
+        {
+          "goal": "연락 순서와 확정 상태 구분하기",
+          "example": "Being first to enquire and holding a confirmed booking are different statuses, though I can see how the exchange may have left that unclear.",
+          "cue": "enquire = 문의하다"
+        },
+        {
+          "goal": "타인 정보 경계 유지하기",
+          "example": "I can explain the status of your request without disclosing another customer's details.",
+          "cue": "disclosing = 공개하는"
+        },
+        {
+          "goal": "자사 안내 책임과 대안 제시하기",
+          "example": "Let's review what we communicated to you and identify a fair remedy for any ambiguity we created.",
+          "cue": "remedy = 시정 방안"
+        }
+      ],
+      "outcome": "연락 순서와 확정 상태 구분하기 / 타인 정보 경계 유지하기 / 자사 안내 책임과 대안 제시하기",
+      "transfer": "다음에는 두 고객 모두 확정된 실제 중복 예약이라 책임을 고객에게 돌리지 않고 조정한다."
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "C2",
+      "slug": "repair-ambiguous-apology",
+      "title": "책임 회피처럼 들린 사과를 구체적으로 고치기",
+      "scenario": "상담원이 기분 나쁘셨다면 죄송하다고 말해 고객이 더 화가 났습니다. 실제 안내 오류는 확인됐습니다.",
+      "learnerRole": "가상 매장 또는 서비스의 고객 응대 담당자",
+      "interlocutorRole": "고객. 자신의 감정이 아니라 회사의 잘못을 사과하라고 요구한다.",
+      "opening": "Don't apologize for how I feel. Apologize for what you did.",
+      "steps": [
+        {
+          "goal": "사과 표현의 문제 인정하기",
+          "example": "You're right; my wording made the problem sound like your reaction rather than our incorrect advice.",
+          "cue": "wording = 표현 방식"
+        },
+        {
+          "goal": "확인된 잘못을 직접 사과하기",
+          "example": "We gave you the wrong deadline, and I'm sorry for the disruption that caused.",
+          "cue": "disruption = 차질"
+        },
+        {
+          "goal": "책임과 후속 조치를 연결하기",
+          "example": "I've corrected the record and will have the missed-deadline decision reviewed on the basis of that error.",
+          "cue": "on the basis of = ...을 근거로"
+        }
+      ],
+      "outcome": "사과 표현의 문제 인정하기 / 확인된 잘못을 직접 사과하기 / 책임과 후속 조치를 연결하기",
+      "transfer": "다음에는 잘못의 일부만 확인돼 정확히 확인된 행위에는 사과하고 미확정 쟁점은 별도 조사한다."
+    }
+  ]
+}

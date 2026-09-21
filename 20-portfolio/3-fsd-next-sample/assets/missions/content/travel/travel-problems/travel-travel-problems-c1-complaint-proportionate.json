@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "travel-travel-problems-c1-complaint-proportionate",
+  "title": "여행 문제 민원을 비례적으로 정리하기",
+  "categoryId": "travel",
+  "subcategoryId": "travel-problems",
+  "difficulty": "C1",
+  "scenario": "투어는 진행됐지만 핵심 장소 한 곳이 빠졌고 일부 식사 서비스도 늦었습니다. 전액 무효라고 과장하지 않습니다.",
+  "practicalOutcome": "제공분과 누락분·핵심과 부차 문제를 구분한다.",
+  "roles": {
+    "learner": "투어 고객",
+    "interlocutor": "책임자. 누락 원인과 제공된 항목을 확인하고 부분 조정 검토를 할 수 있다."
+  },
+  "opening": "You did receive most of the advertised service.",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "제공된 부분 인정하기",
+      "example": "I agree that much of the service was delivered, and I do not want to erase that from the account.",
+      "hints": [
+        "의도: 제공된 부분 인정하기",
+        "핵심 표현: delivered = 제공된",
+        "완성 문장 예시: I agree that much of the service was delivered, and I do not want to erase that from the account. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 제공된 부분 인정하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "중요도 다른 문제 구별하기",
+      "example": "The missing site was central to my booking; the meal delay was inconvenient but secondary.",
+      "hints": [
+        "의도: 중요도 다른 문제 구별하기",
+        "핵심 표현: secondary = 부차적인",
+        "완성 문장 예시: The missing site was central to my booking; the meal delay was inconvenient but secondary. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 중요도 다른 문제 구별하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "근거 있는 검토 요청하기",
+      "example": "Could you assess a proportionate adjustment based on the omitted core element rather than treating every issue as equally serious?",
+      "hints": [
+        "의도: 근거 있는 검토 요청하기",
+        "핵심 표현: proportionate = 정도에 맞는",
+        "완성 문장 예시: Could you assess a proportionate adjustment based on the omitted core element rather than treating every issue as equally serious? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 근거 있는 검토 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 제공된 부분 인정하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '여행 문제 민원을 비례적으로 정리하기' 상황에서 제공분과 누락분·핵심과 부차 문제를 구분한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "누락 장소는 안전상 폐쇄됐다. 원인과 상품 가치 변화의 문제를 따로 검토한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '여행 문제 민원을 비례적으로 정리하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 누락 장소는 안전상 폐쇄됐다. 원인과 상품 가치 변화의 문제를 따로 검토한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "제공분과 누락분·핵심과 부차 문제를 구분한다.",
+      "제공된 부분 인정하기",
+      "중요도 다른 문제 구별하기",
+      "근거 있는 검토 요청하기",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

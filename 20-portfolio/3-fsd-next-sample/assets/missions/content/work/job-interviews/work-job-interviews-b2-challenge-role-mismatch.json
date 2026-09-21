@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-job-interviews-b2-challenge-role-mismatch",
+  "title": "면접에서 공고와 실제 역할 차이 확인하기",
+  "categoryId": "work",
+  "subcategoryId": "job-interviews",
+  "difficulty": "B2",
+  "scenario": "공고는 기획 중심인데 면접 설명은 대부분 문의 처리입니다. 두 업무의 비중과 성장 경로를 확인합니다.",
+  "practicalOutcome": "차이를 중립적으로 짚기 / 비중과 기간 묻기 / 판단에 필요한 조건 말하기",
+  "roles": {
+    "learner": "가상의 지원자",
+    "interlocutor": "면접관. 현재는 지원 업무 70%이며 6개월 뒤 비중은 확정하지 못한다고 답한다."
+  },
+  "opening": "Most of the first few months will be customer support.",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "차이를 중립적으로 짚기",
+      "example": "The advert emphasized planning, so I'd like to understand how the two fit together.",
+      "hints": [
+        "의도: 차이를 중립적으로 짚기",
+        "핵심 표현: emphasized = 강조했다",
+        "완성 문장 예시: The advert emphasized planning, so I'd like to understand how the two fit together. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 차이를 중립적으로 짚기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "비중과 기간 묻기",
+      "example": "Roughly what proportion is support, and is that expected to change?",
+      "hints": [
+        "의도: 비중과 기간 묻기",
+        "핵심 표현: proportion = 비중",
+        "완성 문장 예시: Roughly what proportion is support, and is that expected to change? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 비중과 기간 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "판단에 필요한 조건 말하기",
+      "example": "I'd be interested if there is a clear opportunity to develop planning experience.",
+      "hints": [
+        "의도: 판단에 필요한 조건 말하기",
+        "핵심 표현: opportunity = 기회",
+        "완성 문장 예시: I'd be interested if there is a clear opportunity to develop planning experience. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 판단에 필요한 조건 말하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 차이를 중립적으로 짚기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '면접에서 공고와 실제 역할 차이 확인하기' 상황에서 차이를 중립적으로 짚기 / 비중과 기간 묻기 / 판단에 필요한 조건 말하기 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "다음에는 성장 기회가 구두 기대인지 실제 합의 가능한 목표인지 확인한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '면접에서 공고와 실제 역할 차이 확인하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 다음에는 성장 기회가 구두 기대인지 실제 합의 가능한 목표인지 확인한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "차이를 중립적으로 짚기 / 비중과 기간 묻기 / 판단에 필요한 조건 말하기",
+      "차이를 중립적으로 짚기",
+      "비중과 기간 묻기",
+      "판단에 필요한 조건 말하기",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

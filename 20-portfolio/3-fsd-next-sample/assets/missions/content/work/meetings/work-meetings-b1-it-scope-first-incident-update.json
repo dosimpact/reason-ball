@@ -1,0 +1,133 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-meetings-b1-it-scope-first-incident-update",
+  "title": "장애 상황에서 확인한 영향만 첫 보고하기",
+  "categoryId": "work",
+  "subcategoryId": "meetings",
+  "difficulty": "B1",
+  "scenario": "09:10에 주문 대시보드가 느리다는 문의 두 건이 왔습니다. 매니저는 모든 고객이 결제를 못 한다는 공지를 지금 내자고 합니다. 결제 실패는 확인되지 않았습니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+  "practicalOutcome": "확인된 대시보드 지연, 결제 영향 조사 중, 당직자 확인과 09:25 업데이트가 포함된 첫 보고를 합의한다.",
+  "roles": {
+    "learner": "가상 IT 운영 담당자",
+    "interlocutor": "매니저 역할. 빨리 알리는 것이 중요하다고 강조한다. 범위를 나눠 말하면 첫 메시지에 조사 중임을 포함하는 데 동의하며 당직자 연락을 맡길 수 있다."
+  },
+  "caseBrief": {
+    "professionalRole": "it-operations",
+    "situation": "09:10에 주문 대시보드가 느리다는 문의 두 건이 왔습니다. 매니저는 모든 고객이 결제를 못 한다는 공지를 지금 내자고 합니다. 결제 실패는 확인되지 않았습니다.",
+    "facts": [
+      "문의 두 건은 내부 주문 대시보드의 화면 지연이다.",
+      "고객 결제 실패 보고는 아직 없다.",
+      "첫 사용자 제보는 09:10이며 현재는 09:15다.",
+      "운영 당직자는 09:25까지 대시보드와 결제의 영향을 별도로 확인할 수 있다."
+    ],
+    "constraints": [
+      "보고가 없다는 사실을 영향이 없다는 증거로 삼지 않는다.",
+      "확인되지 않은 전체 고객 장애를 발표하지 않는다.",
+      "학습자는 외부 공지를 승인할 수 없다."
+    ],
+    "learnerAuthority": "확인된 영향·미확인 영역을 나누어 보고하고 검증 담당자와 다음 업데이트 시각을 제안할 수 있다.",
+    "counterpartPosition": "매니저 역할. 빨리 알리는 것이 중요하다고 강조한다. 범위를 나눠 말하면 첫 메시지에 조사 중임을 포함하는 데 동의하며 당직자 연락을 맡길 수 있다.",
+    "unresolvedQuestions": [
+      "문의가 내부 도구에만 해당하는가?",
+      "고객 결제도 영향을 받았는가?",
+      "09:25 전 공지할 최소 확인 내용은 무엇인가?"
+    ],
+    "deliverable": "확인된 대시보드 지연, 결제 영향 조사 중, 당직자 확인과 09:25 업데이트가 포함된 첫 보고를 합의한다.",
+    "resolutionCriteria": [
+      "관찰과 추정을 별도 문장으로 전달한다.",
+      "영향 확인을 기능별로 요청한다.",
+      "모든 고객이라는 범위를 근거 없이 쓰지 않는다.",
+      "다음 확인 담당자와 시각을 명시한다."
+    ],
+    "escalationPath": "결제 실패가 확인되거나 문의가 여러 고객으로 확대되면 사고 리드에게 즉시 올려 외부 공지 판단을 요청한다."
+  },
+  "opening": "Just tell everyone that payments are down so they know we are on it.",
+  "estimatedMinutes": 12,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "현재 확인 범위 설명하기",
+      "example": "The two reports concern the internal dashboard. We have not yet confirmed a payment problem.",
+      "hints": [
+        "의도: 현재 확인 범위 설명하기",
+        "핵심 표현: concern = ...에 관한 것이다",
+        "완성 문장 예시: The two reports concern the internal dashboard. We have not yet confirmed a payment problem. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 현재 확인 범위 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "공백도 명시하기",
+      "example": "That does not mean payments are unaffected; we still need to check them.",
+      "hints": [
+        "의도: 공백도 명시하기",
+        "핵심 표현: unaffected = 영향받지 않은",
+        "완성 문장 예시: That does not mean payments are unaffected; we still need to check them. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 공백도 명시하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "검증 분담 제안하기",
+      "example": "Could the on-call operator check both functions and report back by nine twenty-five?",
+      "hints": [
+        "의도: 검증 분담 제안하기",
+        "핵심 표현: on-call operator = 당직 운영자",
+        "완성 문장 예시: Could the on-call operator check both functions and report back by nine twenty-five? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 검증 분담 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "첫 보고 문구 합의하기",
+      "example": "Let's report dashboard delays now and say that the wider impact is being checked.",
+      "hints": [
+        "의도: 첫 보고 문구 합의하기",
+        "핵심 표현: wider impact = 더 넓은 영향",
+        "완성 문장 예시: Let's report dashboard delays now and say that the wider impact is being checked. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 첫 보고 문구 합의하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "이유·경험 연결; 요청 시 핵심 표현 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 현재 확인 범위 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '장애 상황에서 확인한 영향만 첫 보고하기' 상황에서 확인된 대시보드 지연, 결제 영향 조사 중, 당직자 확인과 09:25 업데이트가 포함된 첫 보고를 합의한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "결제 실패 한 건이 새로 확인됐습니다. 전체 결제 중단으로 확대하지 않으면서 첫 보고의 영향 범위와 긴급도를 갱신합니다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '장애 상황에서 확인한 영향만 첫 보고하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 결제 실패 한 건이 새로 확인됐습니다. 전체 결제 중단으로 확대하지 않으면서 첫 보고의 영향 범위와 긴급도를 갱신합니다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "확인된 대시보드 지연, 결제 영향 조사 중, 당직자 확인과 09:25 업데이트가 포함된 첫 보고를 합의한다.",
+      "현재 확인 범위 설명하기",
+      "공백도 명시하기",
+      "검증 분담 제안하기",
+      "첫 보고 문구 합의하기",
+      "관찰과 추정을 별도 문장으로 전달한다.",
+      "영향 확인을 기능별로 요청한다.",
+      "모든 고객이라는 범위를 근거 없이 쓰지 않는다.",
+      "다음 확인 담당자와 시각을 명시한다.",
+      "수준별 관찰: 예상 밖 문제 설명과 복구. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

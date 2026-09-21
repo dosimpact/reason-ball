@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-health-b2-access-needs",
+  "title": "진료 접근성 필요 설명하기",
+  "categoryId": "daily",
+  "subcategoryId": "health",
+  "difficulty": "B2",
+  "scenario": "전화로 긴 설명을 듣기 어렵고 글로 정리된 안내가 필요합니다. 다른 사람에게 대신 결정하게 하고 싶지는 않습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+  "practicalOutcome": "본인 결정권을 유지하면서 필요한 정보 전달 방식을 요청한다.",
+  "roles": {
+    "learner": "의료 서비스 이용자",
+    "interlocutor": "접수 직원. 가족에게 설명하겠다고 제안하지만 본인에게 서면 안내도 제공할 수 있다."
+  },
+  "opening": "Would you prefer us to explain everything to a family member?",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "지원과 결정권 구분하기",
+      "example": "I would like support with the format, but I want the information and decisions to come to me directly.",
+      "hints": [
+        "의도: 지원과 결정권 구분하기",
+        "핵심 표현: format = 정보 제공 방식",
+        "완성 문장 예시: I would like support with the format, but I want the information and decisions to come to me directly. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 지원과 결정권 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "구체적 조정 요청하기",
+      "example": "Could you provide the main points in writing and give me time to check my understanding?",
+      "hints": [
+        "의도: 구체적 조정 요청하기",
+        "핵심 표현: in writing = 글로",
+        "완성 문장 예시: Could you provide the main points in writing and give me time to check my understanding? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 구체적 조정 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "지원인 역할 한정하기",
+      "example": "My support person can help me keep track, but please ask me before sharing additional details.",
+      "hints": [
+        "의도: 지원인 역할 한정하기",
+        "핵심 표현: ask me before sharing = 공유 전 동의",
+        "완성 문장 예시: My support person can help me keep track, but please ask me before sharing additional details. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 지원인 역할 한정하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 지원과 결정권 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '진료 접근성 필요 설명하기' 상황에서 본인 결정권을 유지하면서 필요한 정보 전달 방식을 요청한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "서면 안내가 바로 불가능할 때 이해 확인 시간을 나누고 후속 문서 전달을 합의한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '진료 접근성 필요 설명하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 서면 안내가 바로 불가능할 때 이해 확인 시간을 나누고 후속 문서 전달을 합의한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "본인 결정권을 유지하면서 필요한 정보 전달 방식을 요청한다.",
+      "지원과 결정권 구분하기",
+      "구체적 조정 요청하기",
+      "지원인 역할 한정하기",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

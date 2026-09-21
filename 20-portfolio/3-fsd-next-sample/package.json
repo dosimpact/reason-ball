@@ -19,7 +19,14 @@
     "test:e2e:ui": "pnpm --filter @fsd-next-sample/web test:e2e:ui",
     "supabase:check": "pnpm --filter @fsd-next-sample/web supabase:check",
     "test:e2e:supabase": "pnpm --filter @fsd-next-sample/web test:e2e:supabase",
-    "test:e2e:mock": "pnpm --filter @fsd-next-sample/web test:e2e:mock"
+    "test:e2e:mock": "pnpm --filter @fsd-next-sample/web test:e2e:mock",
+    "missions:compile": "node scripts/missions/compile-catalog.mjs",
+    "missions:check": "node scripts/missions/compile-catalog.mjs --check && node scripts/missions/validate-catalog.mjs --complete",
+    "missions:test": "node --test scripts/missions/*.test.mjs",
+    "missions:import": "node --env-file-if-exists=apps/web/.env.local scripts/missions/import-catalog.mjs",
+    "missions:verify-remote": "node --env-file-if-exists=apps/web/.env.local scripts/missions/verify-remote-catalog.mjs",
+    "missions:test:remote-provisioning": "node --env-file-if-exists=apps/web/.env.local scripts/missions/verify-provisioning-remote.mjs",
+    "missions:test:guest-browsing": "node --env-file-if-exists=apps/web/.env.local scripts/missions/verify-guest-browsing.mjs"
   },
   "devDependencies": {
     "supabase": "^2.116.0"

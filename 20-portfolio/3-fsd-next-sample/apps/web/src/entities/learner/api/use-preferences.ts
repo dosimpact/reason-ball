@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { learningQueryKeys } from "@/shared/api/learning/query-keys";
 import { ensureBrowserSession } from "@/shared/api/auth/browser-session";
 import { createHttpPreferences, createLocalPreferences, preferenceStorageKey, legacyPreferenceStorageKey, remotePreferencesEnabled } from "./preferences-repository";
 import type { LearningPreferences, PreferenceRecord } from "../model/preferences";
@@ -31,7 +32,10 @@ export function useLearningPreferences(enabled = true) {
       const save = () => createLocalPreferences(window.localStorage).save(previous, settings);
       return navigator.locks ? navigator.locks.request(preferenceStorageKey, save) : save();
     },
-    onSuccess: (saved) => client.setQueryData(key, saved),
+    onSuccess: (saved) => {
+      client.setQueryData(key, saved);
+      void client.invalidateQueries({ queryKey: learningQueryKeys.missions() });
+    },
   });
   return { ...query, save: mutation.mutateAsync, saving: mutation.isPending, remote };
 }

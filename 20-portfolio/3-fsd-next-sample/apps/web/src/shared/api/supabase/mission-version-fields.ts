@@ -5,6 +5,19 @@ const prerequisiteConfigSchema = z.object({
   prerequisites: z.array(z.string().trim().min(1).max(500)).max(30).optional(),
 });
 
+const catalogDisplayConfigSchema = z.object({
+  catalogDisplay: z.object({
+    location: z.string().trim().min(1).max(1_000),
+    description: z.string().trim().min(1).max(20_000),
+  }).strict().optional(),
+});
+
+// Only these explicitly public strings cross the evaluator-config boundary.
+// catalogImport.source and all other instructions remain server-only.
+export function readMissionCatalogDisplay(evaluatorConfig: unknown) {
+  return catalogDisplayConfigSchema.parse(evaluatorConfig ?? {}).catalogDisplay;
+}
+
 // Adapter serialization only: learning text must never stand in for mission IDs.
 export function compileMissionLearningFields(
   draft: Pick<MissionDraft, "objectives" | "prerequisites">,

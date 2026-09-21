@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-services-c1-assumed-consent",
+  "title": "추가 서비스 동의 여부 명확히 하기",
+  "categoryId": "daily",
+  "subcategoryId": "services",
+  "difficulty": "C1",
+  "scenario": "수리 견적 문의를 했는데 유료 점검 예약이 확정됐다는 문자를 받았습니다. 직원은 문의를 예약 의사로 이해했습니다.",
+  "practicalOutcome": "일정 문의를 유료 예약 동의로 확대하지 않고 명시적 확정 절차를 정한다.",
+  "roles": {
+    "learner": "생활 서비스 이용자",
+    "interlocutor": "상담원. 통화에 일정 질문은 있었으나 비용 동의 확인은 없었다고 인정한다."
+  },
+  "opening": "When you asked about Tuesday, we understood that as agreement to book.",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "관심과 확정 동의 구분하기",
+      "example": "Asking whether Tuesday was available was part of exploring the options, not confirmation that I accepted a paid visit.",
+      "hints": [
+        "의도: 관심과 확정 동의 구분하기",
+        "핵심 표현: exploring options = 선택지 확인",
+        "완성 문장 예시: Asking whether Tuesday was available was part of exploring the options, not confirmation that I accepted a paid visit. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 관심과 확정 동의 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "동의의 전제가 되는 정보 묻기",
+      "example": "At what point was the inspection fee disclosed and my acceptance recorded?",
+      "hints": [
+        "의도: 동의의 전제가 되는 정보 묻기",
+        "핵심 표현: disclosed / acceptance recorded = 고지와 동의 기록",
+        "완성 문장 예시: At what point was the inspection fee disclosed and my acceptance recorded? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 동의의 전제가 되는 정보 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "앞으로의 명시적 절차 제안하기",
+      "example": "Please hold the booking until I have the written fee and cancellation terms and explicitly confirm whether to proceed.",
+      "hints": [
+        "의도: 앞으로의 명시적 절차 제안하기",
+        "핵심 표현: explicitly confirm = 명시적으로 확정",
+        "완성 문장 예시: Please hold the booking until I have the written fee and cancellation terms and explicitly confirm whether to proceed. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 앞으로의 명시적 절차 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 관심과 확정 동의 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '추가 서비스 동의 여부 명확히 하기' 상황에서 일정 문의를 유료 예약 동의로 확대하지 않고 명시적 확정 절차를 정한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "통화 기록에 비용 설명이 있었다면 설명을 들은 것과 실제 수락 표현을 구분해 확인한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '추가 서비스 동의 여부 명확히 하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 통화 기록에 비용 설명이 있었다면 설명을 들은 것과 실제 수락 표현을 구분해 확인한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "일정 문의를 유료 예약 동의로 확대하지 않고 명시적 확정 절차를 정한다.",
+      "관심과 확정 동의 구분하기",
+      "동의의 전제가 되는 정보 묻기",
+      "앞으로의 명시적 절차 제안하기",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

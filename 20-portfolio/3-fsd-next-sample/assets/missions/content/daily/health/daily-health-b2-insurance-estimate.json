@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-health-b2-insurance-estimate",
+  "title": "예상 의료비와 보장 확인하기",
+  "categoryId": "daily",
+  "subcategoryId": "health",
+  "difficulty": "B2",
+  "scenario": "진료실은 예상 비용을 안내하지만 보험 적용은 확정되지 않았습니다. 검사비가 별도일 수 있습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+  "practicalOutcome": "비용 추정 범위와 보험 확인 주체를 구분해 문서를 요청한다.",
+  "roles": {
+    "learner": "의료 서비스 이용자",
+    "interlocutor": "청구 담당자. 진료비 추정에는 외부 검사비가 없고 보험사의 사전 확인이 필요할 수 있다고 설명한다."
+  },
+  "opening": "Your insurance should cover most of it.",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "예상과 확정 구분하기",
+      "example": "Does should cover mean you have confirmed it, or is that an estimate based on similar cases?",
+      "hints": [
+        "의도: 예상과 확정 구분하기",
+        "핵심 표현: should / confirmed = 예상과 확인",
+        "완성 문장 예시: Does should cover mean you have confirmed it, or is that an estimate based on similar cases? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 예상과 확정 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "항목 범위 확인하기",
+      "example": "Does this figure include the external laboratory and any follow-up appointment?",
+      "hints": [
+        "의도: 항목 범위 확인하기",
+        "핵심 표현: include = 포함 범위",
+        "완성 문장 예시: Does this figure include the external laboratory and any follow-up appointment? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 항목 범위 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "확인 주체와 문서 요청하기",
+      "example": "Please give me an itemised estimate and tell me which details I need to check with the insurer.",
+      "hints": [
+        "의도: 확인 주체와 문서 요청하기",
+        "핵심 표현: itemised estimate = 항목별 예상 비용",
+        "완성 문장 예시: Please give me an itemised estimate and tell me which details I need to check with the insurer. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 확인 주체와 문서 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 예상과 확정 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '예상 의료비와 보장 확인하기' 상황에서 비용 추정 범위와 보험 확인 주체를 구분해 문서를 요청한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "보험사가 일부 항목만 승인했을 때 승인 항목과 미확인 비용을 다시 나눈다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '예상 의료비와 보장 확인하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 보험사가 일부 항목만 승인했을 때 승인 항목과 미확인 비용을 다시 나눈다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "비용 추정 범위와 보험 확인 주체를 구분해 문서를 요청한다.",
+      "예상과 확정 구분하기",
+      "항목 범위 확인하기",
+      "확인 주체와 문서 요청하기",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}
