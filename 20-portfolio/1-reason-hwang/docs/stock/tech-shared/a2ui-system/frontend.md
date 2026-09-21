@@ -49,3 +49,7 @@ Dynamic 화면의 `화면 표시 방식`에서 `일괄 · 완성 후 표시`와 
 점진 모드의 `ProgressivePreview`는 서버의 `a2ui.preview` CUSTOM 이벤트를 구독해 대화 위에 임시 A2UI surface를 표시한다. 완결되고 서버 검증을 통과한 부분 트리만 표시하며 데이터는 서버 facts다. 모델 생성 순서·구조에 따라 첫 미리보기 시점과 갱신 횟수는 달라진다. 완료 시간을 줄이는 기능은 아니며, 유효한 부분 트리가 없으면 최종 화면만 나타날 수 있다.
 
 미리보기는 입력/action과 영속 상태를 갖지 않는다. 새 실행·재시도·실패·취소·최종 결과 수신 시 정리한다. 확정된 화면은 기존 검증된 ToolMessage와 activity renderer가 대화 안에 표시한다. Runtime의 `a2uiToolNames: []`는 유지하여 SDK가 서버 업무 검증 전의 모델 후보를 직접 그리지 않도록 한다. [프로토콜](protocol-and-events.md#a2ui-stream-001-점진-미리보기)과 [변경 기록](../../../flow/2026-09-21-a2ui-progressive-rendering.md)을 참조한다.
+
+## Fixed 화면 안내
+
+Fixed 제목은 “항공편 · 기내식 · 좌석 선택 · Fixed”이며 설명·질문 예시·채팅 환영 문구에서 항공편 조회와 기내식/좌석 선택을 함께 안내한다. 문구 원본은 `features/a2ui-demo/fixed-copy.ts`이다. 페이지 밖의 중복 추가 데모 안내는 제거하고 기존 제목·설명 영역에 통합했다. 실제 예약 및 좌석 확보를 하지 않는다는 안내를 유지한다.
