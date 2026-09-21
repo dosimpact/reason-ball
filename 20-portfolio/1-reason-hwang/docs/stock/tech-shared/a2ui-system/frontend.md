@@ -41,3 +41,11 @@ Storybook은 A2UI 프로토콜을 거쳐 모든 어댑터를 렌더링한다. Se
 `RunProgress`는 현재 CopilotKit agent의 실행 수명주기 및 `a2ui.progress` CUSTOM 이벤트를 구독한다. 요청 전송부터 실제 서버 단계의 순서를 최대12개 표시한다. RUN_FINISHED는 완료, RUN_ERROR(code=abort)와 AbortError는 중단, 나머지 RUN_ERROR 및 실행 실패는 실패, 완료 이벤트 없는 실행 종료는 중단으로 표시한다. 새 실행은 이전 단계를 초기화하며 새 대화는 컴포넌트를 재생성한다. 임의 타이머나 가상의 퍼센트는 사용하지 않는다. 알 수 없는 stage는 무시한다. SEC는 현재 요청 전송과 수명주기만 표시하며 상세 단계 이벤트는 Dynamic/Fixed graph에서 제공한다.
 
 SEC 전용 경로와 모델 없는 조회 흐름은 [SEC](sec.md), 실행 설정은 [운영](operations-and-validation.md), wire와 진행 이벤트는 [프로토콜](protocol-and-events.md)을 따른다.
+
+## A2UI-STREAM-001: Dynamic 표시 방식 선택
+
+Dynamic 화면의 `화면 표시 방식`에서 `일괄 · 완성 후 표시`(기본)와 `점진 · 생성 중 미리보기`를 선택한다. 실행 중에는 선택을 비활성화하며 새 대화는 기본값으로 초기화한다. `forwardedProps.a2uiRenderMode`가 다음 요청의 표시 방식을 전달한다. Fixed/SEC는 기존 일괄 방식을 유지한다.
+
+점진 모드의 `ProgressivePreview`는 서버의 `a2ui.preview` CUSTOM 이벤트를 구독해 대화 위에 임시 A2UI surface를 표시한다. 완결되고 서버 검증을 통과한 부분 트리만 표시하며 데이터는 서버 facts다. 모델 생성 순서·구조에 따라 첫 미리보기 시점과 갱신 횟수는 달라진다. 완료 시간을 줄이는 기능은 아니며, 유효한 부분 트리가 없으면 최종 화면만 나타날 수 있다.
+
+미리보기는 입력/action과 영속 상태를 갖지 않는다. 새 실행·재시도·실패·취소·최종 결과 수신 시 정리한다. 확정된 화면은 기존 검증된 ToolMessage와 activity renderer가 대화 안에 표시한다. Runtime의 `a2uiToolNames: []`는 유지하여 SDK가 서버 업무 검증 전의 모델 후보를 직접 그리지 않도록 한다. [프로토콜](protocol-and-events.md#a2ui-stream-001-점진-미리보기)과 [변경 기록](../../../flow/2026-09-21-a2ui-progressive-rendering.md)을 참조한다.

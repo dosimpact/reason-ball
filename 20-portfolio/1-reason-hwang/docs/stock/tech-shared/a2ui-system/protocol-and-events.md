@@ -80,6 +80,14 @@ stage만 전달하며 프롬프트·원문·내부 추론을 포함하지 않는
 
 종료는 RUN_FINISHED→완료, RUN_ERROR(code=abort)→중단, 그 외 RUN_ERROR→실패다. AbortError도 중단으로 처리하며 완료 이벤트 없이 finalized된 경우 중단으로 표시한다. 첫 종료 판정을 유지해 후속 callback이 중단을 실패로 덮어쓰지 않는다. 새 실행은 이력을 초기화하고 새 대화는 컴포넌트를 다시 만든다.
 
+## A2UI-STREAM-001: 점진 미리보기
+
+Dynamic은 `forwardedProps.a2uiRenderMode`의 `batch`(기본) 또는 `progressive`를 수용한다. 다른 값과 Fixed/SEC의 progressive 요청은 422다. 표시 옵션은 서버 surfaces/checkpoint 권한을 바꾸지 않는다.
+
+`server/a2ui/preview.py`는 AG-UI `render_a2ui`의 TOOL_CALL_ARGS를 관찰한다. 완결된 components 항목만 파싱하고, root Row/Column의 준비된 자식 트리만 묶거나 다른 root의 완결된 트리를 구성한다. 공식 operation/catalog·트리 연결·facts 바인딩 검증을 통과해야 `CUSTOM(name=a2ui.preview, value={operations:[...]})`을 발행한다. updateDataModel에는 모델 값 대신 서버 FACTS만 사용한다. 미완성 JSON의 닫는 괄호를 추정하거나 임의 숫자를 표시하지 않는다. 인자 버퍼는 1,000,000자를 넘으면 해당 시도 미리보기를 중지한다.
+
+각 미리보기 이벤트는 임시 surface의 전체 스냅샷이다. 최종 surface와 별도 ID를 사용하고 checkpoint에는 저장하지 않는다. 빈 operations는 미리보기 삭제다. 새 render 호출·외부 재시도·도구 결과·실행 종료에서 삭제하며, 클라이언트는 네트워크 실패/취소/finalized에서도 삭제한다. 최종 응답과 action은 기존 전체 검증·확정 경로를 유지한다. 생성 순서에 따라 미리보기가 늦게 나타나거나 생략될 수 있다.
+
 ## 오류·동시 실행
 
 StreamGate는 활성10/대기10을 허용한다. 동일 mode/thread 중복 요청은409, 용량 초과는429다. lease는 스트림 종료·예외·취소에서 해제된다. 계약 실패를 빈 화면 성공으로 바꾸지 않는다. 모델 오류의 세부 request/credential을 wire에 포함하지 않고 서버 오류 경계에서 일반화한다. 재시작 시 메모리 checkpoint와 Runtime 상태는 소실된다.

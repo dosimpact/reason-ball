@@ -24,6 +24,7 @@ from graph.primary_graphs.sec_a2ui.surface import validate_action as validate_se
 from graph.primary_graphs.sec_a2ui.workflow import build_sec_graph
 
 from .gate import StreamGate
+from .preview import PreviewStream
 
 router = APIRouter(prefix="/ag-ui/a2ui", tags=["A2UI demo"])
 gate = StreamGate()
@@ -85,6 +86,9 @@ async def run_demo(mode: Mode, value: RunAgentInput, request: Request):
         if not isinstance(props, dict):
             raise ContractError("forwardedProps must be an object")
         verify_client_contract(mode, props.get("a2uiContract"))
+        render_mode = props.get("a2uiRenderMode", "batch")
+        if render_mode not in ("batch", "progressive") or (mode != "dynamic" and render_mode != "batch"):
+            raise ContractError("a2uiRenderMode must be batch, or progressive for Dynamic")
         agent = get_agent(mode).clone()
     except (ContractError, ValueError) as error:
         raise HTTPException(422, str(error)) from error
@@ -100,8 +104,13 @@ async def run_demo(mode: Mode, value: RunAgentInput, request: Request):
     encoder = EventEncoder(accept=request.headers.get("accept", "text/event-stream"))
 
     async def events():
+        preview = PreviewStream(value.run_id) if render_mode == "progressive" else None
         try:
             async for event in agent.run(prepared):
+                if preview is not None:
+                    update = preview.observe(event)
+                    if update is not None:
+                        yield encoder.encode(update)
                 yield encoder.encode(event)
         except Exception as error:  # noqa: BLE001 - sanitize arbitrary provider errors at the SSE boundary
             # Provider exceptions can contain request details. Keep credentials off the wire.

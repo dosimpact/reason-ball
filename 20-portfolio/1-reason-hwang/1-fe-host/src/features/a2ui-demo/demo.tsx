@@ -8,6 +8,7 @@ import { createHostCatalog } from "@/lib/a2ui/catalog";
 import manifest from "@/lib/a2ui/generated/manifest.json";
 import { RunProgress } from "./progress";
 import { createDemoActivityRenderer } from "./activity-renderer";
+import { ProgressivePreview, RenderModeSelect, type RenderMode } from "./progressive-preview";
 import "@copilotkit/react-core/v2/styles.css";
 
 export function A2UIDemo({ mode }: { mode: "dynamic" | "fixed" | "sec" }) {
@@ -19,11 +20,13 @@ function DemoSession({ mode }: { mode: "dynamic" | "fixed" | "sec" }) {
   const catalog = useMemo(() => createHostCatalog(mode), [mode]);
   const renderers = useMemo(() => [createDemoActivityRenderer(catalog)], [catalog]);
   const [error, setError] = useState<string | null>(null);
-  const properties = useMemo(() => ({ a2uiContract: { protocolVersion: manifest.protocolVersion, ...manifest.catalogs[mode] } }), [mode]);
+  const [renderMode, setRenderMode] = useState<RenderMode>("batch");
+  const properties = useMemo(() => ({ a2uiContract: { protocolVersion: manifest.protocolVersion, ...manifest.catalogs[mode] }, a2uiRenderMode: mode === "dynamic" ? renderMode : "batch" }), [mode, renderMode]);
   return <CopilotKitProvider runtimeUrl={`/api/copilotkit/a2ui/${mode}`} agentId={`a2ui-${mode}`} useSingleEndpoint properties={properties} a2ui={{ catalog, includeSchema: false }} renderActivityMessages={renderers} enableInspector={false} onError={({ error }) => setError(error.message)}>
     {error && <div role="alert" className="mb-4 rounded-lg border border-destructive p-4"><p>{error}</p><Button variant="ghost" onClick={() => setError(null)}>알림 닫기</Button></div>}
     <div className="mb-4 rounded-lg bg-muted p-4 text-sm">{mode === "sec" ? "회사명 또는 티커를 입력하세요. 예시: AAPL · Apple · Microsoft. 공시를 선택한 뒤 보고서 생성을 누르세요." : mode === "dynamic" ? "예시: 전체 매출 현황을 보여줘 · 담당자별 실적을 비교해줘 · 지역별 매출 비중을 보여줘" : "예시: 인천에서 도쿄로 가는 항공편을 보여줘 · 부산에서 오사카로 가는 항공편"}</div>
     <RunProgress agentId={`a2ui-${mode}`} />
+    {mode === "dynamic" && <><RenderModeSelect value={renderMode} onChange={setRenderMode} />{renderMode === "progressive" && <ProgressivePreview catalog={catalog} />}</>}
     <div className="min-h-[60vh] rounded-xl border"><CopilotChat agentId={`a2ui-${mode}`} labels={{ welcomeMessageText: mode === "sec" ? "어떤 회사를 조회할까요? 회사명 또는 티커를 입력하세요." : mode === "dynamic" ? "어떤 매출 정보를 살펴볼까요?" : "어떤 항공편을 살펴볼까요?", chatInputPlaceholder: mode === "sec" ? "회사명 또는 티커" : "질문을 입력하세요" }} /></div>
   </CopilotKitProvider>;
 }

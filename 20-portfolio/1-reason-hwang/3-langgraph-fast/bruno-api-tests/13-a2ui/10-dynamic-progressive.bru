@@ -1,7 +1,7 @@
 meta {
-  name: Generate a sales dashboard with real model
+  name: STREAM-01: progressive sales preview with real model
   type: http
-  seq: 6
+  seq: 10
 }
 post {
   url: {{baseUrl}}/ag-ui/a2ui/dynamic
@@ -19,7 +19,7 @@ script:pre-request {
   const manifest = bru.getVar("a2uiManifest");
   const mode = "dynamic";
   const contract = {protocolVersion: manifest.protocolVersion, ...manifest.catalogs[mode]};
-  const body = {threadId: "a2ui-" + Date.now() + "-" + Math.random(), runId: "run-" + Date.now(), state: {}, messages: [], tools: [], context: [], forwardedProps: {a2uiContract: contract}};
+  const body = {threadId: "a2ui-" + Date.now() + "-" + Math.random(), runId: "run-" + Date.now(), state: {}, messages: [], tools: [], context: [], forwardedProps: {a2uiContract: contract, a2uiRenderMode: "progressive"}};
   body.messages = [{id: "user-" + Date.now(), role: "user", content: "전체 매출 현황을 KPI와 차트로 보여줘"}];
   bru.setVar("a2uiDynamicThread", body.threadId);
   req.setBody(body);
@@ -29,9 +29,6 @@ assert {
 }
 tests {
   const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
-  test("STREAM-02: batch has no preview events", function () {
-    expect(events.some(event => event.name === "a2ui.preview")).to.equal(false);
-  });
   test("PROGRESS-01: real generation stages precede completion", function () {
     const progress = events.filter(event => event.type === "CUSTOM" && event.name === "a2ui.progress").map(event => event.value.stage);
     expect(progress[0]).to.equal("analyzing");
@@ -50,5 +47,14 @@ tests {
     expect(surfaces[id].data.facts.summary.attainment).to.equal("107.9%");
     expect(Object.values(surfaces[id].components).some(component => component.component === "Chart")).to.equal(true);
     bru.setVar("a2uiDynamicSurface", id);
+  });
+  test("STREAM-01: validated previews arrive before final validation", function () {
+    const index = events.findIndex(event => event.name === "a2ui.preview" && event.value.operations.length > 0);
+    expect(index).to.be.greaterThan(-1);
+    expect(index).to.be.lessThan(events.findIndex(event => event.name === "a2ui.progress" && event.value.stage === "validating"));
+    const operations = events[index].value.operations;
+    expect(operations.find(op => op.updateDataModel).updateDataModel.value.facts.summary.revenue).to.equal("$680,000");
+    const previews = events.filter(event => event.name === "a2ui.preview");
+    expect(previews[previews.length - 1].value.operations).to.have.length(0);
   });
 }
