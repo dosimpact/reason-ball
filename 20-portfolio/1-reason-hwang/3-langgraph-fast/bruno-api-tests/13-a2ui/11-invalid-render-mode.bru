@@ -1,0 +1,28 @@
+meta {
+  name: STREAM-03 reject invalid rendering option
+  type: http
+  seq: 11
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/dynamic
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("a2uiManifest");
+  req.setBody({threadId: "invalid-mode", runId: "invalid-mode", state: {}, messages: [], tools: [], context: [], forwardedProps: {a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.dynamic}, a2uiRenderMode: "invalid"}});
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("STREAM-03: unknown option is rejected", function () {
+    expect(res.getBody().detail).to.include("a2uiRenderMode");
+  });
+}

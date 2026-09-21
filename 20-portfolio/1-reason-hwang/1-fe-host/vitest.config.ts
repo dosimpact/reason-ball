@@ -17,6 +17,13 @@ export default defineConfig({
   test: {
     projects: [
       {
+        test: {
+          name: 'a2ui',
+          environment: 'node',
+          include: ['src/lib/a2ui/**/*.test.ts'],
+        },
+      },
+      {
         extends: true,
         // Prebundle the catalog before browser tests start; late discovery reloads test iframes.
         optimizeDeps: {
@@ -55,6 +62,7 @@ export default defineConfig({
             '@base-ui/react/use-render',
             '@shadcn/react/message-scroller',
             '@shadcn/react/questionnaire',
+            'next/link',
             'cmdk',
             'cn',
             'date-fns',

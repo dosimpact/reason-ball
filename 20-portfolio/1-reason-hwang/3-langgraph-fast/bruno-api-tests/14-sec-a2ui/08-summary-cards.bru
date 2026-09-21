@@ -1,0 +1,54 @@
+meta {
+  name: 08-summary-cards
+  type: http
+  seq: 9
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("secManifest");
+  const body = {threadId: "sec-" + Date.now(), runId: "sec-run-" + Date.now(), messages: [], state: {}, tools: [], context: [], forwardedProps: {a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}};
+  const prior = bru.getVar("secSnapshot");
+  body.threadId = bru.getVar("secThread");
+  const surfaceId = Object.keys(prior.surfaces)[0];
+  const sourceComponentId = "report-button";
+  const event = prior.surfaces[surfaceId].components[sourceComponentId].action.event;
+  const context = {...event.context};
+  if (context.request) context.request = "핵심 요약만 카드로 보여줘";
+
+  body.forwardedProps.a2uiAction = {userAction: {surfaceId, sourceComponentId, name: event.name, context}};
+
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("08-summary-cards", function () {
+    expect(events.some(event => event.type === "RUN_ERROR")).to.equal(false);
+    const snapshots = events.filter(event => event.type === "STATE_SNAPSHOT" && event.snapshot.sec && event.snapshot.surfaces);
+    const snapshot = snapshots[snapshots.length - 1].snapshot;
+    bru.setVar("secSnapshot", snapshot);
+    console.log("SEC result:", snapshot.sec.notice);
+    expect(snapshot.sec.report_plan.sections).to.deep.equal([{section:"summary",presentation:"cards"}]);
+    expect(snapshot.sec.report.business).to.have.length(0);
+    expect(snapshot.sec.report.financials).to.have.length(0);
+    expect(snapshot.sec.report.risks).to.have.length(0);
+    const components = Object.values(snapshot.surfaces)[0].components;
+    expect(Object.keys(components).some(key => key.startsWith("report-summary-cards"))).to.equal(true);
+    expect(snapshot.sec.report_source_label).to.include(snapshot.sec.filing.accessionNo);
+    expect(snapshot.sec.report_source_label).to.include("SHA-256");
+    bru.setVar("secSnapshot", snapshot);
+  });
+}

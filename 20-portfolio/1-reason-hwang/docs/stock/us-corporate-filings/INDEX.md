@@ -29,6 +29,8 @@ Add business requirements, SEC terminology, filing lifecycle rules, domain API c
 
 Detailed supporting references currently include:
 
+- [`a2ui-system.md`](a2ui-system.md): 회사 조회·공시 선택·선택 공시 기반 분석/요약 보고서 A2UI 설계 (구현 진행 중).
+
 - [`system-design.md`](system-design.md): implemented database-backed filing content, constraints, migration, commands, and validation boundaries.
 - `2-bff-apps/src/us-corporate-filings/.docs/api-spec.md`
 - `3-langgraph-fast/README.md`

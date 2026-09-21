@@ -1,0 +1,51 @@
+meta {
+  name: List selected company filings
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("secManifest");
+  const body = {threadId: "sec-" + Date.now(), runId: "sec-run-" + Date.now(), messages: [], state: {}, tools: [], context: [], forwardedProps: {a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}};
+  const prior = bru.getVar("secSnapshot");
+  body.threadId = bru.getVar("secThread");
+  const surfaceId = Object.keys(prior.surfaces)[0];
+  const sourceComponentId = "company-select";
+  const event = prior.surfaces[surfaceId].components[sourceComponentId].action.event;
+  const context = {...event.context};
+  context.cik = prior.sec.companies.items.find(item => item.ticker === "AAPL").cik;
+  body.forwardedProps.a2uiAction = {userAction: {surfaceId, sourceComponentId, name: event.name, context}};
+
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("List selected company filings", function () {
+    expect(events.some(event => event.type === "RUN_ERROR")).to.equal(false);
+    const snapshots = events.filter(event => event.type === "STATE_SNAPSHOT" && event.snapshot.sec && event.snapshot.surfaces);
+    const snapshot = snapshots[snapshots.length - 1].snapshot;
+    expect(snapshot.sec.company.ticker).to.equal("AAPL");
+    expect(snapshot.sec.filings.items.every(item => item.cik === snapshot.sec.company.cik)).to.equal(true);
+
+    const components = Object.values(snapshot.surfaces)[0].components;
+    expect(components["companies"]).to.equal(undefined);
+    expect(components["report"]).to.equal(undefined);
+    expect(components["report-button"]).to.equal(undefined);
+    expect(components["filings"]).not.to.equal(undefined);
+    bru.setVar("secSnapshot", snapshot);
+  });
+}

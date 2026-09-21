@@ -8,6 +8,12 @@ The current policy requires all applicable checks: `VAL-API-001` for server API 
 
 Detailed procedures and completion/evidence rules are canonical in [Validation Principles](../../validation/INDEX.md). Read them before selecting checks. Unit tests, lint, type checks, builds, and CLI E2E alone do not replace the required methods. Missing environments or tools must be reported as incomplete validation; existing opt-in database test policy does not waive required API E2E.
 
+## Validation resource lifecycle
+
+`VAL-CLEANUP-001` applies to every execution check: track ownership before starting, clean up on success/failure/interruption, and verify owned processes, child processes, ports, and temporary resources are released. Preserve user browsers and shared MCP servers. Functional PASS does not imply cleanup completion; unresolved cleanup must be reported separately and prevents declaring the whole task complete.
+
+The canonical procedure is [Validation resource cleanup](../../validation/INDEX.md#val-cleanup-001), with [Playwright MCP and Chrome CDP details](../../validation/business-behavior.md#browser-cleanup). Record cleanup evidence in flow alongside functional results.
+
 ## Validation tooling
 
 Installation and connection steps are maintained in the [workspace README](../../../README.md#검증용-mcp-설치-및-연결). The verified setup uses Playwright MCP `0.0.82` and Chrome DevTools MCP `1.9.0` through npx with isolated headless Chrome, plus the existing Storybook MCP addon `10.6.0` at `http://127.0.0.1:6006/mcp`. Bruno CLI `4.1.0` runs API collections without a separate MCP server.

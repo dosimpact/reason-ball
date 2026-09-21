@@ -1,0 +1,22 @@
+meta {
+  name: A2UI version and catalog manifest
+  type: http
+  seq: 1
+}
+get {
+  url: {{baseUrl}}/ag-ui/a2ui/manifest
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+  res.body.protocolVersion: eq v0.9
+}
+script:post-response {
+  bru.setVar("a2uiManifest", res.getBody());
+}
+tests {
+  test("A2UI-VER-001: four pinned catalogs", function () {
+    expect(Object.keys(res.getBody().catalogs).sort()).to.deep.equal(["dynamic", "fixed", "host", "sec"]);
+  });
+}

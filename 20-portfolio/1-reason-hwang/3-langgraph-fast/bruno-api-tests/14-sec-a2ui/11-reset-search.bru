@@ -1,0 +1,51 @@
+meta {
+  name: Reset selection through company search
+  type: http
+  seq: 12
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("secManifest");
+  const body = {threadId: "sec-" + Date.now(), runId: "sec-run-" + Date.now(), messages: [], state: {}, tools: [], context: [], forwardedProps: {a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}};
+  const prior = bru.getVar("secSnapshot");
+  body.threadId = bru.getVar("secThread");
+  const surfaceId = Object.keys(prior.surfaces)[0];
+  const sourceComponentId = "search-button";
+  const event = prior.surfaces[surfaceId].components[sourceComponentId].action.event;
+  const context = {...event.context};
+  context.query = "NO_MATCH_HYBRID_20260921";
+
+  body.forwardedProps.a2uiAction = {userAction: {surfaceId, sourceComponentId, name: event.name, context}};
+
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("Reset selection through company search", function () {
+    expect(events.some(event => event.type === "RUN_ERROR")).to.equal(false);
+    const snapshots = events.filter(event => event.type === "STATE_SNAPSHOT" && event.snapshot.sec && event.snapshot.surfaces);
+    const snapshot = snapshots[snapshots.length - 1].snapshot;
+    expect(snapshot.sec.report).to.equal(undefined);
+    expect(snapshot.sec.filing).to.equal(undefined);
+    expect(snapshot.sec.companies.items).to.have.length(0);
+    const components = Object.values(snapshot.surfaces)[0].components;
+    expect(components["filings"]).to.equal(undefined);
+    expect(components["report-button"]).to.equal(undefined);
+    expect(components["company-choice"]).to.equal(undefined);
+    bru.setVar("secSnapshot", snapshot);
+  });
+}

@@ -1,0 +1,4225 @@
+{
+  "$defs": {
+    "anyComponent": {
+      "oneOf": [
+        {
+          "$ref": "#/components/Accordion"
+        },
+        {
+          "$ref": "#/components/Alert"
+        },
+        {
+          "$ref": "#/components/AlertDialog"
+        },
+        {
+          "$ref": "#/components/AspectRatio"
+        },
+        {
+          "$ref": "#/components/Attachment"
+        },
+        {
+          "$ref": "#/components/Avatar"
+        },
+        {
+          "$ref": "#/components/Badge"
+        },
+        {
+          "$ref": "#/components/Breadcrumb"
+        },
+        {
+          "$ref": "#/components/Bubble"
+        },
+        {
+          "$ref": "#/components/Button"
+        },
+        {
+          "$ref": "#/components/ButtonGroup"
+        },
+        {
+          "$ref": "#/components/Calendar"
+        },
+        {
+          "$ref": "#/components/Card"
+        },
+        {
+          "$ref": "#/components/Carousel"
+        },
+        {
+          "$ref": "#/components/Chart"
+        },
+        {
+          "$ref": "#/components/Checkbox"
+        },
+        {
+          "$ref": "#/components/Collapsible"
+        },
+        {
+          "$ref": "#/components/Combobox"
+        },
+        {
+          "$ref": "#/components/Command"
+        },
+        {
+          "$ref": "#/components/ContextMenu"
+        },
+        {
+          "$ref": "#/components/Dialog"
+        },
+        {
+          "$ref": "#/components/Direction"
+        },
+        {
+          "$ref": "#/components/Drawer"
+        },
+        {
+          "$ref": "#/components/DropdownMenu"
+        },
+        {
+          "$ref": "#/components/Empty"
+        },
+        {
+          "$ref": "#/components/Field"
+        },
+        {
+          "$ref": "#/components/HoverCard"
+        },
+        {
+          "$ref": "#/components/Input"
+        },
+        {
+          "$ref": "#/components/InputGroup"
+        },
+        {
+          "$ref": "#/components/InputOtp"
+        },
+        {
+          "$ref": "#/components/Item"
+        },
+        {
+          "$ref": "#/components/Kbd"
+        },
+        {
+          "$ref": "#/components/Label"
+        },
+        {
+          "$ref": "#/components/Marker"
+        },
+        {
+          "$ref": "#/components/Menubar"
+        },
+        {
+          "$ref": "#/components/Message"
+        },
+        {
+          "$ref": "#/components/MessageScroller"
+        },
+        {
+          "$ref": "#/components/NativeSelect"
+        },
+        {
+          "$ref": "#/components/NavigationMenu"
+        },
+        {
+          "$ref": "#/components/Pagination"
+        },
+        {
+          "$ref": "#/components/Popover"
+        },
+        {
+          "$ref": "#/components/Progress"
+        },
+        {
+          "$ref": "#/components/Questionnaire"
+        },
+        {
+          "$ref": "#/components/RadioGroup"
+        },
+        {
+          "$ref": "#/components/Resizable"
+        },
+        {
+          "$ref": "#/components/ScrollArea"
+        },
+        {
+          "$ref": "#/components/Select"
+        },
+        {
+          "$ref": "#/components/Separator"
+        },
+        {
+          "$ref": "#/components/Sheet"
+        },
+        {
+          "$ref": "#/components/Sidebar"
+        },
+        {
+          "$ref": "#/components/Skeleton"
+        },
+        {
+          "$ref": "#/components/Slider"
+        },
+        {
+          "$ref": "#/components/Spinner"
+        },
+        {
+          "$ref": "#/components/Switch"
+        },
+        {
+          "$ref": "#/components/Table"
+        },
+        {
+          "$ref": "#/components/Tabs"
+        },
+        {
+          "$ref": "#/components/Textarea"
+        },
+        {
+          "$ref": "#/components/Toast"
+        },
+        {
+          "$ref": "#/components/Toggle"
+        },
+        {
+          "$ref": "#/components/ToggleGroup"
+        },
+        {
+          "$ref": "#/components/Tooltip"
+        },
+        {
+          "$ref": "#/components/Row"
+        },
+        {
+          "$ref": "#/components/Column"
+        },
+        {
+          "$ref": "#/components/Text"
+        },
+        {
+          "$ref": "#/components/Metric"
+        },
+        {
+          "$ref": "#/components/InfoRow"
+        }
+      ]
+    },
+    "theme": {
+      "additionalProperties": false,
+      "type": "object"
+    }
+  },
+  "$id": "reason-hwang://a2ui/host-ui/1.0.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "catalogId": "reason-hwang://a2ui/host-ui/1.0.0",
+  "components": {
+    "Accordion": {
+      "additionalProperties": false,
+      "description": "Expandable titled sections; adapter owns triggers and content.",
+      "properties": {
+        "component": {
+          "const": "Accordion"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "text"
+            ],
+            "type": "object"
+          },
+          "maxItems": 30,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "items"
+      ],
+      "type": "object"
+    },
+    "Alert": {
+      "additionalProperties": false,
+      "description": "An inline notice with a heading and description.",
+      "properties": {
+        "component": {
+          "const": "Alert"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "variant": {
+          "enum": [
+            "default",
+            "destructive"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title",
+        "text"
+      ],
+      "type": "object"
+    },
+    "AlertDialog": {
+      "additionalProperties": false,
+      "description": "Explicit confirmation dialog. Confirmation dispatches the declared action.",
+      "properties": {
+        "action": {
+          "additionalProperties": false,
+          "properties": {
+            "event": {
+              "additionalProperties": false,
+              "properties": {
+                "context": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "path": {
+                            "pattern": "^\\/",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                "name": {
+                  "enum": [
+                    "search_sales",
+                    "select_flight",
+                    "demo_submit"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "event"
+          ],
+          "type": "object"
+        },
+        "child": {
+          "type": "string"
+        },
+        "component": {
+          "const": "AlertDialog"
+        },
+        "confirmLabel": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "trigger",
+        "title",
+        "description",
+        "child",
+        "confirmLabel"
+      ],
+      "type": "object"
+    },
+    "AspectRatio": {
+      "additionalProperties": false,
+      "description": "Keeps its child at a fixed aspect ratio.",
+      "properties": {
+        "child": {
+          "type": "string"
+        },
+        "component": {
+          "const": "AspectRatio"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "ratio": {
+          "exclusiveMinimum": 0,
+          "maximum": 10,
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "ratio",
+        "child"
+      ],
+      "type": "object"
+    },
+    "Attachment": {
+      "additionalProperties": false,
+      "description": "Displays file name and description; no upload or filesystem access.",
+      "properties": {
+        "component": {
+          "const": "Attachment"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title",
+        "description"
+      ],
+      "type": "object"
+    },
+    "Avatar": {
+      "additionalProperties": false,
+      "description": "Initials avatar with an accessible name.",
+      "properties": {
+        "component": {
+          "const": "Avatar"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "initials": {
+          "maxLength": 4,
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "name",
+        "initials"
+      ],
+      "type": "object"
+    },
+    "Badge": {
+      "additionalProperties": false,
+      "description": "A short status label.",
+      "properties": {
+        "component": {
+          "const": "Badge"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "variant": {
+          "enum": [
+            "default",
+            "secondary",
+            "destructive",
+            "outline"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "text"
+      ],
+      "type": "object"
+    },
+    "Breadcrumb": {
+      "additionalProperties": false,
+      "description": "A non-navigating location trail.",
+      "properties": {
+        "component": {
+          "const": "Breadcrumb"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "items"
+      ],
+      "type": "object"
+    },
+    "Bubble": {
+      "additionalProperties": false,
+      "description": "A conversation bubble.",
+      "properties": {
+        "component": {
+          "const": "Bubble"
+        },
+        "from": {
+          "enum": [
+            "user",
+            "assistant"
+          ],
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "text",
+        "from"
+      ],
+      "type": "object"
+    },
+    "Button": {
+      "additionalProperties": false,
+      "description": "An action button. Use disabled when no workflow is available.",
+      "properties": {
+        "action": {
+          "additionalProperties": false,
+          "properties": {
+            "event": {
+              "additionalProperties": false,
+              "properties": {
+                "context": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "path": {
+                            "pattern": "^\\/",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                "name": {
+                  "enum": [
+                    "search_sales",
+                    "select_flight",
+                    "demo_submit"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "event"
+          ],
+          "type": "object"
+        },
+        "component": {
+          "const": "Button"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "variant": {
+          "enum": [
+            "default",
+            "outline",
+            "secondary",
+            "ghost",
+            "destructive",
+            "link"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label"
+      ],
+      "type": "object"
+    },
+    "ButtonGroup": {
+      "additionalProperties": false,
+      "description": "A group of independently declared action buttons.",
+      "properties": {
+        "children": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 100,
+          "type": "array"
+        },
+        "component": {
+          "const": "ButtonGroup"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "children"
+      ],
+      "type": "object"
+    },
+    "Calendar": {
+      "additionalProperties": false,
+      "description": "Select one date. Value uses YYYY-MM-DD, empty string means no selection.",
+      "properties": {
+        "component": {
+          "const": "Calendar"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Card": {
+      "additionalProperties": false,
+      "description": "Titled content card containing one child.",
+      "properties": {
+        "child": {
+          "type": "string"
+        },
+        "component": {
+          "const": "Card"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title"
+      ],
+      "type": "object"
+    },
+    "Carousel": {
+      "additionalProperties": false,
+      "description": "Navigable slides with previous and next controls.",
+      "properties": {
+        "component": {
+          "const": "Carousel"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "text"
+            ],
+            "type": "object"
+          },
+          "maxItems": 30,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "items"
+      ],
+      "type": "object"
+    },
+    "Chart": {
+      "additionalProperties": false,
+      "description": "Bar or pie chart of numeric data. Data can be an inline series or a data-model path to a series.",
+      "properties": {
+        "component": {
+          "const": "Chart"
+        },
+        "data": {
+          "anyOf": [
+            {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "label",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "maxItems": 100,
+              "type": "array"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "bar",
+            "pie"
+          ],
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title",
+        "kind",
+        "data"
+      ],
+      "type": "object"
+    },
+    "Checkbox": {
+      "additionalProperties": false,
+      "description": "Boolean selection written to its bound data model path.",
+      "properties": {
+        "checked": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "component": {
+          "const": "Checkbox"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "checked"
+      ],
+      "type": "object"
+    },
+    "Collapsible": {
+      "additionalProperties": false,
+      "description": "Show or hide a content section.",
+      "properties": {
+        "child": {
+          "type": "string"
+        },
+        "component": {
+          "const": "Collapsible"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title",
+        "child"
+      ],
+      "type": "object"
+    },
+    "Column": {
+      "additionalProperties": false,
+      "description": "Vertical layout of component IDs.",
+      "properties": {
+        "children": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 100,
+          "type": "array"
+        },
+        "component": {
+          "const": "Column"
+        },
+        "gap": {
+          "maximum": 48,
+          "minimum": 0,
+          "type": "number"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "children"
+      ],
+      "type": "object"
+    },
+    "Combobox": {
+      "additionalProperties": false,
+      "description": "Searchable single-value selection.",
+      "properties": {
+        "component": {
+          "const": "Combobox"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "options": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value",
+        "options"
+      ],
+      "type": "object"
+    },
+    "Command": {
+      "additionalProperties": false,
+      "description": "Searchable command list; selected command is dispatched as context.value.",
+      "properties": {
+        "action": {
+          "additionalProperties": false,
+          "properties": {
+            "event": {
+              "additionalProperties": false,
+              "properties": {
+                "context": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "path": {
+                            "pattern": "^\\/",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                "name": {
+                  "enum": [
+                    "search_sales",
+                    "select_flight",
+                    "demo_submit"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "event"
+          ],
+          "type": "object"
+        },
+        "component": {
+          "const": "Command"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "items"
+      ],
+      "type": "object"
+    },
+    "ContextMenu": {
+      "additionalProperties": false,
+      "description": "Context menu opened by right click or keyboard.",
+      "properties": {
+        "action": {
+          "additionalProperties": false,
+          "properties": {
+            "event": {
+              "additionalProperties": false,
+              "properties": {
+                "context": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "path": {
+                            "pattern": "^\\/",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                "name": {
+                  "enum": [
+                    "search_sales",
+                    "select_flight",
+                    "demo_submit"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "event"
+          ],
+          "type": "object"
+        },
+        "component": {
+          "const": "ContextMenu"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "items"
+      ],
+      "type": "object"
+    },
+    "Dialog": {
+      "additionalProperties": false,
+      "description": "Modal dialog with composed trigger, accessible title, description and close control.",
+      "properties": {
+        "child": {
+          "type": "string"
+        },
+        "component": {
+          "const": "Dialog"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "trigger",
+        "title",
+        "description",
+        "child"
+      ],
+      "type": "object"
+    },
+    "Direction": {
+      "additionalProperties": false,
+      "description": "Apply text direction to a child tree.",
+      "properties": {
+        "child": {
+          "type": "string"
+        },
+        "component": {
+          "const": "Direction"
+        },
+        "direction": {
+          "enum": [
+            "ltr",
+            "rtl"
+          ],
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "direction",
+        "child"
+      ],
+      "type": "object"
+    },
+    "Drawer": {
+      "additionalProperties": false,
+      "description": "A drawer with an accessible trigger and title.",
+      "properties": {
+        "child": {
+          "type": "string"
+        },
+        "component": {
+          "const": "Drawer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "trigger",
+        "title",
+        "description",
+        "child"
+      ],
+      "type": "object"
+    },
+    "DropdownMenu": {
+      "additionalProperties": false,
+      "description": "A dropdown menu of commands.",
+      "properties": {
+        "action": {
+          "additionalProperties": false,
+          "properties": {
+            "event": {
+              "additionalProperties": false,
+              "properties": {
+                "context": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "path": {
+                            "pattern": "^\\/",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                "name": {
+                  "enum": [
+                    "search_sales",
+                    "select_flight",
+                    "demo_submit"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "event"
+          ],
+          "type": "object"
+        },
+        "component": {
+          "const": "DropdownMenu"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "items"
+      ],
+      "type": "object"
+    },
+    "Empty": {
+      "additionalProperties": false,
+      "description": "An empty-state explanation.",
+      "properties": {
+        "component": {
+          "const": "Empty"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title",
+        "description"
+      ],
+      "type": "object"
+    },
+    "Field": {
+      "additionalProperties": false,
+      "description": "A labeled input field with optional help text.",
+      "properties": {
+        "component": {
+          "const": "Field"
+        },
+        "description": {
+          "type": "string"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value"
+      ],
+      "type": "object"
+    },
+    "HoverCard": {
+      "additionalProperties": false,
+      "description": "A preview card shown on hover or focus.",
+      "properties": {
+        "child": {
+          "type": "string"
+        },
+        "component": {
+          "const": "HoverCard"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "trigger",
+        "title",
+        "description",
+        "child"
+      ],
+      "type": "object"
+    },
+    "InfoRow": {
+      "additionalProperties": false,
+      "description": "Compact label and value pair.",
+      "properties": {
+        "component": {
+          "const": "InfoRow"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Input": {
+      "additionalProperties": false,
+      "description": "Single-line input. Bind value to a data path to submit the current value.",
+      "properties": {
+        "component": {
+          "const": "Input"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "text",
+            "email",
+            "search",
+            "tel",
+            "url"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value"
+      ],
+      "type": "object"
+    },
+    "InputGroup": {
+      "additionalProperties": false,
+      "description": "Input with prefix text and optional submit action.",
+      "properties": {
+        "action": {
+          "additionalProperties": false,
+          "properties": {
+            "event": {
+              "additionalProperties": false,
+              "properties": {
+                "context": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "path": {
+                            "pattern": "^\\/",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                "name": {
+                  "enum": [
+                    "search_sales",
+                    "select_flight",
+                    "demo_submit"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "event"
+          ],
+          "type": "object"
+        },
+        "component": {
+          "const": "InputGroup"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value",
+        "prefix"
+      ],
+      "type": "object"
+    },
+    "InputOtp": {
+      "additionalProperties": false,
+      "description": "One-time code entry, a presentation demo only.",
+      "properties": {
+        "component": {
+          "const": "InputOtp"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "length": {
+          "maximum": 8,
+          "minimum": 4,
+          "type": "integer"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value",
+        "length"
+      ],
+      "type": "object"
+    },
+    "Item": {
+      "additionalProperties": false,
+      "description": "A titled list item with supporting text.",
+      "properties": {
+        "component": {
+          "const": "Item"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title",
+        "description"
+      ],
+      "type": "object"
+    },
+    "Kbd": {
+      "additionalProperties": false,
+      "description": "Display a keyboard shortcut.",
+      "properties": {
+        "component": {
+          "const": "Kbd"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "text"
+      ],
+      "type": "object"
+    },
+    "Label": {
+      "additionalProperties": false,
+      "description": "A standalone text label.",
+      "properties": {
+        "component": {
+          "const": "Label"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "text"
+      ],
+      "type": "object"
+    },
+    "Marker": {
+      "additionalProperties": false,
+      "description": "Compact contextual marker.",
+      "properties": {
+        "component": {
+          "const": "Marker"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "text"
+      ],
+      "type": "object"
+    },
+    "Menubar": {
+      "additionalProperties": false,
+      "description": "A menu bar containing commands.",
+      "properties": {
+        "action": {
+          "additionalProperties": false,
+          "properties": {
+            "event": {
+              "additionalProperties": false,
+              "properties": {
+                "context": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "path": {
+                            "pattern": "^\\/",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                "name": {
+                  "enum": [
+                    "search_sales",
+                    "select_flight",
+                    "demo_submit"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "event"
+          ],
+          "type": "object"
+        },
+        "component": {
+          "const": "Menubar"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "items"
+      ],
+      "type": "object"
+    },
+    "Message": {
+      "additionalProperties": false,
+      "description": "A message with author and body.",
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "component": {
+          "const": "Message"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "author",
+        "text"
+      ],
+      "type": "object"
+    },
+    "MessageScroller": {
+      "additionalProperties": false,
+      "description": "Scrollable messages with a scroll-to-end control.",
+      "properties": {
+        "component": {
+          "const": "MessageScroller"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "messages": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "author": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "author",
+              "text"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100,
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "messages"
+      ],
+      "type": "object"
+    },
+    "Metric": {
+      "additionalProperties": false,
+      "description": "Numeric KPI display with a label.",
+      "properties": {
+        "component": {
+          "const": "Metric"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value"
+      ],
+      "type": "object"
+    },
+    "NativeSelect": {
+      "additionalProperties": false,
+      "description": "Native HTML single selection.",
+      "properties": {
+        "component": {
+          "const": "NativeSelect"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "options": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value",
+        "options"
+      ],
+      "type": "object"
+    },
+    "NavigationMenu": {
+      "additionalProperties": false,
+      "description": "Navigation choices restricted to local A2UI pages.",
+      "properties": {
+        "component": {
+          "const": "NavigationMenu"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "href": {
+                "enum": [
+                  "/a2ui",
+                  "/a2ui/dynamic",
+                  "/a2ui/fixed"
+                ],
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "label",
+              "href"
+            ],
+            "type": "object"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "items"
+      ],
+      "type": "object"
+    },
+    "Pagination": {
+      "additionalProperties": false,
+      "description": "Select a page locally; value is a one-based page number.",
+      "properties": {
+        "component": {
+          "const": "Pagination"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "pages": {
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value",
+        "pages"
+      ],
+      "type": "object"
+    },
+    "Popover": {
+      "additionalProperties": false,
+      "description": "An anchored interactive popover.",
+      "properties": {
+        "child": {
+          "type": "string"
+        },
+        "component": {
+          "const": "Popover"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "trigger",
+        "title",
+        "description",
+        "child"
+      ],
+      "type": "object"
+    },
+    "Progress": {
+      "additionalProperties": false,
+      "description": "Progress from zero to 100.",
+      "properties": {
+        "component": {
+          "const": "Progress"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Questionnaire": {
+      "additionalProperties": false,
+      "description": "A composed multi-step choice form. Submit dispatches demo_submit with answers.",
+      "properties": {
+        "action": {
+          "additionalProperties": false,
+          "properties": {
+            "event": {
+              "additionalProperties": false,
+              "properties": {
+                "context": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "path": {
+                            "pattern": "^\\/",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                "name": {
+                  "enum": [
+                    "search_sales",
+                    "select_flight",
+                    "demo_submit"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "event"
+          ],
+          "type": "object"
+        },
+        "component": {
+          "const": "Questionnaire"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "questions": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "choices": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "label"
+                  ],
+                  "type": "object"
+                },
+                "maxItems": 100,
+                "minItems": 1,
+                "type": "array"
+              },
+              "name": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "title",
+              "choices"
+            ],
+            "type": "object"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "type": "array"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title",
+        "questions",
+        "action"
+      ],
+      "type": "object"
+    },
+    "RadioGroup": {
+      "additionalProperties": false,
+      "description": "Single selection presented as radio buttons.",
+      "properties": {
+        "component": {
+          "const": "RadioGroup"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "options": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value",
+        "options"
+      ],
+      "type": "object"
+    },
+    "Resizable": {
+      "additionalProperties": false,
+      "description": "Two resizable panels. Children remain within this surface.",
+      "properties": {
+        "component": {
+          "const": "Resizable"
+        },
+        "first": {
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "second": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "first",
+        "second"
+      ],
+      "type": "object"
+    },
+    "Row": {
+      "additionalProperties": false,
+      "description": "Horizontal wrapping layout of component IDs.",
+      "properties": {
+        "children": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 100,
+          "type": "array"
+        },
+        "component": {
+          "const": "Row"
+        },
+        "gap": {
+          "maximum": 48,
+          "minimum": 0,
+          "type": "number"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "children"
+      ],
+      "type": "object"
+    },
+    "ScrollArea": {
+      "additionalProperties": false,
+      "description": "Scrollable bounded content.",
+      "properties": {
+        "child": {
+          "type": "string"
+        },
+        "component": {
+          "const": "ScrollArea"
+        },
+        "height": {
+          "maximum": 600,
+          "minimum": 80,
+          "type": "integer"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "child",
+        "height"
+      ],
+      "type": "object"
+    },
+    "Select": {
+      "additionalProperties": false,
+      "description": "Single selection with an accessible composed popup.",
+      "properties": {
+        "component": {
+          "const": "Select"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "options": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value",
+        "options"
+      ],
+      "type": "object"
+    },
+    "Separator": {
+      "additionalProperties": false,
+      "description": "Visual divider.",
+      "properties": {
+        "component": {
+          "const": "Separator"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "orientation": {
+          "enum": [
+            "horizontal",
+            "vertical"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component"
+      ],
+      "type": "object"
+    },
+    "Sheet": {
+      "additionalProperties": false,
+      "description": "Side sheet with trigger and accessible heading.",
+      "properties": {
+        "child": {
+          "type": "string"
+        },
+        "component": {
+          "const": "Sheet"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "trigger",
+        "title",
+        "description",
+        "child"
+      ],
+      "type": "object"
+    },
+    "Sidebar": {
+      "additionalProperties": false,
+      "description": "An isolated in-surface sidebar; never replaces the application navigation.",
+      "properties": {
+        "component": {
+          "const": "Sidebar"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title",
+        "items"
+      ],
+      "type": "object"
+    },
+    "Skeleton": {
+      "additionalProperties": false,
+      "description": "Loading placeholder with explicit dimensions.",
+      "properties": {
+        "component": {
+          "const": "Skeleton"
+        },
+        "height": {
+          "maximum": 300,
+          "minimum": 10,
+          "type": "number"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "width": {
+          "maximum": 600,
+          "minimum": 20,
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "width",
+        "height"
+      ],
+      "type": "object"
+    },
+    "Slider": {
+      "additionalProperties": false,
+      "description": "A numeric input written to the data model.",
+      "properties": {
+        "component": {
+          "const": "Slider"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "max": {
+          "type": "number"
+        },
+        "min": {
+          "type": "number"
+        },
+        "step": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value",
+        "min",
+        "max"
+      ],
+      "type": "object"
+    },
+    "Spinner": {
+      "additionalProperties": false,
+      "description": "A loading indicator with descriptive text.",
+      "properties": {
+        "component": {
+          "const": "Spinner"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label"
+      ],
+      "type": "object"
+    },
+    "Switch": {
+      "additionalProperties": false,
+      "description": "Boolean switch written to the data model.",
+      "properties": {
+        "checked": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "component": {
+          "const": "Switch"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "checked"
+      ],
+      "type": "object"
+    },
+    "Table": {
+      "additionalProperties": false,
+      "description": "A data table; rows can be inline or a data-model path. Column keys select row fields.",
+      "properties": {
+        "columns": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "key",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "type": "array"
+        },
+        "component": {
+          "const": "Table"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "rows": {
+          "anyOf": [
+            {
+              "items": {
+                "additionalProperties": {
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean"
+                  ]
+                },
+                "type": "object"
+              },
+              "maxItems": 200,
+              "type": "array"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title",
+        "columns",
+        "rows"
+      ],
+      "type": "object"
+    },
+    "Tabs": {
+      "additionalProperties": false,
+      "description": "Locally selectable titled panels.",
+      "properties": {
+        "component": {
+          "const": "Tabs"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "text"
+            ],
+            "type": "object"
+          },
+          "maxItems": 30,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "items"
+      ],
+      "type": "object"
+    },
+    "Text": {
+      "additionalProperties": false,
+      "description": "Plain text, never HTML.",
+      "properties": {
+        "component": {
+          "const": "Text"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "variant": {
+          "enum": [
+            "body",
+            "heading",
+            "caption"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "text"
+      ],
+      "type": "object"
+    },
+    "Textarea": {
+      "additionalProperties": false,
+      "description": "Multi-line bound text input.",
+      "properties": {
+        "component": {
+          "const": "Textarea"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Toast": {
+      "additionalProperties": false,
+      "description": "Explicitly triggered notification; rerendering never creates a notification.",
+      "properties": {
+        "component": {
+          "const": "Toast"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "trigger",
+        "title",
+        "description"
+      ],
+      "type": "object"
+    },
+    "Toggle": {
+      "additionalProperties": false,
+      "description": "Toggle button with a boolean data binding.",
+      "properties": {
+        "checked": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "component": {
+          "const": "Toggle"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "checked"
+      ],
+      "type": "object"
+    },
+    "ToggleGroup": {
+      "additionalProperties": false,
+      "description": "Single-selection toggle group.",
+      "properties": {
+        "component": {
+          "const": "ToggleGroup"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "options": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value",
+        "options"
+      ],
+      "type": "object"
+    },
+    "Tooltip": {
+      "additionalProperties": false,
+      "description": "Help text shown on hover or keyboard focus.",
+      "properties": {
+        "component": {
+          "const": "Tooltip"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "trigger",
+        "text"
+      ],
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+meta {
+  name: Unsupported demo route explains data limitation
+  type: http
+  seq: 9
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/fixed
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("a2uiManifest");
+  const mode = "fixed";
+  const contract = {protocolVersion: manifest.protocolVersion, ...manifest.catalogs[mode]};
+  const body = {threadId: "a2ui-" + Date.now() + "-" + Math.random(), runId: "run-" + Date.now(), state: {}, messages: [], tools: [], context: [], forwardedProps: {a2uiContract: contract}};
+  body.messages = [{id: "user-" + Date.now(), role: "user", content: "파리에서 뉴욕으로 가는 항공편을 보여줘"}];
+  bru.setVar("a2uiFixedThread", body.threadId);
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("FIX-03: unsupported route completes without a fabricated surface", function () {
+    expect(events.some(event => event.type === "RUN_ERROR")).to.equal(false);
+    expect(events.some(event => event.type === "RUN_FINISHED")).to.equal(true);
+    const reply = events.filter(event => event.type === "TEXT_MESSAGE_CONTENT").map(event => event.delta).join("");
+    expect(reply).to.contain("데모 데이터");
+    expect(events.some(event => event.type === "TOOL_CALL_START")).to.equal(false);
+  });
+}

@@ -5,8 +5,12 @@ description = "Minimal FastAPI and LangGraph service starter"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+  "ag-ui-langgraph==0.0.45",
+  "copilotkit==0.1.96",
   "fastapi>=0.116.0",
   "httpx>=0.28.0",
+  "jsonschema>=4.23,<5",
+  "langchain>=1.2,<2",
   "langchain-openai>=1.0.0",
   "langgraph>=0.6.0",
   "langgraph-checkpoint-postgres>=2.0.0",

@@ -1,0 +1,90 @@
+[
+  {
+    "id": "root",
+    "component": "Card",
+    "title": "좌석 선택",
+    "description": "가상 선택 데모 · 실제 예약, 좌석 확보, 특별식 제공을 보장하지 않습니다.",
+    "child": "body"
+  },
+  {
+    "id": "body",
+    "component": "Column",
+    "children": [
+      "flight",
+      "seat",
+      "summary",
+      "confirm"
+    ]
+  },
+  {
+    "id": "flight",
+    "component": "InfoRow",
+    "label": "항공편",
+    "value": {
+      "path": "/flightLabel"
+    }
+  },
+  {
+    "id": "seat",
+    "component": "RadioGroup",
+    "label": "좌석",
+    "value": {
+      "path": "/seat"
+    },
+    "options": [
+      {
+        "value": "12A",
+        "label": "12A · 창가"
+      },
+      {
+        "value": "12B",
+        "label": "12B · 가운데"
+      },
+      {
+        "value": "12C",
+        "label": "12C · 통로"
+      },
+      {
+        "value": "14A",
+        "label": "14A · 창가"
+      },
+      {
+        "value": "14C",
+        "label": "14C · 통로"
+      }
+    ],
+    "disabled": {
+      "path": "/confirmed"
+    }
+  },
+  {
+    "id": "summary",
+    "component": "Text",
+    "text": {
+      "path": "/status"
+    }
+  },
+  {
+    "id": "confirm",
+    "component": "Button",
+    "label": {
+      "path": "/buttonLabel"
+    },
+    "disabled": {
+      "path": "/confirmed"
+    },
+    "action": {
+      "event": {
+        "name": "confirm_cabin",
+        "context": {
+          "flightId": {
+            "path": "/flightId"
+          },
+          "seat": {
+            "path": "/seat"
+          }
+        }
+      }
+    }
+  }
+]

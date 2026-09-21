@@ -1,0 +1,54 @@
+meta {
+  name: Generate a sales dashboard with real model
+  type: http
+  seq: 6
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/dynamic
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("a2uiManifest");
+  const mode = "dynamic";
+  const contract = {protocolVersion: manifest.protocolVersion, ...manifest.catalogs[mode]};
+  const body = {threadId: "a2ui-" + Date.now() + "-" + Math.random(), runId: "run-" + Date.now(), state: {}, messages: [], tools: [], context: [], forwardedProps: {a2uiContract: contract}};
+  body.messages = [{id: "user-" + Date.now(), role: "user", content: "전체 매출 현황을 KPI와 차트로 보여줘"}];
+  bru.setVar("a2uiDynamicThread", body.threadId);
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("STREAM-02: batch has no preview events", function () {
+    expect(events.some(event => event.name === "a2ui.preview")).to.equal(false);
+  });
+  test("PROGRESS-01: real generation stages precede completion", function () {
+    const progress = events.filter(event => event.type === "CUSTOM" && event.name === "a2ui.progress").map(event => event.value.stage);
+    expect(progress[0]).to.equal("analyzing");
+    expect(progress).to.include("composing");
+    expect(progress).to.include("validating");
+    expect(progress[progress.length - 1]).to.equal("delivering");
+    expect(events.findIndex(event => event.name === "a2ui.progress")).to.be.lessThan(events.findIndex(event => event.type === "RUN_FINISHED"));
+  });
+  test("DYN-01: model-composed dashboard and query panel", function () {
+    expect(events.some(event => event.type === "RUN_ERROR")).to.equal(false);
+    const snapshots = events.filter(event => event.type === "STATE_SNAPSHOT" && event.snapshot.surfaces);
+    const surfaces = snapshots[snapshots.length - 1].snapshot.surfaces;
+    const id = Object.keys(surfaces)[0];
+    expect(surfaces[id].data.demo.revenue).to.equal("$680,000");
+    expect(surfaces[id].data.facts.summary.quota).to.equal("$630,000");
+    expect(surfaces[id].data.facts.summary.attainment).to.equal("107.9%");
+    expect(Object.values(surfaces[id].components).some(component => component.component === "Chart")).to.equal(true);
+    bru.setVar("a2uiDynamicSurface", id);
+  });
+}

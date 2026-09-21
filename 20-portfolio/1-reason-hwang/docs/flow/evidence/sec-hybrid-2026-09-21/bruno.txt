@@ -1,0 +1,83 @@
+14-sec-a2ui/01-manifest (200 OK) - 12 ms
+Tests
+   ✓ SEC catalog is registered
+Assertions
+   ✓ res.status: eq 200
+14-sec-a2ui/02-search (200 OK) - 105 ms
+Tests
+   ✓ Search real stored companies
+Assertions
+   ✓ res.status: eq 200
+14-sec-a2ui/03-company (200 OK) - 48 ms
+Tests
+   ✓ List selected company filings
+Assertions
+   ✓ res.status: eq 200
+14-sec-a2ui/03-filter (200 OK) - 40 ms
+Tests
+   ✓ Filter filings with stored content
+Assertions
+   ✓ res.status: eq 200
+14-sec-a2ui/04-filing (200 OK) - 27 ms
+Tests
+   ✓ Select stored original or amendment
+Assertions
+   ✓ res.status: eq 200
+14-sec-a2ui/05-report (200 OK) - 135607 ms
+SEC result: 분석 보고서를 생성했습니다. 인용 근거와 분석 한계를 함께 확인해 주세요.
+Tests
+   ✓ Generate cited report with real model
+Assertions
+   ✓ res.status: eq 200
+14-sec-a2ui/06-stale (422 Unprocessable Entity) - 4 ms
+Tests
+   ✓ Reject stale SEC action
+Assertions
+   ✓ res.status: eq 422
+14-sec-a2ui/07-cross-thread (422 Unprocessable Entity) - 1 ms
+Tests
+   ✓ Reject cross-thread SEC action
+Assertions
+   ✓ res.status: eq 422
+14-sec-a2ui/08-summary-cards (200 OK) - 15035 ms
+SEC result: 분석 보고서를 생성했습니다. 인용 근거와 분석 한계를 함께 확인해 주세요.
+Tests
+   ✓ 08-summary-cards
+Assertions
+   ✓ res.status: eq 200
+14-sec-a2ui/09-risks-table (200 OK) - 18913 ms
+SEC result: 분석 보고서를 생성했습니다. 인용 근거와 분석 한계를 함께 확인해 주세요.
+Tests
+   ✓ 09-risks-table
+Assertions
+   ✓ res.status: eq 200
+14-sec-a2ui/10-oversized-request (422 Unprocessable Entity) - 7 ms
+Tests
+   ✓ Reject oversized analysis request
+Assertions
+   ✓ res.status: eq 422
+14-sec-a2ui/11-reset-search (200 OK) - 129 ms
+Tests
+   ✓ Reset selection through company search
+Assertions
+   ✓ res.status: eq 200
+14-sec-a2ui/12-hidden-action (422 Unprocessable Entity) - 2 ms
+Tests
+   ✓ Reject hidden report action
+Assertions
+   ✓ res.status: eq 422
+
+📊 Execution Summary
+┌───────────────┬────────────────┐
+│ Metric        │     Result     │
+├───────────────┼────────────────┤
+│ Status        │     ✓ PASS     │
+├───────────────┼────────────────┤
+│ Requests      │ 13 (13 Passed) │
+├───────────────┼────────────────┤
+│ Tests         │     13/13      │
+├───────────────┼────────────────┤
+│ Assertions    │     13/13      │
+├───────────────┼────────────────┤
+│ Duration (ms) │     169930     │
+└───────────────┴────────────────┘

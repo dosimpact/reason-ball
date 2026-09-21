@@ -1,0 +1,33 @@
+meta {
+  name: Reject stale catalog hash
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/fixed
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("a2uiManifest");
+  const mode = "fixed";
+  const contract = {protocolVersion: manifest.protocolVersion, ...manifest.catalogs[mode]};
+  const body = {threadId: "a2ui-" + Date.now() + "-" + Math.random(), runId: "run-" + Date.now(), state: {}, messages: [], tools: [], context: [], forwardedProps: {a2uiContract: contract}};
+  body.forwardedProps.a2uiContract.sha256 = "stale";
+  req.setBody(body);
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("VER-01: stale hash is explicit", function () {
+    expect(res.getBody().detail).to.include("sha256");
+  });
+}

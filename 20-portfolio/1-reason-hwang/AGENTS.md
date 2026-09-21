@@ -28,6 +28,7 @@ Phase - 유효성 검사 (Validation)
 - 순수 View 컴포넌트 변경: Storybook에서 반드시 테스트하세요.
 - 비즈니스 로직이 포함된 변경: Playwright MCP 또는 Chrome DevTools MCP로 사용자 관점의 브라우저 동작을 반드시 검증하세요.
 - 실행 증거를 flow에 기록하고, 필수 검증이 미실행되거나 실패한 상태를 완료로 처리하지 마세요.
+- 검증의 성공·실패·중단 여부와 관계없이 [검증 자원 정리 규칙](docs/validation/INDEX.md#val-cleanup-001)에 따라 작업이 생성한 서버·브라우저·Playwright MCP/CDP 연결·임시 자원을 정리하고 잔존 여부를 확인하세요. 사용자 브라우저와 공유 MCP 서버는 임의로 종료하지 마세요. 정리 미완료는 완료로 처리하지 마세요.
 
 
 

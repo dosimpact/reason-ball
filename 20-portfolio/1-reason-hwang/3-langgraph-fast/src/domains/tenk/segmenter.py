@@ -9,7 +9,7 @@ from domains.tenk.normalizer import read_document_text
 from settings import AppSettings
 
 PART_HEADER_RE = re.compile(r"(?im)^[ \t]*PART[ \t]+(?P<code>[IVXLC]+)\b[ \t]*(?P<title>[^\n\r]*)")
-ITEM_HEADER_RE = re.compile(r"(?im)^[ \t]*ITEM[ \t]+(?P<code>\d+[A-Z]?)\.?[ \t]*(?P<title>[^\n\r]*)")
+ITEM_HEADER_RE = re.compile(r"(?im)^[ \t]*ITEM[ \t]+(?P<code>\d+(?:\.\d+)?[A-Z]?)\.?[ \t]*(?P<title>[^\n\r]*)")
 
 
 @dataclass
@@ -115,17 +115,16 @@ class RegulatorySegmenter:
         return f"Item {item.code}"
 
     def _dedupe_item_sections(self, section_candidates: list[tuple[int, FilingSection]]) -> list[FilingSection]:
-        best_by_item_code: dict[str, tuple[int, FilingSection]] = {}
+        best_by_item_code: dict[tuple[str | None, str], tuple[int, FilingSection]] = {}
         for start, section in section_candidates:
-            current = best_by_item_code.get(section.item_code)
+            key = (section.part_code, section.item_code)
+            current = best_by_item_code.get(key)
             if current is None:
-                best_by_item_code[section.item_code] = (start, section)
+                best_by_item_code[key] = (start, section)
                 continue
             current_start, current_section = current
-            if len(section.text) > len(current_section.text):
-                best_by_item_code[section.item_code] = (start, section)
-            elif len(section.text) == len(current_section.text) and start > current_start:
-                best_by_item_code[section.item_code] = (start, section)
+            if len(section.text) > len(current_section.text) or (len(section.text) == len(current_section.text) and start > current_start):
+                best_by_item_code[key] = (start, section)
         deduped = list(best_by_item_code.values())
         deduped.sort(key=lambda candidate: candidate[0])
         return [section for _, section in deduped]
