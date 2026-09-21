@@ -136,7 +136,7 @@ UI의 **입력 자료 → Figma에서 가져오기**에 파일 또는 노드 링
 개발 중 저장소·런타임 코드 변경 후에는 실행 중인 서버를 완전히 종료하고 다시 시작하세요.
 전역 저장소 인스턴스가 HMR 후에도 유지될 수 있으므로 도구 목록에 새 도구가 보이는 것만으로
 갱신 완료를 판단하지 않습니다. [운영 기준](docs/stock/tech-shared/planner-mcp/implementation.md)과
-[실서버 검증 기록](docs/changes/0013-live-mcp-verification.md)을 참고하세요.
+[실서버 검증 기록](docs/changes/2026-09-15-project-design-summary.md#change-0013)을 참고하세요.
 
 - 기본 위치는 이 패키지의 `.data/`이며 `PLANNER_DATA_DIR`로 변경할 수 있습니다.
 - 프로젝트 메타데이터·문서 JSON·불변 revision 기록·요청 저널을 분리합니다.
@@ -161,7 +161,7 @@ pnpm --filter planner-mcp test:e2e
 E2E는 `build`를 포함하며 임의의 빈 포트와 임시 데이터 디렉터리를 사용합니다. 기존 서버를 재사용하지 않습니다.
 HTML 결과는 `playwright-report/index.html`에 생성됩니다.
 단위·저장 테스트는 `tests/*.test.ts`, 실제 MCP 클라이언트·UI 통합 검증은 `tests/e2e/*.spec.ts`에 있습니다.
-E2E의 외부 Figma API는 전용 서버에만 preload한 fixture로 대체합니다. 실제 Figma 계정 연동 확인 여부와 요구사항별 근거는 [최종 설계 대조 기록](docs/changes/0019-usability-design-audit.md)에 구분해 기록합니다.
+E2E의 외부 Figma API는 전용 서버에만 preload한 fixture로 대체합니다. 실제 Figma 계정 연동 확인 여부와 요구사항별 근거는 [최종 설계 대조 기록](docs/changes/2026-09-15-project-design-summary.md#change-0019)에 구분해 기록합니다.
 
 현재 구현의 결정과 제한은 [구현 기본값](docs/stock/tech-shared/planner-mcp/implementation.md)을 참조합니다.
 

@@ -106,8 +106,8 @@ ALWAYS include at the end of each response:
 - docs 하위 문서 지도·진입 파일은 INDEX.md, 프로젝트 루트 소개는 README.md로 유지합니다.
 - 공용 결정은 `docs/stock/tech-shared/`, 패키지 상세는 그 아래 `planner-mcp/`, 업무 규칙은 `docs/stock/<domain-feature-name>/`에 둡니다.
 - stock만으로 현재 상태를 이해할 수 있도록 합의된 요구·계약·구현을 동기화합니다. 사용자 요구와 구현 기본값·미정 제안을 구분합니다.
-- 변경 맥락·이유·영향 stock·검증 결과는 날짜가 있는 `docs/flow/`에 기록합니다. 완료된 기존 flow와 `docs/changes/` 기록은 수정하지 않고 후속 기록으로 대체합니다.
-- `docs/design/`은 이전 경로 안내이며 새 설계를 작성하지 않습니다. 이동 시 목차와 참조를 갱신합니다.
+- 변경 맥락·이유·영향 stock·검증 결과는 날짜가 있는 `docs/flow/`에 기록합니다. 완료된 flow는 수정하지 않고 후속 기록으로 대체합니다. 사용자 요청으로 이력을 통합하는 경우 원문 복구 커밋·기록 대응표·검증 한계를 보존합니다.
+- `docs/changes/`는 초기 기록의 통합 보관본입니다. 새 기록은 flow에 작성하며 이동·통합 시 목차와 참조를 갱신합니다.
 - 이 문서 운영은 저장소 개발 문서에 대한 규칙이며 제품의 템플릿·프로젝트 문서 관리와 구분합니다.
 
 ## Phase — Commit

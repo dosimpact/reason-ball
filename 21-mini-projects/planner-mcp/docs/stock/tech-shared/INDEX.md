@@ -7,3 +7,4 @@
 - [패키지 실행·구현](planner-mcp/implementation.md): pnpm workspace 명령, 포트, 파일 책임.
 - [검증 원칙](../../validation/INDEX.md): API, View, 업무 흐름의 필수 검증.
 - [프로젝트 설계 관리](../project-design/INDEX.md), [문서 템플릿 관리](../document-templates/INDEX.md): 도메인별 현재 계약.
+- [검증 범위와 근거](test-design.md): 테스트 책임·최근 실행 증거·미검증 범위.

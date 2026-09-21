@@ -48,6 +48,6 @@
 - 브라우저: 문서/탭 왕복 접힘, SSE 상태 정리, 관계 이동·역사 버전·비교, 노드 편집·충돌, 질문 상태, Figma 가져오기 성공/실패.
 - test/lint/typecheck/생산 빌드/E2E 및 문서 링크 검사를 완료한다. 실계정 Figma 검증은 토큰 가용 여부와 별도로 기록한다.
 
-검증 결과와 실계정 연결의 남은 작업은 [변경·검증 기록](../../changes/0012-completion.md)에 보존한다.
+검증 결과와 실계정 연결의 남은 작업은 [변경·검증 기록](../../changes/2026-09-15-project-design-summary.md#change-0012)에 보존한다.
 
 사용자 관리 Markdown 템플릿·프롬프트는 [템플릿 도메인](../document-templates/INDEX.md)에서 별도로 제공한다.
