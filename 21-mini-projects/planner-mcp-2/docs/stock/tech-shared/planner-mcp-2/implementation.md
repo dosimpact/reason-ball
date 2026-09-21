@@ -20,3 +20,9 @@
 - 상세: [CodeWeave](../../codeweave/INDEX.md). 아직 npm publish나 Next.js UI·MCP adapter 연결은 하지 않았다.
 
 - dev/build는 `build:codeweave`를 먼저 실행합니다. Next는 독립 ESM 산출물 `.codeweave-build`를 읽으며 core 수정 후 dev 재시작이 필요합니다. 산출물은 커밋하지 않습니다.
+
+## MCP-only 보존 데모 실행
+
+- test:mcp-demo는 scripts/mcp-demo/run.mjs의 SDK 실행기다. 기본 MCP endpoint에 새 보존 데모를 만들고 별도 임시 프로젝트를 정리한다. 일반 test/test:e2e와 분리한다.
+- PLANNER_MCP_URL로 소유 MCP endpoint를 지정할 수 있다. 제품 데이터는 MCP로만 접근하며 호출 원문은 git 제외 경로 test-results/mcp-demo에 기록한다.
+- [55개 케이스와 검증 한계](../../../validation/mcp-demo/INDEX.md)를 확인하고 실행한다.

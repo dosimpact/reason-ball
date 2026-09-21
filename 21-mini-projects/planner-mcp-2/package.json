@@ -18,7 +18,8 @@
     "test:api": "node scripts/e2e.mjs api",
     "build:codeweave": "tsc -p src/modules/codeweave/tsconfig.build.json",
     "test:codeweave": "vitest run tests/codeweave",
-    "check:codeweave": "pnpm build:codeweave && node scripts/check-codeweave.mjs"
+    "check:codeweave": "pnpm build:codeweave && node scripts/check-codeweave.mjs",
+    "test:mcp-demo": "node scripts/mcp-demo/run.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.30.0",

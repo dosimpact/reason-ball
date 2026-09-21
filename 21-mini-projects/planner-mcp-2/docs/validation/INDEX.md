@@ -78,3 +78,7 @@ Bruno 실제 HTTP와 MCP SDK, Playwright Chromium은 소유 서버·임시 DB로
 - CW-05: 템플릿에서 React Flow+CodeWeave 혼합 생성 → 미리보기 → 독립 문서 인스턴스 → 접기/펼치기·라인/주석 상세 → MCP 조회·수정 → SSE 재렌더링.
 - CW-06: 문법 오류 저장 거부, expectedRevision/expectedSource 충돌, 다른 확장 보존, 템플릿 snapshot 독립, 검증 완료 문서 reopen.
 - VIEW-09: Storybook CodeWeave diff 색상·기호, 주석 라인 소유권, 전체/가지 접기, 소스 불변.
+
+## MCP만 사용하는 종합 데모
+
+[요구사항 전체 대응 및 실행 결과](mcp-demo/INDEX.md): 실제 MCP 24개 도구로 설계·기존 구현 설명·검증 문서를 작성한 보존 데모입니다. 41개 MCP 검사 PASS, 14개 사람 확인 대기. UI·Storybook·Bruno·원본 템플릿 변경·사람 확인은 MCP 통과 결과에 포함하지 않습니다. 이전 통합 검증 결과와 이번 실행의 증거를 구분합니다.
