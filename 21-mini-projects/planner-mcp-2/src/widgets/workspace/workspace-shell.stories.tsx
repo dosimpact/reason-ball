@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { WorkspaceShell } from "./workspace-shell";
+import { Layout } from "./layout";
 const meta = {
   title: "Planner/WorkspaceShell",
-  component: WorkspaceShell,
-} satisfies Meta<typeof WorkspaceShell>;
+  component: Layout.Shell,
+} satisfies Meta<typeof Layout.Shell>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const CollapsibleSidebar: Story = {
@@ -18,18 +18,18 @@ export const CollapsibleSidebar: Story = {
       </>
     ),
     children: (
-      <main>
+      <Layout.Main>
         <h1>작업 공간</h1>
         <textarea
           aria-label="작성 중인 문서"
           defaultValue="접어도 유지되는 초안"
         />
-      </main>
+      </Layout.Main>
     ),
   },
   render: (args) => (
-    <div className="app" style={{ height: 500 }}>
-      <WorkspaceShell {...args} />
-    </div>
+    <Layout.Root style={{ height: 500 }}>
+      <Layout.Shell {...args} />
+    </Layout.Root>
   ),
 };

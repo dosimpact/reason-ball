@@ -20,8 +20,7 @@ import type {
 import { api, missingAs } from "@/shared/api";
 import { DocumentEditor } from "./document-editor";
 import { TemplateManager } from "./template-manager";
-import { WorkspacePanels } from "./workspace-panels";
-import { WorkspaceShell } from "./workspace-shell";
+import { Layout } from "./layout";
 import {
   BookOpen,
   FolderGit2,
@@ -412,8 +411,8 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
     );
   }
   return (
-    <div className="app">
-      <header className="topbar">
+    <Layout.Root>
+      <Layout.Header>
         <div className="brand">
           <Link
             href="/"
@@ -484,7 +483,7 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
           <Menu size={18} />
           <span>{selectedProject?.title ?? "프로젝트"}</span>
         </Button>
-      </header>
+      </Layout.Header>
       <Dialog
         open={mobileNavigationOpen}
         onOpenChange={(open) => {
@@ -530,8 +529,8 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
           </Button>
         </div>
       )}
-      <WorkspaceShell navigation={projectNavigation()}>
-        <main>
+      <Layout.Shell navigation={projectNavigation()}>
+        <Layout.Main>
           {tab === "guide" ? (
             guide
           ) : tab === "templates" ? (
@@ -598,10 +597,10 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
               </div>
             </section>
           ) : (
-            <WorkspacePanels
+            <Layout.Panels
               revealKey={documentId}
               canvas={
-                <section className="canvas-panel">
+                <Layout.Canvas>
                   <div className="workspace-title">
                     <div>
                       <p className="eyebrow">
@@ -870,10 +869,10 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
                       있습니다.
                     </p>
                   </div>
-                </section>
+                </Layout.Canvas>
               }
               detail={
-                <aside className="detail-panel">
+                <Layout.Detail>
                   {document ? (
                     <DocumentEditor
                       key={`${document.id}:${editorEpoch}`}
@@ -909,12 +908,12 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
                       )}
                     </div>
                   )}
-                </aside>
+                </Layout.Detail>
               }
             />
           )}
-        </main>
-      </WorkspaceShell>
+        </Layout.Main>
+      </Layout.Shell>
       {createParent && (
         <CreateDocumentDialog
           key={createParent.id}
@@ -1058,7 +1057,7 @@ export function Workspace({ guide }: { guide?: ReactNode }) {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+    </Layout.Root>
   );
 }
 function Rules() {

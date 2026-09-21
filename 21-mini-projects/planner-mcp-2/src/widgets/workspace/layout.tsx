@@ -6,13 +6,98 @@ import {
   useId,
   useRef,
   type ReactNode,
+  type ComponentProps,
 } from "react";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { Button } from "@/shared/ui/button";
+import { cn } from "@/shared/ui/utils";
 import {
   ResizablePanelGroup,
   ResizablePanel,
   ResizableHandle,
-} from "../../shared/ui/resizable";
+} from "@/shared/ui/resizable";
+
+// Workspace presentation only: routing, data loading and document editing stay in consumers.
+function Root({ className, ...props }: ComponentProps<"div">) {
+  return <div {...props} className={cn("app", className)} />;
+}
+
+function Header({ className, ...props }: ComponentProps<"header">) {
+  return <header {...props} className={cn("topbar", className)} />;
+}
+
+function Main({ className, ...props }: ComponentProps<"main">) {
+  return <main {...props} className={cn("", className)} />;
+}
+
+function Canvas({ className, ...props }: ComponentProps<"section">) {
+  return <section {...props} className={cn("canvas-panel", className)} />;
+}
+
+function Detail({ className, ...props }: ComponentProps<"aside">) {
+  return <aside {...props} className={cn("detail-panel", className)} />;
+}
+function Sidebar({
+  children,
+  collapsed,
+  navigationId,
+  onToggle,
+}: {
+  children: ReactNode;
+  collapsed: boolean;
+  navigationId: string;
+  onToggle: () => void;
+}) {
+  const label = collapsed ? "사이드바 펼치기" : "사이드바 접기";
+  return (
+    <aside className="sidebar" aria-label="프로젝트 탐색">
+      <div className="sidebar-toggle-row">
+        <Button
+          variant="ghost"
+          className="sidebar-toggle"
+          aria-label={label}
+          title={label}
+          aria-expanded={!collapsed}
+          aria-controls={navigationId}
+          onClick={onToggle}
+        >
+          {collapsed ? (
+            <PanelLeftOpen size={18} />
+          ) : (
+            <PanelLeftClose size={18} />
+          )}
+          {!collapsed && <span>사이드바 접기</span>}
+        </Button>
+      </div>
+      <div id={navigationId} className="sidebar-navigation" hidden={collapsed}>
+        {children}
+      </div>
+    </aside>
+  );
+}
+function Shell({
+  navigation,
+  children,
+}: {
+  navigation: ReactNode;
+  children: ReactNode;
+}) {
+  const [collapsed, setCollapsed] = useState(false);
+  const navigationId = useId();
+  return (
+    <div className={"shell" + (collapsed ? " shell-sidebar-collapsed" : "")}>
+      <Sidebar
+        collapsed={collapsed}
+        navigationId={navigationId}
+        onToggle={() => setCollapsed((value) => !value)}
+      >
+        {navigation}
+      </Sidebar>
+      {children}
+    </div>
+  );
+}
+
 const desktopQuery = "(min-width: 1001px)";
 function subscribe(onChange: () => void) {
   const query = window.matchMedia(desktopQuery);
@@ -22,7 +107,7 @@ function subscribe(onChange: () => void) {
 function getDesktop() {
   return window.matchMedia(desktopQuery).matches;
 }
-export function WorkspacePanels({
+function Panels({
   canvas,
   detail,
   revealKey = "",
@@ -165,3 +250,15 @@ export function WorkspacePanels({
     </div>
   );
 }
+
+/** Compound layout components, consumed as Layout.Root / Layout.Shell / Layout.Panels. */
+export const Layout = {
+  Root,
+  Header,
+  Shell,
+  Sidebar,
+  Main,
+  Panels,
+  Canvas,
+  Detail,
+};

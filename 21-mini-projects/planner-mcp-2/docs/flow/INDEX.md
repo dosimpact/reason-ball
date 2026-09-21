@@ -55,3 +55,4 @@
 - [모바일 UX 전면 개편](2026-09-22-mobile-ux-overhaul.md)
 - [사이드바 접기 UX](2026-09-22-collapsible-sidebar.md)
 - [캔버스·상세 독립 스크롤](2026-09-22-independent-panel-scroll.md)
+- [Layout namespace 추출](2026-09-22-layout-namespace.md)

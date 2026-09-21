@@ -36,3 +36,15 @@ GitHub Primer의 중립적인 light 스타일을 참고한 Planner 팔레트입�
 - 1001px 이상에서 workspace-shell과 ResizablePanelGroup을 남은 화면 높이 100%로 제한한다. 각 tabpanel이 overflow:auto로 독립 스크롤하며 overscroll-behavior:contain으로 경계의 스크롤 전파를 막는다.
 - 작업 공간의 main은 스크롤하지 않는다. 캔버스·상세·sidebar의 위치가 서로 영향을 주지 않는다. 다른 페이지(템플릿·안내)의 main 스크롤은 유지한다.
 - 1000px 이하에서는 기존 단일 패널 탭 전환과 main 스크롤을 유지한다.
+
+## Layout 컴포넌트 API
+
+주요 작업 공간 레이아웃은 src/widgets/workspace/layout.tsx의 Layout 객체로 제공한다. 화면과 Storybook은 동일한 컴포넌트를 사용한다.
+
+- Layout.Root / Header / Main: 앱 높이·헤더·메인 시맨틱 영역.
+- Layout.Shell: 프로젝트 navigation과 main을 배치하며 사이드바 접힘 상태를 소유한다.
+- Layout.Sidebar: collapsed/navigationId/onToggle을 받는 controlled 탐색 영역. Shell이 기본 조합을 제공한다.
+- Layout.Panels: canvas/detail 슬롯과 revealKey를 받으며 리사이즈·모바일 전환·상세 패널 열기를 담당한다.
+- Layout.Canvas / Detail: 각 콘텐츠 영역의 태그와 CSS 계약.
+
+단순 영역은 native element props와 className을 전달할 수 있다. 레이아웃 파일에는 프로젝트 데이터 요청이나 라우팅을 넣지 않는다. 이전 workspace-shell.tsx와 workspace-panels.tsx의 별도 export는 Layout으로 통합했다.
