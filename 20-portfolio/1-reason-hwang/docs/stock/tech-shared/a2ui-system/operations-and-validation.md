@@ -137,3 +137,7 @@ fixture 단위 테스트는 실모델 제공자 검증을 대체하지 않는다
 - [RUN_ERROR 브라우저 처리](../../../flow/2026-09-21-a2ui-browser-run-error.md)
 
 - [취소 복구 보정 후 최종 HTTP 회귀](../../../flow/2026-09-21-a2ui-final-http-regression.md)
+
+## 현재 사용자 확인 서비스 (2026-09-21 갱신)
+
+2820 Host는 `NEXT_DIST_DIR=.next-fixed-ui-current`, `A2UI_LANGGRAPH_URL=http://127.0.0.1:18083`으로 빌드·실행 중이다. 18083 Python도 ui_type 지원 최신 코드로 재시작했다. OAuth2890/gpt-5.6-luna, SEC BFF18101을 사용한다. 별도 검증 서버와 달리 사용자가 확인할 서비스로 유지한다. [실제 서비스 검증 기록](../../../flow/2026-09-21-a2ui-fixed-examples-service-refresh.md).
