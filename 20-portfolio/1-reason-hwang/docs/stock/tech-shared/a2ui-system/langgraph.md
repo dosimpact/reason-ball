@@ -36,3 +36,20 @@ pnpm --filter reason-hwang-langgraph-fast build
 Dynamic/Fixed graph는 LangChain `adispatch_custom_event`로 `a2ui.progress`를 발행하고 AG-UI가 `CUSTOM` SSE 이벤트로 전달한다. payload는 `{stage: string}`이며 `analyzing`, `composing`, `validating`, `retrying`, `delivering`, `updating`만 사용한다. Dynamic의 composing/validating은 planner 호출 전후에 발생하고 retrying은 검증 실패 후 두 번째 실제 시도에서 발생한다. 완료는 별도 stage가 아니라 RUN_FINISHED이며 실패는 RUN_ERROR다. 질문·프롬프트·내부 추론은 진행 payload에 담지 않는다.
 
 SEC는 별도 `sec → render(ToolNode) → finish` 그래프다. 상세 구현과 원문 처리 제한은 [SEC](sec.md), 상태 소유권은 [프로토콜](protocol-and-events.md)을 따른다.
+
+## CABIN-01: 기내식·좌석 Fixed 데모
+
+기존 항공편 선택과 같은 Fixed 화면/endpoint에서 별도 `display_cabin_options(flight_id)` 도구 하나로 기내식과 좌석을 함께 표시한다. 항공편 카드의 `display_flight`는 유지한다. 기내식 또는 좌석 요청에는 새 도구만 호출하며 특정 항공편이 없으면 인천→도쿄 샘플을 표시한다.
+
+고정 구조는 `schemas/cabin.json`, 데이터·선택 검증은 `cabin.py`가 소유한다. 일반식/채식/어린이식/없음과 좌석 12A/12B/12C/14A/14C 중 선택한다. 초기값은 일반식·12A이며 확정 전 RadioGroup이 로컬 데이터 모델을 수정한다. `confirm_cabin` action은 서버 checkpoint의 카드·항공편과 허용된 두 선택 값을 검증한다. 성공하면 동일 surface의 요약을 갱신하고 입력·버튼을 잠근다. 같은 확정의 재전송은 허용하고 다른 값으로 바꾸는 재전송은 거절한다. 다른 카드 상태는 바꾸지 않는다.
+
+실제 좌석 재고, 결제, 예약, 알레르기 요구 보장, 특별식 제공 보장은 범위 밖이다. 새 선택을 하려면 새 카드를 요청한다. Fixed 카탈로그는 RadioGroup을 포함하며 전용 action 계약은 select_flight/confirm_cabin만 허용한다.
+
+새 카탈로그 적용에는 Host와 Python을 함께 재시작해야 한다. 검증 전용 서버는 종료했다. 동일 환경에서 재현하려면 각각 별도 터미널에서 다음을 실행한다.
+
+```sh
+A2UI_MODEL_PROVIDER=oauth-proxy A2UI_MODEL=gpt-5.6-luna A2UI_MODEL_BASE_URL=http://127.0.0.1:2890/v1 pnpm --filter reason-hwang-langgraph-fast start --host 127.0.0.1 --port 18084
+A2UI_LANGGRAPH_URL=http://127.0.0.1:18084 NEXT_DIST_DIR=.next-cabin-dev pnpm --filter reason-hwang-fe-host dev --port 2821
+```
+
+브라우저 `http://localhost:2821/a2ui/fixed`에서 “도쿄에서 인천 항공편의 기내식과 좌석을 선택하고 싶어”를 입력한다. 검증 결과는 [기내식·좌석 검증 기록](../../../flow/2026-09-21-a2ui-cabin-validation.md)에 있다.

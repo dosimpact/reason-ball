@@ -2,7 +2,7 @@
 
 import { Catalog, createReactComponent } from "@copilotkit/a2ui-renderer";
 import type { ComponentType } from "react";
-import { componentSchema, secActionSchema, profileComponents, catalogId, type CatalogProfile, type ComponentName } from "./definitions";
+import { componentSchema, fixedActionSchema, secActionSchema, profileComponents, catalogId, type CatalogProfile, type ComponentName } from "./definitions";
 import { bindingControls, type AdapterMap, type AdapterProps } from "./adapter";
 import { coreAdapters } from "./core-adapters";
 import { displayAdapters } from "./display-adapters";
@@ -19,7 +19,7 @@ export function createHostCatalog(profile: CatalogProfile) {
     // The map is exhaustively checked above; iteration erases the per-key relation.
     const Render = adapters[name] as ComponentType<AdapterProps<ComponentName>>;
     return createReactComponent({ name, schema: componentSchema(name, profile) }, ({ props, buildChild, context }) => (
-      <Render props={props as AdapterProps<ComponentName>["props"]} children={buildChild} {...bindingControls(context, profile === "sec" ? secActionSchema : undefined)} />
+      <Render props={props as AdapterProps<ComponentName>["props"]} children={buildChild} {...bindingControls(context, profile === "sec" ? secActionSchema : profile === "fixed" ? fixedActionSchema : undefined)} />
     ));
   }), []);
 }

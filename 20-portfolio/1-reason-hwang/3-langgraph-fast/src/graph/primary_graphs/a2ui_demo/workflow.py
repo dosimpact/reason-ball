@@ -18,6 +18,7 @@ from langchain_core.tools import StructuredTool
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import END, START, StateGraph
 
+from .cabin import cabin_operations
 from .contract import (
     MANIFEST,
     ContractError,
@@ -112,14 +113,26 @@ def display_flight(flight_id: str = "demo-icn-nrt") -> str:
     return a2ui.render(operations)
 
 
+@tool(return_direct=True)
+def display_cabin_options(flight_id: str = "demo-icn-nrt") -> str:
+    """Show BOTH meal and seat choices in one fixed UI for a fictional flight. No real booking."""
+    operations = cabin_operations(flight_id)
+    validate_operations("fixed", operations)
+    return a2ui.render(operations)
+
+
 def build_graph(mode: Mode, model):
     agent = create_agent(
         model=model,
-        tools=[build_dynamic_tool(model)] if mode == "dynamic" else [display_flight],
+        tools=[build_dynamic_tool(model)] if mode == "dynamic" else [display_flight, display_cabin_options],
         middleware=[CopilotKitMiddleware()],
         state_schema=DemoState,
         system_prompt=SALES_INSTRUCTION if mode == "dynamic" else (
             "Show fictional flights using display_flight, once per requested flight. "
+            "For meal or seat selection requests, call ONLY display_cabin_options once; "
+            "this single tool shows BOTH selectors together. Use the requested or previously discussed flight ID. "
+            "If no flight is specified, use demo-icn-nrt as an explicitly labeled demo. "
+            "Do not call display_flight for a cabin selection request. "
             "Never claim to book tickets or report real availability/prices. Reply briefly in Korean. "
             "Map cities to demo airports: 인천/서울=ICN, 도쿄=NRT, 부산=PUS, 오사카=KIX, 방콕=BKK, 싱가포르=SIN. "
             "Respect the requested direction. For a route absent from the data, do not call display_flight; "

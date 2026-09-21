@@ -11,6 +11,11 @@ export const actionSchema = z.object({
     context: z.record(z.union([z.string(), z.number(), z.boolean(), dataBinding])).optional(),
   }).strict(),
 }).strict();
+export const fixedActionSchema = actionSchema.extend({
+  event: actionSchema.shape.event.extend({
+    name: z.enum(["select_flight", "confirm_cabin"]),
+  }),
+});
 export const secActionSchema = z.object({
   event: z.object({
     name: z.enum(["sec_search", "sec_company", "sec_filings_page", "sec_filings_filter", "sec_filing", "sec_report"]),
@@ -114,7 +119,7 @@ export type A2UIAction = z.infer<typeof actionSchema>;
 export const profileComponents = {
   host: Object.keys(definitions) as ComponentName[],
   dynamic: ["Row", "Column", "Text", "Card", "Metric", "InfoRow", "Chart", "Table", "Badge", "Select", "Input", "Button"] as ComponentName[],
-  fixed: ["Row", "Column", "Text", "Card", "Badge", "Metric", "InfoRow", "Button"] as ComponentName[],
+  fixed: ["Row", "Column", "Text", "Card", "Badge", "Metric", "InfoRow", "Button", "RadioGroup"] as ComponentName[],
   sec: ["Row", "Column", "Text", "Card", "Badge", "Metric", "InfoRow", "Button", "Input", "Select", "Table", "Alert", "Accordion"] as ComponentName[],
 };
 export type CatalogProfile = keyof typeof profileComponents;
@@ -125,6 +130,9 @@ export function catalogId(profile: CatalogProfile) {
 }
 
 export function componentSchema(name: ComponentName, profile: CatalogProfile) {
+  if (profile === "fixed" && name === "Button") {
+    return definitions.Button.props.extend({ action: fixedActionSchema.optional() });
+  }
   return profile === "sec" && name === "Button"
     ? definitions.Button.props.extend({ action: secActionSchema.optional() })
     : definitions[name].props;

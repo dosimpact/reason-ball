@@ -6,6 +6,7 @@ from uuid import uuid4
 
 from copilotkit import a2ui
 
+from .cabin import confirm_cabin
 from .contract import MANIFEST, ContractError, Mode, validate_operations
 from .data import FLIGHTS, sales_summary
 from .facts import FACTS
@@ -94,6 +95,8 @@ def apply_action(mode: Mode, action: dict, surfaces: dict[str, dict]) -> tuple[l
         if not isinstance(context["region"], str):
             raise ContractError("region must be a string")
         data["demo"] = sales_summary(context["region"])
+    elif mode == "fixed" and declared == "confirm_cabin":
+        data = confirm_cabin(data, context)
     elif mode == "fixed" and declared == "select_flight":
         if set(context) != {"flightId"} or context["flightId"] != data.get("flightId"):
             raise ContractError("Flight does not match this card")

@@ -2,7 +2,7 @@
 
 import type { ComponentContext } from "@a2ui/web_core/v0_9";
 import type { ComponentType, ReactNode } from "react";
-import { actionSchema, secActionSchema, type ComponentName, type ComponentProps } from "./definitions";
+import { actionSchema, fixedActionSchema, secActionSchema, type ComponentName, type ComponentProps } from "./definitions";
 
 type Resolved<T> = T extends { path: string } ? never
   : T extends readonly (infer U)[] ? Resolved<U>[]
@@ -17,7 +17,7 @@ export interface AdapterProps<N extends ComponentName> {
 }
 export type AdapterMap = { [N in ComponentName]: ComponentType<AdapterProps<N>> };
 
-export function bindingControls(context: ComponentContext, contract: typeof actionSchema | typeof secActionSchema = actionSchema) {
+export function bindingControls(context: ComponentContext, contract: typeof actionSchema | typeof fixedActionSchema | typeof secActionSchema = actionSchema) {
   const raw = context.componentModel.properties;
   return {
     set(property: string, value: string | number | boolean) {

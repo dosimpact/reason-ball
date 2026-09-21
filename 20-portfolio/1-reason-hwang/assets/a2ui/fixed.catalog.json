@@ -25,6 +25,9 @@
         },
         {
           "$ref": "#/components/Button"
+        },
+        {
+          "$ref": "#/components/RadioGroup"
         }
       ]
     },
@@ -126,9 +129,8 @@
                 },
                 "name": {
                   "enum": [
-                    "search_sales",
                     "select_flight",
-                    "demo_submit"
+                    "confirm_cabin"
                   ],
                   "type": "string"
                 }
@@ -421,6 +423,108 @@
         "component",
         "label",
         "value"
+      ],
+      "type": "object"
+    },
+    "RadioGroup": {
+      "additionalProperties": false,
+      "description": "Single selection presented as radio buttons.",
+      "properties": {
+        "component": {
+          "const": "RadioGroup"
+        },
+        "disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "options": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "label",
+        "value",
+        "options"
       ],
       "type": "object"
     },

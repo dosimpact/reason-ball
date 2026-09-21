@@ -17,11 +17,11 @@ A2UI-REG-001 / A2UI-CAT-001 / A2UI-VER-001. [전체 지도](INDEX.md).
 | 프로필 | 컴포넌트 수 | catalogId |
 | --- | ---: | --- |
 | dynamic | 12 | `reason-hwang://a2ui/dynamic/1.0.0` |
-| fixed | 8 | `reason-hwang://a2ui/fixed/1.0.0` |
+| fixed | 9 | `reason-hwang://a2ui/fixed/1.0.0` |
 | host | 66 | `reason-hwang://a2ui/host-ui/1.0.0` |
 | sec | 13 | `reason-hwang://a2ui/sec/1.0.0` |
 
-모든 props는 JSON으로 표현한다. child/children은 컴포넌트 ID이며 함수·ReactNode·ref는 wire에 없다. Dialog/Select 등의 내부 Trigger·Portal·Content는 조합형 어댑터가 소유한다. 하나의 UI 파일에 있는 모든 하위 export를 독립 생성 대상으로 등록하지 않는다. SEC Button은 SEC 전용 action enum을 사용하며 기존 프로필의 action 허용 목록을 확장하지 않는다.
+모든 props는 JSON으로 표현한다. child/children은 컴포넌트 ID이며 함수·ReactNode·ref는 wire에 없다. Dialog/Select 등의 내부 Trigger·Portal·Content는 조합형 어댑터가 소유한다. 하나의 UI 파일에 있는 모든 하위 export를 독립 생성 대상으로 등록하지 않는다. Fixed Button은 select_flight/confirm_cabin 전용 action enum을, SEC Button은 SEC 전용 action enum을 사용하며 기존 프로필의 action 허용 목록을 확장하지 않는다.
 
 ## 전체 등록 목록
 
@@ -128,6 +128,6 @@ wire는 `v0.9`, JSON Schema는 Draft2020-12, 카탈로그 버전은 `1.0.0`다. 
 | 프로필 | SHA-256 |
 | --- | --- |
 | dynamic | `cf11181fe88bace6520d0fe7987ccb609a435b6f1c6ce30f853128695084a6a7` |
-| fixed | `4a7eb083b137257d66bf030a8c26d20a313c536f0eb955308f144ca89531aff2` |
+| fixed | `94bcc07583e2822e5f16bcf577654e3c484aecdae803e39bddf851a087065e82` |
 | host | `7ddf17aea2bcbe8d36475d26a5d41c25a14c10e56dbf3d19fa338729a267f921` |
 | sec | `55e5a1866347d2ae9c3bbdf43cfb8b28669e3f6bababda3a2c85f5f7a9ca9ded` |
