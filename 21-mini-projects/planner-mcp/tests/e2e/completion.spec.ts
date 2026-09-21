@@ -669,7 +669,7 @@ test("HTTP·MCP 공개 경계와 프로토콜 오류", async ({ request }) => {
         "compare_documents",
       ]),
     );
-    expect(tools.tools).toHaveLength(15);
+    expect(tools.tools).toHaveLength(20);
     expect(tools.tools.map((tool) => tool.name)).not.toContain("approve");
     const invalid = await client.callTool({
       name: "save_document",

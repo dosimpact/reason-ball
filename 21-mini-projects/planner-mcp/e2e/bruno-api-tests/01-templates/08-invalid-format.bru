@@ -1,0 +1,37 @@
+meta {
+  name: TPL-API invalid-format
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/api/templates
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "requestId": "bruno-invalid",
+    "template": {
+      "name": "invalid-format",
+      "title": "API 설계",
+      "description": "Bruno fixture",
+      "format": "react-flow",
+      "body": "# {{title}}",
+      "example": "# 조회 API",
+      "prompt": "근거를 확인하고 작성하세요."
+    }
+  }
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("TPL-001/002/004/005 invalid-format", function() {
+    expect(res.getStatus()).to.equal(400);
+    expect(res.getBody().error.code).to.equal("SCHEMA_INVALID");
+  });
+}

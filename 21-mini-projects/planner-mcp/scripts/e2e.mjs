@@ -1,12 +1,12 @@
 import { spawn } from "node:child_process";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp, rm, mkdir } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import net from "node:net";
 import { once } from "node:events";
 
-async function run(command, args, env = process.env) {
-  const child = spawn(command, args, { stdio: "inherit", env });
+async function run(command, args, env = process.env, cwd = process.cwd()) {
+  const child = spawn(command, args, { stdio: "inherit", env, cwd });
   const [code] = await once(child, "exit");
   if (code !== 0) throw new Error(`${command} exited ${code}`);
 }
@@ -19,7 +19,8 @@ const data = await mkdtemp(path.join(tmpdir(), "planner-e2e-"));
 const baseURL = `http://127.0.0.1:${port}`;
 let server;
 try {
-  await run("pnpm", ["build"]);
+  const mode = process.argv[2];
+  if (mode !== "inspect") await run("pnpm", ["build"]);
   const env = {
     ...process.env,
     PLANNER_DATA_DIR: data,
@@ -53,7 +54,30 @@ try {
     await new Promise((resolve) => setTimeout(resolve, 150));
   }
   if (!ready) throw new Error("Owned test server did not become ready");
-  await run("pnpm", ["exec", "playwright", "test"], env);
+  console.log(`Owned validation server: ${baseURL}`);
+  if (mode === "inspect") {
+    await new Promise((resolve) => {
+      process.once("SIGINT", resolve);
+      process.once("SIGTERM", resolve);
+    });
+  } else {
+    await mkdir("e2e/bruno-api-tests/reports", { recursive: true });
+    await run(
+      path.resolve("node_modules/.bin/bru"),
+      [
+        "run",
+        "--env",
+        "local",
+        "--env-var",
+        `baseUrl=${baseURL}`,
+        "--reporter-json",
+        "reports/results.json",
+      ],
+      env,
+      path.resolve("e2e/bruno-api-tests"),
+    );
+    if (mode !== "api") await run("pnpm", ["exec", "playwright", "test"], env);
+  }
 } catch (error) {
   console.error(error);
   process.exitCode = 1;

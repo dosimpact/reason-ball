@@ -1,3 +1,7 @@
+import {
+  templateDraftSchema,
+  templateName,
+} from "@/entities/template/model/schema";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import {
@@ -23,7 +27,7 @@ export function createMcpServer(store: PlannerStore) {
     { name: "planner-mcp", version: "1.0.0" },
     {
       instructions:
-        "프로젝트 → 카탈로그와 JSON 스키마 → 인덱스/본문 → validate_document → save_document 순서로 작업하세요. scope는 필수입니다. 사실에는 sourceIds 근거가 필요합니다. 갱신에는 expectedRevision, 모든 쓰기에는 고유 requestId를 보내세요. 재시도는 같은 requestId와 내용을 유지합니다. 승인은 사용자 UI에서만 합니다. 구현 에이전트는 승인된 revision으로 get_handoff를 호출하세요.",
+        "공용 템플릿은 list_templates → get_template(name)으로 본문·예시·prompt를 함께 읽고 사용하세요. 프로젝트 → 카탈로그와 JSON 스키마 → 인덱스/본문 → validate_document → save_document 순서로 작업하세요. scope는 필수입니다. 사실에는 sourceIds 근거가 필요합니다. 갱신에는 expectedRevision, 모든 쓰기에는 고유 requestId를 보내세요. 재시도는 같은 requestId와 내용을 유지합니다. 승인은 사용자 UI에서만 합니다. 구현 에이전트는 승인된 revision으로 get_handoff를 호출하세요.",
     },
   );
   const result = async (work: () => unknown | Promise<unknown>) => {
@@ -272,6 +276,62 @@ export function createMcpServer(store: PlannerStore) {
       result(() =>
         store.compareDocuments(input.projectId, input.before, input.after),
       ),
+  );
+  server.registerTool(
+    "list_templates",
+    {
+      description:
+        "공용 문서 템플릿 목록 조회. 이름·본문·예시·AI 사용 프롬프트를 반환",
+      inputSchema: {},
+      annotations: { readOnlyHint: true },
+    },
+    () => result(() => store.templates.list()),
+  );
+  server.registerTool(
+    "get_template",
+    {
+      description:
+        "template name으로 Markdown/Mermaid 템플릿·예시·AI 사용 프롬프트 조회",
+      inputSchema: { name: templateName },
+      annotations: { readOnlyHint: true },
+    },
+    ({ name }) => result(() => store.templates.get(name)),
+  );
+  server.registerTool(
+    "create_template",
+    {
+      description: "공용 문서 템플릿과 AI 사용 프롬프트 생성",
+      inputSchema: { requestId: identifier, template: templateDraftSchema },
+    },
+    ({ requestId, template }) =>
+      result(() => store.templates.save(requestId, template)),
+  );
+  server.registerTool(
+    "update_template",
+    {
+      description: "템플릿과 프롬프트 수정. 읽은 revision 필수",
+      inputSchema: {
+        requestId: identifier,
+        template: templateDraftSchema,
+        expectedRevision: z.number().int().positive(),
+      },
+    },
+    ({ requestId, template, expectedRevision }) =>
+      result(() => store.templates.save(requestId, template, expectedRevision)),
+  );
+  server.registerTool(
+    "delete_template",
+    {
+      description: "공용 템플릿 삭제. 기존 프로젝트 문서는 유지",
+      inputSchema: {
+        requestId: identifier,
+        name: templateName,
+        expectedRevision: z.number().int().positive(),
+      },
+      annotations: { destructiveHint: true },
+    },
+    ({ requestId, name, expectedRevision }) =>
+      result(() => store.templates.delete(requestId, name, expectedRevision)),
   );
   return server;
 }

@@ -246,6 +246,9 @@ export function Workspace({ catalog }: { catalog: CatalogEntry[] }) {
         <Link className="brand" href="/">
           P<span>Planner MCP</span>
         </Link>
+        <Link className="template-entry" href="/templates">
+          문서 템플릿 관리 →
+        </Link>
         <div className="eyebrow">DESIGN WORKSPACE</div>
         <h2>프로젝트</h2>
         <button type="button" onClick={() => chooseProject("")}>

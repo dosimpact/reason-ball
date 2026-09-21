@@ -1,0 +1,38 @@
+meta {
+  name: TPL-API update-prompt
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{baseUrl}}/api/templates/bruno-api-design
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "requestId": "bruno-update",
+    "expectedRevision": 1,
+    "template": {
+      "name": "bruno-api-design",
+      "title": "API 설계",
+      "description": "Bruno fixture",
+      "format": "markdown",
+      "body": "# {{title}}",
+      "example": "# 조회 API",
+      "prompt": "수정한 프롬프트"
+    }
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("TPL-001/002/004/005 update-prompt", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().result.prompt).to.equal("수정한 프롬프트");
+  });
+}

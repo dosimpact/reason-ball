@@ -9,13 +9,13 @@ pnpm workspace에 포함된 Next.js + TypeScript 애플리케이션입니다.
 
 ## 문서
 
-- [설계 목차 및 작성 규칙](docs/design/README.md)
-- [현재 요구사항](docs/design/01-requirements.md)
-- [현재 아키텍처](docs/design/02-architecture.md)
-- [문서 카탈로그와 프로젝트 문서](docs/design/03-document-catalog.md)
-- [설계 입력·검토·구현 에이전트 인계](docs/design/06-design-lifecycle.md)
-- [현재 설계 원칙](docs/design/00-principles.md)
-- [변경 이력](docs/changes/README.md): 변경 사항과 결정 이유 보존
+- [설계 목차 및 작성 규칙](docs/INDEX.md)
+- [현재 요구사항](docs/stock/project-design/01-requirements.md)
+- [현재 아키텍처](docs/stock/tech-shared/system-design.md)
+- [문서 카탈로그와 프로젝트 문서](docs/stock/project-design/03-document-catalog.md)
+- [설계 입력·검토·구현 에이전트 인계](docs/stock/project-design/06-design-lifecycle.md)
+- [현재 설계 원칙](docs/stock/tech-shared/design-principles.md)
+- [변경 이력](docs/flow/INDEX.md): 변경 사항과 결정 이유 보존
 
 ## Workspace 사용
 
@@ -103,7 +103,7 @@ MCP 도구: `list_projects`, `create_project`, `get_project`, `add_source`,
 
 Flow 노드 추가·변경·이동·삭제는 UI에서도 제공합니다. 나머지 본문 작성은 MCP를 사용합니다. 승인 도구는 MCP에 노출하지 않으며 UI의 로컬 사용자 작업으로 분리합니다.
 
-추가 MCP 도구: `import_figma`, `edit_flow_node`, `get_document_relations`, `compare_documents` (전체 15개).
+추가 MCP 도구: `import_figma`, `edit_flow_node`, `get_document_relations`, `compare_documents` (기존 15개). 템플릿 도구 5개를 포함해 현재 전체 20개입니다.
 문서 관계 화면에서 참조 버전 이동·변경 재검토 안내·API 기준 버전 비교를 확인할 수 있습니다.
 Flow 접힘 상태는 문서·탭 이동에도 유지되며 브라우저 새로고침 시 초기화됩니다.
 
@@ -135,7 +135,7 @@ UI의 **입력 자료 → Figma에서 가져오기**에 파일 또는 노드 링
 
 개발 중 저장소·런타임 코드 변경 후에는 실행 중인 서버를 완전히 종료하고 다시 시작하세요.
 전역 저장소 인스턴스가 HMR 후에도 유지될 수 있으므로 도구 목록에 새 도구가 보이는 것만으로
-갱신 완료를 판단하지 않습니다. [운영 기준](docs/design/09-implementation.md)과
+갱신 완료를 판단하지 않습니다. [운영 기준](docs/stock/tech-shared/planner-mcp/implementation.md)과
 [실서버 검증 기록](docs/changes/0013-live-mcp-verification.md)을 참고하세요.
 
 - 기본 위치는 이 패키지의 `.data/`이며 `PLANNER_DATA_DIR`로 변경할 수 있습니다.
@@ -163,8 +163,7 @@ HTML 결과는 `playwright-report/index.html`에 생성됩니다.
 단위·저장 테스트는 `tests/*.test.ts`, 실제 MCP 클라이언트·UI 통합 검증은 `tests/e2e/*.spec.ts`에 있습니다.
 E2E의 외부 Figma API는 전용 서버에만 preload한 fixture로 대체합니다. 실제 Figma 계정 연동 확인 여부와 요구사항별 근거는 [최종 설계 대조 기록](docs/changes/0019-usability-design-audit.md)에 구분해 기록합니다.
 
-현재 구현의 결정과 제한은 [구현 기본값](docs/design/09-implementation.md)을 참조합니다.
-
+현재 구현의 결정과 제한은 [구현 기본값](docs/stock/tech-shared/planner-mcp/implementation.md)을 참조합니다.
 
 ```
 • 로컬 서버를 실행한 상태에서 다음 명령으로 추가하세요.
@@ -175,3 +174,24 @@ E2E의 외부 Figma API는 전용 서버에만 preload한 fixture로 대체합�
 
   codex mcp list
 ```
+
+## 문서 템플릿 관리
+
+프로젝트 작업 공간의 **문서 템플릿 관리** 링크 또는 `/templates`에서 프로젝트 공용 템플릿을 생성·수정·삭제합니다. Markdown/Mermaid 본문, 작성 예시, AI 사용 프롬프트를 함께 저장하고 각각 미리 볼 수 있습니다. 이름은 소문자 영문·숫자·하이픈이며 생성 후 고정됩니다.
+
+- REST 조회: `GET /api/templates`, `GET /api/templates/{name}`.
+- REST 관리: `POST /api/templates` (`requestId`, `template`), `PUT /api/templates/{name}` (`requestId`, `expectedRevision`, `template`), `DELETE /api/templates/{name}` (`requestId`, `expectedRevision`).
+- template 필드: `name`, `title`, `description`, `format: "markdown"`, `body`, `example`, `prompt`.
+- MCP 조회: `list_templates`, `get_template({ name })`. 상세 결과의 `body`, `example`, `prompt`를 함께 읽어 작성에 사용합니다.
+- MCP 관리: `create_template`, `update_template`, `delete_template`. REST와 동일한 저장소·revision·requestId 계약을 사용합니다.
+- 저장은 기존 데이터 디렉터리의 `templates/`이며 초기 목록은 비어 있습니다. 기존 7종 프로젝트 문서 카탈로그는 유지됩니다.
+- [현재 템플릿 설계](docs/stock/document-templates/INDEX.md), [검증 기준](docs/validation/INDEX.md).
+
+```sh
+pnpm --filter planner-mcp test:api       # 생산 빌드 + 소유 서버 + Bruno REST E2E
+pnpm --filter planner-mcp test:e2e       # 위 REST E2E + 전체 Playwright 회귀
+pnpm --filter planner-mcp storybook     # viewer 상태 검증, 기본 6006
+pnpm --filter planner-mcp build-storybook
+```
+
+Markdown은 [react-markdown](https://github.com/remarkjs/react-markdown)의 안전한 렌더링과 GFM 플러그인을 사용하고, viewer 검증은 [Storybook React/Vite](https://storybook.js.org/docs/get-started/frameworks/react-vite)를 사용합니다.

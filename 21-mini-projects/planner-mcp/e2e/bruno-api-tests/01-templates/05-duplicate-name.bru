@@ -1,0 +1,37 @@
+meta {
+  name: TPL-API duplicate-name
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/templates
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "requestId": "bruno-duplicate",
+    "template": {
+      "name": "bruno-api-design",
+      "title": "API 설계",
+      "description": "Bruno fixture",
+      "format": "markdown",
+      "body": "# {{title}}",
+      "example": "# 조회 API",
+      "prompt": "근거를 확인하고 작성하세요."
+    }
+  }
+}
+
+assert {
+  res.status: eq 409
+}
+
+tests {
+  test("TPL-001/002/004/005 duplicate-name", function() {
+    expect(res.getStatus()).to.equal(409);
+    expect(res.getBody().error.code).to.equal("TEMPLATE_NAME_CONFLICT");
+  });
+}

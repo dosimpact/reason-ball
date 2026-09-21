@@ -1,0 +1,38 @@
+meta {
+  name: TPL-API stale-update
+  type: http
+  seq: 7
+}
+
+put {
+  url: {{baseUrl}}/api/templates/bruno-api-design
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "requestId": "bruno-stale",
+    "expectedRevision": 1,
+    "template": {
+      "name": "bruno-api-design",
+      "title": "API 설계",
+      "description": "Bruno fixture",
+      "format": "markdown",
+      "body": "# {{title}}",
+      "example": "# 조회 API",
+      "prompt": "근거를 확인하고 작성하세요."
+    }
+  }
+}
+
+assert {
+  res.status: eq 409
+}
+
+tests {
+  test("TPL-001/002/004/005 stale-update", function() {
+    expect(res.getStatus()).to.equal(409);
+    expect(res.getBody().error.code).to.equal("REVISION_CONFLICT");
+  });
+}

@@ -1,0 +1,22 @@
+meta {
+  name: TPL-API get-by-name
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/templates/bruno-api-design
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("TPL-001/002/004/005 get-by-name", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().result.body).to.equal("# {{title}}");
+  });
+}

@@ -1,0 +1,29 @@
+meta {
+  name: TPL-API delete
+  type: http
+  seq: 9
+}
+
+delete {
+  url: {{baseUrl}}/api/templates/bruno-api-design
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "requestId": "bruno-delete",
+    "expectedRevision": 2
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("TPL-001/002/004/005 delete", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().result.deleted).to.equal(true);
+  });
+}

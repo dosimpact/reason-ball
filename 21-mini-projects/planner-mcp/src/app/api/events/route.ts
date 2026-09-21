@@ -21,12 +21,15 @@ export async function GET(request: Request) {
             `id: ${++sequence}\nevent: change\ndata: ${JSON.stringify(event)}\n\n`,
           );
         store.events.on("change", listener);
+        const templatesListener = () => send("event: templates\ndata: {}\n\n");
+        store.events.on("templates", templatesListener);
         const heartbeat = setInterval(() => send(": heartbeat\n\n"), 15000);
         dispose = () => {
           if (closed) return;
           closed = true;
           clearInterval(heartbeat);
           store.events.off("change", listener);
+          store.events.off("templates", templatesListener);
           request.signal.removeEventListener("abort", dispose);
           controller.close();
         };

@@ -1,3 +1,4 @@
+import { TemplateRepository } from "./templates";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { createHash, randomUUID } from "node:crypto";
@@ -106,7 +107,14 @@ export class PlannerStore {
   private lockFile: string;
   readonly events = new EventEmitter();
 
+  readonly templates: TemplateRepository;
+
   private constructor(readonly root: string) {
+    this.templates = new TemplateRepository(
+      root,
+      this.transact.bind(this),
+      this.events,
+    );
     this.lockFile = path.join(root, ".writer-lock");
   }
   static async open(root: string, pollMs = 1000) {
@@ -851,6 +859,7 @@ export class PlannerStore {
     };
   }
   async scan() {
+    await this.templates.scan();
     await this.scanProjects();
     const found = new Set<string>(),
       issueFiles = new Set<string>();

@@ -1,29 +1,118 @@
+# Repository Guidelines
+
+## Project Structure & Module Organization
+
+This repository is a pnpm workspace managed with Turborepo. Keep the top-level layout predictable:
+
+- `apps/` for runnable applications.
+- `packages/` for shared packages and reusable modules.
+- `assets/` for static files such as images, audio, sample data, or fixtures.
+- `docs/` for design notes, architecture decisions, and user-facing documentation.
+- `21-mini-projects/` for independent workspace mini projects. `todo-list-mcp` is a single Next.js UI/API/MCP application.
+
+Avoid placing implementation files directly in the repository root unless they are standard project entry points or configuration files.
+
+## Build, Test, and Development Commands
+
+Use committed package scripts from the repository root:
+
+- `pnpm install`: install workspace dependencies.
+- `pnpm dev`: run development tasks through Turborepo.
+- `pnpm build`: run production builds through Turborepo.
+- `pnpm test`: run test tasks through Turborepo.
+- `pnpm lint`: run lint tasks through Turborepo.
+- `pnpm typecheck`: run type-check tasks through Turborepo.
+
+Prefer scripts committed in the project manifest over one-off local commands.
+
+For Todo MCP, use `pnpm --filter todo-list-mcp dev` and scoped `test`, `test:e2e`, `typecheck`, `lint`, and `build` scripts. E2E runs headless against an owned server and temporary JSON, then releases its port. Never reuse or terminate unrelated development servers. Keep its core transformations pure and follow SLAP; local runtime JSON is not committed.
+
+## Coding Style & Naming Conventions
+
+Use consistent, language-appropriate formatting once the stack is selected. Until formatter configuration exists, keep files readable with two-space indentation for web assets and four-space indentation for Python-style code. Use descriptive names:
+
+- `camelCase` for JavaScript/TypeScript variables and functions.
+- `PascalCase` for classes and components.
+- `snake_case` for Python modules, functions, and variables.
+- `kebab-case` for static asset filenames.
+
+Add formatter and linter configs early, then treat their output as authoritative.
+
+## Testing Guidelines
+
+Place tests under `tests/` or next to source files using the convention selected by the framework. Name test files clearly, such as `feature.test.ts`, `module.spec.js`, or `test_module.py`. Cover core logic, public interfaces, and regression cases before adding broad end-to-end tests.
+
+## Documentation: Stock and Flow
+
+Maintain project documentation as two complementary systems:
+
+- **Stock documents (저량 문서)** are the canonical, current-state source of truth. Keep one consolidated business design and one consolidated system/development design per project. They must describe the latest agreed product behavior and implemented architecture without requiring readers to reconstruct the present state from historical logs.
+- **Flow documents (유량 문서)** are append-only, point-in-time change records. Record decisions, requirement changes, architecture changes, migrations, validation results, and important implementation notes as they occur. Include the date, context, change, rationale, affected stock sections, and validation or follow-up status.
+
+Use the following operating rules:
+
+1. Read the relevant stock documents before planning or implementing a material change.
+2. During work, create or update a dated flow record so the change history and reasoning are preserved.
+3. Before declaring the work complete, fold every accepted current-state change into the relevant stock documents. A flow record does not replace this synchronization.
+4. When code, stock, and flow disagree, verify the implementation and accepted decision, then update the stock document to the confirmed current state and note the reconciliation in flow.
+5. Link stock and flow documents using stable requirement or decision IDs when practical, and link validation evidence to the requirement it verifies.
+6. Do not copy historical narrative into stock documents unless it is necessary to understand the current design. Do not rewrite or erase historical flow records; supersede them with a new dated entry.
+7. Store stock documents in a predictable project documentation area such as `docs/stock/`. Store flow records in a dated history area such as `docs/flow/`.
+
+For `20-portfolio/3-fsd-next-sample`, use `docs/stock/` for the consolidated business, system, and test designs and `docs/flow/` for dated progress, audit, decision, migration, and validation records. Start with `docs/README.md` for the document map.
+
+## Commit & Pull Request Guidelines
+
+Use concise, imperative commit subjects such as `Add game loop` or `Fix score reset`. Pull requests should include a short summary, test results, linked issues when applicable, and screenshots or recordings for visible UI changes.
+
+## Agent-Specific Instructions
+
+Before editing, inspect the repository state and avoid overwriting user-created files. Keep changes scoped to the requested task, and update this guide when project tooling or structure changes.
+
+
+## Response Format (MANDATORY)
+
+ALWAYS include at the end of each response:
+- **Learning Points**: 3-5 key concepts the user should learn
+- **Next Step**: Specific action with command/tool suggestion
+- Use clear terms and avoid forcing responses into fixed project-type categories.
+
+
+---
+
 # Planner MCP 작업 규칙
 
-상위 저장소의 `AGENTS.md` 규칙을 함께 따릅니다.
+## Phase — 변경 전 설계
 
-## 문서 운영
+- 계획·구현·검토 전에 [문서 맵](docs/INDEX.md)을 읽습니다. 공용 → 구체 순서로 [공통 기술 지도](docs/stock/tech-shared/INDEX.md), 관련 패키지 기술 문서, `docs/stock/<domain-feature-name>/`의 도메인 설계를 확인합니다.
+- 코드 원칙·명령·포트·아키텍처·검증 정책은 맵이 연결하는 원본에 유지하고 이 문서에 중복하지 않습니다.
+- 편집 전에 git status를 확인하고 사용자 파일과 관련 없는 변경을 보존합니다. `docs/human-input/`은 사용자 원문이며 임의로 덮어쓰지 않습니다.
+- `.env`, 토큰, `.data/`, 빌드·테스트 출력·캐시는 커밋하지 않습니다.
 
-- 문서는 두 종류로 관리합니다. `docs/design/`는 계속 유지하는 현재 설계, `docs/changes/`는 변경 사항과 결정 이유의 이력입니다.
-- 작업 시작 시 `docs/design/README.md` → 관련 요구사항 → 관련 상세 설계를 읽습니다. 변경 이유가 필요할 때만 이력을 확인합니다.
-- 현재 설계만 읽어도 작업할 수 있도록 유지합니다. 과거 변경 기록을 조합해야 현재 규칙을 알 수 있게 만들지 않습니다.
-- 현재 설계의 항목별 원본은 설계 목차의 책임 구분을 따릅니다. 다른 문서에는 요약과 링크를 두고 상세 규칙을 중복 작성하지 않습니다.
-- 요구사항·계약·설계 결정이 변경되면 관련 현재 설계를 먼저 갱신하고, 같은 작업에서 `docs/changes/NNNN-topic.md`에 변경 전후·이유·영향 문서·검증 결과를 기록합니다.
-- 제안을 추가하거나 확정한 경우 그 상태를 기록합니다. 사용자 요구와 에이전트 제안을 구분하며 미정인 내용을 확정으로 승격하지 않습니다.
-- 변경 기록은 과거 시점의 기록으로 보존합니다. 정정·대체가 필요하면 새 기록을 작성하고 기존 기록에는 후속 링크를 추가합니다.
-- 오탈자·서식·깨진 링크만 수정한 경우 별도 변경 기록은 생략할 수 있습니다.
-- 문서 추가·이동 시 해당 목차와 참조 링크를 갱신합니다. 완료 전 영향받은 요구사항·아키텍처·상세 설계·검증 기준의 일관성과 링크를 확인합니다.
-- 이 규칙은 저장소 개발 문서에 적용합니다. 제품이 관리하는 프로젝트 문서 카탈로그와는 별개입니다.
+## Phase — 구현
 
-## 프로젝트 작업
+- 설계를 먼저 확정하고 구현합니다. [설계 원칙](docs/stock/tech-shared/design-principles.md)의 SLAP·순수함수·FSD 경계를 따릅니다.
+- 기존 pnpm workspace와 루트 lockfile을 공유합니다. 저장소 루트에서 `pnpm --filter planner-mcp <command>`를 실행합니다. 실행 기본값은 [패키지 구현 문서](docs/stock/tech-shared/planner-mcp/implementation.md)를 따릅니다.
 
-- 구현과 검증을 진행합니다. 기술·코드 작성 원칙의 원본은 `docs/design/00-principles.md`, 실행 기본값과 코드 연결은 `docs/design/09-implementation.md`입니다.
-- 이 패키지는 기존 pnpm workspace와 루트 lockfile을 공유합니다.
-- 패키지 대상 명령은 저장소 루트에서 `pnpm --filter planner-mcp <command>`로 실행합니다.
-- 검증은 `pnpm --filter planner-mcp test`, `lint`, `typecheck`, `test:e2e`를 사용합니다. `test:e2e`는 생산 빌드 후 소유한 서버와 임시 데이터 디렉터리를 사용하고 종료 시 정리합니다.
-- `src/app`은 Next 라우팅·서버 조합, `widgets`는 화면 조합, `features/flow-spec-syntax`는 순수 Flow 로직과 viewer, `entities/document`는 문서 스키마·타입별 보기, `shared`는 공통 경계입니다.
-- 로컬 기본 데이터 `.data/`와 테스트 결과는 커밋하지 않습니다. 다른 개발 서버나 사용자의 데이터 디렉터리로 E2E를 실행하지 않습니다.
-- 문서 관계·Flow 편집·Figma 수집의 추가 계약은 `docs/design/10-completion.md`를 따릅니다. Figma 토큰은 서버 환경변수로만 관리하며 테스트에서는 전용 서버 preload fixture로 외부 API를 대체합니다. 사용자 인증은 범위에서 제외합니다.
+## Phase — 검증
+
+- [검증 원칙](docs/validation/INDEX.md)을 읽고 변경 유형별 필수 검증을 모두 수행합니다.
+- 서버 API 변경은 Bruno 스킬 원칙의 실제 HTTP E2E, 순수 View 변경은 Storybook, 업무 로직 변경은 MCP 브라우저 사용자 흐름 검증을 수행합니다.
+- 소유한 테스트 서버·임시 데이터만 사용하며 다른 개발 서버·사용자 데이터를 사용하거나 종료하지 않습니다.
+- 실행 증거는 flow에 남기고 필수 검증 미실행·실패를 완료로 처리하지 않습니다.
+
+## Phase — 문서화
+
+- docs 하위 문서 지도·진입 파일은 INDEX.md, 프로젝트 루트 소개는 README.md로 유지합니다.
+- 공용 결정은 `docs/stock/tech-shared/`, 패키지 상세는 그 아래 `planner-mcp/`, 업무 규칙은 `docs/stock/<domain-feature-name>/`에 둡니다.
+- stock만으로 현재 상태를 이해할 수 있도록 합의된 요구·계약·구현을 동기화합니다. 사용자 요구와 구현 기본값·미정 제안을 구분합니다.
+- 변경 맥락·이유·영향 stock·검증 결과는 날짜가 있는 `docs/flow/`에 기록합니다. 완료된 기존 flow와 `docs/changes/` 기록은 수정하지 않고 후속 기록으로 대체합니다.
+- `docs/design/`은 이전 경로 안내이며 새 설계를 작성하지 않습니다. 이동 시 목차와 참조를 갱신합니다.
+- 이 문서 운영은 저장소 개발 문서에 대한 규칙이며 제품의 템플릿·프로젝트 문서 관리와 구분합니다.
+
+## Phase — Commit
+
+- 설계·구현·검증·문서화 사이클을 완료한 뒤 요청 범위의 파일만 커밋합니다. 관련 없는 변경은 포함하지 않습니다.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

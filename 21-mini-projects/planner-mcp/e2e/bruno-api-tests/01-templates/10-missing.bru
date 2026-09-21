@@ -1,0 +1,22 @@
+meta {
+  name: TPL-API missing
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/api/templates/bruno-api-design
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+}
+
+tests {
+  test("TPL-001/002/004/005 missing", function() {
+    expect(res.getStatus()).to.equal(404);
+    expect(res.getBody().error.code).to.equal("TEMPLATE_NOT_FOUND");
+  });
+}
