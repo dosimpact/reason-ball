@@ -354,6 +354,27 @@ a {
   width: 100%;
   min-height: 100%;
 }
+@media (min-width: 1001px) {
+  .shell > main:has(> .workspace-shell) {
+    overflow: hidden;
+  }
+  .workspace-shell,
+  .workspace {
+    height: 100%;
+    min-height: 0;
+  }
+  .workspace-panel-scroll {
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+  .workspace-panel-scroll > .detail-panel {
+    min-height: 0;
+  }
+}
 .resizable-handle {
   position: relative;
   flex: 0 0 8px;

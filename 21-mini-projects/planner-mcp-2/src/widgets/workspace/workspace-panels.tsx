@@ -82,17 +82,26 @@ export function WorkspacePanels({
         disabled={!desktop || !detailOpen}
         style={{
           display: desktop ? "flex" : "block",
-          overflow: "visible",
-          height: "auto",
+          overflow: desktop ? "hidden" : "visible",
+          height: desktop ? "100%" : "auto",
         }}
       >
         <ResizablePanel
           id="canvas"
           defaultSize="42.5%"
           minSize={desktop ? "300px" : "0%"}
-          style={{ overflow: "visible", display: "block", maxHeight: "none" }}
+          style={{
+            overflow: desktop ? "hidden" : "visible",
+            display: "block",
+            height: desktop ? "100%" : "auto",
+          }}
         >
-          <div id={canvasRegionId} role="tabpanel">
+          <div
+            id={canvasRegionId}
+            role="tabpanel"
+            className="workspace-panel-scroll"
+            aria-label="캔버스 패널"
+          >
             {!detailOpen && (
               <div className="panel-toolbar desktop-panel-toolbar">
                 <Button
@@ -122,13 +131,19 @@ export function WorkspacePanels({
           id="detail"
           defaultSize="57.5%"
           minSize={desktop ? "340px" : "0%"}
-          style={{ overflow: "visible", display: "block", maxHeight: "none" }}
+          style={{
+            overflow: desktop ? "hidden" : "visible",
+            display: "block",
+            height: desktop ? "100%" : "auto",
+          }}
         >
-          <div id={detailRegionId} role="tabpanel">
-            <div
-              id={detailId}
-              className="panel-toolbar desktop-panel-toolbar"
-            >
+          <div
+            id={detailRegionId}
+            role="tabpanel"
+            className="workspace-panel-scroll"
+            aria-label="상세 패널"
+          >
+            <div id={detailId} className="panel-toolbar desktop-panel-toolbar">
               <Button
                 variant="ghost"
                 size="sm"

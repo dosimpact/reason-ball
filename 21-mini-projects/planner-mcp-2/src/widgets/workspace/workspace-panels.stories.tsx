@@ -40,3 +40,29 @@ export const PreviewModal: Story = {
     />
   ),
 };
+
+export const IndependentScroll: Story = {
+  args: {
+    canvas: (
+      <section className="canvas-panel">
+        <h2>캔버스 목록</h2>
+        {Array.from({ length: 40 }, (_, i) => (
+          <p key={i}>설계 문서 {i + 1}</p>
+        ))}
+      </section>
+    ),
+    detail: (
+      <section className="detail-panel">
+        <h2>긴 상세 문서</h2>
+        {Array.from({ length: 40 }, (_, i) => (
+          <p key={i}>검증 내용 {i + 1}</p>
+        ))}
+      </section>
+    ),
+  },
+  render: (args) => (
+    <div style={{ height: 420 }}>
+      <WorkspacePanels {...args} />
+    </div>
+  ),
+};

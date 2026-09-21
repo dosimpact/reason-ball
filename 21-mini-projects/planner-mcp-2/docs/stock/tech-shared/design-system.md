@@ -30,3 +30,9 @@ GitHub Primer의 중립적인 light 스타일을 참고한 Planner 팔레트입�
 - 버튼은 aria-expanded/aria-controls, 상태별 접근 가능한 이름과 tooltip을 제공한다. Enter/Space로 조작하며 토글 후 포커스를 유지한다.
 - 검색과 본문 컴포넌트는 유지하므로 작성 중인 내용이 사라지지 않는다. 새로고침 시 기본 펼침 상태로 시작한다.
 - 1000px 이하에서는 데스크톱 사이드바 전체를 숨기고 기존 프로젝트 drawer를 사용한다.
+
+## 작업 패널 독립 스크롤
+
+- 1001px 이상에서 workspace-shell과 ResizablePanelGroup을 남은 화면 높이 100%로 제한한다. 각 tabpanel이 overflow:auto로 독립 스크롤하며 overscroll-behavior:contain으로 경계의 스크롤 전파를 막는다.
+- 작업 공간의 main은 스크롤하지 않는다. 캔버스·상세·sidebar의 위치가 서로 영향을 주지 않는다. 다른 페이지(템플릿·안내)의 main 스크롤은 유지한다.
+- 1000px 이하에서는 기존 단일 패널 탭 전환과 main 스크롤을 유지한다.

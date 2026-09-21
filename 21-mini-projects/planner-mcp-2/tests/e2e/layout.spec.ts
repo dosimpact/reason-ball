@@ -85,12 +85,55 @@ test("UI-01/02/03 panel drag, keyboard, minimum widths, round nodes and independ
     const sidebar = page.locator(".sidebar-content");
     const sidebarBefore = (await sidebar.boundingBox())!;
     const main = page.locator(".shell > main");
-    const mainBox = (await main.boundingBox())!;
-    await page.mouse.move(mainBox.x + mainBox.width - 8, mainBox.y + 600);
+    const detailScroll = page.getByRole("tabpanel", {
+      name: "상세 패널",
+      exact: true,
+    });
+    const canvasScroll = page.getByRole("tabpanel", {
+      name: "캔버스 패널",
+      exact: true,
+    });
+    const canvasInitialScroll = await canvasScroll.evaluate((e) => e.scrollTop);
+    const detailBox = (await detailScroll.boundingBox())!;
+    await page.mouse.move(detailBox.x + detailBox.width / 2, detailBox.y + 500);
     await page.mouse.wheel(0, 600);
     await expect
-      .poll(() => main.evaluate((e) => e.scrollTop))
+      .poll(() => detailScroll.evaluate((e) => e.scrollTop))
       .toBeGreaterThan(300);
+    expect(await main.evaluate((e) => e.scrollTop)).toBe(0);
+    expect(await canvasScroll.evaluate((e) => e.scrollTop)).toBe(
+      canvasInitialScroll,
+    );
+    const detailPosition = await detailScroll.evaluate((e) => e.scrollTop);
+    for (let i = 0; i < 12; i++) {
+      await request.post("/api/documents", {
+        data: {
+          projectId: p.id,
+          title: "독립 스크롤 " + i,
+          phase: "design",
+          templateName: "view",
+        },
+      });
+    }
+    await expect(
+      page
+        .locator(".document-list")
+        .getByRole("button", { name: /독립 스크롤 11/ }),
+    ).toBeAttached();
+    const canvasBeforeWheel = await canvasScroll.evaluate((e) => e.scrollTop);
+    const canvasBox = (await canvasScroll.boundingBox())!;
+    await page.mouse.move(
+      canvasBox.x + canvasBox.width / 2,
+      canvasBox.y + canvasBox.height - 30,
+    );
+    await page.mouse.wheel(0, 600);
+    await expect
+      .poll(() => canvasScroll.evaluate((e) => e.scrollTop))
+      .toBeGreaterThan(canvasBeforeWheel + 100);
+    expect(await detailScroll.evaluate((e) => e.scrollTop)).toBe(
+      detailPosition,
+    );
+    expect(await main.evaluate((e) => e.scrollTop)).toBe(0);
     expect((await sidebar.boundingBox())!.y).toBe(sidebarBefore.y);
     expect((await sidebar.boundingBox())!.height).toBe(sidebarBefore.height);
     expect(await page.evaluate(() => window.scrollY)).toBe(0);
@@ -310,7 +353,9 @@ test("MOBILE-01 project drawer and bottom navigation keep the workspace task-fir
       viewport: innerWidth,
     }));
     expect(bounds.width).toBeLessThanOrEqual(bounds.viewport);
-    await page.screenshot({ path: "test-results/mobile-workspace-redesign.png" });
+    await page.screenshot({
+      path: "test-results/mobile-workspace-redesign.png",
+    });
 
     await page.setViewportSize({ width: 768, height: 1024 });
     await expect(projectTrigger).toBeVisible();

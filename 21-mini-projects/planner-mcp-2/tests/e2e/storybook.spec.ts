@@ -317,3 +317,32 @@ test("VIEW-09 CodeWeave tree, diff markers and comment ownership", async ({
   await page.getByRole("button", { name: "전체 펼치기", exact: true }).click();
   await expect(page.getByRole("treeitem")).toHaveCount(4);
 });
+
+test("VIEW-10 canvas and detail scroll independently", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(
+    url +
+      "/iframe.html?id=planner-workspacepanels--independent-scroll&viewMode=story",
+  );
+  const canvas = page.getByRole("tabpanel", {
+    name: "캔버스 패널",
+    exact: true,
+  });
+  const detail = page.getByRole("tabpanel", { name: "상세 패널", exact: true });
+  const detailBox = (await detail.boundingBox())!;
+  await page.mouse.move(detailBox.x + 80, detailBox.y + 200);
+  await page.mouse.wheel(0, 250);
+  await expect
+    .poll(() => detail.evaluate((e) => e.scrollTop))
+    .toBeGreaterThan(100);
+  expect(await canvas.evaluate((e) => e.scrollTop)).toBe(0);
+  const detailTop = await detail.evaluate((e) => e.scrollTop);
+  const canvasBox = (await canvas.boundingBox())!;
+  await page.mouse.move(canvasBox.x + 80, canvasBox.y + 200);
+  await page.mouse.wheel(0, 250);
+  await expect
+    .poll(() => canvas.evaluate((e) => e.scrollTop))
+    .toBeGreaterThan(100);
+  expect(await detail.evaluate((e) => e.scrollTop)).toBe(detailTop);
+  expect(await page.evaluate(() => window.scrollY)).toBe(0);
+});
