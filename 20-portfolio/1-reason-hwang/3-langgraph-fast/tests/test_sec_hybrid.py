@@ -3,6 +3,7 @@ import json
 import pytest
 from langchain_core.language_models.fake_chat_models import FakeMessagesListChatModel
 from langchain_core.messages import AIMessage, HumanMessage
+from langchain_core.runnables import RunnableConfig
 from pydantic import ValidationError
 
 from domains.tenk.a2ui_report import ReportError, generate_report, prepare_report_source
@@ -58,7 +59,7 @@ async def test_focused_report_rejects_unrequested_claims_and_keeps_citation_chec
 @pytest.mark.asyncio
 async def test_stages_remove_hidden_actions_and_search_clears_report():
     workflow = graph()
-    config = {"configurable": {"thread_id": "hybrid-stages"}}
+    config: RunnableConfig = {"configurable": {"thread_id": "hybrid-stages"}}
     result = await workflow.ainvoke({"messages": [HumanMessage(content="DEMO")]}, config)
     tree = next(iter(result["surfaces"].values()))["components"]
     assert "companies" in tree and "filings" not in tree and "report" not in tree
@@ -116,8 +117,14 @@ async def test_selected_filing_chat_runs_focused_report_and_limits_request(monke
         return ReportPlan.model_validate({"sections": [{"section": "summary", "presentation": "cards"}]})
 
     monkeypatch.setattr(module, "plan_report", select_plan)
-    workflow = graph()
-    config = {"configurable": {"thread_id": "hybrid-chat"}}
+    workflow = graph(agent_responses=[
+        tool_result("search_companies", {"query": "DEMO"}),
+        tool_result("render_fixed_ui", {}), AIMessage(content="조회했습니다."),
+        tool_result("analyze_filing", {"request": "핵심만 카드로"}),
+        tool_result("render_dynamic_ui", {"plan": {"sections": [{"section": "summary", "presentation": "cards"}]}}),
+        AIMessage(content="핵심만 카드로 표시했습니다."),
+    ])
+    config: RunnableConfig = {"configurable": {"thread_id": "hybrid-chat"}}
     result = await workflow.ainvoke({"messages": [HumanMessage(content="DEMO")]}, config)
     result = await workflow.ainvoke({"messages": [], "a2ui_action": action(result, "company-select", cik=CIK)}, config)
     result = await workflow.ainvoke({"messages": [], "a2ui_action": action(result, "filing-select", accession=ACCESSION)}, config)

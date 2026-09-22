@@ -49,7 +49,7 @@
 3. `extractSchema`는 일부 Zod 타입 내부 이름만 추출한다. 완전한 JSON Schema 생성기로 사용하지 않는다.
 4. 기존 Chat Completions 프록시는 완성된 JSON을 반환하지만 Responses 프록시는 스트리밍을 지원한다. 기존 모델의 `disable_streaming=True`는 유지하고 A2UI 전용 모델 팩토리를 둔다.
 5. OAuth Responses upstream은 typed `system` message를 거절한다. 전용 `OAuthResponsesChatOpenAI`가 이를 typed `developer` message로 바꾼다. API-key 모델과 기존 채팅에는 적용하지 않는다.
-6. SDK의 기본 activity 렌더러는 메시지마다 Provider를 생성한다. 기존 surface의 후속 도구 결과를 반영하기 위해 데모의 activity 렌더러가 해당 agent의 ToolMessage를 구독하고 동일 surface에 적용한다. 적용한 operation batch는 중복 처리하지 않는다.
+6. SDK의 기본 activity 렌더러는 메시지마다 Provider를 생성한다. 기존 surface의 후속 도구 결과를 반영하기 위해 첫 실행 전의 상위 SurfaceStreamProvider가 해당 agent의 ToolMessage/activity를 구독한다. 호출 ID별 operation batch를 한 번씩 기록하고 각 화면이 자기 surface에 순서대로 적용한다. SEC는 기본 Inline 새 ID와 고정 Canvas ID를 분리한다(SEC-A2UI-11).
 
 ## 구조와 책임
 
@@ -166,12 +166,12 @@ Row는 콘텐츠의 최소 너비를 보장하며 줄바꿈하고 Metric 값은 
 
 | 항목 | Dynamic 매출 | Fixed 항공편 | SEC |
 | --- | --- | --- | --- |
-| 구조 결정 | 모델이 정적 카탈로그 안에서 조합 | 작성된 flight.json 트리 | 서버가 고정 컴포넌트로 구성 |
+| 구조 결정 | 모델이 정적 카탈로그 안에서 조합 | 작성된 flight.json 트리 | 모델이 Fixed 조회 템플릿 또는 제한된 Dynamic 보고서 구성 도구 선택 |
 | 데이터 | 서버의 가상 매출 facts | 서버의 가상 항공편 | 기존 BFF 회사/공시/저장 원문 |
-| 모델 역할 | 도구 선택과 화면 구성 | 항공편 표시 도구 선택 | 선택 원문 발췌의 구조화 분석 |
+| 모델 역할 | 도구 선택과 화면 구성 | 항공편 표시 도구 선택 | 대화 의도 판단, 조회·선택·분석·렌더 도구 선택 및 원문 발췌의 구조화 분석 |
 | 사용자 action | 지역 조회 | 항공편 선택 | 검색/페이지/필터/공시 선택/보고서 |
 
-Dynamic에서도 카탈로그는 정적이다. 매번 바뀌는 것은 허용된 컴포넌트로 조립하는 화면 트리다. Fixed에서도 데이터와 사용자 입력은 바뀔 수 있다. SEC는 서버 구성 UI와 모델 작성 분석 내용을 결합한다.
+Dynamic에서도 카탈로그는 정적이다. 매번 바뀌는 것은 허용된 컴포넌트로 조립하는 화면 트리다. Fixed에서도 데이터와 사용자 입력은 바뀔 수 있다. SEC는 모델이 대화 의도에 따라 도구를 선택하고 서버 구성 Fixed 조회 UI와 모델이 항목/순서/표현을 고른 Dynamic 보고서를 결합한다. 일반 안내는 도구 없이 답한다. 상세 범위는 [SEC-A2UI-10](sec.md#sec-a2ui-10-에이전트의-도구-선택)을 따른다.
 
 ## 추가 요구사항
 

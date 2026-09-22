@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const externalBaseURL = process.env.PLAYWRIGHT_BASE_URL;
+
 const calculationSpec = /index-dcf-calculation\.spec\.ts$/;
 const visualizerSpec = /index-dcf-visualizer\.spec\.ts$/;
 
@@ -14,11 +16,11 @@ export default defineConfig({
     ['html', { open: 'never' }],
   ],
   use: {
-    baseURL: 'http://127.0.0.1:2800',
+    baseURL: externalBaseURL ?? 'http://127.0.0.1:2800',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
-  webServer: {
+  webServer: externalBaseURL ? undefined : {
     command: 'pnpm dev',
     url: 'http://127.0.0.1:2800',
     reuseExistingServer: !process.env.CI,

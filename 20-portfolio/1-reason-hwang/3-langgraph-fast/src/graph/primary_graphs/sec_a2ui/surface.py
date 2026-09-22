@@ -27,7 +27,7 @@ def render_surface(surface_id: str, state: dict, *, create: bool) -> list[dict]:
     ui.add("root", "Column", children=visible)
     _add_search(ui, state)
     if "companies" in state and not company:
-        visible.append("companies")
+        visible.append("companies" if companies else "companies-empty")
         _add_companies(ui, state, companies)
     if company:
         visible.extend(["selected-company", "filings"])
@@ -53,7 +53,7 @@ def _add_search(ui: SurfaceBuilder, state: dict):
 
 def _add_companies(ui: SurfaceBuilder, state: dict, companies: list):
     if not companies:
-        ui.add("companies", "Alert", title="회사 검색 결과", text="검색 결과가 없습니다. 검색어를 바꿔 주세요.")
+        ui.add("companies-empty", "Alert", title="회사 검색 결과", text="검색 결과가 없습니다. 검색어를 바꿔 주세요.")
         return
     ui.add("companies", "Card", title="회사 검색 결과", child="company-fields")
     ui.add("company-fields", "Column", children=["company-table", "company-choice", "company-select", "company-pages", "company-status"])

@@ -22,7 +22,7 @@
 
 `/a2ui/sec` → 동일 출처 CopilotKit Runtime → FastAPI SEC 전용 LangGraph → 기존 BFF `/api/sec/companies`, `/api/sec/filings`, `/api/sec/filings/:cik/:accessionNo/content`.
 
-회사의 검색·선택과 공시 목록은 서버가 구성한 A2UI 화면이다. 보고서의 분석 내용과 제한된 ReportPlan은 모델이 생성하고 서버가 허용된 UI 템플릿으로 변환한다. ReportPlan은 summary/business/financials/risks 중 1~4개 고유 항목과 cards/table/accordion 표현만 선택한다. 임의 HTML/React나 근거 없는 수치 차트 생성은 지원하지 않는다. 모델이 공시 식별자·가격·재무 수치를 임의로 만들어 조회하는 경로는 제공하지 않는다. 기존 66개 어댑터를 재사용하고 SEC용 정적 하위 카탈로그를 둔다.
+채팅은 LangGraph 에이전트가 질문 의도를 판단하고 서버 도구를 선택한다. 일반 안내·기능 질문은 도구 없이 텍스트로 답하며 기존 선택과 화면을 보존한다. 회사의 검색·선택과 공시 목록은 서버가 구성한 Fixed A2UI 화면이다. 보고서의 분석 내용과 제한된 ReportPlan은 모델이 생성하고 서버가 허용된 UI 템플릿으로 변환한다. ReportPlan은 summary/business/financials/risks 중 1~4개 고유 항목과 cards/table/accordion 표현만 선택한다. 임의 HTML/React나 근거 없는 수치 차트 생성은 지원하지 않는다. 모델이 공시 식별자·가격·재무 수치를 임의로 만들어 조회하는 경로는 제공하지 않는다. 기존 66개 어댑터를 재사용하고 SEC용 정적 하위 카탈로그를 둔다.
 
 회사 검색은 `q`, 명시적 page/pageSize를 기존 API로 전달한다. 공시 조회는 선택한 CIK를 강제하며 기본적으로 원문 없이 메타데이터만 읽는다. 서버 설정의 BFF 주소만 사용하고 사용자가 제공한 임의 URL로 요청하지 않는다.
 
@@ -41,7 +41,7 @@
 | `1-fe-host/src/lib/a2ui/generated/sec.catalog.json` | SEC 전용 Button action을 포함한 정적 하위 카탈로그 |
 | `1-fe-host/src/app/a2ui/sec/` | SEC 페이지 진입점 |
 
-FastAPI 연결은 기존 `A2UI_LANGGRAPH_URL`, FastAPI→BFF 연결은 `A2UI_SEC_BFF_URL`(기본 `http://127.0.0.1:2801`)이다. 모델 설정은 공통 `A2UI_MODEL_*`를 사용하며 회사·공시 조회에는 모델 호출이 필요하지 않다. SEC 프로토콜은 기존과 같은 v0.9, 카탈로그 ID는 `reason-hwang://a2ui/sec/1.0.0`이다. 기존 Dynamic/Fixed/Host의 허용 action과 해시는 SEC 확장으로 변경하지 않는다.
+FastAPI 연결은 기존 `A2UI_LANGGRAPH_URL`, FastAPI→BFF 연결은 `A2UI_SEC_BFF_URL`(기본 `http://127.0.0.1:2801`)이다. 모델 설정은 공통 `A2UI_MODEL_*`를 사용하며 채팅의 도구 선택에는 모델을 사용한다. 화면 버튼을 통한 회사·공시 조회 action은 모델 없이 실행한다. SEC 프로토콜은 기존과 같은 v0.9, 카탈로그 ID는 `reason-hwang://a2ui/sec/1.0.0`이다. 기존 Dynamic/Fixed/Host의 허용 action과 해시는 SEC 확장으로 변경하지 않는다.
 
 ## 보고서와 근거
 
@@ -59,7 +59,7 @@ FastAPI 연결은 기존 `A2UI_LANGGRAPH_URL`, FastAPI→BFF 연결은 `A2UI_SEC
 
 SEC 전용 thread 상태는 검색 조건, 서버가 반환한 선택 가능 회사/공시, 현재 선택, 보고서와 surface를 가진다. action은 허용된 이름·발신 컴포넌트·선택 가능한 ID와 현재 상태를 모두 검사한다. 회사 변경 시 공시 선택과 보고서 상태를 초기화한다.
 
-action은 `sec_search`, `sec_company`, `sec_filings_page`, `sec_filings_filter`, `sec_filing`, `sec_report`다. 서버가 발행한 revision과 context의 고정값을 검사해 오래된 action 및 변경된 식별자를 거절한다. 클라이언트의 가변 바인딩은 검색어·선택값·필터·500자 이내 분석 요청만 허용한다. 동일 surface의 root를 갱신한다. 단계마다 현재 트리를 새 스냅샷으로 검증해 사라진 컴포넌트의 action도 서버 상태에서 제거한다. 최초 생성도 ToolNode를 통해 실제 TOOL_CALL_RESULT로 전달한다. STATE_SNAPSHOT만 반환하면 SDK가 최초 화면을 생성하지 않는 문제를 회귀 테스트로 고정했다.
+action은 `sec_search`, `sec_company`, `sec_filings_page`, `sec_filings_filter`, `sec_filing`, `sec_report`다. 서버가 발행한 revision과 context의 고정값을 검사해 오래된 action 및 변경된 식별자를 거절한다. 클라이언트의 가변 바인딩은 검색어·선택값·필터·500자 이내 분석 요청만 허용한다. 버튼 action은 해당 surface의 root를 갱신한다. 자연어 요청의 새 출력과 Canvas 수명은 SEC-A2UI-11을 따른다. 단계마다 현재 트리를 새 스냅샷으로 검증해 사라진 컴포넌트의 action도 서버 상태에서 제거한다. 최초 생성도 ToolNode를 통해 실제 TOOL_CALL_RESULT로 전달한다. STATE_SNAPSHOT만 반환하면 SDK가 최초 화면을 생성하지 않는 문제를 회귀 테스트로 고정했다.
 
 조회와 보고서 생성 모두 비동기로 처리하고 동시 실행 제한과 취소 정리를 기존 A2UI 정책에 맞춘다. 보고서 생성 도중 이전 화면은 유지하되 진행 상태를 표시하며, 실패 후 같은 선택으로 재시도할 수 있게 한다.
 
@@ -74,8 +74,51 @@ action은 `sec_search`, `sec_company`, `sec_filings_page`, `sec_filings_filter`,
 
 회사 검색 결과에서는 회사 목록만, 회사 선택 후에는 선택 회사와 공시 필터/목록을 표시한다. 공시 선택 후에는 목록을 접고 선택 공시 정보와 분석 요청/보고서 생성 버튼을 표시한다. “공시 다시 선택”은 목록으로 돌아가며 보고서와 분석 요청을 초기화한다. 상단 회사 검색은 항상 유지하며 새 검색은 이전 선택과 보고서를 초기화한다.
 
-선택 공시가 있으면 채팅 입력도 분석 요청으로 처리한다. 회사 변경은 화면의 회사 검색을 사용한다. 빈 분석 요청은 기존 전체 4항목 접이식 보고서이고, “위험 요인만 표로 보여줘”는 위험 항목 표만 생성한다. SEC 표는 긴 분석/인용을 읽을 수 있도록 고정 열 너비와 줄바꿈을 적용한다. 표는 분석과 인용을 보여주는 근거 표이며 검증되지 않은 수치 차트를 생성하지 않는다.
+선택 공시가 있어도 모든 채팅 입력을 분석으로 취급하지 않는다. 에이전트가 도움말, 회사 변경, 공시 탐색, 분석을 구분한다. 회사 변경은 채팅 또는 화면의 회사 검색으로 가능하다. 빈 분석 요청은 기존 전체 4항목 접이식 보고서이고, “위험 요인만 표로 보여줘”는 위험 항목 표만 생성한다. SEC 표는 긴 분석/인용을 읽을 수 있도록 고정 열 너비와 줄바꿈을 적용한다. 표는 분석과 인용을 보여주는 근거 표이며 검증되지 않은 수치 차트를 생성하지 않는다.
 
 모델 계획과 보고서의 검증은 각각 최대 2회 시도한다. 요청하지 않은 보고서 항목의 내용은 거절한다. 요청한 항목에 근거가 없으면 해당 영역에 근거 없음 안내를 표시한다. 생성 중 이전 화면을 유지하고 실패하면 이전 정상 보고서와 선택을 보존한다. SEC 보고서는 완성·검증 후 갱신하며 매출 Dynamic의 점진 렌더링 옵션과 별개다.
 
 변경 및 실행 증거: [SEC Hybrid 기록](../../../flow/2026-09-21-sec-hybrid-ui.md).
+
+## SEC-A2UI-10: 에이전트의 도구 선택
+
+`begin → agent → tools → agent` 루프를 사용하며 도구 호출 없는 답변은 종료한다. 모델은 한 번에 하나의 도구를 선택하고 결과를 읽은 뒤 후속 도구 또는 한국어 답변을 결정한다. 한 요청의 모델 판단은 최대 10회다. “뭐가 가능해?”는 검색·분석 없이 기능을 설명한다. “쿠팡 공시 보여줘”는 실제 회사 조회 결과의 CIK로 공시를 조회한다. 여러 공시 중 선택이 모호하면 사용자에게 선택을 요청한다.
+
+| 도구 | 계약 |
+| --- | --- |
+| `search_companies(query, page)` | 회사명/티커 검색. 새 검색은 이전 회사·공시·보고서를 초기화 |
+| `list_filings(cik, page, status, form, since)` | 현재 회사 검색 결과에 있는 CIK만 허용. 페이지와 필터를 검증 |
+| `select_filing(accession)` | 현재 회사의 조회된 공시 목록에서만 선택 |
+| `analyze_filing(request)` | 선택·저장된 원문만 재조회하고 분석/인용 검증. 요청 최대 500자 |
+| `render_fixed_ui()` | 서버가 현재 단계 템플릿을 구성. 보고서는 분석한 항목의 접이식 템플릿 |
+| `render_dynamic_ui(plan)` | 분석한 항목 집합을 유지하며 모델이 순서와 cards/table/accordion을 선택. 서버가 검증한 내용·근거를 화면으로 변환 |
+
+두 렌더 도구 모두 실제 ToolNode의 A2UI 도구 결과를 전달한다. 채팅의 도구 호출은 모델 출력이며 서버가 임의로 tool_calls를 합성하지 않는다. 화면 버튼은 별도 `action → render_action → finish_action` 경로로 동작한다. 이 경로는 사용자가 이미 특정 action을 선택했으므로 의도를 모델로 재판단하지 않는다.
+
+도구의 조회·분석 결과는 요청 중 `working_sec`에 보관하고, 렌더링 검증을 통과했을 때 `sec`와 `surfaces`에 함께 반영한다. 다음 요청 시작 시 미반영 작업 상태를 폐기한다. 취소된 도구의 미완성 호출/고아 결과는 다음 모델 입력에서 제외한다. 모델에는 원문 전체와 A2UI JSON 대신 서버 상태 요약과 화면 전달 결과를 제공한다. 원문은 기존 분석 도구만 읽는다. API/BFF 오류는 내용이 정제된 실패 결과로 전달하고, 임의 provider 오류는 기존 SSE 경계에서 정제한다.
+
+일반 질문은 revision을 변경하지 않는다. 렌더링할 때만 revision을 증가시키며 회사 변경에도 단조 증가한다. 검색 결과가 빈 상태일 때는 `companies-empty` 컴포넌트를 사용하여 기존 회사 표의 속성이 다른 종류의 컴포넌트에 남지 않게 한다.
+
+Dynamic의 범위는 근거 보고서의 허용된 항목/표현 조합이다. 임의 HTML/React/수치 차트 생성으로 확대하지 않는다.
+
+변경 근거·검증: [에이전트 도구 전환](../../../flow/2026-09-22-sec-agent-tools.md).
+
+## SEC-A2UI-11: Inline 이력과 고정 Canvas
+
+Fixed/Dynamic은 화면 구성 방식이며 Inline/Canvas는 출력 위치와 수명이다. 동일 `sec_a2ui` graph와 여섯 도구가 두 출력 흐름을 처리한다. 사용자 `결과 표시 위치` 선택은 다음 자연어 요청의 `forwardedProps.a2uiOutputTarget`으로 전달하며 기본값은 `inline`이다. 다른 enum이나 SEC 외 Canvas 요청은 422로 거절한다. 클라이언트가 보낸 상태/임의 surface ID는 사용하지 않는다.
+
+| 구분 | Inline (기본) | Canvas |
+| --- | --- | --- |
+| 새 렌더 도구 호출 | 매번 새 서버 발급 `sec-inline-*` ID와 createSurface | 첫 호출만 `sec-canvas-*` ID와 createSurface, 이후 같은 ID 갱신 |
+| 표시 위치 | 각 채팅 응답 안의 독립 결과 | 대화 옆 고정 작업 영역 한 곳 |
+| 이전 결과 | 새 화면 생성 후 읽기 전용으로 보존 | 현재 화면으로 갱신 |
+| 화면 버튼 | 최신 Inline만 해당 ID 갱신; 이전 Inline action은 서버도 거절 | 출력 선택값과 무관하게 Canvas 자체 ID/선택 상태 갱신 |
+| 일반 도움말 | 화면/선택/revision 변경 없음 | 화면/선택/revision 변경 없음 |
+
+한 실행에서 두 번 render하면 Inline에는 두 화면이 남고 Canvas는 순차 갱신된다. 출력 위치를 바꿔도 이미 표시된 다른 위치의 화면은 유지한다. 채팅으로 생성한 후속 화면은 이전 Inline 화면을 바꾸지 않는다. 화면 내 입력 초안은 브라우저 로컬 상태이며 서버에 제출한 결과 스냅샷과 구분한다.
+
+서버 `surfaces`와 `surface_contexts`에는 최신 Inline과 Canvas의 검증된 트리/SEC 상태만 보존한다. 과거 Inline 결과는 대화 ToolMessage에 남는다. `canvas_surface_id`는 해당 thread에서 서버가 발급한다. 버튼 실행은 발신 surface의 저장된 SEC 상태를 읽어 다른 화면의 회사/공시와 섞이지 않게 한다. 마지막으로 성공한 화면 갱신의 SEC 상태가 다음 자연어 요청의 문맥이 된다. 분석 결과/원문 권위와 도구 검증은 출력 위치와 무관하게 동일하다.
+
+Canvas는 현재 대화당 하나다. 여러 Canvas, 과거 Inline의 재활성화, 서버 재시작 후 복구는 구현 범위가 아니다. `새 대화`는 채팅/Canvas/출력 선택을 초기화한다. 실행 중 위치 선택은 잠긴다.
+
+검증: [Inline/Canvas 기록](../../../flow/2026-09-22-sec-inline-canvas.md).

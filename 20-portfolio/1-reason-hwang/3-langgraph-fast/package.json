@@ -15,7 +15,8 @@
     "sync": "uv sync",
     "clean": "rm -rf dist build .pytest_cache .ruff_cache .pyright .coverage coverage htmlcov",
     "test:cabin:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 15-cabin-a2ui --env local",
-    "test:a2ui:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 13-a2ui --env local"
+    "test:a2ui:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 13-a2ui --env local",
+    "test:sec-agent:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 16-sec-agent --env local"
   },
   "devDependencies": {
     "@usebruno/cli": "^2.13.0"

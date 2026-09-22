@@ -1,0 +1,31 @@
+meta {
+  name: SEC-A2UI-11 invalid-target
+  type: http
+  seq: 12
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("agentManifest");
+  req.setBody({threadId: bru.getVar("agentThread"), runId: "run-" + Date.now(), state: {}, tools: [], context: [],
+    messages: [{id: "user-" + Date.now(), role: "user", content: '뭐가 가능해?'}],
+    forwardedProps: {a2uiOutputTarget: 'invalid', a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}});
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("Invalid output target is rejected", function () {
+    expect(JSON.stringify(res.getBody())).to.include("a2uiOutputTarget");
+  });
+}

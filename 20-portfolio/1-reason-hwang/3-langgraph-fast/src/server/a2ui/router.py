@@ -37,7 +37,7 @@ def get_agent(mode: Mode) -> LangGraphAgent:
     load_catalog(mode)
     return LangGraphAgent(
         name=f"a2ui-{mode}", graph=build_sec_graph() if mode == "sec" else build_graph(mode, ModelSettings.from_env().build()),
-        config={"recursion_limit": 12},
+        config={"recursion_limit": 24 if mode == "sec" else 12},
     )
 
 
@@ -67,10 +67,16 @@ async def prepare_input(mode: Mode, value: RunAgentInput, agent: LangGraphAgent)
             validate_sec_action(action, surfaces)
         else:
             apply_action(mode, action, surfaces)
+    target = props.get("a2uiOutputTarget", "inline")
+    if target not in ("inline", "canvas") or (mode != "sec" and target != "inline"):
+        raise ContractError("a2uiOutputTarget must be inline, or canvas for SEC")
     trusted_props = {"a2ui_action": action}
+    trusted_state = {"surfaces": surfaces, "a2ui_action": action}
+    if mode == "sec":
+        trusted_state["output_target"] = target
     # Client state cannot replace authoritative surfaces or install frontend tools.
     return value.model_copy(update={
-        "state": {"surfaces": surfaces, "a2ui_action": action},
+        "state": trusted_state,
         "forwarded_props": trusted_props,
         "tools": [],
         # Actions operate on checkpoint state, not client model-stream fragments.

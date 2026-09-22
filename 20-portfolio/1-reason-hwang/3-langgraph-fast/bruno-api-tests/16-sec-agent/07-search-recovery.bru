@@ -1,0 +1,46 @@
+meta {
+  name: SEC-A2UI-10 07-search-recovery
+  type: http
+  seq: 7
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("agentManifest");
+  const threadId = bru.getVar("agentThread");
+  bru.setVar("agentThread", threadId);
+  req.setBody({threadId, runId: "run-" + Date.now(), state: {}, tools: [], context: [],
+    messages: [{id: "user-" + Date.now(), role: "user", content: "다시 CPNG 회사만 찾아줘"}],
+    forwardedProps: {a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}});
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("SEC-A2UI-10 07-search-recovery", function () {
+    expect(events.some(e => e.type === "RUN_ERROR")).to.equal(false);
+    expect(events.some(e => e.type === "RUN_FINISHED")).to.equal(true);
+    const names = events.filter(e => e.type === "TOOL_CALL_START").map(e => e.toolCallName);
+    const snapshots = events.filter(e => e.type === "STATE_SNAPSHOT");
+    const snapshot = snapshots[snapshots.length - 1].snapshot;
+    expect(names).to.include("search_companies");
+    expect(names).to.include("render_fixed_ui");
+    expect(snapshot.sec.companies.items.some(row => row.ticker === "CPNG")).to.equal(true);
+    const tree = Object.values(snapshot.surfaces)[0].components;
+    expect(tree["company-table"]).not.to.equal(undefined);
+    expect(tree["companies-empty"]).to.equal(undefined);
+    bru.setVar("agentSnapshot", snapshot);
+    console.log("Agent tools:", names.join(" -> ") || "text only");
+  });
+}

@@ -24,9 +24,11 @@ class ReportModel(FakeMessagesListChatModel):
         return self
 
 
-def graph(failures=None):
+def graph(failures=None, agent_responses=None, requests=None):
     def handler(request):
         assert request.method == "GET"
+        if requests is not None:
+            requests.append(str(request.url))
         if failures and failures.get("path") == request.url.path:
             return httpx.Response(503, text="private upstream diagnostics")
         if request.url.path.endswith("/content"):
@@ -40,7 +42,12 @@ def graph(failures=None):
 
     report = {"summary": [{"analysis": "클라우드 서비스를 제공합니다.", "citations": [{"evidence_id": "E1", "quote": QUOTE}]}], "business": [], "financials": [], "risks": []}
     model = ReportModel(responses=[AIMessage(content="", tool_calls=[{"name": "FilingReport", "id": "report", "args": report}])])
-    return build_sec_graph(SecClient(transport=httpx.MockTransport(handler)), model)
+    agent = ReportModel(responses=agent_responses or [
+        AIMessage(content="", tool_calls=[{"name": "search_companies", "id": "search", "args": {"query": "DEMO"}}]),
+        AIMessage(content="", tool_calls=[{"name": "render_fixed_ui", "id": "fixed", "args": {}}]),
+        AIMessage(content="회사 검색 결과를 표시했습니다."),
+    ])
+    return build_sec_graph(SecClient(transport=httpx.MockTransport(handler)), model, agent_model=agent)
 
 
 def action(result, component, **inputs):

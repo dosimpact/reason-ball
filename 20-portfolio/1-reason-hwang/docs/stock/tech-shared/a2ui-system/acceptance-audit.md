@@ -1,6 +1,6 @@
 # 요구사항별 완료 감사
 
-2026-09-21. 사용자의 OAuth 한정 검증 결정에 따라 현재 코드·실행 기록을 대조한다. 세부 결과와 기록 링크는 [운영과 검증](operations-and-validation.md)에 있다.
+2026-09-22 SEC 에이전트 검증 반영. 사용자의 OAuth 한정 검증 결정에 따라 현재 코드·실행 기록을 대조한다. 세부 결과와 기록 링크는 [운영과 검증](operations-and-validation.md)에 있다.
 
 | 요구사항 | 구현/실행 증거 | 판정 |
 | --- | --- | --- |
@@ -28,6 +28,12 @@
 | 기술 문서 통합 |전용 INDEX와8개 기술문서, 링크 검사 | 충족 |
 | 검증 후 commit |f1dd3a8: A2UI 변경 164파일 커밋 | 충족; 무관한 사용자 문서 제외 |
 
+## SEC 대화 에이전트
+
+| 요구사항 | 구현/실행 증거 | 판정 |
+| --- | --- | --- |
+| SEC-A2UI-10 | 일반 안내 도구0개, 모델의 조회·Fixed/Dynamic 선택, 원문 인용, 상태 보존과 빈 결과 전환; [에이전트 검증](../../../flow/2026-09-22-sec-agent-tools.md) | OAuth API/MCP 브라우저 범위 충족 |
+
 ## 검증 범위와 제한
 
 1. action 요청 messages 정리 이후 Dynamic/Fixed/SEC Bruno HTTP 회귀는 순차 재실행하여 모두 통과했다.
@@ -38,3 +44,5 @@
 이 표의 ‘충족 증거 있음’은 적힌 범위만 뜻한다. 외부 서비스의 모든 가능한 장애를 검증했다는 뜻이 아니며, API-key 실모델 검증은 사용자 범위 변경에 의해 제외되었다.
 
 범위 변경 근거: [OAuth 검증 범위 및 완료 기록](../../../flow/2026-09-21-a2ui-oauth-scope-and-completion.md).
+
+SEC-A2UI-11: 기본 Inline의 새 ID/이력 보존, 고정 Canvas ID, 화면별 context 및 action 검증 구현. OAuth/BFF 실서비스 Bruno12/12, 2820 Playwright4/4, Storybook86/86 통과. 상세 결과와 제한은 [출력 수명 검증](../../../flow/2026-09-22-sec-inline-canvas.md)에 기록한다.

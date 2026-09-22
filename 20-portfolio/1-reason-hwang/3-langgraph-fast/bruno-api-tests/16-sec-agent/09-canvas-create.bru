@@ -1,0 +1,44 @@
+meta {
+  name: SEC-A2UI-11 canvas-create
+  type: http
+  seq: 9
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("agentManifest");
+  req.setBody({threadId: bru.getVar("agentThread"), runId: "run-" + Date.now(), state: {}, tools: [], context: [],
+    messages: [{id: "user-" + Date.now(), role: "user", content: 'CPNG 회사를 검색해줘'}],
+    forwardedProps: {a2uiOutputTarget: 'canvas', a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}});
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("SEC-A2UI-11 canvas-create", function () {
+    expect(events.some(e => e.type === "RUN_ERROR")).to.equal(false);
+    expect(events.some(e => e.type === "RUN_FINISHED")).to.equal(true);
+    const snapshots = events.filter(e => e.type === "STATE_SNAPSHOT");
+    const snapshot = snapshots[snapshots.length - 1].snapshot;
+    const operations = events.filter(e => e.type === "TOOL_CALL_RESULT").flatMap(e => {
+      try { return JSON.parse(e.content).a2ui_operations || []; } catch { return []; }
+    });
+    const id = snapshot.canvas_surface_id;
+    expect(id.startsWith("sec-canvas-")).to.equal(true);
+    expect(operations.some(op => op.createSurface?.surfaceId === id)).to.equal(true);
+    expect(snapshot.surfaces[bru.getVar("lastInlineId")]).to.deep.equal(bru.getVar("lastInlineTree"));
+    bru.setVar("canvasId", id);
+    bru.setVar("agentSnapshot", snapshot);
+  });
+}

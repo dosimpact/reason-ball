@@ -13,7 +13,7 @@
 
 `/a2ui`가 진입점이다. `/a2ui/catalog`는 하나의 어댑터씩 보여준다. Dynamic·Fixed·SEC는 별도 agent와 thread를 사용한다. `A2UI_LANGGRAPH_URL`은 서버 전용 FastAPI base URL이며 기본값은 `http://127.0.0.1:8000`이다. 브라우저에 모델 비밀값을 전달하지 않는다.
 
-입력값은 DataContext에 쓴다. action 제출 시 resolveAction으로 최신 바인딩을 해석한 다음 dispatchAction을 호출한다. SDK 기본 activity renderer 대신 각 surface가 agent ToolMessage를 구독한다. 서로 다른 메시지 ID의 동일 데이터는 정상적인 재조회이므로 다시 반영한다.
+입력값은 DataContext에 쓴다. action 제출 시 resolveAction으로 최신 바인딩을 해석한 다음 dispatchAction을 호출한다. SDK 기본 activity renderer 대신 `SurfaceStreamProvider`가 첫 실행 전에 agent 메시지를 구독한다. 검증된 ToolMessage와 a2ui-surface activity를 toolCallId 기준으로 한 번씩 순서대로 기록한다. 실행 도중 마운트한 화면도 이 기록을 받아 후속 갱신을 놓치지 않는다. 같은 호출의 tool/activity/최종 메시지 스냅샷 중복을 제거하며 다른 toolCallId의 재조회는 다시 반영한다.
 
 ## 검증 명령
 
@@ -38,9 +38,9 @@ Storybook은 A2UI 프로토콜을 거쳐 모든 어댑터를 렌더링한다. Se
 
 ## A2UI-PROGRESS-001: SSE 진행 표시
 
-`RunProgress`는 현재 CopilotKit agent의 실행 수명주기 및 `a2ui.progress` CUSTOM 이벤트를 구독한다. 요청 전송부터 실제 서버 단계의 순서를 최대12개 표시한다. RUN_FINISHED는 완료, RUN_ERROR(code=abort)와 AbortError는 중단, 나머지 RUN_ERROR 및 실행 실패는 실패, 완료 이벤트 없는 실행 종료는 중단으로 표시한다. 새 실행은 이전 단계를 초기화하며 새 대화는 컴포넌트를 재생성한다. 임의 타이머나 가상의 퍼센트는 사용하지 않는다. 알 수 없는 stage는 무시한다. SEC는 현재 요청 전송과 수명주기만 표시하며 상세 단계 이벤트는 Dynamic/Fixed graph에서 제공한다.
+`RunProgress`는 현재 CopilotKit agent의 실행 수명주기 및 `a2ui.progress` CUSTOM 이벤트를 구독한다. 요청 전송부터 실제 서버 단계의 순서를 최대12개 표시한다. RUN_FINISHED는 완료, RUN_ERROR(code=abort)와 AbortError는 중단, 나머지 RUN_ERROR 및 실행 실패는 실패, 완료 이벤트 없는 실행 종료는 중단으로 표시한다. 새 실행은 이전 단계를 초기화하며 새 대화는 컴포넌트를 재생성한다. 임의 타이머나 가상의 퍼센트는 사용하지 않는다. 알 수 없는 stage는 무시한다. SEC도 각 agent 판단 단계에서 analyzing 이벤트를 발행하며 요청 수명주기와 함께 표시한다. Dynamic/Fixed의 구성·검증 등 상세 단계는 해당 graph에서 제공한다.
 
-SEC 전용 경로와 모델 없는 조회 흐름은 [SEC](sec.md), 실행 설정은 [운영](operations-and-validation.md), wire와 진행 이벤트는 [프로토콜](protocol-and-events.md)을 따른다.
+SEC의 에이전트 도구 선택과 버튼 조회 흐름은 [SEC](sec.md), 실행 설정은 [운영](operations-and-validation.md), wire와 진행 이벤트는 [프로토콜](protocol-and-events.md)을 따른다.
 
 ## A2UI-STREAM-001: Dynamic 표시 방식 선택
 
@@ -55,3 +55,9 @@ Dynamic 화면의 `화면 표시 방식`에서 `일괄 · 완성 후 표시`와 
 Fixed 제목은 “항공편 · 기내식 · 좌석 선택 · Fixed”이며 설명·질문 예시·채팅 환영 문구에서 항공편 조회와 기내식/좌석 선택을 함께 안내한다. 문구 원본은 `features/a2ui-demo/fixed-copy.ts`이다. 페이지 밖의 중복 추가 데모 안내는 제거하고 기존 제목·설명 영역에 통합했다. 실제 예약 및 좌석 확보를 하지 않는다는 안내를 유지한다.
 
 Fixed 예시는 기존 인천→도쿄·부산→오사카 항공편 질문을 유지하고 같은 예시 영역 뒤에 기내식만·좌석만·둘 다 선택하는 질문을 이어 붙인다. 별도의 “추가 데모” 안내 영역은 사용하지 않는다.
+
+## SEC-A2UI-11: 결과 표시 위치
+
+SEC `결과 표시 위치`는 채팅(기본) / Canvas를 제공한다. 데스크톱은 채팅과 스크롤 가능한 고정 Canvas를 두 열로, 작은 화면은 세로로 배치한다. `output-workspace.tsx`는 Canvas를 별도로 마운트하고 activity renderer는 Canvas ID를 채팅에 중복 표시하지 않는다. 최신 Inline 이전의 결과는 fieldset 입력/버튼을 잠그고 “이전 결과 · 읽기 전용”으로 표시한다. ID 수명, 상태 격리와 서버 action 거절은 [SEC-A2UI-11](sec.md#sec-a2ui-11-inline-이력과-고정-canvas)이 소유한다.
+
+`surface-stream.tsx`의 상위 구독자는 AG-UI가 실행 시작에 구독자 목록을 캡처하는 동작을 고려한다. `SurfaceMessages`는 메시지 등장 시점과 무관하게 해당 surface의 기록을 순서대로 반영한다. initial activity와 후속 도구 갱신은 동일 A2UIProvider를 사용한다. 새 대화에서는 journal과 Canvas가 함께 폐기된다.

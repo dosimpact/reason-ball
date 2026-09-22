@@ -180,3 +180,7 @@ Detailed implementation notes are grouped by their technical owners:
 If a supporting document conflicts with code or a stock document, verify the implementation first and reconcile the appropriate domain stock document. Preserved imported notes may contain historical routes or paths. Use the [relocation map and reading rules](stock/tech-shared/INDEX.md) to resolve them; the move itself does not certify that every historical detail matches current code.
 
 - [A2UI 시스템 설계](stock/tech-shared/a2ui-system/INDEX.md): 전체 UI Registry, 정적 카탈로그, SDK/프로토콜 버전 계약, Dynamic/Fixed 및 사용자 action.
+
+- [SEC 대화 에이전트와 화면 도구](flow/2026-09-22-sec-agent-tools.md): 일반 답변·조회·분석·Fixed/Dynamic 도구 선택과 실서비스 E2E.
+
+- [SEC Inline / Canvas](flow/2026-09-22-sec-inline-canvas.md): 기본 채팅 결과 이력과 동일 Canvas 갱신을 하나의 LangGraph에서 분리.

@@ -28,7 +28,7 @@ A2UI_MODEL_PROVIDER=oauth-proxy A2UI_MODEL=gpt-5.6-luna A2UI_MODEL_BASE_URL=http
 A2UI_LANGGRAPH_URL=http://127.0.0.1:18082 pnpm --filter reason-hwang-fe-host dev --port 2819
 ```
 
-위 포트는 예시이며 점유 중인 서버를 덮어 실행하지 않는다. SEC에는 별도로 기존 BFF/DB가 필요하다. 새 스키마나 대량 수집은 A2UI 테스트의 전제가 아니다. 회사/공시 조회는 모델 없이 가능하며 보고서 생성 때만 모델을 사용한다.
+위 포트는 예시이며 점유 중인 서버를 덮어 실행하지 않는다. SEC에는 별도로 기존 BFF/DB가 필요하다. 새 스키마나 대량 수집은 A2UI 테스트의 전제가 아니다. 채팅은 일반 안내와 조회/분석 도구 선택에도 모델을 사용한다. 화면의 회사/공시 조회 버튼 action은 모델 없이 실행한다.
 
 화면은 `/a2ui`, `/a2ui/catalog`, `/a2ui/dynamic`, `/a2ui/fixed`, `/a2ui/sec`다. 프런트엔드와 FastAPI 포트를 혼동하지 않는다. `2815~2819` 등 작업 중 사용한 preview 포트는 영구 프로젝트 기본값이 아니며 실행 생존 여부는 매번 확인한다.
 
@@ -102,7 +102,7 @@ fixture 단위 테스트는 실모델 제공자 검증을 대체하지 않는다
 | action422 | 해당 thread의 surface/source ID, 허용 입력 및 SEC revision |
 | 409/429 | 같은 thread 실행 중 여부, StreamGate 용량 |
 | 처음 SEC 화면 없음 | 실제 ToolNode/TOOL_CALL_RESULT, 단순 STATE_SNAPSHOT만 반환하지 않는지 |
-| action 이후 화면 그대로 | LiveSurface ToolMessage 구독, surfaceId, 중복 처리 key |
+| action 이후 화면 그대로 | 상위 SurfaceStreamProvider의 실행 전 구독, surfaceId, toolCallId 중복 제거 및 서버 재시작 여부 |
 | 생성 실패 | 전용 모델 설정·provider 호환성, 서버의 sanitized 오류, 계약/facts 검증 |
 | SEC 보고서 버튼 비활성 | 원문 저장됨 필터, 선택 공시 status와 본문 API 상태 |
 | 카탈로그 데이터가 안 바뀜 | 해당 속성의 path 바인딩 여부, JSON 적용 버튼, 고정 속성 여부 |
@@ -138,6 +138,26 @@ fixture 단위 테스트는 실모델 제공자 검증을 대체하지 않는다
 
 - [취소 복구 보정 후 최종 HTTP 회귀](../../../flow/2026-09-21-a2ui-final-http-regression.md)
 
-## 현재 사용자 확인 서비스 (2026-09-21 갱신)
+## 현재 사용자 확인 서비스 (2026-09-22 갱신)
 
-2820 Host는 `NEXT_DIST_DIR=.next-fixed-ui-current`, `A2UI_LANGGRAPH_URL=http://127.0.0.1:18083`으로 빌드·실행 중이다. 18083 Python도 ui_type 지원 최신 코드로 재시작했다. OAuth2890/gpt-5.6-luna, SEC BFF18101을 사용한다. 별도 검증 서버와 달리 사용자가 확인할 서비스로 유지한다. [실제 서비스 검증 기록](../../../flow/2026-09-21-a2ui-fixed-examples-service-refresh.md).
+Host는 `http://localhost:2820/a2ui/sec`에서 개발 모드로 실행하며 FastAPI 기본 연결 `http://127.0.0.1:8000`을 사용한다. BFF는2801, OAuth 프록시는2890이다. Python 모델 설정은 로컬 비추적 `.env`를 읽는다. 재시작 시 모델 환경 변수를 누락하지 않는다.
+
+```sh
+pnpm --filter reason-hwang-fe-host dev --port 2820
+# Python 패키지 디렉터리에서 .env를 명시적으로 읽는다.
+uv run uvicorn server.server:app --reload --env-file .env --host 127.0.0.1 --port 8000
+```
+
+SEC 에이전트 API와 브라우저 회귀는 실제 OAuth/BFF를 사용하므로 순차 실행한다.
+
+```sh
+pnpm --filter reason-hwang-langgraph-fast test:sec-agent:api --env-var baseUrl=http://127.0.0.1:8000
+pnpm --filter reason-hwang-fe-host test:e2e:sec-agent
+```
+
+`test:e2e:sec-agent`는 사용자가 실행한2820을 명시적으로 대상으로 삼으며 서버를 생성/종료하지 않는다. 일반 Playwright 실행에서는 비용이 드는 SEC live spec을 건너뛴다. `PLAYWRIGHT_BASE_URL`을 지정하면 기존 config가 해당 URL을 사용하고 webServer를 실행하지 않는다. 사용자가 지정한 서비스에만 이 옵션을 사용한다.
+
+[에이전트 전환과 검증 기록](../../../flow/2026-09-22-sec-agent-tools.md).
+
+
+SEC-A2UI-11 실서비스 검증은 위 `test:sec-agent:api`(12요청)와 `test:e2e:sec-agent`(4시나리오)에 포함한다. Inline 이력·읽기 전용, Canvas 동일 ID 갱신, 위치 전환 상태 보존, Canvas 버튼의 발신 문맥을 검사한다. `test:a2ui:views`는 늦게 마운트한 화면과 중복 tool/activity 이벤트 회귀를 포함한다. [최종 증거](../../../flow/2026-09-22-sec-inline-canvas.md)를 참조한다.

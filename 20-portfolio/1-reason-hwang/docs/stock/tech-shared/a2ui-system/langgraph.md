@@ -35,7 +35,7 @@ pnpm --filter reason-hwang-langgraph-fast build
 
 Dynamic/Fixed graph는 LangChain `adispatch_custom_event`로 `a2ui.progress`를 발행하고 AG-UI가 `CUSTOM` SSE 이벤트로 전달한다. payload는 `{stage: string}`이며 `analyzing`, `composing`, `validating`, `retrying`, `delivering`, `updating`만 사용한다. Dynamic의 composing/validating은 planner 호출 전후에 발생하고 retrying은 검증 실패 후 두 번째 실제 시도에서 발생한다. 완료는 별도 stage가 아니라 RUN_FINISHED이며 실패는 RUN_ERROR다. 질문·프롬프트·내부 추론은 진행 payload에 담지 않는다.
 
-SEC는 별도 `sec → render(ToolNode) → finish` 그래프다. 상세 구현과 원문 처리 제한은 [SEC](sec.md), 상태 소유권은 [프로토콜](protocol-and-events.md)을 따른다.
+SEC 채팅은 별도 `begin → agent → tools(ToolNode) → agent` 루프이며 도구 없이 끝나는 일반 답변을 지원한다. 모델이 조회·분석·Fixed/Dynamic 렌더 도구를 선택한다. 버튼은 `action → render_action → finish_action` 경로다. 상세 구현과 원문 처리 제한은 [SEC](sec.md), 상태 소유권은 [프로토콜](protocol-and-events.md)을 따른다.
 
 ## CABIN-01: 기내식·좌석 Fixed 데모
 
@@ -55,3 +55,7 @@ A2UI_LANGGRAPH_URL=http://127.0.0.1:18084 NEXT_DIST_DIR=.next-cabin-dev pnpm --f
 브라우저 `http://localhost:2821/a2ui/fixed`에서 “도쿄에서 인천 항공편의 기내식과 좌석을 선택하고 싶어”를 입력한다. 검증 결과는 [기내식·좌석 검증 기록](../../../flow/2026-09-21-a2ui-cabin-validation.md)에 있다.
 
 CABIN-03: 단일 도구의 UI 선택 인자와 개별 확정 검증은 [UI 종류 확장 기록](../../../flow/2026-09-21-a2ui-cabin-ui-types.md)을 따른다.
+
+## SEC 출력 대상
+
+동일 SEC graph에서 `output_target=inline|canvas`로 렌더링 대상만 구분한다. `surface_contexts`는 최신 Inline/Canvas의 SEC 상태를 저장하고 action은 발신 surface의 context를 사용한다. Inline render 도구마다 새 ID, Canvas에는 저장된 ID를 사용한다. 전송 경계에서 target enum과 checkpoint의 surface/action을 검증한다. 서버가 재시작되면 InMemorySaver의 ID/선택 상태도 사라지므로 새 대화로 시작해야 한다. 상세 계약은 [SEC-A2UI-11](sec.md#sec-a2ui-11-inline-이력과-고정-canvas)을 따른다.

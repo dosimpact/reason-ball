@@ -1,0 +1,45 @@
+meta {
+  name: SEC-A2UI-10 05-natural-filings
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("agentManifest");
+  const threadId = bru.getVar("agentThread");
+  bru.setVar("agentThread", threadId);
+  req.setBody({threadId, runId: "run-" + Date.now(), state: {}, tools: [], context: [],
+    messages: [{id: "user-" + Date.now(), role: "user", content: "이 쿠팡 회사의 공시 목록을 보여줘"}],
+    forwardedProps: {a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}});
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("SEC-A2UI-10 05-natural-filings", function () {
+    expect(events.some(e => e.type === "RUN_ERROR")).to.equal(false);
+    expect(events.some(e => e.type === "RUN_FINISHED")).to.equal(true);
+    const names = events.filter(e => e.type === "TOOL_CALL_START").map(e => e.toolCallName);
+    const snapshots = events.filter(e => e.type === "STATE_SNAPSHOT");
+    const snapshot = snapshots[snapshots.length - 1].snapshot;
+    expect(names).to.include("list_filings");
+    expect(names).to.include("render_fixed_ui");
+    expect(names).not.to.include("analyze_filing");
+    expect(snapshot.sec.company.ticker).to.equal("CPNG");
+    expect(snapshot.sec.filings.items.every(row => row.cik === snapshot.sec.company.cik)).to.equal(true);
+    bru.setVar("agentSnapshot", snapshot);
+    console.log("Agent tools:", names.join(" -> ") || "text only");
+  });
+}
