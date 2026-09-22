@@ -1,0 +1,11 @@
+> reason-hwang-fe-host@0.1.0 test:e2e:sec-agent /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+> SEC_AGENT_LIVE_TESTS=1 PLAYWRIGHT_BASE_URL=http://localhost:2820 playwright test sec-agent.spec.ts --project=chromium --workers=1 --grep 'Inline history'
+
+
+Running 1 test using 1 worker
+
+(node:18840) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/e2e/sec-agent.spec.ts:109:7 › SEC-A2UI-12 reviewed UX › Inline history folds; Canvas keeps its own document and replaces stale title (52.8s)
+
+  1 passed (53.9s)

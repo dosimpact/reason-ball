@@ -121,7 +121,7 @@ Fixed/Dynamic은 화면 구성 방식이며 Inline/Canvas는 출력 위치와 �
 
 Canvas는 현재 대화당 하나다. 여러 Canvas, 과거 Inline의 재활성화, 서버 재시작 후 복구는 구현 범위가 아니다. `새 대화`는 채팅/Canvas/출력 선택을 초기화한다. 실행 중 위치 선택은 잠긴다.
 
-검증: [Inline/Canvas 기록](../../../flow/2026-09-22-sec-inline-canvas.md).
+검증: [Inline/Canvas 기록](../../../flow/2026-09-22-sec-inline-canvas.md), [버튼 ID 유지 및 출력 격리 재검증](../../../flow/2026-09-22-sec-output-recheck.md).
 
 ## SEC-A2UI-12: 조회와 분석의 단계별 UX
 

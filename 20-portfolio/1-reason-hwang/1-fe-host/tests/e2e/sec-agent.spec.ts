@@ -123,6 +123,14 @@ test.describe('SEC-A2UI-12 reviewed UX', () => {
     await previous.click();
     await expect(inline.getByRole('button', { name: 'CPNG 공시 보기', exact: true })).toBeDisabled();
     await previous.click();
+    // SEC-A2UI-11: a button updates its own Inline surface; chat renders create IDs.
+    const activeInlineId = await inline.locator('fieldset').last().getAttribute('data-surface-id');
+    const inlineFiling = await inline.getByRole('button', { name: /^10-K · .* 선택$/ }).first().innerText();
+    await finishAction(page, inlineFiling, inline);
+    await expect(inline.locator('fieldset')).toHaveCount(2);
+    await expect(inline.locator('fieldset').last()).toHaveAttribute('data-surface-id', activeInlineId!);
+    await expect(inline.getByRole('button', { name: '핵심 요약', exact: true })).toBeEnabled();
+    expect(await inline.locator('fieldset').first().textContent()).toEqual(history);
     await location.selectOption('canvas');
     await expect(canvas).toBeVisible();
     const inCanvas = await send(page, twoStages);

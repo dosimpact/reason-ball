@@ -187,3 +187,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 
 - [SEC UX 재설계](flow/2026-09-22-sec-ux-redesign.md): 직접 선택, 분석 바로가기, 접힌 이력, 조건부 Canvas 및 실제2820 검증.
 - [SEC 독립 UX 리뷰](flow/2026-09-22-sec-ux-review.md): 변경 전 문제와 재설계 검토.
+
+- [SEC 출력 수명 재검증](flow/2026-09-22-sec-output-recheck.md): Inline 버튼 동일 ID, 자연어 새 ID, Canvas 고정 ID와 상태 격리 브라우저 확인.
