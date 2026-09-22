@@ -1,0 +1,54 @@
+
+> reason-hwang-langgraph-fast@0.1.0 test:sec-financial:api /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/3-langgraph-fast
+> cd bruno-api-tests && ../node_modules/.bin/bru run 18-sec-financial --env local --env-var baseUrl=http://127.0.0.1:8000
+
+18-sec-financial/01-manifest (200 OK) - 40 ms
+Tests
+   ✓ SEC catalog is registered
+Assertions
+   ✓ res.status: eq 200
+18-sec-financial/02-extract-charts (200 OK) - 46044 ms
+Tool calls ["search_companies","list_filings","select_filing","extract_financial_data","render_financial_charts"]
+Tests
+   ✓ SEC-CHART extract-charts
+Assertions
+   ✓ res.status: eq 200
+18-sec-financial/03-reuse-line (200 OK) - 22092 ms
+Tool calls ["render_financial_charts"]
+Tests
+   ✓ SEC-CHART reuse-line
+Assertions
+   ✓ res.status: eq 200
+18-sec-financial/04-canvas (200 OK) - 8101 ms
+Tool calls ["render_financial_charts"]
+Tests
+   ✓ SEC-CHART canvas
+Assertions
+   ✓ res.status: eq 200
+18-sec-financial/05-canvas-update (200 OK) - 9029 ms
+Tool calls ["render_financial_charts"]
+Tests
+   ✓ SEC-CHART canvas-update
+Assertions
+   ✓ res.status: eq 200
+18-sec-financial/06-quarterly (200 OK) - 48293 ms
+Tool calls ["search_companies","list_filings","select_filing","extract_financial_data","render_financial_charts"]
+Tests
+   ✓ SEC-CHART quarterly-financials
+Assertions
+   ✓ res.status: eq 200
+
+📊 Execution Summary
+┌───────────────┬──────────────┐
+│ Metric        │    Result    │
+├───────────────┼──────────────┤
+│ Status        │    ✓ PASS    │
+├───────────────┼──────────────┤
+│ Requests      │ 6 (6 Passed) │
+├───────────────┼──────────────┤
+│ Tests         │     6/6      │
+├───────────────┼──────────────┤
+│ Assertions    │     6/6      │
+├───────────────┼──────────────┤
+│ Duration (ms) │    133599    │
+└───────────────┴──────────────┘

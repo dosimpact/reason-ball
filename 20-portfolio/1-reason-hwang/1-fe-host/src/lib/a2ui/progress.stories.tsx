@@ -21,3 +21,8 @@ export const Stopped: Story = {
   args: { progress: { stages: ["analyzing", "composing"], status: "stopped" } },
   play: async ({ canvasElement }) => { await expect(within(canvasElement).getByRole("status")).toHaveTextContent("중단"); },
 };
+
+export const FinancialReading: Story = {
+  args: { compact: true, progress: { stages: ["financial_index", "financial_read"], status: "running" } },
+  play: async ({ canvasElement }) => { await expect(within(canvasElement).getByRole("status")).toHaveTextContent("선택한 재무 표를 읽고 있습니다"); },
+};

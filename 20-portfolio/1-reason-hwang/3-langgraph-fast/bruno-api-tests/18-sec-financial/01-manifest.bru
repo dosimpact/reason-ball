@@ -1,0 +1,19 @@
+meta {
+  name: SEC A2UI contract
+  type: http
+  seq: 1
+}
+get {
+  url: {{baseUrl}}/ag-ui/a2ui/manifest
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC catalog is registered", function () {
+    expect(res.getBody().catalogs.sec.catalogId).to.include("/sec/");
+    bru.setVar("uxManifest", res.getBody());
+  });
+}

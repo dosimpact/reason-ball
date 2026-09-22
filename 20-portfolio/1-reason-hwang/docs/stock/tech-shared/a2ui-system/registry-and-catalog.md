@@ -18,14 +18,14 @@ A2UI-REG-001 / A2UI-CAT-001 / A2UI-VER-001. [전체 지도](INDEX.md).
 | --- | ---: | --- |
 | dynamic | 12 | `reason-hwang://a2ui/dynamic/1.0.0` |
 | fixed | 9 | `reason-hwang://a2ui/fixed/1.0.0` |
-| host | 66 | `reason-hwang://a2ui/host-ui/1.0.0` |
-| sec | 13 | `reason-hwang://a2ui/sec/1.0.0` |
+| host | 67 | `reason-hwang://a2ui/host-ui/1.1.0` |
+| sec | 15 | `reason-hwang://a2ui/sec/1.1.0` |
 
 모든 props는 JSON으로 표현한다. child/children은 컴포넌트 ID이며 함수·ReactNode·ref는 wire에 없다. Dialog/Select 등의 내부 Trigger·Portal·Content는 조합형 어댑터가 소유한다. 하나의 UI 파일에 있는 모든 하위 export를 독립 생성 대상으로 등록하지 않는다. Fixed Button은 select_flight/confirm_cabin 전용 action enum을, SEC Button은 SEC 전용 action enum을 사용하며 기존 프로필의 action 허용 목록을 확장하지 않는다.
 
 ## 전체 등록 목록
 
-61개 원본 UI 파일 + Row/Column/Text/Metric/InfoRow = 66개 어댑터. 원본 열의 파일은 `1-fe-host/src/components/ui/` 기준이다.
+61개 원본 UI 파일 + Row/Column/Text/Metric/InfoRow/FinancialChart = 67개 어댑터. FinancialChart는 기존 chart.tsx를 재사용하는 A2UI 확장이다. 원본 열의 파일은 `1-fe-host/src/components/ui/` 기준이다.
 
 | 컴포넌트 | 원본 | 역할 |
 | --- | --- | --- |
@@ -44,6 +44,7 @@ A2UI-REG-001 / A2UI-CAT-001 / A2UI-VER-001. [전체 지도](INDEX.md).
 | Card | card.tsx | Titled content card containing one child. |
 | Carousel | carousel.tsx | Navigable slides with previous and next controls. |
 | Chart | chart.tsx | Bar or pie chart of numeric data. Data can be an inline series or a data-model path to a series. |
+| FinancialChart | A2UI 전용 | 원문 검증 데이터의 막대·그룹 막대·누적 막대·선·영역·도넛. SEC/Host에 등록하며 기존 Chart는 유지한다. |
 | Checkbox | checkbox.tsx | Boolean selection written to its bound data model path. |
 | Collapsible | collapsible.tsx | Show or hide a content section. |
 | Column | A2UI 전용 | Vertical layout of component IDs. |
@@ -123,11 +124,11 @@ A2UI-REG-001 / A2UI-CAT-001 / A2UI-VER-001. [전체 지도](INDEX.md).
 | python | `langchain` | 1.4.2 |
 | python | `langgraph` | 1.2.11 |
 
-wire는 `v0.9`, JSON Schema는 Draft2020-12, 카탈로그 버전은 `1.0.0`다. 공식 규격 commit은 `2d2a714dafd22590e705c32a47cd5390ab96fdc5`이며 `assets/a2ui/specification/v0_9`에 고정한다.
+wire는 `v0.9`, JSON Schema는 Draft2020-12, 기본 카탈로그 버전은 `1.0.0`, SEC/Host의 개별 catalogId 버전은 `1.1.0`이다. 공식 규격 commit은 `2d2a714dafd22590e705c32a47cd5390ab96fdc5`이며 `assets/a2ui/specification/v0_9`에 고정한다.
 
 | 프로필 | SHA-256 |
 | --- | --- |
 | dynamic | `cf11181fe88bace6520d0fe7987ccb609a435b6f1c6ce30f853128695084a6a7` |
 | fixed | `94bcc07583e2822e5f16bcf577654e3c484aecdae803e39bddf851a087065e82` |
-| host | `7ddf17aea2bcbe8d36475d26a5d41c25a14c10e56dbf3d19fa338729a267f921` |
-| sec | `55e5a1866347d2ae9c3bbdf43cfb8b28669e3f6bababda3a2c85f5f7a9ca9ded` |
+| host | `9c102f7af2d58ad8f8c248089027826169f0afb4bff050614605fd3de55bcf0b` |
+| sec | `484f9438635f41a00e61514bd74a6192c5f9b66f2c3ed07fca50d80ce1190631` |

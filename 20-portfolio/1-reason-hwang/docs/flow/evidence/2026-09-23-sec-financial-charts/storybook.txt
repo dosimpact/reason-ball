@@ -1,0 +1,28 @@
+
+> reason-hwang-fe-host@0.1.0 test:a2ui:views /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+> vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/lib/a2ui/*.stories.tsx
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+(node:36272) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+ ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/dodo/workspace/reason-ball/pnpm-lock.yaml as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+ Detected additional lockfiles:
+   * /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/pnpm-lock.yaml
+
+Plugin "vitest:mocks:interceptor" defines Vite-specific hooks (configureServer) in a plugin returned from applyToEnvironment. These hooks will be ignored.
+
+ RUN  v5.0.1 /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+
+
+ Test Files  12 passed (12)
+      Tests  103 passed (103)
+   Start at  01:45:19
+   Duration  13.48s (worker 90%, import 5%, tests 4%, setup 1%)

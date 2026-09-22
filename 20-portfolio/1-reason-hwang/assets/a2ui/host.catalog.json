@@ -45,6 +45,9 @@
           "$ref": "#/components/Carousel"
         },
         {
+          "$ref": "#/components/FinancialChart"
+        },
+        {
           "$ref": "#/components/Chart"
         },
         {
@@ -207,9 +210,9 @@
       "type": "object"
     }
   },
-  "$id": "reason-hwang://a2ui/host-ui/1.0.0",
+  "$id": "reason-hwang://a2ui/host-ui/1.1.0",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "catalogId": "reason-hwang://a2ui/host-ui/1.0.0",
+  "catalogId": "reason-hwang://a2ui/host-ui/1.1.0",
   "components": {
     "Accordion": {
       "additionalProperties": false,
@@ -1842,6 +1845,135 @@
         "component",
         "label",
         "value"
+      ],
+      "type": "object"
+    },
+    "FinancialChart": {
+      "additionalProperties": false,
+      "description": "Source-verified financial chart. Six constrained kinds with server-bound data and source text.",
+      "properties": {
+        "component": {
+          "const": "FinancialChart"
+        },
+        "data": {
+          "anyOf": [
+            {
+              "items": {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "label"
+                ],
+                "type": "object"
+              },
+              "maxItems": 24,
+              "type": "array"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "bar",
+            "grouped_bar",
+            "stacked_bar",
+            "line",
+            "area",
+            "donut"
+          ],
+          "type": "string"
+        },
+        "series": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "key": {
+                "pattern": "^s[0-5]$",
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "key",
+              "label"
+            ],
+            "type": "object"
+          },
+          "maxItems": 6,
+          "minItems": 1,
+          "type": "array"
+        },
+        "sources": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "pattern": "^\\/",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "title": {
+          "maxLength": 100,
+          "type": "string"
+        },
+        "unitLabel": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title",
+        "kind",
+        "unitLabel",
+        "series",
+        "data",
+        "sources"
       ],
       "type": "object"
     },

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { createHostCatalog } from "@/lib/a2ui/catalog";
 import manifest from "@/lib/a2ui/generated/manifest.json";
 import { ChatViewport } from "./chat-viewport";
-import { SecWelcome } from "./sec-welcome";
+import { SecWelcome, SecPromptGuide, SecFinancialShortcut } from "./sec-welcome";
 import { fixedDemoCopy } from "./fixed-copy";
 import { OutputWorkspace, OutputTargetSelect, type OutputTarget } from "./output-workspace";
 import { RunProgress } from "./progress";
@@ -30,7 +30,9 @@ function DemoSession({ mode }: { mode: "dynamic" | "fixed" | "sec" }) {
   return <CopilotKitProvider runtimeUrl={`/api/copilotkit/a2ui/${mode}`} agentId={`a2ui-${mode}`} useSingleEndpoint properties={properties} a2ui={{ catalog, includeSchema: false }} renderActivityMessages={renderers} enableInspector={false} onError={({ error }) => setError(error.message)}>
     {error && <div role="alert" className="mb-4 rounded-lg border border-destructive p-4"><p>{error}</p><Button variant="ghost" onClick={() => setError(null)}>알림 닫기</Button></div>}
     {mode !== "sec" && <div className="mb-4 rounded-lg bg-muted p-4 text-sm">{mode === "dynamic" ? "예시: 전체 매출 현황을 보여줘 · 담당자별 실적을 비교해줘 · 지역별 매출 비중을 보여줘" : fixedDemoCopy.examples}</div>}
+    {mode === "sec" && <SecPromptGuide />}
     {mode === "sec" && <OutputTargetSelect value={outputTarget} onChange={setOutputTarget} />}
+    {mode === "sec" && <SecFinancialShortcut />}
     <RunProgress agentId={`a2ui-${mode}`} compact={mode === "sec"} />
     {mode === "dynamic" && <><RenderModeSelect value={renderMode} onChange={setRenderMode} />{renderMode === "progressive" && <ProgressivePreview catalog={catalog} />}</>}
     <OutputWorkspace agentId={`a2ui-${mode}`} catalog={catalog} target={outputTarget}>

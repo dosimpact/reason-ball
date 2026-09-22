@@ -93,7 +93,7 @@ export const CompactProgress: Story = {
   render: () => <ProgressView compact progress={{ stages: ["connecting", "analyzing", "analyzing"], status: "running" }} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("status")).toHaveTextContent("요청을 처리");
+    await expect(canvas.getByRole("status")).toHaveTextContent("질문을 분석");
     await expect(canvas.queryByRole("list")).not.toBeInTheDocument();
   },
 };

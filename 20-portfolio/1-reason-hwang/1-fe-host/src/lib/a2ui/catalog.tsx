@@ -11,7 +11,10 @@ import { inputAdapters } from "./input-adapters";
 import { overlayAdapters } from "./overlay-adapters";
 import { navigationAdapters } from "./navigation-adapters";
 
+import { financialAdapters } from "./financial-adapters";
+
 export const adapters = {
+  ...financialAdapters,
   ...coreAdapters, ...displayAdapters, ...inputAdapters, ...overlayAdapters, ...navigationAdapters,
 } satisfies AdapterMap;
 

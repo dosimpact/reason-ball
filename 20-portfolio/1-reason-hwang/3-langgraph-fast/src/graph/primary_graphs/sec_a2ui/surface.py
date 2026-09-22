@@ -3,6 +3,7 @@ from copilotkit import a2ui
 
 from graph.primary_graphs.a2ui_demo.contract import MANIFEST, ContractError
 
+from .financial_surface import add_financial_surface
 from .report_surface import report_components
 
 
@@ -25,7 +26,7 @@ def render_surface(surface_id: str, state: dict, *, create: bool) -> list[dict]:
     companies = state.get("companies", {}).get("items", [])
     visible = ["stage"]
     ui.add("root", "Column", children=visible)
-    stage = "분석 결과" if state.get("report") else "3 · 분석할 내용 선택" if filing else "2 · 공시 선택" if company else "1 · 회사 선택"
+    stage = "분석 결과" if state.get("report") or state.get("financial_plan") else "3 · 분석할 내용 선택" if filing else "2 · 공시 선택" if company else "1 · 회사 선택"
     ui.add("stage", "Text", text=stage, variant="heading")
     if state.get("error_notice"):
         visible.append("notice")
@@ -52,6 +53,10 @@ def render_surface(surface_id: str, state: dict, *, create: bool) -> list[dict]:
             _add_companies(ui, state, companies)
     data = {"query": state.get("query", ""), "reportRequest": state.get("report_request", "")}
     data.update({f"{key}Filter": state.get("filters", {}).get(key, "") for key in ("status", "form", "since")})
+    if state.get("financial_plan") and state.get("financial_dataset"):
+        add_financial_surface(ui, state, visible, data)
+        visible.remove("financial-result")
+        visible.insert(2, "financial-result")
     operations = [a2ui.create_surface(surface_id, MANIFEST["catalogs"]["sec"]["catalogId"])] if create else []
     return [*operations, a2ui.update_components(surface_id, ui.components), a2ui.update_data_model(surface_id, data)]
 
@@ -100,8 +105,8 @@ def _add_pages(ui: SurfaceBuilder, children: list, prefix: str, pagination: dict
 def _add_filings(ui: SurfaceBuilder, state: dict, filing: dict):
     if filing:
         ui.add("filings", "Column", children=["analysis-options"])
-        ui.add("analysis-options", "Column", children=["analysis-more"] if state.get("report") else ["filing-fields"])
-        if state.get("report"):
+        ui.add("analysis-options", "Column", children=["analysis-more"] if state.get("report") or state.get("financial_plan") else ["filing-fields"])
+        if state.get("report") or state.get("financial_plan"):
             ui.add("analysis-more", "Collapsible", title="다른 분석 요청 / 공시 변경", child="filing-fields")
         _add_analysis_request(ui, state, filing)
         return

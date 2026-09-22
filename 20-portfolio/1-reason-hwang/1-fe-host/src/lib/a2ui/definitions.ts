@@ -59,6 +59,12 @@ export const definitions = {
   Calendar: definition("calendar", "Select one date. Value uses YYYY-MM-DD, empty string means no selection.", inputFields),
   Card: definition("card", "Titled content card containing one child.", { title: label, description: dynamicString.optional(), child: z.string().optional() }),
   Carousel: definition("carousel", "Navigable slides with previous and next controls.", { items }),
+  FinancialChart: definition(null, "Source-verified financial chart. Six constrained kinds with server-bound data and source text.", {
+    title: z.string().max(100), kind: z.enum(["bar", "grouped_bar", "stacked_bar", "line", "area", "donut"]),
+    unitLabel: z.string(), series: z.array(z.object({ key: z.string().regex(/^s[0-5]$/), label: z.string() }).strict()).min(1).max(6),
+    data: z.union([z.array(z.object({ label: z.string() }).catchall(z.union([z.string(), z.number().finite(), z.null()]))).max(24), dataBinding]),
+    sources: dynamicString,
+  }),
   Chart: definition("chart", "Bar or pie chart of numeric data. Data can be an inline series or a data-model path to a series.", { title: label, kind: z.enum(["bar", "pie"]), data: z.union([series, dataBinding]) }),
   Checkbox: definition("checkbox", "Boolean selection written to its bound data model path.", toggleFields),
   Collapsible: definition("collapsible", "Show or hide a content section.", { title: z.string(), child: z.string() }),
@@ -120,13 +126,13 @@ export const profileComponents = {
   host: Object.keys(definitions) as ComponentName[],
   dynamic: ["Row", "Column", "Text", "Card", "Metric", "InfoRow", "Chart", "Table", "Badge", "Select", "Input", "Button"] as ComponentName[],
   fixed: ["Row", "Column", "Text", "Card", "Badge", "Metric", "InfoRow", "Button", "RadioGroup"] as ComponentName[],
-  sec: ["Row", "Column", "Text", "Card", "Badge", "Metric", "InfoRow", "Button", "Input", "Select", "Table", "Alert", "Accordion", "Collapsible"] as ComponentName[],
+  sec: ["FinancialChart", "Row", "Column", "Text", "Card", "Badge", "Metric", "InfoRow", "Button", "Input", "Select", "Table", "Alert", "Accordion", "Collapsible"] as ComponentName[],
 };
 export type CatalogProfile = keyof typeof profileComponents;
 export const PROTOCOL_VERSION = "v0.9";
 export const CATALOG_VERSION = "1.0.0";
 export function catalogId(profile: CatalogProfile) {
-  return `reason-hwang://a2ui/${profile === "host" ? "host-ui" : profile}/${CATALOG_VERSION}`;
+  return `reason-hwang://a2ui/${profile === "host" ? "host-ui" : profile}/${profile === "sec" || profile === "host" ? "1.1.0" : CATALOG_VERSION}`;
 }
 
 export function componentSchema(name: ComponentName, profile: CatalogProfile) {

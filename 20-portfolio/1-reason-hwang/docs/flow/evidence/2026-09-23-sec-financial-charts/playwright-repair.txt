@@ -1,0 +1,24 @@
+
+> reason-hwang-fe-host@0.1.0 test:e2e:sec-financial /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+> SEC_AGENT_LIVE_TESTS=1 PLAYWRIGHT_BASE_URL=http://localhost:2820 playwright test sec-financial.spec.ts --project=chromium --workers=1
+
+
+Running 1 test using 1 worker
+
+(node:35381) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+SEC request: 뭐가 가능해?
+SEC finished
+SEC request: CPNG 회사의 2026-02-26 제출 10-K를 선택해줘.
+SEC finished
+SEC request: 이 보고서의 매출과 영업이익을 연도별 그룹 막대로 비교해줘
+SEC finished
+SEC request: 방금 추출한 동일한 매출과 영업이익을 선 차트 하나로 바꿔줘.
+SEC finished
+SEC request: 같은 데이터로 매출 선 차트 하나를 보여줘.
+SEC finished
+SEC request: 같은 데이터의 매출을 단일 막대 차트 하나로 바꿔줘.
+SEC finished
+  ✓  1 [chromium] › tests/e2e/sec-financial.spec.ts:40:7 › SEC-CHART financial data and surface lifecycle › prompt guide, extraction, source values, inline preservation, canvas reuse and mobile (2.7m)
+
+  1 passed (2.7m)

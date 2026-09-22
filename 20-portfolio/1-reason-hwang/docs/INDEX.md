@@ -192,4 +192,6 @@ If a supporting document conflicts with code or a stock document, verify the imp
 
 - [A2UI 채팅 높이 제한](flow/2026-09-23-a2ui-chat-height.md): 긴 메시지 내부 스크롤과 입력창 위치 검증.
 
-- [SEC 재무 차트 설계](stock/tech-shared/a2ui-system/sec-financial-charts.md): 미구현 설계 계약. [결정 기록](flow/2026-09-23-sec-financial-charts-design.md).
+- [SEC 재무 차트 설계](stock/tech-shared/a2ui-system/sec-financial-charts.md): 구현 계약과 검증 상태. [결정 기록](flow/2026-09-23-sec-financial-charts-design.md).
+
+- [SEC 재무 차트 구현·검증](flow/2026-09-23-sec-financial-charts-validation.md): 두 단계 도구,6종 차트·표·카드, 실제2820 프롬프트/출처/Inline/Canvas 검증. [추출 실패 교정](flow/2026-09-23-sec-financial-extraction-repair.md).

@@ -1,0 +1,50 @@
+meta {
+  name: SEC-CHART reuse-line
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("uxManifest");
+  const body = {threadId: bru.getVar("financialThread"), runId: "financial-" + Date.now(), messages: [{id: "request-" + Date.now(), role: "user", content: "방금 추출한 동일한 데이터로 매출과 영업이익 선 차트, 매출 막대 차트, 최근 연도 영업이익 카드, 두 지표의 재무 표를 함께 2열로 보여줘."}], state: {}, tools: [], context: [], forwardedProps: {a2uiOutputTarget: "inline", a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}};
+
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-CHART reuse-line", function () {
+    const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+    expect(events.some(e => e.type === "RUN_ERROR")).to.equal(false);
+    expect(events.some(e => e.type === "RUN_FINISHED")).to.equal(true);
+    const names = events.filter(e => e.type === "TOOL_CALL_START").map(e => e.toolCallName);
+    console.log("Tool calls", JSON.stringify(names));
+    for (const e of events.filter(e => e.type === "TOOL_CALL_RESULT")) { try { const v=JSON.parse(e.content); if(v.error) console.log("Tool error", v); } catch {} }
+    expect(names).to.include("render_financial_charts");
+    const snapshot = events.filter(e => e.type === "STATE_SNAPSHOT").slice(-1)[0].snapshot;
+    const dataset = snapshot.sec.financial_dataset;
+    expect(dataset.filing.accessionNo).to.equal("0001834584-26-000024");
+    expect(dataset.coverage.unreadTableCount).to.be.greaterThan(0);
+    const charts = Object.values(snapshot.surfaces).flatMap(s => Object.values(s.components)).filter(c => c.component === "FinancialChart");
+    expect(charts.length).to.equal(2);
+    expect(charts.map(c => c.kind)).to.include("line");
+    expect(charts.map(c => c.kind)).to.include("bar");
+    const components = Object.values(snapshot.surfaces).flatMap(s => Object.values(s.components));
+    expect(components.some(c => c.component === "Metric" && String(c.value).includes("473,000,000"))).to.equal(true);
+    expect(components.some(c => c.component === "Table" && c.id.startsWith("financial-"))).to.equal(true);
+    expect(names).not.to.include("extract_financial_data");
+    expect(dataset.datasetId).to.equal(bru.getVar("financialDatasetId"));
+  });
+}

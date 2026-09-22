@@ -22,7 +22,7 @@
 
 `/a2ui/sec` → 동일 출처 CopilotKit Runtime → FastAPI SEC 전용 LangGraph → 기존 BFF `/api/sec/companies`, `/api/sec/filings`, `/api/sec/filings/:cik/:accessionNo/content`.
 
-채팅은 LangGraph 에이전트가 질문 의도를 판단하고 서버 도구를 선택한다. 일반 안내·기능 질문은 도구 없이 텍스트로 답하며 기존 선택과 화면을 보존한다. 회사의 검색·선택과 공시 목록은 서버가 구성한 Fixed A2UI 화면이다. 보고서의 분석 내용과 제한된 ReportPlan은 모델이 생성하고 서버가 허용된 UI 템플릿으로 변환한다. ReportPlan은 summary/business/financials/risks 중 1~4개 고유 항목과 cards/table/accordion 표현만 선택한다. 임의 HTML/React나 근거 없는 수치 차트 생성은 지원하지 않는다. 모델이 공시 식별자·가격·재무 수치를 임의로 만들어 조회하는 경로는 제공하지 않는다. 기존 66개 어댑터를 재사용하고 SEC용 정적 하위 카탈로그를 둔다.
+채팅은 LangGraph 에이전트가 질문 의도를 판단하고 서버 도구를 선택한다. 일반 안내·기능 질문은 도구 없이 텍스트로 답하며 기존 선택과 화면을 보존한다. 회사의 검색·선택과 공시 목록은 서버가 구성한 Fixed A2UI 화면이다. 보고서의 분석 내용과 제한된 ReportPlan은 모델이 생성하고 서버가 허용된 UI 템플릿으로 변환한다. ReportPlan은 summary/business/financials/risks 중 1~4개 고유 항목과 cards/table/accordion 표현만 선택한다. 임의 HTML/React나 근거 없는 수치 차트 생성은 지원하지 않는다. 검증된 재무 수치는 별도 [재무 차트 도구](sec-financial-charts.md)로 시각화한다. 모델이 공시 식별자·가격·재무 수치를 임의로 만들어 조회하는 경로는 제공하지 않는다. 기존 어댑터와 FinancialChart 확장을 재사용하며 SEC용 정적 하위 카탈로그를 둔다.
 
 회사 검색은 `q`, 명시적 page/pageSize를 기존 API로 전달한다. 공시 조회는 선택한 CIK를 강제하며 기본적으로 원문 없이 메타데이터만 읽는다. 서버 설정의 BFF 주소만 사용하고 사용자가 제공한 임의 URL로 요청하지 않는다.
 
@@ -41,7 +41,7 @@
 | `1-fe-host/src/lib/a2ui/generated/sec.catalog.json` | SEC 전용 Button action을 포함한 정적 하위 카탈로그 |
 | `1-fe-host/src/app/a2ui/sec/` | SEC 페이지 진입점 |
 
-FastAPI 연결은 기존 `A2UI_LANGGRAPH_URL`, FastAPI→BFF 연결은 `A2UI_SEC_BFF_URL`(기본 `http://127.0.0.1:2801`)이다. 모델 설정은 공통 `A2UI_MODEL_*`를 사용하며 채팅의 도구 선택에는 모델을 사용한다. 화면 버튼을 통한 회사·공시 조회 action은 모델 없이 실행한다. SEC 프로토콜은 기존과 같은 v0.9, 카탈로그 ID는 `reason-hwang://a2ui/sec/1.0.0`이다. 기존 Dynamic/Fixed/Host의 허용 action과 해시는 SEC 확장으로 변경하지 않는다.
+FastAPI 연결은 기존 `A2UI_LANGGRAPH_URL`, FastAPI→BFF 연결은 `A2UI_SEC_BFF_URL`(기본 `http://127.0.0.1:2801`)이다. 모델 설정은 공통 `A2UI_MODEL_*`를 사용하며 채팅의 도구 선택에는 모델을 사용한다. 화면 버튼을 통한 회사·공시 조회 action은 모델 없이 실행한다. SEC 프로토콜은 기존과 같은 v0.9, 카탈로그 ID는 `reason-hwang://a2ui/sec/1.1.0`이다. 기존 Dynamic/Fixed/Host의 허용 action과 해시는 SEC 확장으로 변경하지 않는다.
 
 ## 보고서와 근거
 
@@ -95,17 +95,17 @@ action은 `sec_search`, `sec_company`, `sec_filings_page`, `sec_filings_filter`,
 
 두 렌더 도구 모두 실제 ToolNode의 A2UI 도구 결과를 전달한다. 채팅의 도구 호출은 모델 출력이며 서버가 임의로 tool_calls를 합성하지 않는다. 화면 버튼은 별도 `action → render_action → finish_action` 경로로 동작한다. 이 경로는 사용자가 이미 특정 action을 선택했으므로 의도를 모델로 재판단하지 않는다.
 
-도구의 조회·분석 결과는 요청 중 `working_sec`에 보관하고, 렌더링 검증을 통과했을 때 `sec`와 `surfaces`에 함께 반영한다. 다음 요청 시작 시 미반영 작업 상태를 폐기한다. 취소된 도구의 미완성 호출/고아 결과는 다음 모델 입력에서 제외한다. 모델에는 원문 전체와 A2UI JSON 대신 서버 상태 요약과 화면 전달 결과를 제공한다. 원문은 기존 분석 도구만 읽는다. API/BFF 오류는 내용이 정제된 실패 결과로 전달하고, 임의 provider 오류는 기존 SSE 경계에서 정제한다.
+도구의 조회·분석 결과는 요청 중 `working_sec`에 보관하고, 렌더링 검증을 통과했을 때 `sec`와 `surfaces`에 함께 반영한다. 다음 요청 시작 시 미반영 작업 상태를 폐기한다. 취소된 도구의 미완성 호출/고아 결과는 다음 모델 입력에서 제외한다. 모델에는 원문 전체와 A2UI JSON 대신 서버 상태 요약과 화면 전달 결과를 제공한다. 원문은 분석 또는 재무 추출 도구가 서버 선택 공시에서 읽는다. API/BFF 오류는 내용이 정제된 실패 결과로 전달하고, 임의 provider 오류는 기존 SSE 경계에서 정제한다.
 
 일반 질문은 revision을 변경하지 않는다. 렌더링할 때만 revision을 증가시키며 회사 변경에도 단조 증가한다. 검색 결과가 빈 상태일 때는 `companies-empty` 컴포넌트를 사용하여 기존 회사 표의 속성이 다른 종류의 컴포넌트에 남지 않게 한다.
 
-Dynamic의 범위는 근거 보고서의 허용된 항목/표현 조합이다. 임의 HTML/React/수치 차트 생성으로 확대하지 않는다.
+기존 render_dynamic_ui는 근거 보고서의 허용된 항목/표현 조합이다. 재무 차트는 extract_financial_data와 render_financial_charts의 별도 검증 경로를 사용하며 임의 HTML/React/숫자를 받지 않는다.
 
 변경 근거·검증: [에이전트 도구 전환](../../../flow/2026-09-22-sec-agent-tools.md).
 
 ## SEC-A2UI-11: Inline 이력과 고정 Canvas
 
-Fixed/Dynamic은 화면 구성 방식이며 Inline/Canvas는 출력 위치와 수명이다. 동일 `sec_a2ui` graph와 여섯 도구가 두 출력 흐름을 처리한다. 사용자 `결과 표시 위치` 선택은 다음 자연어 요청의 `forwardedProps.a2uiOutputTarget`으로 전달하며 기본값은 `inline`이다. 다른 enum이나 SEC 외 Canvas 요청은 422로 거절한다. 클라이언트가 보낸 상태/임의 surface ID는 사용하지 않는다.
+Fixed/Dynamic은 화면 구성 방식이며 Inline/Canvas는 출력 위치와 수명이다. 동일 `sec_a2ui` graph와 여덟 도구가 두 출력 흐름을 처리한다. 사용자 `결과 표시 위치` 선택은 다음 자연어 요청의 `forwardedProps.a2uiOutputTarget`으로 전달하며 기본값은 `inline`이다. 다른 enum이나 SEC 외 Canvas 요청은 422로 거절한다. 클라이언트가 보낸 상태/임의 surface ID는 사용하지 않는다.
 
 | 구분 | Inline (기본) | Canvas |
 | --- | --- | --- |
@@ -133,6 +133,6 @@ Canvas는 현재 대화당 하나다. 여러 Canvas, 과거 Inline의 재활성�
 
 설계와 실행 증거: [UX 재설계](../../../flow/2026-09-22-sec-ux-redesign.md), [독립 UX 리뷰](../../../flow/2026-09-22-sec-ux-review.md).
 
-## SEC 재무 차트 확장: 설계 단계
+## SEC 재무 차트 확장
 
-선택 공시의 재무 표를 추출하고 6종 차트·표·지표 카드를 조합하는 확장을 설계했다. 현재 수치 차트 미지원이라는 구현 상태는 유지한다. 새 도구·데이터셋·카탈로그·검증 계약은 [재무 차트 설계](sec-financial-charts.md)에 정의하며 기존 SEC-A2UI-11의 출력 수명을 따른다. 아직 구현하거나 실행 검증하지 않았다.
+선택 공시의 재무 표를 추출하고 6종 차트·표·지표 카드를 조합하는 확장을 구현했다. 새 도구·데이터셋·카탈로그·검증 계약은 [재무 차트 설계](sec-financial-charts.md)에 정의하며 기존 SEC-A2UI-11의 출력 수명을 따른다. 최종 검증 상태와 상세 계약은 연결한 재무 차트 문서를 따른다.

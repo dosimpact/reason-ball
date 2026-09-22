@@ -11,7 +11,7 @@ import { BarChart, Bar, XAxis, YAxis, PieChart, Pie, Cell } from "recharts";
 import type { AdapterMap } from "./adapter";
 
 export const coreAdapters = {
-  Row: ({ props, children }) => <div className="flex flex-wrap items-start" style={{ gap: props.gap ?? 16 }}>{props.children.map(id => <div key={id} className="min-w-min flex-1">{children(id)}</div>)}</div>,
+  Row: ({ props, children }) => <div className="flex flex-wrap items-start" style={{ gap: props.gap ?? 16 }}>{props.children.map(id => <div key={id} className="min-w-0 flex-1 basis-[280px]">{children(id)}</div>)}</div>,
   Column: ({ props, children }) => <div className="flex min-w-0 flex-col" style={{ gap: props.gap ?? 16 }}>{props.children.map(id => <div key={id}>{children(id)}</div>)}</div>,
   Text: ({ props }) => props.variant === "heading" ? <h3 className="text-lg font-semibold">{props.text}</h3> : <p className={props.variant === "caption" ? "break-words text-sm text-muted-foreground" : "break-words text-sm"}>{props.text}</p>,
   Metric: ({ props }) => <dl className="rounded-lg border p-4"><dt className="text-sm text-muted-foreground">{props.label}</dt><dd className="mt-2 whitespace-nowrap text-2xl font-semibold tabular-nums">{props.value}</dd></dl>,

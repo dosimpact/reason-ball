@@ -29,6 +29,7 @@ export const ButtonGroup: Story = { args: { name: "ButtonGroup" } };
 export const Calendar: Story = { args: { name: "Calendar" } };
 export const Card: Story = { args: { name: "Card" } };
 export const Carousel: Story = { args: { name: "Carousel" } };
+export const FinancialChart: Story = { args: { name: "FinancialChart" } };
 export const Chart: Story = { args: { name: "Chart" } };
 export const Checkbox: Story = { args: { name: "Checkbox" } };
 export const Collapsible: Story = { args: { name: "Collapsible" } };

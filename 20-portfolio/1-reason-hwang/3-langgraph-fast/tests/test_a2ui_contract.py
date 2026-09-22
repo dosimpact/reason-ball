@@ -16,7 +16,7 @@ def test_generated_contracts_and_installed_versions():
     verify_versions()
     for mode in ("host", "dynamic", "fixed", "sec"):
         assert load_catalog(mode)["catalogId"] == MANIFEST["catalogs"][mode]["catalogId"]
-    assert len(load_catalog("host")["components"]) == 66
+    assert len(load_catalog("host")["components"]) == 67
 
 
 def test_fixed_surface_and_selection_preserve_authoritative_price():

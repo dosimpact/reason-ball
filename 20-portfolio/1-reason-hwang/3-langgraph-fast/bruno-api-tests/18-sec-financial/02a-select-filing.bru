@@ -1,0 +1,35 @@
+meta {
+  name: SEC-CHART select-filing
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("uxManifest");
+  const body = {threadId: bru.getVar("financialThread"), runId: "financial-" + Date.now(), messages: [{id: "request-" + Date.now(), role: "user", content: "CPNG 회사의 2026-02-26 제출 10-K를 선택해줘."}], state: {}, tools: [], context: [], forwardedProps: {a2uiOutputTarget: "inline", a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}};
+  body.threadId = "financial-" + Date.now(); bru.setVar("financialThread", body.threadId);
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Select filing before the short chart prompt", function () {
+    const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+    expect(events.some(e => e.type === "RUN_ERROR")).to.equal(false);
+    const snapshot = events.filter(e => e.type === "STATE_SNAPSHOT").slice(-1)[0].snapshot;
+    expect(snapshot.sec.filing.accessionNo).to.equal("0001834584-26-000024");
+    expect(events.some(e => e.type === "TOOL_CALL_START" && e.toolCallName === "extract_financial_data")).to.equal(false);
+  });
+}

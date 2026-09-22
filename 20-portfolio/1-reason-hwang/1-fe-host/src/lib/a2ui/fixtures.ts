@@ -16,6 +16,7 @@ export const fixtures = {
   Badge: { text: "정상" }, Breadcrumb: { items: ["홈", "데모", "카탈로그"] }, Bubble: { from: "assistant", text: "분석 결과입니다" },
   Button: { label: "제출", action }, ButtonGroup: { children: ["body", "second"] }, Calendar: { label: "날짜", value: { path: "/date" } },
   Card: { title: { path: "/title" }, description: { path: "/description" }, child: "body" }, Carousel: { items },
+  FinancialChart: { title: "재무 차트 예시", kind: "bar", unitLabel: "USD 백만", series: [{ key: "s0", label: "매출" }], data: [{ label: "2024", s0: 100 }, { label: "2025", s0: 125 }], sources: "검증용 합성 표 · 매출 · 2024/2025 · USD in millions" },
   Chart: { title: "지역별 매출", kind: "bar", data: { path: "/series" } },
   Checkbox: toggle, Collapsible: { title: "상세 보기", child: "body" }, Combobox: choice, Command: menu, ContextMenu: menu,
   Dialog: overlay, Direction: { direction: "rtl", child: "body" }, Drawer: overlay, DropdownMenu: menu,

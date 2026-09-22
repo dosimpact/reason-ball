@@ -16,7 +16,8 @@
     "a2ui:check": "tsx scripts/a2ui-contract.ts --check",
     "test:a2ui": "vitest run --project a2ui",
     "test:a2ui:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/lib/a2ui/*.stories.tsx",
-    "test:e2e:sec-agent": "SEC_AGENT_LIVE_TESTS=1 PLAYWRIGHT_BASE_URL=http://localhost:2820 playwright test sec-agent.spec.ts --project=chromium --workers=1"
+    "test:e2e:sec-agent": "SEC_AGENT_LIVE_TESTS=1 PLAYWRIGHT_BASE_URL=http://localhost:2820 playwright test sec-agent.spec.ts --project=chromium --workers=1",
+    "test:e2e:sec-financial": "SEC_AGENT_LIVE_TESTS=1 PLAYWRIGHT_BASE_URL=http://localhost:2820 playwright test sec-financial.spec.ts --project=chromium --workers=1"
   },
   "dependencies": {
     "@a2ui/web_core": "0.10.4",
