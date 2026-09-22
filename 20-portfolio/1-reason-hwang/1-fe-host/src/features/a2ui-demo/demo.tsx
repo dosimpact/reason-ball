@@ -6,6 +6,7 @@ import { CopilotChat, CopilotKitProvider } from "@copilotkit/react-core/v2";
 import { Button } from "@/components/ui/button";
 import { createHostCatalog } from "@/lib/a2ui/catalog";
 import manifest from "@/lib/a2ui/generated/manifest.json";
+import { ChatViewport } from "./chat-viewport";
 import { SecWelcome } from "./sec-welcome";
 import { fixedDemoCopy } from "./fixed-copy";
 import { OutputWorkspace, OutputTargetSelect, type OutputTarget } from "./output-workspace";
@@ -33,7 +34,7 @@ function DemoSession({ mode }: { mode: "dynamic" | "fixed" | "sec" }) {
     <RunProgress agentId={`a2ui-${mode}`} compact={mode === "sec"} />
     {mode === "dynamic" && <><RenderModeSelect value={renderMode} onChange={setRenderMode} />{renderMode === "progressive" && <ProgressivePreview catalog={catalog} />}</>}
     <OutputWorkspace agentId={`a2ui-${mode}`} catalog={catalog} target={outputTarget}>
-    <div aria-label="채팅 결과" className="min-h-[60vh] min-w-0 rounded-xl border"><CopilotChat welcomeScreen={mode === "sec" ? SecWelcome : undefined} agentId={`a2ui-${mode}`} labels={{ welcomeMessageText: mode === "sec" ? "SEC 공시 조회와 분석을 도와드립니다. 무엇이 궁금하세요?" : mode === "dynamic" ? "어떤 매출 정보를 살펴볼까요?" : fixedDemoCopy.welcome, chatInputPlaceholder: mode === "sec" ? "기능 질문, 회사 검색 또는 공시 분석 요청" : "질문을 입력하세요" }} /></div>
+    <ChatViewport><CopilotChat welcomeScreen={mode === "sec" ? SecWelcome : undefined} agentId={`a2ui-${mode}`} labels={{ welcomeMessageText: mode === "sec" ? "SEC 공시 조회와 분석을 도와드립니다. 무엇이 궁금하세요?" : mode === "dynamic" ? "어떤 매출 정보를 살펴볼까요?" : fixedDemoCopy.welcome, chatInputPlaceholder: mode === "sec" ? "기능 질문, 회사 검색 또는 공시 분석 요청" : "질문을 입력하세요" }} /></ChatViewport>
     </OutputWorkspace>
   </CopilotKitProvider>;
 }

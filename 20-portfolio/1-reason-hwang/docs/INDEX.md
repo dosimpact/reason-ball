@@ -189,3 +189,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [SEC 독립 UX 리뷰](flow/2026-09-22-sec-ux-review.md): 변경 전 문제와 재설계 검토.
 
 - [SEC 출력 수명 재검증](flow/2026-09-22-sec-output-recheck.md): Inline 버튼 동일 ID, 자연어 새 ID, Canvas 고정 ID와 상태 격리 브라우저 확인.
+
+- [A2UI 채팅 높이 제한](flow/2026-09-23-a2ui-chat-height.md): 긴 메시지 내부 스크롤과 입력창 위치 검증.

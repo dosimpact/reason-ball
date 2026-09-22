@@ -67,3 +67,7 @@ SEC `결과 표시 위치`는 “대화에 기록”(기본) / “작업 화면�
 `sec-welcome.tsx`는 첫 회사 선택/도움말을 기존 agent의 사용자 메시지로 전송한다. `useAgent.isReady` 이전에는 시작 버튼을 잠가 임시 agent에서만 실행되고 대화에 결과가 사라지는 초기 연결 경합을 방지한다. SEC 진행 View는 한 줄 상태만 표시하며 다른 데모의 상세 진행 표시는 유지한다. `surface-frame.tsx`가 활성 결과와 과거 결과를 구분하고, `surface-title.ts`는 마지막 전체 스냅샷에서 현재 회사와 단계를 읽는다. Canvas 회사 변경 후 이전 회사명을 재사용하지 않는다.
 
 상위 `SurfaceStreamProvider`는 실행 시작/종료도 구독하여 `running`을 공유한다. 실행 중 늦게 마운트한 fieldset도 종료 시 정상 활성화되며, 실행 중·action 대기 중 fieldset은 잠긴다. 과거 결과는 `SurfaceReadOnly`와 SEC 카탈로그에서 Button/Input/Select만 잠가 Accordion/Collapsible의 출처·본문 펼침을 허용한다. 과거 onAction 가드와 서버 revision 검증도 유지한다. `surface-operations.ts`는 순수 메시지 계약/검증을 소유한다. 단계별 화면은 [SEC-A2UI-12](sec.md#sec-a2ui-12-조회와-분석의-단계별-ux)를 따른다.
+
+## A2UI-CHAT-HEIGHT-001: 채팅 내부 스크롤
+
+공용 `ChatViewport`는 SEC/Fixed/Dynamic 채팅에 `height:70dvh`, `max-height:900px`, `min-height:0`을 제공한다. SDK의100% 높이와 내부 메시지 스크롤이 동작하여 긴 대화가 페이지를 계속 확장하지 않는다. 입력창은 메시지 스크롤 중에도 같은 위치를 유지한다. 작은 화면에서 환영 영역이 넘치면 바깥 viewport의 overflow-y:auto로 입력 접근을 유지한다. 헤더·진행·Canvas 영역의 기존 배치는 유지하므로 페이지 자체의 스크롤을 완전히 없애는 정책은 아니다. [검증 기록](../../../flow/2026-09-23-a2ui-chat-height.md).
