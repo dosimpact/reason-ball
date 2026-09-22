@@ -7,7 +7,10 @@ import { A2UIProvider, A2UIRenderer, useA2UIActions, useA2UIError } from "@copil
 import { useCopilotKit, type ReactActivityMessageRenderer } from "@copilotkit/react-core/v2";
 import { createHostCatalog } from "@/lib/a2ui/catalog";
 
-import { surfaceContentSchema as contentSchema, surfaceOf, isCanvasSurface, useSurfaceStream, type Operations } from "./surface-stream";
+import { SurfaceReadOnly } from "@/lib/a2ui/readonly";
+import { secSurfaceTitle } from "./surface-title";
+import { SurfaceFrame } from "./surface-frame";
+import { surfaceContentSchema as contentSchema, surfaceOf, isCanvasSurface, useSurfaceStream, useSurfaceRunning, type Operations } from "./surface-stream";
 
 export function createDemoActivityRenderer(catalog: ReturnType<typeof createHostCatalog>): ReactActivityMessageRenderer<z.infer<typeof contentSchema>> {
   return {
@@ -23,14 +26,18 @@ export function createDemoActivityRenderer(catalog: ReturnType<typeof createHost
 
 export function LiveSurface({ surfaceId, initial, agent, catalog }: { surfaceId: string; initial: Operations; agent: AbstractAgent; catalog: ReturnType<typeof createHostCatalog> }) {
   const { copilotkit } = useCopilotKit();
+  const running = useSurfaceRunning();
   const envelopes = useSurfaceStream();
   const latestInline = envelopes.flatMap(item => item.operations).filter(item => item.createSurface)
     .map(surfaceOf).filter(id => id?.startsWith("sec-inline-")).at(-1);
   const historical = surfaceId.startsWith("sec-inline-") && Boolean(latestInline && latestInline !== surfaceId);
+  const batches = [initial, ...envelopes.map(item => item.operations)];
+  const title = secSurfaceTitle(surfaceId, batches, historical);
+  const sec = surfaceId.startsWith("sec-");
   const busy = useRef(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  return <A2UIProvider catalog={catalog} onAction={async message => {
+  const screen = <SurfaceReadOnly.Provider value={historical}><A2UIProvider catalog={catalog} onAction={async message => {
     if (historical || busy.current || agent.isRunning) return;
     busy.current = true;
     setPending(true);
@@ -47,7 +54,8 @@ export function LiveSurface({ surfaceId, initial, agent, catalog }: { surfaceId:
       busy.current = false;
       setPending(false);
     }
-  }}><fieldset data-surface-id={surfaceId} disabled={pending || historical} aria-busy={pending} className="min-w-0 border-0 p-0"><SurfaceMessages surfaceId={surfaceId} initial={initial} /><A2UIRenderer surfaceId={surfaceId} /></fieldset>{historical && <p className="mt-2 text-xs text-muted-foreground">이전 결과 · 읽기 전용</p>}{pending && <p role="status">반영 중…</p>}{error && <p role="alert">{error}</p>}</A2UIProvider>;
+  }}><fieldset data-surface-id={surfaceId} disabled={pending || running} aria-busy={pending} className="min-w-0 border-0 p-0"><SurfaceMessages surfaceId={surfaceId} initial={initial} /><A2UIRenderer surfaceId={surfaceId} /></fieldset>{pending && <p role="status">반영 중…</p>}{error && <p role="alert">{error}</p>}</A2UIProvider></SurfaceReadOnly.Provider>;
+  return sec ? <SurfaceFrame historical={historical} canvas={isCanvasSurface(surfaceId)} title={title}>{screen}</SurfaceFrame> : screen;
 }
 
 export function SurfaceMessages({ surfaceId, initial }: { surfaceId: string; initial: Operations }) {

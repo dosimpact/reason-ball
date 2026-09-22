@@ -184,3 +184,6 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [SEC 대화 에이전트와 화면 도구](flow/2026-09-22-sec-agent-tools.md): 일반 답변·조회·분석·Fixed/Dynamic 도구 선택과 실서비스 E2E.
 
 - [SEC Inline / Canvas](flow/2026-09-22-sec-inline-canvas.md): 기본 채팅 결과 이력과 동일 Canvas 갱신을 하나의 LangGraph에서 분리.
+
+- [SEC UX 재설계](flow/2026-09-22-sec-ux-redesign.md): 직접 선택, 분석 바로가기, 접힌 이력, 조건부 Canvas 및 실제2820 검증.
+- [SEC 독립 UX 리뷰](flow/2026-09-22-sec-ux-review.md): 변경 전 문제와 재설계 검토.

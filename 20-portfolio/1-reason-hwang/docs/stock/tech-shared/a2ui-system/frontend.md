@@ -58,6 +58,12 @@ Fixed 예시는 기존 인천→도쿄·부산→오사카 항공편 질문을 �
 
 ## SEC-A2UI-11: 결과 표시 위치
 
-SEC `결과 표시 위치`는 채팅(기본) / Canvas를 제공한다. 데스크톱은 채팅과 스크롤 가능한 고정 Canvas를 두 열로, 작은 화면은 세로로 배치한다. `output-workspace.tsx`는 Canvas를 별도로 마운트하고 activity renderer는 Canvas ID를 채팅에 중복 표시하지 않는다. 최신 Inline 이전의 결과는 fieldset 입력/버튼을 잠그고 “이전 결과 · 읽기 전용”으로 표시한다. ID 수명, 상태 격리와 서버 action 거절은 [SEC-A2UI-11](sec.md#sec-a2ui-11-inline-이력과-고정-canvas)이 소유한다.
+SEC `결과 표시 위치`는 “대화에 기록”(기본) / “작업 화면에서 이어가기 (Canvas)”를 제공한다. 선택은 다음 자연어 답변에 적용한다. 기본은 넓은 단일 열이며 Canvas를 선택했거나 기존 Canvas 결과가 있을 때만 작업 영역을 표시한다. 1280px 이상은 두 열, 작은 화면은 세로로 배치한다. `output-workspace.tsx`는 Canvas를 별도로 마운트하고 activity renderer는 Canvas ID를 채팅에 중복 표시하지 않는다. 최신 Inline 이전의 결과는 업무 입력/액션 버튼을 잠그고 “이전 결과 · 회사 · 단계 · 읽기 전용” 제목으로 접어 보존한다. 펼치면 당시 결과를 읽을 수 있다. ID 수명, 상태 격리와 서버 action 거절은 [SEC-A2UI-11](sec.md#sec-a2ui-11-inline-이력과-고정-canvas)이 소유한다.
 
 `surface-stream.tsx`의 상위 구독자는 AG-UI가 실행 시작에 구독자 목록을 캡처하는 동작을 고려한다. `SurfaceMessages`는 메시지 등장 시점과 무관하게 해당 surface의 기록을 순서대로 반영한다. initial activity와 후속 도구 갱신은 동일 A2UIProvider를 사용한다. 새 대화에서는 journal과 Canvas가 함께 폐기된다.
+
+## SEC-A2UI-12: 집중된 작업 화면
+
+`sec-welcome.tsx`는 첫 회사 선택/도움말을 기존 agent의 사용자 메시지로 전송한다. `useAgent.isReady` 이전에는 시작 버튼을 잠가 임시 agent에서만 실행되고 대화에 결과가 사라지는 초기 연결 경합을 방지한다. SEC 진행 View는 한 줄 상태만 표시하며 다른 데모의 상세 진행 표시는 유지한다. `surface-frame.tsx`가 활성 결과와 과거 결과를 구분하고, `surface-title.ts`는 마지막 전체 스냅샷에서 현재 회사와 단계를 읽는다. Canvas 회사 변경 후 이전 회사명을 재사용하지 않는다.
+
+상위 `SurfaceStreamProvider`는 실행 시작/종료도 구독하여 `running`을 공유한다. 실행 중 늦게 마운트한 fieldset도 종료 시 정상 활성화되며, 실행 중·action 대기 중 fieldset은 잠긴다. 과거 결과는 `SurfaceReadOnly`와 SEC 카탈로그에서 Button/Input/Select만 잠가 Accordion/Collapsible의 출처·본문 펼침을 허용한다. 과거 onAction 가드와 서버 revision 검증도 유지한다. `surface-operations.ts`는 순수 메시지 계약/검증을 소유한다. 단계별 화면은 [SEC-A2UI-12](sec.md#sec-a2ui-12-조회와-분석의-단계별-ux)를 따른다.

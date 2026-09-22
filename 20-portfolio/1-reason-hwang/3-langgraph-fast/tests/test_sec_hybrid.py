@@ -77,7 +77,7 @@ async def test_stages_remove_hidden_actions_and_search_clears_report():
     result = await workflow.ainvoke({"messages": [], "a2ui_action": action(result, "change-filing")}, config)
     assert "report" not in result["sec"] and "filing" not in result["sec"]
     tree = next(iter(result["surfaces"].values()))["components"]
-    assert "filing-table" in tree and "report-request" not in tree
+    assert "filing-select" in tree and "report-request" not in tree
     with pytest.raises(ContractError):
         validate_action(old_report_action, result["surfaces"])
     result = await workflow.ainvoke({"messages": [], "a2ui_action": action(result, "filing-select", accession=ACCESSION)}, config)
@@ -94,7 +94,7 @@ def test_empty_filing_results_show_filters_but_no_dead_selectors_or_report():
     tree = surface["components"]
     assert "filter-button" in tree
     assert not {"filing-select", "filing-choice", "filing-table", "report", "report-button"} & tree.keys()
-    assert "조건에 맞는 공시가 없습니다" in tree["filing-status"]["text"]
+    assert "조건에 맞는 공시가 없습니다" in tree["filings-empty"]["title"]
 
 
 @pytest.mark.parametrize("presentation,expected", [("cards", "Card"), ("table", "Table"), ("accordion", "Accordion")])

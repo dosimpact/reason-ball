@@ -5,7 +5,7 @@ import { useAgent } from "@copilotkit/react-core/v2";
 
 import { labels, ProgressView, type ProgressState, type Stage, type Status } from "./progress-view";
 
-export function RunProgress({ agentId }: { agentId: string }) {
+export function RunProgress({ agentId, compact = false }: { agentId: string; compact?: boolean }) {
   const { agent } = useAgent({ agentId });
   const [progress, setProgress] = useState<ProgressState | null>(null);
   useEffect(() => {
@@ -33,5 +33,5 @@ export function RunProgress({ agentId }: { agentId: string }) {
     });
     return () => subscription.unsubscribe();
   }, [agent]);
-  return <ProgressView progress={progress} />;
+  return <ProgressView progress={progress} compact={compact} />;
 }

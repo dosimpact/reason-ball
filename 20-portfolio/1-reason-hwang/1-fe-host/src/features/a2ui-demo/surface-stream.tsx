@@ -2,25 +2,18 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { AbstractAgent } from "@ag-ui/client";
-import { z } from "zod";
 
-export const surfaceContentSchema = z.object({ a2ui_operations: z.array(z.record(z.unknown())).optional() }).passthrough();
-export type Operations = Record<string, unknown>[];
+import { surfaceContentSchema, type Operations } from "./surface-operations";
+export { surfaceContentSchema, surfaceOf, isCanvasSurface, type Operations } from "./surface-operations";
 type Envelope = { key: string; operations: Operations };
-const SurfaceStream = createContext<Envelope[]>([]);
+const SurfaceStream = createContext<{ envelopes: Envelope[]; running: boolean }>({ envelopes: [], running: false });
 
-export function surfaceOf(operation: Record<string, unknown>): string | undefined {
-  for (const key of ["createSurface", "updateComponents", "updateDataModel", "deleteSurface"]) {
-    const value = operation[key];
-    if (value && typeof value === "object" && "surfaceId" in value && typeof value.surfaceId === "string") return value.surfaceId;
-  }
-}
-
-export const isCanvasSurface = (id: string) => id.startsWith("sec-canvas-");
-export const useSurfaceStream = () => useContext(SurfaceStream);
+export const useSurfaceStream = () => useContext(SurfaceStream).envelopes;
+export const useSurfaceRunning = () => useContext(SurfaceStream).running;
 
 /** Subscribe before a run starts: AG-UI snapshots subscribers for each run. */
 export function SurfaceStreamProvider({ agent, children }: { agent: AbstractAgent; children: ReactNode }) {
+  const [running, setRunning] = useState(agent.isRunning);
   const [envelopes, setEnvelopes] = useState<Envelope[]>([]);
   useEffect(() => {
     const consume = (messages: ReadonlyArray<Readonly<AbstractAgent["messages"][number]>>) => {
@@ -50,8 +43,12 @@ export function SurfaceStreamProvider({ agent, children }: { agent: AbstractAgen
       });
     };
     consume(agent.messages);
-    const subscription = agent.subscribe({ onMessagesChanged: ({ messages }) => consume(messages) });
+    const subscription = agent.subscribe({
+      onMessagesChanged: ({ messages }) => consume(messages),
+      onRunInitialized: () => { setRunning(true); },
+      onRunFinalized: () => { setRunning(false); },
+    });
     return () => subscription.unsubscribe();
   }, [agent]);
-  return <SurfaceStream.Provider value={envelopes}>{children}</SurfaceStream.Provider>;
+  return <SurfaceStream.Provider value={{ envelopes, running }}>{children}</SurfaceStream.Provider>;
 }

@@ -40,6 +40,9 @@
         },
         {
           "$ref": "#/components/Accordion"
+        },
+        {
+          "$ref": "#/components/Collapsible"
         }
       ]
     },
@@ -394,6 +397,32 @@
         "id",
         "component",
         "title"
+      ],
+      "type": "object"
+    },
+    "Collapsible": {
+      "additionalProperties": false,
+      "description": "Show or hide a content section.",
+      "properties": {
+        "child": {
+          "type": "string"
+        },
+        "component": {
+          "const": "Collapsible"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "title",
+        "child"
       ],
       "type": "object"
     },

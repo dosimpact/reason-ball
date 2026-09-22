@@ -1,0 +1,74 @@
+> reason-hwang-fe-host@0.1.0 build /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+> next build --no-lint
+
+ ⚠ Linting is disabled.
+ ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/dodo/workspace/reason-ball/pnpm-lock.yaml as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+ Detected additional lockfiles:
+   * /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/pnpm-lock.yaml
+
+   ▲ Next.js 15.5.25
+   - Environments: .env
+
+   Creating an optimized production build ...
+ ⚠ Compiled with warnings in 18.6s
+
+../node_modules/.pnpm/@ai-sdk+provider-utils@3.0.37_zod@3.25.76/node_modules/@ai-sdk/provider-utils/dist/index.mjs
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../node_modules/.pnpm/@ai-sdk+provider-utils@3.0.37_zod@3.25.76/node_modules/@ai-sdk/provider-utils/dist/index.mjs
+../node_modules/.pnpm/@ai-sdk+google-vertex@3.0.174_zod@3.25.76/node_modules/@ai-sdk/google-vertex/dist/index.mjs
+../node_modules/.pnpm/@copilotkit+runtime@1.73.0_@langchain+core@1.2.12_@opentelemetry+api@1.9.1_ws@8.21.3__@_fc91af420a7be4bbf2f55fe1f79784aa/node_modules/@copilotkit/runtime/dist/agent/index.mjs
+../node_modules/.pnpm/@copilotkit+runtime@1.73.0_@langchain+core@1.2.12_@opentelemetry+api@1.9.1_ws@8.21.3__@_fc91af420a7be4bbf2f55fe1f79784aa/node_modules/@copilotkit/runtime/dist/v2/index.mjs
+./src/lib/a2ui/runtime.ts
+./src/app/api/copilotkit/a2ui/dynamic/route.ts
+
+ ✓ Compiled successfully in 32.2s
+   Checking validity of types ...
+
+   We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+   The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+    - include was updated to add '.next-sec-ux-validation/types/**/*.ts'
+
+   Collecting page data ...
+[CopilotKit Runtime] telemetry enabled — see https://docs.copilotkit.ai/telemetry to opt out (set COPILOTKIT_TELEMETRY_DISABLED=true).
+[CopilotKit Runtime] telemetry enabled — see https://docs.copilotkit.ai/telemetry to opt out (set COPILOTKIT_TELEMETRY_DISABLED=true).
+[CopilotKit Runtime] telemetry enabled — see https://docs.copilotkit.ai/telemetry to opt out (set COPILOTKIT_TELEMETRY_DISABLED=true).
+   Generating static pages (0/16) ...
+   Generating static pages (4/16)
+   Generating static pages (8/16)
+[CopilotKit Runtime] telemetry enabled — see https://docs.copilotkit.ai/telemetry to opt out (set COPILOTKIT_TELEMETRY_DISABLED=true).
+   Generating static pages (12/16)
+ ✓ Generating static pages (16/16)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      590 B         124 kB
+├ ○ /_not-found                          1.01 kB         109 kB
+├ ○ /a2ui                                  165 B         112 kB
+├ ○ /a2ui/catalog                        4.64 kB         561 kB
+├ ○ /a2ui/dynamic                          165 B         958 kB
+├ ○ /a2ui/fixed                            166 B         958 kB
+├ ○ /a2ui/sec                              166 B         958 kB
+├ ƒ /api/copilotkit/a2ui/dynamic           144 B         109 kB
+├ ƒ /api/copilotkit/a2ui/fixed             144 B         109 kB
+├ ƒ /api/copilotkit/a2ui/sec               144 B         109 kB
+├ ƒ /api/langgraph/[...path]               144 B         109 kB
+├ ƒ /api/remote-proxy/[...path]            144 B         109 kB
+├ ○ /chat                                 167 kB         306 kB
+├ ○ /index-dcf-visualizer                14.2 kB         138 kB
+├ ○ /remotes/template                     1.5 kB         138 kB
+└ ○ /remotes/todo                         1.5 kB         138 kB
++ First Load JS shared by all             108 kB
+  ├ chunks/1021-d26811d5390f61f0.js      46.2 kB
+  ├ chunks/c3e0f03e-3e714b76be475cb5.js  54.2 kB
+  └ other shared chunks (total)          8.06 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

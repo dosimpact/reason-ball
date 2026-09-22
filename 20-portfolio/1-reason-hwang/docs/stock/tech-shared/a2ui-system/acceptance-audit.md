@@ -46,3 +46,7 @@
 범위 변경 근거: [OAuth 검증 범위 및 완료 기록](../../../flow/2026-09-21-a2ui-oauth-scope-and-completion.md).
 
 SEC-A2UI-11: 기본 Inline의 새 ID/이력 보존, 고정 Canvas ID, 화면별 context 및 action 검증 구현. OAuth/BFF 실서비스 Bruno12/12, 2820 Playwright4/4, Storybook86/86 통과. 상세 결과와 제한은 [출력 수명 검증](../../../flow/2026-09-22-sec-inline-canvas.md)에 기록한다.
+
+## SEC 조회 UX 재설계
+
+SEC-A2UI-12: 회사/공시 직접 선택, 분석 바로가기, 현재 필터 명시, 조건부 Canvas, 접힌 이력/출처 열람 구현. 독립 UX 리뷰의 R1~R4 및 초기 연결 전 빠른 시작 경합을 수정했다. 실제2820 Playwright 최종5/5, MCP 키보드·실제 요약·출처·모바일 가로폭 PASS. Bruno 신규8/8 및 기존12/12, Storybook94/94, 계약/제목70/70, Python195 PASS/13 opt-in SKIP. [현재 검증 증거와 제한](../../../flow/2026-09-22-sec-ux-redesign.md), [독립 리뷰](../../../flow/2026-09-22-sec-ux-review.md)를 참조한다.

@@ -180,3 +180,5 @@ Dynamic에서도 카탈로그는 정적이다. 매번 바뀌는 것은 허용된
 | A2UI-CATALOG-EDIT-001 | JSON 모델 편집·실제 미리보기·초기화·오류 보존 | [React](frontend.md) |
 | A2UI-PROGRESS-001 | 실제 실행 단계 SSE·취소·실패·재실행 | [이벤트](protocol-and-events.md) |
 | SEC-A2UI-01~07 | 회사·공시·근거 보고서·예외·격리·검증 | [SEC](sec.md) |
+
+SEC-A2UI-12는 기존 `Collapsible` 어댑터를 SEC 정적 카탈로그에 허용하여 검색·추가 조건·재분석 영역을 접는다. 전체 61개 UI 파일/66개 어댑터는 유지하고 SEC 카탈로그와 manifest 해시만 함께 갱신한다. 단계별 UX의 원본은 [SEC 설계](sec.md#sec-a2ui-12-조회와-분석의-단계별-ux)다.

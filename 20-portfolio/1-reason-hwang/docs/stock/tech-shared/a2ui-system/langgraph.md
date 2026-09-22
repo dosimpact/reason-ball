@@ -59,3 +59,5 @@ CABIN-03: 단일 도구의 UI 선택 인자와 개별 확정 검증은 [UI 종�
 ## SEC 출력 대상
 
 동일 SEC graph에서 `output_target=inline|canvas`로 렌더링 대상만 구분한다. `surface_contexts`는 최신 Inline/Canvas의 SEC 상태를 저장하고 action은 발신 surface의 context를 사용한다. Inline render 도구마다 새 ID, Canvas에는 저장된 ID를 사용한다. 전송 경계에서 target enum과 checkpoint의 surface/action을 검증한다. 서버가 재시작되면 InMemorySaver의 ID/선택 상태도 사라지므로 새 대화로 시작해야 한다. 상세 계약은 [SEC-A2UI-11](sec.md#sec-a2ui-11-inline-이력과-고정-canvas)을 따른다.
+
+SEC `list_filings`와 회사 직접 선택은 기본적으로 저장된 10-K를 조회한다. 명시적 status/form 조건과 빈 문자열(전체)을 보존한다. 회사/공시/분석 바로가기 버튼은 고정 context를 검증하고, 자유 입력 필드만 가변 바인딩을 허용한다. 단계별 버튼 구성은 [SEC-A2UI-12](sec.md#sec-a2ui-12-조회와-분석의-단계별-ux)에 정의한다.

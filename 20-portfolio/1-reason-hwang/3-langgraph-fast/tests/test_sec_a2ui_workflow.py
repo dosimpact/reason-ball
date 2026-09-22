@@ -102,7 +102,7 @@ async def test_old_surface_actions_and_unknown_company_cannot_change_selection()
     current = await workflow.ainvoke({"messages": [], "a2ui_action": action(current, "search-button", query="DEMO")}, config)
     current = await workflow.ainvoke({"messages": [], "a2ui_action": action(current, "company-select", cik="0000000001")}, config)
     assert "company" not in current["sec"]
-    assert "없는 회사" in current["sec"]["notice"]
+    assert "altered SEC action" in current["sec"]["notice"]
 
 
 @pytest.mark.asyncio

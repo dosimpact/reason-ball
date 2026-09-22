@@ -41,6 +41,7 @@ class SecState(AgentState, total=False):
 
 async def execute_action(state: dict, name: str, context: dict, client: SecClient, model: Any = None) -> dict:
     next_state = deepcopy(state)
+    next_state.pop("error_notice", None)
     if name == "sec_search":
         result = await client.companies(context["query"], context["page"])
         next_state = {"query": context["query"], "companies": result, "revision": state.get("revision", 0)}
@@ -49,9 +50,9 @@ async def execute_action(state: dict, name: str, context: dict, client: SecClien
         company = next((row for row in state.get("companies", {}).get("items", []) if row["cik"] == context["cik"]), None)
         if company is None:
             raise ContractError("현재 검색 결과에 없는 회사입니다.")
-        result = await client.filings(company["cik"])
+        result = await client.filings(company["cik"], status="downloaded", form="10-K")
         next_state = {key: value for key, value in state.items() if key in {"query", "companies", "revision"}}
-        next_state.update(company=company, filings=result, notice="분석할 공시를 선택해 주세요." if result["items"] else "저장된 공시가 없습니다.")
+        next_state.update(company=company, filings=result, filters={"status": "downloaded", "form": "10-K", "since": ""}, notice="분석할 공시를 선택해 주세요." if result["items"] else "저장된 공시가 없습니다.")
     elif name in {"sec_filings_page", "sec_filings_filter"}:
         if not state.get("company"):
             raise ContractError("먼저 회사를 선택해 주세요.")
@@ -107,7 +108,9 @@ and clarification questions need a normal text answer and NO tools, even if a fi
 Explain company/ticker search, filing selection, and source-cited summary/business/financial/risk analysis.
 Never treat an entire general question as a search query. For a company lookup extract its name/ticker
 (e.g. 쿠팡=CPNG). A bare ticker means search. For '쿠팡 공시 보여줘', search then list_filings
-using the actual returned CIK if the company is unambiguous. Do not guess identifiers or source facts.
+using the actual returned CIK if the company is unambiguous.
+Default filing navigation shows downloaded annual 10-K reports; tell the user this scope.
+Honor explicitly requested forms/status or all filings; never imply the filtered list is all SEC filings. Do not guess identifiers or source facts.
 For company changes use search_companies even when a filing is selected.
 Only select a filing the user identifies unambiguously (an exact accession or an unambiguous row).
 Ask the user to choose if ambiguous. Never analyze a different document or silently select one.
@@ -118,7 +121,8 @@ For requested analysis call analyze_filing, then render_dynamic_ui using its ret
 for a focused/custom card/table/accordion request; use render_fixed_ui for the default overall report
 or explicitly requested fixed template. Dynamic is limited to those validated sections/layouts.
 A tool error is a failure: explain it and preserve the prior selection/report. Do not claim success.
-After rendering, give one brief factual confirmation, do not repeat the table or full report in chat.
+After rendering, give one brief past-tense factual confirmation, do not repeat the table or full report.
+The UI guides the next action; avoid next-step instructions in chat that become stale when the UI updates.
 An empty query result needs one fixed empty-state screen, not repeated searches.
 Do not call tools just to answer what is possible or how the UI works.
 """
@@ -175,7 +179,7 @@ def build_sec_graph(client: SecClient | None = None, model: Any = None, *, agent
             context = validate_action(action, state.get("surfaces", {}))
             current = await execute_action(previous, action["name"], context, client, model)
         except (SecReadError, ReportError, ContractError) as error:
-            current = {**previous, "notice": str(error)}
+            current = {**previous, "notice": str(error), "error_notice": str(error)}
         call_id = f"sec-{uuid4().hex}"
         return {
             **surface_update(state, current), "a2ui_action": None,
@@ -188,7 +192,19 @@ def build_sec_graph(client: SecClient | None = None, model: Any = None, *, agent
         return a2ui.render(runtime.state["pending_operations"])
 
     def finish_action(state: SecState):
-        return {"pending_operations": [], "messages": [AIMessage(content=state.get("sec", {}).get("notice", "SEC 조회 화면을 준비했습니다."))]}
+        current = state.get("sec", {})
+        company, filing = current.get("company", {}), current.get("filing", {})
+        if current.get("error_notice"):
+            message = current["error_notice"]
+        elif current.get("report"):
+            message = f"{company.get('name', '')} {filing.get('formType', '')} 분석 결과를 표시했습니다."
+        elif filing:
+            message = f"{company.get('name', '')} · {filing['formType']} · 제출 {filing.get('filingDate') or '-'} 공시를 선택했습니다."
+        elif company:
+            message = f"{company['name']} 공시 목록을 열었습니다."
+        else:
+            message = f"'{current.get('query', '')}' 회사 검색 결과를 갱신했습니다."
+        return {"pending_operations": [], "messages": [AIMessage(content=message)]}
 
     def begin(state: SecState):
         return {"agent_steps": 0, "ui_dirty": False, "working_sec": deepcopy(state.get("sec", {}))}

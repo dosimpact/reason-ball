@@ -1,0 +1,84 @@
+> reason-hwang-langgraph-fast@0.1.0 test:sec-agent:api /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/3-langgraph-fast
+> cd bruno-api-tests && ../node_modules/.bin/bru run 16-sec-agent --env local
+
+16-sec-agent/01-manifest (200 OK) - 584 ms
+Tests
+   ✓ SEC catalog is registered
+Assertions
+   ✓ res.status: eq 200
+16-sec-agent/02-help (200 OK) - 10644 ms
+Agent tools: text only
+Tests
+   ✓ SEC-A2UI-10 02-help
+Assertions
+   ✓ res.status: eq 200
+16-sec-agent/03-search (200 OK) - 5502 ms
+Agent tools: search_companies -> render_fixed_ui
+Tests
+   ✓ SEC-A2UI-10 03-search
+Assertions
+   ✓ res.status: eq 200
+16-sec-agent/04-help-preserves-results (200 OK) - 6610 ms
+Agent tools: text only
+Tests
+   ✓ SEC-A2UI-10 04-help-preserves-results
+Assertions
+   ✓ res.status: eq 200
+16-sec-agent/05-natural-filings (200 OK) - 11069 ms
+Agent tools: list_filings -> render_fixed_ui
+Tests
+   ✓ SEC-A2UI-10 05-natural-filings
+Assertions
+   ✓ res.status: eq 200
+16-sec-agent/06-empty-search (200 OK) - 10149 ms
+Agent tools: search_companies -> render_fixed_ui
+Tests
+   ✓ SEC-A2UI-10 06-empty-search
+Assertions
+   ✓ res.status: eq 200
+16-sec-agent/07-search-recovery (200 OK) - 7529 ms
+Agent tools: search_companies -> render_fixed_ui
+Tests
+   ✓ SEC-A2UI-10 07-search-recovery
+Assertions
+   ✓ res.status: eq 200
+16-sec-agent/08-inline-history (200 OK) - 6613 ms
+Tests
+   ✓ SEC-A2UI-11 inline-history
+Assertions
+   ✓ res.status: eq 200
+16-sec-agent/09-canvas-create (200 OK) - 6399 ms
+Tests
+   ✓ SEC-A2UI-11 canvas-create
+Assertions
+   ✓ res.status: eq 200
+16-sec-agent/10-canvas-update (200 OK) - 8458 ms
+Tests
+   ✓ SEC-A2UI-11 canvas-update
+Assertions
+   ✓ res.status: eq 200
+16-sec-agent/11-inline-preserves-canvas (200 OK) - 7026 ms
+Tests
+   ✓ SEC-A2UI-11 inline-preserves-canvas
+Assertions
+   ✓ res.status: eq 200
+16-sec-agent/12-invalid-target (422 Unprocessable Entity) - 6 ms
+Tests
+   ✓ Invalid output target is rejected
+Assertions
+   ✓ res.status: eq 422
+
+📊 Execution Summary
+┌───────────────┬────────────────┐
+│ Metric        │     Result     │
+├───────────────┼────────────────┤
+│ Status        │     ✓ PASS     │
+├───────────────┼────────────────┤
+│ Requests      │ 12 (12 Passed) │
+├───────────────┼────────────────┤
+│ Tests         │     12/12      │
+├───────────────┼────────────────┤
+│ Assertions    │     12/12      │
+├───────────────┼────────────────┤
+│ Duration (ms) │     80589      │
+└───────────────┴────────────────┘

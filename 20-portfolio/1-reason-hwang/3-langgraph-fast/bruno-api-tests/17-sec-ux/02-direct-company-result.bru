@@ -1,0 +1,42 @@
+meta {
+  name: SEC-A2UI-12 direct-company-result
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("uxManifest");
+  const body = {threadId: bru.getVar("uxThread"), runId: "ux-" + Date.now(), messages: [], state: {}, tools: [], context: [], forwardedProps: {a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}};
+  body.threadId = "ux-thread-" + Date.now();
+  bru.setVar("uxThread", body.threadId);
+  body.messages = [{id: "query", role: "user", content: "CPNG 회사를 찾아줘"}];
+
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-A2UI-12 direct-company-result", function () {
+    const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+    expect(events.some(e => e.type === "RUN_ERROR")).to.equal(false);
+    expect(events.some(e => e.type === "RUN_FINISHED")).to.equal(true);
+    const snapshot = events.filter(e => e.type === "STATE_SNAPSHOT").slice(-1)[0].snapshot;
+    const tree = Object.values(snapshot.surfaces)[0].components;
+    bru.setVar("uxSnapshot", snapshot);
+    expect(tree["company-select"].action.event.context.cik).to.equal("0001834584");
+    expect(tree["company-choice"]).to.equal(undefined);
+    expect(tree["company-table"]).to.equal(undefined);
+  });
+}

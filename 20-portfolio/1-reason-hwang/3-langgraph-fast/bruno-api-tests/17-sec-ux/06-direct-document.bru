@@ -1,0 +1,45 @@
+meta {
+  name: SEC-A2UI-12 direct-document
+  type: http
+  seq: 6
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("uxManifest");
+  const body = {threadId: bru.getVar("uxThread"), runId: "ux-" + Date.now(), messages: [], state: {}, tools: [], context: [], forwardedProps: {a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}};
+  const previous = bru.getVar("uxSnapshot");
+  const surfaceId = Object.keys(previous.surfaces)[0];
+  const sourceComponentId = "filing-select";
+  const event = previous.surfaces[surfaceId].components[sourceComponentId].action.event;
+  body.forwardedProps.a2uiAction = {action: {surfaceId, sourceComponentId, name: event.name, context: {...event.context}}};
+
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-A2UI-12 direct-document", function () {
+    const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+    expect(events.some(e => e.type === "RUN_ERROR")).to.equal(false);
+    expect(events.some(e => e.type === "RUN_FINISHED")).to.equal(true);
+    const snapshot = events.filter(e => e.type === "STATE_SNAPSHOT").slice(-1)[0].snapshot;
+    const tree = Object.values(snapshot.surfaces)[0].components;
+    bru.setVar("uxSnapshot", snapshot);
+    expect(snapshot.sec.filing.accessionNo).to.equal(tree["document-details"].items[0].text.match(/접수번호: ([^ ]+)/)[1]);
+    expect(tree["summary-report"].disabled).to.equal(false);
+    expect(tree["risks-report"].action.event.context.request).to.equal("위험 요인만 표로 정리해줘");
+    expect(tree["document-period"].text).to.include("보고기간");
+  });
+}

@@ -16,22 +16,23 @@
             "id": "root",
             "component": "Column",
             "children": [
-              "notice",
+              "stage",
               "search",
               "companies"
             ]
           },
           {
-            "id": "notice",
-            "component": "Alert",
-            "title": "SEC 공시 분석",
-            "text": "회사를 선택해 주세요."
+            "id": "stage",
+            "component": "Text",
+            "text": "1 · 회사 선택",
+            "variant": "heading"
           },
           {
             "id": "search",
-            "component": "Card",
-            "title": "회사 검색",
-            "child": "search-fields"
+            "component": "Column",
+            "children": [
+              "search-fields"
+            ]
           },
           {
             "id": "search-fields",
@@ -39,7 +40,8 @@
             "children": [
               "query",
               "search-button"
-            ]
+            ],
+            "gap": 8
           },
           {
             "id": "query",
@@ -47,13 +49,15 @@
             "label": "회사명 또는 티커",
             "value": {
               "path": "/query"
-            }
+            },
+            "placeholder": "예: CPNG, AAPL"
           },
           {
             "id": "search-button",
             "component": "Button",
             "label": "회사 검색",
             "disabled": false,
+            "variant": "outline",
             "action": {
               "event": {
                 "name": "sec_search",
@@ -69,123 +73,40 @@
           },
           {
             "id": "companies",
-            "component": "Card",
-            "title": "회사 검색 결과",
-            "child": "company-fields"
-          },
-          {
-            "id": "company-fields",
             "component": "Column",
             "children": [
-              "company-table",
-              "company-choice",
-              "company-select",
-              "company-pages",
-              "company-status"
+              "company-status",
+              "company-row-0"
             ]
           },
           {
-            "id": "company-table",
-            "component": "Table",
-            "title": "회사 목록",
-            "columns": [
-              {
-                "key": "name",
-                "label": "회사명"
-              },
-              {
-                "key": "ticker",
-                "label": "티커"
-              },
-              {
-                "key": "cik",
-                "label": "CIK"
-              }
-            ],
-            "rows": [
-              {
-                "name": "Coupang, Inc.",
-                "ticker": "CPNG",
-                "cik": "0001834584"
-              }
-            ]
+            "id": "company-status",
+            "component": "Text",
+            "text": "회사를 고르면 분석 가능한 연간보고서를 보여드립니다.",
+            "variant": "caption"
           },
           {
-            "id": "company-choice",
-            "component": "Select",
-            "label": "조회할 회사",
-            "value": {
-              "path": "/companyChoice"
-            },
-            "disabled": false,
-            "options": [
-              {
-                "value": "0001834584",
-                "label": "Coupang, Inc. (CPNG)"
-              }
-            ]
+            "id": "company-row-0",
+            "component": "Card",
+            "title": "Coupang, Inc.",
+            "description": "CPNG",
+            "child": "company-select"
           },
           {
             "id": "company-select",
             "component": "Button",
-            "label": "공시 조회",
+            "label": "CPNG 공시 보기",
             "disabled": false,
+            "variant": "default",
             "action": {
               "event": {
                 "name": "sec_company",
                 "context": {
                   "revision": 1,
-                  "cik": {
-                    "path": "/companyChoice"
-                  }
+                  "cik": "0001834584"
                 }
               }
             }
-          },
-          {
-            "id": "company-pages",
-            "component": "Row",
-            "children": [
-              "company-prev",
-              "company-next"
-            ]
-          },
-          {
-            "id": "company-prev",
-            "component": "Button",
-            "label": "회사 이전 페이지",
-            "disabled": true,
-            "action": {
-              "event": {
-                "name": "sec_search",
-                "context": {
-                  "revision": 1,
-                  "query": "CPNG",
-                  "page": 0
-                }
-              }
-            }
-          },
-          {
-            "id": "company-next",
-            "component": "Button",
-            "label": "회사 다음 페이지",
-            "disabled": true,
-            "action": {
-              "event": {
-                "name": "sec_search",
-                "context": {
-                  "revision": 1,
-                  "query": "CPNG",
-                  "page": 2
-                }
-              }
-            }
-          },
-          {
-            "id": "company-status",
-            "component": "Text",
-            "text": "1개 회사 · 1페이지"
           }
         ]
       }
@@ -197,8 +118,6 @@
         "path": "/",
         "value": {
           "query": "CPNG",
-          "companyChoice": "0001834584",
-          "filingChoice": "",
           "reportRequest": "",
           "statusFilter": "",
           "formFilter": "",
@@ -217,22 +136,23 @@
             "id": "root",
             "component": "Column",
             "children": [
-              "notice",
+              "stage",
               "search",
               "companies-empty"
             ]
           },
           {
-            "id": "notice",
-            "component": "Alert",
-            "title": "SEC 공시 분석",
-            "text": "검색 결과가 없습니다. 검색어를 바꿔 주세요."
+            "id": "stage",
+            "component": "Text",
+            "text": "1 · 회사 선택",
+            "variant": "heading"
           },
           {
             "id": "search",
-            "component": "Card",
-            "title": "회사 검색",
-            "child": "search-fields"
+            "component": "Column",
+            "children": [
+              "search-fields"
+            ]
           },
           {
             "id": "search-fields",
@@ -240,7 +160,8 @@
             "children": [
               "query",
               "search-button"
-            ]
+            ],
+            "gap": 8
           },
           {
             "id": "query",
@@ -248,13 +169,15 @@
             "label": "회사명 또는 티커",
             "value": {
               "path": "/query"
-            }
+            },
+            "placeholder": "예: CPNG, AAPL"
           },
           {
             "id": "search-button",
             "component": "Button",
             "label": "회사 검색",
             "disabled": false,
+            "variant": "outline",
             "action": {
               "event": {
                 "name": "sec_search",
@@ -271,8 +194,8 @@
           {
             "id": "companies-empty",
             "component": "Alert",
-            "title": "회사 검색 결과",
-            "text": "검색 결과가 없습니다. 검색어를 바꿔 주세요."
+            "title": "일치하는 회사가 없습니다",
+            "text": "영문 회사명이나 티커로 다시 검색해 주세요. 예: Coupang 또는 CPNG"
           }
         ]
       }
@@ -284,8 +207,6 @@
         "path": "/",
         "value": {
           "query": "NO_MATCH",
-          "companyChoice": "",
-          "filingChoice": "",
           "reportRequest": "",
           "statusFilter": "",
           "formFilter": "",
@@ -304,22 +225,23 @@
             "id": "root",
             "component": "Column",
             "children": [
-              "notice",
+              "stage",
               "search",
               "companies"
             ]
           },
           {
-            "id": "notice",
-            "component": "Alert",
-            "title": "SEC 공시 분석",
-            "text": "회사를 선택해 주세요."
+            "id": "stage",
+            "component": "Text",
+            "text": "1 · 회사 선택",
+            "variant": "heading"
           },
           {
             "id": "search",
-            "component": "Card",
-            "title": "회사 검색",
-            "child": "search-fields"
+            "component": "Column",
+            "children": [
+              "search-fields"
+            ]
           },
           {
             "id": "search-fields",
@@ -327,7 +249,8 @@
             "children": [
               "query",
               "search-button"
-            ]
+            ],
+            "gap": 8
           },
           {
             "id": "query",
@@ -335,13 +258,15 @@
             "label": "회사명 또는 티커",
             "value": {
               "path": "/query"
-            }
+            },
+            "placeholder": "예: CPNG, AAPL"
           },
           {
             "id": "search-button",
             "component": "Button",
             "label": "회사 검색",
             "disabled": false,
+            "variant": "outline",
             "action": {
               "event": {
                 "name": "sec_search",
@@ -357,123 +282,40 @@
           },
           {
             "id": "companies",
-            "component": "Card",
-            "title": "회사 검색 결과",
-            "child": "company-fields"
-          },
-          {
-            "id": "company-fields",
             "component": "Column",
             "children": [
-              "company-table",
-              "company-choice",
-              "company-select",
-              "company-pages",
-              "company-status"
+              "company-status",
+              "company-row-0"
             ]
           },
           {
-            "id": "company-table",
-            "component": "Table",
-            "title": "회사 목록",
-            "columns": [
-              {
-                "key": "name",
-                "label": "회사명"
-              },
-              {
-                "key": "ticker",
-                "label": "티커"
-              },
-              {
-                "key": "cik",
-                "label": "CIK"
-              }
-            ],
-            "rows": [
-              {
-                "name": "Coupang, Inc.",
-                "ticker": "CPNG",
-                "cik": "0001834584"
-              }
-            ]
+            "id": "company-status",
+            "component": "Text",
+            "text": "회사를 고르면 분석 가능한 연간보고서를 보여드립니다.",
+            "variant": "caption"
           },
           {
-            "id": "company-choice",
-            "component": "Select",
-            "label": "조회할 회사",
-            "value": {
-              "path": "/companyChoice"
-            },
-            "disabled": false,
-            "options": [
-              {
-                "value": "0001834584",
-                "label": "Coupang, Inc. (CPNG)"
-              }
-            ]
+            "id": "company-row-0",
+            "component": "Card",
+            "title": "Coupang, Inc.",
+            "description": "CPNG",
+            "child": "company-select"
           },
           {
             "id": "company-select",
             "component": "Button",
-            "label": "공시 조회",
+            "label": "CPNG 공시 보기",
             "disabled": false,
+            "variant": "default",
             "action": {
               "event": {
                 "name": "sec_company",
                 "context": {
                   "revision": 3,
-                  "cik": {
-                    "path": "/companyChoice"
-                  }
+                  "cik": "0001834584"
                 }
               }
             }
-          },
-          {
-            "id": "company-pages",
-            "component": "Row",
-            "children": [
-              "company-prev",
-              "company-next"
-            ]
-          },
-          {
-            "id": "company-prev",
-            "component": "Button",
-            "label": "회사 이전 페이지",
-            "disabled": true,
-            "action": {
-              "event": {
-                "name": "sec_search",
-                "context": {
-                  "revision": 3,
-                  "query": "CPNG",
-                  "page": 0
-                }
-              }
-            }
-          },
-          {
-            "id": "company-next",
-            "component": "Button",
-            "label": "회사 다음 페이지",
-            "disabled": true,
-            "action": {
-              "event": {
-                "name": "sec_search",
-                "context": {
-                  "revision": 3,
-                  "query": "CPNG",
-                  "page": 2
-                }
-              }
-            }
-          },
-          {
-            "id": "company-status",
-            "component": "Text",
-            "text": "1개 회사 · 1페이지"
           }
         ]
       }
@@ -485,8 +327,6 @@
         "path": "/",
         "value": {
           "query": "CPNG",
-          "companyChoice": "0001834584",
-          "filingChoice": "",
           "reportRequest": "",
           "statusFilter": "",
           "formFilter": "",

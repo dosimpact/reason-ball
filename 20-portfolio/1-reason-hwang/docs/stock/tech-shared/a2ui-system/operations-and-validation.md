@@ -160,4 +160,16 @@ pnpm --filter reason-hwang-fe-host test:e2e:sec-agent
 [에이전트 전환과 검증 기록](../../../flow/2026-09-22-sec-agent-tools.md).
 
 
-SEC-A2UI-11 실서비스 검증은 위 `test:sec-agent:api`(12요청)와 `test:e2e:sec-agent`(4시나리오)에 포함한다. Inline 이력·읽기 전용, Canvas 동일 ID 갱신, 위치 전환 상태 보존, Canvas 버튼의 발신 문맥을 검사한다. `test:a2ui:views`는 늦게 마운트한 화면과 중복 tool/activity 이벤트 회귀를 포함한다. [최종 증거](../../../flow/2026-09-22-sec-inline-canvas.md)를 참조한다.
+SEC-A2UI-11 실서비스 검증은 위 `test:sec-agent:api`(12요청)와 `test:e2e:sec-agent`(5시나리오)에 포함한다. Inline 이력·읽기 전용, Canvas 동일 ID 갱신, 위치 전환 상태 보존, Canvas 버튼의 발신 문맥을 검사한다. `test:a2ui:views`는 늦게 마운트한 화면과 중복 tool/activity 이벤트 회귀를 포함한다. [최종 증거](../../../flow/2026-09-22-sec-inline-canvas.md)를 참조한다.
+
+## SEC-A2UI-12 UX 회귀
+
+```sh
+pnpm --filter reason-hwang-langgraph-fast test:sec-ux:api
+pnpm --filter reason-hwang-langgraph-fast test:sec-agent:api
+pnpm --filter reason-hwang-fe-host test:e2e:sec-agent
+```
+
+위 명령은 순차 실행한다. 새 Bruno17은 직접 회사/문서 선택, 기본 연간보고서·전체 범위 전환, 요약 바로가기와 고정 요청 변조 차단8요청을 검증한다. 브라우저5시나리오는 기능 안내, 검색 복구, 위험 요인 실모델 보고서/표현 변경, 접힌 Inline과 Canvas 문맥 격리, 모바일/필터 복구를 포함한다. 과거 보고서의 출처 펼침은 허용하고 업무 action은 잠기는지도 확인한다.
+
+Storybook SEC UX는 직접 선택, 미저장 원문, 빈 필터, 빠른 시작, 과거 상세 열람과 간결한 진행 표시를 검증한다. SEC 카탈로그에 Collapsible을 추가했으므로 Host와 FastAPI 계약 생성물의 해시가 같아야 한다. 서버 재시작으로 InMemorySaver가 초기화되면 기존 화면에서 계속 테스트하지 말고 새 대화를 시작한다. 최신 실행 결과는 [UX 재설계 증거](../../../flow/2026-09-22-sec-ux-redesign.md)를 따른다.

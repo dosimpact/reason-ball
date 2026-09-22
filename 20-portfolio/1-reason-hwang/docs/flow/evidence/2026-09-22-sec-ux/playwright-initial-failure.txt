@@ -1,0 +1,60 @@
+> reason-hwang-fe-host@0.1.0 test:e2e:sec-agent /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+> SEC_AGENT_LIVE_TESTS=1 PLAYWRIGHT_BASE_URL=http://localhost:2820 playwright test sec-agent.spec.ts --project=chromium --workers=1
+
+
+Running 5 tests using 1 worker
+
+(node:16037) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/e2e/sec-agent.spec.ts:44:7 › SEC-A2UI-12 reviewed UX › start is focused; help is text-only; company has a direct action (59.1s)
+  ✓  2 [chromium] › tests/e2e/sec-agent.spec.ts:60:7 › SEC-A2UI-12 reviewed UX › empty results explain recovery without stale companies (8.8s)
+  ✓  3 [chromium] › tests/e2e/sec-agent.spec.ts:73:7 › SEC-A2UI-12 reviewed UX › direct company → filing → risk preset; report retains context and supports agent layout change (58.8s)
+  ✓  4 [chromium] › tests/e2e/sec-agent.spec.ts:109:7 › SEC-A2UI-12 reviewed UX › Inline history folds; Canvas keeps its own document and replaces stale title (1.1m)
+  ✘  5 [chromium] › tests/e2e/sec-agent.spec.ts:157:7 › SEC-A2UI-12 reviewed UX › mobile direct flow and filter recovery need no dropdown reselection (4.0m)
+
+
+  1) [chromium] › tests/e2e/sec-agent.spec.ts:157:7 › SEC-A2UI-12 reviewed UX › mobile direct flow and filter recovery need no dropdown reselection
+
+    Test timeout of 240000ms exceeded.
+
+    Error: page.waitForResponse: Test timeout of 240000ms exceeded.
+
+      26 |
+      27 | async function finishAction(page: Page, button: string | RegExp, scope: Page | Locator = page) {
+    > 28 |   const response = page.waitForResponse(value => value.url().includes('/api/copilotkit/a2ui/sec')
+         |                         ^
+      29 |     && value.request().method() === 'POST' && (value.headers()['content-type'] ?? '').includes('text/event-stream'));
+      30 |   await scope.getByRole('button', { name: button, exact: true }).click();
+      31 |   const result = await response;
+        at finishAction (/Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host/tests/e2e/sec-agent.spec.ts:28:25)
+        at /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host/tests/e2e/sec-agent.spec.ts:163:11
+
+    Error: locator.click: Test timeout of 240000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'CPNG 공시 보기', exact: true })
+
+
+      28 |   const response = page.waitForResponse(value => value.url().includes('/api/copilotkit/a2ui/sec')
+      29 |     && value.request().method() === 'POST' && (value.headers()['content-type'] ?? '').includes('text/event-stream'));
+    > 30 |   await scope.getByRole('button', { name: button, exact: true }).click();
+         |                                                                  ^
+      31 |   const result = await response;
+      32 |   const body = await result.text();
+      33 |   const events = body.split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)) as WireEvent);
+        at finishAction (/Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host/tests/e2e/sec-agent.spec.ts:30:66)
+        at /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host/tests/e2e/sec-agent.spec.ts:163:11
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/sec-agent-SEC-A2UI-12-revi-18934-eed-no-dropdown-reselection-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/sec-agent-SEC-A2UI-12-revi-18934-eed-no-dropdown-reselection-chromium/error-context.md
+
+  Slow test file: [chromium] › tests/e2e/sec-agent.spec.ts (7.3m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  1 failed
+    [chromium] › tests/e2e/sec-agent.spec.ts:157:7 › SEC-A2UI-12 reviewed UX › mobile direct flow and filter recovery need no dropdown reselection
+  4 passed (7.3m)
+/Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  reason-hwang-fe-host@0.1.0 test:e2e:sec-agent: `SEC_AGENT_LIVE_TESTS=1 PLAYWRIGHT_BASE_URL=http://localhost:2820 playwright test sec-agent.spec.ts --project=chromium --workers=1`
+Exit status 1

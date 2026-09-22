@@ -38,7 +38,7 @@ tests {
     expect(names).to.include("render_fixed_ui");
     expect(snapshot.sec.companies.items.some(row => row.ticker === "CPNG")).to.equal(true);
     const tree = Object.values(snapshot.surfaces)[0].components;
-    expect(tree["company-table"]).not.to.equal(undefined);
+    expect(tree["company-select"]).not.to.equal(undefined);
     expect(tree["companies-empty"]).to.equal(undefined);
     bru.setVar("agentSnapshot", snapshot);
     console.log("Agent tools:", names.join(" -> ") || "text only");

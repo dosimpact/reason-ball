@@ -1,0 +1,47 @@
+meta {
+  name: SEC-A2UI-12 summary-preset
+  type: http
+  seq: 7
+}
+post {
+  url: {{baseUrl}}/ag-ui/a2ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const manifest = bru.getVar("uxManifest");
+  const body = {threadId: bru.getVar("uxThread"), runId: "ux-" + Date.now(), messages: [], state: {}, tools: [], context: [], forwardedProps: {a2uiContract: {protocolVersion: manifest.protocolVersion, ...manifest.catalogs.sec}}};
+  const previous = bru.getVar("uxSnapshot");
+  const surfaceId = Object.keys(previous.surfaces)[0];
+  const sourceComponentId = "summary-report";
+  const event = previous.surfaces[surfaceId].components[sourceComponentId].action.event;
+  body.forwardedProps.a2uiAction = {action: {surfaceId, sourceComponentId, name: event.name, context: {...event.context}}};
+
+  req.setBody(body);
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-A2UI-12 summary-preset", function () {
+    const events = res.getBody().split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+    expect(events.some(e => e.type === "RUN_ERROR")).to.equal(false);
+    expect(events.some(e => e.type === "RUN_FINISHED")).to.equal(true);
+    const snapshot = events.filter(e => e.type === "STATE_SNAPSHOT").slice(-1)[0].snapshot;
+    const tree = Object.values(snapshot.surfaces)[0].components;
+    bru.setVar("uxSnapshot", snapshot);
+    expect(snapshot.sec.report_plan.sections).to.deep.equal([{section: "summary", presentation: "cards"}]);
+    expect(snapshot.sec.report.summary.length).to.be.greaterThan(0);
+    expect(snapshot.sec.report.summary.every(claim => claim.citations.length > 0)).to.equal(true);
+    expect(tree["root"].children).to.include("report-document");
+    expect(tree["report-document"].text).to.include(snapshot.sec.filing.formType);
+    expect(tree["report-source"].items[0].text).to.include("SHA-256");
+  });
+}

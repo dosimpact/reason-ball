@@ -88,11 +88,12 @@ def build_sec_tools(client, model, execute_action):
         return await act(runtime, "sec_search", {"query": query, "page": page})
 
     @tool
-    async def list_filings(cik: str, runtime: ToolRuntime, page: int = 1, status: str = "", form: str = "", since: str = "") -> Command:
+    async def list_filings(cik: str, runtime: ToolRuntime, page: int = 1, status: str = "downloaded", form: str = "10-K", since: str = "") -> Command:
         """Select a company from the current search results and list its real filings.
 
         Use an exact returned CIK. Optional filters: status downloaded/pending/failed,
-        form 10-K/10-Q/8-K or amendments, since YYYY-MM-DD. Empty strings mean all.
+        form 10-K/10-Q/8-K or amendments, since YYYY-MM-DD. Defaults show downloaded 10-K.
+        Empty strings explicitly request all. Honor the user's requested form/status.
         Clears the previous filing/report. Render with render_fixed_ui.
         """
         previous = runtime.state.get("working_sec", runtime.state.get("sec", {}))

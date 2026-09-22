@@ -120,7 +120,7 @@ export const profileComponents = {
   host: Object.keys(definitions) as ComponentName[],
   dynamic: ["Row", "Column", "Text", "Card", "Metric", "InfoRow", "Chart", "Table", "Badge", "Select", "Input", "Button"] as ComponentName[],
   fixed: ["Row", "Column", "Text", "Card", "Badge", "Metric", "InfoRow", "Button", "RadioGroup"] as ComponentName[],
-  sec: ["Row", "Column", "Text", "Card", "Badge", "Metric", "InfoRow", "Button", "Input", "Select", "Table", "Alert", "Accordion"] as ComponentName[],
+  sec: ["Row", "Column", "Text", "Card", "Badge", "Metric", "InfoRow", "Button", "Input", "Select", "Table", "Alert", "Accordion", "Collapsible"] as ComponentName[],
 };
 export type CatalogProfile = keyof typeof profileComponents;
 export const PROTOCOL_VERSION = "v0.9";

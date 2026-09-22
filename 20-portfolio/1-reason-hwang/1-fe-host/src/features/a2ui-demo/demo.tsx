@@ -6,6 +6,7 @@ import { CopilotChat, CopilotKitProvider } from "@copilotkit/react-core/v2";
 import { Button } from "@/components/ui/button";
 import { createHostCatalog } from "@/lib/a2ui/catalog";
 import manifest from "@/lib/a2ui/generated/manifest.json";
+import { SecWelcome } from "./sec-welcome";
 import { fixedDemoCopy } from "./fixed-copy";
 import { OutputWorkspace, OutputTargetSelect, type OutputTarget } from "./output-workspace";
 import { RunProgress } from "./progress";
@@ -27,12 +28,12 @@ function DemoSession({ mode }: { mode: "dynamic" | "fixed" | "sec" }) {
   const properties = useMemo(() => ({ a2uiContract: { protocolVersion: manifest.protocolVersion, ...manifest.catalogs[mode] }, a2uiOutputTarget: outputTarget, a2uiRenderMode: mode === "dynamic" ? renderMode : "batch" }), [mode, renderMode, outputTarget]);
   return <CopilotKitProvider runtimeUrl={`/api/copilotkit/a2ui/${mode}`} agentId={`a2ui-${mode}`} useSingleEndpoint properties={properties} a2ui={{ catalog, includeSchema: false }} renderActivityMessages={renderers} enableInspector={false} onError={({ error }) => setError(error.message)}>
     {error && <div role="alert" className="mb-4 rounded-lg border border-destructive p-4"><p>{error}</p><Button variant="ghost" onClick={() => setError(null)}>알림 닫기</Button></div>}
-    <div className="mb-4 rounded-lg bg-muted p-4 text-sm">{mode === "sec" ? "궁금한 기능을 물어보거나 회사를 찾아보세요. 예시: 뭐가 가능해? · 쿠팡 공시 보여줘 · 선택한 공시의 위험 요인만 표로 보여줘." : mode === "dynamic" ? "예시: 전체 매출 현황을 보여줘 · 담당자별 실적을 비교해줘 · 지역별 매출 비중을 보여줘" : fixedDemoCopy.examples}</div>
+    {mode !== "sec" && <div className="mb-4 rounded-lg bg-muted p-4 text-sm">{mode === "dynamic" ? "예시: 전체 매출 현황을 보여줘 · 담당자별 실적을 비교해줘 · 지역별 매출 비중을 보여줘" : fixedDemoCopy.examples}</div>}
     {mode === "sec" && <OutputTargetSelect value={outputTarget} onChange={setOutputTarget} />}
-    <RunProgress agentId={`a2ui-${mode}`} />
+    <RunProgress agentId={`a2ui-${mode}`} compact={mode === "sec"} />
     {mode === "dynamic" && <><RenderModeSelect value={renderMode} onChange={setRenderMode} />{renderMode === "progressive" && <ProgressivePreview catalog={catalog} />}</>}
-    <div className={mode === "sec" ? "grid items-start gap-6 lg:grid-cols-2" : undefined}><OutputWorkspace agentId={`a2ui-${mode}`} catalog={catalog}>
-    <div aria-label="채팅 결과" className="min-h-[60vh] rounded-xl border"><CopilotChat agentId={`a2ui-${mode}`} labels={{ welcomeMessageText: mode === "sec" ? "SEC 공시 조회와 분석을 도와드립니다. 무엇이 궁금하세요?" : mode === "dynamic" ? "어떤 매출 정보를 살펴볼까요?" : fixedDemoCopy.welcome, chatInputPlaceholder: mode === "sec" ? "기능 질문, 회사 검색 또는 공시 분석 요청" : "질문을 입력하세요" }} /></div>
-    </OutputWorkspace></div>
+    <OutputWorkspace agentId={`a2ui-${mode}`} catalog={catalog} target={outputTarget}>
+    <div aria-label="채팅 결과" className="min-h-[60vh] min-w-0 rounded-xl border"><CopilotChat welcomeScreen={mode === "sec" ? SecWelcome : undefined} agentId={`a2ui-${mode}`} labels={{ welcomeMessageText: mode === "sec" ? "SEC 공시 조회와 분석을 도와드립니다. 무엇이 궁금하세요?" : mode === "dynamic" ? "어떤 매출 정보를 살펴볼까요?" : fixedDemoCopy.welcome, chatInputPlaceholder: mode === "sec" ? "기능 질문, 회사 검색 또는 공시 분석 요청" : "질문을 입력하세요" }} /></div>
+    </OutputWorkspace>
   </CopilotKitProvider>;
 }

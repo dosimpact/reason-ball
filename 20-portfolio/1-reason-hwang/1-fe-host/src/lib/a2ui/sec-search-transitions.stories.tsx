@@ -31,14 +31,14 @@ export const ResultsEmptyResults: Story = {
   play: async ({ canvasElement }) => {
     // SEC-A2UI-10: merged A2UI updates must not retain a previous table in an empty result.
     const canvas = within(canvasElement);
-    await expect(await canvas.findByRole("table")).toBeVisible();
-    await expect(canvas.getByRole("cell", { name: "Coupang, Inc." })).toBeVisible();
+    await expect(await canvas.findByRole("button", { name: "CPNG 공시 보기" })).toBeVisible();
+    await expect(canvas.getByText("Coupang, Inc.")).toBeVisible();
     await userEvent.click(canvas.getByRole("button", { name: "빈 결과 적용" }));
-    await expect(canvas.queryByRole("table")).not.toBeInTheDocument();
-    await expect(canvas.queryByRole("button", { name: "공시 조회" })).not.toBeInTheDocument();
-    await expect(canvas.getAllByText("검색 결과가 없습니다. 검색어를 바꿔 주세요.")).toHaveLength(2);
+    await expect(canvas.queryByRole("button", { name: "CPNG 공시 보기" })).not.toBeInTheDocument();
+    await expect(canvas.queryByRole("button", { name: "CPNG 공시 보기" })).not.toBeInTheDocument();
+    await expect(canvas.getAllByText("영문 회사명이나 티커로 다시 검색해 주세요. 예: Coupang 또는 CPNG")).toHaveLength(1);
     await userEvent.click(canvas.getByRole("button", { name: "검색 복구" }));
-    await expect(await canvas.findByRole("table")).toBeVisible();
-    await expect(canvas.queryByText("검색 결과가 없습니다. 검색어를 바꿔 주세요.")).not.toBeInTheDocument();
+    await expect(await canvas.findByRole("button", { name: "CPNG 공시 보기" })).toBeVisible();
+    await expect(canvas.queryByText("영문 회사명이나 티커로 다시 검색해 주세요. 예: Coupang 또는 CPNG")).not.toBeInTheDocument();
   },
 };

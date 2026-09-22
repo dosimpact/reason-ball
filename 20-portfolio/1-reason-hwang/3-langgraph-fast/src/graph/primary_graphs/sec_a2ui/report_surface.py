@@ -8,7 +8,7 @@ def report_components(state: dict) -> list[dict]:
     plan = ReportPlan.model_validate(state["report_plan"])
     components = [
         {"id": "report", "component": "Card", "title": "선택 공시 분석 보고서", "child": "report-fields"},
-        {"id": "report-source", "component": "Text", "text": state["report_source_label"]},
+        {"id": "report-source", "component": "Accordion", "items": [{"title": "출처 · 조회 시각 · 분석 범위", "text": state["report_source_label"]}]},
         {"id": "report-request-label", "component": "Text", "text": "분석 요청: " + (state.get("report_request") or "전체 공시 분석")},
         {"id": "report-limits", "component": "Text", "text": REPORT_LIMITS},
     ]
@@ -40,5 +40,5 @@ def report_components(state: dict) -> list[dict]:
                     {"id": f"{claim_id}-text", "component": "Text", "text": row["analysis"] + "\n" + row["evidence"]},
                 ])
             components.append({"id": section_id, "component": "Column", "children": children})
-    components.append({"id": "report-fields", "component": "Column", "children": ["report-request-label", "report-source", *section_ids, "report-limits"]})
+    components.append({"id": "report-fields", "component": "Column", "children": ["report-request-label", *section_ids, "report-limits", "report-source"]})
     return components

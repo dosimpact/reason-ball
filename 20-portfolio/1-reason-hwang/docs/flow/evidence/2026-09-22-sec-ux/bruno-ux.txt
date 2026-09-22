@@ -1,0 +1,58 @@
+> reason-hwang-langgraph-fast@0.1.0 test:sec-ux:api /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/3-langgraph-fast
+> cd bruno-api-tests && ../node_modules/.bin/bru run 17-sec-ux --env local
+
+17-sec-ux/01-manifest (200 OK) - 179 ms
+Tests
+   ✓ SEC catalog is registered
+Assertions
+   ✓ res.status: eq 200
+17-sec-ux/02-direct-company-result (200 OK) - 8337 ms
+Tests
+   ✓ SEC-A2UI-12 direct-company-result
+Assertions
+   ✓ res.status: eq 200
+17-sec-ux/03-annual-scope (200 OK) - 78 ms
+Tests
+   ✓ SEC-A2UI-12 annual-scope
+Assertions
+   ✓ res.status: eq 200
+17-sec-ux/04-all-filings (200 OK) - 81 ms
+Tests
+   ✓ SEC-A2UI-12 all-filings
+Assertions
+   ✓ res.status: eq 200
+17-sec-ux/05-annual-recovery (200 OK) - 72 ms
+Tests
+   ✓ SEC-A2UI-12 annual-recovery
+Assertions
+   ✓ res.status: eq 200
+17-sec-ux/06-direct-document (200 OK) - 45 ms
+Tests
+   ✓ SEC-A2UI-12 direct-document
+Assertions
+   ✓ res.status: eq 200
+17-sec-ux/07-summary-preset (200 OK) - 25009 ms
+Tests
+   ✓ SEC-A2UI-12 summary-preset
+Assertions
+   ✓ res.status: eq 200
+17-sec-ux/08-reject-altered-preset (422 Unprocessable Entity) - 8 ms
+Tests
+   ✓ SEC-A2UI-12 reject-altered-preset
+Assertions
+   ✓ res.status: eq 422
+
+📊 Execution Summary
+┌───────────────┬──────────────┐
+│ Metric        │    Result    │
+├───────────────┼──────────────┤
+│ Status        │    ✓ PASS    │
+├───────────────┼──────────────┤
+│ Requests      │ 8 (8 Passed) │
+├───────────────┼──────────────┤
+│ Tests         │     8/8      │
+├───────────────┼──────────────┤
+│ Assertions    │     8/8      │
+├───────────────┼──────────────┤
+│ Duration (ms) │    33809     │
+└───────────────┴──────────────┘

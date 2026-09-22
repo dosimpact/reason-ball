@@ -1,0 +1,15 @@
+> reason-hwang-fe-host@0.1.0 test:e2e:sec-agent /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+> SEC_AGENT_LIVE_TESTS=1 PLAYWRIGHT_BASE_URL=http://localhost:2820 playwright test sec-agent.spec.ts --project=chromium --workers=1
+
+
+Running 5 tests using 1 worker
+
+(node:17577) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/e2e/sec-agent.spec.ts:44:7 › SEC-A2UI-12 reviewed UX › start is focused; help is text-only; company has a direct action (21.3s)
+  ✓  2 [chromium] › tests/e2e/sec-agent.spec.ts:60:7 › SEC-A2UI-12 reviewed UX › empty results explain recovery without stale companies (9.3s)
+  ✓  3 [chromium] › tests/e2e/sec-agent.spec.ts:73:7 › SEC-A2UI-12 reviewed UX › direct company → filing → risk preset; report retains context and supports agent layout change (43.2s)
+  ✓  4 [chromium] › tests/e2e/sec-agent.spec.ts:109:7 › SEC-A2UI-12 reviewed UX › Inline history folds; Canvas keeps its own document and replaces stale title (46.8s)
+  ✓  5 [chromium] › tests/e2e/sec-agent.spec.ts:157:7 › SEC-A2UI-12 reviewed UX › mobile direct flow and filter recovery need no dropdown reselection (12.8s)
+
+  5 passed (2.2m)

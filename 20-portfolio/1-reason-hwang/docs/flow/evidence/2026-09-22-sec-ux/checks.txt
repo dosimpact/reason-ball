@@ -1,0 +1,214 @@
+## sec-ux-python-final.log
+
+> reason-hwang-langgraph-fast@0.1.0 test /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/3-langgraph-fast
+> uv run pytest
+
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/3-langgraph-fast
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.14.1, asyncio-1.4.0, langsmith-0.9.7
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 208 items
+
+tests/architecture/test_talib_boundary.py .                              [  0%]
+tests/domains/tenk/test_a2ui_report.py ........                          [  4%]
+tests/domains/tenk/test_pipeline.py ....                                 [  6%]
+tests/domains/tenk/test_retrieval.py ..                                  [  7%]
+tests/domains/tenk/test_sec_client.py .......                            [ 10%]
+tests/graph/primary_graphs/test_simple_llm_workflow.py ..                [ 11%]
+tests/graph/shared/cache/test_in_memory_price_cache.py ...               [ 12%]
+tests/graph/shared/cache/test_price_data_cache_decorator.py ....         [ 14%]
+tests/graph/shared/value_objects/test_price_data_vo.py ........          [ 18%]
+tests/graph/subgraph/price_agent/test_collect_price_data.py ..           [ 19%]
+tests/graph/subgraph/price_agent/test_extract_request.py ..              [ 20%]
+tests/graph/subgraph/price_agent/test_format_response.py ..              [ 21%]
+tests/graph/subgraph/price_agent/test_price_agent_workflow.py .          [ 22%]
+tests/graph/subgraph/price_agent/test_yahoo_finance_tool.py ......       [ 25%]
+tests/graph/subgraph/starter_graph/test_starter_workflow.py .            [ 25%]
+tests/graph/subgraph/starter_graph/test_weather_tool.py ..               [ 26%]
+tests/graph/subgraph/technical_analysis/test_technical_analysis_workflow.py . [ 26%]
+...                                                                      [ 28%]
+tests/graph/subgraph/tenk/test_workflow.py .                             [ 28%]
+tests/infrastructure/technical_analysis/talib/categories/test_momentum_indicators.py . [ 29%]
+                                                                         [ 29%]
+tests/infrastructure/technical_analysis/talib/categories/test_overlap_studies.py . [ 29%]
+                                                                         [ 29%]
+tests/infrastructure/technical_analysis/talib/categories/test_volatility_indicators.py . [ 30%]
+                                                                         [ 30%]
+tests/infrastructure/technical_analysis/talib/categories/test_volume_indicators.py . [ 30%]
+                                                                         [ 30%]
+tests/infrastructure/technical_analysis/talib/test_engine.py ....        [ 32%]
+tests/infrastructure/technical_analysis/talib/test_normalization.py .    [ 33%]
+tests/infrastructure/test_thread_run_repositories.py ...                 [ 34%]
+tests/integration/test_assistant_repository.py s                         [ 35%]
+tests/integration/test_extended_postgres_repositories.py s               [ 35%]
+tests/integration/test_normalized_schema.py ss                           [ 36%]
+tests/integration/test_postgres_checkpointer.py s                        [ 37%]
+tests/integration/test_snapshot_to_normalized_migration.py s             [ 37%]
+tests/integration/test_thread_run_repositories.py s                      [ 37%]
+tests/server/test_assistants_api.py .......                              [ 41%]
+tests/server/test_execution.py ...                                       [ 42%]
+tests/server/test_extended_api.py ......                                 [ 45%]
+tests/server/test_extended_persistence.py ...                            [ 47%]
+tests/server/test_standard_contract.py ..                                [ 48%]
+tests/server/test_tenk_api.py ..                                         [ 49%]
+tests/server/test_threads_runs_api.py .........                          [ 53%]
+tests/test_a2ui_cabin.py ...........                                     [ 58%]
+tests/test_a2ui_contract.py ...........                                  [ 63%]
+tests/test_a2ui_facts.py ......                                          [ 66%]
+tests/test_a2ui_live.py ssssss                                           [ 69%]
+tests/test_a2ui_model.py .                                               [ 70%]
+tests/test_a2ui_preview.py .......                                       [ 73%]
+tests/test_a2ui_workflow.py .....                                        [ 75%]
+tests/test_app.py ..                                                     [ 76%]
+tests/test_migrations.py ...                                             [ 78%]
+tests/test_neo4j_constraints.py ....                                     [ 80%]
+tests/test_sec_a2ui_workflow.py .....                                    [ 82%]
+tests/test_sec_agent.py ...........                                      [ 87%]
+tests/test_sec_hybrid.py ............                                    [ 93%]
+tests/test_sec_output_targets.py .......                                 [ 97%]
+tests/test_sec_ux.py ...                                                 [ 98%]
+tests/test_settings_postgres.py ...                                      [100%]
+
+=============================== warnings summary ===============================
+src/graph/primary_graphs/simple_llm/node/llm.py:19
+  /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/3-langgraph-fast/src/graph/primary_graphs/simple_llm/node/llm.py:19: LangGraphDeprecatedSinceV10: create_react_agent has been moved to `langchain.agents`. Please update your import to `from langchain.agents import create_agent`. Deprecated in LangGraph V1.0 to be removed in V2.0.
+    return create_react_agent(
+
+src/graph/subgraph/starter_graph/workflow.py:21
+  /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/3-langgraph-fast/src/graph/subgraph/starter_graph/workflow.py:21: LangGraphDeprecatedSinceV10: create_react_agent has been moved to `langchain.agents`. Please update your import to `from langchain.agents import create_agent`. Deprecated in LangGraph V1.0 to be removed in V2.0.
+    return create_react_agent(
+
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/3-langgraph-fast/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_a2ui_workflow.py::test_http_sse_contract_rejection_and_surface_tampering
+tests/test_a2ui_workflow.py::test_action_ignores_cancelled_client_tool_fragments
+tests/test_sec_a2ui_workflow.py::test_initial_surface_is_delivered_as_a_tool_result_event
+tests/test_sec_agent.py::test_search_and_fixed_render_are_model_calls_with_tool_result_on_wire
+  /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/3-langgraph-fast/.venv/lib/python3.12/site-packages/ag_ui_langgraph/agent.py:2547: LangGraphDeprecatedSinceV10: `get_config_jsonschema` is deprecated. Use `get_context_jsonschema` instead. Deprecated in LangGraph V1.0 to be removed in V2.0.
+    config_schema = self.graph.get_config_jsonschema()
+
+tests/test_sec_a2ui_workflow.py::test_initial_surface_is_delivered_as_a_tool_result_event
+tests/test_sec_a2ui_workflow.py::test_initial_surface_is_delivered_as_a_tool_result_event
+  /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/3-langgraph-fast/.venv/lib/python3.12/site-packages/pydantic/functional_validators.py:835: UserWarning: Pydantic serializer warnings:
+    PydanticSerializationUnexpectedValue(Expected `none` - serialized value may not be as expected [field_name='context', input_value={'thread_id': 'sec-wire'}, input_type=dict])
+    function=lambda v, h: h(v), schema=original_schema
+
+tests/test_sec_a2ui_workflow.py::test_initial_surface_is_delivered_as_a_tool_result_event
+tests/test_sec_a2ui_workflow.py::test_initial_surface_is_delivered_as_a_tool_result_event
+  /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/3-langgraph-fast/.venv/lib/python3.12/site-packages/pydantic/main.py:475: UserWarning: Pydantic serializer warnings:
+    PydanticSerializationUnexpectedValue(Expected `none` - serialized value may not be as expected [field_name='context', input_value={'thread_id': 'sec-wire'}, input_type=dict])
+    return self.__pydantic_serializer__.to_python(
+
+tests/test_sec_agent.py::test_search_and_fixed_render_are_model_calls_with_tool_result_on_wire
+tests/test_sec_agent.py::test_search_and_fixed_render_are_model_calls_with_tool_result_on_wire
+  /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/3-langgraph-fast/.venv/lib/python3.12/site-packages/pydantic/functional_validators.py:835: UserWarning: Pydantic serializer warnings:
+    PydanticSerializationUnexpectedValue(Expected `none` - serialized value may not be as expected [field_name='context', input_value={'thread_id': 'agent-wire'}, input_type=dict])
+    function=lambda v, h: h(v), schema=original_schema
+
+tests/test_sec_agent.py::test_search_and_fixed_render_are_model_calls_with_tool_result_on_wire
+tests/test_sec_agent.py::test_search_and_fixed_render_are_model_calls_with_tool_result_on_wire
+  /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/3-langgraph-fast/.venv/lib/python3.12/site-packages/pydantic/main.py:475: UserWarning: Pydantic serializer warnings:
+    PydanticSerializationUnexpectedValue(Expected `none` - serialized value may not be as expected [field_name='context', input_value={'thread_id': 'agent-wire'}, input_type=dict])
+    return self.__pydantic_serializer__.to_python(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================ 195 passed, 13 skipped, 15 warnings in 10.70s =================
+
+
+## sec-ux-storybook-history.log
+
+> reason-hwang-fe-host@0.1.0 test:a2ui:views /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+> vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/lib/a2ui/*.stories.tsx
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+(node:15750) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+ ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/dodo/workspace/reason-ball/pnpm-lock.yaml as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+ Detected additional lockfiles:
+   * /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/pnpm-lock.yaml
+
+Plugin "vitest:mocks:interceptor" defines Vite-specific hooks (configureServer) in a plugin returned from applyToEnvironment. These hooks will be ignored.
+
+ RUN  v5.0.1 /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+
+
+ Test Files  10 passed (10)
+      Tests  94 passed (94)
+   Start at  23:22:02
+   Duration  19.04s (worker 89%, import 5%, tests 4%, setup 2%)
+
+
+
+## sec-ux-contract-final.log
+
+> reason-hwang-fe-host@0.1.0 test:a2ui /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+> vitest run --project a2ui
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+(node:17793) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+ ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/dodo/workspace/reason-ball/pnpm-lock.yaml as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+ Detected additional lockfiles:
+   * /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/pnpm-lock.yaml
+
+Plugin "vitest:mocks:interceptor" defines Vite-specific hooks (configureServer) in a plugin returned from applyToEnvironment. These hooks will be ignored.
+
+ RUN  v5.0.1 /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+
+
+ Test Files  2 passed (2)
+      Tests  70 passed (70)
+   Start at  23:35:32
+   Duration  351ms (import 61%, transform 20%, tests 17%, worker 1%)
+
+
+> reason-hwang@0.0.0 a2ui:check /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang
+> pnpm --filter reason-hwang-fe-host a2ui:check
+
+
+> reason-hwang-fe-host@0.1.0 a2ui:check /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+> tsx scripts/a2ui-contract.ts --check
+
+A2UI checked: 61 UI sources, 66 adapters, 4 catalogs; protocol v0.9
+(node:17862) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+
+## sec-ux-fe-final.log
+
+> reason-hwang-fe-host@0.1.0 typecheck /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+> tsc --noEmit
+
+
+> reason-hwang-fe-host@0.1.0 lint /Users/dodo/workspace/reason-ball/20-portfolio/1-reason-hwang/1-fe-host
+> eslint .
+
+
+
+## sec-ux-ruff-final.log
+All checks passed!
+
+
+## sec-ux-pyright-final.log
+0 errors, 0 warnings, 0 informations

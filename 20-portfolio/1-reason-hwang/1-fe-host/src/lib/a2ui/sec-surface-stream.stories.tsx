@@ -45,15 +45,15 @@ export const LateMountAndPersistentCanvas: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const inline = within(canvas.getByRole("region", { name: "Inline 보존" }));
-    await expect(await inline.findByRole("table")).toBeVisible();
+    await expect(await inline.findByRole("button", { name: "CPNG 공시 보기" })).toBeVisible();
     await userEvent.click(canvas.getByRole("button", { name: "실행 중 화면 생성" }));
     const workspace = within(canvas.getByRole("region", { name: "Canvas 갱신" }));
-    await expect(workspace.queryByRole("table")).not.toBeInTheDocument();
-    await expect(workspace.getAllByText("검색 결과가 없습니다. 검색어를 바꿔 주세요.")).toHaveLength(2);
-    await expect(inline.getByRole("table")).toBeVisible();
+    await expect(workspace.queryByRole("button", { name: "CPNG 공시 보기" })).not.toBeInTheDocument();
+    await expect(workspace.getAllByText("영문 회사명이나 티커로 다시 검색해 주세요. 예: Coupang 또는 CPNG")).toHaveLength(1);
+    await expect(inline.getByRole("button", { name: "CPNG 공시 보기" })).toBeVisible();
     await userEvent.click(canvas.getByRole("button", { name: "Canvas 복구와 중복 이벤트" }));
-    await expect(await workspace.findByRole("table")).toBeVisible();
-    await expect(workspace.queryByText("검색 결과가 없습니다. 검색어를 바꿔 주세요.")).not.toBeInTheDocument();
-    await expect(inline.getByRole("cell", { name: "Coupang, Inc." })).toBeVisible();
+    await expect(await workspace.findByRole("button", { name: "CPNG 공시 보기" })).toBeVisible();
+    await expect(workspace.queryByText("영문 회사명이나 티커로 다시 검색해 주세요. 예: Coupang 또는 CPNG")).not.toBeInTheDocument();
+    await expect(inline.getByText("Coupang, Inc.")).toBeVisible();
   },
 };
