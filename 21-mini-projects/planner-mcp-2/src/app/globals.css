@@ -1771,7 +1771,11 @@ summary {
 }
 .codeweave-tree {
   overflow: auto;
-  max-height: 560px;
+  height: var(--codeweave-tree-height, auto);
+  max-height: var(--codeweave-tree-max-height, 560px);
+  font-family: var(--codeweave-tree-font-family, ui-monospace, monospace);
+  font-size: var(--codeweave-tree-font-size, 13px);
+  line-height: var(--codeweave-tree-line-height, 1.55);
   border: 1px solid var(--border);
   border-radius: 6px;
   background: var(--background);
@@ -1811,9 +1815,10 @@ summary {
   background: transparent;
   color: inherit;
   text-align: left;
-  font-size: 13px;
+  font: inherit;
 }
 .codeweave-source-line code {
+  font: inherit;
   white-space: pre;
 }
 .codeweave-number {

@@ -89,3 +89,5 @@ Bruno 실제 HTTP와 MCP SDK, Playwright Chromium은 소유 서버·임시 DB로
 - SIDEBAR-01: 데스크톱 접기/펼치기 시 작업 영역 188px 확장·복원, Enter/Space·포커스·aria-expanded, 검색과 편집 초안 보존. 모바일 drawer 및 기존 패널·독립 스크롤 회귀. [실행 기록](../flow/2026-09-22-collapsible-sidebar.md).
 
 - SCROLL-01 / VIEW-10: 긴 문서와 긴 캔버스 목록에서 각 패널을 휠로 이동해 상대 패널·main·sidebar 위치가 유지되는지 확인. Storybook IndependentScroll 및 실제 앱의 리사이즈·상세 닫기·모바일 회귀. [검증 기록](../flow/2026-09-22-independent-panel-scroll.md).
+
+- VIEW-11 / CW-07: Storybook CodeWeaveTree Default/Configurable/Inherited의 높이·글꼴·상속·스크롤 및 전체 접기/펼치기 확인. [검증 기록](../flow/2026-09-22-codeweave-tree-style.md).

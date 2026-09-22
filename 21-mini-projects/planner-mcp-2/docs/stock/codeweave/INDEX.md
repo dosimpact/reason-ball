@@ -73,3 +73,27 @@ core는 HTML을 생성하거나 사용자 텍스트를 실행하지 않는다. �
 - `update_codeweave_node(documentId,extensionId,nodeId,patch,expectedSource,expectedRevision)`: core의 속성/주석 수정 후 기존 문서 저장 경로를 호출합니다. 다른 확장과 templateSnapshot은 보존하고 SSE/reopen 정책을 따릅니다. nodeId는 source snapshot 단위이므로 매번 조회 후 수정합니다.
 - REST `GET /api/documents/:id/codeweave/:extensionId?line=&query=`, `PATCH` 동일 경로. 구조 추가·삭제·이동이나 확장 목록 변경은 기존 문서 PATCH/update_document의 extensions로 처리합니다.
 - Next Turbopack은 ESM `.js` import를 가진 core의 독립 빌드 산출물 `.codeweave-build/index.js`를 사용합니다. `dev`/`build`는 먼저 `build:codeweave`를 실행합니다. core를 수정한 개발 세션은 dev를 재시작합니다. 원본 core 내부에는 프레임워크 의존성을 추가하지 않습니다.
+
+## CW-07 — Tree View 표시 설정
+
+높이와 글꼴은 소비자 CSS 변수로 설정한다. `.codeweave-tree` 또는 상위 요소에서 재정의하며, `CodeWeaveView`와 `CodeWeaveExtensionCard`의 `treeStyle?: CodeWeaveTreeStyle`로 인스턴스별 설정도 가능하다. 저장 데이터와 core에는 표시 설정을 추가하지 않는다.
+
+| CSS 변수 | 기본값 | 의미 |
+| --- | --- | --- |
+| `--codeweave-tree-height` | `auto` | 트리 높이 |
+| `--codeweave-tree-max-height` | `560px` | 스크롤 영역 최대 높이 (`none`으로 제한 해제) |
+| `--codeweave-tree-font-family` | `ui-monospace, monospace` | 행·주석 글꼴 |
+| `--codeweave-tree-font-size` | `13px` | 글꼴 크기 |
+| `--codeweave-tree-line-height` | `1.55` | 줄 간격 |
+
+CSS 길이는 `px`, `rem`, `vh` 등 단위를 포함한다. height도 max-height의 제한을 받는다. Storybook `Planner/CodeWeaveTree`의 Default/Configurable/Inherited에서 기본값·개별 설정·상속을 확인하고 Controls의 treeStyle 객체로 조절한다.
+
+```css
+.codeweave-tree {
+  --codeweave-tree-height: 400px;
+  --codeweave-tree-max-height: 70vh;
+  --codeweave-tree-font-size: 16px;
+  --codeweave-tree-font-family: ui-monospace, monospace;
+  --codeweave-tree-line-height: 1.7;
+}
+```

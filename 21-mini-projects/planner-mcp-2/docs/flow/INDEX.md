@@ -57,3 +57,5 @@
 - [캔버스·상세 독립 스크롤](2026-09-22-independent-panel-scroll.md)
 - [Layout namespace 추출](2026-09-22-layout-namespace.md)
 - [확장 추가 버튼 배치](2026-09-22-extension-actions-layout.md)
+
+- [2026-09-22 CodeWeave Tree 높이·글꼴 설정](2026-09-22-codeweave-tree-style.md)

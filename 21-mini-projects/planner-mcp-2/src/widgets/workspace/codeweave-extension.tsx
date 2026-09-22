@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 import {
   compileCodeWeave,
   collapseAll,
@@ -31,11 +31,22 @@ export const codeWeaveExample = `[UI]
     -> (-) IO: JSON 파일 저장
     -> (+) IO: SQLite 저장`;
 
+/** CSS lengths require units; variables may also be inherited from a parent. */
+export type CodeWeaveTreeStyle = CSSProperties & {
+  "--codeweave-tree-height"?: string;
+  "--codeweave-tree-max-height"?: string;
+  "--codeweave-tree-font-family"?: string;
+  "--codeweave-tree-font-size"?: string;
+  "--codeweave-tree-line-height"?: string | number;
+};
+
 export function CodeWeaveView({
   source,
   onChange,
+  treeStyle,
 }: {
   source: string;
+  treeStyle?: CodeWeaveTreeStyle;
   onChange?: (source: string) => void;
 }) {
   const compiled = useMemo(() => compileCodeWeave(source), [source]);
@@ -121,7 +132,12 @@ export function CodeWeaveView({
       {!rows.length && (
         <p className="muted">원문을 작성하면 흐름 트리가 표시됩니다.</p>
       )}
-      <div className="codeweave-tree" role="tree" aria-label="CodeWeave 흐름">
+      <div
+        className="codeweave-tree"
+        style={treeStyle}
+        role="tree"
+        aria-label="CodeWeave 흐름"
+      >
         {rows.map(({ node, expanded, expandable, tone, marker }) => (
           <div
             key={node.id}
@@ -236,8 +252,10 @@ export function CodeWeaveExtensionCard({
   onChange,
   onRemove,
   disabled = false,
+  treeStyle,
 }: {
   extension: CodeWeaveExtension;
+  treeStyle?: CodeWeaveTreeStyle;
   onChange?: (value: CodeWeaveExtension) => void;
   onRemove?: () => void;
   disabled?: boolean;
@@ -265,6 +283,7 @@ export function CodeWeaveExtensionCard({
         )}
         <CodeWeaveView
           source={extension.data.source}
+          treeStyle={treeStyle}
           onChange={
             onChange && !disabled
               ? (source) => onChange({ ...extension, data: { source } })
