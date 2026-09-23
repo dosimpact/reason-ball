@@ -17,7 +17,7 @@ import "@copilotkit/react-core/v2/styles.css";
 
 export function A2UIDemo({ mode }: { mode: "dynamic" | "fixed" | "sec" }) {
   const [session, setSession] = useState(0);
-  return <main className="mx-auto max-w-7xl p-6"><header className="mb-6 flex flex-wrap items-center justify-between gap-4"><div><Link href="/a2ui" className="text-sm underline">A2UI 데모</Link><h1 className="mt-2 text-2xl font-semibold">{mode === "sec" ? "SEC 회사 조회 · 공시 분석" : mode === "dynamic" ? "매출 분석 · Dynamic" : fixedDemoCopy.title}</h1><p className="mt-2 text-sm text-muted-foreground">{mode === "sec" ? "회사를 검색하고 공시를 선택한 뒤, 필요한 분석만 요청하세요." : mode === "dynamic" ? "가상 매출 데이터를 질문에 맞는 화면으로 확인하세요." : fixedDemoCopy.description}</p></div><Button variant="outline" onClick={() => setSession(value => value + 1)}>새 대화</Button></header><DemoSession key={`${mode}-${session}`} mode={mode} /></main>;
+  return <main className="mx-auto max-w-[1600px] p-6"><header className="mb-6 flex flex-wrap items-center justify-between gap-4"><div><Link href="/a2ui" className="text-sm underline">A2UI 데모</Link><h1 className="mt-2 text-2xl font-semibold">{mode === "sec" ? "SEC 회사 조회 · 공시 분석" : mode === "dynamic" ? "매출 분석 · Dynamic" : fixedDemoCopy.title}</h1><p className="mt-2 text-sm text-muted-foreground">{mode === "sec" ? "회사를 검색하고 공시를 선택한 뒤, 필요한 분석만 요청하세요." : mode === "dynamic" ? "가상 매출 데이터를 질문에 맞는 화면으로 확인하세요." : fixedDemoCopy.description}</p></div><Button variant="outline" onClick={() => setSession(value => value + 1)}>새 대화</Button></header><DemoSession key={`${mode}-${session}`} mode={mode} /></main>;
 }
 
 function DemoSession({ mode }: { mode: "dynamic" | "fixed" | "sec" }) {
