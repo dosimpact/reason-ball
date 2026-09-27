@@ -1,0 +1,27 @@
+meta {
+  name: Reject stale replay cursor
+  type: http
+  seq: 13
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{sessionId}}/replay
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "expectedCursor": 6
+  }
+}
+
+assert {
+  res.status: eq 409
+}
+
+tests {
+  test("Reject stale replay cursor", function() {
+    expect(res.getStatus()).to.equal(409);
+    expect(res.getBody().error.code).to.equal('CONFLICT');
+  });
+}

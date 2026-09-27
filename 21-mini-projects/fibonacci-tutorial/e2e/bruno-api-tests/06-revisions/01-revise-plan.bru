@@ -1,0 +1,33 @@
+meta {
+  name: revise-plan
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{sessionId}}/revise
+  body: json
+  auth: none
+}
+
+body:json {
+  {"expectedPlanId":"{{revisionPlanId}}"}
+}
+
+script:pre-request {
+bru.setVar('revisionPlanId', JSON.parse(bru.getVar('planSnapshot')).id);
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("revise-plan", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.plan).to.equal(null);
+    expect(data.plans).to.have.length(1);
+    expect(data.plans[0]).to.deep.equal(JSON.parse(bru.getVar('planSnapshot')));
+    bru.setVar('revisionAsOf', data.visibleCandles.at(-1).time);
+  });
+}

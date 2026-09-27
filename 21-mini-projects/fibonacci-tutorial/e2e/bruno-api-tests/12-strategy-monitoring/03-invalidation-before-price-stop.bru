@@ -1,0 +1,24 @@
+meta {
+  name: invalidation-before-price-stop
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{monitorId}}/replay
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedCursor": 7
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("invalidation-before-price-stop", function() {
+    const data=res.getBody();
+    expect(data.monitoring.status).to.equal('INVALIDATED_STOP'); expect(data.monitoring.entryFillPrice).to.equal(112); expect(data.monitoring.exitPrice).to.equal(111.5); expect(data.monitoring.health).to.equal('invalidated'); expect(data.monitoring.events.map(e=>e.kind)).to.deep.equal(['PLAN_LOADED','ENTERED','INVALIDATED']); expect(data.evaluations.at(-1).monitoringSummary).to.include('INVALIDATED_STOP'); bru.setVar('monitorEventCount',data.monitoring.events.length);
+  });
+}

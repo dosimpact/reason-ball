@@ -1,0 +1,28 @@
+meta {
+  name: reject-early-example
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{countId}}/hint
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "kind": "example"
+  }
+}
+
+assert {
+  res.status: eq 409
+}
+
+tests {
+  test("reject-early-example", function() {
+    expect(res.getStatus()).to.equal(409);
+    const data = res.getBody();
+
+  });
+}

@@ -1,0 +1,30 @@
+meta {
+  name: quiz-passed
+  type: http
+  seq: 9
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{advancedTheoryId}}/lesson/check
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "answers": {
+      "q1": 1,
+      "q2": 0,
+      "q3": 2
+    }
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("quiz-passed", function() {
+    const data = res.getBody();
+    expect(data.complete).to.equal(true); expect(data.learning.objectivePassed).to.equal(true);
+  });
+}

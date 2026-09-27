@@ -1,0 +1,23 @@
+meta {
+  name: advance-second-hidden-bar
+  type: http
+  seq: 13
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/runs/{{stepRunId}}/step
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":5}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("advance-second-hidden-bar", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(6); const run=data.runs.find(r=>r.id===bru.getVar('stepRunId')); expect(run.observedCount).to.equal(2); expect(run.cursor).to.equal(9);
+  });
+}

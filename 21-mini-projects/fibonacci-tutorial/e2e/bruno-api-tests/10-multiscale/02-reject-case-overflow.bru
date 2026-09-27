@@ -1,0 +1,26 @@
+meta {
+  name: reject-case-overflow
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{alignedId}}/lesson/case
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "caseIndex": 99
+  }
+}
+
+assert {
+  res.status: eq 400
+}
+tests {
+  test("reject-case-overflow", function() {
+    const data = res.getBody();
+    expect(data.error.code).to.equal('VALIDATION_ERROR');
+  });
+}

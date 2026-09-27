@@ -1,0 +1,29 @@
+meta {
+  name: start-binance-historical-run
+  type: http
+  seq: 47
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{binanceHistoryId}}/runs
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":2,"mode":"BACKTEST"}
+}
+assert {
+  res.status: eq 201
+}
+tests {
+  test("start-binance-historical-run", function() {
+    expect(res.getStatus()).to.equal(201);
+    const data = res.getBody();
+    const run = data.runs[0];
+    expect(run.mode).to.equal('BACKTEST');
+    expect(run.source.type).to.equal('binance');
+    expect(run.planId).to.equal(bru.getVar('binanceHistoryPlanId'));
+    expect(run.snapshotId).to.equal(bru.getVar('binanceHistorySnapshot'));
+    expect(run.observedCount).to.equal(0); expect(run.dataRange).to.deep.equal({startTime:data.asOf,endTime:data.dataset.rangeEnd}); expect(run.observedSnapshotId).not.to.equal(run.snapshotId);
+    bru.setVar('binanceHistoryRunId', run.id);
+  });
+}

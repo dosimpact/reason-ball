@@ -1,0 +1,26 @@
+meta {
+  name: reject-dummy-later-evaluation
+  type: http
+  seq: 7
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{sessionId}}/evaluate
+  body: json
+  auth: none
+}
+
+body:json {
+  {}
+}
+
+assert {
+  res.status: eq 409
+}
+
+tests {
+  test("reject-dummy-later-evaluation", function() {
+    expect(res.getStatus()).to.equal(409);
+    const data = res.getBody();
+
+  });
+}

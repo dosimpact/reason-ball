@@ -1,0 +1,23 @@
+meta {
+  name: repeat-binance-poll-deduplicated
+  type: http
+  seq: 43
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{binanceForwardId}}/runs/{{binanceForwardRunId}}/poll
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":{{binanceForwardVersion}}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("repeat-binance-poll-deduplicated", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.runs[0].observedCount).to.equal(0); expect(data.runs[0].controlStatus).to.equal('WAITING'); expect(data.runs[0].dataRange.endTime).to.equal(data.asOf); expect(data.runs[0].monitoring.events).to.have.length(Number(bru.getVar('binanceForwardEvents')));
+  });
+}

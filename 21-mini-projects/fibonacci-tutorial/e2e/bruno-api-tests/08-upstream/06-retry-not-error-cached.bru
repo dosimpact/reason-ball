@@ -1,0 +1,33 @@
+meta {
+  name: retry-not-error-cached
+  type: http
+  seq: 6
+}
+post {
+  url: {{baseUrl}}/api/sessions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "unitId": "market-lab",
+    "source": {
+      "type": "binance",
+      "symbol": "ETHUSDT",
+      "interval": "4h"
+    }
+  }
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("retry-not-error-cached", function() {
+    expect(res.getStatus()).to.equal(201);
+    const data = res.getBody();
+    expect(data.source.type).to.equal('binance');
+  });
+}

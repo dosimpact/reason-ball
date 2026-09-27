@@ -1,0 +1,24 @@
+meta {
+  name: open-before-manual-abort
+  type: http
+  seq: 14
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{manualMonitorId}}/replay
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedCursor": 7
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("open-before-manual-abort", function() {
+    const data=res.getBody();
+    expect(data.monitoring.status).to.equal('OPEN'); expect(data.monitoring.unrealizedPnl).to.equal(0); expect(data.monitoring.liveR).to.equal(0);
+  });
+}

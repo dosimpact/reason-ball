@@ -1,0 +1,25 @@
+meta {
+  name: Read initial visible range
+  type: http
+  seq: 7
+}
+get {
+  url: {{baseUrl}}/api/sessions/{{sessionId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("Read initial visible range", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.cursor).to.equal(7);
+    expect(body.visibleCandles).to.have.length(8);
+    expect(body.visibleCandles.every((candle) => typeof candle.time === 'number')).to.equal(true);
+    expect(body.plan).to.equal(null);
+  });
+}

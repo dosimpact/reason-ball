@@ -1,0 +1,24 @@
+meta {
+  name: create-pending-monitor
+  type: http
+  seq: 8
+}
+post {
+  url: {{baseUrl}}/api/sessions
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "unitId": "wave-three"
+  }
+}
+assert {
+  res.status: eq 201
+}
+tests {
+  test("create-pending-monitor", function() {
+    const data=res.getBody();
+    bru.setVar('pendingMonitorId',data.id);
+  });
+}

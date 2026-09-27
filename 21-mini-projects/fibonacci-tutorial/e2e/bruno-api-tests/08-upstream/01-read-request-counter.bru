@@ -1,0 +1,22 @@
+meta {
+  name: read-request-counter
+  type: http
+  seq: 1
+}
+get {
+  url: {{upstreamUrl}}/__control
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("read-request-counter", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    bru.setVar('requestsBeforeCache',data.requests);
+  });
+}

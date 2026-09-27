@@ -1,0 +1,25 @@
+meta {
+  name: reject-before-first
+  type: http
+  seq: 6
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{theoryId}}/advance
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedStep": 0,
+    "direction": "prev"
+  }
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("reject-before-first", function() {
+    const data = res.getBody();
+    expect(data.error.code).to.equal('CONFLICT');
+  });
+}

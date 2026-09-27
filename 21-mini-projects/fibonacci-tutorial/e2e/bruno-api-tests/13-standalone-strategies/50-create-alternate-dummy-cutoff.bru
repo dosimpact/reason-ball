@@ -1,0 +1,32 @@
+meta {
+  name: create-alternate-dummy-cutoff
+  type: http
+  seq: 50
+}
+post {
+  url: {{baseUrl}}/api/strategies
+  body: json
+  auth: none
+}
+body:json {
+  {"title":"Alternate historical basis","mode":"BACKTEST","source":{"type":"dummy"},"asOf":{{chosenDummyCutoff}},"backtestBars":1}
+}
+assert {
+  res.status: eq 201
+}
+tests {
+  test("create-alternate-dummy-cutoff", function() {
+    expect(res.getStatus()).to.equal(201);
+    const data = res.getBody();
+    expect(data.mode).to.equal('BACKTEST');
+    expect(data.status).to.equal('DRAFT');
+    expect(data.asOf).to.equal(Number(bru.getVar('chosenDummyCutoff')));
+    expect(data.backtestBars).to.equal(1);
+    expect(data.visibleCandles).to.have.length(11);
+    expect(data.visibleCandles.at(-1).time).to.equal(data.asOf);
+    expect(data.visibleCandles.every(c => c.time <= data.asOf)).to.equal(true);
+    expect(data.dataset.availableCount).to.equal(12);
+    expect(data.dataset.rangeEnd).to.equal(data.asOf + 3600);
+    expect(data).not.to.have.property('candles');
+  });
+}

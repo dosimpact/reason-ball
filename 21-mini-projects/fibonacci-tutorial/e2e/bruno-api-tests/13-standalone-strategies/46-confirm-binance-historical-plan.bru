@@ -1,0 +1,28 @@
+meta {
+  name: confirm-binance-historical-plan
+  type: http
+  seq: 46
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{binanceHistoryId}}/confirm
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":1,"waveIndices":{{binanceHistoryIndices}},"entry":{{binanceHistoryEntry}},"stopLoss":{{binanceHistoryStop}},"target":{{binanceHistoryTarget}},"rationale":"Historical Binance close and fixed replay horizon","monitoring":{"policy":"auto-abort","rule":{"kind":"price-level","level":{{binanceHistoryLevel}}}}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("confirm-binance-historical-plan", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(2);
+    expect(data.plan.mode).to.equal('BACKTEST');
+    expect(data.plan.source.type).to.equal('binance');
+    expect(data.plan.snapshotId).to.equal(bru.getVar('binanceHistorySnapshot'));
+    expect(data.visibleCandles.every(c => c.time <= data.plan.asOf)).to.equal(true);
+    bru.setVar('binanceHistoryPlanId', data.plan.id);
+  });
+}

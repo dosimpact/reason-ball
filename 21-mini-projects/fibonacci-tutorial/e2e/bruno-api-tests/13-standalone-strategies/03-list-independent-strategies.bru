@@ -1,0 +1,20 @@
+meta {
+  name: list-independent-strategies
+  type: http
+  seq: 3
+}
+get {
+  url: {{baseUrl}}/api/strategies
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("list-independent-strategies", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.strategies.some(s=>s.id===bru.getVar('strategyId'))).to.equal(true); expect(data.strategies.find(s=>s.id===bru.getVar('strategyId')).status).to.equal('DRAFT'); expect(data.strategies.find(s=>s.id===bru.getVar('strategyId'))).not.to.have.property('visibleCandles');
+  });
+}

@@ -1,0 +1,24 @@
+meta {
+  name: terminal-does-not-reopen
+  type: http
+  seq: 6
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{monitorId}}/replay
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedCursor": 8
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("terminal-does-not-reopen", function() {
+    const data=res.getBody();
+    expect(data.monitoring.status).to.equal('INVALIDATED_STOP'); expect(data.monitoring.events).to.have.length(Number(bru.getVar('monitorEventCount'))); expect(data.monitoring.exitPrice).to.equal(111.5);
+  });
+}

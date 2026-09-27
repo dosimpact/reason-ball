@@ -1,0 +1,20 @@
+meta {
+  name: export-runs-and-schemas
+  type: http
+  seq: 20
+}
+get {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/export
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("export-runs-and-schemas", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data).to.have.property('strategy'); expect(data).to.have.property('schemas'); expect(data.strategy.plans).to.have.length(1); expect(data.strategy.runs).to.have.length(2); expect(data.strategy.plan.snapshotId).to.equal(bru.getVar('strategySnapshot')); expect(data.schemas.strategyPlan.type).to.equal('object'); expect(data.schemas.strategyRun.type).to.equal('object'); expect(data.schemas.monitoringEvent.type).to.equal('object'); expect(data.strategy.source.type).to.equal('dummy'); expect(data.strategy.dataset.kind).to.equal('dummy-simulation'); expect(data.executionAssumptions).to.include({side:'LONG',quantity:1,fees:0,slippage:0}); expect(Object.keys(data.strategy).sort()).to.deep.equal(Object.keys(data.schemas.strategyView.properties).sort()); data.strategy.runs.forEach(run=>expect(Object.keys(run).sort()).to.deep.equal(Object.keys(data.schemas.strategyRun.properties).sort())); expect(data.runAudits).to.have.length(2); data.runAudits.forEach(audit=>{expect(Object.keys(audit).sort()).to.deep.equal(Object.keys(data.schemas.runAudit.properties).sort()); const run=data.strategy.runs.find(item=>item.id===audit.runId); expect(run).to.exist; expect(audit.observedSnapshotId).to.equal(run.observedSnapshotId); expect(audit.visibleCandles.every(c=>c.time<=run.monitoring.observedThrough)).to.equal(true); expect(audit.events.every(e=>e.runId===run.id&&e.runEventId.startsWith(run.id+':'))).to.equal(true);});
+  });
+}

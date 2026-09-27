@@ -1,0 +1,27 @@
+meta {
+  name: re-evaluate-same-plan
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{marketId}}/evaluate
+  body: json
+  auth: none
+}
+
+body:json {
+  {}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("re-evaluate-same-plan", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.plan).to.deep.equal(JSON.parse(bru.getVar('marketPlanSnapshot')));
+    expect(data.evaluations.length).to.equal(Number(bru.getVar('marketEvalCount'))+1);
+  });
+}

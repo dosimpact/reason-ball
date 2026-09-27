@@ -1,0 +1,27 @@
+meta {
+  name: Reject replay before plan
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{earlySessionId}}/replay
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "expectedCursor": 7
+  }
+}
+
+assert {
+  res.status: eq 409
+}
+
+tests {
+  test("Reject replay before plan", function() {
+    expect(res.getStatus()).to.equal(409);
+    expect(res.getBody().error.code).to.equal('CONFLICT');
+  });
+}

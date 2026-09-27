@@ -1,0 +1,34 @@
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { abortMonitoring, createMonitoringState } from "@/entities/strategy-monitor";
+import { evaluateStrategyRun, strategyPlanSchema, strategyViewSchema, type StrategyRun } from "@/entities/strategy";
+import { PlanDraftForm } from "./plan-form";
+import { RunPanel } from "./detail";
+import { StrategyListContent } from "./list";
+import styles from "./strategy-workspace.module.css";
+
+const bars = [[102,105,100,103],[103,110,102,109],[109,117,108,116],[116,120,115,118],[118,119,114,115],[115,116,111,112],[112,114,110,111],[111,113,110,112]].map(([open,high,low,close], index) => ({ time:1700000000 + 3600 * index, open, high, low, close }));
+const id = "11111111-1111-4111-8111-111111111111";
+const planId = "22222222-2222-4222-8222-222222222222";
+const runId = "33333333-3333-4333-8333-333333333333";
+const base = { id, title:"BTC 3파 진입 실험", mode:"FORWARD", source:{ type:"dummy" }, status:"DRAFT", version:1, createdAt:"2026-09-27T00:00:00.000Z", updatedAt:"2026-09-27T00:00:00.000Z", asOf:bars[7].time, snapshotId:"story-snapshot", visibleCandles:bars, dataset:{ label:"더미 시뮬레이션", kind:"dummy-simulation", symbol:null, interval:null, rangeStart:bars[0].time, rangeEnd:bars[7].time, availableCount:12 }, backtestBars:4, draftPlan:{ waveIndices:[0,3], rationale:"2파 저점 확인 후 계획을 검토합니다." }, plan:null, plans:[], runs:[], activeRunId:null };
+const draft = strategyViewSchema.parse(base);
+const plan = strategyPlanSchema.parse({ schemaVersion:"1", id:planId, strategyId:id, revision:1, previousPlanId:null, createdAt:"2026-09-27T00:00:00.000Z", asOf:bars[7].time, snapshotId:"story-snapshot", source:{ type:"dummy" }, mode:"FORWARD", wavePoints:[{wave:0,candleIndex:0,time:bars[0].time,price:100},{wave:1,candleIndex:3,time:bars[3].time,price:120},{wave:2,candleIndex:7,time:bars[7].time,price:110}], entry:114, stopLoss:99, target:135, fibonacci:{retracement:.5,extension1618:142.36}, invalidationPrice:105, rationale:"상승 3파 가능성을 가정합니다.", exitStrategy:"목표 또는 무효화 시 종료합니다.", monitoringConfig:{policy:"auto-abort",rule:{kind:"price-level",level:105}}, policyVersion:"touch-v1" });
+const loaded = createMonitoringState(plan, "2026-09-27T00:00:00.000Z", bars[7].close);
+const runBase = { id:runId, strategyId:id, planId, revision:1, mode:"FORWARD", source:{type:"dummy"}, snapshotId:"story-snapshot", observedSnapshotId:"story-observed", dataRange:{startTime:bars[7].time,endTime:bars[7].time}, policyVersion:"touch-v1", controlStatus:"WAITING", lastError:null, startedAt:"2026-09-27T00:00:00.000Z", endedAt:null, lastObservedAt:null, cursor:7, observedCount:0, monitoring:loaded };
+const waitingRun = { ...runBase, evaluation:evaluateStrategyRun(runBase as StrategyRun) };
+const waiting = strategyViewSchema.parse({ ...base, status:"CONFIRMED", plan, plans:[plan], draftPlan:{}, runs:[waitingRun], activeRunId:runId });
+const endedMonitor = abortMonitoring(loaded, plan, 112, "2026-09-27T01:00:00.000Z", "파동 전제를 다시 평가하여 실행을 중단했습니다.");
+const completedRun = { ...runBase, monitoring:endedMonitor, controlStatus:"COMPLETED", endedAt:"2026-09-27T01:00:00.000Z", evaluation:evaluateStrategyRun({ ...runBase, monitoring:endedMonitor } as StrategyRun) };
+const completed = strategyViewSchema.parse({ ...base, status:"CONFIRMED", plan, plans:[plan], draftPlan:{}, runs:[completedRun], activeRunId:runId });
+const errorRun = { ...runBase, controlStatus:"ERROR", lastError:{ code:"MARKET_DATA_UNAVAILABLE", message:"Binance 확정봉을 조회하지 못했습니다.", at:"2026-09-27T01:00:00.000Z" }, evaluation:evaluateStrategyRun(runBase as StrategyRun) };
+const errored = strategyViewSchema.parse({ ...base, status:"CONFIRMED", plan, plans:[plan], draftPlan:{}, runs:[errorRun], activeRunId:runId });
+const meta = { title:"Strategy Workspace/Independent Strategy" } satisfies Meta;
+export default meta;
+type Story = StoryObj<typeof meta>;
+function Stage({ children }: { children: React.ReactNode }) { return <div style={{ maxWidth:1180, minHeight:"100vh", margin:"auto", padding:28 }}><header style={{ marginBottom:18 }}><span className={styles.eyebrow}>STRATEGY WORKSPACE</span><h1 style={{ margin:"6px 0" }}>전략 모니터링</h1></header>{children}</div>; }
+export const EmptyList: Story = { render: () => <Stage><StrategyListContent strategies={[]} /></Stage> };
+export const DraftPlan: Story = { render: () => <Stage><div style={{ maxWidth:560 }}><PlanDraftForm view={draft} selectedIndices={[0,3]} onSave={() => {}} onConfirm={() => {}} pending={false} /></div></Stage> };
+export const ForwardWaiting: Story = { render: () => <Stage><div style={{ maxWidth:540 }}><RunPanel view={waiting} run={waiting.runs[0]} pending={false} error="" watching={false} playing={false} onAction={() => {}} onAuto={() => {}} onExport={() => {}} /></div></Stage> };
+export const CompletedRun: Story = { render: () => <Stage><div style={{ maxWidth:540 }}><RunPanel view={completed} run={completed.runs[0]} pending={false} error="" watching={false} playing={false} onAction={() => {}} onAuto={() => {}} onExport={() => {}} /></div></Stage> };
+export const RunError: Story = { render: () => <Stage><div style={{ maxWidth:540 }}><RunPanel view={errored} run={errored.runs[0]} pending={false} error="" watching={false} playing={false} onAction={() => {}} onAuto={() => {}} onExport={() => {}} /></div></Stage> };
+export const ErrorState: Story = { render: () => <Stage><div className={styles.error} role="alert">저장된 전략을 찾을 수 없습니다. 전략 목록에서 다시 열어 주세요.</div></Stage> };

@@ -1,0 +1,23 @@
+meta {
+  name: revise-with-history
+  type: http
+  seq: 21
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/revise
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":11}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("revise-with-history", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(12); expect(data.status).to.equal('DRAFT'); expect(data.plan).to.equal(null); expect(data.plans).to.have.length(1); expect(data.plans[0]).to.deep.equal(JSON.parse(bru.getVar('planSnapshot'))); expect(data.runs).to.have.length(2);
+  });
+}

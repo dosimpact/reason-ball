@@ -1,0 +1,23 @@
+meta {
+  name: update-draft
+  type: http
+  seq: 5
+}
+patch {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":1,"title":"Revised draft title","draftPlan":{"waveIndices":[0,3,7],"entry":114,"stopLoss":99,"target":135,"rationale":"Saved before confirmation","monitoring":{"policy":"auto-abort","rule":{"kind":"price-level","level":105}}}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("update-draft", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(2); expect(data.title).to.equal('Revised draft title'); expect(data.draftPlan.waveIndices).to.deep.equal([0,3,7]); expect(data.draftPlan.entry).to.equal(114); expect(data.snapshotId).to.equal(bru.getVar('strategySnapshot'));
+  });
+}

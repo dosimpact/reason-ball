@@ -1,0 +1,29 @@
+meta {
+  name: confirm-forward-revision
+  type: http
+  seq: 45
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/confirm
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":14,"waveIndices":[0,3,7],"entry":114,"stopLoss":99,"target":135,"rationale":"Forward revision with current public candles","monitoring":{"policy":"auto-abort","rule":{"kind":"price-level","level":105}}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("confirm-forward-revision", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(15);
+    expect(data.plan.mode).to.equal('FORWARD');
+    expect(data.plan.revision).to.equal(3);
+    expect(data.plan.previousPlanId).to.equal(bru.getVar('priorRevisionPlanId'));
+    expect(data.plans[0]).to.deep.equal(JSON.parse(bru.getVar('planSnapshot')));
+    expect(data.runs).to.have.length(2);
+    expect(data.runs.every(run => run.mode === 'BACKTEST')).to.equal(true);
+  });
+}

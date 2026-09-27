@@ -1,0 +1,35 @@
+meta {
+  name: Reject hidden future wave index
+  type: http
+  seq: 8
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{sessionId}}/plan
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "waveIndices": [
+      0,
+      3,
+      8
+    ],
+    "entry": 114,
+    "stopLoss": 99,
+    "target": 142.36,
+    "rationale": "Wave 3 practice plan"
+  }
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("Reject hidden future wave index", function() {
+    expect(res.getStatus()).to.equal(400);
+    expect(res.getBody().error.code).to.equal('VALIDATION_ERROR');
+  });
+}

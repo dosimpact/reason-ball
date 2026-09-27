@@ -1,0 +1,23 @@
+meta {
+  name: confirm-binance-forward
+  type: http
+  seq: 40
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{binanceForwardId}}/confirm
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":1,"waveIndices":{{binanceForwardIndices}},"entry":{{binanceForwardEntry}},"stopLoss":{{binanceForwardStop}},"target":{{binanceForwardTarget}},"rationale":"Known closed candles only","monitoring":{"policy":"auto-abort","rule":{"kind":"price-level","level":{{binanceForwardLevel}}}}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("confirm-binance-forward", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.plan.mode).to.equal('FORWARD'); expect(data.plan.source.type).to.equal('binance'); expect(data.plan.asOf).to.equal(data.asOf);
+  });
+}

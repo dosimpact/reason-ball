@@ -1,0 +1,24 @@
+meta {
+  name: cancel-unfilled-strategy
+  type: http
+  seq: 10
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{pendingMonitorId}}/replay
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedCursor": 7
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("cancel-unfilled-strategy", function() {
+    const data=res.getBody();
+    expect(data.monitoring.status).to.equal('INVALIDATED_STOP'); expect(data.monitoring.entryFillPrice).to.equal(null); expect(data.monitoring.exitPrice).to.equal(null); expect(data.monitoring.events.map(e=>e.kind)).not.to.include('ENTERED');
+  });
+}

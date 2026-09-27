@@ -1,0 +1,30 @@
+meta {
+  name: reject-early-quiz
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{advancedTheoryId}}/lesson/check
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "answers": {
+      "q1": 1,
+      "q2": 0,
+      "q3": 2
+    }
+  }
+}
+
+assert {
+  res.status: eq 409
+}
+tests {
+  test("reject-early-quiz", function() {
+    const data = res.getBody();
+    expect(data.error.code).to.equal('CONFLICT');
+  });
+}

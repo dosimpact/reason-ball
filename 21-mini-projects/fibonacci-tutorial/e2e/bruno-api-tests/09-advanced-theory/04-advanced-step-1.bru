@@ -1,0 +1,26 @@
+meta {
+  name: advanced-step-1
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{advancedTheoryId}}/advance
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "expectedStep": 0
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("advanced-step-1", function() {
+    const data = res.getBody();
+    expect(data.theoryStep).to.equal(1); expect(data.visibleCandles).to.have.length(24); expect(JSON.stringify(data)).not.to.include('correctAnswers');
+  });
+}

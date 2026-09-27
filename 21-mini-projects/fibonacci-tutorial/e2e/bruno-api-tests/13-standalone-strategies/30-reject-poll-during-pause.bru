@@ -1,0 +1,23 @@
+meta {
+  name: reject-poll-during-pause
+  type: http
+  seq: 30
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{forwardId}}/runs/{{forwardRunId}}/poll
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":5}
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("reject-poll-during-pause", function() {
+    expect(res.getStatus()).to.equal(409);
+    const data = res.getBody();
+
+  });
+}

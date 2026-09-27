@@ -1,0 +1,30 @@
+meta {
+  name: revise-backtest-to-forward
+  type: http
+  seq: 44
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/revise
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":13,"mode":"FORWARD"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("revise-backtest-to-forward", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(14);
+    expect(data.mode).to.equal('FORWARD');
+    expect(data.status).to.equal('DRAFT');
+    expect(data.plan).to.equal(null);
+    expect(data.plans).to.have.length(2);
+    expect(data.runs).to.have.length(2);
+    expect(data.visibleCandles.every(c => c.time <= data.asOf)).to.equal(true);
+    bru.setVar('priorRevisionPlanId', data.plans[1].id);
+  });
+}

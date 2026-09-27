@@ -1,0 +1,23 @@
+meta {
+  name: confirm-forward-dummy
+  type: http
+  seq: 26
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{forwardId}}/confirm
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":1,"waveIndices":[0,3,7],"entry":114,"stopLoss":99,"target":135,"rationale":"Explicit dummy forward simulation","monitoring":{"policy":"auto-abort","rule":{"kind":"price-level","level":105}}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("confirm-forward-dummy", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(2); expect(data.plan.mode).to.equal('FORWARD'); expect(data.plan.source.type).to.equal('dummy');
+  });
+}

@@ -1,0 +1,23 @@
+meta {
+  name: confirm-frozen-plan
+  type: http
+  seq: 9
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/confirm
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":2,"waveIndices":[0,3,7],"entry":114,"stopLoss":99,"target":135,"rationale":"Deterministic long plan","monitoring":{"policy":"auto-abort","rule":{"kind":"price-level","level":105}}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("confirm-frozen-plan", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(3); expect(data.status).to.equal('CONFIRMED'); expect(data.plan.id).to.match(/^[0-9a-f-]{36}$/); expect(data.plan.asOf).to.equal(Number(bru.getVar('strategyAsOf'))); expect(data.plan.snapshotId).to.equal(bru.getVar('strategySnapshot')); expect(data.plan.monitoringConfig.policy).to.equal('auto-abort'); expect(data.visibleCandles.every(c=>c.time<=data.plan.asOf)).to.equal(true); expect(data.plan.fibonacci.retracement).to.equal(0.5); expect(data.plan.fibonacci.extension1618).to.equal(142.36); expect(data.plans).to.have.length(1); bru.setVar('strategyPlanId',data.plan.id); bru.setVar('planSnapshot',JSON.stringify(data.plan));
+  });
+}

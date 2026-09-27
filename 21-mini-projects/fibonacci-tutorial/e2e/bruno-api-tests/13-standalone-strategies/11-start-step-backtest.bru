@@ -1,0 +1,23 @@
+meta {
+  name: start-step-backtest
+  type: http
+  seq: 11
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/runs
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":3,"mode":"BACKTEST"}
+}
+assert {
+  res.status: eq 201
+}
+tests {
+  test("start-step-backtest", function() {
+    expect(res.getStatus()).to.equal(201);
+    const data = res.getBody();
+    expect(data.version).to.equal(4); expect(data.runs).to.have.length(1); expect(data.runs[0].planId).to.equal(bru.getVar('strategyPlanId')); expect(data.runs[0].observedCount).to.equal(0); expect(data.runs[0].monitoring.status).to.equal('PENDING'); expect(data.runs[0].dataRange).to.deep.equal({startTime:data.asOf,endTime:data.dataset.rangeEnd}); bru.setVar('stepRunId',data.runs[0].id);
+  });
+}

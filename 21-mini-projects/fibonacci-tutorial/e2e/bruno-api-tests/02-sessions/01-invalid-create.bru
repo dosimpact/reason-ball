@@ -1,0 +1,27 @@
+meta {
+  name: Reject invalid session body
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/sessions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "unitId": "missing-unit"
+  }
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("Reject invalid session body", function() {
+    expect(res.getStatus()).to.equal(400);
+    expect(res.getBody().error.code).to.equal('VALIDATION_ERROR');
+  });
+}

@@ -1,0 +1,23 @@
+meta {
+  name: resume-backtest-run
+  type: http
+  seq: 16
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/runs/{{stepRunId}}/resume
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":7}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("resume-backtest-run", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(8); const run=data.runs.find(r=>r.id===bru.getVar('stepRunId')); expect(run.controlStatus).to.equal('RUNNING'); expect(run.monitoring.status).to.equal('OPEN');
+  });
+}

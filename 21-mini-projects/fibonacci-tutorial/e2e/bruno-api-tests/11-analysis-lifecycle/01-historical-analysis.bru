@@ -1,0 +1,24 @@
+meta {
+  name: historical-analysis
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/sessions
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "unitId": "ew-blind-analysis"
+  }
+}
+assert {
+  res.status: eq 201
+}
+tests {
+  test("historical-analysis", function() {
+    const data=res.getBody();
+    bru.setVar('analysisSession', data.id); bru.setVar('analysisAsOf', data.learning.asOf); bru.setVar('analysisSnapshot',data.learning.snapshotId); expect(data.visibleCandles).to.have.length(80); expect(data.totalCandles).to.equal(120);
+  });
+}

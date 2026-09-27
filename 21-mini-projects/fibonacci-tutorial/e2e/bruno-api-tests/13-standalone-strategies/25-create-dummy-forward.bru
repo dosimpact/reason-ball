@@ -1,0 +1,23 @@
+meta {
+  name: create-dummy-forward
+  type: http
+  seq: 25
+}
+post {
+  url: {{baseUrl}}/api/strategies
+  body: json
+  auth: none
+}
+body:json {
+  {"title":"Forward simulation","mode":"FORWARD","source":{"type":"dummy"}}
+}
+assert {
+  res.status: eq 201
+}
+tests {
+  test("create-dummy-forward", function() {
+    expect(res.getStatus()).to.equal(201);
+    const data = res.getBody();
+    expect(data.dataset.kind).to.equal('dummy-simulation'); expect(data.visibleCandles).to.have.length(8); expect(data.visibleCandles.every(c=>c.time<=data.asOf)).to.equal(true); bru.setVar('forwardId',data.id);
+  });
+}

@@ -1,0 +1,23 @@
+meta {
+  name: reject-stale-forward-abort
+  type: http
+  seq: 32
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{forwardId}}/runs/{{forwardRunId}}/abort
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":5,"reason":"stale reason"}
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("reject-stale-forward-abort", function() {
+    expect(res.getStatus()).to.equal(409);
+    const data = res.getBody();
+
+  });
+}

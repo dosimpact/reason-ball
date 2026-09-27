@@ -1,0 +1,35 @@
+meta {
+  name: reject-future-selection
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{countId}}/check
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "waveIndices": [
+      0,
+      3,
+      6,
+      10,
+      13,
+      999
+    ]
+  }
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("reject-future-selection", function() {
+    expect(res.getStatus()).to.equal(400);
+    const data = res.getBody();
+
+  });
+}

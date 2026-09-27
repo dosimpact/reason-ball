@@ -1,0 +1,31 @@
+meta {
+  name: create-counting
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/sessions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "unitId": "wave-counting"
+  }
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("create-counting", function() {
+    expect(res.getStatus()).to.equal(201);
+    const data = res.getBody();
+    bru.setVar('countId', data.id);
+    expect(data.unit.selectionCount).to.equal(6);
+    expect(data.exampleIndices).to.equal(null);
+    expect(data.hint).to.equal(null);
+  });
+}

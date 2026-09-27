@@ -1,0 +1,21 @@
+meta {
+  name: Unknown session is missing
+  type: http
+  seq: 3
+}
+get {
+  url: {{baseUrl}}/api/sessions/00000000-0000-4000-8000-000000000000
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+}
+
+tests {
+  test("Unknown session is missing", function() {
+    expect(res.getStatus()).to.equal(404);
+    expect(res.getBody().error.code).to.equal('NOT_FOUND');
+  });
+}

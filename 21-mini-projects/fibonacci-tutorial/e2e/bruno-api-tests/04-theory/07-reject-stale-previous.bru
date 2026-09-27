@@ -1,0 +1,25 @@
+meta {
+  name: reject-stale-previous
+  type: http
+  seq: 7
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{theoryId}}/advance
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedStep": 1,
+    "direction": "prev"
+  }
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("reject-stale-previous", function() {
+    const data = res.getBody();
+    expect(data.error.code).to.equal('CONFLICT');
+  });
+}

@@ -1,0 +1,26 @@
+meta {
+  name: manual-abort-at-known-close
+  type: http
+  seq: 16
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{manualMonitorId}}/monitoring/abort
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedPlanId": "{{manualMonitorPlanId}}",
+    "expectedCursor": 8,
+    "reason": "추가 관측 전에 모의 포지션을 정리합니다."
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("manual-abort-at-known-close", function() {
+    const data=res.getBody();
+    expect(data.monitoring.status).to.equal('ABORTED'); expect(data.monitoring.exitPrice).to.equal(114); expect(data.monitoring.realizedR).to.equal(0); expect(data.monitoring.events.at(-1).kind).to.equal('ABORTED');
+  });
+}

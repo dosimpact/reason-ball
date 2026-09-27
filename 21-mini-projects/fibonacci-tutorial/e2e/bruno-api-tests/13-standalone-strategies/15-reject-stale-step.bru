@@ -1,0 +1,23 @@
+meta {
+  name: reject-stale-step
+  type: http
+  seq: 15
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/runs/{{stepRunId}}/step
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":6}
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("reject-stale-step", function() {
+    expect(res.getStatus()).to.equal(409);
+    const data = res.getBody();
+
+  });
+}

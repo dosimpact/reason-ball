@@ -1,0 +1,27 @@
+meta {
+  name: Unknown replay session
+  type: http
+  seq: 17
+}
+post {
+  url: {{baseUrl}}/api/sessions/00000000-0000-4000-8000-000000000000/replay
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "expectedCursor": 7
+  }
+}
+
+assert {
+  res.status: eq 404
+}
+
+tests {
+  test("Unknown replay session", function() {
+    expect(res.getStatus()).to.equal(404);
+    expect(res.getBody().error.code).to.equal('NOT_FOUND');
+  });
+}

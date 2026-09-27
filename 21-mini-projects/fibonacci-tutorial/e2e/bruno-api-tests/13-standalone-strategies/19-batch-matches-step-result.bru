@@ -1,0 +1,23 @@
+meta {
+  name: batch-matches-step-result
+  type: http
+  seq: 19
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/runs/{{batchRunId}}/batch
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":10}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("batch-matches-step-result", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(11); const run=data.runs.find(r=>r.id===bru.getVar('batchRunId')); const sig={status:run.evaluation.status,entry:run.evaluation.entryPrice,exit:run.evaluation.exitPrice,r:run.evaluation.realizedR,events:run.monitoring.events.map(e=>[e.kind,e.candleTime,e.price])}; expect(sig).to.deep.equal(JSON.parse(bru.getVar('stepRunSignature'))); expect(data.runs.find(r=>r.id===bru.getVar('stepRunId'))).to.deep.equal(JSON.parse(bru.getVar('stepRunSnapshot')));
+  });
+}

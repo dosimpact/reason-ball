@@ -1,0 +1,23 @@
+meta {
+  name: start-binance-forward
+  type: http
+  seq: 41
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{binanceForwardId}}/runs
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":2,"mode":"FORWARD"}
+}
+assert {
+  res.status: eq 201
+}
+tests {
+  test("start-binance-forward", function() {
+    expect(res.getStatus()).to.equal(201);
+    const data = res.getBody();
+    expect(data.runs).to.have.length(1); expect(data.runs[0].observedCount).to.equal(0); bru.setVar('binanceForwardRunId',data.runs[0].id); bru.setVar('binanceForwardVersion',data.version); bru.setVar('binanceForwardEvents',data.runs[0].monitoring.events.length);
+  });
+}
