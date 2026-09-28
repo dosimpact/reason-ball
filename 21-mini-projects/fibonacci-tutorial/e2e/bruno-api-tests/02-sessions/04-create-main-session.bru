@@ -1,0 +1,35 @@
+meta {
+  name: Create main Wave 3 session
+  type: http
+  seq: 6
+}
+post {
+  url: {{baseUrl}}/api/sessions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "unitId": "wave-three"
+  }
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("Create main Wave 3 session", function() {
+    expect(res.getStatus()).to.equal(201);
+    const body = res.getBody();
+    bru.setVar('sessionId', body.id);
+    expect(body.unitId).to.equal('wave-three');
+    expect(body.cursor).to.equal(7);
+    expect(body.visibleCandles).to.have.length(8);
+    expect(body.totalCandles).to.be.greaterThan(8);
+    expect(body.plan).to.equal(null);
+    expect(body.evaluations).to.deep.equal([]);
+    expect(body.complete).to.equal(false);
+  });
+}

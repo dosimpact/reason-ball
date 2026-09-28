@@ -1,0 +1,23 @@
+meta {
+  name: create-binance-forward
+  type: http
+  seq: 39
+}
+post {
+  url: {{baseUrl}}/api/strategies
+  body: json
+  auth: none
+}
+body:json {
+  {"title":"Binance no-new-candle probe","mode":"FORWARD","source":{"type":"binance","symbol":"ETHUSDT","interval":"1h"}}
+}
+assert {
+  res.status: eq 201
+}
+tests {
+  test("create-binance-forward", function() {
+    expect(res.getStatus()).to.equal(201);
+    const data = res.getBody();
+    expect(data.dataset.kind).to.equal('binance-live'); expect(data.visibleCandles.every(c=>c.time<=data.asOf)).to.equal(true); bru.setVar('binanceForwardId',data.id); const c=data.visibleCandles; const last=c.at(-1).close; let chosen; for(let i=0;i<c.length-2&&!chosen;i++){if(c[i].low>=last)continue;for(let j=i+1;j<c.length-1&&!chosen;j++){for(let k=j+1;k<c.length;k++){if(c[i].low<c[k].low&&c[k].low<c[j].high){chosen=[i,j,k];break;}}}} expect(chosen).to.be.an('array'); bru.setVar('binanceForwardIndices',JSON.stringify(chosen)); bru.setVar('binanceForwardEntry',last+5); bru.setVar('binanceForwardStop',Math.min(c[chosen[0]].low,last)-5); bru.setVar('binanceForwardTarget',last+55); bru.setVar('binanceForwardLevel',c[chosen[0]].low);
+  });
+}

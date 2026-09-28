@@ -1,0 +1,29 @@
+meta {
+  name: reject-premature-reflection
+  type: http
+  seq: 6
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{sessionId}}/reflection
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "decision": "close",
+    "reason": "\uc544\uc9c1 \uad00\ucc30 \uc804\uc785\ub2c8\ub2e4"
+  }
+}
+
+assert {
+  res.status: eq 409
+}
+
+tests {
+  test("reject-premature-reflection", function() {
+    expect(res.getStatus()).to.equal(409);
+    const data = res.getBody();
+
+  });
+}

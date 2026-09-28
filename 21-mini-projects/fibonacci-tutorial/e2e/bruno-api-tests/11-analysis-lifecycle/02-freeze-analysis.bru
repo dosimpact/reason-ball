@@ -1,0 +1,38 @@
+meta {
+  name: freeze-analysis
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{analysisSession}}/analysis/plan
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "primary": {
+      "pattern": "uncertain",
+      "direction": "uncertain",
+      "degree": "minor",
+      "segments": [],
+      "evidence": "공개된 봉에서 내부 분할이 아직 불확실하다.",
+      "invalidation": "다음 확정봉에서 가격 경계와 분할을 다시 검사한다."
+    },
+    "abstainReason": "한 가지 카운팅으로 확정할 근거가 부족하다.",
+    "rules": "공개 봉의 시간순 구조를 지킨다.",
+    "guidelines": "비율은 후보 근거이며 필수 규칙이 아니다.",
+    "anchors": "공개 고점과 저점",
+    "nextObservation": "다음 닫힌 봉과 가격 경계",
+    "asOf": {{analysisAsOf}},
+    "snapshotId": "{{analysisSnapshot}}"
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("freeze-analysis", function() {
+    const data=res.getBody();
+    bru.setVar('analysisPlan',data.analysis.activePlanId); expect(data.analysis.plans).to.have.length(1); expect(data.analysis.plans[0].plan.snapshotId).to.equal(bru.getVar('analysisSnapshot')); expect(data.analysis.plans[0].revision).to.equal(1);
+  });
+}

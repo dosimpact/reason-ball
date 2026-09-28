@@ -1,0 +1,33 @@
+meta {
+  name: reject-source-in-fixed-unit
+  type: http
+  seq: 6
+}
+post {
+  url: {{baseUrl}}/api/sessions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "unitId": "wave-three",
+    "source": {
+      "type": "binance",
+      "symbol": "BTCUSDT",
+      "interval": "1h"
+    }
+  }
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("reject-source-in-fixed-unit", function() {
+    expect(res.getStatus()).to.equal(400);
+    const data = res.getBody();
+
+  });
+}

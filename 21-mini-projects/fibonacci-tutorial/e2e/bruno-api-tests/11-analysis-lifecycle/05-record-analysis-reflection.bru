@@ -1,0 +1,25 @@
+meta {
+  name: record-analysis-reflection
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{analysisSession}}/analysis/reflection
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "planId": "{{analysisPlan}}",
+    "reason": "새 봉에서도 분할은 아직 불확실하여 관망을 유지한다."
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("record-analysis-reflection", function() {
+    const data=res.getBody();
+    expect(data.analysis.reflections).to.have.length(1); expect(data.complete).to.equal(false);
+  });
+}

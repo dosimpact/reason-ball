@@ -1,0 +1,30 @@
+meta {
+  name: advance-theory
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{theoryId}}/advance
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "expectedStep": 0
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("advance-theory", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.theoryStep).to.equal(1);
+    expect(JSON.stringify(data.instruction)).not.to.equal(bru.getVar('theoryBefore'));
+    expect(data.visibleCandles.length).to.be.greaterThan(Number(bru.getVar('theoryCount')));
+  });
+}

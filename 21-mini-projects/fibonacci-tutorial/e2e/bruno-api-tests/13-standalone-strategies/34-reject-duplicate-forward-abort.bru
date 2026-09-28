@@ -1,0 +1,23 @@
+meta {
+  name: reject-duplicate-forward-abort
+  type: http
+  seq: 34
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{forwardId}}/runs/{{forwardRunId}}/abort
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":7,"reason":"Duplicate"}
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("reject-duplicate-forward-abort", function() {
+    expect(res.getStatus()).to.equal(409);
+    const data = res.getBody();
+
+  });
+}

@@ -1,0 +1,33 @@
+meta {
+  name: Reveal one candle and evaluate
+  type: http
+  seq: 14
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{sessionId}}/replay
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "expectedCursor": 7
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("Reveal one candle and evaluate", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.cursor).to.equal(8);
+    expect(body.visibleCandles).to.have.length(9);
+    expect(body.evaluations).to.be.an('array').that.is.not.empty;
+    expect(body.evaluations[body.evaluations.length - 1].planId).to.equal(body.plan.id);
+    expect(body.evaluations[body.evaluations.length - 1].observedThrough).to.equal(body.visibleCandles[8].time);
+    expect(body.plan).to.deep.equal(JSON.parse(bru.getVar('planSnapshot')));
+  });
+}

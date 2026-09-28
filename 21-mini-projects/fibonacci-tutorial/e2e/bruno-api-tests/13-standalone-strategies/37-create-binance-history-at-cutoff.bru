@@ -1,0 +1,26 @@
+meta {
+  name: create-binance-history-at-cutoff
+  type: http
+  seq: 37
+}
+post {
+  url: {{baseUrl}}/api/strategies
+  body: json
+  auth: none
+}
+body:json {
+  {"title":"Binance historical cutoff","mode":"BACKTEST","source":{"type":"binance","symbol":"BTCUSDT","interval":"1h"},"asOf":{{binanceAsOf}},"backtestBars":4}
+}
+script:pre-request {
+  bru.setVar('binanceAsOf',Math.floor(Date.now()/3600000)*3600-6*3600);
+}
+assert {
+  res.status: eq 201
+}
+tests {
+  test("create-binance-history-at-cutoff", function() {
+    expect(res.getStatus()).to.equal(201);
+    const data = res.getBody();
+    expect(data.dataset.kind).to.equal('binance-historical'); expect(data.source.symbol).to.equal('BTCUSDT'); expect(data.asOf).to.equal(Number(bru.getVar('binanceAsOf'))); expect(data.visibleCandles.every(c=>c.time<=data.asOf)).to.equal(true); expect(data.dataset.availableCount).to.be.greaterThan(data.visibleCandles.length); expect(data).not.to.have.property('candles'); bru.setVar('binanceHistoryId',data.id);
+  });
+}

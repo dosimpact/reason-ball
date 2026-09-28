@@ -1,0 +1,23 @@
+meta {
+  name: confirm-linked-revision
+  type: http
+  seq: 23
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/confirm
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":12,"waveIndices":[0,3,7],"entry":114,"stopLoss":99,"target":140,"rationale":"Revalidated revision","monitoring":{"policy":"auto-abort","rule":{"kind":"price-level","level":105}}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("confirm-linked-revision", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(13); expect(data.plan.revision).to.equal(2); expect(data.plan.previousPlanId).to.equal(bru.getVar('strategyPlanId')); expect(data.plans[0]).to.deep.equal(JSON.parse(bru.getVar('planSnapshot'))); expect(data.runs).to.have.length(2);
+  });
+}

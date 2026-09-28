@@ -1,0 +1,19 @@
+meta {
+  name: restore-monitor-json
+  type: http
+  seq: 4
+}
+get {
+  url: {{baseUrl}}/api/sessions/{{monitorId}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("restore-monitor-json", function() {
+    const data=res.getBody();
+    expect(data.monitoring.status).to.equal('INVALIDATED_STOP'); expect(data.monitoringHistory).to.have.length(1);
+  });
+}

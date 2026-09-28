@@ -1,0 +1,35 @@
+meta {
+  name: Reject a second plan
+  type: http
+  seq: 11
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{sessionId}}/plan
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "waveIndices": [
+      0,
+      3,
+      6
+    ],
+    "entry": 114,
+    "stopLoss": 99,
+    "target": 142.36,
+    "rationale": "Wave 3 practice plan"
+  }
+}
+
+assert {
+  res.status: eq 409
+}
+
+tests {
+  test("Reject a second plan", function() {
+    expect(res.getStatus()).to.equal(409);
+    expect(res.getBody().error.code).to.equal('CONFLICT');
+  });
+}

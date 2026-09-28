@@ -1,0 +1,24 @@
+meta {
+  name: create-manual-monitor
+  type: http
+  seq: 11
+}
+post {
+  url: {{baseUrl}}/api/sessions
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "unitId": "wave-three"
+  }
+}
+assert {
+  res.status: eq 201
+}
+tests {
+  test("create-manual-monitor", function() {
+    const data=res.getBody();
+    bru.setVar('manualMonitorId',data.id);
+  });
+}

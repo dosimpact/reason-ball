@@ -1,0 +1,26 @@
+meta {
+  name: create-aligned-market
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/sessions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "unitId": "ew-aligned-count"
+  }
+}
+
+assert {
+  res.status: eq 201
+}
+tests {
+  test("create-aligned-market", function() {
+    const data = res.getBody();
+    bru.setVar('alignedId',data.id); expect(data.source.type).to.equal('binance'); expect(data.visibleCandles).to.have.length(240); expect(data.learning.timeframes['1h']).to.have.length(240); expect(data.learning.timeframes['4h']).to.have.length(60); expect(data.learning.timeframes['1d']).to.have.length(10); const end=data.learning.asOf+3600; for(const [key,seconds] of [['1h',3600],['4h',14400],['1d',86400]]) expect(data.learning.timeframes[key].every(c=>c.time+seconds<=end)).to.equal(true); expect(JSON.stringify(data)).not.to.include('expected');
+  });
+}

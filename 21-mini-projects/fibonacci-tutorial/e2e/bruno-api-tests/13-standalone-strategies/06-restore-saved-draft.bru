@@ -1,0 +1,23 @@
+meta {
+  name: restore-saved-draft
+  type: http
+  seq: 6
+}
+get {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("restore-saved-draft", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.status).to.equal('DRAFT');
+    expect(data.draftPlan).to.include({entry:114,stopLoss:99,target:135});
+    expect(data.draftPlan.waveIndices).to.deep.equal([0,3,7]);
+    expect(data.visibleCandles.every(c=>c.time<=data.asOf)).to.equal(true);
+  });
+}

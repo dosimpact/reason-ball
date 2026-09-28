@@ -1,0 +1,23 @@
+meta {
+  name: reject-stale-confirm
+  type: http
+  seq: 10
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/confirm
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":2,"waveIndices":[0,3,7],"entry":114,"stopLoss":99,"target":135,"rationale":"Duplicate"}
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("reject-stale-confirm", function() {
+    expect(res.getStatus()).to.equal(409);
+    const data = res.getBody();
+
+  });
+}

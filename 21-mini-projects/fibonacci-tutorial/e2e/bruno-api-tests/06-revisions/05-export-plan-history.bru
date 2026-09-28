@@ -1,0 +1,25 @@
+meta {
+  name: export-plan-history
+  type: http
+  seq: 5
+}
+get {
+  url: {{baseUrl}}/api/sessions/{{sessionId}}/export
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("export-plan-history", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.session.plans).to.have.length(2);
+    expect(data.schemas.tradePlan).to.be.an('object');
+    expect(data.schemas.tradeEvaluation).to.be.an('object');
+    expect(data.session).not.to.have.property('snapshot');
+  });
+}

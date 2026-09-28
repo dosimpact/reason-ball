@@ -1,0 +1,32 @@
+meta {
+  name: freeze-manual-monitor
+  type: http
+  seq: 13
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{manualMonitorId}}/plan
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "waveIndices": [
+      0,
+      3,
+      6
+    ],
+    "entry": 114,
+    "stopLoss": 99,
+    "target": 150,
+    "rationale": "확정봉의 파동 전제와 가격 경계를 기록한다."
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("freeze-manual-monitor", function() {
+    const data=res.getBody();
+    bru.setVar('manualMonitorPlanId',data.plan.id); expect(data.monitoring.policy).to.equal('auto-abort');
+  });
+}

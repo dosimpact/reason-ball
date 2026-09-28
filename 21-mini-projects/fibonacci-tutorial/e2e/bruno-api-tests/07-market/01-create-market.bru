@@ -1,0 +1,40 @@
+meta {
+  name: create-market
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/sessions
+  body: json
+  auth: none
+}
+
+body:json {
+  {"unitId":"market-lab","source":{"type":"binance","symbol":"BTCUSDT","interval":"1h","startTime":{{marketStart}}}}
+}
+
+script:pre-request {
+bru.setVar('marketStart', Math.floor(Date.now()/3600000)*3600000-200*3600000);
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("create-market", function() {
+    expect(res.getStatus()).to.equal(201);
+    const data = res.getBody();
+    bru.setVar('marketId', data.id);
+    expect(data.source.type).to.equal('binance');
+    expect(data.visibleCandles).to.have.length(80);
+    expect(data.totalCandles).to.equal(120);
+    let found;
+    for(let a=0;a<78&&!found;a++) for(let b=a+1;b<79&&!found;b++) for(let c=b+1;c<80&&!found;c++) {
+      const [lo,hi,retrace]=[data.visibleCandles[a].low,data.visibleCandles[b].high,data.visibleCandles[c].low];
+      if(lo<retrace && retrace<hi && data.visibleCandles.at(-1).close>lo) found={waveIndices:[a,b,c],entry:hi+1,stopLoss:lo-1,target:hi+1+2*(hi-lo+2),rationale:'시장 데이터 기반 시나리오 검증'};
+    }
+    expect(found).to.be.an('object');
+    bru.setVar('marketPlanBody',JSON.stringify(found));
+  });
+}

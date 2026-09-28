@@ -1,0 +1,19 @@
+meta {
+  name: export-monitor-events
+  type: http
+  seq: 7
+}
+get {
+  url: {{baseUrl}}/api/sessions/{{monitorId}}/export
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("export-monitor-events", function() {
+    const data=res.getBody();
+    expect(data.session.monitoring.events).to.have.length(Number(bru.getVar('monitorEventCount'))); expect(data.schemas.monitoringState.type).to.equal('object');
+  });
+}

@@ -1,0 +1,23 @@
+meta {
+  name: create-dummy-backtest
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/strategies
+  body: json
+  auth: none
+}
+body:json {
+  {"title":"Deterministic wave plan","mode":"BACKTEST","source":{"type":"dummy"}}
+}
+assert {
+  res.status: eq 201
+}
+tests {
+  test("create-dummy-backtest", function() {
+    expect(res.getStatus()).to.equal(201);
+    const data = res.getBody();
+    expect(data.status).to.equal('DRAFT'); expect(data.version).to.equal(1); expect(data.visibleCandles).to.have.length(8); expect(data.visibleCandles.at(-1).time).to.equal(data.asOf); expect(data.dataset.availableCount).to.equal(12); expect(data.plan).to.equal(null); expect(data.runs).to.have.length(0); bru.setVar('strategyId',data.id); bru.setVar('strategyAsOf',data.asOf); bru.setVar('strategySnapshot',data.snapshotId);
+  });
+}

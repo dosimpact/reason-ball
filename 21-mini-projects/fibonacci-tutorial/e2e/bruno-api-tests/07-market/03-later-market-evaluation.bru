@@ -1,0 +1,31 @@
+meta {
+  name: later-market-evaluation
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{marketId}}/evaluate
+  body: json
+  auth: none
+}
+
+body:json {
+  {}
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("later-market-evaluation", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.plan).to.deep.equal(JSON.parse(bru.getVar('marketPlanSnapshot')));
+    const result=data.evaluations.at(-1);
+    expect(result.evaluationMode).to.equal('later-market');
+    expect(result.observedThrough).to.be.greaterThan(data.plan.asOf);
+    expect(result.feedback).to.be.an('array');
+    bru.setVar('marketEvalCount',data.evaluations.length);
+  });
+}

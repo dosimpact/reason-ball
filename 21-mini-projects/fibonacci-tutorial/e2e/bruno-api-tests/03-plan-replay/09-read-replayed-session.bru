@@ -1,0 +1,25 @@
+meta {
+  name: Read persisted replay and plan
+  type: http
+  seq: 15
+}
+get {
+  url: {{baseUrl}}/api/sessions/{{sessionId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("Read persisted replay and plan", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.cursor).to.equal(8);
+    expect(body.visibleCandles).to.have.length(9);
+    expect(body.evaluations).to.be.an('array').that.is.not.empty;
+    expect(body.plan).to.deep.equal(JSON.parse(bru.getVar('planSnapshot')));
+  });
+}

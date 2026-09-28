@@ -1,0 +1,30 @@
+meta {
+  name: record-exit-judgment
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{marketId}}/reflection
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "decision": "hold",
+    "reason": "\uc0c8 \uce94\ub4e4\uc5d0\uc11c \ubb34\ud6a8\ud654\uc640 \ubaa9\ud45c \ub3c4\ub2ec\uc744 \ub2e4\uc2dc \uad00\ucc30\ud558\uaca0\uc2b5\ub2c8\ub2e4."
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("record-exit-judgment", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.reflection.decision).to.equal('hold');
+    expect(data.plan).to.deep.equal(JSON.parse(bru.getVar('marketPlanSnapshot')));
+  });
+}

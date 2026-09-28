@@ -1,0 +1,23 @@
+meta {
+  name: abort-forward-at-known-close
+  type: http
+  seq: 33
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{forwardId}}/runs/{{forwardRunId}}/abort
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":6,"reason":"파동 해석을 철회했습니다."}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("abort-forward-at-known-close", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(7); const run=data.runs[0]; expect(run.monitoring.status).to.equal('ABORTED'); expect(run.controlStatus).to.equal('COMPLETED'); expect(run.monitoring.events.at(-1).kind).to.equal('ABORTED'); expect(run.evaluation.realizedPnl).to.equal(run.monitoring.exitPrice-run.monitoring.entryFillPrice); bru.setVar('forwardAbortEvents',run.monitoring.events.length);
+  });
+}

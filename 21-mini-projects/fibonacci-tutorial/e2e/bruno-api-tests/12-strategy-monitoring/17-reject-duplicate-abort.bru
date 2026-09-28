@@ -1,0 +1,26 @@
+meta {
+  name: reject-duplicate-abort
+  type: http
+  seq: 17
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{manualMonitorId}}/monitoring/abort
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedPlanId": "{{manualMonitorPlanId}}",
+    "expectedCursor": 8,
+    "reason": "중복"
+  }
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("reject-duplicate-abort", function() {
+    const data=res.getBody();
+    expect(data.error).to.exist;
+  });
+}

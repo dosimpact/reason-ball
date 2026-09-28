@@ -1,0 +1,27 @@
+meta {
+  name: reject-empty-workbook
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{alignedId}}/lesson/check
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "caseId": "ew-aligned-count-basic-v1",
+    "values": {}
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+tests {
+  test("reject-empty-workbook", function() {
+    const data = res.getBody();
+    expect(data.learning.objectivePassed).to.equal(false); expect(data.complete).to.equal(false);
+  });
+}

@@ -1,0 +1,24 @@
+meta {
+  name: invalid-rule-feedback
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{countId}}/check
+  body: json
+  auth: none
+}
+body:json {
+  {"waveIndices":[0,2,4,5,8,10]}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("invalid-rule-feedback", function() {
+    const data=res.getBody();
+    expect(data.complete).to.equal(false);
+    expect(data.validation.some(item => !item.pass)).to.equal(true);
+    expect(data.validation.every(item => item.reason.length > 0)).to.equal(true);
+  });
+}

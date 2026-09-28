@@ -1,0 +1,20 @@
+meta {
+  name: restore-binance-history-cutoff
+  type: http
+  seq: 38
+}
+get {
+  url: {{baseUrl}}/api/strategies/{{binanceHistoryId}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("restore-binance-history-cutoff", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.visibleCandles.every(c=>c.time<=Number(bru.getVar('binanceAsOf')))).to.equal(true); expect(data.dataset.kind).to.equal('binance-historical'); expect(data.plan).to.equal(null); const c=data.visibleCandles; const last=c.at(-1).close; let chosen; for(let i=0;i<c.length-2&&!chosen;i++){if(c[i].low>=last)continue;for(let j=i+1;j<c.length-1&&!chosen;j++){for(let k=j+1;k<c.length;k++){if(c[i].low<c[k].low&&c[k].low<c[j].high){chosen=[i,j,k];break;}}}} expect(chosen).to.be.an('array'); bru.setVar('binanceHistoryIndices',JSON.stringify(chosen)); bru.setVar('binanceHistoryEntry',last+5); bru.setVar('binanceHistoryStop',1); bru.setVar('binanceHistoryTarget',last+1000); bru.setVar('binanceHistoryLevel',1); bru.setVar('binanceHistorySnapshot',data.snapshotId); bru.setVar('binanceHistoryCount',data.dataset.availableCount); bru.setVar('binanceHistoryEnd',data.dataset.rangeEnd);
+  });
+}

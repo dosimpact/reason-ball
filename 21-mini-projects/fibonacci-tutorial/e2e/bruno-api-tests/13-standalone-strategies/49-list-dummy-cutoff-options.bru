@@ -1,0 +1,25 @@
+meta {
+  name: list-dummy-cutoff-options
+  type: http
+  seq: 49
+}
+get {
+  url: {{baseUrl}}/api/strategies/options
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("list-dummy-cutoff-options", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.dummyCutoffs).to.have.length(7);
+    expect(data.dummyCutoffs[0]).to.deep.equal({ index:4, ordinal:5, asOf:1700014400, maxBacktestBars:7 });
+    const last = data.dummyCutoffs.at(-1);
+    expect(last).to.deep.equal({ index:10, ordinal:11, asOf:1700036000, maxBacktestBars:1 });
+    expect(JSON.stringify(data)).not.to.match(/"(?:open|high|low|close|candles)"/);
+    bru.setVar('chosenDummyCutoff', last.asOf);
+  });
+}

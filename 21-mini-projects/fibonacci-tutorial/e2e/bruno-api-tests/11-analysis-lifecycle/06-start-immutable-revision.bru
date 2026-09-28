@@ -1,0 +1,24 @@
+meta {
+  name: start-immutable-revision
+  type: http
+  seq: 6
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{analysisSession}}/analysis/revise
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedPlanId": "{{analysisPlan}}"
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("start-immutable-revision", function() {
+    const data=res.getBody();
+    expect(data.analysis.plans).to.have.length(1); expect(data.analysis.activePlanId).to.equal(null);
+  });
+}

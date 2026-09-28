@@ -1,0 +1,23 @@
+meta {
+  name: reject-stale-draft-edit
+  type: http
+  seq: 7
+}
+patch {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":1,"title":"Lost update"}
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("reject-stale-draft-edit", function() {
+    expect(res.getStatus()).to.equal(409);
+    const data = res.getBody();
+
+  });
+}

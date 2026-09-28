@@ -1,0 +1,24 @@
+meta {
+  name: reject-stale-analysis-replay
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{analysisSession}}/analysis/replay
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedCursor": 78
+  }
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("reject-stale-analysis-replay", function() {
+    const data=res.getBody();
+    expect(data.error).to.exist;
+  });
+}

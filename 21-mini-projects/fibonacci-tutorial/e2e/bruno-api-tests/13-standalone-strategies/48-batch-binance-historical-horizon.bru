@@ -1,0 +1,29 @@
+meta {
+  name: batch-binance-historical-horizon
+  type: http
+  seq: 48
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{binanceHistoryId}}/runs/{{binanceHistoryRunId}}/batch
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":3}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("batch-binance-historical-horizon", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    const run = data.runs[0];
+    expect(run.controlStatus).to.equal('COMPLETED');
+    expect(run.observedCount).to.equal(4);
+    expect(run.monitoring.observedThrough).to.equal(Number(bru.getVar('binanceHistoryEnd')));
+    expect(data.visibleCandles).to.have.length(Number(bru.getVar('binanceHistoryCount')));
+    expect(run.evaluation.observedCount).to.equal(4);
+    expect(run.observedSnapshotId).to.equal(bru.getVar('binanceHistorySnapshot'));
+  });
+}

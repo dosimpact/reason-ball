@@ -1,0 +1,52 @@
+{
+  "name": "fibonacci-tutorial",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1 --port 4310",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1 --port 4310",
+    "typecheck": "next typegen && tsc --noEmit",
+    "lint": "eslint . && node scripts/check-boundaries.mjs",
+    "test": "vitest run",
+    "test:api": "node scripts/verify.mjs api",
+    "test:e2e": "node scripts/verify.mjs e2e",
+    "test:integration": "node scripts/verify.mjs all",
+    "storybook": "storybook dev --host 127.0.0.1 --port 6310 --ci",
+    "build-storybook": "storybook build",
+    "test:storybook": "node scripts/verify.mjs storybook"
+  },
+  "dependencies": {
+    "@primer/primitives": "^11.10.0",
+    "@radix-ui/react-slot": "^1.2.0",
+    "@tanstack/react-query": "5.104.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lightweight-charts": "5.2.1",
+    "lucide-react": "^0.577.0",
+    "next": "16.3.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "^3.0.0",
+    "zod": "^4.0.0",
+    "zustand": "^5.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@storybook/react-vite": "10.6.0",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@usebruno/cli": "^4.1.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "16.3.6",
+    "storybook": "10.6.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "^5.9.0",
+    "vite": "^8.0.0",
+    "vitest": "5.0.2"
+  }
+}

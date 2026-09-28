@@ -1,0 +1,28 @@
+meta {
+  name: reject-theory-replay
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{theoryId}}/replay
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "expectedCursor": 7
+  }
+}
+
+assert {
+  res.status: eq 409
+}
+
+tests {
+  test("reject-theory-replay", function() {
+    expect(res.getStatus()).to.equal(409);
+    const data = res.getBody();
+
+  });
+}

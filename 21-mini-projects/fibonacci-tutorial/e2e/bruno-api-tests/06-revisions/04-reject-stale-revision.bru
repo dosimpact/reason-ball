@@ -1,0 +1,26 @@
+meta {
+  name: reject-stale-revision
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{sessionId}}/revise
+  body: json
+  auth: none
+}
+
+body:json {
+  {"expectedPlanId":"{{revisionPlanId}}"}
+}
+
+assert {
+  res.status: eq 409
+}
+
+tests {
+  test("reject-stale-revision", function() {
+    expect(res.getStatus()).to.equal(409);
+    const data = res.getBody();
+
+  });
+}

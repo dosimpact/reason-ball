@@ -1,0 +1,39 @@
+meta {
+  name: freeze-pending-monitor
+  type: http
+  seq: 9
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{pendingMonitorId}}/plan
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "waveIndices": [
+      0,
+      3,
+      6
+    ],
+    "entry": 125,
+    "stopLoss": 99,
+    "target": 150,
+    "rationale": "확정봉의 파동 전제와 가격 경계를 기록한다.",
+    "monitoring": {
+      "policy": "auto-abort",
+      "rule": {
+        "kind": "price-level",
+        "level": 111.5
+      }
+    }
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("freeze-pending-monitor", function() {
+    const data=res.getBody();
+    expect(data.monitoring.status).to.equal('PENDING');
+  });
+}

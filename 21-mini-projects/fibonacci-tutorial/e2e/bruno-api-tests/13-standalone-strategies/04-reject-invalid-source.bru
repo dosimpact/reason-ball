@@ -1,0 +1,23 @@
+meta {
+  name: reject-invalid-source
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/strategies
+  body: json
+  auth: none
+}
+body:json {
+  {"title":"Bad source","mode":"BACKTEST","source":{"type":"binance","symbol":"BAD","interval":"1h"}}
+}
+assert {
+  res.status: eq 400
+}
+tests {
+  test("reject-invalid-source", function() {
+    expect(res.getStatus()).to.equal(400);
+    const data = res.getBody();
+
+  });
+}

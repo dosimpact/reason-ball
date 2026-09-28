@@ -1,0 +1,18 @@
+meta {
+  name: reject-unknown-strategy
+  type: http
+  seq: 24
+}
+get {
+  url: {{baseUrl}}/api/strategies/00000000-0000-4000-8000-000000000000
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 404
+}
+tests {
+  test("reject-unknown-strategy", function() {
+    expect(res.getStatus()).to.equal(404);
+  });
+}

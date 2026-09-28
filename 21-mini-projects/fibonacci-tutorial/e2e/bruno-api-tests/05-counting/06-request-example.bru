@@ -1,0 +1,29 @@
+meta {
+  name: request-example
+  type: http
+  seq: 7
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{countId}}/hint
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "kind": "example"
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("request-example", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.exampleIndices).to.have.length(6);
+    expect(Math.max(...data.exampleIndices)).to.be.lessThan(data.visibleCandles.length);
+  });
+}

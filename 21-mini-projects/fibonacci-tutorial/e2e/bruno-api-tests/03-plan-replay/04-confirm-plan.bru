@@ -1,0 +1,45 @@
+meta {
+  name: Confirm immutable trade plan
+  type: http
+  seq: 10
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{sessionId}}/plan
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "waveIndices": [
+      0,
+      3,
+      6
+    ],
+    "entry": 114,
+    "stopLoss": 99,
+    "target": 142.36,
+    "rationale": "Wave 3 practice plan"
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("Confirm immutable trade plan", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.cursor).to.equal(7);
+    expect(body.visibleCandles).to.have.length(8);
+    expect(body.plan).to.be.an('object');
+    expect(body.plan.sessionId).to.equal(bru.getVar('sessionId'));
+    expect(body.plan.wavePoints.map((point) => point.candleIndex)).to.deep.equal([0, 3, 6]);
+    expect(body.plan.entry).to.equal(114);
+    expect(body.plan.stopLoss).to.equal(99);
+    expect(body.plan.target).to.equal(142.36);
+    expect(body.plan.policyVersion).to.equal('touch-v1');
+    bru.setVar('planSnapshot', JSON.stringify(body.plan));
+  });
+}

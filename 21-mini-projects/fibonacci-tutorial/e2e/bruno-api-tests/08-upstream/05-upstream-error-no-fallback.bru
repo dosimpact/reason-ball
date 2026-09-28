@@ -1,0 +1,34 @@
+meta {
+  name: upstream-error-no-fallback
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/api/sessions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "unitId": "market-lab",
+    "source": {
+      "type": "binance",
+      "symbol": "ETHUSDT",
+      "interval": "4h"
+    }
+  }
+}
+
+assert {
+  res.status: eq 503
+}
+
+tests {
+  test("upstream-error-no-fallback", function() {
+    expect(res.getStatus()).to.equal(503);
+    const data = res.getBody();
+    expect(data.error).to.be.an('object');
+    expect(data).not.to.have.property('visibleCandles');
+  });
+}

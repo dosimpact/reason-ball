@@ -1,0 +1,24 @@
+meta {
+  name: observe-after-plan
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{analysisSession}}/analysis/replay
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedCursor": 79
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("observe-after-plan", function() {
+    const data=res.getBody();
+    expect(data.visibleCandles).to.have.length(81); expect(data.analysis.evaluations).to.have.length(1); expect(data.analysis.plans[0].plan.asOf).to.equal(Number(bru.getVar('analysisAsOf'))); bru.setVar('revisionAsOf',data.learning.asOf); bru.setVar('revisionSnapshot',data.learning.snapshotId);
+  });
+}

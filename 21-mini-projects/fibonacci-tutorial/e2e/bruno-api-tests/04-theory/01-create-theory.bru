@@ -1,0 +1,33 @@
+meta {
+  name: create-theory
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/sessions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "unitId": "impulse-theory"
+  }
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("create-theory", function() {
+    expect(res.getStatus()).to.equal(201);
+    const data = res.getBody();
+    bru.setVar('theoryId', data.id);
+    expect(data.unit.mode).to.equal('theory');
+    expect(data.theoryStep).to.equal(0);
+    expect(data.exampleIndices).to.equal(null);
+    bru.setVar('theoryBefore', JSON.stringify(data.instruction));
+    bru.setVar('theoryCount', data.visibleCandles.length);
+  });
+}

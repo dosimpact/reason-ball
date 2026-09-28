@@ -1,0 +1,28 @@
+meta {
+  name: inject-rate-limit
+  type: http
+  seq: 4
+}
+post {
+  url: {{upstreamUrl}}/__control
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "failNext": 1
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("inject-rate-limit", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+
+  });
+}

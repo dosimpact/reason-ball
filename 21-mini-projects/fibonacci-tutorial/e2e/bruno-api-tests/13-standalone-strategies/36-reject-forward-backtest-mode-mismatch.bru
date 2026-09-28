@@ -1,0 +1,23 @@
+meta {
+  name: reject-forward-backtest-mode-mismatch
+  type: http
+  seq: 36
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{forwardId}}/runs
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":7,"mode":"BACKTEST"}
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("reject-forward-backtest-mode-mismatch", function() {
+    expect(res.getStatus()).to.equal(409);
+    const data = res.getBody();
+
+  });
+}

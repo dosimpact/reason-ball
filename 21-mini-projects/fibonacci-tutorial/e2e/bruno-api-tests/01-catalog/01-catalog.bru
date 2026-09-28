@@ -1,0 +1,24 @@
+meta {
+  name: Catalog lists Wave 3 practice
+  type: http
+  seq: 1
+}
+get {
+  url: {{baseUrl}}/api/catalog
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("Catalog lists Wave 3 practice", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.chapters).to.be.an('array').that.is.not.empty;
+    const units = body.chapters.flatMap((chapter) => chapter.units);
+    expect(units.some((unit) => unit.id === 'wave-three')).to.equal(true);
+  });
+}

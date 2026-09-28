@@ -1,0 +1,23 @@
+meta {
+  name: pause-backtest-run
+  type: http
+  seq: 14
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/runs/{{stepRunId}}/pause
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":6}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("pause-backtest-run", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(7); const run=data.runs.find(r=>r.id===bru.getVar('stepRunId')); expect(run.controlStatus).to.equal('PAUSED'); expect(run.monitoring.status).to.equal('OPEN');
+  });
+}

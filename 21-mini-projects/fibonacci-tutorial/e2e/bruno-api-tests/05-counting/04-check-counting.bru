@@ -1,0 +1,37 @@
+meta {
+  name: check-counting
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{countId}}/check
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "waveIndices": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ]
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("check-counting", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.validation).to.have.length.greaterThan(2);
+    expect(data.validation.every(result => result.pass)).to.equal(true);
+    expect(data.complete).to.equal(true);
+  });
+}

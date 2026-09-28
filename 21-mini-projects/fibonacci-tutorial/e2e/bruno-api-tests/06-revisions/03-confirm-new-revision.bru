@@ -1,0 +1,39 @@
+meta {
+  name: confirm-new-revision
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{sessionId}}/plan
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "waveIndices": [
+      0,
+      3,
+      6
+    ],
+    "entry": 116,
+    "stopLoss": 99,
+    "target": 145,
+    "rationale": "\uc0c8\ub85c \uacf5\uac1c\ub41c \uce94\ub4e4\uc744 \ubc18\uc601\ud55c \ud310\ub2e8"
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("confirm-new-revision", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.plan.revision).to.equal(2);
+    expect(data.plan.previousPlanId).to.equal(bru.getVar('revisionPlanId'));
+    expect(data.plan.asOf).to.equal(Number(bru.getVar('revisionAsOf')));
+    expect(data.plans[0]).to.deep.equal(JSON.parse(bru.getVar('planSnapshot')));
+  });
+}

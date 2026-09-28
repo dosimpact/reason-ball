@@ -1,0 +1,20 @@
+meta {
+  name: restore-forward-abort
+  type: http
+  seq: 35
+}
+get {
+  url: {{baseUrl}}/api/strategies/{{forwardId}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("restore-forward-abort", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.runs[0].monitoring.status).to.equal('ABORTED'); expect(data.runs[0].monitoring.events).to.have.length(Number(bru.getVar('forwardAbortEvents')));
+  });
+}

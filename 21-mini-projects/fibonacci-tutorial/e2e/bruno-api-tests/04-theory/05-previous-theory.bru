@@ -1,0 +1,25 @@
+meta {
+  name: previous-theory
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/api/sessions/{{theoryId}}/advance
+  body: json
+  auth: none
+}
+body:json {
+  {
+    "expectedStep": 1,
+    "direction": "prev"
+  }
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("previous-theory", function() {
+    const data = res.getBody();
+    expect(data.theoryStep).to.equal(0); expect(data.visibleCandles.length).to.equal(Number(bru.getVar('theoryCount'))); expect(data.instruction).to.deep.equal(JSON.parse(bru.getVar('theoryBefore')));
+  });
+}

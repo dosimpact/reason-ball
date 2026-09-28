@@ -1,0 +1,23 @@
+meta {
+  name: reject-future-wave-points
+  type: http
+  seq: 8
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/confirm
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":2,"waveIndices":[0,3,8],"entry":114,"stopLoss":99,"target":135,"rationale":"Future point must be hidden"}
+}
+assert {
+  res.status: eq 400
+}
+tests {
+  test("reject-future-wave-points", function() {
+    expect(res.getStatus()).to.equal(400);
+    const data = res.getBody();
+
+  });
+}

@@ -1,0 +1,22 @@
+meta {
+  name: assert-cache-hit
+  type: http
+  seq: 3
+}
+get {
+  url: {{upstreamUrl}}/__control
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("assert-cache-hit", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.requests).to.equal(Number(bru.getVar('requestsBeforeCache')));
+  });
+}

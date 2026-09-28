@@ -1,0 +1,35 @@
+meta {
+  name: Unknown plan session
+  type: http
+  seq: 16
+}
+post {
+  url: {{baseUrl}}/api/sessions/00000000-0000-4000-8000-000000000000/plan
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "waveIndices": [
+      0,
+      3,
+      6
+    ],
+    "entry": 114,
+    "stopLoss": 99,
+    "target": 142.36,
+    "rationale": "Unknown session"
+  }
+}
+
+assert {
+  res.status: eq 404
+}
+
+tests {
+  test("Unknown plan session", function() {
+    expect(res.getStatus()).to.equal(404);
+    expect(res.getBody().error.code).to.equal('NOT_FOUND');
+  });
+}

@@ -1,0 +1,26 @@
+meta {
+  name: create-advanced-theory
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/sessions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "unitId": "ew-fib-anchors"
+  }
+}
+
+assert {
+  res.status: eq 201
+}
+tests {
+  test("create-advanced-theory", function() {
+    const data = res.getBody();
+    bru.setVar('advancedTheoryId',data.id); expect(data.visibleCandles).to.have.length(12); expect(data.theoryStepCount).to.equal(5); expect(data.learning.questions).to.equal(undefined); expect(JSON.stringify(data)).not.to.include('correctAnswers'); expect(data.learning.steps).to.have.length(1);
+  });
+}

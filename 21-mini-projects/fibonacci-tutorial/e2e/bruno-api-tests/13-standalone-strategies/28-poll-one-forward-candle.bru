@@ -1,0 +1,23 @@
+meta {
+  name: poll-one-forward-candle
+  type: http
+  seq: 28
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{forwardId}}/runs/{{forwardRunId}}/poll
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":3}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("poll-one-forward-candle", function() {
+    expect(res.getStatus()).to.equal(200);
+    const data = res.getBody();
+    expect(data.version).to.equal(4); const run=data.runs[0]; expect(run.observedCount).to.equal(1); expect(run.monitoring.status).to.equal('OPEN'); expect(data.visibleCandles).to.have.length(9); expect(run.dataRange.endTime).to.equal(data.visibleCandles.at(-1).time);
+  });
+}

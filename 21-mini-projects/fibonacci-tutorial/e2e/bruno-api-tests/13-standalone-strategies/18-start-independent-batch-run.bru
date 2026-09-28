@@ -1,0 +1,23 @@
+meta {
+  name: start-independent-batch-run
+  type: http
+  seq: 18
+}
+post {
+  url: {{baseUrl}}/api/strategies/{{strategyId}}/runs
+  body: json
+  auth: none
+}
+body:json {
+  {"expectedVersion":9,"mode":"BACKTEST"}
+}
+assert {
+  res.status: eq 201
+}
+tests {
+  test("start-independent-batch-run", function() {
+    expect(res.getStatus()).to.equal(201);
+    const data = res.getBody();
+    expect(data.version).to.equal(10); expect(data.runs).to.have.length(2); expect(data.runs[0]).to.deep.equal(JSON.parse(bru.getVar('stepRunSnapshot'))); const run=data.runs[1]; expect(run.id).not.to.equal(bru.getVar('stepRunId')); expect(run.planId).to.equal(bru.getVar('strategyPlanId')); bru.setVar('batchRunId',run.id);
+  });
+}
