@@ -1,8 +1,7 @@
-"""Observe the agent, model, and tool lifecycle of a create_agent graph.
+"""Observe custom lifecycle hooks and the built-in TodoListMiddleware.
 
-The scripted model makes one tool call and then answers from its result, so this
-example runs without an API key. The middleware uses the public LangChain hooks;
-it does not add nodes to the surrounding LangGraph workflow.
+Scripted models make the tool calls reproducible without an API key. The custom
+middleware uses public LangChain hooks; it does not add nodes to the graph.
 """
 
 from __future__ import annotations
@@ -16,6 +15,7 @@ from langchain.agents.middleware import (
     AgentState,
     ModelRequest,
     ModelResponse,
+    TodoListMiddleware,
 )
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import AIMessage, BaseMessage, ToolMessage
@@ -55,6 +55,79 @@ class ScriptedModel(BaseChatModel):
                     {"name": "multiply", "args": {"a": 6, "b": 7}, "id": "multiply-1"}
                 ],
             )
+        return ChatResult(generations=[ChatGeneration(message=answer)])
+
+
+class TodoScriptedModel(ScriptedModel):
+    """Write a plan, calculate, replace the plan, then answer."""
+
+    duplicate_writes: bool = False
+
+    def _generate(
+        self, messages: list[BaseMessage], stop: list[str] | None = None, **kwargs: Any
+    ) -> ChatResult:
+        tool_calls = [
+            call
+            for message in messages
+            if isinstance(message, AIMessage)
+            for call in message.tool_calls
+        ]
+        todo_writes = sum(call["name"] == "write_todos" for call in tool_calls)
+        multiplied = any(call["name"] == "multiply" for call in tool_calls)
+
+        if any(
+            isinstance(message, ToolMessage) and message.status == "error"
+            for message in messages
+        ):
+            answer = AIMessage(content="병렬 write_todos 호출이 거절되었습니다.")
+        elif todo_writes == 0:
+            initial_todos = [
+                {"content": "6 × 7 계산", "status": "in_progress"},
+                {"content": "결과 보고", "status": "pending"},
+            ]
+            calls = [
+                {"name": "write_todos", "args": {"todos": initial_todos}, "id": "todos-start"}
+            ]
+            if self.duplicate_writes:
+                calls.append(
+                    {
+                        "name": "write_todos",
+                        "args": {"todos": initial_todos},
+                        "id": "todos-duplicate",
+                    }
+                )
+            answer = AIMessage(
+                content="",
+                tool_calls=calls,
+            )
+        elif not multiplied:
+            answer = AIMessage(
+                content="",
+                tool_calls=[
+                    {"name": "multiply", "args": {"a": 6, "b": 7}, "id": "multiply-1"}
+                ],
+            )
+        elif todo_writes == 1:
+            answer = AIMessage(
+                content="",
+                tool_calls=[
+                    {
+                        "name": "write_todos",
+                        "args": {"todos": [
+                            {"content": "6 × 7 계산", "status": "completed"},
+                            {"content": "결과 보고", "status": "completed"},
+                        ]},
+                        "id": "todos-finish",
+                    }
+                ],
+            )
+        else:
+            product = next(
+                message.content
+                for message in messages
+                if isinstance(message, ToolMessage) and message.name == "multiply"
+            )
+            answer = AIMessage(content=f"계산 결과는 {product}입니다.")
         return ChatResult(generations=[ChatGeneration(message=answer)])
 
 
@@ -111,9 +184,27 @@ def build_graph(events: list[str] | None = None):
     )
 
 
+def build_todo_graph(events: list[str] | None = None, *, duplicate_writes: bool = False):
+    return create_agent(
+        model=TodoScriptedModel(duplicate_writes=duplicate_writes),
+        tools=[multiply],
+        middleware=[LifecycleMiddleware(events), TodoListMiddleware()],
+        name="advanced_todo_list_middleware",
+    )
+
+
 graph = build_graph()
+todo_graph = build_todo_graph()
 
 
 if __name__ == "__main__":
+    print("=== custom lifecycle middleware ===")
     result = graph.invoke({"messages": [{"role": "user", "content": "6 곱하기 7은?"}]})
+    print(f"answer: {result['messages'][-1].content}")
+
+    print("\n=== built-in TodoListMiddleware + lifecycle middleware ===")
+    result = todo_graph.invoke(
+        {"messages": [{"role": "user", "content": "6 곱하기 7을 계산하고 결과를 보고해줘."}]}
+    )
+    print(f"todos: {result['todos']}")
     print(f"answer: {result['messages'][-1].content}")

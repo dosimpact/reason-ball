@@ -76,7 +76,7 @@ uv run python graph-advanced/01_semantic_cache/graph.py
 | 09 | Observability | LangSmith + Prometheus | tracing, 메트릭 |
 | 10 | Async + SSE | (없음) | FastAPI + `astream` |
 | 11 | Multitenancy | Postgres + JWT | thread/store 격리 |
-| 12 | Agent Middleware | (없음) | agent/model/tool lifecycle 훅 |
+| 12 | Agent Middleware | (없음) | lifecycle 훅과 `TodoListMiddleware`의 `write_todos` 상태 갱신 |
 
 ## 학습 순서 권장
 

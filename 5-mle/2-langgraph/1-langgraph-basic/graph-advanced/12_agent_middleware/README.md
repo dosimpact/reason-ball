@@ -1,8 +1,10 @@
 # 12 — Agent Middleware lifecycle
 
 `graph-basic/16_create_agent.py`에서 만든 agent에 custom middleware를 붙여
-agent, model, tool 경계의 호출 순서를 관찰합니다. `create_agent`는 LangGraph
-그래프를 반환하며 middleware는 그 내부 agent loop에서 실행됩니다.
+agent, model, tool 경계의 호출 순서를 관찰합니다. 이어서 LangChain의 기본 제공
+`TodoListMiddleware`를 함께 사용해 도구 주입과 agent 상태 확장을 확인합니다.
+`create_agent`는 LangGraph 그래프를 반환하며 middleware는 그 내부 agent
+loop에서 실행됩니다.
 
 `LifecycleMiddleware`의 node-style 훅은 `before_agent`, `before_model`,
 `after_model`, `after_agent`입니다. wrap-style 훅은 `wrap_model_call`,
@@ -15,8 +17,9 @@ uv run --frozen python graph-advanced/12_agent_middleware/graph.py
 uv run --frozen pytest test_agent_middleware.py
 ```
 
-예제 모델은 항상 `multiply(6, 7)`을 한 번 요청하고 도구 결과를 답변에
-사용합니다. OpenAI 키나 외부 서비스가 필요 없습니다. 출력은 아래 순서입니다.
+첫 번째 그래프의 예제 모델은 항상 `multiply(6, 7)`을 한 번 요청하고 도구
+결과를 답변에 사용합니다. OpenAI 키나 외부 서비스가 필요 없습니다. 출력은
+아래 순서입니다.
 
 ```text
 before_agent
@@ -34,10 +37,19 @@ after_agent
 answer: 계산 결과는 42입니다.
 ```
 
-LangGraph Studio에서는 `langgraph-advanced.json`의
-`advanced_12_agent_middleware` 그래프로 등록되어 있습니다. ScriptedModel은
-호출마다 같은 계산을 선택하므로 이 예제는 실제 LLM의 도구 선택 능력을
-검증하는 용도가 아닙니다.
+두 번째 그래프는 `TodoListMiddleware()`가 `write_todos` 도구와 `todos`
+상태를 agent에 추가하는 모습을 보여줍니다. 모델은 첫 `write_todos` 호출에서
+두 항목을 `in_progress`/`pending`으로 저장하고, `multiply`를 호출한 뒤
+두 번째 `write_todos` 호출로 **전체 목록을 교체**해 두 항목을 완료합니다.
+최종 출력의 `todos`는 두 개의 `completed` 항목이며 답변은 `42`입니다.
+`write_todos`는 한 모델 응답에서 한 번만 호출해야 합니다. 여러 호출이
+병렬로 나오면 middleware가 오류로 처리합니다.
+
+LangGraph Studio에서는 `langgraph-advanced.json`에
+`advanced_12_agent_middleware`와 `advanced_12_todo_list_middleware` 두 그래프로
+등록되어 있습니다. ScriptedModel은 도구 호출을 정해진 순서로 내므로 이
+예제는 실제 LLM의 도구 선택 능력을 검증하는 용도가 아닙니다.
 
 참고: [LangChain middleware overview](https://docs.langchain.com/oss/python/langchain/middleware/overview),
-[custom middleware hooks](https://docs.langchain.com/oss/python/langchain/middleware/custom).
+[custom middleware hooks](https://docs.langchain.com/oss/python/langchain/middleware/custom),
+[TodoListMiddleware API](https://reference.langchain.com/python/langchain/agents/middleware/todo/TodoListMiddleware).
