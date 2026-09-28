@@ -53,6 +53,7 @@ uv run python graph-basic/15_react_tool_loop.py
 uv run python graph-basic/20_checkpointer.py
 uv run python graph-basic/45_research_reflexion.py
 uv run python graph-advanced/12_agent_middleware/graph.py  # API 키 없이 middleware 훅 순서 확인
+uv run python graph-advanced/13_summarization_middleware/graph.py  # 긴 대화 자동 요약 확인
 ```
 
 LangGraph Studio:
