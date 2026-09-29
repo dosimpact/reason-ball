@@ -1,6 +1,6 @@
 # graph-advanced — 심화 주제 구현 모음
 
-`docs/심화주제.md` 의 11개 주제를 루트 프로젝트의 공용 의존성과 `common/` 모듈을 사용하도록 구성한 모음입니다.
+운영 패턴과 agent 확장 지점을 연습하는 심화 예제 모음입니다.
 
 각 디렉토리는 주제별 graph 코드와 보조 모듈만 담고, 실행과 의존성 관리는 루트의 `pyproject.toml` 및 `langgraph-advanced.json`에서 처리합니다.
 
@@ -19,7 +19,9 @@ graph-advanced/
 ├── 08_eval_harness/
 ├── 09_observability/
 ├── 10_async_sse/
-└── 11_multitenancy/
+├── 11_multitenancy/
+├── 12_agent_middleware/
+└── 13_summarization_middleware/
 ```
 
 ## 각 예제 공통 구조
@@ -75,6 +77,8 @@ uv run python graph-advanced/01_semantic_cache/graph.py
 | 09 | Observability | LangSmith + Prometheus | tracing, 메트릭 |
 | 10 | Async + SSE | (없음) | FastAPI + `astream` |
 | 11 | Multitenancy | Postgres + JWT | thread/store 격리 |
+| 12 | Agent Middleware | (없음) | lifecycle 훅과 `TodoListMiddleware`의 `write_todos` 상태 갱신 |
+| 13 | Summarization Middleware | (없음; 실모델 선택 시 OpenAI) | token 임계값, 대화 요약, 최근 메시지 보존 |
 
 ## 학습 순서 권장
 
@@ -83,6 +87,7 @@ uv run python graph-advanced/01_semantic_cache/graph.py
 [저장소]      06 → 07 → 11
 [운영]        09 → 10
 [고급]        02 → 03 → 05
+[Agent 확장]  graph-basic/16 → 12 → 13
 ```
 
 ## 부모 프로젝트와의 관계
