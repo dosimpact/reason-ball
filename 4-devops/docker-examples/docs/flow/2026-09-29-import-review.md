@@ -1,0 +1,7 @@
+# 2026-09-29 Docker examples import review
+
+- **Context:** Four existing Compose examples were copied into `4-devops/docker-examples` with local runtime data and a separate ignored `.env` in two projects.
+- **Change:** Added a current collection README and per-example setup notes; changed n8n imports to optional jobs; moved hard-coded n8n keys into ignored `.env` files; added `.env.example` files, required-variable checks, and runtime-data ignore rules; bound published ports to localhost; simplified the custom n8n package install; kept existing Open WebUI and Qdrant data in place.
+- **Reason:** Make local startup predictable and keep credentials and runtime databases out of commits. Default n8n startup no longer depends on backup files that are absent from the imported directory.
+- **Current documentation:** `../..` is the collection README; each example README describes its current setup. The legacy n8n workflow sketches remain in their original READMEs with a validation note.
+- **Validation:** All four Compose files pass `docker compose config --quiet`, including the n8n import profile. The pinned custom image builds successfully; `chromium-browser`, `nmap`, and n8n `2.41.3` resolve inside it. n8n `2.41.3` CLI help confirms both import commands accept `--separate` and `--input`. The imported runtime DB and storage paths are ignored by Git. No Compose service was started or existing runtime data deleted.
