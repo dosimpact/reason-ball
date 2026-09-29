@@ -1,7 +1,0 @@
-headers {
-  Content-Type: application/json
-}
-
-script:post-response {
-  console.log(`${req.getMethod()} ${req.getUrl()} -> ${res.getStatus()}`);
-}
