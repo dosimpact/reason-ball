@@ -146,3 +146,6 @@ Google 이미지 요청은 SDK 자동 재시도0으로 실행한다. 실제 검�
 ## 8. 캐릭터 카탈로그 제작
 
 `CHAR-CATALOG-01` 원본은 `assets/characters/talkie-homage/catalog.json`이다. package scripts `characters:check/generate/import`로 검증·명시적 단일 이미지 생성·게시를 분리한다. 제작 예산10회는 별도 production-budget.json이며 기존 검증 예산을 초기화하지 않는다. Google 성공10장의 prompt/file hash를 확인한 뒤 기존 character-public과 원자 character-version RPC를 사용하도록 구성했다. 원격 게시10건·재실행10건 unchanged·공개이미지hash·DB페르소나검증을 통과했다. `characters:verify`로 읽기 전용 재검증한다. [현재 실행 상태](../flow/2026-09-30-talkie-character-catalog.md).
+
+
+`UX-LOADING-01`: `shared/ui/loading-indicator.tsx`의 inline/section/page 변형을 App Router loading.tsx 및 client query pending 분기에 사용한다. role=status, polite/atomic, aria-hidden 장식, motion-safe CSS 회전을 사용하며 클라이언트 전용 상태나 타이머를 요구하지 않는다. 프로필 초기 query가 완료되기 전 기본값과 빈 결과를 표시하지 않는다. [변경 기록](../flow/2026-09-30-shared-loading.md).

@@ -1,6 +1,7 @@
 /** @jsxImportSource react */
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
@@ -116,7 +117,7 @@ export function SuggestedConversations({ context, prompts, ownerId, sourceConver
     <div className="flex gap-2 overflow-x-auto">{prompts.map((text) => <button key={text} type="button" disabled={disabled || !ready || busy || Boolean(error)} onClick={() => void start(text)} className="shrink-0 rounded-xl border border-border bg-background px-3 py-2 text-left text-foreground hover:bg-muted disabled:opacity-40">{text}</button>)}</div>
     <p className="mt-2 text-muted-foreground">새 대화의 입력창에 질문을 준비해요. 확인한 뒤 보내 주세요.</p>
     {!ready && !error ? <p role="status">추천 대화 복구 기록을 확인하고 있어요.</p> : null}
-    {busy ? <p role="status">추천 질문으로 새 대화를 준비하고 있어요.</p> : null}
+    {busy ? <LoadingIndicator variant="section" label="추천 질문으로 새 대화를 준비하고 있어요." /> : null}
     {error ? <div role="alert" className="mt-2 text-destructive"><p>{error}</p>{ready ? <button type="button" disabled={disabled || busy} onClick={() => pending.current && void start(pending.current.text)} className="mt-1 underline">추천 대화 시작 다시 시도</button> : <button type="button" disabled={busy} onClick={() => setRestoreAttempt((value) => value + 1)} className="mt-1 underline">추천 대화 복구 기록 다시 불러오기</button>}</div> : null}
   </section>;
 }

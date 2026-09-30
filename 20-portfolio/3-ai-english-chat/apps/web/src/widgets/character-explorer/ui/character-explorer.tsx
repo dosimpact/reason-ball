@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { Plus, Search, SlidersHorizontal, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -122,7 +123,7 @@ export function CharacterExplorer() {
         </label>
       </div>
 
-      {isPending ? <p role="status" className="mt-6 text-sm text-muted-foreground">캐릭터를 불러오고 있어요.</p> : error ? <div role="alert" className="mt-6 rounded-xl border border-red-200 p-4"><p>캐릭터 목록을 불러오지 못했어요.</p><button type="button" onClick={() => { void refetch(); }} className="mt-2 font-bold underline">다시 시도</button></div> : filtered.length > 0 ? (
+      {isPending ? <LoadingIndicator variant="section" label="캐릭터를 불러오고 있어요." className="mt-6" /> : error ? <div role="alert" className="mt-6 rounded-xl border border-red-200 p-4"><p>캐릭터 목록을 불러오지 못했어요.</p><button type="button" onClick={() => { void refetch(); }} className="mt-2 font-bold underline">다시 시도</button></div> : filtered.length > 0 ? (
         <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4" data-testid="character-results">
           {visible.map((character) => (
             <CharacterCard

@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { useLearningProgressQuery } from "@/entities/learning-session";
 import { useLearningNotebook } from "@/entities/learning-notebook/api/use-notebook";
 import { remoteNotebookEnabled } from "@/entities/learning-notebook/api/notebook-client";
@@ -12,7 +13,7 @@ export function LearningProgress({ completedCount, dailyGoal }: { completedCount
     <p>학습 진도를 불러오지 못했어요. 기록을 0으로 바꾸지 않았습니다.</p>
     <button onClick={() => void query.refetch()} className="mt-3 underline">학습 진도 다시 불러오기</button>
   </section>;
-  if (!query.data) return <p role="status" className="mt-8">학습 진도를 불러오고 있어요.</p>;
+  if (!query.data) return <LoadingIndicator variant="section" label="학습 진도를 불러오고 있어요." className="mt-8" />;
   const progress = query.data;
   const expressionCount = remoteNotebookEnabled() ? progress.expressionCount : localNotebook.isError || !localNotebook.data ? undefined : countNotebookExpressions(localNotebook.data);
   const maximum = Math.max(1, ...progress.recentDays.map((day) => day.minutes));

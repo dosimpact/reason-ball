@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { createUuid } from "@/shared/lib/uuid";
 import { useChat } from "@ai-sdk/react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -135,7 +136,7 @@ function SavedChatWorkspace({ characterId, conversationId, missionId, scenario }
     queryFn: () => loadSavedChatContext({ conversationId, characterId, missionId }),
     retry: false,
   });
-  if (context.isPending) return <div role="status" className="px-5 py-24 text-center">저장된 대화를 준비하고 있어요.</div>;
+  if (context.isPending) return <LoadingIndicator variant="page" label="저장된 대화를 준비하고 있어요." />;
   if (context.isError) return <div role="alert" className="px-5 py-24 text-center"><p>{context.error.message}</p><button type="button" onClick={() => void context.refetch()} className="mt-4 underline">대화 설정 다시 불러오기</button><Link href="/history" className="ml-4 underline">대화 기록</Link></div>;
   const legacyMetadata = context.data.character.metadataSource === "current-resource" || context.data.mission?.metadataSource === "current-resource";
   return <>{legacyMetadata ? <p role="status" className="mx-auto max-w-5xl px-5 pt-4 text-sm text-amber-700">이전 버전의 일부 표시 정보가 저장되지 않아 이름·설명·난이도에는 현재 정보가 표시될 수 있어요. 학습 단계와 대화 기록은 유지됩니다.</p> : null}<ResolvedChatWorkspace character={context.data.character} mission={context.data.mission} requestedConversationId={conversationId} requestedNewAttempt={false} scenario={scenario} /></>;
@@ -151,7 +152,7 @@ function NewChatWorkspace({ characterId }: { characterId: string }) {
   const { data: mission, isPending: missionPending } = useMissionQuery(missionId);
 
   if (characterPending || (missionId && missionPending)) {
-    return <div className="mx-auto max-w-xl px-5 py-24 text-center" role="status">대화를 준비하고 있어요.</div>;
+    return <LoadingIndicator variant="page" label="대화를 준비하고 있어요." />;
   }
   if (!character) return <div className="mx-auto max-w-xl px-5 py-24 text-center"><h1 className="text-3xl font-black">대화할 캐릭터를 찾을 수 없어요.</h1><Link href="/characters" className="mt-6 inline-flex rounded-full bg-neutral-950 px-5 py-3 text-sm font-bold text-white">캐릭터 찾기</Link></div>;
   if (missionId && !mission) return <div role="alert" className="px-5 py-24 text-center">미션을 불러올 수 없어요. <Link href="/missions" className="underline">미션 목록으로 돌아가기</Link></div>;
@@ -301,7 +302,7 @@ function ResolvedChatWorkspace({ character, mission, requestedConversationId, re
   if (loadError) return <div className="mx-auto max-w-xl px-5 py-24 text-center" role="alert"><h1 className="text-xl font-black">대화를 준비하지 못했어요.</h1><p className="mt-3 text-sm">{loadError}</p>{recoveryIssue ? <><pre className="mt-4 max-h-64 overflow-auto whitespace-pre-wrap rounded-xl bg-muted p-4 text-left text-sm">{recoveryIssue.text}</pre><button type="button" onClick={() => void discardLocalTransmission()} className="mt-4 rounded-xl border px-4 py-3 text-sm">로컬 전송 기록을 지우고 대화 열기</button></> : null}<button type="button" onClick={() => setLoadAttempt((value) => value + 1)} className="mt-5 rounded-full bg-neutral-950 px-5 py-3 text-sm font-bold text-white">대화 다시 불러오기</button></div>;
   // Canonical navigation switches NewChatWorkspace to SavedChatWorkspace. Do not
   // expose a temporary composer that can unmount during the user's first input.
-  if (!conversation || requestedNewAttempt || (usesRemoteChatData() && requestedConversationId !== conversation.id)) return <div className="mx-auto max-w-xl px-5 py-24 text-center" role="status">대화를 준비하고 있어요.</div>;
+  if (!conversation || requestedNewAttempt || (usesRemoteChatData() && requestedConversationId !== conversation.id)) return <LoadingIndicator variant="page" label="대화를 준비하고 있어요." />;
 
   return <LoadedChatWorkspace key={`${draftSession?.ownerId ?? "mock"}:${conversation.id}`} draftSession={draftSession} character={character} conversation={conversation} mission={mission} onDelete={replaceDeletedConversation} onNew={startNewConversation} scenario={scenario} />;
 }

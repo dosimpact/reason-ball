@@ -1,11 +1,13 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { useState } from "react";
 import { cefrLevels, interestOptions, learningPreferencesSchema, useLearningPreferences, type LearningPreferences, type PreferenceRecord } from "@/entities/learner";
 import { AudioPlaybackButton } from "@/features/audio-playback";
 
 export function LearnerSettings() {
   const query = useLearningPreferences();
+  if (query.isPending) return <LoadingIndicator label="학습 설정을 불러오고 있어요." className="mt-8" />;
   if (!query.data) return <section className="mt-8" role={query.isError ? "alert" : "status"}>
     <p>{query.isError ? "학습 설정을 불러오지 못했어요. 저장된 값은 변경하지 않았습니다." : "학습 설정을 불러오고 있어요."}</p>
     {query.isError ? <button onClick={() => void query.refetch()} className="mt-3 underline">설정 다시 불러오기</button> : null}

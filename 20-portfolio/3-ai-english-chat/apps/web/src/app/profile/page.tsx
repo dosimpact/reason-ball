@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { Heart, Settings2, StickyNote } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -21,10 +22,14 @@ const tabs = ["학습 요약", "즐겨찾기", "보상 컬렉션", "학습 표�
 
 export default function ProfilePage() {
   const [tab, setTab] = useState<(typeof tabs)[number]>("학습 요약");
-  const { data: characters = [] } = useCharactersQuery();
-  const { data: missions = [] } = useMissionsQuery();
-  const { data: learning } = useLearningSnapshotQuery();
-  const { data: missionRuns = [] } = useMissionRunsQuery();
+  const charactersQuery = useCharactersQuery();
+  const { data: characters = [] } = charactersQuery;
+  const missionsQuery = useMissionsQuery();
+  const { data: missions = [] } = missionsQuery;
+  const learningQuery = useLearningSnapshotQuery();
+  const { data: learning } = learningQuery;
+  const runsQuery = useMissionRunsQuery();
+  const { data: missionRuns = [] } = runsQuery;
   const preferences = useLearningPreferences();
   const preferencesReady = preferences.isSuccess;
   const visiblePreferences = preferences.data?.settings ?? defaultPreferences;
@@ -34,6 +39,17 @@ export default function ProfilePage() {
   const xp = learning?.xp ?? 0;
   const favorites = characters.filter((character) => favoriteIds.includes(character.id));
   const notes = missionRuns.filter((run) => run.reviewNote);
+
+  const initialQueries = [preferences, charactersQuery, missionsQuery, learningQuery, runsQuery];
+  if (initialQueries.some((query) => query.isPending)) {
+    return <LoadingIndicator variant="page" label="프로필을 불러오고 있어요." />;
+  }
+  if (initialQueries.some((query) => query.isError && !query.data)) {
+    return <div role="alert" className="mx-auto max-w-3xl px-5 py-20 text-center">
+      <p>프로필 정보를 불러오지 못했어요.</p>
+      <button type="button" className="mt-4 rounded-full border border-border px-5 py-2 font-bold" onClick={() => { initialQueries.forEach((query) => { void query.refetch(); }); }}>프로필 다시 불러오기</button>
+    </div>;
+  }
 
   return (
     <div className="pb-28 lg:pb-16" data-testid="profile-page" data-hydrated={preferencesReady}>

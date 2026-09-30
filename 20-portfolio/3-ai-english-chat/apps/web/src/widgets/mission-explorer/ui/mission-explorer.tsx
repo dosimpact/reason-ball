@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { Plus, Search, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -56,7 +57,7 @@ export function MissionExplorer({ initialCharacterId }: { initialCharacterId?: s
         <Link href="/missions/new" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-bold text-primary-foreground transition hover:opacity-85"><Plus className="size-4" /> 나만의 미션 만들기</Link>
       </div>
       <p className="mt-5 text-sm text-muted-foreground">미션을 시작하려면 <Link href="/profile" className="font-bold underline">프로필에서 수준과 관심 상황을 설정</Link>해 주세요. 게스트는 공개 미션을 둘러볼 수 있어요.</p>
-      {isPending ? <p role="status" className="mt-5">배정된 미션을 불러오고 있어요.</p> : null}
+      {isPending ? <LoadingIndicator variant="section" label="배정된 미션을 불러오고 있어요." className="mt-5" /> : null}
       {error ? <div role="alert" className="mt-5 rounded-xl border border-red-200 p-4"><p>미션 배정을 확인하지 못했어요. 기존 배정과 학습 기록은 유지돼요.</p><button type="button" onClick={() => { void refetch(); }} className="mt-2 font-bold underline">다시 시도</button></div> : null}
       <div className="mt-8 rounded-[1.4rem] border border-border bg-card p-4">
         <label className="relative block"><span className="sr-only">미션 검색</span><Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><input type="search" value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }} placeholder="상황, 장소, 표현으로 검색" className="h-12 w-full rounded-xl bg-muted pl-11 pr-4 text-sm text-foreground placeholder:text-muted-foreground outline-none ring-ring/40 transition focus:ring-3" data-testid="mission-search" /></label>

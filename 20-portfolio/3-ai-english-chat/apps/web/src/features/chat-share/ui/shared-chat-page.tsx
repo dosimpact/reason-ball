@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { LockKeyhole, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
@@ -9,7 +10,7 @@ export function SharedChatPage({ token }: { token: string }) {
   const query = useQuery({ queryKey: ["shared-conversation", token], queryFn: () => getSharedConversation(token), retry: false, staleTime: 0 });
   const conversation = query.data;
 
-  if (query.isPending) return <div className="mx-auto max-w-3xl px-5 py-20 text-center" role="status">공유 대화를 불러오고 있어요.</div>;
+  if (query.isPending) return <LoadingIndicator variant="page" label="공유 대화를 불러오고 있어요." />;
   if (query.error) return <div className="mx-auto max-w-3xl px-5 py-20 text-center"><p role="alert">{query.error.message}</p><button type="button" onClick={() => void query.refetch()} className="mt-5 rounded-full border border-border px-5 py-3 font-bold">공유 대화 다시 불러오기</button></div>;
   if (!conversation) return <div className="mx-auto max-w-3xl px-5 py-20 text-center"><h1 className="text-3xl font-black">공유 대화를 찾을 수 없어요.</h1><p className="mt-3 text-muted-foreground">링크가 만료되었거나 공유가 취소된 대화예요.</p><Link href="/" className="mt-6 inline-flex rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground">Lingua 홈</Link></div>;
 

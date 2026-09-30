@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import {
   ArrowLeft,
   ArrowRight,
@@ -40,7 +41,7 @@ function statusLabel(status: PublishStatus) {
 export function CharacterBuilder({ characterId }: { characterId?: string }) {
   const characterQuery = useCharacterQuery(characterId);
   if (characterId && characterQuery.isPending) {
-    return <div className="mx-auto max-w-3xl px-5 py-24 text-center" role="status">캐릭터 편집 정보를 불러오고 있어요.</div>;
+    return <LoadingIndicator variant="page" label="캐릭터 편집 정보를 불러오고 있어요." />;
   }
   if (characterId && characterQuery.isError && !characterQuery.data) {
     return <section role="alert" className="mx-auto max-w-3xl p-10"><p>캐릭터 편집 정보를 불러오지 못했어요.</p><button className="mt-3 underline" onClick={() => void characterQuery.refetch()}>편집 정보 다시 불러오기</button></section>;

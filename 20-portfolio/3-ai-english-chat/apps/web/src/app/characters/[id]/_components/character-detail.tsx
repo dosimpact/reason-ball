@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import {
   ArrowLeft,
   Globe2,
@@ -29,7 +30,7 @@ export function CharacterDetailPage({ id }: { id: string }) {
   const completed = learning?.completedMissionIds ?? [];
 
   if (characterPending || missionsPending || learningPending) {
-    return <div className="mx-auto max-w-2xl px-5 py-24 text-center" role="status">캐릭터를 불러오고 있어요.</div>;
+    return <LoadingIndicator variant="page" label="캐릭터를 불러오고 있어요." />;
   }
 
   if (!character) {

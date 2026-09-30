@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import Link from "next/link";
 import { useOwnedCreations } from "@/entities/creator-content/api/use-creations";
 import { canEditCreation, creationStatusLabels } from "@/entities/creator-content/model/creations";
@@ -7,7 +8,7 @@ import { canEditCreation, creationStatusLabels } from "@/entities/creator-conten
 export function CreatorLibrary() {
   const query = useOwnedCreations();
   if (query.isError) return <section role="alert" className="mt-8 rounded-xl border p-6"><p>내 생성물을 불러오지 못했어요. 빈 목록으로 바꾸지 않았습니다.</p><button className="mt-3 underline" onClick={() => void query.refetch()}>내 생성물 다시 불러오기</button></section>;
-  if (!query.data) return <p role="status" className="mt-8">내 생성물을 불러오고 있어요.</p>;
+  if (!query.data) return <LoadingIndicator variant="section" label="내 생성물을 불러오고 있어요." className="mt-8" />;
   const creations = query.data;
   return <section className="mt-8 space-y-6" data-testid="profile-creations">
     <h2 className="text-2xl font-black">내가 만든 학습 콘텐츠</h2>

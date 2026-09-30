@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import {
   ArrowRight,
   Play,
@@ -64,7 +65,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="relative flex min-h-64 items-center justify-center gap-3 py-5 sm:min-h-72" aria-label="추천 캐릭터 미리보기">
-          {charactersPending ? <p role="status" className="text-sm text-muted-foreground">캐릭터를 불러오고 있어요.</p> : characters.slice(0, 3).map((character, index) => <Link key={character.id} href={`/characters/${character.id}`} aria-label={`${character.name} 만나기`} className={`relative w-[30%] max-w-44 overflow-hidden rounded-2xl shadow-2xl transition hover:-translate-y-2 ${index === 1 ? "-translate-y-4" : index === 0 ? "-rotate-6" : "rotate-6"}`}><CharacterAvatar character={character} size="hero" className="!h-auto aspect-[3/5]" /><div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-4 pt-12 text-sm font-bold text-white">{character.name}</div></Link>)}
+          {charactersPending ? <LoadingIndicator variant="inline" label="캐릭터를 불러오고 있어요." /> : characters.slice(0, 3).map((character, index) => <Link key={character.id} href={`/characters/${character.id}`} aria-label={`${character.name} 만나기`} className={`relative w-[30%] max-w-44 overflow-hidden rounded-2xl shadow-2xl transition hover:-translate-y-2 ${index === 1 ? "-translate-y-4" : index === 0 ? "-rotate-6" : "rotate-6"}`}><CharacterAvatar character={character} size="hero" className="!h-auto aspect-[3/5]" /><div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-4 pt-12 text-sm font-bold text-white">{character.name}</div></Link>)}
           {!charactersPending && !characters.length && !charactersQuery.isError ? <Link href="/characters/new" className="rounded-3xl border border-dashed border-border p-10 text-center text-muted-foreground">첫 캐릭터의 이야기를 만들어 보세요 <ArrowRight className="mx-auto mt-4 size-5" /></Link> : null}
         </div>
       </section>
@@ -83,7 +84,7 @@ export default function HomePage() {
             </Link>
           </div>
           <p className="mb-4 text-sm text-muted-foreground" data-testid="home-recommendation-basis">{preferences.isError ? "학습 설정을 불러오지 못해 일반 추천을 보여드려요." : preferences.isPending ? "학습 설정을 확인하는 동안 일반 추천을 보여드려요." : preferences.data?.settings.interests.length ? "설정한 관심사와 겹치는 주제가 많은 캐릭터를 먼저 보여드려요." : "관심사를 설정하면 맞는 주제를 먼저 추천해 드려요."}</p>
-          {charactersPending ? <p role="status">캐릭터를 불러오고 있어요.</p> : !charactersQuery.isError && !recommendations.length ? <p>추천할 공개 캐릭터가 아직 없어요.</p> : null}
+          {charactersPending ? <LoadingIndicator variant="section" label="캐릭터를 불러오고 있어요." /> : !charactersQuery.isError && !recommendations.length ? <p>추천할 공개 캐릭터가 아직 없어요.</p> : null}
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
             {recommendations.map(({ character, matchedInterests }) => (
               <div key={character.id}>
@@ -157,7 +158,7 @@ export default function HomePage() {
               모든 미션 <ChevronRight className="size-4" />
             </Link>
           </div>
-          {missionsPending ? <p role="status">미션을 불러오고 있어요.</p> : !missionsQuery.isError && !beginnerMissions.length ? <p>아직 시작할 입문·초급 미션이 없어요. <Link href="/profile" className="underline">학습 프로필</Link>에서 수준과 관심 상황을 설정해 주세요.</p> : null}
+          {missionsPending ? <LoadingIndicator variant="section" label="미션을 불러오고 있어요." /> : !missionsQuery.isError && !beginnerMissions.length ? <p>아직 시작할 입문·초급 미션이 없어요. <Link href="/profile" className="underline">학습 프로필</Link>에서 수준과 관심 상황을 설정해 주세요.</p> : null}
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {beginnerMissions.map((mission) => (
               <MissionCard key={mission.id} mission={mission} completed={completedMissionIds.includes(mission.id)} />

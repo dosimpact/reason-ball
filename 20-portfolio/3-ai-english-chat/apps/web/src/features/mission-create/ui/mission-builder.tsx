@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, Gift, Plus, ShieldCheck, Sparkles, WandSparkles, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent } from "react";
@@ -41,7 +42,7 @@ function rewardIndexFor(mission?: Mission) {
 export function MissionBuilder({ missionId }: { missionId?: string }) {
   const missionQuery = useMissionQuery(missionId);
   if (missionId && missionQuery.isPending) {
-    return <div className="mx-auto max-w-3xl px-5 py-24 text-center" role="status">미션 편집 정보를 불러오고 있어요.</div>;
+    return <LoadingIndicator variant="page" label="미션 편집 정보를 불러오고 있어요." />;
   }
   if (missionId && missionQuery.isError && !missionQuery.data) {
     return <section role="alert" className="mx-auto max-w-3xl p-10"><p>미션 편집 정보를 불러오지 못했어요.</p><button className="mt-3 underline" onClick={() => void missionQuery.refetch()}>편집 정보 다시 불러오기</button></section>;

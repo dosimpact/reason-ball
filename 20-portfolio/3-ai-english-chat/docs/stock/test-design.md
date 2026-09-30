@@ -100,3 +100,6 @@ production mock 명령은 `PLAYWRIGHT_PRODUCTION=1 pnpm test:e2e:mock --grep-inv
 `DEPLOY-DOCKER-01`: 실제 Docker build 및 종료→재기동 PASS. localhost3325 홈/탐색200, Playground404, 브라우저 실제 데이터 로딩·console error0, nonroot·healthy, 호스트 proxy models200 확인. 이미지 환경파일 없음·서버 비밀값3개 검색0건. 이는 전체 기능 회귀나 실제 생성 성공 검증이 아니다. [Docker 검증](../flow/2026-09-30-docker-build.md).
 
 `CHAR-CATALOG-01`: 설정10종·고정ID중복 방지·성격/말투/system prompt 매핑 PASS, dry-run PASS, 이미지누락 시 원격 HTTP0회 차단 PASS. 충전 전1회429(기존예산7/10), 충전 후 별도 제작예산10/10으로10장 생성. Storage/게시10건·재실행10 unchanged·공개URLhash·DB페르소나 PASS. Docker3325의 PC/390px 목록11개·10장decode·overflow없음·console error0, Selene 상세/채팅 진입 및 실제1턴의 색채비유·감정표현 도움 응답 확인. 소유 테스트대화만204로 삭제. 모든 캐릭터의 대화 품질 전체 검증은 아니다. [제작 기록](../flow/2026-09-30-talkie-character-catalog.md).
+
+
+`UX-LOADING-01`: scoped typecheck/lint 및 Docker production build PASS. 브라우저 지연 응답 후 로딩 제거, spin→reduced-motion none, 모바일 프로필 overflow 없음,503 오류→재시도 복구 PASS. [검증 기록](../flow/2026-09-30-shared-loading.md).

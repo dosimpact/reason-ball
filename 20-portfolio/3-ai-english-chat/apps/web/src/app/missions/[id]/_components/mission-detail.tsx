@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { ArrowLeft, CheckCircle2, Clock3, MapPin, MessageCircle, Play, Quote, Target } from "lucide-react";
 import Link from "next/link";
 import { CharacterAvatar, useCharacterQuery } from "@/entities/character";
@@ -20,7 +21,7 @@ export function MissionDetailPage({ id }: { id: string }) {
     (prerequisiteId) => !learning?.completedMissionIds.includes(prerequisiteId),
   );
 
-  if (missionPending || (mission && characterPending) || learningPending) return <div className="mx-auto max-w-2xl px-5 py-24 text-center" role="status">미션을 불러오고 있어요.</div>;
+  if (missionPending || (mission && characterPending) || learningPending) return <LoadingIndicator variant="page" label="미션을 불러오고 있어요." />;
 
   if (!mission) return <div className="mx-auto max-w-2xl px-5 py-24 text-center"><h1 className="text-3xl font-black">미션을 찾을 수 없어요.</h1><Link href="/missions" className="mt-6 inline-flex rounded-full bg-neutral-950 px-5 py-3 text-sm font-bold text-white">미션 목록으로</Link></div>;
 
