@@ -1,0 +1,2197 @@
+{
+  "schemaVersion": 1,
+  "purpose": "완전 입문 진입과 관심 영역별 단계적 연습을 위한 저작용 추천 경로. 앱 잠금·CEFR 인증이 아니다.",
+  "entry": {
+    "title": "영어를 처음 만나는 사람의 첫 10개 과업",
+    "instructions": [
+      "한국어 상황과 목표부터 읽는다. 영어를 읽을 수 없어도 힌트의 뜻을 보고 짧은 모델을 선택·복사해 시작할 수 있다.",
+      "먼저 한 단어, yes/no, 부탁 표현을 사용한다. 막히면 도움·반복·속도 조절을 요청한다.",
+      "이름 Min은 M(엠)·I(아이)·N(엔)으로 한 글자씩 확인한다. 숫자는 one=1, two=2, five=5, ten=10, twelve=12를 한국어 뜻과 함께 보고 시작한다. 한글 소리 표기는 시작용 보조이며 영어 발음 평가 기준이 아니다.",
+      "가리키기는 실제 사진이 없다면 [가리키기: 물건 이름 또는 번호]라는 한국어 보조 행동으로 대체한다. 사진을 봤다고 판정하지 않는다.",
+      "지원된 시도 후 영어 예문을 가리고 같은 의도를 다시 전달한다. 복사 성공을 독립 수행으로 기록하지 않는다.",
+      "발음·알파벳 소리·듣기는 별도의 검증된 음성 자료가 필요하다. 이 텍스트 경로는 문자·소리 수업을 완전히 대신하지 않는다."
+    ],
+    "missionKeys": [
+      "social-introductions-pre-a1-say-your-name",
+      "social-introductions-pre-a1-spell-short-name",
+      "daily-health-pre-a1-reception-name",
+      "daily-health-pre-a1-repeat-question",
+      "daily-services-pre-a1-help-counter",
+      "daily-food-drink-pre-a1-water",
+      "daily-food-drink-pre-a1-point-menu",
+      "daily-shopping-pre-a1-price",
+      "daily-shopping-pre-a1-size",
+      "daily-housing-pre-a1-room-number"
+    ]
+  },
+  "advancement": {
+    "method": "관심 영역에서 시작 수준을 고르고 필요한 만큼 아래 수준으로 돌아간다. 영역별 능력이 다를 수 있다.",
+    "recommendedEvidence": "서로 다른 과업 두 개 이상을 무힌트로 수행하고, 조건 변경과 지연 재수행에서 의미 전달을 확인한 뒤 다음 수준을 시도한다.",
+    "status": "진급 기준은 검증 전 운영 가설이며 자동 CEFR 판정이 아니다.",
+    "prerequisitesAreHardGates": false
+  },
+  "tracks": [
+    {
+      "id": "daily-food-drink",
+      "title": "일상 · 식당·카페",
+      "categoryId": "daily",
+      "subcategoryId": "food-drink",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "daily-food-drink-pre-a1-water",
+            "daily-food-drink-pre-a1-point-menu",
+            "daily-food-drink-pre-a1-takeaway",
+            "daily-food-drink-pre-a1-bill"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "daily-food-drink-a1-table-two",
+            "daily-food-drink-a1-drink-size",
+            "daily-food-drink-a1-no-onion",
+            "daily-food-drink-a1-opening-time"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "daily-food-drink-a2-wrong-drink",
+            "daily-food-drink-a2-split-bill",
+            "daily-food-drink-a2-allergy-check",
+            "daily-food-drink-a2-reservation-change"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "daily-food-drink-b1-missed-train-meal",
+            "daily-food-drink-b1-unexpected-charge",
+            "daily-food-drink-b1-group-menu",
+            "daily-food-drink-b1-long-wait"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "daily-food-drink-b2-event-catering",
+            "daily-food-drink-b2-noise-seating",
+            "daily-food-drink-b2-review-dispute",
+            "daily-food-drink-b2-waste-plan"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "daily-food-drink-c1-ambiguous-minimum",
+            "daily-food-drink-c1-private-feedback",
+            "daily-food-drink-c1-inclusive-menu",
+            "daily-food-drink-c1-service-fee-consent"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "daily-food-drink-c2-conditional-event-offer",
+            "daily-food-drink-c2-conflicting-event-accounts",
+            "daily-food-drink-c2-cultural-hosting-tension",
+            "daily-food-drink-c2-sustainability-claim"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daily-shopping",
+      "title": "일상 · 쇼핑·교환·환불",
+      "categoryId": "daily",
+      "subcategoryId": "shopping",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "daily-shopping-pre-a1-price",
+            "daily-shopping-pre-a1-size",
+            "daily-shopping-pre-a1-colour",
+            "daily-shopping-pre-a1-bag"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "daily-shopping-a1-find-item",
+            "daily-shopping-a1-try-on",
+            "daily-shopping-a1-quantity",
+            "daily-shopping-a1-stock"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "daily-shopping-a2-return-receipt",
+            "daily-shopping-a2-delivery-time",
+            "daily-shopping-a2-discount-check",
+            "daily-shopping-a2-wrong-item"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "daily-shopping-b1-defect-proof",
+            "daily-shopping-b1-missed-delivery",
+            "daily-shopping-b1-budget-comparison",
+            "daily-shopping-b1-gift-exchange"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "daily-shopping-b2-warranty-exclusions",
+            "daily-shopping-b2-repair-or-replace",
+            "daily-shopping-b2-subscription-renewal",
+            "daily-shopping-b2-marketplace-responsibility"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "daily-shopping-c1-sales-pressure",
+            "daily-shopping-c1-reconditioned-label",
+            "daily-shopping-c1-accessibility-shopping",
+            "daily-shopping-c1-refund-settlement"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "daily-shopping-c2-ethical-labels",
+            "daily-shopping-c2-recall-wording",
+            "daily-shopping-c2-dynamic-price",
+            "daily-shopping-c2-secondhand-dispute"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daily-housing",
+      "title": "일상 · 주거·집안생활",
+      "categoryId": "daily",
+      "subcategoryId": "housing",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "daily-housing-pre-a1-key",
+            "daily-housing-pre-a1-room-number",
+            "daily-housing-pre-a1-cold",
+            "daily-housing-pre-a1-bathroom"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "daily-housing-a1-wifi",
+            "daily-housing-a1-bins",
+            "daily-housing-a1-house-chore",
+            "daily-housing-a1-parcel-neighbour"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "daily-housing-a2-leaking-tap",
+            "daily-housing-a2-quiet-evening",
+            "daily-housing-a2-viewing-flat",
+            "daily-housing-a2-move-checklist"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "daily-housing-b1-heating-delay",
+            "daily-housing-b1-shared-bills",
+            "daily-housing-b1-guest-stay",
+            "daily-housing-b1-lost-key"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "daily-housing-b2-renewal-options",
+            "daily-housing-b2-repair-access",
+            "daily-housing-b2-deposit-record",
+            "daily-housing-b2-energy-upgrade"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "daily-housing-c1-shared-space-priorities",
+            "daily-housing-c1-indirect-noise",
+            "daily-housing-c1-sublet-request",
+            "daily-housing-c1-works-update"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "daily-housing-c2-community-consent",
+            "daily-housing-c2-privacy-security",
+            "daily-housing-c2-informal-promise",
+            "daily-housing-c2-housing-consultation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daily-health",
+      "title": "일상 · 병원·약국",
+      "categoryId": "daily",
+      "subcategoryId": "health",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "daily-health-pre-a1-reception-name",
+            "daily-health-pre-a1-pain-location",
+            "daily-health-pre-a1-repeat-question",
+            "daily-health-pre-a1-appointment-time"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "daily-health-a1-book-visit",
+            "daily-health-a1-basic-symptom",
+            "daily-health-a1-pharmacy-person",
+            "daily-health-a1-interpreter"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "daily-health-a2-symptom-timeline",
+            "daily-health-a2-medication-list",
+            "daily-health-a2-form-correction",
+            "daily-health-a2-followup-instructions"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "daily-health-b1-appointment-impact",
+            "daily-health-b1-side-effect-question",
+            "daily-health-b1-test-process",
+            "daily-health-b1-symptom-not-heard"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "daily-health-b2-choice-questions",
+            "daily-health-b2-insurance-estimate",
+            "daily-health-b2-access-needs",
+            "daily-health-b2-conflicting-instructions"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "daily-health-c1-risk-language",
+            "daily-health-c1-preference-not-refusal",
+            "daily-health-c1-record-language",
+            "daily-health-c1-family-mediation"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "daily-health-c2-uncertainty-assurance",
+            "daily-health-c2-research-headline",
+            "daily-health-c2-consent-comprehension",
+            "daily-health-c2-care-transition"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daily-services",
+      "title": "일상 · 은행·우편·생활 서비스",
+      "categoryId": "daily",
+      "subcategoryId": "services",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "daily-services-pre-a1-stamp",
+            "daily-services-pre-a1-queue",
+            "daily-services-pre-a1-help-counter",
+            "daily-services-pre-a1-copy-count"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "daily-services-a1-post-destination",
+            "daily-services-a1-haircut",
+            "daily-services-a1-laundry-pickup",
+            "daily-services-a1-library-card"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "daily-services-a2-cancel-booking",
+            "daily-services-a2-bank-hours",
+            "daily-services-a2-internet-visit",
+            "daily-services-a2-print-format"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "daily-services-b1-parcel-delay",
+            "daily-services-b1-utility-reading",
+            "daily-services-b1-service-damage",
+            "daily-services-b1-missed-technician"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "daily-services-b2-fee-comparison",
+            "daily-services-b2-municipal-request",
+            "daily-services-b2-digital-access",
+            "daily-services-b2-data-correction"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "daily-services-c1-assumed-consent",
+            "daily-services-c1-apology-action",
+            "daily-services-c1-scope-creep",
+            "daily-services-c1-policy-exception"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "daily-services-c2-automated-decision",
+            "daily-services-c2-public-service-metrics",
+            "daily-services-c2-shared-liability",
+            "daily-services-c2-consultation-language"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daily-routines",
+      "title": "일상 · 일과·취미·운동",
+      "categoryId": "daily",
+      "subcategoryId": "routines",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "daily-routines-pre-a1-choose-hobby",
+            "daily-routines-pre-a1-say-wakeup-time",
+            "daily-routines-pre-a1-request-pause",
+            "daily-routines-pre-a1-borrow-pencil"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "daily-routines-a1-introduce-daily-routine",
+            "daily-routines-a1-club-meeting-time",
+            "daily-routines-a1-like-and-frequency",
+            "daily-routines-a1-understand-simple-instruction"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "daily-routines-a2-plan-weekly-practice",
+            "daily-routines-a2-share-recipe-sequence",
+            "daily-routines-a2-join-beginner-class",
+            "daily-routines-a2-swap-duty"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "daily-routines-b1-habit-restart",
+            "daily-routines-b1-recommend-hobby-from-experience",
+            "daily-routines-b1-explain-game-rules",
+            "daily-routines-b1-activity-access-options"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "daily-routines-b2-choose-class-format",
+            "daily-routines-b2-balanced-community-session",
+            "daily-routines-b2-track-practice-progress",
+            "daily-routines-b2-sustainable-volunteer-rota"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "daily-routines-c1-mentor-without-taking-over",
+            "daily-routines-c1-mixed-goal-creative-project",
+            "daily-routines-c1-reflect-on-productivity",
+            "daily-routines-c1-inclusive-sports-session"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "daily-routines-c2-interpret-playful-feedback",
+            "daily-routines-c2-reframe-authentic-practice",
+            "daily-routines-c2-translate-expert-skill",
+            "daily-routines-c2-collective-celebration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "travel-airport",
+      "title": "여행 · 공항·항공",
+      "categoryId": "travel",
+      "subcategoryId": "airport",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "travel-airport-pre-a1-show-passport",
+            "travel-airport-pre-a1-find-gate",
+            "travel-airport-pre-a1-choose-seat",
+            "travel-airport-pre-a1-ask-water-onboard"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "travel-airport-a1-count-bags",
+            "travel-airport-a1-ask-boarding-time",
+            "travel-airport-a1-request-slow-repeat",
+            "travel-airport-a1-identify-meal"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "travel-airport-a2-security-electronics",
+            "travel-airport-a2-connection-gate",
+            "travel-airport-a2-missing-bag-belt",
+            "travel-airport-a2-assistance-distance"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "travel-airport-b1-missed-connection",
+            "travel-airport-b1-seat-double-assigned",
+            "travel-airport-b1-damaged-suitcase",
+            "travel-airport-b1-name-spelling-ticket"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "travel-airport-b2-voluntary-rebooking",
+            "travel-airport-b2-uncertain-delay",
+            "travel-airport-b2-baggage-allowance-dispute",
+            "travel-airport-b2-family-separated"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "travel-airport-c1-connection-responsibility",
+            "travel-airport-c1-accessibility-handoff",
+            "travel-airport-c1-multileg-option-tradeoff",
+            "travel-airport-c1-public-announcement-mediation"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "travel-airport-c2-conditional-commitment",
+            "travel-airport-c2-conflicting-agent-records",
+            "travel-airport-c2-group-disruption-mediation",
+            "travel-airport-c2-incomplete-incident-summary"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "travel-hotel",
+      "title": "여행 · 호텔·숙박",
+      "categoryId": "travel",
+      "subcategoryId": "hotel",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "travel-hotel-pre-a1-say-name",
+            "travel-hotel-pre-a1-room-number",
+            "travel-hotel-pre-a1-ask-towel",
+            "travel-hotel-pre-a1-find-lift"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "travel-hotel-a1-wifi-password",
+            "travel-hotel-a1-breakfast-place-time",
+            "travel-hotel-a1-extra-key",
+            "travel-hotel-a1-checkout-bag-storage"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "hotel-check-in-001",
+            "travel-hotel-a2-aircon-not-working",
+            "travel-hotel-a2-late-arrival",
+            "travel-hotel-a2-quiet-room"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "travel-hotel-b1-booking-not-found",
+            "travel-hotel-b1-noise-next-door",
+            "travel-hotel-b1-billing-extra-item",
+            "travel-hotel-b1-extend-stay"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "travel-hotel-b2-overbooked-alternative",
+            "travel-hotel-b2-deposit-hold",
+            "travel-hotel-b2-room-description-gap",
+            "travel-hotel-b2-housekeeping-boundaries"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "travel-hotel-c1-accessible-room-meaning",
+            "travel-hotel-c1-discretionary-refund",
+            "travel-hotel-c1-staff-shift-handover",
+            "travel-hotel-c1-mixed-expectations-group"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "travel-hotel-c2-goodwill-vs-resolution",
+            "travel-hotel-c2-ambiguous-view-listing",
+            "travel-hotel-c2-confidential-group-request",
+            "travel-hotel-c2-review-request-pressure"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "travel-transport",
+      "title": "여행 · 교통·길 찾기",
+      "categoryId": "travel",
+      "subcategoryId": "transport",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "travel-transport-pre-a1-bus-number",
+            "travel-transport-pre-a1-station-direction",
+            "travel-transport-pre-a1-single-ticket",
+            "travel-transport-pre-a1-stop-here"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "travel-transport-a1-platform-check",
+            "travel-transport-a1-taxi-address",
+            "travel-transport-a1-fare-payment",
+            "travel-transport-a1-next-stop"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "travel-transport-a2-change-lines",
+            "travel-transport-a2-last-train",
+            "travel-transport-a2-ticket-machine-help",
+            "travel-transport-a2-bike-return"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "travel-transport-b1-wrong-train",
+            "travel-transport-b1-taxi-route-query",
+            "travel-transport-b1-train-cancelled",
+            "travel-transport-b1-step-free-route"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "travel-transport-b2-rail-pass-value",
+            "travel-transport-b2-rental-car-damage",
+            "travel-transport-b2-crowded-boarding-space",
+            "travel-transport-b2-night-route-safety"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "travel-transport-c1-passenger-rights-inquiry",
+            "travel-transport-c1-rental-upgrade-pressure",
+            "travel-transport-c1-staff-route-conflict",
+            "travel-transport-c1-shared-ride-detour"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "travel-transport-c2-service-guarantee-language",
+            "travel-transport-c2-fairness-queue-mediation",
+            "travel-transport-c2-algorithm-route-accountability",
+            "travel-transport-c2-fare-enforcement-nuance"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "travel-sightseeing",
+      "title": "여행 · 관광·문화 체험",
+      "categoryId": "travel",
+      "subcategoryId": "sightseeing",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "travel-sightseeing-pre-a1-entry-ticket",
+            "travel-sightseeing-pre-a1-ask-map",
+            "travel-sightseeing-pre-a1-photo-permission",
+            "travel-sightseeing-pre-a1-find-exit"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "travel-sightseeing-a1-opening-hours",
+            "travel-sightseeing-a1-audio-guide-language",
+            "travel-sightseeing-a1-join-tour",
+            "travel-sightseeing-a1-buy-postcard"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "travel-sightseeing-a2-short-visit-route",
+            "travel-sightseeing-a2-tour-question",
+            "travel-sightseeing-a2-workshop-materials",
+            "travel-sightseeing-a2-respect-site-rules"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "travel-sightseeing-b1-weather-alternative-tour",
+            "travel-sightseeing-b1-lost-tour-group",
+            "travel-sightseeing-b1-ticket-date-mismatch",
+            "travel-sightseeing-b1-explain-interest"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "travel-sightseeing-b2-tour-pace-adjustment",
+            "travel-sightseeing-b2-exhibition-interpretations",
+            "travel-sightseeing-b2-ethical-visitor-choice",
+            "travel-sightseeing-b2-photo-privacy-consent"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "travel-sightseeing-c1-contested-heritage",
+            "travel-sightseeing-c1-translation-mediation",
+            "travel-sightseeing-c1-tour-content-vs-promotion",
+            "travel-sightseeing-c1-community-access-limits"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "travel-sightseeing-c2-irony-in-guide",
+            "travel-sightseeing-c2-contested-label",
+            "travel-sightseeing-c2-representation-consultation",
+            "travel-sightseeing-c2-restoration-authenticity"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "travel-booking",
+      "title": "여행 · 일정·예약",
+      "categoryId": "travel",
+      "subcategoryId": "booking",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "travel-booking-pre-a1-choose-day",
+            "travel-booking-pre-a1-party-size",
+            "travel-booking-pre-a1-choose-time",
+            "travel-booking-pre-a1-decline-full-slot"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "travel-booking-a1-reservation-name-spelling",
+            "travel-booking-a1-booking-price",
+            "travel-booking-a1-confirm-date",
+            "travel-booking-a1-receive-confirmation"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "travel-booking-a2-reschedule-time",
+            "travel-booking-a2-cancel-simple",
+            "travel-booking-a2-equipment-included",
+            "travel-booking-a2-arrival-cutoff"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "travel-booking-b1-weather-contingency",
+            "travel-booking-b1-double-booking",
+            "travel-booking-b1-waiting-list",
+            "travel-booking-b1-partial-group-change"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "travel-booking-b2-flexible-rate-comparison",
+            "travel-booking-b2-third-party-change",
+            "travel-booking-b2-hidden-fees",
+            "travel-booking-b2-schedule-buffer"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "travel-booking-c1-nonrefundable-change",
+            "travel-booking-c1-provisional-reservation",
+            "travel-booking-c1-multi-party-itinerary",
+            "travel-booking-c1-guaranteed-availability"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "travel-booking-c2-best-efforts-promise",
+            "travel-booking-c2-silence-as-consent",
+            "travel-booking-c2-package-equivalence",
+            "travel-booking-c2-group-authority-boundary"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "travel-travel-problems",
+      "title": "여행 · 분실·여행 문제 해결",
+      "categoryId": "travel",
+      "subcategoryId": "travel-problems",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "travel-travel-problems-pre-a1-ask-help",
+            "travel-travel-problems-pre-a1-lost-phone",
+            "travel-travel-problems-pre-a1-need-interpreter",
+            "travel-travel-problems-pre-a1-emergency-location"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "travel-travel-problems-a1-lost-wallet",
+            "travel-travel-problems-a1-phone-battery",
+            "travel-travel-problems-a1-wrong-delivery-place",
+            "travel-travel-problems-a1-broken-item"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "travel-travel-problems-a2-report-lost-passport",
+            "travel-travel-problems-a2-card-not-working",
+            "travel-travel-problems-a2-minor-illness-help",
+            "travel-travel-problems-a2-internet-unavailable"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "travel-travel-problems-b1-police-report-facts",
+            "travel-travel-problems-b1-insurance-documents",
+            "travel-travel-problems-b1-missed-pickup",
+            "travel-travel-problems-b1-send-left-item"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "travel-travel-problems-b2-scam-suspicion",
+            "travel-travel-problems-b2-unexpected-closure",
+            "travel-travel-problems-b2-unexpected-charge-evidence",
+            "travel-travel-problems-b2-travel-plan-disruption"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "travel-travel-problems-c1-uncertain-incident-timeline",
+            "travel-travel-problems-c1-agency-handoff",
+            "travel-travel-problems-c1-witness-language-support",
+            "travel-travel-problems-c1-complaint-proportionate"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "travel-travel-problems-c2-apology-admission",
+            "travel-travel-problems-c2-settlement-scope",
+            "travel-travel-problems-c2-media-summary-correction",
+            "travel-travel-problems-c2-cross-cultural-conflict-repair"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social-introductions",
+      "title": "관계 · 첫 만남·자기소개",
+      "categoryId": "social",
+      "subcategoryId": "introductions",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "social-introductions-pre-a1-say-your-name",
+            "social-introductions-pre-a1-spell-short-name",
+            "social-introductions-pre-a1-state-country",
+            "social-introductions-pre-a1-choose-call-name"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "social-introductions-a1-ask-preferred-name",
+            "social-introductions-a1-introduce-companion",
+            "social-introductions-a1-join-empty-seat",
+            "social-introductions-a1-confirm-name-sound"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "social-introductions-a2-explain-attendance",
+            "social-introductions-a2-separate-home-current",
+            "social-introductions-a2-exchange-safe-contact",
+            "social-introductions-a2-welcome-new-member"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "social-introductions-b1-explain-career-gap",
+            "social-introductions-b1-repair-identity-assumption",
+            "social-introductions-b1-enter-group-conversation",
+            "social-introductions-b1-introduce-two-connections"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "social-introductions-b2-adapt-personal-intro",
+            "social-introductions-b2-explain-multiple-belonging",
+            "social-introductions-b2-correct-exaggerated-intro",
+            "social-introductions-b2-introduce-after-online"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "social-introductions-c1-reframe-low-status-role",
+            "social-introductions-c1-introduce-with-pronunciation",
+            "social-introductions-c1-manage-reputation-intro",
+            "social-introductions-c1-bridge-disciplinary-intro"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "social-introductions-c2-resist-token-representative",
+            "social-introductions-c2-introduce-contested-affiliation",
+            "social-introductions-c2-revise-self-narrative",
+            "social-introductions-c2-negotiate-anonymous-intro"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social-small-talk",
+      "title": "관계 · 안부·가벼운 대화",
+      "categoryId": "social",
+      "subcategoryId": "small-talk",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "social-small-talk-pre-a1-greet-morning",
+            "social-small-talk-pre-a1-name-weather",
+            "social-small-talk-pre-a1-answer-how-are-you",
+            "social-small-talk-pre-a1-recognize-pet"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "social-small-talk-a1-weekend-plan-short",
+            "social-small-talk-a1-comment-shared-place",
+            "social-small-talk-a1-compliment-choice",
+            "social-small-talk-a1-end-short-chat"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "social-small-talk-a2-follow-up-hobby",
+            "social-small-talk-a2-respond-bad-day",
+            "social-small-talk-a2-share-local-tip",
+            "social-small-talk-a2-ask-without-prying"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "social-small-talk-b1-recover-dead-topic",
+            "social-small-talk-b1-explain-delayed-response",
+            "social-small-talk-b1-avoid-weather-generalization",
+            "social-small-talk-b1-respond-to-good-news"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "social-small-talk-b2-redirect-sensitive-topic",
+            "social-small-talk-b2-include-quiet-person",
+            "social-small-talk-b2-handle-cultural-reference",
+            "social-small-talk-b2-repair-one-upmanship"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "social-small-talk-c1-defuse-loaded-banter",
+            "social-small-talk-c1-manage-grief-smalltalk",
+            "social-small-talk-c1-question-rumor-politely",
+            "social-small-talk-c1-bridge-language-speed"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "social-small-talk-c2-interpret-ambiguous-compliment",
+            "social-small-talk-c2-untangle-ironic-consensus",
+            "social-small-talk-c2-respond-double-bind",
+            "social-small-talk-c2-protect-third-party-dignity"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social-invitations",
+      "title": "관계 · 초대·약속",
+      "categoryId": "social",
+      "subcategoryId": "invitations",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "social-invitations-pre-a1-accept-tea",
+            "social-invitations-pre-a1-refuse-today",
+            "social-invitations-pre-a1-confirm-meeting-day",
+            "social-invitations-pre-a1-choose-one-activity"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "social-invitations-a1-invite-lunch",
+            "social-invitations-a1-check-location",
+            "social-invitations-a1-bring-friend",
+            "social-invitations-a1-ask-what-bring"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "social-invitations-a2-decline-offer-alternative",
+            "social-invitations-a2-confirm-food-needs",
+            "social-invitations-a2-reschedule-late",
+            "social-invitations-a2-ask-cost-before-accept"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "social-invitations-b1-coordinate-three-schedules",
+            "social-invitations-b1-invite-low-pressure",
+            "social-invitations-b1-change-outdoor-plan",
+            "social-invitations-b1-clarify-plus-one-expectation"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "social-invitations-b2-balance-access-and-budget",
+            "social-invitations-b2-resolve-unequal-hosting",
+            "social-invitations-b2-set-event-boundary",
+            "social-invitations-b2-repair-excluded-invite"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "social-invitations-c1-clarify-optional-obligation",
+            "social-invitations-c1-mediate-competing-traditions",
+            "social-invitations-c1-withdraw-after-pressure",
+            "social-invitations-c1-write-inclusive-invitation"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "social-invitations-c2-separate-hospitality-debt",
+            "social-invitations-c2-resolve-invitation-ambiguity",
+            "social-invitations-c2-handle-symbolic-guest",
+            "social-invitations-c2-negotiate-public-private-event"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social-friends-family",
+      "title": "관계 · 친구·가족",
+      "categoryId": "social",
+      "subcategoryId": "friends-family",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "social-friends-family-pre-a1-name-family-member",
+            "social-friends-family-pre-a1-ask-help-carry",
+            "social-friends-family-pre-a1-choose-family-meal",
+            "social-friends-family-pre-a1-say-need-rest"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "social-friends-family-a1-ask-daily-arrival",
+            "social-friends-family-a1-share-chore",
+            "social-friends-family-a1-check-friend-location",
+            "social-friends-family-a1-ask-before-borrow"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "social-friends-family-a2-arrange-check-in",
+            "social-friends-family-a2-care-pet-instructions",
+            "social-friends-family-a2-thank-specific-support",
+            "social-friends-family-a2-plan-shared-quiet"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "social-friends-family-b1-negotiate-visit-duration",
+            "social-friends-family-b1-restore-borrowed-item",
+            "social-friends-family-b1-notice-without-diagnosis",
+            "social-friends-family-b1-renegotiate-household-task"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "social-friends-family-b2-mediate-family-plans",
+            "social-friends-family-b2-set-family-update-boundary",
+            "social-friends-family-b2-discuss-money-between-friends",
+            "social-friends-family-b2-handle-unsolicited-advice"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "social-friends-family-c1-share-care-responsibility",
+            "social-friends-family-c1-reconcile-memory-dispute",
+            "social-friends-family-c1-respond-life-choice-pressure",
+            "social-friends-family-c1-repair-broken-confidence"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "social-friends-family-c2-negotiate-care-autonomy",
+            "social-friends-family-c2-untangle-family-loyalty",
+            "social-friends-family-c2-reframe-fairness-among-siblings",
+            "social-friends-family-c2-renegotiate-old-friendship"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social-feelings-opinions",
+      "title": "관계 · 감정·의견 표현",
+      "categoryId": "social",
+      "subcategoryId": "feelings-opinions",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "social-feelings-opinions-pre-a1-say-like-music",
+            "social-feelings-opinions-pre-a1-name-current-feeling",
+            "social-feelings-opinions-pre-a1-choose-comfort",
+            "social-feelings-opinions-pre-a1-express-not-sure"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "social-feelings-opinions-a1-prefer-quiet-place",
+            "social-feelings-opinions-a1-state-nervous",
+            "social-feelings-opinions-a1-like-not-love",
+            "social-feelings-opinions-a1-agree-simple-reason"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "social-feelings-opinions-a2-explain-disappointment",
+            "social-feelings-opinions-a2-request-thinking-time",
+            "social-feelings-opinions-a2-share-proud-moment",
+            "social-feelings-opinions-a2-change-opinion-new-info"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "social-feelings-opinions-b1-separate-feeling-fact",
+            "social-feelings-opinions-b1-weigh-hobby-choice",
+            "social-feelings-opinions-b1-disagree-movie-view",
+            "social-feelings-opinions-b1-name-mixed-feelings"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "social-feelings-opinions-b2-qualify-generalization",
+            "social-feelings-opinions-b2-explain-value-tradeoff",
+            "social-feelings-opinions-b2-respond-invalidated-feeling",
+            "social-feelings-opinions-b2-express-uncertain-opinion"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "social-feelings-opinions-c1-reframe-false-choice",
+            "social-feelings-opinions-c1-acknowledge-conflicting-values",
+            "social-feelings-opinions-c1-express-regret-without-self-erasure",
+            "social-feelings-opinions-c1-interpret-ambivalence"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "social-feelings-opinions-c2-distinguish-explanation-endorsement",
+            "social-feelings-opinions-c2-challenge-neutral-framing",
+            "social-feelings-opinions-c2-revise-conviction-publicly",
+            "social-feelings-opinions-c2-mediate-incommensurable-values"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social-conflict-resolution",
+      "title": "관계 · 부탁·거절·사과",
+      "categoryId": "social",
+      "subcategoryId": "conflict-resolution",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "social-conflict-resolution-pre-a1-say-sorry-bump",
+            "social-conflict-resolution-pre-a1-ask-repeat-please",
+            "social-conflict-resolution-pre-a1-say-stop",
+            "social-conflict-resolution-pre-a1-ask-space"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "social-conflict-resolution-a1-refuse-photo-post",
+            "social-conflict-resolution-a1-correct-wrong-item",
+            "social-conflict-resolution-a1-request-lower-volume",
+            "social-conflict-resolution-a1-ask-own-turn"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "social-conflict-resolution-a2-apologize-late-arrival",
+            "social-conflict-resolution-a2-refuse-small-favor",
+            "social-conflict-resolution-a2-clarify-message-tone",
+            "social-conflict-resolution-a2-ask-return-time"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "social-conflict-resolution-b1-resolve-noise-repeat",
+            "social-conflict-resolution-b1-repair-forgotten-promise",
+            "social-conflict-resolution-b1-correct-group-credit",
+            "social-conflict-resolution-b1-refuse-persistent-sales-friend"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "social-conflict-resolution-b2-negotiate-apology-impact",
+            "social-conflict-resolution-b2-mediate-two-friends",
+            "social-conflict-resolution-b2-respond-unfair-accusation",
+            "social-conflict-resolution-b2-set-conversation-pause"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "social-conflict-resolution-c1-reframe-intent-impact-dispute",
+            "social-conflict-resolution-c1-respond-conditional-apology",
+            "social-conflict-resolution-c1-address-power-imbalance",
+            "social-conflict-resolution-c1-restore-after-public-argument"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "social-conflict-resolution-c2-separate-forgiveness-reconciliation",
+            "social-conflict-resolution-c2-resolve-competing-harms",
+            "social-conflict-resolution-c2-clarify-boundary-vs-control",
+            "social-conflict-resolution-c2-create-fair-repair-process"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "work-job-interviews",
+      "title": "업무 · 구직·면접",
+      "categoryId": "work",
+      "subcategoryId": "job-interviews",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "work-job-interviews-pre-a1-reception-name",
+            "work-job-interviews-pre-a1-spell-surname",
+            "work-job-interviews-pre-a1-choose-interview-day",
+            "work-job-interviews-pre-a1-name-job"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "work-job-interviews-a1-give-basic-background",
+            "work-job-interviews-a1-state-simple-skill",
+            "work-job-interviews-a1-confirm-interview-time",
+            "work-job-interviews-a1-ask-working-days"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "work-job-interviews-a2-describe-experience",
+            "work-job-interviews-a2-reschedule-interview",
+            "work-job-interviews-a2-ask-role-routine",
+            "work-job-interviews-a2-explain-availability"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "work-job-interviews-b1-explain-project-problem",
+            "work-job-interviews-b1-explain-career-change",
+            "work-job-interviews-b1-discuss-gap",
+            "work-job-interviews-b1-ask-success-measures"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "work-job-interviews-b2-balance-team-credit",
+            "work-job-interviews-b2-challenge-role-mismatch",
+            "work-job-interviews-b2-respond-to-hypothetical",
+            "work-job-interviews-b2-negotiate-offer-detail"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "work-job-interviews-c1-qualify-leadership-claim",
+            "work-job-interviews-c1-probe-culture-euphemism",
+            "work-job-interviews-c1-challenge-case-assumption",
+            "work-job-interviews-c1-discuss-ethical-disagreement"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "work-job-interviews-c2-unpack-loaded-question",
+            "work-job-interviews-c2-handle-confidential-probing",
+            "work-job-interviews-c2-reconcile-career-narratives",
+            "work-job-interviews-c2-negotiate-mutual-fit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "work-onboarding",
+      "title": "업무 · 입사·직장 적응",
+      "categoryId": "work",
+      "subcategoryId": "onboarding",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "work-onboarding-pre-a1-say-first-name",
+            "work-onboarding-pre-a1-find-desk",
+            "work-onboarding-pre-a1-ask-pen",
+            "work-onboarding-pre-a1-locate-restroom"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "work-onboarding-a1-find-kitchen",
+            "work-onboarding-a1-introduce-team-role",
+            "work-onboarding-a1-check-start-time",
+            "work-onboarding-a1-request-login-help"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "work-onboarding-a2-request-access",
+            "work-onboarding-a2-ask-office-rules",
+            "work-onboarding-a2-understand-first-task",
+            "work-onboarding-a2-arrange-buddy-checkin",
+            "work-onboarding-a2-developer-request-access",
+            "work-onboarding-a2-designer-wrong-file-access",
+            "work-onboarding-a2-it-maintenance-notice-clarification"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "work-onboarding-b1-clarify-unclear-guide",
+            "work-onboarding-b1-request-accessible-setup",
+            "work-onboarding-b1-resolve-wrong-permissions",
+            "work-onboarding-b1-align-first-week"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "work-onboarding-b2-resolve-conflicting-instructions",
+            "work-onboarding-b2-question-unofficial-shortcut",
+            "work-onboarding-b2-propose-learning-plan",
+            "work-onboarding-b2-align-remote-norms"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "work-onboarding-c1-map-unwritten-decisions",
+            "work-onboarding-c1-negotiate-role-ambiguity",
+            "work-onboarding-c1-question-legacy-norm",
+            "work-onboarding-c1-handle-identity-assumptions",
+            "work-onboarding-c1-it-temporary-bypass-expiry"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "work-onboarding-c2-decode-strategic-ambiguity",
+            "work-onboarding-c2-reconcile-official-unofficial",
+            "work-onboarding-c2-question-consensus-history",
+            "work-onboarding-c2-position-as-new-expert"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "work-meetings",
+      "title": "업무 · 회의·의견 조율",
+      "categoryId": "work",
+      "subcategoryId": "meetings",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "work-meetings-pre-a1-mic-check",
+            "work-meetings-pre-a1-ask-repeat",
+            "work-meetings-pre-a1-choose-break",
+            "work-meetings-pre-a1-signal-question"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "work-meetings-a1-join-and-name",
+            "work-meetings-a1-ask-slower",
+            "work-meetings-a1-check-meeting-end",
+            "work-meetings-a1-choose-meeting-day"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "work-meetings-a2-give-brief-update",
+            "work-meetings-a2-clarify-assignment",
+            "work-meetings-a2-express-simple-preference",
+            "work-meetings-a2-confirm-call-actions",
+            "work-meetings-a2-developer-deployment-time",
+            "work-meetings-a2-designer-missing-button-copy",
+            "work-meetings-a2-business-agenda-priority",
+            "work-meetings-a2-business-confirm-owner",
+            "work-meetings-a2-business-small-budget-choice",
+            "work-meetings-a2-business-deadline-clarity"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "work-meetings-b1-raise-blocker",
+            "work-meetings-b1-polite-disagreement",
+            "work-meetings-b1-bring-back-topic",
+            "work-meetings-b1-resolve-misheard-decision",
+            "work-meetings-b1-designer-delete-dialog-confusion",
+            "work-meetings-b1-designer-participant-no-show",
+            "work-meetings-b1-it-scope-first-incident-update",
+            "work-meetings-b1-business-milestone-slip",
+            "work-meetings-b1-business-priority-ranking",
+            "work-meetings-b1-business-absent-decision-maker"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "work-meetings-b2-compare-delivery-options",
+            "work-meetings-b2-mediate-team-disagreement",
+            "work-meetings-b2-separate-fact-assumption",
+            "work-meetings-b2-reopen-decision",
+            "work-meetings-b2-developer-late-requirement",
+            "work-meetings-b2-developer-migration-approval",
+            "work-meetings-b2-designer-brand-versus-readable",
+            "work-meetings-b2-it-change-window-collision",
+            "work-meetings-b2-it-restore-before-backlog",
+            "work-meetings-b2-business-pilot-budget-options",
+            "work-meetings-b2-business-scope-change-acceptance",
+            "work-meetings-b2-business-risk-ownership",
+            "work-meetings-b2-business-conflicting-customer-requests"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "work-meetings-c1-surface-hidden-disagreement",
+            "work-meetings-c1-reframe-zero-sum",
+            "work-meetings-c1-manage-power-interruption",
+            "work-meetings-c1-record-dissent",
+            "work-meetings-c1-developer-incident-unknown-cause",
+            "work-meetings-c1-developer-technical-debt-priority",
+            "work-meetings-c1-developer-vendor-dependency-choice",
+            "work-meetings-c1-designer-keyboard-blocker-signoff",
+            "work-meetings-c1-designer-research-disagreement",
+            "work-meetings-c1-it-recovery-versus-data-confidence",
+            "work-meetings-c1-business-silence-not-consensus",
+            "work-meetings-c1-business-forecast-vs-target",
+            "work-meetings-c1-business-conditional-budget",
+            "work-meetings-c1-business-reversible-pilot"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "work-meetings-c2-resolve-equivocal-agreement",
+            "work-meetings-c2-challenge-performative-consensus",
+            "work-meetings-c2-reframe-blame-debate",
+            "work-meetings-c2-moderate-contested-framing",
+            "work-meetings-c2-developer-causality-after-fix",
+            "work-meetings-c2-developer-release-accountability",
+            "work-meetings-c2-developer-conflicting-quality-metrics",
+            "work-meetings-c2-designer-cancellation-friction",
+            "work-meetings-c2-designer-executive-solution-mandate",
+            "work-meetings-c2-it-root-cause-certainty-pressure",
+            "work-meetings-c2-it-incident-label-versus-exposure",
+            "work-meetings-c2-business-qualified-assent",
+            "work-meetings-c2-business-unequal-evidence",
+            "work-meetings-c2-business-frame-decision-question",
+            "work-meetings-c2-business-accountable-no-agreement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "work-collaboration",
+      "title": "업무 · 업무 요청·진행 공유",
+      "categoryId": "work",
+      "subcategoryId": "collaboration",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "work-collaboration-pre-a1-pass-folder",
+            "work-collaboration-pre-a1-report-done",
+            "work-collaboration-pre-a1-ask-help-box",
+            "work-collaboration-pre-a1-check-page-number"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "work-collaboration-a1-borrow-charger",
+            "work-collaboration-a1-ask-file-location",
+            "work-collaboration-a1-request-short-task",
+            "work-collaboration-a1-report-not-ready"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "work-collaboration-a2-ask-deadline-extension",
+            "work-collaboration-a2-report-broken-printer",
+            "work-collaboration-a2-check-version",
+            "work-collaboration-a2-hand-over-task",
+            "work-collaboration-a2-developer-ask-reproduction",
+            "work-collaboration-a2-developer-confirm-api-field",
+            "work-collaboration-a2-designer-missing-mobile-state",
+            "work-collaboration-a2-it-read-access-request"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "work-collaboration-b1-negotiate-priority",
+            "work-collaboration-b1-give-actionable-feedback",
+            "work-collaboration-b1-admit-mistake",
+            "work-collaboration-b1-set-message-boundary",
+            "work-collaboration-b1-developer-intermittent-test",
+            "work-collaboration-b1-developer-dependency-blocked",
+            "work-collaboration-b1-developer-review-rationale",
+            "work-collaboration-b1-developer-environment-difference",
+            "work-collaboration-b1-designer-color-only-status",
+            "work-collaboration-b1-designer-long-translation-layout",
+            "work-collaboration-b1-it-handover-unfinished-recovery",
+            "work-collaboration-b1-business-shared-specialist"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "work-collaboration-b2-negotiate-scope",
+            "work-collaboration-b2-repair-critical-feedback",
+            "work-collaboration-b2-manage-dependency-contract",
+            "work-collaboration-b2-handle-credit-dispute",
+            "work-collaboration-b2-developer-performance-evidence",
+            "work-collaboration-b2-developer-missing-observability",
+            "work-collaboration-b2-designer-handoff-scope-cut",
+            "work-collaboration-b2-designer-component-exception",
+            "work-collaboration-b2-it-two-incidents-one-specialist"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "work-collaboration-c1-renegotiate-implicit-promise",
+            "work-collaboration-c1-repair-cross-cultural-tone",
+            "work-collaboration-c1-mediate-quality-speed",
+            "work-collaboration-c1-challenge-unfair-allocation",
+            "work-collaboration-c1-developer-security-release-blocker",
+            "work-collaboration-c1-it-vendor-boundary-handoff",
+            "work-collaboration-c1-it-time-zone-ownership-gap"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "work-collaboration-c2-repair-ironic-message",
+            "work-collaboration-c2-negotiate-knowledge-ownership",
+            "work-collaboration-c2-manage-deniable-request",
+            "work-collaboration-c2-reconcile-trust-controls",
+            "work-collaboration-c2-developer-deprecation-assurance",
+            "work-collaboration-c2-it-response-metric-incentive"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "work-presentations",
+      "title": "업무 · 발표·설명",
+      "categoryId": "work",
+      "subcategoryId": "presentations",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "work-presentations-pre-a1-introduce-self-slide",
+            "work-presentations-pre-a1-point-color",
+            "work-presentations-pre-a1-show-two-options",
+            "work-presentations-pre-a1-close-short-talk"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "work-presentations-a1-present-simple-object",
+            "work-presentations-a1-explain-daily-job",
+            "work-presentations-a1-show-team-photo",
+            "work-presentations-a1-state-three-items"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "work-presentations-a2-describe-simple-process",
+            "work-presentations-a2-compare-two-products",
+            "work-presentations-a2-report-simple-numbers",
+            "work-presentations-a2-explain-team-plan"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "work-presentations-b1-explain-change-reason",
+            "work-presentations-b1-explain-survey-result",
+            "work-presentations-b1-answer-unknown-question",
+            "work-presentations-b1-structure-project-story",
+            "work-presentations-b1-it-partial-recovery-customer-note"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "work-presentations-b2-recommend-with-tradeoffs",
+            "work-presentations-b2-explain-counterintuitive-data",
+            "work-presentations-b2-respond-to-skeptical-audience",
+            "work-presentations-b2-present-risk-response",
+            "work-presentations-b2-designer-expert-sample-bias"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "work-presentations-c1-communicate-uncertain-forecast",
+            "work-presentations-c1-correct-public-overstatement",
+            "work-presentations-c1-tailor-technical-summary",
+            "work-presentations-c1-present-failed-experiment",
+            "work-presentations-c1-designer-conversion-quality-tradeoff"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "work-presentations-c2-distinguish-absence-evidence",
+            "work-presentations-c2-present-rival-explanations",
+            "work-presentations-c2-translate-specialist-dispute",
+            "work-presentations-c2-handle-hostile-paraphrase",
+            "work-presentations-c2-designer-uncertainty-investment-decision",
+            "work-presentations-c2-it-restored-wording-review"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "work-customer-service",
+      "title": "업무 · 고객 응대",
+      "categoryId": "work",
+      "subcategoryId": "customer-service",
+      "stages": [
+        {
+          "difficulty": "pre-A1",
+          "goal": "단어와 정형 표현으로 의도 전달",
+          "missionKeys": [
+            "work-customer-service-pre-a1-greet-customer",
+            "work-customer-service-pre-a1-confirm-quantity",
+            "work-customer-service-pre-a1-state-price",
+            "work-customer-service-pre-a1-ask-wait"
+          ]
+        },
+        {
+          "difficulty": "A1",
+          "goal": "예측 가능한 질문과 답, 기본 정보 확인",
+          "missionKeys": [
+            "work-customer-service-a1-take-simple-order",
+            "work-customer-service-a1-point-to-counter",
+            "work-customer-service-a1-check-size",
+            "work-customer-service-a1-state-opening-hours"
+          ]
+        },
+        {
+          "difficulty": "A2",
+          "goal": "일상 거래와 간단한 문제 해결",
+          "missionKeys": [
+            "work-customer-service-a2-handle-unavailable-item",
+            "work-customer-service-a2-correct-order",
+            "work-customer-service-a2-explain-simple-return",
+            "work-customer-service-a2-give-delay-update",
+            "work-customer-service-a2-designer-blurry-export",
+            "work-customer-service-a2-it-login-blocked-call",
+            "work-customer-service-a2-it-ticket-missing-details"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "goal": "예상 밖 문제 설명과 복구",
+          "missionKeys": [
+            "work-customer-service-b1-handle-frustrated-delay",
+            "work-customer-service-b1-clarify-ambiguous-complaint",
+            "work-customer-service-b1-explain-policy-boundary",
+            "work-customer-service-b1-confirm-resolution",
+            "work-customer-service-b1-it-vendor-status-without-eta"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "goal": "대안 비교와 근거 있는 조율",
+          "missionKeys": [
+            "work-customer-service-b2-deescalate-with-options",
+            "work-customer-service-b2-clarify-technical-issue",
+            "work-customer-service-b2-handle-exception-request",
+            "work-customer-service-b2-reconcile-conflicting-advice",
+            "work-customer-service-b2-it-suspicious-login-report"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "goal": "어조 조절, 암시 이해, 복합 정보 중재",
+          "missionKeys": [
+            "work-customer-service-c1-separate-empathy-admission",
+            "work-customer-service-c1-manage-repeat-escalation",
+            "work-customer-service-c1-explain-discretion-fairly",
+            "work-customer-service-c1-respond-public-private",
+            "work-customer-service-c1-designer-scope-hidden-in-polish"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "goal": "미묘한 의미와 상충 조건을 정교하게 재구성",
+          "missionKeys": [
+            "work-customer-service-c2-navigate-impossible-assurance",
+            "work-customer-service-c2-respond-to-moral-accusation",
+            "work-customer-service-c2-explain-conflicting-entitlements",
+            "work-customer-service-c2-repair-ambiguous-apology",
+            "work-customer-service-c2-designer-research-consent-reuse"
+          ]
+        }
+      ]
+    }
+  ],
+  "professionalTracks": [
+    {
+      "role": "developer",
+      "title": "개발자 문제 해결",
+      "entryRequirement": "일반 영어 기초를 먼저 연습하거나 필요한 힌트를 사용한다. 직무 경험·관리자 권한을 실제로 보유할 필요는 없다.",
+      "stages": [
+        {
+          "difficulty": "A2",
+          "missionKeys": [
+            "work-collaboration-a2-developer-ask-reproduction",
+            "work-onboarding-a2-developer-request-access",
+            "work-collaboration-a2-developer-confirm-api-field",
+            "work-meetings-a2-developer-deployment-time"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "missionKeys": [
+            "work-collaboration-b1-developer-intermittent-test",
+            "work-collaboration-b1-developer-dependency-blocked",
+            "work-collaboration-b1-developer-review-rationale",
+            "work-collaboration-b1-developer-environment-difference"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "missionKeys": [
+            "work-meetings-b2-developer-late-requirement",
+            "work-collaboration-b2-developer-performance-evidence",
+            "work-meetings-b2-developer-migration-approval",
+            "work-collaboration-b2-developer-missing-observability"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "missionKeys": [
+            "work-meetings-c1-developer-incident-unknown-cause",
+            "work-meetings-c1-developer-technical-debt-priority",
+            "work-collaboration-c1-developer-security-release-blocker",
+            "work-meetings-c1-developer-vendor-dependency-choice"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "missionKeys": [
+            "work-meetings-c2-developer-causality-after-fix",
+            "work-meetings-c2-developer-release-accountability",
+            "work-meetings-c2-developer-conflicting-quality-metrics",
+            "work-collaboration-c2-developer-deprecation-assurance"
+          ]
+        }
+      ]
+    },
+    {
+      "role": "designer",
+      "title": "디자이너 문제 해결",
+      "entryRequirement": "일반 영어 기초를 먼저 연습하거나 필요한 힌트를 사용한다. 직무 경험·관리자 권한을 실제로 보유할 필요는 없다.",
+      "stages": [
+        {
+          "difficulty": "A2",
+          "missionKeys": [
+            "work-collaboration-a2-designer-missing-mobile-state",
+            "work-customer-service-a2-designer-blurry-export",
+            "work-meetings-a2-designer-missing-button-copy",
+            "work-onboarding-a2-designer-wrong-file-access"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "missionKeys": [
+            "work-collaboration-b1-designer-color-only-status",
+            "work-meetings-b1-designer-delete-dialog-confusion",
+            "work-collaboration-b1-designer-long-translation-layout",
+            "work-meetings-b1-designer-participant-no-show"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "missionKeys": [
+            "work-meetings-b2-designer-brand-versus-readable",
+            "work-collaboration-b2-designer-handoff-scope-cut",
+            "work-presentations-b2-designer-expert-sample-bias",
+            "work-collaboration-b2-designer-component-exception"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "missionKeys": [
+            "work-meetings-c1-designer-keyboard-blocker-signoff",
+            "work-presentations-c1-designer-conversion-quality-tradeoff",
+            "work-customer-service-c1-designer-scope-hidden-in-polish",
+            "work-meetings-c1-designer-research-disagreement"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "missionKeys": [
+            "work-meetings-c2-designer-cancellation-friction",
+            "work-presentations-c2-designer-uncertainty-investment-decision",
+            "work-meetings-c2-designer-executive-solution-mandate",
+            "work-customer-service-c2-designer-research-consent-reuse"
+          ]
+        }
+      ]
+    },
+    {
+      "role": "it-operations",
+      "title": "IT 운영 문제 해결",
+      "entryRequirement": "일반 영어 기초를 먼저 연습하거나 필요한 힌트를 사용한다. 직무 경험·관리자 권한을 실제로 보유할 필요는 없다.",
+      "stages": [
+        {
+          "difficulty": "A2",
+          "missionKeys": [
+            "work-customer-service-a2-it-login-blocked-call",
+            "work-collaboration-a2-it-read-access-request",
+            "work-customer-service-a2-it-ticket-missing-details",
+            "work-onboarding-a2-it-maintenance-notice-clarification"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "missionKeys": [
+            "work-meetings-b1-it-scope-first-incident-update",
+            "work-collaboration-b1-it-handover-unfinished-recovery",
+            "work-customer-service-b1-it-vendor-status-without-eta",
+            "work-presentations-b1-it-partial-recovery-customer-note"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "missionKeys": [
+            "work-meetings-b2-it-change-window-collision",
+            "work-collaboration-b2-it-two-incidents-one-specialist",
+            "work-meetings-b2-it-restore-before-backlog",
+            "work-customer-service-b2-it-suspicious-login-report"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "missionKeys": [
+            "work-meetings-c1-it-recovery-versus-data-confidence",
+            "work-collaboration-c1-it-vendor-boundary-handoff",
+            "work-collaboration-c1-it-time-zone-ownership-gap",
+            "work-onboarding-c1-it-temporary-bypass-expiry"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "missionKeys": [
+            "work-meetings-c2-it-root-cause-certainty-pressure",
+            "work-meetings-c2-it-incident-label-versus-exposure",
+            "work-presentations-c2-it-restored-wording-review",
+            "work-collaboration-c2-it-response-metric-incentive"
+          ]
+        }
+      ]
+    },
+    {
+      "role": "cross-functional",
+      "title": "비즈니스 미팅 문제 해결",
+      "entryRequirement": "일반 영어 기초를 먼저 연습하거나 필요한 힌트를 사용한다. 직무 경험·관리자 권한을 실제로 보유할 필요는 없다.",
+      "stages": [
+        {
+          "difficulty": "A2",
+          "missionKeys": [
+            "work-meetings-a2-business-agenda-priority",
+            "work-meetings-a2-business-confirm-owner",
+            "work-meetings-a2-business-small-budget-choice",
+            "work-meetings-a2-business-deadline-clarity"
+          ]
+        },
+        {
+          "difficulty": "B1",
+          "missionKeys": [
+            "work-meetings-b1-business-milestone-slip",
+            "work-collaboration-b1-business-shared-specialist",
+            "work-meetings-b1-business-priority-ranking",
+            "work-meetings-b1-business-absent-decision-maker"
+          ]
+        },
+        {
+          "difficulty": "B2",
+          "missionKeys": [
+            "work-meetings-b2-business-pilot-budget-options",
+            "work-meetings-b2-business-scope-change-acceptance",
+            "work-meetings-b2-business-risk-ownership",
+            "work-meetings-b2-business-conflicting-customer-requests"
+          ]
+        },
+        {
+          "difficulty": "C1",
+          "missionKeys": [
+            "work-meetings-c1-business-silence-not-consensus",
+            "work-meetings-c1-business-forecast-vs-target",
+            "work-meetings-c1-business-conditional-budget",
+            "work-meetings-c1-business-reversible-pilot"
+          ]
+        },
+        {
+          "difficulty": "C2",
+          "missionKeys": [
+            "work-meetings-c2-business-qualified-assent",
+            "work-meetings-c2-business-unequal-evidence",
+            "work-meetings-c2-business-frame-decision-question",
+            "work-meetings-c2-business-accountable-no-agreement"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-food-drink-b2-review-dispute",
+  "title": "식당 후기의 사실관계 설명하기",
+  "categoryId": "daily",
+  "subcategoryId": "food-drink",
+  "difficulty": "B2",
+  "scenario": "온라인 후기에 음식이 늦었다고 썼습니다. 식당은 주문 변경 때문이라고 반박합니다. 실제로 변경 전 20분과 후 15분을 기다렸습니다.",
+  "practicalOutcome": "책임을 단정하지 않고 사실과 해석을 나눠 후기 정정 범위를 합의한다.",
+  "roles": {
+    "learner": "식당·카페 손님",
+    "interlocutor": "매니저. 전체 35분이 변경 때문이라고 주장하다 시간대 구분을 요청한다."
+  },
+  "opening": "Your review leaves out the fact that you changed the order.",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "시간 순서 구분하기",
+      "example": "We waited twenty minutes before changing the order and another fifteen afterwards.",
+      "hints": [
+        "의도: 시간 순서 구분하기",
+        "핵심 표현: before / afterwards = 전후 구분",
+        "완성 문장 예시: We waited twenty minutes before changing the order and another fifteen afterwards. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 시간 순서 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "상대의 타당한 지점 인정하기",
+      "example": "I agree the change added time, but it does not explain the initial delay.",
+      "hints": [
+        "의도: 상대의 타당한 지점 인정하기",
+        "핵심 표현: I agree ... but = 부분 인정",
+        "완성 문장 예시: I agree the change added time, but it does not explain the initial delay. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 상대의 타당한 지점 인정하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "정확한 수정안 제안하기",
+      "example": "I can clarify the sequence in the review without removing the part about the first wait.",
+      "hints": [
+        "의도: 정확한 수정안 제안하기",
+        "핵심 표현: clarify the sequence = 순서 명확화",
+        "완성 문장 예시: I can clarify the sequence in the review without removing the part about the first wait. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 정확한 수정안 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 시간 순서 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '식당 후기의 사실관계 설명하기' 상황에서 책임을 단정하지 않고 사실과 해석을 나눠 후기 정정 범위를 합의한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "식당 기록에서 처음 주문 시각이 다르게 나올 때 확인 가능한 자료와 불확실한 기억을 구분한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '식당 후기의 사실관계 설명하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 식당 기록에서 처음 주문 시각이 다르게 나올 때 확인 가능한 자료와 불확실한 기억을 구분한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "책임을 단정하지 않고 사실과 해석을 나눠 후기 정정 범위를 합의한다.",
+      "시간 순서 구분하기",
+      "상대의 타당한 지점 인정하기",
+      "정확한 수정안 제안하기",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

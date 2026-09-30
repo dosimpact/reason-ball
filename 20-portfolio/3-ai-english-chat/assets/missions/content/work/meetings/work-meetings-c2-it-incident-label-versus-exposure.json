@@ -1,0 +1,133 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-meetings-c2-it-incident-label-versus-exposure",
+  "title": "사고 등급 논쟁을 사용자 영향과 결정 권한으로 바꾸기",
+  "categoryId": "work",
+  "subcategoryId": "meetings",
+  "difficulty": "C2",
+  "scenario": "한 팀은 보안 사고라는 명칭을 붙이면 혼란이 커진다며 운영 이슈로만 기록하려 합니다. 가상 자료에 대한 비정상 접근 가능성은 조사 중이며 접근이 실제 있었는지는 미확인입니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+  "practicalOutcome": "확인된 요청과 미확인 성공·자료 범위를 중립적으로 기록하고 보안 책임자의 30분 내 분류 검토 및 제한된 연락 계획을 합의한다.",
+  "roles": {
+    "learner": "가상 IT 운영 담당자",
+    "interlocutor": "운영 리드 역할. 고객이 알면 불안해한다며 security라는 단어를 빼자고 한다. 서비스 영향과 정보 접근 가능성의 차이를 들으면 보안 책임자에게 제한된 사실을 전달하는 데 동의할 수 있다."
+  },
+  "caseBrief": {
+    "professionalRole": "it-operations",
+    "situation": "한 팀은 보안 사고라는 명칭을 붙이면 혼란이 커진다며 운영 이슈로만 기록하려 합니다. 가상 자료에 대한 비정상 접근 가능성은 조사 중이며 접근이 실제 있었는지는 미확인입니다.",
+    "facts": [
+      "예상하지 못한 자료 조회 요청이 감지됐다.",
+      "요청의 성공 여부와 자료 범위는 아직 확인하지 못했다.",
+      "운영 서비스는 현재 정상 응답한다.",
+      "가상 조직의 보안 책임자가 사고 분류와 조사 범위를 결정한다."
+    ],
+    "constraints": [
+      "정상 가용성을 근거로 정보 위험이 없다고 말하지 않는다.",
+      "학습자는 침해 확정이나 외부 신고 의무를 판단하지 않는다.",
+      "원본 자료·사용자 식별값·인증값은 일반 회의에 공유하지 않는다."
+    ],
+    "learnerAuthority": "용어의 함의와 확인된 사실을 분리하고 정해진 보안 분류 담당자에게 판단 자료를 전달할 수 있다.",
+    "counterpartPosition": "운영 리드 역할. 고객이 알면 불안해한다며 security라는 단어를 빼자고 한다. 서비스 영향과 정보 접근 가능성의 차이를 들으면 보안 책임자에게 제한된 사실을 전달하는 데 동의할 수 있다.",
+    "unresolvedQuestions": [
+      "현재 확인된 것은 시도, 성공 접근, 자료 유출 중 어디까지인가?",
+      "명칭을 결정할 공식 권한은 누구에게 있는가?",
+      "분류 대기 중 유지해야 할 연락과 기록은 무엇인가?"
+    ],
+    "deliverable": "확인된 요청과 미확인 성공·자료 범위를 중립적으로 기록하고 보안 책임자의 30분 내 분류 검토 및 제한된 연락 계획을 합의한다.",
+    "resolutionCriteria": [
+      "명칭을 회피하거나 과장하는 두 압력을 모두 다룬다.",
+      "운영 가용성과 정보 접근 위험을 독립적으로 설명한다.",
+      "법률 결론과 침해 확정을 스스로 만들지 않는다.",
+      "분류 담당자·최소 공유 정보·다음 검토 시점을 지정한다."
+    ],
+    "escalationPath": "조사 중 성공 접근이 확인되거나 공식 검토가 지연되면 보안 당직 책임자에게 즉시 올린다. 외부 공지와 필요한 법적 검토는 지정 담당자가 결정한다."
+  },
+  "opening": "Nothing is down. Calling it a security incident would create a problem we do not currently have.",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "가용성과 다른 위험 축 구분하기",
+      "example": "Continued availability answers an operational question; it does not settle whether an unexpected data access succeeded.",
+      "hints": [
+        "의도: 가용성과 다른 위험 축 구분하기",
+        "핵심 표현: settle = 결론내리다",
+        "완성 문장 예시: Continued availability answers an operational question; it does not settle whether an unexpected data access succeeded. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 가용성과 다른 위험 축 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "명칭의 정치적 효과와 판단 기준 분리하기",
+      "example": "The label should follow the authorized assessment of the facts, rather than either our wish to reassure or an assumption that a breach occurred.",
+      "hints": [
+        "의도: 명칭의 정치적 효과와 판단 기준 분리하기",
+        "핵심 표현: authorized assessment = 권한 있는 검토",
+        "완성 문장 예시: The label should follow the authorized assessment of the facts, rather than either our wish to reassure or an assumption that a breach occurred. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 명칭의 정치적 효과와 판단 기준 분리하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "중립적인 현재 기록 제안하기",
+      "example": "We can record the unexpected request, the unverified outcome, and the restricted evidence available, without announcing a conclusion.",
+      "hints": [
+        "의도: 중립적인 현재 기록 제안하기",
+        "핵심 표현: unverified outcome = 미확인 결과",
+        "완성 문장 예시: We can record the unexpected request, the unverified outcome, and the restricted evidence available, without announcing a conclusion. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 중립적인 현재 기록 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "판단 책임과 시한 확보하기",
+      "example": "Please route that summary to the security owner now and agree an update within thirty minutes, including who holds contact responsibility if classification is still pending.",
+      "hints": [
+        "의도: 판단 책임과 시한 확보하기",
+        "핵심 표현: classification pending = 분류가 아직 검토 중인",
+        "완성 문장 예시: Please route that summary to the security owner now and agree an update within thirty minutes, including who holds contact responsibility if classification is still pending. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 판단 책임과 시한 확보하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 가용성과 다른 위험 축 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '사고 등급 논쟁을 사용자 영향과 결정 권한으로 바꾸기' 상황에서 확인된 요청과 미확인 성공·자료 범위를 중립적으로 기록하고 보안 책임자의 30분 내 분류 검토 및 제한된 연락 계획을 합의한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "보안팀이 정상 승인된 요청으로 확인했습니다. 처음 기록을 지우지 않고 확인 결과와 분류 종료 근거를 덧붙이며 관계자에게 과장 없는 종료 안내를 합니다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '사고 등급 논쟁을 사용자 영향과 결정 권한으로 바꾸기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 보안팀이 정상 승인된 요청으로 확인했습니다. 처음 기록을 지우지 않고 확인 결과와 분류 종료 근거를 덧붙이며 관계자에게 과장 없는 종료 안내를 합니다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "확인된 요청과 미확인 성공·자료 범위를 중립적으로 기록하고 보안 책임자의 30분 내 분류 검토 및 제한된 연락 계획을 합의한다.",
+      "가용성과 다른 위험 축 구분하기",
+      "명칭의 정치적 효과와 판단 기준 분리하기",
+      "중립적인 현재 기록 제안하기",
+      "판단 책임과 시한 확보하기",
+      "명칭을 회피하거나 과장하는 두 압력을 모두 다룬다.",
+      "운영 가용성과 정보 접근 위험을 독립적으로 설명한다.",
+      "법률 결론과 침해 확정을 스스로 만들지 않는다.",
+      "분류 담당자·최소 공유 정보·다음 검토 시점을 지정한다.",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

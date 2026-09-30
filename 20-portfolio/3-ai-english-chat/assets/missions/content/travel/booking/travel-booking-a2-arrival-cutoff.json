@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "travel-booking-a2-arrival-cutoff",
+  "title": "예약 도착 마감 시간 확인하기",
+  "categoryId": "travel",
+  "subcategoryId": "booking",
+  "difficulty": "A2",
+  "scenario": "입장권은 3시지만 버스가 2시 55분 도착입니다. 미리 와야 하는지 묻습니다.",
+  "practicalOutcome": "권장 도착과 최종 마감을 확인해 이동을 조정한다.",
+  "roles": {
+    "learner": "예약 방문객",
+    "interlocutor": "직원. 15분 전 체크인 권장, 3시 10분 이후 입장 불가라고 안내한다."
+  },
+  "opening": "Please arrive before your session starts.",
+  "estimatedMinutes": 10,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "실제 도착 계획 말하기",
+      "example": "My bus arrives at two fifty-five.",
+      "hints": [
+        "의도: 실제 도착 계획 말하기",
+        "핵심 표현: arrives = 도착하다",
+        "완성 문장 예시: My bus arrives at two fifty-five. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 실제 도착 계획 말하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "필수 마감 묻기",
+      "example": "What is the latest time I can check in?",
+      "hints": [
+        "의도: 필수 마감 묻기",
+        "핵심 표현: latest time = 가장 늦은 시각",
+        "완성 문장 예시: What is the latest time I can check in? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 필수 마감 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "계획 조정하기",
+      "example": "I will take the earlier bus to allow more time.",
+      "hints": [
+        "의도: 계획 조정하기",
+        "핵심 표현: allow more time = 여유를 두다",
+        "완성 문장 예시: I will take the earlier bus to allow more time. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 계획 조정하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "표현 틀을 선택적으로 제공; 세부 정보와 다음 행동 확인. 먼저 상황과 첫 발화의 뜻을 확인하고 실제 도착 계획 말하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '예약 도착 마감 시간 확인하기' 상황에서 권장 도착과 최종 마감을 확인해 이동을 조정한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "교통편이 하나뿐이다. 늦을 경우 다음 회차로 옮길 수 있는지 묻는다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '예약 도착 마감 시간 확인하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 교통편이 하나뿐이다. 늦을 경우 다음 회차로 옮길 수 있는지 묻는다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "권장 도착과 최종 마감을 확인해 이동을 조정한다.",
+      "실제 도착 계획 말하기",
+      "필수 마감 묻기",
+      "계획 조정하기",
+      "수준별 관찰: 일상 거래와 간단한 문제 해결. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

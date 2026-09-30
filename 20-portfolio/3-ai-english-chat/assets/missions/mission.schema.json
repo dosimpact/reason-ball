@@ -1,0 +1,321 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Research-informed English mission authoring body",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "key",
+    "title",
+    "categoryId",
+    "subcategoryId",
+    "difficulty",
+    "scenario",
+    "practicalOutcome",
+    "roles",
+    "opening",
+    "estimatedMinutes",
+    "prerequisites",
+    "steps",
+    "pedagogy",
+    "assessment"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "key": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 120
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "categoryId": {
+      "enum": [
+        "daily",
+        "travel",
+        "social",
+        "work"
+      ]
+    },
+    "subcategoryId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 120
+    },
+    "difficulty": {
+      "enum": [
+        "pre-A1",
+        "A1",
+        "A2",
+        "B1",
+        "B2",
+        "C1",
+        "C2"
+      ]
+    },
+    "scenario": {
+      "type": "string",
+      "minLength": 1
+    },
+    "practicalOutcome": {
+      "type": "string",
+      "minLength": 1
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "learner",
+        "interlocutor"
+      ],
+      "properties": {
+        "learner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "interlocutor": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "opening": {
+      "type": "string",
+      "minLength": 1
+    },
+    "estimatedMinutes": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 60
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+        "maxLength": 120
+      },
+      "uniqueItems": true
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "goal",
+          "example",
+          "hints",
+          "successCriterion"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "maxLength": 120
+          },
+          "goal": {
+            "type": "string",
+            "minLength": 1
+          },
+          "example": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hints": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "successCriterion": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "minItems": 2,
+      "maxItems": 10
+    },
+    "pedagogy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "researchIds",
+        "supportFade",
+        "retrieval",
+        "transfer",
+        "review"
+      ],
+      "properties": {
+        "researchIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "supportFade": {
+          "type": "string",
+          "minLength": 1
+        },
+        "retrieval": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transfer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "intervalDays",
+            "prompt"
+          ],
+          "properties": {
+            "intervalDays": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "minItems": 2,
+              "uniqueItems": true
+            },
+            "prompt": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "criteria",
+        "acceptParaphrases",
+        "feedbackPolicy"
+      ],
+      "properties": {
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 2,
+          "uniqueItems": true
+        },
+        "acceptParaphrases": {
+          "const": true
+        },
+        "feedbackPolicy": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "caseBrief": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "professionalRole",
+        "situation",
+        "facts",
+        "constraints",
+        "learnerAuthority",
+        "counterpartPosition",
+        "unresolvedQuestions",
+        "deliverable",
+        "resolutionCriteria",
+        "escalationPath"
+      ],
+      "properties": {
+        "professionalRole": {
+          "enum": [
+            "developer",
+            "designer",
+            "it-operations",
+            "cross-functional"
+          ]
+        },
+        "situation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "facts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "learnerAuthority": {
+          "type": "string",
+          "minLength": 1
+        },
+        "counterpartPosition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unresolvedQuestions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "deliverable": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resolutionCriteria": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "escalationPath": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

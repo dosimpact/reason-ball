@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-services-c2-automated-decision",
+  "title": "자동 거절 안내의 설명 범위 묻기",
+  "categoryId": "daily",
+  "subcategoryId": "services",
+  "difficulty": "C2",
+  "scenario": "서비스 신청이 자동 점검에서 거절되었고 답변에는 requirements not met만 있습니다. 내부 기밀이나 우회법 대신 수정 가능한 정보를 원합니다.",
+  "practicalOutcome": "알고리즘 비공개와 설명 필요를 구별해 사실 정정·사람의 재검토 범위를 요청한다.",
+  "roles": {
+    "learner": "생활 서비스 이용자",
+    "interlocutor": "담당자. 정확한 내부 점수는 공개 못 하지만 누락 서류 범주와 재검토 절차는 안내할 수 있다."
+  },
+  "opening": "The system decision is based on several factors we cannot disclose.",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "비공개 논리와 실용적 설명 구분하기",
+      "example": "I am not asking for proprietary scoring details; I need enough explanation to distinguish missing information from a condition I do not meet.",
+      "hints": [
+        "의도: 비공개 논리와 실용적 설명 구분하기",
+        "핵심 표현: distinguish ... from = 거절 유형 구분",
+        "완성 문장 예시: I am not asking for proprietary scoring details; I need enough explanation to distinguish missing information from a condition I do not meet. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 비공개 논리와 실용적 설명 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "바로잡을 수 있는 사실 확인하기",
+      "example": "Which input can I verify or correct, and is there a route for a person to review a possible factual error?",
+      "hints": [
+        "의도: 바로잡을 수 있는 사실 확인하기",
+        "핵심 표현: factual error = 사실 오류",
+        "완성 문장 예시: Which input can I verify or correct, and is there a route for a person to review a possible factual error? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 바로잡을 수 있는 사실 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "결과 보장 없이 절차 명료화하기",
+      "example": "I understand review may not change the outcome, but please explain what will be reconsidered and how I will be told the reason.",
+      "hints": [
+        "의도: 결과 보장 없이 절차 명료화하기",
+        "핵심 표현: reconsidered = 재검토 대상",
+        "완성 문장 예시: I understand review may not change the outcome, but please explain what will be reconsidered and how I will be told the reason. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 결과 보장 없이 절차 명료화하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 비공개 논리와 실용적 설명 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '자동 거절 안내의 설명 범위 묻기' 상황에서 알고리즘 비공개와 설명 필요를 구별해 사실 정정·사람의 재검토 범위를 요청한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "거절이 누락이 아닌 자격 조건 때문이면 필요한 설명과 다음 행동을 그에 맞게 바꾼다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '자동 거절 안내의 설명 범위 묻기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 거절이 누락이 아닌 자격 조건 때문이면 필요한 설명과 다음 행동을 그에 맞게 바꾼다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "알고리즘 비공개와 설명 필요를 구별해 사실 정정·사람의 재검토 범위를 요청한다.",
+      "비공개 논리와 실용적 설명 구분하기",
+      "바로잡을 수 있는 사실 확인하기",
+      "결과 보장 없이 절차 명료화하기",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

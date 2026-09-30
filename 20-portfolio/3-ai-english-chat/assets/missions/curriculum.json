@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "id": "real-life-english-prea1-c2",
+  "updatedAt": "2026-09-21",
+  "status": "authoring-policy",
+  "language": "ko",
+  "requirements": [
+    "MISSION-CURRICULUM-01",
+    "MISSION-CURRICULUM-02",
+    "MISSION-CURRICULUM-03",
+    "MISSION-PROBLEM-SOLVING-01"
+  ],
+  "purpose": "영어 완전 입문부터 정교한 심화 의사소통까지 실제 생활 과업을 연습한다.",
+  "claimBoundary": [
+    "CEFR은 작성용 난도이며 공인 평가가 아니다.",
+    "C2는 원어민 정체성·발음·모든 상황의 숙달을 보장하지 않는다.",
+    "텍스트 카탈로그는 청취·발음 능력을 측정하지 않는다.",
+    "JSON 정책은 앱의 진단·복습·추천 구현을 뜻하지 않는다."
+  ],
+  "sources": [
+    {
+      "id": "cefr-2020",
+      "url": "https://rm.coe.int/common-european-framework-of-reference-for-languages-learning-teaching/16809ea0d4",
+      "role": "수준·활동·능력 프로필 참고"
+    },
+    {
+      "id": "coe-action-oriented",
+      "url": "https://www.coe.int/en/web/common-european-framework-reference-languages/the-action-oriented-approach",
+      "role": "실제 과업과 결과물 중심 설계"
+    }
+  ],
+  "targetCoverage": {
+    "categoryCount": 4,
+    "subcategoryCount": 24,
+    "levels": [
+      "pre-A1",
+      "A1",
+      "A2",
+      "B1",
+      "B2",
+      "C1",
+      "C2"
+    ],
+    "missionsPerSubcategoryLevel": 4,
+    "totalMissions": 752,
+    "rationale": "기본24영역×7수준×4과업672개 + 사용자가 요청한 직무·비즈니스 문제해결80개. 수량은 편집 범위이며 학습효과 최적값이 아님.",
+    "repetitionCountsAsNewMission": false,
+    "baselineMissions": 672
+  },
+  "levels": [
+    {
+      "id": "pre-A1",
+      "communicativeDemand": "단어와 정형 표현으로 의도 전달",
+      "scaffolding": "한국어 뜻, 짧은 모델, 단어 선택을 제공; 단어 하나도 의미가 맞으면 인정"
+    },
+    {
+      "id": "A1",
+      "communicativeDemand": "예측 가능한 질문과 답, 기본 정보 확인",
+      "scaffolding": "한 번에 한 질문; 필요하면 반복과 예시 제공"
+    },
+    {
+      "id": "A2",
+      "communicativeDemand": "일상 거래와 간단한 문제 해결",
+      "scaffolding": "표현 틀을 선택적으로 제공; 세부 정보와 다음 행동 확인"
+    },
+    {
+      "id": "B1",
+      "communicativeDemand": "예상 밖 문제 설명과 복구",
+      "scaffolding": "이유·경험 연결; 요청 시 핵심 표현 제공"
+    },
+    {
+      "id": "B2",
+      "communicativeDemand": "대안 비교와 근거 있는 조율",
+      "scaffolding": "장단점·반론·이해관계 확인; 예시는 요청 시 제공"
+    },
+    {
+      "id": "C1",
+      "communicativeDemand": "어조 조절, 암시 이해, 복합 정보 중재",
+      "scaffolding": "요청 시만 지원; 전제와 불확실성 구분"
+    },
+    {
+      "id": "C2",
+      "communicativeDemand": "미묘한 의미와 상충 조건을 정교하게 재구성",
+      "scaffolding": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰"
+    }
+  ],
+  "entrySupport": {
+    "assumeEnglishLiteracy": false,
+    "instructionLanguage": "ko",
+    "supports": [
+      "한국어 상황·목표",
+      "짧은 단어 은행과 뜻",
+      "모델을 보고 선택·복사·한 단어 응답",
+      "이름 철자·숫자·시간·가격",
+      "repeat/slowly/help의 의미와 사용",
+      "소리 연습은 모델을 천천히 듣고 따라 말하도록 안내하되 텍스트만으로 청취 성공 판정 금지"
+    ],
+    "personalData": "가상 정보로 연습하며 실제 개인 정보를 요구하지 않는다.",
+    "unimplementedModalities": [
+      "검증된 음성 자료",
+      "여러 화자의 실제 듣기 평가",
+      "발음과 읽기 유창성 측정"
+    ]
+  },
+  "routing": {
+    "basis": [
+      "학습자가 고른 실제 필요 상황",
+      "분야별 자기평가",
+      "서로 다른 과업의 독립 수행 증거"
+    ],
+    "diagnosticIsCertification": false,
+    "recommendedPromotion": {
+      "independentTasksAtLeast": 2,
+      "requireChangedContext": true,
+      "requireDelayedRecheck": true,
+      "validationStatus": "제품 운영 가설; 검증된 cut score가 아님"
+    },
+    "serverGate": "추천 선수 관계가 DB 시작 조건을 자동 생성하지 않는다.",
+    "allowOptionalDomains": true
+  },
+  "practiceCycle": [
+    {
+      "id": "supported",
+      "action": "뜻과 모델을 확인하고 과업을 시도한다."
+    },
+    {
+      "id": "retrieve",
+      "action": "모델을 가리고 같은 의도를 자신의 말로 재현한다."
+    },
+    {
+      "id": "transfer",
+      "action": "정보·제약·상대 입장이 달라진 과업을 수행한다."
+    },
+    {
+      "id": "delayed-review",
+      "action": "간격을 두고 무힌트로 다시 수행하고 필요하면 지원을 회복한다."
+    }
+  ],
+  "reviewPolicy": {
+    "intervalsAreHeuristic": true,
+    "adaptTo": [
+      "독립 수행 여부",
+      "오류와 도움 요청",
+      "지연 재수행 결과"
+    ],
+    "noGuaranteedMasteryHours": true
+  },
+  "assessmentPolicy": {
+    "meaningOverExactPhrase": true,
+    "recordAssistanceSeparately": true,
+    "doNotInferMasteryFrom": [
+      "완료 개수",
+      "발화 수",
+      "체류 시간",
+      "모델 예시 복사",
+      "희귀 단어 사용"
+    ],
+    "feedback": "핵심 오류 한두 개를 설명하고 학습자가 수정해 다시 시도한다.",
+    "outcomeMeasures": [
+      "지연 무힌트 재수행",
+      "조건 변경 전이",
+      "현실 필요성",
+      "도움 없이 달성한 과업 결과"
+    ]
+  },
+  "qualityGates": [
+    "구조·파일·분류·수준·참조 검증",
+    "과업 고유성·레벨 적합성 편집 검토",
+    "입문 접근성과 문화적 다양성 검토",
+    "실제 AI 상대의 과업 수행 검증",
+    "학습자의 지연 전이와 현실 필요성 검증"
+  ],
+  "designDocument": "../../docs/research/mission-curriculum-design.md",
+  "specializationCoverage": {
+    "categoryId": "work",
+    "levels": [
+      "A2",
+      "B1",
+      "B2",
+      "C1",
+      "C2"
+    ],
+    "missionsPerRoleLevel": 4,
+    "totalMissions": 80,
+    "tracks": [
+      {
+        "role": "developer",
+        "title": "개발자 문제 해결",
+        "source": "authoring/work-developer.json"
+      },
+      {
+        "role": "designer",
+        "title": "디자이너 문제 해결",
+        "source": "authoring/work-designer.json"
+      },
+      {
+        "role": "it-operations",
+        "title": "IT 운영 문제 해결",
+        "source": "authoring/work-it-operations.json"
+      },
+      {
+        "role": "cross-functional",
+        "title": "비즈니스 미팅 문제 해결",
+        "source": "authoring/work-business-meetings.json"
+      }
+    ],
+    "pattern": "곤란한 상황→사실·모르는 점 확인→제약 안에서 대안 협의→결정·담당·기한 또는 미합의와 에스컬레이션",
+    "technicalCorrectness": "특정 기술 명령이나 유일한 해결안을 영어 정답으로 강요하지 않는다. 실제 권한 밖 결정은 승인 주체에게 올린다."
+  }
+}

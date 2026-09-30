@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "travel-booking-pre-a1-choose-time",
+  "title": "오전과 오후 시간 선택하기",
+  "categoryId": "travel",
+  "subcategoryId": "booking",
+  "difficulty": "pre-A1",
+  "scenario": "체험 시간이 10시와 2시 두 개입니다. 오후 2시를 선택합니다. 실제 시계 그림 대신 [10:00 morning]과 [14:00 afternoon]이라는 가상 시간표를 보고 선택합니다.",
+  "practicalOutcome": "시간과 오전·오후를 확인한다.",
+  "roles": {
+    "learner": "예약 희망자",
+    "interlocutor": "직원. ten과 two를 한 번씩 말하고 가상 시간표 [10:00 morning], [14:00 afternoon]으로 확인한다."
+  },
+  "opening": "Ten or two?",
+  "estimatedMinutes": 5,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "시간 선택하기",
+      "example": "Two, please.",
+      "hints": [
+        "의도: 시간 선택하기",
+        "핵심 표현: two = 2시",
+        "완성 문장 예시: Two, please. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 시간 선택하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "오후인지 확인하기",
+      "example": "Afternoon?",
+      "hints": [
+        "의도: 오후인지 확인하기",
+        "핵심 표현: afternoon = 오후",
+        "완성 문장 예시: Afternoon? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 오후인지 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "선택 확정하기",
+      "example": "Yes, please.",
+      "hints": [
+        "의도: 선택 확정하기",
+        "핵심 표현: 네 부탁해요",
+        "완성 문장 예시: Yes, please. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 선택 확정하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "한국어 뜻, 짧은 모델, 단어 선택을 제공; 단어 하나도 의미가 맞으면 인정. 먼저 상황과 첫 발화의 뜻을 확인하고 시간 선택하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '오전과 오후 시간 선택하기' 상황에서 시간과 오전·오후를 확인한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "오전 10시로 바꾸고 morning 뜻을 확인한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '오전과 오후 시간 선택하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 오전 10시로 바꾸고 morning 뜻을 확인한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "시간과 오전·오후를 확인한다.",
+      "시간 선택하기",
+      "오후인지 확인하기",
+      "선택 확정하기",
+      "수준별 관찰: 단어와 정형 표현으로 의도 전달. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

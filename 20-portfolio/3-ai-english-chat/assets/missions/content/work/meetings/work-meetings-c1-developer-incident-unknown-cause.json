@@ -1,0 +1,129 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-meetings-c1-developer-incident-unknown-cause",
+  "title": "원인 미확정 장애의 상태와 완화 조치 전달하기",
+  "categoryId": "work",
+  "subcategoryId": "meetings",
+  "difficulty": "C1",
+  "scenario": "배포 직후 오류가 늘어났지만 같은 시각 외부 서비스 지연도 발생했습니다. 경영진은 배포 원인이라고 확정 발표하려 합니다.",
+  "practicalOutcome": "확인된 영향·미확정 원인·승인 요청·다음 업데이트를 구분한 상태 보고를 만든다.",
+  "roles": {
+    "learner": "조사 개발자. 사실·가설·확인 계획을 보고하며 장애 공지와 조치 승인 권한은 지휘자에게 있다.",
+    "interlocutor": "장애 지휘자. 이용자 안내를 서둘러야 하며 잠정 완화안과 다음 업데이트 시각을 원한다."
+  },
+  "caseBrief": {
+    "professionalRole": "developer",
+    "situation": "배포 직후 오류가 늘어났지만 같은 시각 외부 서비스 지연도 발생했습니다. 경영진은 배포 원인이라고 확정 발표하려 합니다.",
+    "facts": [
+      "오류 증가는 배포 5분 뒤 관찰됐다.",
+      "외부 호출 지연도 같은 시간대에 증가했다.",
+      "이전 버전 전환 효과는 아직 시험하지 않았다.",
+      "가상 저장 API에서 오전 10시 5분부터 일부 요청 실패가 관찰됐다. 전체 사용자나 다른 기능 영향은 미확인이다."
+    ],
+    "constraints": [
+      "시간적 연관만으로 원인을 단정하지 않는다.",
+      "완화 조치는 장애 지휘자의 승인이 필요하다."
+    ],
+    "learnerAuthority": "조사 개발자. 사실·가설·확인 계획을 보고하며 장애 공지와 조치 승인 권한은 지휘자에게 있다.",
+    "counterpartPosition": "장애 지휘자. 이용자 안내를 서둘러야 하며 잠정 완화안과 다음 업데이트 시각을 원한다.",
+    "unresolvedQuestions": [
+      "원인 가설별 근거는 무엇인가?",
+      "지금 승인 가능한 완화는 무엇인가?"
+    ],
+    "deliverable": "확인된 영향·미확정 원인·승인 요청·다음 업데이트를 구분한 상태 보고를 만든다.",
+    "resolutionCriteria": [
+      "원인 확정 없이 영향은 분명히 말한다.",
+      "완화와 원인 조사 작업을 나눈다.",
+      "지휘자의 판단과 담당 시간을 명시한다."
+    ],
+    "escalationPath": "위험 비교가 불가능하면 플랫폼 담당과 장애 지휘자에게 즉시 근거를 전달한다."
+  },
+  "opening": "We need to tell customers the release caused this and that a rollback will fix it.",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "연관과 인과 구분하기",
+      "example": "The timing makes the release a plausible factor, but the overlapping external slowdown means causation is not established.",
+      "hints": [
+        "의도: 연관과 인과 구분하기",
+        "핵심 표현: causation = 인과관계",
+        "완성 문장 예시: The timing makes the release a plausible factor, but the overlapping external slowdown means causation is not established. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 연관과 인과 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "확실한 공지 범위 제안하기",
+      "example": "We can say that some save requests have failed since 10:05, without claiming a confirmed cause or promising an untested remedy.",
+      "hints": [
+        "의도: 확실한 공지 범위 제안하기",
+        "핵심 표현: remedy = 완화·해결 조치",
+        "완성 문장 예시: We can say that some save requests have failed since 10:05, without claiming a confirmed cause or promising an untested remedy. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 확실한 공지 범위 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "병렬 작업과 승인 요청하기",
+      "example": "I propose separating the rollback risk review from the dependency investigation, with your approval before any operational change.",
+      "hints": [
+        "의도: 병렬 작업과 승인 요청하기",
+        "핵심 표현: dependency = 의존 서비스",
+        "완성 문장 예시: I propose separating the rollback risk review from the dependency investigation, with your approval before any operational change. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 병렬 작업과 승인 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "다음 보고 약속하기",
+      "example": "I will provide the comparison and remaining uncertainties in fifteen minutes so you can authorize the next step.",
+      "hints": [
+        "의도: 다음 보고 약속하기",
+        "핵심 표현: authorize = 승인하다",
+        "완성 문장 예시: I will provide the comparison and remaining uncertainties in fifteen minutes so you can authorize the next step. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 다음 보고 약속하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 연관과 인과 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '원인 미확정 장애의 상태와 완화 조치 전달하기' 상황에서 확인된 영향·미확정 원인·승인 요청·다음 업데이트를 구분한 상태 보고를 만든다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "이전 버전 전환 뒤 오류가 줄지만 외부 지연도 줄었다. 개선을 보고하되 원인이 확정됐다고 말하지 않는다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '원인 미확정 장애의 상태와 완화 조치 전달하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 이전 버전 전환 뒤 오류가 줄지만 외부 지연도 줄었다. 개선을 보고하되 원인이 확정됐다고 말하지 않는다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "확인된 영향·미확정 원인·승인 요청·다음 업데이트를 구분한 상태 보고를 만든다.",
+      "연관과 인과 구분하기",
+      "확실한 공지 범위 제안하기",
+      "병렬 작업과 승인 요청하기",
+      "다음 보고 약속하기",
+      "원인 확정 없이 영향은 분명히 말한다.",
+      "완화와 원인 조사 작업을 나눈다.",
+      "지휘자의 판단과 담당 시간을 명시한다.",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

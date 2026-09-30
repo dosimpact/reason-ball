@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-food-drink-b2-waste-plan",
+  "title": "남은 음식과 일행의 선호 조율하기",
+  "categoryId": "daily",
+  "subcategoryId": "food-drink",
+  "difficulty": "B2",
+  "scenario": "모임에서 음식이 많이 남았습니다. 한 사람은 포장, 다른 사람은 위생 때문에 거절합니다. 직원은 포장은 가능하지만 보관 조언은 확인해야 합니다.",
+  "practicalOutcome": "선호를 강요하지 않고 분리 포장과 필요한 정보 확인을 요청한다.",
+  "roles": {
+    "learner": "식당·카페 손님",
+    "interlocutor": "직원. 작은 용기를 제공할 수 있고 개별 음식의 보관 조건은 주방 확인이 필요하다."
+  },
+  "opening": "Would you like everything packed together?",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "서로 다른 선호 구분하기",
+      "example": "Some of us would like leftovers, but others would rather not take any.",
+      "hints": [
+        "의도: 서로 다른 선호 구분하기",
+        "핵심 표현: would rather not = 원치 않다",
+        "완성 문장 예시: Some of us would like leftovers, but others would rather not take any. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 서로 다른 선호 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "일괄 포장 대신 대안 요청하기",
+      "example": "Could you separate the dishes so people can choose what to take?",
+      "hints": [
+        "의도: 일괄 포장 대신 대안 요청하기",
+        "핵심 표현: separate the dishes = 음식별 분리",
+        "완성 문장 예시: Could you separate the dishes so people can choose what to take? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 일괄 포장 대신 대안 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "확인되지 않은 보관 조건 질문하기",
+      "example": "Please check which dishes need special storage; we do not want to guess.",
+      "hints": [
+        "의도: 확인되지 않은 보관 조건 질문하기",
+        "핵심 표현: check which = 어떤 것인지 확인",
+        "완성 문장 예시: Please check which dishes need special storage; we do not want to guess. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 확인되지 않은 보관 조건 질문하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 서로 다른 선호 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '남은 음식과 일행의 선호 조율하기' 상황에서 선호를 강요하지 않고 분리 포장과 필요한 정보 확인을 요청한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "포장 용기가 부족할 때 원하는 사람 수와 우선 포장할 음식을 협의한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '남은 음식과 일행의 선호 조율하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 포장 용기가 부족할 때 원하는 사람 수와 우선 포장할 음식을 협의한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "선호를 강요하지 않고 분리 포장과 필요한 정보 확인을 요청한다.",
+      "서로 다른 선호 구분하기",
+      "일괄 포장 대신 대안 요청하기",
+      "확인되지 않은 보관 조건 질문하기",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

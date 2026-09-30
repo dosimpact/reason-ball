@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-housing-b2-renewal-options",
+  "title": "임대 연장 조건 비교하기",
+  "categoryId": "daily",
+  "subcategoryId": "housing",
+  "difficulty": "B2",
+  "scenario": "계약 연장은 12개월에 월 900, 6개월에 월 950입니다. 직장 이동 여부가 4개월 뒤 결정됩니다.",
+  "practicalOutcome": "월 비용과 이동 가능성을 비교해 확인할 조항과 선호를 전달한다.",
+  "roles": {
+    "learner": "거주자",
+    "interlocutor": "담당자. 중도 종료 가능 여부는 계약 조항 확인이 필요하고 가격을 즉시 낮출 권한은 없다."
+  },
+  "opening": "The twelve-month option is better value.",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "가격과 유연성 비교하기",
+      "example": "It is cheaper each month, but the longer commitment creates a risk if I need to move.",
+      "hints": [
+        "의도: 가격과 유연성 비교하기",
+        "핵심 표현: longer commitment = 장기 약정",
+        "완성 문장 예시: It is cheaper each month, but the longer commitment creates a risk if I need to move. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 가격과 유연성 비교하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "판단에 필요한 조건 묻기",
+      "example": "Could you show me the notice and early-exit terms for both options?",
+      "hints": [
+        "의도: 판단에 필요한 조건 묻기",
+        "핵심 표현: notice / early-exit terms = 통보·중도 종료 조건",
+        "완성 문장 예시: Could you show me the notice and early-exit terms for both options? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 판단에 필요한 조건 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "조건부 선호 전달하기",
+      "example": "I would consider twelve months if there is a clearly agreed break option; otherwise six months may fit my situation better.",
+      "hints": [
+        "의도: 조건부 선호 전달하기",
+        "핵심 표현: otherwise = 그렇지 않으면",
+        "완성 문장 예시: I would consider twelve months if there is a clearly agreed break option; otherwise six months may fit my situation better. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 조건부 선호 전달하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 가격과 유연성 비교하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '임대 연장 조건 비교하기' 상황에서 월 비용과 이동 가능성을 비교해 확인할 조항과 선호를 전달한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "직장 이동이 취소되면 유연성과 비용의 우선순위가 어떻게 달라지는지 설명한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '임대 연장 조건 비교하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 직장 이동이 취소되면 유연성과 비용의 우선순위가 어떻게 달라지는지 설명한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "월 비용과 이동 가능성을 비교해 확인할 조항과 선호를 전달한다.",
+      "가격과 유연성 비교하기",
+      "판단에 필요한 조건 묻기",
+      "조건부 선호 전달하기",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

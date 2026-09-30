@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-shopping-a1-stock",
+  "title": "품절 여부와 다른 색 묻기",
+  "categoryId": "daily",
+  "subcategoryId": "shopping",
+  "difficulty": "A1",
+  "scenario": "검은 운동화 작은 사이즈를 찾는데 진열되어 있지 않습니다.",
+  "practicalOutcome": "사이즈·색 재고를 확인하고 가능한 대체품을 고른다.",
+  "roles": {
+    "learner": "구매자",
+    "interlocutor": "점원. 검은색은 없고 흰색 작은 사이즈만 있다고 답한다."
+  },
+  "opening": "Which shoes are you looking for?",
+  "estimatedMinutes": 7,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "상품과 사이즈 말하기",
+      "example": "Do you have these in a small size?",
+      "hints": [
+        "의도: 상품과 사이즈 말하기",
+        "핵심 표현: do you have = 있나요",
+        "완성 문장 예시: Do you have these in a small size? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 상품과 사이즈 말하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "검은색 묻기",
+      "example": "Do you have black ones?",
+      "hints": [
+        "의도: 검은색 묻기",
+        "핵심 표현: black ones = 검은 것들",
+        "완성 문장 예시: Do you have black ones? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 검은색 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "흰색 제안에 답하기",
+      "example": "White is OK.",
+      "hints": [
+        "의도: 흰색 제안에 답하기",
+        "핵심 표현: is OK = 괜찮다",
+        "완성 문장 예시: White is OK. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 흰색 제안에 답하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "한 번에 한 질문; 필요하면 반복과 예시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 상품과 사이즈 말하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '품절 여부와 다른 색 묻기' 상황에서 사이즈·색 재고를 확인하고 가능한 대체품을 고른다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "대체 색을 원하지 않을 때 감사 인사 후 구매하지 않겠다고 말한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '품절 여부와 다른 색 묻기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 대체 색을 원하지 않을 때 감사 인사 후 구매하지 않겠다고 말한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "사이즈·색 재고를 확인하고 가능한 대체품을 고른다.",
+      "상품과 사이즈 말하기",
+      "검은색 묻기",
+      "흰색 제안에 답하기",
+      "수준별 관찰: 예측 가능한 질문과 답, 기본 정보 확인. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

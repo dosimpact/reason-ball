@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "verifiedAt": "2026-09-20T16:45:14.724Z",
+  "scope": "real remote Supabase; isolated temporary account",
+  "concurrentInitialRequests": 8,
+  "assigned": 5,
+  "level": "pre-A1",
+  "category": "travel",
+  "distinctSubcategories": 5,
+  "checks": [
+    "profile required",
+    "concurrent initial requests yield only five assignments",
+    "saved CEFR and interests select five distinct areas",
+    "profile edits and retries preserve assignments",
+    "unassigned mission/version/steps hidden through direct Data API",
+    "browser cannot self-assign or self-promote",
+    "service start enforces NEW.owner assignment and rolls back fully"
+  ],
+  "fixtureCleanup": "deleted"
+}

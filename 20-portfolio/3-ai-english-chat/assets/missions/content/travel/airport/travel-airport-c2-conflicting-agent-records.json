@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "travel-airport-c2-conflicting-agent-records",
+  "title": "두 직원의 상충 안내를 체면을 지키며 조정하기",
+  "categoryId": "travel",
+  "subcategoryId": "airport",
+  "difficulty": "C2",
+  "scenario": "앞선 직원은 추가 비용이 없다고 했고 새 직원은 반드시 지불해야 한다고 합니다. 기록에는 변경 지원만 적혀 있습니다.",
+  "practicalOutcome": "불확실한 구두 안내를 사실과 영향으로 분리하여 검토를 요청한다.",
+  "roles": {
+    "learner": "재예약 승객",
+    "interlocutor": "새 관리자. 구두 약속을 확인할 수 없지만 기존 메모와 요금 계산을 검토할 권한이 있다."
+  },
+  "opening": "There is no record of a fee waiver, so I cannot accept that this was promised.",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "기억과 증거를 구분하기",
+      "example": "I cannot establish the exact wording from the record, but I made my decision on the understanding that no additional fare would be charged.",
+      "hints": [
+        "의도: 기억과 증거를 구분하기",
+        "핵심 표현: on the understanding = 그렇게 이해하고",
+        "완성 문장 예시: I cannot establish the exact wording from the record, but I made my decision on the understanding that no additional fare would be charged. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 기억과 증거를 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "개인 책임 추궁 없이 쟁점 재구성하기",
+      "example": "Could we treat this as a gap between the advice received and the booking outcome, rather than a dispute over an individual colleague?",
+      "hints": [
+        "의도: 개인 책임 추궁 없이 쟁점 재구성하기",
+        "핵심 표현: gap = 불일치",
+        "완성 문장 예시: Could we treat this as a gap between the advice received and the booking outcome, rather than a dispute over an individual colleague? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 개인 책임 추궁 없이 쟁점 재구성하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "검토와 임시 조치 요청하기",
+      "example": "While you review that gap, can the seat be held and the disputed amount left unresolved until an authorized decision is made?",
+      "hints": [
+        "의도: 검토와 임시 조치 요청하기",
+        "핵심 표현: disputed amount = 다투는 금액",
+        "완성 문장 예시: While you review that gap, can the seat be held and the disputed amount left unresolved until an authorized decision is made? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 검토와 임시 조치 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 기억과 증거를 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '두 직원의 상충 안내를 체면을 지키며 조정하기' 상황에서 불확실한 구두 안내를 사실과 영향으로 분리하여 검토를 요청한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "앞선 안내 녹취가 있으나 일부만 들린다. 증거의 한계를 명시하며 재검토를 요청한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '두 직원의 상충 안내를 체면을 지키며 조정하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 앞선 안내 녹취가 있으나 일부만 들린다. 증거의 한계를 명시하며 재검토를 요청한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "불확실한 구두 안내를 사실과 영향으로 분리하여 검토를 요청한다.",
+      "기억과 증거를 구분하기",
+      "개인 책임 추궁 없이 쟁점 재구성하기",
+      "검토와 임시 조치 요청하기",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

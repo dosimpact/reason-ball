@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Category mission authoring catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "categoryId", "missions"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "categoryId": { "enum": ["daily", "travel", "social", "work"] },
+    "missions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "title", "categoryId", "subcategoryId", "difficulty", "authoringStatus", "file", "tags"],
+        "properties": {
+          "key": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 120 },
+          "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+          "categoryId": { "enum": ["daily", "travel", "social", "work"] },
+          "subcategoryId": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "difficulty": { "enum": ["pre-A1", "A1", "A2", "B1", "B2", "C1", "C2"] },
+          "authoringStatus": { "enum": ["planned", "draft", "review", "ready", "retired"] },
+          "file": {
+            "oneOf": [
+              { "type": "null" },
+              { "type": "string", "pattern": "^content/[a-z0-9-]+/[a-z0-9-]+/[a-z0-9-]+\\.json$" }
+            ]
+          },
+          "tags": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 60 } }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "authoringStatus": { "enum": ["draft", "review", "ready"] } } },
+            "then": { "properties": { "file": { "type": "string" } } }
+          }
+        ]
+      }
+    }
+  }
+}

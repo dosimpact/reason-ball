@@ -1,0 +1,128 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-meetings-c2-developer-conflicting-quality-metrics",
+  "title": "서로 다른 품질 지표가 충돌할 때 출시 판단 돕기",
+  "categoryId": "work",
+  "subcategoryId": "meetings",
+  "difficulty": "C2",
+  "scenario": "페이지 표시 시간은 줄었지만 데이터가 최신 상태가 되는 시간은 길어졌습니다. 팀은 속도 개선 성공이라고 발표하려 합니다.",
+  "practicalOutcome": "지표별 의미와 사용자 목적·절충을 드러낸 평가 기준을 합의한다.",
+  "roles": {
+    "learner": "개발 분석 담당자. 지표 의미를 설명하고 사용자 목적별 기준을 제안한다.",
+    "interlocutor": "제품 분석 담당자. 첫 표시 지표가 기존 목표라 성공으로 보고하려 하지만 상태 확인 사용자의 불편도 인정한다."
+  },
+  "caseBrief": {
+    "professionalRole": "developer",
+    "situation": "페이지 표시 시간은 줄었지만 데이터가 최신 상태가 되는 시간은 길어졌습니다. 팀은 속도 개선 성공이라고 발표하려 합니다.",
+    "facts": [
+      "첫 화면 표시 중앙값은 2초에서 1초로 줄었다.",
+      "최신 데이터 확인 중앙값은 3초에서 5초로 늘었다.",
+      "목록 탐색과 상태 확인 사용자는 목적이 다르다."
+    ],
+    "constraints": [
+      "하나의 숫자로 전체 사용자 경험을 대표하지 않는다.",
+      "이번 회의는 측정과 의사결정 기준을 정한다."
+    ],
+    "learnerAuthority": "개발 분석 담당자. 지표 의미를 설명하고 사용자 목적별 기준을 제안한다.",
+    "counterpartPosition": "제품 분석 담당자. 첫 표시 지표가 기존 목표라 성공으로 보고하려 하지만 상태 확인 사용자의 불편도 인정한다.",
+    "unresolvedQuestions": [
+      "어떤 사용자 결과가 우선인가?",
+      "두 지표의 허용 범위는 어떻게 정할 것인가?"
+    ],
+    "deliverable": "지표별 의미와 사용자 목적·절충을 드러낸 평가 기준을 합의한다.",
+    "resolutionCriteria": [
+      "두 지표를 정확히 전달한다.",
+      "성공 정의의 선택을 드러낸다.",
+      "공동 기준과 추가 확인 담당을 정한다."
+    ],
+    "escalationPath": "목적 우선순위를 합의 못 하면 제품 책임자가 사용자 근거와 절충을 보고 결정한다."
+  },
+  "opening": "We halved the load time, so the speed objective is achieved.",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "측정 명칭의 범위 설명하기",
+      "example": "We halved time to first display, not time to a verified current state; calling both load time hides a trade-off.",
+      "hints": [
+        "의도: 측정 명칭의 범위 설명하기",
+        "핵심 표현: verified current state = 최신임이 확인된 상태",
+        "완성 문장 예시: We halved time to first display, not time to a verified current state; calling both load time hides a trade-off. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 측정 명칭의 범위 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "사용자 목적별 의미 제시하기",
+      "example": "For browsing, the earlier display may help. For checking whether a change has taken effect, the longer confirmation delay may be the more relevant experience.",
+      "hints": [
+        "의도: 사용자 목적별 의미 제시하기",
+        "핵심 표현: taken effect = 반영되었다",
+        "완성 문장 예시: For browsing, the earlier display may help. For checking whether a change has taken effect, the longer confirmation delay may be the more relevant experience. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 사용자 목적별 의미 제시하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "평가 체계 재구성하기",
+      "example": "Could we report the two outcomes separately and agree acceptable bounds for each rather than let the original metric settle the product question by default?",
+      "hints": [
+        "의도: 평가 체계 재구성하기",
+        "핵심 표현: acceptable bounds = 허용 범위",
+        "완성 문장 예시: Could we report the two outcomes separately and agree acceptable bounds for each rather than let the original metric settle the product question by default? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 평가 체계 재구성하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "판단 책임과 확인 요청하기",
+      "example": "I can prepare segmented evidence by Friday; the product owner should then state which compromise we are choosing and why.",
+      "hints": [
+        "의도: 판단 책임과 확인 요청하기",
+        "핵심 표현: segmented evidence = 사용자 목적별 근거",
+        "완성 문장 예시: I can prepare segmented evidence by Friday; the product owner should then state which compromise we are choosing and why. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 판단 책임과 확인 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 측정 명칭의 범위 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '서로 다른 품질 지표가 충돌할 때 출시 판단 돕기' 상황에서 지표별 의미와 사용자 목적·절충을 드러낸 평가 기준을 합의한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "평균은 좋아졌지만 느린 사용자 구간은 악화됐다. 대표값 하나로 성과를 말하지 않고 분포를 함께 검토한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '서로 다른 품질 지표가 충돌할 때 출시 판단 돕기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 평균은 좋아졌지만 느린 사용자 구간은 악화됐다. 대표값 하나로 성과를 말하지 않고 분포를 함께 검토한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "지표별 의미와 사용자 목적·절충을 드러낸 평가 기준을 합의한다.",
+      "측정 명칭의 범위 설명하기",
+      "사용자 목적별 의미 제시하기",
+      "평가 체계 재구성하기",
+      "판단 책임과 확인 요청하기",
+      "두 지표를 정확히 전달한다.",
+      "성공 정의의 선택을 드러낸다.",
+      "공동 기준과 추가 확인 담당을 정한다.",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

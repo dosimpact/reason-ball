@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-services-c2-public-service-metrics",
+  "title": "서비스 만족도 수치의 의미 확인하기",
+  "categoryId": "daily",
+  "subcategoryId": "services",
+  "difficulty": "C2",
+  "scenario": "센터는 만족도 95%를 홍보하지만 설문은 서비스를 완료한 사람에게만 보냈습니다. 중도 포기자는 포함 안 됐습니다.",
+  "practicalOutcome": "유효한 만족도 결과를 존중하면서 대상 범위와 누락된 접근 경험을 명시하도록 제안한다.",
+  "roles": {
+    "learner": "생활 서비스 이용자",
+    "interlocutor": "센터 담당자. 완료 이용자 중 응답자의 점수이며 접수 실패 경험은 별도 기록한다고 답한다."
+  },
+  "opening": "The survey shows that almost everyone is happy with the service.",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "측정 대상과 일반화 범위 구분하기",
+      "example": "It shows high satisfaction among respondents who completed the process, which is narrower than satisfaction among everyone who tried to use it.",
+      "hints": [
+        "의도: 측정 대상과 일반화 범위 구분하기",
+        "핵심 표현: narrower than = 더 좁은 범위",
+        "완성 문장 예시: It shows high satisfaction among respondents who completed the process, which is narrower than satisfaction among everyone who tried to use it. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 측정 대상과 일반화 범위 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "빠진 경험의 중요성 설명하기",
+      "example": "People unable to complete the process may have a systematically different experience, so excluding them could conceal the barrier we need to understand.",
+      "hints": [
+        "의도: 빠진 경험의 중요성 설명하기",
+        "핵심 표현: systematically different = 체계적으로 다른",
+        "완성 문장 예시: People unable to complete the process may have a systematically different experience, so excluding them could conceal the barrier we need to understand. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 빠진 경험의 중요성 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "수치를 버리지 않고 보완안 제안하기",
+      "example": "Could you retain the completion survey, label its population clearly, and report access failures alongside it?",
+      "hints": [
+        "의도: 수치를 버리지 않고 보완안 제안하기",
+        "핵심 표현: alongside = 함께 제시",
+        "완성 문장 예시: Could you retain the completion survey, label its population clearly, and report access failures alongside it? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 수치를 버리지 않고 보완안 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 측정 대상과 일반화 범위 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '서비스 만족도 수치의 의미 확인하기' 상황에서 유효한 만족도 결과를 존중하면서 대상 범위와 누락된 접근 경험을 명시하도록 제안한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "완료자 응답률도 낮다면 완료와 응답의 두 선택 단계를 구분한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '서비스 만족도 수치의 의미 확인하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 완료자 응답률도 낮다면 완료와 응답의 두 선택 단계를 구분한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "유효한 만족도 결과를 존중하면서 대상 범위와 누락된 접근 경험을 명시하도록 제안한다.",
+      "측정 대상과 일반화 범위 구분하기",
+      "빠진 경험의 중요성 설명하기",
+      "수치를 버리지 않고 보완안 제안하기",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

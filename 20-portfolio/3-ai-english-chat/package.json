@@ -1,0 +1,35 @@
+{
+  "name": "3-ai-english-chat",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.33.4",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @ai-english-chat/web dev",
+    "build": "pnpm --filter @ai-english-chat/web build",
+    "lint": "pnpm --filter @ai-english-chat/web lint",
+    "typecheck": "pnpm --filter @ai-english-chat/web typecheck",
+    "test": "pnpm --filter @ai-english-chat/web test",
+    "test:db": "pnpm --filter @ai-english-chat/web test:db",
+    "test:contracts": "pnpm --filter @ai-english-chat/web test:contracts",
+    "test:e2e": "pnpm --filter @ai-english-chat/web test:e2e",
+    "test:e2e:production": "PLAYWRIGHT_LIVE_PRODUCTION=1 pnpm --filter @ai-english-chat/web test:e2e",
+    "test:security": "pnpm --filter @ai-english-chat/web test:security",
+    "test:e2e:ui": "pnpm --filter @ai-english-chat/web test:e2e:ui",
+    "supabase:check": "pnpm --filter @ai-english-chat/web supabase:check",
+    "test:e2e:supabase": "pnpm --filter @ai-english-chat/web test:e2e:supabase",
+    "test:e2e:mock": "pnpm --filter @ai-english-chat/web test:e2e:mock",
+    "missions:compile": "node scripts/missions/compile-catalog.mjs",
+    "missions:check": "node scripts/missions/compile-catalog.mjs --check && node scripts/missions/validate-catalog.mjs --complete",
+    "missions:test": "node --test scripts/missions/*.test.mjs",
+    "missions:import": "node --env-file-if-exists=apps/web/.env.local scripts/missions/import-catalog.mjs",
+    "missions:verify-remote": "node --env-file-if-exists=apps/web/.env.local scripts/missions/verify-remote-catalog.mjs",
+    "missions:test:remote-provisioning": "node --env-file-if-exists=apps/web/.env.local scripts/missions/verify-provisioning-remote.mjs",
+    "missions:test:guest-browsing": "node --env-file-if-exists=apps/web/.env.local scripts/missions/verify-guest-browsing.mjs"
+  },
+  "devDependencies": {
+    "supabase": "^2.116.0"
+  }
+}

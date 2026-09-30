@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-shopping-c1-accessibility-shopping",
+  "title": "접근 가능한 매장 이용 방식 협의하기",
+  "categoryId": "daily",
+  "subcategoryId": "shopping",
+  "difficulty": "C1",
+  "scenario": "이동 보조 기구를 사용해 좁은 통로를 지나기 어렵습니다. 점원은 온라인으로 사면 된다고 제안하지만 직접 비교하고 싶습니다.",
+  "practicalOutcome": "온라인 대체 제안의 한계를 설명하고 대면 비교를 가능하게 하는 조정을 합의한다.",
+  "roles": {
+    "learner": "구매자",
+    "interlocutor": "매장 책임자. 통로 전체 재배치는 어렵지만 넓은 상담 공간으로 제품을 가져올 수 있다."
+  },
+  "opening": "Would it not be easier for you to order online?",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "선의 인정과 빠진 필요 설명하기",
+      "example": "I appreciate the suggestion, but ordering online would not let me compare the controls and fit in person.",
+      "hints": [
+        "의도: 선의 인정과 빠진 필요 설명하기",
+        "핵심 표현: would not let me = 필요 충족의 한계",
+        "완성 문장 예시: I appreciate the suggestion, but ordering online would not let me compare the controls and fit in person. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 선의 인정과 빠진 필요 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "동등한 선택권을 위한 조정 제안하기",
+      "example": "Could we use the accessible counter and bring two models there, so I can make the same comparison as other customers?",
+      "hints": [
+        "의도: 동등한 선택권을 위한 조정 제안하기",
+        "핵심 표현: make the same comparison = 동일한 비교 기회",
+        "완성 문장 예시: Could we use the accessible counter and bring two models there, so I can make the same comparison as other customers? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 동등한 선택권을 위한 조정 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "진행 방식과 동의 확인하기",
+      "example": "Please ask before moving my equipment, and let me know if any demonstration cannot be done at that counter.",
+      "hints": [
+        "의도: 진행 방식과 동의 확인하기",
+        "핵심 표현: ask before = 행동 전 동의",
+        "완성 문장 예시: Please ask before moving my equipment, and let me know if any demonstration cannot be done at that counter. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 진행 방식과 동의 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 선의 인정과 빠진 필요 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '접근 가능한 매장 이용 방식 협의하기' 상황에서 온라인 대체 제안의 한계를 설명하고 대면 비교를 가능하게 하는 조정을 합의한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "해당 공간에 전원이 없을 때 작동 시연이 가능한 다른 위치를 협의한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '접근 가능한 매장 이용 방식 협의하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 해당 공간에 전원이 없을 때 작동 시연이 가능한 다른 위치를 협의한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "온라인 대체 제안의 한계를 설명하고 대면 비교를 가능하게 하는 조정을 합의한다.",
+      "선의 인정과 빠진 필요 설명하기",
+      "동등한 선택권을 위한 조정 제안하기",
+      "진행 방식과 동의 확인하기",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

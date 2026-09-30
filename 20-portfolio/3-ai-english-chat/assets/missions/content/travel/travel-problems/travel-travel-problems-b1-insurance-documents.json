@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "travel-travel-problems-b1-insurance-documents",
+  "title": "여행 보험 문의에 필요한 서류 확인하기",
+  "categoryId": "travel",
+  "subcategoryId": "travel-problems",
+  "difficulty": "B1",
+  "scenario": "수하물 지연으로 생필품을 샀고 보장 여부 심사를 신청하려 합니다. 가상 수하물은 이틀 늦게 도착했으며 그동안 기본 의류를 샀습니다.",
+  "practicalOutcome": "보장 확약 대신 심사 서류와 절차를 확인한다.",
+  "roles": {
+    "learner": "보험 문의 여행자",
+    "interlocutor": "상담원. 보장 확정 없이 지연 확인서·구매 영수증·예약 정보가 필요하다고 안내한다."
+  },
+  "opening": "Please tell me what happened to your luggage.",
+  "estimatedMinutes": 12,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "경위와 비용 설명하기",
+      "example": "My bag arrived two days late, so I bought basic clothing.",
+      "hints": [
+        "의도: 경위와 비용 설명하기",
+        "핵심 표현: basic clothing = 기본 의류",
+        "완성 문장 예시: My bag arrived two days late, so I bought basic clothing. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 경위와 비용 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "필요 자료 묻기",
+      "example": "Which receipts and airline documents should I provide?",
+      "hints": [
+        "의도: 필요 자료 묻기",
+        "핵심 표현: provide = 제출하다",
+        "완성 문장 예시: Which receipts and airline documents should I provide? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 필요 자료 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "검토 절차 확인하기",
+      "example": "How will I know whether the request has been accepted for review?",
+      "hints": [
+        "의도: 검토 절차 확인하기",
+        "핵심 표현: review = 검토",
+        "완성 문장 예시: How will I know whether the request has been accepted for review? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 검토 절차 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "이유·경험 연결; 요청 시 핵심 표현 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 경위와 비용 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '여행 보험 문의에 필요한 서류 확인하기' 상황에서 보장 확약 대신 심사 서류와 절차를 확인한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "영수증 하나를 잃었다. 대체 증빙이 가능한지 솔직히 묻는다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '여행 보험 문의에 필요한 서류 확인하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 영수증 하나를 잃었다. 대체 증빙이 가능한지 솔직히 묻는다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "보장 확약 대신 심사 서류와 절차를 확인한다.",
+      "경위와 비용 설명하기",
+      "필요 자료 묻기",
+      "검토 절차 확인하기",
+      "수준별 관찰: 예상 밖 문제 설명과 복구. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

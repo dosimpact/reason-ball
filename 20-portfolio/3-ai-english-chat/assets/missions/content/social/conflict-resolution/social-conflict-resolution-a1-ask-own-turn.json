@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "social-conflict-resolution-a1-ask-own-turn",
+  "title": "차례가 잘못됐을 때 말하기",
+  "categoryId": "social",
+  "subcategoryId": "conflict-resolution",
+  "difficulty": "A1",
+  "scenario": "게임에서 내 차례를 건너뛰었습니다.",
+  "practicalOutcome": "공격하지 않고 자신의 차례를 확인한다.",
+  "roles": {
+    "learner": "상황 속 대화 참여자(가상 정보 사용)",
+    "interlocutor": "게임 참가자. 순서를 착각했고 확인하면 차례를 돌려준다."
+  },
+  "opening": "It's Jo's turn.",
+  "estimatedMinutes": 7,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "주의 끌기",
+      "example": "Excuse me.",
+      "hints": [
+        "의도: 주의 끌기",
+        "핵심 표현: excuse me = 잠시만요",
+        "완성 문장 예시: Excuse me. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 주의 끌기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "내 차례 알리기",
+      "example": "It's my turn.",
+      "hints": [
+        "의도: 내 차례 알리기",
+        "핵심 표현: my turn = 내 차례",
+        "완성 문장 예시: It's my turn. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 내 차례 알리기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "차례 확인하기",
+      "example": "Can I go now?",
+      "hints": [
+        "의도: 차례 확인하기",
+        "핵심 표현: go now = 지금 하다",
+        "완성 문장 예시: Can I go now? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 차례 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "한 번에 한 질문; 필요하면 반복과 예시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 주의 끌기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '차례가 잘못됐을 때 말하기' 상황에서 공격하지 않고 자신의 차례를 확인한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "규칙상 차례를 쉬는 상황이다. 이유를 듣고 다음 차례를 확인한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '차례가 잘못됐을 때 말하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 규칙상 차례를 쉬는 상황이다. 이유를 듣고 다음 차례를 확인한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "공격하지 않고 자신의 차례를 확인한다.",
+      "주의 끌기",
+      "내 차례 알리기",
+      "차례 확인하기",
+      "수준별 관찰: 예측 가능한 질문과 답, 기본 정보 확인. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

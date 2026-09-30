@@ -1,0 +1,128 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-collaboration-c1-developer-security-release-blocker",
+  "title": "출시 직전 권한 문제의 차단 범위 설명하기",
+  "categoryId": "work",
+  "subcategoryId": "collaboration",
+  "difficulty": "C1",
+  "scenario": "한 테스트 계정이 다른 계정의 초안을 읽는 사례가 발견됐습니다. 제품팀은 목록 화면만 숨기면 된다고 합니다.",
+  "practicalOutcome": "권한 경계 문제와 출시 판단에 필요한 검증·담당자를 명확히 한다.",
+  "roles": {
+    "learner": "문제를 확인한 개발자. 재현과 차단 필요를 보고하지만 보안 사고 판단은 보안 담당과 리드가 한다.",
+    "interlocutor": "제품 담당자. 출시 지연을 피하고 싶으며 화면 수정만으로 충분한지 묻는다."
+  },
+  "caseBrief": {
+    "professionalRole": "developer",
+    "situation": "한 테스트 계정이 다른 계정의 초안을 읽는 사례가 발견됐습니다. 제품팀은 목록 화면만 숨기면 된다고 합니다.",
+    "facts": [
+      "화면 목록을 숨겨도 직접 요청으로 같은 초안이 반환됐다.",
+      "재현은 가상 계정 두 개로 확인됐다.",
+      "다른 경로까지의 영향은 아직 조사 중이다."
+    ],
+    "constraints": [
+      "실제 사용자 정보는 공유하지 않는다.",
+      "시각적 숨김을 권한 수정으로 보고하지 않는다."
+    ],
+    "learnerAuthority": "문제를 확인한 개발자. 재현과 차단 필요를 보고하지만 보안 사고 판단은 보안 담당과 리드가 한다.",
+    "counterpartPosition": "제품 담당자. 출시 지연을 피하고 싶으며 화면 수정만으로 충분한지 묻는다.",
+    "unresolvedQuestions": [
+      "서버에서 어떤 경계가 잘못됐는가?",
+      "출시 전 확인해야 할 유사 경로는 무엇인가?"
+    ],
+    "deliverable": "권한 경계 문제와 출시 판단에 필요한 검증·담당자를 명확히 한다.",
+    "resolutionCriteria": [
+      "화면과 직접 요청의 차이를 설명한다.",
+      "확인 범위와 미확인 범위를 구분한다.",
+      "보안·출시 책임자에게 에스컬레이션한다."
+    ],
+    "escalationPath": "보안 담당과 출시 리드가 영향·차단 범위·재검증 후 승인 여부를 결정한다."
+  },
+  "opening": "If we hide the draft list, can we still ship today?",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "UX와 권한 경계 구분하기",
+      "example": "Hiding the list removes one discovery path, but the direct request still returns another account’s draft.",
+      "hints": [
+        "의도: UX와 권한 경계 구분하기",
+        "핵심 표현: discovery path = 발견 경로",
+        "완성 문장 예시: Hiding the list removes one discovery path, but the direct request still returns another account’s draft. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: UX와 권한 경계 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "근거 범위 밝히기",
+      "example": "We reproduced that with two test accounts; we have not yet established whether other endpoints are affected.",
+      "hints": [
+        "의도: 근거 범위 밝히기",
+        "핵심 표현: endpoints = 요청 경로",
+        "완성 문장 예시: We reproduced that with two test accounts; we have not yet established whether other endpoints are affected. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 근거 범위 밝히기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "필요한 조치 범위 설명하기",
+      "example": "The release decision needs a server-side fix and a targeted review of related access paths, not only a visual change.",
+      "hints": [
+        "의도: 필요한 조치 범위 설명하기",
+        "핵심 표현: targeted review = 관련 범위 검토",
+        "완성 문장 예시: The release decision needs a server-side fix and a targeted review of related access paths, not only a visual change. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 필요한 조치 범위 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "판단자와 다음 보고 정하기",
+      "example": "I will send the test evidence to security and the release lead now, with a status update in an hour.",
+      "hints": [
+        "의도: 판단자와 다음 보고 정하기",
+        "핵심 표현: test evidence = 시험 근거",
+        "완성 문장 예시: I will send the test evidence to security and the release lead now, with a status update in an hour. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 판단자와 다음 보고 정하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 UX와 권한 경계 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '출시 직전 권한 문제의 차단 범위 설명하기' 상황에서 권한 경계 문제와 출시 판단에 필요한 검증·담당자를 명확히 한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "직접 요청은 차단됐지만 캐시된 화면에 남아 있다. 권한 수정과 남은 노출 경로의 검증을 나눠 보고한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '출시 직전 권한 문제의 차단 범위 설명하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 직접 요청은 차단됐지만 캐시된 화면에 남아 있다. 권한 수정과 남은 노출 경로의 검증을 나눠 보고한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "권한 경계 문제와 출시 판단에 필요한 검증·담당자를 명확히 한다.",
+      "UX와 권한 경계 구분하기",
+      "근거 범위 밝히기",
+      "필요한 조치 범위 설명하기",
+      "판단자와 다음 보고 정하기",
+      "화면과 직접 요청의 차이를 설명한다.",
+      "확인 범위와 미확인 범위를 구분한다.",
+      "보안·출시 책임자에게 에스컬레이션한다.",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

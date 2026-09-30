@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-shopping-b1-missed-delivery",
+  "title": "배송 완료인데 못 받은 물건 찾기",
+  "categoryId": "daily",
+  "subcategoryId": "shopping",
+  "difficulty": "B1",
+  "scenario": "배송 앱은 완료로 표시하지만 문 앞에 물건이 없습니다. 이웃에게도 확인했습니다.",
+  "practicalOutcome": "확인한 사실과 배송 증거의 차이를 설명하고 후속 확인 일정을 정한다.",
+  "roles": {
+    "learner": "구매자",
+    "interlocutor": "상담원. 사진은 다른 건물 문으로 보이고 배송 기사 확인에 하루가 걸린다고 설명한다."
+  },
+  "opening": "Our system says the parcel was delivered.",
+  "estimatedMinutes": 12,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "표시와 실제 상황 차이 설명하기",
+      "example": "It says delivered, but there is no parcel at my door. I have also checked with my neighbours.",
+      "hints": [
+        "의도: 표시와 실제 상황 차이 설명하기",
+        "핵심 표현: says delivered = 배송 완료 표시",
+        "완성 문장 예시: It says delivered, but there is no parcel at my door. I have also checked with my neighbours. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 표시와 실제 상황 차이 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "사진의 차이 알리기",
+      "example": "The door in the photo is not our building entrance.",
+      "hints": [
+        "의도: 사진의 차이 알리기",
+        "핵심 표현: not our entrance = 우리 건물 입구 아님",
+        "완성 문장 예시: The door in the photo is not our building entrance. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 사진의 차이 알리기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "조사와 후속 연락 확인하기",
+      "example": "When will you update me, and what happens if the parcel cannot be found?",
+      "hints": [
+        "의도: 조사와 후속 연락 확인하기",
+        "핵심 표현: what happens if = 실패 시 다음 절차",
+        "완성 문장 예시: When will you update me, and what happens if the parcel cannot be found? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 조사와 후속 연락 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "이유·경험 연결; 요청 시 핵심 표현 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 표시와 실제 상황 차이 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '배송 완료인데 못 받은 물건 찾기' 상황에서 확인한 사실과 배송 증거의 차이를 설명하고 후속 확인 일정을 정한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "사진은 맞지만 수령 서명이 다른 사람일 때 개인정보를 추측하지 않고 서명 확인 절차를 묻는다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '배송 완료인데 못 받은 물건 찾기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 사진은 맞지만 수령 서명이 다른 사람일 때 개인정보를 추측하지 않고 서명 확인 절차를 묻는다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "확인한 사실과 배송 증거의 차이를 설명하고 후속 확인 일정을 정한다.",
+      "표시와 실제 상황 차이 설명하기",
+      "사진의 차이 알리기",
+      "조사와 후속 연락 확인하기",
+      "수준별 관찰: 예상 밖 문제 설명과 복구. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

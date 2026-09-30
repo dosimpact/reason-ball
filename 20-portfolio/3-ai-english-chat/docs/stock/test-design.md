@@ -1,0 +1,64 @@
+# Persona English 테스트 설계
+
+> 저량(Stock) · 2026-09-30 동기화 · [문서 지도](../README.md) · [비즈니스](business-design.md) · [시스템](system-design.md)
+
+## 1. 완료 판정
+
+요구사항 표는 수용 기준이고 코드 존재는 구현 증거다. `VERIFIED`는 해당 사용자 결과를 브라우저로 확인하고, 필요한 권한·DB·실제 공급자 경계까지 통과했을 때만 쓴다. `PARTIAL`은 일부 경계 또는 경로만 통과했고, `MISSING`은 구현/검증이 빠진 상태다. 실패·중단·미실행은 PASS로 합치지 않는다. 테스트가 만든 계정·대화·Storage만 소유 범위를 확인해 정리하고 기존 사용자 서버나 데이터를 건드리지 않는다.
+
+| 계층 | 검증 내용 | 증명하지 않는 것 |
+|---|---|---|
+| lint, typecheck, build | 정적 규칙·타입·bundle 경계 | 사용자 흐름 |
+| `test:contracts` | 순수 정책·DTO·오류·재시도·상태 전이 | 브라우저·실제 인프라 |
+| `test:db` | migration, RPC, RLS, 트랜잭션·멱등성 | PGlite 결과만으로 원격 동시성 |
+| `test:e2e:mock` | 결정적 브라우저 UI 정상/오류/복구 | 원격 Supabase·실제 AI |
+| `test:e2e`, `test:e2e:production` | Chromium에서 원격 Supabase와 설정된 실제 AI의 사용자 결과 | 실행하지 않은 요구사항이나 공급자 품질 전체 |
+| `test:security`·원격 직접 API 검사 | 인증·소유권·비공개 데이터·Storage | 관리자 계정 성공만으로 일반 사용자 RLS |
+
+실제 공급자는 채팅 스트림, 구조화 생성, 이미지, 음성을 별도 capability로 확인한다. 모델 목록 200이나 비스트리밍 응답만으로 채팅을 PASS로 표시하지 않는다. 실연동 명령에는 대상 URL, 공급자·모델(비밀값 제외), worker/retry, 실행 범위, 정리 결과를 기록한다.
+
+## 2. 요구사항과 증거
+
+| 요구사항 | 주요 확인 경계 |
+|---|---|
+| `CHAT-01~15`, `REF-01~34` | 인증, shell, 채팅 스트림·재시도·영속성, 공유·도구·Artifact, 권한 |
+| `CHAR-01~10`, `MISSION-01~10` | 초안, AI 생성·편집, 게시 버전, 발견·배정·시작·선수 조건 |
+| `LEARN-01~12`, `TTS-01~08`, `REWARD-01~06` | 고정 실행·목표·힌트·교정·평가, 음성 상태, 원자 해금·복원 |
+| `DISC-01~04`, `PROFILE-01~05`, `NFR-01~10` | 홈·검색, 개인 설정·진도·노트·보상, 반응형·접근성·복구 |
+| `MISSION-CATALOG-01`, `MISSION-CURRICULUM-01/02/03`, `MISSION-PROBLEM-SOLVING-01` | 원본 재현성·752개 범위·교차 참조·작성 규칙과 사람 검수의 분리 |
+| `MISSION-PROVISION-01/02`, `MISSION-GUEST-BROWSE-01` | 원격 최초5개 배정·재호출·직접 Data API 차단, 게스트 공개 전체 열람·회원 전환 |
+
+API 오류/재시도와 권한을 다루는 변경은 계약·DB 테스트를, 사용자 흐름 변경은 정상·실패·reload·모바일/접근성 영향을 검증한다. 코드 수정과 문서 수정은 날짜별 유량에 명령, 환경, 결과를 남긴다.
+
+## 3. 이미 확인한 범위와 한계
+
+- 2026-09-21 미션 자산: 752개 본문·2,338단계의 재현성·범위와 32개 Node 회귀 PASS. 원격 카탈로그는 신규752개를 등록·게시하고 기존 샘플1개를 보존했다. 사람 교사 검수, 학습자의 지연 전이·듣기·발음 효과는 미실행이다. [저작 검증](../flow/2026-09-21-research-based-mission-curriculum.md), [원격 적재](../flow/2026-09-21-mission-catalog-remote-upload.md).
+- 2026-09-21 배정·게스트 조회: 원격 최초 동시 요청의 최종 5개 배정, 미배정 직접 조회/시작 차단과 임시 계정 정리를 확인했다. 미로그인·익명 계정의 공개 753개 ID 조회, 일반 회원의 배정 정책 전환을 확인했다. 이는 전체752개 대화·평가·보상 검증이 아니다. [배정 증거](../flow/2026-09-21-mission-catalog-remote-upload.md), [게스트 증거](../flow/2026-09-21-guest-mission-browsing.md).
+- 2026-09-11 유량 원장의 당시 판정은 요구사항 114개 중 **58 VERIFIED / 49 PARTIAL / 7 MISSING**이었다. 당시 등록 Playwright는 **122개 / 56파일**이었다. 이 집계는 새 실행 판정도, 122개 동시 PASS도 아니다. [진행 원장](../flow/2026-09-11-live-e2e-progress.md).
+- 자동 목표 추적(`LEARN-02`)의 실제 사용자 발화·무관한 발화·목표 역순 달성·모바일 복원은 2026-09-30 production 재검증에서 통과했다. 저장 복구(`REF-11`)는 현재 프록시의 버퍼링 응답 중 취소·reload·명시적 재시도를 확인했다. 이는 upstream 토큰 실시간 스트리밍 또는 모든 공급자 품질의 검증이 아니다.
+
+## 4. 최신 실행 판정
+
+2026-09-30 원격 Supabase와 2890 OAuth proxy를 사용했다. production 검증은 매번 별도 `.next-live` build와 소유 `127.0.0.1:3310` 서버에서 worker 1, retry 0으로 실행했다. 직접 OpenAI key는 비우고 AI 공급자를 OAuth로 고정한다.
+
+| 실행 | 결과 | 범위 |
+| --- | --- | --- |
+| 기존 `localhost:3000` 개발 서버 전체 | 94 PASS / 28 FAIL / 0 SKIP, 34.1분 | 122개. [개발 실행 기록](../flow/2026-09-30-localhost-full-e2e.md) |
+| 최초 production 전체 | 118 PASS / 4 FAIL / 0 SKIP, 35.8분 | 122개. 필터 로딩·인기순 전제·테스트 세션 로그아웃·배정 fixture 실패 |
+| 최신 UI 빌드와 수정 경로 재검증 | 31 PASS / 1 FAIL / 0 SKIP, 7.0분 | 32개. 최초 실패 4개는 통과; 자연스러운 AI 마무리 문구의 정규식 누락만 실패 |
+| 목표 추적 최종 재검증 | 2 PASS / 0 FAIL, 1.5분 | 목표 달성·근거·역순 달성·모바일 복원 |
+
+발견한 실패는 수정 후 해당 경로에서 모두 통과했다. **수정 후 단일 전체 실행 122/122 PASS는 아니다.** 실행별 보고서를 보존했고 최종 소유 계정 ledger 0개, UX 계정·Storage 정리, 3310 서버 종료를 확인했다. 기존 3000·2890은 유지한다. [production 검증 기록](../flow/2026-09-30-production-e2e.md)에 명령·원인·보고서 경로가 있다. 과거 2026-09-29 실패 및 첫 smoke 결과는 해당 날짜의 [유량](../flow/2026-09-29-live-e2e-oauth-proxy.md), [설계 조정](../flow/2026-09-30-design-reconciliation.md)에 남긴다.
+
+최신 계약 테스트 292 PASS, 미사용 지역 변수·매개변수 포함 typecheck PASS, lint 오류 0·기존 img 경고 3. Chrome 개발 화면은 13개 페이지 템플릿과 추가 상태의 [32개 캡처](../flow/evidence/2026-09-30-ux-refactor/README.md)로 확인했다. 모든 화면 데이터 조합·오류 상태의 시각 검증을 뜻하지 않는다.
+
+## 5. 미완료 release gate와 검증 한계
+
+1. 현재 OAuth Responses 어댑터는 완성 JSON 이후 SDK 스트림을 만든다. production에서 채팅·첨부·도구 승인·저장·reload·취소·재시도를 확인했지만 upstream 실시간 토큰 스트림은 검증된 기능이 아니다.
+2. 이미지·음성은 인증·미지원/실패 경로와 실제 공급자의 성공·품질 검증을 구분한다. 이번 결과로 모든 모델의 이미지·음성 생성을 보장하지 않는다.
+3. 실제 목표·힌트·평가·보상 경로는 실행별 범위에서 통과했다. 비결정적 AI의 모든 표현·교육 효과·752개 미션 전체 대화를 검증한 것은 아니다.
+4. 수정 후 단일 전체 suite PASS가 필요한 release 절차에서는 `pnpm test:e2e:production` 전체를 별도로 실행한다. 현재 증거는 전체 실행과 실패/영향 범위 재검증의 조합이다.
+
+## 6. 명령과 기록
+
+루트 `package.json`의 스크립트를 기준으로 한다: `pnpm missions:check`, `pnpm missions:test`, `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm test:contracts`, `pnpm test:db`, `pnpm test:e2e:mock`, `pnpm test:e2e`, `pnpm test:e2e:production`, `pnpm test:security`. `test:e2e:production`은 소유 build·loopback 서버와 별도 보고서를 쓰며 `PLAYWRIGHT_BASE_URL`로 대상 origin을 지정할 수 있다. [전체 유량 기록](../flow/)은 시점별 사실이며 현재 판정은 이 문서에 동기화한다.

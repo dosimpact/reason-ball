@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "travel-booking-c2-group-authority-boundary",
+  "title": "대표 예약자의 동의 권한 한계 밝히기",
+  "categoryId": "travel",
+  "subcategoryId": "booking",
+  "difficulty": "C2",
+  "scenario": "운영자가 그룹 대표에게 전원의 일정·비용 변경 동의를 요청하지만 대표는 전달만 맡았습니다.",
+  "practicalOutcome": "연락 대표와 비용 승인 권한을 구분한다.",
+  "roles": {
+    "learner": "연락 담당 예약자",
+    "interlocutor": "담당자. 개별 동의가 필요하면 결제 링크를 나눠 보낼 수 있으나 자리 보류는 24시간이라고 안내한다."
+  },
+  "opening": "If you approve the revised package, we will charge the difference for the whole group.",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "역할과 권한 구분하기",
+      "example": "I coordinate communication, but that does not authorize me to accept additional charges on everyone’s behalf.",
+      "hints": [
+        "의도: 역할과 권한 구분하기",
+        "핵심 표현: on behalf of = 대신하여",
+        "완성 문장 예시: I coordinate communication, but that does not authorize me to accept additional charges on everyone’s behalf. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 역할과 권한 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "효율과 개별 동의 조화시키기",
+      "example": "I can circulate one clear summary, provided each traveller can confirm their own choice without it being inferred from mine.",
+      "hints": [
+        "의도: 효율과 개별 동의 조화시키기",
+        "핵심 표현: inferred = 추정된",
+        "완성 문장 예시: I can circulate one clear summary, provided each traveller can confirm their own choice without it being inferred from mine. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 효율과 개별 동의 조화시키기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "마감과 미응답 처리 합의하기",
+      "example": "Please specify the hold deadline and how non-responses will be handled, so coordination does not become assumed consent.",
+      "hints": [
+        "의도: 마감과 미응답 처리 합의하기",
+        "핵심 표현: assumed consent = 추정 동의",
+        "완성 문장 예시: Please specify the hold deadline and how non-responses will be handled, so coordination does not become assumed consent. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 마감과 미응답 처리 합의하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 역할과 권한 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '대표 예약자의 동의 권한 한계 밝히기' 상황에서 연락 대표와 비용 승인 권한을 구분한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "일부 비용은 공동 예산에서 승인 가능하다. 위임된 범위만 한정해 말한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '대표 예약자의 동의 권한 한계 밝히기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 일부 비용은 공동 예산에서 승인 가능하다. 위임된 범위만 한정해 말한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "연락 대표와 비용 승인 권한을 구분한다.",
+      "역할과 권한 구분하기",
+      "효율과 개별 동의 조화시키기",
+      "마감과 미응답 처리 합의하기",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

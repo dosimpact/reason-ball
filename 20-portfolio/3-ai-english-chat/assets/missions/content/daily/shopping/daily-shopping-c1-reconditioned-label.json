@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-shopping-c1-reconditioned-label",
+  "title": "재생 제품 표시의 의미 확인하기",
+  "categoryId": "daily",
+  "subcategoryId": "shopping",
+  "difficulty": "C1",
+  "scenario": "상품 설명은 like new인데 작은 글씨에는 refurbished라고 적혀 있습니다. 외관·부품·보증의 실제 기준을 확인합니다.",
+  "practicalOutcome": "재생 제품의 모호한 품질 표현을 측정 기준과 반품 조건으로 명확히 한다.",
+  "roles": {
+    "learner": "구매자",
+    "interlocutor": "판매원. 배터리 용량 최소 80%, 외관 작은 흠 허용, 보증 6개월이라고 설명한다."
+  },
+  "opening": "Like new means it is essentially the same as buying new.",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "광고 표현을 구체적 기준으로 바꾸기",
+      "example": "Could we separate cosmetic condition, battery capacity, and warranty rather than treating like new as a single standard?",
+      "hints": [
+        "의도: 광고 표현을 구체적 기준으로 바꾸기",
+        "핵심 표현: separate ... rather than = 기준 분리",
+        "완성 문장 예시: Could we separate cosmetic condition, battery capacity, and warranty rather than treating like new as a single standard? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 광고 표현을 구체적 기준으로 바꾸기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "의미 있는 차이 확인하기",
+      "example": "A battery at eighty per cent and a shorter warranty would affect my decision, even if the case looks unused.",
+      "hints": [
+        "의도: 의미 있는 차이 확인하기",
+        "핵심 표현: would affect my decision = 선택에 영향을 준다",
+        "완성 문장 예시: A battery at eighty per cent and a shorter warranty would affect my decision, even if the case looks unused. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 의미 있는 차이 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "검증 가능한 정보 요청하기",
+      "example": "Please confirm the actual battery test result for this unit and the return window if it does not match the description.",
+      "hints": [
+        "의도: 검증 가능한 정보 요청하기",
+        "핵심 표현: this unit = 이 개별 제품",
+        "완성 문장 예시: Please confirm the actual battery test result for this unit and the return window if it does not match the description. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 검증 가능한 정보 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 광고 표현을 구체적 기준으로 바꾸기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '재생 제품 표시의 의미 확인하기' 상황에서 재생 제품의 모호한 품질 표현을 측정 기준과 반품 조건으로 명확히 한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "제품별 수치 제공이 불가능할 때 최소 기준으로만 안내되었다는 점을 확인하고 구매 여부를 정한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '재생 제품 표시의 의미 확인하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 제품별 수치 제공이 불가능할 때 최소 기준으로만 안내되었다는 점을 확인하고 구매 여부를 정한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "재생 제품의 모호한 품질 표현을 측정 기준과 반품 조건으로 명확히 한다.",
+      "광고 표현을 구체적 기준으로 바꾸기",
+      "의미 있는 차이 확인하기",
+      "검증 가능한 정보 요청하기",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

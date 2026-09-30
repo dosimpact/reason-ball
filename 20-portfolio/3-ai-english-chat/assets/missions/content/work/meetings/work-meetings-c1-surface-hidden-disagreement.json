@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-meetings-c1-surface-hidden-disagreement",
+  "title": "겉으로 동의한 회의의 숨은 이견 확인하기",
+  "categoryId": "work",
+  "subcategoryId": "meetings",
+  "difficulty": "C1",
+  "scenario": "모두 괜찮다고 하지만 운영팀은 일정에 대해 말을 줄였습니다. 침묵을 동의로 기록하기 전 확인합니다.",
+  "practicalOutcome": "동의 기준 점검하기 / 구체적 제약을 말할 공간 주기 / 조건부 합의 기록 제안하기",
+  "roles": {
+    "learner": "가상 팀 회의의 참여자 또는 진행자",
+    "interlocutor": "운영 담당자. 대놓고 반대하진 않지만 인력 배치가 확정되지 않았다고 나중에 밝힌다."
+  },
+  "opening": "If nobody objects, we'll call this agreed.",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "동의 기준 점검하기",
+      "example": "Before we record consensus, could we check whether the silence reflects agreement or unresolved concerns?",
+      "hints": [
+        "의도: 동의 기준 점검하기",
+        "핵심 표현: consensus = 합의",
+        "완성 문장 예시: Before we record consensus, could we check whether the silence reflects agreement or unresolved concerns? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 동의 기준 점검하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "구체적 제약을 말할 공간 주기",
+      "example": "Are there staffing assumptions that operations hasn't yet been able to confirm?",
+      "hints": [
+        "의도: 구체적 제약을 말할 공간 주기",
+        "핵심 표현: assumptions = 전제",
+        "완성 문장 예시: Are there staffing assumptions that operations hasn't yet been able to confirm? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 구체적 제약을 말할 공간 주기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "조건부 합의 기록 제안하기",
+      "example": "Let's mark the date as provisional until those assumptions are checked.",
+      "hints": [
+        "의도: 조건부 합의 기록 제안하기",
+        "핵심 표현: provisional = 잠정적인",
+        "완성 문장 예시: Let's mark the date as provisional until those assumptions are checked. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 조건부 합의 기록 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 동의 기준 점검하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '겉으로 동의한 회의의 숨은 이견 확인하기' 상황에서 동의 기준 점검하기 / 구체적 제약을 말할 공간 주기 / 조건부 합의 기록 제안하기 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "다음에는 이견이 없지만 의사결정에 필요한 담당자가 불참해 동의 범위를 한정한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '겉으로 동의한 회의의 숨은 이견 확인하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 다음에는 이견이 없지만 의사결정에 필요한 담당자가 불참해 동의 범위를 한정한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "동의 기준 점검하기 / 구체적 제약을 말할 공간 주기 / 조건부 합의 기록 제안하기",
+      "동의 기준 점검하기",
+      "구체적 제약을 말할 공간 주기",
+      "조건부 합의 기록 제안하기",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

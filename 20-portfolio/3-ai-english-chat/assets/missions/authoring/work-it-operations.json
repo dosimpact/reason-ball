@@ -1,0 +1,1299 @@
+{
+  "schemaVersion": 1,
+  "categoryId": "work",
+  "missions": [
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "A2",
+      "slug": "it-login-blocked-call",
+      "title": "회의 직전 로그인 문의의 다음 행동 정하기",
+      "scenario": "오전 9시 40분, 신입 직원 Ana가 10시 회의 자료를 열지 못합니다. 포털에는 Account locked가 보입니다. 로그인 담당팀이 아직 상황을 모릅니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "Ana 역할. 자료가 급하다며 즉시 계정을 열어 달라고 한다. 질문하면 다른 동료도 자료를 가지고 있고 회사 채팅은 된다고 답한다. 담당팀 연결과 09:50 확인에 동의할 수 있다.",
+      "opening": "I have a meeting at ten. Can you unlock my account now?",
+      "steps": [
+        {
+          "goal": "오류 표시 확인하기",
+          "example": "Does the screen say Account locked?",
+          "cue": "screen says = 화면에 표시되다"
+        },
+        {
+          "goal": "권한과 안전한 절차 설명하기",
+          "example": "I can't unlock it here. I'll contact the login team. Please don't send your password.",
+          "cue": "login team = 로그인 담당팀"
+        },
+        {
+          "goal": "회의 준비 대안 묻기",
+          "example": "Can a colleague send you the meeting file in the team chat?",
+          "cue": "colleague = 동료"
+        },
+        {
+          "goal": "확인 시각과 연락 방법 합의하기",
+          "example": "I'll message you at nine fifty, even if it is still not fixed.",
+          "cue": "even if = ...이더라도"
+        }
+      ],
+      "outcome": "계정 문제를 담당팀에 전달하고 회의 준비 대안과 09:50 채팅 안내를 합의한다.",
+      "transfer": "회사 채팅도 접속되지 않습니다. 상대가 사용할 수 있는 승인된 연락 수단을 확인하고 비밀번호를 묻지 않은 채 안내 채널을 다시 합의합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "오전 9시 40분, 신입 직원 Ana가 10시 회의 자료를 열지 못합니다. 포털에는 Account locked가 보입니다. 로그인 담당팀이 아직 상황을 모릅니다.",
+        "facts": [
+          "현재 09:40, 회의 10:00.",
+          "화면에는 Account locked라고 적혀 있으며 비밀번호 오류인지 원인은 확인하지 않았다.",
+          "사용자는 회사 채팅에는 접속 가능하다.",
+          "가상 절차상 로그인 담당팀이 신원 확인 후 잠금 상태를 검토한다."
+        ],
+        "constraints": [
+          "비밀번호나 일회용 코드는 받지 않는다.",
+          "본인은 계정 잠금을 해제할 권한이 없다.",
+          "회의 시작 전 해결을 보장할 수 없다."
+        ],
+        "learnerAuthority": "오류 문구와 업무 영향을 확인하고 로그인 담당팀에 티켓을 전달할 수 있다. 09:50 진행 안내를 약속할 수 있다.",
+        "counterpartPosition": "Ana 역할. 자료가 급하다며 즉시 계정을 열어 달라고 한다. 질문하면 다른 동료도 자료를 가지고 있고 회사 채팅은 된다고 답한다. 담당팀 연결과 09:50 확인에 동의할 수 있다.",
+        "unresolvedQuestions": [
+          "자료 접근 외에도 막힌 일이 있는가?",
+          "회의용 자료를 동료에게 받는 임시 방법이 가능한가?",
+          "로그인팀 연결 뒤 어느 채널로 진행 소식을 받을 것인가?"
+        ],
+        "deliverable": "계정 문제를 담당팀에 전달하고 회의 준비 대안과 09:50 채팅 안내를 합의한다.",
+        "resolutionCriteria": [
+          "확인한 오류를 원인 진단과 구별한다.",
+          "비밀번호를 받지 않고 담당팀 절차로 연결한다.",
+          "회의 자료를 받을 임시 방법을 확인한다.",
+          "담당팀 전달과 본인의 다음 안내 시각·채널을 분리해 말한다."
+        ],
+        "escalationPath": "09:50까지 담당팀이 응답하지 않으면 헬프데스크 리드에 회의 시각과 티켓을 전달하고 Ana에게 그 상태를 알린다."
+      }
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "A2",
+      "slug": "it-read-access-request",
+      "title": "필요한 폴더 권한만 요청하기",
+      "scenario": "신입 지원 업무로 Team Guide 폴더를 읽어야 하지만 Access denied가 표시됩니다. 동료는 빨리 끝내기 위해 전체 관리자 권한을 신청하자고 합니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "동료 역할. 관리자 권한이면 해결이 빠를 것이라고 생각한다. 필요한 일이 읽기뿐임을 들으면 Sam에게 요청하는 데 동의하고 12:00에 진행 여부를 확인할 수 있다.",
+      "opening": "Why not ask for admin access? That should fix it.",
+      "steps": [
+        {
+          "goal": "필요 범위 설명하기",
+          "example": "I only need to read the Team Guide. I do not need to change it.",
+          "cue": "only need to = ...만 필요하다"
+        },
+        {
+          "goal": "좁은 권한 요청하기",
+          "example": "Can we ask Sam for read access instead?",
+          "cue": "read access = 읽기 권한"
+        },
+        {
+          "goal": "시한 알리기",
+          "example": "My training starts at two. Can we check again at noon?",
+          "cue": "noon = 정오"
+        },
+        {
+          "goal": "승인 지연 시 행동 확인하기",
+          "example": "If Sam has not replied, I will ask the trainer for another approved copy.",
+          "cue": "approved copy = 승인된 사본"
+        }
+      ],
+      "outcome": "읽기 권한 요청, 승인 담당자, 12:00 확인과 미승인 시 교육 담당자 연락을 정한다.",
+      "transfer": "실제로 문서 수정도 맡게 됐습니다. 필요한 권한을 다시 설명하고 기존 읽기 승인으로 수정까지 가능하다고 추정하지 않습니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "신입 지원 업무로 Team Guide 폴더를 읽어야 하지만 Access denied가 표시됩니다. 동료는 빨리 끝내기 위해 전체 관리자 권한을 신청하자고 합니다.",
+        "facts": [
+          "필요한 작업은 Team Guide 문서 읽기다.",
+          "파일 수정이나 사용자 관리는 업무에 포함되지 않는다.",
+          "현재 시각 10:30, 교육 시작은 14:00이다.",
+          "폴더 소유자 Sam이 필요한 접근을 승인할 수 있다."
+        ],
+        "constraints": [
+          "본인은 다른 계정을 빌릴 수 없다.",
+          "필요 범위를 넘어선 권한을 승인할 수 없다.",
+          "승인 없이는 접근을 보장하지 않는다."
+        ],
+        "learnerAuthority": "본인 작업과 오류를 설명하고 Sam에게 읽기 권한 요청을 전달할 수 있다.",
+        "counterpartPosition": "동료 역할. 관리자 권한이면 해결이 빠를 것이라고 생각한다. 필요한 일이 읽기뿐임을 들으면 Sam에게 요청하는 데 동의하고 12:00에 진행 여부를 확인할 수 있다.",
+        "unresolvedQuestions": [
+          "문서 읽기 외에 실제로 필요한 행동이 있는가?",
+          "Sam이 교육 전 승인할 수 있는가?",
+          "승인이 늦으면 어떤 승인된 교육 자료를 쓸 수 있는가?"
+        ],
+        "deliverable": "읽기 권한 요청, 승인 담당자, 12:00 확인과 미승인 시 교육 담당자 연락을 정한다.",
+        "resolutionCriteria": [
+          "필요한 행동을 읽기로 구체화한다.",
+          "광범위한 관리자 권한 대신 요청 범위를 설명한다.",
+          "승인자와 재확인 시각을 지정한다.",
+          "승인 지연을 임의 권한 우회로 해결하지 않는다."
+        ],
+        "escalationPath": "12:00까지 Sam의 응답이 없으면 교육 담당자에게 대체 승인 자료 또는 일정 조정을 문의한다."
+      }
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "A2",
+      "slug": "it-ticket-missing-details",
+      "title": "정보가 부족한 장애 티켓 보완하기",
+      "scenario": "고객 문의에는 It is broken만 적혀 있습니다. 오전 11시까지 안내가 필요하지만 제품명과 화면 증상이 없습니다. 첫 응답에서 필요한 정보만 모읍니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "사용자 역할. 질문하면 Desk Print라는 가상 프린터가 10:00부터 No paper라고 표시되고 출력되지 않는다고 답한다. 종이는 확인하지 않았으며 11시 전 명단 출력이 필요하다.",
+      "opening": "It is broken, and I need it before eleven.",
+      "steps": [
+        {
+          "goal": "문제가 있는 도구 묻기",
+          "example": "Which tool is not working?",
+          "cue": "which tool = 어떤 도구"
+        },
+        {
+          "goal": "관찰된 오류 문구 묻기",
+          "example": "What message do you see?",
+          "cue": "message = 표시 문구"
+        },
+        {
+          "goal": "시작 시점 묻기",
+          "example": "When did it start?",
+          "cue": "start = 시작되다"
+        },
+        {
+          "goal": "사실을 요약해 확인하기",
+          "example": "So Desk Print has shown No paper since ten, and you need to print a list. Is that right?",
+          "cue": "since ten = 10시부터"
+        },
+        {
+          "goal": "전달과 안내 시각 말하기",
+          "example": "I'll send this to the equipment team and update you at ten forty.",
+          "cue": "equipment team = 장비팀"
+        }
+      ],
+      "outcome": "프린터의 오류 문구·시작 시점·업무 기한을 확인해 장비팀에 넘길 수 있는 요약과 10:40 안내를 합의한다.",
+      "transfer": "같은 broken 문의가 프린터가 아니라 로그인 화면입니다. 암기한 팀 이름을 반복하지 않고 확인한 증상에 맞는 담당팀으로 요약을 바꿉니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "고객 문의에는 It is broken만 적혀 있습니다. 오전 11시까지 안내가 필요하지만 제품명과 화면 증상이 없습니다. 첫 응답에서 필요한 정보만 모읍니다.",
+        "facts": [
+          "현재 10:20이며 사용자는 11:00에 업무를 재개하려 한다.",
+          "티켓에는 이름 없는 도구가 broken이라고만 적혀 있다.",
+          "민감 정보가 없는 오류 문구를 텍스트로 받을 수 있다.",
+          "접속 오류는 로그인팀, 출력 문제는 장비팀에 전달한다."
+        ],
+        "constraints": [
+          "화면 전체에 개인정보가 있을 수 있어 무조건 스크린샷을 요청하지 않는다.",
+          "원인이 확인되기 전에 고장 부품을 단정하지 않는다."
+        ],
+        "learnerAuthority": "도구·증상·시작 시점을 질문하고 확인한 내용을 요약해 담당팀에 전달할 수 있다.",
+        "counterpartPosition": "사용자 역할. 질문하면 Desk Print라는 가상 프린터가 10:00부터 No paper라고 표시되고 출력되지 않는다고 답한다. 종이는 확인하지 않았으며 11시 전 명단 출력이 필요하다.",
+        "unresolvedQuestions": [
+          "어떤 도구가 어떤 메시지를 표시하는가?",
+          "언제부터 발생했는가?",
+          "사용자의 실제로 막힌 업무는 무엇인가?"
+        ],
+        "deliverable": "프린터의 오류 문구·시작 시점·업무 기한을 확인해 장비팀에 넘길 수 있는 요약과 10:40 안내를 합의한다.",
+        "resolutionCriteria": [
+          "증상을 설명할 짧은 질문을 하나씩 한다.",
+          "관찰된 표시와 확인하지 않은 원인을 구분한다.",
+          "필요한 업무와 시간 제약을 담아 요약한다.",
+          "다음 담당팀과 안내 시간을 명시한다."
+        ],
+        "escalationPath": "10:40까지 장비팀 응답이 없으면 헬프데스크 리드에게 11시 인쇄 필요를 알리고 승인된 다른 인쇄 위치를 문의한다."
+      }
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "A2",
+      "slug": "it-maintenance-notice-clarification",
+      "title": "점검 중 가능한 업무를 팀에 확인하기",
+      "scenario": "공지에는 금요일 저녁 portal maintenance라고만 쓰여 있습니다. 야간 팀은 18:00~19:00 문서를 읽어야 하지만 읽기까지 막히는지 모릅니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "점검 담당자 역할. 공지면 충분하다고 생각한다. 질문하면 읽기는 가능하고 업로드만 한 시간 중단되며, 종료가 늦어지면 담당자가 상태 채널에 19:00 공지를 낸다고 답한다.",
+      "opening": "The notice already says the portal is under maintenance.",
+      "steps": [
+        {
+          "goal": "팀의 필요한 기능 말하기",
+          "example": "Our night team needs to read the guide from six to seven.",
+          "cue": "night team = 야간 팀"
+        },
+        {
+          "goal": "중단 범위 확인하기",
+          "example": "Can they still read files, or is everything offline?",
+          "cue": "offline = 이용할 수 없는"
+        },
+        {
+          "goal": "이해한 조건 요약하기",
+          "example": "So reading works, but uploads stop for one hour.",
+          "cue": "uploads = 파일 올리기"
+        },
+        {
+          "goal": "지연 확인 경로 묻기",
+          "example": "Where should we check if the work is not finished at seven?",
+          "cue": "finished = 끝난"
+        }
+      ],
+      "outcome": "가능한 읽기·중단되는 업로드·점검 시간·종료 지연 시 확인 채널을 정리한 짧은 팀 안내를 만든다.",
+      "transfer": "점검 시간이 두 시간으로 바뀌었습니다. 원래 안내를 그대로 보내지 말고 달라진 시간과 계속 가능한 기능을 다시 확인합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "공지에는 금요일 저녁 portal maintenance라고만 쓰여 있습니다. 야간 팀은 18:00~19:00 문서를 읽어야 하지만 읽기까지 막히는지 모릅니다.",
+        "facts": [
+          "현재 목요일 15:00이다.",
+          "금요일 점검 예정은 18:00~19:00이다.",
+          "야간 팀은 같은 시간에 절차 문서를 읽어야 한다.",
+          "가상 점검 담당자는 문서 읽기는 가능하고 업로드만 중단된다는 계획을 가지고 있다."
+        ],
+        "constraints": [
+          "학습자는 중단 범위를 임의로 단정할 수 없다.",
+          "점검 취소를 결정할 권한이 없다.",
+          "대체 자료도 승인된 사본만 공유한다."
+        ],
+        "learnerAuthority": "점검 담당자에게 범위를 확인하고 야간 팀에 짧은 안내를 전달할 수 있다.",
+        "counterpartPosition": "점검 담당자 역할. 공지면 충분하다고 생각한다. 질문하면 읽기는 가능하고 업로드만 한 시간 중단되며, 종료가 늦어지면 담당자가 상태 채널에 19:00 공지를 낸다고 답한다.",
+        "unresolvedQuestions": [
+          "읽기와 업로드 중 어떤 기능이 중단되는가?",
+          "예정 종료가 지나면 어디서 소식을 확인하는가?",
+          "야간 팀에 지금 전달할 한 문장은 무엇인가?"
+        ],
+        "deliverable": "가능한 읽기·중단되는 업로드·점검 시간·종료 지연 시 확인 채널을 정리한 짧은 팀 안내를 만든다.",
+        "resolutionCriteria": [
+          "중단 기능을 질문으로 확인한다.",
+          "팀의 실제 문서 읽기 필요를 설명한다.",
+          "예정 종료와 실제 종료를 구별한다.",
+          "상태 공지 담당자와 채널을 확인한다."
+        ],
+        "escalationPath": "문서 읽기도 막히는 변경이 생기면 야간 팀 리드와 점검 담당자에게 동시에 알려 승인된 대체 자료 계획을 확인한다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B1",
+      "slug": "it-scope-first-incident-update",
+      "title": "장애 상황에서 확인한 영향만 첫 보고하기",
+      "scenario": "09:10에 주문 대시보드가 느리다는 문의 두 건이 왔습니다. 매니저는 모든 고객이 결제를 못 한다는 공지를 지금 내자고 합니다. 결제 실패는 확인되지 않았습니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "매니저 역할. 빨리 알리는 것이 중요하다고 강조한다. 범위를 나눠 말하면 첫 메시지에 조사 중임을 포함하는 데 동의하며 당직자 연락을 맡길 수 있다.",
+      "opening": "Just tell everyone that payments are down so they know we are on it.",
+      "steps": [
+        {
+          "goal": "현재 확인 범위 설명하기",
+          "example": "The two reports concern the internal dashboard. We have not yet confirmed a payment problem.",
+          "cue": "concern = ...에 관한 것이다"
+        },
+        {
+          "goal": "공백도 명시하기",
+          "example": "That does not mean payments are unaffected; we still need to check them.",
+          "cue": "unaffected = 영향받지 않은"
+        },
+        {
+          "goal": "검증 분담 제안하기",
+          "example": "Could the on-call operator check both functions and report back by nine twenty-five?",
+          "cue": "on-call operator = 당직 운영자"
+        },
+        {
+          "goal": "첫 보고 문구 합의하기",
+          "example": "Let's report dashboard delays now and say that the wider impact is being checked.",
+          "cue": "wider impact = 더 넓은 영향"
+        }
+      ],
+      "outcome": "확인된 대시보드 지연, 결제 영향 조사 중, 당직자 확인과 09:25 업데이트가 포함된 첫 보고를 합의한다.",
+      "transfer": "결제 실패 한 건이 새로 확인됐습니다. 전체 결제 중단으로 확대하지 않으면서 첫 보고의 영향 범위와 긴급도를 갱신합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "09:10에 주문 대시보드가 느리다는 문의 두 건이 왔습니다. 매니저는 모든 고객이 결제를 못 한다는 공지를 지금 내자고 합니다. 결제 실패는 확인되지 않았습니다.",
+        "facts": [
+          "문의 두 건은 내부 주문 대시보드의 화면 지연이다.",
+          "고객 결제 실패 보고는 아직 없다.",
+          "첫 사용자 제보는 09:10이며 현재는 09:15다.",
+          "운영 당직자는 09:25까지 대시보드와 결제의 영향을 별도로 확인할 수 있다."
+        ],
+        "constraints": [
+          "보고가 없다는 사실을 영향이 없다는 증거로 삼지 않는다.",
+          "확인되지 않은 전체 고객 장애를 발표하지 않는다.",
+          "학습자는 외부 공지를 승인할 수 없다."
+        ],
+        "learnerAuthority": "확인된 영향·미확인 영역을 나누어 보고하고 검증 담당자와 다음 업데이트 시각을 제안할 수 있다.",
+        "counterpartPosition": "매니저 역할. 빨리 알리는 것이 중요하다고 강조한다. 범위를 나눠 말하면 첫 메시지에 조사 중임을 포함하는 데 동의하며 당직자 연락을 맡길 수 있다.",
+        "unresolvedQuestions": [
+          "문의가 내부 도구에만 해당하는가?",
+          "고객 결제도 영향을 받았는가?",
+          "09:25 전 공지할 최소 확인 내용은 무엇인가?"
+        ],
+        "deliverable": "확인된 대시보드 지연, 결제 영향 조사 중, 당직자 확인과 09:25 업데이트가 포함된 첫 보고를 합의한다.",
+        "resolutionCriteria": [
+          "관찰과 추정을 별도 문장으로 전달한다.",
+          "영향 확인을 기능별로 요청한다.",
+          "모든 고객이라는 범위를 근거 없이 쓰지 않는다.",
+          "다음 확인 담당자와 시각을 명시한다."
+        ],
+        "escalationPath": "결제 실패가 확인되거나 문의가 여러 고객으로 확대되면 사고 리드에게 즉시 올려 외부 공지 판단을 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B1",
+      "slug": "it-handover-unfinished-recovery",
+      "title": "복구 중 교대에서 미완료 작업 넘기기",
+      "scenario": "17:50 교대 직전, 파일 업로드는 다시 되지만 실패했던 파일 세 개의 처리는 끝나지 않았습니다. 다음 담당자는 사건을 종료하려 합니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "다음 당직자 역할. 새 업로드가 되니 완료라고 생각한다. 남은 세 파일과 18:10 확인 약속을 들으면 연락 책임을 맡을 수 있지만 데이터팀의 처리 권한은 없다.",
+      "opening": "Uploads are working again. Can I close the incident when I start my shift?",
+      "steps": [
+        {
+          "goal": "남은 문제 설명하기",
+          "example": "New uploads work, but three earlier files still need checking.",
+          "cue": "earlier files = 이전 파일들"
+        },
+        {
+          "goal": "담당과 시각 전달하기",
+          "example": "Lee from the data team will update us at six ten under INC-42.",
+          "cue": "under = 해당 번호로"
+        },
+        {
+          "goal": "인계 수락 확인하기",
+          "example": "Can you receive the six-ten update and then contact the customer?",
+          "cue": "then = 그 결과를 받은 다음"
+        },
+        {
+          "goal": "미응답 시 계획 합의하기",
+          "example": "If there is no answer by six fifteen, please raise it with the incident lead.",
+          "cue": "raise it with = 상위 담당에게 알리다"
+        }
+      ],
+      "outcome": "신규 기능 복구와 기존 실패 파일의 미완료 상태를 구분한 교대 요약, 18:10 확인과 18:15 상위 보고 계획을 합의한다.",
+      "transfer": "다음 당직자가 동시에 다른 사고를 맡아 연락 책임을 수락하지 못합니다. 교대 메시지를 보낸 것만으로 인계됐다고 하지 않고 다른 담당자를 지정합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "17:50 교대 직전, 파일 업로드는 다시 되지만 실패했던 파일 세 개의 처리는 끝나지 않았습니다. 다음 담당자는 사건을 종료하려 합니다.",
+        "facts": [
+          "17:40부터 새 업로드는 성공한다.",
+          "이전 실패 파일은 세 개이며 처리 담당자는 데이터팀 Lee다.",
+          "Lee는 18:10에 확인 결과를 주기로 했다.",
+          "교대는 18:00, 고객 안내 담당자는 아직 정하지 않았다."
+        ],
+        "constraints": [
+          "새 업로드 성공을 이전 파일 복구 완료로 표현하지 않는다.",
+          "파일을 실제로 다시 제출하거나 수정하는 명령을 하지 않는다.",
+          "개인정보 대신 가상 티켓 번호 INC-42만 공유한다."
+        ],
+        "learnerAuthority": "상태와 대기 작업을 인계하고 다음 연락 담당자의 수락을 받을 수 있다.",
+        "counterpartPosition": "다음 당직자 역할. 새 업로드가 되니 완료라고 생각한다. 남은 세 파일과 18:10 확인 약속을 들으면 연락 책임을 맡을 수 있지만 데이터팀의 처리 권한은 없다.",
+        "unresolvedQuestions": [
+          "남아 있는 세 파일은 누가 확인하는가?",
+          "18:10 결과를 누가 받아 고객에게 전하는가?",
+          "답이 없으면 언제 누구에게 알리는가?"
+        ],
+        "deliverable": "신규 기능 복구와 기존 실패 파일의 미완료 상태를 구분한 교대 요약, 18:10 확인과 18:15 상위 보고 계획을 합의한다.",
+        "resolutionCriteria": [
+          "복구된 부분과 남은 작업을 나눈다.",
+          "담당자·티켓·예정 응답을 전달한다.",
+          "인계를 보낸 것과 상대가 수락한 것을 구별한다.",
+          "지연 시 다음 연락 경로를 정한다."
+        ],
+        "escalationPath": "18:15까지 Lee의 답이 없으면 다음 당직자가 사고 리드에게 INC-42와 남은 세 파일 상태를 보고한다."
+      }
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "B1",
+      "slug": "it-vendor-status-without-eta",
+      "title": "벤더의 모호한 복구 답변을 실행 계획으로 바꾸기",
+      "scenario": "가상 화상회의 서비스가 끊겨 30분 뒤 교육을 진행할지 정해야 합니다. 공급업체는 곧 해결될 것이라고만 답합니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "공급업체 상담원 역할. 엔지니어가 대응 중이라는 사실만 확인할 수 있다. 질문하면 13:40 상태 안내는 약속할 수 있지만 14시 전 복구는 보장할 수 없다고 답한다.",
+      "opening": "Our engineers are working on it. It should be back soon.",
+      "steps": [
+        {
+          "goal": "확정 여부 묻기",
+          "example": "Do you have a confirmed time, or is soon still an estimate?",
+          "cue": "estimate = 예상"
+        },
+        {
+          "goal": "업무 결정 시한 설명하기",
+          "example": "Our class starts at two, and we must message the group by one forty-five.",
+          "cue": "must = 해야 한다"
+        },
+        {
+          "goal": "실행 가능한 연락 요청하기",
+          "example": "Could you send a status update at one forty, even without a fix?",
+          "cue": "status update = 진행 안내"
+        },
+        {
+          "goal": "대안 준비 병행과 전환 조건 알리기",
+          "example": "I'll ask our organiser to prepare the backup now. If recovery is unconfirmed at one forty, they can send that link by one forty-five.",
+          "cue": "prepare now = 지금 준비하다; backup = 대안"
+        }
+      ],
+      "outcome": "내부 진행자의 13:30 백업 준비 요청, 벤더 13:40 업데이트, 내부 13:45 대체 교육 안내 조건을 분리한 연락 계획을 만든다.",
+      "transfer": "벤더가 13:42 복구를 예상하지만 13:45 공지까지 검증 시간이 없습니다. 예상 시각만 보고 대안을 취소하지 않도록 판단 기준을 확인합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "가상 화상회의 서비스가 끊겨 30분 뒤 교육을 진행할지 정해야 합니다. 공급업체는 곧 해결될 것이라고만 답합니다.",
+        "facts": [
+          "현재 13:30이고 교육은 14:00 시작이다.",
+          "공급업체는 문제를 확인했지만 복구 예정 시각은 확정하지 않았다.",
+          "대체 교육 링크는 내부 진행자가 10분 안에 만들 수 있다. 13:30에 준비를 시작하면 13:40에 준비되므로 벤더 결과를 기다리는 동안 병행 요청해야 13:45 공지에 여유가 있다.",
+          "참가자 공지는 13:45까지 보내야 한다."
+        ],
+        "constraints": [
+          "벤더의 낙관적 표현을 확정 ETA로 전달하지 않는다.",
+          "벤더 시스템을 조작할 권한이 없다.",
+          "대체 링크는 승인된 교육 플랫폼만 사용한다."
+        ],
+        "learnerAuthority": "공급업체에 확인된 상태와 다음 안내 시각을 요청하고 내부 진행자에게 대안 결정 시점을 제안할 수 있다.",
+        "counterpartPosition": "공급업체 상담원 역할. 엔지니어가 대응 중이라는 사실만 확인할 수 있다. 질문하면 13:40 상태 안내는 약속할 수 있지만 14시 전 복구는 보장할 수 없다고 답한다.",
+        "unresolvedQuestions": [
+          "실제로 확정된 복구 시각이 있는가?",
+          "13:40까지 어떤 상태 정보를 받을 수 있는가?",
+          "확정이 없을 때 교육 진행자는 언제 대안으로 전환할 것인가?",
+          "내부 진행자가 13:30부터 대체 링크 준비를 맡을 수 있는가?"
+        ],
+        "deliverable": "내부 진행자의 13:30 백업 준비 요청, 벤더 13:40 업데이트, 내부 13:45 대체 교육 안내 조건을 분리한 연락 계획을 만든다.",
+        "resolutionCriteria": [
+          "예상과 확정 여부를 묻는다.",
+          "사용자의 결정 시한을 설명한다.",
+          "해결 약속 대신 가능한 안내 시각을 확보한다.",
+          "벤더 판단과 내부 대안 결정을 혼동하지 않는다.",
+          "10분 준비를 벤더 결과 이후로 미루지 않고 13:30에 내부 진행자에게 병행 준비를 요청한다."
+        ],
+        "escalationPath": "13:40 업데이트가 없으면 벤더 문의를 감독자에게 올리고 내부 교육 담당자에게 대체 플랫폼 결정이 필요함을 알린다."
+      }
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "B1",
+      "slug": "it-partial-recovery-customer-note",
+      "title": "부분 복구를 고객에게 정확하게 설명하기",
+      "scenario": "고객 포털 조회는 15:00부터 정상이나 파일 내려받기는 일부 실패합니다. 영업팀이 서비스가 돌아왔다는 한 줄 공지를 보내려 합니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "영업 담당자 역할. 길고 기술적인 메시지는 고객이 읽지 않는다며 짧게 끝내기를 원한다. 조회 가능과 다운로드 미완료를 두 문장으로 정리하면 받아들일 수 있다.",
+      "opening": "Can we just say the service is back? Customers do not want a long technical explanation.",
+      "steps": [
+        {
+          "goal": "빠진 고객 행동 설명하기",
+          "example": "They can read the reports, but some still cannot download them.",
+          "cue": "download = 내려받다"
+        },
+        {
+          "goal": "짧은 상태 문구 제시하기",
+          "example": "We could say: Viewing is available again. We are still checking download failures.",
+          "cue": "viewing = 조회"
+        },
+        {
+          "goal": "안내 책임 정하기",
+          "example": "Will your team send an update at three thirty, even if the checks are still in progress?",
+          "cue": "still in progress = 아직 진행 중인"
+        },
+        {
+          "goal": "완료 조건 확인하기",
+          "example": "We should only say fully restored after the remaining function has been checked.",
+          "cue": "fully restored = 완전히 복구된"
+        }
+      ],
+      "outcome": "조회 가능·다운로드 조사 중·15:30 다음 안내를 담은 짧은 고객 공지를 합의한다.",
+      "transfer": "다운로드는 복구됐지만 밀린 보고서 생성이 남았습니다. 기능 접근 복구와 업무 결과물 준비를 나눠 공지를 고칩니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "고객 포털 조회는 15:00부터 정상이나 파일 내려받기는 일부 실패합니다. 영업팀이 서비스가 돌아왔다는 한 줄 공지를 보내려 합니다.",
+        "facts": [
+          "조회 화면은 운영팀 확인에서 성공했다.",
+          "파일 내려받기 실패 문의가 두 건 남아 있다.",
+          "현재 15:10이며 내려받기 담당팀은 15:30 재확인 예정이다.",
+          "고객은 보고서를 읽는 것과 저장하는 것을 모두 필요로 한다."
+        ],
+        "constraints": [
+          "부분 성공을 전체 완료로 공지하지 않는다.",
+          "고객 보고서 내용을 채팅에 올리게 하지 않는다.",
+          "본인은 기술 복구 시각을 보장할 수 없다."
+        ],
+        "learnerAuthority": "고객 안내 초안을 제안하고 영업 담당자에게 기능별 상태와 다음 확인 시간을 설명할 수 있다.",
+        "counterpartPosition": "영업 담당자 역할. 길고 기술적인 메시지는 고객이 읽지 않는다며 짧게 끝내기를 원한다. 조회 가능과 다운로드 미완료를 두 문장으로 정리하면 받아들일 수 있다.",
+        "unresolvedQuestions": [
+          "고객에게 지금 가능한 행동은 무엇인가?",
+          "아직 성공하지 않은 기능을 어떻게 짧게 표시하는가?",
+          "다음 업데이트를 누가 언제 보낼 것인가?"
+        ],
+        "deliverable": "조회 가능·다운로드 조사 중·15:30 다음 안내를 담은 짧은 고객 공지를 합의한다.",
+        "resolutionCriteria": [
+          "고객의 행동 기준으로 기능 상태를 설명한다.",
+          "남은 실패를 누락하지 않는다.",
+          "기술 원인을 추측하지 않는다.",
+          "다음 공지 시각과 담당자를 확인한다."
+        ],
+        "escalationPath": "조회도 다시 실패하면 사고 리드에 즉시 알리고 기존 부분 복구 공지를 정정하도록 고객 연락 담당자에게 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B2",
+      "slug": "it-change-window-collision",
+      "title": "변경 작업 시간과 고객 행사 충돌 조율하기",
+      "scenario": "정기 변경은 금요일 18:00~19:00 예정인데 고객 설명회가 18:30까지 연장됐습니다. 변경팀은 이미 인력을 예약했고 행사팀은 중단을 원하지 않습니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "변경 리드 역할. 18:40 시작이면 20시 안에 끝날 것이라 제안하지만 행사 종료 확정과 실패 대응 여유가 없다는 지적을 듣고 다음 승인 창도 검토할 수 있다.",
+      "opening": "We have booked the engineers. Starting at six forty should just fit.",
+      "steps": [
+        {
+          "goal": "전체 시간 필요를 설명하기",
+          "example": "The hour of work is followed by twenty minutes of checks, so that schedule leaves no room for a problem.",
+          "cue": "leaves no room = 여유를 남기지 않는다"
+        },
+        {
+          "goal": "다른 팀의 확정 여부 묻기",
+          "example": "Can the event owner confirm when the service is no longer needed?",
+          "cue": "event owner = 행사 책임자"
+        },
+        {
+          "goal": "대안 비교하기",
+          "example": "Since this is not an urgent fix, moving to the next approved window may be safer than cutting verification.",
+          "cue": "approved window = 승인된 작업 시간"
+        },
+        {
+          "goal": "결정과 상위 보고 합의하기",
+          "example": "Let's ask the change approver for a decision by five, using both the event and support constraints.",
+          "cue": "change approver = 변경 승인자"
+        }
+      ],
+      "outcome": "작업 시간뿐 아니라 검증·지원 여유를 비교해 승인 전제와 결정 마감이 있는 변경 계획을 제안한다.",
+      "transfer": "변경이 실제 긴급 보안 조치로 재분류됩니다. 위험의 우선순위와 승인 경로를 새 정보에 맞게 재검토하고 기존 연기안을 고집하지 않습니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "정기 변경은 금요일 18:00~19:00 예정인데 고객 설명회가 18:30까지 연장됐습니다. 변경팀은 이미 인력을 예약했고 행사팀은 중단을 원하지 않습니다.",
+        "facts": [
+          "변경은 60분 작업과 별도 20분 확인 시간이 필요하다.",
+          "당직 지원은 20:00에 끝난다.",
+          "고객 행사는 18:30까지지만 정리 시간이 추가될 수 있다.",
+          "이번 변경은 오늘 반드시 해야 하는 긴급 복구가 아니다."
+        ],
+        "constraints": [
+          "본인은 변경 승인권자가 아니다.",
+          "검증 시간을 없애 작업을 끼워 넣을 수 없다.",
+          "행사 종료를 확인하지 않고 중단을 시작할 수 없다."
+        ],
+        "learnerAuthority": "대안을 비교하고 승인권자에게 근거 있는 일정 선택을 요청할 수 있다.",
+        "counterpartPosition": "변경 리드 역할. 18:40 시작이면 20시 안에 끝날 것이라 제안하지만 행사 종료 확정과 실패 대응 여유가 없다는 지적을 듣고 다음 승인 창도 검토할 수 있다.",
+        "unresolvedQuestions": [
+          "행사 종료가 확정되는 시점은 언제인가?",
+          "작업·확인·문제 발생 대응을 모두 감당할 시간이 있는가?",
+          "오늘 연기와 축소 변경 중 승인 가능한 선택은 무엇인가?"
+        ],
+        "deliverable": "작업 시간뿐 아니라 검증·지원 여유를 비교해 승인 전제와 결정 마감이 있는 변경 계획을 제안한다.",
+        "resolutionCriteria": [
+          "겹치는 시간과 기능 영향을 구체적으로 설명한다.",
+          "변경 소요와 검증·지원 시간을 따로 계산해 말한다.",
+          "기술 절차를 임의 축약하지 않는다.",
+          "승인 담당자와 17:00 결정 시점을 정한다."
+        ],
+        "escalationPath": "17:00까지 행사 종료와 지원 연장을 확인하지 못하면 변경 승인자에게 다음 승인 창으로 연기하는 안을 올린다."
+      }
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "B2",
+      "slug": "it-two-incidents-one-specialist",
+      "title": "전문 담당자 한 명이 필요한 두 장애 우선순위 정하기",
+      "scenario": "내부 인쇄 장애와 고객 주문 조회 지연이 동시에 발생했습니다. 전문 담당자는 한 명뿐이고 두 요청자는 모두 최우선이라 주장합니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "내부 행사 담당자 역할. 자기 행사가 중요하다며 전문가를 계속 배정해 달라고 한다. 전자 명단 대안은 가능하지만 진행자에게 미리 알려야 한다고 답한다.",
+      "opening": "Our event is today. You cannot take the specialist away from our printer problem.",
+      "steps": [
+        {
+          "goal": "양쪽 영향을 인정하기",
+          "example": "The event deadline matters, and the customer reports may affect a wider workflow that we have not fully checked.",
+          "cue": "workflow = 업무 흐름"
+        },
+        {
+          "goal": "동의 가능한 임시안 묻기",
+          "example": "Could your presenters use the approved electronic list while we assess the order issue?",
+          "cue": "assess = 영향을 확인하다"
+        },
+        {
+          "goal": "권한을 가진 판단 요청하기",
+          "example": "I will present both impacts and the temporary option to the incident lead rather than make that priority call alone.",
+          "cue": "priority call = 우선순위 결정"
+        },
+        {
+          "goal": "재검토 조건 합의하기",
+          "example": "Let's review the allocation at three, or earlier if either impact changes.",
+          "cue": "allocation = 인력 배정"
+        }
+      ],
+      "outcome": "확인된 영향과 대안을 비교해 전문가의 초기 배정·행사 임시 지원·15:00 재검토를 제안한다.",
+      "transfer": "고객 문제는 단순 지연으로 확인됐지만 행사에는 전자 기기를 쓸 수 없습니다. 첫 결정을 고집하지 않고 영향과 대안 변화에 따라 배정을 다시 협의합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "내부 인쇄 장애와 고객 주문 조회 지연이 동시에 발생했습니다. 전문 담당자는 한 명뿐이고 두 요청자는 모두 최우선이라 주장합니다.",
+        "facts": [
+          "인쇄 장애는 내부 직원 6명의 오후 4시 행사 명단 작업을 막는다.",
+          "주문 조회 지연은 고객 3곳에서 보고됐다. 주문 생성 영향은 아직 모른다.",
+          "현재 14:30이며 전문 담당자는 한 번에 한 사건만 확인할 수 있다.",
+          "행사 명단은 승인된 전자 화면으로 확인하는 임시 방법이 있다."
+        ],
+        "constraints": [
+          "목소리가 큰 요청자 순으로 우선순위를 결정하지 않는다.",
+          "고객 수만으로 금전 손실을 추측하지 않는다.",
+          "학습자는 사업 우선순위를 최종 승인할 수 없다."
+        ],
+        "learnerAuthority": "영향·시한·대안을 모아 사고 리드에게 우선순위 결정을 요청하고 요청자에게 근거를 전달할 수 있다.",
+        "counterpartPosition": "내부 행사 담당자 역할. 자기 행사가 중요하다며 전문가를 계속 배정해 달라고 한다. 전자 명단 대안은 가능하지만 진행자에게 미리 알려야 한다고 답한다.",
+        "unresolvedQuestions": [
+          "주문 생성도 영향을 받는가?",
+          "행사 담당자가 전자 명단 대안을 쓸 수 있는가?",
+          "초기 확인 뒤 언제 배정을 다시 검토할 것인가?"
+        ],
+        "deliverable": "확인된 영향과 대안을 비교해 전문가의 초기 배정·행사 임시 지원·15:00 재검토를 제안한다.",
+        "resolutionCriteria": [
+          "각 사건의 실제 영향과 기한을 비교한다.",
+          "미확인 주문 생성 영향을 드러낸다.",
+          "내부 행사 대안을 동의 없이 강제하지 않는다.",
+          "최종 우선순위 승인과 재검토 시점을 분명히 한다."
+        ],
+        "escalationPath": "주문 생성 실패가 확인되거나 행사 대안이 불가능해지면 사고 리드에게 즉시 새로운 영향 정보를 전달해 배정을 다시 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "B2",
+      "slug": "it-restore-before-backlog",
+      "title": "접속 복구와 밀린 작업 처리의 책임 나누기",
+      "scenario": "가상 지원 포털은 다시 열리지만 장애 중 접수된 요청 40건의 상태가 미확인입니다. 운영팀은 인프라 복구를 이유로 회의를 끝내려 합니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "인프라 리드 역할. 서버는 정상이라 더 할 일이 없다고 생각한다. 미완료 업무의 담당자를 새로 지정하고 회의 대신 추적 티켓을 유지하는 안은 받아들일 수 있다.",
+      "opening": "The infrastructure is healthy. Why are we keeping this incident meeting open?",
+      "steps": [
+        {
+          "goal": "완료의 두 범위 구분하기",
+          "example": "The platform checks are complete, but the forty earlier requests have not yet been reconciled.",
+          "cue": "reconciled = 기록을 대조해 확인한"
+        },
+        {
+          "goal": "운영팀 책임 한정하며 인계 요청하기",
+          "example": "I'm not asking infrastructure to verify customer records. We need the service owner to accept that task.",
+          "cue": "service owner = 서비스 운영 책임자"
+        },
+        {
+          "goal": "중복을 피하는 확인 순서 제안하기",
+          "example": "Before asking users to submit again, could support wait for the reconciliation result?",
+          "cue": "submit again = 다시 제출하다"
+        },
+        {
+          "goal": "회의 종료와 추적 종료 분리하기",
+          "example": "We can end this call once an owner accepts the open ticket and a four o’clock update is agreed.",
+          "cue": "open ticket = 미완료 추적 건"
+        }
+      ],
+      "outcome": "플랫폼 복구 완료와 요청 대조 미완료를 분리하고 서비스 운영자·고객 지원 담당자의 확인 및 연락 시한을 합의한다.",
+      "transfer": "대조 결과 40건 모두 접수됐지만 확인 메일만 실패했습니다. 자료 복구가 아니라 고객 알림 재처리 책임으로 후속 과업을 수정합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "가상 지원 포털은 다시 열리지만 장애 중 접수된 요청 40건의 상태가 미확인입니다. 운영팀은 인프라 복구를 이유로 회의를 끝내려 합니다.",
+        "facts": [
+          "새 로그인과 새 문의 등록은 성공했다.",
+          "장애 시간에 들어온 요청 40건의 처리 상태는 아직 대조하지 않았다.",
+          "고객 지원팀은 사용자에게 접수 확인을 보내야 한다.",
+          "운영팀은 요청 상태 확인 권한이 없고 서비스 운영자가 대조를 맡을 수 있다."
+        ],
+        "constraints": [
+          "미확인 40건을 유실이라고 단정하지 않는다.",
+          "확인 없이 사용자에게 다시 제출하라고 하여 중복을 만들지 않는다.",
+          "플랫폼 복구와 고객 업무 완료의 담당자가 다르다."
+        ],
+        "learnerAuthority": "미완료 범위를 정리하고 서비스 운영자의 확인과 고객 지원팀의 연락 계획을 합의할 수 있다.",
+        "counterpartPosition": "인프라 리드 역할. 서버는 정상이라 더 할 일이 없다고 생각한다. 미완료 업무의 담당자를 새로 지정하고 회의 대신 추적 티켓을 유지하는 안은 받아들일 수 있다.",
+        "unresolvedQuestions": [
+          "미확인 40건을 누가 어떤 완료 기준으로 대조하는가?",
+          "고객에게 재제출을 요청하기 전에 무엇을 확인해야 하는가?",
+          "회의 종료 이후에도 누가 미완료를 추적하는가?"
+        ],
+        "deliverable": "플랫폼 복구 완료와 요청 대조 미완료를 분리하고 서비스 운영자·고객 지원 담당자의 확인 및 연락 시한을 합의한다.",
+        "resolutionCriteria": [
+          "복구와 업무 누적분의 차이를 설명한다.",
+          "미확인 상태를 손실로 단정하지 않는다.",
+          "무조건 재제출 대신 확인 순서를 요청한다.",
+          "미완료 추적 책임자와 16:00 확인을 지정한다."
+        ],
+        "escalationPath": "16:00까지 대조 결과가 없거나 유실 가능성이 생기면 서비스 운영 리드가 사고 리드에게 사용자 영향과 연락 계획 재검토를 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "customer-service",
+      "difficulty": "B2",
+      "slug": "it-suspicious-login-report",
+      "title": "의심스러운 접속 신고를 침해 확정 없이 전달하기",
+      "scenario": "직원이 모르는 로그인 알림을 받았습니다. 알림이 진짜인지, 실제 접속인지 아직 모릅니다. 직원은 해킹됐냐고 즉답을 요구합니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "사용자 역할. 자신의 모든 자료가 유출됐냐고 걱정한다. 아직 알림의 링크를 누르지 않았으며 공식 보안팀에 알림 시각과 표시 문구를 전달하는 데 동의할 수 있다.",
+      "opening": "Does this mean somebody has hacked my account and copied everything?",
+      "steps": [
+        {
+          "goal": "확인 가능한 범위 설명하기",
+          "example": "The alert gives us something to investigate, but it does not by itself confirm access or data loss.",
+          "cue": "by itself = 그것만으로"
+        },
+        {
+          "goal": "필요한 최소 사실 질문하기",
+          "example": "What time did it appear, and did you make any login attempt around then? Please do not send a password or code.",
+          "cue": "login attempt = 접속 시도"
+        },
+        {
+          "goal": "공식 확인 경로 제안하기",
+          "example": "Let's use the security team's known reporting channel rather than the link in the message.",
+          "cue": "known reporting channel = 알고 있는 공식 신고 경로"
+        },
+        {
+          "goal": "연락 책임과 시각 정하기",
+          "example": "I'll update you within fifteen minutes on whether the security team has received the report, and tell you the next contact or escalation step.",
+          "cue": "whether = ~인지 여부; escalation step = 상위 연락 단계"
+        }
+      ],
+      "outcome": "알림만으로 침해를 단정하지 않고 관찰 정보·공식 신고 담당자·다음 연락 시각을 갖춘 인계를 만든다.",
+      "transfer": "보안팀에서 실제 접속은 확인했지만 자료 접근 범위는 모른다고 답합니다. 확인된 접속과 미확인 유출을 분리해 사용자 안내를 갱신합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "직원이 모르는 로그인 알림을 받았습니다. 알림이 진짜인지, 실제 접속인지 아직 모릅니다. 직원은 해킹됐냐고 즉답을 요구합니다.",
+        "facts": [
+          "사용자는 자신이 시도하지 않은 로그인 알림 한 건을 봤다.",
+          "보낸 사람과 실제 접속 기록은 아직 검증하지 않았다.",
+          "가상 보안팀이 공식 신고 창구에서 검토한다.",
+          "사용자는 팀의 알려진 전화번호로 연락할 수 있다."
+        ],
+        "constraints": [
+          "침해 발생 또는 안전함을 단정하지 않는다.",
+          "비밀번호·인증 코드·의심 링크의 입력값을 요청하지 않는다.",
+          "승인 없는 계정 삭제나 기기 초기화 같은 조치를 지시하지 않는다."
+        ],
+        "learnerAuthority": "관찰된 사실과 미확인 정보를 구분하고 공식 보안 신고 및 다음 연락을 연결할 수 있다.",
+        "counterpartPosition": "사용자 역할. 자신의 모든 자료가 유출됐냐고 걱정한다. 아직 알림의 링크를 누르지 않았으며 공식 보안팀에 알림 시각과 표시 문구를 전달하는 데 동의할 수 있다.",
+        "unresolvedQuestions": [
+          "사용자가 직접 한 접속과 다른 점은 무엇인가?",
+          "알림이 실제 보안 시스템에서 온 것인가?",
+          "보안팀이 어떤 최소 정보를 어떤 승인 채널로 받아야 하는가?"
+        ],
+        "deliverable": "알림만으로 침해를 단정하지 않고 관찰 정보·공식 신고 담당자·다음 연락 시각을 갖춘 인계를 만든다.",
+        "resolutionCriteria": [
+          "해킹 여부에 근거 없는 확답을 하지 않는다.",
+          "민감 인증값을 받지 않는다.",
+          "신고에 필요한 최소 사실을 요약한다.",
+          "보안팀 판단과 헬프데스크 연락 역할을 구분한다."
+        ],
+        "escalationPath": "보안팀이 정한 긴급 기준에 해당하거나 공식 창구에 연결되지 않으면 보안 당직자에게 알려진 연락 경로로 즉시 올린다. 기술 조치는 보안팀이 결정한다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C1",
+      "slug": "it-recovery-versus-data-confidence",
+      "title": "빠른 재개와 데이터 확인의 상충 조건 중재하기",
+      "scenario": "고객 주문 도구는 다시 접속되지만 중단 직전 12건의 상태를 확인하지 못했습니다. 영업은 전면 재개를, 데이터팀은 확인 전 보류를 요구합니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "영업 리드 역할. 매출 기회가 줄고 있다며 지금 재개하자고 한다. 미확인 주문과 새 주문의 영향이 구분되는지 확인할 필요는 인정하며 서비스 책임자의 결정에 따를 수 있다.",
+      "opening": "If the system is available again, keeping it closed is just choosing to lose business.",
+      "steps": [
+        {
+          "goal": "지표의 차이 설명하기",
+          "example": "Availability has been demonstrated; the status of the twelve earlier orders has not. Those are related but distinct recovery questions.",
+          "cue": "distinct = 별개의"
+        },
+        {
+          "goal": "우려를 양쪽 목적과 연결하기",
+          "example": "We need to avoid both unnecessary interruption and a restart that leaves customers unsure which orders exist.",
+          "cue": "interruption = 업무 중단"
+        },
+        {
+          "goal": "범위 제한 가능성을 확인 요청하기",
+          "example": "Could the technical owner assess whether any confirmed function can be offered without prejudging the unresolved records?",
+          "cue": "prejudging = 미리 결론내리는"
+        },
+        {
+          "goal": "결정의 근거와 갱신 시점 합의하기",
+          "example": "Let the service owner record the decision and its conditions now, with an explicit review when the first reconciliation result arrives at eleven thirty.",
+          "cue": "reconciliation = 기록 대조"
+        }
+      ],
+      "outcome": "가용성과 데이터 확신을 분리한 선택지를 만들고 서비스 책임자의 조건부 결정과 11:30 재검토를 합의한다.",
+      "transfer": "기존 12건은 모두 확인됐지만 신규 주문 일부만 지연됩니다. 이전 데이터 우려를 계속 재개 반대 근거로 쓰지 않고 최신 영향에 맞춰 판단을 갱신합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "고객 주문 도구는 다시 접속되지만 중단 직전 12건의 상태를 확인하지 못했습니다. 영업은 전면 재개를, 데이터팀은 확인 전 보류를 요구합니다.",
+        "facts": [
+          "현재 11:00이며 연결 확인은 성공했다.",
+          "중단 직전 주문 12건의 처리 상태는 미확인이다.",
+          "새 주문 재개 여부는 서비스 책임자가 결정한다.",
+          "데이터팀은 11:30에 첫 대조 결과를 낼 수 있다."
+        ],
+        "constraints": [
+          "연결 성공만으로 데이터가 정확하다고 말하지 않는다.",
+          "학습자는 트랜잭션을 재실행하거나 삭제하는 조치를 승인할 수 없다.",
+          "전면 보류와 전면 재개 외의 범위 제한안도 기술 담당자 확인이 필요하다."
+        ],
+        "learnerAuthority": "상충 목표를 정리하고 결정권자에게 확인된 조건과 선택지, 재검토 시점을 제시할 수 있다.",
+        "counterpartPosition": "영업 리드 역할. 매출 기회가 줄고 있다며 지금 재개하자고 한다. 미확인 주문과 새 주문의 영향이 구분되는지 확인할 필요는 인정하며 서비스 책임자의 결정에 따를 수 있다.",
+        "unresolvedQuestions": [
+          "기존 미확인 주문이 새 주문 처리 판단에 어떻게 영향을 주는가?",
+          "확인된 기능만 제한적으로 제공할 수 있는가?",
+          "보류 또는 재개의 조건을 누가 승인하는가?"
+        ],
+        "deliverable": "가용성과 데이터 확신을 분리한 선택지를 만들고 서비스 책임자의 조건부 결정과 11:30 재검토를 합의한다.",
+        "resolutionCriteria": [
+          "각 팀의 목표를 공정하게 요약한다.",
+          "확인되지 않은 데이터 상태를 정상 또는 손실로 단정하지 않는다.",
+          "제한안의 기술적 가능성을 질문으로 남긴다.",
+          "결정권자와 변경 조건을 명시한다."
+        ],
+        "escalationPath": "재개 여부 합의가 나지 않으면 사고 리드가 서비스 책임자에게 사용자 영향과 미확인 상태를 함께 제시하며 최종 판단을 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "C1",
+      "slug": "it-vendor-boundary-handoff",
+      "title": "두 공급업체가 서로 미룬 장애의 공동 확인 정하기",
+      "scenario": "회사 접속 도구와 외부 서비스가 각각 자기 시스템은 정상이라고 합니다. 사용자는 접속 후 보고서 열기 단계에서 실패하고 경계 구간은 아직 함께 확인하지 않았습니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "업체 A 담당자 역할. 인증 성공이므로 B에 문의하라고 한다. A의 담당자는 16:00~16:20 공동 통화에는 참석할 수 있고 비식별 사건 번호와 실패 단계만으로 논의할 수 있다.",
+      "opening": "Authentication succeeded on our side, so there is nothing left for us to investigate.",
+      "steps": [
+        {
+          "goal": "확인된 범위 인정하기",
+          "example": "That establishes that your authentication step succeeded; it does not yet establish that the combined workflow passed the same user request correctly.",
+          "cue": "combined workflow = 연결된 업무 흐름"
+        },
+        {
+          "goal": "미검증 구간을 공동 문제로 제시하기",
+          "example": "Could we identify what neither standalone test covered, rather than use two passing tests to assign fault elsewhere?",
+          "cue": "standalone = 각각 독립적인"
+        },
+        {
+          "goal": "구체적 협의 조건 제안하기",
+          "example": "You can join at four. I will ask B to attend with the case reference and failure timing, without credentials or report content.",
+          "cue": "credentials = 인증 정보"
+        },
+        {
+          "goal": "결과와 소통 책임 정하기",
+          "example": "Can we agree who records the joint finding and who gives users the next update, even if the cause remains open?",
+          "cue": "joint finding = 공동 확인 결과"
+        }
+      ],
+      "outcome": "검사 범위를 비교하고 16:00 공동 확인, 비식별 정보 목록, 한 명의 고객 연락 책임자를 합의한다.",
+      "transfer": "공동 확인에서 A가 전달한 값의 문제가 드러납니다. 비난을 반복하지 않고 수정 승인·검증·고객 안내의 새로운 담당 분담을 합의합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "회사 접속 도구와 외부 서비스가 각각 자기 시스템은 정상이라고 합니다. 사용자는 접속 후 보고서 열기 단계에서 실패하고 경계 구간은 아직 함께 확인하지 않았습니다.",
+        "facts": [
+          "사용자 세 명은 인증 성공 후 보고서 열기에서 같은 오류를 본다.",
+          "접속 도구 업체 A는 인증 성공 기록을 확인했다.",
+          "서비스 업체 B는 단독 조회 검사를 통과했다고 말한다.",
+          "두 시스템을 함께 이용한 경로의 공동 확인은 하지 않았다."
+        ],
+        "constraints": [
+          "부분 검사 통과를 상대 업체 원인의 증명으로 쓰지 않는다.",
+          "사용자 인증 정보와 실제 보고서 내용을 업체에 전달하지 않는다.",
+          "학습자는 각 업체 설정을 바꿀 권한이 없다."
+        ],
+        "learnerAuthority": "비식별 오류 시각과 단계 정보를 모으고 두 업체의 공동 확인과 연락 책임을 조율할 수 있다.",
+        "counterpartPosition": "업체 A 담당자 역할. 인증 성공이므로 B에 문의하라고 한다. A의 담당자는 16:00~16:20 공동 통화에는 참석할 수 있고 비식별 사건 번호와 실패 단계만으로 논의할 수 있다.",
+        "unresolvedQuestions": [
+          "각 업체의 정상 판정은 어느 구간까지 포함하는가?",
+          "공동 경로에서 같은 실패를 확인하려면 어떤 최소 정보가 필요한가?",
+          "두 업체 답변을 누가 하나의 사용자 안내로 정리하는가?"
+        ],
+        "deliverable": "검사 범위를 비교하고 16:00 공동 확인, 비식별 정보 목록, 한 명의 고객 연락 책임자를 합의한다.",
+        "resolutionCriteria": [
+          "전체 경로와 부분 검사의 논리 차이를 설명한다.",
+          "업체별 비난보다 미검증 구간을 좁힌다.",
+          "민감 자료 없이 공유할 정보를 한정한다.",
+          "공동 확인 시각과 결과 인계·사용자 연락 책임을 정한다."
+        ],
+        "escalationPath": "한 업체가 공동 확인을 거부하면 벤더 관리 담당자가 계약된 지원 창구를 통해 책임 범위와 참여 가능 시간을 확인한다."
+      }
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "C1",
+      "slug": "it-time-zone-ownership-gap",
+      "title": "시간대가 다른 팀 사이 책임 공백 없애기",
+      "scenario": "한국 팀은 업무를 마치고 북미 팀에 티켓을 보냈지만 현지 당직 시작은 한 시간 뒤입니다. 고객은 30분 안에 답변을 약속받았습니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "한국 팀 리드 역할. 티켓은 보냈으므로 퇴근해도 된다고 생각한다. 고객 약속 시각을 들으면 09:30 안내는 맡을 수 있지만 10:00 기술 책임은 북미 팀이 수락해야 한다고 답한다. 질문하면 글로벌 당직자 Jo에게 지금 연결할 수 있다고 답한다. 09:40 이후의 연락과 10:00 수락 확인을 요청하면 Jo의 명시적인 수락을 확보하도록 연락하겠다고 답하며, 단순 티켓 전송을 수락으로 표현하지 않는다.",
+      "opening": "We sent the ticket to North America. They can pick it up when they come online.",
+      "steps": [
+        {
+          "goal": "시간 공백과 약속 충돌 설명하기",
+          "example": "Their shift starts at ten UTC, but our promised customer update is at nine thirty. Sending the ticket has not covered that gap.",
+          "cue": "covered the gap = 공백을 맡아 처리하다"
+        },
+        {
+          "goal": "임시 역할을 분리해 요청하기",
+          "example": "Could you own the nine-thirty message while we confirm the technical on-call contact for any deterioration?",
+          "cue": "deterioration = 상황 악화"
+        },
+        {
+          "goal": "인계 수락 조건 명확히 하기",
+          "example": "The receiving team needs to acknowledge the remaining task and next decision, not merely confirm that they can see the ticket.",
+          "cue": "acknowledge = 이해하고 수락하다"
+        },
+        {
+          "goal": "09:40 이후 공백의 담당 수락 확보하기",
+          "example": "Before your coverage ends at nine forty, can we obtain Jo’s acceptance of customer contact and the ten-UTC handover check?",
+          "cue": "obtain acceptance = 명시적인 수락을 받다"
+        },
+        {
+          "goal": "미수락 시 경로 합의하기",
+          "example": "If the receiving team has not accepted at ten, Jo should retain coordination and raise the missing technical owner through the global incident route.",
+          "cue": "retain coordination = 조율 책임을 계속 맡다"
+        }
+      ],
+      "outcome": "UTC 09:30 안내 담당, 09:40 이후 Jo의 명시적 연락 책임 수락, 기술 긴급 경로와 10:00 인계 확인을 포함한 공백 없는 계획을 만든다.",
+      "transfer": "북미 팀은 10시에 티켓을 읽었지만 해당 시스템 담당이 아닙니다. 읽음 표시를 수락으로 해석하지 않고 올바른 담당자의 명시적 인계를 확인합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "한국 팀은 업무를 마치고 북미 팀에 티켓을 보냈지만 현지 당직 시작은 한 시간 뒤입니다. 고객은 30분 안에 답변을 약속받았습니다.",
+        "facts": [
+          "공유 기준 시각은 UTC 09:00이며 한국 팀은 지금 교대 종료한다.",
+          "북미 당직의 수락 가능 시각은 UTC 10:00이다.",
+          "고객에게 약속한 다음 안내는 UTC 09:30이다.",
+          "한국 팀 리드는 09:40까지 연락을 유지할 수 있으나 기술 처리는 다른 당직 승인 필요다.",
+          "글로벌 사고 당직자 Jo에게 지금 연락할 수 있지만 09:40 이후 연락 책임은 명시적인 수락을 받아야 한다. 북미 팀 수락 여부도 Jo에게 10:00 확인을 요청할 수 있다."
+        ],
+        "constraints": [
+          "티켓 전송을 인계 수락으로 기록하지 않는다.",
+          "상대 팀의 현지 근무 시간을 추측하지 않는다.",
+          "개인이 승인 없이 근무를 연장한다고 약속하지 않는다."
+        ],
+        "learnerAuthority": "공통 시간 기준으로 공백을 설명하고 임시 연락 책임과 공식 인계 수락 시점을 협의할 수 있다.",
+        "counterpartPosition": "한국 팀 리드 역할. 티켓은 보냈으므로 퇴근해도 된다고 생각한다. 고객 약속 시각을 들으면 09:30 안내는 맡을 수 있지만 10:00 기술 책임은 북미 팀이 수락해야 한다고 답한다. 질문하면 글로벌 당직자 Jo에게 지금 연결할 수 있다고 답한다. 09:40 이후의 연락과 10:00 수락 확인을 요청하면 Jo의 명시적인 수락을 확보하도록 연락하겠다고 답하며, 단순 티켓 전송을 수락으로 표현하지 않는다.",
+        "unresolvedQuestions": [
+          "UTC 09:00~10:00 사이 누가 고객 연락을 맡는가?",
+          "긴급 악화 시 실제 기술 당직은 누구인가?",
+          "10:00에 누가 수락 여부를 확인하는가?"
+        ],
+        "deliverable": "UTC 09:30 안내 담당, 09:40 이후 Jo의 명시적 연락 책임 수락, 기술 긴급 경로와 10:00 인계 확인을 포함한 공백 없는 계획을 만든다.",
+        "resolutionCriteria": [
+          "서로 다른 시간대를 공통 기준으로 표현한다.",
+          "보냄·읽음·책임 수락을 구별한다.",
+          "임시 고객 연락과 기술 처리 권한을 나눈다.",
+          "수락 실패 시 상위 당직 경로를 합의한다.",
+          "09:40~10:00 공백을 남기지 않고 대체 담당자의 수락을 먼저 확인한다."
+        ],
+        "escalationPath": "09:40 전 Jo나 대체 당직자의 수락을 확보하지 못하면 현재 리드가 공식 글로벌 교대 책임자에게 공백을 즉시 알린다. 10:00 북미 팀 미수락 시 Jo가 연락 조율을 유지하며 기술 담당 배정을 상위 경로로 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "onboarding",
+      "difficulty": "C1",
+      "slug": "it-temporary-bypass-expiry",
+      "title": "임시 우회 승인에 종료 조건 붙이기",
+      "scenario": "정상 요청 절차가 느려 임시 수동 승인을 쓰자는 제안이 나왔습니다. 요청자는 이번 주만이라 하지만 종료 담당자와 기록 방식이 없습니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "운영 매니저 역할. 며칠만 쓸 방식에 절차가 과하다고 생각한다. 하루 5건만 제한하고 매일 16시 검토하며 복구 확인 후 종료하는 조건은 수락 가능하다.",
+      "opening": "It is only for a couple of days. We do not need to overcomplicate a temporary workaround.",
+      "steps": [
+        {
+          "goal": "일시성과 통제 조건 구분하기",
+          "example": "Temporary describes an intention; it does not tell us who ends the arrangement or what happens if recovery slips.",
+          "cue": "recovery slips = 복구 일정이 늦어지다"
+        },
+        {
+          "goal": "좁은 실행 범위 제안하기",
+          "example": "Could we define the eligible requests, the authorized approver, and a record for each decision?",
+          "cue": "eligible = 적용 가능한"
+        },
+        {
+          "goal": "종료와 갱신 조건 묻기",
+          "example": "Should the exception expire after the daily review unless the responsible owner explicitly renews it?",
+          "cue": "expire = 만료되다"
+        },
+        {
+          "goal": "운영 가능한 합의안 정리하기",
+          "example": "That would let the approver assess a bounded process with a four o’clock review, rather than an open-ended bypass.",
+          "cue": "bounded process = 범위가 제한된 절차"
+        }
+      ],
+      "outcome": "업무 범위·승인자·요청 기록·매일 16시 검토·종료 및 재승인 조건을 갖춘 임시 운영안을 만든다.",
+      "transfer": "복구가 일주일 늦어진다는 새 정보가 들어왔습니다. 잠깐의 예외였던 근거가 바뀌었으므로 기존 승인이 자동 연장된다고 하지 않고 재검토를 요청합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "정상 요청 절차가 느려 임시 수동 승인을 쓰자는 제안이 나왔습니다. 요청자는 이번 주만이라 하지만 종료 담당자와 기록 방식이 없습니다.",
+        "facts": [
+          "승인 도구 복구까지 예상 이틀이지만 확정은 아니다.",
+          "임시 수동 승인은 보안 책임자가 한정된 요청에 승인할 수 있다.",
+          "요청 수는 하루 약 5건이며 소유자와 승인 기록을 남길 수 있다.",
+          "현재 제안에는 종료 시각·검토 주기·예외 발생 담당자가 없다."
+        ],
+        "constraints": [
+          "학습자는 보안 검사를 끄거나 우회 명령을 제시할 수 없다.",
+          "임시라는 말만으로 승인된 예외라고 처리하지 않는다.",
+          "승인·추적·종료 조건 없는 사용은 합의하지 않는다."
+        ],
+        "learnerAuthority": "임시 절차의 업무 필요와 통제 조건을 문서화해 승인권자 검토에 올릴 수 있다.",
+        "counterpartPosition": "운영 매니저 역할. 며칠만 쓸 방식에 절차가 과하다고 생각한다. 하루 5건만 제한하고 매일 16시 검토하며 복구 확인 후 종료하는 조건은 수락 가능하다.",
+        "unresolvedQuestions": [
+          "누가 한정된 수동 처리 범위를 승인하는가?",
+          "종료 전까지 요청과 결정을 어디에 기록하는가?",
+          "복구가 늦어지면 자동 연장인가 재승인인가?"
+        ],
+        "deliverable": "업무 범위·승인자·요청 기록·매일 16시 검토·종료 및 재승인 조건을 갖춘 임시 운영안을 만든다.",
+        "resolutionCriteria": [
+          "임시 조치 필요를 무조건 거절하지 않는다.",
+          "기간 추정과 승인 만료를 구별한다.",
+          "사람과 기록과 종료 책임을 명확히 한다.",
+          "미승인 기술 우회가 아니라 검토 가능한 운영 요청으로 끝낸다."
+        ],
+        "escalationPath": "범위 밖 요청, 누락된 승인 기록, 예정 종료 후 사용이 발생하면 보안 책임자와 서비스 책임자에게 예외 재검토를 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C2",
+      "slug": "it-root-cause-certainty-pressure",
+      "title": "사후 분석에서 시간적 선후와 원인 확정을 구별하기",
+      "scenario": "배포 8분 뒤 장애가 났고 되돌림 이후 서비스가 회복됐습니다. 같은 시간대에 외부 공급자 지연도 줄었습니다. 경영진은 배포가 유일한 원인이라고 보고서에 쓰라 합니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "경영진 역할. 고객에게 모호하게 보이고 싶지 않아 원인을 하나로 정하라고 한다. 확인된 경과와 주된 가설, 추가 검증 일정을 구분한 명료한 문구는 검토할 수 있다.",
+      "opening": "It broke after the deployment and recovered after rollback. Calling the deployment the sole cause is simply being clear.",
+      "steps": [
+        {
+          "goal": "증거가 뒷받침하는 강도 한정하기",
+          "example": "That sequence supports the deployment as a leading hypothesis, but the concurrent supplier recovery prevents us from treating it as the sole explanation yet.",
+          "cue": "concurrent = 같은 시기에 일어난"
+        },
+        {
+          "goal": "명료성과 단정 구분하기",
+          "example": "We can be precise about what happened without manufacturing precision about why it happened.",
+          "cue": "manufacturing precision = 없는 확실성을 만들어 내는 것"
+        },
+        {
+          "goal": "검증 가능한 요약 제안하기",
+          "example": "I would separate the observed timeline, the current causal hypothesis, and the evidence still needed to distinguish competing contributions.",
+          "cue": "causal hypothesis = 원인 가설"
+        },
+        {
+          "goal": "후속 책임과 갱신 합의하기",
+          "example": "Let's name the analysis owner and commit to a revised assessment by noon tomorrow, even if the conclusion remains qualified.",
+          "cue": "qualified conclusion = 조건과 한계를 명시한 결론"
+        }
+      ],
+      "outcome": "확인된 경과·잠정 원인 가설·대안 설명·후속 분석 담당과 다음 날 12시 갱신을 구분한 사후 요약을 합의한다.",
+      "transfer": "후속 분석에서 공급자 지연은 해당 경로와 무관한 것으로 확인됩니다. 무조건 유보를 반복하지 않고 원인 주장 강도를 새 증거에 맞게 높입니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "배포 8분 뒤 장애가 났고 되돌림 이후 서비스가 회복됐습니다. 같은 시간대에 외부 공급자 지연도 줄었습니다. 경영진은 배포가 유일한 원인이라고 보고서에 쓰라 합니다.",
+        "facts": [
+          "가상 배포 시각은 14:00, 첫 오류 증가는 14:08이다.",
+          "되돌림 완료는 14:25이며 그 뒤 오류가 줄었다.",
+          "외부 공급자의 지연도 14:20~14:30에 동시에 개선됐다.",
+          "개별 요인의 기여를 분리한 분석은 아직 없다."
+        ],
+        "constraints": [
+          "시간 순서만으로 단일 원인을 확정하지 않는다.",
+          "불확실성을 이유로 확인된 대응 성과까지 지우지 않는다.",
+          "본인은 재현 실험이나 운영 변경을 승인할 수 없다."
+        ],
+        "learnerAuthority": "보고서의 주장 강도와 증거 범위를 조정하고 분석 책임자에게 확인할 가설·기한을 제안할 수 있다.",
+        "counterpartPosition": "경영진 역할. 고객에게 모호하게 보이고 싶지 않아 원인을 하나로 정하라고 한다. 확인된 경과와 주된 가설, 추가 검증 일정을 구분한 명료한 문구는 검토할 수 있다.",
+        "unresolvedQuestions": [
+          "배포가 원인이라는 가설을 지지하는 증거는 무엇인가?",
+          "동시 공급자 개선을 어떻게 설명할 것인가?",
+          "보고서에 현재 확정할 부분과 후속 분석의 책임·시한은 무엇인가?"
+        ],
+        "deliverable": "확인된 경과·잠정 원인 가설·대안 설명·후속 분석 담당과 다음 날 12시 갱신을 구분한 사후 요약을 합의한다.",
+        "resolutionCriteria": [
+          "선후 관계와 인과 강도를 구별한다.",
+          "경영진의 명료성 요구를 증거 없는 확신으로 충족하지 않는다.",
+          "여러 설명을 모두 동등하다고 단정하지 않는다.",
+          "후속 검증을 책임자와 시점이 있는 계획으로 바꾼다."
+        ],
+        "escalationPath": "분석 책임자가 현재 자료만으로 판단할 수 없으면 사고 검토 책임자에게 추가 자료와 안전한 비운영 검증 범위의 승인을 요청한다."
+      }
+    },
+    {
+      "subcategoryId": "meetings",
+      "difficulty": "C2",
+      "slug": "it-incident-label-versus-exposure",
+      "title": "사고 등급 논쟁을 사용자 영향과 결정 권한으로 바꾸기",
+      "scenario": "한 팀은 보안 사고라는 명칭을 붙이면 혼란이 커진다며 운영 이슈로만 기록하려 합니다. 가상 자료에 대한 비정상 접근 가능성은 조사 중이며 접근이 실제 있었는지는 미확인입니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "운영 리드 역할. 고객이 알면 불안해한다며 security라는 단어를 빼자고 한다. 서비스 영향과 정보 접근 가능성의 차이를 들으면 보안 책임자에게 제한된 사실을 전달하는 데 동의할 수 있다.",
+      "opening": "Nothing is down. Calling it a security incident would create a problem we do not currently have.",
+      "steps": [
+        {
+          "goal": "가용성과 다른 위험 축 구분하기",
+          "example": "Continued availability answers an operational question; it does not settle whether an unexpected data access succeeded.",
+          "cue": "settle = 결론내리다"
+        },
+        {
+          "goal": "명칭의 정치적 효과와 판단 기준 분리하기",
+          "example": "The label should follow the authorized assessment of the facts, rather than either our wish to reassure or an assumption that a breach occurred.",
+          "cue": "authorized assessment = 권한 있는 검토"
+        },
+        {
+          "goal": "중립적인 현재 기록 제안하기",
+          "example": "We can record the unexpected request, the unverified outcome, and the restricted evidence available, without announcing a conclusion.",
+          "cue": "unverified outcome = 미확인 결과"
+        },
+        {
+          "goal": "판단 책임과 시한 확보하기",
+          "example": "Please route that summary to the security owner now and agree an update within thirty minutes, including who holds contact responsibility if classification is still pending.",
+          "cue": "classification pending = 분류가 아직 검토 중인"
+        }
+      ],
+      "outcome": "확인된 요청과 미확인 성공·자료 범위를 중립적으로 기록하고 보안 책임자의 30분 내 분류 검토 및 제한된 연락 계획을 합의한다.",
+      "transfer": "보안팀이 정상 승인된 요청으로 확인했습니다. 처음 기록을 지우지 않고 확인 결과와 분류 종료 근거를 덧붙이며 관계자에게 과장 없는 종료 안내를 합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "한 팀은 보안 사고라는 명칭을 붙이면 혼란이 커진다며 운영 이슈로만 기록하려 합니다. 가상 자료에 대한 비정상 접근 가능성은 조사 중이며 접근이 실제 있었는지는 미확인입니다.",
+        "facts": [
+          "예상하지 못한 자료 조회 요청이 감지됐다.",
+          "요청의 성공 여부와 자료 범위는 아직 확인하지 못했다.",
+          "운영 서비스는 현재 정상 응답한다.",
+          "가상 조직의 보안 책임자가 사고 분류와 조사 범위를 결정한다."
+        ],
+        "constraints": [
+          "정상 가용성을 근거로 정보 위험이 없다고 말하지 않는다.",
+          "학습자는 침해 확정이나 외부 신고 의무를 판단하지 않는다.",
+          "원본 자료·사용자 식별값·인증값은 일반 회의에 공유하지 않는다."
+        ],
+        "learnerAuthority": "용어의 함의와 확인된 사실을 분리하고 정해진 보안 분류 담당자에게 판단 자료를 전달할 수 있다.",
+        "counterpartPosition": "운영 리드 역할. 고객이 알면 불안해한다며 security라는 단어를 빼자고 한다. 서비스 영향과 정보 접근 가능성의 차이를 들으면 보안 책임자에게 제한된 사실을 전달하는 데 동의할 수 있다.",
+        "unresolvedQuestions": [
+          "현재 확인된 것은 시도, 성공 접근, 자료 유출 중 어디까지인가?",
+          "명칭을 결정할 공식 권한은 누구에게 있는가?",
+          "분류 대기 중 유지해야 할 연락과 기록은 무엇인가?"
+        ],
+        "deliverable": "확인된 요청과 미확인 성공·자료 범위를 중립적으로 기록하고 보안 책임자의 30분 내 분류 검토 및 제한된 연락 계획을 합의한다.",
+        "resolutionCriteria": [
+          "명칭을 회피하거나 과장하는 두 압력을 모두 다룬다.",
+          "운영 가용성과 정보 접근 위험을 독립적으로 설명한다.",
+          "법률 결론과 침해 확정을 스스로 만들지 않는다.",
+          "분류 담당자·최소 공유 정보·다음 검토 시점을 지정한다."
+        ],
+        "escalationPath": "조사 중 성공 접근이 확인되거나 공식 검토가 지연되면 보안 당직 책임자에게 즉시 올린다. 외부 공지와 필요한 법적 검토는 지정 담당자가 결정한다."
+      }
+    },
+    {
+      "subcategoryId": "presentations",
+      "difficulty": "C2",
+      "slug": "it-restored-wording-review",
+      "title": "복구 완료라는 표현의 서로 다른 함의 정리하기",
+      "scenario": "운영 보고에는 restored라고 쓰여 있고 고객 지원은 더 이상 남은 일이 없다고 받아들입니다. 실제로 새 요청은 정상이나 고객 세 곳의 과거 요청 결과 확인이 남았습니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "운영 책임자 역할. 업계에서 restored는 서비스 가용성 뜻이라 틀린 말이 아니라고 한다. 오해를 인정하면 서비스 접근 복구와 고객별 확인을 별도 상태로 표시할 수 있다.",
+      "opening": "Restored is technically correct. We cannot redefine every operational term because someone reads too much into it.",
+      "steps": [
+        {
+          "goal": "정의와 실제 전달 효과를 함께 설명하기",
+          "example": "The term may be accurate within your reporting convention while still implying a broader completion to the team acting on it.",
+          "cue": "reporting convention = 보고에서 쓰는 정의와 관행"
+        },
+        {
+          "goal": "수정의 목적 재구성하기",
+          "example": "I'm not proposing a new technical definition; I'm asking that the unresolved customer work remain visible alongside the restored service.",
+          "cue": "alongside = 함께"
+        },
+        {
+          "goal": "구체적 대체 보고 제시하기",
+          "example": "We could state: Current access is restored; three customers’ earlier results remain under verification, with an update due at five.",
+          "cue": "under verification = 확인 중인"
+        },
+        {
+          "goal": "이해와 실행 책임 확인하기",
+          "example": "Could support confirm that they will keep those cases open and use the five o’clock update before sending a final resolution message?",
+          "cue": "final resolution = 최종 해결"
+        }
+      ],
+      "outcome": "서비스 접근 복구와 고객 결과 확인 중을 동시에 전달하고 17:00 후속 결과 담당이 보이는 상태 요약을 만든다.",
+      "transfer": "고객별 대조도 끝났지만 통지 여부는 미확인입니다. 해결 내용과 알림 전달을 분리해 남은 커뮤니케이션 책임을 확인합니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "운영 보고에는 restored라고 쓰여 있고 고객 지원은 더 이상 남은 일이 없다고 받아들입니다. 실제로 새 요청은 정상이나 고객 세 곳의 과거 요청 결과 확인이 남았습니다.",
+        "facts": [
+          "서비스의 현재 응답 검사는 통과했다.",
+          "고객 세 곳의 과거 요청 결과는 대조 중이다.",
+          "고객 지원은 restored를 고객 업무 전체 완료로 해석한다.",
+          "운영 책임자는 17:00 대조 결과 확인과 별도 고객 업데이트를 계획했다."
+        ],
+        "constraints": [
+          "단어를 바꾸는 것만으로 미완료 책임을 없애지 않는다.",
+          "고객의 미완료 업무를 기술 문제가 아니라고 가볍게 처리하지 않는다.",
+          "개인 고객 자료를 공개 보고에 포함하지 않는다."
+        ],
+        "learnerAuthority": "보고 문구·완료 범위·열린 후속 과제를 연결하고 고객 지원팀의 정확한 재전달을 도울 수 있다.",
+        "counterpartPosition": "운영 책임자 역할. 업계에서 restored는 서비스 가용성 뜻이라 틀린 말이 아니라고 한다. 오해를 인정하면 서비스 접근 복구와 고객별 확인을 별도 상태로 표시할 수 있다.",
+        "unresolvedQuestions": [
+          "보고의 restored는 어느 대상과 시점의 완료를 뜻하는가?",
+          "고객이 그 표현으로 추론할 수 있는 미완료 과제는 무엇인가?",
+          "17시까지 남아 있는 담당 책임을 어떻게 드러낼 것인가?"
+        ],
+        "deliverable": "서비스 접근 복구와 고객 결과 확인 중을 동시에 전달하고 17:00 후속 결과 담당이 보이는 상태 요약을 만든다.",
+        "resolutionCriteria": [
+          "문언상 타당함과 청중의 합리적인 함의를 구분한다.",
+          "정확한 한정어와 실제 열린 과제를 함께 제시한다.",
+          "운영 완료와 고객 연락 완료의 주체를 드러낸다.",
+          "표현 수정 후 상대가 이해한 다음 행동을 확인한다."
+        ],
+        "escalationPath": "17:00 대조가 끝나지 않으면 운영 책임자가 미완료 이유와 다음 확인 시점을 고객 지원 리드에 전달하며 최종 종료 공지를 유보한다."
+      }
+    },
+    {
+      "subcategoryId": "collaboration",
+      "difficulty": "C2",
+      "slug": "it-response-metric-incentive",
+      "title": "빠른 티켓 종료 지표와 실제 해결의 충돌 논의하기",
+      "scenario": "헬프데스크는 평균 종료 시간이 줄었다고 발표했지만 같은 문제의 재문의가 늘었습니다. 매니저는 목표가 좋아졌으므로 성공이라고 하고 상담원은 미완료 티켓을 닫도록 압박받았다고 합니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+      "learnerRole": "가상 IT 운영 담당자",
+      "interlocutorRole": "헬프데스크 매니저 역할. 목표가 달성됐는데 왜 성과를 깎느냐고 반응한다. 직원 비난 대신 표본 사례와 재문의 유형을 확인하고 2주 동안 사용자 확인 지표를 병행하는 안은 검토할 수 있다.",
+      "opening": "We cut closure time by forty per cent. Why turn a clear success into a debate about how the metric feels?",
+      "steps": [
+        {
+          "goal": "측정된 성과를 인정하고 범위 한정하기",
+          "example": "The reduction in closure time is real as a measured result; whether it represents faster resolution is the question raised by the increase in repeat contacts.",
+          "cue": "repeat contacts = 같은 문제의 재문의"
+        },
+        {
+          "goal": "인과와 의도 판단 유보하기",
+          "example": "The figures alone do not establish why that happened, and the two staff reports should be examined rather than generalized into a claim about everyone.",
+          "cue": "generalized = 전체에 확대 적용된"
+        },
+        {
+          "goal": "보완 검토 설계 제안하기",
+          "example": "Could quality review a sample of repeat cases while we track confirmed resolution alongside closure time for two weeks?",
+          "cue": "confirmed resolution = 해결 확인"
+        },
+        {
+          "goal": "공동 판단 기준 합의하기",
+          "example": "We can then assess whether the change reduced customer effort or merely moved unfinished work into new tickets, with the service owner deciding any permanent adjustment.",
+          "cue": "permanent adjustment = 상시 제도 변경"
+        }
+      ],
+      "outcome": "종료 시간 개선을 지우지 않으면서 재문의·해결 확인을 함께 보는 2주 검토와 사례 확인 책임을 합의한다.",
+      "transfer": "분석 결과 재문의 증가는 신규 고객군 때문이며 조기 종료 사례는 일부였습니다. 전체 개선을 부정하지 않고 확인된 국소 문제에 맞게 권고 범위를 좁힙니다.",
+      "caseBrief": {
+        "professionalRole": "it-operations",
+        "situation": "헬프데스크는 평균 종료 시간이 줄었다고 발표했지만 같은 문제의 재문의가 늘었습니다. 매니저는 목표가 좋아졌으므로 성공이라고 하고 상담원은 미완료 티켓을 닫도록 압박받았다고 합니다.",
+        "facts": [
+          "가상 월간 평균 종료 시간은 10시간에서 6시간으로 줄었다.",
+          "같은 주제의 재문의 비율은 8%에서 17%로 늘었다.",
+          "사용자 구성과 문의 난이도 변화는 아직 분석하지 않았다.",
+          "상담원 두 명이 해결 확인 전에 닫으라는 압박을 경험했다고 보고했다."
+        ],
+        "constraints": [
+          "지표 두 개만으로 매니저의 고의 조작을 단정하지 않는다.",
+          "재문의가 모두 오처리라고 추정하지 않는다.",
+          "학습자는 성과 평가 제도를 단독 변경할 수 없다."
+        ],
+        "learnerAuthority": "경쟁하는 지표와 사례를 구분해 운영 검토를 요청하고 제한된 평가 실험·담당·기간을 제안할 수 있다.",
+        "counterpartPosition": "헬프데스크 매니저 역할. 목표가 달성됐는데 왜 성과를 깎느냐고 반응한다. 직원 비난 대신 표본 사례와 재문의 유형을 확인하고 2주 동안 사용자 확인 지표를 병행하는 안은 검토할 수 있다.",
+        "unresolvedQuestions": [
+          "종료 시간이 실제 해결 속도와 같은 의미인가?",
+          "재문의 증가의 설명 중 무엇을 자료로 확인할 수 있는가?",
+          "어떤 보완 지표를 어떤 기간에 누가 검토할 것인가?"
+        ],
+        "deliverable": "종료 시간 개선을 지우지 않으면서 재문의·해결 확인을 함께 보는 2주 검토와 사례 확인 책임을 합의한다.",
+        "resolutionCriteria": [
+          "관리 지표와 실제 고객 결과를 구별한다.",
+          "보고된 압박과 전체 조직의 고의를 혼동하지 않는다.",
+          "대안 설명을 확인할 사례 검토를 제안한다.",
+          "변경 실험의 담당·기간·판단 기준을 명시한다."
+        ],
+        "escalationPath": "미완료를 알고도 반복적으로 종료하라는 지시가 확인되면 서비스 품질 책임자에게 사실 기반 사례를 제한된 절차로 전달해 검토를 요청한다."
+      }
+    }
+  ]
+}

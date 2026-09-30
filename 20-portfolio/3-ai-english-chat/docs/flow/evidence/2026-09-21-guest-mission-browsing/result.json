@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "kind": "remote-data-api",
+      "status": "PASS",
+      "publicCount": 753,
+      "unauthenticatedAndAnonymousMatchPublicIds": true,
+      "privateInstructionsDenied": true,
+      "unassignedStartDenied": true
+    },
+    {
+      "kind": "visitor",
+      "status": "PASS",
+      "result": [
+        "### Result\n{\"count\":753,\"title\":\"Check in at a Hotel\",\"detailVisible\":true}"
+      ]
+    },
+    {
+      "kind": "anonymous-account",
+      "status": "PASS",
+      "result": [
+        "### Result\n{\"count\":753,\"title\":\"Check in at a Hotel\",\"detailVisible\":true}"
+      ]
+    }
+  ],
+  "fixtureCleanup": "signed out and deleted",
+  "mcpServer": {
+    "name": "Playwright",
+    "version": "1.64.0-alpha-1789764292000"
+  },
+  "privateStateRemoved": true,
+  "verifiedAt": "2026-09-20T23:53:25.645Z"
+}

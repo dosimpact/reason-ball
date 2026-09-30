@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-food-drink-b1-unexpected-charge",
+  "title": "예상 못 한 추가 요금 확인하기",
+  "categoryId": "daily",
+  "subcategoryId": "food-drink",
+  "difficulty": "B1",
+  "scenario": "메뉴에는 세트 20파운드였지만 계산서에 별도 5파운드가 있습니다. 포함 항목을 확인하려 합니다.",
+  "practicalOutcome": "추가 요금의 근거를 확인하고 오해를 풀어 결제 판단을 한다.",
+  "roles": {
+    "learner": "식당·카페 손님",
+    "interlocutor": "직원. 추가 5파운드는 주문한 생수이며 메뉴의 음료 포함은 차에만 해당한다고 설명한다."
+  },
+  "opening": "The total is twenty-five pounds.",
+  "estimatedMinutes": 12,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "예상과 차이 알리기",
+      "example": "I thought the set included a drink, so I expected twenty pounds.",
+      "hints": [
+        "의도: 예상과 차이 알리기",
+        "핵심 표현: I thought ... = 그렇게 이해했다",
+        "완성 문장 예시: I thought the set included a drink, so I expected twenty pounds. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 예상과 차이 알리기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "추가 항목 설명 요청하기",
+      "example": "Could you explain what the extra five pounds is for?",
+      "hints": [
+        "의도: 추가 항목 설명 요청하기",
+        "핵심 표현: extra ... is for = 추가 금액의 이유",
+        "완성 문장 예시: Could you explain what the extra five pounds is for? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 추가 항목 설명 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "이해한 내용을 확인하기",
+      "example": "So tea is included, but bottled water is extra. Is that right?",
+      "hints": [
+        "의도: 이해한 내용을 확인하기",
+        "핵심 표현: included / extra = 포함 / 추가",
+        "완성 문장 예시: So tea is included, but bottled water is extra. Is that right? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 이해한 내용을 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "이유·경험 연결; 요청 시 핵심 표현 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 예상과 차이 알리기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '예상 못 한 추가 요금 확인하기' 상황에서 추가 요금의 근거를 확인하고 오해를 풀어 결제 판단을 한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "직원이 같은 음료를 두 번 입력한 상황으로 바꾸어 계산서 수정을 요청한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '예상 못 한 추가 요금 확인하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 직원이 같은 음료를 두 번 입력한 상황으로 바꾸어 계산서 수정을 요청한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "추가 요금의 근거를 확인하고 오해를 풀어 결제 판단을 한다.",
+      "예상과 차이 알리기",
+      "추가 항목 설명 요청하기",
+      "이해한 내용을 확인하기",
+      "수준별 관찰: 예상 밖 문제 설명과 복구. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

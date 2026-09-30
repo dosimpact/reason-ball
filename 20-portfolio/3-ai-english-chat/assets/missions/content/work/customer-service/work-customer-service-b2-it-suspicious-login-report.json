@@ -1,0 +1,133 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-customer-service-b2-it-suspicious-login-report",
+  "title": "의심스러운 접속 신고를 침해 확정 없이 전달하기",
+  "categoryId": "work",
+  "subcategoryId": "customer-service",
+  "difficulty": "B2",
+  "scenario": "직원이 모르는 로그인 알림을 받았습니다. 알림이 진짜인지, 실제 접속인지 아직 모릅니다. 직원은 해킹됐냐고 즉답을 요구합니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+  "practicalOutcome": "알림만으로 침해를 단정하지 않고 관찰 정보·공식 신고 담당자·다음 연락 시각을 갖춘 인계를 만든다.",
+  "roles": {
+    "learner": "가상 IT 운영 담당자",
+    "interlocutor": "사용자 역할. 자신의 모든 자료가 유출됐냐고 걱정한다. 아직 알림의 링크를 누르지 않았으며 공식 보안팀에 알림 시각과 표시 문구를 전달하는 데 동의할 수 있다."
+  },
+  "caseBrief": {
+    "professionalRole": "it-operations",
+    "situation": "직원이 모르는 로그인 알림을 받았습니다. 알림이 진짜인지, 실제 접속인지 아직 모릅니다. 직원은 해킹됐냐고 즉답을 요구합니다.",
+    "facts": [
+      "사용자는 자신이 시도하지 않은 로그인 알림 한 건을 봤다.",
+      "보낸 사람과 실제 접속 기록은 아직 검증하지 않았다.",
+      "가상 보안팀이 공식 신고 창구에서 검토한다.",
+      "사용자는 팀의 알려진 전화번호로 연락할 수 있다."
+    ],
+    "constraints": [
+      "침해 발생 또는 안전함을 단정하지 않는다.",
+      "비밀번호·인증 코드·의심 링크의 입력값을 요청하지 않는다.",
+      "승인 없는 계정 삭제나 기기 초기화 같은 조치를 지시하지 않는다."
+    ],
+    "learnerAuthority": "관찰된 사실과 미확인 정보를 구분하고 공식 보안 신고 및 다음 연락을 연결할 수 있다.",
+    "counterpartPosition": "사용자 역할. 자신의 모든 자료가 유출됐냐고 걱정한다. 아직 알림의 링크를 누르지 않았으며 공식 보안팀에 알림 시각과 표시 문구를 전달하는 데 동의할 수 있다.",
+    "unresolvedQuestions": [
+      "사용자가 직접 한 접속과 다른 점은 무엇인가?",
+      "알림이 실제 보안 시스템에서 온 것인가?",
+      "보안팀이 어떤 최소 정보를 어떤 승인 채널로 받아야 하는가?"
+    ],
+    "deliverable": "알림만으로 침해를 단정하지 않고 관찰 정보·공식 신고 담당자·다음 연락 시각을 갖춘 인계를 만든다.",
+    "resolutionCriteria": [
+      "해킹 여부에 근거 없는 확답을 하지 않는다.",
+      "민감 인증값을 받지 않는다.",
+      "신고에 필요한 최소 사실을 요약한다.",
+      "보안팀 판단과 헬프데스크 연락 역할을 구분한다."
+    ],
+    "escalationPath": "보안팀이 정한 긴급 기준에 해당하거나 공식 창구에 연결되지 않으면 보안 당직자에게 알려진 연락 경로로 즉시 올린다. 기술 조치는 보안팀이 결정한다."
+  },
+  "opening": "Does this mean somebody has hacked my account and copied everything?",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "확인 가능한 범위 설명하기",
+      "example": "The alert gives us something to investigate, but it does not by itself confirm access or data loss.",
+      "hints": [
+        "의도: 확인 가능한 범위 설명하기",
+        "핵심 표현: by itself = 그것만으로",
+        "완성 문장 예시: The alert gives us something to investigate, but it does not by itself confirm access or data loss. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 확인 가능한 범위 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "필요한 최소 사실 질문하기",
+      "example": "What time did it appear, and did you make any login attempt around then? Please do not send a password or code.",
+      "hints": [
+        "의도: 필요한 최소 사실 질문하기",
+        "핵심 표현: login attempt = 접속 시도",
+        "완성 문장 예시: What time did it appear, and did you make any login attempt around then? Please do not send a password or code. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 필요한 최소 사실 질문하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "공식 확인 경로 제안하기",
+      "example": "Let's use the security team's known reporting channel rather than the link in the message.",
+      "hints": [
+        "의도: 공식 확인 경로 제안하기",
+        "핵심 표현: known reporting channel = 알고 있는 공식 신고 경로",
+        "완성 문장 예시: Let's use the security team's known reporting channel rather than the link in the message. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 공식 확인 경로 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "연락 책임과 시각 정하기",
+      "example": "I'll update you within fifteen minutes on whether the security team has received the report, and tell you the next contact or escalation step.",
+      "hints": [
+        "의도: 연락 책임과 시각 정하기",
+        "핵심 표현: whether = ~인지 여부; escalation step = 상위 연락 단계",
+        "완성 문장 예시: I'll update you within fifteen minutes on whether the security team has received the report, and tell you the next contact or escalation step. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 연락 책임과 시각 정하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 확인 가능한 범위 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '의심스러운 접속 신고를 침해 확정 없이 전달하기' 상황에서 알림만으로 침해를 단정하지 않고 관찰 정보·공식 신고 담당자·다음 연락 시각을 갖춘 인계를 만든다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "보안팀에서 실제 접속은 확인했지만 자료 접근 범위는 모른다고 답합니다. 확인된 접속과 미확인 유출을 분리해 사용자 안내를 갱신합니다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '의심스러운 접속 신고를 침해 확정 없이 전달하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 보안팀에서 실제 접속은 확인했지만 자료 접근 범위는 모른다고 답합니다. 확인된 접속과 미확인 유출을 분리해 사용자 안내를 갱신합니다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "알림만으로 침해를 단정하지 않고 관찰 정보·공식 신고 담당자·다음 연락 시각을 갖춘 인계를 만든다.",
+      "확인 가능한 범위 설명하기",
+      "필요한 최소 사실 질문하기",
+      "공식 확인 경로 제안하기",
+      "연락 책임과 시각 정하기",
+      "해킹 여부에 근거 없는 확답을 하지 않는다.",
+      "민감 인증값을 받지 않는다.",
+      "신고에 필요한 최소 사실을 요약한다.",
+      "보안팀 판단과 헬프데스크 연락 역할을 구분한다.",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

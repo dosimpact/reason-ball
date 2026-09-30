@@ -1,0 +1,128 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-collaboration-b1-developer-intermittent-test",
+  "title": "가끔 실패하는 테스트의 관찰 정보 공유하기",
+  "categoryId": "work",
+  "subcategoryId": "collaboration",
+  "difficulty": "B1",
+  "scenario": "같은 테스트가 어떤 실행에서는 통과하고 어떤 실행에서는 실패해 동료와 확인 계획을 세웁니다.",
+  "practicalOutcome": "관찰 근거와 추가 조사 담당·업데이트 시각을 합의한다.",
+  "roles": {
+    "learner": "실패를 조사하는 개발자. 관찰 결과와 조사 계획을 제안하며 배포 판단은 리드와 한다.",
+    "interlocutor": "동료 개발자. 대기 시간을 늘리면 된다고 추측하지만 로그는 아직 읽지 않았다."
+  },
+  "caseBrief": {
+    "professionalRole": "developer",
+    "situation": "같은 테스트가 어떤 실행에서는 통과하고 어떤 실행에서는 실패해 동료와 확인 계획을 세웁니다.",
+    "facts": [
+      "최근 5회 중 2회 실패했다.",
+      "실패는 같은 화면 전환 단계였다.",
+      "원인은 아직 확인하지 못했다."
+    ],
+    "constraints": [
+      "실패를 숨기기 위해 테스트를 삭제하지 않는다.",
+      "다른 팀 배포도 이 테스트에 영향을 받는다."
+    ],
+    "learnerAuthority": "실패를 조사하는 개발자. 관찰 결과와 조사 계획을 제안하며 배포 판단은 리드와 한다.",
+    "counterpartPosition": "동료 개발자. 대기 시간을 늘리면 된다고 추측하지만 로그는 아직 읽지 않았다.",
+    "unresolvedQuestions": [
+      "실패할 때 공통 조건이 있는가?",
+      "추가 기다림이 원인 해결인가 임시 회피인가?"
+    ],
+    "deliverable": "관찰 근거와 추가 조사 담당·업데이트 시각을 합의한다.",
+    "resolutionCriteria": [
+      "5회 중 2회라는 범위를 과장하지 않는다.",
+      "추정과 확인 사실을 구분한다.",
+      "실패 로그 비교와 리드 공유를 정한다."
+    ],
+    "escalationPath": "원인 확인 전 배포가 필요하면 실패 근거와 남은 위험을 리드에게 전달한다."
+  },
+  "opening": "It is probably just too fast. Shall we add a longer wait?",
+  "estimatedMinutes": 12,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "관찰 근거 설명하기",
+      "example": "It failed twice in five runs, both during the page transition.",
+      "hints": [
+        "의도: 관찰 근거 설명하기",
+        "핵심 표현: page transition = 화면 전환",
+        "완성 문장 예시: It failed twice in five runs, both during the page transition. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 관찰 근거 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "추정의 한계 말하기",
+      "example": "Timing may be involved, but we have not checked the logs yet.",
+      "hints": [
+        "의도: 추정의 한계 말하기",
+        "핵심 표현: may be involved = 관련될 수 있다",
+        "완성 문장 예시: Timing may be involved, but we have not checked the logs yet. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 추정의 한계 말하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "나눠 조사 제안하기",
+      "example": "I will compare the failed runs. Could you check what the page was waiting for?",
+      "hints": [
+        "의도: 나눠 조사 제안하기",
+        "핵심 표현: compare = 비교하다",
+        "완성 문장 예시: I will compare the failed runs. Could you check what the page was waiting for? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 나눠 조사 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "공유 시점 정하기",
+      "example": "Let us report what we find to the lead by four, even if the cause is still unclear.",
+      "hints": [
+        "의도: 공유 시점 정하기",
+        "핵심 표현: cause = 원인",
+        "완성 문장 예시: Let us report what we find to the lead by four, even if the cause is still unclear. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 공유 시점 정하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "이유·경험 연결; 요청 시 핵심 표현 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 관찰 근거 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '가끔 실패하는 테스트의 관찰 정보 공유하기' 상황에서 관찰 근거와 추가 조사 담당·업데이트 시각을 합의한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "실패가 특정 데이터에서만 발생한다. 시간 추정에서 데이터 조건 확인으로 조사 방향을 바꾼다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '가끔 실패하는 테스트의 관찰 정보 공유하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 실패가 특정 데이터에서만 발생한다. 시간 추정에서 데이터 조건 확인으로 조사 방향을 바꾼다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "관찰 근거와 추가 조사 담당·업데이트 시각을 합의한다.",
+      "관찰 근거 설명하기",
+      "추정의 한계 말하기",
+      "나눠 조사 제안하기",
+      "공유 시점 정하기",
+      "5회 중 2회라는 범위를 과장하지 않는다.",
+      "추정과 확인 사실을 구분한다.",
+      "실패 로그 비교와 리드 공유를 정한다.",
+      "수준별 관찰: 예상 밖 문제 설명과 복구. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

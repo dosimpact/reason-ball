@@ -1,0 +1,128 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-meetings-a2-business-agenda-priority",
+  "title": "짧아진 회의에서 먼저 결정할 일 정하기",
+  "categoryId": "work",
+  "subcategoryId": "meetings",
+  "difficulty": "A2",
+  "scenario": "회의 시간이 30분에서 15분으로 줄었습니다. 오늘 결정해야 하는 예산과 다음 주까지 가능한 소개 자료를 구분합니다.",
+  "practicalOutcome": "예산 결정 안건을 먼저 배치하고 자료 검토 담당·후속 시점을 정한다.",
+  "roles": {
+    "learner": "프로젝트 참여자. 우선순위를 제안하지만 최종 예산 승인은 진행자가 한다.",
+    "interlocutor": "진행자. 원래 순서대로 자료부터 보고 싶지만 예산 마감을 들으면 순서를 바꿀 수 있다. 자료 작성자가 월요일 오전 10시까지 의견을 모을 수 있다고 답한다."
+  },
+  "caseBrief": {
+    "professionalRole": "cross-functional",
+    "situation": "회의 시간이 30분에서 15분으로 줄었습니다. 오늘 결정해야 하는 예산과 다음 주까지 가능한 소개 자료를 구분합니다.",
+    "facts": [
+      "예산 선택 마감은 오늘 오후 5시다.",
+      "소개 자료 의견은 다음 주 월요일까지 받는다.",
+      "회의에는 예산 담당자와 자료 작성자가 있다."
+    ],
+    "constraints": [
+      "15분 안에 끝내야 한다.",
+      "예산 승인자는 회의 진행자다."
+    ],
+    "learnerAuthority": "프로젝트 참여자. 우선순위를 제안하지만 최종 예산 승인은 진행자가 한다.",
+    "counterpartPosition": "진행자. 원래 순서대로 자료부터 보고 싶지만 예산 마감을 들으면 순서를 바꿀 수 있다. 자료 작성자가 월요일 오전 10시까지 의견을 모을 수 있다고 답한다.",
+    "unresolvedQuestions": [
+      "오늘 꼭 결정할 항목은 무엇인가?",
+      "남은 자료는 어떻게 검토할 것인가?"
+    ],
+    "deliverable": "예산 결정 안건을 먼저 배치하고 자료 검토 담당·후속 시점을 정한다.",
+    "resolutionCriteria": [
+      "두 마감을 구분한다.",
+      "안건 순서 변경을 요청한다.",
+      "자료 검토 담당과 시점을 확인한다."
+    ],
+    "escalationPath": "15분 내 예산 판단이 어렵다면 승인자에게 오후 5시 전 별도 결정 시간을 요청한다."
+  },
+  "opening": "We only have fifteen minutes. Shall we start with the presentation slides?",
+  "estimatedMinutes": 10,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "시간 제약 확인하기",
+      "example": "We have fifteen minutes, right?",
+      "hints": [
+        "의도: 시간 제약 확인하기",
+        "핵심 표현: fifteen minutes = 15분",
+        "완성 문장 예시: We have fifteen minutes, right? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 시간 제약 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "먼저 할 일 제안하기",
+      "example": "Can we discuss the budget first? It is due today.",
+      "hints": [
+        "의도: 먼저 할 일 제안하기",
+        "핵심 표현: due today = 오늘 마감인",
+        "완성 문장 예시: Can we discuss the budget first? It is due today. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 먼저 할 일 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "남길 일 설명하기",
+      "example": "The slide comments can wait until Monday.",
+      "hints": [
+        "의도: 남길 일 설명하기",
+        "핵심 표현: can wait = 나중에 해도 된다",
+        "완성 문장 예시: The slide comments can wait until Monday. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 남길 일 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "후속 확인하기",
+      "example": "Who will collect those comments on Monday?",
+      "hints": [
+        "의도: 후속 확인하기",
+        "핵심 표현: collect comments = 의견을 모으다",
+        "완성 문장 예시: Who will collect those comments on Monday? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 후속 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "표현 틀을 선택적으로 제공; 세부 정보와 다음 행동 확인. 먼저 상황과 첫 발화의 뜻을 확인하고 시간 제약 확인하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '짧아진 회의에서 먼저 결정할 일 정하기' 상황에서 예산 결정 안건을 먼저 배치하고 자료 검토 담당·후속 시점을 정한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "소개 자료가 오늘 고객에게 간다고 바뀐다. 기존 순서를 고집하지 않고 두 마감과 결정 가능 시간을 다시 묻는다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '짧아진 회의에서 먼저 결정할 일 정하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 소개 자료가 오늘 고객에게 간다고 바뀐다. 기존 순서를 고집하지 않고 두 마감과 결정 가능 시간을 다시 묻는다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "예산 결정 안건을 먼저 배치하고 자료 검토 담당·후속 시점을 정한다.",
+      "시간 제약 확인하기",
+      "먼저 할 일 제안하기",
+      "남길 일 설명하기",
+      "후속 확인하기",
+      "두 마감을 구분한다.",
+      "안건 순서 변경을 요청한다.",
+      "자료 검토 담당과 시점을 확인한다.",
+      "수준별 관찰: 일상 거래와 간단한 문제 해결. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

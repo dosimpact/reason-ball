@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-health-b2-conflicting-instructions",
+  "title": "서로 다른 진료 안내 확인하기",
+  "categoryId": "daily",
+  "subcategoryId": "health",
+  "difficulty": "B2",
+  "scenario": "퇴원 문서와 전화 안내의 후속 방문 시점이 다릅니다. 어느 것이 최신인지 모르며 임의로 선택하지 않습니다. 가상 언어 연습이며 실제 진단이나 치료 결정을 대신하지 않습니다.",
+  "practicalOutcome": "두 출처를 제시해 최신 계획을 확인할 담당자와 연락 시점을 정한다.",
+  "roles": {
+    "learner": "의료 서비스 이용자",
+    "interlocutor": "간호사. 문서 작성일과 전화 연락 시각을 확인하고 담당팀에 정정 요청을 보낼 수 있다."
+  },
+  "opening": "Please follow the discharge instructions.",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "상충하는 정보를 구체화하기",
+      "example": "The letter says next week, but yesterday's caller said to wait for a new appointment notice.",
+      "hints": [
+        "의도: 상충하는 정보를 구체화하기",
+        "핵심 표현: letter says / caller said = 출처 구분",
+        "완성 문장 예시: The letter says next week, but yesterday's caller said to wait for a new appointment notice. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 상충하는 정보를 구체화하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "자기 해석을 보류하기",
+      "example": "I do not want to choose between the two without checking which is current.",
+      "hints": [
+        "의도: 자기 해석을 보류하기",
+        "핵심 표현: which is current = 최신 안내",
+        "완성 문장 예시: I do not want to choose between the two without checking which is current. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 자기 해석을 보류하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "확인 책임과 연락 시점 요청하기",
+      "example": "Could the responsible team confirm the current plan and tell me when I should expect a reply?",
+      "hints": [
+        "의도: 확인 책임과 연락 시점 요청하기",
+        "핵심 표현: responsible team = 담당팀",
+        "완성 문장 예시: Could the responsible team confirm the current plan and tell me when I should expect a reply? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 확인 책임과 연락 시점 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 상충하는 정보를 구체화하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '서로 다른 진료 안내 확인하기' 상황에서 두 출처를 제시해 최신 계획을 확인할 담당자와 연락 시점을 정한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "두 안내가 사실 서로 다른 검사에 관한 것이면 검사별 후속 절차를 따로 정리한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '서로 다른 진료 안내 확인하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 두 안내가 사실 서로 다른 검사에 관한 것이면 검사별 후속 절차를 따로 정리한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "두 출처를 제시해 최신 계획을 확인할 담당자와 연락 시점을 정한다.",
+      "상충하는 정보를 구체화하기",
+      "자기 해석을 보류하기",
+      "확인 책임과 연락 시점 요청하기",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

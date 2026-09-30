@@ -1,0 +1,148 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-collaboration-c1-it-time-zone-ownership-gap",
+  "title": "시간대가 다른 팀 사이 책임 공백 없애기",
+  "categoryId": "work",
+  "subcategoryId": "collaboration",
+  "difficulty": "C1",
+  "scenario": "한국 팀은 업무를 마치고 북미 팀에 티켓을 보냈지만 현지 당직 시작은 한 시간 뒤입니다. 고객은 30분 안에 답변을 약속받았습니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+  "practicalOutcome": "UTC 09:30 안내 담당, 09:40 이후 Jo의 명시적 연락 책임 수락, 기술 긴급 경로와 10:00 인계 확인을 포함한 공백 없는 계획을 만든다.",
+  "roles": {
+    "learner": "가상 IT 운영 담당자",
+    "interlocutor": "한국 팀 리드 역할. 티켓은 보냈으므로 퇴근해도 된다고 생각한다. 고객 약속 시각을 들으면 09:30 안내는 맡을 수 있지만 10:00 기술 책임은 북미 팀이 수락해야 한다고 답한다. 질문하면 글로벌 당직자 Jo에게 지금 연결할 수 있다고 답한다. 09:40 이후의 연락과 10:00 수락 확인을 요청하면 Jo의 명시적인 수락을 확보하도록 연락하겠다고 답하며, 단순 티켓 전송을 수락으로 표현하지 않는다."
+  },
+  "caseBrief": {
+    "professionalRole": "it-operations",
+    "situation": "한국 팀은 업무를 마치고 북미 팀에 티켓을 보냈지만 현지 당직 시작은 한 시간 뒤입니다. 고객은 30분 안에 답변을 약속받았습니다.",
+    "facts": [
+      "공유 기준 시각은 UTC 09:00이며 한국 팀은 지금 교대 종료한다.",
+      "북미 당직의 수락 가능 시각은 UTC 10:00이다.",
+      "고객에게 약속한 다음 안내는 UTC 09:30이다.",
+      "한국 팀 리드는 09:40까지 연락을 유지할 수 있으나 기술 처리는 다른 당직 승인 필요다.",
+      "글로벌 사고 당직자 Jo에게 지금 연락할 수 있지만 09:40 이후 연락 책임은 명시적인 수락을 받아야 한다. 북미 팀 수락 여부도 Jo에게 10:00 확인을 요청할 수 있다."
+    ],
+    "constraints": [
+      "티켓 전송을 인계 수락으로 기록하지 않는다.",
+      "상대 팀의 현지 근무 시간을 추측하지 않는다.",
+      "개인이 승인 없이 근무를 연장한다고 약속하지 않는다."
+    ],
+    "learnerAuthority": "공통 시간 기준으로 공백을 설명하고 임시 연락 책임과 공식 인계 수락 시점을 협의할 수 있다.",
+    "counterpartPosition": "한국 팀 리드 역할. 티켓은 보냈으므로 퇴근해도 된다고 생각한다. 고객 약속 시각을 들으면 09:30 안내는 맡을 수 있지만 10:00 기술 책임은 북미 팀이 수락해야 한다고 답한다. 질문하면 글로벌 당직자 Jo에게 지금 연결할 수 있다고 답한다. 09:40 이후의 연락과 10:00 수락 확인을 요청하면 Jo의 명시적인 수락을 확보하도록 연락하겠다고 답하며, 단순 티켓 전송을 수락으로 표현하지 않는다.",
+    "unresolvedQuestions": [
+      "UTC 09:00~10:00 사이 누가 고객 연락을 맡는가?",
+      "긴급 악화 시 실제 기술 당직은 누구인가?",
+      "10:00에 누가 수락 여부를 확인하는가?"
+    ],
+    "deliverable": "UTC 09:30 안내 담당, 09:40 이후 Jo의 명시적 연락 책임 수락, 기술 긴급 경로와 10:00 인계 확인을 포함한 공백 없는 계획을 만든다.",
+    "resolutionCriteria": [
+      "서로 다른 시간대를 공통 기준으로 표현한다.",
+      "보냄·읽음·책임 수락을 구별한다.",
+      "임시 고객 연락과 기술 처리 권한을 나눈다.",
+      "수락 실패 시 상위 당직 경로를 합의한다.",
+      "09:40~10:00 공백을 남기지 않고 대체 담당자의 수락을 먼저 확인한다."
+    ],
+    "escalationPath": "09:40 전 Jo나 대체 당직자의 수락을 확보하지 못하면 현재 리드가 공식 글로벌 교대 책임자에게 공백을 즉시 알린다. 10:00 북미 팀 미수락 시 Jo가 연락 조율을 유지하며 기술 담당 배정을 상위 경로로 요청한다."
+  },
+  "opening": "We sent the ticket to North America. They can pick it up when they come online.",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "시간 공백과 약속 충돌 설명하기",
+      "example": "Their shift starts at ten UTC, but our promised customer update is at nine thirty. Sending the ticket has not covered that gap.",
+      "hints": [
+        "의도: 시간 공백과 약속 충돌 설명하기",
+        "핵심 표현: covered the gap = 공백을 맡아 처리하다",
+        "완성 문장 예시: Their shift starts at ten UTC, but our promised customer update is at nine thirty. Sending the ticket has not covered that gap. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 시간 공백과 약속 충돌 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "임시 역할을 분리해 요청하기",
+      "example": "Could you own the nine-thirty message while we confirm the technical on-call contact for any deterioration?",
+      "hints": [
+        "의도: 임시 역할을 분리해 요청하기",
+        "핵심 표현: deterioration = 상황 악화",
+        "완성 문장 예시: Could you own the nine-thirty message while we confirm the technical on-call contact for any deterioration? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 임시 역할을 분리해 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "인계 수락 조건 명확히 하기",
+      "example": "The receiving team needs to acknowledge the remaining task and next decision, not merely confirm that they can see the ticket.",
+      "hints": [
+        "의도: 인계 수락 조건 명확히 하기",
+        "핵심 표현: acknowledge = 이해하고 수락하다",
+        "완성 문장 예시: The receiving team needs to acknowledge the remaining task and next decision, not merely confirm that they can see the ticket. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 인계 수락 조건 명확히 하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "09:40 이후 공백의 담당 수락 확보하기",
+      "example": "Before your coverage ends at nine forty, can we obtain Jo’s acceptance of customer contact and the ten-UTC handover check?",
+      "hints": [
+        "의도: 09:40 이후 공백의 담당 수락 확보하기",
+        "핵심 표현: obtain acceptance = 명시적인 수락을 받다",
+        "완성 문장 예시: Before your coverage ends at nine forty, can we obtain Jo’s acceptance of customer contact and the ten-UTC handover check? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 09:40 이후 공백의 담당 수락 확보하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-5",
+      "goal": "미수락 시 경로 합의하기",
+      "example": "If the receiving team has not accepted at ten, Jo should retain coordination and raise the missing technical owner through the global incident route.",
+      "hints": [
+        "의도: 미수락 시 경로 합의하기",
+        "핵심 표현: retain coordination = 조율 책임을 계속 맡다",
+        "완성 문장 예시: If the receiving team has not accepted at ten, Jo should retain coordination and raise the missing technical owner through the global incident route. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 미수락 시 경로 합의하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 시간 공백과 약속 충돌 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '시간대가 다른 팀 사이 책임 공백 없애기' 상황에서 UTC 09:30 안내 담당, 09:40 이후 Jo의 명시적 연락 책임 수락, 기술 긴급 경로와 10:00 인계 확인을 포함한 공백 없는 계획을 만든다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "북미 팀은 10시에 티켓을 읽었지만 해당 시스템 담당이 아닙니다. 읽음 표시를 수락으로 해석하지 않고 올바른 담당자의 명시적 인계를 확인합니다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '시간대가 다른 팀 사이 책임 공백 없애기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 북미 팀은 10시에 티켓을 읽었지만 해당 시스템 담당이 아닙니다. 읽음 표시를 수락으로 해석하지 않고 올바른 담당자의 명시적 인계를 확인합니다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "UTC 09:30 안내 담당, 09:40 이후 Jo의 명시적 연락 책임 수락, 기술 긴급 경로와 10:00 인계 확인을 포함한 공백 없는 계획을 만든다.",
+      "시간 공백과 약속 충돌 설명하기",
+      "임시 역할을 분리해 요청하기",
+      "인계 수락 조건 명확히 하기",
+      "09:40 이후 공백의 담당 수락 확보하기",
+      "미수락 시 경로 합의하기",
+      "서로 다른 시간대를 공통 기준으로 표현한다.",
+      "보냄·읽음·책임 수락을 구별한다.",
+      "임시 고객 연락과 기술 처리 권한을 나눈다.",
+      "수락 실패 시 상위 당직 경로를 합의한다.",
+      "09:40~10:00 공백을 남기지 않고 대체 담당자의 수락을 먼저 확인한다.",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

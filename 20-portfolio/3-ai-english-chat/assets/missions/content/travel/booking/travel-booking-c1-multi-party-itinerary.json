@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "travel-booking-c1-multi-party-itinerary",
+  "title": "다른 목적의 동행인 일정 합의하기",
+  "categoryId": "travel",
+  "subcategoryId": "booking",
+  "difficulty": "C1",
+  "scenario": "한 명은 박물관, 한 명은 휴식, 한 명은 예산 절약을 원하며 하루만 남았습니다.",
+  "practicalOutcome": "다른 목표를 공동·개별 일정으로 조율한다.",
+  "roles": {
+    "learner": "공동 여행 계획자",
+    "interlocutor": "동행 대표. 오전만 공동 활동 가능하고 오후 분리 이동에 동의할 수 있다."
+  },
+  "opening": "We cannot fit everyone’s preferred activities into one day.",
+  "estimatedMinutes": 18,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "선호와 제한을 분리해 요약하기",
+      "example": "The issue is not whose activity wins; it is which parts need to be shared and which can happen independently.",
+      "hints": [
+        "의도: 선호와 제한을 분리해 요약하기",
+        "핵심 표현: independently = 따로",
+        "완성 문장 예시: The issue is not whose activity wins; it is which parts need to be shared and which can happen independently. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 선호와 제한을 분리해 요약하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "공동 구간과 선택 구간 제안하기",
+      "example": "Could we agree on one affordable morning visit, then split up with a fixed meeting point?",
+      "hints": [
+        "의도: 공동 구간과 선택 구간 제안하기",
+        "핵심 표현: split up = 나뉘어 이동하다",
+        "완성 문장 예시: Could we agree on one affordable morning visit, then split up with a fixed meeting point? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 공동 구간과 선택 구간 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "합의 후 부담 확인하기",
+      "example": "Before booking, let us check that transport costs and meeting times work for the person who wants a quieter day too.",
+      "hints": [
+        "의도: 합의 후 부담 확인하기",
+        "핵심 표현: quieter day = 덜 바쁜 하루",
+        "완성 문장 예시: Before booking, let us check that transport costs and meeting times work for the person who wants a quieter day too. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 합의 후 부담 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "요청 시만 지원; 전제와 불확실성 구분. 먼저 상황과 첫 발화의 뜻을 확인하고 선호와 제한을 분리해 요약하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '다른 목적의 동행인 일정 합의하기' 상황에서 다른 목표를 공동·개별 일정으로 조율한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "한 동행인은 혼자 이동하기 어렵다. 분리안의 지원 조건까지 조정한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '다른 목적의 동행인 일정 합의하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 한 동행인은 혼자 이동하기 어렵다. 분리안의 지원 조건까지 조정한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "다른 목표를 공동·개별 일정으로 조율한다.",
+      "선호와 제한을 분리해 요약하기",
+      "공동 구간과 선택 구간 제안하기",
+      "합의 후 부담 확인하기",
+      "수준별 관찰: 어조 조절, 암시 이해, 복합 정보 중재. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "travel-travel-problems-c2-media-summary-correction",
+  "title": "여행 사건 요약에서 과장된 표현 바로잡기",
+  "categoryId": "travel",
+  "subcategoryId": "travel-problems",
+  "difficulty": "C2",
+  "scenario": "업체의 공유 가능한 요약은 고객이 서비스를 거부했다고 쓰지만 실제로는 제공 조건을 확인하느라 기다렸습니다.",
+  "practicalOutcome": "보류·거절·조건 확인을 구별해 기록을 정정한다.",
+  "roles": {
+    "learner": "사건 당사자",
+    "interlocutor": "담당자. 확인 질문 기록이 있으며 표현 정정과 배포 대상 통지가 가능하다."
+  },
+  "opening": "The summary says you declined the replacement we offered.",
+  "estimatedMinutes": 20,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "행동과 해석을 분리하기",
+      "example": "I asked for the access details before deciding; that is different from declining an option whose suitability had already been established.",
+      "hints": [
+        "의도: 행동과 해석을 분리하기",
+        "핵심 표현: suitability = 적합성",
+        "완성 문장 예시: I asked for the access details before deciding; that is different from declining an option whose suitability had already been established. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 행동과 해석을 분리하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "검증 가능한 대체 문구 제시하기",
+      "example": "A more accurate account would say that acceptance remained pending clarification of the replacement conditions.",
+      "hints": [
+        "의도: 검증 가능한 대체 문구 제시하기",
+        "핵심 표현: pending clarification = 설명을 기다리는",
+        "완성 문장 예시: A more accurate account would say that acceptance remained pending clarification of the replacement conditions. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 검증 가능한 대체 문구 제시하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "정정 범위 요청하기",
+      "example": "Could the correction reach the same recipients as the original summary, while leaving any unresolved assessment clearly labelled?",
+      "hints": [
+        "의도: 정정 범위 요청하기",
+        "핵심 표현: recipients = 수신자",
+        "완성 문장 예시: Could the correction reach the same recipients as the original summary, while leaving any unresolved assessment clearly labelled? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 정정 범위 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "독립 수행 우선; 희귀 어휘 대신 정밀성과 청중 적합성 관찰. 먼저 상황과 첫 발화의 뜻을 확인하고 행동과 해석을 분리하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '여행 사건 요약에서 과장된 표현 바로잡기' 상황에서 보류·거절·조건 확인을 구별해 기록을 정정한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "실제로 대안을 거절했지만 일부 조건만 거절했다. 조건부 거절 범위를 정확히 쓴다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '여행 사건 요약에서 과장된 표현 바로잡기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 실제로 대안을 거절했지만 일부 조건만 거절했다. 조건부 거절 범위를 정확히 쓴다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "보류·거절·조건 확인을 구별해 기록을 정정한다.",
+      "행동과 해석을 분리하기",
+      "검증 가능한 대체 문구 제시하기",
+      "정정 범위 요청하기",
+      "수준별 관찰: 미묘한 의미와 상충 조건을 정교하게 재구성. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

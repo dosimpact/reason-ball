@@ -1,0 +1,133 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-meetings-b2-it-restore-before-backlog",
+  "title": "접속 복구와 밀린 작업 처리의 책임 나누기",
+  "categoryId": "work",
+  "subcategoryId": "meetings",
+  "difficulty": "B2",
+  "scenario": "가상 지원 포털은 다시 열리지만 장애 중 접수된 요청 40건의 상태가 미확인입니다. 운영팀은 인프라 복구를 이유로 회의를 끝내려 합니다. 모든 계정·고객·시간·시스템은 가상이며 실제 운영 명령을 실행하지 않습니다.",
+  "practicalOutcome": "플랫폼 복구 완료와 요청 대조 미완료를 분리하고 서비스 운영자·고객 지원 담당자의 확인 및 연락 시한을 합의한다.",
+  "roles": {
+    "learner": "가상 IT 운영 담당자",
+    "interlocutor": "인프라 리드 역할. 서버는 정상이라 더 할 일이 없다고 생각한다. 미완료 업무의 담당자를 새로 지정하고 회의 대신 추적 티켓을 유지하는 안은 받아들일 수 있다."
+  },
+  "caseBrief": {
+    "professionalRole": "it-operations",
+    "situation": "가상 지원 포털은 다시 열리지만 장애 중 접수된 요청 40건의 상태가 미확인입니다. 운영팀은 인프라 복구를 이유로 회의를 끝내려 합니다.",
+    "facts": [
+      "새 로그인과 새 문의 등록은 성공했다.",
+      "장애 시간에 들어온 요청 40건의 처리 상태는 아직 대조하지 않았다.",
+      "고객 지원팀은 사용자에게 접수 확인을 보내야 한다.",
+      "운영팀은 요청 상태 확인 권한이 없고 서비스 운영자가 대조를 맡을 수 있다."
+    ],
+    "constraints": [
+      "미확인 40건을 유실이라고 단정하지 않는다.",
+      "확인 없이 사용자에게 다시 제출하라고 하여 중복을 만들지 않는다.",
+      "플랫폼 복구와 고객 업무 완료의 담당자가 다르다."
+    ],
+    "learnerAuthority": "미완료 범위를 정리하고 서비스 운영자의 확인과 고객 지원팀의 연락 계획을 합의할 수 있다.",
+    "counterpartPosition": "인프라 리드 역할. 서버는 정상이라 더 할 일이 없다고 생각한다. 미완료 업무의 담당자를 새로 지정하고 회의 대신 추적 티켓을 유지하는 안은 받아들일 수 있다.",
+    "unresolvedQuestions": [
+      "미확인 40건을 누가 어떤 완료 기준으로 대조하는가?",
+      "고객에게 재제출을 요청하기 전에 무엇을 확인해야 하는가?",
+      "회의 종료 이후에도 누가 미완료를 추적하는가?"
+    ],
+    "deliverable": "플랫폼 복구 완료와 요청 대조 미완료를 분리하고 서비스 운영자·고객 지원 담당자의 확인 및 연락 시한을 합의한다.",
+    "resolutionCriteria": [
+      "복구와 업무 누적분의 차이를 설명한다.",
+      "미확인 상태를 손실로 단정하지 않는다.",
+      "무조건 재제출 대신 확인 순서를 요청한다.",
+      "미완료 추적 책임자와 16:00 확인을 지정한다."
+    ],
+    "escalationPath": "16:00까지 대조 결과가 없거나 유실 가능성이 생기면 서비스 운영 리드가 사고 리드에게 사용자 영향과 연락 계획 재검토를 요청한다."
+  },
+  "opening": "The infrastructure is healthy. Why are we keeping this incident meeting open?",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "완료의 두 범위 구분하기",
+      "example": "The platform checks are complete, but the forty earlier requests have not yet been reconciled.",
+      "hints": [
+        "의도: 완료의 두 범위 구분하기",
+        "핵심 표현: reconciled = 기록을 대조해 확인한",
+        "완성 문장 예시: The platform checks are complete, but the forty earlier requests have not yet been reconciled. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 완료의 두 범위 구분하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "운영팀 책임 한정하며 인계 요청하기",
+      "example": "I'm not asking infrastructure to verify customer records. We need the service owner to accept that task.",
+      "hints": [
+        "의도: 운영팀 책임 한정하며 인계 요청하기",
+        "핵심 표현: service owner = 서비스 운영 책임자",
+        "완성 문장 예시: I'm not asking infrastructure to verify customer records. We need the service owner to accept that task. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 운영팀 책임 한정하며 인계 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "중복을 피하는 확인 순서 제안하기",
+      "example": "Before asking users to submit again, could support wait for the reconciliation result?",
+      "hints": [
+        "의도: 중복을 피하는 확인 순서 제안하기",
+        "핵심 표현: submit again = 다시 제출하다",
+        "완성 문장 예시: Before asking users to submit again, could support wait for the reconciliation result? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 중복을 피하는 확인 순서 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "회의 종료와 추적 종료 분리하기",
+      "example": "We can end this call once an owner accepts the open ticket and a four o’clock update is agreed.",
+      "hints": [
+        "의도: 회의 종료와 추적 종료 분리하기",
+        "핵심 표현: open ticket = 미완료 추적 건",
+        "완성 문장 예시: We can end this call once an owner accepts the open ticket and a four o’clock update is agreed. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 회의 종료와 추적 종료 분리하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 완료의 두 범위 구분하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '접속 복구와 밀린 작업 처리의 책임 나누기' 상황에서 플랫폼 복구 완료와 요청 대조 미완료를 분리하고 서비스 운영자·고객 지원 담당자의 확인 및 연락 시한을 합의한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "대조 결과 40건 모두 접수됐지만 확인 메일만 실패했습니다. 자료 복구가 아니라 고객 알림 재처리 책임으로 후속 과업을 수정합니다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '접속 복구와 밀린 작업 처리의 책임 나누기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 대조 결과 40건 모두 접수됐지만 확인 메일만 실패했습니다. 자료 복구가 아니라 고객 알림 재처리 책임으로 후속 과업을 수정합니다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "플랫폼 복구 완료와 요청 대조 미완료를 분리하고 서비스 운영자·고객 지원 담당자의 확인 및 연락 시한을 합의한다.",
+      "완료의 두 범위 구분하기",
+      "운영팀 책임 한정하며 인계 요청하기",
+      "중복을 피하는 확인 순서 제안하기",
+      "회의 종료와 추적 종료 분리하기",
+      "복구와 업무 누적분의 차이를 설명한다.",
+      "미확인 상태를 손실로 단정하지 않는다.",
+      "무조건 재제출 대신 확인 순서를 요청한다.",
+      "미완료 추적 책임자와 16:00 확인을 지정한다.",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

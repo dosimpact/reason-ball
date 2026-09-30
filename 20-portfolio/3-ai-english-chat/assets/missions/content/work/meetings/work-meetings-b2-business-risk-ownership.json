@@ -1,0 +1,128 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "work-meetings-b2-business-risk-ownership",
+  "title": "공동 책임이라는 표현을 실제 위험 담당으로 나누기",
+  "categoryId": "work",
+  "subcategoryId": "meetings",
+  "difficulty": "B2",
+  "scenario": "행사 당일 신청 시스템이 느려질 위험을 모두가 알고 있지만 공동 책임이라고만 기록돼 있습니다.",
+  "practicalOutcome": "관찰·결정·실행·안내 담당과 인계 신호를 정한다.",
+  "roles": {
+    "learner": "팀 간 조율자. 역할을 제안하고 당사자에게 확인한다.",
+    "interlocutor": "회의 진행자. 모두 함께 대응하면 된다며 세부 구분을 번거롭게 느끼지만 중복 안내는 피하고 싶다."
+  },
+  "caseBrief": {
+    "professionalRole": "cross-functional",
+    "situation": "행사 당일 신청 시스템이 느려질 위험을 모두가 알고 있지만 공동 책임이라고만 기록돼 있습니다.",
+    "facts": [
+      "운영팀은 현장 안내를 담당한다.",
+      "개발팀은 시스템 상태를 확인한다.",
+      "고객지원팀은 문의 응대를 담당한다."
+    ],
+    "constraints": [
+      "모든 팀이 전체 장애 판단을 각각 내리지 않는다.",
+      "최종 대응 지휘자는 운영 리드다."
+    ],
+    "learnerAuthority": "팀 간 조율자. 역할을 제안하고 당사자에게 확인한다.",
+    "counterpartPosition": "회의 진행자. 모두 함께 대응하면 된다며 세부 구분을 번거롭게 느끼지만 중복 안내는 피하고 싶다.",
+    "unresolvedQuestions": [
+      "누가 위험을 관찰하고 누가 조치를 결정하는가?",
+      "사용자 공지는 누가 내는가?"
+    ],
+    "deliverable": "관찰·결정·실행·안내 담당과 인계 신호를 정한다.",
+    "resolutionCriteria": [
+      "공동 관심과 개인 역할을 구분한다.",
+      "팀별 담당을 확인한다.",
+      "지휘자와 공지 경로를 명시한다."
+    ],
+    "escalationPath": "역할이 충돌하면 운영 리드가 기준을 확정하고 미합의 항목을 회의록에 남긴다."
+  },
+  "opening": "Let us just write that all three teams own this risk.",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "모호함의 영향 설명하기",
+      "example": "Shared concern does not tell us who notices the issue, who decides the response, or who speaks to users.",
+      "hints": [
+        "의도: 모호함의 영향 설명하기",
+        "핵심 표현: shared concern = 함께 중요하게 여기는 것",
+        "완성 문장 예시: Shared concern does not tell us who notices the issue, who decides the response, or who speaks to users. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 모호함의 영향 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "역할 분리 제안하기",
+      "example": "Could engineering monitor the system, operations make the response decision, and support issue the agreed message?",
+      "hints": [
+        "의도: 역할 분리 제안하기",
+        "핵심 표현: issue the message = 안내를 내다",
+        "완성 문장 예시: Could engineering monitor the system, operations make the response decision, and support issue the agreed message? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 역할 분리 제안하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "인계 신호 묻기",
+      "example": "What should trigger the handover to the operations lead?",
+      "hints": [
+        "의도: 인계 신호 묻기",
+        "핵심 표현: trigger = 시작시키는 조건",
+        "완성 문장 예시: What should trigger the handover to the operations lead? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 인계 신호 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-4",
+      "goal": "담당 동의 확인하기",
+      "example": "Let us name one contact from each team and confirm the escalation route before the meeting ends.",
+      "hints": [
+        "의도: 담당 동의 확인하기",
+        "핵심 표현: escalation route = 상위 판단 요청 경로",
+        "완성 문장 예시: Let us name one contact from each team and confirm the escalation route before the meeting ends. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 담당 동의 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 모호함의 영향 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '공동 책임이라는 표현을 실제 위험 담당으로 나누기' 상황에서 관찰·결정·실행·안내 담당과 인계 신호를 정한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "운영 리드가 행사 중 자리를 비운다. 대체 지휘자와 인계 시간을 함께 정한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '공동 책임이라는 표현을 실제 위험 담당으로 나누기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 운영 리드가 행사 중 자리를 비운다. 대체 지휘자와 인계 시간을 함께 정한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "관찰·결정·실행·안내 담당과 인계 신호를 정한다.",
+      "모호함의 영향 설명하기",
+      "역할 분리 제안하기",
+      "인계 신호 묻기",
+      "담당 동의 확인하기",
+      "공동 관심과 개인 역할을 구분한다.",
+      "팀별 담당을 확인한다.",
+      "지휘자와 공지 경로를 명시한다.",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

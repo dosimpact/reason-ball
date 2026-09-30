@@ -1,0 +1,73 @@
+{
+  "status": "PASS",
+  "scope": "remote persisted catalog data contract; read-only batched comparison",
+  "verifiedAt": "2026-09-20T16:44:36.313Z",
+  "counts": {
+    "missions": 752,
+    "versions": 752,
+    "instructions": 752,
+    "steps": 2338,
+    "hints": 7014,
+    "rewards": 752,
+    "assets": 752,
+    "characterLinks": 752
+  },
+  "catalogEntries": 752,
+  "managerCount": 2,
+  "catalogReady": false,
+  "levels": {
+    "pre-A1": 96,
+    "A1": 96,
+    "A2": 112,
+    "B1": 112,
+    "B2": 112,
+    "C1": 112,
+    "C2": 112
+  },
+  "categories": {
+    "daily": 168,
+    "travel": 168,
+    "social": 168,
+    "work": 248
+  },
+  "subcategories": {
+    "food-drink": 28,
+    "shopping": 28,
+    "housing": 28,
+    "health": 28,
+    "services": 28,
+    "routines": 28,
+    "airport": 28,
+    "hotel": 28,
+    "transport": 28,
+    "sightseeing": 28,
+    "booking": 28,
+    "travel-problems": 28,
+    "introductions": 28,
+    "small-talk": 28,
+    "invitations": 28,
+    "friends-family": 28,
+    "feelings-opinions": 28,
+    "conflict-resolution": 28,
+    "job-interviews": 28,
+    "onboarding": 32,
+    "meetings": 70,
+    "collaboration": 50,
+    "presentations": 33,
+    "customer-service": 35
+  },
+  "sourceSetSha256": "f12f5e4aa361d8375c97a3749788b96bf4d04be88e277b4145cbacc27388f9bf",
+  "checks": [
+    "every catalog identity",
+    "all mapped mission/version/instruction fields",
+    "full authored private source and SHA-256",
+    "all ordered steps and three hints per step",
+    "active reward and private asset metadata/path/image fingerprint",
+    "recommended character links and roles"
+  ],
+  "limitations": [
+    "Does not download every Storage image; verifies stored image SHA-256 metadata and paths.",
+    "Does not prove RLS isolation, browser flows, AI role quality, or learner outcomes.",
+    "Separate requests are not a single database snapshot; run after import and authoring changes stop."
+  ]
+}

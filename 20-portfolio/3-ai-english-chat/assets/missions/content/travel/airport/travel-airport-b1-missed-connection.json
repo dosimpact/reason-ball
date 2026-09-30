@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "travel-airport-b1-missed-connection",
+  "title": "지연으로 환승편을 놓쳤을 때 대안 찾기",
+  "categoryId": "travel",
+  "subcategoryId": "airport",
+  "difficulty": "B1",
+  "scenario": "첫 비행이 늦어져 연결편을 놓쳤고 오늘 저녁까지 도착하고 싶습니다.",
+  "practicalOutcome": "도착 목적에 맞는 대체편을 선택한다.",
+  "roles": {
+    "learner": "환승 실패 승객",
+    "interlocutor": "직원. 오후 직항은 만석이며 저녁 경유편 또는 내일 직항을 제안한다."
+  },
+  "opening": "The next direct flight is tomorrow morning.",
+  "estimatedMinutes": 12,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "원인과 목표 설명하기",
+      "example": "My first flight was delayed, and I need to arrive tonight.",
+      "hints": [
+        "의도: 원인과 목표 설명하기",
+        "핵심 표현: was delayed = 지연되었다",
+        "완성 문장 예시: My first flight was delayed, and I need to arrive tonight. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 원인과 목표 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "오늘 대안 묻기",
+      "example": "Is there another route today?",
+      "hints": [
+        "의도: 오늘 대안 묻기",
+        "핵심 표현: another route = 다른 경로",
+        "완성 문장 예시: Is there another route today? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 오늘 대안 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "도착 시각 확인 후 선택하기",
+      "example": "If the evening connection arrives before ten, I would prefer that.",
+      "hints": [
+        "의도: 도착 시각 확인 후 선택하기",
+        "핵심 표현: would prefer = 더 원하다",
+        "완성 문장 예시: If the evening connection arrives before ten, I would prefer that. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 도착 시각 확인 후 선택하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "이유·경험 연결; 요청 시 핵심 표현 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 원인과 목표 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '지연으로 환승편을 놓쳤을 때 대안 찾기' 상황에서 도착 목적에 맞는 대체편을 선택한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "오늘 도착보다 짐 동반 도착이 중요해졌다. 선택 기준을 바꾸어 질문한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '지연으로 환승편을 놓쳤을 때 대안 찾기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 오늘 도착보다 짐 동반 도착이 중요해졌다. 선택 기준을 바꾸어 질문한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "도착 목적에 맞는 대체편을 선택한다.",
+      "원인과 목표 설명하기",
+      "오늘 대안 묻기",
+      "도착 시각 확인 후 선택하기",
+      "수준별 관찰: 예상 밖 문제 설명과 복구. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

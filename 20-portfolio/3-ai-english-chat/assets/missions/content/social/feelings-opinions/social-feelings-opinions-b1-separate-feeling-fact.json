@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "social-feelings-opinions-b1-separate-feeling-fact",
+  "title": "느낌과 사실을 구분해 오해 말하기",
+  "categoryId": "social",
+  "subcategoryId": "feelings-opinions",
+  "difficulty": "B1",
+  "scenario": "메시지 답장이 없어 무시당한 느낌이 들었지만 실제 사정은 모릅니다. 답장을 기다린 기간은 이틀입니다.",
+  "practicalOutcome": "상대 의도를 단정하지 않고 감정과 확인 질문을 전한다.",
+  "roles": {
+    "learner": "상황 속 대화 참여자(가상 정보 사용)",
+    "interlocutor": "친구. 바빠 답장을 못 했으며 의도적인 무시는 아니라고 설명한다."
+  },
+  "opening": "I saw your messages but couldn't answer.",
+  "estimatedMinutes": 12,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "관찰 사실 말하기",
+      "example": "I didn't hear back for two days.",
+      "hints": [
+        "의도: 관찰 사실 말하기",
+        "핵심 표현: hear back = 답장을 받다",
+        "완성 문장 예시: I didn't hear back for two days. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 관찰 사실 말하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "내 느낌으로 표현하기",
+      "example": "I felt worried and started wondering if I'd upset you.",
+      "hints": [
+        "의도: 내 느낌으로 표현하기",
+        "핵심 표현: felt worried = 걱정했다",
+        "완성 문장 예시: I felt worried and started wondering if I'd upset you. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 내 느낌으로 표현하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "단정 대신 확인하기",
+      "example": "Was something going on, or did you need some space?",
+      "hints": [
+        "의도: 단정 대신 확인하기",
+        "핵심 표현: need some space = 혼자 시간이 필요하다",
+        "완성 문장 예시: Was something going on, or did you need some space? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 단정 대신 확인하기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "이유·경험 연결; 요청 시 핵심 표현 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 관찰 사실 말하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '느낌과 사실을 구분해 오해 말하기' 상황에서 상대 의도를 단정하지 않고 감정과 확인 질문을 전한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "상대가 실제로 불편한 일이 있었다고 한다. 방어하지 말고 어떤 점인지 듣는다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '느낌과 사실을 구분해 오해 말하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 상대가 실제로 불편한 일이 있었다고 한다. 방어하지 말고 어떤 점인지 듣는다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "상대 의도를 단정하지 않고 감정과 확인 질문을 전한다.",
+      "관찰 사실 말하기",
+      "내 느낌으로 표현하기",
+      "단정 대신 확인하기",
+      "수준별 관찰: 예상 밖 문제 설명과 복구. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "$schema": "../../../mission.schema.json",
+  "schemaVersion": 1,
+  "key": "daily-services-b2-municipal-request",
+  "title": "거리 시설 수리 우선순위 요청하기",
+  "categoryId": "daily",
+  "subcategoryId": "services",
+  "difficulty": "B2",
+  "scenario": "동네 가로등 두 개가 고장 나 보행로가 어둡습니다. 담당 부서는 단순 민원으로 접수했습니다.",
+  "practicalOutcome": "시설 위치와 통행 영향을 근거로 접수 검토와 확인 일정을 요청한다.",
+  "roles": {
+    "learner": "생활 서비스 이용자",
+    "interlocutor": "담당자. 위치·고장 기간·통행 영향을 받아 우선순위를 검토할 수 있다."
+  },
+  "opening": "It will be added to the general maintenance list.",
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "goal": "영향을 구체적으로 설명하기",
+      "example": "The two failed lights cover the crossing used by residents walking from the bus stop after dark.",
+      "hints": [
+        "의도: 영향을 구체적으로 설명하기",
+        "핵심 표현: cover the crossing = 횡단 구역을 비추다",
+        "완성 문장 예시: The two failed lights cover the crossing used by residents walking from the bus stop after dark. — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 영향을 구체적으로 설명하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-2",
+      "goal": "과장 없이 재분류 요청하기",
+      "example": "Could the location and pedestrian access be considered when setting the priority?",
+      "hints": [
+        "의도: 과장 없이 재분류 요청하기",
+        "핵심 표현: setting the priority = 우선순위 결정",
+        "완성 문장 예시: Could the location and pedestrian access be considered when setting the priority? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 과장 없이 재분류 요청하기. 예문과 단어가 같아야 하는 것은 아니다."
+    },
+    {
+      "id": "step-3",
+      "goal": "일정과 진행 확인 방법 묻기",
+      "example": "Can you provide a case number and a date when the status will be reviewed?",
+      "hints": [
+        "의도: 일정과 진행 확인 방법 묻기",
+        "핵심 표현: status reviewed = 진행 상태 검토",
+        "완성 문장 예시: Can you provide a case number and a date when the status will be reviewed? — 의미가 같은 다른 표현도 가능합니다."
+      ],
+      "successCriterion": "상대가 이해할 수 있게 다음 행동을 수행한다: 일정과 진행 확인 방법 묻기. 예문과 단어가 같아야 하는 것은 아니다."
+    }
+  ],
+  "pedagogy": {
+    "researchIds": [
+      "CEFR-2020",
+      "TBLT-2019",
+      "TBLT-CRITIQUE",
+      "SPACING-2022",
+      "RETRIEVAL-2008",
+      "FEEDBACK-2010",
+      "FOUR-STRANDS-2007"
+    ],
+    "supportFade": "장단점·반론·이해관계 확인; 예시는 요청 시 제공. 먼저 상황과 첫 발화의 뜻을 확인하고 영향을 구체적으로 설명하기에 필요한 표현을 살핀다. 의도→핵심 표현→완성 문장 순으로 필요한 도움만 제공한다. 두 번째 시도는 완성 문장을 가리고, 세 번째는 힌트를 가린다. 막히면 도움을 다시 제공하고 도움받은 수행과 독립 수행을 구분한다.",
+    "retrieval": "예문을 가린 뒤 '거리 시설 수리 우선순위 요청하기' 상황에서 시설 위치와 통행 영향을 근거로 접수 검토와 확인 일정을 요청한다. 기억한 문장을 그대로 외우기보다 상대의 질문에 맞춰 자신의 말로 응답한다.",
+    "transfer": "고장 하나는 복구됐지만 횡단 구역은 여전히 어두울 때 남은 영향을 설명한다.",
+    "review": {
+      "intervalDays": [
+        1,
+        3,
+        7,
+        21
+      ],
+      "prompt": "복습 간격은 초기 운영 가설이며 성공과 어려움에 따라 조정한다. '거리 시설 수리 우선순위 요청하기'을 무힌트로 다시 수행한다. 이어서 조건을 바꾼다: 고장 하나는 복구됐지만 횡단 구역은 여전히 어두울 때 남은 영향을 설명한다. 결과와 도움 사용을 따로 기록한다."
+    }
+  },
+  "assessment": {
+    "criteria": [
+      "시설 위치와 통행 영향을 근거로 접수 검토와 확인 일정을 요청한다.",
+      "영향을 구체적으로 설명하기",
+      "과장 없이 재분류 요청하기",
+      "일정과 진행 확인 방법 묻기",
+      "수준별 관찰: 대안 비교와 근거 있는 조율. 문법 오류 수나 희귀 단어만으로 판정하지 않는다."
+    ],
+    "acceptParaphrases": true,
+    "feedbackPolicy": "먼저 전달된 의미와 달성한 과업을 짚는다. 의미 전달을 막는 오류 한두 개에 짧은 한국어 설명과 재표현 기회를 제공한다. 초보가 막히면 예시를 보여준 뒤 다시 시도하게 한다. 도움받은 완료를 독립 숙달로 판정하지 않고 조건 변경 및 지연 수행을 별도로 확인한다. 텍스트만으로 발음·청취 성공을 판정하지 않는다."
+  }
+}
