@@ -8,7 +8,7 @@
 | 실제 앱의 라우트·FSD·데이터·AI·권한 경계 | [시스템 설계](stock/system-design.md) | `apps/web/src/`, `supabase/migrations/`, [미션 자산](../assets/missions/README.md) |
 | 무엇을 어떤 환경에서 검증했는가; 현재 release gate | [테스트 설계](stock/test-design.md) | [유량 기록](flow/)과 Playwright/DB 보고서 |
 
-최근 조정: [Google 키 구분·TTS 실재생](flow/2026-09-30-google-key-separation.md), [Talkie 개편·Google 검증](flow/2026-09-30-talkie-resume-validation.md), [Talkie 조사](research/talkie-design-audit.md), [개편 설계](research/talkie-redesign-plan.md), [2026-09-30 production E2E](flow/2026-09-30-production-e2e.md), [화면 점검·캡처](flow/evidence/2026-09-30-ux-refactor/README.md), [코드 정리](flow/2026-09-30-code-cleanup.md), [2026-09-30 설계 재조정](flow/2026-09-30-design-reconciliation.md), [2026-09-29 실제 OAuth E2E](flow/2026-09-29-live-e2e-oauth-proxy.md), [2026-09-21 원격 미션 적재·배정](flow/2026-09-21-mission-catalog-remote-upload.md), [2026-09-21 게스트 공개 미션 조회](flow/2026-09-21-guest-mission-browsing.md).
+최근 조정: [미디어 검증 비용 제한](flow/2026-09-30-media-validation-cost-cap.md), [Google 키 구분·TTS 실재생](flow/2026-09-30-google-key-separation.md), [Talkie 개편·Google 검증](flow/2026-09-30-talkie-resume-validation.md), [Talkie 조사](research/talkie-design-audit.md), [개편 설계](research/talkie-redesign-plan.md), [2026-09-30 production E2E](flow/2026-09-30-production-e2e.md), [화면 점검·캡처](flow/evidence/2026-09-30-ux-refactor/README.md), [코드 정리](flow/2026-09-30-code-cleanup.md), [2026-09-30 설계 재조정](flow/2026-09-30-design-reconciliation.md), [2026-09-29 실제 OAuth E2E](flow/2026-09-29-live-e2e-oauth-proxy.md), [2026-09-21 원격 미션 적재·배정](flow/2026-09-21-mission-catalog-remote-upload.md), [2026-09-21 게스트 공개 미션 조회](flow/2026-09-21-guest-mission-browsing.md).
 
 ## 문서 변경 규칙
 

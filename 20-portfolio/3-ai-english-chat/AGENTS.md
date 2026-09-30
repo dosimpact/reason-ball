@@ -166,6 +166,8 @@ Worker 번들 변경은 `PLAYWRIGHT_PRODUCTION=1 CI=1 pnpm test:e2e code-executi
 
 `pnpm test:e2e:mock`는 `PLAYWRIGHT_MOCK_SERVER=1`로 `.next-mock` 산출물과 소유한 3210 서버를 사용한다. 기존 개발 서버를 재사용하거나 종료하지 않는다. 임시 수동 mock 서버도 같은 산출물을 사용한다면 종료 후 자동화 검사를 시작한다. Google 실연동 테스트는 `PLAYWRIGHT_GOOGLE_MEDIA=1`, 영상은 추가로 `PLAYWRIGHT_GOOGLE_VIDEO=1`인 명시적 검증에서만 실행한다. 영상 POST는 유료 작업이며 자동 재시도를 추가하지 않는다.
 
+2026-09-30 사용자 비용 제한: 실제 이미지는 총10회 이내, 실제 영상은 건당3초·총5회 이내만 검증한다. TTS 실검증은 허용한다. `docs/stock/media-validation-budget.json`을 호출 전 확인하고 실패/중단도 예산에 포함한다. E2E 이미지는 추가 `PLAYWRIGHT_GOOGLE_IMAGE=1`과 사전 예약이 필요하다. 수동/직접 어댑터 호출도 같은 원장에 먼저 예약하며 새 세션에서 횟수를 초기화하지 않는다. 한도 이후 이미지는 mock만 사용한다. Veo의 지원 길이는4/6/8초이므로 사용자가 길이 제한을 변경하기 전에는 실제 영상을 호출하지 않고 mock만 검증한다. 4초 이상 생성 후3초로 자르는 방식도 금지한다. 이 원장은 작업 검증 예산이며 일반 서비스 사용자의 과금 원장은 아니다.
+
 Artifact HTTP 저장을 배포할 때는 `20260910010000_artifact_revision_commit.sql`도 먼저 적용한다. 생성·버전 추가에는 `requestId`, 버전 추가에는 편집 시작 시의 `expectedVersionId`를 전달한다. 재시도 중 키·입력을 바꾸거나 충돌을 새 기준 버전으로 자동 덮어쓰지 않는다.
 
 Artifact 이미지는 `20260910020000_artifact_image_storage.sql`의 비공개 `artifact-images` 버킷을 사용한다. 브라우저에 버킷 쓰기 권한을 추가하거나 기존 객체를 upsert하지 않는다. 버전에는 Storage 참조를 저장하고, 소유자 확인 후 발급한 서명 URL은 DB에 영속화하지 않는다.

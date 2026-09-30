@@ -1,16 +1,21 @@
 import { test, expect } from "./fixtures";
+import { readMediaBudget, reserveMediaRequest } from "./media-budget";
+
+const mediaBudget = readMediaBudget();
 
 // Explicit opt-in: these tests create paid media. Never run them as implicit retries.
 test.describe("Google media live gates", () => {
   test.skip(process.env.PLAYWRIGHT_GOOGLE_MEDIA !== "1", "Requires explicit Google media verification profile");
 
-  test("authenticated Playground decodes a Google image", async ({ page }, testInfo) => {
+  const imageTest = process.env.PLAYWRIGHT_GOOGLE_IMAGE === "1" && mediaBudget.image.reservedRequests < mediaBudget.image.maxRequests ? test : test.skip;
+  imageTest("authenticated Playground decodes a Google image", async ({ page }, testInfo) => {
     test.setTimeout(240_000);
     await page.goto("/admin/playground");
     await expect(page.getByRole("heading", { name: "AI Playground", exact: true })).toBeVisible();
     await page.getByRole("tab", { name: "이미지", exact: true }).click();
     await page.getByLabel("이미지 설명", { exact: true }).fill("An original friendly adult hotel concierge in a warm boutique hotel, cinematic illustration, no text");
     const imageResponse = page.waitForResponse(response => response.url().endsWith("/api/admin/playground/image") && response.request().method() === "POST");
+    reserveMediaRequest("image");
     await page.getByRole("button", { name: "이미지 생성", exact: true }).click();
     const generatedImage = await imageResponse;
     expect(generatedImage.status()).toBe(200);
@@ -51,7 +56,12 @@ test.describe("Google media live gates", () => {
     await page.screenshot({ path: testInfo.outputPath("google-speech.png"), fullPage: true });
   });
 
-  const videoTest = process.env.PLAYWRIGHT_GOOGLE_VIDEO === "1" ? test : test.skip;
+  // Current provider implementation requests 8s. The user's 3s cap forbids it;
+  // Veo supports 4/6/8s, so no real video runs until the user changes this limit.
+  const requestedVideoSeconds = 8;
+  const videoTest = process.env.PLAYWRIGHT_GOOGLE_VIDEO === "1"
+    && requestedVideoSeconds <= mediaBudget.video.maxDurationSeconds
+    && mediaBudget.video.reservedRequests < mediaBudget.video.maxRequests ? test : test.skip;
   videoTest("authenticated character scene reaches a playable MP4 with one video POST", async ({ page, practiceMission }, testInfo) => {
     test.setTimeout(660_000);
     let starts = 0;
@@ -60,6 +70,7 @@ test.describe("Google media live gates", () => {
     await page.getByRole("button", { name: "영상 생성", exact: true }).click();
     await page.getByLabel("만들고 싶은 장면").fill("A cinematic eight second scene of sunlight crossing an empty cozy cafe table with a cup of tea, gentle camera motion, no text");
     const accepted = page.waitForResponse(response => new URL(response.url()).pathname === "/api/ai/video" && response.request().method() === "POST");
+    reserveMediaRequest("video", requestedVideoSeconds);
     await page.getByRole("button", { name: "영상 생성 시작", exact: true }).click();
     expect((await accepted).status()).toBe(200);
     const video = page.locator("video");

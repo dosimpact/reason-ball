@@ -51,7 +51,7 @@ export async function POST(request: Request) {
       size: parsed.data.size,
       n: 1,
       abortSignal: request.signal,
-      maxRetries: 1,
+      maxRetries: capabilities.providerName === "google" ? 0 : 1,
       providerOptions:
         capabilities.providerName === "mock" || capabilities.providerName === "google"
           ? undefined

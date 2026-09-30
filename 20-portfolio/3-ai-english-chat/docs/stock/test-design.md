@@ -85,3 +85,9 @@ production mock 명령은 `PLAYWRIGHT_PRODUCTION=1 pnpm test:e2e:mock --grep-inv
 영상403/502 복구·GET 조회·명시적 새 POST 분리, 이미지 실패 입력/결과 보존은 `character-media.spec.ts`로 검증했다. 360×640에서도 힌트를 펼친 뒤 입력창이 하단 메뉴 위에 유지되는 것을 확인했다. `DESIGN-TALKIE-01~04`의 desktop/mobile 주요11개 라우트 캡처22개와 후속 모바일 회귀·실제 TTS 증거를 보존한다. 모든 저작 단계·데이터 조합의 시각 검증과 구분한다.
 
 명령·실패 수정·캡처는 [재개 검증](../flow/2026-09-30-talkie-resume-validation.md), 공급자·키·실제 재생은 [Google 검증](../flow/2026-09-30-google-key-separation.md)에 기록한다. 전체 목표는 이미지·영상 gate가 남아 완료로 판정하지 않는다.
+
+## 8. 실제 생성 비용 제한
+
+사용자 제한은 이미지 총10회, 영상 건당3초·총5회다. 실패/중단도 요청 예산에 포함하고 한도 이후에는 mock만 실행한다. TTS 실검증은 허용한다. [영속 검증 원장](media-validation-budget.json)은 이미지6/10(자체 초상3회까지 보수적 포함), 영상0/5로 시작했다. 현재 누적값은 원장이 기준이다.
+
+이미지 E2E는 `PLAYWRIGHT_GOOGLE_MEDIA=1`에 추가로 `PLAYWRIGHT_GOOGLE_IMAGE=1`을 요구하고 호출 직전에 파일 잠금 아래 예산을 예약한다. 영상은3초 제약을 만족하지 못하므로 `PLAYWRIGHT_GOOGLE_VIDEO=1`이어도 실행하지 않는다. Veo는4·6·8초만 지원하며 사용자 변경 전까지 mock만 검증한다. 이 skip은 실제 영상 생성 PASS가 아니다. 비용 보호 변경 후 계약313 PASS·typecheck PASS, 실제 호출 없는 보호 검사2 SKIP을 확인했다. [비용 제한 결정](../flow/2026-09-30-media-validation-cost-cap.md).

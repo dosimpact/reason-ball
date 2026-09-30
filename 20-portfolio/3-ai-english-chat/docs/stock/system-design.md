@@ -134,3 +134,5 @@ Cloud Text-to-Speech는 별도 선택지다. `AI_SPEECH_PROVIDER=google-cloud-tt
 `DESIGN-TALKIE-01~04`: `widgets/app-shell`의 사이드바·검색과 semantic theme token을 공유한다. 데모 캐릭터의 자체 초상은 `public/characters/`에서 제공하며 원격 캐릭터 이미지를 덮어쓰지 않는다. 채팅의 fixed 모달이 사이드바 아래에 갇히지 않도록 루트에 불필요한 stacking context를 두지 않는다.
 
 mock E2E는 `PLAYWRIGHT_MOCK_SERVER=1`의 `.next-mock`와 소유 3210 포트를 사용한다. 일반 `.next` 개발 서버와 분리하고 기존 서버를 재사용하지 않는다. mock의 날씨 도구는 명시적인 mock 결과를 반환하며 실연동 날씨 호출은 별도 경로다. [재개 검증 기록](../flow/2026-09-30-talkie-resume-validation.md).
+
+Google 이미지 요청은 SDK 자동 재시도0으로 실행한다. 실제 검증의10회/영상5회·3초 제한은 [검증 원장](media-validation-budget.json)과 E2E 사전 예약으로 관리한다. 일반 사용자 API의 전역 과금 원장과 구분하며, 직접 진단 호출도 같은 원장에 먼저 예약한다. 현재3초 제한에서는8초를 요청하는 실제 영상 테스트가 실행되지 않는다. [비용 제한 결정](../flow/2026-09-30-media-validation-cost-cap.md).

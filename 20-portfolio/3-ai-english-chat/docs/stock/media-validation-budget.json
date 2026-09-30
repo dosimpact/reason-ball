@@ -1,0 +1,9 @@
+{
+  "image": { "maxRequests": 10, "reservedRequests": 6 },
+  "video": { "maxRequests": 5, "reservedRequests": 0, "maxDurationSeconds": 3 },
+  "events": [
+    { "kind": "image", "requests": 3, "note": "Earlier built-in imagegen portraits: Mia, Leo, Noah. Conservatively counted in the total." },
+    { "kind": "image", "requests": 1, "note": "Google image adapter request returned 403 with the TTS-only key." },
+    { "kind": "image", "requests": 2, "note": "New Gemini key image requests returned 429, including the quota diagnosis request." }
+  ]
+}
