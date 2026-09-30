@@ -120,3 +120,17 @@ AI 로그는 requestId·conversationId·assistantMessageId, provider/model, 사�
 ## 6. 배포와 확인
 
 루트 `package.json`의 `pnpm lint`, `typecheck`, `build`, `test:contracts`, `test:db`, `test:e2e:mock`, `test:e2e`, `test:e2e:production`, `test:security`가 검증 진입점이다. 미션 원본 변경은 `pnpm missions:compile`, `missions:check`, `missions:test`를 사용한다. live 실행은 원격 Supabase·실제 AI 조건과 대상 서버/URL을 명시해야 한다. mock, PGlite, live 결과는 각각 기록한다. 각 migration의 원격 적용과 데이터 정리 범위는 별도 확인한다. 최신 판정은 [테스트 설계](test-design.md), 시점별 증거는 [유량 기록](../flow/)을 따른다.
+
+## 7. Google 미디어와 비운영 Playground
+
+`MEDIA-GOOGLE-01/02`: `shared/api/ai/google/`가 Google REST와 AI SDK 이미지·음성 adapter, PCM→WAV 변환, 영상 작업 token을 소유한다. `AI_IMAGE_PROVIDER=google`, `AI_SPEECH_PROVIDER=google`은 채팅 공급자와 독립적이다. 서버 key는 `GOOGLE_GENERATIVE_AI_API_KEY`(또는 `GEMINI_API_KEY`)로만 읽는다. 기본 모델은 이미지 `gemini-3.1-flash-image`, 음성 `gemini-3.8-flash-tts`, 영상 `veo-3.1-fast-generate-preview`다. 계정별 실제 접근 가능 여부는 별도 검증한다.
+
+Cloud Text-to-Speech는 별도 선택지다. `AI_SPEECH_PROVIDER=google-cloud-tts`, `AI_SPEECH_MODEL=chirp-3-hd`, 서버 `GOOGLE_TTS_API_KEY`(호환 alias `GOOGLE_CLOUD_TTS_API_KEY`)를 사용한다. 고정 Cloud TTS endpoint와 en-US Chirp3 HD 음성·LINEAR16 WAV를 사용하며 UTF-8 5,000바이트 제한을 검사한다. 이미지·채팅 provider로는 선택할 수 없다. Gemini와 Cloud TTS 키를 교환하거나 자동 fallback하지 않는다. 현재 사용자 환경은 이미지·음성 모두 `google`(Gemini)다. [키 구분 검증](../flow/2026-09-30-google-key-separation.md).
+
+이미지·음성은 기존 `/api/ai/image`, `/api/ai/speech`의 인증·origin·한도·Storage 계약을 사용한다. `/api/ai/video` POST는 Google 비동기 요청을 시작하고 인증 owner와 1시간 만료를 서명한 token을 반환한다. GET은 owner/서명을 확인하고 pending 또는 MP4를 반환한다. Google download URL과 key는 브라우저에 전달하지 않는다. POST의 영속 멱등성은 제공하지 않으며 자동 재생성을 하지 않는다. UI는 오류 뒤 GET 재확인 또는 명시적 확인 종료를 제공한다. 확인 종료는 token만 지우고 prompt를 보존한다.
+
+`DEV-PLAYGROUND-01`: `shared/lib/playground-policy.ts`가 `NODE_ENV=production` 또는 `APP_RUNTIME_MODE=production`일 때 페이지와 `/api/admin/playground/{chat,image,speech}`를 차단한다. 서버 layout에서 같은 정책으로 sidebar·모바일 메뉴 링크를 제어한다. UI 숨김만으로 보호하지 않는다. Playground의 생성 요청은 기존 공급자와 서버 인증 경계를 재사용한다.
+
+`DESIGN-TALKIE-01~04`: `widgets/app-shell`의 사이드바·검색과 semantic theme token을 공유한다. 데모 캐릭터의 자체 초상은 `public/characters/`에서 제공하며 원격 캐릭터 이미지를 덮어쓰지 않는다. 채팅의 fixed 모달이 사이드바 아래에 갇히지 않도록 루트에 불필요한 stacking context를 두지 않는다.
+
+mock E2E는 `PLAYWRIGHT_MOCK_SERVER=1`의 `.next-mock`와 소유 3210 포트를 사용한다. 일반 `.next` 개발 서버와 분리하고 기존 서버를 재사용하지 않는다. mock의 날씨 도구는 명시적인 mock 결과를 반환하며 실연동 날씨 호출은 별도 경로다. [재개 검증 기록](../flow/2026-09-30-talkie-resume-validation.md).

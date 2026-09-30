@@ -1,3 +1,4 @@
+import { openChatSettings } from "../test-setup";
 import { liveBaseURL } from "./settings";
 import { adminClient, expect, signIn, test } from "./fixtures";
 
@@ -7,7 +8,7 @@ const jpeg = Buffer.from("/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAY
 test("CHAT-05 REF-14 real JPEG picker upload reaches vision and reloads with correct bytes, MIME and private ownership", async ({ page, account, browser, createAccount }) => {
   test.setTimeout(180_000);
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: /외우지 말고/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /마음이 통하는 캐릭터/ })).toBeVisible();
   await expect(page.getByTestId("app-shell")).toHaveAttribute("data-shortcuts-ready", "true");
   await page.getByRole("button", { name: "새 채팅", exact: true }).click();
   const input = page.getByRole("textbox", { name: "영어 메시지", exact: true });
@@ -18,6 +19,7 @@ test("CHAT-05 REF-14 real JPEG picker upload reaches vision and reloads with cor
   const catalog = await catalogResponse.json() as { items: Array<{ id: string; capabilities: { vision: boolean | null } }> };
   const verified = catalog.items.find(item => item.capabilities.vision === true);
   expect(verified, "Requires actual verified vision capability").toBeDefined();
+  await openChatSettings(page);
   await page.getByLabel("AI 모델 선택").selectOption(verified!.id);
   await expect(page.getByLabel("선택 모델 기능")).toContainText("이미지: 지원");
   const filename = "blue-card.jpg";

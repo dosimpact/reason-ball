@@ -15,7 +15,7 @@ test.describe("Home and discovery", () => {
     await expect(
       page.getByRole("heading", {
         level: 1,
-        name: "외우지 말고, 캐릭터와 살아봐요.",
+        name: /마음이 통하는 캐릭터/,
       }),
     ).toBeVisible();
     await expect(page.getByRole("link", { name: "캐릭터 둘러보기" })).toHaveAttribute(
@@ -24,10 +24,10 @@ test.describe("Home and discovery", () => {
     );
     await expect(page.getByTestId("start-first-mission")).toHaveAttribute(
       "href",
-      "/missions/hotel-check-in",
+      "/missions",
     );
-    await expect(page.getByText("가입 없이 체험")).toBeVisible();
-    await expect(page.getByText("원어민 음성 재생")).toBeVisible();
+    await expect(page.getByLabel("추천 캐릭터 미리보기")).toBeVisible();
+    await expect(page.getByTestId("home-recommendations")).toContainText("Mia");
   });
 
   test("character search, level filter, and favorite persist", async ({

@@ -1,3 +1,4 @@
+import { openChatSettings } from "../test-setup";
 import { liveBaseURL } from "./settings";
 import { randomUUID } from "node:crypto";
 import type { APIRequestContext, Page } from "@playwright/test";
@@ -168,6 +169,7 @@ test("REF-07/08 slash rename, model and theme commands persist without sending c
   const catalogResponse = await page.request.get("/api/ai/models");
   expect(catalogResponse.ok()).toBe(true);
   const catalog = await catalogResponse.json() as { items: Array<{ id: string; capabilities: Record<string, boolean | null> }> };
+  await openChatSettings(page);
   const selector = page.getByRole("combobox", { name: "AI 모델 선택", exact: true });
   await expect(selector).toBeEnabled();
   const first = await selector.inputValue();
@@ -184,6 +186,7 @@ test("REF-07/08 slash rename, model and theme commands persist without sending c
   await expect(page.getByText("선택 가능한 모델 ID를 입력해 주세요.", { exact: true })).toBeVisible();
   await expect(selector).toHaveValue(first);
   await expect(input).toHaveValue("/model disallowed-regression-model");
+  await openChatSettings(page);
   await page.getByLabel("AI 모델 검색").fill(selected.id);
   await expect(selector.locator(`option[value="${selected.id}"]`)).toHaveCount(1);
   await command(page, `/model ${selected.id}`);

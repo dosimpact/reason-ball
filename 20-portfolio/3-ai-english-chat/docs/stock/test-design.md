@@ -37,7 +37,7 @@ API 오류/재시도와 권한을 다루는 변경은 계약·DB 테스트를, �
 - 2026-09-11 유량 원장의 당시 판정은 요구사항 114개 중 **58 VERIFIED / 49 PARTIAL / 7 MISSING**이었다. 당시 등록 Playwright는 **122개 / 56파일**이었다. 이 집계는 새 실행 판정도, 122개 동시 PASS도 아니다. [진행 원장](../flow/2026-09-11-live-e2e-progress.md).
 - 자동 목표 추적(`LEARN-02`)의 실제 사용자 발화·무관한 발화·목표 역순 달성·모바일 복원은 2026-09-30 production 재검증에서 통과했다. 저장 복구(`REF-11`)는 현재 프록시의 버퍼링 응답 중 취소·reload·명시적 재시도를 확인했다. 이는 upstream 토큰 실시간 스트리밍 또는 모든 공급자 품질의 검증이 아니다.
 
-## 4. 최신 실행 판정
+## 4. 개편 이전 실연동 실행 판정
 
 2026-09-30 원격 Supabase와 2890 OAuth proxy를 사용했다. production 검증은 매번 별도 `.next-live` build와 소유 `127.0.0.1:3310` 서버에서 worker 1, retry 0으로 실행했다. 직접 OpenAI key는 비우고 AI 공급자를 OAuth로 고정한다.
 
@@ -62,3 +62,26 @@ API 오류/재시도와 권한을 다루는 변경은 계약·DB 테스트를, �
 ## 6. 명령과 기록
 
 루트 `package.json`의 스크립트를 기준으로 한다: `pnpm missions:check`, `pnpm missions:test`, `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm test:contracts`, `pnpm test:db`, `pnpm test:e2e:mock`, `pnpm test:e2e`, `pnpm test:e2e:production`, `pnpm test:security`. `test:e2e:production`은 소유 build·loopback 서버와 별도 보고서를 쓰며 `PLAYWRIGHT_BASE_URL`로 대상 origin을 지정할 수 있다. [전체 유량 기록](../flow/)은 시점별 사실이며 현재 판정은 이 문서에 동기화한다.
+
+## 7. Talkie 개편 검증
+
+2026-09-30 `feat/talkie-google-media`의 개편은 기존4절 실연동 결과와 별도 판정한다.
+
+| 검사 | 최신 결과 | 범위 |
+|---|---|---|
+| 계약 | 311 PASS | Google/Gemini·Cloud TTS, 영상 token/오류, 기존 순수 정책 |
+| typecheck / lint | PASS / 오류0·img 경고5 | 최종 소스 |
+| production mock | **84 PASS, 1.6분** | worker1/retry0, 별도 `.next-mock`·소유3210 서버 |
+| 개발 Playground | 3 PASS | 채팅·이미지·음성 UI, 실패 보존, 탭 전환 취소; mock87개 실행 중 해당3개 결과 |
+| production Playground 보안 | 1 PASS | 페이지와 생성API3개404 |
+| 원격 Supabase production shell | 2 PASS | theme 실제 대비·reload, 모바일 메뉴·새 대화·복원, 소유 계정 정리 |
+| 실제 Gemini TTS Playground | **1 PASS, 11.6초** | 로그인, WAV 헤더·duration·play/currentTime, 테스트 계정 정리 |
+| Cloud TTS | 직접 어댑터 생성 성공 | Chirp3 HD WAV64,620바이트; 인증 UI 검증과 구분 |
+| Gemini 이미지 | **미완료** | 새 키 인증403 해소, 현재 Free Tier 한도0으로429 |
+| Veo 영상 | **미실행** | 실제 pending→MP4 gate 남음 |
+
+production mock 명령은 `PLAYWRIGHT_PRODUCTION=1 pnpm test:e2e:mock --grep-invert 'guarded playground endpoints|generation failure preserves image prompt|switching tabs cancels generation'`다. 제외한3개는 개발 전용이며 production에서는404가 정상이다. 기본 개발 실행에서 관찰한 일시적 JS/manifest 파싱 오류를 해결했다고 주장하지 않는다. 수정 후 production84개는 단일 전체 PASS다. 원격 Supabase 전체122개 재실행이나 Google 이미지·영상 성공을 뜻하지 않는다.
+
+영상403/502 복구·GET 조회·명시적 새 POST 분리, 이미지 실패 입력/결과 보존은 `character-media.spec.ts`로 검증했다. 360×640에서도 힌트를 펼친 뒤 입력창이 하단 메뉴 위에 유지되는 것을 확인했다. `DESIGN-TALKIE-01~04`의 desktop/mobile 주요11개 라우트 캡처22개와 후속 모바일 회귀·실제 TTS 증거를 보존한다. 모든 저작 단계·데이터 조합의 시각 검증과 구분한다.
+
+명령·실패 수정·캡처는 [재개 검증](../flow/2026-09-30-talkie-resume-validation.md), 공급자·키·실제 재생은 [Google 검증](../flow/2026-09-30-google-key-separation.md)에 기록한다. 전체 목표는 이미지·영상 gate가 남아 완료로 판정하지 않는다.

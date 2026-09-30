@@ -1,3 +1,4 @@
+import { openChatSettings } from "../test-setup";
 import { liveBaseURL } from "./settings";
 import type { Page } from "@playwright/test";
 import { adminClient, expect, signIn, test } from "./fixtures";
@@ -5,7 +6,7 @@ import { adminClient, expect, signIn, test } from "./fixtures";
 const png = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aHmsAAAAASUVORK5CYII=";
 async function openChat(page: Page) {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: /외우지 말고/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /마음이 통하는 캐릭터/ })).toBeVisible();
   await expect(page.getByTestId("app-shell")).toHaveAttribute("data-shortcuts-ready", "true");
   await page.getByRole("button", { name: "새 채팅", exact: true }).click();
   await expect(page.getByRole("textbox", { name: "영어 메시지", exact: true })).toBeEnabled();
@@ -53,6 +54,7 @@ test("REF-14 unverified attachment capability rejects picker and paste, then all
   const catalogResponse = await page.request.get("/api/ai/models");
   expect(catalogResponse.ok()).toBe(true);
   const catalog = await catalogResponse.json() as { items: Array<{ id: string; capabilities: { vision: boolean | null } }> };
+  await openChatSettings(page);
   const model = page.getByLabel("AI 모델 선택");
   await expect(model).toBeEnabled();
   const selected = catalog.items.find(item => item.capabilities.vision !== true);
@@ -122,6 +124,7 @@ test("REF-14 real image picker removal and paste survive upload failure, retry w
   const catalog = await response.json() as { items: Array<{ id: string; capabilities: { vision: boolean | null } }> };
   const vision = catalog.items.find(item => item.capabilities.vision === true);
   expect(vision, "Requires an actual verified vision model; capability flags are never fabricated").toBeDefined();
+  await openChatSettings(page);
   await page.getByLabel("AI 모델 선택").selectOption(vision!.id);
   await expect(page.getByLabel("선택 모델 기능")).toContainText("이미지: 지원");
   const input = page.getByRole("textbox", { name: "영어 메시지", exact: true });

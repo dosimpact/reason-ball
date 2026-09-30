@@ -1,3 +1,4 @@
+import { openChatSettings } from "../test-setup";
 import { liveBaseURL } from "./settings";
 import { randomUUID } from "node:crypto";
 import { test, expect, adminClient } from "./fixtures";
@@ -31,6 +32,7 @@ test("REF-05 suggested questions start distinct real conversations and restore a
     return rows.data!;
   }
   const originalMessages = await messages(originalId);
+  await openChatSettings(page);
   const recommendations = page.getByRole("region", { name: "추천 질문으로 새 대화", exact: true });
   const firstQuestion = "Let's practice introducing ourselves.";
   const newPosts: string[] = [];
@@ -118,6 +120,7 @@ test("REF-05 a late creation response does not navigate away from the user's cho
   const input = page.getByRole("textbox", { name: "영어 메시지", exact: true });
   await expect(input).toBeEnabled();
   const originalUrl = page.url();
+  await openChatSettings(page);
   const recommendations = page.getByRole("region", { name: "추천 질문으로 새 대화", exact: true });
   const question = "Let's practice introducing ourselves.";
   let release!: () => void;

@@ -53,7 +53,7 @@ function AvatarImage({ src }: { src: string }) {
       fill
       unoptimized
       loading="lazy"
-      className={`z-10 object-cover ${loaded ? "opacity-100" : "opacity-0"}`}
+      className={`z-10 object-cover object-[50%_25%] ${loaded ? "opacity-100" : "opacity-0"}`}
       onLoad={() => setLoaded(true)}
       onError={() => setFailed(true)}
     />

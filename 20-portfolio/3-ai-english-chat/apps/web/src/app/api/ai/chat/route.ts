@@ -44,7 +44,12 @@ const weather = tool({
     location: z.string().trim().min(2).max(80),
   }),
   needsApproval: true,
-  execute: ({ location }, { abortSignal }) => getCurrentWeather(location, abortSignal),
+  execute: ({ location }, { abortSignal }) => {
+    if (process.env.APP_RUNTIME_MODE === "mock" || process.env.AI_PROVIDER === "mock") {
+      return { location, temperature: 21, condition: "clear sky", source: "mock" };
+    }
+    return getCurrentWeather(location, abortSignal);
+  },
 });
 
 function requireSupportedInput(capabilities: ModelCapabilities, messages: UIMessage[]) {

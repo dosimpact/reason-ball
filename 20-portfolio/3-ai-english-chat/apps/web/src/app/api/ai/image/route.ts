@@ -53,7 +53,7 @@ export async function POST(request: Request) {
       abortSignal: request.signal,
       maxRetries: 1,
       providerOptions:
-        capabilities.providerName === "mock"
+        capabilities.providerName === "mock" || capabilities.providerName === "google"
           ? undefined
           : { openai: { quality: "medium" } },
     });

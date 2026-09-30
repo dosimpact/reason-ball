@@ -1,3 +1,4 @@
+import { openChatSettings } from "../test-setup";
 import { adminClient, expect, test } from "./fixtures";
 
 // TOOL-01/02: actual model function call, durable approval, real weather API.
@@ -5,11 +6,12 @@ for (const approved of [true, false]) {
   test(`TOOL real weather ${approved ? "approval executes Open-Meteo" : "rejection prevents execution"} and survives reload`, async ({ page }) => {
     test.setTimeout(240_000);
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: /외우지 말고/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /마음이 통하는 캐릭터/ })).toBeVisible();
     await expect(page.getByTestId("app-shell")).toHaveAttribute("data-shortcuts-ready", "true");
     await page.getByRole("button", { name: "새 채팅", exact: true }).click();
     const input = page.getByRole("textbox", { name: "영어 메시지" });
     await expect(input).toBeEnabled();
+    await openChatSettings(page);
     await page.getByLabel("AI 모델 선택").selectOption("gpt-5.6-terra");
     await expect(page.getByLabel("선택 모델 기능")).toContainText("도구: 지원");
     const id = (await page.getByTestId("chat-workspace").getAttribute("data-conversation-id"))!;

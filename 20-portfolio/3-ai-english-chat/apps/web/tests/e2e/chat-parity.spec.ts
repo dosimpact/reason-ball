@@ -60,6 +60,7 @@ test.describe("Chat parity", () => {
       return route.continue();
     });
     await page.goto(chatPath);
+    await page.getByText("대화 설정 · 추천 질문", { exact: true }).click();
     const select = page.getByLabel('AI 모델 선택');
     await expect(select).toBeDisabled();
     await expect(page.getByRole('button', { name: '모델 목록 다시 불러오기' })).toBeVisible();
@@ -80,6 +81,7 @@ test.describe("Chat parity", () => {
   test('searches and selects a model on a 360px screen', async ({ page }, testInfo) => {
     await page.setViewportSize({ width: 360, height: 800 });
     await page.goto(chatPath);
+    await page.getByText("대화 설정 · 추천 질문", { exact: true }).click();
     await page.getByLabel('AI 모델 검색').fill('MINI');
     const select = page.getByLabel('AI 모델 선택');
     await select.selectOption('gpt-5-mini');
@@ -92,10 +94,11 @@ test.describe("Chat parity", () => {
   test('explains capabilities and preserves a draft and attachment when switching to an incompatible model', async ({ page }) => {
     // REF-08 / REF-14: supported attachment -> incompatible selection -> recovery.
     await page.goto(chatPath);
+    await page.getByText("대화 설정 · 추천 질문", { exact: true }).click();
     const model = page.getByLabel('AI 모델 선택');
     const features = page.getByLabel('선택 모델 기능');
     await expect(features).toContainText('이미지: 지원');
-    await expect(features).toContainText('모의 공급자 기능');
+    await expect(features).toContainText('체험 모드 기능 안내');
     await page.getByLabel('파일 첨부').setInputFiles({ name: 'key.png', mimeType: 'image/png', buffer: Buffer.from('89504e470d0a1a0a', 'hex') });
     await expect(page.getByTestId('attachment-preview')).toBeVisible();
     const input = page.getByRole('textbox', { name: '영어 메시지' });
@@ -114,6 +117,7 @@ test.describe("Chat parity", () => {
     await expect(features).toContainText('추론: 미확인');
     await page.reload();
     await expect(model).toHaveValue('unverified-test');
+    await page.getByText("대화 설정 · 추천 질문", { exact: true }).click();
     await expect(features).toContainText('도구: 미확인');
     await expect(input).toHaveValue('Can you describe this key?');
     await page.getByLabel('파일 첨부').setInputFiles({ name: 'key.png', mimeType: 'image/png', buffer: Buffer.from('89504e470d0a1a0a', 'hex') });
@@ -140,6 +144,7 @@ test.describe("Chat parity", () => {
     expect(firstId).toMatch(/^conversation-/);
 
     const input = page.getByRole("textbox", { name: "영어 메시지" });
+    await page.getByText("대화 설정 · 추천 질문", { exact: true }).click();
     const model = page.getByLabel("AI 모델 선택");
     await input.fill("This draft survives a reload");
     await model.selectOption("gpt-5-mini");

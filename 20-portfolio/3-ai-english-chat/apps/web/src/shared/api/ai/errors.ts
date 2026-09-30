@@ -1,4 +1,6 @@
 import "server-only";
+import { GoogleMediaError } from "./google/media";
+import { CloudSpeechInputError } from "./google/cloud-speech";
 
 import type { ZodError, ZodType } from "zod";
 
@@ -140,6 +142,12 @@ export async function parseJsonBody<T>(
 }
 
 export function safeAiErrorResponse(error: unknown, requestId: string) {
+  if (error instanceof CloudSpeechInputError) {
+    return apiErrorResponse(requestId, 400, { code: "SPEECH_TEXT_TOO_LONG", message: error.message, retryable: false });
+  }
+  if (error instanceof GoogleMediaError) {
+    return apiErrorResponse(requestId, error.status === 400 ? 400 : error.status === 429 ? 429 : 502, { code: "GOOGLE_MEDIA_ERROR", message: error.message, retryable: error.retryable });
+  }
   if (error instanceof AiHttpError) {
     return apiErrorResponse(requestId, error.status, {
       code: error.code,

@@ -6,7 +6,7 @@ import { assistanceResponseSchema } from "../../../src/entities/learning-assista
 test("LEARN-04/06 NFR-10 real correction, simpler text and reply help preserve original messages and unsent draft", async ({ page }) => {
   test.setTimeout(360_000);
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: /외우지 말고/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /마음이 통하는 캐릭터/ })).toBeVisible();
   await expect(page.getByTestId("app-shell")).toHaveAttribute("data-shortcuts-ready", "true");
   await page.getByRole("button", { name: "새 채팅", exact: true }).click();
   const input = page.getByRole("textbox", { name: "영어 메시지", exact: true });

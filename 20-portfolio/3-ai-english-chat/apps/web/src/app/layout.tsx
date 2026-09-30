@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 import { AppProviders } from "./_providers";
 import { AppShell } from "@/widgets/app-shell";
+import { isPlaygroundEnabled } from "@/shared/lib/playground-policy";
 import "katex/dist/katex.min.css";
 import "./globals.css";
 
@@ -34,7 +35,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body className="min-h-full">
         <AppProviders>
-          <AppShell>{children}</AppShell>
+          <AppShell showPlayground={isPlaygroundEnabled(process.env)}>{children}</AppShell>
         </AppProviders>
       </body>
     </html>

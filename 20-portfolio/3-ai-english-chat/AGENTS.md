@@ -164,6 +164,8 @@ Worker 번들 변경은 `PLAYWRIGHT_PRODUCTION=1 CI=1 pnpm test:e2e code-executi
 
 `pnpm test:contracts`는 기존 Playwright 실행기를 사용하는 브라우저 없는 Node 계약 검사다. `tests/contracts/`의 정상·경계·실패 사례를 실행하며, 실제 브라우저 E2E나 Supabase 통합 검사로 표기하지 않는다. 서버 채팅 저장 기능을 배포할 때는 `20260910000000_chat_generation_persistence.sql` migration을 먼저 적용해야 한다.
 
+`pnpm test:e2e:mock`는 `PLAYWRIGHT_MOCK_SERVER=1`로 `.next-mock` 산출물과 소유한 3210 서버를 사용한다. 기존 개발 서버를 재사용하거나 종료하지 않는다. 임시 수동 mock 서버도 같은 산출물을 사용한다면 종료 후 자동화 검사를 시작한다. Google 실연동 테스트는 `PLAYWRIGHT_GOOGLE_MEDIA=1`, 영상은 추가로 `PLAYWRIGHT_GOOGLE_VIDEO=1`인 명시적 검증에서만 실행한다. 영상 POST는 유료 작업이며 자동 재시도를 추가하지 않는다.
+
 Artifact HTTP 저장을 배포할 때는 `20260910010000_artifact_revision_commit.sql`도 먼저 적용한다. 생성·버전 추가에는 `requestId`, 버전 추가에는 편집 시작 시의 `expectedVersionId`를 전달한다. 재시도 중 키·입력을 바꾸거나 충돌을 새 기준 버전으로 자동 덮어쓰지 않는다.
 
 Artifact 이미지는 `20260910020000_artifact_image_storage.sql`의 비공개 `artifact-images` 버킷을 사용한다. 브라우저에 버킷 쓰기 권한을 추가하거나 기존 객체를 upsert하지 않는다. 버전에는 Storage 참조를 저장하고, 소유자 확인 후 발급한 서명 URL은 DB에 영속화하지 않는다.

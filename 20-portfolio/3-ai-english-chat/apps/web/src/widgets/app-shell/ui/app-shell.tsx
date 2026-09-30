@@ -4,11 +4,13 @@ import {
   Clock3,
   Compass,
   Flame,
+  FlaskConical,
   Home,
   Map,
   Menu,
   MessageCircle,
   Plus,
+  Search,
   UserRound,
   X,
 } from "lucide-react";
@@ -34,9 +36,9 @@ function isCurrent(pathname: string, href: string) {
   return pathname.startsWith(href);
 }
 
-type AppShellProps = { children: ReactNode };
+type AppShellProps = { children: ReactNode; showPlayground?: boolean };
 
-export function AppShell({ children }: AppShellProps) {
+export function AppShell({ children, showPlayground = false }: AppShellProps) {
   const shellRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const router = useRouter();
@@ -89,128 +91,45 @@ export function AppShell({ children }: AppShellProps) {
   }, [startNewChat]);
 
   return (
-    <div ref={shellRef} data-testid="app-shell" data-shortcuts-ready="false" className="min-h-svh bg-[#f7f4ef] text-[#1c1b19] transition-colors dark:bg-neutral-950 dark:text-neutral-50">
-      <header className="sticky top-0 z-40 border-b border-black/6 bg-[#f7f4ef]/90 backdrop-blur-xl dark:border-white/10 dark:bg-neutral-950/90">
-        <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/"
-            className="flex items-center gap-2.5 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2"
-            aria-label="Lingua 캐릭터 랩 홈"
-          >
-            <span className="grid size-9 place-items-center rounded-xl bg-[#f06f52] text-white shadow-[0_8px_22px_-10px_#e15a3a]">
-              <MessageCircle className="size-5 fill-current" aria-hidden="true" />
-            </span>
-            <span className="font-black tracking-[-0.04em]">Lingua</span>
-            <span className="hidden rounded-full bg-[#ece7df] px-2 py-1 text-[9px] font-bold uppercase tracking-widest text-neutral-500 sm:inline">
-              character lab
-            </span>
-          </Link>
-
-          <nav className="hidden items-center gap-1 lg:flex" aria-label="주요 메뉴">
-            {navItems.map((item) => {
-              const active = isCurrent(pathname, item.href);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`rounded-full px-4 py-2 text-sm font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                    active
-                      ? "bg-neutral-950 text-white"
-                      : "text-neutral-500 hover:bg-white hover:text-neutral-950"
-                  }`}
-                  aria-current={active ? "page" : undefined}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <AuthSession />
-            <ThemeToggle />
-            <Link
-              href="/profile"
-              className="hidden items-center gap-2 rounded-full border border-border bg-card px-3 py-2 text-xs font-bold text-card-foreground shadow-sm sm:flex"
-              data-testid="header-learning-streak"
-              aria-label={streak === undefined ? "학습 진도 확인" : `${streak}일 연속 학습, 학습 진도 확인`}
-            >
-              <Flame className="size-4 fill-orange-400 text-orange-500" aria-hidden="true" />
-              {streak === undefined ? "진도 확인" : `${streak}일`}
-            </Link>
-            <button
-              type="button"
-              onClick={startNewChat}
-              className="hidden items-center gap-1.5 rounded-full bg-[#f06f52] px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-[#dd5c3f] sm:flex"
-              aria-keyshortcuts="Meta+Shift+O Control+Shift+O"
-              data-testid="new-chat-button"
-            >
-              <Plus className="size-4" aria-hidden="true" /> 새 채팅
-            </button>
-            <button
-              type="button"
-              className="grid size-10 place-items-center rounded-xl border border-black/8 bg-white lg:hidden"
-              aria-label={menuOpen ? "메뉴 닫기" : "메뉴 열기"}
-              aria-expanded={menuOpen}
-              onClick={toggleMenu}
-            >
-              {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-            </button>
-          </div>
+    <div ref={shellRef} data-testid="app-shell" data-shortcuts-ready="false" className="min-h-svh bg-background text-foreground">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[232px] flex-col border-r border-sidebar-border bg-sidebar p-5 lg:flex">
+        <Link href="/" aria-label="Lingua 캐릭터 랩 홈" className="mb-10 flex items-center gap-2 px-2 text-3xl font-black tracking-tight"><MessageCircle className="size-8" /> Lingua<span className="text-primary">.</span></Link>
+        <Link href="/characters/new" className="mb-7 flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-4 text-sm font-bold text-primary-foreground"><Plus className="size-4" /> 캐릭터 만들기</Link>
+        <nav aria-label="주요 메뉴" className="space-y-2">
+          {navItems.map(({ href, label, icon: Icon }) => <Link key={href} href={href} aria-current={isCurrent(pathname, href) ? "page" : undefined} className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition ${isCurrent(pathname, href) ? "bg-sidebar-accent text-foreground" : "text-muted-foreground hover:bg-sidebar-accent hover:text-foreground"}`}><Icon className="size-5" />{label}</Link>)}
+        </nav>
+        <button type="button" onClick={startNewChat} aria-keyshortcuts="Meta+Shift+O Control+Shift+O" data-testid="new-chat-button" className="mt-6 flex items-center gap-3 rounded-xl border border-border px-4 py-3 text-sm"><Plus className="size-5" /> 새 채팅</button>
+        <div className="mt-auto space-y-5 border-t border-border pt-5">
+          {showPlayground ? <Link href="/admin/playground" className="flex items-center gap-2 text-xs text-muted-foreground"><FlaskConical className="size-4" />AI Playground</Link> : null}
+          <Link href="/profile" data-testid="header-learning-streak" className="flex items-center gap-2 text-xs text-muted-foreground" aria-label={streak === undefined ? "학습 진도 확인" : `${streak}일 연속 학습, 학습 진도 확인`}><Flame className="size-4" />{streak === undefined ? "나의 학습 진도" : `${streak}일 연속 학습`}</Link>
+          <div className="flex items-center justify-between"><AuthSession /><ThemeToggle /></div>
+          <p className="text-[11px] text-muted-foreground">한국어 · AI 캐릭터와 배우는 영어</p>
         </div>
-
-        {menuOpen ? (
-          <nav
-            className="border-t border-black/6 bg-[#f7f4ef] px-4 py-3 dark:border-white/10 dark:bg-neutral-950 lg:hidden"
-            aria-label="모바일 메뉴"
-          >
-            <button type="button" onClick={() => { closeMenu(); void startNewChat(); }}
-              className="mb-3 flex w-full items-center justify-center gap-2 rounded-xl bg-[#f06f52] px-4 py-3 text-sm font-bold text-white sm:hidden">
-              <Plus className="size-4" aria-hidden="true" /> 새 채팅
-            </button>
-            <div className="mx-auto grid max-w-[1440px] grid-cols-2 gap-2 sm:grid-cols-5">
-              {navItems.map((item) => {
-                const Icon = item.icon;
-                const active = isCurrent(pathname, item.href);
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={closeMenu}
-                    className={`flex items-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold ${active ? "bg-neutral-950 text-white dark:bg-neutral-100 dark:text-neutral-950" : "bg-white dark:bg-neutral-800"}`}
-                  >
-                    <Icon className="size-4" aria-hidden="true" />
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
-          </nav>
-        ) : null}
-      </header>
-      {chatError ? <p role="alert" className="px-4 py-2 text-sm text-red-700 dark:text-red-300">{chatError}</p> : null}
-
-      <main>{children}</main>
-
-      <nav
-        className="fixed inset-x-3 bottom-3 z-40 grid grid-cols-5 rounded-2xl border border-black/8 bg-white/95 p-1.5 shadow-[0_18px_60px_-18px_rgba(0,0,0,.4)] backdrop-blur-lg lg:hidden"
-        aria-label="하단 메뉴"
-      >
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          const active = isCurrent(pathname, item.href);
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex min-h-12 flex-col items-center justify-center gap-0.5 rounded-xl text-[10px] font-semibold ${active ? "bg-neutral-950 text-white" : "text-neutral-500"}`}
-              aria-current={active ? "page" : undefined}
-            >
-              <Icon className="size-4" aria-hidden="true" />
-              {item.label}
-            </Link>
-          );
-        })}
+      </aside>
+      <div className="lg:pl-[232px]">
+        <header className="sticky top-0 z-30 border-b border-border/50 bg-background/95 px-4 py-4 backdrop-blur-xl sm:px-8">
+          <div className="mx-auto flex max-w-[1440px] items-center gap-4">
+            <Link href="/" className="text-xl font-black tracking-tight lg:hidden">Lingua.</Link>
+            <form action="/characters" className="flex min-w-0 flex-1 items-center gap-2 rounded-full border border-border bg-card p-1.5 pl-4">
+              <Search className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+              <input name="q" type="search" aria-label="캐릭터 찾아보기" placeholder="어떤 캐릭터와 이야기하고 싶나요?" className="min-w-0 flex-1 bg-transparent px-1 text-sm outline-none placeholder:text-muted-foreground" />
+              <button className="rounded-full bg-primary px-4 py-2 text-xs font-bold text-primary-foreground">검색</button>
+            </form>
+            <button type="button" onClick={toggleMenu} aria-label={menuOpen ? "메뉴 닫기" : "메뉴 열기"} aria-expanded={menuOpen} className="grid size-10 shrink-0 place-items-center rounded-full border border-border lg:hidden">{menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}</button>
+          </div>
+          {menuOpen ? <nav aria-label="모바일 메뉴" className="mt-4 space-y-2 lg:hidden">
+            {navItems.map(({ href, label, icon: Icon }) => <Link key={href} href={href} onClick={closeMenu} className="flex items-center gap-3 rounded-xl bg-card p-3 text-sm"><Icon className="size-4" />{label}</Link>)}
+            <Link href="/characters/new" onClick={closeMenu} className="flex items-center gap-3 rounded-xl bg-primary p-3 text-sm text-primary-foreground"><Plus className="size-4" />캐릭터 만들기</Link>
+            {showPlayground ? <Link href="/admin/playground" onClick={closeMenu} className="flex items-center gap-3 rounded-xl bg-card p-3 text-sm"><FlaskConical className="size-4" />AI Playground</Link> : null}
+            <button type="button" onClick={() => { closeMenu(); void startNewChat(); }} className="w-full rounded-xl border border-border p-3 text-left text-sm">새 채팅</button>
+            <div className="flex items-center justify-between py-2"><AuthSession /><ThemeToggle /></div>
+          </nav> : null}
+        </header>
+        {chatError ? <p role="alert" className="px-4 py-2 text-sm text-destructive">{chatError}</p> : null}
+        <main>{children}</main>
+      </div>
+      <nav aria-label="하단 메뉴" className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 border-t border-border bg-sidebar/95 p-2 backdrop-blur-xl lg:hidden">
+        {navItems.map(({ href, label, icon: Icon }) => <Link key={href} href={href} aria-current={isCurrent(pathname, href) ? "page" : undefined} className={`flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl text-[10px] font-semibold ${isCurrent(pathname, href) ? "bg-sidebar-accent text-foreground" : "text-muted-foreground"}`}><Icon className="size-4" />{label}</Link>)}
       </nav>
     </div>
   );
