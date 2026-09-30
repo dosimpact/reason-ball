@@ -78,14 +78,14 @@ API 오류/재시도와 권한을 다루는 변경은 계약·DB 테스트를, �
 | 원격 Supabase production shell | 2 PASS | theme 실제 대비·reload, 모바일 메뉴·새 대화·복원, 소유 계정 정리 |
 | 실제 Gemini TTS Playground | **1 PASS, 11.6초** | 로그인, WAV 헤더·duration·play/currentTime, 테스트 계정 정리 |
 | Cloud TTS | 직접 어댑터 생성 성공 | Chirp3 HD WAV64,620바이트; 인증 UI 검증과 구분 |
-| Gemini 이미지 | **미완료** | 새 키 인증403 해소, 현재 Free Tier 한도0으로429 |
+| Gemini 이미지 | **10장 생성 성공** | 충전 후 별도 제작예산10회, Storage/DB게시10건·공개hash검증 PASS |
 | Veo 영상 | **미실행** | 실제 pending→MP4 gate 남음 |
 
 production mock 명령은 `PLAYWRIGHT_PRODUCTION=1 pnpm test:e2e:mock --grep-invert 'guarded playground endpoints|generation failure preserves image prompt|switching tabs cancels generation'`다. 제외한3개는 개발 전용이며 production에서는404가 정상이다. 기본 개발 실행에서 관찰한 일시적 JS/manifest 파싱 오류를 해결했다고 주장하지 않는다. 수정 후 production84개는 단일 전체 PASS다. 원격 Supabase 전체122개 재실행이나 Google 이미지·영상 성공을 뜻하지 않는다.
 
 영상403/502 복구·GET 조회·명시적 새 POST 분리, 이미지 실패 입력/결과 보존은 `character-media.spec.ts`로 검증했다. 360×640에서도 힌트를 펼친 뒤 입력창이 하단 메뉴 위에 유지되는 것을 확인했다. `DESIGN-TALKIE-01~04`의 desktop/mobile 주요11개 라우트 캡처22개와 후속 모바일 회귀·실제 TTS 증거를 보존한다. 모든 저작 단계·데이터 조합의 시각 검증과 구분한다.
 
-명령·실패 수정·캡처는 [재개 검증](../flow/2026-09-30-talkie-resume-validation.md), 공급자·키·실제 재생은 [Google 검증](../flow/2026-09-30-google-key-separation.md)에 기록한다. 전체 목표는 이미지·영상 gate가 남아 완료로 판정하지 않는다.
+명령·실패 수정·캡처는 [재개 검증](../flow/2026-09-30-talkie-resume-validation.md), 공급자·키·실제 재생은 [Google 검증](../flow/2026-09-30-google-key-separation.md)에 기록한다. Google 이미지는 후속 캐릭터 제작에서 통과했고 실제 영상 gate는 남아 있다.
 
 ## 8. 실제 생성 비용 제한
 
@@ -94,3 +94,9 @@ production mock 명령은 `PLAYWRIGHT_PRODUCTION=1 pnpm test:e2e:mock --grep-inv
 이미지 E2E는 `PLAYWRIGHT_GOOGLE_MEDIA=1`에 추가로 `PLAYWRIGHT_GOOGLE_IMAGE=1`을 요구하고 호출 직전에 파일 잠금 아래 예산을 예약한다. 영상은3초 제약을 만족하지 못하므로 `PLAYWRIGHT_GOOGLE_VIDEO=1`이어도 실행하지 않는다. Veo는4·6·8초만 지원하며 사용자 변경 전까지 mock만 검증한다. 이 skip은 실제 영상 생성 PASS가 아니다. 비용 보호 변경 후 계약313 PASS·typecheck PASS, 실제 호출 없는 보호 검사2 SKIP을 확인했다. [비용 제한 결정](../flow/2026-09-30-media-validation-cost-cap.md).
 
 3초 합성 MP4를 사용하는 추가 회귀는 실제 공급자를 호출하지 않는다. POST 1회·GET 3회, 브라우저 duration·재생 시간 증가, 다운로드 바이트 일치를 확인했다. 기존 전체84 PASS와 별도 실행이며 전체85개 동시 PASS를 주장하지 않는다. [mock 영상 검증 및 완료 감사](../flow/2026-09-30-mocked-video-validation.md).
+
+2026-09-30 로컬 `.env.local` 그대로 production build PASS. `http://localhost:3324`에서 홈 데이터·미션 이동·console error0, 주요 페이지200 및 Playground404를 확인했다. 127.0.0.1 주소의 mutation403을 피하기 위해 localhost로 접속한다. 전체 회귀와 구분한다. [로컬 환경 production 미리보기](../flow/2026-09-30-local-env-production-preview.md).
+
+`DEPLOY-DOCKER-01`: 실제 Docker build 및 종료→재기동 PASS. localhost3325 홈/탐색200, Playground404, 브라우저 실제 데이터 로딩·console error0, nonroot·healthy, 호스트 proxy models200 확인. 이미지 환경파일 없음·서버 비밀값3개 검색0건. 이는 전체 기능 회귀나 실제 생성 성공 검증이 아니다. [Docker 검증](../flow/2026-09-30-docker-build.md).
+
+`CHAR-CATALOG-01`: 설정10종·고정ID중복 방지·성격/말투/system prompt 매핑 PASS, dry-run PASS, 이미지누락 시 원격 HTTP0회 차단 PASS. 충전 전1회429(기존예산7/10), 충전 후 별도 제작예산10/10으로10장 생성. Storage/게시10건·재실행10 unchanged·공개URLhash·DB페르소나 PASS. Docker3325의 PC/390px 목록11개·10장decode·overflow없음·console error0, Selene 상세/채팅 진입 및 실제1턴의 색채비유·감정표현 도움 응답 확인. 소유 테스트대화만204로 삭제. 모든 캐릭터의 대화 품질 전체 검증은 아니다. [제작 기록](../flow/2026-09-30-talkie-character-catalog.md).

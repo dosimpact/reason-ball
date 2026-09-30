@@ -136,3 +136,13 @@ Cloud Text-to-Speech는 별도 선택지다. `AI_SPEECH_PROVIDER=google-cloud-tt
 mock E2E는 `PLAYWRIGHT_MOCK_SERVER=1`의 `.next-mock`와 소유 3210 포트를 사용한다. 일반 `.next` 개발 서버와 분리하고 기존 서버를 재사용하지 않는다. mock의 날씨 도구는 명시적인 mock 결과를 반환하며 실연동 날씨 호출은 별도 경로다. [재개 검증 기록](../flow/2026-09-30-talkie-resume-validation.md).
 
 Google 이미지 요청은 SDK 자동 재시도0으로 실행한다. 실제 검증의10회/영상5회·3초 제한은 [검증 원장](media-validation-budget.json)과 E2E 사전 예약으로 관리한다. 일반 사용자 API의 전역 과금 원장과 구분하며, 직접 진단 호출도 같은 원장에 먼저 예약한다. 현재3초 제한에서는8초를 요청하는 실제 영상 테스트가 실행되지 않는다. [비용 제한 결정](../flow/2026-09-30-media-validation-cost-cap.md).
+
+## 7. Docker 로컬 배포
+
+`DEPLOY-DOCKER-01`: 프로젝트는 상위 Turbo에서 제외된 독립 pnpm workspace다. 현재 앱1개를 프로젝트 context로 다단계 빌드하며 `NEXT_STANDALONE=1`일 때만 standalone/tracing root를 설정한다. 의존성 manifest와 소스 COPY를 분리하고 최종 이미지는 node 비root 사용자와 필요한 standalone/public/static만 포함한다. 환경파일은 context에서 제외하고 공개 설정만 build args, 서버 비밀값은 runtime 환경으로 전달한다.
+
+`pnpm docker:build/up/down/logs`가 로컬 운영 진입점이다. 기본3325→컨테이너3000이며 기존 개발3322·production preview3324와 공존한다. 호스트 OAuth loopback 주소와 허용 origin을 컨테이너 네트워크에 맞춰 보정하고 파일은 변경하지 않는다. NODE_ENV production으로 Playground를 차단한다. [명령과 설정](../docker.md), [검증 기록](../flow/2026-09-30-docker-build.md).
+
+## 8. 캐릭터 카탈로그 제작
+
+`CHAR-CATALOG-01` 원본은 `assets/characters/talkie-homage/catalog.json`이다. package scripts `characters:check/generate/import`로 검증·명시적 단일 이미지 생성·게시를 분리한다. 제작 예산10회는 별도 production-budget.json이며 기존 검증 예산을 초기화하지 않는다. Google 성공10장의 prompt/file hash를 확인한 뒤 기존 character-public과 원자 character-version RPC를 사용하도록 구성했다. 원격 게시10건·재실행10건 unchanged·공개이미지hash·DB페르소나검증을 통과했다. `characters:verify`로 읽기 전용 재검증한다. [현재 실행 상태](../flow/2026-09-30-talkie-character-catalog.md).

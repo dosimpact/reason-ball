@@ -214,3 +214,9 @@ Artifact 제안 복원은 `20260910215332_persisted_artifact_suggestions.sql` �
 ## 게스트 공개 미션 조회
 
 `20260921110000_guest_mission_catalog_browsing.sql` 이후 미로그인 방문자와 auth.users.is_anonymous=true 계정은 게시된 공개 미션 전체를 조회한다. 일반 회원은 기존 배정 범위를 유지한다. 사용자 metadata·오래된 익명 JWT를 권한 근거로 쓰지 않는다. 조회 확대를 시작 권한이나 비공개 지침 공개로 확장하지 않는다.
+
+## Docker 로컬 배포
+
+이 프로젝트는 상위 Turbo workspace에서 제외된 독립 pnpm workspace다. `pnpm docker:build/up/down/logs`는 프로젝트 루트의 Dockerfile과 `scripts/docker/service.mjs`를 사용한다. `.env.local`을 Docker context/레이어에 넣지 않는다. 공개 build-time 설정 allowlist와 서버 runtime 설정을 구분한다. 새 workspace 패키지를 추가할 때 Docker COPY 및 standalone tracing 경계를 검토한다. 사용법은 `docs/docker.md`를 따른다.
+
+`CHAR-CATALOG-01` 제작은 사용자가 2026-09-30 별도 이미지 요청 최대10회를 승인했다. `assets/characters/talkie-homage/production-budget.json`을 사용하며 기존 검증 원장7/10을 초기화하거나 합쳐서 숨기지 않는다. `pnpm characters:generate`는 캐릭터 하나만 명시하고 자동 재시도하지 않는다. `characters:import`는 Google 성공10장의 해시 검증 이후에만 기존 Storage/RPC로 게시한다. 원본 참고 이미지를 생성 이미지로 등록하지 않는다. 상세 절차는 해당 자산 디렉터리 README를 따른다.
