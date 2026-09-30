@@ -1,6 +1,8 @@
+> 이 문서는 feat/talkie-google-media 워크트리의 2026-09-30 상태 스냅샷이다. 원본 코드에는 아직 merge되지 않았다. 원격 캐릭터10건은 공유 Supabase에 실제 게시되었다.
+
 # Persona English 비즈니스 설계
 
-> 저량(Stock) · 2026-09-30 동기화 · [문서 지도](../README.md) · [시스템](system-design.md) · [테스트](test-design.md)
+> 저량(Stock) · 2026-09-30 동기화 · [문서 지도](../../README.md) · [시스템](system-design.md) · [테스트](test-design.md)
 
 ## 1. 제품과 사용자
 
@@ -30,7 +32,7 @@ Persona English는 한국어 설명을 선호하는 영어 학습자가 AI 캐�
 - `MISSION-PROVISION-01/02`: 정회원은 프로필의 CEFR·관심 상황을 저장한 뒤 초기 5개 미션을 한 번 배정받는다. 재접속과 프로필 변경이 배정을 늘리거나 바꾸지 않는다. 정회원의 목록·상세·신규 실행은 배정된 미션에 한정되며 서버와 DB가 확인한다. 관리 계정은 전체 카탈로그를 확인하되 타인의 비공개 초안을 얻지 않는다.
 - `MISSION-GUEST-BROWSE-01`: 미로그인·익명 체험 계정은 게시된 공개 미션 전체의 목록·검색·상세를 볼 수 있다. 비공개 지침과 초안은 제외한다. 열람은 시작 권한이 아니며 회원 전환 후에는 정회원 배정 규칙을 적용한다.
 
-저작 형식·검증 명령은 [미션 자산 안내](../../assets/missions/README.md), 교육과정 상세와 연구 한계는 [교육과정 설계](../research/mission-curriculum-design.md)와 [연구 근거](../research/mission-learning-evidence.md)에 둔다.
+저작 형식·검증 명령은 [미션 자산 안내](../../../assets/missions/README.md), 교육과정 상세와 연구 한계는 [교육과정 설계](../../research/mission-curriculum-design.md)와 [연구 근거](../../research/mission-learning-evidence.md)에 둔다.
 
 ## 4. 요구사항 원장 — 수용 기준
 
@@ -215,25 +217,13 @@ Artifact 작업영역은 목록, 편집 입력, 미리보기와 버전 비교를
 
 ## 6. Talkie 참고 개편과 캐릭터 미디어
 
-- `DESIGN-TALKIE-01/02/04`: 어두운 기본 테마, 232px 데스크톱 사이드바, 상단 캐릭터 검색, 세로 초상 카드와 pill 버튼을 사용한다. 밝은 테마 선택은 유지한다. 홈·탐색·상세·저작·미션·기록·프로필·채팅에 공통 색상 토큰을 적용한다. Talkie 관찰 근거와 미관찰 범위는 [조사 기록](../research/talkie-design-audit.md)에 있다.
+- `DESIGN-TALKIE-01/02/04`: 어두운 기본 테마, 232px 데스크톱 사이드바, 상단 캐릭터 검색, 세로 초상 카드와 pill 버튼을 사용한다. 밝은 테마 선택은 유지한다. 홈·탐색·상세·저작·미션·기록·프로필·채팅에 공통 색상 토큰을 적용한다. Talkie 관찰 근거와 미관찰 범위는 [조사 기록](../../research/talkie-design-audit.md)에 있다.
 - `DESIGN-TALKIE-03`, `MEDIA-GOOGLE-01`: 캐릭터 저작에서 AI 이미지 후보를 선택하고, 메시지에서 AI 음성을 재생한다. 채팅의 이미지·영상 패널은 사용자가 쓴 장면 설명으로 별도 미디어를 생성한다. 최근 대화를 설명에 넣는 동작은 명시적으로 선택한다. 캐릭터 사진과 비공개 설정은 자동 전송하지 않는다.
 - `MEDIA-GOOGLE-02`: 영상 생성 시작은 유료 비동기 작업이며 상태 확인은 같은 요청을 조회한다. 오류나 만료 뒤 현재 요청 확인을 종료하고 새 생성을 명시적으로 시작할 수 있다. 창 닫기·확인 종료는 공급자 작업 취소가 아니다. 결과는 임시 미리보기와 다운로드이며 영구 보상/저장으로 표시하지 않는다.
 - `DEV-PLAYGROUND-01`: 비운영 `/admin/playground`에서 채팅·이미지·음성을 점검한다. production에서는 페이지와 전용 생성 API가 404다. 일반 사용자 생성 API의 인증 경계를 유지한다.
 
-데모 초상 3개는 자체 제작 정적 자산이다. Google API 성공 결과와 구분한다. 새 Gemini 키로 TTS 생성·인증 UI 재생은 통과했으며 이미지는 충전 후 별도 승인된 캐릭터 제작10장에서 실제 생성·Storage·게시를 통과했다. [키 구분 검증](../flow/2026-09-30-google-key-separation.md)을 따른다. 사용자 비용 제한에 따라 실제 이미지는 총10회, 영상은 건당3초·총5회 이내 검증하고 이후 mock만 사용한다. Veo는3초를 지원하지 않으므로 길이 제한 변경 전 실제 영상은 생성하지 않는다. [비용 제한](../flow/2026-09-30-media-validation-cost-cap.md).
+데모 초상 3개는 자체 제작 정적 자산이다. Google API 성공 결과와 구분한다. 새 Gemini 키로 TTS 생성·인증 UI 재생은 통과했으며 이미지는 충전 후 별도 승인된 캐릭터 제작10장에서 실제 생성·Storage·게시를 통과했다. [키 구분 검증](../../flow/2026-09-30-google-key-separation.md)을 따른다. 사용자 비용 제한에 따라 실제 이미지는 총10회, 영상은 건당3초·총5회 이내 검증하고 이후 mock만 사용한다. Veo는3초를 지원하지 않으므로 길이 제한 변경 전 실제 영상은 생성하지 않는다. [비용 제한](../../flow/2026-09-30-media-validation-cost-cap.md).
 
 ## Talkie 참고 캐릭터 카탈로그
 
-`CHAR-CATALOG-01`: 홈 추천에서 관찰한10종을 참고해 독자적인 성인 캐릭터10종의 성격·관계·말투·학습 목표를 설계했다. Google 이미지10장을 character-public에 업로드하고 `/characters`의 기존 공개 목록에10개를 게시했다. 기존 Mina 포함11개를 PC·모바일에서 확인했다. 별도 제작예산10/10회 사용, 추가 생성은 mock으로만 검증한다. [설계10종](../research/talkie-character-catalog.md).
-
-
-`UX-LOADING-01`: 주요 페이지 전환과 최초 데이터 조회는 공통 애니메이션 표시·작업별 안내를 제공한다. 로딩/오류/빈 결과를 구분하고 동작 줄이기 설정을 존중한다. 기존 데이터의 백그라운드 재조회는 화면을 유지한다. [변경 기록](../flow/2026-09-30-shared-loading.md).
-
-## Talkie 작업 기록과 스냅샷
-
-별도 feat/talkie-google-media에서 디자인·Docker·Google 미디어를 구현했다. PR #6 (`5b0f554`)으로 main에 병합됐다. 공유 원격 Supabase에는 오마주 캐릭터10개와 Google 생성 초상10개가 실제 게시되어 기존 Mina 포함11개다. 당시 워크트리의 상세 상태와 검증 기록은 [종합 기록](../flow/2026-09-30-talkie-work-summary.md) 및 [저량 스냅샷](talkie-worktree/business-design.md)을 따른다.
-
-
-2026-09-30 worktree 추가 변경 `UX-LOADING-01`: 공통 애니메이션 로딩·접근성·페이지별 상태 적용. PR #6 (`5b0f554`)으로 main에 병합됐다. [구현·검증 기록](../flow/2026-09-30-shared-loading.md).
-
-2026-10-01 main 동기화 및 로컬 문서 보존: [조정 기록](../flow/2026-10-01-main-sync.md).
+`CHAR-CATALOG-01`: 홈 추천에서 관찰한10종을 참고해 독자적인 성인 캐릭터10종의 성격·관계·말투·학습 목표를 설계했다. Google 이미지10장을 character-public에 업로드하고 `/characters`의 기존 공개 목록에10개를 게시했다. 기존 Mina 포함11개를 PC·모바일에서 확인했다. 별도 제작예산10/10회 사용, 추가 생성은 mock으로만 검증한다. [설계10종](../../research/talkie-character-catalog.md).

@@ -22,3 +22,16 @@ Docker 빌드·실행: [사용법](docker.md), [설계와 검증](flow/2026-09-3
 4. 문서 동기화가 끝나기 전에는 문서가 필요한 기능 변경을 완료로 보고하지 않는다.
 
 공통 페이지 로딩: [UX-LOADING-01 구현·검증](flow/2026-09-30-shared-loading.md).
+
+## Talkie 작업 기록과 스냅샷
+
+사용자 요청으로 현재 워크트리의 조사·생성·검증 문서를 이 원본 docs에도 보관했다. 코드 merge와 문서 동기화는 별도이며 원본 lockfile 수정은 유지했다.
+
+- [지금까지의 종합 작업 기록](flow/2026-09-30-talkie-work-summary.md)
+- [캐릭터10종 설계·참고 스냅샷](research/talkie-character-catalog.md) / [생성·Storage·게시 검증](flow/2026-09-30-talkie-character-catalog.md)
+- [Docker 명령](docker.md) / [Docker 검증](flow/2026-09-30-docker-build.md)
+- 워크트리 저량 스냅샷: [비즈니스](stock/talkie-worktree/business-design.md), [시스템](stock/talkie-worktree/system-design.md), [테스트](stock/talkie-worktree/test-design.md)
+
+캐릭터10개는 공유 원격 Supabase에 게시 완료되어 양쪽 앱에서 읽을 수 있다. 새 디자인·Docker·제작 스크립트는 PR #6 (`5b0f554`)으로 main에 병합됐다. 스냅샷은 2026-09-30 기록이며 현재 설계는 위 저량 문서를 따른다.
+
+2026-10-01 main 동기화 및 로컬 문서 보존: [조정 기록](flow/2026-10-01-main-sync.md).
