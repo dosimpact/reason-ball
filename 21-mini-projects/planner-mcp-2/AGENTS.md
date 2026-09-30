@@ -59,7 +59,7 @@ Use the following operating rules:
 6. Do not copy historical narrative into stock documents unless it is necessary to understand the current design. Do not rewrite or erase historical flow records; supersede them with a new dated entry.
 7. Store stock documents in a predictable project documentation area such as `docs/stock/`. Store flow records in a dated history area such as `docs/flow/`.
 
-For `20-portfolio/3-fsd-next-sample`, use `docs/stock/` for the consolidated business, system, and test designs and `docs/flow/` for dated progress, audit, decision, migration, and validation records. Start with `docs/README.md` for the document map.
+For `20-portfolio/3-ai-english-chat`, use `docs/stock/` for the consolidated business, system, and test designs and `docs/flow/` for dated progress, audit, decision, migration, and validation records. Start with `docs/README.md` for the document map.
 
 ## Commit & Pull Request Guidelines
 
