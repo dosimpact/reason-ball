@@ -1,9 +1,10 @@
+import { openChatSettings } from "../test-setup";
 import { liveBaseURL } from "./settings";
 import type { Page } from "@playwright/test";
 import { adminClient, expect, signIn, test } from "./fixtures";
 async function openChat(page: Page) {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: /외우지 말고/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /마음이 통하는 캐릭터/ })).toBeVisible();
   await expect(page.getByTestId("app-shell")).toHaveAttribute("data-shortcuts-ready", "true");
   await page.getByRole("button", { name: "새 채팅", exact: true }).click();
   await expect(page.getByRole("textbox", { name: "영어 메시지" })).toBeEnabled();
@@ -20,8 +21,10 @@ async function waitAnswer(id: string) {
 test("CHAT-04/10 REF-05/06/08 selected real model restores and suggested draft obeys Enter versus ShiftEnter", async ({ page }) => {
   test.setTimeout(180_000);
   const id = await openChat(page);
+  await openChatSettings(page);
   const model = page.getByLabel("AI 모델 선택");
   await expect(model).toBeEnabled();
+  await openChatSettings(page);
   await page.getByLabel("AI 모델 검색").fill("gpt-5.6-sol");
   await model.selectOption("gpt-5.6-sol");
   await page.reload();
@@ -166,6 +169,7 @@ test("CHAT-04 allowed default and two independent conversation models survive re
   const firstId = await openChat(page);
   await expect(page).toHaveURL(new RegExp(`conversation=${firstId}`));
   const firstUrl = page.url();
+  await openChatSettings(page);
   const selector = page.getByRole("combobox", { name: "AI 모델 선택", exact: true });
   await expect(selector).toBeEnabled();
   await expect(selector).toHaveValue(catalog.defaultModelId);

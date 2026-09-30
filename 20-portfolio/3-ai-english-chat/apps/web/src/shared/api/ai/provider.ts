@@ -1,4 +1,6 @@
 import "server-only";
+import { AiConfigurationError } from "./errors";
+import { createGoogleCloudSpeechModel, createGoogleImageModel, createGoogleSpeechModel } from "./google/models";
 
 import { createOpenAI } from "@ai-sdk/openai";
 import type { ImageModel, LanguageModel, SpeechModel } from "ai";
@@ -64,6 +66,20 @@ export function createAiCapabilities(options: {
       apiMode: config.apiMode,
       modelIds,
     };
+  }
+
+  if (config.providerName === "google-cloud-tts") {
+    return {
+      get languageModel(): LanguageModel { throw new AiConfigurationError("Cloud TTS does not provide a chat model."); },
+      get imageModel(): ImageModel { throw new AiConfigurationError("Cloud TTS does not provide an image model."); },
+      speechModel: createGoogleCloudSpeechModel(config.models.speech, { apiKey: config.apiKey! }),
+      providerName: config.providerName, apiMode: config.apiMode, modelIds,
+    };
+  }
+
+  if (config.providerName === "google") {
+    // Only media operations select Google. Chat continues through its configured provider.
+    return { get languageModel(): LanguageModel { throw new AiConfigurationError("Google media configuration does not provide a chat model."); }, imageModel: createGoogleImageModel(config.models.image, { apiKey: config.apiKey! }), speechModel: createGoogleSpeechModel(config.models.speech, { apiKey: config.apiKey! }), providerName: "google", apiMode: config.apiMode, modelIds };
   }
 
   const provider = createOpenAI({

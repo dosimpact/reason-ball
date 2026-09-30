@@ -11,7 +11,7 @@ for (const { mode, code } of [
   test(`REF-25/27/29/31 real Artifact AI ${code ? "Code " : ""}${mode} ${mode === "analysis" ? "returns analysis without changing source" : "preserves source until explicit apply"}`, async ({ page, playwright, createAccount, account }) => {
     test.setTimeout(180_000);
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: /외우지 말고/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /마음이 통하는 캐릭터/ })).toBeVisible();
     await expect(page.getByTestId("app-shell")).toHaveAttribute("data-shortcuts-ready", "true");
     await page.getByRole("button", { name: "새 채팅", exact: true }).click();
     await expect(page.getByRole("textbox", { name: "영어 메시지" })).toBeEnabled();

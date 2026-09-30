@@ -1,4 +1,4 @@
-export type AiProviderName = "mock" | "oauth-proxy" | "openai";
+export type AiProviderName = "mock" | "oauth-proxy" | "openai" | "google" | "google-cloud-tts";
 export type AiOperation = "chat" | "mission-draft" | "learning-assistance" | "image" | "speech";
 
 /** A production build still honors an explicitly selected server-side provider. */
@@ -24,7 +24,8 @@ export function operationProviderOverride(
   if (!name) return undefined;
   const value = environment[name]?.trim();
   if (!value) return undefined;
-  if (value !== "mock" && value !== "openai" && value !== "oauth-proxy") {
+  if (operation === "speech" && value === "google-cloud-tts") return value;
+  if (value !== "mock" && value !== "openai" && value !== "oauth-proxy" && value !== "google") {
     throw new Error(`${name} is invalid.`);
   }
   return value;

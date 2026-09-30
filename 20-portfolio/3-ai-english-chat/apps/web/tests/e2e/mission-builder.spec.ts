@@ -91,7 +91,7 @@ test.describe("Mission builder", () => {
     await expect(page.getByText("E2E 호텔 회화 기념 장면")).toBeVisible();
     await expect(page.getByTestId("mission-detail-steps")).toBeVisible();
     await expect(page.getByText("필수 단계 + 80점 이상이면 완료")).toBeVisible();
-    await expect(page.getByText("선수 미션 · hotel-check-in")).toBeVisible();
+    await expect(page.getByText("선수 미션 · 1개", { exact: true })).toBeVisible();
     await expect(page.getByTestId("mission-prerequisite-gate")).toContainText(
       "선수 미션을 먼저 완료해 주세요",
     );

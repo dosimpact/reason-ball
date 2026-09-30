@@ -13,9 +13,10 @@ test.describe("App shell and theme", () => {
     await page.goto("/");
 
     await expect(page.getByRole("navigation", { name: "주요 메뉴" })).toBeVisible();
-    await page.getByTestId("theme-toggle").click();
     await expect(page.locator("html")).toHaveClass(/dark/);
-    await expect.poll(() => page.evaluate(() => localStorage.getItem("lingua-theme"))).toBe("dark");
+    await page.getByTestId("theme-toggle").click();
+    await expect(page.locator("html")).not.toHaveClass(/dark/);
+    await expect.poll(() => page.evaluate(() => localStorage.getItem("lingua-theme"))).toBe("light");
 
     // Delay hydration deterministically: the inline theme bootstrap may finish
     // while the app's keyboard listener is still unavailable.
@@ -27,14 +28,19 @@ test.describe("App shell and theme", () => {
     });
     try {
       await page.reload({ waitUntil: "commit" });
-      await expect(page.locator("html")).toHaveClass(/dark/);
-      await expect(page.getByTestId("app-shell")).toHaveAttribute("data-shortcuts-ready", "false");
+      await expect(page.locator("html")).not.toHaveClass(/dark/);
+      // A production Suspense boundary may not render the shell until its
+      // chunks load; neither an absent shell nor an unhydrated shell is ready.
+      expect(await page.getByTestId("app-shell").count() === 0
+        ? "not-rendered"
+        : await page.getByTestId("app-shell").getAttribute("data-shortcuts-ready")).not.toBe("true");
     } finally {
       releaseScripts();
     }
     await expect(page.getByTestId("app-shell")).toHaveAttribute("data-shortcuts-ready", "true");
 
     await page.keyboard.press("Control+Shift+O");
-    await expect(page).toHaveURL(/\/chat\/mia-hotelier\?conversation=[^&]+&new=1/);
+    await expect(page).toHaveURL(/\/chat\/[^/?]+\?[^#]*conversation=/);
+    await expect(page.getByTestId("chat-workspace")).toHaveAttribute("data-conversation-id", /.+/);
   });
 });

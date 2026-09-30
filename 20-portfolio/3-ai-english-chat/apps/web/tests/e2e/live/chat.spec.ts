@@ -9,7 +9,7 @@ test.setTimeout(240_000);
 
 async function openChat(page: Page) {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: /외우지 말고/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /마음이 통하는 캐릭터/ })).toBeVisible();
   await expect(page.getByTestId("app-shell")).toHaveAttribute("data-shortcuts-ready", "true");
   await page.getByRole("button", { name: "새 채팅", exact: true }).click();
 }

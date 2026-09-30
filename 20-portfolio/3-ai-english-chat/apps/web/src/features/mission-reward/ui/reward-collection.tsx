@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { useQuery } from "@tanstack/react-query";
 import type { Mission } from "@/entities/mission";
 import { ensureBrowserSession } from "@/shared/api/auth/browser-session";
@@ -24,7 +25,7 @@ export function RewardCollection({ missions, rewardIds }: { missions: Mission[];
     : missions;
   return <section className="mt-8" data-testid="reward-collection">
     <div className="mb-6"><p className="text-xs font-black uppercase tracking-[.18em] text-[#e16748]">Unlocked memories</p><h2 className="mt-1 text-2xl font-black">캐릭터와 만든 장면들</h2></div>
-    {remote && earned.isPending ? <p role="status">획득한 보상을 불러오고 있어요.</p> : null}
+    {remote && earned.isPending ? <LoadingIndicator variant="section" label="획득한 보상을 불러오고 있어요." /> : null}
     {earned.error ? <div role="alert">{earned.error.message}<button type="button" onClick={() => void earned.refetch()} className="ml-3 underline">보상 컬렉션 다시 불러오기</button></div> : null}
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{items.map(mission => {
       const unlock = earned.data?.find(item => item.id === mission.id);

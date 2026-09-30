@@ -6,7 +6,7 @@ import { adminClient, expect, test } from "./fixtures";
 async function sendContent(page: Page, text: string, mobile = false) {
   if (mobile) await page.setViewportSize({ width: 360, height: 800 });
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: /외우지 말고/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /마음이 통하는 캐릭터/ })).toBeVisible();
   await expect(page.getByTestId("app-shell")).toHaveAttribute("data-shortcuts-ready", "true");
   if (mobile) {
     await page.getByRole("button", { name: "메뉴 열기", exact: true }).click();

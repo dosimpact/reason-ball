@@ -1,3 +1,4 @@
+import { openChatSettings } from "../test-setup";
 import { liveBaseURL } from "./settings";
 import { adminClient, expect, signIn, test } from "./fixtures";
 
@@ -8,7 +9,7 @@ const png = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAKklEQVR
 test("CHAT-05/06 REF-14/16 editing reuses a saved image, cancel preserves it, and explicit removal creates a text-only branch", async ({ page, account, browser, createAccount }) => {
   test.setTimeout(300_000);
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: /외우지 말고/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /마음이 통하는 캐릭터/ })).toBeVisible();
   await expect(page.getByTestId("app-shell")).toHaveAttribute("data-shortcuts-ready", "true");
   await page.getByRole("button", { name: "새 채팅", exact: true }).click();
   const input = page.getByRole("textbox", { name: "영어 메시지", exact: true });
@@ -19,6 +20,7 @@ test("CHAT-05/06 REF-14/16 editing reuses a saved image, cancel preserves it, an
   const catalog = await catalogResponse.json() as { items: Array<{ id: string; capabilities: { vision: boolean | null } }> };
   const model = catalog.items.find(item => item.capabilities.vision === true);
   expect(model, "A verified real vision model is required").toBeDefined();
+  await openChatSettings(page);
   await page.getByLabel("AI 모델 선택").selectOption(model!.id);
   let uploads = 0;
   let generations = 0;

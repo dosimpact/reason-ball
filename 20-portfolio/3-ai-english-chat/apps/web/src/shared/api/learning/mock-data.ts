@@ -3,6 +3,8 @@ import type { Character, LearningHistory, Mission } from "./contracts";
 export const seedCharacters: Character[] = [
   {
     id: "mia-hotelier",
+    publishStatus: "published",
+    imageUrl: "/characters/mia-hotelier.png",
     name: "Mia",
     role: "친절한 호텔리어",
     tagline: "여행 영어의 첫 문장을 함께 열어요",
@@ -24,6 +26,8 @@ export const seedCharacters: Character[] = [
   },
   {
     id: "leo-barista",
+    publishStatus: "published",
+    imageUrl: "/characters/leo-barista.png",
     name: "Leo",
     role: "수다스러운 바리스타",
     tagline: "커피 한 잔처럼 가볍게 시작해요",
@@ -45,6 +49,8 @@ export const seedCharacters: Character[] = [
   },
   {
     id: "noah-neighbor",
+    publishStatus: "published",
+    imageUrl: "/characters/noah-neighbor.png",
     name: "Noah",
     role: "새로 만난 이웃",
     tagline: "어색한 침묵도 좋은 대화가 될 수 있어요",
@@ -69,6 +75,7 @@ export const seedCharacters: Character[] = [
 export const seedMissions: Mission[] = [
   {
     id: "hotel-check-in",
+    publishStatus: "published",
     title: "호텔 체크인하기",
     subtitle: "예약 확인부터 조식 시간 질문까지",
     description:
@@ -96,6 +103,7 @@ export const seedMissions: Mission[] = [
   },
   {
     id: "coffee-order",
+    publishStatus: "published",
     title: "내 취향대로 커피 주문하기",
     subtitle: "사이즈, 우유, 포장 여부까지 자연스럽게",
     description:
@@ -123,6 +131,7 @@ export const seedMissions: Mission[] = [
   },
   {
     id: "meet-neighbor",
+    publishStatus: "published",
     title: "새 이웃과 인사하기",
     subtitle: "자기소개하고 대화를 한 번 더 이어가기",
     description:
@@ -150,6 +159,7 @@ export const seedMissions: Mission[] = [
   },
   {
     id: "airport-luggage",
+    publishStatus: "published",
     title: "공항에서 수하물 찾기",
     subtitle: "분실 수하물 데스크에 상황 설명하기",
     description:

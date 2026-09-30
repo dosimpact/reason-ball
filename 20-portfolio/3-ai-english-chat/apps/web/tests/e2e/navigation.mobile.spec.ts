@@ -14,14 +14,14 @@ test.describe("Mobile navigation", () => {
     await expect(
       page.getByRole("heading", {
         level: 1,
-        name: "외우지 말고, 캐릭터와 살아봐요.",
+        name: /마음이 통하는 캐릭터/,
       }),
     ).toBeVisible();
 
     await page.getByRole("button", { name: "메뉴 열기" }).click();
     const mobileMenu = page.getByRole("navigation", { name: "모바일 메뉴" });
     await expect(mobileMenu).toBeVisible();
-    await mobileMenu.getByRole("link", { name: "캐릭터" }).click();
+    await mobileMenu.getByRole("link", { name: "캐릭터", exact: true }).click();
     await expect(page).toHaveURL(/\/characters$/);
     await expect(mobileMenu).toBeHidden();
     await expect(

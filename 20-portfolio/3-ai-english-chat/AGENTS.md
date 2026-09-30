@@ -164,6 +164,10 @@ Worker 번들 변경은 `PLAYWRIGHT_PRODUCTION=1 CI=1 pnpm test:e2e code-executi
 
 `pnpm test:contracts`는 기존 Playwright 실행기를 사용하는 브라우저 없는 Node 계약 검사다. `tests/contracts/`의 정상·경계·실패 사례를 실행하며, 실제 브라우저 E2E나 Supabase 통합 검사로 표기하지 않는다. 서버 채팅 저장 기능을 배포할 때는 `20260910000000_chat_generation_persistence.sql` migration을 먼저 적용해야 한다.
 
+`pnpm test:e2e:mock`는 `PLAYWRIGHT_MOCK_SERVER=1`로 `.next-mock` 산출물과 소유한 3210 서버를 사용한다. 기존 개발 서버를 재사용하거나 종료하지 않는다. 임시 수동 mock 서버도 같은 산출물을 사용한다면 종료 후 자동화 검사를 시작한다. Google 실연동 테스트는 `PLAYWRIGHT_GOOGLE_MEDIA=1`, 영상은 추가로 `PLAYWRIGHT_GOOGLE_VIDEO=1`인 명시적 검증에서만 실행한다. 영상 POST는 유료 작업이며 자동 재시도를 추가하지 않는다.
+
+2026-09-30 사용자 비용 제한: 실제 이미지는 총10회 이내, 실제 영상은 건당3초·총5회 이내만 검증한다. TTS 실검증은 허용한다. `docs/stock/media-validation-budget.json`을 호출 전 확인하고 실패/중단도 예산에 포함한다. E2E 이미지는 추가 `PLAYWRIGHT_GOOGLE_IMAGE=1`과 사전 예약이 필요하다. 수동/직접 어댑터 호출도 같은 원장에 먼저 예약하며 새 세션에서 횟수를 초기화하지 않는다. 한도 이후 이미지는 mock만 사용한다. Veo의 지원 길이는4/6/8초이므로 사용자가 길이 제한을 변경하기 전에는 실제 영상을 호출하지 않고 mock만 검증한다. 4초 이상 생성 후3초로 자르는 방식도 금지한다. 이 원장은 작업 검증 예산이며 일반 서비스 사용자의 과금 원장은 아니다.
+
 Artifact HTTP 저장을 배포할 때는 `20260910010000_artifact_revision_commit.sql`도 먼저 적용한다. 생성·버전 추가에는 `requestId`, 버전 추가에는 편집 시작 시의 `expectedVersionId`를 전달한다. 재시도 중 키·입력을 바꾸거나 충돌을 새 기준 버전으로 자동 덮어쓰지 않는다.
 
 Artifact 이미지는 `20260910020000_artifact_image_storage.sql`의 비공개 `artifact-images` 버킷을 사용한다. 브라우저에 버킷 쓰기 권한을 추가하거나 기존 객체를 upsert하지 않는다. 버전에는 Storage 참조를 저장하고, 소유자 확인 후 발급한 서명 URL은 DB에 영속화하지 않는다.
@@ -210,3 +214,9 @@ Artifact 제안 복원은 `20260910215332_persisted_artifact_suggestions.sql` �
 ## 게스트 공개 미션 조회
 
 `20260921110000_guest_mission_catalog_browsing.sql` 이후 미로그인 방문자와 auth.users.is_anonymous=true 계정은 게시된 공개 미션 전체를 조회한다. 일반 회원은 기존 배정 범위를 유지한다. 사용자 metadata·오래된 익명 JWT를 권한 근거로 쓰지 않는다. 조회 확대를 시작 권한이나 비공개 지침 공개로 확장하지 않는다.
+
+## Docker 로컬 배포
+
+이 프로젝트는 상위 Turbo workspace에서 제외된 독립 pnpm workspace다. `pnpm docker:build/up/down/logs`는 프로젝트 루트의 Dockerfile과 `scripts/docker/service.mjs`를 사용한다. `.env.local`을 Docker context/레이어에 넣지 않는다. 공개 build-time 설정 allowlist와 서버 runtime 설정을 구분한다. 새 workspace 패키지를 추가할 때 Docker COPY 및 standalone tracing 경계를 검토한다. 사용법은 `docs/docker.md`를 따른다.
+
+`CHAR-CATALOG-01` 제작은 사용자가 2026-09-30 별도 이미지 요청 최대10회를 승인했다. `assets/characters/talkie-homage/production-budget.json`을 사용하며 기존 검증 원장7/10을 초기화하거나 합쳐서 숨기지 않는다. `pnpm characters:generate`는 캐릭터 하나만 명시하고 자동 재시도하지 않는다. `characters:import`는 Google 성공10장의 해시 검증 이후에만 기존 Storage/RPC로 게시한다. 원본 참고 이미지를 생성 이미지로 등록하지 않는다. 상세 절차는 해당 자산 디렉터리 README를 따른다.

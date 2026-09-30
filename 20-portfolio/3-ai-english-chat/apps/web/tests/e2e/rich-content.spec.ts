@@ -73,7 +73,8 @@ test("REF-13 blocks raw HTML, unsafe links and implicit image or math network re
   ].join("\n"));
   const answer = page.getByTestId("message-assistant").last();
   await expect(answer.locator("strong")).toHaveText("Still readable");
-  await expect(answer.locator("script, iframe, img, a[href]")).toHaveCount(0);
+  // The assistant's own portrait is outside the untrusted Markdown boundary.
+  await expect(answer.getByTestId("rich-text").locator("script, iframe, img, a[href]")).toHaveCount(0);
   await expect(answer.getByText(/tracking pixel · 자동 로딩 안 함/)).toBeVisible();
   expect(await page.evaluate(() => (window as typeof window & { __richAttack?: boolean }).__richAttack)).toBeUndefined();
   expect(externalRequests).toEqual([]);

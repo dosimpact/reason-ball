@@ -22,7 +22,7 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
-      testIgnore: /.*\.mobile\.spec\.ts/,
+      testIgnore: ["**/live/**", "**/*.mobile.spec.ts"],
       use: { ...devices["Desktop Chrome"] },
     },
     {
@@ -38,6 +38,7 @@ export default defineConfig({
     cwd: "../..",
     env: {
       ...process.env,
+      PLAYWRIGHT_MOCK_SERVER: "1",
       APP_RUNTIME_MODE: "mock",
       AI_PROVIDER: "mock",
       AI_ALLOWED_CHAT_MODELS: 'gpt-5.6-terra,gpt-5-mini,text-only-test,unverified-test',
@@ -49,7 +50,7 @@ export default defineConfig({
       NEXT_PUBLIC_APP_URL: baseURL,
     },
     url: baseURL,
-    reuseExistingServer: !production && !process.env.CI,
+    reuseExistingServer: false,
     timeout: production ? 180_000 : 120_000,
   },
 });

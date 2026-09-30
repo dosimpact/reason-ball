@@ -29,8 +29,14 @@ test("theme changes actual home surfaces and remains readable across both reload
   expect(practiceMission.steps).toHaveLength(2);
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/");
-  const heading = page.getByRole("heading", { name: "외우지 말고, 캐릭터와 살아봐요." });
-  const character = page.locator('[data-testid^="character-card-"]').first().getByRole("heading");
+  await expect(page.getByTestId("theme-toggle")).toBeVisible();
+  if (await page.getByTestId("theme-toggle").getAttribute("aria-pressed") === "true") {
+    await page.getByRole("button", { name: "라이트 테마로 전환" }).click();
+  }
+  const heading = page.getByRole("heading", { name: /마음이 통하는 캐릭터/ });
+  // Portrait titles intentionally remain white over a dark image gradient in
+  // both themes. Measure the theme-sensitive description surface instead.
+  const character = page.locator('[data-testid^="character-card-"]').first().locator("p").nth(1);
   const mission = page.locator('[data-testid^="mission-card-"]').first().getByRole("heading");
   const summary = page.getByTestId("home-learning-summary").locator("article").first().locator("p").first();
   const contents = [heading, character, mission, summary];

@@ -36,10 +36,10 @@ test("PROFILE-02 records demo activity durably and keeps home and profile totals
 test("PROFILE-02 expires the demo streak consistently in the header and profile", async ({ page }) => {
   await page.clock.install({ time: new Date("2026-09-10T12:00:00Z") });
   await page.goto("/");
-  await expect(page.getByTestId("header-learning-streak")).toHaveText("7일");
+  await expect(page.getByTestId("header-learning-streak")).toHaveText("7일 연속 학습");
   await page.clock.setSystemTime(new Date("2026-09-12T12:00:00Z"));
   await page.reload();
-  await expect(page.getByTestId("header-learning-streak")).toHaveText("0일");
+  await expect(page.getByTestId("header-learning-streak")).toHaveText("0일 연속 학습");
   await page.getByTestId("header-learning-streak").click();
   await expect(page).toHaveURL(/\/profile$/);
   await expect(page.getByTestId("learning-progress").getByRole("article").filter({ hasText: "연속 학습" })).toContainText("0일");

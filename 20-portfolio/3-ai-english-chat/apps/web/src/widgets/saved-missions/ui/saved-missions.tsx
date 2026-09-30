@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import Link from "next/link";
 import { useSavedMissions } from "@/entities/mission/api/use-saved-missions";
 import { SaveMissionButton } from "@/features/mission-save/ui/save-mission-button";
@@ -7,7 +8,7 @@ import { SaveMissionButton } from "@/features/mission-save/ui/save-mission-butto
 export function SavedMissions() {
   const query = useSavedMissions();
   if (query.isError) return <section role="alert" className="mt-8 rounded-xl border p-6"><p>저장 미션을 불러오지 못했어요. 목록을 비우지 않았습니다.</p><button className="mt-3 underline" onClick={() => void query.refetch()}>저장 미션 다시 불러오기</button></section>;
-  if (!query.data) return <p role="status" className="mt-8">저장 미션을 불러오고 있어요.</p>;
+  if (!query.data) return <LoadingIndicator variant="section" label="저장 미션을 불러오고 있어요." className="mt-8" />;
   return <section className="mt-8 space-y-5" data-testid="profile-saved-missions">
     <h2 className="text-2xl font-black">내가 저장한 미션</h2>
     <p className="text-sm text-muted-foreground">미션 상세에서 직접 저장한 목록입니다. 대화 이력이나 완료 여부와는 별개예요.</p>

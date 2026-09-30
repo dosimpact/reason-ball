@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { useLearningProgressQuery } from "@/entities/learning-session";
 import { useLearningPreferences } from "@/entities/learner";
 
@@ -9,7 +10,7 @@ export function LearningSummary({ xp }: { xp?: number }) {
   if (progress.isError) return <section aria-label="나의 학습 요약" role="alert" className="rounded-2xl border p-5">
     <p>학습 진도를 불러오지 못했어요.</p><button onClick={() => void progress.refetch()} className="mt-2 underline">학습 진도 다시 불러오기</button>
   </section>;
-  if (!progress.data) return <p role="status">학습 진도를 불러오고 있어요.</p>;
+  if (!progress.data) return <LoadingIndicator variant="section" label="학습 진도를 불러오고 있어요." />;
   const data = progress.data;
   return <section aria-label="나의 학습 요약" data-testid="home-learning-summary">
     <p className="mb-3 text-xs text-muted-foreground">{data.source === "demo" ? "데모 학습 기록" : "내 계정의 학습 기록"} · UTC 날짜 기준</p>

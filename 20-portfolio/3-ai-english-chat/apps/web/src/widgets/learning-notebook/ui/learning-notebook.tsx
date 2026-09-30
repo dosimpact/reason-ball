@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { useState } from "react";
 import { useLearningNotebook } from "@/entities/learning-notebook/api/use-notebook";
 import { AudioPlaybackButton } from "@/features/audio-playback";
@@ -9,7 +10,7 @@ export function LearningNotebook() {
   const query = useLearningNotebook();
   const [filter, setFilter] = useState("all");
   if (query.isError) return <section role="alert" className="mt-8 rounded-xl border p-6"><p>복습 기록을 불러오지 못했어요. 기존 기록을 지우지 않았습니다.</p><button onClick={() => void query.refetch()} className="mt-3 underline">복습 기록 다시 불러오기</button></section>;
-  if (!query.data) return <p role="status" className="mt-8">복습 기록을 불러오고 있어요.</p>;
+  if (!query.data) return <LoadingIndicator variant="section" label="복습 기록을 불러오고 있어요." className="mt-8" />;
   const entries = query.data.entries.filter((entry) => filter === "all" || entry.draft.kind === filter).sort((a, b) => b.createdAt.localeCompare(a.createdAt) || a.id.localeCompare(b.id));
   return <section className="mt-8 space-y-4" data-testid="profile-expressions">
     <h2 className="text-2xl font-black">내가 저장한 표현과 교정</h2>

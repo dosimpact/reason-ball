@@ -49,7 +49,7 @@
 }
 
 :root {
-  --background: oklch(0.971 0.012 75);
+  --background: #f6f7f8;
   --foreground: oklch(0.17 0.01 60);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -84,9 +84,9 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: #101112;
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
+  --card: #1c1d1f;
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
@@ -95,7 +95,7 @@
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
+  --muted-foreground: #a4a5a8;
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
@@ -107,11 +107,11 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
+  --sidebar: #1c1d1f;
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent: #303134;
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
@@ -131,7 +131,7 @@
 
 @layer components {
   .form-field {
-    @apply mt-2 block min-h-11 w-full rounded-xl border border-black/10 bg-white px-3.5 py-2.5 text-sm font-normal text-neutral-900 outline-none transition placeholder:text-neutral-400 focus:border-[#5763d7]/50 focus:ring-3 focus:ring-[#5763d7]/15;
+    @apply mt-2 block min-h-11 w-full rounded-xl border border-input bg-card px-3.5 py-2.5 text-sm font-normal text-foreground outline-none transition placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/20;
   }
 
   .message-action {

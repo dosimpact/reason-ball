@@ -27,7 +27,15 @@
     "missions:import": "node --env-file-if-exists=apps/web/.env.local scripts/missions/import-catalog.mjs",
     "missions:verify-remote": "node --env-file-if-exists=apps/web/.env.local scripts/missions/verify-remote-catalog.mjs",
     "missions:test:remote-provisioning": "node --env-file-if-exists=apps/web/.env.local scripts/missions/verify-provisioning-remote.mjs",
-    "missions:test:guest-browsing": "node --env-file-if-exists=apps/web/.env.local scripts/missions/verify-guest-browsing.mjs"
+    "missions:test:guest-browsing": "node --env-file-if-exists=apps/web/.env.local scripts/missions/verify-guest-browsing.mjs",
+    "docker:build": "node scripts/docker/service.mjs build",
+    "docker:up": "node scripts/docker/service.mjs up",
+    "docker:down": "node scripts/docker/service.mjs down",
+    "docker:logs": "node scripts/docker/service.mjs logs",
+    "characters:check": "node scripts/characters/import-catalog.mjs",
+    "characters:generate": "node --env-file-if-exists=apps/web/.env.local scripts/characters/generate-portraits.mjs",
+    "characters:import": "node --env-file-if-exists=apps/web/.env.local scripts/characters/import-catalog.mjs",
+    "characters:verify": "node --env-file-if-exists=apps/web/.env.local scripts/characters/verify-catalog.mjs"
   },
   "devDependencies": {
     "supabase": "^2.116.0"

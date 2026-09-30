@@ -1,4 +1,5 @@
 /** @jsxImportSource react */
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import type { MissionRun, MissionStepStatus } from "@/entities/mission-run/model/types";
 
 const statusLabels: Record<MissionStepStatus, string> = {
@@ -20,7 +21,7 @@ export function MissionProgressPanel({ run, title, loading, failed, onRetry }: {
     <details open className="max-h-[25svh] overflow-y-auto">
       <summary className="cursor-pointer font-bold text-indigo-900 dark:text-indigo-100">{title} · 목표 {complete}/{steps.length} 완료</summary>
       {failed ? <div role="alert" className="mt-2"><p>목표 진행 정보를 불러오지 못했어요.</p><button type="button" onClick={onRetry} disabled={loading} className="mt-1 underline">목표 진행 다시 불러오기</button></div>
-        : !run ? <p role="status" className="mt-2">목표 진행을 불러오는 중이에요.</p> : <>
+        : !run ? <LoadingIndicator variant="section" label="목표 진행을 불러오는 중이에요." className="mt-2" /> : <>
           <p className="mt-2 font-bold" data-testid="mission-current-step">{current ? `현재 단계: ${current.label}` : requiredComplete ? "필수 목표를 모두 달성했어요." : "현재 진행 중인 단계가 없어요."}</p>
           <ol className="mt-2 space-y-1">
             {steps.map(step => <li key={step.id} data-testid={`mission-progress-step-${step.id}`} data-status={step.status}

@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { Heart, Settings2, StickyNote } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -21,10 +22,14 @@ const tabs = ["학습 요약", "즐겨찾기", "보상 컬렉션", "학습 표�
 
 export default function ProfilePage() {
   const [tab, setTab] = useState<(typeof tabs)[number]>("학습 요약");
-  const { data: characters = [] } = useCharactersQuery();
-  const { data: missions = [] } = useMissionsQuery();
-  const { data: learning } = useLearningSnapshotQuery();
-  const { data: missionRuns = [] } = useMissionRunsQuery();
+  const charactersQuery = useCharactersQuery();
+  const { data: characters = [] } = charactersQuery;
+  const missionsQuery = useMissionsQuery();
+  const { data: missions = [] } = missionsQuery;
+  const learningQuery = useLearningSnapshotQuery();
+  const { data: learning } = learningQuery;
+  const runsQuery = useMissionRunsQuery();
+  const { data: missionRuns = [] } = runsQuery;
   const preferences = useLearningPreferences();
   const preferencesReady = preferences.isSuccess;
   const visiblePreferences = preferences.data?.settings ?? defaultPreferences;
@@ -35,21 +40,32 @@ export default function ProfilePage() {
   const favorites = characters.filter((character) => favoriteIds.includes(character.id));
   const notes = missionRuns.filter((run) => run.reviewNote);
 
+  const initialQueries = [preferences, charactersQuery, missionsQuery, learningQuery, runsQuery];
+  if (initialQueries.some((query) => query.isPending)) {
+    return <LoadingIndicator variant="page" label="프로필을 불러오고 있어요." />;
+  }
+  if (initialQueries.some((query) => query.isError && !query.data)) {
+    return <div role="alert" className="mx-auto max-w-3xl px-5 py-20 text-center">
+      <p>프로필 정보를 불러오지 못했어요.</p>
+      <button type="button" className="mt-4 rounded-full border border-border px-5 py-2 font-bold" onClick={() => { initialQueries.forEach((query) => { void query.refetch(); }); }}>프로필 다시 불러오기</button>
+    </div>;
+  }
+
   return (
     <div className="pb-28 lg:pb-16" data-testid="profile-page" data-hydrated={preferencesReady}>
-      <section className="bg-neutral-950 text-white">
+      <section className="border-b border-border bg-card text-card-foreground">
         <div className="relative mx-auto max-w-[1240px] overflow-hidden px-5 py-12 sm:px-8 lg:px-12 lg:py-16">
-          <div className="pointer-events-none absolute -right-32 -top-52 size-[32rem] rounded-full bg-[#5763d7]/35 blur-3xl" />
+          <div className="pointer-events-none absolute -right-32 -top-52 size-[32rem] rounded-full bg-muted/60 blur-3xl" />
           <div className="relative flex flex-col gap-7 sm:flex-row sm:items-center">
-            <div className="grid size-24 shrink-0 place-items-center rounded-[1.7rem] bg-gradient-to-br from-[#f06f52] to-[#f5c758] text-4xl shadow-xl">🌱</div>
-            <div className="flex-1"><p className="text-xs font-black uppercase tracking-[.18em] text-[#f5c758]">{visiblePreferences.learnerLevel} learner</p><h1 className="mt-2 text-4xl font-black tracking-tight">{visiblePreferences.displayName}의 영어 여정</h1><p className="mt-2 text-sm text-white/55">틀려도 계속 말하는 용기를 모으는 중 · 하루 {visiblePreferences.dailyGoal}분 목표</p><p className="mt-5 text-sm font-bold text-[#f5c758]">누적 {xp.toLocaleString()} XP</p></div>
-            <button type="button" onClick={() => setTab("설정")} className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-4 py-2.5 text-xs font-bold hover:bg-white/10"><Settings2 className="size-4" /> 프로필 설정</button>
+            <div className="grid size-24 shrink-0 place-items-center rounded-[1.7rem] bg-muted text-4xl shadow-xl">🌱</div>
+            <div className="flex-1"><p className="text-xs font-black uppercase tracking-[.18em] text-foreground">{visiblePreferences.learnerLevel} learner</p><h1 className="mt-2 text-4xl font-black tracking-tight">{visiblePreferences.displayName}의 영어 여정</h1><p className="mt-2 text-sm text-muted-foreground">틀려도 계속 말하는 용기를 모으는 중 · 하루 {visiblePreferences.dailyGoal}분 목표</p><p className="mt-5 text-sm font-bold text-foreground">누적 {xp.toLocaleString()} XP</p></div>
+            <button type="button" onClick={() => setTab("설정")} className="inline-flex items-center justify-center gap-2 rounded-full border border-border px-4 py-2.5 text-xs font-bold hover:bg-muted"><Settings2 className="size-4" /> 프로필 설정</button>
           </div>
         </div>
       </section>
 
       <div className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8 lg:px-12">
-        <div className="mt-10 flex gap-1 overflow-x-auto border-b border-border" role="tablist" aria-label="프로필 콘텐츠">{tabs.map((item) => <button key={item} type="button" role="tab" aria-selected={tab === item} onClick={() => setTab(item)} className={`shrink-0 border-b-2 px-4 py-3 text-sm font-bold ${tab === item ? "border-foreground text-foreground" : "border-transparent text-muted-foreground"}`}>{item}</button>)}</div>
+        <div className="flex gap-2 overflow-x-auto pb-3" role="tablist" aria-label="프로필 콘텐츠">{tabs.map((item) => <button key={item} type="button" role="tab" aria-selected={tab === item} onClick={() => setTab(item)} className={`shrink-0 rounded-full px-4 py-3 text-sm font-bold ${tab === item ? "bg-primary text-primary-foreground" : "bg-card text-muted-foreground hover:bg-muted"}`}>{item}</button>)}</div>
 
         {tab === "학습 요약" ? <LearningProgress completedCount={learning ? completedIds.length : undefined} dailyGoal={visiblePreferences.dailyGoal} /> : null}
 

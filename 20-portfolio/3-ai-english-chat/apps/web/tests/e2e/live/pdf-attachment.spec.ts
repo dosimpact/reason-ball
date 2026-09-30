@@ -1,3 +1,4 @@
+import { openChatSettings } from "../test-setup";
 import { liveBaseURL } from "./settings";
 import { randomInt } from "node:crypto";
 import { adminClient, expect, signIn, test } from "./fixtures";
@@ -32,7 +33,7 @@ test("CHAT-05 REF-14 real PDF picker sends a private document to the verified mo
   const pdf = pdfWithCode(code);
   const filename = "verification-card.pdf";
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: /외우지 말고/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /마음이 통하는 캐릭터/ })).toBeVisible();
   await expect(page.getByTestId("app-shell")).toHaveAttribute("data-shortcuts-ready", "true");
   await page.getByRole("button", { name: "새 채팅", exact: true }).click();
   const input = page.getByRole("textbox", { name: "영어 메시지", exact: true });
@@ -43,6 +44,7 @@ test("CHAT-05 REF-14 real PDF picker sends a private document to the verified mo
   const catalog = await response.json() as { items: Array<{ id: string; capabilities: { documents: boolean | null } }> };
   const model = catalog.items.find(item => item.capabilities.documents === true);
   expect(model, "Actual catalog must verify document support; no test capability overrides").toBeDefined();
+  await openChatSettings(page);
   await page.getByLabel("AI 모델 선택").selectOption(model!.id);
   await expect(page.getByLabel("선택 모델 기능")).toContainText("PDF: 지원");
   const chooser = page.waitForEvent("filechooser");
@@ -112,6 +114,7 @@ test("REF-14 an unverified document model rejects PDF selection without uploadin
   const catalog = await response.json() as { items: Array<{ id: string; capabilities: { documents: boolean | null } }> };
   const unverified = catalog.items.find(item => item.capabilities.documents !== true);
   expect(unverified, "Actual catalog must expose an unverified document model").toBeDefined();
+  await openChatSettings(page);
   await page.getByLabel("AI 모델 선택").selectOption(unverified!.id);
   const draft = "Please preserve this unsent document question.";
   await input.fill(draft);
@@ -131,6 +134,7 @@ test("REF-14 an unverified document model rejects PDF selection without uploadin
   }
   expect(writes).toEqual([]);
   await page.reload();
+  await openChatSettings(page);
   await expect(page.getByLabel("AI 모델 선택")).toHaveValue(unverified!.id);
   await expect(input).toHaveValue(draft);
   await expect(page.getByTestId("attachment-preview")).toHaveCount(0);

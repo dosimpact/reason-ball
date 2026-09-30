@@ -1,4 +1,6 @@
 import "server-only";
+import { GOOGLE_MEDIA_MODELS } from "./google/media";
+import { GOOGLE_CLOUD_SPEECH_MODEL } from "./google/cloud-speech";
 
 import { AiConfigurationError, AiHttpError } from "./errors";
 import { allowedChatModels, isAllowedChatModel } from "./model-policy";
@@ -110,6 +112,20 @@ export function readAiRuntimeConfig(operation: AiOperation = "chat"): AiRuntimeC
       DEFAULT_SPEECH_MODEL,
     ),
   };
+
+  if (providerName === "google-cloud-tts") {
+    const apiKey = process.env.GOOGLE_TTS_API_KEY?.trim() || process.env.GOOGLE_CLOUD_TTS_API_KEY?.trim();
+    if (!apiKey) throw new AiConfigurationError("GOOGLE_TTS_API_KEY is required.");
+    const speech = process.env.AI_SPEECH_MODEL?.trim() || GOOGLE_CLOUD_SPEECH_MODEL;
+    if (speech !== GOOGLE_CLOUD_SPEECH_MODEL) throw new AiConfigurationError("Cloud TTS currently supports AI_SPEECH_MODEL=chirp-3-hd.");
+    return { providerName, apiMode: readApiMode(), apiKey, models: { ...models, speech } };
+  }
+
+  if (providerName === "google") {
+    const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY?.trim() || process.env.GEMINI_API_KEY?.trim();
+    if (!apiKey) throw new AiConfigurationError("GOOGLE_GENERATIVE_AI_API_KEY is required.");
+    return { providerName, apiMode: readApiMode(), apiKey, models: { ...models, image: process.env.AI_IMAGE_MODEL?.trim() || GOOGLE_MEDIA_MODELS.image, speech: process.env.AI_SPEECH_MODEL?.trim() || GOOGLE_MEDIA_MODELS.speech } };
+  }
 
   if (providerName === "mock") {
     return {

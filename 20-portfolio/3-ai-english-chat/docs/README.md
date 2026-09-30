@@ -8,7 +8,11 @@
 | 실제 앱의 라우트·FSD·데이터·AI·권한 경계 | [시스템 설계](stock/system-design.md) | `apps/web/src/`, `supabase/migrations/`, [미션 자산](../assets/missions/README.md) |
 | 무엇을 어떤 환경에서 검증했는가; 현재 release gate | [테스트 설계](stock/test-design.md) | [유량 기록](flow/)과 Playwright/DB 보고서 |
 
-최근 조정: [2026-09-30 production E2E](flow/2026-09-30-production-e2e.md), [화면 점검·캡처](flow/evidence/2026-09-30-ux-refactor/README.md), [코드 정리](flow/2026-09-30-code-cleanup.md), [2026-09-30 설계 재조정](flow/2026-09-30-design-reconciliation.md), [2026-09-29 실제 OAuth E2E](flow/2026-09-29-live-e2e-oauth-proxy.md), [2026-09-21 원격 미션 적재·배정](flow/2026-09-21-mission-catalog-remote-upload.md), [2026-09-21 게스트 공개 미션 조회](flow/2026-09-21-guest-mission-browsing.md).
+Docker 빌드·실행: [사용법](docker.md), [설계와 검증](flow/2026-09-30-docker-build.md).
+
+캐릭터10종 제작: [공개 특성 조사·설계](research/talkie-character-catalog.md), [실행 상태](flow/2026-09-30-talkie-character-catalog.md). Google 이미지10장 생성·Storage/게시10건 완료.
+
+최근 조정: [미디어 검증 비용 제한](flow/2026-09-30-media-validation-cost-cap.md), [Google 키 구분·TTS 실재생](flow/2026-09-30-google-key-separation.md), [Talkie 개편·Google 검증](flow/2026-09-30-talkie-resume-validation.md), [Talkie 조사](research/talkie-design-audit.md), [개편 설계](research/talkie-redesign-plan.md), [2026-09-30 production E2E](flow/2026-09-30-production-e2e.md), [화면 점검·캡처](flow/evidence/2026-09-30-ux-refactor/README.md), [코드 정리](flow/2026-09-30-code-cleanup.md), [2026-09-30 설계 재조정](flow/2026-09-30-design-reconciliation.md), [2026-09-29 실제 OAuth E2E](flow/2026-09-29-live-e2e-oauth-proxy.md), [2026-09-21 원격 미션 적재·배정](flow/2026-09-21-mission-catalog-remote-upload.md), [2026-09-21 게스트 공개 미션 조회](flow/2026-09-21-guest-mission-browsing.md).
 
 ## 문서 변경 규칙
 
@@ -16,3 +20,5 @@
 2. `flow/YYYY-MM-DD-<topic>.md`에 날짜, 배경, 변경·이유, 영향받는 요구사항/저량, 실행 환경·검증 결과·미완료를 남긴다. 기존 유량은 고쳐 쓰지 않는다.
 3. 확정된 동작·권한·검증 판정을 비즈니스·시스템·테스트 저량 중 영향받는 문서에 반영한다. 계획과 구현, mock/PGlite/원격 Supabase/실제 AI를 구분한다.
 4. 문서 동기화가 끝나기 전에는 문서가 필요한 기능 변경을 완료로 보고하지 않는다.
+
+공통 페이지 로딩: [UX-LOADING-01 구현·검증](flow/2026-09-30-shared-loading.md).

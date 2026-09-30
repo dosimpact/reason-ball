@@ -21,6 +21,7 @@ test.describe("Mission chat", () => {
     );
     await expect(page.getByTestId("chat-workspace")).toBeVisible();
 
+    await page.getByText("대화 설정 · 추천 질문", { exact: true }).click();
     const modelSelect = page.getByLabel("AI 모델 선택");
     await expect(modelSelect).toHaveValue("gpt-5.6-terra");
     await modelSelect.selectOption("gpt-5-mini");
@@ -76,7 +77,7 @@ test.describe("Mission chat", () => {
     await page.getByRole("button", { name: "대화 공유" }).click();
     const shareDialog = page.getByRole("dialog", { name: "대화 공유" });
     await expect(shareDialog).toBeVisible();
-    await expect(shareDialog).toContainText("lingua.local/shared/mia-hotelier");
+    await expect(shareDialog).toContainText(`${new URL(page.url()).origin}/shared/mia-hotelier`);
     await shareDialog.getByRole("button", { name: "공유 창 닫기" }).click();
 
     await latestAssistant.getByRole("button", { name: "AI 음성 듣기" }).click();

@@ -47,8 +47,8 @@ export function MessageLearningHelp({ text, role, disabled, makeRequest, onUse, 
     catch { setInputError(copy.invalidInput); }
   }
 
-  return <details lang={languageTag} className="mt-2 w-full rounded-xl border border-indigo-100 bg-white p-2 text-left text-xs" data-testid="message-learning-help">
-    <summary className="cursor-pointer font-bold text-indigo-700">{copy.title}</summary>
+  return <details lang={languageTag} className="mt-2 w-full rounded-xl border border-border bg-card p-2 text-left text-xs" data-testid="message-learning-help">
+    <summary className="cursor-pointer font-bold text-muted-foreground">{copy.title}</summary>
     <div className="mt-2 flex flex-wrap gap-2">
       <button type="button" disabled={disabled || visible?.pending} onClick={() => start("rephrase")} className="rounded-lg border px-2 py-1.5 disabled:opacity-40">{copy.rephrase}</button>
       <button type="button" disabled={disabled || visible?.pending} onClick={() => start(role === "user" ? "correction" : "reply")} className="rounded-lg border px-2 py-1.5 disabled:opacity-40">{role === "user" ? copy.correction : copy.reply}</button>

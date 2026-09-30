@@ -1,3 +1,4 @@
+import { openChatSettings } from "../test-setup";
 import type { Page } from "@playwright/test";
 import { adminClient, expect, test } from "./fixtures";
 import { conversationReviewPrompt } from "../../../src/entities/chat/model/conversation-review";
@@ -121,6 +122,7 @@ test("LEARN-06 summary waits through errors then reviews actual learner turns wh
   const draft = `  ${conversationReviewPrompt}  `;
   const input = page.getByRole("textbox", { name: "영어 메시지", exact: true });
   await input.fill(draft);
+  await openChatSettings(page);
   await page.getByRole("button", { name: "대화 마치고 복습하기", exact: true }).click();
   const review = await finish(page, id, 2);
   expect(review.toLowerCase()).toContain(error.toLowerCase());

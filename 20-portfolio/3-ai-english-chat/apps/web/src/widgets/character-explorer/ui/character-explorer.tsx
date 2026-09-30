@@ -1,7 +1,9 @@
 "use client";
 
+import { LoadingIndicator } from "@/shared/ui/loading-indicator";
 import { Plus, Search, SlidersHorizontal, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { CharacterCard, useCharactersQuery } from "@/entities/character";
 import { FavoriteButton } from "@/features/character-favorite";
@@ -10,7 +12,11 @@ const levels = ["전체", "입문", "초급", "중급"] as const;
 
 export function CharacterExplorer() {
   const { data: characters = [], isPending, error, refetch } = useCharactersQuery();
-  const [query, setQuery] = useState("");
+  const searchParams = useSearchParams();
+  const urlQuery = searchParams.get("q") ?? "";
+  const [localQuery, setLocalQuery] = useState<string | null>(null);
+  const query = localQuery ?? urlQuery;
+  const setQuery = setLocalQuery;
   const [level, setLevel] = useState<(typeof levels)[number]>("전체");
   const [topic, setTopic] = useState("전체");
   const [sort, setSort] = useState<"popular" | "new">("popular");
@@ -45,29 +51,29 @@ export function CharacterExplorer() {
       );
   }, [characters, level, query, sort, topic]);
 
-  const pageSize = 6;
+  const pageSize = 12;
   const pageCount = Math.max(1, Math.ceil(filtered.length / pageSize));
   const currentPage = Math.min(page, pageCount);
   const visible = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
   return (
-    <div className="mx-auto max-w-[1440px] px-5 py-12 pb-28 sm:px-8 lg:px-12 lg:py-16">
+    <div className="mx-auto max-w-[1440px] px-5 py-8 pb-28 sm:px-8 lg:py-10">
       <div className="grid gap-8 border-b border-black/8 pb-10 lg:grid-cols-[1fr_auto] lg:items-end">
         <div>
           <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[.18em] text-[#e16748]">
             <Sparkles className="size-3.5" aria-hidden="true" /> Character universe
           </p>
-          <h1 className="mt-3 text-4xl font-black tracking-[-.045em] sm:text-6xl">
+          <h1 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
             나와 잘 맞는 대화 상대
           </h1>
-          <p className="mt-4 max-w-2xl leading-7 text-neutral-600">
+          <p className="mt-4 max-w-2xl leading-7 text-muted-foreground">
             말투, 성격, 상황이 다른 캐릭터를 만나 보세요. 같은 영어도 누구와
             이야기하느냐에 따라 더 오래 기억됩니다.
           </p>
         </div>
         <Link
           href="/characters/new"
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-neutral-950 px-6 text-sm font-bold text-white transition hover:bg-[#f06f52]"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-bold text-primary-foreground transition hover:bg-[#f06f52]"
         >
           <Plus className="size-4" aria-hidden="true" /> 나만의 캐릭터 만들기
         </Link>
@@ -82,7 +88,7 @@ export function CharacterExplorer() {
             value={query}
             onChange={(event) => { setQuery(event.target.value); setPage(1); }}
             placeholder="이름, 성격, 관심사로 검색"
-            className="h-12 w-full rounded-xl bg-[#f7f4ef] pl-11 pr-4 text-sm text-neutral-950 placeholder:text-neutral-500 outline-none ring-[#f06f52]/40 transition focus:ring-3"
+            className="h-12 w-full rounded-xl bg-muted pl-11 pr-4 text-sm text-foreground placeholder:text-muted-foreground outline-none ring-[#f06f52]/40 transition focus:ring-3"
             data-testid="character-search"
           />
         </label>
@@ -117,8 +123,8 @@ export function CharacterExplorer() {
         </label>
       </div>
 
-      {isPending ? <p role="status" className="mt-6 text-sm text-neutral-600">캐릭터를 불러오고 있어요.</p> : error ? <div role="alert" className="mt-6 rounded-xl border border-red-200 p-4"><p>캐릭터 목록을 불러오지 못했어요.</p><button type="button" onClick={() => { void refetch(); }} className="mt-2 font-bold underline">다시 시도</button></div> : filtered.length > 0 ? (
-        <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3" data-testid="character-results">
+      {isPending ? <LoadingIndicator variant="section" label="캐릭터를 불러오고 있어요." className="mt-6" /> : error ? <div role="alert" className="mt-6 rounded-xl border border-red-200 p-4"><p>캐릭터 목록을 불러오지 못했어요.</p><button type="button" onClick={() => { void refetch(); }} className="mt-2 font-bold underline">다시 시도</button></div> : filtered.length > 0 ? (
+        <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4" data-testid="character-results">
           {visible.map((character) => (
             <CharacterCard
               key={character.id}
