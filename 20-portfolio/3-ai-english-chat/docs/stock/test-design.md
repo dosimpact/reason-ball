@@ -69,9 +69,10 @@ API 오류/재시도와 권한을 다루는 변경은 계약·DB 테스트를, �
 
 | 검사 | 최신 결과 | 범위 |
 |---|---|---|
-| 계약 | 311 PASS | Google/Gemini·Cloud TTS, 영상 token/오류, 기존 순수 정책 |
+| 계약 | 313 PASS | Google/Gemini·Cloud TTS, 영상 token/오류, 기존 순수 정책 |
 | typecheck / lint | PASS / 오류0·img 경고5 | 최종 소스 |
 | production mock | **84 PASS, 1.6분** | worker1/retry0, 별도 `.next-mock`·소유3210 서버 |
+| 미디어 mock 추가 회귀 | 4 PASS, 14.6초 | 3초 MP4 pending→재생·다운로드, 403/502 복구, 이미지 실패 보존 |
 | 개발 Playground | 3 PASS | 채팅·이미지·음성 UI, 실패 보존, 탭 전환 취소; mock87개 실행 중 해당3개 결과 |
 | production Playground 보안 | 1 PASS | 페이지와 생성API3개404 |
 | 원격 Supabase production shell | 2 PASS | theme 실제 대비·reload, 모바일 메뉴·새 대화·복원, 소유 계정 정리 |
@@ -91,3 +92,5 @@ production mock 명령은 `PLAYWRIGHT_PRODUCTION=1 pnpm test:e2e:mock --grep-inv
 사용자 제한은 이미지 총10회, 영상 건당3초·총5회다. 실패/중단도 요청 예산에 포함하고 한도 이후에는 mock만 실행한다. TTS 실검증은 허용한다. [영속 검증 원장](media-validation-budget.json)은 이미지6/10(자체 초상3회까지 보수적 포함), 영상0/5로 시작했다. 현재 누적값은 원장이 기준이다.
 
 이미지 E2E는 `PLAYWRIGHT_GOOGLE_MEDIA=1`에 추가로 `PLAYWRIGHT_GOOGLE_IMAGE=1`을 요구하고 호출 직전에 파일 잠금 아래 예산을 예약한다. 영상은3초 제약을 만족하지 못하므로 `PLAYWRIGHT_GOOGLE_VIDEO=1`이어도 실행하지 않는다. Veo는4·6·8초만 지원하며 사용자 변경 전까지 mock만 검증한다. 이 skip은 실제 영상 생성 PASS가 아니다. 비용 보호 변경 후 계약313 PASS·typecheck PASS, 실제 호출 없는 보호 검사2 SKIP을 확인했다. [비용 제한 결정](../flow/2026-09-30-media-validation-cost-cap.md).
+
+3초 합성 MP4를 사용하는 추가 회귀는 실제 공급자를 호출하지 않는다. POST 1회·GET 3회, 브라우저 duration·재생 시간 증가, 다운로드 바이트 일치를 확인했다. 기존 전체84 PASS와 별도 실행이며 전체85개 동시 PASS를 주장하지 않는다. [mock 영상 검증 및 완료 감사](../flow/2026-09-30-mocked-video-validation.md).

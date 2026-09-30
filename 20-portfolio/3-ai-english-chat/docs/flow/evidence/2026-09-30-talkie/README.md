@@ -9,6 +9,8 @@
 - 후속 [360×640 힌트·입력창 회귀](redesign/360-hint-final.png)는 production mock 최종 수정 검증이다. 보조 패널만 스크롤하고 입력창은 하단 메뉴 위에 유지한다.
 - [인증된 Gemini TTS Playground](google/gemini-playground.png), [재생한 WAV](google/gemini-playground.wav)는 실제 Google/Supabase 검증이다. [실행 기록](../../2026-09-30-google-key-separation.md).
 
+- [390px mock 영상 재생](redesign/390-mock-video.png): FFmpeg 합성 3초 MP4로 재생·다운로드 검증. 실제 Google 생성 결과가 아니다. [검증 기록](../../2026-09-30-mocked-video-validation.md).
+
 | 화면 | Desktop | Mobile |
 |---|---|---|
 | 홈 | [1440px](redesign/1440-00.png) | [390px](redesign/390-00.png) |
