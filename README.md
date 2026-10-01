@@ -35,6 +35,20 @@ pnpm lint
 pnpm typecheck
 ```
 
+## Independent Reason Hwang workspace
+
+`20-portfolio/1-reason-hwang` is excluded from the parent workspace and owns its
+`package.json`, `pnpm-workspace.yaml`, `pnpm-lock.yaml`, and Turbo task graph.
+Install and run its dependencies separately:
+
+```sh
+pnpm -C 20-portfolio/1-reason-hwang install --frozen-lockfile
+pnpm -C 20-portfolio/1-reason-hwang dev
+```
+
+Parent scripts such as `pnpm dev:reason-hwang` delegate to this independent root.
+The parent `pnpm install`, `build`, and `test` do not include Reason Hwang.
+
 ## Workspace Layout
 
 - `apps/*` for runnable applications

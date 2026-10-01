@@ -20,6 +20,14 @@ The root package and seven child packages are registered by `pnpm-workspace.yaml
 
 Generated directories, local agent configuration, virtual environments, build output, and caches are excluded from workspace discovery. The parent repository workspace explicitly excludes this independent workspace.
 
+## WORKSPACE-BOUNDARY-001: Independent root
+
+The authoritative root for this project is `20-portfolio/1-reason-hwang/package.json`, together with the adjacent workspace, lockfile, and Turbo configuration. The parent workspace excludes `!20-portfolio/1-reason-hwang/**` and its lockfile contains none of this project's importers. Parent `*:reason-hwang` scripts delegate with `pnpm -C 20-portfolio/1-reason-hwang`; they do not run the parent Turbo graph.
+
+Run `pnpm install --frozen-lockfile` here separately from the parent installation. From the repository root, use `pnpm -C 20-portfolio/1-reason-hwang install --frozen-lockfile`. Generic parent install/build/test commands do not manage this project.
+
+Decision and validation: [2026-10-02 boundary reconciliation](../../flow/2026-10-02-independent-workspace-boundary.md).
+
 ## Root commands
 
 | Command | Purpose |

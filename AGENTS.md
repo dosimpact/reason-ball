@@ -25,6 +25,8 @@ Use committed package scripts from the repository root:
 
 Prefer scripts committed in the project manifest over one-off local commands.
 
+`20-portfolio/1-reason-hwang` is an independent pnpm/Turborepo root excluded from this workspace. Install and run its tasks with `pnpm -C 20-portfolio/1-reason-hwang <script>`; parent `*:reason-hwang` scripts delegate to that root. Its own lockfile is authoritative for its packages.
+
 For Todo MCP, use `pnpm --filter todo-list-mcp dev` and scoped `test`, `test:e2e`, `typecheck`, `lint`, and `build` scripts. E2E runs headless against an owned server and temporary JSON, then releases its port. Never reuse or terminate unrelated development servers. Keep its core transformations pure and follow SLAP; local runtime JSON is not committed.
 
 ## Coding Style & Naming Conventions
