@@ -32,6 +32,8 @@ A2UI_LANGGRAPH_URL=http://127.0.0.1:18082 pnpm --filter reason-hwang-fe-host dev
 
 화면은 `/a2ui`, `/a2ui/catalog`, `/a2ui/dynamic`, `/a2ui/fixed`, `/a2ui/sec`다. 프런트엔드와 FastAPI 포트를 혼동하지 않는다. `2815~2819` 등 작업 중 사용한 preview 포트는 영구 프로젝트 기본값이 아니며 실행 생존 여부는 매번 확인한다.
 
+로컬 FastAPI의 `dev`와 `start` 스크립트는 패키지의 `.env`를 명시적으로 로드한다. `python -m uvicorn`으로 실행해 이동된 가상환경의 오래된 실행 파일 경로에 의존하지 않는다. 모델 설정은 해당 `.env` 또는 프로세스 환경으로 공급하며 프로세스 환경이 우선한다.
+
 ## 빌드와 배포
 
 ```sh

@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "bruno": "open -a Bruno bruno-api-tests",
-    "dev": "uv run uvicorn server.server:app --reload",
+    "dev": "uv run python -m uvicorn server.server:app --env-file .env --reload",
     "dev:langgraph": "uv run langgraph dev --no-browser",
-    "start": "uv run uvicorn server.server:app",
+    "start": "uv run python -m uvicorn server.server:app --env-file .env",
     "build": "uv build",
     "test": "uv run pytest",
     "test:api": "pnpm exec bru run bruno-api-tests --env local",
