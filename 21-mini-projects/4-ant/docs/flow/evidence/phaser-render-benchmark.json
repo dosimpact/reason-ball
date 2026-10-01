@@ -1,0 +1,30 @@
+{
+  "date": "2026-09-30T23:38:33.642Z",
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36",
+  "dpr": 1,
+  "width": 344,
+  "height": 304,
+  "note": "CPU Scene update and render submission only; excludes boot and GPU completion. 24 cats is synthetic presentation stress.",
+  "results": [
+    {
+      "renderer": "phaser-webgl",
+      "cats": 4,
+      "pixels": 225,
+      "samples": 600,
+      "meanMs": 0.03933333327372869,
+      "p95Ms": 0.10000002384185791,
+      "maxMs": 0.3999999761581421,
+      "pooledDisplayObjects": 274
+    },
+    {
+      "renderer": "phaser-webgl",
+      "cats": 24,
+      "pixels": 225,
+      "samples": 600,
+      "meanMs": 0.04083333343267441,
+      "p95Ms": 0.10000002384185791,
+      "maxMs": 0.3999999761581421,
+      "pooledDisplayObjects": 274
+    }
+  ]
+}

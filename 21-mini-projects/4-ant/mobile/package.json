@@ -1,0 +1,30 @@
+{
+  "name": "@ant-atelier/mobile",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "dev": "expo start --dev-client",
+    "ios": "expo run:ios",
+    "android": "expo run:android",
+    "typecheck": "tsc --noEmit",
+    "build": "expo export --platform all",
+    "prebuild": "expo prebuild --no-install",
+    "eas-build-post-install": "pnpm --filter ant-atelier build:mobile"
+  },
+  "dependencies": {
+    "expo": "~54.0.0",
+    "expo-dev-client": "~6.0.0",
+    "expo-status-bar": "~3.0.0",
+    "expo-build-properties": "~1.0.0",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-webview": "13.15.0",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-google-mobile-ads": "16.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.1.0",
+    "typescript": "^5.9.2"
+  }
+}

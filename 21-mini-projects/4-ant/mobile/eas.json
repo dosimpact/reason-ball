@@ -1,0 +1,19 @@
+{
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": { "ANT_ADS_PRODUCTION": "0" }
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": { "ANT_ADS_PRODUCTION": "0" }
+    },
+    "production": {
+      "env": {
+        "ANT_ADS_PRODUCTION": "1",
+        "EXPO_PUBLIC_ANT_ADS_PRODUCTION": "1"
+      }
+    }
+  }
+}

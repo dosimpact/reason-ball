@@ -1,0 +1,40 @@
+{
+  "name": "ant-atelier",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 4173 --strictPort",
+    "build": "tsc --noEmit && vite build",
+    "build:mobile": "vite build --mode mobile && node scripts/build-mobile.mjs",
+    "preview": "vite preview --host 127.0.0.1 --port 4174 --strictPort",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src && node scripts/check-fsd.mjs",
+    "test:e2e": "playwright test",
+    "test:serve": "vite preview --host 127.0.0.1 --port 4175 --strictPort",
+    "test:mobile": "vitest run --config mobile/vitest.config.ts",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"*.{ts,js,json}\" \"tests/**/*.ts\" \"scripts/*.mjs\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"*.{ts,js,json}\" \"tests/**/*.ts\" \"scripts/*.mjs\"",
+    "test:perf": "node scripts/benchmark-renderer.mjs"
+  },
+  "dependencies": {
+    "phaser": "4.2.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.0.0",
+    "prettier": "^3.9.6",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.0.0",
+    "vite": "^6.1.0",
+    "vite-plugin-singlefile": "^2.2.0",
+    "vitest": "^3.2.0"
+  }
+}
