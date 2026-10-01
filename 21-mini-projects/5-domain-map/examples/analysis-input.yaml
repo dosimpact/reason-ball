@@ -1,0 +1,30 @@
+# 예시 입력이며 실행된 분석 결과가 아니다. 경로/URL을 실제 값으로 바꾼다.
+project: company-advertising
+mode: bootstrap # bootstrap | continue | deepen | refresh
+output_dir: /absolute/path/to/private-domain-map-output
+language: ko
+focus: null # deepen에서는 domain ID 또는 답할 질문
+repositories:
+  - id: campaign-repo
+    path: /absolute/path/to/campaign-repo
+  - id: delivery-repo
+    url: https://github.com/your-org/delivery-repo
+    ref: main
+business_context: |
+  광고 도메인의 큰 업무 구조와 레포 사이 책임을 이해한다.
+  현재 작업 현황과 영향 영역을 추후 같은 지도에 연결한다.
+additional_sources: [] # 접근 가능한 업무 문서/이슈/PR URL 또는 파일 경로
+budget:
+  max_repositories_per_run: 5
+  max_files_per_repository: 12
+  max_lines_per_repository: 1500
+  max_domains_to_deepen: 1
+exclusions:
+  - node_modules
+  - vendor
+  - dist
+  - build
+  - .git
+  - .env*
+  - '*.pem'
+  - '*.key'
