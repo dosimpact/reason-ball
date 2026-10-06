@@ -69,6 +69,12 @@ Status key:
 - Example 49 adds the LangChain loop engineering learning path as a deterministic local harness with visible retry, trace, and improvement loops.
 - Boilerplate can start next: workspace package setup, Python LangGraph project setup, shared SDK client, app shell, and MVP routes.
 
+
+## 2026-10-06 · UI-GH-01 GitHub design system
+
+- Status: complete. Shared UI design: `plan/github-design-system.md`. Browser plan: `e2e-plan/github-design-system.md`.
+- Owner: Sol implementation agent; parent performs live browser verification.
+
 ## 2026-10-06 — UI-PUSH-CHAT-25 revision
 
 Example 25 now uses MessagesState chat, three dummy-data internal LLM calls with progress UI, and a final answer call. Updated plan, E2E contract, stock, and flow. Earlier example-25 verification applies to the superseded action-card UI. Current runtime/browser verification and migration of the old E2E spec are pending.
@@ -88,3 +94,39 @@ Example 25 now declares each node and connection explicitly, with a shared route
 ## 2026-10-06 — UI-PUSH-ID-25
 
 Assistant IDs are generated only in prepare_prompt on every turn. Removed old-state fallback, collision check, and frontend Assistant ID input/draft. Frontend uses the preparation update for the response bubble. TypeScript and graph compilation checks; live provider/browser checks remain pending.
+
+## 2026-10-06 — EXAMPLES-LAYERS-06
+
+In progress: independent layer refactor across the 53 folders other than example 25. Ownership: 01–12/variants, 13–24, 26–34+48–49, root 35–47. Plan: plan/examples-layer-refactor.md. Existing shared edits retained.
+
+## 2026-10-06 — EXAMPLES-LAYERS-06 complete
+
+All53 remaining example folders refactored with independent local modules; example25 retained. Parallel groups completed17/12/11/13 folders. Individual bilingual plans and consolidated stock/module inventory synchronized. Final scoped lint/build and whitespace check passed; all54-folder audit found0 sibling dependencies/runtime cycles/React imports in pure data modules. Vite large-chunk warning remains. No tests or all-example live E2E run for this task. Evidence: docs/flow/2026-10-06-examples-layer-refactor.md and docs/flow/2026-10-06-examples-layer-audit.json.
+
+## 2026-10-07 UI-PUSH-STREAM-25
+
+Generic tuple ID/text accumulation and optional progress-message linkage implemented. Static type check passed (pnpm --filter langgraph-sdk-examples lint); browser E2E not rerun. See docs/flow/2026-10-07-push-ui-generic-stream.md.
+
+## 2026-10-07 stream parser simplification
+
+Separated tuple validation, text extraction and Assistant delta handling. See docs/flow/2026-10-07-push-ui-stream-simplification.md.
+
+## 2026-10-07 UI-PUSH-SSOT-25
+
+Server messages retain all received fields without frontend patches. Pending input/drafts are separate; display data is extracted by selectMessageViews. Type check passed; browser E2E not rerun. See docs/flow/2026-10-07-push-ui-message-ssot.md.
+
+## 2026-10-07 UI-PUSH-UTILS-25
+
+Extracted record/text helpers to local utils.ts and updated imports. See docs/flow/2026-10-07-push-ui-stream-utils.md.
+
+## 2026-10-07 UI-PUSH-UTILS-25 reverted
+
+User requested undo. Restored stream utilities/imports and removed utils.ts. See docs/flow/2026-10-07-push-ui-stream-utils-revert.md.
+
+## 2026-10-07 EXAMPLES-REMEDA-07 in progress
+
+All example utility refactor delegated by disjoint folder groups; root handles25 and dependency/integration. See plan/examples-remeda-refactor.md.
+
+## 2026-10-07 EXAMPLES-REMEDA-07 complete
+
+54/54folders covered,94files importRemeda; no sibling imports/custom isRecord wrappers. Scoped lint/typecheck/build passed. Domain reducers/native browser logic preserved; no tests/E2E rerun. See docs/flow/2026-10-07-examples-remeda.md.

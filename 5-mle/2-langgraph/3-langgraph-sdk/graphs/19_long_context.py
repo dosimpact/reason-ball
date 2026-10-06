@@ -1,4 +1,6 @@
 """Example 19: long-context chat with explicit summary compaction state."""
+# 예제 개요: 대화가 길어질 때 요약과 최근 메시지로 문맥을 압축하는 예제입니다.
+# 핵심 흐름: 답변 후 압축 필요 여부를 판단하고, 메시지·요약·통계를 상태에 반영합니다.
 
 from __future__ import annotations
 
@@ -18,6 +20,7 @@ SUMMARIZE_AFTER = 8
 KEEP_RECENT = 4
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class MessageDigest(TypedDict):
     id: str
     role: str
@@ -70,6 +73,8 @@ class ContextEvent(TypedDict):
     removed_count: int
 
 
+# LongContextState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(summary_records, summarized_messages, context_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class LongContextState(MessagesState, total=False):
     summary: str
     summary_metadata: SummaryMetadata
@@ -165,6 +170,7 @@ def _stats(state: LongContextState, *, triggered: bool = False) -> ContextStats:
     }
 
 
+# 누적 대화 메시지를 모델에 전달하고 새 응답을 메시지 상태에 추가합니다.
 def chat(state: LongContextState) -> dict:
     messages = state.get("messages", [])
     summary = state.get("summary", "")
@@ -212,10 +218,12 @@ def chat(state: LongContextState) -> dict:
     }
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_after_chat(state: LongContextState) -> str:
     return "summarize" if len(state.get("messages", [])) > SUMMARIZE_AFTER else "finalize"
 
 
+# 오래된 대화를 요약하여 이후 호출에 사용할 메시지 문맥을 압축합니다.
 def summarize(state: LongContextState) -> dict:
     messages = state.get("messages", [])
     to_summarize = messages[:-KEEP_RECENT] if KEEP_RECENT > 0 else messages
@@ -303,6 +311,7 @@ def summarize(state: LongContextState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: LongContextState) -> dict:
     messages = state.get("messages", [])
     metadata = state.get("summary_metadata")
@@ -323,6 +332,7 @@ def finalize(state: LongContextState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(LongContextState)
     builder.add_node("chat", chat)
@@ -339,5 +349,6 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 

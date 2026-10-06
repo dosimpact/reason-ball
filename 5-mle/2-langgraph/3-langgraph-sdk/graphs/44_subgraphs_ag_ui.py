@@ -1,4 +1,6 @@
 """Example 44: CopilotKit AG-UI subgraph coordination graph."""
+# 예제 개요: 여러 워커의 진행과 부모 집계를 AG-UI에서 표시하는 예제입니다.
+# 핵심 흐름: 도구가 고정 워커 결과를 구성하는 데모이며, 실제 하위 그래프나 병렬 작업을 실행하지 않습니다.
 
 from __future__ import annotations
 
@@ -18,6 +20,7 @@ def _preview(text: str, limit: int = 96) -> str:
     return f"{cleaned[: limit - 3].rstrip()}..."
 
 
+# 하위 그래프의 실행 모양을 보여주는 고정 결과를 반환합니다. 실제 워커 그래프를 호출하지 않습니다.
 @tool("run_subgraph_workers")
 def run_subgraph_workers(task: str) -> dict[str, Any]:
     """Run deterministic worker subgraphs and aggregate their results."""
@@ -75,6 +78,7 @@ SYSTEM_PROMPT = (
 )
 
 
+# 그래프 구성: create_agent가 모델과 도구의 반복 실행을 구성하고 미들웨어를 연결합니다.
 def build_graph():
     return create_agent(
         model=create_llm(),
@@ -84,4 +88,5 @@ def build_graph():
     )
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

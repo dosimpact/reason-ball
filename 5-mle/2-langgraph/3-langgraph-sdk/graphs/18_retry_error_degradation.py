@@ -1,4 +1,6 @@
 """Example 18: deterministic retry, error, and graceful degradation states."""
+# 예제 개요: 실패, 재시도, 대체 응답을 상태와 이벤트로 보여주는 오류 처리 예제입니다.
+# 핵심 흐름: 실패를 재현하는 데모 조건과 최대 시도 횟수에 따라 재호출·fallback·완료로 분기합니다.
 
 from __future__ import annotations
 
@@ -15,6 +17,7 @@ FailureMode = Literal["normal", "flaky_success", "fallback_success", "final_fail
 FinalStatus = Literal["idle", "running", "success", "success_with_retries", "fallback_success", "failed"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class RetryAttempt(TypedDict):
     attempt: int
     status: str
@@ -42,6 +45,7 @@ class RetryEvent(TypedDict):
     backoff_ms: int
 
 
+# RetryState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
 class RetryState(TypedDict, total=False):
     query: str
     failure_mode: FailureMode
@@ -156,6 +160,7 @@ def prepare(state: RetryState) -> dict:
     }
 
 
+# 주 처리 경로를 시도하고 성공 또는 실패 정보를 다음 분기용 상태에 남깁니다.
 def primary_call(state: RetryState) -> dict:
     attempt = int(state.get("current_attempt", 0)) + 1
     mode = state.get("failure_mode", "flaky_success")
@@ -274,6 +279,7 @@ def primary_call(state: RetryState) -> dict:
     }
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_after_primary(state: RetryState) -> str:
     if state.get("primary_result"):
         return "finalize"
@@ -324,6 +330,7 @@ def fallback(state: RetryState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: RetryState) -> dict:
     primary = state.get("primary_result", "")
     fallback_result = state.get("fallback_result", "")
@@ -357,6 +364,7 @@ def finalize(state: RetryState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(RetryState)
     builder.add_node("prepare", prepare)
@@ -376,9 +384,11 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     output = graph.invoke({"failure_mode": "fallback_success", "query": DEFAULT_QUERY})
     print(output["final"])

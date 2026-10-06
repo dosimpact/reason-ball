@@ -1,4 +1,6 @@
 """Example 12: structured output extraction with validation metadata."""
+# 예제 개요: 모델 출력을 정해진 스키마로 추출하고 검증 결과를 함께 제공하는 예제입니다.
+# 핵심 흐름: 스키마 준비 → 구조화 추출 → 검증 → 최종 정리 순서로 실행합니다.
 
 from __future__ import annotations
 
@@ -16,6 +18,7 @@ Team = Literal["product", "engineering", "support", "security", "operations"]
 ValidationStatus = Literal["pending", "valid", "invalid"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class ActionItem(BaseModel):
     """A concrete follow-up item extracted from the request."""
 
@@ -44,6 +47,7 @@ class FieldRow(TypedDict):
     value_type: str
 
 
+# StructuredOutputState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
 class StructuredOutputState(TypedDict, total=False):
     request: str
     schema_name: str
@@ -225,6 +229,7 @@ def validate_result(state: StructuredOutputState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: StructuredOutputState) -> dict:
     status = state.get("validation_status", "invalid")
     parsed = state.get("parsed_object", {})
@@ -244,6 +249,7 @@ def finalize(state: StructuredOutputState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(StructuredOutputState)
     builder.add_node("prepare_schema", prepare_schema)
@@ -259,9 +265,11 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     output = graph.invoke({"request": DEFAULT_REQUEST})
     print(output["final"])

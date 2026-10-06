@@ -1,4 +1,6 @@
 """Example 14: plan-and-execute workflow with observable step state."""
+# 예제 개요: 계획을 세운 뒤 각 단계를 실행하고 필요하면 다시 계획하는 워크플로입니다.
+# 핵심 흐름: 현재 단계와 실행 기록을 상태에 남기고, 계속 실행·재계획·중단·완료 중 다음 경로를 고릅니다.
 
 from __future__ import annotations
 
@@ -17,6 +19,7 @@ ControlMode = Literal["normal", "replan_after_first", "stop_after_first"]
 ExecutionStatus = Literal["idle", "planned", "executing", "replanned", "stopped", "completed"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class StepDraft(BaseModel):
     """One short executable plan step."""
 
@@ -55,6 +58,7 @@ class ReplanRecord(TypedDict):
     new_step_ids: list[str]
 
 
+# PlanExecuteState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
 class PlanExecuteState(TypedDict, total=False):
     task: str
     control_mode: ControlMode
@@ -144,6 +148,7 @@ def _steps_from_titles(titles: list[str], version: int, source: str) -> list[Pla
     return [_step(f"v{version}-step-{index}", index, title.strip(), source) for index, title in enumerate(titles, start=1)]
 
 
+# 요청을 실행 단계로 나누고 계획과 초기 진행 상태를 만듭니다.
 def planner(state: PlanExecuteState) -> dict:
     task = state.get("task", DEFAULT_TASK)
     control_mode = state.get("control_mode", "normal")
@@ -189,6 +194,7 @@ def planner(state: PlanExecuteState) -> dict:
     }
 
 
+# 현재 계획의 한 단계를 처리하고 결과와 진행 위치를 갱신합니다.
 def executor(state: PlanExecuteState) -> dict:
     remaining = list(state.get("remaining_steps", []))
     steps = list(state.get("plan_steps", []))
@@ -247,6 +253,7 @@ def executor(state: PlanExecuteState) -> dict:
     }
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def should_continue(state: PlanExecuteState) -> str:
     completed_count = len(state.get("completed_steps", []))
     if state.get("control_mode") == "stop_after_first" and completed_count >= 1 and not state.get("stopped"):
@@ -261,6 +268,7 @@ def should_continue(state: PlanExecuteState) -> str:
     return "executor" if state.get("remaining_steps") else "finalize"
 
 
+# 현재 진행 상황을 반영해 남은 계획을 다시 구성합니다.
 def replan(state: PlanExecuteState) -> dict:
     task = state.get("task", DEFAULT_TASK)
     remaining_ids = list(state.get("remaining_steps", []))
@@ -349,6 +357,7 @@ def stop_execution(state: PlanExecuteState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: PlanExecuteState) -> dict:
     completed = state.get("completed_steps", [])
     lines = [
@@ -379,6 +388,7 @@ def finalize(state: PlanExecuteState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(PlanExecuteState)
     builder.add_node("planner", planner)
@@ -400,9 +410,11 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     output = graph.invoke({"task": DEFAULT_TASK, "control_mode": "normal"}, config={"recursion_limit": 20})
     print(output["final"])

@@ -1,4 +1,6 @@
 """Example 31: chat-driven plan board artifact workflow."""
+# 예제 개요: 계획의 생성·진행·수정·단계 이동을 채팅과 보드 상태로 연결합니다.
+# 핵심 흐름: 실행 요청의 action을 해당 노드로 보내고 변경된 계획과 이벤트를 반환합니다.
 
 from __future__ import annotations
 
@@ -15,6 +17,7 @@ from common.llm import create_llm
 FinalStatus = Literal["idle", "running", "planned", "continued", "replanned", "failed"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class PlanStep(TypedDict):
     id: str
     title: str
@@ -43,6 +46,8 @@ class PlanEvent(TypedDict):
     progress: float
 
 
+# PlanBoardState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(execution_log, plan_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class PlanBoardState(TypedDict, total=False):
     user_goal: str
     revision_note: str
@@ -296,12 +301,14 @@ def move_step(state: PlanBoardState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: PlanBoardState) -> dict:
     status = str(state.get("final_status") or "idle")
     done = _emit(_event("final", "completed", f"Plan board run completed with status={status}.", 1.0))
     return {"final_status": status, "final": str(state.get("final") or "Plan board run complete."), "plan_events": [done]}
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_action(state: PlanBoardState) -> str:
     action = str(state.get("action") or "").strip().lower()
     if action == "continue":
@@ -313,6 +320,7 @@ def route_action(state: PlanBoardState) -> str:
     return "create_plan"
 
 
+# 그래프 구성: action에 따른 진입 경로를 선택하고 각 처리 결과를 finalize로 모읍니다.
 builder = StateGraph(PlanBoardState)
 builder.add_node("create_plan", create_plan)
 builder.add_node("continue_plan", continue_plan)
@@ -335,4 +343,5 @@ builder.add_edge("revise_plan", "finalize")
 builder.add_edge("move_step", "finalize")
 builder.add_edge("finalize", END)
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = builder.compile()

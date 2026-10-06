@@ -1,4 +1,6 @@
 """Example 42: AG-UI chat with public reasoning summaries."""
+# 예제 개요: agent의 공개 작업 요약을 별도 UI로 보여주는 예제입니다.
+# 핵심 흐름: 요약 도구의 고정 단계와 사실 카드는 사용자용 설명이며 비공개 내부 추론이 아닙니다.
 
 from __future__ import annotations
 
@@ -45,6 +47,7 @@ SYSTEM_PROMPT = (
 )
 
 
+# 그래프 구성: create_agent가 모델과 도구의 반복 실행을 구성하고 미들웨어를 연결합니다.
 def build_graph():
     return create_agent(
         model=create_llm("fast"),
@@ -54,4 +57,5 @@ def build_graph():
     )
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

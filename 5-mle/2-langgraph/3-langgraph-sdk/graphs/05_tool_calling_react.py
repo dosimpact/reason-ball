@@ -1,4 +1,6 @@
 """Example 05: ReAct-style tool calling graph for UI inspection."""
+# 예제 개요: 모델이 도구를 선택하고 결과를 읽은 뒤 답변하는 ReAct 형태의 예제입니다.
+# 핵심 흐름: agent → tools → agent를 반복하며, 도구 호출이 없는 응답에서 종료합니다.
 
 from __future__ import annotations
 
@@ -50,12 +52,14 @@ SYSTEM_PROMPT = (
 )
 
 
+# 현재 단계의 입력으로 모델을 호출하고 응답을 다음 노드가 사용할 상태로 반환합니다.
 def call_model(state: MessagesState) -> dict:
     llm = create_llm().bind_tools(TOOLS)
     response = llm.invoke([SystemMessage(content=SYSTEM_PROMPT)] + state["messages"])
     return {"messages": [response]}
 
 
+# 마지막 응답에 도구 호출이 있으면 tools로 보내고, 없으면 실행을 종료합니다.
 def route_after_agent(state: MessagesState) -> Literal["tools", "__end__"]:
     last_message = state["messages"][-1]
     if getattr(last_message, "tool_calls", None):
@@ -63,6 +67,7 @@ def route_after_agent(state: MessagesState) -> Literal["tools", "__end__"]:
     return "__end__"
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(MessagesState)
     builder.add_node("agent", call_model)
@@ -73,9 +78,11 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     from langchain_core.messages import HumanMessage
 

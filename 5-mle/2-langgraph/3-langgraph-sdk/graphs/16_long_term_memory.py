@@ -1,4 +1,6 @@
 """Example 16: user-scoped long-term memory with store operations."""
+# 예제 개요: 사용자별 namespace로 장기 기억을 저장·조회·수정하는 예제입니다.
+# 핵심 흐름: 대화 thread의 체크포인트와 별개인 BaseStore를 사용해 기억을 관리합니다.
 
 from __future__ import annotations
 
@@ -16,6 +18,7 @@ from common.llm import create_llm
 MemoryAction = Literal["create", "update", "delete", "recall"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class MemoryRecord(TypedDict):
     id: str
     content: str
@@ -40,6 +43,7 @@ class MemoryEvent(TypedDict):
     detail: str
 
 
+# LongTermMemoryState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
 class LongTermMemoryState(TypedDict, total=False):
     user_id: str
     action: MemoryAction
@@ -138,6 +142,7 @@ def prepare(state: LongTermMemoryState) -> dict:
     }
 
 
+# 입력에서 지정한 기억 관리 작업을 사용자 namespace의 store에 적용합니다.
 def apply_memory_operation(state: LongTermMemoryState, *, store: BaseStore) -> dict:
     user_id = state.get("user_id", DEFAULT_USER_ID)
     action: MemoryAction = state.get("action", "recall")
@@ -193,6 +198,7 @@ def apply_memory_operation(state: LongTermMemoryState, *, store: BaseStore) -> d
     }
 
 
+# 사용자 namespace의 기억을 조회해 이번 응답의 참조 자료로 준비합니다.
 def recall_memories(state: LongTermMemoryState, *, store: BaseStore) -> dict:
     user_id = state.get("user_id", DEFAULT_USER_ID)
     memories = _snapshot(store, user_id)
@@ -212,6 +218,7 @@ def recall_memories(state: LongTermMemoryState, *, store: BaseStore) -> dict:
     }
 
 
+# 조회한 기억을 문맥에 넣어 답변을 생성합니다.
 def respond_with_memory(state: LongTermMemoryState) -> dict:
     memories = state.get("memories", [])
     memory_lines = "\n".join(f"- {item['content']}" for item in memories) or "- No durable memories found."
@@ -256,6 +263,7 @@ def respond_with_memory(state: LongTermMemoryState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph(store: BaseStore | None = None):
     builder = StateGraph(LongTermMemoryState)
     builder.add_node("prepare", prepare)
@@ -271,9 +279,11 @@ def build_graph(store: BaseStore | None = None):
     return builder.compile(store=store)
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     from langgraph.store.memory import InMemoryStore
 

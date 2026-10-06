@@ -1,4 +1,6 @@
 """Example 36: CopilotKit AG-UI backend tool rendering graph."""
+# 예제 개요: 백엔드 도구 결과를 프런트엔드의 재고 카드로 표시하는 예제입니다.
+# 핵심 흐름: 고정 재고 목록을 필터링해 표와 지표를 반환하고, agent가 결과를 설명합니다.
 
 from __future__ import annotations
 
@@ -87,6 +89,7 @@ SYSTEM_PROMPT = (
 )
 
 
+# 그래프 구성: create_agent가 모델과 도구의 반복 실행을 구성하고 미들웨어를 연결합니다.
 def build_graph():
     return create_agent(
         model=create_llm(),
@@ -96,4 +99,5 @@ def build_graph():
     )
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

@@ -1,4 +1,6 @@
 """Example 46: CopilotKit AG-UI dynamic-schema A2UI graph."""
+# 예제 개요: 요청에 따라 허용된 컴포넌트 종류를 골라 동적 UI 스키마를 만듭니다.
+# 핵심 흐름: 지원하지 않는 노드도 샘플에 포함하여 프런트엔드의 fallback 렌더링을 확인합니다.
 
 from __future__ import annotations
 
@@ -100,6 +102,7 @@ SYSTEM_PROMPT = (
 )
 
 
+# 그래프 구성: create_agent가 모델과 도구의 반복 실행을 구성하고 미들웨어를 연결합니다.
 def build_graph():
     return create_agent(
         model=create_llm(),
@@ -109,4 +112,5 @@ def build_graph():
     )
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

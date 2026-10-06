@@ -1,146 +1,34 @@
 import { Loader2, Play, Plus, RefreshCw, Server, Trash2 } from "lucide-react";
-import { FormEvent, useState } from "react";
 import {
-  AssistantRecord,
-  StreamLogEntry,
   assistantIdOf,
   assistantLabelOf,
-  createLangGraphClient,
-  extractLatestMessageText,
   langGraphApiUrl,
-  normalizeAssistants,
-  normalizeStreamChunk,
 } from "../../lib/langgraphClient";
-
-const client = createLangGraphClient();
+import { ResultsPanel, StreamEventsPanel } from "./ResultsPanels";
+import { useSdkConnection } from "./useSdkConnection";
 
 export function SdkConnectionExample() {
-  const [assistants, setAssistants] = useState<AssistantRecord[]>([]);
-  const [selectedAssistantId, setSelectedAssistantId] = useState("01_sdk_connection");
-  const [threadId, setThreadId] = useState("");
-  const [prompt, setPrompt] = useState("Say hello from the SDK connection example.");
-  const [runId, setRunId] = useState("");
-  const [status, setStatus] = useState("Idle");
-  const [answer, setAnswer] = useState("");
-  const [events, setEvents] = useState<StreamLogEntry[]>([]);
-  const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
-
   // 핵심 노트
-  // - load assistant 
-  // - 
-
-  async function loadAssistants() {
-    setBusy(true);
-    setError("");
-    setStatus("Loading assistants");
-    try {
-      const result = await client.assistants.search({ limit: 100 });
-
-
-      const normalized = normalizeAssistants(result);
-      setAssistants(normalized);
-      const preferred =
-        normalized.find(
-          (assistant) =>
-            assistant.graph_id === "01_sdk_connection" ||
-            assistant.graphId === "01_sdk_connection" ||
-            assistant.name === "01_sdk_connection",
-        ) ?? normalized[0];
-      if (preferred) {
-        setSelectedAssistantId(preferred.graph_id ?? preferred.graphId ?? assistantIdOf(preferred));
-      }
-      setStatus(`Loaded ${normalized.length} assistant${normalized.length === 1 ? "" : "s"}`);
-    } catch (caught) {
-      setError(caught instanceof Error ? caught.message : String(caught));
-      setStatus("Assistant load failed");
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function createThread() {
-    setBusy(true);
-    setError("");
-    setStatus("Creating thread");
-    try {
-      const thread = await client.threads.create();
-      const nextThreadId = thread.thread_id;
-      
-      setThreadId(nextThreadId);
-      setEvents([]);
-      setAnswer("");
-      setRunId("");
-      setStatus("Thread ready");
-      return nextThreadId;
-    } catch (caught) {
-      setError(caught instanceof Error ? caught.message : String(caught));
-      setStatus("Thread create failed");
-      return "";
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function deleteThread() {
-    if (!threadId) return;
-    setBusy(true);
-    setError("");
-    setStatus("Deleting thread");
-    try {
-      await client.threads.delete(threadId);
-      setThreadId("");
-      setRunId("");
-      setEvents([]);
-      setAnswer("");
-      setStatus("Thread deleted");
-    } catch (caught) {
-      setError(caught instanceof Error ? caught.message : String(caught));
-      setStatus("Thread delete failed");
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function runAssistant(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setBusy(true);
-    setError("");
-    setAnswer("");
-    setRunId("");
-    setEvents([]);
-    setStatus("Starting run");
-
-    try {
-      const activeThreadId = threadId || (await createThread());
-      if (!activeThreadId) throw new Error("Unable to create or reuse a thread.");
-
-      const stream = await client.runs.stream(activeThreadId, selectedAssistantId, {
-        input: {
-          messages: [{ type: "human", content: prompt }],
-        },
-        streamMode: "updates",
-      });
-
-      for await (const chunk of stream) {
-        const logEntry = normalizeStreamChunk(chunk);
-        setEvents((current) => [logEntry, ...current].slice(0, 80));
-        if (logEntry.runId) setRunId(logEntry.runId);
-
-        const text = extractLatestMessageText(logEntry.data);
-        if (text) setAnswer(text);
-        setStatus(`Streaming: ${logEntry.event}`);
-      }
-
-      setStatus("Run complete");
-    } catch (caught) {
-      setError(caught instanceof Error ? caught.message : String(caught));
-      setStatus("Run failed");
-    } finally {
-      setBusy(false);
-    }
-  }
-
+  // - load assistant
+  // -
+  const {
+    assistants,
+    selectedAssistantId,
+    setSelectedAssistantId,
+    threadId,
+    prompt,
+    setPrompt,
+    runId,
+    status,
+    answer,
+    events,
+    error,
+    busy,
+    loadAssistants,
+    createThread,
+    deleteThread,
+    runAssistant,
+  } = useSdkConnection();
   return (
     <section className="example-grid">
       <div className="control-panel">
@@ -155,15 +43,34 @@ export function SdkConnectionExample() {
         </label>
 
         <div className="button-row">
-          <button type="button" className="secondary-button" onClick={loadAssistants} disabled={busy}>
-            {busy ? <Loader2 className="spin" size={16} /> : <RefreshCw size={16} />}
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={loadAssistants}
+            disabled={busy}
+          >
+            {busy ? (
+              <Loader2 className="spin" size={16} />
+            ) : (
+              <RefreshCw size={16} />
+            )}
             Load assistants
           </button>
-          <button type="button" className="secondary-button" onClick={createThread} disabled={busy}>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={createThread}
+            disabled={busy}
+          >
             <Plus size={16} />
             New thread
           </button>
-          <button type="button" className="icon-button danger" onClick={deleteThread} disabled={busy || !threadId}>
+          <button
+            type="button"
+            className="icon-button danger"
+            onClick={deleteThread}
+            disabled={busy || !threadId}
+          >
             <Trash2 size={16} />
           </button>
         </div>
@@ -201,12 +108,26 @@ export function SdkConnectionExample() {
           </div>
         </div>
 
-        <form onSubmit={runAssistant} className="run-form">
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            void runAssistant();
+          }}
+          className="run-form"
+        >
           <label className="field">
             <span>Input</span>
-            <textarea value={prompt} onChange={(event) => setPrompt(event.target.value)} rows={4} />
+            <textarea
+              value={prompt}
+              onChange={(event) => setPrompt(event.target.value)}
+              rows={4}
+            />
           </label>
-          <button type="submit" className="primary-button" disabled={busy || !selectedAssistantId}>
+          <button
+            type="submit"
+            className="primary-button"
+            disabled={busy || !selectedAssistantId}
+          >
             {busy ? <Loader2 className="spin" size={16} /> : <Play size={16} />}
             Run and stream
           </button>
@@ -215,30 +136,9 @@ export function SdkConnectionExample() {
         {error ? <p className="error-line">{error}</p> : null}
       </div>
 
-      <div className="result-panel">
-        <div className="panel-title">OpenAI-backed response</div>
-        <div className="answer-box">{answer}</div>
-      </div>
+      <ResultsPanel answer={answer} />
 
-      <div className="event-panel">
-        <div className="panel-title">Stream events</div>
-        <div className="event-list">
-          {events.length === 0 ? (
-            <p className="muted">No events yet.</p>
-          ) : (
-            events.map((entry) => (
-              <details key={entry.id} className="event-row">
-                <summary>
-                  <span>{entry.receivedAt}</span>
-                  <strong>{entry.event}</strong>
-                  {entry.runId ? <code>{entry.runId}</code> : null}
-                </summary>
-                <pre>{JSON.stringify(entry.data, null, 2)}</pre>
-              </details>
-            ))
-          )}
-        </div>
-      </div>
+      <StreamEventsPanel runId={runId} events={events} />
     </section>
   );
 }

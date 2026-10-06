@@ -1,4 +1,6 @@
 """Example 09: conditional routing with explicit branch metadata."""
+# 예제 개요: 요청을 번역, 요약, 지원 중 한 경로로 분류하는 조건부 라우팅 예제입니다.
+# 핵심 흐름: 선택한 노드만 실행하고, 나머지 경로는 건너뛴 상태로 UI에 전달합니다.
 
 from __future__ import annotations
 
@@ -13,6 +15,7 @@ from common.llm import create_llm
 BranchName = Literal["translation", "summary", "support"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class BranchStatus(TypedDict):
     name: BranchName
     label: str
@@ -20,6 +23,7 @@ class BranchStatus(TypedDict):
     reason: str
 
 
+# ConditionalRoutingState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
 class ConditionalRoutingState(TypedDict, total=False):
     request: str
     selected_branch: BranchName
@@ -100,6 +104,7 @@ def _statuses(selected: BranchName, *, done: bool = False) -> list[BranchStatus]
     return rows
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_request(state: ConditionalRoutingState) -> dict:
     request = state.get(
         "request",
@@ -127,6 +132,7 @@ def route_request(state: ConditionalRoutingState) -> dict:
     }
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_after_decision(state: ConditionalRoutingState) -> str:
     return state.get("selected_branch", "support")
 
@@ -201,6 +207,7 @@ def support_branch(state: ConditionalRoutingState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: ConditionalRoutingState) -> dict:
     selected = state.get("selected_branch", "support")
     label = BRANCH_LABELS[selected]
@@ -212,6 +219,7 @@ def finalize(state: ConditionalRoutingState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(ConditionalRoutingState)
     builder.add_node("route_request", route_request)
@@ -236,9 +244,11 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     for request in [
         "Translate this to Korean: The deployment finished successfully.",

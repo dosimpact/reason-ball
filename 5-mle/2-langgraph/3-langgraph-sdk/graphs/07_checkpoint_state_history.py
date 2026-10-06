@@ -1,4 +1,6 @@
 """Example 07: checkpointed state history with visible state mutations."""
+# 예제 개요: 노드마다 상태 값을 바꾸어 체크포인트 이력과 상태 차이를 관찰하는 예제입니다.
+# 핵심 흐름: history_events는 학습용 기록이며, 실제 체크포인트 저장은 서버 또는 checkpointer가 담당합니다.
 
 from __future__ import annotations
 
@@ -10,6 +12,8 @@ from langgraph.graph import END, START, StateGraph
 from common.llm import create_llm
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
+# CheckpointHistoryState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
 class CheckpointHistoryState(TypedDict, total=False):
     topic: str
     prompt: str
@@ -103,6 +107,7 @@ def finalize_answer(state: CheckpointHistoryState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(CheckpointHistoryState)
     builder.add_node("prepare_request", prepare_request)
@@ -115,9 +120,11 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     from langgraph.checkpoint.memory import MemorySaver
 

@@ -1,4 +1,6 @@
 """Example 21: intent validation that emits typed UI payloads for missing fields."""
+# 예제 개요: 요청에서 필수 필드를 찾고 부족한 입력을 UI로 다시 묻는 예제입니다.
+# 핵심 흐름: 정보가 부족하면 피드백 UI를 반환하고 종료하며, 충분하면 고정 시세 자료로 답변을 만듭니다.
 
 from __future__ import annotations
 
@@ -17,6 +19,7 @@ FieldName = Literal["ticker", "market", "period"]
 FinalStatus = Literal["needs_feedback", "completed"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class Option(TypedDict):
     label: str
     value: str
@@ -63,6 +66,8 @@ class IntentEvent(TypedDict):
     field: str
 
 
+# IntentFeedbackState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(intent_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class IntentFeedbackState(TypedDict, total=False):
     user_query: str
     ticker: str
@@ -214,6 +219,7 @@ def _ui_request(field: FieldName, options: list[Option]) -> UIRequest:
     }
 
 
+# 요청에서 필요한 필드를 추출하고 누락 여부를 기록합니다.
 def parse_intent(state: IntentFeedbackState) -> dict:
     query = state.get("user_query", "Show me the stock price.")
     ticker = _selected(state, "ticker") or _parse_ticker(query)
@@ -258,10 +264,12 @@ def parse_intent(state: IntentFeedbackState) -> dict:
     }
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_after_parse(state: IntentFeedbackState) -> str:
     return "request_feedback" if state.get("missing_fields") else "lookup_quote"
 
 
+# 누락한 필드를 입력받을 UI 데이터를 만들고 이번 실행을 끝냅니다.
 def request_feedback(state: IntentFeedbackState) -> dict:
     requests: list[UIRequest] = []
     for field in state.get("missing_fields", []):
@@ -281,6 +289,7 @@ def request_feedback(state: IntentFeedbackState) -> dict:
     }
 
 
+# 실시간 조회 대신 예제의 고정 시세 자료를 선택합니다.
 def lookup_quote(state: IntentFeedbackState) -> dict:
     ticker = state.get("ticker", "AAPL")
     fixture = QUOTE_FIXTURES.get(ticker, QUOTE_FIXTURES["AAPL"])
@@ -331,6 +340,7 @@ def compose_answer(state: IntentFeedbackState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(IntentFeedbackState)
     builder.add_node("parse_intent", parse_intent)
@@ -349,4 +359,5 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

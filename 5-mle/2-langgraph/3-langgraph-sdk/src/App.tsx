@@ -1,4 +1,4 @@
-import { BookOpen, CheckCircle2, ChevronDown, FlaskConical, ListTree } from "lucide-react";
+import { BookOpen, CheckCircle2, ChevronDown, Code2, ExternalLink, FlaskConical, GitBranch, ListTree } from "lucide-react";
 import { useMemo, useState } from "react";
 import { SdkConnectionExample } from "./examples/01-sdk-connection/SdkConnectionExample";
 import { SdkConnectionReactHookExample } from "./examples/01-2-sdk-connection-react-hook/SdkConnectionReactHookExample";
@@ -57,6 +57,13 @@ import { HumanInTheLoopReactHookExample } from "./examples/06-2-human-in-the-loo
 import { examples, type ExampleMeta } from "./data/examples";
 
 const groupOrder: ExampleMeta["group"][] = ["MVP", "Core", "Generative UI", "Artifact", "CopilotKit"];
+const groupDescriptions: Record<ExampleMeta["group"], string> = {
+  MVP: "Connect to your graph, manage threads, and explore the SDK fundamentals.",
+  Core: "Explore graph execution, state, memory, and agent orchestration patterns.",
+  "Generative UI": "Turn streamed agent events into interactive, expressive interfaces.",
+  Artifact: "Work with code, documents, and data alongside your agent conversation.",
+  CopilotKit: "Explore collaborative agent interfaces with CopilotKit and AG-UI.",
+};
 
 export default function App() {
   const [activeSlug, setActiveSlug] = useState("01-sdk-connection");
@@ -91,12 +98,33 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      <header className="repository-header">
+        <div className="repository-identity">
+          <span className="repository-mark"><FlaskConical aria-hidden="true" size={21} /></span>
+          <div className="repository-name">
+            <span>langgraph <span className="repository-slash">/</span></span>
+            <h1>sdk-examples</h1>
+          </div>
+          <span className="repository-badge">Learning workspace</span>
+        </div>
+        <a className="documentation-link" href="https://docs.langchain.com/langsmith/use-sdk" target="_blank" rel="noreferrer">
+          <BookOpen aria-hidden="true" size={16} />
+          <span>SDK documentation</span>
+          <ExternalLink aria-hidden="true" size={13} />
+        </a>
+      </header>
+
+      <div className="repository-overview">
+        <div className="repository-section"><Code2 aria-hidden="true" size={17} /> Examples <span className="count-badge">{examples.length}</span></div>
+        <div className="repository-stack"><GitBranch aria-hidden="true" size={14} /> Graph + React <span>TypeScript / Python</span></div>
+      </div>
+
+      <div className="app-body">
       <aside className="sidebar" aria-label="Example navigation">
         <div className="brand">
-          <FlaskConical aria-hidden="true" size={22} />
           <div>
-            <h1>LangGraph SDK</h1>
-            <p>Graph + React examples</p>
+            <h2>Explore examples</h2>
+            <p>{groupOrder.length} learning paths · {examples.length} examples</p>
           </div>
         </div>
 
@@ -145,6 +173,8 @@ export default function App() {
                         key={example.slug}
                         type="button"
                         className={example.slug === activeSlug ? "nav-item active" : "nav-item"}
+                        aria-current={example.slug === activeSlug ? "page" : undefined}
+                        title={example.title}
                         onClick={() => {
                           setActiveSlug(example.slug);
                           setIsMobileNavOpen(false);
@@ -170,8 +200,9 @@ export default function App() {
       <main className="workspace">
         <header className="workspace-header">
           <div>
-            <p className="eyebrow">{activeExample.group}</p>
+            <p className="eyebrow"><BookOpen aria-hidden="true" size={14} /> {activeExample.group} <span>/</span> Example {String(activeExample.id).padStart(2, "0")}</p>
             <h2>{activeExample.title}</h2>
+            <p className="workspace-description">{groupDescriptions[activeExample.group]}</p>
           </div>
           <div className="plan-pill">
             <ListTree aria-hidden="true" size={16} />
@@ -299,6 +330,7 @@ export default function App() {
           </section>
         ) : null}
       </main>
+      </div>
     </div>
   );
 }

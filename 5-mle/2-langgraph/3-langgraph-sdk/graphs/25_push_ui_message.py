@@ -34,6 +34,9 @@ from common.llm import create_llm
 #     merge=True,                         # 다른 props는 유지하고 content만 갱신합니다.
 # )
 
+# 노트 
+# 1. `push_ui_message()`는 노드의 `return`에 `ui`를 넣지 않아도 UI 상태를 갱신합니다. 
+
 
 class PushUIState(MessagesState):
     ui: Annotated[list[AnyUIMessage], ui_message_reducer]
@@ -213,14 +216,19 @@ def generate_final_answer(state: PushUIState) -> dict:
                 f"Preparation summaries: {state.get('stage_results', [])}"
             )),
             *_chat_context(state),
-        ])
+        ], config={"metadata": {"message_id": state["assistant_message_id"]}})
     except Exception as error:
         return _fail_turn(state, error)
+
+    # 스트림 metadata.message_id와 저장된 메시지 ID를 동일하게 유지합니다.
     response.id = state["assistant_message_id"]
+
     answer = _text(response.content).strip()
     if not answer:
         return _fail_turn(state, ValueError("최종 응답이 비어 있습니다."))
+
     _push_work_status(state, "completed", "자료 처리와 최종 응답 작성을 완료했습니다.")
+
     return {
         "messages": [response],
         "final_status": "completed",

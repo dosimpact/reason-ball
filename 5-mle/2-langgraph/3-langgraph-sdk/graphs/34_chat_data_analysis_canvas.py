@@ -1,4 +1,6 @@
 """Example 34: chat-driven sandboxed data analysis canvas."""
+# 예제 개요: CSV를 메모리에서 파싱하고 통계·표·차트 명세를 만드는 분석 예제입니다.
+# 핵심 흐름: 생성 코드는 검토용이며 실행하지 않습니다. 분석은 Python 함수로 수행하고 요약에 모델을 사용할 수 있습니다.
 
 from __future__ import annotations
 
@@ -19,6 +21,7 @@ ExecutionStatus = Literal["idle", "parsing", "retrying", "running", "completed",
 FinalStatus = Literal["idle", "running", "analyzed", "retried", "failed"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class DatasetMetadata(TypedDict, total=False):
     source: str
     row_count: int
@@ -82,6 +85,8 @@ class AnalysisEvent(TypedDict):
     progress: float
 
 
+# ChatDataAnalysisCanvasState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(analysis_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class ChatDataAnalysisCanvasState(TypedDict, total=False):
     action: str
     user_request: str
@@ -590,6 +595,7 @@ def retry_analysis(state: ChatDataAnalysisCanvasState) -> dict:
     }
 
 
+# CSV를 파싱하고 열별 타입·결측값과 미리보기 데이터를 계산합니다.
 def parse_dataset(state: ChatDataAnalysisCanvasState) -> dict:
     request = _normalize_request(state.get("user_request"))
     retry_count = int(state.get("retry_count") or 0)
@@ -632,6 +638,7 @@ def parse_dataset(state: ChatDataAnalysisCanvasState) -> dict:
     }
 
 
+# 검토용 코드를 만들고 내장 함수로 통계·표·차트 데이터를 계산합니다.
 def run_sandbox_analysis(state: ChatDataAnalysisCanvasState) -> dict:
     start = _emit(_event("sandbox", "running", "Running deterministic sandbox analysis.", 0.58))
     request = _normalize_request(state.get("user_request"))
@@ -669,6 +676,7 @@ def run_sandbox_analysis(state: ChatDataAnalysisCanvasState) -> dict:
     }
 
 
+# 계산 결과를 요약하고 최종 분석 상태를 정리합니다.
 def summarize_insights(state: ChatDataAnalysisCanvasState) -> dict:
     start = _emit(_event("summarize", "running", "Preparing insight summary.", 0.86))
     request = _normalize_request(state.get("user_request"))
@@ -694,6 +702,7 @@ def summarize_insights(state: ChatDataAnalysisCanvasState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: ChatDataAnalysisCanvasState) -> dict:
     status = str(state.get("final_status") or "idle")
     done = _emit(_event("final", "completed", f"Data analysis canvas run completed with status={status}.", 1.0))
@@ -704,6 +713,7 @@ def finalize(state: ChatDataAnalysisCanvasState) -> dict:
     }
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_action(state: ChatDataAnalysisCanvasState) -> str:
     action = str(state.get("action") or "analyze").strip().lower()
     if action == "retry":
@@ -711,6 +721,7 @@ def route_action(state: ChatDataAnalysisCanvasState) -> str:
     return "parse_dataset"
 
 
+# 그래프 구성: action에 따른 진입 경로를 선택하고 각 처리 결과를 finalize로 모읍니다.
 builder = StateGraph(ChatDataAnalysisCanvasState)
 builder.add_node("retry_analysis", retry_analysis)
 builder.add_node("parse_dataset", parse_dataset)
@@ -731,4 +742,5 @@ builder.add_edge("run_sandbox_analysis", "summarize_insights")
 builder.add_edge("summarize_insights", "finalize")
 builder.add_edge("finalize", END)
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = builder.compile()

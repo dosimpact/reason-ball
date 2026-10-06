@@ -1,0 +1,427 @@
+{
+  "folders": 54,
+  "folders_using_remeda": 54,
+  "remeda_source_files": 94,
+  "sibling_imports": [],
+  "isRecord_wrappers": [],
+  "inventory": [
+    {
+      "example": "01-2-sdk-connection-react-hook",
+      "remeda_files": [
+        "data.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "01-sdk-connection",
+      "remeda_files": [
+        "useSdkConnection.ts"
+      ],
+      "source_files": 4
+    },
+    {
+      "example": "02-2-basic-chat-react-hook",
+      "remeda_files": [
+        "useBasicChatReactHook.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "02-basic-chat-ui",
+      "remeda_files": [
+        "useBasicChat.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "03-graph-execution-timeline",
+      "remeda_files": [
+        "data.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "04-2-streaming-react-hook",
+      "remeda_files": [
+        "data.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "04-streaming-ui",
+      "remeda_files": [
+        "data.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "05-2-tool-calling-react-hook",
+      "remeda_files": [
+        "data.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "05-tool-calling-react-ui",
+      "remeda_files": [
+        "data.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "06-2-human-in-the-loop-react-hook",
+      "remeda_files": [
+        "data.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "06-human-in-the-loop-interrupt-ui",
+      "remeda_files": [
+        "data.ts"
+      ],
+      "source_files": 6
+    },
+    {
+      "example": "07-checkpoint-state-history-ui",
+      "remeda_files": [
+        "ResultsPanels.tsx",
+        "data.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "08-time-travel-replay-ui",
+      "remeda_files": [
+        "data.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "09-conditional-routing-ui",
+      "remeda_files": [
+        "data.ts",
+        "useConditionalRoutingState.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "10-subgraph-nested-execution-ui",
+      "remeda_files": [
+        "data.ts",
+        "useSubgraphNestedExecutionState.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "11-parallel-map-reduce-ui",
+      "remeda_files": [
+        "data.ts",
+        "useParallelMapReduceState.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "12-structured-output-ui",
+      "remeda_files": [
+        "data.ts",
+        "useStructuredOutputState.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "13-rag-qa-ui",
+      "remeda_files": [
+        "data.ts",
+        "useRagQaState.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "14-plan-and-execute-ui",
+      "remeda_files": [
+        "data.ts",
+        "usePlanAndExecuteState.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "15-reflection-evaluator-loop-ui",
+      "remeda_files": [
+        "data.ts",
+        "useReflectionEvaluatorLoopState.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "16-long-term-memory-ui",
+      "remeda_files": [
+        "data.ts",
+        "useLongTermMemory.ts",
+        "useLongTermMemoryState.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "17-configurable-assistant-ui",
+      "remeda_files": [
+        "data.ts",
+        "useConfigurableAssistantState.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "18-retry-error-degradation-ui",
+      "remeda_files": [
+        "data.ts",
+        "useRetryErrorDegradationState.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "19-long-context-ui",
+      "remeda_files": [
+        "data.ts",
+        "useLongContextState.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "20-observability-ui",
+      "remeda_files": [
+        "data.ts",
+        "useObservabilityState.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "21-intent-feedback-generative-ui",
+      "remeda_files": [
+        "data.ts",
+        "useIntentFeedbackGenerativeState.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "22-custom-event-renderer",
+      "remeda_files": [
+        "data.ts",
+        "useCustomEventRendererState.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "23-thinking-renderer",
+      "remeda_files": [
+        "data.ts",
+        "useThinkingRendererState.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "24-chat-citation-renderer",
+      "remeda_files": [
+        "data.ts",
+        "useChatCitationRendererState.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "25-push-ui-message",
+      "remeda_files": [
+        "chatMessages.ts",
+        "stream.ts",
+        "uiMessages.ts",
+        "usePushUiChat.ts",
+        "usePushUiChatState.ts"
+      ],
+      "source_files": 8
+    },
+    {
+      "example": "26-multimodal-image-input",
+      "remeda_files": [
+        "model.ts",
+        "useMultimodalImageInputState.ts"
+      ],
+      "source_files": 13
+    },
+    {
+      "example": "27-multimodal-voice-input",
+      "remeda_files": [
+        "model.ts",
+        "useMultimodalVoiceInputState.ts"
+      ],
+      "source_files": 14
+    },
+    {
+      "example": "28-multimodal-voice-output",
+      "remeda_files": [
+        "model.ts",
+        "useMultimodalVoiceOutputState.ts"
+      ],
+      "source_files": 12
+    },
+    {
+      "example": "29-chat-code-editor",
+      "remeda_files": [
+        "model.ts",
+        "useChatCodeEditorState.ts"
+      ],
+      "source_files": 14
+    },
+    {
+      "example": "30-chat-document-artifact",
+      "remeda_files": [
+        "model.ts",
+        "useChatDocumentArtifactState.ts"
+      ],
+      "source_files": 15
+    },
+    {
+      "example": "31-chat-plan-board",
+      "remeda_files": [
+        "model.ts",
+        "useChatPlanBoardState.ts"
+      ],
+      "source_files": 13
+    },
+    {
+      "example": "32-chat-graph-execution-canvas",
+      "remeda_files": [
+        "model.ts",
+        "useChatGraphExecutionCanvasState.ts"
+      ],
+      "source_files": 15
+    },
+    {
+      "example": "33-chat-ui-preview",
+      "remeda_files": [
+        "model.ts",
+        "useChatUiPreviewState.ts"
+      ],
+      "source_files": 16
+    },
+    {
+      "example": "34-chat-data-analysis-canvas",
+      "remeda_files": [
+        "model.ts",
+        "useChatDataAnalysisCanvasState.ts"
+      ],
+      "source_files": 17
+    },
+    {
+      "example": "35-agentic-chat-ag-ui",
+      "remeda_files": [
+        "model.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "36-backend-tool-rendering-ag-ui",
+      "remeda_files": [
+        "model.ts"
+      ],
+      "source_files": 6
+    },
+    {
+      "example": "37-human-in-the-loop-ag-ui",
+      "remeda_files": [
+        "model.ts"
+      ],
+      "source_files": 6
+    },
+    {
+      "example": "38-agentic-generative-ui-ag-ui",
+      "remeda_files": [
+        "ToolRenderers.tsx",
+        "model.ts"
+      ],
+      "source_files": 6
+    },
+    {
+      "example": "39-tool-based-generative-ui-ag-ui",
+      "remeda_files": [
+        "model.ts"
+      ],
+      "source_files": 6
+    },
+    {
+      "example": "40-shared-state-agent-ui-ag-ui",
+      "remeda_files": [
+        "model.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "41-predictive-state-updates-ag-ui",
+      "remeda_files": [
+        "model.ts"
+      ],
+      "source_files": 7
+    },
+    {
+      "example": "42-agentic-chat-reasoning-ag-ui",
+      "remeda_files": [
+        "ToolRenderers.tsx",
+        "model.ts"
+      ],
+      "source_files": 6
+    },
+    {
+      "example": "43-agentic-chat-multimodal-ag-ui",
+      "remeda_files": [
+        "ToolRenderers.tsx",
+        "model.ts"
+      ],
+      "source_files": 8
+    },
+    {
+      "example": "44-subgraphs-ag-ui",
+      "remeda_files": [
+        "ToolRenderers.tsx",
+        "model.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "45-a2ui-fixed-schema-ag-ui",
+      "remeda_files": [
+        "ToolRenderers.tsx",
+        "model.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "46-a2ui-dynamic-schema-ag-ui",
+      "remeda_files": [
+        "ToolRenderers.tsx",
+        "model.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "47-a2ui-advanced-ag-ui",
+      "remeda_files": [
+        "ToolRenderers.tsx",
+        "model.ts"
+      ],
+      "source_files": 5
+    },
+    {
+      "example": "48-todo-list-middleware",
+      "remeda_files": [
+        "model.ts",
+        "useTodoListMiddlewareState.ts"
+      ],
+      "source_files": 11
+    },
+    {
+      "example": "49-loop-engineering-harness-ui",
+      "remeda_files": [
+        "model.ts",
+        "useLoopEngineeringHarnessState.ts"
+      ],
+      "source_files": 9
+    }
+  ]
+}

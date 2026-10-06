@@ -1,4 +1,6 @@
 """Example 30: chat-driven document artifact workflow."""
+# 예제 개요: 문서 초안, 사용자 편집, 수정, 평가, 승인 과정을 상태로 관리합니다.
+# 핵심 흐름: action에 따라 처리 경로를 고르고, 문서 내용과 검토 상태를 UI 아티팩트로 반환합니다.
 
 from __future__ import annotations
 
@@ -17,6 +19,7 @@ ApprovalAction = Literal["approve", "reject", "pending", "none", ""]
 DocumentAction = Literal["draft", "save_user_edit", "ai_revise", "approve", "reject", ""]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class DocumentSection(TypedDict, total=False):
     id: str
     title: str
@@ -54,6 +57,8 @@ class DocumentEvent(TypedDict):
     progress: float
 
 
+# DocumentArtifactState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(document_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class DocumentArtifactState(TypedDict, total=False):
     action: DocumentAction
     user_request: str
@@ -422,6 +427,7 @@ def reject_document(state: DocumentArtifactState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: DocumentArtifactState) -> dict:
     status = str(state.get("final_status") or "idle")
     final = str(state.get("final") or "Document workflow completed.")
@@ -429,6 +435,7 @@ def finalize(state: DocumentArtifactState) -> dict:
     return {"final": final, "final_status": status, "document_events": [done]}
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_action(state: DocumentArtifactState) -> str:
     action = str(state.get("action") or "").strip().lower()
     if action == "save_user_edit":
@@ -444,6 +451,7 @@ def route_action(state: DocumentArtifactState) -> str:
     return "draft_document"
 
 
+# 그래프 구성: action에 따른 진입 경로를 선택하고 각 처리 결과를 finalize로 모읍니다.
 builder = StateGraph(DocumentArtifactState)
 builder.add_node("draft_document", draft_document)
 builder.add_node("save_user_edits", save_user_edits)
@@ -471,4 +479,5 @@ builder.add_edge("apply_document", "finalize")
 builder.add_edge("reject_document", "finalize")
 builder.add_edge("finalize", END)
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = builder.compile()

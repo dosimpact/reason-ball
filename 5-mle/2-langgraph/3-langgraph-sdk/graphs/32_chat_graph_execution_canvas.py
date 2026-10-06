@@ -1,4 +1,6 @@
 """Example 32: chat plus graph execution debugger canvas."""
+# 예제 개요: 그래프 실행 이벤트, 노드, 체크포인트를 캔버스에 표시하는 디버거 예제입니다.
+# 핵심 흐름: 고정 실행 자료로 선택·상태 차이·시간 이동 화면을 구성하며 실제 다른 그래프를 재실행하지 않습니다.
 
 from __future__ import annotations
 
@@ -15,6 +17,7 @@ from common.llm import create_llm
 FinalStatus = Literal["idle", "inspected", "selected", "replayed", "failed"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class GraphNode(TypedDict):
     id: str
     label: str
@@ -71,6 +74,8 @@ class CanvasEvent(TypedDict):
     progress: float
 
 
+# ChatGraphExecutionCanvasState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(canvas_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class ChatGraphExecutionCanvasState(TypedDict, total=False):
     user_prompt: str
     action: str
@@ -329,6 +334,7 @@ def _append_history(state: ChatGraphExecutionCanvasState, action: str, selected_
     return version, history
 
 
+# 캔버스용 데모 실행 자료와 초기 선택 상태를 구성합니다.
 def inspect_canvas(state: ChatGraphExecutionCanvasState) -> dict:
     prompt = _prompt(state.get("user_prompt"))
     start = _emit(_event("inspect", "running", "Building graph debugger canvas artifact.", 0.18))
@@ -449,6 +455,7 @@ def time_travel(state: ChatGraphExecutionCanvasState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: ChatGraphExecutionCanvasState) -> dict:
     status = str(state.get("final_status") or "idle")
     done = _emit(_event("final", "completed", f"Canvas run completed with status={status}.", 1.0))
@@ -459,6 +466,7 @@ def finalize(state: ChatGraphExecutionCanvasState) -> dict:
     }
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_action(state: ChatGraphExecutionCanvasState) -> str:
     action = str(state.get("action") or "inspect").strip().lower()
     if action == "select_event":
@@ -468,6 +476,7 @@ def route_action(state: ChatGraphExecutionCanvasState) -> str:
     return "inspect_canvas"
 
 
+# 그래프 구성: action에 따른 진입 경로를 선택하고 각 처리 결과를 finalize로 모읍니다.
 builder = StateGraph(ChatGraphExecutionCanvasState)
 builder.add_node("inspect_canvas", inspect_canvas)
 builder.add_node("select_event", select_event)
@@ -487,4 +496,5 @@ builder.add_edge("select_event", "finalize")
 builder.add_edge("time_travel", "finalize")
 builder.add_edge("finalize", END)
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = builder.compile()

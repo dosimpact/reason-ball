@@ -1,4 +1,6 @@
 """Example 27: multimodal voice input transcription and response."""
+# 예제 개요: 음성 첨부를 검증하고 전사한 뒤 텍스트 답변을 생성하는 예제입니다.
+# 핵심 흐름: 검토한 전사가 있으면 재사용하고, 그 외에는 OpenAI 음성 전사 API를 호출합니다.
 
 from __future__ import annotations
 
@@ -21,6 +23,7 @@ from common.llm import create_llm
 FinalStatus = Literal["idle", "running", "completed", "failed"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class AudioPayload(TypedDict, total=False):
     data_url: str
     name: str
@@ -51,6 +54,8 @@ class VoiceNote(TypedDict):
     confidence: float
 
 
+# MultimodalVoiceState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(voice_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class MultimodalVoiceState(TypedDict, total=False):
     prompt: str
     audio: AudioPayload
@@ -173,6 +178,7 @@ def _key_phrases(transcript: str) -> list[str]:
     return phrases
 
 
+# 오디오 입력과 전사 관련 정보를 확인하고 검증 상태를 기록합니다.
 def validate_audio(state: MultimodalVoiceState) -> dict:
     prompt = str(state.get("prompt") or DEFAULT_PROMPT).strip() or DEFAULT_PROMPT
     reviewed_transcript = str(state.get("reviewed_transcript") or "").strip()
@@ -336,6 +342,7 @@ def generate_response(state: MultimodalVoiceState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: MultimodalVoiceState) -> dict:
     if state.get("final_status") == "failed":
         return {}
@@ -350,6 +357,7 @@ def finalize(state: MultimodalVoiceState) -> dict:
     }
 
 
+# 그래프 구성: action에 따른 진입 경로를 선택하고 각 처리 결과를 finalize로 모읍니다.
 builder = StateGraph(MultimodalVoiceState)
 builder.add_node("validate_audio", validate_audio)
 builder.add_node("transcribe_audio", transcribe_audio)
@@ -361,4 +369,5 @@ builder.add_edge("transcribe_audio", "generate_response")
 builder.add_edge("generate_response", "finalize")
 builder.add_edge("finalize", END)
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = builder.compile()

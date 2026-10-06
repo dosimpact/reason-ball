@@ -2,16 +2,20 @@
 
 ## Project Structure & Module Organization
 
-This subproject is for LangGraph SDK learning examples with a TypeScript/React frontend and LangGraph graph backends. The current files are `goal.md` for the roadmap and `.env.example` for safe configuration. Keep implementation files organized by concern:
+This subproject is for LangGraph SDK learning examples with a TypeScript/React frontend and LangGraph graph backends. `goal.md` defines the roadmap and `.env.example` defines safe configuration. Keep implementation files organized by concern:
 
 - `graph/` or `graphs/`: LangGraph graph entry points, matching examples from `../1-langgraph-basic/`.
 - `src/`: React frontend code, SDK client helpers, routing, and shared UI.
-- `src/examples/`: one component entry per learning example, such as `01-sdk-connection`.
+- `src/examples/`: one public component entry per learning example, such as `01-sdk-connection`. Keep controller/state hooks, data transformations, browser adapters and substantive renderers in the same example folder. Do not introduce imports from sibling example folders. Preserve public entry paths and graph/tool contracts; choose module counts by actual responsibility rather than a fixed template.
 - `tests/` or `e2e/`: unit, integration, and browser tests.
 - `plan/`: design documents for each example before implementation.
 - `e2e-plan/`: Playwright E2E test plans for each example.
 - `progress/`: tracking documents for planning, implementation, and E2E status.
 - `assets/`: static images, fixtures, and sample files used by examples.
+- `docs/stock/`: consolidated current business and system designs.
+- `docs/flow/`: dated, append-only decisions and validation records.
+
+Read the relevant stock design before material changes, record the change in flow, and synchronize accepted current behavior into stock before completion. Shared visual styling uses `src/styles.css` for semantic tokens and example layouts and `src/github-theme.css` for the repository-style shell and refinements.
 
 ## Example Delivery Workflow
 
@@ -26,7 +30,7 @@ Do not skip progress files. They are the coordination layer for multi-agent work
 
 ## Build, Test, and Development Commands
 
-This directory is included by the root `pnpm-workspace.yaml` through `17-langgraph/*`. After adding a `package.json`, expose local scripts and run them through pnpm:
+Use the committed `langgraph-sdk-examples` package scripts through pnpm:
 
 ```bash
 pnpm install                  # install workspace dependencies
@@ -40,7 +44,7 @@ For graph work, mirror the sibling LangGraph projects and document the exact `uv
 
 ## Coding Style & Naming Conventions
 
-Use TypeScript for frontend code and keep React components in PascalCase. Name example folders with a numeric prefix and short kebab-case description, for example `03-streaming-ui`. Use 2-space indentation for TS/TSX/JSON/Markdown. Prefer shared SDK helpers over repeating LangGraph client setup in each example. Keep environment access centralized.
+Use TypeScript for frontend code and keep React components in PascalCase. Use Remeda directly for standard predicates and meaningful data pipelines in src/examples; retain example-specific interpretation and validation locally. isPlainObject is for JSON records, not browser objects or class instances. Name example folders with a numeric prefix and short kebab-case description, for example `03-streaming-ui`. Use 2-space indentation for TS/TSX/JSON/Markdown. Prefer shared SDK helpers over repeating LangGraph client setup in each example. Keep environment access centralized.
 
 ## Testing Guidelines
 

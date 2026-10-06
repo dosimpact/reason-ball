@@ -1,4 +1,6 @@
 """Example 43: multimodal AG-UI chat graph."""
+# 예제 개요: 이미지 첨부 대화와 텍스트 전용 대화를 같은 agent로 처리합니다.
+# 핵심 흐름: 모델이 파악한 이미지 관찰을 구조화된 도구 결과로 정리합니다.
 
 from __future__ import annotations
 
@@ -47,6 +49,7 @@ SYSTEM_PROMPT = (
 )
 
 
+# 그래프 구성: create_agent가 모델과 도구의 반복 실행을 구성하고 미들웨어를 연결합니다.
 def build_graph():
     return create_agent(
         model=create_llm("fast"),
@@ -56,4 +59,5 @@ def build_graph():
     )
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

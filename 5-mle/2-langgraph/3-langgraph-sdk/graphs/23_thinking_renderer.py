@@ -1,4 +1,6 @@
 """Example 23: public thinking/status renderer without exposing non-public reasoning."""
+# 예제 개요: 사용자에게 공개할 수 있는 작업 상태와 요약을 단계별로 표시합니다.
+# 핵심 흐름: thinking_steps는 공개 상태 설명이며, 모델의 비공개 내부 추론을 수집하는 기능이 아닙니다.
 
 from __future__ import annotations
 
@@ -18,6 +20,7 @@ from common.llm import create_llm
 ThinkingStatus = Literal["queued", "running", "completed"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class ThinkingStep(TypedDict):
     type: str
     schema_version: str
@@ -39,6 +42,8 @@ class SafetyGuardrails(TypedDict):
     blocked_content: list[str]
 
 
+# ThinkingRendererState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(thinking_steps)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class ThinkingRendererState(TypedDict, total=False):
     question: str
     run_id: str
@@ -154,6 +159,7 @@ def inspect_prompt(state: ThinkingRendererState) -> dict:
     return {"thinking_steps": [step]}
 
 
+# UI에 공개할 작업 요약을 만들며 모델의 내부 추론은 조회하지 않습니다.
 def build_public_summary(state: ThinkingRendererState) -> dict:
     steps = [
         _emit(
@@ -184,6 +190,7 @@ def build_public_summary(state: ThinkingRendererState) -> dict:
     return {"thinking_steps": steps, "reasoning_summary": summary}
 
 
+# 현재 단계의 입력으로 모델을 호출하고 응답을 다음 노드가 사용할 상태로 반환합니다.
 def call_model(state: ThinkingRendererState) -> dict:
     start = _emit(
         _step(
@@ -231,6 +238,7 @@ def call_model(state: ThinkingRendererState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: ThinkingRendererState) -> dict:
     step = _emit(
         _step(
@@ -245,6 +253,7 @@ def finalize(state: ThinkingRendererState) -> dict:
     return {"final_status": "completed", "thinking_steps": [step]}
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(ThinkingRendererState)
     builder.add_node("prepare_question", prepare_question)
@@ -261,4 +270,5 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

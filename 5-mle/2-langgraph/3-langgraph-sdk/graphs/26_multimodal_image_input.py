@@ -1,4 +1,6 @@
 """Example 26: multimodal image input analysis."""
+# 예제 개요: 첨부 이미지의 형식을 검증한 뒤 멀티모달 모델로 내용을 분석합니다.
+# 핵심 흐름: 검증 결과, 이미지 메타데이터, 분석 답변과 진행 이벤트를 UI용 상태로 반환합니다.
 
 from __future__ import annotations
 
@@ -19,6 +21,7 @@ from common.llm import create_llm
 FinalStatus = Literal["running", "completed", "failed"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class ImagePayload(TypedDict, total=False):
     data_url: str
     name: str
@@ -60,6 +63,8 @@ class ImageEvent(TypedDict):
     progress: float
 
 
+# MultimodalImageState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(image_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class MultimodalImageState(TypedDict, total=False):
     prompt: str
     image: ImagePayload
@@ -156,6 +161,7 @@ def _dimensions(mime_type: str, data: bytes) -> tuple[int, int]:
     return 0, 0
 
 
+# 이미지 입력의 형식과 크기 등 분석에 필요한 조건을 검증합니다.
 def validate_image(state: MultimodalImageState) -> dict:
     prompt = str(state.get("prompt") or DEFAULT_PROMPT).strip() or DEFAULT_PROMPT
     payload = _image_payload(state)
@@ -198,6 +204,7 @@ def validate_image(state: MultimodalImageState) -> dict:
     }
 
 
+# 검증한 이미지와 요청을 모델에 전달하여 분석 답변을 생성합니다.
 def analyze_image(state: MultimodalImageState) -> dict:
     if state.get("validation_status") == "failed":
         return {}
@@ -285,6 +292,7 @@ def analyze_image(state: MultimodalImageState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: MultimodalImageState) -> dict:
     if state.get("final_status") == "failed":
         return {}
@@ -292,6 +300,7 @@ def finalize(state: MultimodalImageState) -> dict:
     return {"final_status": "completed", "image_events": [event]}
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(MultimodalImageState)
     builder.add_node("validate_image", validate_image)
@@ -304,4 +313,5 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

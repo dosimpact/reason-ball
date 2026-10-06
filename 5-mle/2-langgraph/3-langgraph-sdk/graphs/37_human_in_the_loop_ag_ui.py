@@ -1,4 +1,6 @@
 """Example 37: CopilotKit AG-UI human-in-the-loop graph."""
+# 예제 개요: 사람의 확인이 필요한 대화를 CopilotKit agent 흐름으로 연결합니다.
+# 핵심 흐름: 백엔드 tools는 비워 두고, 프런트엔드에서 제공하는 도구와 확인 UI를 활용합니다.
 
 from __future__ import annotations
 
@@ -20,6 +22,7 @@ SYSTEM_PROMPT = (
 )
 
 
+# 그래프 구성: create_agent가 모델과 도구의 반복 실행을 구성하고 미들웨어를 연결합니다.
 def build_graph():
     return create_agent(
         model=create_llm(),
@@ -29,4 +32,5 @@ def build_graph():
     )
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

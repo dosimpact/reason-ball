@@ -1,4 +1,6 @@
 """Example 22: custom stream events rendered as inline progress components."""
+# 예제 개요: 여러 작업 단계의 사용자 정의 이벤트를 인라인 진행 UI로 연결합니다.
+# 핵심 흐름: 다운로드와 변환은 예제용 작업이며, 이벤트 전송과 최종 상태 기록을 함께 수행합니다.
 
 from __future__ import annotations
 
@@ -18,6 +20,7 @@ from common.llm import create_llm
 EventKind = Literal["phase", "progress", "status", "warning", "diagnostic"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class RendererEvent(TypedDict, total=False):
     type: str
     schema_version: str
@@ -50,6 +53,8 @@ class RendererMetadata(TypedDict, total=False):
     task_id: str
 
 
+# CustomEventRendererState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(render_events, phase_records, phase_progress, progress_events, warning_events, unknown_events, unknown_diagnostics, warnings)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class CustomEventRendererState(TypedDict, total=False):
     task_id: str
     task_prompt: str
@@ -416,6 +421,7 @@ def finalize_renderer(state: CustomEventRendererState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(CustomEventRendererState)
     builder.add_node("prepare_task", prepare_task)
@@ -432,4 +438,5 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

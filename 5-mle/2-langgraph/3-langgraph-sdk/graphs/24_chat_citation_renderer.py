@@ -1,4 +1,6 @@
 """Example 24: chat answer renderer with inline citation metadata."""
+# 예제 개요: 답변 구간과 출처 메타데이터를 분리해 인용 칩을 렌더링하는 예제입니다.
+# 핵심 흐름: 로컬 출처를 고르고 citation ID로 답변 구간과 출처 카드를 연결합니다.
 
 from __future__ import annotations
 
@@ -17,6 +19,7 @@ from common.llm import create_llm
 FinalStatus = Literal["running", "completed", "fallback"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class SourceDoc(TypedDict):
     id: str
     title: str
@@ -67,6 +70,8 @@ class CitationEvent(TypedDict):
     timestamp: str
 
 
+# ChatCitationState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(citation_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class ChatCitationState(TypedDict, total=False):
     question: str
     renderer_status: str
@@ -282,6 +287,7 @@ def retrieve_sources(state: ChatCitationState) -> dict:
     }
 
 
+# 답변 구간과 출처를 citation ID로 연결해 UI가 바로 사용할 인용 정보를 만듭니다.
 def build_citation_payload(state: ChatCitationState) -> dict:
     sources = state.get("sources", [])
     primary = sources[0]
@@ -363,6 +369,7 @@ def generate_answer(state: ChatCitationState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: ChatCitationState) -> dict:
     event = _emit(_event("finalize", "completed", "Citation renderer final state is ready."))
     return {
@@ -372,6 +379,7 @@ def finalize(state: ChatCitationState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(ChatCitationState)
     builder.add_node("retrieve_sources", retrieve_sources)
@@ -386,4 +394,5 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

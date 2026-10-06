@@ -1,4 +1,11 @@
 
+## 문서
+
+- 현재 제품 설계: [business-design.md](docs/stock/business-design.md)
+- 현재 시스템 설계: [system-design.md](docs/stock/system-design.md)
+- 변경 이력: [docs/flow/](docs/flow/)
+- 학습 로드맵: [goal.md](goal.md)
+
 ## 설치
 
 ```

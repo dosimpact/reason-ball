@@ -1,4 +1,6 @@
 """Example 47: CopilotKit AG-UI advanced A2UI graph."""
+# 예제 개요: 진행 단계, 생성된 패널, 사용자 액션을 한 A2UI 결과로 묶습니다.
+# 핵심 흐름: 진행과 선택지는 고정 샘플 데이터이며, 확인 액션은 프런트엔드 도구로 연결합니다.
 
 from __future__ import annotations
 
@@ -52,6 +54,7 @@ SYSTEM_PROMPT = (
 )
 
 
+# 그래프 구성: create_agent가 모델과 도구의 반복 실행을 구성하고 미들웨어를 연결합니다.
 def build_graph():
     return create_agent(
         model=create_llm(),
@@ -61,4 +64,5 @@ def build_graph():
     )
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

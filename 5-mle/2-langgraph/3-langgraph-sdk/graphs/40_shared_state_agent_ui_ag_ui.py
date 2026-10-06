@@ -1,4 +1,6 @@
 """Example 40: shared recipe state between an AG-UI agent and React UI."""
+# 예제 개요: 레시피 UI 상태를 agent가 읽고 수정 패치를 제안하는 공유 상태 예제입니다.
+# 핵심 흐름: 백엔드는 패치를 반환하며, 실제 화면 상태 반영은 프런트엔드 apply_recipe_patch 도구가 담당합니다.
 
 from __future__ import annotations
 
@@ -94,6 +96,7 @@ SYSTEM_PROMPT = (
 )
 
 
+# 그래프 구성: create_agent가 모델과 도구의 반복 실행을 구성하고 미들웨어를 연결합니다.
 def build_graph():
     return create_agent(
         model=create_llm("fast"),
@@ -103,4 +106,5 @@ def build_graph():
     )
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

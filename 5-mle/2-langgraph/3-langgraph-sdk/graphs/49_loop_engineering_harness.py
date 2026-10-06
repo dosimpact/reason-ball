@@ -1,4 +1,6 @@
 """Example 49: loop engineering harness with agent, verifier, event, and improvement loops."""
+# 예제 개요: 이벤트 수신, 작업, 검증, 재시도, 개선 제안으로 이어지는 루프 예제입니다.
+# 핵심 흐름: 초안과 점수는 고정 데모 규칙으로 만들며, 실제 webhook·cron 등록이나 외부 모델 호출은 없습니다.
 
 from __future__ import annotations
 
@@ -13,6 +15,7 @@ TriggerType = Literal["manual", "webhook", "cron"]
 Verdict = Literal["PASS", "FAIL"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class TriggerRecord(TypedDict):
     type: TriggerType
     source: str
@@ -59,6 +62,8 @@ class ImprovementSuggestion(TypedDict):
     evidence: str
 
 
+# HarnessState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(attempts, tool_calls, verification_results, trace_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class HarnessState(TypedDict, total=False):
     task: str
     trigger_type: TriggerType
@@ -111,6 +116,7 @@ def _quality_threshold(state: HarnessState) -> int:
     return min(max(raw if isinstance(raw, int) else 4, 1), 5)
 
 
+# 입력 트리거를 데모 이벤트로 정규화하고 시도 횟수와 기준값을 준비합니다.
 def receive_event(state: HarnessState) -> dict:
     trigger_type = state.get("trigger_type", "manual")
     if trigger_type not in {"manual", "webhook", "cron"}:
@@ -142,6 +148,7 @@ def receive_event(state: HarnessState) -> dict:
     }
 
 
+# 현재 시도의 데모 초안과 도구 기록을 만들고 이전 피드백을 연결합니다.
 def agent_work(state: HarnessState) -> dict:
     attempt = int(state.get("current_attempt", 0)) + 1
     previous_results = state.get("verification_results", [])
@@ -187,6 +194,7 @@ def agent_work(state: HarnessState) -> dict:
     }
 
 
+# 데모 평가 규칙으로 PASS 또는 FAIL을 기록해 재시도 판단에 사용합니다.
 def verify_output(state: HarnessState) -> dict:
     attempt = int(state.get("current_attempt", 1))
     threshold = _quality_threshold(state)
@@ -218,6 +226,7 @@ def verify_output(state: HarnessState) -> dict:
     return {"verification_results": [result], "trace_events": [trace]}
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_after_verification(state: HarnessState) -> str:
     results = state.get("verification_results", [])
     if results and results[-1]["verdict"] == "PASS":
@@ -227,6 +236,7 @@ def route_after_verification(state: HarnessState) -> str:
     return "agent_work"
 
 
+# 누적 실행·평가 기록으로 개선 제안과 종료 이유를 정리합니다.
 def analyze_traces(state: HarnessState) -> dict:
     results = state.get("verification_results", [])
     last = results[-1] if results else None
@@ -269,6 +279,7 @@ def analyze_traces(state: HarnessState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(HarnessState)
     builder.add_node("receive_event", receive_event)
@@ -287,8 +298,10 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     print(graph.invoke({"trigger_type": "webhook"}))

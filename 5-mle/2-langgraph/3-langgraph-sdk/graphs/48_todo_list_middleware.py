@@ -1,4 +1,6 @@
 """Example 48: LangChain TodoListMiddleware with visible todo state."""
+# 예제 개요: TodoListMiddleware가 todo 상태를 갱신하는 과정을 결정적 모델로 재현합니다.
+# 핵심 흐름: API 키 없이 순차 write_todos 호출과 중복 병렬 호출 오류를 관찰할 수 있습니다.
 
 from __future__ import annotations
 
@@ -67,6 +69,7 @@ def _has_duplicate_error(messages: list[BaseMessage]) -> bool:
     )
 
 
+# 미들웨어를 관찰하기 위해 실제 API 대신 정해진 도구 호출을 반환하는 데모 모델입니다.
 class TodoDemoModel(BaseChatModel):
     """Deterministic chat model that exercises TodoListMiddleware without API keys."""
 
@@ -104,6 +107,7 @@ class TodoDemoModel(BaseChatModel):
             await asyncio.sleep(DEMO_STEP_DELAY_SECONDS)
         return self._next_result(messages)
 
+    # 완료된 todo 갱신 수를 기준으로 다음 도구 호출을 결정하고 마지막에는 완료 응답을 반환합니다.
     def _next_result(self, messages: list[BaseMessage]) -> ChatResult:
         todo_updates = _tool_message_count(messages)
         if _has_duplicate_error(messages):
@@ -163,6 +167,7 @@ TODO_SYSTEM_PROMPT = (
 )
 
 
+# 그래프 구성: create_agent가 모델과 도구의 반복 실행을 구성하고 미들웨어를 연결합니다.
 def build_graph():
     return create_agent(
         model=TodoDemoModel(),
@@ -173,9 +178,11 @@ def build_graph():
     )
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     out = graph.invoke(
         {

@@ -1,4 +1,6 @@
 """Example 29: chat-driven code editor artifact workflow."""
+# 예제 개요: 채팅 요청으로 코드 수정안을 만들고 승인·거절하는 아티팩트 예제입니다.
+# 핵심 흐름: 코드와 diff는 상태 안에서만 관리하며, 테스트 결과도 시뮬레이션으로 실제 파일이나 명령을 실행하지 않습니다.
 
 from __future__ import annotations
 
@@ -17,6 +19,7 @@ FinalStatus = Literal["idle", "running", "awaiting_approval", "applied", "reject
 ApprovalAction = Literal["approve", "reject", "pending", "none", ""]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class FileContent(TypedDict, total=False):
     path: str
     name: str
@@ -40,6 +43,8 @@ class EditorEvent(TypedDict):
     progress: float
 
 
+# CodeEditorState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(test_records, editor_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class CodeEditorState(TypedDict, total=False):
     user_request: str
     selected_file: str
@@ -147,6 +152,7 @@ def _simulate_tests(path: str, proposal: str) -> list[TestRecord]:
     ]
 
 
+# 메모리의 코드에 대한 수정안과 diff를 만들어 사용자 검토를 준비합니다.
 def propose_change(state: CodeEditorState) -> dict:
     user_request = _normalize_request(state.get("user_request"))
     selected_file = _safe_path(state.get("selected_file"), "app.py")
@@ -187,6 +193,7 @@ def propose_change(state: CodeEditorState) -> dict:
     }
 
 
+# 실제 명령 실행 없이 데모용 검사 결과를 수정안 상태에 붙입니다.
 def run_proposed_tests(state: CodeEditorState) -> dict:
     start = _emit(_event("test", "running", "Running deterministic test simulation.", 0.62))
     records = _simulate_tests(str(state.get("file_name") or "app.py"), str(state.get("diff_reason") or ""))
@@ -198,6 +205,7 @@ def run_proposed_tests(state: CodeEditorState) -> dict:
     }
 
 
+# 승인한 수정안을 코드 상태에 반영하며 파일시스템에는 쓰지 않습니다.
 def apply_change(state: CodeEditorState) -> dict:
     start = _emit(_event("apply", "running", "Applying approved patch into artifact state.", 0.3))
     version = int(state.get("artifact_version") or 0) + 1
@@ -235,6 +243,7 @@ def reject_change(state: CodeEditorState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: CodeEditorState) -> dict:
     status = str(state.get("final_status") or "idle")
     final_text = str(state.get("final") or "No-op completed.")
@@ -246,6 +255,7 @@ def finalize(state: CodeEditorState) -> dict:
     }
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_action(state: CodeEditorState) -> str:
     approval = str(state.get("approval") or "").strip().lower()
     if approval == "approve":
@@ -257,6 +267,7 @@ def route_action(state: CodeEditorState) -> str:
     return "propose_change"
 
 
+# 그래프 구성: action에 따른 진입 경로를 선택하고 각 처리 결과를 finalize로 모읍니다.
 builder = StateGraph(CodeEditorState)
 builder.add_node("propose_change", propose_change)
 builder.add_node("run_proposed_tests", run_proposed_tests)
@@ -278,4 +289,5 @@ builder.add_edge("apply_change", "finalize")
 builder.add_edge("reject_change", "finalize")
 builder.add_edge("finalize", END)
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = builder.compile()

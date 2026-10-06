@@ -1,4 +1,6 @@
 """Example 20: observable graph metrics for latency, tokens, cost, and trace metadata."""
+# 예제 개요: 노드 지연 시간, 토큰 사용량, 비용 추정, 추적 정보를 모으는 관측 예제입니다.
+# 핵심 흐름: 비용은 코드의 단가로 계산한 추정치이며, 실제 청구 금액을 조회하는 기능은 아닙니다.
 
 from __future__ import annotations
 
@@ -25,6 +27,7 @@ PRICING_PER_1K: dict[str, dict[str, float]] = {
 }
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class NodeTiming(TypedDict):
     node: str
     status: str
@@ -70,6 +73,8 @@ class ObservabilityEvent(TypedDict):
     elapsed_ms: float
 
 
+# ObservabilityState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(node_timings, token_metrics, observability_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class ObservabilityState(TypedDict, total=False):
     query: str
     run_id: str
@@ -232,6 +237,7 @@ def collect_context(state: ObservabilityState) -> dict:
     return {**output, "node_timings": [timing], "observability_events": [event]}
 
 
+# 현재 단계의 입력으로 모델을 호출하고 응답을 다음 노드가 사용할 상태로 반환합니다.
 def call_model(state: ObservabilityState) -> dict:
     node = "call_model"
     start = time.perf_counter()
@@ -284,6 +290,7 @@ def call_model(state: ObservabilityState) -> dict:
     return {**output, "node_timings": [timing], "observability_events": [event, done]}
 
 
+# 수집한 시간·사용량·비용 추정과 추적 메타데이터를 최종 상태로 정리합니다.
 def finalize_metrics(state: ObservabilityState) -> dict:
     node = "finalize_metrics"
     start = time.perf_counter()
@@ -318,6 +325,7 @@ def finalize_metrics(state: ObservabilityState) -> dict:
     return {**output, "node_timings": [timing], "observability_events": [event]}
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(ObservabilityState)
     builder.add_node("prepare_run", prepare_run)
@@ -332,4 +340,5 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

@@ -1,4 +1,6 @@
 """Example 03: multi-node graph for execution timeline visualisation."""
+# 예제 개요: 입력 준비, 모델 호출, 결과 정리를 분리해 노드 실행 타임라인을 보여줍니다.
+# 핵심 흐름: steps와 node_updates에 실행 기록을 남겨 UI가 단계별 변화를 표시합니다.
 
 from __future__ import annotations
 
@@ -10,6 +12,8 @@ from langgraph.graph import END, START, StateGraph
 from common.llm import create_llm
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
+# TimelineState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
 class TimelineState(TypedDict, total=False):
     topic: str
     prompt: str
@@ -31,6 +35,7 @@ def _append_update(
     ]
 
 
+# 입력 주제를 모델용 프롬프트로 바꾸고 준비 단계의 실행 기록을 남깁니다.
 def prepare_topic(state: TimelineState) -> dict:
     topic = state.get("topic", "LangGraph SDK")
     prompt = (
@@ -50,6 +55,7 @@ def prepare_topic(state: TimelineState) -> dict:
     }
 
 
+# 현재 단계의 입력으로 모델을 호출하고 응답을 다음 노드가 사용할 상태로 반환합니다.
 def call_model(state: TimelineState) -> dict:
     llm = create_llm()
     response = llm.invoke(
@@ -76,6 +82,7 @@ def call_model(state: TimelineState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: TimelineState) -> dict:
     topic = state.get("topic", "LangGraph SDK")
     draft = state.get("draft", "")
@@ -92,6 +99,7 @@ def finalize(state: TimelineState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(TimelineState)
     builder.add_node("prepare_topic", prepare_topic)
@@ -104,9 +112,11 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     out = graph.invoke({"topic": "streaming graph updates", "steps": [], "node_updates": []})
     print(out["final"])

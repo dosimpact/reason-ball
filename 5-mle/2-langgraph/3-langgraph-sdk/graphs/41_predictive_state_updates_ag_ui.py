@@ -1,4 +1,6 @@
 """Example 41: predictive document state updates with AG-UI."""
+# 예제 개요: 문서의 예상 변경과 확정 결과를 맞추는 predictive state 예제입니다.
+# 핵심 흐름: 백엔드가 수정 패치와 revision 설명을 반환하고, 프런트엔드 도구가 화면 상태를 반영합니다.
 
 from __future__ import annotations
 
@@ -72,6 +74,7 @@ SYSTEM_PROMPT = (
 )
 
 
+# 그래프 구성: create_agent가 모델과 도구의 반복 실행을 구성하고 미들웨어를 연결합니다.
 def build_graph():
     return create_agent(
         model=create_llm("fast"),
@@ -81,4 +84,5 @@ def build_graph():
     )
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

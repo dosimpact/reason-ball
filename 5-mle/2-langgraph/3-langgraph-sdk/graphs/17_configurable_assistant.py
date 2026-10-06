@@ -1,4 +1,6 @@
 """Example 17: configurable assistant run settings."""
+# 예제 개요: 실행 설정에 따라 모델과 응답 스타일을 바꾸는 assistant 예제입니다.
+# 핵심 흐름: configurable 값과 입력 상태를 해석해 실제 모델 호출에 적용한 설정을 함께 반환합니다.
 
 from __future__ import annotations
 
@@ -15,6 +17,7 @@ from common.llm import create_llm, resolve_model
 Style = Literal["concise", "detailed", "playful", "strict"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class ConfigSchema(TypedDict, total=False):
     model: str
     system_prompt: str
@@ -40,6 +43,7 @@ class ConfigEvent(TypedDict):
     detail: str
 
 
+# ConfigurableAssistantState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
 class ConfigurableAssistantState(TypedDict, total=False):
     prompt: str
     run_label: str
@@ -100,6 +104,7 @@ def _config_value(
     return default if value is None else value
 
 
+# 실행별 설정을 해석해 모델 호출에 적용하고 사용한 설정을 함께 반환합니다.
 def configurable_chat(state: ConfigurableAssistantState, config: RunnableConfig) -> dict:
     cfg = dict((config or {}).get("configurable", {}) or {})
     prompt = state.get("prompt", DEFAULT_PROMPT)
@@ -169,6 +174,7 @@ def configurable_chat(state: ConfigurableAssistantState, config: RunnableConfig)
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(ConfigurableAssistantState, config_schema=ConfigSchema)
     builder.add_node("configurable_chat", configurable_chat)
@@ -177,9 +183,11 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     output = graph.invoke(
         {"prompt": DEFAULT_PROMPT, "run_label": "playful override"},

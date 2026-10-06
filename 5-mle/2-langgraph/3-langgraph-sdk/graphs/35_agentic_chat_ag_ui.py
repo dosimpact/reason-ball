@@ -1,4 +1,6 @@
 """Example 35: CopilotKit AG-UI agentic chat graph."""
+# 예제 개요: CopilotKit과 연결한 기본 agent 채팅 및 날씨 도구 예제입니다.
+# 핵심 흐름: 모델은 실제 호출하지만 날씨 도구는 외부 조회 없이 고정 샘플 값을 반환합니다.
 
 from __future__ import annotations
 
@@ -31,6 +33,7 @@ SYSTEM_PROMPT = (
 )
 
 
+# 그래프 구성: create_agent가 모델과 도구의 반복 실행을 구성하고 미들웨어를 연결합니다.
 def build_graph():
     return create_agent(
         model=create_llm(),
@@ -40,4 +43,5 @@ def build_graph():
     )
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()

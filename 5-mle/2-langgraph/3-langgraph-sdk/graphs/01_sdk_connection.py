@@ -1,4 +1,6 @@
 """Example 01: minimal OpenAI-backed graph for SDK connection practice."""
+# 예제 개요: SDK에서 서버 그래프를 호출하고 모델 응답을 받는 최소 연결 예제입니다.
+# 핵심 흐름: 메시지 입력 → call_model → 응답 메시지 반환 순서로 실행합니다.
 
 from __future__ import annotations
 
@@ -14,6 +16,7 @@ SYSTEM_PROMPT = (
 )
 
 
+# 현재 단계의 입력으로 모델을 호출하고 응답을 다음 노드가 사용할 상태로 반환합니다.
 def call_model(state: MessagesState) -> dict:
     """Call OpenAI and append the response to message state."""
     llm = create_llm()
@@ -26,6 +29,7 @@ def call_model(state: MessagesState) -> dict:
     return {"messages": [response]}
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(MessagesState)
     builder.add_node("call_model", call_model)
@@ -34,9 +38,11 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     from langchain_core.messages import HumanMessage
 

@@ -1,4 +1,6 @@
 """Example 10: parent graph with nested subgraph execution metadata."""
+# 예제 개요: 상위 supervisor가 분석 또는 글쓰기 하위 그래프에 작업을 위임합니다.
+# 핵심 흐름: 팀별 하위 그래프를 실제 노드로 연결하고, 부모와 자식의 실행 기록을 나누어 반환합니다.
 
 from __future__ import annotations
 
@@ -13,6 +15,7 @@ from common.llm import create_llm
 TeamName = Literal["analytics_team", "writing_team"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class MessageRecord(TypedDict):
     path: str
     role: str
@@ -29,6 +32,7 @@ class StepRecord(TypedDict):
     summary: str
 
 
+# NestedExecutionState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
 class NestedExecutionState(TypedDict, total=False):
     request: str
     selected_team: TeamName
@@ -164,6 +168,7 @@ def supervisor(state: NestedExecutionState) -> dict:
     }
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_team(state: NestedExecutionState) -> str:
     return state.get("selected_team", "writing_team")
 
@@ -399,6 +404,7 @@ def draft_worker(state: NestedExecutionState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: NestedExecutionState) -> dict:
     selected_team = state.get("selected_team", "writing_team")
     path = ["supervisor", selected_team, "finalize"]
@@ -449,6 +455,7 @@ def finalize(state: NestedExecutionState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_analytics_subgraph():
     builder = StateGraph(NestedExecutionState)
     builder.add_node("team_supervisor", analytics_supervisor)
@@ -463,6 +470,7 @@ def build_analytics_subgraph():
     return builder.compile()
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_writing_subgraph():
     builder = StateGraph(NestedExecutionState)
     builder.add_node("team_supervisor", writing_supervisor)
@@ -475,6 +483,7 @@ def build_writing_subgraph():
     return builder.compile()
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(NestedExecutionState)
     builder.add_node("supervisor", supervisor)
@@ -496,9 +505,11 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     for request in [
         DEFAULT_REQUEST,

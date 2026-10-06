@@ -1,4 +1,6 @@
 """Example 28: multimodal voice output with OpenAI text-to-speech."""
+# 예제 개요: 텍스트 답변을 만든 뒤 OpenAI 음성 합성 API로 읽어주는 예제입니다.
+# 핵심 흐름: 오디오를 data URL로 반환하며, 합성 실패 시에도 생성한 텍스트를 결과로 유지합니다.
 
 from __future__ import annotations
 
@@ -20,6 +22,7 @@ SpeechFormat = Literal["mp3", "wav", "aac", "opus", "flac"]
 SpeechVoice = Literal["alloy", "ash", "ballad", "coral", "echo", "fable", "nova", "onyx", "sage", "shimmer"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class AudioOutput(TypedDict, total=False):
     data_url: str
     mime_type: str
@@ -45,6 +48,8 @@ class SpeechSettings(TypedDict, total=False):
     model: str
 
 
+# MultimodalVoiceOutputState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(audio_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class MultimodalVoiceOutputState(TypedDict, total=False):
     prompt: str
     voice: str
@@ -124,6 +129,7 @@ def _settings(state: MultimodalVoiceOutputState) -> tuple[str, str, str]:
     return voice, response_format, instructions
 
 
+# 음성으로 읽을 텍스트 답변을 먼저 생성합니다.
 def compose_text(state: MultimodalVoiceOutputState) -> dict:
     prompt = str(state.get("prompt") or DEFAULT_PROMPT).strip() or DEFAULT_PROMPT
     voice, response_format, instructions = _settings(state)
@@ -208,6 +214,7 @@ def synthesize_audio(state: MultimodalVoiceOutputState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: MultimodalVoiceOutputState) -> dict:
     if state.get("final_status") == "audio_failed":
         return {}
@@ -227,6 +234,7 @@ def finalize(state: MultimodalVoiceOutputState) -> dict:
     }
 
 
+# 그래프 구성: action에 따른 진입 경로를 선택하고 각 처리 결과를 finalize로 모읍니다.
 builder = StateGraph(MultimodalVoiceOutputState)
 builder.add_node("compose_text", compose_text)
 builder.add_node("synthesize_audio", synthesize_audio)
@@ -236,4 +244,5 @@ builder.add_edge("compose_text", "synthesize_audio")
 builder.add_edge("synthesize_audio", "finalize")
 builder.add_edge("finalize", END)
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = builder.compile()

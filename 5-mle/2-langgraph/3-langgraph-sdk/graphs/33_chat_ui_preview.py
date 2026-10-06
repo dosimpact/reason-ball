@@ -1,4 +1,6 @@
 """Example 33: chat-driven UI preview artifact workflow."""
+# 예제 개요: 컴포넌트 수정안과 미리보기, diff를 검토한 뒤 적용하거나 되돌리는 예제입니다.
+# 핵심 흐름: 미리보기는 메모리의 정적 마크업이며, 생성한 컴포넌트를 빌드하거나 파일에 쓰지 않습니다.
 
 from __future__ import annotations
 
@@ -19,6 +21,7 @@ FinalStatus = Literal["idle", "awaiting_approval", "applied", "reverted", "faile
 ApprovalAction = Literal["approve", "revert", "pending", "none", ""]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class ComponentTreeItem(TypedDict):
     id: str
     label: str
@@ -50,6 +53,8 @@ class PreviewEvent(TypedDict):
     progress: float
 
 
+# ChatUiPreviewState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(preview_events)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class ChatUiPreviewState(TypedDict, total=False):
     user_request: str
     action: str
@@ -272,6 +277,7 @@ def _diff_lines(before: str, after: str) -> list[str]:
     )
 
 
+# 컴포넌트 제안 코드, 정적 미리보기, diff를 메모리에서 구성합니다.
 def generate_preview(state: ChatUiPreviewState) -> dict:
     request = _normalize_request(state.get("user_request"))
     start = _emit(_event("generate", "running", "Creating UI preview proposal.", 0.18))
@@ -382,6 +388,7 @@ def revert_preview(state: ChatUiPreviewState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: ChatUiPreviewState) -> dict:
     status = str(state.get("final_status") or "idle")
     done = _emit(_event("final", "completed", f"UI preview run completed with status={status}.", 1.0))
@@ -392,6 +399,7 @@ def finalize(state: ChatUiPreviewState) -> dict:
     }
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_action(state: ChatUiPreviewState) -> str:
     action = str(state.get("action") or "generate").strip().lower()
     approval = str(state.get("approval") or "").strip().lower()
@@ -402,6 +410,7 @@ def route_action(state: ChatUiPreviewState) -> str:
     return "generate_preview"
 
 
+# 그래프 구성: action에 따른 진입 경로를 선택하고 각 처리 결과를 finalize로 모읍니다.
 builder = StateGraph(ChatUiPreviewState)
 builder.add_node("generate_preview", generate_preview)
 builder.add_node("apply_preview", apply_preview)
@@ -421,4 +430,5 @@ builder.add_edge("apply_preview", "finalize")
 builder.add_edge("revert_preview", "finalize")
 builder.add_edge("finalize", END)
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = builder.compile()

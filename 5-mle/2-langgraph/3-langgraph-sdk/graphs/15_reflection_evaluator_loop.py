@@ -1,4 +1,6 @@
 """Example 15: reflection and evaluator loop with visible iterations."""
+# 예제 개요: 초안을 평가하고 피드백을 반영해 다시 작성하는 평가 반복 예제입니다.
+# 핵심 흐름: 평가 결과와 시도 횟수를 확인하여 재작성 또는 최종 정리로 분기합니다.
 
 from __future__ import annotations
 
@@ -17,6 +19,7 @@ LoopStatus = Literal["idle", "drafting", "evaluating", "retrying", "passed", "fa
 RetryPolicy = Literal["force_first_retry", "allow_pass"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class EvalResult(BaseModel):
     """Structured evaluator result for one draft."""
 
@@ -48,6 +51,7 @@ class LoopEvent(TypedDict):
     detail: str
 
 
+# ReflectionState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
 class ReflectionState(TypedDict, total=False):
     request: str
     max_attempts: int
@@ -110,6 +114,7 @@ def _max_attempts(state: ReflectionState) -> int:
     return min(max(raw, 1), 4)
 
 
+# 초안 또는 평가 피드백을 반영한 수정안을 만듭니다.
 def draft(state: ReflectionState) -> dict:
     request = state.get("request", DEFAULT_REQUEST)
     attempt = int(state.get("current_iteration", 0)) + 1
@@ -171,6 +176,7 @@ def draft(state: ReflectionState) -> dict:
     }
 
 
+# 현재 초안의 평가 결과와 다음 시도에 사용할 피드백을 기록합니다.
 def evaluate(state: ReflectionState) -> dict:
     request = state.get("request", DEFAULT_REQUEST)
     attempt = int(state.get("current_iteration", 1))
@@ -251,6 +257,7 @@ def evaluate(state: ReflectionState) -> dict:
     }
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def should_continue(state: ReflectionState) -> str:
     if state.get("verdict") == "PASS":
         return "finalize"
@@ -259,6 +266,7 @@ def should_continue(state: ReflectionState) -> str:
     return "draft"
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: ReflectionState) -> dict:
     passed = state.get("verdict") == "PASS"
     attempts = int(state.get("current_iteration", 0))
@@ -289,6 +297,7 @@ def finalize(state: ReflectionState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(ReflectionState)
     builder.add_node("draft", draft)
@@ -306,9 +315,11 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     output = graph.invoke({"request": DEFAULT_REQUEST, "retry_policy": "force_first_retry"})
     print(output["stop_reason"])

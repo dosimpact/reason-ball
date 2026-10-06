@@ -1,4 +1,6 @@
 """Example 13: deterministic RAG retrieval with cited QA output."""
+# 예제 개요: 로컬 문서를 점수화해 검색하고 근거를 포함한 답변을 생성하는 RAG 예제입니다.
+# 핵심 흐름: 외부 검색 대신 고정 문서를 사용하며, 인용 검사 후 필요하면 대체 답변으로 이동합니다.
 
 from __future__ import annotations
 
@@ -14,6 +16,7 @@ from common.llm import create_llm
 QAStatus = Literal["idle", "retrieved", "answered", "fallback"]
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class SourceDoc(TypedDict):
     id: str
     title: str
@@ -42,6 +45,7 @@ class CitationRecord(TypedDict):
     score: float
 
 
+# RagQaState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
 class RagQaState(TypedDict, total=False):
     question: str
     retrieved_docs: list[RetrievedDoc]
@@ -213,6 +217,7 @@ def _citation_records(doc_ids: list[str], docs: list[RetrievedDoc]) -> list[Cita
     return records
 
 
+# 고정 문서 목록을 요청과 비교해 관련 문서와 검색 점수를 상태에 저장합니다.
 def retrieve_documents(state: RagQaState) -> dict:
     question = state.get("question", DEFAULT_QUESTION)
     question_terms = set(_tokens(question))
@@ -253,6 +258,7 @@ def retrieve_documents(state: RagQaState) -> dict:
     }
 
 
+# 검색한 문서와 식별자를 묶어 모델이 참조할 문맥을 만듭니다.
 def build_context(state: RagQaState) -> dict:
     docs = state.get("retrieved_docs", [])
     context = "\n\n".join(
@@ -328,6 +334,7 @@ def generate_answer(state: RagQaState) -> dict:
     }
 
 
+# 답변의 인용 식별자를 확인하고 대체 답변이 필요한지 기록합니다.
 def check_citations(state: RagQaState) -> dict:
     docs = state.get("retrieved_docs", [])
     citations = state.get("citations", [])
@@ -352,6 +359,7 @@ def check_citations(state: RagQaState) -> dict:
     }
 
 
+# 분기 판단: 현재 상태를 읽어 다음에 실행할 노드의 경로 이름을 반환합니다.
 def route_after_citation_check(state: RagQaState) -> str:
     return "__end__" if state.get("citation_ok") else "fallback"
 
@@ -374,6 +382,7 @@ def fallback(state: RagQaState) -> dict:
     }
 
 
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
 def finalize(state: RagQaState) -> dict:
     status = state.get("qa_status", "answered")
     citation_count = len(state.get("citations", []))
@@ -393,6 +402,7 @@ def finalize(state: RagQaState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(RagQaState)
     builder.add_node("retrieve_documents", retrieve_documents)
@@ -416,9 +426,11 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     output = graph.invoke({"question": DEFAULT_QUESTION})
     print(output["final"])

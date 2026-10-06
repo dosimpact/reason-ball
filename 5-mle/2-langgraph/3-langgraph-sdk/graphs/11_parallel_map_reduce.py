@@ -1,4 +1,6 @@
 """Example 11: parallel fan-out workers with a reducer summary."""
+# 예제 개요: 여러 입력을 Send로 분산한 뒤 워커 결과를 합치는 병렬 Map/Reduce 예제입니다.
+# 핵심 흐름: 병렬 결과는 reducer로 누적하고, 최종 집계 단계에서 UI가 읽을 순서와 결과를 정리합니다.
 
 from __future__ import annotations
 
@@ -14,6 +16,7 @@ from langgraph.types import Send
 from common.llm import create_llm
 
 
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
 class WorkerSpec(TypedDict):
     id: str
     index: int
@@ -47,6 +50,8 @@ class WorkerEvent(TypedDict):
     detail: str
 
 
+# ParallelMapReduceState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+# reducer가 지정된 필드(worker_results, worker_events, map_trace)는 각 필드의 규칙에 따라 업데이트를 병합합니다.
 class ParallelMapReduceState(TypedDict, total=False):
     topic: str
     items: list[WorkerSpec]
@@ -167,10 +172,12 @@ def prepare_items(state: ParallelMapReduceState) -> dict:
     }
 
 
+# 분산 단계: 항목마다 독립 입력을 담은 Send를 만들어 같은 워커 노드를 병렬 실행합니다.
 def fan_out(state: ParallelMapReduceState) -> list[Send]:
     return [Send("map_worker", {"topic": state.get("topic", DEFAULT_TOPIC), **item}) for item in state["items"]]
 
 
+# 개별 워커는 자기 입력의 결과만 반환하며, 부모 상태의 reducer가 여러 워커 결과를 합칩니다.
 def map_worker(payload: dict[str, Any]) -> dict:
     writer = get_stream_writer()
     worker_id = payload["id"]
@@ -297,6 +304,7 @@ def reduce_results(state: ParallelMapReduceState) -> dict:
     }
 
 
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
 def build_graph():
     builder = StateGraph(ParallelMapReduceState)
     builder.add_node("prepare_items", prepare_items)
@@ -309,9 +317,11 @@ def build_graph():
     return builder.compile()
 
 
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
 graph = build_graph()
 
 
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
 if __name__ == "__main__":
     output = graph.invoke({"topic": DEFAULT_TOPIC}, config={"recursion_limit": 30})
     print(output["final"])
