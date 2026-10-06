@@ -6427,3 +6427,89 @@ code {
     flex-direction: column;
   }
 }
+
+/* Example 25: chat is the primary surface; diagnostics are opt-in. */
+.push-ui-chat-layout .inline-ui-chat-panel {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.push-ui-chat-layout .push-chat-stack {
+  max-height: 65vh;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.push-ui-chat-layout .push-ui-chat-debug {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.push-ui-chat-debug pre {
+  max-height: 360px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 920px) {
+  .push-ui-chat-layout .inline-ui-chat-panel {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
+/* Compact progress list inside each Assistant turn. */
+.push-ui-progress-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.push-ui-progress-item {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.push-ui-progress-item > svg {
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 3px;
+  color: var(--text-muted);
+}
+
+.push-ui-progress-status {
+  margin-left: 6px;
+  color: var(--text-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.push-ui-progress-summary {
+  color: var(--text-muted);
+}
+
+.push-ui-progress-details > summary {
+  width: fit-content;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.push-ui-progress-details > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.push-ui-progress-details[open] > .push-ui-progress-list {
+  margin-top: 8px;
+}

@@ -8,14 +8,11 @@ from langchain_openai import ChatOpenAI
 
 
 MODEL_ALIASES: dict[str, str] = {
-    "default": os.environ.get("OPENAI_MODEL_DEFAULT", "gpt-4o-mini"),
-    "fast": os.environ.get("OPENAI_MODEL_FAST", "gpt-4o-mini"),
-    "normal": os.environ.get(
-        "OPENAI_MODEL_NORMAL",
-        os.environ.get("OPENAI_MODEL_CHEAP", "gpt-5-nano"),
-    ),
-    "smart": os.environ.get("OPENAI_MODEL_SMART", "gpt-5-mini"),
-    "reasoning": os.environ.get("OPENAI_MODEL_REASONING", "o4-mini"),
+    "default": os.environ.get("OPENAI_MODEL_DEFAULT", "gpt-6-luna"),
+    "fast": os.environ.get("OPENAI_MODEL_FAST", "gpt-6-luna"),
+    "normal": os.environ.get("OPENAI_MODEL_NORMAL", "gpt-6-luna"),
+    "smart": os.environ.get("OPENAI_MODEL_SMART", "gpt-6-sol"),
+    "reasoning": os.environ.get("OPENAI_MODEL_REASONING", "gpt-6-sol"),
 }
 
 DEFAULT_MODEL = os.environ.get(

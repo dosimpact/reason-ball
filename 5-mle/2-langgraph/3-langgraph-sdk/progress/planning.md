@@ -68,3 +68,23 @@ Status key:
 - Example 48 adds the LangChain `TodoListMiddleware` learning path, focused on full-list todo state replacement, `write_todos` tool visibility, and middleware duplicate-call handling.
 - Example 49 adds the LangChain loop engineering learning path as a deterministic local harness with visible retry, trace, and improvement loops.
 - Boilerplate can start next: workspace package setup, Python LangGraph project setup, shared SDK client, app shell, and MVP routes.
+
+## 2026-10-06 — UI-PUSH-CHAT-25 revision
+
+Example 25 now uses MessagesState chat, three dummy-data internal LLM calls with progress UI, and a final answer call. Updated plan, E2E contract, stock, and flow. Earlier example-25 verification applies to the superseded action-card UI. Current runtime/browser verification and migration of the old E2E spec are pending.
+
+## 2026-10-06 — UI-PUSH-TURN-25
+
+Refined example 25 to one Assistant message per turn: persisted empty placeholder, work-start UI, three public progress summaries, and final answer replacement by ID. Failed turns persist and stop subsequent calls. Empty placeholders are excluded from model context. Stock and example plan/E2E contract synchronized. Current validation: TypeScript lint, production build, and graph import/structure inspection; live provider/browser acceptance remains unverified.
+
+## 2026-10-06 — UI-PUSH-STATE-25 cleanup
+
+Removed redundant answer/final/ui_render_status/workflow_id from example 25. error and final_status remain functional frontend inputs. Derived UI IDs use the Assistant ID. Updated stock, plan, E2E contract, and flow. Graph import/compilation and schema inspection passed; no automated tests or provider/browser execution.
+
+## 2026-10-06 — UI-PUSH-EDGES-25
+
+Example 25 now declares each node and connection explicitly, with a shared route_after_stage function and named destinations. Removed registration/edge loops and tuple indices. Graph import/compilation confirmed; no runtime/provider tests.
+
+## 2026-10-06 — UI-PUSH-ID-25
+
+Assistant IDs are generated only in prepare_prompt on every turn. Removed old-state fallback, collision check, and frontend Assistant ID input/draft. Frontend uses the preparation update for the response bubble. TypeScript and graph compilation checks; live provider/browser checks remain pending.

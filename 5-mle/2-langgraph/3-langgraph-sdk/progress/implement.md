@@ -5,6 +5,7 @@ Source: `goal.md` and `plan/*.md`
 Status key:
 - `pending`: not started.
 - `in_progress`: actively being implemented.
+- `implemented`: code complete; live validation may be pending.
 - `blocked`: cannot proceed without a dependency or decision.
 - `verified`: implemented and checked with local tests.
 
@@ -50,7 +51,7 @@ Planning and boilerplate are complete. Examples 01-34 are implemented and verifi
 | 22 | Custom Event Renderer | `plan/22-custom-event-renderer.md` | verified | `custom_event_renderer` | `/examples/22-custom-event-renderer` | None | `pnpm test`, `pnpm build`, `uv run pytest`, SDK OpenAI custom-event smoke, screenshot review, focused 22 Playwright E2E, and full 01-22 Playwright E2E passed with `--workers=3`. |
 | 23 | Thinking Renderer | `plan/23-thinking-renderer.md` | verified | `thinking_renderer` | `/examples/23-thinking-renderer` | None | `pnpm test`, `pnpm build`, `uv run pytest`, SDK OpenAI public-thinking smoke, screenshot review, focused 23 Playwright E2E, and full 01-23 Playwright E2E passed with `--workers=3`. |
 | 24 | Chat Citation Renderer | `plan/24-chat-citation-renderer.md` | verified | `chat_citation_renderer` | `/examples/24-chat-citation-renderer` | None | `pnpm test`, `pnpm build`, `uv run pytest`, SDK OpenAI citation smoke, screenshot review, focused 24 Playwright E2E, and full 01-24 Playwright E2E passed with `--workers=3`. |
-| 25 | push_ui_message Example | `plan/25-push-ui-message.md` | verified | `push_ui_message_example` | `/examples/25-push-ui-message` | None | `pnpm test`, `pnpm build`, `uv run pytest`, SDK OpenAI `push_ui_message` smoke, screenshot review, focused 25 Playwright E2E, and full 01-25 Playwright E2E passed with `--workers=3`. |
+| 25 | push_ui_message Chat | `plan/25-push-ui-message.md` | implemented | `25_push_ui_message_example` | `src/examples/25-push-ui-message/PushUiMessageExample.tsx` | None | UI-PUSH-CHAT-25: lint/build and graph import/structure passed; live provider/browser checks pending. Earlier action-card evidence is superseded; see `docs/flow/2026-10-06-push-ui-chat.md`. |
 | 26 | Multimodal Image Input | `plan/26-multimodal-image-input.md` | verified | `multimodal_image_input` | `/examples/26-multimodal-image-input` | None | `pnpm test`, `pnpm build`, `uv run pytest`, SDK OpenAI vision smoke, screenshot review, focused 26 Playwright E2E, and full 01-26 Playwright E2E passed with `--workers=3`. |
 | 27 | Multimodal Voice Input | `plan/27-multimodal-voice-input.md` | verified | `multimodal_voice_input` | `/examples/27-multimodal-voice-input` | None | `pnpm test`, `pnpm build`, `uv run pytest`, SDK OpenAI audio transcription smoke, screenshot review, focused 27 Playwright E2E, and full 01-27 Playwright E2E passed with `--workers=3`. |
 | 28 | Multimodal Voice Output | `plan/28-multimodal-voice-output.md` | verified | `multimodal_voice_output` | `/examples/28-multimodal-voice-output` | None | `pnpm test`, `pnpm build`, `uv run pytest`, SDK OpenAI TTS smoke, screenshot review, focused 28 Playwright E2E, and full 01-28 Playwright E2E passed with `--workers=3`. |
@@ -75,3 +76,39 @@ Planning and boilerplate are complete. Examples 01-34 are implemented and verifi
 | 47 | A2UI Advanced AG-UI | `plan/47-a2ui-advanced-ag-ui.md` | verified | `a2ui_advanced` | `/examples/47-a2ui-advanced-ag-ui` | Live chat requires LangGraph dev server plus CopilotKit runtime. | Added advanced A2UI tool, progress/action renderer, frontend confirmation tool, scoped CSS, app/runtime registration, and local compile/build/import verification. |
 | 48 | Todo List Middleware | `plan/48-todo-list-middleware.md` | verified | `todo_list_middleware` | `/examples/48-todo-list-middleware` | None | Added deterministic LangChain `TodoListMiddleware` agent graph, registered graph/example route, and React todo board showing `pending`/`in_progress`/`completed` state from stream values; verified with `pnpm test`, `pnpm build`, Python graph invoke/duplicate-call smoke, and Playwright browser smoke on `http://localhost:2934` with LangGraph API `http://localhost:2935`. |
 | 49 | Loop Engineering Harness | `plan/49-loop-engineering-harness-ui.md` | verified | `loop_engineering_harness` | `/examples/49-loop-engineering-harness-ui` | None | Added deterministic loop engineering graph, registered graph/example route, and React harness UI showing event-driven, agent, verification, and hill-climbing loops with retry attempts, trace events, and improvement suggestions. |
+
+## 2026-10-06 — UI-PUSH-CHAT-25 revision
+
+Example 25 now uses MessagesState chat, three dummy-data internal LLM calls with progress UI, and a final answer call. Updated plan, E2E contract, stock, and flow. Earlier example-25 verification applies to the superseded action-card UI. Current runtime/browser verification and migration of the old E2E spec are pending.
+
+## 2026-10-06 — UI-PUSH-TURN-25
+
+Refined example 25 to one Assistant message per turn: persisted empty placeholder, work-start UI, three public progress summaries, and final answer replacement by ID. Failed turns persist and stop subsequent calls. Empty placeholders are excluded from model context. Stock and example plan/E2E contract synchronized. Current validation: TypeScript lint, production build, and graph import/structure inspection; live provider/browser acceptance remains unverified.
+
+## 2026-10-06 — UI-PUSH-STATE-25 cleanup
+
+Removed redundant answer/final/ui_render_status/workflow_id from example 25. error and final_status remain functional frontend inputs. Derived UI IDs use the Assistant ID. Updated stock, plan, E2E contract, and flow. Graph import/compilation and schema inspection passed; no automated tests or provider/browser execution.
+
+## 2026-10-06 — UI-PUSH-EDGES-25
+
+Example 25 now declares each node and connection explicitly, with a shared route_after_stage function and named destinations. Removed registration/edge loops and tuple indices. Graph import/compilation confirmed; no runtime/provider tests.
+
+## 2026-10-06 — UI-PUSH-ID-25
+
+Assistant IDs are generated only in prepare_prompt on every turn. Removed old-state fallback, collision check, and frontend Assistant ID input/draft. Frontend uses the preparation update for the response bubble. TypeScript and graph compilation checks; live provider/browser checks remain pending.
+
+## 2026-10-06 — UI-PUSH-TYPES-25
+
+Added typed progress props, partial update contract, metadata fields, runtime schema validation, and renderer type narrowing in example 25. TypeScript lint passed. Live provider/browser checks remain pending.
+
+## 2026-10-06 — UI-PUSH-LIST-25
+
+Example 25 progress now uses compact ul/li items instead of cards. TypeScript lint checked; live browser/provider validation remains pending.
+
+## 2026-10-06 — UI-PUSH-COLLAPSE-25
+
+Progress lists are now collapsed by default under 작업 과정, independently toggleable per Assistant turn. Final answers stay visible. TypeScript lint checked; browser/provider verification remains pending.
+
+## 2026-10-06 — UI-PUSH-MESSAGE-TYPES-25
+
+Paired thinking_status name and props in exported full/partial message types and applied full messages to React state through validated merging. Unsupported payloads have a separate fallback variant. TypeScript lint passed.
