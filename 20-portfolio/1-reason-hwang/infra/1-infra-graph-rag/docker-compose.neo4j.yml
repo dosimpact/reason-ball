@@ -1,0 +1,38 @@
+services:
+  # [Neo4j] Graph RAG 지식 그래프(Knowledge Graph) 저장소
+  neo4j:
+    image: neo4j:5.26
+    container_name: reason-graph-neo4j
+    restart: unless-stopped
+    ports:
+      - "${NEO4J_HTTP_PORT:-7474}:7474"
+      - "${NEO4J_BOLT_PORT:-7687}:7687"
+    environment:
+      NEO4J_AUTH: "${NEO4J_USER:-neo4j}/${NEO4J_PASSWORD:-test1234}"
+      NEO4J_PLUGINS: '["apoc","apoc-extended"]'
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: "yes"
+      NEO4J_dbms_security_procedures_unrestricted: "apoc.*"
+    volumes:
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/neo4j/data:/data
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/neo4j/logs:/logs
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/neo4j/import:/import
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/neo4j/plugins:/plugins
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >
+          auth="$${NEO4J_AUTH:-neo4j/test1234}";
+          user="$${auth%%/*}";
+          pass="$${auth#*/}";
+          cypher-shell -u "$${user}" -p "$${pass}" "RETURN 1;"
+          >/dev/null 2>&1 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+    networks:
+      - graph-rag
+
+networks:
+  graph-rag:
+    driver: bridge

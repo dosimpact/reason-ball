@@ -2,6 +2,10 @@
 
 > Status: 이 문서는 초기 로그 관측 구성의 이력을 포함합니다. 현재 Prometheus, cAdvisor, PostgreSQL exporter, Neo4j exporter까지 포함한 canonical 설계는 `docs/stock/shared/system-design.md`와 `infra/1-infra-graph-rag/docs/design.md`를 따릅니다.
 
+## INFRA-COMPOSE-003: 현재 실행 파일
+
+PostgreSQL은 `docker-compose.postgres.yml`, Neo4j는 `docker-compose.neo4j.yml`, exporter와 관측 플랫폼은 `docker-compose.monitoring.yml`에 정의한다. 패키지 스크립트는 세 파일을 하나의 Compose 프로젝트로 조합한다. 전체 명령은 `pnpm run infra:up`, `infra:down`, `infra:ps`이며 역할별로 `infra:postgres:up`, `infra:neo4j:up`, `infra:monitoring:up`과 각 `stop`·`ps`를 제공한다. 모니터링 기동은 DB 의존성도 기동한다. 상세 운영은 [패키지 설계](../../../../../infra/1-infra-graph-rag/docs/design.md)를 따른다. 아래 초기 설계의 단일 파일 CLI 예시는 현재 `pnpm run infra:logs`로 대체한다.
+
 ## Goal
 
 Langgraph Agent + Graph RAG 개발에 필요한 데이터베이스와 로그 관측 환경을 Docker Compose로 구성

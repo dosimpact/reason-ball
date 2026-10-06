@@ -18,10 +18,10 @@ pnpm run infra:up
 3. 상태 확인
 ```bash
 pnpm run infra:ps
-docker-compose logs --tail=100 neo4j
-docker-compose logs --tail=100 postgres
-docker-compose logs --tail=100 alloy
-docker-compose logs --tail=100 prometheus
+pnpm run infra:logs --tail=100 neo4j
+pnpm run infra:logs --tail=100 postgres
+pnpm run infra:logs --tail=100 alloy
+pnpm run infra:logs --tail=100 prometheus
 ```
 
 4. 주요 접속 주소
@@ -35,6 +35,30 @@ docker-compose logs --tail=100 prometheus
 ```bash
 pnpm run infra:down
 ```
+
+## INFRA-COMPOSE-003: 역할별 Compose 파일
+
+| 파일 | 서비스 |
+| --- | --- |
+| `docker-compose.postgres.yml` | PostgreSQL |
+| `docker-compose.neo4j.yml` | Neo4j |
+| `docker-compose.monitoring.yml` | PostgreSQL/Neo4j exporter, cAdvisor, Prometheus, Loki, Alloy, Grafana |
+
+세 파일은 하나의 Compose 프로젝트로 조합한다. `pnpm run infra:compose`는 항상 세 파일을 `-f`로 전달하며, 기존 프로젝트명·`graph-rag` 네트워크·서비스명·bind mount·포트·healthcheck·의존성을 유지한다. 기존 `docker-compose.yml`은 제거했다. 직접 CLI를 사용할 때도 세 파일을 지정한다. [Docker Compose 파일 병합 규칙](https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/)을 따른다.
+
+```bash
+pnpm run infra:config                # 구성 검증
+pnpm run infra:up                    # 전체 기동
+pnpm run infra:postgres:up           # PostgreSQL 기동
+pnpm run infra:neo4j:up              # Neo4j 기동
+pnpm run infra:monitoring:up         # 모니터링 및 필요한 DB 의존성 기동
+pnpm run infra:monitoring:stop       # 모니터링만 정지
+pnpm run infra:postgres:ps           # PostgreSQL 상태
+pnpm run infra:logs --tail=100 alloy # 서비스 로그
+pnpm run infra:down                  # 전체 컨테이너 및 네트워크 제거, 호스트 데이터 보존
+```
+
+각 그룹에 `up`, `stop`, `ps` 스크립트가 있다. 그룹별 `stop`은 컨테이너를 정지하고 공유 네트워크를 유지한다. DB 정지 시 해당 exporter의 수집은 DB가 다시 실행될 때까지 실패한다. 모니터링 파일은 DB를 참조하는 조합용 파일이므로 단독 `-f` 실행 대신 스크립트를 사용한다. `infra:monitoring:up`은 기존 `depends_on`에 따라 PostgreSQL을 기동하고 Neo4j가 healthy가 된 뒤 exporter를 기동한다.
 
 ## 2. 핵심 기능들
 

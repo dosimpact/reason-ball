@@ -2,8 +2,20 @@
   "name": "@10k/infra",
   "private": true,
   "scripts": {
-    "infra:up": "docker-compose up -d neo4j postgres loki alloy postgres-exporter neo4j-exporter cadvisor prometheus grafana",
-    "infra:down": "docker-compose down",
-    "infra:ps": "docker-compose ps"
+    "infra:compose": "docker compose -f docker-compose.postgres.yml -f docker-compose.neo4j.yml -f docker-compose.monitoring.yml",
+    "infra:config": "pnpm run infra:compose config --quiet",
+    "infra:up": "pnpm run infra:compose up -d",
+    "infra:down": "pnpm run infra:compose down",
+    "infra:ps": "pnpm run infra:compose ps",
+    "infra:logs": "pnpm run infra:compose logs",
+    "infra:postgres:up": "pnpm run infra:compose up -d postgres",
+    "infra:postgres:stop": "pnpm run infra:compose stop postgres",
+    "infra:postgres:ps": "pnpm run infra:compose ps postgres",
+    "infra:neo4j:up": "pnpm run infra:compose up -d neo4j",
+    "infra:neo4j:stop": "pnpm run infra:compose stop neo4j",
+    "infra:neo4j:ps": "pnpm run infra:compose ps neo4j",
+    "infra:monitoring:up": "pnpm run infra:compose up -d postgres-exporter neo4j-exporter cadvisor prometheus loki alloy grafana",
+    "infra:monitoring:stop": "pnpm run infra:compose stop postgres-exporter neo4j-exporter cadvisor prometheus loki alloy grafana",
+    "infra:monitoring:ps": "pnpm run infra:compose ps postgres-exporter neo4j-exporter cadvisor prometheus loki alloy grafana"
   }
 }

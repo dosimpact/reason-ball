@@ -112,6 +112,8 @@ The separate `langgraph dev` process on port 2024 is for graph development and S
 - Prometheus, cAdvisor, PostgreSQL exporter, and Neo4j exporter for metrics.
 - Grafana for logs, metrics, and provisioned dashboards.
 
+INFRA-COMPOSE-003: PostgreSQL, Neo4j, and monitoring are defined in `docker-compose.postgres.yml`, `docker-compose.neo4j.yml`, and `docker-compose.monitoring.yml`. Package scripts combine all three files into the existing single Compose project, preserving exporter dependencies. Group `up`, `stop`, and `ps` commands are documented in the [package design](../../../infra/1-infra-graph-rag/docs/design.md#infra-compose-003-역할별-compose-파일).
+
 Services communicate on the `graph-rag` Docker network. Persistent data is bind-mounted below the configured `VOLUME_PREFIX`. Infrastructure data must not be deleted as part of normal cleanup.
 
 `infra/2-codex-oauth-proxy` provides `/v1/responses`, `/v1/chat/completions`, `/v1/models`, and `/health`. It uses a local ChatGPT OAuth token rather than an API key. The token at `.config/chatgpt_auth.json` is secret local state and must never be committed. Its Docker image contains only the `aiohttp` runtime dependency and proxy code; OpenAI SDK and LangGraph example dependencies remain in the local development dependency group. The container listens on port `18741`, while its standalone Compose file publishes it to loopback port `2890` by default and supports overriding the host port with `CODEX_OAUTH_PROXY_PORT`.

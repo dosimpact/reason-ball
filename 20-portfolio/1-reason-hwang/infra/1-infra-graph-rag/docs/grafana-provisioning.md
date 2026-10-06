@@ -32,7 +32,7 @@ monitoring/grafana/
 
 ## 컨테이너 마운트
 
-`docker-compose.yml`의 Grafana 서비스는 다음 세 경로를 읽기 전용으로 마운트한다.
+`docker-compose.monitoring.yml`의 Grafana 서비스는 다음 세 경로를 읽기 전용으로 마운트한다.
 
 | 호스트 경로 | 컨테이너 경로 | 용도 |
 | --- | --- | --- |
@@ -113,7 +113,7 @@ UI에서 저장한 변경은 Git의 JSON 파일을 수정하지 않는다. Grafa
 
 ```bash
 jq empty monitoring/grafana/dashboards/*.json
-docker-compose restart grafana
+pnpm run infra:compose restart grafana
 ```
 
 ### Grafana UI에서 수정하는 경우
@@ -138,7 +138,7 @@ provider가 디렉터리 전체를 읽으므로 `dashboards.yaml`에 파일명�
 
 ```bash
 jq empty monitoring/grafana/dashboards/new-dashboard.json
-docker-compose restart grafana
+pnpm run infra:compose restart grafana
 ```
 
 ## 검증
@@ -161,7 +161,7 @@ curl -u "$GRAFANA_ADMIN_USER:$GRAFANA_ADMIN_PASSWORD" \
 Grafana 로그에서 provisioning 오류를 확인할 수도 있다.
 
 ```bash
-docker-compose logs --tail=100 grafana
+pnpm run infra:logs --tail=100 grafana
 ```
 
 확인할 대표 오류는 datasource UID 불일치, 잘못된 JSON, 중복 dashboard UID, 파일 권한 및 datasource 연결 실패다.

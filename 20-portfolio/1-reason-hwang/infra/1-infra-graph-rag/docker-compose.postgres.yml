@@ -1,0 +1,20 @@
+services:
+  # [PostgreSQL] 문서 메타데이터 및 수집 이력 관리 RDB (기본 포트 5432 -> 호스트 55432 충돌 방지 매핑)
+  postgres:
+    image: postgres:16-alpine
+    container_name: reason-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER:-postgres}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env}"
+      POSTGRES_DB: "${POSTGRES_DB:-sec_collector}"
+    ports:
+      - "${POSTGRES_PORT:-55432}:5432"
+    volumes:
+      - ${VOLUME_PREFIX:?VOLUME_PREFIX must be set in .env}/postgres/data:/var/lib/postgresql/data
+    networks:
+      - graph-rag
+
+networks:
+  graph-rag:
+    driver: bridge
