@@ -66,3 +66,5 @@ tech-shared/
 - 구현과 원문이 다르면 현재 공용/도메인 설계와 코드를 확인한다. 원문을 수정해야 하는 후속 작업은 별도 변경으로 기록한다.
 
 - [A2UI 시스템 설계](a2ui-system/INDEX.md): 전체 UI Registry, 정적 카탈로그, SDK/프로토콜 버전 계약, Dynamic/Fixed 및 사용자 action.
+
+- [Push UI message 예제](push-ui-message/INDEX.md): 독립 채팅 예제와 메시지별 진행 이벤트.

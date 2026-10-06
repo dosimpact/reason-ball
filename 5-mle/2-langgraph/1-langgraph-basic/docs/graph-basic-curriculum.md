@@ -149,3 +149,20 @@ API를 추가하기보다, 분리해 학습한 routing, tools, reflection, evalu
 
 고급 비동기 서버, semantic cache, Postgres persistence, vector database,
 observability, evaluation harness, multi-tenancy는 `graph-advanced/` 확장 트랙에서 다룹니다.
+
+## 9. UI message extension
+
+| 번호 | 예제 | 새 개념 |
+|---:|---|---|
+| 47 | `push_ui_message` | UI custom 이벤트, `ui_message_reducer`, 같은 ID props 병합, AIMessage 연결 |
+
+UI-001: 09와 18 이후 학습할 수 있는 결정론적 확장 예제다.
+`uv run python graph-basic/47_push_ui_message.py`로 실행하며 API 키는 필요 없다.
+`ui` state는 `Annotated[list[AnyUIMessage], ui_message_reducer]`로 선언한다.
+노드 내부 `push_ui_message` 호출은 custom 이벤트 전송과 state 저장을 함께 수행한다.
+동일 ID와 `merge=True`로 title을 유지하며 status/progress를 갱신한다.
+`message` 인자는 AIMessage의 ID를 UI metadata에 연결한다.
+CLI는 이벤트와 state를 확인하며, 실제 렌더링에는 `task_card` 프런트엔드 구현이 필요하다.
+
+공식 API: https://reference.langchain.com/python/langgraph/graph/ui/push_ui_message
+검증: `test_push_ui_message.py`; 변경 기록: [2026-10-02](flow/2026-10-02-push-ui-message-example.md).

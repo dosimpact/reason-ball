@@ -1,0 +1,32 @@
+meta {
+  name: PUSH-UI-001 real model and linked tool progress
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/examples/push-ui-message/stream
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+}
+body:json {
+  {"message":"매출 집계 기준을 조사하고 서울 매출을 조회해줘","history":[]}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("PUSH-UI-001: tool stages attach to final answer", function () {
+    const frames = res.getBody().split("\n\n").filter(frame => frame.includes("data: ")).map(frame => ({event: frame.split("\n")[0].slice(7), data: JSON.parse(frame.split("\n").find(line => line.startsWith("data: ")).slice(6))}));
+    expect(frames.some(f => f.event === "error")).to.equal(false);
+    const id = frames.find(f => f.event === "start").data.message_id;
+    const progress = frames.filter(f => f.event === "ui");
+    expect(progress.every(f => f.data.metadata.message_id === id)).to.equal(true);
+    expect(progress.some(f => f.data.props.title.includes("자료 조사"))).to.equal(true);
+    expect(progress.some(f => f.data.props.title.includes("데이터 조회"))).to.equal(true);
+    expect(frames.find(f => f.event === "answer").data.content.length).to.be.greaterThan(0);
+    expect(frames[frames.length - 1].event).to.equal("done");
+  });
+}

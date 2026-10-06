@@ -1,0 +1,22 @@
+meta {
+  name: PUSH-UI-001 empty input rejection
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/examples/push-ui-message/stream
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+}
+body:json {
+  {"message":" ","history":[]}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("empty input is rejected", function () { expect(res.getBody().detail).to.be.an("array"); });
+}

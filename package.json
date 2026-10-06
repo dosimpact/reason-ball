@@ -6,13 +6,8 @@
   "scripts": {
     "build": "turbo run build --filter=!@10k/workspace",
     "dev": "turbo run dev",
-    "infra-up:reason-hwang": "pnpm -C 20-portfolio/1-reason-hwang infra:up",
-    "infra-down:reason-hwang": "pnpm -C 20-portfolio/1-reason-hwang infra:down",
-    "infra-ps:reason-hwang": "pnpm -C 20-portfolio/1-reason-hwang infra:ps",
-    "dev:reason-hwang": "pnpm -C 20-portfolio/1-reason-hwang dev",
     "build:reason-hwang": "pnpm -C 20-portfolio/1-reason-hwang build",
     "start:reason-hwang": "pnpm -C 20-portfolio/1-reason-hwang start",
-    "test:e2e:reason-hwang": "pnpm -C 20-portfolio/1-reason-hwang test:e2e",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",

@@ -61,6 +61,7 @@ EXPECTED_STEMS = [
     "44_reusable_chat_subgraph",
     "45_research_reflexion",
     "46_agentic_rag",
+    "47_push_ui_message",
 ]
 
 

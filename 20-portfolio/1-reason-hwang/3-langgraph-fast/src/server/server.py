@@ -20,6 +20,7 @@ from infrastructure.postgres.thread_repository import PostgresThreadRepository
 from server.a2a import router as a2a_router
 from server.a2a import set_a2a_task_repository
 from server.a2ui.router import router as a2ui_router
+from server.push_ui_message.router import router as push_ui_message_router
 from server.assistants import router as assistants_router
 from server.assistants.repository import InMemoryAssistantRepository
 from server.assistants.router import set_assistant_repository
@@ -118,6 +119,7 @@ app.include_router(system_router)
 app.include_router(tenk_router)
 app.include_router(tenk_graph_router)
 app.include_router(a2ui_router)
+app.include_router(push_ui_message_router)
 
 
 def standard_openapi() -> dict:

@@ -180,3 +180,5 @@ Detailed implementation notes are grouped by their technical owners:
 If a supporting document conflicts with code or a stock document, verify the implementation first and reconcile the appropriate domain stock document. Preserved imported notes may contain historical routes or paths. Use the [relocation map and reading rules](stock/tech-shared/INDEX.md) to resolve them; the move itself does not certify that every historical detail matches current code.
 
 - [A2UI 시스템 설계](stock/tech-shared/a2ui-system/INDEX.md): 전체 UI Registry, 정적 카탈로그, SDK/프로토콜 버전 계약, Dynamic/Fixed 및 사용자 action.
+
+- [Push UI message 예제](stock/tech-shared/push-ui-message/INDEX.md): 턴별 진행 부가정보와 독립 채팅 UI.

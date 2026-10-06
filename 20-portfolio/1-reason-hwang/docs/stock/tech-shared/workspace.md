@@ -33,7 +33,8 @@ Decision and validation: [2026-10-02 boundary reconciliation](../../flow/2026-10
 | Command | Purpose |
 | --- | --- |
 | `pnpm install` | Install JavaScript workspace dependencies |
-| `pnpm dev` | Run available persistent development tasks through Turbo |
+| `pnpm dev` | Stop verified existing app listeners, then run five application dev tasks through Turbo |
+| `pnpm test:dev` | Validate scoped development-port cleanup and collision handling |
 | `pnpm build` | Build packages that define a build task |
 | `pnpm start` | Start the production host and BFF |
 | `pnpm test` | Run package tests after dependency builds |
@@ -44,6 +45,30 @@ Decision and validation: [2026-10-02 boundary reconciliation](../../flow/2026-10
 | `pnpm infra:up` | Start infrastructure packages |
 | `pnpm infra:ps` | Inspect infrastructure health/status |
 | `pnpm infra:down` | Stop infrastructure packages without deleting persisted host data |
+
+## DEV-START-001: App restart before development startup
+
+`pnpm dev` runs `scripts/dev.mjs`. On macOS/Linux with `lsof`, the launcher checks
+2800 (host), 2801 (BFF), 2802 (template), 2803 (todo), and 8000 (FastAPI) before
+starting Turbo. All occupied ports must belong to the matching package directory
+in this exact checkout and a recognized Node/Python development runtime. Unknown
+owners and other checkouts cause an explicit error before any termination.
+
+Verified listeners and their package-local runtime supervisors receive SIGTERM;
+shells and the current invocation's ancestors are excluded. Identity is checked
+again before signaling, and startup waits up to ten seconds for the captured
+processes and ports to clear. There is no automatic SIGKILL. Permission denial,
+identity changes, or a watcher that keeps a port occupied stop startup with a
+message instead of launching duplicate servers. Run this command in the user's
+terminal when an agent sandbox cannot signal existing processes or open ports.
+
+Turbo starts only the five application dev tasks; infrastructure packages are
+explicitly excluded. Docker databases, observability services, and the OAuth
+proxy remain running. Nondefault ports such as 2820/18083 are outside this
+restart scope. Application port changes must update APP_PORTS in
+`scripts/dev-ports.mjs` together with the package configuration.
+
+Validation and scope: [restart flow](../../flow/2026-10-02-dev-port-restart.md).
 
 Python packages use `uv`. Run `uv sync` in `3-langgraph-fast` or `infra/2-codex-oauth-proxy` when installing their Python dependencies.
 

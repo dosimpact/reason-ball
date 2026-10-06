@@ -15,7 +15,9 @@
     "a2ui:generate": "tsx scripts/a2ui-contract.ts",
     "a2ui:check": "tsx scripts/a2ui-contract.ts --check",
     "test:a2ui": "vitest run --project a2ui",
-    "test:a2ui:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/lib/a2ui/*.stories.tsx"
+    "test:a2ui:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/lib/a2ui/*.stories.tsx",
+    "test:push-ui": "node --import tsx --test tests/push-ui-message/*.test.ts",
+    "test:push-ui:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/features/push-ui-message/TurnView.stories.tsx"
   },
   "dependencies": {
     "@a2ui/web_core": "0.10.4",
