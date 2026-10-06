@@ -1,0 +1,12 @@
+{
+  "name": "domain-map-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.18.0" },
+  "scripts": {
+    "domain": "node cli/index.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node scripts/check-package.mjs"
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "repositories": [
+    {
+      "id": "repo-commerce",
+      "source": "synthetic://commerce",
+      "revision": null,
+      "dirty": false,
+      "inspectedPaths": [
+        {
+          "path": "synthetic-source.txt",
+          "locator": "line 1",
+          "contentHash": "22d5c15f74b3dac5d7d53c3f7655e1fbaa7ed7baebc922a8cddc984647aeb7af"
+        }
+      ],
+      "excludedPaths": [],
+      "purpose": "합성 주문/결제 예시",
+      "candidateDomainIds": [
+        "domain-commerce"
+      ],
+      "status": "inspected",
+      "lastInspectedAt": "2026-10-06T00:00:00Z"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-source",
+      "repoId": "repo-commerce",
+      "revision": null,
+      "contentHash": "22d5c15f74b3dac5d7d53c3f7655e1fbaa7ed7baebc922a8cddc984647aeb7af",
+      "path": "synthetic-source.txt",
+      "locator": "line 1",
+      "observedAt": "2026-10-06T00:00:00Z",
+      "kind": "synthetic-document",
+      "summary": "합성 문서는 주문 시스템에서 결제 시스템으로 요청을 보낸다고 설명한다."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-flow",
+      "statement": "합성 문서의 주문 시스템은 결제 시스템에 결제를 요청한다.",
+      "entityIds": [
+        "system-orders",
+        "system-payments",
+        "relationship-payment"
+      ],
+      "evidenceIds": [
+        "evidence-source"
+      ],
+      "basis": "documented",
+      "status": "supported",
+      "contradicts": [],
+      "lastVerifiedAt": "2026-10-06T00:00:00Z"
+    },
+    {
+      "id": "claim-domain",
+      "statement": "주문과 결제는 커머스 업무 영역으로 묶을 수 있다는 합성 가설이다.",
+      "entityIds": [
+        "domain-commerce"
+      ],
+      "evidenceIds": [],
+      "basis": "inferred",
+      "status": "hypothesis",
+      "contradicts": [],
+      "lastVerifiedAt": "2026-10-06T00:00:00Z"
+    }
+  ],
+  "domainModel": {
+    "schemaVersion": 1,
+    "domains": [
+      {
+        "id": "domain-commerce",
+        "name": "커머스 (합성 가설)",
+        "responsibility": "합성 예시의 주문 및 결제 업무",
+        "repoIds": [
+          "repo-commerce"
+        ],
+        "claimIds": [
+          "claim-domain"
+        ]
+      }
+    ],
+    "systems": [
+      {
+        "id": "system-orders",
+        "name": "주문",
+        "responsibility": "합성 예시: 주문 접수와 결제 요청",
+        "repoIds": [
+          "repo-commerce"
+        ],
+        "claimIds": [
+          "claim-flow"
+        ]
+      },
+      {
+        "id": "system-payments",
+        "name": "결제",
+        "responsibility": "합성 예시: 결제 요청 처리",
+        "repoIds": [
+          "repo-commerce"
+        ],
+        "claimIds": [
+          "claim-flow"
+        ]
+      }
+    ],
+    "repositories": [
+      {
+        "id": "repo-commerce",
+        "source": "synthetic://commerce"
+      }
+    ],
+    "relationships": [
+      {
+        "id": "relationship-payment",
+        "from": "system-orders",
+        "to": "system-payments",
+        "kind": "call",
+        "label": "결제 요청 (합성 문서)",
+        "claimIds": [
+          "claim-flow"
+        ]
+      }
+    ],
+    "idAliases": []
+  },
+  "questions": [
+    {
+      "id": "question-contract",
+      "question": "실제 API 계약은 무엇인가? 합성 예시에는 구현이 없다.",
+      "affectedIds": [
+        "relationship-payment"
+      ],
+      "priority": "high",
+      "nextEvidenceToRead": [
+        "실제 파일럿의 API 명세"
+      ],
+      "status": "open"
+    }
+  ],
+  "workItems": []
+}

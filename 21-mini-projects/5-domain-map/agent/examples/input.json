@@ -1,0 +1,28 @@
+{
+  "project": "synthetic-commerce",
+  "mode": "bootstrap",
+  "output_dir": "/absolute/path/to/private-domain-agent-data",
+  "language": "ko",
+  "focus": null,
+  "repositories": [
+    {
+      "id": "repo-commerce",
+      "path": "synthetic://commerce"
+    }
+  ],
+  "business_context": "합성 테스트 전용. 실제 기업 분석이 아니다.",
+  "additional_sources": [],
+  "budget": {
+    "max_repositories_per_run": 5,
+    "max_files_per_repository": 12,
+    "max_lines_per_repository": 1500,
+    "max_domains_to_deepen": 1
+  },
+  "exclusions": [
+    ".git",
+    "node_modules",
+    ".env*",
+    "*.pem",
+    "*.key"
+  ]
+}
