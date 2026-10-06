@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `checkpoint_state_history` graph.
+- The LangGraph server exposes the `07_checkpoint_state_history` graph.
 
 ## User Actions
 
@@ -30,7 +30,7 @@
 
 ## Backend Assertions
 
-- `checkpoint_state_history` streams successfully through the SDK client.
+- `07_checkpoint_state_history` streams successfully through the SDK client.
 - The graph creates multiple checkpoints for a single thread.
 - The SDK can fetch the current thread state after the run completes.
 - The SDK can list checkpoint history for the completed thread.

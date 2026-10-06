@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY` for graph paths that produce a primary or fallback answer.
-- The LangGraph server exposes the `retry_error_degradation` graph.
+- The LangGraph server exposes the `18_retry_error_degradation` graph.
 - Example navigation includes `18 Retry / Error / Degradation UI`.
 - The UI provides a default API URL, query textarea, failure mode controls named `Normal`, `Flaky`, `Fallback`, and `Forced failure`, max attempts input, `Enable fallback` checkbox, `Run retry demo` button, and `Reset` button.
 - The SDK client streams with `updates` and `custom` modes.
@@ -36,7 +36,7 @@
 
 ## Backend Assertions
 
-- The SDK client streams against graph id `retry_error_degradation`.
+- The SDK client streams against graph id `18_retry_error_degradation`.
 - Stream mode includes both `updates` and `custom`.
 - Flaky mode sends `failure_mode: flaky_success`, `max_attempts: 3`, and `fallback_enabled: true`.
 - Flaky final graph state includes at least three attempts, recoverable transient errors for attempts 1 and 2, retry/backoff events, `primary_result`, and `final_status: success_with_retries`.

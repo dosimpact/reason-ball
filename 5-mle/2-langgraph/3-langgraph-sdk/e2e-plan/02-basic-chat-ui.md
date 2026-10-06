@@ -23,7 +23,7 @@
 
 ## Backend Assertions
 
-- `basic_chat` assistant streams successfully.
+- `02_basic_chat` assistant streams successfully.
 - Both runs use the same LangGraph thread id.
 - Thread state contains the accumulated message history.
 

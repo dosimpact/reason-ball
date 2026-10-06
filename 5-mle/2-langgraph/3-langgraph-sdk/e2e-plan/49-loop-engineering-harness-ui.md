@@ -2,7 +2,7 @@
 
 ## Setup
 
-- Start LangGraph dev with the `loop_engineering_harness` graph registered.
+- Start LangGraph dev with the `49_loop_engineering_harness` graph registered.
 - Start the Vite frontend with `VITE_LANGGRAPH_API_URL` pointing at the local LangGraph API.
 
 ## User Actions

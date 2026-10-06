@@ -4,7 +4,7 @@
 
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
-- The LangGraph server exposes the `multimodal_voice_input` graph.
+- The LangGraph server exposes the `27_multimodal_voice_input` graph.
 - Example navigation includes `27 Multimodal Input: Voice`.
 - The SDK client streams with `streamMode: ["updates", "custom"]`.
 - Browser automation avoids microphone permissions by using a sample audio button when available, otherwise uploading an in-memory WAV fixture.
@@ -30,7 +30,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `multimodal_voice_input`.
+- Stream requests target graph id `27_multimodal_voice_input`.
 - Stream mode includes `updates` and `custom`.
 - The stream request body includes the unique E2E marker appended to the prompt.
 - The stream request body includes audio metadata such as file name, MIME type, size, duration, or source.

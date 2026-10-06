@@ -299,7 +299,7 @@ function PredictiveDocumentChat() {
 
       <div style={{ ...panelStyle, minHeight: 680 }}>
         <h3 style={{ fontSize: 18, margin: 0 }}>Backend Confirmation Chat</h3>
-        <CopilotChat agentId="predictive_state_updates" className="agentic-chat-window" />
+        <CopilotChat agentId="41_predictive_state_updates" className="agentic-chat-window" />
       </div>
     </section>
   );
@@ -307,7 +307,7 @@ function PredictiveDocumentChat() {
 
 export function PredictiveStateUpdatesAgUiExample() {
   return (
-    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="predictive_state_updates">
+    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="41_predictive_state_updates">
       <PredictiveDocumentChat />
     </CopilotKit>
   );

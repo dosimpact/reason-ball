@@ -8,7 +8,7 @@
 
 ## Implementation Plan
 
-1. Add an `agentic_chat_multimodal` graph with message handling for text plus image/media content.
+1. Add an `43_agentic_chat_multimodal` graph with message handling for text plus image/media content.
 2. Use the shared model factory with a multimodal-capable model configuration when available.
 3. Add React image upload/preview controls and pass the selected image into the CopilotKit/LangGraph message flow.
 4. Render upload state, thumbnail preview, assistant analysis, and any structured observations.

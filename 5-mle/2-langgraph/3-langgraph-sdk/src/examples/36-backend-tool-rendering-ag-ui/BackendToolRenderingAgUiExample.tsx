@@ -222,7 +222,7 @@ function BackendToolRenderingChat() {
   return (
     <section style={styles.surface}>
       <div style={styles.chatPanel}>
-        <CopilotChat agentId="backend_tool_rendering" className="agentic-chat-window" />
+        <CopilotChat agentId="36_backend_tool_rendering" className="agentic-chat-window" />
       </div>
     </section>
   );
@@ -233,7 +233,7 @@ export function BackendToolRenderingAgUiExample() {
     <CopilotKit
       runtimeUrl={copilotRuntimeUrl()}
       showDevConsole={false}
-      agent="backend_tool_rendering"
+      agent="36_backend_tool_rendering"
     >
       <BackendToolRenderingChat />
     </CopilotKit>

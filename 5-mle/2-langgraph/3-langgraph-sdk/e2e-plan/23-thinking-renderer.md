@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` includes a valid `OPENAI_API_KEY` if the provider-backed final answer path is used.
-- The LangGraph server exposes the `thinking_renderer` graph.
+- The LangGraph server exposes the `23_thinking_renderer` graph.
 - Example navigation includes `23 Thinking Renderer`.
 - The SDK client streams with both `updates` and `custom` modes.
 
@@ -32,7 +32,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `thinking_renderer`.
+- Stream requests target graph id `23_thinking_renderer`.
 - Stream mode includes `updates` and `custom`.
 - The stream request body includes the unique E2E marker.
 - Custom stream events include thinking/status payloads before the final answer is rendered.

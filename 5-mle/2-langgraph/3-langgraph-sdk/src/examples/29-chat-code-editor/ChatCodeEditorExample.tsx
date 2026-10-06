@@ -84,7 +84,7 @@ function normalizeTestRecords(value: unknown): TestRecord[] {
 function normalizeEditorEvents(value: unknown): EditorEvent[] {
   if (!Array.isArray(value)) return [];
   return value.filter(isRecord).map((event) => ({
-    type: typeof event.type === "string" ? event.type : "chat_code_editor",
+    type: typeof event.type === "string" ? event.type : "29_chat_code_editor",
     phase: typeof event.phase === "string" ? event.phase : "",
     status: typeof event.status === "string" ? event.status : "",
     detail: typeof event.detail === "string" ? event.detail : "",
@@ -184,7 +184,7 @@ export function ChatCodeEditorExample() {
   }
 
   function applyCustomEvent(data: unknown) {
-    if (!isRecord(data) || data.type !== "chat_code_editor") return;
+    if (!isRecord(data) || data.type !== "29_chat_code_editor") return;
     setEditorEvents((current) => mergeEditorEvents(current, normalizeEditorEvents([data])));
   }
 
@@ -207,7 +207,7 @@ export function ChatCodeEditorExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming code editor graph");
 
-      const stream = await client.runs.stream(nextThreadId, "chat_code_editor", {
+      const stream = await client.runs.stream(nextThreadId, "29_chat_code_editor", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });

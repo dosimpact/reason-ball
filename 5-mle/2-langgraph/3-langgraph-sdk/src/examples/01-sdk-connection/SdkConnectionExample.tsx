@@ -16,7 +16,7 @@ const client = createLangGraphClient();
 
 export function SdkConnectionExample() {
   const [assistants, setAssistants] = useState<AssistantRecord[]>([]);
-  const [selectedAssistantId, setSelectedAssistantId] = useState("sdk_connection");
+  const [selectedAssistantId, setSelectedAssistantId] = useState("01_sdk_connection");
   const [threadId, setThreadId] = useState("");
   const [prompt, setPrompt] = useState("Say hello from the SDK connection example.");
   const [runId, setRunId] = useState("");
@@ -43,9 +43,9 @@ export function SdkConnectionExample() {
       const preferred =
         normalized.find(
           (assistant) =>
-            assistant.graph_id === "sdk_connection" ||
-            assistant.graphId === "sdk_connection" ||
-            assistant.name === "sdk_connection",
+            assistant.graph_id === "01_sdk_connection" ||
+            assistant.graphId === "01_sdk_connection" ||
+            assistant.name === "01_sdk_connection",
         ) ?? normalized[0];
       if (preferred) {
         setSelectedAssistantId(preferred.graph_id ?? preferred.graphId ?? assistantIdOf(preferred));
@@ -174,7 +174,7 @@ export function SdkConnectionExample() {
             value={selectedAssistantId}
             onChange={(event) => setSelectedAssistantId(event.target.value)}
           >
-            <option value="sdk_connection">sdk_connection</option>
+            <option value="01_sdk_connection">sdk_connection</option>
             {assistants.map((assistant) => {
               const id = assistantIdOf(assistant);
               return (

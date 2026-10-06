@@ -3,7 +3,7 @@ import { expect, type Locator, type Page, type Request, test } from "@playwright
 test.setTimeout(180_000);
 
 const API_URL = "http://localhost:2931";
-const GRAPH_ID = "multimodal_voice_output";
+const GRAPH_ID = "28_multimodal_voice_output";
 const VOICE_OPTION_PATTERN =
   /\b(?:alloy|ash|ballad|coral|echo|fable|nova|onyx|sage|shimmer|verse|aria|roger|sarah)\b/i;
 const FORMAT_OPTION_PATTERN = /\b(?:mp3|mpeg|wav|wave|webm|ogg|opus|aac|flac|pcm)\b/i;

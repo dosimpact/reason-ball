@@ -8,10 +8,10 @@
 
 ## Implementation Plan
 
-1. Add a `backend_tool_rendering` graph using `langgraph.prebuilt.create_react_agent`, `common.llm.create_llm()`, and a deterministic backend tool such as `get_weather` or `search_inventory`.
+1. Add a `36_backend_tool_rendering` graph using `langgraph.prebuilt.create_react_agent`, `common.llm.create_llm()`, and a deterministic backend tool such as `get_weather` or `search_inventory`.
 2. Make the backend tool return structured data with fields needed by the UI: title, status, summary, key metrics, and optional detail rows.
-3. Register the graph in `langgraph.json` and the CopilotKit runtime graph list with agent name `backend_tool_rendering`.
-4. Add a React example that wraps `CopilotChat` in `CopilotKit`, passes `agent="backend_tool_rendering"`, and registers a `useRenderTool` renderer for the backend tool.
+3. Register the graph in `langgraph.json` and the CopilotKit runtime graph list with agent name `36_backend_tool_rendering`.
+4. Add a React example that wraps `CopilotChat` in `CopilotKit`, passes `agent="36_backend_tool_rendering"`, and registers a `useRenderTool` renderer for the backend tool.
 5. Render tool lifecycle states separately from assistant text: pending/loading, completed structured result, empty result, and error.
 6. Register the example in the app shell and metadata list as example 36.
 

@@ -297,7 +297,7 @@ function ChatWithRecipeState() {
           <Save size={18} />
           <h3 style={{ fontSize: 18, margin: 0 }}>Agent Collaboration</h3>
         </div>
-        <CopilotChat agentId="shared_state_agent_ui" className="agentic-chat-window" />
+        <CopilotChat agentId="40_shared_state_agent_ui" className="agentic-chat-window" />
       </div>
     </section>
   );
@@ -305,7 +305,7 @@ function ChatWithRecipeState() {
 
 export function SharedStateAgentUiAgUiExample() {
   return (
-    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="shared_state_agent_ui">
+    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="40_shared_state_agent_ui">
       <ChatWithRecipeState />
     </CopilotKit>
   );

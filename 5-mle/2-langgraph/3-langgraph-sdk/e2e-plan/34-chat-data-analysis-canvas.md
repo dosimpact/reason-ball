@@ -3,7 +3,7 @@
 ## Preconditions
 
 - Vite serves the examples UI at `http://localhost:2934`.
-- LangGraph dev serves `chat_data_analysis_canvas` at `http://localhost:2931`.
+- LangGraph dev serves `34_chat_data_analysis_canvas` at `http://localhost:2931`.
 - The example is selectable from the left navigation.
 
 ## Surface Checks
@@ -22,7 +22,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `chat_data_analysis_canvas`.
+- Stream requests target graph id `34_chat_data_analysis_canvas`.
 - Requests use `updates` and `custom` stream modes.
 - Request bodies include the marker, uploaded CSV text, analyze action, and retry action.
 - Raw stream events include `updates` and `custom`.

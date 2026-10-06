@@ -248,7 +248,7 @@ export function LoopEngineeringHarnessExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming loop harness");
 
-      const stream = await client.runs.stream(nextThreadId, "loop_engineering_harness", {
+      const stream = await client.runs.stream(nextThreadId, "49_loop_engineering_harness", {
         input: {
           task: trimmed,
           trigger_type: triggerType,

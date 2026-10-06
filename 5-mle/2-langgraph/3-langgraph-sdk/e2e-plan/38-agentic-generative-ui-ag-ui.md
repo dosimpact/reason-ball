@@ -20,7 +20,7 @@
 
 ## Backend Assertions
 
-- Live execution should target graph id `agentic_generative_ui`.
+- Live execution should target graph id `38_agentic_generative_ui`.
 - The renderer should handle `build_task_workspace` loading and complete payloads.
 
 ## Cleanup

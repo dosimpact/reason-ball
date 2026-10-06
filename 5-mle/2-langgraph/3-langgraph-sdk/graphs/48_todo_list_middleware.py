@@ -169,7 +169,7 @@ def build_graph():
         tools=[],
         system_prompt=TODO_SYSTEM_PROMPT,
         middleware=[TodoListMiddleware()],
-        name="todo_list_middleware",
+        name="48_todo_list_middleware",
     )
 
 

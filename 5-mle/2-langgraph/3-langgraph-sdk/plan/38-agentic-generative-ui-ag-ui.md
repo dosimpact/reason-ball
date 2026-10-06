@@ -8,7 +8,7 @@
 
 ## Implementation Plan
 
-1. Add an `agentic_generative_ui` graph that decomposes a user request into steps and streams progress updates while producing an artifact.
+1. Add an `38_agentic_generative_ui` graph that decomposes a user request into steps and streams progress updates while producing an artifact.
 2. Model the artifact as structured data such as task title, checklist, generated sections, status, and final summary.
 3. Emit UI-oriented state updates from the backend so React can render the evolving task surface without parsing prose.
 4. Add a React example that pairs `CopilotChat` with a generated UI panel for the current task.

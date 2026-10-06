@@ -111,7 +111,7 @@ function Chat() {
       style={{ background }}
     >
       <div className="agentic-chat-panel">
-        <CopilotChat agentId="agentic_chat" className="agentic-chat-window" />
+        <CopilotChat agentId="35_agentic_chat" className="agentic-chat-window" />
       </div>
     </section>
   );
@@ -119,7 +119,7 @@ function Chat() {
 
 export function AgenticChatAgUiExample() {
   return (
-    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="agentic_chat">
+    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="35_agentic_chat">
       <Chat />
     </CopilotKit>
   );

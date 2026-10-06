@@ -4,7 +4,7 @@
 
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934`.
-- The LangGraph server exposes the `chat_code_editor` graph.
+- The LangGraph server exposes the `29_chat_code_editor` graph.
 - Example navigation includes `29 Chat + Code Editor`.
 - The SDK client streams with `streamMode: ["updates", "custom"]`.
 
@@ -29,7 +29,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `chat_code_editor`.
+- Stream requests target graph id `29_chat_code_editor`.
 - Stream mode includes `updates` and `custom`.
 - The first request includes the unique marker and selected file.
 - The approval request includes `approval: "approve"`.

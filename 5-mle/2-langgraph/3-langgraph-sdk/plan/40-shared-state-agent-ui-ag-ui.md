@@ -8,7 +8,7 @@
 
 ## Implementation Plan
 
-1. Add a `shared_state_agent_ui` graph with state fields for recipe title, servings, ingredients, instructions, and notes.
+1. Add a `40_shared_state_agent_ui` graph with state fields for recipe title, servings, ingredients, instructions, and notes.
 2. Let the agent read current recipe state and propose structured updates through backend logic.
 3. Add React controls for direct UI edits to servings, ingredients, and notes.
 4. Synchronize UI edits and agent updates through the same shared state shape so both sides collaborate on one recipe.

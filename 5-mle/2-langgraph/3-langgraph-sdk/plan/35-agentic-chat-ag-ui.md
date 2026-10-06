@@ -9,9 +9,9 @@
 ## Implementation Plan
 
 1. Install required frontend/runtime packages with pnpm: `@copilotkit/react-core`, `@copilotkit/runtime`, and `zod`.
-2. Add an `agentic_chat` Python graph using `langchain.agents.create_agent`, `CopilotKitMiddleware`, the shared OpenAI model factory, a backend `get_weather` tool, and system prompt `You are a helpful assistant.`
+2. Add an `35_agentic_chat` Python graph using `langchain.agents.create_agent`, `CopilotKitMiddleware`, the shared OpenAI model factory, a backend `get_weather` tool, and system prompt `You are a helpful assistant.`
 3. Register the Python graph in the main `langgraph.json` so it runs with the existing `uv run langgraph dev --host 0.0.0.0 --port 2931 --tunnel` process.
-4. Add a React example that wraps `CopilotChat` in `CopilotKit`, passes `agent="agentic_chat"`, and points `runtimeUrl` at `/api/copilotkit`.
+4. Add a React example that wraps `CopilotChat` in `CopilotKit`, passes `agent="35_agentic_chat"`, and points `runtimeUrl` at `/api/copilotkit`.
 5. Register frontend behavior from the Dojo example: `useAgentContext` for user name `Bob`, `change_background` via `useFrontendTool`, `get_weather` via `useRenderTool`, and always-available suggestions for background changes and sonnet generation.
 6. Register the example in the app shell, metadata list, LangGraph config, runtime service, and Vite proxy after the graph/runtime wiring is in place.
 

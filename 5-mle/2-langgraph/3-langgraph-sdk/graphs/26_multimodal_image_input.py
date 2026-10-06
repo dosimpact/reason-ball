@@ -88,7 +88,7 @@ def _writer():
 
 def _event(phase: str, status: str, detail: str, progress: float) -> ImageEvent:
     return {
-        "type": "multimodal_image_input",
+        "type": "26_multimodal_image_input",
         "phase": phase,
         "status": status,
         "detail": detail,

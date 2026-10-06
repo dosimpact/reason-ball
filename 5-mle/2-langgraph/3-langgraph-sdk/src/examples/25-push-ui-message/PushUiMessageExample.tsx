@@ -97,7 +97,7 @@ function mergeUiMessages(current: UIMessage[], next: UIMessage[]) {
 function normalizeRenderEvents(value: unknown): RenderEvent[] {
   if (!Array.isArray(value)) return [];
   return value.filter(isRecord).map((event) => ({
-    type: typeof event.type === "string" ? event.type : "push_ui_message_example",
+    type: typeof event.type === "string" ? event.type : "25_push_ui_message_example",
     phase: typeof event.phase === "string" ? event.phase : "",
     status: typeof event.status === "string" ? event.status : "",
     detail: typeof event.detail === "string" ? event.detail : "",

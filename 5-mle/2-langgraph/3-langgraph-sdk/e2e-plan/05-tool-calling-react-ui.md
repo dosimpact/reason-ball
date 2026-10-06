@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `tool_calling_react` graph.
+- The LangGraph server exposes the `05_tool_calling_react` graph.
 
 ## User Actions
 
@@ -26,7 +26,7 @@
 
 ## Backend Assertions
 
-- `tool_calling_react` streams successfully through the SDK client.
+- `05_tool_calling_react` streams successfully through the SDK client.
 - The assistant emits a tool call for the calculator path.
 - The graph returns the tool result before the final assistant message.
 

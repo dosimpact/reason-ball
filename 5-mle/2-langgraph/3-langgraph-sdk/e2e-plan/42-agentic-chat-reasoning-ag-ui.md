@@ -20,7 +20,7 @@
 
 ## Backend Assertions
 
-- Live execution should target graph id `agentic_chat_reasoning`.
+- Live execution should target graph id `42_agentic_chat_reasoning`.
 - Rendered reasoning content should come from public summary tool payloads only.
 
 ## Cleanup

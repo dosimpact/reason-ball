@@ -60,13 +60,13 @@ export function assistantLabelOf(assistant: AssistantRecord): string {
 export function normalizeAssistants(value: unknown): AssistantRecord[] {
   // 1. 일반 search 결과
   // [
-  //   { assistant_id: "...", graph_id: "sdk_connection" }
+  //   { assistant_id: "...", graph_id: "01_sdk_connection" }
   // ]
 
   // 2. pagination 포함 결과
   // {
   //   assistants: [
-  //     { assistant_id: "...", graph_id: "sdk_connection" }
+  //     { assistant_id: "...", graph_id: "01_sdk_connection" }
   //   ],
   //   next: "..."
   // }

@@ -5,7 +5,7 @@ LangGraph SDK의 `client.runs.stream(...)`을 읽으려면 JavaScript의 `genera
 이 문서는 아래 코드를 이해하는 것이 목표다.
 
 ```ts
-const stream = client.runs.stream(threadId, "sdk_connection", {
+const stream = client.runs.stream(threadId, "01_sdk_connection", {
   input: {
     messages: [{ type: "human", content: "Say hello" }],
   },
@@ -145,7 +145,7 @@ LangGraph SDK의 `client.runs.stream(...)`은 실행 결과를 한 번에 반환
 대신 실행 중 발생하는 이벤트를 하나씩 흘려보낸다.
 
 ```ts
-const stream = client.runs.stream(threadId, "sdk_connection", {
+const stream = client.runs.stream(threadId, "01_sdk_connection", {
   input: {
     messages: [{ type: "human", content: "Say hello" }],
   },
@@ -199,7 +199,7 @@ chunk.data  // 이벤트 payload
 `streamMode: "updates"`를 쓰면 graph 실행 중 state update 중심의 이벤트가 온다.
 
 ```ts
-const stream = client.runs.stream(threadId, "sdk_connection", {
+const stream = client.runs.stream(threadId, "01_sdk_connection", {
   input: {
     messages: [{ type: "human", content: "Say hello" }],
   },
@@ -256,7 +256,7 @@ TypedAsyncGenerator<
 그래서 보통은 `await` 없이 쓰는 쪽이 더 정확하다.
 
 ```ts
-const stream = client.runs.stream(threadId, "sdk_connection", {
+const stream = client.runs.stream(threadId, "01_sdk_connection", {
   input: {
     messages: [{ type: "human", content: "Say hello" }],
   },
@@ -267,7 +267,7 @@ const stream = client.runs.stream(threadId, "sdk_connection", {
 아래처럼 `await`를 붙여도 JavaScript 문법상 큰 문제는 없을 수 있다.
 
 ```ts
-const stream = await client.runs.stream(threadId, "sdk_connection", {
+const stream = await client.runs.stream(threadId, "01_sdk_connection", {
   input: {
     messages: [{ type: "human", content: "Say hello" }],
   },
@@ -280,7 +280,7 @@ const stream = await client.runs.stream(threadId, "sdk_connection", {
 정리하면 다음처럼 쓰는 것이 좋다.
 
 ```ts
-const stream = client.runs.stream(threadId, "sdk_connection", {
+const stream = client.runs.stream(threadId, "01_sdk_connection", {
   input: {
     messages: [{ type: "human", content: "Say hello" }],
   },

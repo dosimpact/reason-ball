@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `reflection_evaluator_loop` graph.
+- The LangGraph server exposes the `15_reflection_evaluator_loop` graph.
 - Example navigation includes `15 Reflection / Evaluator Loop UI`.
 - The UI provides a default API URL, prompt or request textarea, max attempts controls, and a primary run button named like `Run reflection loop`.
 - The SDK client streams with `updates` and `custom` modes so evaluator-loop progress and custom node signals are visible.
@@ -37,7 +37,7 @@
 
 ## Backend Assertions
 
-- The SDK client streams against graph id `reflection_evaluator_loop`.
+- The SDK client streams against graph id `15_reflection_evaluator_loop`.
 - Stream mode includes both `updates` and `custom`.
 - The graph enforces max attempts and writes the selected max attempts value into state.
 - The default run produces at least two iteration records by forcing one evaluator rejection before pass or max-attempt termination.
@@ -48,7 +48,7 @@
 
 ## Subagent Tracking Notes
 
-- Implementation-tracking subagents should keep example 15 marked in progress until the React route, `reflection_evaluator_loop` graph registration, and this E2E spec pass together.
+- Implementation-tracking subagents should keep example 15 marked in progress until the React route, `15_reflection_evaluator_loop` graph registration, and this E2E spec pass together.
 - The E2E subagent should update `progress/e2e-progress.md` after the broader workflow allows progress-file edits.
 - Mark the E2E status complete only after a Playwright MCP run verifies retry iteration cards, retained rejected drafts, evaluator feedback, final state fields, and raw stream events against the real OpenAI-backed graph.
 

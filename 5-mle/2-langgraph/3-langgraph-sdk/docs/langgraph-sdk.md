@@ -94,7 +94,7 @@ const assistants = await client.assistants.search({
 });
 
 const selected = assistants.find(
-  (assistant) => assistant.graph_id === "sdk_connection",
+  (assistant) => assistant.graph_id === "01_sdk_connection",
 );
 ```
 
@@ -132,7 +132,7 @@ Promise<Assistant>
 선택한 assistant의 상세 정보, metadata, config를 확인할 때 사용한다.
 
 ```ts
-const assistant = await client.assistants.get("sdk_connection");
+const assistant = await client.assistants.get("01_sdk_connection");
 console.log(assistant);
 ```
 
@@ -159,7 +159,7 @@ Promise<AssistantGraph>
 그래프 노드/엣지 구조를 시각화하거나 디버깅할 때 사용한다. `xray`를 켜면 subgraph 정보를 더 자세히 받을 수 있다.
 
 ```ts
-const graph = await client.assistants.getGraph("sdk_connection", {
+const graph = await client.assistants.getGraph("01_sdk_connection", {
   xray: true,
 });
 
@@ -189,7 +189,7 @@ Promise<GraphSchema>
 입력값, state, config schema를 확인할 때 사용한다. 동적 form을 만들거나 예제별 입력 구조를 검증할 때 유용하다.
 
 ```ts
-const schemas = await client.assistants.getSchemas("sdk_connection");
+const schemas = await client.assistants.getSchemas("01_sdk_connection");
 console.log(schemas);
 ```
 
@@ -224,7 +224,7 @@ Promise<void>      // delete
 
 ```ts
 const assistant = await client.assistants.create({
-  graphId: "basic_chat",
+  graphId: "02_basic_chat",
   name: "basic_chat_fast",
   config: {
     configurable: {
@@ -269,7 +269,7 @@ run을 실행하기 전에 thread를 만든다. metadata를 넣어 사용자, �
 ```ts
 const thread = await client.threads.create({
   metadata: {
-    example: "sdk_connection",
+    example: "01_sdk_connection",
     userId: "local-user",
   },
 });
@@ -311,7 +311,7 @@ Promise<number>               // count
 const thread = await client.threads.get(threadId);
 
 const threads = await client.threads.search({
-  metadata: { example: "sdk_connection" },
+  metadata: { example: "01_sdk_connection" },
   limit: 20,
 });
 
@@ -485,7 +485,7 @@ SDK 1.9.x 기준 신규 권장 방식이다. thread 중심 스트림을 열고 `
 
 ```ts
 const thread = client.threads.stream({
-  assistantId: "basic_chat",
+  assistantId: "02_basic_chat",
 });
 
 await thread.run.start({
@@ -508,7 +508,7 @@ await thread.close();
 
 ```ts
 const thread = client.threads.stream(threadId, {
-  assistantId: "basic_chat",
+  assistantId: "02_basic_chat",
 });
 ```
 
@@ -542,7 +542,7 @@ TypedAsyncGenerator<TStreamMode, TSubgraphs, TStateType, TUpdateType, TCustomEve
 UI에서 실시간 이벤트를 보여줄 때 가장 많이 쓰는 방식이다. `for await`로 chunk를 받아 화면 상태를 갱신한다.
 
 ```ts
-const stream = await client.runs.stream(threadId, "sdk_connection", {
+const stream = await client.runs.stream(threadId, "01_sdk_connection", {
   input: {
     messages: [{ type: "human", content: "Say hello" }],
   },
@@ -557,12 +557,12 @@ for await (const chunk of stream) {
 대표 `streamMode`는 다음처럼 잡는다.
 
 ```ts
-await client.runs.stream(threadId, "basic_chat", {
+await client.runs.stream(threadId, "02_basic_chat", {
   input: { messages: [{ type: "human", content: "Hello" }] },
   streamMode: "messages",
 });
 
-await client.runs.stream(threadId, "graph_execution_timeline", {
+await client.runs.stream(threadId, "03_graph_execution_timeline", {
   input: { topic: "LangGraph SDK" },
   streamMode: "updates",
 });
@@ -596,7 +596,7 @@ Promise<Run[]> // createBatch
 스트리밍 없이 background run을 시작할 때 사용한다. 생성 후 `run_id`를 저장해 상태 조회, join, cancel에 쓴다.
 
 ```ts
-const run = await client.runs.create(threadId, "basic_chat", {
+const run = await client.runs.create(threadId, "02_basic_chat", {
   input: {
     messages: [{ type: "human", content: "Run in background" }],
   },
@@ -633,7 +633,7 @@ Promise<TStateType>            // join
 스트리밍 UI가 필요 없고 최종 state만 필요할 때 사용한다.
 
 ```ts
-const values = await client.runs.wait(threadId, "basic_chat", {
+const values = await client.runs.wait(threadId, "02_basic_chat", {
   input: {
     messages: [{ type: "human", content: "Give me the final answer only" }],
   },
@@ -764,7 +764,7 @@ const cron = await client.crons.create("daily_report", {
   },
 });
 
-const threadCron = await client.crons.createForThread(threadId, "basic_chat", {
+const threadCron = await client.crons.createForThread(threadId, "02_basic_chat", {
   schedule: "*/10 * * * *",
   input: {
     messages: [{ type: "human", content: "Check status" }],
@@ -935,10 +935,10 @@ console.log(namespaces);
 const assistants = await client.assistants.search({ limit: 100 });
 
 const thread = await client.threads.create({
-  metadata: { example: "sdk_connection" },
+  metadata: { example: "01_sdk_connection" },
 });
 
-const stream = await client.runs.stream(thread.thread_id, "sdk_connection", {
+const stream = await client.runs.stream(thread.thread_id, "01_sdk_connection", {
   input: {
     messages: [{ type: "human", content: "Hello" }],
   },
@@ -993,7 +993,7 @@ const [threadId, setThreadId] = useState<string | null>(null);
 
 const stream = useStream<MyGraphState>({
   apiUrl: langGraphApiUrl,
-  assistantId: "basic_chat",
+  assistantId: "02_basic_chat",
   threadId,
   onThreadId: setThreadId,
 });
@@ -1025,7 +1025,7 @@ const values = stream.values;
 ```tsx
 const stream = useStream<State>({
   apiUrl: langGraphApiUrl,
-  assistantId: "sdk_connection",
+  assistantId: "01_sdk_connection",
   threadId,
   onThreadId: setThreadId,
 });
@@ -1041,7 +1041,7 @@ const stream = useStream<State>({
 ```tsx
 const stream = useStream<State>({
   apiUrl: langGraphApiUrl,
-  assistantId: "sdk_connection",
+  assistantId: "01_sdk_connection",
   threadId,
   onThreadId: setThreadId,
   onCreated(run) {
@@ -1083,7 +1083,7 @@ const [threadId, setThreadId] = useState<string | null>(null);
 
 const stream = useStream<State>({
   apiUrl: langGraphApiUrl,
-  assistantId: "sdk_connection",
+  assistantId: "01_sdk_connection",
   threadId,
   onThreadId: setThreadId,
 });

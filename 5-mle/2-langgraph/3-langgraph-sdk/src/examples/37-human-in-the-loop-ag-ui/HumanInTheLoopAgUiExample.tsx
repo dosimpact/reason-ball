@@ -263,7 +263,7 @@ function HumanInTheLoopChat() {
         ) : null}
       </aside>
       <div style={styles.chat}>
-        <CopilotChat agentId="human_in_the_loop_ag_ui" className="agentic-chat-window" />
+        <CopilotChat agentId="37_human_in_the_loop_ag_ui" className="agentic-chat-window" />
       </div>
     </section>
   );
@@ -274,7 +274,7 @@ export function HumanInTheLoopAgUiExample() {
     <CopilotKit
       runtimeUrl={copilotRuntimeUrl()}
       showDevConsole={false}
-      agent="human_in_the_loop_ag_ui"
+      agent="37_human_in_the_loop_ag_ui"
     >
       <HumanInTheLoopChat />
     </CopilotKit>

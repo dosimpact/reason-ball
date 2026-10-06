@@ -101,7 +101,7 @@ def _writer():
 
 def _event(phase: str, status: str, detail: str, progress: float) -> CanvasEvent:
     return {
-        "type": "chat_graph_execution_canvas",
+        "type": "32_chat_graph_execution_canvas",
         "phase": phase,
         "status": status,
         "detail": detail,

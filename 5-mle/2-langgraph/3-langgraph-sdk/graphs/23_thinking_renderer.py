@@ -76,7 +76,7 @@ def _step(
     detail: str,
 ) -> ThinkingStep:
     return {
-        "type": "thinking_renderer",
+        "type": "23_thinking_renderer",
         "schema_version": "v1",
         "step_id": step_id,
         "sequence": sequence,

@@ -63,7 +63,7 @@ export function SdkConnectionReactHookExample() {
 
   const stream = useStream<SdkConnectionState>({
     apiUrl: langGraphApiUrl,
-    assistantId: "sdk_connection",
+    assistantId: "01_sdk_connection",
     threadId,
     onThreadId: setThreadId,
     onCreated(run) {

@@ -8,7 +8,7 @@
 
 ## Implementation Plan
 
-1. Add an `a2ui_advanced` graph that emits dynamic schema updates plus explicit progress events.
+1. Add an `47_a2ui_advanced` graph that emits dynamic schema updates plus explicit progress events.
 2. Support frontend actions such as selecting an option, applying a filter, or confirming a generated result.
 3. Render a custom progress component for backend phases like planning, fetching, composing, and waiting for action.
 4. Wire frontend action handlers back into the agent flow without replacing the backend as source of truth.

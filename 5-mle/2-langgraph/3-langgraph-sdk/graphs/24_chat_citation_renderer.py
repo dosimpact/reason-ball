@@ -168,7 +168,7 @@ def _writer():
 
 def _event(phase: str, status: str, detail: str, source_id: str = "", citation_id: str = "") -> CitationEvent:
     return {
-        "type": "chat_citation_renderer",
+        "type": "24_chat_citation_renderer",
         "schema_version": "v1",
         "phase": phase,
         "status": status,

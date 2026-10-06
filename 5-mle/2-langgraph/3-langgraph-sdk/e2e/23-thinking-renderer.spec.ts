@@ -3,7 +3,7 @@ import { expect, type Locator, type Page, type Request, test } from "@playwright
 test.setTimeout(180_000);
 
 const API_URL = "http://localhost:2931";
-const GRAPH_ID = "thinking_renderer";
+const GRAPH_ID = "23_thinking_renderer";
 const FORBIDDEN_REASONING_PHRASES = [
   "hidden chain-of-thought",
   "private reasoning",

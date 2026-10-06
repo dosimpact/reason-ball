@@ -175,7 +175,7 @@ function Chat() {
         </ul>
       </aside>
       <div className="subgraphs-chat-panel">
-        <CopilotChat agentId="subgraphs_ag_ui" className="subgraphs-chat-window" />
+        <CopilotChat agentId="44_subgraphs_ag_ui" className="subgraphs-chat-window" />
       </div>
     </section>
   );
@@ -183,7 +183,7 @@ function Chat() {
 
 export function SubgraphsAgUiExample() {
   return (
-    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="subgraphs_ag_ui">
+    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="44_subgraphs_ag_ui">
       <Chat />
     </CopilotKit>
   );

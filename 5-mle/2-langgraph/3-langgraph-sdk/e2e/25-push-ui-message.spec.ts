@@ -3,7 +3,7 @@ import { expect, type Locator, type Page, type Request, test } from "@playwright
 test.setTimeout(180_000);
 
 const API_URL = "http://localhost:2931";
-const GRAPH_ID = "push_ui_message_example";
+const GRAPH_ID = "25_push_ui_message_example";
 
 type StreamRequestRecord = {
   body: string;

@@ -166,7 +166,7 @@ function ReasoningChat() {
           <ListChecks size={18} />
           <h3 style={{ fontSize: 18, margin: 0 }}>Reasoning Chat</h3>
         </div>
-        <CopilotChat agentId="agentic_chat_reasoning" className="agentic-chat-window" />
+        <CopilotChat agentId="42_agentic_chat_reasoning" className="agentic-chat-window" />
       </div>
     </section>
   );
@@ -174,7 +174,7 @@ function ReasoningChat() {
 
 export function AgenticChatReasoningAgUiExample() {
   return (
-    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="agentic_chat_reasoning">
+    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="42_agentic_chat_reasoning">
       <ReasoningChat />
     </CopilotKit>
   );

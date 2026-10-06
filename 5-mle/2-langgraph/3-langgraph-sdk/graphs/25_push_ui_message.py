@@ -65,7 +65,7 @@ def _extract_text(content: Any) -> str:
 
 def _event(phase: str, status: str, detail: str, ui_message_id: str = "", component: str = "") -> PushUIEvent:
     return {
-        "type": "push_ui_message_example",
+        "type": "25_push_ui_message_example",
         "phase": phase,
         "status": status,
         "detail": detail,

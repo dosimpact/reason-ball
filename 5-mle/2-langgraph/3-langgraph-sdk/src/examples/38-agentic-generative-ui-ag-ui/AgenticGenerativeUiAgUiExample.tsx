@@ -208,7 +208,7 @@ function AgenticGenerativeChat() {
         <div style={styles.empty}>The latest backend workspace payload renders here during tool execution.</div>
       </aside>
       <div style={styles.chat}>
-        <CopilotChat agentId="agentic_generative_ui" className="agentic-chat-window" />
+        <CopilotChat agentId="38_agentic_generative_ui" className="agentic-chat-window" />
       </div>
     </section>
   );
@@ -219,7 +219,7 @@ export function AgenticGenerativeUiAgUiExample() {
     <CopilotKit
       runtimeUrl={copilotRuntimeUrl()}
       showDevConsole={false}
-      agent="agentic_generative_ui"
+      agent="38_agentic_generative_ui"
     >
       <AgenticGenerativeChat />
     </CopilotKit>

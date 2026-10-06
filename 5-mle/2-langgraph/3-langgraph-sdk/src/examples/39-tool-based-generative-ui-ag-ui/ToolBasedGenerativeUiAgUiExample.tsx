@@ -180,7 +180,7 @@ function ToolBasedGenerativeChat() {
   return (
     <section style={styles.surface}>
       <div style={styles.chatPanel}>
-        <CopilotChat agentId="tool_based_generative_ui" className="agentic-chat-window" />
+        <CopilotChat agentId="39_tool_based_generative_ui" className="agentic-chat-window" />
       </div>
     </section>
   );
@@ -191,7 +191,7 @@ export function ToolBasedGenerativeUiAgUiExample() {
     <CopilotKit
       runtimeUrl={copilotRuntimeUrl()}
       showDevConsole={false}
-      agent="tool_based_generative_ui"
+      agent="39_tool_based_generative_ui"
     >
       <ToolBasedGenerativeChat />
     </CopilotKit>

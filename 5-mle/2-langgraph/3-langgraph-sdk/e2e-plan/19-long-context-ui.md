@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `long_context` graph.
+- The LangGraph server exposes the `19_long_context` graph.
 - Example navigation includes `19 Long Context UI`.
 - The UI provides a default API URL, `Follow-up message` textarea, and buttons named `New context thread`, `Seed long conversation`, `Send message`, `Reload state`, and `Reset`.
 - The SDK client streams with `updates` and `custom` modes.
@@ -34,7 +34,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `long_context`.
+- Stream requests target graph id `19_long_context`.
 - Stream mode includes both `updates` and `custom`.
 - Seed run triggers context compaction and emits custom context events.
 - Final graph state includes `summary`, `summary_metadata`, `summary_records`, `summarized_messages`, `context_events`, and only recent retained messages.

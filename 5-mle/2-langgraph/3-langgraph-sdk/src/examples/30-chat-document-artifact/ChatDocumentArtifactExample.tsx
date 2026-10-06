@@ -154,7 +154,7 @@ function normalizeVersions(value: unknown): DocumentVersion[] {
 function normalizeDocumentEvents(value: unknown): DocumentEvent[] {
   if (!Array.isArray(value)) return [];
   return value.filter(isRecord).map((event) => ({
-    type: typeof event.type === "string" ? event.type : "chat_document_artifact",
+    type: typeof event.type === "string" ? event.type : "30_chat_document_artifact",
     phase: typeof event.phase === "string" ? event.phase : "",
     status: typeof event.status === "string" ? event.status : "",
     detail: typeof event.detail === "string" ? event.detail : "",
@@ -252,7 +252,7 @@ export function ChatDocumentArtifactExample() {
   }
 
   function applyCustomEvent(data: unknown) {
-    if (!isRecord(data) || data.type !== "chat_document_artifact") return;
+    if (!isRecord(data) || data.type !== "30_chat_document_artifact") return;
     setDocumentEvents((current) => mergeDocumentEvents(current, normalizeDocumentEvents([data])));
   }
 
@@ -275,7 +275,7 @@ export function ChatDocumentArtifactExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming document graph");
 
-      const stream = await client.runs.stream(nextThreadId, "chat_document_artifact", {
+      const stream = await client.runs.stream(nextThreadId, "30_chat_document_artifact", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });

@@ -38,7 +38,7 @@
 1. `CopilotKit`
   - React tree를 CopilotKit runtime과 연결하는 provider다.
   - `runtimeUrl="/api/copilotkit"`처럼 runtime endpoint를 지정한다.
-  - `agent="agentic_chat"`처럼 기본 agent id를 지정한다.
+  - `agent="35_agentic_chat"`처럼 기본 agent id를 지정한다.
 
 2. `CopilotChat`
   - CopilotKit이 제공하는 chat UI다.
@@ -75,7 +75,7 @@
   - runtime은 `agents` registry를 가진다.
   - 이 프로젝트에서는 35-47번 CopilotKit 예제 각각을 `LangGraphAgent`로 등록한다.
   - frontend의 `agent`, runtime registry key, `LangGraphAgent.graphId`, `langgraph.json` graph key가 모두 일치해야 한다.
-  - 예를 들어 36번은 `agent="backend_tool_rendering"`, runtime key `backend_tool_rendering`, `graphId: "backend_tool_rendering"`, `langgraph.json` key `backend_tool_rendering`을 같이 사용한다.
+  - 예를 들어 36번은 `agent="36_backend_tool_rendering"`, runtime key `36_backend_tool_rendering`, `graphId: "36_backend_tool_rendering"`, `langgraph.json` key `36_backend_tool_rendering`을 같이 사용한다.
 
 3. LangGraph 연결
   - runtime의 `LangGraphAgent`는 `deploymentUrl`과 `graphId`를 가진다.
@@ -84,19 +84,19 @@
   - URL은 `LANGGRAPH_URL`로 override할 수 있다.
 
 4. 35-47번 등록 id
-  - `agentic_chat`
-  - `backend_tool_rendering`
-  - `human_in_the_loop_ag_ui`
-  - `agentic_generative_ui`
-  - `tool_based_generative_ui`
-  - `shared_state_agent_ui`
-  - `predictive_state_updates`
-  - `agentic_chat_reasoning`
-  - `agentic_chat_multimodal`
-  - `subgraphs_ag_ui`
-  - `a2ui_fixed_schema`
-  - `a2ui_dynamic_schema`
-  - `a2ui_advanced`
+  - `35_agentic_chat`
+  - `36_backend_tool_rendering`
+  - `37_human_in_the_loop_ag_ui`
+  - `38_agentic_generative_ui`
+  - `39_tool_based_generative_ui`
+  - `40_shared_state_agent_ui`
+  - `41_predictive_state_updates`
+  - `42_agentic_chat_reasoning`
+  - `43_agentic_chat_multimodal`
+  - `44_subgraphs_ag_ui`
+  - `45_a2ui_fixed_schema`
+  - `46_a2ui_dynamic_schema`
+  - `47_a2ui_advanced`
   - 숫자 prefix를 graph id에 넣지 않는다. `36_backend_tool_rendering`처럼 frontend id를 만들면 LangGraph server가 registered graph로 찾지 못한다.
 
 ### 2.3 Python LangGraph agent

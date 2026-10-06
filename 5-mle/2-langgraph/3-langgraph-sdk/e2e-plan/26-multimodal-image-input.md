@@ -4,7 +4,7 @@
 
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
-- The LangGraph server exposes the `multimodal_image_input` graph.
+- The LangGraph server exposes the `26_multimodal_image_input` graph.
 - Example navigation includes `26 Multimodal Input: Image`.
 - The SDK client streams with `streamMode: ["updates", "custom"]`.
 - The browser test can upload a generated tiny PNG fixture, or use the sample image button if the implementation supplies one instead.
@@ -29,7 +29,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `multimodal_image_input`.
+- Stream requests target graph id `26_multimodal_image_input`.
 - Stream mode includes `updates` and `custom`.
 - The stream request body includes the unique E2E marker appended to the image prompt.
 - Custom stream events include image, metadata, analysis, observation, or region payloads.

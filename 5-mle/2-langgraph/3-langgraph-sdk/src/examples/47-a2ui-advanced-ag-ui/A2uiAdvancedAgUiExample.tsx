@@ -177,7 +177,7 @@ function Chat() {
         <div className="advanced-a2ui-action-state">{actionResult || "No frontend action confirmed yet."}</div>
       </aside>
       <div className="advanced-a2ui-chat">
-        <CopilotChat agentId="a2ui_advanced" className="advanced-a2ui-chat-window" />
+        <CopilotChat agentId="47_a2ui_advanced" className="advanced-a2ui-chat-window" />
       </div>
     </section>
   );
@@ -185,7 +185,7 @@ function Chat() {
 
 export function A2uiAdvancedAgUiExample() {
   return (
-    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="a2ui_advanced">
+    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="47_a2ui_advanced">
       <Chat />
     </CopilotKit>
   );

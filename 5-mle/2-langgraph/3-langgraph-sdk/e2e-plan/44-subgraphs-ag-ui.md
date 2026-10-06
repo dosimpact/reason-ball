@@ -20,7 +20,7 @@
 
 ## Backend Assertions
 
-- Live execution should target graph id `subgraphs_ag_ui`.
+- Live execution should target graph id `44_subgraphs_ag_ui`.
 - Tool renderer should render `run_subgraph_workers` parent and worker rows.
 
 ## Cleanup

@@ -119,7 +119,7 @@ function normalizeCitations(value: unknown): Citation[] {
 function normalizeCitationEvents(value: unknown): CitationEvent[] {
   if (!Array.isArray(value)) return [];
   return value.filter(isRecord).map((event) => ({
-    type: typeof event.type === "string" ? event.type : "chat_citation_renderer",
+    type: typeof event.type === "string" ? event.type : "24_chat_citation_renderer",
     phase: typeof event.phase === "string" ? event.phase : "",
     status: typeof event.status === "string" ? event.status : "",
     detail: typeof event.detail === "string" ? event.detail : "",
@@ -208,7 +208,7 @@ export function ChatCitationRendererExample() {
   }
 
   function applyCustomEvent(data: unknown) {
-    if (!isRecord(data) || data.type !== "chat_citation_renderer") return;
+    if (!isRecord(data) || data.type !== "24_chat_citation_renderer") return;
     setCitationEvents((current) => mergeCitationEvents(current, normalizeCitationEvents([data])));
   }
 

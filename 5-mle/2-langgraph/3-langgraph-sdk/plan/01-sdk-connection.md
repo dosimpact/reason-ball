@@ -8,7 +8,7 @@
 
 ## Implementation Plan
 
-1. Register a `sdk_connection` graph in `langgraph.json`.
+1. Register a `01_sdk_connection` graph in `langgraph.json`.
 2. Add SDK helpers for assistants, threads, runs, stream subscription, and error normalization.
 3. Build UI panels for server status, assistant list, thread create/delete/reuse, run input, run status, and stream events.
 4. Persist the selected assistant and current thread in local component state only.

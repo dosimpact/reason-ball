@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `subgraph_nested_execution` graph.
+- The LangGraph server exposes the `10_subgraph_nested_execution` graph.
 - Example navigation includes `10 Subgraph / Nested Execution UI`.
 - The UI provides a request textarea, sample buttons including a sales/report-style sample, and a run button named like `Run nested graph`.
 
@@ -33,7 +33,7 @@
 
 ## Backend Assertions
 
-- The SDK client streams against graph id `subgraph_nested_execution`.
+- The SDK client streams against graph id `10_subgraph_nested_execution`.
 - Nested stream metadata includes path information for parent and subgraph events.
 - Parent graph events and subgraph events are both represented in the emitted stream.
 - Final graph state includes nested trace data, parent state data, and subgraph state data.

@@ -118,7 +118,7 @@ function normalizeRegionNotes(value: unknown): RegionNote[] {
 function normalizeImageEvents(value: unknown): ImageEvent[] {
   if (!Array.isArray(value)) return [];
   return value.filter(isRecord).map((event) => ({
-    type: typeof event.type === "string" ? event.type : "multimodal_image_input",
+    type: typeof event.type === "string" ? event.type : "26_multimodal_image_input",
     phase: typeof event.phase === "string" ? event.phase : "",
     status: typeof event.status === "string" ? event.status : "",
     detail: typeof event.detail === "string" ? event.detail : "",
@@ -286,7 +286,7 @@ export function MultimodalImageInputExample() {
   }
 
   function applyCustomEvent(data: unknown) {
-    if (!isRecord(data) || data.type !== "multimodal_image_input") return;
+    if (!isRecord(data) || data.type !== "26_multimodal_image_input") return;
     setImageEvents((current) => mergeImageEvents(current, normalizeImageEvents([[data]].flat())));
   }
 

@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `time_travel_replay` graph.
+- The LangGraph server exposes the `08_time_travel_replay` graph.
 - Example navigation includes `08 Time Travel / Replay UI`.
 
 ## User Actions
@@ -36,7 +36,7 @@
 
 ## Backend Assertions
 
-- `time_travel_replay` streams successfully through the SDK client.
+- `08_time_travel_replay` streams successfully through the SDK client.
 - The graph creates multiple checkpoints during the original timeline run.
 - The SDK can list state history for the original thread and select an earlier checkpoint.
 - Replay starts from the selected checkpoint configuration rather than from the current state.

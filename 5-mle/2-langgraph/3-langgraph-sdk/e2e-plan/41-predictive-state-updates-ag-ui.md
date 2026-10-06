@@ -21,7 +21,7 @@
 
 ## Backend Assertions
 
-- Live execution should target graph id `predictive_state_updates`.
+- Live execution should target graph id `41_predictive_state_updates`.
 - Frontend reconciliation should use `apply_document_update`.
 
 ## Cleanup

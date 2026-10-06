@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `long_term_memory` graph.
+- The LangGraph server exposes the `16_long_term_memory` graph.
 - Example navigation includes `16 Long-term Memory UI`.
 - The UI provides a default API URL, user id input, memory key or id input, memory content textarea, and buttons named like `Create memory`, `Update memory`, `Delete memory`, `Recall memories`, and `Recall in new thread`.
 - If supported by the UI, an optional `Recall other user` flow demonstrates user namespace isolation.
@@ -38,7 +38,7 @@
 
 ## Backend Assertions
 
-- The SDK client streams against graph id `long_term_memory`.
+- The SDK client streams against graph id `16_long_term_memory`.
 - Stream mode includes both `updates` and `custom`.
 - Memory store operations use namespace `["memories", "long-term-memory-ui", userId]`.
 - Create writes the requested memory key and content into the store.
@@ -51,7 +51,7 @@
 
 ## Subagent Tracking Notes
 
-- Implementation-tracking subagents should keep example 16 marked in progress until the React route, `long_term_memory` graph registration, and this E2E spec pass together.
+- Implementation-tracking subagents should keep example 16 marked in progress until the React route, `16_long_term_memory` graph registration, and this E2E spec pass together.
 - The E2E subagent should update `progress/e2e-progress.md` after the broader workflow allows progress-file edits.
 - Mark the E2E status complete only after a Playwright MCP run verifies durable store persistence across threads, user isolation, update/delete behavior, thread-local state separation, final state fields, and raw stream events against the real OpenAI-backed graph.
 

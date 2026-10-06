@@ -8,7 +8,7 @@
 
 ## Implementation Plan
 
-1. Add a `tool_based_generative_ui` graph using `create_react_agent` and a backend tool such as `generate_haiku_card`.
+1. Add a `39_tool_based_generative_ui` graph using `create_react_agent` and a backend tool such as `generate_haiku_card`.
 2. Make the tool return structured UI data: topic, haiku lines, mood, palette, and optional explanation.
 3. Register a React `useRenderTool` renderer that maps the backend tool result into a polished haiku card.
 4. Provide suggested prompts that reliably call the backend tool.

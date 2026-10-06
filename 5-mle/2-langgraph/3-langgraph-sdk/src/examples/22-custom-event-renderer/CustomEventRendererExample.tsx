@@ -66,9 +66,9 @@ function numberValue(value: unknown, fallback = 0) {
 
 function normalizeRendererEvent(value: unknown): RendererEvent | null {
   if (!isRecord(value)) return null;
-  if (value.type !== "custom_event_renderer" && typeof value.kind !== "string") return null;
+  if (value.type !== "22_custom_event_renderer" && typeof value.kind !== "string") return null;
   return {
-    type: typeof value.type === "string" ? value.type : "custom_event_renderer",
+    type: typeof value.type === "string" ? value.type : "22_custom_event_renderer",
     schemaVersion: typeof value.schema_version === "string" ? value.schema_version : "unknown",
     kind: typeof value.kind === "string" ? value.kind : "unknown",
     eventId: typeof value.event_id === "string" ? value.event_id : createClientId("event"),

@@ -205,7 +205,7 @@ function Chat() {
         <p>Only form, list, comparison, and summary nodes render directly. Everything else uses a fallback.</p>
       </aside>
       <div className="dynamic-a2ui-chat">
-        <CopilotChat agentId="a2ui_dynamic_schema" className="dynamic-a2ui-chat-window" />
+        <CopilotChat agentId="46_a2ui_dynamic_schema" className="dynamic-a2ui-chat-window" />
       </div>
     </section>
   );
@@ -213,7 +213,7 @@ function Chat() {
 
 export function A2uiDynamicSchemaAgUiExample() {
   return (
-    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="a2ui_dynamic_schema">
+    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="46_a2ui_dynamic_schema">
       <Chat />
     </CopilotKit>
   );

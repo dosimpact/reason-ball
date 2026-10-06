@@ -98,7 +98,7 @@ def _event(
     severity: str = "info",
 ) -> RendererEvent:
     return {
-        "type": "custom_event_renderer",
+        "type": "22_custom_event_renderer",
         "schema_version": "v1",
         "kind": kind,
         "event_id": f"{phase}-{sequence}",
@@ -156,7 +156,7 @@ def prepare_task(state: CustomEventRendererState) -> dict:
         "final_status": "running",
         "renderer_status": "running",
         "renderer_metadata": {
-            "graph_id": "custom_event_renderer",
+            "graph_id": "22_custom_event_renderer",
             "renderer_version": "inline-progress-v1",
             "stream_modes": ["updates", "custom"],
             "known_event_kinds": ["phase", "progress", "status", "warning"],

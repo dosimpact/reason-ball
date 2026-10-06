@@ -126,7 +126,7 @@ def _writer():
 
 def _event(phase: str, status: str, detail: str, progress: float) -> AnalysisEvent:
     return {
-        "type": "chat_data_analysis_canvas",
+        "type": "34_chat_data_analysis_canvas",
         "phase": phase,
         "status": status,
         "detail": detail,

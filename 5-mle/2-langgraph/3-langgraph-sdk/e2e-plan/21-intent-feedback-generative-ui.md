@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` includes a valid `OPENAI_API_KEY` for the completion step.
-- The LangGraph server exposes the `intent_feedback_generative_ui` graph.
+- The LangGraph server exposes the `21_intent_feedback_generative_ui` graph.
 - Example navigation includes `21 Intent Feedback with Generative UI`.
 - The SDK client streams with both `updates` and `custom` modes.
 
@@ -32,7 +32,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `intent_feedback_generative_ui`.
+- Stream requests target graph id `21_intent_feedback_generative_ui`.
 - Stream mode includes `updates` and `custom`.
 - The ambiguous run request body includes the unique E2E marker.
 - The ambiguous run returns `ui_requests` and `missing_fields` without a final quote answer.

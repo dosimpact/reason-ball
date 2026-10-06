@@ -21,7 +21,7 @@
 
 ## Backend Assertions
 
-- Live execution should target graph id `human_in_the_loop_ag_ui`.
+- Live execution should target graph id `37_human_in_the_loop_ag_ui`.
 - Frontend approval should be handled through `request_task_approval`.
 
 ## Cleanup

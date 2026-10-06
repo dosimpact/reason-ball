@@ -20,7 +20,7 @@
 
 ## Backend Assertions
 
-- Live execution should target graph id `a2ui_advanced`.
+- Live execution should target graph id `47_a2ui_advanced`.
 - Renderer should handle progress, generated decision panel, and frontend confirmation action.
 
 ## Cleanup

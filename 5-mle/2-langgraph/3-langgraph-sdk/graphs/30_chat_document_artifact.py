@@ -105,7 +105,7 @@ def _writer():
 
 def _event(phase: str, status: str, detail: str, progress: float) -> DocumentEvent:
     return {
-        "type": "chat_document_artifact",
+        "type": "30_chat_document_artifact",
         "phase": phase,
         "status": status,
         "detail": detail,

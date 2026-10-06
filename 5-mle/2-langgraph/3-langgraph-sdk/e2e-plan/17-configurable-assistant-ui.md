@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `configurable_assistant` graph.
+- The LangGraph server exposes the `17_configurable_assistant` graph.
 - Example navigation includes `17 Configurable Assistant UI`.
 - The UI provides a default API URL, prompt textarea, model alias select, style select or segmented control, temperature input, system prompt textarea, and buttons named `Compare configs`, `Run default`, `Run override`, and `Reset`.
 - The SDK client streams with `updates` and `custom` modes and passes run overrides through `config.configurable`.
@@ -37,7 +37,7 @@
 
 ## Backend Assertions
 
-- The SDK client streams against graph id `configurable_assistant`.
+- The SDK client streams against graph id `17_configurable_assistant`.
 - Stream mode includes both `updates` and `custom`.
 - The default run sends an empty `config.configurable` override and resolves graph defaults.
 - The override run sends `model`, `style`, `temperature`, and `system_prompt` through `config.configurable`.
@@ -48,7 +48,7 @@
 
 ## Subagent Tracking Notes
 
-- Implementation-tracking subagents should keep example 17 marked in progress until the React route, `configurable_assistant` graph registration, and this E2E spec pass together.
+- Implementation-tracking subagents should keep example 17 marked in progress until the React route, `17_configurable_assistant` graph registration, and this E2E spec pass together.
 - The E2E subagent should update `progress/e2e-progress.md` after the broader workflow allows progress-file edits.
 - Mark the E2E status complete only after a Playwright MCP run verifies config override propagation, default-vs-override comparison, final state fields, and raw `updates` plus `custom` stream events against the real OpenAI-backed graph.
 

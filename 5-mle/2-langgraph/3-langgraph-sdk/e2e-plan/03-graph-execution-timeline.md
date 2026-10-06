@@ -22,7 +22,7 @@
 
 ## Backend Assertions
 
-- `graph_execution_timeline` assistant streams successfully.
+- `03_graph_execution_timeline` assistant streams successfully.
 - The `call_model` node invokes OpenAI.
 - The final state contains all three node names in `steps`.
 

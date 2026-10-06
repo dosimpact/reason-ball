@@ -21,7 +21,7 @@
 
 ## Backend Assertions
 
-- Live execution should target graph id `agentic_chat_multimodal`.
+- Live execution should target graph id `43_agentic_chat_multimodal`.
 - Image observation renderer should handle `record_image_observations`.
 
 ## Cleanup

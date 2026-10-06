@@ -4,7 +4,7 @@
 
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934`.
-- The LangGraph server exposes the `chat_document_artifact` graph.
+- The LangGraph server exposes the `30_chat_document_artifact` graph.
 - Example navigation includes `30 Chat + Document Artifact`.
 - The SDK client streams with `streamMode: ["updates", "custom"]`.
 
@@ -37,7 +37,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `chat_document_artifact`.
+- Stream requests target graph id `30_chat_document_artifact`.
 - Stream mode includes `updates` and `custom`.
 - The first request includes the marker, tone, length, and focus section.
 - A follow-up request includes `action: "save_user_edit"` and the edited section text.

@@ -20,7 +20,7 @@
 
 ## Backend Assertions
 
-- Live execution should target graph id `tool_based_generative_ui`.
+- Live execution should target graph id `39_tool_based_generative_ui`.
 - The renderer should handle `generate_haiku_card` payloads and fallback states.
 
 ## Cleanup

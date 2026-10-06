@@ -3,7 +3,7 @@ import { expect, type Locator, type Page, type Request, test } from "@playwright
 test.setTimeout(180_000);
 
 const API_URL = "http://localhost:2931";
-const GRAPH_ID = "chat_citation_renderer";
+const GRAPH_ID = "24_chat_citation_renderer";
 const PRIMARY_SOURCE_ID = "doc-rag";
 
 type StreamRequestRecord = {

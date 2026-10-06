@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `plan_and_execute` graph.
+- The LangGraph server exposes the `14_plan_and_execute` graph.
 - Example navigation includes `14 Plan-and-Execute UI`.
 - The UI provides a default API URL, task textarea or input, task sample buttons, and a primary run button named like `Run plan`.
 - If supported by the graph, the UI exposes a run mode control for `normal`, `replan`, and `stop`, or a visible `Control State` panel that reflects the selected control mode.
@@ -37,7 +37,7 @@
 
 ## Backend Assertions
 
-- The SDK client streams against graph id `plan_and_execute`.
+- The SDK client streams against graph id `14_plan_and_execute`.
 - The planner emits a structured plan before all executor work is complete.
 - Plan step objects include `id`, `title`, `status`, `result`, and `error` or equivalent fields.
 - Executor updates move steps through pending, active or running, completed, and failed or error states.
@@ -47,7 +47,7 @@
 
 ## Subagent Tracking Notes
 
-- Implementation-tracking subagents should keep example 14 marked in progress until the React route, `plan_and_execute` graph registration, and this E2E spec pass together.
+- Implementation-tracking subagents should keep example 14 marked in progress until the React route, `14_plan_and_execute` graph registration, and this E2E spec pass together.
 - The E2E subagent should update `progress/e2e-progress.md` after the broader workflow allows progress-file edits.
 - Mark the E2E status complete only after a Playwright MCP run verifies plan cards, executor completion, control-mode state, final answer, and raw stream events against the real OpenAI-backed graph.
 

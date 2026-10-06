@@ -4,7 +4,7 @@
 
 - Vite serves the examples UI at `http://localhost:2934`.
 - A CopilotKit runtime endpoint is reachable through `VITE_COPILOTKIT_RUNTIME_URL` or `/api/copilotkit`.
-- The runtime is connected to the `agentic_chat` Python LangGraph graph served from the main `langgraph.json`.
+- The runtime is connected to the `35_agentic_chat` Python LangGraph graph served from the main `langgraph.json`.
 - The example is selectable from the left navigation.
 
 ## Surface Checks
@@ -27,7 +27,7 @@
 
 ## Backend Assertions
 
-- Runtime requests target agent id `agentic_chat`.
+- Runtime requests target agent id `35_agentic_chat`.
 - Frontend tools are injected through Python `CopilotKitMiddleware`.
 - The backend weather tool is served by `graphs/35_agentic_chat_ag_ui.py`.
 - The frontend background tool remains browser-only through `useFrontendTool`.

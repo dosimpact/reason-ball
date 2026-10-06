@@ -84,7 +84,7 @@ def _writer():
 
 def _event(phase: str, status: str, detail: str, progress: float) -> AudioEvent:
     return {
-        "type": "multimodal_voice_output",
+        "type": "28_multimodal_voice_output",
         "phase": phase,
         "status": status,
         "detail": detail,

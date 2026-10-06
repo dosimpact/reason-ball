@@ -3,7 +3,7 @@ import { expect, type Locator, type Page, type Request, test } from "@playwright
 test.setTimeout(180_000);
 
 const API_URL = "http://localhost:2931";
-const GRAPH_ID = "intent_feedback_generative_ui";
+const GRAPH_ID = "21_intent_feedback_generative_ui";
 const SELECTED_TICKER = "AAPL";
 const SELECTED_MARKET = "NASDAQ";
 const SELECTED_PERIOD = "1D";

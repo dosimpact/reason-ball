@@ -8,9 +8,9 @@
 
 ## Implementation Plan
 
-1. Add a `human_in_the_loop_ag_ui` graph with a planning node, an interrupt/approval node, and an execution node.
+1. Add a `37_human_in_the_loop_ag_ui` graph with a planning node, an interrupt/approval node, and an execution node.
 2. Use LangGraph interrupt/resume semantics so the graph pauses with a structured payload containing task title, proposed steps, risk note, and allowed actions.
-3. Register the graph in `langgraph.json` and expose it to CopilotKit with agent name `human_in_the_loop_ag_ui`.
+3. Register the graph in `langgraph.json` and expose it to CopilotKit with agent name `37_human_in_the_loop_ag_ui`.
 4. Add a React example that renders the interrupt payload as an approval panel inside or beside the chat.
 5. Implement approve, reject, and edit-and-approve actions that resume the same thread with the selected decision payload.
 6. Preserve pending approval state across refresh by reading the active thread/run state when the example mounts.

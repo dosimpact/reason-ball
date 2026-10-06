@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `streaming_ui` graph.
+- The LangGraph server exposes the `04_streaming_ui` graph.
 
 ## User Actions
 
@@ -26,7 +26,7 @@
 
 ## Backend Assertions
 
-- `streaming_ui` streams successfully for all four SDK stream modes.
+- `04_streaming_ui` streams successfully for all four SDK stream modes.
 - `messages` emits model token or message chunks.
 - `updates` emits partial state updates.
 - `values` emits state snapshots.

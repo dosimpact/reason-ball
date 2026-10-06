@@ -20,7 +20,7 @@
 
 ## Backend Assertions
 
-- Live execution should target graph id `a2ui_dynamic_schema`.
+- Live execution should target graph id `46_a2ui_dynamic_schema`.
 - Renderer should whitelist form, list, comparison, and summary nodes.
 
 ## Cleanup

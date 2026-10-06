@@ -8,7 +8,7 @@
 
 ## Implementation Plan
 
-1. Add an `a2ui_dynamic_schema` graph that decides which UI schema to emit based on the user's request.
+1. Add an `46_a2ui_dynamic_schema` graph that decides which UI schema to emit based on the user's request.
 2. Support a small approved component set such as form, list, comparison cards, and summary panel.
 3. Stream schema/data updates so the frontend can render partial UI while the agent continues.
 4. Add a React schema renderer that validates component type and required props before rendering.

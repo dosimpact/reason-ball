@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `conditional_routing` graph.
+- The LangGraph server exposes the `09_conditional_routing` graph.
 - Example navigation includes `09 Conditional Routing UI`.
 - The UI provides a request textarea, sample buttons for `Translation`, `Summary`, and either `Support` or `Research`, plus a `Run conditional route` button.
 
@@ -35,7 +35,7 @@
 
 ## Backend Assertions
 
-- `conditional_routing` streams successfully through the SDK client.
+- `09_conditional_routing` streams successfully through the SDK client.
 - The graph writes explicit route metadata before final output, including selected branch, skipped branches, and reason.
 - Default and alternate sample requests deterministically select different branches.
 - The selected branch writes a branch-specific result into final state.

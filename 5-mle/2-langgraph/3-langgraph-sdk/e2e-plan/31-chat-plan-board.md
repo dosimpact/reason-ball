@@ -4,7 +4,7 @@
 
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934`.
-- The LangGraph server exposes the `chat_plan_board` graph.
+- The LangGraph server exposes the `31_chat_plan_board` graph.
 - Example navigation includes `31 Chat + Plan Board`.
 - The SDK client streams with `streamMode: ["updates", "custom"]`.
 
@@ -36,7 +36,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `chat_plan_board`.
+- Stream requests target graph id `31_chat_plan_board`.
 - Stream mode includes `updates` and `custom`.
 - The first request includes the marker and `action: "create"`.
 - Follow-up requests include `action: "continue"` and `action: "revise"` on the same thread.

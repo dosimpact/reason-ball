@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `human_in_the_loop_interrupt` graph.
+- The LangGraph server exposes the `06_human_in_the_loop_interrupt` graph.
 
 ## User Actions
 
@@ -28,7 +28,7 @@
 
 ## Backend Assertions
 
-- `human_in_the_loop_interrupt` streams successfully through the SDK client.
+- `06_human_in_the_loop_interrupt` streams successfully through the SDK client.
 - The graph interrupts before executing the high-risk action.
 - Resume payloads distinguish approval, rejection, and edited approval.
 - Final graph state keeps the approval decision, action text, result status, and thread continuity.

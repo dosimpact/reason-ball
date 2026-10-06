@@ -8,7 +8,7 @@
 
 ## Implementation Plan
 
-1. Add an `a2ui_fixed_schema` graph that parses a flight-search request into a fixed response shape.
+1. Add an `45_a2ui_fixed_schema` graph that parses a flight-search request into a fixed response shape.
 2. Define the fixed UI payload with route, dates, travelers, filters, and a list of flight options.
 3. Render the schema with React flight cards, filter chips, price/duration fields, and select buttons.
 4. Keep this example non-streaming to demonstrate fixed-schema A2UI behavior.

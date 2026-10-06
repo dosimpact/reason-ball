@@ -134,7 +134,7 @@ function normalizeVersions(value: unknown): PreviewVersion[] {
 function normalizePreviewEvents(value: unknown): PreviewEvent[] {
   if (!Array.isArray(value)) return [];
   return value.filter(isRecord).map((event) => ({
-    type: typeof event.type === "string" ? event.type : "chat_ui_preview",
+    type: typeof event.type === "string" ? event.type : "33_chat_ui_preview",
     phase: typeof event.phase === "string" ? event.phase : "",
     status: typeof event.status === "string" ? event.status : "",
     detail: typeof event.detail === "string" ? event.detail : "",
@@ -256,7 +256,7 @@ export function ChatUiPreviewExample() {
   }
 
   function applyCustomEvent(data: unknown) {
-    if (!isRecord(data) || data.type !== "chat_ui_preview") return;
+    if (!isRecord(data) || data.type !== "33_chat_ui_preview") return;
     setPreviewEvents((current) => mergePreviewEvents(current, normalizePreviewEvents([data])));
   }
 
@@ -279,7 +279,7 @@ export function ChatUiPreviewExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming UI preview graph");
 
-      const stream = await client.runs.stream(nextThreadId, "chat_ui_preview", {
+      const stream = await client.runs.stream(nextThreadId, "33_chat_ui_preview", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });

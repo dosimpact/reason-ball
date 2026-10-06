@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` includes a valid `OPENAI_API_KEY` if the provider-backed answer path is used.
-- The LangGraph server exposes the `chat_citation_renderer` graph.
+- The LangGraph server exposes the `24_chat_citation_renderer` graph.
 - Example navigation includes `24 Chat Citation Renderer`.
 - The SDK client streams with both `updates` and `custom` modes.
 
@@ -33,7 +33,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `chat_citation_renderer`.
+- Stream requests target graph id `24_chat_citation_renderer`.
 - Stream mode includes `updates` and `custom`.
 - The stream request body includes the unique E2E marker appended to the citation question.
 - Custom stream events include citation/source lifecycle payloads before or alongside final state updates.

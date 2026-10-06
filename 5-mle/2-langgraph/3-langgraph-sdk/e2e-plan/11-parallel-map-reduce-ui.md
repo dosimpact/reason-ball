@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `parallel_map_reduce` graph.
+- The LangGraph server exposes the `11_parallel_map_reduce` graph.
 - Example navigation includes `11 Parallel / Map-Reduce UI`.
 - The UI provides a topic or request textarea, sample buttons, and a run button named like `Run map-reduce` or `Run parallel workers`.
 
@@ -31,7 +31,7 @@
 
 ## Backend Assertions
 
-- The SDK client streams against graph id `parallel_map_reduce`.
+- The SDK client streams against graph id `11_parallel_map_reduce`.
 - The graph emits worker start/progress/completion updates with stable worker ids and item labels.
 - Worker events may arrive in nondeterministic order, but reducer input ordering remains stable or explicitly labeled.
 - Reducer state includes multiple worker results before producing the final combined output.

@@ -8,7 +8,7 @@
 
 ## Implementation Plan
 
-1. Add a `subgraphs_ag_ui` parent graph that routes a task to at least two named worker subgraphs.
+1. Add a `44_subgraphs_ag_ui` parent graph that routes a task to at least two named worker subgraphs.
 2. Stream or expose subgraph progress with worker name, task, status, partial result, and final result.
 3. Add a React example that renders a multi-agent progress panel beside the chat.
 4. Show parent graph state separately from worker/subgraph state.

@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` includes a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `observability` graph.
+- The LangGraph server exposes the `20_observability` graph.
 - Example navigation includes `20 Observability UI`.
 - The SDK client streams with both `updates` and `custom` modes.
 
@@ -24,7 +24,7 @@
 - `Token Usage` renders total/input/output token labels; unavailable values appear as `unknown`.
 - `Cost Estimate` renders cost labels and treats unavailable provider cost data as `unknown`.
 - `Trace Links` renders LangSmith/trace anchors when configured, otherwise an explicit unavailable/not configured state.
-- `Run Metadata` shows run/thread/graph/model/provider metadata for the `observability` graph.
+- `Run Metadata` shows run/thread/graph/model/provider metadata for the `20_observability` graph.
 - `Observability Events` shows custom observability lifecycle events.
 - `Final Answer` contains a non-empty assistant response.
 - `Final State` includes `node_timings`, `token_metrics`, `cost_summary`, `run_metadata`, `trace_links`, `observability_events`, `answer`, and `final`.
@@ -32,7 +32,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `observability`.
+- Stream requests target graph id `20_observability`.
 - Stream mode includes `updates` and `custom`.
 - The request input contains the unique E2E query marker.
 - Final graph state includes all required observability keys.

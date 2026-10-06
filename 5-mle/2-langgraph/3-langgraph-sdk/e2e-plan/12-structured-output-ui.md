@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `structured_output` graph.
+- The LangGraph server exposes the `12_structured_output` graph.
 - Example navigation includes `12 Structured Output UI`.
 - The UI provides a default API URL, request textarea, request sample buttons, and a primary run button named like `Run structured extraction`.
 
@@ -31,7 +31,7 @@
 
 ## Backend Assertions
 
-- The SDK client streams against graph id `structured_output`.
+- The SDK client streams against graph id `12_structured_output`.
 - The graph returns a stable schema name and schema field metadata with each run.
 - The default sample produces valid structured output.
 - The graph validates parsed model output server-side and writes validation status or validation errors into state.

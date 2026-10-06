@@ -22,7 +22,7 @@
 
 ## Backend Assertions
 
-- Live backend execution should target graph id `backend_tool_rendering`.
+- Live backend execution should target graph id `36_backend_tool_rendering`.
 - The backend tool renderer should render `search_inventory` loading and completed states.
 
 ## Cleanup

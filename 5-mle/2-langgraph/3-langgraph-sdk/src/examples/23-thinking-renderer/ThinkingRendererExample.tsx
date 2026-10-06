@@ -70,9 +70,9 @@ function nodePayloads(data: unknown): JsonRecord[] {
 
 function normalizeThinkingStep(value: unknown): ThinkingStep | null {
   if (!isRecord(value)) return null;
-  if (value.type !== "thinking_renderer" && typeof value.step_id !== "string") return null;
+  if (value.type !== "23_thinking_renderer" && typeof value.step_id !== "string") return null;
   return {
-    type: typeof value.type === "string" ? value.type : "thinking_renderer",
+    type: typeof value.type === "string" ? value.type : "23_thinking_renderer",
     schemaVersion: typeof value.schema_version === "string" ? value.schema_version : "v1",
     stepId: typeof value.step_id === "string" ? value.step_id : createClientId("step"),
     sequence: typeof value.sequence === "number" ? value.sequence : 0,

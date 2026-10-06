@@ -96,7 +96,7 @@ def _writer():
 
 def _event(phase: str, status: str, detail: str, progress: float) -> VoiceEvent:
     return {
-        "type": "multimodal_voice_input",
+        "type": "27_multimodal_voice_input",
         "phase": phase,
         "status": status,
         "detail": detail,

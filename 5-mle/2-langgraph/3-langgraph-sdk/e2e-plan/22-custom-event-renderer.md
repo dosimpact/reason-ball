@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` includes a valid `OPENAI_API_KEY` for the final answer step.
-- The LangGraph server exposes the `custom_event_renderer` graph.
+- The LangGraph server exposes the `22_custom_event_renderer` graph.
 - Example navigation includes `22 Custom Event Renderer`.
 - The SDK client streams with both `updates` and `custom` modes.
 
@@ -31,7 +31,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `custom_event_renderer`.
+- Stream requests target graph id `22_custom_event_renderer`.
 - Stream mode includes `updates` and `custom`.
 - The stream request body includes the unique task id and E2E marker.
 - Custom stream events include phase, progress, status, warning, and unknown diagnostic payloads.

@@ -180,7 +180,7 @@ async function runMode(page: Page, label: string, query: string, maxAttempts = 3
 
 function assertStreamRequestBodies(bodies: string[], failureMode: string) {
   const bodyText = bodies.join("\n");
-  expect(bodyText).toContain("retry_error_degradation");
+  expect(bodyText).toContain("18_retry_error_degradation");
   expect(bodyText).toContain(failureMode);
   expect(bodyText).toMatch(/updates/i);
   expect(bodyText).toMatch(/custom/i);

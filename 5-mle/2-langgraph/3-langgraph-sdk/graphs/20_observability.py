@@ -194,7 +194,7 @@ def prepare_run(state: ObservabilityState) -> dict:
         "run_started_at": started_at,
         "run_metadata": {
             "run_id": run_id,
-            "graph_id": "observability",
+            "graph_id": "20_observability",
             "provider": "OpenAI",
             "model_alias": MODEL_ALIAS,
             "model_name": resolve_model(MODEL_ALIAS),
@@ -214,7 +214,7 @@ def collect_context(state: ObservabilityState) -> dict:
     start = time.perf_counter()
     started_at = _now()
     query = state.get("query", DEFAULT_QUERY)
-    if any(term in query.lower() for term in ("time", "latency", "slow", "metric", "observability")):
+    if any(term in query.lower() for term in ("time", "latency", "slow", "metric", "20_observability")):
         context = (
             "Local diagnostic context: compare node elapsed time, token usage, and cost estimate. "
             "Treat missing provider usage as unknown instead of zero."

@@ -110,7 +110,7 @@ function normalizeMetadata(value: unknown): AudioMetadata | null {
 function normalizeVoiceEvents(value: unknown): VoiceEvent[] {
   if (!Array.isArray(value)) return [];
   return value.filter(isRecord).map((event) => ({
-    type: typeof event.type === "string" ? event.type : "multimodal_voice_input",
+    type: typeof event.type === "string" ? event.type : "27_multimodal_voice_input",
     phase: typeof event.phase === "string" ? event.phase : "",
     status: typeof event.status === "string" ? event.status : "",
     detail: typeof event.detail === "string" ? event.detail : "",
@@ -272,7 +272,7 @@ export function MultimodalVoiceInputExample() {
   }
 
   function applyCustomEvent(data: unknown) {
-    if (!isRecord(data) || data.type !== "multimodal_voice_input") return;
+    if (!isRecord(data) || data.type !== "27_multimodal_voice_input") return;
     setVoiceEvents((current) => mergeVoiceEvents(current, normalizeVoiceEvents([data])));
   }
 

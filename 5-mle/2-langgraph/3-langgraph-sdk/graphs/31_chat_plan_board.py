@@ -74,7 +74,7 @@ def _writer():
 
 def _event(phase: str, status: str, detail: str, progress: float) -> PlanEvent:
     return {
-        "type": "chat_plan_board",
+        "type": "31_chat_plan_board",
         "phase": phase,
         "status": status,
         "detail": detail,

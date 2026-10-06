@@ -101,7 +101,7 @@ function normalizeVersions(value: unknown): PlanVersion[] {
 function normalizePlanEvents(value: unknown): PlanEvent[] {
   if (!Array.isArray(value)) return [];
   return value.filter(isRecord).map((event) => ({
-    type: typeof event.type === "string" ? event.type : "chat_plan_board",
+    type: typeof event.type === "string" ? event.type : "31_chat_plan_board",
     phase: typeof event.phase === "string" ? event.phase : "",
     status: typeof event.status === "string" ? event.status : "",
     detail: typeof event.detail === "string" ? event.detail : "",
@@ -187,7 +187,7 @@ export function ChatPlanBoardExample() {
   }
 
   function applyCustomEvent(data: unknown) {
-    if (!isRecord(data) || data.type !== "chat_plan_board") return;
+    if (!isRecord(data) || data.type !== "31_chat_plan_board") return;
     setPlanEvents((current) => mergePlanEvents(current, normalizePlanEvents([data])));
   }
 
@@ -210,7 +210,7 @@ export function ChatPlanBoardExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming plan board graph");
 
-      const stream = await client.runs.stream(nextThreadId, "chat_plan_board", {
+      const stream = await client.runs.stream(nextThreadId, "31_chat_plan_board", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });

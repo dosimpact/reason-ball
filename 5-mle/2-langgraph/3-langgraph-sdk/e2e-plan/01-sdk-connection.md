@@ -10,7 +10,7 @@
 
 1. Open the SDK Connection example.
 2. Click `Load assistants`.
-3. Confirm `sdk_connection` is available.
+3. Confirm `01_sdk_connection` is available.
 4. Submit the default prompt with `Run and stream`.
 
 ## Expected UI States
@@ -24,7 +24,7 @@
 
 - Assistant search succeeds against the LangGraph API.
 - A thread is created for the run.
-- `sdk_connection` invokes the OpenAI-backed graph and streams at least one update.
+- `01_sdk_connection` invokes the OpenAI-backed graph and streams at least one update.
 
 ## Cleanup
 

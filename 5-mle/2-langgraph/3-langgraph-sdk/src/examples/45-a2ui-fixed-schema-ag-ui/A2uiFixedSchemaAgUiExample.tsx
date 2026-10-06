@@ -159,7 +159,7 @@ function Chat() {
         <p>Flight cards render only when the backend returns the expected schema version and required option list.</p>
       </aside>
       <div className="fixed-a2ui-chat">
-        <CopilotChat agentId="a2ui_fixed_schema" className="fixed-a2ui-chat-window" />
+        <CopilotChat agentId="45_a2ui_fixed_schema" className="fixed-a2ui-chat-window" />
       </div>
     </section>
   );
@@ -167,7 +167,7 @@ function Chat() {
 
 export function A2uiFixedSchemaAgUiExample() {
   return (
-    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="a2ui_fixed_schema">
+    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="45_a2ui_fixed_schema">
       <Chat />
     </CopilotKit>
   );

@@ -285,7 +285,7 @@ function MultimodalChat() {
       <div style={{ ...panelStyle, minHeight: 680 }}>
         <h3 style={{ fontSize: 18, margin: 0 }}>Multimodal Chat</h3>
         <CopilotChat
-          agentId="agentic_chat_multimodal"
+          agentId="43_agentic_chat_multimodal"
           attachments={{
             enabled: true,
             accept: "image/png,image/jpeg,image/webp",
@@ -301,7 +301,7 @@ function MultimodalChat() {
 
 export function AgenticChatMultimodalAgUiExample() {
   return (
-    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="agentic_chat_multimodal">
+    <CopilotKit runtimeUrl={copilotRuntimeUrl()} showDevConsole={false} agent="43_agentic_chat_multimodal">
       <MultimodalChat />
     </CopilotKit>
   );

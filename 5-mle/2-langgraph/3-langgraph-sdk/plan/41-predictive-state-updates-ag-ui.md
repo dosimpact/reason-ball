@@ -8,7 +8,7 @@
 
 ## Implementation Plan
 
-1. Add a `predictive_state_updates` graph with document state fields for title, body, revision, and last operation.
+1. Add a `41_predictive_state_updates` graph with document state fields for title, body, revision, and last operation.
 2. Support backend edit operations such as rewrite title, improve paragraph, shorten text, and append summary.
 3. Add a React document editor that applies user-requested or agent-predicted edits optimistically.
 4. Stream confirmed backend state patches and reconcile them with optimistic UI state.

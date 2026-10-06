@@ -2,7 +2,7 @@ import { expect, type Locator, type Page, type Request, test } from "@playwright
 
 test.setTimeout(180_000);
 
-const GRAPH_ID = "chat_plan_board";
+const GRAPH_ID = "31_chat_plan_board";
 
 type StreamRequestRecord = {
   body: string;

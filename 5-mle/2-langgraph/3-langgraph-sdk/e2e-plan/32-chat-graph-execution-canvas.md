@@ -4,7 +4,7 @@
 
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934`.
-- The LangGraph server exposes the `chat_graph_execution_canvas` graph.
+- The LangGraph server exposes the `32_chat_graph_execution_canvas` graph.
 - Example navigation includes `32 Chat + Graph Execution Canvas`.
 - The SDK client streams with `streamMode: ["updates", "custom"]`.
 
@@ -32,7 +32,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `chat_graph_execution_canvas`.
+- Stream requests target graph id `32_chat_graph_execution_canvas`.
 - Stream mode includes `updates` and `custom`.
 - The first request includes the marker and `action: "inspect"`.
 - Follow-up requests include `action: "select_event"` and `action: "time_travel"` with `selected_event_id: "evt-5"`.

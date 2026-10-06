@@ -8,7 +8,7 @@
 
 ## Implementation Plan
 
-1. Add a `todo_list_middleware` graph that wraps a LangChain `create_agent` instance with `TodoListMiddleware`.
+1. Add a `48_todo_list_middleware` graph that wraps a LangChain `create_agent` instance with `TodoListMiddleware`.
 2. Use a deterministic multi-step task prompt fixture so the agent is expected to call `write_todos` before executing the work.
 3. Stream `messages`, `updates`, and final `values` so the frontend can show both tool-call messages and the authoritative `todos` state.
 4. Render the todo board beside the chat with stable rows for content, status, latest update time, and source event.

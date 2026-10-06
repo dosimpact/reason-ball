@@ -5,7 +5,7 @@
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
 - Local `.env` must include a valid `OPENAI_API_KEY`.
-- The LangGraph server exposes the `rag_qa` graph.
+- The LangGraph server exposes the `13_rag_qa` graph.
 - Example navigation includes `13 RAG / QA UI`.
 - The UI provides a default API URL, question textarea or input, question sample buttons, and a primary run button named like `Run RAG QA`.
 
@@ -35,7 +35,7 @@
 
 ## Backend Assertions
 
-- The SDK client streams against graph id `rag_qa`.
+- The SDK client streams against graph id `13_rag_qa`.
 - The graph uses a deterministic fixture corpus with stable source ids such as `doc-rag` and `doc-sdk`.
 - Retrieval returns ranked document records with `rank`, `score`, `source`, `snippet`, and `id`.
 - Answer generation cites only retrieved document ids in square-bracket labels.
@@ -46,7 +46,7 @@
 
 ## Subagent Tracking Notes
 
-- Implementation-tracking subagents should keep example 13 marked in progress until the React route, `rag_qa` graph registration, and this E2E spec pass together.
+- Implementation-tracking subagents should keep example 13 marked in progress until the React route, `13_rag_qa` graph registration, and this E2E spec pass together.
 - The E2E subagent should update `progress/e2e-progress.md` after the broader workflow allows progress-file edits.
 - Mark the E2E status complete only after a Playwright MCP run verifies citation-card linking against the real OpenAI-backed graph.
 

@@ -21,7 +21,7 @@
 
 ## Backend Assertions
 
-- Live execution should target graph id `shared_state_agent_ui`.
+- Live execution should target graph id `40_shared_state_agent_ui`.
 - Frontend tools should expose `apply_recipe_patch` and `read_recipe_state`.
 
 ## Cleanup

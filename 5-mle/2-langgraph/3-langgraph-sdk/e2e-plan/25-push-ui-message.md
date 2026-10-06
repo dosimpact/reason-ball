@@ -4,7 +4,7 @@
 
 - LangGraph API runs at `http://localhost:2931`.
 - React UI runs at `http://localhost:2934` with `VITE_LANGGRAPH_API_URL=http://localhost:2931`.
-- The LangGraph server exposes the `push_ui_message_example` graph.
+- The LangGraph server exposes the `25_push_ui_message_example` graph.
 - Example navigation includes `25 push_ui_message Example`.
 - The SDK client streams with `streamMode: ["updates", "custom"]`.
 
@@ -31,7 +31,7 @@
 
 ## Backend Assertions
 
-- Stream requests target graph id `push_ui_message_example`.
+- Stream requests target graph id `25_push_ui_message_example`.
 - Stream mode includes `updates` and `custom`.
 - The stream request body includes the unique E2E marker appended to the prompt.
 - Custom stream events include UI message payloads for status/card/action rendering.

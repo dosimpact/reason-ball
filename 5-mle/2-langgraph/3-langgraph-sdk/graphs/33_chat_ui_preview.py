@@ -99,7 +99,7 @@ def _writer():
 
 def _event(phase: str, status: str, detail: str, progress: float) -> PreviewEvent:
     return {
-        "type": "chat_ui_preview",
+        "type": "33_chat_ui_preview",
         "phase": phase,
         "status": status,
         "detail": detail,

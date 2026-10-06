@@ -177,7 +177,7 @@ function rowsFromResultTable(value: unknown): TableRow[] {
 function normalizeEvents(value: unknown): AnalysisEvent[] {
   if (!Array.isArray(value)) return [];
   return value.filter(isRecord).map((event) => ({
-    type: typeof event.type === "string" ? event.type : "chat_data_analysis_canvas",
+    type: typeof event.type === "string" ? event.type : "34_chat_data_analysis_canvas",
     phase: typeof event.phase === "string" ? event.phase : "",
     status: typeof event.status === "string" ? event.status : "",
     detail: typeof event.detail === "string" ? event.detail : "",
@@ -291,7 +291,7 @@ export function ChatDataAnalysisCanvasExample() {
   }
 
   function applyCustomEvent(data: unknown) {
-    if (!isRecord(data) || data.type !== "chat_data_analysis_canvas") return;
+    if (!isRecord(data) || data.type !== "34_chat_data_analysis_canvas") return;
     setAnalysisEvents((current) => mergeEvents(current, normalizeEvents([data])));
   }
 
@@ -314,7 +314,7 @@ export function ChatDataAnalysisCanvasExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming data analysis graph");
 
-      const stream = await client.runs.stream(nextThreadId, "chat_data_analysis_canvas", {
+      const stream = await client.runs.stream(nextThreadId, "34_chat_data_analysis_canvas", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });

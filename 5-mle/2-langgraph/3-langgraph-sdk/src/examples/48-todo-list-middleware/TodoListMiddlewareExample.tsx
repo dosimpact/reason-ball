@@ -312,7 +312,7 @@ export function TodoListMiddlewareExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming todo middleware");
 
-      const stream = await client.runs.stream(nextThreadId, "todo_list_middleware", {
+      const stream = await client.runs.stream(nextThreadId, "48_todo_list_middleware", {
         input: { messages: [{ type: "human", content: trimmed }] },
         streamMode: ["updates", "values"] as ["updates", "values"],
       });

@@ -75,7 +75,7 @@ def _writer():
 
 def _event(phase: str, status: str, detail: str, progress: float) -> EditorEvent:
     return {
-        "type": "chat_code_editor",
+        "type": "29_chat_code_editor",
         "phase": phase,
         "status": status,
         "detail": detail,

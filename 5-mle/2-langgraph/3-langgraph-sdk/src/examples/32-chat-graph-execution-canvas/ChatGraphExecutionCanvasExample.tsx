@@ -174,7 +174,7 @@ function normalizeVersions(value: unknown): CanvasVersion[] {
 function normalizeCanvasEvents(value: unknown): CanvasEvent[] {
   if (!Array.isArray(value)) return [];
   return value.filter(isRecord).map((event) => ({
-    type: typeof event.type === "string" ? event.type : "chat_graph_execution_canvas",
+    type: typeof event.type === "string" ? event.type : "32_chat_graph_execution_canvas",
     phase: typeof event.phase === "string" ? event.phase : "",
     status: typeof event.status === "string" ? event.status : "",
     detail: typeof event.detail === "string" ? event.detail : "",
@@ -295,7 +295,7 @@ export function ChatGraphExecutionCanvasExample() {
   }
 
   function applyCustomEvent(data: unknown) {
-    if (!isRecord(data) || data.type !== "chat_graph_execution_canvas") return;
+    if (!isRecord(data) || data.type !== "32_chat_graph_execution_canvas") return;
     setCanvasEvents((current) => mergeCanvasEvents(current, normalizeCanvasEvents([data])));
   }
 
@@ -318,7 +318,7 @@ export function ChatGraphExecutionCanvasExample() {
       setThreadId(nextThreadId);
       setStatus("Streaming graph canvas");
 
-      const stream = await client.runs.stream(nextThreadId, "chat_graph_execution_canvas", {
+      const stream = await client.runs.stream(nextThreadId, "32_chat_graph_execution_canvas", {
         input,
         streamMode: ["updates", "custom"] as ["updates", "custom"],
       });

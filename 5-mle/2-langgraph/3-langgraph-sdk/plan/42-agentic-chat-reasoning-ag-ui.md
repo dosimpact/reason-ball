@@ -8,7 +8,7 @@
 
 ## Implementation Plan
 
-1. Add an `agentic_chat_reasoning` graph using the shared model factory and a prompt that emits concise public reasoning summaries or status notes.
+1. Add an `42_agentic_chat_reasoning` graph using the shared model factory and a prompt that emits concise public reasoning summaries or status notes.
 2. Include at least one frontend or backend tool so the example remains comparable to Agentic Chat.
 3. Stream reasoning/status summaries as explicit public metadata or custom messages, not hidden chain-of-thought.
 4. Add a React chat example with a collapsible reasoning block attached to assistant responses.

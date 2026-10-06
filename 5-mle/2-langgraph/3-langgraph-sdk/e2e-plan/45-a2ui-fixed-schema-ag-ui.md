@@ -20,7 +20,7 @@
 
 ## Backend Assertions
 
-- Live execution should target graph id `a2ui_fixed_schema`.
+- Live execution should target graph id `45_a2ui_fixed_schema`.
 - Renderer should accept only fixed schema version `fixed-flight-search-v1`.
 
 ## Cleanup
