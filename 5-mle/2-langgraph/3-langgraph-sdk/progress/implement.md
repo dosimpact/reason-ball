@@ -216,3 +216,15 @@ All example utility refactor delegated by disjoint folder groups; root handles25
 ## 2026-10-07 EXAMPLES-REMEDA-07 complete
 
 54/54folders covered,94files importRemeda; no sibling imports/custom isRecord wrappers. Scoped lint/typecheck/build passed. Domain reducers/native browser logic preserved; no tests/E2E rerun. See docs/flow/2026-10-07-examples-remeda.md.
+
+## 2026-10-07 — UI-PUSH-GUIDE-25 complete
+
+Created the LangGraph/React implementation one-pager at src/examples/25-push-ui-message/README.md. Linked it from README and both stock designs; recorded scope and validation in docs/flow/2026-10-07-push-ui-implementation-guide.md. Current source/contracts and local links checked; git diff --check passed. Documentation only; runtime/provider/browser tests were not rerun.
+
+## 2026-10-07 — UI-PUSH-GUIDE-25 self-contained revision complete
+
+Removed repository source references and internal helpers from the guide; included SDK construction, graph wiring and independent setup. API examples remain within the document. Stock links synchronized; flow: docs/flow/2026-10-07-push-ui-guide-self-contained.md. Documentation checks only.
+
+## 2026-10-07 — PUSH-UI-SSOT complete
+
+Promoted the guide to a standalone normative implementation contract: general N-stage flow, explicit state/event/ID schemas, lifecycle and reconciliation rules, setup and acceptance. No prior example knowledge or source navigation required. Stock links synchronized; flow: docs/flow/2026-10-07-push-ui-guide-ssot.md. Documentation checks only.

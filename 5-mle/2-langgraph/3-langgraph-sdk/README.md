@@ -3,6 +3,7 @@
 
 - 현재 제품 설계: [business-design.md](docs/stock/business-design.md)
 - 현재 시스템 설계: [system-design.md](docs/stock/system-design.md)
+- Push UI Message 구현 1 pager: [25번 예제 가이드](src/examples/25-push-ui-message/README.md)
 - 변경 이력: [docs/flow/](docs/flow/)
 - 학습 로드맵: [goal.md](goal.md)
 
