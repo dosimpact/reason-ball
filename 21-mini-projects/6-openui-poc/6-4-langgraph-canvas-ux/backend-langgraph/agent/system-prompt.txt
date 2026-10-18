@@ -26,7 +26,6 @@ Arguments marked with ? are optional. Sub-components can be inline or referenced
 Props typed `ActionExpression` accept one @step, or Action([@steps...]) for several. See the Action section for available steps (@ToAssistant, @OpenUrl, @Set, @Reset, @CopyToClipboard).
 Props marked `$binding<type>` accept a `$variable` reference for two-way binding.
 
-### Layout
 Col(children: Node[], gap?: number, align?: "start" | "center" | "end" | "stretch") — Vertical layout. Without gap it spaces blocks like an article.
 Row(children: Node[], gap?: number, align?: "start" | "center" | "end" | "stretch", justify?: "start" | "center" | "end" | "between", wrap?: boolean) — Horizontal layout; items are vertically centered.
 Box(children?: Node[], direction?: "row" | "col", gap?: number, padding?: number, background?: Color, radius?: Radius, border?: boolean, width?: Length, height?: Length, flex?: number, align?: "start" | "center" | "end" | "stretch", justify?: "start" | "center" | "end" | "between", wrap?: boolean) — Flex container, a column by default. radius also clips the content.
@@ -36,10 +35,6 @@ Carousel(children: Node[], itemWidth?: number, gap?: number) — Horizontal row 
 Popover(trigger: string | Node[], content: string | Node[]) — Shows content in a small panel when the trigger is clicked: a definition, a source, details behind an Icon("info", "sm").
 Divider()
 Spacer() — Fills the free space in a Row.
-- gap and padding count 4px steps. Length is px or a CSS length like "50%". Radius is "sm", "md", "lg", "xl", "full" or px.
-- Color is "ink", "muted", "faint", "surface", "info", "success", "warning", "danger", "purple", "pink", "chart1" to "chart6", or a CSS color. As a background, status colors are soft tints.
-
-### Text
 Title(text: string, size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl", color?: Color) — Heading; md for a card title, lg for a section, 2xl for a big number.
 Text(text: string | Node[], size?: "xs" | "sm" | "md" | "lg", color?: Color, weight?: "normal" | "medium" | "semibold", italic?: boolean, lineThrough?: boolean, tabularNums?: boolean, maxLines?: number) — Paragraph; supports **bold**, *italic*, `code` and [links](https://…). text may be a list mixing strings and inline components: [Icon("clock", "sm"), " 25 min · ", Badge("Easy")].
 Caption(text: string, color?: Color) — Small secondary text.
@@ -52,8 +47,6 @@ Markdown(text: string) — Prose with headings, lists, quotes, code and tables.
 Quote(text: string, cite?: string) — A quotation or a callout with a side rule; cite names the source.
 Code(code: string, language?: string) — Code block with a copy button.
 Math(tex: string, inline?: boolean) — LaTeX formula, e.g. Math("E = mc^2"); inline true to sit in a Text list.
-
-### Inputs
 Button(label: string, action?: ActionExpression, variant?: "solid" | "outline" | "soft" | "ghost", color?: "primary" | "danger" | "success", size?: "sm" | "md" | "lg", icon?: string, disabled?: boolean, block?: boolean) — icon is a lucide name.
 IconButton(icon: string, action?: ActionExpression, label?: string, variant?: "outline" | "ghost" | "solid") — Round icon-only button; label is read aloud.
 Pressable(children: Node[], action?: ActionExpression, selected?: boolean, padding?: number, background?: Color, radius?: Radius) — Makes any content clickable, such as a tile or a swatch.
@@ -67,10 +60,6 @@ RadioGroup(value: $binding<string>, options: (string | {value: string, label: st
 DatePicker(value: $binding<string>, label?: string, min?: string, max?: string) — Dates are "YYYY-MM-DD".
 Timer(seconds: $binding<number>, label?: string) — Countdown with start, pause and reset. It counts the bound seconds down to 0, so other statements can react, e.g. $left == 0.
 Form(children: Node[]) — Groups fields; their values go with any @ToAssistant inside.
-- An input's first argument is its value, usually a $variable that other statements read.
-- Every input either changes something shown on the page, or sits in a Form whose submit Button sends a short first-person @ToAssistant ("Help me choose a bike"); the form values go with it. No dead inputs.
-
-### Media and data
 SearchImage(query: string, aspectRatio?: number, radius?: Radius, fit?: "cover" | "contain") — A real photo the app finds for query; it needs no URL and no tool. Name the exact thing in 2 to 4 words: "Belém Tower Lisbon", "iPhone 17", "pastel de nata". Use one for every place, dish, product or thing with a look.
 Image(src: string, alt: string, aspectRatio?: number, radius?: Radius, fit?: "cover" | "contain") — Photo from a URL the user or a tool gave; if it fails, a photo is found for alt.
 Icon(name: string, size?: "sm" | "md" | "lg" | "xl", color?: Color) — Lucide icon by name, e.g. "map-pin".
@@ -79,14 +68,9 @@ Chart(type: "bar" | "line" | "area" | "pie" | "donut" | "scatter", data: Record<
 Map(markers: MapMarker[], route?: boolean, selected?: $binding<string>, height?: number) — Street map fitted to its markers. route draws the road path in marker order; selected holds the clicked marker's label.
 MapMarker(label: string, lat: number, lng: number, category?: string, icon?: string) — A place on a Map; icon is one emoji, else the pin shows its number.
 YouTube(video: string, title?: string) — Embedded YouTube video by id or URL. Only a video you know exists.
-
-### Play
 Flashcard(front: string | Node[], back: string | Node[], hint?: string) — Card that flips between front and back when tapped. Put several in a Carousel or Grid.
 Celebration(when: boolean) — Bursts confetti when its condition turns true, e.g. Celebration($score == 5) at the end of a quiz.
-
-### Drawing
 Svg(children: Node[], viewBox: string, width?: Length, height?: Length) — A drawing for steps, parts, mechanisms, diagrams and layouts. Scales to its width; its shapes take expressions, so state can move them.
-G(children: Node[], transform?: string, opacity?: number) — Group; transform like "rotate(30 50 50)" or "translate(10 0)".
 Circle(cx: number, cy: number, r: number, fill?: Color, stroke?: Color, strokeWidth?: number, opacity?: number)
 Ellipse(cx: number, cy: number, rx: number, ry: number, fill?: Color, stroke?: Color, strokeWidth?: number, opacity?: number)
 Rect(x: number, y: number, width: number, height: number, fill?: Color, stroke?: Color, strokeWidth?: number, opacity?: number, rx?: number)
@@ -94,8 +78,11 @@ Line(x1: number, y1: number, x2: number, y2: number, stroke?: Color, strokeWidth
 Path(d: string, fill?: Color, stroke?: Color, strokeWidth?: number, opacity?: number)
 Polyline(points: string, stroke?: Color, strokeWidth?: number, fill?: Color, opacity?: number) — points like "0,0 10,5 20,0".
 Polygon(points: string, fill?: Color, stroke?: Color, strokeWidth?: number, opacity?: number)
+G(children: Node[], transform?: string, opacity?: number) — Group; transform like "rotate(30 50 50)" or "translate(10 0)".
 SvgText(text: string, x: number, y: number, size?: number, fill?: Color, anchor?: "start" | "middle" | "end", weight?: "normal" | "medium" | "semibold")
 HtmlView(html: string, height?: number, title?: string) — Sandboxed HTML page with inline JS, for games and canvas. No network except script CDNs. Fits its content unless height is set.
+AnalysisChart(artifactId: string) — A published DuckDB analysis chart with an Add to Canvas button. Use ONLY artifactId returned by publish_analysis_chart.
+CanvasItem(registrationId: string, title: string, program: string) — Canvas registrable content. Use CanvasItem("openui", title, program). program is a JSON-escaped STRING containing a complete independent OpenUI program with root = Col([...]). All base library elements and compositions are supported. Never nest CanvasItem or AnalysisChart inside program. No outer variables. The wrapper provides Add/Delete and drag automatically. Use for non-analytics cards, text, tables, images and forms users may save.
 
 ## Built-in Functions
 

@@ -9,10 +9,10 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   // Preserve copied upstream renderers; OpenUI invokes `component` as React components.
-  { files: ["src/lib/components/controls.tsx"], rules: { "react-hooks/rules-of-hooks": "off" } },
+  { files: ["src/shared/ui/openui/components/controls.tsx"], rules: { "react-hooks/rules-of-hooks": "off" } },
   // Upstream chart accumulates an angle locally during render; preview reads its browser bridge after mount.
-  { files: ["src/lib/components/chart.tsx"], rules: { "react-hooks/immutability": "off" } },
-  { files: ["src/app/preview/preview.tsx"], rules: { "react-hooks/set-state-in-effect": "off" } },
+  { files: ["src/shared/ui/openui/components/chart.tsx"], rules: { "react-hooks/immutability": "off" } },
+  { files: ["src/pages/preview/ui/preview.tsx"], rules: { "react-hooks/set-state-in-effect": "off" } },
   // Override default ignores of eslint-config-next.
   globalIgnores([".venv/**", "output/**", ".playwright-cli/**",
     // Default ignores of eslint-config-next:

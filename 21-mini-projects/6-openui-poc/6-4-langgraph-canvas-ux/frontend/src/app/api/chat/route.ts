@@ -9,7 +9,7 @@ export const runtime = "nodejs";
 /**
  * HTTP connection to the independently deployed Python LangGraph backend
  */
-const API_URL = process.env.LANGGRAPH_API_URL || "http://127.0.0.1:2036";
+const API_URL = process.env.LANGGRAPH_API_URL || "http://127.0.0.1:2037";
 const ASSISTANT_ID = process.env.LANGGRAPH_ASSISTANT_ID || "agent";
 
 /**

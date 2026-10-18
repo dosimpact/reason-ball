@@ -6,14 +6,16 @@ Python 3.12 및 [uv](https://docs.astral.sh/uv/)만 필요
 uv sync --frozen
 cp .env.example .env  # 최초 설정 시에만
 # .env에 OPENAI_API_KEY를 설정한다.
-uv run langgraph dev --port 2036 --no-browser
+uv run langgraph dev --port 2037 --no-browser
 ```
 
-- API: http://127.0.0.1:2036
-- API 문서: http://127.0.0.1:2036/docs
+- API: http://127.0.0.1:2037
+- API 문서: http://127.0.0.1:2037/docs
 - 모델: OPENAI_MODEL, 기본 `gpt-4.1-mini`
 - 그래프: `langgraph.json` → `agent/graph.py:graph`
-- 도구: `agent/tools.py`의 mock 날씨·주가·검색
+- 분석: `agent/canvas_graph.py`의 LangGraph planner와 describe/validate/execute/register 도구, `agent/analytics.py`의 실제 합성 DuckDB SQL.
+- 라우트: `agent/app.py`의 `/canvas/run`, `/canvas/query/{queryId}`, `/canvas/health`.
+- 추가 데모 도구: `agent/tools.py`의 mock 날씨·주가·검색
 - 스트림: `agent/streaming.py`가 Python protocol 이벤트를 AG-UI `custom:openui`로 변환한다.
 - 프롬프트: `agent/system-prompt.txt`는 함께 배포하는 자산이다. 실행 시 프런트엔드 파일을 읽거나 Node를 호출하지 않는다.
 

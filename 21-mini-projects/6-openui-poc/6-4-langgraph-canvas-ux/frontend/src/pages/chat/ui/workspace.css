@@ -1,0 +1,46 @@
+.workspace-shell{display:grid;grid-template-columns:minmax(430px,var(--chat-fraction,1fr)) 10px minmax(430px,var(--canvas-fraction,1fr));height:100dvh;background:var(--iui-canvas,#f7f7f8)}
+.workspace-shell .chat-shell{height:100dvh;min-width:0;border-right:1px solid #dfe3e7}
+.canvas-panel{overflow:auto;padding:26px;color:var(--iui-ink,#17212d)}
+.canvas-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.canvas-heading h2{font-size:26px;font-weight:650}.canvas-heading small{font-size:13px;font-weight:400;color:#6b7280}.canvas-eyebrow{font-size:10px;letter-spacing:2px;color:#627388}
+.canvas-panel button,.canvas-panel select{font:inherit;border:1px solid #cbd5e1;border-radius:7px;background:var(--iui-surface,#fff);color:inherit;padding:6px 10px;cursor:pointer;font-size:12px}.canvas-panel button:disabled{opacity:.45;cursor:default}.canvas-panel button:hover:not(:disabled){border-color:#0285ff}.canvas-panel label{font-size:12px;display:flex;align-items:center;gap:6px}
+.canvas-help,.canvas-meta{color:#6b7280;font-size:12px;line-height:1.6}.canvas-help{margin-bottom:22px}.canvas-notice{font-size:12px;padding:10px;border-left:3px solid #0285ff;margin-bottom:16px;background:#0285ff0c}
+.canvas-grid{display:grid;gap:20px}.canvas-widget{padding:18px;border:1px solid #dfe3e7;background:var(--iui-surface,#fff);border-radius:12px;min-width:0}.canvas-widget.selected{outline:2px solid #0285ff}.canvas-widget header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:16px}.canvas-widget h3{font-size:17px;font-weight:600;margin-bottom:12px}.canvas-badge{font-size:10px;padding:3px 6px;background:#0285ff10;color:#2772b2;border-radius:4px;white-space:nowrap}.canvas-filters,.canvas-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.canvas-meta{font-size:10px}.canvas-table{overflow:auto;max-height:250px;margin-top:12px}.canvas-table table{width:100%;border-collapse:collapse;font-size:12px}.canvas-table td,.canvas-table th{padding:6px;border-bottom:1px solid #ddd;text-align:left}
+.canvas-empty{margin:50px 0;border:1px dashed #b5c0cf;border-radius:14px;padding:45px 22px;text-align:center;color:#6b7280}.canvas-empty>span{display:block;font-size:32px;color:#0285ff}.canvas-empty h3{font-size:18px;color:var(--iui-ink,#17212d);margin:14px 0}.canvas-empty p{font-size:13px;line-height:1.8}
+@media(max-width:950px){.workspace-shell{display:block;height:auto}.workspace-shell .chat-shell{height:75dvh;min-height:550px}.canvas-panel{min-height:60dvh;padding:18px}}
+/* AgentInterface normally occupies the viewport; constrain it to the Chat channel. */
+.workspace-shell .openui-agent-container{width:100%;height:100%;min-width:0}
+.workspace-shell .openui-agent-thread-container,.workspace-shell .openui-agent-thread-wrapper,.workspace-shell .openui-agent-thread-chat-panel{min-width:0}
+.workspace-shell .openui-agent-conversation-starter--card{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+.canvas-grid{grid-template-columns:repeat(12,minmax(0,1fr));align-items:start}.canvas-grid>.canvas-widget{grid-column:span 12}.canvas-tabs{display:flex;gap:6px;flex-wrap:wrap}.canvas-tabs [aria-selected=true]{background:#0285ff;color:white}.canvas-panel input{border:1px solid #cbd5e1;border-radius:6px;padding:5px;max-width:180px}.canvas-panel input[type=range]{width:90px}
+@media(max-width:600px){.canvas-grid>.canvas-widget{grid-column:span 12!important}}
+
+.canvas-registration{border:1px solid var(--iui-border,#ddd);border-radius:12px;padding:14px;min-width:0}.canvas-registration-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.canvas-registration-actions button{padding:6px 10px;border:1px solid #cbd5e1;border-radius:7px;background:var(--iui-surface,#fff);color:inherit;cursor:pointer}.canvas-drag-handle,[draggable=true]{cursor:grab}.canvas-grid{min-height:80px}.canvas-drag-handle:active{cursor:grabbing}
+
+.workspace-splitter{position:relative;cursor:col-resize;touch-action:none;outline:none;background:var(--iui-canvas,#f7f7f8);border-inline:1px solid #dfe3e7;z-index:2;display:flex;align-items:center;justify-content:center}
+.workspace-splitter span{height:38px;width:4px;border-radius:4px;background:#a3adba}
+.workspace-splitter:hover,.workspace-splitter:focus-visible,.workspace-resizing .workspace-splitter{background:#0285ff22}
+.workspace-splitter:focus-visible{outline:2px solid #0285ff;outline-offset:-2px}
+.workspace-resizing,.workspace-resizing *{cursor:col-resize!important;user-select:none!important}
+@media(max-width:950px){.workspace-splitter{display:none}}
+
+/* Grid units: 12 columns, 32px rows, 16px gap. */
+.canvas-grid{gap:16px;grid-auto-rows:32px;align-items:stretch}
+.canvas-grid>.canvas-widget{position:relative;min-height:0;padding:0;grid-row:span 11}
+.canvas-widget-content{height:100%;overflow:auto;padding:18px 18px 38px}
+.canvas-grid-size{position:absolute;bottom:7px;right:44px;font-size:10px;color:#627388;background:var(--iui-surface,#fff);padding:3px;border-radius:4px;pointer-events:none}
+.canvas-panel .canvas-resize-handle{position:absolute;right:3px;bottom:3px;width:32px;height:32px;padding:0;cursor:nwse-resize;touch-action:none;color:#0285ff;background:var(--iui-surface,#fff);border-color:#0285ff66;font-size:20px}
+.canvas-resize-handle:focus-visible{outline:2px solid #0285ff}
+.grid-resizing{outline:2px dashed #0285ff;user-select:none}
+
+/* Grafana custom-grid engine owns positioning and collision previews. */
+.canvas-grid{display:block;min-height:80px}
+.canvas-grid-slot>.canvas-widget{height:100%;position:relative;padding:0;overflow:hidden}
+.canvas-grid-slot{min-width:0;min-height:0}
+.canvas-grid .react-grid-placeholder{background:#0285ff;opacity:.15;border:2px dashed #0285ff;border-radius:12px}
+.canvas-grid .react-resizable-handle{z-index:3;width:28px;height:28px;background:#0285ff18;border-radius:6px;bottom:3px;right:3px}
+.canvas-position-handle{cursor:grab!important;touch-action:none}
+.canvas-grid .react-draggable-dragging{z-index:4;opacity:.9}
+/* Keep the affordance discoverable without requiring a panel hover. */
+.canvas-grid .react-grid-item > .react-resizable-handle{opacity:1;width:28px;height:28px;right:3px;bottom:3px;border:1px solid #0285ff66}
+.canvas-grid .react-grid-item > .react-resizable-handle::after{border-color:#0285ff}
