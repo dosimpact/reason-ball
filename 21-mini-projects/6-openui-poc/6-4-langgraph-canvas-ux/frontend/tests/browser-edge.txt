@@ -1,0 +1,48 @@
+async (page) => {
+  await page.setViewportSize({width:1440,height:1000});
+  await page.getByTestId('canvas-item').first().waitFor();
+  const read=()=>page.evaluate(()=>{const stable=v=>Array.isArray(v)?v.map(stable):v&&typeof v==='object'?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a.localeCompare(b)).map(([k,v])=>[k,stable(v)])):v;return stable(JSON.parse(localStorage.getItem('canvas64:workspace:v2')));});
+  const results=[];
+  const original=await read();
+  let held;let unblock;const blocked=new Promise(resolve=>unblock=resolve);
+  await page.route('**/api/data',async route=>{
+    const payload=route.request().postDataJSON();
+    if(payload.parameters.region==='US'){
+      const response=await route.fetch();held=true;await blocked;
+      await route.fulfill({response}).catch(()=>{});
+    } else await route.continue();
+  });
+  await page.getByRole('combobox',{name:'월별 매출 지역',exact:true}).selectOption('US');
+  for(let i=0;i<100&&!held;i++)await new Promise(r=>setTimeout(r,50));
+  if(!held)throw new Error('Slow response was not captured');
+  await page.getByRole('combobox',{name:'월별 매출 지역',exact:true}).selectOption('JP');
+  await page.waitForFunction(()=>JSON.parse(localStorage.getItem('canvas64:workspace:v2')).widgets.sales.snapshot.resolvedRange.region==='JP');
+  const jp=await read();unblock();await new Promise(r=>setTimeout(r,300));
+  if(JSON.stringify((await read()).widgets.sales.snapshot)!==JSON.stringify(jp.widgets.sales.snapshot))throw new Error('Late response replaced latest filter');
+  if(JSON.stringify((await read()).widgets.ads)!==JSON.stringify(original.widgets.ads))throw new Error('Other widget changed');
+  await page.unroute('**/api/data');
+  results.push('slow US response cannot replace newer JP; other widget unchanged');
+  await page.route('**/api/data',async route=>{const response=await route.fetch();const result=await response.json();result.parametersHash='wrong-hash';await route.fulfill({response,json:result});});
+  await page.getByRole('button',{name:'월별 매출 새로고침',exact:true}).click();
+  await page.getByText('조회 조건이 다른 결과를 적용하지 않았습니다.',{exact:false}).waitFor();
+  if(JSON.stringify((await read()).widgets.sales.snapshot)!==JSON.stringify(jp.widgets.sales.snapshot))throw new Error('Wrong parameter hash applied');
+  await page.unroute('**/api/data');results.push('mismatched parameter hash rejected; last successful result retained');
+  let restoredFetches=0; await page.route('**/api/data',route=>{restoredFetches++;return route.abort();});await page.reload();await page.getByTestId('canvas-item').first().waitFor();
+  if(!(await read()).widgets.sales.snapshot)throw new Error('Offline snapshot restoration failed');
+  if(restoredFetches)throw new Error('Manual restore unexpectedly fetched data');await page.unroute('**/api/data');results.push('snapshot restores without backend access or automatic query');
+  const versioned=await read();versioned.schemaVersion=1;delete versioned.selectedWidgetId;
+  await page.evaluate(doc=>localStorage.setItem('canvas64:workspace:v2',JSON.stringify(doc)),versioned);await page.reload();await page.getByTestId('canvas-item').first().waitFor();
+  await page.locator('[data-widget-id="sales"]').click();
+  if((await read()).schemaVersion!==2)throw new Error('v1 migration failed');
+  const unsupported=await read();unsupported.widgets.sales.catalogVersion=99;const raw=JSON.stringify(unsupported);
+  await page.evaluate(raw=>localStorage.setItem('canvas64:workspace:v2',raw),raw);await page.reload();
+  await page.getByRole('button',{name:'원본 내려받기'}).waitFor();
+  await page.getByText('월별 매출 · 읽기 전용 마지막 결과',{exact:true}).waitFor();
+  if(await page.evaluate(()=>localStorage.getItem('canvas64:workspace:v2'))!==raw)throw new Error('Unsupported original overwritten');
+  if(await page.getByTestId('canvas-item').count())throw new Error('Unsupported catalog executed');
+  await page.getByRole('button',{name:'원본 백업 후 새로 시작'}).click();
+  if(!await page.evaluate(raw=>Object.entries(localStorage).some(([k,v])=>k.startsWith('canvas64:workspace:v2:backup:')&&v===raw),raw))throw new Error('Original backup missing');
+  results.push('v1 migration; unsupported catalog read-only table; exact original backup');
+  await page.screenshot({path:'output/playwright/recovery.png',fullPage:true});
+  return results;
+}

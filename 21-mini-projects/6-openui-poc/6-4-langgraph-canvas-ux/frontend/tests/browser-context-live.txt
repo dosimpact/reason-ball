@@ -1,0 +1,14 @@
+async (page) => {
+  await page.getByTestId('canvas-item').first().waitFor();
+  await page.evaluate(()=>{const d=JSON.parse(localStorage.getItem('canvas64:workspace:v2'));d.widgets.ads.title=d.widgets.sales.title;d.selectedWidgetId=null;localStorage.setItem('canvas64:workspace:v2',JSON.stringify(d));});
+  await page.reload();await page.getByTestId('canvas-item').first().waitFor();
+  const send=async text=>{await page.getByRole('textbox',{name:'분석 요청'}).fill(text);await page.getByRole('button',{name:'요청 보내기',exact:true}).click();await page.getByRole('button',{name:'생성 중단',exact:true}).waitFor();await page.getByRole('button',{name:'생성 중단',exact:true}).waitFor({state:'hidden',timeout:120000});};
+  await send('월별 매출 차트를 line으로 바꿔줘.');
+  const d=await page.evaluate(()=>JSON.parse(localStorage.getItem('canvas64:workspace:v2')));
+  if(d.widgets.sales.chartType!=='bar'||d.widgets.ads.chartType!=='bar')throw new Error('Ambiguous title silently selected a target');
+  const text=await page.locator('.message.assistant').last().innerText();
+  if(!/선택|어떤|두 개|구분/.test(text))throw new Error('No clarification for duplicate titles: '+text);
+  await send('존재하지 않는 매출 예측 위젯의 제목을 바꿔줘.');
+  if(await page.getByTestId('canvas-item').count()!==2)throw new Error('Missing target created a widget');
+  return ['duplicate title asks clarification without mutation','missing target does not create a widget'];
+}

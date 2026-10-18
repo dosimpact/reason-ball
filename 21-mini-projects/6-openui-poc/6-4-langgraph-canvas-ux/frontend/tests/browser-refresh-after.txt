@@ -1,0 +1,42 @@
+async (page) => {
+  const baseline=await page.evaluate(()=>window.__refreshBaseline);
+  const read=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('canvas64:workspace:v2')));
+  const metrics=async()=>await (await page.request.get('http://127.0.0.1:2037/canvas/health')).json();
+  const results=[];
+  await page.getByRole('button',{name:'월별 매출 새로고침',exact:true}).click();
+  await page.waitForFunction(v => JSON.parse(localStorage.getItem('canvas64:workspace:v2')).widgets.sales.snapshot.sourceWatermark.revision>v,baseline.doc.widgets.sales.snapshot.sourceWatermark.revision);
+  const updated=await read();
+  if(updated.widgets.sales.snapshot.rows.at(-1).revenue!==baseline.doc.widgets.sales.snapshot.rows.at(-1).revenue+1000)throw new Error('Corrected fixture value not refreshed');
+  if(updated.widgets.sales.program!==baseline.doc.widgets.sales.program)throw new Error('Program changed');
+  if(JSON.stringify(updated.widgets.ads)!==JSON.stringify(baseline.doc.widgets.ads))throw new Error('Other widget changed');
+  if(await page.locator('[data-widget-id="sales"] input').inputValue()!=='보존할 입력')throw new Error('OpenUI input remounted');
+  if((await metrics()).modelCalls!==baseline.metrics.modelCalls)throw new Error('Manual refresh called model');
+  results.push('fixture correction visible through real API, model calls=0, same program/input, other widget unchanged');
+  // A failed API must keep the last successful result visible.
+  await page.route('**/api/data', route=>route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:'주입한 조회 실패'})}));
+  await page.getByRole('button',{name:'월별 매출 새로고침',exact:true}).click();
+  await page.getByText('주입한 조회 실패 · 마지막 정상값 유지').waitFor();
+  if(JSON.stringify((await read()).widgets.sales.snapshot)!==JSON.stringify(updated.widgets.sales.snapshot))throw new Error('Failed refresh replaced snapshot');
+  await page.unroute('**/api/data');
+  await page.getByRole('button',{name:'월별 매출 새로고침',exact:true}).click();
+  await page.getByText('주입한 조회 실패 · 마지막 정상값 유지').waitFor({state:'hidden'});
+  results.push('API failure retains data and retry recovers');
+  await page.clock.install();
+  await page.getByLabel('월별 매출 갱신 정책',{exact:true}).selectOption('polling');
+  await page.clock.runFor(1500);
+  const response=page.waitForResponse(r=>r.url().endsWith('/api/data')&&r.status()===200);
+  await page.clock.fastForward(61000);await response;
+  if((await metrics()).modelCalls!==baseline.metrics.modelCalls)throw new Error('Polling called model');
+  const count=(await metrics()).queryRuns;
+  await page.evaluate(()=>Object.defineProperty(document,'hidden',{configurable:true,get:()=>true}));
+  await page.clock.fastForward(65000);
+  if((await metrics()).queryRuns!==count)throw new Error('Hidden polling did not pause');
+  await page.evaluate(()=>Object.defineProperty(document,'hidden',{configurable:true,get:()=>false}));
+  await page.getByLabel('월별 매출 갱신 정책',{exact:true}).selectOption('snapshot');
+  await page.clock.fastForward(65000);
+  if((await metrics()).queryRuns!==count)throw new Error('Snapshot policy polled');
+  results.push('polling makes real API call without model; hidden and snapshot polling paused');
+  await page.clock.resume();
+  await page.screenshot({path:'output/playwright/freshness.png',fullPage:true});
+  return {results,metrics:await metrics()};
+}

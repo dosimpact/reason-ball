@@ -5,10 +5,12 @@ version = "0.1.0"
 requires-python = ">=3.12,<3.13"
 dependencies = [
   "deepagents==0.7.28",
+  "duckdb>=1.5.6",
   "langchain-openai==1.7.2",
   "langgraph==1.2.16",
   "langgraph-api==0.16.1",
   "langgraph-cli[inmem]==0.4.36",
+  "sqlglot>=30.23.0",
 ]
 
 [dependency-groups]
@@ -29,4 +31,4 @@ build-backend = "setuptools.build_meta"
 include = ["agent*"]
 
 [tool.setuptools.package-data]
-agent = ["system-prompt.txt"]
+agent = ["system-prompt.txt", "canvas-prompt.txt"]

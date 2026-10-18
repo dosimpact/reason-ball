@@ -1,0 +1,7 @@
+async (page) => {
+  await page.setViewportSize({width:1440,height:1000});
+  await page.locator('[data-widget-id="sales"] input').fill('보존할 입력');
+  const metrics=await (await page.request.get('http://127.0.0.1:2037/canvas/health')).json();
+  await page.evaluate(metrics => { window.__refreshBaseline={doc:JSON.parse(localStorage.getItem('canvas64:workspace:v2')),metrics}; },metrics);
+  return {modelCalls:metrics.modelCalls,queryRuns:metrics.queryRuns};
+}

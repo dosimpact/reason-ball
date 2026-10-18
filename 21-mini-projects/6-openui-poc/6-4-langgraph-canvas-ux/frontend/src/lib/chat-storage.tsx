@@ -8,8 +8,8 @@ import { useEffect } from "react";
 // their page state (what the user typed, ticked or moved), which the chat
 // saves into the message itself.
 
-const THREADS = "oiu:threads";
-const messagesKey = (id: string) => `oiu:messages:${id}`;
+const THREADS = "canvas64:chat:threads";
+const messagesKey = (id: string) => `canvas64:chat:messages:${id}`;
 const MAX_THREADS = 50;
 
 function read<T>(key: string, fallback: T): T {

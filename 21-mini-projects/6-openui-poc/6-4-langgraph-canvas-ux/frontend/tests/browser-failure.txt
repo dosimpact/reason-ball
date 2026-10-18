@@ -1,0 +1,29 @@
+async (page) => {
+  const read=()=>page.evaluate(()=>{const stable=v=>Array.isArray(v)?v.map(stable):v&&typeof v==='object'?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a.localeCompare(b)).map(([k,v])=>[k,stable(v)])):v;return stable(JSON.parse(localStorage.getItem('canvas64:workspace:v2')));});
+  const send=async text=>{await page.getByRole('textbox',{name:'분석 요청'}).fill(text);await page.getByRole('button',{name:'요청 보내기',exact:true}).click();};
+  await page.getByTestId('canvas-item').first().waitFor();const original=await read();
+  const good={...original.widgets.sales,id:'completed',title:'성공 카드',program:'root = Col([Markdown("성공")])',chartType:'markdown',content:'성공'};
+  const retry={action:'create',channel:'canvas',canvasId:'default',chartType:'markdown',title:'재시도 카드',content:'실패한 카드만 복구'};
+  const frames=[{type:'start',channel:'canvas',widgetId:good.id,title:good.title,canvasId:'default',baseRevision:0},{type:'complete',channel:'canvas',widgetId:good.id,baseRevision:0,widget:good},{type:'start',channel:'canvas',widgetId:'bad',title:'실패 카드',canvasId:'default',baseRevision:0},{type:'failed',channel:'canvas',widgetId:'bad',message:'주입한 일시 오류',retryOperation:retry},{type:'done'}].map((f,i)=>({...f,runId:'partial',sequence:i+1}));
+  let hits=0;let retryBody;
+  await page.route('**/api/workspace',async route=>{hits++;if(hits===1)await route.fulfill({status:200,contentType:'text/event-stream',body:frames.map(f=>'data: '+JSON.stringify(f)+'\n\n').join('')});else {retryBody=route.request().postDataJSON();await route.continue();}});
+  await send('부분 실패 검증');await page.getByRole('button',{name:'실패한 위젯 다시 시도',exact:true}).waitFor();
+  if(Object.keys((await read()).widgets).length!==3)throw new Error('Successful widget was lost');
+  await page.getByRole('button',{name:'실패한 위젯 다시 시도',exact:true}).click();
+  await page.waitForFunction(()=>Object.values(JSON.parse(localStorage.getItem('canvas64:workspace:v2')).widgets).some(w=>w.title==='재시도 카드'));
+  if(retryBody?.retryOperations?.length!==1||Object.keys((await read()).widgets).length!==4)throw new Error('Retry recreated successful operation');
+  await page.getByRole('button',{name:'생성 중단',exact:true}).waitFor({state:'hidden'});await page.unroute('**/api/workspace');
+  const beforeInvalid=JSON.stringify((await read()).widgets.sales);
+  const bad={...original.widgets.sales,program:'root = MissingComponent("broken")',definitionRevision:2};
+  await page.route('**/api/workspace',route=>route.fulfill({status:200,contentType:'text/event-stream',body:[{type:'start',channel:'canvas',widgetId:'sales',title:'월별 매출',canvasId:'default',baseRevision:1},{type:'complete',channel:'canvas',widgetId:'sales',baseRevision:1,widget:bad},{type:'done'}].map((f,i)=>'data: '+JSON.stringify({...f,runId:'invalid',sequence:i+1})+'\n\n').join('')}));
+  await send('잘못된 프로그램 검증');await page.getByText('OpenUI 응답을 검증하지 못했습니다. 기존 위젯을 유지합니다.',{exact:false}).first().waitFor();
+  if(JSON.stringify((await read()).widgets.sales)!==beforeInvalid)throw new Error('Invalid program replaced last good widget');
+  await page.getByRole('button',{name:'생성 중단',exact:true}).waitFor({state:'hidden'});await page.unroute('**/api/workspace');
+  let release;const wait=new Promise(r=>release=r);let arrived=false;
+  await page.route('**/api/workspace',async route=>{arrived=true;await wait;await route.fulfill({status:200,contentType:'text/event-stream',body:'data: '+JSON.stringify({type:'complete',channel:'canvas',widgetId:'late',baseRevision:0,widget:{...good,id:'late'},runId:'late',sequence:1})+'\n\ndata: '+JSON.stringify({type:'done',runId:'late',sequence:2})+'\n\n'}).catch(()=>{});});
+  await send('중단 검증');await page.getByRole('button',{name:'생성 중단',exact:true}).waitFor();
+  for(let i=0;i<100&&!arrived;i++)await new Promise(r=>setTimeout(r,10));
+  await page.getByRole('button',{name:'생성 중단',exact:true}).click();release();await page.getByText('생성을 중단했습니다. 완료된 위젯은 유지됩니다.',{exact:false}).waitFor();
+  await new Promise(r=>setTimeout(r,200));if((await read()).widgets.late)throw new Error('Cancelled late result committed');
+  await page.unroute('**/api/workspace');return ['partial failure preserves completed widgets','retry runs only failed operation','invalid OpenUI keeps last good state','stop aborts and ignores late completion'];
+}

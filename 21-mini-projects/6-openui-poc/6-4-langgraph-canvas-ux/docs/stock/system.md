@@ -1,31 +1,66 @@
-# 시스템 설계
+# 시스템 설계 — OpenUI Dynamic Canvas
 
-## IUI-101 통신 및 경계
-Browser AgentInterface → fetchLLM/agUIAdapter → Next.js /api/chat → @openuidev/langchain protocol v2 → Python DeepAgents. Python OpenUIStreamTransformer가 텍스트와 도구 이벤트를 AG-UI로 변환한다. B의 Responses adapter 및 Next.js OpenAI 호출 route는 복사하지 않았다. 메시지 형식은 원본 6의 기본 AG-UI 형식을 유지한다.
+## CANVAS-101 서비스 경계
 
-backend-langgraph는 Python 3.12/uv 독립 프로젝트, frontend는 Next.js 16.1.6/React 19.2.3/npm 독립 프로젝트다. 런타임에 형제 프로젝트를 import하거나 읽지 않는다. frontend는 npm/package-lock.json만 사용한다.
+Python 3.12/uv의 `backend-langgraph`와 Next.js 16.1.6/React 19.2.3/npm의 `frontend`는 독립 설치·빌드 프로젝트이며 런타임에 HTTP로만 연결한다. 포트는 각각 2037/3045다. reference와 형제 프로젝트 소스를 런타임에서 읽지 않는다.
 
-## IUI-102 UI 계약
-frontend/src/lib는 B에서 그대로 복사했다. src/library.ts는 카탈로그와 promptOptions의 생성 진입점이다. root Col, 55 components, 59 functions, CopyToClipboard. 기존 Stack 카탈로그를 병합하지 않고 교체했다. React-lang/lang-core 1.0.1, react-ui 0.18.1을 사용한다.
+```mermaid
+flowchart LR
+  UI[Chat + Canvas] --> W[Next /api/workspace]
+  W --> G[Python /canvas/chat · LangGraph plan → execute]
+  G --> SQL[공통 검증·등록·조회 서비스]
+  SQL --> DB[(합성 DuckDB)]
+  UI --> D[Next /api/data]
+  D --> Q[Python /canvas/query]
+  Q --> SQL
+  G -->|채널·위젯별 SSE| UI
+  Q -->|DataSnapshot| UI
+```
 
-npm run generate는 system-prompt.txt, system-prompt.spec.json, spec.json을 생성한다. 생성 프롬프트를 backend-langgraph/agent/system-prompt.txt에 명시적으로 복사하고 cmp로 확인한다. backend는 패키지 내부 프롬프트만 읽는다. 초기 설치 후 생성 명령을 실행해야 한다(생성물은 Git 제외).
+기존 `/chat`은 `/api/chat` → LangGraph graph의 protocol v2 → AG-UI 경로를 유지한다. Canvas는 별도 SSE로 채널 분배를 담당하며 기존 AG-UI adapter를 수정하지 않는다.
 
-## IUI-103 화면과 부속 기능
-B의 채팅 화면, starters, 테마 토글, localChatStorage/SaveMessages와 onAction을 연결했다. public, gallery, preview를 복사했다. image-search/wiki/street-route Next.js routes가 사진과 지도 경로를 지원하며 외부 서비스 가용성에 의존한다. 지도에는 maplibre-gl, 수식에는 katex를 사용한다. B의 analytics/provider route는 가져오지 않았다.
+## CANVAS-102 상태와 OpenUI
 
-## IUI-104 검증과 원본 보존
-npm test는 B에서 복사한 함수/갤러리 계약 테스트를 실행한다. vitest 설정의 alias와 UTC 테스트 시간대를 유지한다. 원본 UI 소스를 바꾸지 않기 위해 eslint.config.mjs에서 controls의 OpenUI component 콜백, chart의 렌더 지역 변수, preview의 mount 브리지에만 해당 React lint 규칙 예외를 명시한다. 나머지 검사와 기존 경고는 유지한다.
+`src/canvas/model.ts`의 Zod 문서 v2에는 탭 배열·순서, widgetId 목록과 WidgetDefinition, active/selected ID가 있다. 위젯은 독립 program, queryId/version, parameters, bindingId, snapshot, uiState, layout, definitionRevision, renderer/catalog/result 계약을 가진다. 현재 renderer/catalog/query/result 계약은 1이다. DataBinding 필드는 위젯에 합쳐 저장한다. UI 명령과 AI 이벤트는 같은 applyCommand를 사용한다.
 
-npm run test:smoke는 실제 모델·도구·후속 대화·카운터·400 응답 및 생성 답변의 현재 카탈로그 파싱을 검사한다. 결과는 frontend/output/validation에 저장한다. 브라우저 증거는 frontend/output/playwright에 저장한다. 원본에서 복사된 과거 flow/Report는 이전 프로젝트의 이력이다. 현재 검증은 새 flow 기록을 따른다.
+`store.ts`는 Zustand와 localStorage를 연결한다. 저장 키는 `canvas64:workspace:v2`, `canvas64:threads:v1`이며 원래 전체 Chat도 별도 canvas64 prefix를 쓴다. draft와 refresh runtime은 저장 문서와 분리한다. 미완성 생성은 정상 위젯으로 저장하지 않는다.
 
-프롬프트를 Python 자산에 동기화한 후 실행 중인 Python 서버를 재시작해야 한다. 텍스트 자산 변경만으로 자동 재로드되지 않을 수 있다.
+`render.tsx`는 원래 OpenUI 카탈로그에 CanvasData를 추가한다. CanvasData가 host context의 검증된 snapshot을 읽고 기존 Chart 또는 DataTable을 그린다. 데이터 갱신은 program 교체나 Renderer 재마운트 없이 이루어진다. Query/toolProvider를 갱신 수단으로 채택하지 않았다. null 포함 결과는 표로 표현하며 빈 결과를 명시한다. 프로그램 파싱·카탈로그 검증 후 완료 결과만 commit한다.
 
-## IUI-105 Python 지침 보강
-Python 모델 지침은 도구 호출을 마친 뒤 완성된 프로그램 하나만 출력하고 도구 결과는 일반 literal 선언으로 표현하도록 한다. $state 접두사와 Text size를 명시한다. 초기 실제 호출에서 확인된 unresolved 변수와 타입 경고를 줄이기 위한 지침이며 자동 수정/출력 보장은 아니다. 현재 검증 결과는 [이관 및 검증 기록](../flow/2026-10-18-intelligent-ui-python.md)에 기록한다.
+제목/차트 종류 변경은 해당 위젯 program을 다시 구성하고 마지막 snapshot·필터를 보존한다. Markdown 본문은 별도로 저장해 제목 변경 때 보존한다. 다른 위젯과 최신 layout/uiState는 유지한다. Add/drag는 deep copy와 새 widgetId를 사용한다. 임의 root 하위 그래프 추출은 하지 않는다.
 
-## 현재 검증 범위
-Python 13 tests + Ruff, frontend 318 tests + typecheck + production build 통과. Lint 0 errors/5 inherited warnings. 사용자 지정 B .env 키로 실제 provider smoke 통과(카운터는 유효한 Text 크기를 명시한 요청). 일반 생성 요청에서 지원하지 않는 크기를 출력한 실패도 보존했다. 브라우저 카운터 클릭/저장 복원, 갤러리 45개 오류 0개, 숫자 입력 및 미디어 API 3개 실제 응답을 확인했다. 모델 출력에는 자동 수정이 없으므로 타입/변수 오류가 여전히 발생할 수 있다. gallery/preview는 원본처럼 개발 모드 전용이다.
+## CANVAS-103 그래프·스트림·실패
 
+`agent/canvas_graph.py`는 plan→execute StateGraph다. 모델이 구조화한 작업을 계획하고 SQL/작업 계약 오류를 최대 세 번 검증 피드백한다. describe_dataset / validate_analysis_query / execute_analysis_query / register_analysis_query는 공통 분석 서비스를 사용하는 도구다. 등록 도구가 최초 실행도 수행한다. 일반 UI 요청은 기존 전체 OpenUI prompt로 스트리밍한다.
 
-## CANVAS-101 현재 상태와 채택할 설계의 경계 (2026-10-18)
-위 IUI 구성과 검증 수치는 6-3에서 복사한 기준이며 6-4에서의 테스트 통과를 뜻하지 않는다. 현재 코드에는 DuckDB·Canvas 데이터 API가 아직 구현되지 않았다. 확장 설계는 [요구사항 D](../../요구사항.md)를 따른다. WidgetDefinition, 서버 소유 QueryDefinition, DataBinding, DataSnapshot, 임시 실행 상태를 분리하는 안을 검증한다. 최초 분석은 LangGraph 도구로, 반복 조회는 같은 Python 조회 서비스를 호출하는 일반 API로 처리한다. OpenUI Query 연결·갱신, DuckDB 제한 실행과 동시 접근, 버전 마이그레이션은 SPIKE-08~10의 미검증 항목이다. 확정 API·스키마는 검증 후 동기화한다. 변경 근거는 [범위 확장 기록](../flow/2026-10-18-canvas-duckdb-freshness-plan.md)에 남긴다.
+이벤트에는 runId, sequence, requestId, channel, widgetId, baseRevision을 담는다. progress/tool/message/start/delta/complete/refreshed/command/failed/done/error를 분리한다. 분석 위젯의 OpenUI program은 검증된 계획에서 구성해 chunk로 전달하고, 일반 UI는 모델 token을 직접 전달한다. UI가 생성 중 상태를 보여주며 불완전 program을 영구 commit하지 않는다.
+
+브라우저는 순서가 지난/중복 프레임과 중단된 요청을 무시한다. 위젯 수정은 definitionRevision 일치 여부를 검사한다. 사용자 중단은 fetch abort→SSE 연결 해제→LangGraph 취소로 전파된다. 모델 provider 내부 과금·처리 종료 시점까지 보장하지 않는다. 같은 Canvas에 제목이 중복되고 명시적 선택·ID·전체 변경 지시가 없으면 모델이 대상을 추정했더라도 변경을 중단하고 선택을 요청한다. 실패 작업의 구조화된 operation만 retryOperations로 다시 보내 성공한 카드를 중복 생성하지 않는다.
+
+## DATA-101 DuckDB와 제한 실행
+
+`analysis.py`가 deterministic seed, schema, SQL AST 검증, 파라미터 계산, 쿼리 등록과 조회를 소유한다. `sales_daily`는 day+region, `ad_daily`는 day+region+campaign이 고유 키다. 조회 worker가 원천 일자를 먼저 제한하고 month+region으로 각각 집계한 monthly_metrics를 결합해 중복 합산과 부분 월 오류를 방지한다.
+
+SQLglot로 단일 SELECT, 허용 테이블/함수와 정확히 세 named parameter를 검증한다. DDL/DML, raw JOIN, 재귀, 외부 파일/네트워크, 설정·확장, 임의 함수는 거절한다. worker는 read-only DuckDB 연결에서 TEMP 데이터만 만들며 외부 접근 비활성, 1 thread, 128 MB, temp spill 0, 500행 제한을 사용한다. subprocess timeout 5초 시 실제 worker를 종료한다. Python RLock과 fcntl file lock으로 읽기와 관리용 correction을 직렬화한다. 운영 다중 writer 구성은 지원하지 않는다.
+
+등록 쿼리는 `runtime/q_<sql-hash>.json`에 SQL·스키마·버전을 원자적으로 기록한다. 동일 ID의 SQL을 변경하지 않는다. `runtime/analytics.duckdb`, lock과 query 파일은 Git 제외다. `CANVAS_DATA_DIR`로 저장 디렉터리, `ANALYSIS_TODAY`로 테스트 UTC 날짜를 지정한다. seed/correct는 로컬 CLI 전용이다.
+
+## FRESH-101 데이터 API와 최신성
+
+`POST /canvas/query`는 queryId/queryVersion/parameters/requestId/definitionRevision을 받고 snapshot과 요청 식별자를 반환한다. 그래프·모델을 호출하지 않는다. snapshot은 columns/rows/types, canonical parameters와 hash, resolvedRange, dataVersion, sourceWatermark(revision/ingestedAt/throughDate), fetchedAt/expiresAt, rowCount/truncated/elapsedMs/provenance를 가진다.
+
+refreshWidget은 같은 요청을 합치고 조건이 바뀌면 이전 fetch를 취소한다. 적용 시 요청 ID, 위젯 definitionRevision, queryVersion, 현재 parameters와 서버 parametersHash를 확인한다. result schema 변경은 Python에서 거절한다. 실패 시 이전 snapshot을 유지하고 표시 조건을 footer에 남긴다. 데이터만 바뀔 때 definitionRevision은 증가하지 않는다.
+
+polling은 기본 비활성, 60초이며 document.hidden/offline/비활성 Canvas에서 쉬고 실패 후 120초 간격을 적용한다. snapshot 정책은 자동 조회하지 않는다. 상대 기간은 매번 서버 UTC 날짜로 계산하고 고정 범위는 ISO 날짜를 유지한다. TTL은 재조회 정책이며 원천 최신성 보증은 아니다. 과거 설명은 참조한 dataVersion과 연결한다.
+
+## COMPAT-101 계약·검사·기존 UI
+
+OpenUI lang-core/react-lang 1.0.1, react-ui/headless 0.18.1을 고정했다. 기존 src/lib·갤러리·미디어 API를 유지하며 chat-storage의 namespace만 격리했다. `npm run generate`와 `generate:canvas`의 prompt/spec을 개발 시 생성하고 두 prompt를 Python 패키지 자산으로 명시적으로 복사한다. 런타임의 cross-project 파일 접근은 없다.
+
+문서 v1→v2는 명시적 fixture만 변환한다. 미지원 문서·renderer·catalog·result schema는 원본 보존과 읽기 전용 표로 복구한다. 패키지 업그레이드 전 저장 UI 회귀 검사가 필요하다. 자동 LLM 재생성으로 복원하지 않는다.
+
+검사 명령과 실제 실행 결과는 [README](../../README.md), [현재 검증 기록](../flow/2026-10-18-canvas-implementation.md)을 따른다. 과거 복사된 flow 결과는 현재 결과가 아니다. Playwright MCP는 격리 Chrome을 실행하고 finally에서 browser_close 및 MCP 프로세스를 종료한다.
+
+## 검증 현황
+
+현재 구현 기준 Python 54 tests/Ruff, frontend 335 tests/typecheck/production build가 통과했다. ESLint는 오류 0개와 기존 경고 5개다. 실제 provider와 Playwright MCP로 생성·부분 수정·설명·전체 Canvas UX·데이터 갱신·실패·복원·모호한 대상 처리를 확인했다. 테스트 Chrome/MCP 종료 후 남은 프로세스는 0개였다. 자세한 재현 명령·증거·제한은 현재 flow를 따른다.

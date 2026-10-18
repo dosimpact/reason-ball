@@ -1,0 +1,33 @@
+async (page) => {
+  await page.setViewportSize({width: 1440, height: 1000});
+  const results = [];
+  const readDoc = () => page.evaluate(() => JSON.parse(localStorage.getItem('canvas64:workspace:v2') || '{}'));
+  const send = async (text) => {
+    await page.getByRole('textbox', {name:'분석 요청'}).fill(text);
+    await page.getByRole('button', {name:'요청 보내기', exact:true}).click();
+    await page.getByRole('button', {name:'생성 중단', exact:true}).waitFor({state:'visible'});
+    await page.getByRole('button', {name:'생성 중단', exact:true}).waitFor({state:'hidden',timeout:120000});
+  };
+  await send('매출과 광고비 차트를 Canvas에 각각 만들어줘');
+  const doc = await readDoc();
+  if (Object.keys(doc.widgets || {}).length !== 2) throw new Error('Expected 2 real SQL canvas charts: '+ await page.locator('.messages').innerText());
+  if (await page.locator('[data-testid="canvas-item"] svg[role="img"]').count() !== 2) throw new Error('OpenUI charts did not render');
+  const ids = Object.keys(doc.widgets); const second = JSON.stringify(doc.widgets[ids[1]]);
+  await page.locator('[data-testid="canvas-item"]').first().click();
+  await send('선택한 이 차트만 한국 지역 최근 6개월로 바꿔줘');
+  const changed = await readDoc();
+  if (changed.widgets[ids[0]].parameters.region !== 'KR' || changed.widgets[ids[0]].parameters.period !== 'last_6_months') throw new Error('Target conditions not applied: '+JSON.stringify(changed.widgets[ids[0]].parameters)+' / '+ await page.locator('.messages').innerText());
+  if (JSON.stringify(changed.widgets[ids[1]]) !== second) throw new Error('Other chart mutated');
+  results.push('real provider creates two charts; selected query changes; other chart unchanged');
+  await send('캔버스에 있는 차트가 무슨 뜻인지 설명만 해줘. 수정하지 마.');
+  if (JSON.stringify((await readDoc()).widgets) !== JSON.stringify(changed.widgets)) throw new Error('Explanation changed canvas');
+  results.push('explanation does not mutate Canvas');
+  await send('지난달 매출을 채팅에 표로 보여줘. Canvas는 바꾸지 마.');
+  await page.getByTestId('chat-artifact').waitFor({timeout:10000});
+  if (Object.keys((await readDoc()).widgets).length !== 2) throw new Error('Chat request mutated Canvas');
+  await page.getByRole('button', {name:'Canvas에 추가',exact:true}).last().click();
+  if (Object.keys((await readDoc()).widgets).length !== 3) throw new Error('Add failed');
+  results.push('Chat OpenUI table + Add to Canvas');
+  await page.screenshot({path:'output/playwright/live-canvas.png',fullPage:true});
+  return {results,widgets:Object.values((await readDoc()).widgets).map(w => ({id:w.id,title:w.title,parameters:w.parameters,rows:w.snapshot?.rowCount})), consoleErrors:await page.locator('.error-text').allTextContents()};
+}

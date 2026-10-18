@@ -1,38 +1,38 @@
-# Python LangGraph backend
+# Python LangGraph + DuckDB backend
 
-Python 3.12 및 [uv](https://docs.astral.sh/uv/)만 필요 
+Python 3.12/uv 독립 프로젝트다. 모델 키는 이 디렉터리의 `.env`에서만 읽는다.
 
 ```bash
 uv sync --frozen
-cp .env.example .env  # 최초 설정 시에만
-# .env에 OPENAI_API_KEY를 설정한다.
-uv run langgraph dev --port 2036 --no-browser
+# 최초 설정 시에만 cp .env.example .env
+uv run langgraph dev --port 2037 --no-browser
 ```
 
-- API: http://127.0.0.1:2036
-- API 문서: http://127.0.0.1:2036/docs
-- 모델: OPENAI_MODEL, 기본 `gpt-4.1-mini`
-- 그래프: `langgraph.json` → `agent/graph.py:graph`
-- 도구: `agent/tools.py`의 mock 날씨·주가·검색
-- 스트림: `agent/streaming.py`가 Python protocol 이벤트를 AG-UI `custom:openui`로 변환한다.
-- 프롬프트: `agent/system-prompt.txt`는 함께 배포하는 자산이다. 실행 시 프런트엔드 파일을 읽거나 Node를 호출하지 않는다.
+API는 http://127.0.0.1:2037, 문서는 `/docs`다. 원래 `agent/graph.py`의 DeepAgents/OpenUI/AG-UI 경로와 mock 날씨·주가·검색 도구를 유지한다. `agent/api.py`의 Starlette 앱은 같은 서버에 `/canvas/chat`, `/canvas/query`, `/canvas/health`를 추가한다. Canvas 그래프는 `agent/canvas_graph.py`의 plan→execute다.
 
-## 검증
+## 분석 데이터
+
+`agent/analysis.py`가 schema·SQL AST 검증·파라미터·등록·조회 서비스를 제공한다. `agent/query_worker.py`는 제한된 subprocess에서 read-only DuckDB 조회를 수행한다. 원천 날짜/지역 필터를 적용한 TEMP 사실 테이블과 월별 집계 view로 부분 월과 JOIN 중복을 방지한다. 지원 SQL, 제한, 데이터 단위는 [시스템 설계](../docs/stock/system.md)에 정리했다.
 
 ```bash
-uv run pytest
-uv run ruff check agent tests
-uv build  # 프롬프트를 포함한 독립 sdist/wheel 생성
+uv run python -m agent.fixtures seed
+uv run python -m agent.fixtures correct --delta 1000
 ```
 
-단위 테스트에는 실제 API 키가 필요하지 않다. 실제 통합 검증은 HTTP 클라이언트에서 수행한다(함께 제공된 frontend의 `npm run test:smoke` 사용 가능).
+`correct`는 최신 날짜 KR 매출을 정정하고 원천 revision을 증가시킨다. 관리용 CLI이며 모델·HTTP에 쓰기 도구를 공개하지 않는다. 테스트 시 `CANVAS_DATA_DIR`과 `ANALYSIS_TODAY=2026-10-18`을 사용할 수 있다. 기본 runtime 디렉터리는 Git 제외이며 재시작 후 queryId를 해석하기 위해 보존해야 한다.
 
-## 배포
+`POST /canvas/query`에는 등록된 queryId/queryVersion/parameters와 requestId/definitionRevision을 보낸다. SQL을 받지 않으며 모델 호출 없이 snapshot을 반환한다. `GET /canvas/health`의 modelCalls/queryRuns는 프로세스 내 진단 카운터로 재시작 시 초기화된다.
 
-이 디렉터리만 LangGraph 배포 대상으로 사용한다. `langgraph.json`, Python 코드, `pyproject.toml`/`uv.lock`, 프롬프트 자산이 모두 포함되어 있다. 배포 환경에는 OPENAI_API_KEY를 별도로 설정한다. 로컬 `.env`, `.venv`, 개발 서버 상태는 Git에서 제외한다. Cloud 배포 자체는 수행하지 않았다.
+## 검증과 패키징
 
-## 프롬프트 계약 변경
+```bash
+uv run pytest -q
+uv run ruff check agent tests
+uv build
+```
 
-현재 프롬프트는 OpenUI react-ui 0.18.1의 라이브러리에서 생성했다. 컴포넌트 계약을 변경할 때만 frontend에서 `npm run generate`로 새 프롬프트를 만들고, 그 결과물을 이 프로젝트의 `agent/system-prompt.txt`에 명시적으로 반영한다. 이는 개발 시 자산 갱신이며 두 프로젝트의 실행·설치 의존성이 아니다.
+단위 테스트는 임시 DB와 고정 날짜를 사용하며 실제 키가 필요 없다. HTTP/브라우저 통합 검사는 frontend에서 실행한다. `tests/make_browser_fixture.py`는 테스트에 쓸 실제 등록 조회와 snapshot JSON을 생성하며 비밀정보는 포함하지 않는다.
 
-참고: [Python DeepAgents](https://docs.langchain.com/oss/python/deepagents/quickstart), [LangGraph 스트리밍](https://docs.langchain.com/oss/python/langgraph/streaming).
+`agent/system-prompt.txt`와 `agent/canvas-prompt.txt`는 패키지에 포함한 자산이다. frontend 카탈로그 변경 시 명시적으로 다시 생성·동기화하고 Python 서버를 재시작한다. 서버 실행 중 frontend 파일을 읽거나 Node를 호출하지 않는다.
+
+현재 실행은 로컬 개발 서버이며 인증·공개 배포·다중 사용자 운영은 포함하지 않는다. 기존 `.env`를 덮어쓰거나 키를 출력하지 않는다.

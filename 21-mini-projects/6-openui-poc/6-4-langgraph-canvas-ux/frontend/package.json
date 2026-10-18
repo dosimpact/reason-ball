@@ -1,17 +1,22 @@
 {
-  "name": "@reason-ball/langgraph-python-intelligent-ui",
+  "name": "@reason-ball/langgraph-canvas-ux",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "generate": "openui generate src/library.ts --out src/generated/system-prompt.txt && openui generate src/library.ts --spec --out src/generated/spec.json",
-    "dev": "next dev --hostname 127.0.0.1 --port 3044",
+    "dev": "next dev --hostname 127.0.0.1 --port 3045",
     "build": "next build",
     "verify": "next build",
-    "start": "next start --hostname 127.0.0.1 --port 3044",
+    "start": "next start --hostname 127.0.0.1 --port 3045",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test:smoke": "node tests/smoke.mjs",
-    "test": "vitest run"
+    "test": "vitest run",
+    "generate:canvas": "openui generate src/canvas-library.ts --out src/generated/canvas-prompt.txt && openui generate src/canvas-library.ts --spec --out src/generated/canvas-spec.json",
+    "test:browser": "node tests/mcp-check.mjs tests/browser-live.txt",
+    "test:browser:ux": "node tests/mcp-check.mjs --fixture tests/browser-ux.txt --fixture tests/browser-edge.txt --fixture tests/browser-failure.txt --fixture tests/browser-refresh-before.txt --correct tests/browser-refresh-after.txt",
+    "test:browser:interactions": "node tests/mcp-check.mjs --fixture tests/browser-interaction-live.txt",
+    "test:browser:context": "node tests/mcp-check.mjs --fixture tests/browser-context-live.txt"
   },
   "dependencies": {
     "@openuidev/lang-core": "1.0.1",
@@ -19,17 +24,19 @@
     "@openuidev/react-headless": "0.18.1",
     "@openuidev/react-lang": "1.0.1",
     "@openuidev/react-ui": "0.18.1",
-    "next": "16.1.6",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "zustand": "^4.5.5",
     "katex": "^0.16.47",
     "lucide-react": "^0.562.0",
     "maplibre-gl": "^6.13.0",
-    "zod": "^4.4.3"
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "zod": "^4.4.3",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
     "@openuidev/cli": "0.6.0",
+    "@playwright/mcp": "0.0.83",
     "@types/node": "^22.15.32",
     "@types/react": "^19",
     "@types/react-dom": "^19",

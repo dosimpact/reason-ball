@@ -12,7 +12,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   icons: { icon: "/favicon.svg" },
-  title: "Intelligent UI · Python LangGraph",
+  title: "Dynamic Canvas · OpenUI",
   description: "Generative UI chat streamed from a multi-agent LangGraph graph",
 };
 

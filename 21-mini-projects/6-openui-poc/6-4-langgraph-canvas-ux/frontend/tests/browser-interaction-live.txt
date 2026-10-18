@@ -1,0 +1,32 @@
+async (page) => {
+  const read=()=>page.evaluate(()=>{const stable=v=>Array.isArray(v)?v.map(stable):v&&typeof v==='object'?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a.localeCompare(b)).map(([k,v])=>[k,stable(v)])):v;return stable(JSON.parse(localStorage.getItem('canvas64:workspace:v2')));});
+  const send=async text=>{await page.getByRole('textbox',{name:'분석 요청'}).fill(text);await page.getByRole('button',{name:'요청 보내기',exact:true}).click();await page.getByRole('button',{name:'생성 중단',exact:true}).waitFor();await page.getByRole('button',{name:'생성 중단',exact:true}).waitFor({state:'hidden',timeout:120000});};
+  await page.getByTestId('canvas-item').first().waitFor();
+  const original=await read();await page.locator('[data-widget-id="sales"]').click();
+  await send('선택한 매출 차트의 제목만 "한국 매출"로 바꾸고 차트 형태는 pie로 바꿔줘. 조회 조건과 데이터는 유지해줘.');
+  let doc=await read();
+  if(doc.widgets.sales.title!=='한국 매출'||doc.widgets.sales.chartType!=='pie')throw new Error('Title/type edit failed: '+await page.locator('.messages').innerText());
+  if(doc.widgets.sales.snapshot.fetchedAt!==original.widgets.sales.snapshot.fetchedAt||JSON.stringify(doc.widgets.ads)!==JSON.stringify(original.widgets.ads))throw new Error('Presentation edit changed data: '+JSON.stringify({old:original.widgets.sales.snapshot.fetchedAt,new:doc.widgets.sales.snapshot.fetchedAt,oldAds:original.widgets.ads,newAds:doc.widgets.ads}));
+  await send('Canvas에 "검증 메모"라는 새 Markdown 카드를 만들어줘. 내용은 "이 대시보드는 합성 데이터를 사용합니다."로 해줘.');
+  doc=await read();const memo=Object.values(doc.widgets).find(w=>w.chartType==='markdown');if(!memo)throw new Error('Markdown card missing');
+  await page.locator(`[data-widget-id="${memo.id}"]`).click();
+  await send('선택한 메모 카드의 제목만 "분석 메모"로 바꿔줘. 본문은 그대로 유지해줘.');
+  doc=await read();if(doc.widgets[memo.id].title!=='분석 메모'||doc.widgets[memo.id].content!==memo.content)throw new Error('Markdown title edit lost content');
+  await send('현재 Canvas 탭 이름을 "검증 완료"로 바꿔줘.');
+  if((await read()).canvases[0].title!=='검증 완료')throw new Error('Natural-language tab rename failed');
+  const beforeCounter=JSON.stringify((await read()).widgets);
+  await send('채팅에 동작하는 카운터를 만들어줘. Canvas는 수정하지 마. $count는 0, Text는 size lg, 버튼 이름은 Increment이고 @Set으로 1씩 증가하게 해줘. root는 Col을 써줘.');
+  if(JSON.stringify((await read()).widgets)!==beforeCounter)throw new Error('General chat changed canvas');
+  const artifact=page.getByTestId('chat-artifact').filter({has:page.getByRole('button',{name:'Increment',exact:true})});
+  await artifact.getByRole('button',{name:'Increment',exact:true}).click();await artifact.getByRole('button',{name:'Increment',exact:true}).click();
+  await artifact.getByRole('button',{name:'Canvas에 추가',exact:true}).click();
+  const custom=Object.values((await read()).widgets).find(w=>w.chartType==='custom');if(custom?.uiState['$count']!==2)throw new Error('Interactive Add did not copy state');
+  await page.locator(`[data-widget-id="${custom.id}"]`).getByRole('button',{name:'Increment',exact:true}).click();
+  if((await read()).widgets[custom.id].uiState['$count']!==3)throw new Error('Canvas counter did not increment');
+  const thread=await page.evaluate(()=>JSON.parse(localStorage.getItem('canvas64:threads:v1')));
+  const source=thread.flatMap(t=>t.messages).flatMap(m=>m.artifacts).find(w=>w.chartType==='custom');if(source.uiState['$count']!==2)throw new Error('Canvas action changed Chat original');
+  await page.reload();await page.getByTestId('canvas-item').first().waitFor();
+  if((await read()).widgets[custom.id].uiState['$count']!==3)throw new Error('Counter did not restore');
+  await page.screenshot({path:'output/playwright/interactive-canvas.png',fullPage:true});
+  return ['real provider pie/title changes preserve data and other widget','Markdown creation and title change preserve content','natural-language Canvas rename','general OpenUI counter click, Add, independent state and reload'];
+}
