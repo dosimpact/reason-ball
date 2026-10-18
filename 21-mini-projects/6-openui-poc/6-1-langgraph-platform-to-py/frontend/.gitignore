@@ -1,0 +1,14 @@
+# 의존성·빌드 결과·환경 파일·프롬프트 생성물·검증 출력을 Git에서 제외합니다.
+node_modules/
+.next/
+out/
+build/
+.env*
+!.env.example
+*.tsbuildinfo
+next-env.d.ts
+src/generated/
+output/
+.playwright-cli/
+*.log
+.DS_Store

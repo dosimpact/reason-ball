@@ -1,0 +1,57 @@
+{
+  "name": "@openuidev/langgraph-python-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "generate": "openui generate src/library.ts --out src/generated/system-prompt.txt",
+    "dev": "next dev --hostname 127.0.0.1 --port 3043",
+    "build": "next build",
+    "verify": "next build",
+    "start": "next start --hostname 127.0.0.1 --port 3043",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test:smoke": "node tests/smoke.mjs"
+  },
+  "dependencies": {
+    "@openuidev/lang-core": "1.0.1",
+    "@openuidev/langchain": "0.0.3",
+    "@openuidev/react-headless": "0.18.1",
+    "@openuidev/react-lang": "1.0.1",
+    "@openuidev/react-ui": "0.18.1",
+    "lucide-react": "^1.59.0",
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@openuidev/cli": "0.6.0",
+    "@types/node": "^22.15.32",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "typescript": "^5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@openuidev/lang-core",
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ],
+    "overrides": {
+      "postcss@<8.5.10": ">=8.5.10"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "@hono/node-server": ">=1"
+      }
+    }
+  },
+  "allowScripts": {
+    "@openuidev/lang-core": true,
+    "sharp": true,
+    "unrs-resolver": true
+  }
+}
