@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/09_conditional_routing.py` adapts `04_subgraph` and `11_1_supervisor`.
+- Graph: `graphs/core/09_conditional_routing.py` adapts `04_subgraph` and `11_1_supervisor`.
 - Frontend: `src/examples/09-conditional-routing-ui/` visualizes branch decisions.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Stream `updates` so branch selection appears before final output. Store selected
 
 ## 코딩 범위
 
-- 그래프: `graphs/09_conditional_routing.py`는 `04_subgraph` 및 `11_1_supervisor`를 적용합니다.
+- 그래프: `graphs/core/09_conditional_routing.py`는 `04_subgraph` 및 `11_1_supervisor`를 적용합니다.
 - 프런트엔드: `src/examples/09-conditional-routing-ui/`는 분기 결정을 시각화합니다.
 
 ## 구현 계획

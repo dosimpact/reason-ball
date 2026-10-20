@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/34_chat_data_analysis_canvas.py` combines code tool execution, structured output, retry, and sandboxing.
+- Graph: `graphs/artifact/34_chat_data_analysis_canvas.py` combines code tool execution, structured output, retry, and sandboxing.
 - Frontend: `src/examples/34-chat-data-analysis-canvas/` renders dataset, generated code, charts, logs, and insights.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Keep uploaded data metadata, generated code, execution results, chart specs, and
 
 ## 코딩 범위
 
-- 그래프: `graphs/34_chat_data_analysis_canvas.py`는 코드 도구 실행, 구조화된 출력, 재시도 및 샌드박싱을 결합합니다.
+- 그래프: `graphs/artifact/34_chat_data_analysis_canvas.py`는 코드 도구 실행, 구조화된 출력, 재시도 및 샌드박싱을 결합합니다.
 - 프런트엔드: `src/examples/34-chat-data-analysis-canvas/`는 데이터 세트, 생성된 코드, 차트, 로그 및 통찰력을 렌더링합니다.
 
 ## 구현 계획

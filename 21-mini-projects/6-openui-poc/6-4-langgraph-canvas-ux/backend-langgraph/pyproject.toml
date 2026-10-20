@@ -1,15 +1,20 @@
 # 이 백엔드만의 Python 버전·의존성·검사 도구·패키징 설정입니다. 재현 가능한 설치 버전은 uv.lock으로 고정합니다.
 [project]
-name = "openui-langgraph-python"
+name = "openui-langgraph-canvas"
 version = "0.1.0"
 requires-python = ">=3.12,<3.13"
 dependencies = [
   "deepagents==0.7.28",
+  "duckdb>=1.5.6",
   "langchain-openai==1.7.2",
   "langgraph==1.2.16",
   "langgraph-api==0.16.1",
   "langgraph-cli[inmem]==0.4.36",
+  "sqlglot>=30.23.0",
 ]
+
+[project.scripts]
+simulate-analytics = "agent.simulate:main"
 
 [dependency-groups]
 dev = ["pytest==9.1.1", "ruff>=0.14,<1"]

@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/19_long_context.py` adapts `21_long_context`.
+- Graph: `graphs/core/19_long_context.py` adapts `21_long_context`.
 - Frontend: `src/examples/19-long-context-ui/` shows recent messages and summarized history.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Expose summary, source message range, retained message count, and last compactio
 
 ## 코딩 범위
 
-- 그래프: `graphs/19_long_context.py`는 `21_long_context`를 적용합니다.
+- 그래프: `graphs/core/19_long_context.py`는 `21_long_context`를 적용합니다.
 - 프론트엔드: `src/examples/19-long-context-ui/`는 최근 메시지와 요약된 기록을 보여줍니다.
 
 ## 구현 계획

@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/39_tool_based_generative_ui_ag_ui.py` implements a Python agent with a tool that returns a UI payload for a haiku-style generator.
+- Graph: `graphs/copilotkit/39_tool_based_generative_ui_ag_ui.py` implements a Python agent with a tool that returns a UI payload for a haiku-style generator.
 - Frontend: `src/examples/39-tool-based-generative-ui-ag-ui/` renders the tool payload as a custom generative UI component.
 - Runtime: reuse the CopilotKit runtime and backend tool rendering path.
 
@@ -41,7 +41,7 @@ The UI payload is produced by a backend tool result, not by frontend-only state.
 
 ## 코딩 범위
 
-- 그래프: `graphs/39_tool_based_generative_ui_ag_ui.py`는 하이쿠 스타일 생성기에 대한 UI 페이로드를 반환하는 도구를 사용하여 Python 에이전트를 구현합니다.
+- 그래프: `graphs/copilotkit/39_tool_based_generative_ui_ag_ui.py`는 하이쿠 스타일 생성기에 대한 UI 페이로드를 반환하는 도구를 사용하여 Python 에이전트를 구현합니다.
 - 프런트엔드: `src/examples/39-tool-based-generative-ui-ag-ui/`는 도구 페이로드를 사용자 정의 생성 UI 구성 요소로 렌더링합니다.
 - 런타임: CopilotKit 런타임 및 백엔드 도구 렌더링 경로를 재사용합니다.
 

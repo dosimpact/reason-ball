@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/38_agentic_generative_ui_ag_ui.py` implements a Python agent that performs a long-running task and emits structured UI/progress state.
+- Graph: `graphs/copilotkit/38_agentic_generative_ui_ag_ui.py` implements a Python agent that performs a long-running task and emits structured UI/progress state.
 - Frontend: `src/examples/38-agentic-generative-ui-ag-ui/` renders a generated task workspace with progress, partial outputs, and final artifact.
 - Runtime: reuse the shared CopilotKit runtime and AG-UI wiring.
 
@@ -41,7 +41,7 @@ The backend owns task progress and artifact content. The frontend renders state 
 
 ## 코딩 범위
 
-- 그래프: `graphs/38_agentic_generative_ui_ag_ui.py`는 장기 실행 작업을 수행하고 구조화된 UI/진행 상태를 내보내는 Python 에이전트를 구현합니다.
+- 그래프: `graphs/copilotkit/38_agentic_generative_ui_ag_ui.py`는 장기 실행 작업을 수행하고 구조화된 UI/진행 상태를 내보내는 Python 에이전트를 구현합니다.
 - 프런트엔드: `src/examples/38-agentic-generative-ui-ag-ui/`는 진행률, 부분 출력 및 최종 아티팩트가 포함된 생성된 작업 작업 공간을 렌더링합니다.
 - 런타임: 공유 CopilotKit 런타임 및 AG-UI 배선을 재사용합니다.
 

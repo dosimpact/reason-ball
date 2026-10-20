@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/11_parallel_map_reduce.py` adapts `08_map_reduce` and `14_parallel_branches`.
+- Graph: `graphs/core/11_parallel_map_reduce.py` adapts `08_map_reduce` and `14_parallel_branches`.
 - Frontend: `src/examples/11-parallel-map-reduce-ui/` shows fan-out worker progress and reducer output.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Use custom or update events with stable worker ids. Partial failure should remai
 
 ## 코딩 범위
 
-- 그래프: `graphs/11_parallel_map_reduce.py`는 `08_map_reduce` 및 `14_parallel_branches`를 적용합니다.
+- 그래프: `graphs/core/11_parallel_map_reduce.py`는 `08_map_reduce` 및 `14_parallel_branches`를 적용합니다.
 - 프런트엔드: `src/examples/11-parallel-map-reduce-ui/`는 팬아웃 작업자 진행 상황과 리듀서 출력을 보여줍니다.
 
 ## 구현 계획

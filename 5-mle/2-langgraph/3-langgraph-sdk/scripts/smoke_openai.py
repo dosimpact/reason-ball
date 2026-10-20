@@ -16,7 +16,7 @@ from graphs import __name__ as graphs_package_name  # noqa: E402
 
 
 def main() -> None:
-    module = importlib.import_module("graphs.01_sdk_connection")
+    module = importlib.import_module("graphs.mvp.01_sdk_connection")
     result = module.graph.invoke(
         {"messages": [HumanMessage(content="Reply with exactly five words.")]}
     )

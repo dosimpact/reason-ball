@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/43_agentic_chat_multimodal_ag_ui.py` implements a Python multimodal chat agent that can reason over image input.
+- Graph: `graphs/copilotkit/43_agentic_chat_multimodal_ag_ui.py` implements a Python multimodal chat agent that can reason over image input.
 - Frontend: `src/examples/43-agentic-chat-multimodal-ag-ui/` renders CopilotKit chat with image attachment, preview, and analysis results.
 - Runtime: reuse the shared CopilotKit runtime and Python LangGraph server.
 
@@ -41,7 +41,7 @@ Keep binary image data out of persistent app state when possible. Use data URLs 
 
 ## 코딩 범위
 
-- 그래프: `graphs/43_agentic_chat_multimodal_ag_ui.py`는 이미지 입력을 추론할 수 있는 Python 다중 모드 채팅 에이전트를 구현합니다.
+- 그래프: `graphs/copilotkit/43_agentic_chat_multimodal_ag_ui.py`는 이미지 입력을 추론할 수 있는 Python 다중 모드 채팅 에이전트를 구현합니다.
 - 프런트엔드: `src/examples/43-agentic-chat-multimodal-ag-ui/`는 이미지 첨부, 미리보기 및 분석 결과가 포함된 CopilotKit 채팅을 렌더링합니다.
 - 런타임: 공유 CopilotKit 런타임 및 Python LangGraph 서버를 재사용합니다.
 

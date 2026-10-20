@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/16_long_term_memory.py` adapts `15_long_term_memory`.
+- Graph: `graphs/core/16_long_term_memory.py` adapts `15_long_term_memory`.
 - Frontend: `src/examples/16-long-term-memory-ui/` distinguishes thread state from cross-thread memory.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ State should include thread-scoped messages, memory operations, user id, and cur
 
 ## 코딩 범위
 
-- 그래프: `graphs/16_long_term_memory.py`는 `15_long_term_memory`를 적용합니다.
+- 그래프: `graphs/core/16_long_term_memory.py`는 `15_long_term_memory`를 적용합니다.
 - 프런트엔드: `src/examples/16-long-term-memory-ui/`는 스레드 상태를 크로스 스레드 메모리와 구별합니다.
 
 ## 구현 계획

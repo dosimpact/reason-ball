@@ -1,17 +1,20 @@
 {
-  "name": "@reason-ball/langgraph-python-intelligent-ui",
+  "name": "@reason-ball/langgraph-canvas-ux",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "generate": "openui generate src/library.ts --out src/generated/system-prompt.txt && openui generate src/library.ts --spec --out src/generated/spec.json",
-    "dev": "next dev --hostname 127.0.0.1 --port 3044",
+    "generate": "openui generate src/app/config/library.ts --out generated/system-prompt.txt && openui generate src/app/config/library.ts --spec --out generated/spec.json",
+    "dev": "next dev --hostname 127.0.0.1 --port 3045",
     "build": "next build",
-    "verify": "next build",
-    "start": "next start --hostname 127.0.0.1 --port 3044",
+    "verify": "npm run lint:fsd && next build",
+    "start": "next start --hostname 127.0.0.1 --port 3045",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test:smoke": "node tests/smoke.mjs",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:explore": "node tests/explore-canvas.mjs",
+    "lint:fsd": "steiger ./src --fail-on-warnings"
   },
   "dependencies": {
     "@openuidev/lang-core": "1.0.1",
@@ -19,22 +22,26 @@
     "@openuidev/react-headless": "0.18.1",
     "@openuidev/react-lang": "1.0.1",
     "@openuidev/react-ui": "0.18.1",
-    "next": "16.1.6",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "zustand": "^4.5.5",
     "katex": "^0.16.47",
     "lucide-react": "^0.562.0",
     "maplibre-gl": "^6.13.0",
-    "zod": "^4.4.3"
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-grid-layout": "^2.3.0",
+    "zod": "^4.4.3",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
+    "@feature-sliced/steiger-plugin": "^0.8.0",
     "@openuidev/cli": "0.6.0",
+    "@playwright/test": "^1.64.1",
     "@types/node": "^22.15.32",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "steiger": "^0.7.0",
     "typescript": "^5",
     "vitest": "^4.1.11"
   },

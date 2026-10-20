@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/10_subgraph_nested_execution.py` adapts `04_subgraph`, `11_2_supervisor`, and `11_4_supervisor_chat_subgraph`.
+- Graph: `graphs/core/10_subgraph_nested_execution.py` adapts `04_subgraph`, `11_2_supervisor`, and `11_4_supervisor_chat_subgraph`.
 - Frontend: `src/examples/10-subgraph-nested-execution-ui/` renders parent and child execution.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Prefer event metadata paths over string parsing. Keep a raw event viewer for nes
 
 ## 코딩 범위
 
-- 그래프: `graphs/10_subgraph_nested_execution.py`는 `04_subgraph`, `11_2_supervisor` 및 `11_4_supervisor_chat_subgraph`를 적용합니다.
+- 그래프: `graphs/core/10_subgraph_nested_execution.py`는 `04_subgraph`, `11_2_supervisor` 및 `11_4_supervisor_chat_subgraph`를 적용합니다.
 - 프런트엔드: `src/examples/10-subgraph-nested-execution-ui/`는 상위 및 하위 실행을 렌더링합니다.
 
 ## 구현 계획

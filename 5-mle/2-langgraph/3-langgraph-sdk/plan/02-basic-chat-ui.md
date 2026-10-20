@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/02_basic_chat.py` adapts sibling examples `02_llm_graph` and `06_checkpointer` into a checkpointed chat graph.
+- Graph: `graphs/mvp/02_basic_chat.py` adapts sibling examples `02_llm_graph` and `06_checkpointer` into a checkpointed chat graph.
 - Frontend: `src/examples/02-basic-chat-ui/` implements a multi-turn chat route.
 - Shared code: message normalization utilities for Human, AI, Tool, and system-like metadata.
 
@@ -36,7 +36,7 @@ Use thread-scoped runs. Store thread metadata locally enough to switch conversat
 
 ## 코딩 범위
 
-- 그래프: `graphs/02_basic_chat.py`는 형제 예제 `02_llm_graph` 및 `06_checkpointer`를 체크포인트 채팅 그래프에 적용합니다.
+- 그래프: `graphs/mvp/02_basic_chat.py`는 형제 예제 `02_llm_graph` 및 `06_checkpointer`를 체크포인트 채팅 그래프에 적용합니다.
 - 프런트엔드: `src/examples/02-basic-chat-ui/`는 다중 회전 채팅 경로를 구현합니다.
 - 공유 코드: 인간, AI, 도구 및 시스템과 유사한 메타데이터에 대한 메시지 정규화 유틸리티입니다.
 

@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/47_a2ui_advanced_ag_ui.py` implements dynamic A2UI with progress events and frontend action handlers.
+- Graph: `graphs/copilotkit/47_a2ui_advanced_ag_ui.py` implements dynamic A2UI with progress events and frontend action handlers.
 - Frontend: `src/examples/47-a2ui-advanced-ag-ui/` renders dynamic UI, custom progress, and action callbacks.
 - Runtime: reuse the shared CopilotKit runtime, AG-UI renderer, and frontend action registration patterns.
 
@@ -41,7 +41,7 @@ The backend owns generated UI schema and progress state. Frontend action handler
 
 ## 코딩 범위
 
-- 그래프: `graphs/47_a2ui_advanced_ag_ui.py`는 진행 이벤트 및 프런트엔드 작업 핸들러를 사용하여 동적 A2UI를 구현합니다.
+- 그래프: `graphs/copilotkit/47_a2ui_advanced_ag_ui.py`는 진행 이벤트 및 프런트엔드 작업 핸들러를 사용하여 동적 A2UI를 구현합니다.
 - 프런트엔드: `src/examples/47-a2ui-advanced-ag-ui/`는 동적 UI, 사용자 정의 진행 및 작업 콜백을 렌더링합니다.
 - 런타임: 공유 CopilotKit 런타임, AG-UI 렌더러 및 프런트엔드 작업 등록 패턴을 재사용합니다.
 

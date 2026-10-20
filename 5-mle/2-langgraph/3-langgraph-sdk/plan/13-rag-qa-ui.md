@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/13_rag_qa.py` adapts `10_rag` and `24_qa_pipeline`.
+- Graph: `graphs/core/13_rag_qa.py` adapts `10_rag` and `24_qa_pipeline`.
 - Frontend: `src/examples/13-rag-qa-ui/` shows answer, retrieved documents, and citations.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ State should include question, retrieved docs, answer, citations, and fallback r
 
 ## 코딩 범위
 
-- 그래프: `graphs/13_rag_qa.py`는 `10_rag` 및 `24_qa_pipeline`를 적용합니다.
+- 그래프: `graphs/core/13_rag_qa.py`는 `10_rag` 및 `24_qa_pipeline`를 적용합니다.
 - 프런트엔드: `src/examples/13-rag-qa-ui/`는 답변, 검색된 문서 및 인용문을 표시합니다.
 
 ## 구현 계획

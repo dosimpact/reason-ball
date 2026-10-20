@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/31_chat_plan_board.py` combines plan-and-execute with streaming updates and checkpoints.
+- Graph: `graphs/artifact/31_chat_plan_board.py` combines plan-and-execute with streaming updates and checkpoints.
 - Frontend: `src/examples/31-chat-plan-board/` renders chat plus plan board.
 
 ## Implementation Plan
@@ -36,7 +36,7 @@ Use step ids for stable board rendering. Persist direct board moves through the 
 
 ## 코딩 범위
 
-- 그래프: `graphs/31_chat_plan_board.py`는 계획 및 실행을 스트리밍 업데이트 및 체크포인트와 결합합니다.
+- 그래프: `graphs/artifact/31_chat_plan_board.py`는 계획 및 실행을 스트리밍 업데이트 및 체크포인트와 결합합니다.
 - 프런트엔드: `src/examples/31-chat-plan-board/`는 채팅과 계획 보드를 렌더링합니다.
 
 ## 구현 계획

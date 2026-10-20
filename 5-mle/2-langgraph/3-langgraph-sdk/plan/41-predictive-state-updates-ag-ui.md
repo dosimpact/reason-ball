@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/41_predictive_state_updates_ag_ui.py` implements a Python agent that edits document state and streams confirmed patches.
+- Graph: `graphs/copilotkit/41_predictive_state_updates_ag_ui.py` implements a Python agent that edits document state and streams confirmed patches.
 - Frontend: `src/examples/41-predictive-state-updates-ag-ui/` renders a document editor with optimistic updates and backend-confirmed state.
 - Runtime: reuse the shared CopilotKit runtime and AG-UI state wiring.
 
@@ -41,7 +41,7 @@ React may predict the visual result of an edit, but the Python graph remains aut
 
 ## 코딩 범위
 
-- 그래프: `graphs/41_predictive_state_updates_ag_ui.py`는 문서 상태를 편집하고 확인된 패치를 스트리밍하는 Python 에이전트를 구현합니다.
+- 그래프: `graphs/copilotkit/41_predictive_state_updates_ag_ui.py`는 문서 상태를 편집하고 확인된 패치를 스트리밍하는 Python 에이전트를 구현합니다.
 - 프런트엔드: `src/examples/41-predictive-state-updates-ag-ui/`는 낙관적인 업데이트와 백엔드 확인 상태로 문서 편집기를 렌더링합니다.
 - 런타임: 공유 CopilotKit 런타임 및 AG-UI 상태 연결을 재사용합니다.
 

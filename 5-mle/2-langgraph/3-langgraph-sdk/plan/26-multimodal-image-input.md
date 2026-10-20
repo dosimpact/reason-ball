@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/26_multimodal_image_input.py` accepts image input and returns analysis.
+- Graph: `graphs/generative_ui/26_multimodal_image_input.py` accepts image input and returns analysis.
 - Frontend: `src/examples/26-multimodal-image-input/` provides upload, preview, and result display.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Keep binary data handling isolated. Prefer fixture images for tests and avoid co
 
 ## 코딩 범위
 
-- 그래프: `graphs/26_multimodal_image_input.py`는 이미지 입력을 받아들이고 분석을 반환합니다.
+- 그래프: `graphs/generative_ui/26_multimodal_image_input.py`는 이미지 입력을 받아들이고 분석을 반환합니다.
 - 프런트엔드: `src/examples/26-multimodal-image-input/`는 업로드, 미리보기 및 결과 표시를 제공합니다.
 
 ## 구현 계획

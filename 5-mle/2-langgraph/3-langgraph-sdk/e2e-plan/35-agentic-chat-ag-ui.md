@@ -29,7 +29,7 @@
 
 - Runtime requests target agent id `35_agentic_chat`.
 - Frontend tools are injected through Python `CopilotKitMiddleware`.
-- The backend weather tool is served by `graphs/35_agentic_chat_ag_ui.py`.
+- The backend weather tool is served by `graphs/copilotkit/35_agentic_chat_ag_ui.py`.
 - The frontend background tool remains browser-only through `useFrontendTool`.
 - Tool result payloads may arrive as JSON strings and must still render correctly.
 

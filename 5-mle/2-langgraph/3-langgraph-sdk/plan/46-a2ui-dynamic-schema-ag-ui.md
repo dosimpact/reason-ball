@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/46_a2ui_dynamic_schema_ag_ui.py` implements a Python graph that generates dynamic A2UI surfaces from conversation context.
+- Graph: `graphs/copilotkit/46_a2ui_dynamic_schema_ag_ui.py` implements a Python graph that generates dynamic A2UI surfaces from conversation context.
 - Frontend: `src/examples/46-a2ui-dynamic-schema-ag-ui/` renders schema-driven UI components with streaming updates.
 - Runtime: reuse the shared CopilotKit runtime and AG-UI renderer plumbing.
 
@@ -41,7 +41,7 @@ Dynamic schema does not mean arbitrary React execution. The frontend renders onl
 
 ## 코딩 범위
 
-- 그래프: `graphs/46_a2ui_dynamic_schema_ag_ui.py`는 대화 컨텍스트에서 동적 A2UI 표면을 생성하는 Python 그래프를 구현합니다.
+- 그래프: `graphs/copilotkit/46_a2ui_dynamic_schema_ag_ui.py`는 대화 컨텍스트에서 동적 A2UI 표면을 생성하는 Python 그래프를 구현합니다.
 - 프런트엔드: `src/examples/46-a2ui-dynamic-schema-ag-ui/`는 스트리밍 업데이트를 통해 스키마 기반 UI 구성 요소를 렌더링합니다.
 - 런타임: 공유 CopilotKit 런타임 및 AG-UI 렌더러 배관을 재사용합니다.
 

@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/23_thinking_renderer.py` emits public reasoning summaries or status events only.
+- Graph: `graphs/generative_ui/23_thinking_renderer.py` emits public reasoning summaries or status events only.
 - Frontend: `src/examples/23-thinking-renderer/` renders collapsible thinking summaries.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Use explicit `reasoning_summary` or `status` fields. Do not store private model 
 
 ## 코딩 범위
 
-- 그래프: `graphs/23_thinking_renderer.py`는 공개 추론 요약 또는 상태 이벤트만 내보냅니다.
+- 그래프: `graphs/generative_ui/23_thinking_renderer.py`는 공개 추론 요약 또는 상태 이벤트만 내보냅니다.
 - 프런트엔드: `src/examples/23-thinking-renderer/`는 축소 가능한 사고 요약을 렌더링합니다.
 
 ## 구현 계획

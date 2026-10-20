@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/06_human_in_the_loop_interrupt.py` adapts `05_interrupt`, `16_command_interrupt`, and `25_approval_system`.
+- Graph: `graphs/mvp/06_human_in_the_loop_interrupt.py` adapts `05_interrupt`, `16_command_interrupt`, and `25_approval_system`.
 - Frontend: `src/examples/06-human-in-the-loop-interrupt-ui/` handles pending interrupt runs.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Track run id, thread id, interrupt payload, and resume payload. Keep approval de
 
 ## 코딩 범위
 
-- 그래프: `graphs/06_human_in_the_loop_interrupt.py`는 `05_interrupt`, `16_command_interrupt` 및 `25_approval_system`를 적용합니다.
+- 그래프: `graphs/mvp/06_human_in_the_loop_interrupt.py`는 `05_interrupt`, `16_command_interrupt` 및 `25_approval_system`를 적용합니다.
 - 프런트엔드: `src/examples/06-human-in-the-loop-interrupt-ui/`는 보류 중인 인터럽트 실행을 처리합니다.
 
 ## 구현 계획

@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/17_configurable_assistant.py` adapts `17_configurable`.
+- Graph: `graphs/core/17_configurable_assistant.py` adapts `17_configurable`.
 - Frontend: `src/examples/17-configurable-assistant-ui/` lets users adjust assistant/run config.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Use SDK config fields supported by LangGraph runtime. Persist form values locall
 
 ## 코딩 범위
 
-- 그래프: `graphs/17_configurable_assistant.py`는 `17_configurable`를 적용합니다.
+- 그래프: `graphs/core/17_configurable_assistant.py`는 `17_configurable`를 적용합니다.
 - 프런트엔드: `src/examples/17-configurable-assistant-ui/`를 사용하면 사용자가 보조/실행 구성을 조정할 수 있습니다.
 
 ## 구현 계획

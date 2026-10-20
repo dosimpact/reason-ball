@@ -32,3 +32,9 @@ uv sync
 
   pnpm dev
 ```
+
+## 그래프 폴더
+
+`graphs/`는 화면의 학습 그룹에 맞춰 `mvp`(01–07), `core`(08–20, 48–49),
+`generative_ui`(21–28), `artifact`(29–34), `copilotkit`(35–47)으로 나뉩니다.
+등록 경로는 `langgraph.json`, 상세 구조는 [시스템 설계](docs/stock/system-design.md#sdk-graph-groups-graph-package-layout)를 참고하세요.

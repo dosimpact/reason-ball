@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/36_backend_tool_rendering_ag_ui.py` implements a Python LangGraph ReAct agent with backend tools whose execution is rendered in the frontend.
+- Graph: `graphs/copilotkit/36_backend_tool_rendering_ag_ui.py` implements a Python LangGraph ReAct agent with backend tools whose execution is rendered in the frontend.
 - Frontend: `src/examples/36-backend-tool-rendering-ag-ui/` renders a CopilotKit chat surface and custom backend tool result cards.
 - Runtime: reuse the CopilotKit runtime and `/api/copilotkit` Vite proxy introduced for example 35.
 
@@ -41,7 +41,7 @@ Backend tool execution belongs to the Python graph. The frontend only renders th
 
 ## 코딩 범위
 
-- 그래프: `graphs/36_backend_tool_rendering_ag_ui.py`는 실행이 프런트엔드에서 렌더링되는 백엔드 도구를 사용하여 Python LangGraph ReAct 에이전트를 구현합니다.
+- 그래프: `graphs/copilotkit/36_backend_tool_rendering_ag_ui.py`는 실행이 프런트엔드에서 렌더링되는 백엔드 도구를 사용하여 Python LangGraph ReAct 에이전트를 구현합니다.
 - 프런트엔드: `src/examples/36-backend-tool-rendering-ag-ui/`는 CopilotKit 채팅 화면과 사용자 정의 백엔드 도구 결과 카드를 렌더링합니다.
 - 런타임: 예제 35에 도입된 CopilotKit 런타임 및 `/api/copilotkit` Vite 프록시를 재사용합니다.
 

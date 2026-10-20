@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/29_chat_code_editor.py` models a coding assistant with tool calls, approval, streaming, and checkpoints.
+- Graph: `graphs/artifact/29_chat_code_editor.py` models a coding assistant with tool calls, approval, streaming, and checkpoints.
 - Frontend: `src/examples/29-chat-code-editor/` provides chat plus code artifact canvas.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Treat file edits as proposed artifacts until approval. Use deterministic sample 
 
 ## 코딩 범위
 
-- 그래프: `graphs/29_chat_code_editor.py`는 도구 호출, 승인, 스트리밍 및 체크포인트를 갖춘 코딩 도우미를 모델링합니다.
+- 그래프: `graphs/artifact/29_chat_code_editor.py`는 도구 호출, 승인, 스트리밍 및 체크포인트를 갖춘 코딩 도우미를 모델링합니다.
 - 프런트엔드: `src/examples/29-chat-code-editor/`는 채팅과 코드 아티팩트 캔버스를 제공합니다.
 
 ## 구현 계획

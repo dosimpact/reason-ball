@@ -4,7 +4,7 @@
 
 This subproject is for LangGraph SDK learning examples with a TypeScript/React frontend and LangGraph graph backends. `goal.md` defines the roadmap and `.env.example` defines safe configuration. Keep implementation files organized by concern:
 
-- `graph/` or `graphs/`: LangGraph graph entry points, matching examples from `../1-langgraph-basic/`.
+- `graphs/`: LangGraph entry points grouped into `mvp/`, `core/`, `generative_ui/`, `artifact/`, and `copilotkit/`, matching the frontend catalog. Update `langgraph.json` and Python imports when moving entries; preserve public graph IDs.
 - `src/`: React frontend code, SDK client helpers, routing, and shared UI.
 - `src/examples/`: one public component entry per learning example, such as `01-sdk-connection`. Keep controller/state hooks, data transformations, browser adapters and substantive renderers in the same example folder. Do not introduce imports from sibling example folders. Preserve public entry paths and graph/tool contracts; choose module counts by actual responsibility rather than a fixed template.
 - `tests/` or `e2e/`: unit, integration, and browser tests.

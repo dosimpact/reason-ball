@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/05_tool_calling_react.py` adapts `03_tool_node`.
+- Graph: `graphs/mvp/05_tool_calling_react.py` adapts `03_tool_node`.
 - Frontend: `src/examples/05-tool-calling-react-ui/` displays tool calls inside a chat-style flow.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Use `streamMode: ["messages", "updates"]` so assistant text arrives from the mes
 
 ## 코딩 범위
 
-- 그래프: `graphs/05_tool_calling_react.py`는 `03_tool_node`를 적용합니다.
+- 그래프: `graphs/mvp/05_tool_calling_react.py`는 `03_tool_node`를 적용합니다.
 - 프런트엔드: `src/examples/05-tool-calling-react-ui/`는 채팅 스타일 흐름 내에 도구 호출을 표시합니다.
 
 ## 구현 계획

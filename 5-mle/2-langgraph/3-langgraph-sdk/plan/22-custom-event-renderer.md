@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/22_custom_event_renderer.py` adapts `18_custom_streaming`.
+- Graph: `graphs/generative_ui/22_custom_event_renderer.py` adapts `18_custom_streaming`.
 - Frontend: `src/examples/22-custom-event-renderer/` renders inline progress events.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Use `custom` stream mode and avoid overloading assistant text messages for progr
 
 ## 코딩 범위
 
-- 그래프: `graphs/22_custom_event_renderer.py`는 `18_custom_streaming`를 적용합니다.
+- 그래프: `graphs/generative_ui/22_custom_event_renderer.py`는 `18_custom_streaming`를 적용합니다.
 - 프런트엔드: `src/examples/22-custom-event-renderer/`는 인라인 진행 이벤트를 렌더링합니다.
 
 ## 구현 계획

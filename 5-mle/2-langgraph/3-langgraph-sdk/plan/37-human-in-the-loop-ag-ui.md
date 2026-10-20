@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/37_human_in_the_loop_ag_ui.py` implements a Python LangGraph workflow that interrupts for user approval before completing a task plan.
+- Graph: `graphs/copilotkit/37_human_in_the_loop_ag_ui.py` implements a Python LangGraph workflow that interrupts for user approval before completing a task plan.
 - Frontend: `src/examples/37-human-in-the-loop-ag-ui/` renders a CopilotKit chat surface plus approval, edit, and reject controls.
 - Runtime: reuse the shared CopilotKit runtime and Python LangGraph server.
 
@@ -41,7 +41,7 @@ The authoritative approval state is in the LangGraph thread. React may keep draf
 
 ## 코딩 범위
 
-- 그래프: `graphs/37_human_in_the_loop_ag_ui.py`는 작업 계획을 완료하기 전에 사용자 승인을 위해 중단하는 Python LangGraph 워크플로를 구현합니다.
+- 그래프: `graphs/copilotkit/37_human_in_the_loop_ag_ui.py`는 작업 계획을 완료하기 전에 사용자 승인을 위해 중단하는 Python LangGraph 워크플로를 구현합니다.
 - 프런트엔드: `src/examples/37-human-in-the-loop-ag-ui/`는 CopilotKit 채팅 화면과 승인, 편집 및 거부 제어 기능을 렌더링합니다.
 - 런타임: 공유 CopilotKit 런타임 및 Python LangGraph 서버를 재사용합니다.
 

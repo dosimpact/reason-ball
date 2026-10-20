@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/27_multimodal_voice_input.py` receives transcribed or uploaded voice input.
+- Graph: `graphs/generative_ui/27_multimodal_voice_input.py` receives transcribed or uploaded voice input.
 - Frontend: `src/examples/27-multimodal-voice-input/` supports record/upload and transcription preview.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Store audio metadata, transcription text, confidence when available, and graph r
 
 ## 코딩 범위
 
-- 그래프: `graphs/27_multimodal_voice_input.py`는 복사되거나 업로드된 음성 입력을 받습니다.
+- 그래프: `graphs/generative_ui/27_multimodal_voice_input.py`는 복사되거나 업로드된 음성 입력을 받습니다.
 - 프론트엔드: `src/examples/27-multimodal-voice-input/`는 녹음/업로드 및 전사 미리보기를 지원합니다.
 
 ## 구현 계획

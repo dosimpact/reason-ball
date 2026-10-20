@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/33_chat_ui_preview.py` models a UI generation assistant with tool approval and artifact versions.
+- Graph: `graphs/artifact/33_chat_ui_preview.py` models a UI generation assistant with tool approval and artifact versions.
 - Frontend: `src/examples/33-chat-ui-preview/` provides chat, code, live preview, and diff controls.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Never execute arbitrary code outside the preview sandbox. Keep generated code, p
 
 ## 코딩 범위
 
-- 그래프: `graphs/33_chat_ui_preview.py`는 도구 승인 및 아티팩트 버전을 사용하여 UI 생성 도우미를 모델링합니다.
+- 그래프: `graphs/artifact/33_chat_ui_preview.py`는 도구 승인 및 아티팩트 버전을 사용하여 UI 생성 도우미를 모델링합니다.
 - 프런트엔드: `src/examples/33-chat-ui-preview/`는 채팅, 코드, 실시간 미리보기 및 차이점 제어 기능을 제공합니다.
 
 ## 구현 계획

@@ -7,9 +7,9 @@ import assert from "node:assert/strict";
 import { mkdir, writeFile, readFile } from "node:fs/promises";
 
 import { createParser } from "@openuidev/lang-core";
-const spec = JSON.parse(await readFile(new URL("../src/generated/spec.json", import.meta.url), "utf8"));
+const spec = JSON.parse(await readFile(new URL("../generated/spec.json", import.meta.url), "utf8"));
 const parser = createParser(spec.schema, spec.root);
-const base = process.env.CHAT_TEST_URL || "http://127.0.0.1:3044";
+const base = process.env.CHAT_TEST_URL || "http://127.0.0.1:3045";
 const output = new URL("../output/validation/", import.meta.url);
 await mkdir(output, { recursive: true });
 

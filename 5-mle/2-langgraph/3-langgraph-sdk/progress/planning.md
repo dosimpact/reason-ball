@@ -130,3 +130,7 @@ All example utility refactor delegated by disjoint folder groups; root handles25
 ## 2026-10-07 EXAMPLES-REMEDA-07 complete
 
 54/54folders covered,94files importRemeda; no sibling imports/custom isRecord wrappers. Scoped lint/typecheck/build passed. Domain reducers/native browser logic preserved; no tests/E2E rerun. See docs/flow/2026-10-07-examples-remeda.md.
+
+## 2026-10-19 — SDK-GRAPH-GROUPS plan complete
+
+Group backend files by the five existing catalog groups; preserve IDs and implementations. Update registrations/imports/current docs and verify all configured graph exports plus existing tests. See docs/flow/2026-10-19-graph-groups.md.

@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/07_checkpoint_state_history.py` adapts `06_checkpointer`.
+- Graph: `graphs/mvp/07_checkpoint_state_history.py` adapts `06_checkpointer`.
 - Frontend: `src/examples/07-checkpoint-state-history-ui/` displays current state and checkpoint history.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Use LangGraph thread state and history APIs. Normalize checkpoint ids and timest
 
 ## 코딩 범위
 
-- 그래프: `graphs/07_checkpoint_state_history.py`는 `06_checkpointer`를 적용합니다.
+- 그래프: `graphs/mvp/07_checkpoint_state_history.py`는 `06_checkpointer`를 적용합니다.
 - 프런트엔드: `src/examples/07-checkpoint-state-history-ui/`는 현재 상태와 체크포인트 기록을 표시합니다.
 
 ## 구현 계획

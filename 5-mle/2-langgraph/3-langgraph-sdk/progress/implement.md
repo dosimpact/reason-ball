@@ -228,3 +228,7 @@ Removed repository source references and internal helpers from the guide; includ
 ## 2026-10-07 — PUSH-UI-SSOT complete
 
 Promoted the guide to a standalone normative implementation contract: general N-stage flow, explicit state/event/ID schemas, lifecycle and reconciliation rules, setup and acceptance. No prior example knowledge or source navigation required. Stock links synchronized; flow: docs/flow/2026-10-07-push-ui-guide-ssot.md. Documentation checks only.
+
+## 2026-10-19 — SDK-GRAPH-GROUPS complete
+
+Moved 49 graph files into five catalog-aligned packages and updated registrations, imports and current documentation. Validation: 50 Python tests passed with offline model construction; all 49 IDs and graph file contents preserved; diff checks passed. No live provider/browser execution. See docs/flow/2026-10-19-graph-groups.md.

@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/12_structured_output.py` adapts `09_structured_output`.
+- Graph: `graphs/core/12_structured_output.py` adapts `09_structured_output`.
 - Frontend: `src/examples/12-structured-output-ui/` renders JSON and form/table views.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Return schema name, parsed object, validation errors, and original model text wh
 
 ## 코딩 범위
 
-- 그래프: `graphs/12_structured_output.py`는 `09_structured_output`를 적용합니다.
+- 그래프: `graphs/core/12_structured_output.py`는 `09_structured_output`를 적용합니다.
 - 프런트엔드: `src/examples/12-structured-output-ui/`는 JSON 및 양식/테이블 보기를 렌더링합니다.
 
 ## 구현 계획
