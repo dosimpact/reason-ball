@@ -119,3 +119,7 @@ Grid 이벤트는 thread 소유 store의 setLayouts에 해당 탭 전체 패널 
 실행 파일: entities/analysis/model/grid.ts (계약·migration), features/manage-canvas/model/layout.ts (정규화), model/store.ts (원자적 저장), pages/chat/ui/dashboard-grid.tsx (ReactGridLayout), grid-item.tsx (공통 카드). 조사 출처·적용 기준·최종 검증은 docs/flow/2026-10-19-grafana-grid.md에 기록한다.
 
 GRAFANA-GRID 검증: frontend 356개, Python 관련 29개, 전체 Chrome 21개 통과. 최종 핸들 표시 보완 후 grid 전용 3개(외부 drop/splitter 추가 시나리오 포함)를 재검증했다. typecheck/FSD/build/Ruff 통과, lint 오류 0/기존 경고 5. 조사와 증거는 [Grafana grid 기록](../flow/2026-10-19-grafana-grid.md)을 참조한다.
+
+## QUICKSTART-01 — 시작 질문 구성
+
+`src/pages/chat/ui/chat-page.tsx`의 `starters`가 빈 채팅의 시작 카드와 실제 전송 문장을 정의한다. Canvas 예시 6개를 배열 앞에 배치하고 기존 일반 질문 8개를 유지한다. AgentInterface 루트에 `starterVariant="card"`를 지정한다. `workspace.css`에서 2열·최대 높이 `min(44dvh,420px)`·세로 스크롤을 적용한다. 기존 AgentInterface의 카드 클릭→메시지 전송 경로를 사용하며 API·카탈로그·생성 프롬프트 계약은 변경하지 않는다. 생성 위치, 예시 데이터, 로컬 입력 범위를 질문 문장에 명시한다.

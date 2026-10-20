@@ -81,3 +81,9 @@ Grid 이벤트는 thread 소유 store의 setLayouts에 해당 탭 전체 패널 
 실행 파일: entities/analysis/model/grid.ts (계약·migration), features/manage-canvas/model/layout.ts (정규화), model/store.ts (원자적 저장), pages/chat/ui/dashboard-grid.tsx (ReactGridLayout), grid-item.tsx (공통 카드). 조사 출처·적용 기준·최종 검증은 docs/flow/2026-10-19-grafana-grid.md에 기록한다.
 
 GRAFANA-GRID 검증: frontend 356개, Python 관련 29개, 전체 Chrome 21개 통과. 최종 핸들 표시 보완 후 grid 전용 3개(외부 drop/splitter 추가 시나리오 포함)를 재검증했다. typecheck/FSD/build/Ruff 통과, lint 오류 0/기존 경고 5. 조사와 증거는 [Grafana grid 기록](../flow/2026-10-19-grafana-grid.md)을 참조한다.
+
+## QUICKSTART-01 — 첫 사용자 Canvas 예시
+
+빈 채팅의 시작 질문은 Canvas 사용 사례 6개를 먼저 제공한다. 매출·광고비 차트, 주간 Markdown 메모, 로컬 입력 폼, 예시 요금제 비교표, Chat에서 추가 가능한 메모·입력 폼, 차트·메모 혼합 생성이다. 기존 일반 OpenUI 질문 8개도 유지한다. 2열 카드 목록은 화면 높이에 맞춰 내부 스크롤되어 입력창을 가리지 않는다. 환영 문구는 “무엇을 만들어볼까요?”로 표시한다.
+
+질문은 Canvas 직접 생성과 Chat에서 Add to Canvas로 추가하는 경로를 구분한다. 일반 콘텐츠는 쿼리가 필요 없으며 비교표는 예시 데이터, 분석 차트는 합성 데이터를 사용한다. 입력 폼은 외부 전송을 요청하지 않는다. 생성 후 위치 이동·리사이즈·탭 이동은 Canvas 컨트롤로 조작한다. 빈 작업공간에서 실행할 수 있도록 기존 패널 선택이나 이전 대화를 전제로 하지 않는다.

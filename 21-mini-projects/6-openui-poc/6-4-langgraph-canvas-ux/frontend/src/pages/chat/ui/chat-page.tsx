@@ -14,7 +14,7 @@ import {
 } from "@openuidev/react-ui";
 import type { ActionEvent } from "@openuidev/react-lang";
 import { useEffect } from "react";
-import { Brain, Calculator, Compass, Drum, Gamepad2, MapPinned, TentTree, UtensilsCrossed } from "lucide-react";
+import { Brain, Calculator, Compass, Drum, Gamepad2, MapPinned, TentTree, UtensilsCrossed, StickyNote, ClipboardList, Table2, PanelsTopLeft, MessageSquarePlus } from "lucide-react";
 import { runLibraryAction } from "@/shared/ui/openui";
 import { withBase } from "../../../shared/config";
 import { localChatStorage, SaveMessages, ThreadCanvasBridge } from "@/features/manage-canvas";
@@ -35,6 +35,11 @@ if (typeof window !== "undefined") {
 
 const starters = [
   { displayText: "매출과 광고비 Canvas", prompt: "매출과 광고비 차트를 canvas에 각각 만들어줘", icon: <Calculator size={16} /> },
+  { displayText: "Canvas 주간 메모", prompt: "Canvas에 일반 콘텐츠 메모 카드 하나를 직접 만들어줘. 제목은 이번 주 계획, Markdown으로 목표·할 일·회고 제목과 예시 내용을 넣어줘. 차트나 SQL은 필요 없어.", icon: <StickyNote size={16} /> },
+  { displayText: "Canvas 입력 폼", prompt: "Canvas에 일반 콘텐츠 입력 폼 하나를 직접 만들어줘. 제목은 작업 메모. 이름, 오늘의 목표, 메모 입력란과 입력 내용을 바로 보여주는 미리보기를 넣어줘. 입력은 화면 안에서 유지하고 외부 전송은 필요 없어. 차트나 SQL은 필요 없어.", icon: <ClipboardList size={16} /> },
+  { displayText: "Canvas 비교표", prompt: "Canvas에 일반 콘텐츠 비교표 하나를 직접 만들어줘. 제목은 요금제 비교. 예시 데이터로 Basic은 월 10달러·1명, Team은 월 30달러·5명, Pro는 월 60달러·10명으로 하고 요금제·월 요금·사용 인원 3개 열로 보여줘. 실제 상품 정보가 아닌 예시이며 차트나 SQL은 필요 없어.", icon: <Table2 size={16} /> },
+  { displayText: "Chat에서 Canvas로 추가", prompt: "채팅에 Canvas에 추가할 수 있는 메모와 입력 폼을 각각 만들어줘. 메모 제목은 회의 메모, 내용은 안건과 결정 사항 예시로 해줘. 폼 제목은 참석자 메모, 이름과 메모를 입력할 수 있게 해줘. 둘 다 Add to Canvas로 추가할 수 있게 만들고 아직 Canvas에는 추가하지 마. 차트나 SQL은 필요 없어.", icon: <MessageSquarePlus size={16} /> },
+  { displayText: "차트와 메모 함께 만들기", prompt: "Canvas에 매출 차트와 일반 콘텐츠 메모 카드를 각각 직접 만들어줘. 매출은 사용 가능한 합성 데이터를 사용하고, 메모 제목은 분석 체크, 내용은 매출 변화 확인하기·광고비와 비교하기·다음 액션 메모하기로 해줘. 메모에는 SQL을 사용하지 마.", icon: <PanelsTopLeft size={16} /> },
   { displayText: "Plan a day out", prompt: "I'm in San Francisco for a day, plan a sightseeing route for me", icon: <MapPinned size={16} /> },
   { displayText: "Explore a city", prompt: "Plan a relaxed afternoon exploring Lisbon, with three stops and a map", icon: <Compass size={16} /> },
   { displayText: "Find weekend ideas", prompt: "Help me find a weekend getaway from San Francisco. Compare three destinations", icon: <TentTree size={16} /> },
@@ -82,6 +87,7 @@ export default function Home() {
         logoUrl={withBase("/shiro-face.svg")}
         theme={{ mode }}
         starters={starters}
+        starterVariant="card"
       >
         <AgentInterface.SidebarFooter>
           <AgentInterface.ThemeModeToggle mode={mode} onModeChange={setPreference} />
@@ -89,7 +95,7 @@ export default function Home() {
         <AgentInterface.ThreadHeader showChatTitle={false} />
         <AgentInterface.Welcome
           image={<img src={withBase("/shiro-woodworker.svg")} alt="" className="welcome-mascot" />}
-          title="무엇을 분석할까요?"
+          title="무엇을 만들어볼까요?"
           starterVariant="card"
           glowAnimation
         />
