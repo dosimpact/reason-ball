@@ -1,0 +1,15 @@
+# 키·가상환경·캐시·실행 데이터·배포 산출물을 소스와 분리합니다. 실제 사용자 데이터는 커밋하지 않습니다.
+.venv/
+.env*
+!.env.example
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.langgraph_api/
+output/
+*.egg-info/
+dist/
+build/
+
+.data/

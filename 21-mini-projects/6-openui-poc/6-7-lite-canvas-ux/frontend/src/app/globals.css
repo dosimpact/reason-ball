@@ -1,0 +1,140 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border: 0 solid;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: transparent;
+  cursor: pointer;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+/* Default text takes the theme's Regular weight and tracking, like the
+   react-ui typography tokens; grayscale smoothing keeps macOS from
+   rendering text a shade heavier. */
+body {
+  font-weight: var(--openui-font-weight-regular);
+  font-variation-settings: var(--openui-font-variation-regular);
+  letter-spacing: var(--openui-letter-spacing-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+b,
+strong {
+  font-variation-settings: var(--openui-font-variation-medium);
+}
+
+.chat-shell {
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.welcome-mascot {
+  width: 112px;
+  height: auto;
+}
+
+/* Eight starters: two rows of four cards instead of one squeezed row. */
+.chat-shell .openui-agent-conversation-starter--card {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.report-open, .report-generate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--openui-text-primary, inherit);
+  background: var(--openui-background-secondary, #7772);
+}
+.report-open:focus-visible, .report-generate:focus-visible, .report-dialog button:focus-visible { outline: 2px solid #6f83f5; outline-offset: 3px; }
+.report-dialog {
+  margin: auto;
+  padding: 28px;
+  width: min(540px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  border: 1px solid #8884;
+  border-radius: 20px;
+  background: #fff;
+  color: #202024;
+  box-shadow: 0 24px 100px #0004;
+}
+.report-dialog::backdrop { background: #0008; backdrop-filter: blur(4px); }
+[data-openui-theme="dark"] .report-dialog { background: #202024; color: #eee; }
+.report-dialog-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+.report-dialog h2 { font-size: 20px; font-weight: 600; }
+.report-dialog p { font-size: 14px; line-height: 1.6; }
+.report-file-label { display: grid; gap: 12px; margin: 24px 0 8px; border: 1px dashed #8888; border-radius: 12px; padding: 20px; font-size: 14px; }
+.report-file-label input { width: 100%; font-size: 12px; }
+.report-hint { opacity: .65; font-size: 12px !important; margin-top: 8px; }
+.report-file-summary { display: grid; gap: 6px; margin-top: 16px; font-size: 12px; overflow-wrap: anywhere; }
+.report-generate { width: 100%; margin-top: 24px; background: #5363dc; color: #fff; }
+.report-generate:disabled { opacity: .4; cursor: default; }
+.report-source-message { display: flex; gap: 12px; margin-left: auto; max-width: 100%; padding: 16px; border: 1px solid #8884; border-radius: 16px; font-size: 13px; }
+.report-source-message > div { min-width: 0; overflow-wrap: anywhere; }
+.report-source-message > svg { flex-shrink: 0; }
+.report-source-message p, .report-source-message summary { opacity: .65; font-size: 12px; margin-top: 6px; }
+.report-source-message summary { cursor: pointer; }
+.report-source-message pre { white-space: pre-wrap; max-height: 260px; overflow: auto; padding: 12px 0; }
