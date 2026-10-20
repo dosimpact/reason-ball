@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/49_loop_engineering_harness.py` models the loop stack from LangChain's "The Art of Loop Engineering" as a deterministic local graph.
+- Graph: `graphs/core/49_loop_engineering_harness.py` models the loop stack from LangChain's "The Art of Loop Engineering" as a deterministic local graph.
 - Frontend: `src/examples/49-loop-engineering-harness-ui/` renders trigger intake, agent work, verification retries, event traces, and hill-climbing suggestions.
 
 ## Implementation Plan
@@ -51,7 +51,7 @@ Use `updates`, `values`, and `custom` stream modes. The final state is authorita
 
 ## 코딩 범위
 
-- 그래프: `graphs/49_loop_engineering_harness.py`는 LangChain의 "The Art of Loop Engineering"의 루프 스택을 결정론적 로컬 그래프로 모델링합니다.
+- 그래프: `graphs/core/49_loop_engineering_harness.py`는 LangChain의 "The Art of Loop Engineering"의 루프 스택을 결정론적 로컬 그래프로 모델링합니다.
 - 프런트엔드: `src/examples/49-loop-engineering-harness-ui/`는 트리거 수신, 에이전트 작업, 확인 재시도, 이벤트 추적 및 언덕 오르기 제안을 렌더링합니다.
 
 ## 구현 계획

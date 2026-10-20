@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/21_intent_feedback_generative_ui.py` handles stock price intent validation and UI request payloads.
+- Graph: `graphs/generative_ui/21_intent_feedback_generative_ui.py` handles stock price intent validation and UI request payloads.
 - Frontend: `src/examples/21-intent-feedback-generative-ui/` renders generated selector components.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Represent UI requests as structured state or custom events. Keep generated UI pa
 
 ## 코딩 범위
 
-- 그래프: `graphs/21_intent_feedback_generative_ui.py`는 주가 의도 검증 및 UI 요청 페이로드를 처리합니다.
+- 그래프: `graphs/generative_ui/21_intent_feedback_generative_ui.py`는 주가 의도 검증 및 UI 요청 페이로드를 처리합니다.
 - 프런트엔드: `src/examples/21-intent-feedback-generative-ui/`는 생성된 선택기 구성 요소를 렌더링합니다.
 
 ## 구현 계획

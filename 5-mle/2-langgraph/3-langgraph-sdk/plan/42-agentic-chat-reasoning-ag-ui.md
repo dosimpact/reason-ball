@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/42_agentic_chat_reasoning_ag_ui.py` implements a Python chat agent that exposes safe reasoning summaries and frontend/backend tools.
+- Graph: `graphs/copilotkit/42_agentic_chat_reasoning_ag_ui.py` implements a Python chat agent that exposes safe reasoning summaries and frontend/backend tools.
 - Frontend: `src/examples/42-agentic-chat-reasoning-ag-ui/` renders CopilotKit chat with collapsible reasoning/status blocks.
 - Runtime: reuse the shared CopilotKit runtime.
 
@@ -41,7 +41,7 @@ Only provider-approved reasoning summaries or graph-authored status messages may
 
 ## 코딩 범위
 
-- 그래프: `graphs/42_agentic_chat_reasoning_ag_ui.py`는 안전한 추론 요약과 프런트엔드/백엔드 도구를 노출하는 Python 채팅 에이전트를 구현합니다.
+- 그래프: `graphs/copilotkit/42_agentic_chat_reasoning_ag_ui.py`는 안전한 추론 요약과 프런트엔드/백엔드 도구를 노출하는 Python 채팅 에이전트를 구현합니다.
 - 프런트엔드: `src/examples/42-agentic-chat-reasoning-ag-ui/`는 축소 가능한 추론/상태 블록을 사용하여 CopilotKit 채팅을 렌더링합니다.
 - 런타임: 공유 CopilotKit 런타임을 재사용합니다.
 

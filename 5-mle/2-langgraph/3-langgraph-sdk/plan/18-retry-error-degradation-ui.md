@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/18_retry_error_degradation.py` adapts `19_retry_policy` and graceful degradation patterns.
+- Graph: `graphs/core/18_retry_error_degradation.py` adapts `19_retry_policy` and graceful degradation patterns.
 - Frontend: `src/examples/18-retry-error-degradation-ui/` exposes retry and fallback behavior.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Keep errors structured with node, attempt, message, recoverable flag, and fallba
 
 ## 코딩 범위
 
-- 그래프: `graphs/18_retry_error_degradation.py`는 `19_retry_policy` 및 우아한 성능 저하 패턴을 적용합니다.
+- 그래프: `graphs/core/18_retry_error_degradation.py`는 `19_retry_policy` 및 우아한 성능 저하 패턴을 적용합니다.
 - 프런트엔드: `src/examples/18-retry-error-degradation-ui/`는 재시도 및 대체 동작을 노출합니다.
 
 ## 구현 계획

@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/08_time_travel_replay.py` extends the checkpoint graph from example 07.
+- Graph: `graphs/core/08_time_travel_replay.py` extends the checkpoint graph from example 07.
 - Frontend: `src/examples/08-time-travel-replay-ui/` supports replay and fork workflows.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Use the SDK APIs for state history and checkpoint-based run configuration. Prese
 
 ## 코딩 범위
 
-- 그래프: `graphs/08_time_travel_replay.py`는 예제 07의 체크포인트 그래프를 확장합니다.
+- 그래프: `graphs/core/08_time_travel_replay.py`는 예제 07의 체크포인트 그래프를 확장합니다.
 - 프런트엔드: `src/examples/08-time-travel-replay-ui/`는 재생 및 포크 워크플로를 지원합니다.
 
 ## 구현 계획

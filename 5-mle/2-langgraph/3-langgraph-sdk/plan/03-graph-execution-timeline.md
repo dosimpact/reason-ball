@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/03_graph_execution_timeline.py` adapts `01_simple_graph` and streaming behavior from `07_streaming`.
+- Graph: `graphs/mvp/03_graph_execution_timeline.py` adapts `01_simple_graph` and streaming behavior from `07_streaming`.
 - Frontend: `src/examples/03-graph-execution-timeline/` renders node status cards and state panels.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ The UI should consume stream events rather than inferring progress from final ou
 
 ## 코딩 범위
 
-- 그래프: `graphs/03_graph_execution_timeline.py`는 `01_simple_graph` 및 `07_streaming`의 스트리밍 동작을 채택합니다.
+- 그래프: `graphs/mvp/03_graph_execution_timeline.py`는 `01_simple_graph` 및 `07_streaming`의 스트리밍 동작을 채택합니다.
 - 프런트엔드: `src/examples/03-graph-execution-timeline/`는 노드 상태 카드와 상태 패널을 렌더링합니다.
 
 ## 구현 계획

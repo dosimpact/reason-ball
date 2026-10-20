@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/28_multimodal_voice_output.py` produces text plus audio output metadata.
+- Graph: `graphs/generative_ui/28_multimodal_voice_output.py` produces text plus audio output metadata.
 - Frontend: `src/examples/28-multimodal-voice-output/` renders an inline audio player.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Keep audio generation errors separate from text response success. Avoid autoplay
 
 ## 코딩 범위
 
-- 그래프: `graphs/28_multimodal_voice_output.py`는 텍스트와 오디오 출력 메타데이터를 생성합니다.
+- 그래프: `graphs/generative_ui/28_multimodal_voice_output.py`는 텍스트와 오디오 출력 메타데이터를 생성합니다.
 - 프런트엔드: `src/examples/28-multimodal-voice-output/`는 인라인 오디오 플레이어를 렌더링합니다.
 
 ## 구현 계획

@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/14_plan_and_execute.py` adapts `13_plan_and_execute`.
+- Graph: `graphs/core/14_plan_and_execute.py` adapts `13_plan_and_execute`.
 - Frontend: `src/examples/14-plan-and-execute-ui/` separates plan generation from step execution.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Keep plan steps as structured objects with id, title, status, result, and error.
 
 ## 코딩 범위
 
-- 그래프: `graphs/14_plan_and_execute.py`는 `13_plan_and_execute`를 적용합니다.
+- 그래프: `graphs/core/14_plan_and_execute.py`는 `13_plan_and_execute`를 적용합니다.
 - 프런트엔드: `src/examples/14-plan-and-execute-ui/`는 계획 생성과 단계 실행을 분리합니다.
 
 ## 구현 계획

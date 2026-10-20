@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/04_streaming_ui.py` adapts `07_streaming` and `18_custom_streaming`.
+- Graph: `graphs/mvp/04_streaming_ui.py` adapts `07_streaming` and `18_custom_streaming`.
 - Frontend: `src/examples/04-streaming-ui/` compares stream modes in a single view.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Use the LangGraph SDK stream mode option and keep mode-specific parsers isolated
 
 ## 코딩 범위
 
-- 그래프: `graphs/04_streaming_ui.py`는 `07_streaming` 및 `18_custom_streaming`를 적용합니다.
+- 그래프: `graphs/mvp/04_streaming_ui.py`는 `07_streaming` 및 `18_custom_streaming`를 적용합니다.
 - 프런트엔드: `src/examples/04-streaming-ui/`는 단일 보기에서 스트림 모드를 비교합니다.
 
 ## 구현 계획

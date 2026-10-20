@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/45_a2ui_fixed_schema_ag_ui.py` implements a Python graph that returns a fixed-schema flight search UI payload.
+- Graph: `graphs/copilotkit/45_a2ui_fixed_schema_ag_ui.py` implements a Python graph that returns a fixed-schema flight search UI payload.
 - Frontend: `src/examples/45-a2ui-fixed-schema-ag-ui/` renders deterministic A2UI flight cards from that schema.
 - Runtime: reuse the shared CopilotKit runtime and AG-UI rendering path.
 
@@ -41,7 +41,7 @@ The fixed schema is a contract between the Python graph and React renderer. The 
 
 ## 코딩 범위
 
-- 그래프: `graphs/45_a2ui_fixed_schema_ag_ui.py`는 고정 스키마 항공편 검색 UI 페이로드를 반환하는 Python 그래프를 구현합니다.
+- 그래프: `graphs/copilotkit/45_a2ui_fixed_schema_ag_ui.py`는 고정 스키마 항공편 검색 UI 페이로드를 반환하는 Python 그래프를 구현합니다.
 - 프런트엔드: `src/examples/45-a2ui-fixed-schema-ag-ui/`는 해당 스키마에서 결정론적 A2UI 비행 카드를 렌더링합니다.
 - 런타임: 공유 CopilotKit 런타임 및 AG-UI 렌더링 경로를 재사용합니다.
 

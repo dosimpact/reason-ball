@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/48_todo_list_middleware.py` implements a LangChain agent graph using `TodoListMiddleware` and exposes `todos` state updates.
+- Graph: `graphs/core/48_todo_list_middleware.py` implements a LangChain agent graph using `TodoListMiddleware` and exposes `todos` state updates.
 - Frontend: `src/examples/48-todo-list-middleware/` renders a chat surface plus a todo board that tracks `pending`, `in_progress`, and `completed` items.
 - Runtime: reuse the shared LangGraph SDK client, streaming event handling, and example route registration patterns.
 
@@ -58,7 +58,7 @@
 
 ## 코딩 범위
 
-- 그래프: `graphs/48_todo_list_middleware.py`는 `TodoListMiddleware`를 사용하여 LangChain 에이전트 그래프를 구현하고 `todos` 상태 업데이트를 노출합니다.
+- 그래프: `graphs/core/48_todo_list_middleware.py`는 `TodoListMiddleware`를 사용하여 LangChain 에이전트 그래프를 구현하고 `todos` 상태 업데이트를 노출합니다.
 - 프런트엔드: `src/examples/48-todo-list-middleware/`는 채팅 화면과 `pending`, `in_progress` 및 `completed` 항목을 추적하는 할 일 보드를 렌더링합니다.
 - 런타임: 공유 LangGraph SDK 클라이언트, 스트리밍 이벤트 처리 및 예제 경로 등록 패턴을 재사용합니다.
 

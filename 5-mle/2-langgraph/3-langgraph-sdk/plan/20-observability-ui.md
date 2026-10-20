@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/20_observability.py` adapts `20_history_reducer` and observability examples.
+- Graph: `graphs/core/20_observability.py` adapts `20_history_reducer` and observability examples.
 - Frontend: `src/examples/20-observability-ui/` renders metrics and trace links.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Use run metadata, stream timing, and provider usage metadata. Treat missing toke
 
 ## 코딩 범위
 
-- 그래프: `graphs/20_observability.py`는 `20_history_reducer` 및 관찰 가능성 예제를 적용합니다.
+- 그래프: `graphs/core/20_observability.py`는 `20_history_reducer` 및 관찰 가능성 예제를 적용합니다.
 - 프런트엔드: `src/examples/20-observability-ui/`는 메트릭과 추적 링크를 렌더링합니다.
 
 ## 구현 계획

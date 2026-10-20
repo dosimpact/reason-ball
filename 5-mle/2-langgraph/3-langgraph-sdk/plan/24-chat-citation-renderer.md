@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/24_chat_citation_renderer.py` adapts `10_rag` and `24_qa_pipeline`.
+- Graph: `graphs/generative_ui/24_chat_citation_renderer.py` adapts `10_rag` and `24_qa_pipeline`.
 - Frontend: `src/examples/24-chat-citation-renderer/` renders citations inside chat answers.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Keep citation metadata separate from answer text so rendering does not depend on
 
 ## 코딩 범위
 
-- 그래프: `graphs/24_chat_citation_renderer.py`는 `10_rag` 및 `24_qa_pipeline`를 적용합니다.
+- 그래프: `graphs/generative_ui/24_chat_citation_renderer.py`는 `10_rag` 및 `24_qa_pipeline`를 적용합니다.
 - 프런트엔드: `src/examples/24-chat-citation-renderer/`는 채팅 답변 내에서 인용을 렌더링합니다.
 
 ## 구현 계획

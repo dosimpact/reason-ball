@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/01_sdk_connection.py` exposes the simplest assistant entrypoint with one node that echoes input and emits a small state update.
+- Graph: `graphs/mvp/01_sdk_connection.py` exposes the simplest assistant entrypoint with one node that echoes input and emits a small state update.
 - Frontend: `src/examples/01-sdk-connection/` provides assistant selection, thread controls, run controls, and a stream event log.
 - Shared code: create reusable LangGraph client utilities instead of constructing SDK clients in the component.
 
@@ -36,7 +36,7 @@ Use `Client.assistants.search`, thread create/get/delete APIs, run creation, and
 
 ## 코딩 범위
 
-- 그래프: `graphs/01_sdk_connection.py`는 입력을 에코하고 작은 상태 업데이트를 내보내는 하나의 노드로 가장 간단한 보조 진입점을 노출합니다.
+- 그래프: `graphs/mvp/01_sdk_connection.py`는 입력을 에코하고 작은 상태 업데이트를 내보내는 하나의 노드로 가장 간단한 보조 진입점을 노출합니다.
 - 프런트엔드: `src/examples/01-sdk-connection/`는 보조 선택, 스레드 제어, 실행 제어 및 스트림 이벤트 로그를 제공합니다.
 - 공유 코드: 구성 요소에 SDK 클라이언트를 구성하는 대신 재사용 가능한 LangGraph 클라이언트 유틸리티를 만듭니다.
 

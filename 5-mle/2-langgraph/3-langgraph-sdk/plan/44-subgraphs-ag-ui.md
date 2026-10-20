@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/44_subgraphs_ag_ui.py` implements a Python LangGraph parent graph with worker subgraphs for multi-agent task execution.
+- Graph: `graphs/copilotkit/44_subgraphs_ag_ui.py` implements a Python LangGraph parent graph with worker subgraphs for multi-agent task execution.
 - Frontend: `src/examples/44-subgraphs-ag-ui/` renders CopilotKit chat plus subgraph execution progress.
 - Runtime: reuse the shared CopilotKit runtime and LangGraph server.
 
@@ -41,7 +41,7 @@ Subgraph execution state should use stable worker ids so the frontend can update
 
 ## 코딩 범위
 
-- 그래프: `graphs/44_subgraphs_ag_ui.py`는 다중 에이전트 작업 실행을 위해 작업자 하위 그래프가 있는 Python LangGraph 상위 그래프를 구현합니다.
+- 그래프: `graphs/copilotkit/44_subgraphs_ag_ui.py`는 다중 에이전트 작업 실행을 위해 작업자 하위 그래프가 있는 Python LangGraph 상위 그래프를 구현합니다.
 - 프런트엔드: `src/examples/44-subgraphs-ag-ui/`는 CopilotKit 채팅과 하위 그래프 실행 진행 상황을 렌더링합니다.
 - 런타임: 공유 CopilotKit 런타임 및 LangGraph 서버를 재사용합니다.
 

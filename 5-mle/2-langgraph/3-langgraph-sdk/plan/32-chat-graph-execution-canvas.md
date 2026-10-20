@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/32_chat_graph_execution_canvas.py` combines streaming, subgraphs, checkpoints, and time travel.
+- Graph: `graphs/artifact/32_chat_graph_execution_canvas.py` combines streaming, subgraphs, checkpoints, and time travel.
 - Frontend: `src/examples/32-chat-graph-execution-canvas/` provides chat plus debugger canvas.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Normalize events once in shared code so multiple panels read the same event stor
 
 ## 코딩 범위
 
-- 그래프: `graphs/32_chat_graph_execution_canvas.py`는 스트리밍, 하위 그래프, 체크포인트 및 시간 여행을 결합합니다.
+- 그래프: `graphs/artifact/32_chat_graph_execution_canvas.py`는 스트리밍, 하위 그래프, 체크포인트 및 시간 여행을 결합합니다.
 - 프런트엔드: `src/examples/32-chat-graph-execution-canvas/`는 채팅과 디버거 캔버스를 제공합니다.
 
 ## 구현 계획

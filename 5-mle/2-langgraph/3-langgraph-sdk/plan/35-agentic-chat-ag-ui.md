@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/35_agentic_chat_ag_ui.py` implements a Python LangChain/LangGraph agent with CopilotKit AG-UI middleware.
+- Graph: `graphs/copilotkit/35_agentic_chat_ag_ui.py` implements a Python LangChain/LangGraph agent with CopilotKit AG-UI middleware.
 - Frontend: `src/examples/35-agentic-chat-ag-ui/` renders a CopilotKit chat surface with frontend tools, render tools, user context, and suggestions.
 - Runtime: add a standalone CopilotKit runtime service and Vite proxy for `/api/copilotkit` so the Vite app can connect to the LangGraph agent.
 
@@ -43,7 +43,7 @@ Keep CopilotKit-specific state local to this example. The background tool should
 
 ## 코딩 범위
 
-- 그래프: `graphs/35_agentic_chat_ag_ui.py`는 CopilotKit AG-UI 미들웨어를 사용하여 Python LangChain/LangGraph 에이전트를 구현합니다.
+- 그래프: `graphs/copilotkit/35_agentic_chat_ag_ui.py`는 CopilotKit AG-UI 미들웨어를 사용하여 Python LangChain/LangGraph 에이전트를 구현합니다.
 - 프런트엔드: `src/examples/35-agentic-chat-ag-ui/`는 프런트엔드 도구, 렌더링 도구, 사용자 컨텍스트 및 제안을 사용하여 CopilotKit 채팅 화면을 렌더링합니다.
 - 런타임: Vite 앱이 LangGraph 에이전트에 연결할 수 있도록 독립형 CopilotKit 런타임 서비스와 `/api/copilotkit`용 Vite 프록시를 추가합니다.
 

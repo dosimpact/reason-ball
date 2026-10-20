@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/40_shared_state_agent_ui_ag_ui.py` implements a Python agent that reads and updates shared recipe state.
+- Graph: `graphs/copilotkit/40_shared_state_agent_ui_ag_ui.py` implements a Python agent that reads and updates shared recipe state.
 - Frontend: `src/examples/40-shared-state-agent-ui-ag-ui/` renders editable recipe state alongside CopilotKit chat.
 - Runtime: reuse the shared AG-UI runtime and thread-backed state flow.
 
@@ -41,7 +41,7 @@ The shared recipe object is the source of truth for this example. React can stag
 
 ## 코딩 범위
 
-- 그래프: `graphs/40_shared_state_agent_ui_ag_ui.py`는 공유 레시피 상태를 읽고 업데이트하는 Python 에이전트를 구현합니다.
+- 그래프: `graphs/copilotkit/40_shared_state_agent_ui_ag_ui.py`는 공유 레시피 상태를 읽고 업데이트하는 Python 에이전트를 구현합니다.
 - 프런트엔드: `src/examples/40-shared-state-agent-ui-ag-ui/`는 CopilotKit 채팅과 함께 편집 가능한 레시피 상태를 렌더링합니다.
 - 런타임: 공유 AG-UI 런타임 및 스레드 지원 상태 흐름을 재사용합니다.
 

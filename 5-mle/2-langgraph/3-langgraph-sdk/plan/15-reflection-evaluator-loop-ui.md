@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/15_reflection_evaluator_loop.py` adapts `12_1_reflection`, `12_2_reflection`, `22_evaluator_loop`, and `23_verification_flow`.
+- Graph: `graphs/core/15_reflection_evaluator_loop.py` adapts `12_1_reflection`, `12_2_reflection`, `22_evaluator_loop`, and `23_verification_flow`.
 - Frontend: `src/examples/15-reflection-evaluator-loop-ui/` renders iteration history.
 
 ## Implementation Plan
@@ -35,7 +35,7 @@ Expose max retries and stop reason. Do not hide rejected drafts.
 
 ## 코딩 범위
 
-- 그래프: `graphs/15_reflection_evaluator_loop.py`는 `12_1_reflection`, `12_2_reflection`, `22_evaluator_loop` 및 `23_verification_flow`를 적용합니다.
+- 그래프: `graphs/core/15_reflection_evaluator_loop.py`는 `12_1_reflection`, `12_2_reflection`, `22_evaluator_loop` 및 `23_verification_flow`를 적용합니다.
 - 프런트엔드: `src/examples/15-reflection-evaluator-loop-ui/`는 반복 기록을 렌더링합니다.
 
 ## 구현 계획

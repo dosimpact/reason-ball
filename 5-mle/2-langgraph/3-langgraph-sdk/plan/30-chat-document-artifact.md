@@ -2,7 +2,7 @@
 
 ## Coding Scope
 
-- Graph: `graphs/30_chat_document_artifact.py` combines document editing with reflection, evaluator loop, and structured output.
+- Graph: `graphs/artifact/30_chat_document_artifact.py` combines document editing with reflection, evaluator loop, and structured output.
 - Frontend: `src/examples/30-chat-document-artifact/` renders a document canvas with chat controls.
 
 ## Implementation Plan
@@ -39,7 +39,7 @@ Keep document content, comments, suggested edits, direct user edits, AI revision
 
 ## 코딩 범위
 
-- 그래프: `graphs/30_chat_document_artifact.py`는 문서 편집과 반사, 평가자 루프 및 구조화된 출력을 결합합니다.
+- 그래프: `graphs/artifact/30_chat_document_artifact.py`는 문서 편집과 반사, 평가자 루프 및 구조화된 출력을 결합합니다.
 - 프런트엔드: `src/examples/30-chat-document-artifact/`는 채팅 컨트롤을 사용하여 문서 캔버스를 렌더링합니다.
 
 ## 구현 계획
