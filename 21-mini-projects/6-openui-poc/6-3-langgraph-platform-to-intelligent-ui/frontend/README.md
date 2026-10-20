@@ -33,7 +33,7 @@ CHAT_TEST_URL=http://localhost:3050 npm run test:smoke
 
 실제 OpenAI API를 사용하므로 호출 비용이 발생한다. 도구 호출·인자·결과, 텍스트 스트리밍, 정상 종료, 후속 대화, 400 오류를 검증한다. `output/validation/`에 SSE와 결과를 저장하며 Git에서는 제외한다.
 
-pnpm을 사용하는 경우 이 폴더에서 `pnpm install --frozen-lockfile`로 설치할 수 있다. 루트 프로젝트 의존성은 사용하지 않는다.
+이 프런트엔드는 npm/package-lock.json만 사용한다. 루트 프로젝트 의존성은 사용하지 않는다.
 
 ## 컴포넌트 프롬프트 변경
 
@@ -41,6 +41,6 @@ pnpm을 사용하는 경우 이 폴더에서 `pnpm install --frozen-lockfile`로
 npm run generate
 ```
 
-`src/library.ts`를 읽어 이 프로젝트 안의 `src/generated/system-prompt.txt`와 명세만 만든다. 빌드·실행 시 자동 생성하지 않는다. 컴포넌트 계약이 바뀌면 새 프롬프트를 백엔드의 `agent/system-prompt.txt` 자산으로 전달하고 통합 검증한다.
+`src/library.ts`에서 일반 `system-prompt.txt`와 명세를, `src/reporting/report-library.ts`에서 `report-system-prompt.txt`를 `src/generated/`에 만든다. 빌드·실행 시 자동 생성하지 않는다. 컴포넌트 계약이 바뀌면 두 프롬프트를 백엔드의 `agent/system-prompt.txt`와 `agent/report-system-prompt.txt` 자산으로 각각 전달하고 통합 검증한다.
 
 프롬프트를 Python 자산에 동기화한 후 실행 중인 Python 서버를 재시작해야 한다. 텍스트 자산 변경만으로 자동 재로드되지 않을 수 있다.

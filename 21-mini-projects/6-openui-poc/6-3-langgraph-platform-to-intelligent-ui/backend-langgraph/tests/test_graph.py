@@ -12,4 +12,9 @@ def test_graph_loads_from_an_unrelated_working_directory(monkeypatch, tmp_path):
     assert module.PROMPT_PATH == Path(module.__file__).with_name("system-prompt.txt")
     assert module.PROMPT_PATH.is_file()
     assert module.graph is not None
+    assert module.report_graph is not None
+    assert module.REPORT_PROMPT_PATH.is_file()
+    assert module.PROMPT_PATH.read_text() != module.REPORT_PROMPT_PATH.read_text()
+    assert "REPORT GENERATION MODE" not in module.PROMPT_PATH.read_text()
+    assert "REPORT GENERATION MODE" in module.REPORT_PROMPT_PATH.read_text()
     assert module.stream_transformers() == [module.OpenUIStreamTransformer]

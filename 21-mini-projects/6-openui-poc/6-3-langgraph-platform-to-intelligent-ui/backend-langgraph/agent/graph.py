@@ -5,7 +5,9 @@ import os
 from pathlib import Path
 
 from deepagents import create_deep_agent
+from langchain_core.messages import SystemMessage
 from langchain_openai import ChatOpenAI
+from langgraph.graph import END, START, MessagesState, StateGraph
 
 from agent.streaming import OpenUIStreamTransformer
 from agent.tools import get_stock_price, get_weather, search_web
@@ -37,6 +39,29 @@ graph = create_deep_agent(
         "larger heading sizes belong only to Title. Follow each component signature exactly."
     ),
 )
+
+# Separate generation prompt; the classifier itself is agent.intent:graph.
+REPORT_PROMPT_PATH = Path(__file__).with_name("report-system-prompt.txt")
+REPORT_PROMPT = (
+    REPORT_PROMPT_PATH.read_text(encoding="utf-8")
+    + "\nReturn one complete OpenUI program only. Keep source uncertainty. "
+    "Do not invent observations, citations, numeric evidence or live prices."
+)
+
+
+async def generate_report(state: MessagesState):
+    # No tool bindings, filesystem middleware or planner in report generation.
+    answer = await model.ainvoke([
+        SystemMessage(content=REPORT_PROMPT), *state["messages"],
+    ])
+    return {"messages": [answer]}
+
+
+report_builder = StateGraph(MessagesState)
+report_builder.add_node("generate_report", generate_report)
+report_builder.add_edge(START, "generate_report")
+report_builder.add_edge("generate_report", END)
+report_graph = report_builder.compile()
 
 
 # LangGraph 서버가 실행마다 새 OpenUI 변환기를 만들 수 있도록 클래스를 반환합니다.

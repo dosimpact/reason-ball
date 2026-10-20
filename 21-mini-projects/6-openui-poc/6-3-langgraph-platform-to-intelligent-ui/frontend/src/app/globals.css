@@ -95,3 +95,88 @@ strong {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
+
+.report-open, .report-generate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--openui-text-primary, inherit);
+  background: var(--openui-background-secondary, #7772);
+}
+.report-open:focus-visible, .report-generate:focus-visible, .report-dialog button:focus-visible { outline: 2px solid #6f83f5; outline-offset: 3px; }
+.report-dialog {
+  margin: auto;
+  padding: 28px;
+  width: min(540px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  border: 1px solid #8884;
+  border-radius: 20px;
+  background: #fff;
+  color: #202024;
+  box-shadow: 0 24px 100px #0004;
+}
+.report-dialog::backdrop { background: #0008; backdrop-filter: blur(4px); }
+[data-openui-theme="dark"] .report-dialog { background: #202024; color: #eee; }
+.report-dialog-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+.report-dialog h2 { font-size: 20px; font-weight: 600; }
+.report-dialog p { font-size: 14px; line-height: 1.6; }
+.report-file-label { display: grid; gap: 12px; margin: 24px 0 8px; border: 1px dashed #8888; border-radius: 12px; padding: 20px; font-size: 14px; }
+.report-file-label input { width: 100%; font-size: 12px; }
+.report-hint { opacity: .65; font-size: 12px !important; margin-top: 8px; }
+.report-file-summary { display: grid; gap: 6px; margin-top: 16px; font-size: 12px; overflow-wrap: anywhere; }
+.report-generate { width: 100%; margin-top: 24px; background: #5363dc; color: #fff; }
+.report-generate:disabled { opacity: .4; cursor: default; }
+.report-source-message { display: flex; gap: 12px; margin-left: auto; max-width: 100%; padding: 16px; border: 1px solid #8884; border-radius: 16px; font-size: 13px; }
+.report-source-message > div { min-width: 0; overflow-wrap: anywhere; }
+.report-source-message > svg { flex-shrink: 0; }
+.report-source-message p, .report-source-message summary { opacity: .65; font-size: 12px; margin-top: 6px; }
+.report-source-message summary { cursor: pointer; }
+.report-source-message pre { white-space: pre-wrap; max-height: 260px; overflow: auto; padding: 12px 0; }
+
+@media print {
+  @page { size: A4; margin: 14mm; }
+  html:has(.openui-shell-thread-message-assistant), html:has(.openui-shell-thread-message-assistant) body,
+  body:has(.openui-shell-thread-message-assistant) .chat-shell,
+  body:has(.openui-shell-thread-message-assistant) [class*="openui-agent-thread-"],
+  body:has(.openui-shell-thread-message-assistant) .openui-agent-container {
+    height: auto !important; min-height: 0 !important; max-height: none !important;
+    overflow: visible !important; position: static !important;
+  }
+  body:has(.openui-shell-thread-message-assistant) .chat-shell,
+  body:has(.openui-shell-thread-message-assistant) .openui-agent-container,
+  body:has(.openui-shell-thread-message-assistant) .openui-agent-thread-wrapper,
+  body:has(.openui-shell-thread-message-assistant) .openui-agent-thread-chat-panel,
+  body:has(.openui-shell-thread-message-assistant) .openui-agent-thread-scroll-container { display: block !important; width: 100% !important; min-width: 0 !important; }
+  body:has(.openui-shell-thread-message-assistant) .openui-agent-sidebar-container,
+  body:has(.openui-shell-thread-message-assistant) .openui-agent-thread-header,
+  body:has(.openui-shell-thread-message-assistant) .openui-agent-mobile-header,
+  body:has(.openui-shell-thread-message-assistant) .openui-agent-composer-slot,
+  body:has(.openui-shell-thread-message-assistant) .report-source-message,
+  body:has(.openui-shell-thread-message-assistant) button,
+  body:has(.openui-shell-thread-message-assistant) nextjs-portal { display: none !important; }
+  body:has(.openui-shell-thread-message-assistant) .openui-agent-thread-scroll-container::before,
+  body:has(.openui-shell-thread-message-assistant) .openui-agent-thread-scroll-container::after { display: none; }
+  body:has(.openui-shell-thread-message-assistant) .openui-agent-thread-messages { padding: 0 !important; max-width: none !important; }
+  body:has(.openui-shell-thread-message-assistant) .iui-grid { grid-template-columns: 1fr !important; }
+  body:has(.openui-shell-thread-message-assistant) .iui-chart { break-inside: avoid; }
+  body:has(.openui-shell-thread-message-assistant) .iui-chart svg { width: 100%; height: auto; }
+  body:has(.openui-shell-thread-message-assistant) .iui-card,
+  body:has(.openui-shell-thread-message-assistant) .iui-pressable { break-inside: avoid; }
+  body:has(.openui-shell-thread-message-assistant) .iui-title { break-after: avoid; }
+  body:has(.openui-shell-thread-message-assistant) .iui-table-scroll { overflow: visible; }
+  body:has(.openui-shell-thread-message-assistant) .iui-table { display: block; font-size: 11px; }
+  body:has(.openui-shell-thread-message-assistant) .iui-table thead { display: none; }
+  body:has(.openui-shell-thread-message-assistant) .iui-table tbody,
+  body:has(.openui-shell-thread-message-assistant) .iui-table tr,
+  body:has(.openui-shell-thread-message-assistant) .iui-table td { display: block; width: 100%; white-space: normal; text-align: left; overflow-wrap: anywhere; }
+  body:has(.openui-shell-thread-message-assistant) .iui-table tr { border-bottom: 2px solid #aaa; }
+  body:has(.openui-shell-thread-message-assistant) .iui-table td { padding: 5px 8px; }
+  body:has(.openui-shell-thread-message-assistant) .iui-table td::before { content: attr(data-print-label) " · "; font-weight: 700; }
+  body:has(.openui-shell-thread-message-assistant) .chat-shell { --openui-foreground: #fff; --openui-background: #fff; --openui-text-neutral-primary: #111; --openui-text-neutral-secondary: #555; --iui-ink: #111; --iui-muted: #555; --iui-canvas: #fff; color: #111; background: #fff; print-color-adjust: exact; }
+}

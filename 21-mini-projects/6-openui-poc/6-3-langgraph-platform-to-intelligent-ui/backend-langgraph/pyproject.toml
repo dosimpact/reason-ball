@@ -29,4 +29,4 @@ build-backend = "setuptools.build_meta"
 include = ["agent*"]
 
 [tool.setuptools.package-data]
-agent = ["system-prompt.txt"]
+agent = ["system-prompt.txt", "report-system-prompt.txt", "intent-prompt.txt"]

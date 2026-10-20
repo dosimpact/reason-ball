@@ -13,9 +13,13 @@ import { useEffect } from "react";
 import { Brain, Calculator, Compass, Drum, Gamepad2, MapPinned, TentTree, UtensilsCrossed } from "lucide-react";
 import { runLibraryAction } from "@/lib/actions";
 import { withBase } from "@/lib/base-path";
-import { localChatStorage, SaveMessages } from "@/lib/chat-storage";
+import { SaveMessages } from "@/lib/chat-storage";
+import { reportChatStorage } from "@/reporting/report-chat-storage";
+import { ReportPrintLayout } from "@/reporting/report-print-layout";
 import { webUrl } from "@/lib/components/style";
 import { library } from "@/lib/library";
+import { ReportDocumentInput, ReportUserMessage } from "@/reporting/report-document-input";
+import { ChatSession } from "@/components/chat-session";
 
 // The chat opens @OpenUrl with a plain window.open of whatever URL the model wrote, and on
 // openui.com this page shares its origin with the rest of the site. So only http(s) URLs open,
@@ -45,7 +49,7 @@ const llm = fetchLLM({
 });
 
 // Threads and messages persist in localStorage (created once, on the client).
-const storage = typeof window === "undefined" ? undefined : localChatStorage();
+const storage = typeof window === "undefined" ? undefined : reportChatStorage();
 
 // The chat sends @ToAssistant and opens @OpenUrl itself; every other action,
 // such as the library's @CopyToClipboard, reaches onAction.
@@ -75,11 +79,13 @@ export default function Home() {
         logoUrl={withBase("/shiro-face.svg")}
         theme={{ mode }}
         starters={starters}
+        components={{ UserMessage: ReportUserMessage }}
       >
         <AgentInterface.SidebarFooter>
           <AgentInterface.ThemeModeToggle mode={mode} onModeChange={setPreference} />
         </AgentInterface.SidebarFooter>
-        <AgentInterface.ThreadHeader showChatTitle={false} />
+        <AgentInterface.ThreadHeader showChatTitle={false} end={<ReportDocumentInput />} />
+        <AgentInterface.MobileHeader actions={<ReportDocumentInput />} />
         <AgentInterface.Welcome
           image={<img src={withBase("/shiro-woodworker.svg")} alt="" className="welcome-mascot" />}
           title="What can I help with?"
@@ -87,6 +93,8 @@ export default function Home() {
           glowAnimation
         />
         <SaveMessages />
+        <ChatSession />
+        <ReportPrintLayout />
       </AgentInterface>
     </div>
   );

@@ -12,10 +12,10 @@ uv run langgraph dev --port 2036 --no-browser
 - API: http://127.0.0.1:2036
 - API 문서: http://127.0.0.1:2036/docs
 - 모델: OPENAI_MODEL, 기본 `gpt-4.1-mini`
-- 그래프: `langgraph.json` → `agent/graph.py:graph`
-- 도구: `agent/tools.py`의 mock 날씨·주가·검색
+- 그래프: `agent`(일반 UI), `report`(보고서), `intent`(structured 의도 판단). 등록은 `langgraph.json`에 있다.
+- 도구: 일반 agent만 `agent/tools.py`의 mock 날씨·주가·검색을 사용한다. report/intent는 도구 없는 모델 노드다.
 - 스트림: `agent/streaming.py`가 Python protocol 이벤트를 AG-UI `custom:openui`로 변환한다.
-- 프롬프트: `agent/system-prompt.txt`는 함께 배포하는 자산이다. 실행 시 프런트엔드 파일을 읽거나 Node를 호출하지 않는다.
+- 프롬프트: `agent/system-prompt.txt`, `agent/report-system-prompt.txt`, `agent/intent-prompt.txt`는 함께 배포하는 자산이다. 실행 시 프런트엔드 파일을 읽거나 Node를 호출하지 않는다.
 
 ## 검증
 
@@ -33,6 +33,6 @@ uv build  # 프롬프트를 포함한 독립 sdist/wheel 생성
 
 ## 프롬프트 계약 변경
 
-현재 프롬프트는 OpenUI react-ui 0.18.1의 라이브러리에서 생성했다. 컴포넌트 계약을 변경할 때만 frontend에서 `npm run generate`로 새 프롬프트를 만들고, 그 결과물을 이 프로젝트의 `agent/system-prompt.txt`에 명시적으로 반영한다. 이는 개발 시 자산 갱신이며 두 프로젝트의 실행·설치 의존성이 아니다.
+현재 프롬프트는 OpenUI react-ui 0.18.1의 라이브러리에서 생성했다. 컴포넌트 계약을 변경할 때만 frontend에서 `npm run generate`로 새 프롬프트를 만들고, 두 생성 결과를 이 프로젝트의 `agent/system-prompt.txt`/`agent/report-system-prompt.txt`에 명시적으로 반영하고 서버를 재시작한다. `intent-prompt.txt`는 의도 분류 규칙이며 기본 OPENAI_MODEL 또는 별도 OPENAI_INTENT_MODEL을 사용한다. 이는 개발 시 자산 갱신이며 두 프로젝트의 실행·설치 의존성이 아니다.
 
 참고: [Python DeepAgents](https://docs.langchain.com/oss/python/deepagents/quickstart), [LangGraph 스트리밍](https://docs.langchain.com/oss/python/langgraph/streaming).
