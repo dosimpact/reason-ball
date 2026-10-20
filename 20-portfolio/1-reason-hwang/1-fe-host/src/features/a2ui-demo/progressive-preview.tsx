@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useAgent } from "@copilotkit/react-core/v2";
 import { A2UIProvider, A2UIRenderer, useA2UIActions } from "@copilotkit/a2ui-renderer";
-import { z } from "zod";
+import { z } from "zod3";
 import { createHostCatalog } from "@/lib/a2ui/catalog";
 
 export type RenderMode = "batch" | "progressive";

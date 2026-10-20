@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod3";
 
 // JSON-only contracts. React components and their callbacks belong in renderers.
 export const dataBinding = z.object({ path: z.string().regex(/^\//) }).strict();

@@ -7,6 +7,15 @@ const { parseBulkSubmission } = require('../dist/lib/sec/sec.archive');
 const { readEnvironment } = require('../dist/shared/config.service');
 const { AppConfigService } = require('../dist/shared/config.service');
 
+test('former registrants require explicit CIK and preserve default ticker scope', () => {
+  const pipe = new pipes.FilingsQueryPipe();
+  assert.equal(pipe.transform({}).includeFormerRegistrants, false);
+  assert.throws(() => pipe.transform({ includeFormerRegistrants: true }), /explicit cik/);
+  const query = pipe.transform({ cik: '34088', includeFormerRegistrants: 'true' });
+  assert.equal(query.cik, '0000034088');
+  assert.equal(query.includeFormerRegistrants, true);
+});
+
 test('SEC identifiers and dates normalize consistently', () => {
   assert.equal(f.tryNormalizeCik('320193'), '0000320193');
   assert.equal(f.tryNormalizeTicker(' aapl '), 'AAPL');

@@ -56,9 +56,12 @@ export class FilingsQueryPipe implements PipeTransform {
     const page = readCompanyPageNumber(query.page, 'page', 1);
     const pageSize = Math.min(readCompanyPageNumber(query.pageSize ?? query.limit, 'pageSize', 50), 500);
     if (!Number.isSafeInteger((page - 1) * pageSize)) throw new BadRequestException('Pagination offset is too large.');
+    const cik = readOptionalCik(query.cik, 'cik');
+    const includeFormerRegistrants = readOptionalBoolean(query.includeFormerRegistrants, 'includeFormerRegistrants', false);
+    if (includeFormerRegistrants && !cik) throw new BadRequestException('includeFormerRegistrants requires an explicit cik.');
     return {
       page, pageSize,
-      cik: readOptionalCik(query.cik, 'cik'),
+      cik, includeFormerRegistrants,
       ticker: readOptionalTicker(query.ticker, 'ticker'),
       status: readOptionalStatus(query.status, 'status'),
       since: readOptionalDate(query.since, 'since'),

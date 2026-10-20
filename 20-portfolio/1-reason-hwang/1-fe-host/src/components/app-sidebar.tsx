@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/sidebar";
 
 const navItems = [
+  { title: "SEC Intelligent UI", href: "/sec-chat", icon: MessagesSquare },
   {
     title: "Home",
     href: "/",

@@ -16,7 +16,9 @@
     "clean": "rm -rf dist build .pytest_cache .ruff_cache .pyright .coverage coverage htmlcov",
     "test:cabin:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 15-cabin-a2ui --env local",
     "test:a2ui:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 13-a2ui --env local",
-    "test:push-ui:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 16-push-ui-message --env local"
+    "test:push-ui:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 16-push-ui-message --env local",
+    "test:sec-chat": "uv run pytest tests/test_sec_intelligent_ui.py",
+    "test:sec-chat:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 17-sec-intelligent-ui --env local"
   },
   "devDependencies": {
     "@usebruno/cli": "^2.13.0"

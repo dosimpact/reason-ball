@@ -20,7 +20,6 @@ from infrastructure.postgres.thread_repository import PostgresThreadRepository
 from server.a2a import router as a2a_router
 from server.a2a import set_a2a_task_repository
 from server.a2ui.router import router as a2ui_router
-from server.push_ui_message.router import router as push_ui_message_router
 from server.assistants import router as assistants_router
 from server.assistants.repository import InMemoryAssistantRepository
 from server.assistants.router import set_assistant_repository
@@ -29,10 +28,12 @@ from server.crons import set_cron_repository
 from server.execution import execution_gate
 from server.mcp import router as mcp_router
 from server.openapi_contract import load_standard_openapi
+from server.push_ui_message.router import router as push_ui_message_router
 from server.routers.tenk import graph_router as tenk_graph_router
 from server.routers.tenk import router as tenk_router
 from server.runs import router as runs_router
 from server.runs import runtime as runs_runtime
+from server.sec_chat.router import router as sec_chat_router
 from server.store import router as store_router
 from server.store import set_store_repository
 from server.streaming import router as streaming_router
@@ -120,6 +121,7 @@ app.include_router(tenk_router)
 app.include_router(tenk_graph_router)
 app.include_router(a2ui_router)
 app.include_router(push_ui_message_router)
+app.include_router(sec_chat_router)
 
 
 def standard_openapi() -> dict:

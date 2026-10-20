@@ -1,0 +1,26 @@
+meta {
+  name: SEC-IUI-003 cited Intelligent UI answer
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/chat
+  body: json
+  auth: none
+}
+body:json {
+  {"threadId":"{{secThread}}","message":"Item 3의 법적 분쟁을 원문 근거와 함께 요약해줘."}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("AG-UI delivers a complete cited OpenUI answer", function () {
+    const body = res.getBody();
+    expect(body).to.include('RUN_FINISHED');
+    expect(body).not.to.include('RUN_ERROR');
+    expect(body).to.include('root = Col(');
+    expect(body).to.include('SEC 원문 공시');
+    expect(body).to.include('Item 3');
+  });
+}

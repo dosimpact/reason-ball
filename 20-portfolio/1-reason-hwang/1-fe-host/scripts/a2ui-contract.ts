@@ -43,7 +43,7 @@ function verifyVersions() {
   for (const [name, version] of Object.entries(compatibility.javascript)) {
     const actual = name === "@a2ui/web_core"
       ? JSON.parse(readFileSync(resolve(dirname(require.resolve(`${name}/v0_9`)), "../../package.json"), "utf8")).version
-      : require(`${name}/package.json`).version;
+      : require(`${name === "zod" ? "zod3" : name}/package.json`).version;
     if (actual !== version) throw new Error(`${name}: expected ${version}, installed ${actual}`);
   }
   const actual = JSON.parse(execFileSync(resolve(root, "3-langgraph-fast/.venv/bin/python"), ["-c",
@@ -65,7 +65,8 @@ function buildCatalog(profile: CatalogProfile) {
   const components = Object.fromEntries(profileComponents[profile].map(name => {
     // Our contract vocabulary has no tuples/recursive refs/draft-specific keywords.
     // Strip the converter's dialect declaration; the emitted document uses 2020-12.
-    const props = zodToJsonSchema(componentSchema(name, profile), { $refStrategy: "none", target: "jsonSchema7" });
+    // The converter types resolve Zod 4/v3; this catalog retains its exact Zod 3 runtime.
+    const props = zodToJsonSchema(componentSchema(name, profile) as unknown as Parameters<typeof zodToJsonSchema>[0], { $refStrategy: "none", target: "jsonSchema7" });
     const { $schema: _dialect, ...shape } = props as { $schema?: string; properties: Record<string, unknown>; required?: string[] };
     void _dialect;
     return [name, {

@@ -41,7 +41,7 @@ export class UsCorporateFilingsController {
   }
 
   @Get('filings')
-  @ApiOperation({ summary: '기업 공시 조회', description: 'DB ticker가 비어 있지 않은 회사의 공시만 조회. 원문은 includeContent=true로 포함. 원문 합계 최대 64 MiB.' })
+  @ApiOperation({ summary: '기업 공시 조회', description: '기본값은 ticker가 있는 회사. 특정 CIK와 includeFormerRegistrants=true로 이전 법인 공시 포함 가능. 원문은 includeContent=true로 포함. 원문 합계 최대 64 MiB.' })
   @ApiQuery({ name: 'page', required: false, example: 1 })
   @ApiQuery({ name: 'pageSize', required: false, example: 50, description: '최대 500' })
   @ApiQuery({ name: 'limit', required: false, description: 'pageSize 호환 별칭' })
@@ -53,6 +53,7 @@ export class UsCorporateFilingsController {
   @ApiQuery({ name: 'status', required: false, enum: ['pending', 'downloaded', 'failed'] })
   @ApiQuery({ name: 'includeAmendments', required: false, type: Boolean, description: '기본 true: 원본과 수정본을 연결. 자동 병합하지 않음.' })
   @ApiQuery({ name: 'includeContent', required: false, type: Boolean })
+  @ApiQuery({ name: 'includeFormerRegistrants', required: false, type: Boolean, description: '기본 false. true이면 명시적 cik 필수; 현재 ticker 없는 이전 법인 포함.' })
   listFilings(@Query(FilingsQueryPipe) input: FilingsQueryInput) {
     return this.filings.listFilings(input);
   }

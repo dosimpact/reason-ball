@@ -1,0 +1,18 @@
+meta {
+  name: SEC-IUI former registrant requires CIK
+  type: http
+  seq: 1
+}
+get {
+  url: {{baseUrl}}/filings?includeFormerRegistrants=true
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 400
+}
+tests {
+  test("Unbounded former-registrant lookup is rejected", function () {
+    expect(res.getBody().message).to.include("explicit cik");
+  });
+}

@@ -1,0 +1,24 @@
+meta {
+  name: SEC-IUI-001 prepare stored filing
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/prepare
+  body: json
+  auth: none
+}
+body:json {
+  {"cik":"0000320193","refresh":false}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Stored filing does not claim live freshness", function () {
+    expect(res.getBody().checkedAt).to.equal(null);
+    expect(res.getBody().filing.formType).to.equal("10-K");
+    expect(res.getBody().items).to.include("8");
+    bru.setVar("secThread", res.getBody().threadId);
+  });
+}

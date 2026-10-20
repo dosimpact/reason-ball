@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { z } from "zod";
+import { z } from "zod3";
 import { definitions, type ComponentName } from "@/lib/a2ui/definitions";
 import { FixturePreview } from "@/lib/a2ui/fixture-preview";
 import { fixtureOperations, fixtures } from "@/lib/a2ui/fixtures";

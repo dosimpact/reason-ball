@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { z } from "zod";
+import { z } from "zod3";
 import type { AbstractAgent } from "@ag-ui/client";
 import { A2UIProvider, A2UIRenderer, useA2UIActions, useA2UIError } from "@copilotkit/a2ui-renderer";
 import { useCopilotKit, type ReactActivityMessageRenderer } from "@copilotkit/react-core/v2";

@@ -62,7 +62,7 @@ class SecClient:
             raise SecReadError("검색어 또는 페이지가 잘못되었습니다.")
         return await self._page("/api/sec/companies", {"q": query.strip(), "page": page, "pageSize": 10})
 
-    async def filings(self, cik: str, page: int = 1, *, status: str = "", form: str = "", since: str = "") -> dict[str, Any]:
+    async def filings(self, cik: str, page: int = 1, *, status: str = "", form: str = "", since: str = "", include_former: bool = False) -> dict[str, Any]:
         if not re.fullmatch(r"\d{10}", cik) or type(page) is not int or not 1 <= page <= 100000:
             raise SecReadError("회사 식별자 또는 페이지가 잘못되었습니다.")
         if status not in {"", "downloaded", "pending", "failed"} or form not in {"", "10-K", "10-K/A", "10-Q", "10-Q/A", "8-K", "8-K/A"}:
@@ -73,6 +73,8 @@ class SecClient:
             except ValueError as error:
                 raise SecReadError("제출 시작일은 YYYY-MM-DD 형식으로 입력해 주세요.") from error
         params = {"cik": cik, "page": page, "pageSize": 10, "includeContent": "false", "includeAmendments": "true"}
+        if include_former:
+            params["includeFormerRegistrants"] = "true"
         params.update({key: value for key, value in {"status": status, "formType": form, "since": since}.items() if value})
         result = await self._page("/api/sec/filings", params)
         if any(row.get("cik") != cik for row in result["items"]):

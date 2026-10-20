@@ -67,6 +67,7 @@ PostgreSQL 접속은 BFF 환경 설정을 따른다. 기본 논리 DB 이름은 
 - 선택 페이지의 원문 크기 합계를 먼저 조회하고 64 MiB 초과 시 HTTP 413 반환. pageSize를 줄여 재요청한다.
 - 이 예산은 JSON 인코딩/객체 메모리 전체가 아닌 원문 byte 합계이다. 동시 데이터 변경 시 두 쿼리의 페이지가 달라질 수 있어 엄격한 프로세스 메모리 상한은 아니다.
 - 메타데이터 목록은 원문을 기본 포함하지 않는다. 단일 원문은 GET /filings/:cik/:accessionNo/content로 직접 조회한다.
+- 기본 목록은 현재 ticker가 있는 회사로 제한한다. `includeFormerRegistrants=true`는 명시적 `cik`와 함께만 사용할 수 있으며, 법인 재편으로 ticker가 없어진 이전 법인의 저장 공시도 반환한다. 기존 ticker 기본 범위는 유지한다. SEC Intelligent UI의 검토된 이전 법인 연결에 사용한다(SEC-IUI-002).
 
 ## 마이그레이션과 기존 파일
 
@@ -176,4 +177,11 @@ pnpm sec:sync
 
 ## SEC-QUERY-TICKER-001: 목록 조회의 기본 범위
 
-GET /companies와 GET /filings는 DB companies.ticker가 NULL·빈 문자열·공백이 아닌 회사만 반환한다. 별도 파라미터 없이 기본 적용하며 cik/ticker/q 등 기존 필터와 AND로 결합한다. totalItems/totalPages에도 동일 조건이 적용된다. 티커 없는 회사 CIK를 지정하면 빈 목록이다. 회사 데이터나 공시를 삭제하지 않으며 현재 상장 여부를 의미하지 않는다. CIK+accessionNo로 이미 저장된 단일 원문을 조회하는 API는 이 목록 필터와 별개로 유지한다.
+GET /companies와 GET /filings의 기본값은 DB companies.ticker가 NULL·빈 문자열·공백이 아닌 회사만 반환하는 것이다. cik/ticker/q 등 기존 필터와 AND로 결합하며 totalItems/totalPages에도 동일 조건을 적용한다. 기본값에서 티커 없는 회사 CIK를 지정하면 빈 목록이다. SEC-IUI-002에 따라 GET /filings에 명시적 cik와 includeFormerRegistrants=true를 함께 지정하면 해당 이전 법인의 공시도 조회한다. 회사 데이터나 공시를 삭제하지 않으며 현재 상장 여부를 의미하지 않는다. CIK+accessionNo로 이미 저장된 단일 원문을 조회하는 API는 이 목록 필터와 별개로 유지한다.
+
+
+## SEC-IUI-001: 최신 10-K Intelligent UI 질의
+
+`/sec-chat` Host → same-origin SEC 채팅 proxy → FastAPI LangGraph → 기존 BFF 수집/원문 API를 사용한다. 최신성 확인과 저장 문서 열기를 구분하며 Item 1·1A·3·7·8 근거를 사용한다. 새 경로는 A2UI를 사용하지 않는다. 모델이 선택한 원문 구절 ID를 서버가 실제 인용문으로 복원하고, AG-UI로 전달한 OpenUI 프로그램을 Intelligent UI 카탈로그로 검증·렌더링한다.
+
+현재 완료 상태와 인수 기준은 [도메인 기능 설계](intelligent-ui.md), 패키지 계약은 [Host](../tech-shared/1-fe-host/sec-intelligent-ui.md)와 [LangGraph](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md)에 둔다.

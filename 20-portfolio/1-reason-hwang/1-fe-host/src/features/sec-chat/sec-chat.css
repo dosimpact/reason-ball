@@ -1,0 +1,24 @@
+.sec-chat { max-width: 1040px; margin: 0 auto; padding: 40px 24px 80px; color: var(--foreground); }
+.sec-chat h1 { font-size: 32px; font-weight: 700; margin: 12px 0; }
+.sec-eyebrow { font-size: 12px; letter-spacing: .15em; color: #62746d; }
+.sec-chat button { border: 1px solid #c9d5cf; border-radius: 8px; padding: 8px 12px; text-align: left; background: var(--background); cursor: pointer; }
+.sec-chat button:hover { background: #e9f0eb; color: #172a21; }
+.sec-chat button:disabled { opacity: .5; cursor: wait; }
+.sec-chat input, .sec-chat textarea { border: 1px solid #bdccc3; border-radius: 8px; padding: 10px; background: var(--background); min-width: 0; }
+.sec-search { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin: 28px 0 16px; }
+.sec-search input { flex: 1; }
+.sec-companies li { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 0; border-bottom: 1px solid #dde4df; }
+.sec-companies span { flex: 1; min-width: 160px; }
+.sec-selected { padding: 20px; border-left: 4px solid #4c735f; background: #edf3ef; color: #203b2d; margin: 24px 0; }
+.sec-selected h2 { font-size: 20px; font-weight: 600; }
+.sec-prompts button { display: block; margin: 8px 0; width: 100%; }
+.sec-turn { padding: 26px 0; border-bottom: 1px solid #d8e0db; overflow-wrap: anywhere; }
+.sec-question { font-weight: 600; padding: 16px; margin-bottom: 24px; background: #edf3ef; color: #203b2d; border-radius: 12px; }
+.sec-composer { display: grid; gap: 10px; margin-top: 28px; }
+.sec-composer textarea { min-height: 100px; }
+.sec-error { color: #b3261e; padding: 14px 0; }
+@media (max-width: 600px) { .sec-chat { padding: 24px 16px; } .sec-search label { width: 100%; } }
+
+.sec-chat { width: 100%; min-width: 0; }
+.sec-chat .iui-badge { white-space: normal; overflow-wrap: anywhere; }
+.sec-chat .iui-card, .sec-chat .iui-col { min-width: 0; max-width: 100%; }

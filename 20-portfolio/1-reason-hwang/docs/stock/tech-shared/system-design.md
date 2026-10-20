@@ -133,3 +133,7 @@ Services communicate on the `graph-rag` Docker network. Persistent data is bind-
 - Infrastructure: `infra/1-infra-graph-rag/docs/design.md`.
 - OAuth proxy: `infra/2-codex-oauth-proxy/docs/Design.md`.
 - Package-specific technical detail and preserved reference notes: [tech-shared map](INDEX.md).
+
+## SEC Intelligent UI 경로
+
+`/sec-chat` → `/api/sec-chat/*` → FastAPI `/api/sec-chat/*` → SEC BFF + 모델 provider. AG-UI 전송과 OpenUI 렌더링을 사용하며 A2UI와 독립적이다. [도메인 설계](../us-corporate-filings/intelligent-ui.md)를 따른다.

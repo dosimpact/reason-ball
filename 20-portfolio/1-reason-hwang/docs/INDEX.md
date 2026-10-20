@@ -114,6 +114,7 @@ The technical subdirectories follow package ownership; the other stock directori
 | --- | --- |
 | [`stock/us-corporate-filings/INDEX.md`](stock/us-corporate-filings/INDEX.md) | Domain boundary, owning components, current capabilities, and documentation routing |
 | [`stock/us-corporate-filings/system-design.md`](stock/us-corporate-filings/system-design.md) | Implemented PostgreSQL filing content, migration, constraints, and verification |
+| [`stock/us-corporate-filings/intelligent-ui.md`](stock/us-corporate-filings/intelligent-ui.md) | SEC 10-K conversational analysis with OpenUI and AG-UI; no A2UI |
 
 ### Index DCF Visualizer
 
@@ -137,6 +138,7 @@ Flow documents remain in a single dated, append-only history. New records must i
 
 | Document | Change |
 | --- | --- |
+| [`flow/2026-10-21-sec-intelligent-ui-validation.md`](flow/2026-10-21-sec-intelligent-ui-validation.md) | OpenUI SEC chat, latest filings for 10 companies, 70 successful question scenarios, regression fixes and resource cleanup |
 | [`flow/2026-09-20-workspace-root.md`](flow/2026-09-20-workspace-root.md) | Established this directory as an independent pnpm/Turborepo workspace |
 | [`flow/2026-09-20-documentation-reconciliation.md`](flow/2026-09-20-documentation-reconciliation.md) | Reconciled root guidance and canonical documentation with the implementation |
 | [`flow/2026-09-20-oauth-proxy-image-cleanup.md`](flow/2026-09-20-oauth-proxy-image-cleanup.md) | Removed dead proxy container configuration and separated runtime from example dependencies |
