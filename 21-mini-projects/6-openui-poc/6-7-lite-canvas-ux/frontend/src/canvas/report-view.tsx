@@ -17,6 +17,7 @@ export class RenderBoundary extends Component<{ children: ReactNode; onFailure: 
   }
 }
 
+// 작업 Canvas와 공개 링크가 같은 Renderer를 사용해 동일한 프로그램을 표시합니다.
 export function ReportView({ report, onQuote, onClose, publicView = false }: {
   report: Report; onQuote?: (quote: Quote) => void; onClose?: () => void; publicView?: boolean;
 }) {
@@ -27,6 +28,7 @@ export function ReportView({ report, onQuote, onClose, publicView = false }: {
   const [notice, setNotice] = useState("");
   const [publishing, setPublishing] = useState(false);
   const streaming = !["ready", "error"].includes(report.status);
+  // 서버 생성 완료와 브라우저 렌더링 오류 여부를 함께 확인하여 인쇄·발행·인용 버튼을 제어합니다.
   const ready = report.status === "ready" && renderErrors.length === 0;
   const onError = useCallback((errors: OpenUIError[]) => {
     if (!streaming) setRenderErrors(previous => {
@@ -35,11 +37,13 @@ export function ReportView({ report, onQuote, onClose, publicView = false }: {
     });
   }, [streaming]);
 
+  // 리포트 본문 안에서 선택한 텍스트만 인용하며 전송 시 현재 report ID와 함께 묶습니다.
   function captureSelection() {
     const selection = window.getSelection();
     if (!selection?.rangeCount || !body.current?.contains(selection.getRangeAt(0).commonAncestorContainer)) return;
     setSelected(selection.toString().trim().slice(0, 2000));
   }
+  // 서버 발행 성공 후 현재 서비스 origin으로 공개 조회 URL을 만듭니다.
   async function publish() {
     setPublishing(true); setNotice("");
     try {

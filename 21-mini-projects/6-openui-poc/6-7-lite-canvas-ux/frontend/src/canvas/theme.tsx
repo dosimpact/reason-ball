@@ -11,6 +11,7 @@ export function WorkspaceTheme({ children }: { children: ReactNode }) {
   useEffect(() => {
     const root = document.documentElement;
     const printMedia = window.matchMedia("print");
+    // 인쇄 중에는 DOM 테마만 밝게 바꾸고 저장된 선호는 유지하여 종료 후 원래 테마로 복원합니다.
     const apply = (printing = printMedia.matches) => {
       root.setAttribute("data-openui-theme", printing ? "light" : mode);
       root.style.colorScheme = printing ? "light" : mode;

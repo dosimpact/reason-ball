@@ -46,6 +46,7 @@ type Action =
   | { type: "quote"; quote: Quote | null }
   | { type: "open"; open: boolean };
 const initial: State = { threads: [], selected: null, reports: {}, hydrated: false, open: true, quote: null };
+// 대화를 전환해도 수신 이벤트는 화면에서 선택한 thread가 아닌 요청을 시작한 thread에 반영합니다.
 function reducer(state: State, action: Action): State {
   if (action.type === "hydrate") return { ...state, threads: action.threads, selected: action.selected, hydrated: true };
   if (action.type === "thread") return { ...state, threads: [action.thread, ...state.threads], selected: action.thread.id, quote: null, open: true };
@@ -81,6 +82,7 @@ export function Workspace() {
 
   useEffect(() => {
     try {
+      // 브라우저에는 대화 목록과 메시지를 보관하고 리포트의 최신 상태는 서버에서 별도로 조회합니다.
       const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
       const threads = Array.isArray(saved.threads) ? saved.threads.filter((t: Thread) => typeof t.id === "string" && Array.isArray(t.messages)) : [];
       dispatch({ type: "hydrate", threads, selected: threads.some((t: Thread) => t.id === saved.selected) ? saved.selected : threads[0]?.id ?? null });
@@ -90,6 +92,7 @@ export function Workspace() {
     if (state.hydrated) try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ threads: state.threads, selected: state.selected })); } catch { /* Conversation remains usable when storage is full. */ }
   }, [state.threads, state.selected, state.hydrated]);
   useEffect(() => {
+    // SSE 수신 중에는 조회를 멈추고 새로고침 후 생성 중인 리포트는 아래 폴링으로 복구합니다.
     if (!state.selected || running === state.selected) return;
     const controller = new AbortController();
     const id = state.selected;
@@ -113,6 +116,7 @@ export function Workspace() {
     input.current?.focus();
     return next;
   }
+  // ref 잠금으로 연속 전송을 막습니다. 폼 문맥은 모델 입력에 포함하되 화면에는 사용자 질문만 보관합니다.
   async function send(text = draft, context?: unknown) {
     const message = text.trim();
     if (!message || runLock.current) return;
@@ -139,6 +143,7 @@ export function Workspace() {
         if ((event.channel === "canvas" && ["ready", "error"].includes(event.type)) || (event.channel === "chat" && ["TEXT_MESSAGE_END", "message", "UI_ERROR"].includes(event.type))) finished = true;
         dispatch({ type: "event", threadId: current.id, event });
       });
+      // 연결 종료 자체는 성공이 아닙니다. 채팅 또는 Canvas의 종료 이벤트를 받았는지 확인합니다.
       if (!finished) throw new Error("응답이 완료되기 전에 연결이 끊겼습니다. 현재 리포트를 다시 확인해 주세요.");
     } catch (e) { setError(e instanceof Error ? e.message : "요청에 실패했습니다."); }
     finally { setRunning(null); setActivity(""); runLock.current = false; }

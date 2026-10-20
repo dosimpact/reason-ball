@@ -141,3 +141,17 @@ PDF 모드의 인쇄 표는 자동 열 너비와 좁은 셀 여백을 사용하�
 ## LCU-115 컴포넌트 갤러리
 
 `/gallery`는 개발/production 모두에서 수동 작성 OpenUI 예제를 표시한다. `?theme=dark`로 다크 테마를 선택한다. production 제한을 제거했으며 기존 실행 서버에 반영하려면 재빌드·재시작해야 한다.
+
+## LCU-111 핵심 코드의 한국어 주석과 읽기 순서
+
+주요 실행 경계에는 동작의 이유와 상태 소유권을 설명하는 한국어 주석을 둔다. 카탈로그와 모델 프롬프트의 실제 계약 문자열은 유지한다.
+
+1. `frontend/src/canvas/workspace.tsx` → `frontend/src/app/api/chat/route.ts`: 사용자 입력, thread별 상태, 서버 실행 요청.
+2. `backend-langgraph/agent/graph.py`: 라우팅, 인용 유효성, 리포트 서브그래프, 생성·검증·수정.
+3. `backend-langgraph/agent/reports.py` → `agent/http.py`: 원문 배열과 계산값, thread당 하나의 리포트 저장, 발행·공개 조회.
+4. `backend-langgraph/agent/general_ui.py`: 범용 UI와 공급업체 답변의 분리, 채팅 UI 수정 루프.
+5. `frontend/src/canvas/stream.ts` → `state.ts` → `workspace.tsx`: SSE 프레임 복원, ID별 이벤트 반영, 재접속 후 서버 상태 조회.
+6. `frontend/src/canvas/report-view.tsx`, `chat-ui.tsx`, `splitter.tsx`, `theme.tsx`: 렌더링, 인용·발행·인쇄, 액션, 분할 크기, 인쇄 테마 복원.
+7. `frontend/src/lib/library.ts` → `frontend/src/app/api/program/validate/route.ts`: 공유 카탈로그와 모드별 검증. `frontend/src/server/backend.ts`는 서버 전용 HTTP 연결 경계다.
+
+주석 추가와 검증 근거: [한국어 주석 기록](../flow/2026-10-20-korean-code-comments.md).

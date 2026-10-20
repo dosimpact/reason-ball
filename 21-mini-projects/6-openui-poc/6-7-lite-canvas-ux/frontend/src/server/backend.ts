@@ -4,6 +4,7 @@ export const backendUrl = process.env.LANGGRAPH_API_URL || "http://127.0.0.1:204
 export function backendHeaders() {
   return { "Content-Type": "application/json", ...(process.env.LANGSMITH_API_KEY ? { "x-api-key": process.env.LANGSMITH_API_KEY } : {}) };
 }
+// 백엔드 주소와 인증 헤더는 서버에서만 조합하며 생성 상태가 오래 캐시되지 않도록 매번 조회합니다.
 export async function backendFetch(path: string, init: RequestInit = {}) {
   return fetch(`${backendUrl}${path}`, { ...init, headers: { ...backendHeaders(), ...init.headers }, cache: "no-store" });
 }

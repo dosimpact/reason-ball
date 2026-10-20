@@ -39,6 +39,7 @@ Previous UI programs are conversation context; produce a complete new program fo
 """
 
 
+# 범용 UI에는 데모 도구를 연결하고 공급업체 답변에는 별도의 원문 전용 모델 경로를 사용합니다.
 def create_general_agent(model, catalog_prompt):
     return create_deep_agent(model=model, tools=[get_weather, get_stock_price, search_web],
                              system_prompt=catalog_prompt + "\n" + INSTRUCTIONS + "\n" + CHART_NARRATIVE_INSTRUCTIONS)
@@ -67,6 +68,7 @@ For quoted questions use the current report and quote in the supplied context. D
 """
 
 
+# 수정마다 독립 모델 호출을 사용하여 부모 그래프 상태 때문에 빈 응답 턴이 재생되는 것을 방지합니다.
 def create_supplier_agent(model, catalog_prompt):
     # This source-only agent needs no tool/checkpoint loop. Stream each repair as
     # an independent model call so parent graph state cannot replay an empty turn.
@@ -80,6 +82,7 @@ def create_supplier_agent(model, catalog_prompt):
     return SupplierUIAgent()
 
 
+# 같은 채팅 메시지를 매 시도마다 초기화하고 검증 실패 시 최대 두 번 전체 프로그램을 수정합니다.
 async def generate_program(agent, messages, config, emit, validator, prefix=""):
     """Reset the same UI message for repairs; never create or replace a report."""
     conversation = list(messages)

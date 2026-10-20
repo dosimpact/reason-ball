@@ -34,6 +34,7 @@ import { Badge, Caption, Label, Link, List, ListItem, Markdown, Text, Title } fr
  * Generic @functions let a page compute with its own state, so an answer can be
  * a working tool rather than a form sent back to the assistant.
  */
+// 모델 프롬프트 생성과 렌더링이 공유하는 컴포넌트·함수·액션 계약입니다. 레이아웃은 생성 프로그램이 결정합니다.
 export const library = createLibrary({
   root: "Col",
   components: [
