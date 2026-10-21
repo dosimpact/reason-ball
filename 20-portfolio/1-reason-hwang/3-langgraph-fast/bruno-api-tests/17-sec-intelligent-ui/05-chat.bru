@@ -19,8 +19,15 @@ tests {
     const body = res.getBody();
     expect(body).to.include('RUN_FINISHED');
     expect(body).not.to.include('RUN_ERROR');
-    expect(body).to.include('root = Col(');
-    expect(body).to.include('SEC 원문 공시');
+    expect(body).to.include('sec.evidence');
     expect(body).to.include('Item 3');
+    const events = body.split('\n').filter(line => line.startsWith('data: ')).map(line => JSON.parse(line.slice(6)));
+    const activity = events.filter(event => event.name === 'sec.activity').map(event => event.value);
+    expect(activity.map(item => item.status)).to.deep.equal(['running', 'completed', 'running', 'completed', 'running', 'completed', 'running', 'completed', 'running', 'completed']);
+    expect(activity.filter(item => item.status === 'completed').map(item => item.label)).to.deep.equal(['질문에 필요한 Item 선택', '공시 원문 근거 선택', '답변 생성 및 인용 검증', 'Intelligent UI 구성 및 검증', '다음 추천 질문 생성']);
+    const followUps = events.find(event => event.type === 'CUSTOM' && event.name === 'sec.follow-ups');
+    expect(followUps.value.status).to.equal('ready');
+    expect(followUps.value.questions).to.have.lengthOf(3);
+    expect(new Set(followUps.value.questions).size).to.equal(3);
   });
 }

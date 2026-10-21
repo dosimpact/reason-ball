@@ -1,0 +1,19 @@
+meta {
+  name: OpenUI parser 13-ui-invalid
+  type: http
+  seq: 13
+}
+post {
+  url: {{uiBaseUrl}}/api/sec-ui/validate
+  body: json
+  auth: none
+}
+body:json {
+  {"program":"root = UnknownComponent()"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Validates actual catalog", function () { expect(res.getBody().valid).to.equal(false); });
+}

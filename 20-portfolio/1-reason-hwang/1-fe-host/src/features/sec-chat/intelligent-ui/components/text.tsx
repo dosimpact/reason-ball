@@ -47,6 +47,10 @@ export const Text = defineComponent({
   }),
   description: "Paragraph; supports **bold**, *italic*, `code` and [links](https://…). text may be a list mixing strings and inline components: [Icon(\"clock\", \"sm\"), \" 25 min · \", Badge(\"Easy\")].",
   component: ({ props, renderNode }) => {
+    // Keep block-formatted prose readable even when the model chooses Text.
+    if (typeof props.text === "string" && /^(?:#{1,6}\s|\s*[-*+]\s|\s*\d+[.)]\s|>\s|```|\|.*\|)/m.test(props.text)) {
+      return <div className={cx("iui-text", "iui-markdown", props.size && `iui-text-${props.size}`)} style={{ color: fg(props.color) }}><MarkdownBlocks text={props.text} /></div>;
+    }
     const lines = props.maxLines && props.maxLines > 0 ? Math.round(props.maxLines) : undefined;
     return (
       <p

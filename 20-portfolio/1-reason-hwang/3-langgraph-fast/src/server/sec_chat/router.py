@@ -4,17 +4,23 @@ from __future__ import annotations
 import asyncio
 import json
 import time
+from contextlib import aclosing
 from dataclasses import dataclass, field
 from uuid import uuid4
 
 import httpx
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
-from domains.sec_chat.source import FilingSourceClient
+from domains.sec_chat.conversation import ConversationRequest
+from domains.sec_tools.agent import prepare_filing, search_companies
 from domains.tenk.sec_client import SecReadError
-from graph.primary_graphs.sec_intelligent_ui.workflow import build_graph
+from graph.primary_graphs.sec_intelligent_ui.conversation import (
+    build_conversation_graph,
+)
+from graph.primary_graphs.sec_intelligent_ui.workflow import build_graph, chat_model
+from server.sec_chat.activity_stream import activity_stream
 
 router = APIRouter(prefix="/api/sec-chat", tags=["SEC Intelligent UI"])
 
@@ -40,10 +46,45 @@ class ChatRequest(BaseModel):
     message: str = Field(min_length=1, max_length=4000)
 
 
+@router.post("/resolve")
+async def resolve(body: ConversationRequest, request: Request):
+    if not body.message.strip():
+        raise HTTPException(422, "메시지를 입력해 주세요.")
+    session = sessions.get(body.threadId) if body.threadId else None
+    if body.threadId and session is None:
+        raise HTTPException(404, "공시 세션이 만료되었습니다. 새 대화를 시작해 주세요.")
+    if session:
+        session.touched = time.monotonic()
+    if "text/event-stream" in request.headers.get("accept", ""):
+        async def stream_resolution():
+            run_id = uuid4().hex
+            try:
+                yield event("RUN_STARTED", runId=run_id)
+                async with aclosing(activity_stream(lambda sink: build_conversation_graph(activity=sink).ainvoke({"request": body, "source": session.source if session else None, "response": {}}))) as updates:
+                    async for kind, payload in updates:
+                        if kind == "activity":
+                            yield event("CUSTOM", name="sec.activity", value=payload)
+                        elif kind == "heartbeat":
+                            yield ": heartbeat\n\n"
+                        elif kind == "result" and payload is not None:
+                            yield event("CUSTOM", name="sec.resolution", value=payload["response"])
+                yield event("RUN_FINISHED", runId=run_id)
+            except asyncio.CancelledError:
+                raise
+            except Exception:  # noqa: BLE001 - sanitized streaming boundary
+                yield event("RUN_ERROR", message="메시지를 처리하지 못했습니다. 다시 시도해 주세요.", code="SEC_RESOLVE_FAILED")
+        return StreamingResponse(stream_resolution(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+    try:
+        result = await build_conversation_graph().ainvoke({"request": body, "source": session.source if session else None, "response": {}})
+        return result["response"]
+    except (SecReadError, httpx.HTTPError, ValueError) as error:
+        raise HTTPException(502, "메시지를 처리하지 못했습니다. 잠시 후 다시 보내 주세요.") from error
+
+
 @router.get("/companies")
 async def companies(q: str = ""):
     try:
-        return await FilingSourceClient().companies(q)
+        return await search_companies(q, chat_model())
     except SecReadError as error:
         raise HTTPException(502, str(error)) from error
 
@@ -56,7 +97,7 @@ async def prepare(body: PrepareRequest):
     if len(sessions) >= 30:
         raise HTTPException(429, "열린 공시 세션이 많습니다. 기존 세션을 닫아 주세요.")
     try:
-        source = await FilingSourceClient().prepare(body.cik, refresh=body.refresh)
+        source = await prepare_filing(body.cik, body.refresh, chat_model())
     except (SecReadError, httpx.HTTPError, ValueError) as error:
         raise HTTPException(502, str(error) if isinstance(error, SecReadError) else "SEC 공시 준비에 실패했습니다.") from error
     thread_id = uuid4().hex
@@ -90,19 +131,25 @@ async def chat(body: ChatRequest):
     session.touched = time.monotonic()
 
     async def stream():
-        task = None
         run_id, message_id = uuid4().hex, uuid4().hex
         try:
             yield event("RUN_STARTED", threadId=body.threadId, runId=run_id)
-            task = asyncio.create_task(build_graph().ainvoke({"source": session.source, "question": body.message, "history": session.history, "intent": {}, "evidence": {}, "answer": {}, "program": ""}))
-            while not task.done():
-                await asyncio.wait({task}, timeout=10)
-                if not task.done():
-                    yield ": heartbeat\n\n"
-            result = await task
+            result = None
+            async with aclosing(activity_stream(lambda sink: build_graph(activity=sink).ainvoke({"source": session.source, "question": body.message, "history": session.history, "intent": {}, "evidence": {}, "answer": {}, "program": ""}))) as updates:
+                async for kind, payload in updates:
+                    if kind == "activity":
+                        yield event("CUSTOM", name="sec.activity", value=payload)
+                    elif kind == "heartbeat":
+                        yield ": heartbeat\n\n"
+                    elif kind == "result":
+                        result = payload
+            if result is None:
+                raise ValueError("Missing graph result")
             yield event("TEXT_MESSAGE_START", messageId=message_id, role="assistant")
             yield event("TEXT_MESSAGE_CONTENT", messageId=message_id, delta=result["program"])
             yield event("TEXT_MESSAGE_END", messageId=message_id)
+            yield event("CUSTOM", name="sec.evidence", value=result["provenance"])
+            yield event("CUSTOM", name="sec.follow-ups", value={"messageId": message_id, "questions": result.get("followUps", []), "status": result.get("followUpsStatus", "unavailable")})
             session.history.extend([{"role": "user", "content": body.message}, {"role": "assistant", "content": result["answer"]}])
             session.history = session.history[-12:]
             yield event("RUN_FINISHED", threadId=body.threadId, runId=run_id)
@@ -111,9 +158,6 @@ async def chat(body: ChatRequest):
         except Exception:  # noqa: BLE001 - sanitize provider errors at the SSE transport boundary
             yield event("RUN_ERROR", message="근거가 검증된 답변을 생성하지 못했습니다. 모델 연결 또는 원문을 확인하고 다시 시도해 주세요.", code="SEC_CHAT_FAILED")
         finally:
-            if task and not task.done():
-                task.cancel()
-                await asyncio.gather(task, return_exceptions=True)
             session.busy = False
             session.touched = time.monotonic()
 

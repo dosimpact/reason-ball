@@ -137,6 +137,9 @@ The technical subdirectories follow package ownership; the other stock directori
 Flow documents remain in a single dated, append-only history. New records must identify the affected business domain or `tech-shared`, name the package when applicable, and link the exact stock documents they update. Historical records using the scope label `shared` remain unchanged.
 
 | Document | Change |
+| [`flow/2026-10-22-sec-activity-timeline.md`](flow/2026-10-22-sec-activity-timeline.md) | Behind the scenes 실시간 실행 타임라인 |
+| [`flow/2026-10-22-sec-follow-ups.md`](flow/2026-10-22-sec-follow-ups.md) | LangGraph 공통 after-answer LLM 추천 질문 |
+| [`flow/2026-10-22-sec-conversation.md`](flow/2026-10-22-sec-conversation.md) | 자유 대화 진입, 기업 확인 및 자동 공시 준비 |
 | --- | --- |
 | [`flow/2026-10-21-sec-intelligent-ui-validation.md`](flow/2026-10-21-sec-intelligent-ui-validation.md) | OpenUI SEC chat, latest filings for 10 companies, 70 successful question scenarios, regression fixes and resource cleanup |
 | [`flow/2026-09-20-workspace-root.md`](flow/2026-09-20-workspace-root.md) | Established this directory as an independent pnpm/Turborepo workspace |
@@ -184,3 +187,9 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [A2UI 시스템 설계](stock/tech-shared/a2ui-system/INDEX.md): 전체 UI Registry, 정적 카탈로그, SDK/프로토콜 버전 계약, Dynamic/Fixed 및 사용자 action.
 
 - [Push UI message 예제](stock/tech-shared/push-ui-message/INDEX.md): 턴별 진행 부가정보와 독립 채팅 UI.
+
+- [2026-10-22 자유 Intelligent UI](flow/2026-10-22-sec-generative-ui.md)
+
+- [2026-10-22 설명형 답변 서식](flow/2026-10-22-sec-prose-rendering.md)
+
+- [2026-10-22 SEC Deep Agent와 공통 tools](flow/2026-10-22-sec-deep-agent.md)

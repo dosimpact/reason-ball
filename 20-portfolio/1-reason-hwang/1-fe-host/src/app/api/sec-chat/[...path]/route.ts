@@ -15,14 +15,14 @@ async function proxy(request: NextRequest, context: Context) {
     }
   }
   const { path } = await context.params;
-  if (!/^(companies|prepare|chat|threads\/[a-f0-9]{32})$/.test(path.join("/"))) return new Response(null, { status: 404 });
+  if (!/^(companies|resolve|prepare|chat|threads\/[a-f0-9]{32})$/.test(path.join("/"))) return new Response(null, { status: 404 });
   const base = process.env.SEC_CHAT_API_URL ?? "http://127.0.0.1:8000";
   const url = new URL(`/api/sec-chat/${path.join("/")}`, base);
   url.search = request.nextUrl.search;
   try {
     const response = await fetch(url, {
       method: request.method,
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", Accept: request.headers.get("accept") ?? "application/json" },
       body: request.method === "POST" ? await request.text() : undefined,
       signal: request.signal,
       cache: "no-store",

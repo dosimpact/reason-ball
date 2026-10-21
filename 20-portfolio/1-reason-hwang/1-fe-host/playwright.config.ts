@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 const calculationSpec = /index-dcf-calculation\.spec\.ts$/;
 const visualizerSpec = /index-dcf-visualizer\.spec\.ts$/;
-const secSpec = /sec-intelligent-ui\.spec\.ts$/;
+const secSpec = /sec-(intelligent-ui|conversation)\.spec\.ts$/;
 const secLiveUrl = process.env.SEC_LIVE_BASE_URL;
 
 export default defineConfig({

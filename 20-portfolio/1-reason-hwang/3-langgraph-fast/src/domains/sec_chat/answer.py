@@ -1,13 +1,10 @@
 """모델이 작성한 요약과 원문 인용을 검증하고 Intelligent UI 프로그램으로 변환한다."""
 from __future__ import annotations
 
-import json
 import re
 from typing import Literal
 
 from pydantic import BaseModel, Field
-
-from .source import ITEMS
 
 
 class Finding(BaseModel):
@@ -103,23 +100,3 @@ def evidence_for_question(source: dict, codes: list[str], question: str, budget:
             spread.add(index)
         result[code] = "\n[... 발췌 경계 ...]\n".join(chunks[index] for index in sorted(spread))
     return result
-
-
-def render_program(answer: Answer, source: dict, evidence: dict[str, str]) -> str:
-    literal = lambda value: json.dumps(value, ensure_ascii=False)
-    filing = source["filing"]
-    provenance = f"CIK {filing['cik']} · 10-K {filing['accessionNo']} · 제출 {filing.get('filingDate')}"
-    if source.get("issuerNote"):
-        provenance += " · " + source["issuerNote"]
-    freshness = f"SEC 동기화 확인: {source['checkedAt']}" if source["checkedAt"] else "저장 문서 기준 · SEC 최신성 미확인"
-    coverage = "; ".join(f"Item {code}: {len(text):,}/{len(source['sections'][code]):,}자" for code, text in evidence.items())
-    rows = [{"item": f"Item {f.item} · {ITEMS[f.item]}", "heading": f.heading, "summary": f.summary, "quote": f.quote} for f in answer.findings]
-    return "\n".join([
-        'root = Col([Title(title, "xl"), Text(provenance, "sm", "muted"), Link("SEC 원문 공시", sourceUrl), Text(freshness, "sm"), Text(coverage, "xs", "muted"), Checkbox($showEvidence, "원문 인용 표시"), findings, Card([Title("분석 범위와 한계", "sm"), Text(limitations, "sm")])], 4)',
-        '$showEvidence = true',
-        'findings = Col(@Each(rows, "r", Card(@Concat([Badge(r.item, "info"), Title(r.heading, "md"), Text(r.summary, "md")], $showEvidence ? [Text(r.quote, "sm", "muted")] : []))), 3)',
-        f'title = {literal(answer.title)}', f'provenance = {literal(provenance)}',
-        f'sourceUrl = {literal(source["sourceUrl"])}', f'freshness = {literal(freshness)}',
-        f'coverage = {literal(coverage)}', f'rows = {literal(rows)}',
-        f'limitations = {literal(answer.limitations or "원문에 기재된 사실과 모델 요약을 구분해서 확인하세요.")}',
-    ])

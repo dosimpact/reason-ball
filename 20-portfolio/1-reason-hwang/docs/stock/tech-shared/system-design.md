@@ -137,3 +137,5 @@ Services communicate on the `graph-rag` Docker network. Persistent data is bind-
 ## SEC Intelligent UI 경로
 
 `/sec-chat` → `/api/sec-chat/*` → FastAPI `/api/sec-chat/*` → SEC BFF + 모델 provider. AG-UI 전송과 OpenUI 렌더링을 사용하며 A2UI와 독립적이다. [도메인 설계](../us-corporate-filings/intelligent-ui.md)를 따른다.
+
+SEC Chat의 기업/공시 조회는 공통 SEC tool calling으로 실행하며, 독립 `sec_deep_agent` 그래프는 자율 조사와 리포트를 제공한다. [구현 계약](3-langgraph-fast/sec-intelligent-ui.md#sec-deep-001003-공통-sec-tools와-독립-deep-agent).

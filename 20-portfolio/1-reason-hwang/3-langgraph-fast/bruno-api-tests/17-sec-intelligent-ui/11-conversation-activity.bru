@@ -1,0 +1,35 @@
+meta {
+  name: SEC-IUI-006 live conversation activity
+  type: http
+  seq: 11
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/resolve
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {"message":"10-K가 어떤 문서인지 간단히 설명해줘"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Conversation streams real node activity before the answer", function () {
+    const events = res.getBody().split('\n').filter(line => line.startsWith('data: ')).map(line => JSON.parse(line.slice(6)));
+    const activity = events.filter(event => event.name === 'sec.activity').map(event => event.value);
+    expect(activity.map(item => item.status)).to.deep.equal(['running', 'completed', 'running', 'completed', 'running', 'completed']);
+    expect(activity[0].id).to.equal(activity[1].id);
+    expect(activity[2].id).to.equal(activity[3].id);
+    expect(activity[2].label).to.equal('Intelligent UI 구성 및 검증');
+    expect(events.findIndex(event => event.name === 'sec.activity')).to.be.lessThan(events.findIndex(event => event.name === 'sec.resolution'));
+    expect(events.find(event => event.name === 'sec.resolution').value.action).to.equal('reply');
+    expect(events.find(event => event.name === 'sec.resolution').value.program).to.be.a('string');
+    expect(events.at(-1).type).to.equal('RUN_FINISHED');
+    expect(activity.every(item => Object.keys(item).sort().join(',') === 'id,kind,label,status')).to.equal(true);
+  });
+}

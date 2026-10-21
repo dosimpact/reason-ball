@@ -34,6 +34,7 @@ from server.routers.tenk import router as tenk_router
 from server.runs import router as runs_router
 from server.runs import runtime as runs_runtime
 from server.sec_chat.router import router as sec_chat_router
+from server.sec_deep_agent.router import router as sec_deep_agent_router
 from server.store import router as store_router
 from server.store import set_store_repository
 from server.streaming import router as streaming_router
@@ -122,6 +123,7 @@ app.include_router(tenk_graph_router)
 app.include_router(a2ui_router)
 app.include_router(push_ui_message_router)
 app.include_router(sec_chat_router)
+app.include_router(sec_deep_agent_router)
 
 
 def standard_openapi() -> dict:

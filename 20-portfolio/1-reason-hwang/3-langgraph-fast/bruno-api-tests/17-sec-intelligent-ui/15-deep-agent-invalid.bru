@@ -1,0 +1,16 @@
+meta {
+  name: SEC-DEEP-002 invalid input
+  type: http
+  seq: 15
+}
+post {
+  url: {{baseUrl}}/api/sec-deep-agent/research
+  body: json
+  auth: none
+}
+body:json {
+  {"message":" "}
+}
+assert {
+  res.status: eq 422
+}

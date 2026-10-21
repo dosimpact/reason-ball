@@ -19,6 +19,9 @@ tests {
     expect(res.getBody().checkedAt).to.equal(null);
     expect(res.getBody().filing.formType).to.equal("10-K");
     expect(res.getBody().items).to.include("8");
+    expect(res.getBody().toolCalls).to.include('list_sec_filings');
+    expect(res.getBody().toolCalls).to.include('get_sec_filing_content');
+    expect(res.getBody().toolCalls).not.to.include('sync_sec_company_filings');
     bru.setVar("secThread", res.getBody().threadId);
   });
 }

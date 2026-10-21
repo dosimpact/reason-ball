@@ -1,0 +1,25 @@
+meta {
+  name: SEC-IUI-004 08-conversation-company
+  type: http
+  seq: 8
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/resolve
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+}
+body:json {
+  {"message":"애플의 사업 구조를 요약해줘"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Conversation contract", function () {
+    const body = res.getBody();
+    expect(body.action).to.equal("research"); expect(body.company.cik).to.equal("0000320193");
+  });
+}
