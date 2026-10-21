@@ -199,3 +199,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [2026-10-22 SEC Chat 기술 개념](flow/2026-10-22-sec-chat-technical-concepts.md): SEC-DOC-001, 실행·도구·UI·이벤트·근거·상태의 구분.
 
 - [2026-10-22 SEC 관리자 레이아웃](flow/2026-10-22-sec-admin-layout.md): 중복 사이드바 제거, 상단 대화 관리와 반응형 화면.
+
+- [2026-10-22 호스트 테마 통합](flow/2026-10-22-host-theme.md): FE-THEME-001, 공통 토글·OpenUI 동기화.

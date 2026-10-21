@@ -11,6 +11,10 @@ import {
 } from "@/shared/ui/sidebar";
 import { cn } from "@/shared/lib/utils";
 
+import { HostThemeProvider } from "@/shared/lib/theme";
+import { ThemeToggle } from "@/shared/ui/theme-toggle";
+import { themeInitScript } from "../config/theme-init";
+
 import "../styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -22,8 +26,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={cn("font-sans", inter.variable)}>
+    <html suppressHydrationWarning lang="en" className={cn("font-sans", inter.variable)}>
+      <head><script dangerouslySetInnerHTML={{ __html: themeInitScript }} /></head>
       <body className="font-sans" suppressHydrationWarning>
+        <HostThemeProvider>
         <SidebarProvider>
           <AppSidebar />
           <SidebarInset className="min-w-0">
@@ -41,12 +47,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   Module federation host shell
                 </p>
               </div>
+              <ThemeToggle />
             </header>
             <div className="mx-auto flex min-h-[calc(100svh-3.5rem)] w-full max-w-6xl flex-col px-5 py-6 md:px-8">
               {children}
             </div>
           </SidebarInset>
         </SidebarProvider>
+        </HostThemeProvider>
       </body>
     </html>
   );

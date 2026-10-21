@@ -1,13 +1,12 @@
-/* Design tokens for the component library. Neutrals (font, text, surfaces,
-   borders) follow the OpenUI theme tokens, so components match the Agent
-   Interface in light and dark; the dark block only retunes status, chart and
+/* Design tokens for the component library. Neutrals follow the host tokens, so standalone Renderer and AgentInterface
+   answers share the host light/dark selection; the dark block only retunes status, chart and
    map colors. */
 :root,
 [data-theme="light"] {
   color-scheme: light;
   --iui-font: var(--openui-font-body, "Inter", sans-serif);
   --iui-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --iui-canvas: var(--openui-foreground, #ffffff);
+  --iui-canvas: var(--background, #ffffff);
   /* Greys are ink at an alpha, so they stack on any surface (cards, tints, sunk
      areas) and flip with the theme: track 4-6%, hover 5%, pressed or selected 8%,
      borders 8-10%. */
@@ -16,11 +15,11 @@
   --iui-surface: color-mix(in srgb, var(--iui-ink) 4%, transparent);
   --iui-surface-hover: color-mix(in srgb, var(--iui-ink) 8%, transparent);
   --iui-surface-strong: color-mix(in srgb, var(--iui-ink) 8%, transparent);
-  --iui-ink: var(--openui-text-neutral-primary, #0d0d0d);
+  --iui-ink: var(--foreground, #0d0d0d);
   --iui-ink-hover: color-mix(in oklch, var(--iui-ink) 82%, var(--iui-canvas));
-  --iui-on-ink: var(--openui-foreground, #ffffff);
-  --iui-muted: var(--openui-text-neutral-secondary, rgb(0 0 0 / 60%));
-  --iui-faint: var(--openui-text-neutral-secondary, rgb(0 0 0 / 60%));
+  --iui-on-ink: var(--background, #ffffff);
+  --iui-muted: var(--muted-foreground, rgb(0 0 0 / 60%));
+  --iui-faint: var(--muted-foreground, rgb(0 0 0 / 60%));
   --iui-border: color-mix(in srgb, var(--iui-ink) 8%, transparent);
   --iui-border-strong: color-mix(in srgb, var(--iui-ink) 10%, transparent);
   --iui-range-track: color-mix(in srgb, var(--iui-ink) 6%, transparent);

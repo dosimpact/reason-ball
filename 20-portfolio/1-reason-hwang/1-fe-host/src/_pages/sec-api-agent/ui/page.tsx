@@ -1,6 +1,7 @@
 "use client";
 
 import { AgentInterface, agUIAdapter, fetchLLM, useThread, useThreadList } from "@openuidev/react-ui";
+import { useHostTheme } from "@/shared/lib/theme";
 import { useEffect, useState } from "react";
 import { createSessionStorage } from "../model/session-storage";
 import { library, runLibraryAction } from "@/shared/ui/intelligent-ui";
@@ -42,8 +43,9 @@ function SaveMessages({ session }: { session: ReturnType<typeof createSessionSto
 
 export default function SecApiAgentPage() {
   const [session] = useState(createSessionStorage);
+  const { mode } = useHostTheme();
   return <section aria-label="SEC API Agent" className="sec-api-agent">
-    <AgentInterface llm={llm} storage={session.storage} componentLibrary={library} agentName="SEC API Agent"
+    <AgentInterface theme={{ mode }} llm={llm} storage={session.storage} componentLibrary={library} agentName="SEC API Agent"
       onAction={(event) => { void runLibraryAction(event); }} starters={starters}>
       <SaveMessages session={session} />
       <AgentInterface.Sidebar>{null}</AgentInterface.Sidebar>
