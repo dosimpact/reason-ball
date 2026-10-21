@@ -1,2 +1,32 @@
-.sec-api-agent { width: 100%; min-width: 0; height: calc(100svh - 7rem); min-height: 540px; overflow: hidden; }
-.sec-api-agent .openui-agent-container { width: 100%; height: 100%; min-width: 0; max-width: 100%; }
+.sec-api-agent { width: 100%; min-width: 0; height: calc(100svh - 6.5rem); min-height: 0; }
+.sec-api-agent .openui-agent-container { width: 100%; height: 100%; min-width: 0; max-width: 100%; background: transparent; }
+.sec-api-agent .openui-agent-sidebar-container { display: none; }
+.sec-api-agent .openui-agent-thread-container { padding: 0; min-width: 0; }
+.sec-api-agent .openui-agent-thread-chat-panel { border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+.sec-api-agent .openui-agent-thread-header,
+.sec-api-agent .openui-agent-mobile-header { padding: 0 4px 16px; min-height: 48px; border-bottom: 1px solid var(--border); gap: 12px; }
+.sec-api-agent .openui-agent-mobile-header { justify-content: space-between; }
+.sec-agent-title { font-size: 15px; font-weight: 600; white-space: nowrap; }
+.sec-agent-actions { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.sec-agent-actions button, .sec-agent-history summary { cursor: pointer; padding: 7px 10px; border-radius: 8px; white-space: nowrap; }
+.sec-agent-actions button { border: 1px solid var(--border); background: var(--background); }
+.sec-agent-history summary { list-style: none; color: var(--muted-foreground); }
+.sec-agent-history summary::-webkit-details-marker { display: none; }
+.sec-agent-actions button:hover, .sec-agent-history summary:hover { background: var(--muted); }
+.sec-agent-history { position: relative; }
+.sec-agent-history-panel { position: absolute; z-index: 30; top: calc(100% + 8px); right: 0; width: min(300px, 80vw); max-height: 320px; overflow: auto; padding: 12px; background: var(--background); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 30px #00000012; }
+.sec-api-agent .openui-agent-welcome-screen { max-width: 760px; margin-inline: auto; }
+@media (max-width: 640px) {
+  .sec-api-agent { height: calc(100svh - 6.5rem); }
+  .sec-agent-actions { gap: 2px; }
+  .sec-agent-actions button, .sec-agent-history summary { padding-inline: 7px; }
+}
+.sec-api-agent .openui-agent-thread-wrapper { border: 0; border-radius: 0; box-shadow: none; }
+.sec-api-agent .openui-agent-welcome-screen__description { font-size: 15px; font-weight: 400; line-height: 1.7; max-width: 520px; margin-inline: auto; }
+.sec-api-agent .openui-agent-conversation-starter--card { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; gap: 10px; }
+.sec-api-agent .openui-agent-conversation-starter-item-card { width: auto; min-width: 0; height: auto; min-height: 72px; }
+.sec-api-agent .openui-agent-conversation-starter-item-card__text { word-break: keep-all; }
+@media (max-width: 640px) {
+  .sec-api-agent .openui-agent-welcome-screen__description { font-size: 14px; }
+  .sec-api-agent .openui-agent-welcome-screen__title { font-size: 24px; }
+}

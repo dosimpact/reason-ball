@@ -17,6 +17,12 @@ test('admin: OpenUI answer, actual transport timeline and responsive shell', asy
   await expect(page.getByRole('heading', { name: '기업 조회 결과' })).toBeVisible();
   await page.getByRole('button', { name: 'Behind the scenes', exact: true }).click();
   await expect(page.getByText('Used search sec companies').first()).toBeVisible();
+  await page.getByRole('button', { name: '새 대화', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'SEC 데이터로 무엇을 할까요?' })).toBeVisible();
+  await page.locator('.sec-agent-history:visible summary').click();
+  await page.locator('.sec-agent-history-panel:visible').getByRole('button', { name: '저장된 SEC 기업에서 AAPL을 찾아줘.', exact: true }).click();
+  await expect(page.getByRole('heading', { name: '기업 조회 결과' })).toBeVisible();
+  await page.locator('.sec-agent-history:visible summary').click();
   for (const width of [1280, 390]) {
     await page.setViewportSize({ width, height: 900 });
     await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
