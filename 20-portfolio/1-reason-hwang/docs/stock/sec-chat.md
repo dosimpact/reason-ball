@@ -7,6 +7,67 @@ SEC Chat에 대한 마스터 문서 입니다. 주요 개념, 기능, 도메인�
 <!-- 왜(어떤 문제를 해결하고 무엇이 좋아지는지 적기), 기능에 대한 설명, 어떻게 구현하는지 기술적인 큰틀에서의 방법론,주요 코드 구현 경로 적기 -->
 
 
+## 주요 기술 개념
+
+이 문서의 개념은 현재 SEC Chat 구현을 기준으로 설명한다. 먼저 **실행 흐름(LangGraph) → 데이터 접근(tool calling·BFF) → 응답 표현(OpenUI) → 진행 상태 전달(AG-UI·SSE)** 순서로 읽으면 전체 구조를 이해하기 쉽다.
+
+### 실행과 데이터 접근
+
+| 개념 | 의미와 필요한 이유 | 현재 구현에서의 역할 |
+| --- | --- | --- |
+| **LangGraph: State·Node·Edge** | State는 실행 중 공유하는 데이터, Node는 처리 단계, Edge는 다음 단계와 분기를 정의한다. | 기존 채팅은 질문·공시·근거·답변·UI를 상태로 전달하고, 일반 대화와 공시 분석의 순서를 명시한다. 그래프를 쓴다는 사실만으로 데이터가 영구 저장되지는 않는다. |
+| **Deep Agent** | 계획, 도구 실행, 가상 파일, 필요 시 위임을 활용해 여러 단계의 작업을 수행하는 에이전트 구성이다. | 독립 `sec_deep_agent`는 `create_deep_agent`로 생성한다. 필요한 SEC 도구와 반복 횟수를 모델이 결정한다. 기존 `/sec-chat` 전체를 이 그래프로 교체한 것은 아니다. |
+| **Tool calling·ToolNode** | 모델은 도구 이름과 구조화된 인자를 요청하고, 애플리케이션 코드가 함수를 실행해 결과를 돌려준다. | 기존 조회는 `model → ToolNode → model` 루프다. Python 도구가 HTTP로 BFF를 호출한다. 모델이 직접 HTTP 요청이나 임의 Python 코드를 실행하는 방식이 아니다. |
+| **도구 스키마·Pydantic** | 입력의 필드·타입·범위를 명시하여 모델이 호출 방법을 알게 하고 잘못된 인자를 검사한다. | CIK 형식, 페이지 크기, 조회 범위, 수집 대상 등을 검증한다. 스키마 통과는 인자의 형식 검사이며 분석 내용의 정확성을 보증하지 않는다. |
+| **BFF와 Next 프록시** | 브라우저 진입점과 데이터 서비스를 분리하여 각 계층의 책임을 명확히 한다. | Next 프록시는 브라우저 요청을 Python으로 전달한다. Python의 SEC tools는 NestJS BFF의 조회·수집 API를 호출한다. 두 HTTP 계층은 역할이 다르다. |
+| **ToolMessage content·artifact** | 모델이 읽는 결과와 애플리케이션이 보관·검사하는 원본 결과를 구분한다. | `content_and_artifact`로 모델에는 축약 결과·원문 발췌를, artifact에는 전체 도구 결과를 둔다. 기존 채팅은 artifact를 검사해 실제 조회된 기업·공시인지 확인한다. artifact는 자동으로 영구 저장되는 파일이 아니다. |
+
+[기존 tool loop](../../3-langgraph-fast/src/domains/sec_tools/agent.py) · [도구 스키마·BFF 호출](../../3-langgraph-fast/src/domains/sec_tools/tools.py) · [독립 Deep Agent](../../3-langgraph-fast/src/graph/primary_graphs/sec_deep_agent/workflow.py)
+
+### 응답 표현과 실행 상태
+
+| 개념 | 의미와 필요한 이유 | 현재 구현에서의 역할 |
+| --- | --- | --- |
+| **OpenUI DSL·카탈로그·Renderer** | DSL은 UI를 기술하는 전용 문법, 카탈로그는 사용 가능한 컴포넌트와 인자 규약, Renderer는 이를 실제 화면으로 만드는 역할이다. | LLM이 등록된 Markdown·차트·표·컨트롤을 조합한다. 임의 React 코드를 생성·실행하는 방식이 아니다. `AgentInterface`는 관리자 채팅의 입력창·대화 목록·타임라인 등 화면 틀을 제공한다. |
+| **Structured output과 파서 검증** | 모델 응답의 형태와 UI 문법을 단계별로 검사한다. | `GeneratedUI`로 program 문자열을 받고, 실제 카탈로그 파서로 검사한 뒤 오류 시 한 번 수정한다. 구조화된 출력만으로 DSL이 유효해지는 것은 아니다. |
+| **SSE와 AG-UI** | SSE는 서버 이벤트를 순차적으로 전송하는 HTTP 방식이고, AG-UI는 실행·메시지·도구 이벤트의 의미와 형식이다. | `TEXT_MESSAGE_*`는 답변, `TOOL_CALL_*`는 관리자 도구 실행, `CUSTOM sec.activity`는 기존 채팅 진행 상태를 전달한다. OpenUI DSL은 답변 내용이고 AG-UI는 그 내용을 전달하는 이벤트 계약이다. |
+| **관찰 가능한 실행 기록** | 사용자가 어떤 작업이 실행되고 어디에서 실패했는지 확인하도록 한다. | Behind the scenes는 노드·SEC 도구의 실제 상태를 표시한다. 모델의 비공개 사고 과정이나 Deep Agent 내부 도구 전체를 보여주는 기능은 아니다. |
+| **After-answer 노드** | 답변 후 공통 후처리를 별도 단계로 수행한다. | 기존 `/sec-chat`의 `after_answer`가 추가 LLM 호출로 추천 질문 3개를 만든다. 전역 hook이나 모든 그래프의 공통 middleware는 아니며, `/sec-api-agent`에는 동일한 추천 질문 노드가 연결되어 있지 않다. |
+
+현재 관리자 채팅은 도구 상태를 실행 중 전달하고, 답변 DSL은 생성·검증이 끝난 후 전송한다. SSE를 사용한다는 사실이 답변의 토큰 단위 실시간 생성을 의미하지는 않는다. SEC 두 화면의 UI 표현에는 OpenUI를 사용하며 A2UI를 사용하지 않는다.
+
+[UI 생성·검증](../../3-langgraph-fast/src/domains/sec_chat/presentation.py) · [관리자 AG-UI 연결](../../3-langgraph-fast/src/server/sec_deep_agent/router.py) · [추천 질문 노드](../../3-langgraph-fast/src/graph/primary_graphs/sec_intelligent_ui/conversation.py)
+
+### 근거와 대화 상태
+
+- **근거 검색과 인용 검증:** 기존 채팅은 선택한 10-K Item에서 질문에 맞는 원문을 발췌하고 구절 ID를 부여한다. 모델이 선택한 ID를 서버가 실제 인용문으로 바꾸고 해당 Item의 원문과 일치하는지 검사한다. 이 경로는 벡터 DB 검색을 전제로 하지 않는다. 인용 일치와 요약·계산의 의미적 정확성은 서로 다른 검증이다. [근거 선택·인용 검증 코드](../../3-langgraph-fast/src/domains/sec_chat/answer.py)
+- **문맥과 영속성:** `/sec-chat`은 Python 메모리 세션에 공시와 대화 이력을 둔다. `/sec-api-agent`는 매 요청에 전달된 최근 대화로 새 실행을 시작한다. UI의 thread ID, 서버 세션, LangGraph 체크포인트는 서로 다른 개념이며 현재 관리자 채팅에는 서버 체크포인트가 없다.
+- **가상 파일:** Deep Agent가 리포트를 정리하는 파일 공간은 그래프 상태 안에 있다. 호스트 디스크에 저장된 다운로드 파일이나 실행 간 유지되는 문서 저장소를 의미하지 않는다.
+- **조회와 수집:** 저장된 기업·공시 조회와 SEC 데이터 동기화는 별도 도구다. “저장된 최신 공시”와 “SEC를 다시 확인한 최신 공시”를 구분한다. 전체 기업 수집은 명시적 요청에만 실행하도록 프롬프트로 제한하며, 별도의 권한 승인 시스템은 아니다.
+
+### SEC 데이터를 읽는 최소 용어
+
+| 용어 | 이 프로젝트에서의 의미 |
+| --- | --- |
+| `ticker` / `CIK` | 티커는 기업 검색에 사용하는 종목 기호이고, CIK는 SEC 등록 주체 식별자다. 도구 입력은 10자리 CIK를 사용한다. |
+| `accessionNo` | 개별 공시 접수번호다. 원문 조회는 실제 목록에서 얻은 CIK와 접수번호를 사용한다. |
+| `10-K` / `Item` | 분석 대상 연차보고서 유형과 그 안의 항목 구분이다. 기존 채팅은 Item 1·1A·3·7·8의 원문을 다룬다. |
+| 제출일 / 보고기간 | 공시를 제출한 날짜와 재무 정보가 다루는 기간이다. 차트·표에는 기간과 단위를 함께 표시해야 한다. |
+| `offset` / `limit` | 정규화된 원문 텍스트에서 읽을 문자 위치와 길이다. 발췌 일부를 읽었다면 전체 문서를 검토했다고 표현하지 않는다. |
+
+### 화면별 책임과 유지보수
+
+```text
+/sec-chat      → 일반 대화·공시 준비 → 명시적 분석 그래프 → 인용 검증 → OpenUI + 추천 질문
+/sec-api-agent → 독립 Deep Agent   → 필요한 SEC tools   → 리포트   → OpenUI
+                                        ↓
+                                  BFF 조회·수집 API
+```
+
+프런트는 FSD에 따라 `_pages`에 각 화면, `shared/ui/intelligent-ui`에 공용 카탈로그, `_app/api`에 서버 프록시를 둔다. Steiger는 의존 방향과 공개 API 사용을 검사하며 동작 테스트를 대체하지 않는다. [FSD 구조](tech-shared/1-fe-host/2-frontend-side-architecture.md)
+
+카탈로그를 변경하면 독립 workspace 루트에서 `pnpm -C 1-fe-host sec-ui:generate`를 실행한다. 프런트 명세와 Python 프롬프트가 함께 동기화되어야 모델이 생성하는 DSL과 실제 렌더러의 규약이 일치한다. [동기화 스크립트](../../1-fe-host/scripts/sync-sec-ui.mjs)
+
 ## Behind the scenes
 
 답변을 만드는 실제 작업 과정을 보여주는 접이식 타임라인이다. 실행 중에는 `Working`, 종료 후에는 `Behind the scenes`로 표시하며 완료·실패·중단을 구분한다. 모델의 내부 사고 과정은 표시하지 않는다.

@@ -195,3 +195,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [2026-10-22 SEC Deep Agent와 공통 tools](flow/2026-10-22-sec-deep-agent.md)
 
 - [2026-10-22 FSD 전환·SEC API 관리자 채팅](flow/2026-10-22-fsd-sec-api-agent.md): FE-FSD-001, SEC-ADMIN-001 구현과 검증.
+
+- [2026-10-22 SEC Chat 기술 개념](flow/2026-10-22-sec-chat-technical-concepts.md): SEC-DOC-001, 실행·도구·UI·이벤트·근거·상태의 구분.
