@@ -14,7 +14,7 @@ Use the general-purpose subagent only when independent research benefits from de
 
 
 def build_sec_deep_agent(model=None, client=None, activity=None):
-    return create_deep_agent(model=model or chat_model(), tools=build_sec_tools(client, activity), system_prompt=SYSTEM,
+    return create_deep_agent(model=model or chat_model(), tools=build_sec_tools(client, activity, include_arguments=True), system_prompt=SYSTEM,
                              name='sec_deep_agent')
 
 

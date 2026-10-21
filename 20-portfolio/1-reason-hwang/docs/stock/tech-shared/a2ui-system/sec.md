@@ -38,7 +38,7 @@
 | `3-langgraph-fast/src/graph/primary_graphs/sec_a2ui/report_surface.py` | 검증한 계획을 인용 포함 카드/표/접이식 A2UI로 변환 |
 | `3-langgraph-fast/src/domains/tenk/segmenter.py` | 10-Q Part+Item 구분, 8-K 소수점 Item 구분 |
 | `3-langgraph-fast/src/graph/primary_graphs/sec_a2ui/` | 조회·선택 상태와 명시적 `render_sec_surface` 도구 노드 |
-| `1-fe-host/src/lib/a2ui/generated/sec.catalog.json` | SEC 전용 Button action을 포함한 정적 하위 카탈로그 |
+| `1-fe-host/src/shared/config/a2ui/sec.catalog.json` | SEC 전용 Button action을 포함한 정적 하위 카탈로그 |
 | `1-fe-host/src/app/a2ui/sec/` | SEC 페이지 진입점 |
 
 FastAPI 연결은 기존 `A2UI_LANGGRAPH_URL`, FastAPI→BFF 연결은 `A2UI_SEC_BFF_URL`(기본 `http://127.0.0.1:2801`)이다. 모델 설정은 공통 `A2UI_MODEL_*`를 사용하며 회사·공시 조회에는 모델 호출이 필요하지 않다. SEC 프로토콜은 기존과 같은 v0.9, 카탈로그 ID는 `reason-hwang://a2ui/sec/1.0.0`이다. 기존 Dynamic/Fixed/Host의 허용 action과 해시는 SEC 확장으로 변경하지 않는다.

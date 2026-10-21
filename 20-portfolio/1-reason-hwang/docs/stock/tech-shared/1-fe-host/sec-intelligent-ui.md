@@ -1,6 +1,6 @@
 # SEC Intelligent UI Host
 
-- 경로: `/sec-chat` → `src/features/sec-chat/SecChat.tsx`.
+- 경로: `/sec-chat` → `src/_pages/sec-chat/ui/SecChat.tsx`.
 - 전송: `/api/sec-chat/[...path]`가 `SEC_CHAT_API_URL`(기본 `http://127.0.0.1:8000`)로 제한된 SEC 경로만 중계한다. 서버 API 키는 브라우저에 전달하지 않는다.
 - 화면: 상시 채팅 입력 → `/resolve`로 일반 답변/기업 확인/분석 분기 → 필요 시 자동 최신 10-K 준비 → 원문 답변. 후보 선택은 대화 안에 표시하며 원래 질문을 유지한다. 회사 변경 시 공시 세션을 교체하고 화면의 기존 메시지는 유지한다. 새 대화로 세션/메시지를 초기화한다. Enter 전송, Shift+Enter 줄바꿈, IME 조합 보호, 진행 표시와 중단/오류 복구를 지원한다. 공시 메타데이터는 입력창 위 접이식 표시다.
 - `stream.ts`는 AG-UI RUN_FINISHED, TEXT_MESSAGE_CONTENT, RUN_ERROR를 처리한다. 현재 카탈로그 `library.toJSONSchema()`로 검증한 OpenUI만 `AnswerView`의 Renderer에 전달한다. 클라이언트는 런타임 카탈로그를 사용하며 서버 검증 API는 같은 카탈로그에서 생성된 spec을 사용한다.
@@ -40,3 +40,7 @@ SEC_CHAT_API_URL=http://127.0.0.1:8000 pnpm --filter reason-hwang-fe-host dev
 ## SEC-IUI-008 설명형 답변 서식
 
 설명형 답변은 OpenUI `Markdown(text)` 또는 Title/Text/List/Table 조합으로 구성한다. Markdown과 차트·컨트롤은 같은 Col에 공존한다. program 없는 assistant reply도 JSON 문자열 이스케이프 후 `Col([Markdown(...)])`로 렌더링한다. 사용자 입력은 원문 텍스트를 유지한다. Text에 블록 마크다운이 들어온 경우 기존 MarkdownBlocks 렌더러로 처리한다. 기본 제목·목록·강조·코드·표를 지원하며 전체 CommonMark/GFM 상위 호환을 의미하지 않는다.
+
+## SEC-ADMIN-001 독립 관리자 채팅
+
+`/sec-api-agent`는 OpenUI `AgentInterface`와 공유 `shared/ui/intelligent-ui` 카탈로그를 사용한다. Next 프록시가 Python `/api/sec-deep-agent/chat`의 표준 AG-UI SSE를 전달한다. `TOOL_CALL_START/ARGS/END/RESULT`는 기본 Behind the scenes에, 최종 `TEXT_MESSAGE_CONTENT`는 OpenUI 렌더러에 연결된다. 자세한 기능·문맥 제한·권한 범위는 [SEC stock](../../sec-chat.md#sec-api-관리자-채팅)을 따른다.

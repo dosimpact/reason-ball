@@ -1,0 +1,28 @@
+meta {
+  name: SEC-ADMIN-001 native OpenUI chat
+  type: http
+  seq: 17
+}
+post {
+  url: {{uiBaseUrl}}/api/sec-api-agent
+  body: json
+  auth: none
+}
+body:json {
+  {"threadId":"bruno-admin", "runId":"bruno-run", "messages":[{"role":"user","content":"search_sec_companies 도구로 AAPL의 이름과 CIK만 확인해줘. 수집하지 마."}]}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Actual tool lifecycle and validated OpenUI response", function () {
+    const events = res.getBody().split('\n').filter(line => line.startsWith('data: ')).map(line => JSON.parse(line.slice(6)));
+    expect(events.some(e => e.type === 'RUN_ERROR')).to.equal(false);
+    expect(events.at(-1).type).to.equal('RUN_FINISHED');
+    expect(events.some(e => e.type === 'TOOL_CALL_START' && e.toolCallName === 'search_sec_companies')).to.equal(true);
+    expect(events.some(e => e.type === 'TOOL_CALL_RESULT' && !e.isError)).to.equal(true);
+    const program = events.filter(e => e.type === 'TEXT_MESSAGE_CONTENT').map(e => e.delta).join('');
+    expect(program).to.include('0000320193');
+    expect(program).to.include('root');
+  });
+}

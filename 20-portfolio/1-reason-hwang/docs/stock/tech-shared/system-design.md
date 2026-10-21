@@ -60,7 +60,7 @@ Browser
 
 Do not load remote dev servers directly from the host or introduce a shared React singleton without an explicit architecture decision. Keep remote delivery and SEC modules independently testable.
 
-Remote definitions must remain consistent between `1-fe-host/src/lib/remotes.ts` and `2-bff-apps/src/remotes.config.ts`.
+Remote definitions must remain consistent between `1-fe-host/src/shared/lib/remotes.ts` and `2-bff-apps/src/remotes.config.ts`.
 
 ## BFF and SEC collector
 
@@ -139,3 +139,7 @@ Services communicate on the `graph-rag` Docker network. Persistent data is bind-
 `/sec-chat` → `/api/sec-chat/*` → FastAPI `/api/sec-chat/*` → SEC BFF + 모델 provider. AG-UI 전송과 OpenUI 렌더링을 사용하며 A2UI와 독립적이다. [도메인 설계](../us-corporate-filings/intelligent-ui.md)를 따른다.
 
 SEC Chat의 기업/공시 조회는 공통 SEC tool calling으로 실행하며, 독립 `sec_deep_agent` 그래프는 자율 조사와 리포트를 제공한다. [구현 계약](3-langgraph-fast/sec-intelligent-ui.md#sec-deep-001003-공통-sec-tools와-독립-deep-agent).
+
+## FE-FSD-001 / SEC-ADMIN-001
+
+Host `src` 전체는 FSD 레이어와 Steiger 권장 규칙을 적용한다. Next 라우트 진입점은 루트 `app/`, 구현은 `_app`, `_pages`, `widgets`, `shared`에 둔다. [Host 구조](1-fe-host/2-frontend-side-architecture.md#fe-fsd-001-host의-feature-sliced-design)를 따른다. `/sec-api-agent`는 독립 SEC Deep Agent를 OpenUI `AgentInterface`와 연결한 관리자 업무용 채팅이다. 기존 `/sec-chat`의 인용 검증과 추천 질문 흐름은 유지한다. [SEC 기능 원본](../sec-chat.md#sec-api-관리자-채팅).

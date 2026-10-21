@@ -17,10 +17,11 @@ export default defineConfig({
   test: {
     projects: [
       {
+        resolve: { alias: { '@': path.resolve(dirname, 'src') } },
         test: {
           name: 'a2ui',
           environment: 'node',
-          include: ['src/lib/a2ui/**/*.test.ts'],
+          include: ['src/_pages/a2ui-demo/lib/**/*.test.ts'],
         },
       },
       {

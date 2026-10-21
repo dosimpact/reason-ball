@@ -4,8 +4,8 @@ A2UI-REG-001 / A2UI-CAT-001 / A2UI-VER-001. [전체 지도](INDEX.md).
 
 ## 원본과 생성물
 
-- [definitions.ts](../../../../1-fe-host/src/lib/a2ui/definitions.ts): Zod props와 모드별 구성의 원본.
-- [catalog.tsx](../../../../1-fe-host/src/lib/a2ui/catalog.tsx): SDK Catalog와 React 어댑터 연결.
+- [definitions.ts](../../../../1-fe-host/src/_pages/a2ui-demo/lib/definitions.ts): Zod props와 모드별 구성의 원본.
+- [catalog.tsx](../../../../1-fe-host/src/_pages/a2ui-demo/lib/catalog.tsx): SDK Catalog와 React 어댑터 연결.
 - [생성기](../../../../1-fe-host/scripts/a2ui-contract.ts): JSON Schema 생성, 정렬, SHA-256, 설치 버전/원본 파일 대응 검사.
 - [inventory.json](../../../../assets/a2ui/inventory.json): 실제 등록 목록.
 - [manifest.json](../../../../assets/a2ui/manifest.json): 버전·프로필·해시 원본. 아래 표는 문서화 시점의 조회이며 자동 검사 원본을 대체하지 않는다.
@@ -25,7 +25,7 @@ A2UI-REG-001 / A2UI-CAT-001 / A2UI-VER-001. [전체 지도](INDEX.md).
 
 ## 전체 등록 목록
 
-61개 원본 UI 파일 + Row/Column/Text/Metric/InfoRow = 66개 어댑터. 원본 열의 파일은 `1-fe-host/src/components/ui/` 기준이다.
+61개 원본 UI 파일 + Row/Column/Text/Metric/InfoRow = 66개 어댑터. 원본 열의 파일은 `1-fe-host/src/shared/ui/` 기준이다.
 
 | 컴포넌트 | 원본 | 역할 |
 | --- | --- | --- |

@@ -3,14 +3,14 @@ import { expect, test } from '@playwright/test';
 import {
   DEMO_EXPECTED,
   DEMO_INPUT,
-} from '../../src/constants/index-dcf';
-import { calculateIndexDcf } from '../../src/utils/index-dcf/calculate-index-dcf';
+} from '../../src/_pages/index-dcf-visualizer/config/defaults';
+import { calculateIndexDcf } from '../../src/_pages/index-dcf-visualizer/model/calculate-index-dcf';
 import {
   formatIndexPoints,
   formatPercent,
   formatRatioAsPercent,
   formatSignedPercent,
-} from '../../src/utils/index-dcf/format-index-dcf';
+} from '../../src/_pages/index-dcf-visualizer/model/format-index-dcf';
 import type {
   DcfInputState,
   DcfIssueCode,
@@ -18,12 +18,12 @@ import type {
   FiveYear,
   NodeResult,
   ValidationIssue,
-} from '../../src/utils/index-dcf/types';
+} from '../../src/_pages/index-dcf-visualizer/model/types';
 import {
   setForecastDiscountRateLink,
   synchronizeLinkedLongRunDiscountRate,
   validateIndexDcf,
-} from '../../src/utils/index-dcf/validate-index-dcf';
+} from '../../src/_pages/index-dcf-visualizer/model/validate-index-dcf';
 
 type YearIndex = 0 | 1 | 2 | 3 | 4;
 

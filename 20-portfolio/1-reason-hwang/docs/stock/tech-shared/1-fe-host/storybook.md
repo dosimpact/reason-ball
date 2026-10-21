@@ -8,14 +8,14 @@ The host Storybook presents reusable UI components independently of backend serv
 
 ## Implementation
 
-- Stories live in `1-fe-host/src/components/ui/*.stories.tsx` and use types from the declared `@storybook/nextjs-vite` dependency.
+- Stories live in `1-fe-host/src/shared/ui/*.stories.tsx` and use types from the declared `@storybook/nextjs-vite` dependency.
 - Compound components include their content, triggers, and required providers. Base UI composition uses `render`, not Radix-style `asChild`.
 - Sidebar includes navigation and a toggle. Its Docs example uses an isolated iframe to contain fixed positioning.
 - The existing preview imports application `globals.css`; stories use the application theme and Tailwind styles.
 - Collapsible, DropdownMenu, Sheet, and Tooltip expose separate Interaction stories with `play` checks. Portal queries use the canvas owner document; assertions wait for transitions. Tooltip checks exercise keyboard focus and Escape.
 - Fixtures do not require authentication or API services. Stateful examples update story-local React state only; no data is persisted or sent to a backend.
 - `UI-STORY-002`: the original 19 UI component files provide the initial rich-story collection spanning variants, sizes, content, empty/loading/error/disabled states, and composed application examples. Existing Default story IDs remain stable.
-- `src/stories/ui-gallery.tsx` provides story-only, labeled comparison galleries. They use two columns on wider screens and one column on narrow screens, with application theme tokens.
+- `src/shared/ui/storybook/ui-gallery.tsx` provides story-only, labeled comparison galleries. They use two columns on wider screens and one column on narrow screens, with application theme tokens.
 - Default stories for Button, Badge, Bubble, Attachment, Avatar, Input, and Textarea expose explicit Controls. Fixed comparison/composition stories disable irrelevant controls.
 - Project cards include metadata, empty and skeleton states; messaging examples include conversation alignment, attachments, generation and delivery errors; MessageScroller supports local message insertion and an empty conversation.
 - DropdownMenu Preferences, Sheet EditProject, and MessageScroller AddMessage have interaction assertions for visible state changes. Sidebar includes icon/offcanvas collapse and floating/inset layouts with local navigation selection.

@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { applyEvent, finishTurn, Turn } from "../../src/features/push-ui-message/model";
-import { readEvents } from "../../src/features/push-ui-message/stream";
+import { applyEvent, finishTurn, Turn } from "../../src/_pages/examples-push-ui-message/model/model";
+import { readEvents } from "../../src/_pages/examples-push-ui-message/api/stream";
 
 const initial: Turn = { id: "turn", messageId: "answer", question: "hi", answer: "", status: "running", steps: [] };
 function ui(id: string, messageId: string, status: string) {

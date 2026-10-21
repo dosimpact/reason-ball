@@ -193,3 +193,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [2026-10-22 설명형 답변 서식](flow/2026-10-22-sec-prose-rendering.md)
 
 - [2026-10-22 SEC Deep Agent와 공통 tools](flow/2026-10-22-sec-deep-agent.md)
+
+- [2026-10-22 FSD 전환·SEC API 관리자 채팅](flow/2026-10-22-fsd-sec-api-agent.md): FE-FSD-001, SEC-ADMIN-001 구현과 검증.

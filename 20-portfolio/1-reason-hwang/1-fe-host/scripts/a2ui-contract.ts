@@ -6,14 +6,14 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import { compatibility } from "../src/lib/a2ui/compatibility";
-import { catalogId, componentSchema, definitions, profileComponents, type CatalogProfile } from "../src/lib/a2ui/definitions";
+import { compatibility } from "../src/_pages/a2ui-demo/lib/compatibility";
+import { catalogId, componentSchema, definitions, profileComponents, type CatalogProfile } from "../src/_pages/a2ui-demo/lib/definitions";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const host = resolve(root, "1-fe-host");
 const output = resolve(root, "assets/a2ui");
 const pythonResources = resolve(root, "3-langgraph-fast/src/graph/primary_graphs/a2ui_demo/contracts");
-const frontendResources = resolve(host, "src/lib/a2ui/generated");
+const frontendResources = resolve(host, "src/shared/config/a2ui");
 const check = process.argv.includes("--check");
 const require = createRequire(resolve(host, "package.json"));
 
@@ -55,7 +55,7 @@ function verifyVersions() {
 }
 
 function verifyInventory() {
-  const files = readdirSync(resolve(host, "src/components/ui")).filter(name => name.endsWith(".tsx") && !name.endsWith(".stories.tsx")).map(name => name.slice(0, -4)).sort();
+  const files = readdirSync(resolve(host, "src/shared/ui")).filter(name => name.endsWith(".tsx") && !name.endsWith(".stories.tsx")).map(name => name.slice(0, -4)).sort();
   const registered = Object.values(definitions).flatMap(def => def.source ? [def.source] : []).sort();
   if (JSON.stringify(files) !== JSON.stringify(registered)) throw new Error("UI file inventory and A2UI registration differ");
   return Object.fromEntries(Object.entries(definitions).map(([name, def]) => [name, { source: def.source, description: def.description }]));

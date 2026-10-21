@@ -2,7 +2,7 @@
 
 Decision: `UI-CATALOG-001`. Scope: tech-shared / 1-fe-host.
 
-The host preinstalls all standalone components in the current shadcn Base UI registry under `src/components/ui/`. `components.json` retains `base-mira`, neutral CSS variables, Phosphor icons, and the existing aliases. Installations use the package-local shadcn CLI and skip existing files unless an intentional update is requested.
+The host preinstalls all standalone components in the current shadcn Base UI registry under `src/shared/ui/`. `components.json` retains `base-mira`, neutral CSS variables, Phosphor icons, and the existing aliases. Installations use the package-local shadcn CLI and skip existing files unless an intentional update is requested.
 
 ## Inventory
 

@@ -256,3 +256,20 @@ Host 앱은 FE 플랫폼의 중심이 된다.
 Remote 앱은 비즈니스 도메인별 기능을 담당한다.
 
 Remote 앱이 늘어나도 Host는 BFF 설정과 라우팅만 추가해 확장할 수 있는 구조를 유지한다.
+
+## FE-FSD-001: Host의 Feature-Sliced Design
+
+`src` 전체는 Steiger 0.8 권장 규칙으로 검사한다 (`pnpm -C 1-fe-host lint:fsd`). Next.js 라우트는 루트 `app/`의 얇은 진입점이며 구현은 FSD 레이어 안에 둔다.
+
+| 위치 | 책임 |
+| --- | --- |
+| `src/_app` | 루트 레이아웃·스타일·서버 API 조립 |
+| `src/_pages` | home, chat, sec-chat, sec-api-agent, a2ui-demo, examples-push-ui-message, index-dcf-visualizer, remotes 화면 슬라이스 |
+| `src/widgets` | host-navigation, remote-app 독립 화면 블록 |
+| `src/shared` | ui, lib, config 공용 세그먼트 |
+
+페이지에서만 쓰는 모델·API·UI는 그 페이지 슬라이스에 둔다. 재사용 필요가 없는 entities/features 레이어는 만들지 않는다. 상위 레이어는 하위 레이어만 참조하고 슬라이스 외부에서는 `index.ts` 공개 API를 사용한다. Shared는 슬라이스 없이 세그먼트 단위로 제공한다.
+
+[공식 Next.js 가이드](https://fsd.how/docs/guides/tech/with-nextjs/)의 `_app`/`_pages` 별칭을 사용한다. Steiger의 파일 시스템 해석은 이를 지원하지만 typo 규칙이 밑줄을 오타로 판단하여, 두 폴더에 한해서 `fsd/typo-in-layer-name`만 비활성화했다. 의존성·공개 API 등 나머지 규칙은 전체에 적용한다.
+
+OpenUI 카탈로그는 `src/shared/ui/intelligent-ui`, 생성 프롬프트는 `src/shared/config/openui`에 위치한다. `pnpm -C 1-fe-host sec-ui:generate`는 Python 프롬프트도 동기화한다. 새 관리자 채팅은 [SEC stock](../../sec-chat.md)의 독립 Deep Agent를 사용한다.

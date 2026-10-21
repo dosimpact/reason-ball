@@ -123,7 +123,7 @@ def compact(value):
     return value
 
 
-def build_sec_tools(client=None, activity=None, *, allowed_ciks=None, allow_sync=True):
+def build_sec_tools(client=None, activity=None, *, allowed_ciks=None, allow_sync=True, include_arguments=False):
     client = client or SecBffClient()
 
     def make(name, description, schema, method, path, *, stream=False, raw=False):
@@ -131,7 +131,8 @@ def build_sec_tools(client=None, activity=None, *, allowed_ciks=None, allow_sync
             identity = uuid4().hex
             def emit(status):
                 if activity:
-                    activity({"id": identity, "label": f"SEC 도구 · {name}", "status": status, "kind": "node"})
+                    activity({"id": identity, "label": f"SEC 도구 · {name}", "status": status, "kind": "node",
+                              **({"arguments": kwargs} if include_arguments else {})})
             emit("running")
             try:
                 args = schema(**kwargs).model_dump(exclude_none=True)
