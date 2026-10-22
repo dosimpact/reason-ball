@@ -78,9 +78,9 @@ export function ReportView({ report, onQuote, onClose, publicView = false }: {
       {streaming && <div className="generation-status no-print" role="status"><LoaderCircle size={16} className="spin" />{report.status === "validating" ? "OpenUI 결과를 검증하고 있습니다" : report.status === "reviewing" ? "원문과 리포트 수치를 대조하고 있습니다" : report.status === "repairing" ? "표현 오류를 수정하고 있습니다" : "자료를 분석하고 리포트를 구성하고 있습니다"}</div>}
       {report.status === "error" && <p className="error-notice" role="alert">{report.error}</p>}
       {renderErrors.length > 0 && <p className="error-notice" role="alert">렌더링 오류: {renderErrors.join(" · ")}</p>}
-      <article className="report-paper" ref={body} onMouseUp={captureSelection} onKeyUp={captureSelection} aria-label="리포트 본문">
+      <article lang={report.report_language ?? "ko"} className="report-paper" ref={body} onMouseUp={captureSelection} onKeyUp={captureSelection} aria-label="리포트 본문">
         {report.program ? <RenderBoundary key={`${report.id}:${streaming}`} onFailure={() => { if (!streaming) setRenderErrors(["컴포넌트 실행에 실패했습니다."]); }}><Renderer response={report.program} library={library} isStreaming={streaming} onError={onError} onAction={event => { void runLibraryAction(event); }} /></RenderBoundary> : <div className="report-skeleton"><div /><div /><div /></div>}
-        {ready && <footer className="report-source">근거: {report.source_file} · AI가 구성한 시각화입니다. 원문 수치 확인이 필요한 항목은 본문에 표시합니다.</footer>}
+        {ready && <footer className="report-source">{report.report_language === "en" ? "Source: " : "근거: "}{report.source_file} · {report.report_language === "en" ? "AI-generated visualization. Figures requiring verification are identified in the report." : "AI가 구성한 시각화입니다. 원문 수치 확인이 필요한 항목은 본문에 표시합니다."}</footer>}
       </article>
     </div>
   </section>;

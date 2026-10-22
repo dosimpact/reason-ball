@@ -2,6 +2,7 @@ export type Quote = { reportId: string; text: string };
 export type Report = {
   id: string; title: string; vendor: string; source_file: string; program: string;
   status: "generating" | "validating" | "reviewing" | "repairing" | "ready" | "error";
+  report_language?: "ko" | "en";
   report_mode?: "interactive" | "pdf";
   published: boolean; created_at: string; error?: string;
 };

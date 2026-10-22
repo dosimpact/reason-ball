@@ -66,11 +66,15 @@ class ReportRepository:
             return json.loads(row[0]) if row else None
 
     # 삭제와 삽입을 한 트랜잭션으로 처리하여 thread당 하나의 리포트만 유지합니다. 이전 공유 ID도 사라집니다.
-    def replace(self, thread_id: str, source: dict, report_mode: str = "interactive") -> dict:
+    def replace(self, thread_id: str, source: dict, report_mode: str = "interactive", report_language: str = "ko") -> dict:
         if report_mode not in {"interactive", "pdf"}:
             raise ValueError("Invalid report mode")
+        if report_language not in {"ko", "en"}:
+            raise ValueError("Invalid report language")
+        title = (source["name"].replace("공급업체", "Supplier ") + " Performance Report"
+                 if report_language == "en" else f"{source['name']} 성과 리포트")
         report = {"id": str(uuid4()), "thread_id": thread_id,
-                  "title": f"{source['name']} 성과 리포트", "vendor": source["name"],
+                  "title": title, "report_language": report_language, "vendor": source["name"],
                   "source_file": source["file"], "source_text": source["text"],
                   "report_mode": report_mode, "program": "", "status": "generating", "published": False,
                   "created_at": datetime.now(UTC).isoformat()}
@@ -198,8 +202,8 @@ def report_facts(source: str) -> dict:
 
 
 # root와 원문 배열을 OpenUI 선언으로 먼저 만들고 경계 표시 뒤에 모델의 뷰를 이어 붙입니다.
-def facts_program(source: str, view_name: str = "report") -> str:
+def facts_program(source: str, view_name: str = "report", display_facts: dict | None = None) -> str:
     lines = [f"root = Col([{view_name}])"]
-    for name, value in report_facts(source).items():
+    for name, value in (display_facts if display_facts is not None else report_facts(source)).items():
         lines.append(f"{name} = {json.dumps(value, ensure_ascii=False)}")
     return "\n".join(lines) + "\n// GENERATED VIEW\n"

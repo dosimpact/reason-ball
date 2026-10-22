@@ -118,7 +118,7 @@ PDF 모드의 인쇄 표는 자동 열 너비와 좁은 셀 여백을 사용하�
 
 ## LCU-111 첫 질문 템플릿
 
-`workspace.tsx`의 `STARTER_GROUPS`가 빈 대화의 추천 질문 13개를 관리한다. 네이티브 details/summary로 그룹을 펼치고 기존 send 경로로 질문을 전달한다. 실행 중/초기 상태 복원 중에는 버튼을 비활성화한다.
+`workspace.tsx`의 `STARTER_GROUPS`가 빈 대화의 추천 질문 15개를 관리한다. 네이티브 details/summary로 그룹을 펼치고 기존 send 경로로 질문을 전달한다. 실행 중/초기 상태 복원 중에는 버튼을 비활성화한다.
 
 ## LCU-112 원문 파일명 익명화
 
@@ -155,3 +155,9 @@ PDF 모드의 인쇄 표는 자동 열 너비와 좁은 셀 여백을 사용하�
 7. `frontend/src/lib/library.ts` → `frontend/src/app/api/program/validate/route.ts`: 공유 카탈로그와 모드별 검증. `frontend/src/server/backend.ts`는 서버 전용 HTTP 연결 경계다.
 
 주석 추가와 검증 근거: [한국어 주석 기록](../flow/2026-10-20-korean-code-comments.md).
+
+## LCU-116 리포트 언어 상태
+
+`RouteDecision.report_language=ko|en|inherit`를 추가한다. 새 생성의 inherit는 ko, 재생성의 inherit는 현재 리포트 언어(기존 저장본은 ko)로 정규화한다. `ReportRepository.replace`는 ko/en만 허용하고 영어 제목과 `report_language`를 JSON에 저장한다. Open/ready 이벤트·공개 DTO·복원은 같은 필드를 전달한다.
+
+`report_instructions(mode, language)`는 언어별 지침을 모드별 지침 뒤에 적용한다. 영어 리포트는 원문에서 추출한 배열의 한국어 문자열만 구조화 출력으로 번역해 표시용 배열을 만든다. 숫자 토큰(부호/소수 포함)을 임시 표식으로 보호한 뒤 번역하고 원래 값을 복원한다. 문자열 개수·한국어 잔류·표식 누락/중복·새 숫자 삽입을 검사하고 실패 시 한 번 재시도한다. 계산용 숫자 필드와 저장 원문은 변경하지 않는다. 번역된 배열을 immutable source 선언으로 제공하므로 카드·차트·필터·조치에 동일한 영어 표현을 사용한다. 원문과 계산 감사는 별도 문맥으로 유지한다. 원문 수치 검토와 parser 검증은 기존대로 유지한다. `ReportView`는 본문 lang과 출처 footer를 리포트 언어에 맞춘다. 컴포넌트 카탈로그 계약은 변경하지 않는다.

@@ -15,6 +15,8 @@ import "./workspace.css";
 const STARTER_GROUPS = [
   { title: "리포트 만들기", description: "Canvas에서 확인하고 PDF로 저장하세요.", open: true, questions: [
     "공급업체1 리포트 생성해줘",
+    "공급업체1 영문 리포트 생성해줘",
+    "공급업체1 영문 PDF 보고서용으로 리포트 만들어줘",
     "공급업체1 PDF 보고서용으로 리포트 만들어줘",
   ] },
   { title: "공급업체에 질문하기", description: "원문을 바탕으로 채팅에서 시각화해 답합니다.", open: true, questions: [

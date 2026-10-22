@@ -355,3 +355,42 @@ def test_source_only_supplier_agent_streams_fresh_repair(repo, graph_module):
     assert len(model.calls) == 2
     assert result["messages"][-1].content.endswith('answer = Col([Text("corrected")])')
     assert "Repair answer" in str(model.calls[1][-1].content)
+
+
+def test_english_report_persists_and_inherits_language(repo, graph_module, monkeypatch):
+    async def display(source, model, config):
+        from agent.reports import report_facts
+        return report_facts(source)
+    monkeypatch.setattr(graph_module, "english_display_facts", display)
+    thread = str(uuid4())
+    router = FakeModel(graph_module.RouteDecision(action="generate", vendor="공급업체1", report_language="en"))
+    model = FakeModel(programs=['report = Col([Text("English report")])'])
+    graph = graph_module.build_graph(router, model, repo, valid)
+    config = {"configurable": {"thread_id": thread}}
+    result = asyncio.run(graph.ainvoke({"messages": [HumanMessage("영문 리포트 생성")], "quote": None}, config))
+    first = result["report"]
+    assert first["report_language"] == "en"
+    assert first["title"] == "Supplier 1 Performance Report"
+    assert "REPORT LANGUAGE: English" in model.calls[-1][0].content
+    assert repo.publish(first["id"])["report_language"] == "en"
+    router.decision = graph_module.RouteDecision(action="regenerate", vendor="")
+    result = asyncio.run(graph.ainvoke({"messages": [HumanMessage("다시 만들어줘")], "quote": None}, config))
+    assert result["report"]["report_language"] == "en"
+    assert result["report"]["id"] != first["id"]
+    router.decision = graph_module.RouteDecision(action="regenerate", vendor="", report_language="ko")
+    result = asyncio.run(graph.ainvoke({"messages": [HumanMessage("한국어로 바꿔줘")], "quote": None}, config))
+    assert result["report"]["report_language"] == "ko"
+    assert "REPORT LANGUAGE: Korean" in model.calls[-1][0].content
+    with pytest.raises(ValueError, match="language"):
+        repo.replace(thread, read_vendor("공급업체1"), report_language="fr")
+
+
+def test_english_translation_keeps_numeric_values_and_rejects_drift(graph_module):
+    source = "| 지표 | W1 | W2 | 증감 |\n|---|---|---|---|\n| 매출 | 1,000원 | 2,000원 | +1,000원 |"
+    good = graph_module.DisplayTranslation(translations=["Revenue", "__VALUE_AA__ KRW", "__VALUE_AA__ KRW", "__VALUE_AA__ KRW"])
+    facts = asyncio.run(graph_module.english_display_facts(source, FakeModel(decision=good), {}))
+    assert facts["sourceKpis"][0]["label"] == "Revenue"
+    assert facts["sourceKpis"][0]["w2"] == 2000
+    bad = graph_module.DisplayTranslation(translations=["Revenue", "1,000 KRW", "9,000 KRW", "+1,000 KRW"])
+    with pytest.raises(ValueError, match="numeric preservation"):
+        asyncio.run(graph_module.english_display_facts(source, FakeModel(decision=bad), {}))

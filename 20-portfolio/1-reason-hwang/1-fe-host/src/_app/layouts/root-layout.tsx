@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </div>
               <ThemeToggle />
             </header>
-            <div className="mx-auto flex min-h-[calc(100svh-3.5rem)] w-full max-w-6xl flex-col px-5 py-6 md:px-8">
+            <div className="min-h-[calc(100svh-3.5rem)] w-full">
               {children}
             </div>
           </SidebarInset>
