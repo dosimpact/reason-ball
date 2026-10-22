@@ -32,6 +32,7 @@ Phase - 유효성 검사 (Validation)
 
 
 
+- `1-fe-host/src`는 FSD(`_app`, `_pages`, `widgets`, `shared`)를 따른다. Next 라우트 진입점은 루트 `app/`에 두며, `pnpm -C 1-fe-host lint`는 ESLint와 Steiger를 함께 실행한다. 상세 규칙은 [Host 아키텍처](docs/stock/tech-shared/1-fe-host/2-frontend-side-architecture.md)를 따른다.
 - 확립된 패키지 아키텍처 및 스타일을 보존하고, 맵을 통해 발견된 설계 원칙을 적용하세요.
 - 커밋된 패키지 스크립트와 워크스페이스 필터를 우선적으로 사용하세요. 워크스페이스 오케스트레이션에는 `pnpm`을 사용하고, Python 패키지 내부에서는 `uv`를 사용하세요.
 - 변경 사항에 적절한 검사를 실행하고 매핑된 유효성 검사 정책을 따르세요. 선택적(opt-in) 데이터베이스 통합 테스트는 선택적으로 유지하세요.

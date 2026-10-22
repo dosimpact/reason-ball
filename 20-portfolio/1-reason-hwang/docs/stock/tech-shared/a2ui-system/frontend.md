@@ -4,12 +4,12 @@
 
 ## 파일과 책임
 
-- `src/lib/a2ui/definitions.ts`: 61개 UI 파일을 대응하는 66개 JSON props 정의와 모드별 카탈로그.
+- `src/_pages/a2ui-demo/lib/definitions.ts`: 61개 UI 파일을 대응하는 66개 JSON props 정의와 모드별 카탈로그.
 - `src/lib/a2ui/*-adapters.tsx`: 기존 UI의 조합, 데이터 바인딩, 명시적 사용자 이벤트 전달.
-- `src/lib/a2ui/catalog.tsx`: SDK Catalog 및 React 컴포넌트 등록.
+- `src/_pages/a2ui-demo/lib/catalog.tsx`: SDK Catalog 및 React 컴포넌트 등록.
 - `scripts/a2ui-contract.ts`: 정적 계약 생성과 drift 검사. 생성물은 수동 수정하지 않는다.
 - `src/features/a2ui-demo`: 모드별 대화, 오류 표시, 새 대화, 같은 surface의 후속 도구 메시지 처리.
-- `src/lib/a2ui/runtime.ts`: Next.js Runtime에서 FastAPI로 요청 전달.
+- `src/_app/api/a2ui-runtime.ts`: Next.js Runtime에서 FastAPI로 요청 전달.
 
 `/a2ui`가 진입점이다. `/a2ui/catalog`는 하나의 어댑터씩 보여준다. Dynamic·Fixed·SEC는 별도 agent와 thread를 사용한다. `A2UI_LANGGRAPH_URL`은 서버 전용 FastAPI base URL이며 기본값은 `http://127.0.0.1:8000`이다. 브라우저에 모델 비밀값을 전달하지 않는다.
 

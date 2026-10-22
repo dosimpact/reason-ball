@@ -17,6 +17,7 @@ export function ChatUI({ message, onSend }: { message: ChatMessage; onSend: (tex
       return JSON.stringify(previous) === JSON.stringify(next) ? previous : next;
     });
   }, [streaming]);
+  // 대화 이어가기는 폼 상태를 서버에 전달하고 URL 열기와 사용자 정의 액션은 브라우저에서 처리합니다.
   function onAction(event: ActionEvent) {
     if (event.type === BuiltinActionType.ContinueConversation) {
       onSend(event.humanFriendlyMessage || "선택한 내용을 이어서 설명해줘", { form: event.formState, context: event.params?.context });

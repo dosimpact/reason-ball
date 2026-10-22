@@ -2,6 +2,7 @@ export type Quote = { reportId: string; text: string };
 export type Report = {
   id: string; title: string; vendor: string; source_file: string; program: string;
   status: "generating" | "validating" | "reviewing" | "repairing" | "ready" | "error";
+  report_language?: "ko" | "en";
   report_mode?: "interactive" | "pdf";
   published: boolean; created_at: string; error?: string;
 };
@@ -9,6 +10,7 @@ export type ChatMessage = { id: string; role: "user" | "assistant"; content: str
 export type Thread = { id: string; title: string; messages: ChatMessage[] };
 export type CanvasEvent = { channel: string; type: string; reportId?: string; report?: Report; delta?: string; message?: string; content?: string; messageId?: string; target?: string; format?: "text" | "openui" };
 
+// open만 리포트를 교체합니다. 이후에는 현재 ID의 이벤트만 반영하여 이전 생성 결과의 혼입을 막습니다.
 export function reduceReport(current: Report | null, event: CanvasEvent): Report | null {
   if (event.type === "open" && event.report) return event.report;
   if (!current) return current;
@@ -21,6 +23,7 @@ export function reduceReport(current: Report | null, event: CanvasEvent): Report
   return current;
 }
 
+// messageId별로 스트림을 누적합니다. 수정 시 START가 같은 메시지를 교체하여 실패한 초안이 남지 않습니다.
 export function reduceChat(messages: ChatMessage[], event: CanvasEvent): ChatMessage[] {
   const id = event.messageId ?? `summary-${messages.length}`;
   if (event.type === "TEXT_MESSAGE_START" || event.type === "message") {

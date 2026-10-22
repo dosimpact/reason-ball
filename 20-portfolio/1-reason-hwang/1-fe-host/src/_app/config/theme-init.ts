@@ -1,0 +1,2 @@
+// Runs before the body paints; keep the key and attributes aligned with shared/lib/theme.
+export const themeInitScript = `(function(){var t;try{t=localStorage.getItem('reason-hwang-theme')}catch(e){}if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var r=document.documentElement;r.classList.toggle('dark',t==='dark');r.dataset.theme=t;r.dataset.openuiTheme=t;r.style.colorScheme=t})()`;

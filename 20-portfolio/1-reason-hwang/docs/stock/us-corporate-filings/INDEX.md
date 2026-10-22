@@ -35,3 +35,5 @@ Detailed supporting references currently include:
 - `2-bff-apps/src/us-corporate-filings/.docs/api-spec.md`
 - `3-langgraph-fast/README.md`
 - `infra/1-infra-graph-rag/docs/`
+
+- [SEC Intelligent UI 채팅](intelligent-ui.md): A2UI를 사용하지 않는 최신 10-K 기반 LangGraph/AG-UI/OpenUI 경로와 검증 기준.

@@ -15,6 +15,7 @@ async def vendors(request: Request):
     return JSONResponse(await asyncio.to_thread(vendor_catalog))
 
 
+# 작업 화면은 thread의 현재 리포트를 읽고 공개 화면은 published의 별도 조건을 적용합니다.
 async def current(request: Request):
     try:
         thread_id = str(UUID(request.path_params["thread_id"]))
@@ -24,6 +25,7 @@ async def current(request: Request):
     return JSONResponse({"report": public_report(report) if report else None})
 
 
+# ID를 아는 것만으로 조회할 수 없으며 발행 여부와 생성 완료 상태를 모두 확인합니다.
 async def published(request: Request):
     report = await asyncio.to_thread(repository.get, request.path_params["report_id"])
     if not report or not report["published"] or report["status"] != "ready":

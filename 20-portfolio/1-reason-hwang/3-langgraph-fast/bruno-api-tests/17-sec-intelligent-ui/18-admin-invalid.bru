@@ -1,0 +1,16 @@
+meta {
+  name: SEC-ADMIN-002 rejects blank input
+  type: http
+  seq: 18
+}
+post {
+  url: {{uiBaseUrl}}/api/sec-api-agent
+  body: json
+  auth: none
+}
+body:json {
+  {"threadId":"test", "runId":"test", "messages":[{"role":"user","content":"   "}]}
+}
+assert {
+  res.status: eq 422
+}

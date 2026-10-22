@@ -14,7 +14,7 @@ Prefix: `/api/sec`. Swagger: `/docs/sec`.
 ## Query
 
 Companies: page=1, pageSize=50 (max 100000), legacy limit fallback, cik/ticker/q.
-Filings: page=1, pageSize=50 (max 500), legacy limit fallback, cik/ticker/since/formType/status/parserStatus, includeContent=false, includeAmendments=true.
+Filings: page=1, pageSize=50 (max 500), legacy limit fallback, cik/ticker/since/formType/status/parserStatus, includeContent=false, includeAmendments=true, includeFormerRegistrants=false. Setting includeFormerRegistrants=true requires an explicit cik (otherwise 400) and includes that issuer even when its current ticker is empty.
 Pagination: page, pageSize, totalItems, totalPages, hasNextPage. Empty result totalPages=0.
 CIKs normalize to 10 digits, tickers uppercase. Invalid page/date/filter returns 400.
 Raw content only with includeContent=true; missing body yields content=null. Page body limit 64 MiB, otherwise 413.
@@ -86,4 +86,4 @@ POST /all-company-filing-sync-jobs는 실행 시작 시 DB companies에서 ticke
 
 ## SEC-QUERY-TICKER-001: 목록 조회의 기본 범위
 
-GET /companies와 GET /filings는 DB companies.ticker가 NULL·빈 문자열·공백이 아닌 회사만 반환한다. 별도 파라미터 없이 기본 적용하며 cik/ticker/q 등 기존 필터와 AND로 결합한다. totalItems/totalPages에도 동일 조건이 적용된다. 티커 없는 회사 CIK를 지정하면 빈 목록이다. 회사 데이터나 공시를 삭제하지 않으며 현재 상장 여부를 의미하지 않는다. CIK+accessionNo로 이미 저장된 단일 원문을 조회하는 API는 이 목록 필터와 별개로 유지한다.
+GET /companies와 GET /filings의 기본값은 DB companies.ticker가 NULL·빈 문자열·공백이 아닌 회사만 반환하는 것이다. cik/ticker/q 등 기존 필터와 AND로 결합하며 totalItems/totalPages에도 동일 조건을 적용한다. 기본값에서 티커 없는 회사 CIK를 지정하면 빈 목록이다. GET /filings에 한해 명시적 cik와 includeFormerRegistrants=true를 함께 지정하면 법인 재편 등으로 티커가 없는 등록자도 조회할 수 있다(SEC-IUI-002). 회사 데이터나 공시를 삭제하지 않으며 현재 상장 여부를 의미하지 않는다. CIK+accessionNo로 이미 저장된 단일 원문을 조회하는 API는 이 목록 필터와 별개로 유지한다.

@@ -6,14 +6,14 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import { compatibility } from "../src/lib/a2ui/compatibility";
-import { catalogId, componentSchema, definitions, profileComponents, type CatalogProfile } from "../src/lib/a2ui/definitions";
+import { compatibility } from "../src/_pages/a2ui-demo/lib/compatibility";
+import { catalogId, componentSchema, definitions, profileComponents, type CatalogProfile } from "../src/_pages/a2ui-demo/lib/definitions";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const host = resolve(root, "1-fe-host");
 const output = resolve(root, "assets/a2ui");
 const pythonResources = resolve(root, "3-langgraph-fast/src/graph/primary_graphs/a2ui_demo/contracts");
-const frontendResources = resolve(host, "src/lib/a2ui/generated");
+const frontendResources = resolve(host, "src/shared/config/a2ui");
 const check = process.argv.includes("--check");
 const require = createRequire(resolve(host, "package.json"));
 
@@ -43,7 +43,7 @@ function verifyVersions() {
   for (const [name, version] of Object.entries(compatibility.javascript)) {
     const actual = name === "@a2ui/web_core"
       ? JSON.parse(readFileSync(resolve(dirname(require.resolve(`${name}/v0_9`)), "../../package.json"), "utf8")).version
-      : require(`${name}/package.json`).version;
+      : require(`${name === "zod" ? "zod3" : name}/package.json`).version;
     if (actual !== version) throw new Error(`${name}: expected ${version}, installed ${actual}`);
   }
   const actual = JSON.parse(execFileSync(resolve(root, "3-langgraph-fast/.venv/bin/python"), ["-c",
@@ -55,7 +55,7 @@ function verifyVersions() {
 }
 
 function verifyInventory() {
-  const files = readdirSync(resolve(host, "src/components/ui")).filter(name => name.endsWith(".tsx") && !name.endsWith(".stories.tsx")).map(name => name.slice(0, -4)).sort();
+  const files = readdirSync(resolve(host, "src/shared/ui")).filter(name => name.endsWith(".tsx") && !name.endsWith(".stories.tsx")).map(name => name.slice(0, -4)).sort();
   const registered = Object.values(definitions).flatMap(def => def.source ? [def.source] : []).sort();
   if (JSON.stringify(files) !== JSON.stringify(registered)) throw new Error("UI file inventory and A2UI registration differ");
   return Object.fromEntries(Object.entries(definitions).map(([name, def]) => [name, { source: def.source, description: def.description }]));
@@ -65,7 +65,8 @@ function buildCatalog(profile: CatalogProfile) {
   const components = Object.fromEntries(profileComponents[profile].map(name => {
     // Our contract vocabulary has no tuples/recursive refs/draft-specific keywords.
     // Strip the converter's dialect declaration; the emitted document uses 2020-12.
-    const props = zodToJsonSchema(componentSchema(name, profile), { $refStrategy: "none", target: "jsonSchema7" });
+    // The converter types resolve Zod 4/v3; this catalog retains its exact Zod 3 runtime.
+    const props = zodToJsonSchema(componentSchema(name, profile) as unknown as Parameters<typeof zodToJsonSchema>[0], { $refStrategy: "none", target: "jsonSchema7" });
     const { $schema: _dialect, ...shape } = props as { $schema?: string; properties: Record<string, unknown>; required?: string[] };
     void _dialect;
     return [name, {

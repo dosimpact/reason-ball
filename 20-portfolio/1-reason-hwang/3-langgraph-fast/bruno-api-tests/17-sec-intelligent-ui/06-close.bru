@@ -1,0 +1,16 @@
+meta {
+  name: SEC-IUI-002 close session
+  type: http
+  seq: 6
+}
+delete {
+  url: {{baseUrl}}/api/sec-chat/threads/{{secThread}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Releases filing session", function () { expect(res.getBody().deleted).to.equal(true); });
+}

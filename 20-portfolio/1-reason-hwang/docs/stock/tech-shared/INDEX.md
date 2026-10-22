@@ -68,3 +68,5 @@ tech-shared/
 - [A2UI 시스템 설계](a2ui-system/INDEX.md): 전체 UI Registry, 정적 카탈로그, SDK/프로토콜 버전 계약, Dynamic/Fixed 및 사용자 action.
 
 - [Push UI message 예제](push-ui-message/INDEX.md): 독립 채팅 예제와 메시지별 진행 이벤트.
+
+- [SEC Intelligent UI Host](1-fe-host/sec-intelligent-ui.md) / [LangGraph](3-langgraph-fast/sec-intelligent-ui.md): AG-UI 기반 SEC 채팅.

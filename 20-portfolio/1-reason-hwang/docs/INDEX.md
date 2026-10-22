@@ -114,6 +114,7 @@ The technical subdirectories follow package ownership; the other stock directori
 | --- | --- |
 | [`stock/us-corporate-filings/INDEX.md`](stock/us-corporate-filings/INDEX.md) | Domain boundary, owning components, current capabilities, and documentation routing |
 | [`stock/us-corporate-filings/system-design.md`](stock/us-corporate-filings/system-design.md) | Implemented PostgreSQL filing content, migration, constraints, and verification |
+| [`stock/us-corporate-filings/intelligent-ui.md`](stock/us-corporate-filings/intelligent-ui.md) | SEC 10-K conversational analysis with OpenUI and AG-UI; no A2UI |
 
 ### Index DCF Visualizer
 
@@ -136,7 +137,11 @@ The technical subdirectories follow package ownership; the other stock directori
 Flow documents remain in a single dated, append-only history. New records must identify the affected business domain or `tech-shared`, name the package when applicable, and link the exact stock documents they update. Historical records using the scope label `shared` remain unchanged.
 
 | Document | Change |
+| [`flow/2026-10-22-sec-activity-timeline.md`](flow/2026-10-22-sec-activity-timeline.md) | Behind the scenes 실시간 실행 타임라인 |
+| [`flow/2026-10-22-sec-follow-ups.md`](flow/2026-10-22-sec-follow-ups.md) | LangGraph 공통 after-answer LLM 추천 질문 |
+| [`flow/2026-10-22-sec-conversation.md`](flow/2026-10-22-sec-conversation.md) | 자유 대화 진입, 기업 확인 및 자동 공시 준비 |
 | --- | --- |
+| [`flow/2026-10-21-sec-intelligent-ui-validation.md`](flow/2026-10-21-sec-intelligent-ui-validation.md) | OpenUI SEC chat, latest filings for 10 companies, 70 successful question scenarios, regression fixes and resource cleanup |
 | [`flow/2026-09-20-workspace-root.md`](flow/2026-09-20-workspace-root.md) | Established this directory as an independent pnpm/Turborepo workspace |
 | [`flow/2026-09-20-documentation-reconciliation.md`](flow/2026-09-20-documentation-reconciliation.md) | Reconciled root guidance and canonical documentation with the implementation |
 | [`flow/2026-09-20-oauth-proxy-image-cleanup.md`](flow/2026-09-20-oauth-proxy-image-cleanup.md) | Removed dead proxy container configuration and separated runtime from example dependencies |
@@ -182,3 +187,17 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [A2UI 시스템 설계](stock/tech-shared/a2ui-system/INDEX.md): 전체 UI Registry, 정적 카탈로그, SDK/프로토콜 버전 계약, Dynamic/Fixed 및 사용자 action.
 
 - [Push UI message 예제](stock/tech-shared/push-ui-message/INDEX.md): 턴별 진행 부가정보와 독립 채팅 UI.
+
+- [2026-10-22 자유 Intelligent UI](flow/2026-10-22-sec-generative-ui.md)
+
+- [2026-10-22 설명형 답변 서식](flow/2026-10-22-sec-prose-rendering.md)
+
+- [2026-10-22 SEC Deep Agent와 공통 tools](flow/2026-10-22-sec-deep-agent.md)
+
+- [2026-10-22 FSD 전환·SEC API 관리자 채팅](flow/2026-10-22-fsd-sec-api-agent.md): FE-FSD-001, SEC-ADMIN-001 구현과 검증.
+
+- [2026-10-22 SEC Chat 기술 개념](flow/2026-10-22-sec-chat-technical-concepts.md): SEC-DOC-001, 실행·도구·UI·이벤트·근거·상태의 구분.
+
+- [2026-10-22 SEC 관리자 레이아웃](flow/2026-10-22-sec-admin-layout.md): 중복 사이드바 제거, 상단 대화 관리와 반응형 화면.
+
+- [2026-10-22 호스트 테마 통합](flow/2026-10-22-host-theme.md): FE-THEME-001, 공통 토글·OpenUI 동기화.

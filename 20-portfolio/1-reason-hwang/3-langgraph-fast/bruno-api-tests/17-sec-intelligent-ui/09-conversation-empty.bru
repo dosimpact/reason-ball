@@ -1,0 +1,25 @@
+meta {
+  name: SEC-IUI-004 09-conversation-empty
+  type: http
+  seq: 9
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/resolve
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+}
+body:json {
+  {"message":" "}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("Conversation contract", function () {
+    const body = res.getBody();
+    expect(res.getStatus()).to.equal(422);
+  });
+}

@@ -1,0 +1,22 @@
+meta {
+  name: SEC-IUI explicitly selected former issuer
+  type: http
+  seq: 3
+}
+get {
+  url: {{baseUrl}}/filings?cik=0000034088&includeFormerRegistrants=true&formType=10-K&includeContent=false&pageSize=10
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Downloaded predecessor report retains actual issuer identity", function () {
+    const items = res.getBody().items;
+    expect(items.length).to.be.greaterThan(0);
+    expect(items[0].cik).to.equal("0000034088");
+    expect(items[0].formType).to.equal("10-K");
+    expect(items[0].status).to.equal("downloaded");
+  });
+}

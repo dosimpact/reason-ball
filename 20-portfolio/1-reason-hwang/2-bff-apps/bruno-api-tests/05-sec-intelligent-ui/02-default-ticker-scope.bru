@@ -1,0 +1,18 @@
+meta {
+  name: SEC-IUI default ticker scope is preserved
+  type: http
+  seq: 2
+}
+get {
+  url: {{baseUrl}}/filings?cik=0000034088&formType=10-K&includeContent=false
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Former Exxon issuer remains excluded by default", function () {
+    expect(res.getBody().items).to.have.length(0);
+  });
+}

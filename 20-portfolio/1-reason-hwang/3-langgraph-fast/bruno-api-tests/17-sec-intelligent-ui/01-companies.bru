@@ -1,0 +1,18 @@
+meta {
+  name: SEC-IUI-001 company lookup
+  type: http
+  seq: 1
+}
+get {
+  url: {{baseUrl}}/api/sec-chat/companies?q=AAPL
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Returns Apple with authoritative CIK", function () {
+    expect(res.getBody().items.some(row => row.cik === "0000320193")).to.equal(true);
+  });
+}

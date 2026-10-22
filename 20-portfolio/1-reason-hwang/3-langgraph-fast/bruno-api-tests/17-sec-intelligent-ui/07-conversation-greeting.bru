@@ -1,0 +1,28 @@
+meta {
+  name: SEC-IUI-004 07-conversation-greeting
+  type: http
+  seq: 7
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/resolve
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+}
+body:json {
+  {"message":"안녕!"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Conversation contract", function () {
+    const body = res.getBody();
+    expect(body.action).to.equal("reply"); expect(body.reply.length).to.be.greaterThan(0);
+    expect(body.followUpsStatus).to.equal("ready");
+    expect(body.followUps).to.have.lengthOf(3);
+    expect(new Set(body.followUps).size).to.equal(3);
+  });
+}

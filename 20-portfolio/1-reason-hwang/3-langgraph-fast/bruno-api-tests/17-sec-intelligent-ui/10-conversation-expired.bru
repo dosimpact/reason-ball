@@ -1,0 +1,25 @@
+meta {
+  name: SEC-IUI-004 10-conversation-expired
+  type: http
+  seq: 10
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/resolve
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+}
+body:json {
+  {"message":"주요 위험은?", "threadId":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+}
+assert {
+  res.status: eq 404
+}
+tests {
+  test("Conversation contract", function () {
+    const body = res.getBody();
+    expect(res.getStatus()).to.equal(404);
+  });
+}

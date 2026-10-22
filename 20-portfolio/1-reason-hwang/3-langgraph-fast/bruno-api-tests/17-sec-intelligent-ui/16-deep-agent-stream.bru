@@ -1,0 +1,31 @@
+meta {
+  name: SEC-DEEP-002 streamed tool execution
+  type: http
+  seq: 16
+}
+post {
+  url: {{baseUrl}}/api/sec-deep-agent/research
+  body: json
+  auth: none
+}
+headers {
+  Accept: text/event-stream
+}
+body:json {
+  {"message":"search_sec_companies 도구로 AAPL 기업의 이름과 CIK만 확인해줘. 공시 수집이나 분석은 하지 마."}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Streams actual tool status and final report", function () {
+    const events = res.getBody().split('\n').filter(line => line.startsWith('data: ')).map(line => JSON.parse(line.slice(6)));
+    expect(events.some(event => event.type === 'RUN_ERROR')).to.equal(false);
+    expect(events.at(-1).type).to.equal('RUN_FINISHED');
+    const report = events.find(event => event.name === 'sec.report').value;
+    expect(report.report).to.include('0000320193');
+    expect(report.toolCalls.some(call => call.name === 'search_sec_companies')).to.equal(true);
+    const steps = events.filter(event => event.name === 'sec.activity').map(event => event.value);
+    expect(steps.some(step => step.label.includes('search_sec_companies') && step.status === 'completed')).to.equal(true);
+  });
+}

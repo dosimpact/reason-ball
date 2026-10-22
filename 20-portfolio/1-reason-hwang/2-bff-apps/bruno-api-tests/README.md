@@ -28,3 +28,14 @@
 ## SEC-QUERY-TICKER-001: 목록 조회의 기본 범위
 
 GET /companies와 GET /filings는 DB companies.ticker가 NULL·빈 문자열·공백이 아닌 회사만 반환한다. 별도 파라미터 없이 기본 적용하며 cik/ticker/q 등 기존 필터와 AND로 결합한다. totalItems/totalPages에도 동일 조건이 적용된다. 티커 없는 회사 CIK를 지정하면 빈 목록이다. 회사 데이터나 공시를 삭제하지 않으며 현재 상장 여부를 의미하지 않는다. CIK+accessionNo로 이미 저장된 단일 원문을 조회하는 API는 이 목록 필터와 별개로 유지한다.
+
+## SEC Intelligent UI 이전 법인 검증
+
+`05-sec-intelligent-ui`는 XOM 이전 법인 CIK `0000034088`의 실제 원문 수집 후 실행하는 opt-in 검사다. 새 `includeFormerRegistrants` 옵션의 CIK 필수 조건, 기존 기본 조회 범위, 이전 법인 10-K 반환을 확인한다.
+
+위 SEC-QUERY-TICKER-001은 기본값의 설명이다. `GET /filings?cik=...&includeFormerRegistrants=true`로 특정 이전 법인을 명시하면 해당 CIK의 티커 없는 공시도 반환한다.
+
+```bash
+# bruno-api-tests 디렉터리에서 (작업 소유 BFF 실행 필요)
+../../3-langgraph-fast/node_modules/.bin/bru run 05-sec-intelligent-ui --env local
+```

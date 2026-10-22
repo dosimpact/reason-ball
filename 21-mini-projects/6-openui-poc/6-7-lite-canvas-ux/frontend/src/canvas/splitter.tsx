@@ -11,6 +11,7 @@ export function CanvasSplitter() {
   const dragging = useRef(false);
   const [range, setRange] = useState({ vertical: true, value: 360, min: 300, max: 1000 });
 
+  // 데스크톱은 폭, 모바일은 높이를 조절하며 두 패널의 최소 크기를 고려해 허용 범위를 계산합니다.
   function measure(value?: number) {
     const handle = ref.current;
     const root = handle?.parentElement;
@@ -53,6 +54,7 @@ export function CanvasSplitter() {
     measure(window.matchMedia("(min-width: 701px)").matches ? event.clientX - chat.left : event.clientY - chat.top);
   }
 
+  // 포인터 종료·취소·캡처 해제에 같은 정리 경로를 사용하고 조절한 크기를 저장합니다.
   function finish() {
     dragging.current = false;
     ref.current?.parentElement?.classList.remove("is-resizing");

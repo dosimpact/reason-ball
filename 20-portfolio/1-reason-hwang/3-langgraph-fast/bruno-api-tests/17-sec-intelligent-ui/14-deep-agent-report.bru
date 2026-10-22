@@ -1,0 +1,28 @@
+meta {
+  name: SEC-DEEP-002 autonomous research report
+  type: http
+  seq: 14
+}
+post {
+  url: {{baseUrl}}/api/sec-deep-agent/research
+  body: json
+  auth: none
+}
+body:json {
+  {"message":"수집이나 동기화 없이 저장된 자료로 AAPL의 최신 10-K를 찾아 원문에서 제품 매출 관련 구절을 읽고 짧은 한국어 리포트를 작성해줘. 검색, 공시 목록 조회, 원문 읽기 도구를 사용하고 공시 출처와 발췌 범위를 명시해줘."}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Deep Agent reads evidence using model-selected tools", function () {
+    const body = res.getBody();
+    const names = body.toolCalls.map(call => call.name);
+    expect(names).to.include('search_sec_companies');
+    expect(names).to.include('list_sec_filings');
+    expect(names).to.include('get_sec_filing_content');
+    expect(names.some(name => name.startsWith('sync_'))).to.equal(false);
+    expect(body.report.length).to.be.greaterThan(200);
+    expect(body.sources.some(source => source.cik === '0000320193')).to.equal(true);
+  });
+}

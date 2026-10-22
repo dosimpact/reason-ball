@@ -1,0 +1,21 @@
+meta {
+  name: SEC-IUI-002 reject unknown thread
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/chat
+  body: json
+  auth: none
+}
+body:json {
+  {"threadId":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","message":"Item 1"}
+}
+assert {
+  res.status: eq 404
+}
+tests {
+  test("Unknown thread cannot invent filing context", function () {
+    expect(res.getBody().detail).to.include("세션");
+  });
+}

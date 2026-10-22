@@ -1,0 +1,21 @@
+meta {
+  name: SEC-IUI-002 reject invalid identity
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/prepare
+  body: json
+  auth: none
+}
+body:json {
+  {"cik":"../escape"}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("Does not collect invalid company", function () {
+    expect(res.getStatus()).to.equal(422);
+  });
+}

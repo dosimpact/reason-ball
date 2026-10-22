@@ -1,6 +1,8 @@
 {
   "$schema": "https://langgra.ph/schema.json",
-  "dependencies": ["."],
+  "dependencies": [
+    "."
+  ],
   "graphs": {
     "main_graph": "./src/graph/primary_graphs/main_graph/workflow.py:main_graph",
     "simple_llm": "./src/graph/primary_graphs/simple_llm/workflow.py:simple_llm",
@@ -8,7 +10,8 @@
     "price_agent": "./src/graph/subgraph/price_agent/workflow.py:price_agent_graph",
     "starter_graph": "./src/graph/subgraph/starter_graph/workflow.py:starter_graph",
     "tenk_subgraph": "./src/graph/subgraph/tenk/workflow.py:tenk_subgraph",
-    "simple_push_ui_message": "./src/graph/primary_graphs/simple_push_ui_message/workflow.py:simple_push_ui_message"
+    "simple_push_ui_message": "./src/graph/primary_graphs/simple_push_ui_message/workflow.py:simple_push_ui_message",
+    "sec_deep_agent": "./src/graph/primary_graphs/sec_deep_agent/workflow.py:sec_deep_agent"
   },
   "env": "./.env"
 }
