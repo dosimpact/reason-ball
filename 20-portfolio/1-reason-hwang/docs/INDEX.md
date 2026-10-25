@@ -100,7 +100,7 @@ The technical subdirectories follow package ownership; the other stock directori
 
 | Package | Documents |
 | --- | --- |
-| `1-fe-host` | [Frontend architecture](stock/tech-shared/1-fe-host/2-frontend-side-architecture.md), [Storybook](stock/tech-shared/1-fe-host/storybook.md) |
+| `1-fe-host` | [Frontend architecture](stock/tech-shared/1-fe-host/2-frontend-side-architecture.md), [OpenUI 사용 사례·코드 안내](stock/tech-shared/1-fe-host/sec-intelligent-ui.md#openui-doc-001-사용-사례와-코드-안내), [Storybook](stock/tech-shared/1-fe-host/storybook.md) |
 | `2-bff-apps` | [BFF map](stock/tech-shared/2-bff-apps/INDEX.md), [Directory policy](stock/tech-shared/2-bff-apps/directory-policy.md), [Swagger/OpenAPI](stock/tech-shared/2-bff-apps/swagger-module.md) |
 | `3-langgraph-fast` | [Package map](stock/tech-shared/3-langgraph-fast/INDEX.md), [DB saver](stock/tech-shared/3-langgraph-fast/3-langgraph-db-saver.md), [Graph DB](stock/tech-shared/3-langgraph-fast/4-graph-db.md) |
 | `infra/1-infra-graph-rag` | [Infrastructure setup](stock/tech-shared/infra/1-infra-graph-rag/1-infra-l1-setup.md) |
@@ -201,3 +201,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [2026-10-22 SEC 관리자 레이아웃](flow/2026-10-22-sec-admin-layout.md): 중복 사이드바 제거, 상단 대화 관리와 반응형 화면.
 
 - [2026-10-22 호스트 테마 통합](flow/2026-10-22-host-theme.md): FE-THEME-001, 공통 토글·OpenUI 동기화.
+
+- [2026-10-25 OpenUI 문서 보완](flow/2026-10-25-openui-documentation.md): OPENUI-DOC-001, 두 화면 비교·코드 탐색·생성물 동기화 안내.
