@@ -100,3 +100,12 @@ http://localhost:3044 의 **보고서 만들기**에서 MD/HTML/TXT 파일을 �
 매 메시지를 모델이 분류해 일반 UI 또는 보고서 전용 프롬프트로 전달한다. 예를 들어 “Plan a relaxed afternoon exploring Lisbon, with three stops and a map”은 일반 여행 UI, 이후 “방금 일정을 한국어 여행 검토 보고서로 바꿔줘”는 이전 답변 기반의 연속 보고서다. 짧은 프로젝트 현황도 보고서로 요청할 수 있다. 보고서에 대한 한두 문장 설명 요청은 일반 응답으로 처리한다.
 
 `frontend`의 `npm run generate` 후 `src/generated/system-prompt.txt`와 `report-system-prompt.txt`를 각각 `backend-langgraph/agent/`에 명시적으로 복사·비교하고 Python 서버를 재시작한다. `intent-prompt.txt`는 Python 소유의 분류 지침이다. 그래프 ID 기본값은 agent/report/intent이며 프런트엔드 환경변수 예시는 해당 `.env.example`에 있다. 의도 분류 호출이 한 번 추가되며 실패 시 오류를 표시한다. `npm run test:e2e:reports`에는 Lisbon 일반→보고서→후속 설명, 짧은 문서, 무관한 이전 문서 제외 검사가 포함된다.
+
+개별 라이브러리 사용법은 개발 서버의 [Lib Story](http://127.0.0.1:3044/lib-story?theme=light#components-col)에서 확인한다. 컴포넌트 55개·함수 59개·액션 1개에 총 231개 예제가 있으며, OpenUI Lang 코드를 편집하고 렌더링 결과를 비교할 수 있다. Col 예제는 Col만 등록한 전용 카탈로그를 사용한다. 모델 호출과 채팅 저장을 사용하지 않으며 production에서는 제공하지 않는다.
+
+### 사용 사례: Col의 배치와 간격을 직접 비교하기
+
+1. 프런트엔드 개발 서버를 실행하고 [Col 개별 예제](http://127.0.0.1:3044/lib-story?theme=light#components-col)를 연다.
+2. 기본 세로 흐름, 간격 4(16px), 중첩·정렬의 세 가지 OpenUI Lang 코드와 렌더링 결과를 비교한다.
+3. 코드의 `gap` 값을 바꾸고 **코드 적용**을 눌러 결과를 확인한다. **초기화**를 누르면 원래 코드와 상태로 돌아간다.
+4. 왼쪽 목록에서 다른 컴포넌트·함수·액션을 선택해 개별 사용 사례를 확인한다. 예를 들어 [Percent](http://127.0.0.1:3044/lib-story?theme=light#functions-percent)는 비율 계산, [CopyToClipboard](http://127.0.0.1:3044/lib-story?theme=light#actions-copytoclipboard)는 복사 액션을 보여준다.

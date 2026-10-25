@@ -6,14 +6,20 @@ Browser AgentInterface → fetchLLM/agUIAdapter → Next.js /api/chat → @openu
 backend-langgraph는 Python 3.12/uv 독립 프로젝트, frontend는 Next.js 16.1.6/React 19.2.3/npm 독립 프로젝트다. 런타임에 형제 프로젝트를 import하거나 읽지 않는다. frontend는 npm/package-lock.json만 사용한다.
 
 ## IUI-102 UI 계약
+카탈로그 이관부터 프롬프트 동기화·Python 생성·렌더링·상호작용까지의 읽기 안내는 [Report.md의 통합 과정](../../Report.md#openui에-intelligent-ui를-통합하는-과정--현재-6-3-구현)에 정리했다. [문서화 기록](../flow/2026-10-25-intelligent-ui-integration-process.md)은 설명을 추가한 근거와 확인 범위를 남긴다.
+
 frontend/src/lib는 B에서 그대로 복사했다. src/library.ts는 일반 UI 카탈로그와 promptOptions의 생성 진입점이다. src/reporting/report-library.ts는 같은 카탈로그에 보고서 작성 지침·예시·해설 전용 지침을 합성하는 별도 생성 진입점이다. root Col, 55 components, 59 functions, CopyToClipboard. 기존 Stack 카탈로그를 병합하지 않고 교체했다. React-lang/lang-core 1.0.1, react-ui 0.18.1을 사용한다.
 
 npm run generate는 일반 system-prompt.txt, 보고서 report-system-prompt.txt 및 카탈로그 spec.json 등을 생성한다. 두 프롬프트를 backend-langgraph/agent/의 같은 이름 자산에 명시적으로 복사하고 각각 cmp로 확인한다. backend는 패키지 내부 프롬프트만 읽는다. 초기 설치 후 생성 명령을 실행해야 한다(생성물은 Git 제외).
 
 ## IUI-103 화면과 부속 기능
+`src/app/lib-story/`는 개발 전용 개별 사례 탐색기다. `stories.json`에 115개 항목·231개 DSL 예제를 정의하고 `lib-story.tsx`에서 선택한 항목만 Renderer로 표시한다. 종류별 목록·검색·hash 직접 링크·light/dark 테마·코드 편집/적용·초기화·DSL 오류 표시를 제공한다. Col의 Renderer는 `createLibrary({ root: "Col", components: [Col] })`를 사용하고 다른 예제는 기존 카탈로그를 재사용한다. SVG와 MapMarker 등은 필수 부모를 함께 사용한다. 커스텀 액션은 `runLibraryAction`, 대화 요청은 로컬 이벤트 알림으로 처리하며 모델을 호출하지 않는다. production에서는 gallery와 같이 404다. [구현·검증 기록](../flow/2026-10-25-lib-story.md)을 따른다.
+
 B의 채팅 화면, starters, 테마 토글, localChatStorage/SaveMessages와 onAction을 연결했다. public, gallery, preview를 복사했다. image-search/wiki/street-route Next.js routes가 사진과 지도 경로를 지원하며 외부 서비스 가용성에 의존한다. 지도에는 maplibre-gl, 수식에는 katex를 사용한다. B의 analytics/provider route는 가져오지 않았다.
 
 ## IUI-104 검증과 원본 보존
+등록 함수 59개는 `src/lib/functions/debug.ts`의 `defineDebugFunction`을 통해 입력·반환값·예외를 `[Intelligent UI fn] @함수명` 접두사의 `console.log`로 기록한다. 일반 UI 사용 시 브라우저 개발자 도구에서 확인하며 테스트 실행 시에는 테스트 프로세스에 출력된다. 원래 함수는 한 번 호출하고 반환값·예외 동작은 유지한다. 입력 스키마 검사에서 실행 전 거부된 호출과 OpenUI 내장 함수는 이 로그 대상이 아니다. [변경 기록](../flow/2026-10-25-function-debug-logs.md)을 따른다.
+
 npm test는 B에서 복사한 함수/갤러리 계약 테스트를 실행한다. vitest 설정의 alias와 UTC 테스트 시간대를 유지한다. 원본 UI 소스를 바꾸지 않기 위해 eslint.config.mjs에서 controls의 OpenUI component 콜백, chart의 렌더 지역 변수, preview의 mount 브리지에만 해당 React lint 규칙 예외를 명시한다. 나머지 검사와 기존 경고는 유지한다.
 
 npm run test:smoke는 실제 모델·도구·후속 대화·카운터·400 응답 및 생성 답변의 현재 카탈로그 파싱을 검사한다. 결과는 frontend/output/validation에 저장한다. 브라우저 증거는 frontend/output/playwright에 저장한다. [flow 목차](../flow/README.md)는 원본에서 복사된 이력과 이 프로젝트의 변경을 구분한다. 사용자 요청으로 기존 13개 기록을 핵심 결정·근거·최종 검증·한계 중심으로 압축했으며 파일명은 유지한다. 이력의 검증 수치는 당시 버전과 데이터 기준이고 현재 샘플 문서의 재검증을 의미하지 않는다. 현재 설계는 stock을 기준으로 하고 새로운 변경은 날짜가 있는 flow에 기록한다.

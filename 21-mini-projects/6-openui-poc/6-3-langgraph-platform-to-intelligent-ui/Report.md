@@ -820,3 +820,373 @@ export function GeneratedMessage({
 - 2026-10-18 확인한 최신 LangChain 문서는 `@langchain/react` v1을 중심으로 설명한다. 기존 `@langchain/langgraph-sdk/react`의 `useStream`과 import 경로·메시지 형식·API가 같다고 가정하면 안 된다. 실제 연결 코드는 사용 중인 lockfile 버전에 맞춰야 한다. [공식 React 마이그레이션 안내](https://reference.langchain.com/javascript/langchain-react/migration)
 - 이 `Report.md`가 속한 Python 예제의 `frontend/package.json`에는 현재 `@langchain/langgraph-sdk` 직접 의존성이 없고, `src/app/page.tsx`는 `AgentInterface + fetchLLM + agUIAdapter`를 사용한다. 따라서 위 구성은 “이미 LangGraph React SDK를 사용하는 앱”에 대한 답변이며, 이 폴더가 이미 해당 구성을 사용 중이라는 뜻은 아니다.
 - 공식 문서와 로컬 소스·의존성을 확인해 작성했다. 예시는 문서용이며 실제 SDK 연결, 타입 검사, 스트리밍·폼·고정 패널 동작 테스트는 수행하지 않았다. 런타임 코드와 의존성은 변경하지 않았다.
+
+## OpenUI에 Intelligent UI를 통합하는 과정 — 현재 6-3 구현
+
+> 2026-10-25 소스 확인 기준. 이 절은 앞의 기본 OpenUI 예제 설명에 이어 현재 Intelligent UI 통합 구조를 설명한다. 앞 절의 `openuiLibrary`·`Stack` 기반 설명과 달리, 현재 앱은 로컬 `src/lib/library.ts`의 `library`와 루트 `Col`을 사용한다. 변경 이력은 [문서화 기록](docs/flow/2026-10-25-intelligent-ui-integration-process.md), 현재 계약은 [시스템 설계 IUI-102](docs/stock/system.md#iui-102-ui-계약)를 따른다.
+
+### 1. 통합 범위: OpenUI 실행 기반 위에 UI 카탈로그와 앱 기능 연결
+
+이 프로젝트에서 Intelligent UI는 별도의 Python UI 엔진이 아니다. `open-intelligent-ui`에서 가져온 React 컴포넌트·계산 함수·액션·프롬프트 규칙·채팅 부속 기능을 OpenUI의 DSL과 렌더러에 연결한 구성이다. 기존 Python LangGraph 연결은 유지하고 화면에서 사용할 계약을 교체했다.
+
+| 계층 | 실제 역할 | 현재 구현 위치 |
+| --- | --- | --- |
+| OpenUI 실행 기반 | OpenUI Lang 파싱·평가·React 렌더링, 채팅 및 AG-UI 이벤트 처리 | `@openuidev/react-lang`, `@openuidev/react-ui` |
+| Intelligent UI 카탈로그 | 레이아웃·입력·차트·지도·미디어·SVG 컴포넌트, 계산 함수, 복사 액션 정의 | [src/lib/library.ts](frontend/src/lib/library.ts) |
+| 앱 연결 | 카탈로그·테마·액션·대화 저장소를 AgentInterface에 주입 | [page.tsx](frontend/src/app/page.tsx) |
+| Python 생성 | 같은 카탈로그에서 만든 프롬프트로 OpenUI Lang 생성 | [graph.py](backend-langgraph/agent/graph.py) |
+| 보고서 확장 | 문서 입력·원문 수치 구조화·보고서 생성 검증·인쇄 | [src/reporting](frontend/src/reporting/) |
+
+최초 이관에서는 원본 `src/lib` 43개 파일과 gallery/preview·정적 자산·미디어 API 등을 복사했다. 원본의 모델 호출 route와 analytics는 제외했다. 기본 OpenUI 카탈로그에 두 카탈로그를 모두 합친 것이 아니라, **생성과 렌더링에 사용할 카탈로그를 Intelligent UI 것으로 교체**했다. 당시 복사·검증 범위는 [최초 이관 기록](docs/flow/2026-10-18-intelligent-ui-python.md)에 남아 있다.
+
+### 2. 컴포넌트·함수·액션을 하나의 라이브러리로 등록
+
+[frontend/src/lib/library.ts](frontend/src/lib/library.ts)는 `createLibrary()`에 `root: "Col"`, 컴포넌트 목록, `functions`, `actions`, 컴포넌트 그룹별 설명을 등록한다. 현재 stock에 정리된 계약은 컴포넌트 55개·함수 59개와 `CopyToClipboard` 액션이다.
+
+- **컴포넌트**: `Col`, `Row`, `Card`, `Text`, `Slider`, `Chart`, `Map` 등으로 화면을 구성한다. 모델은 등록된 이름과 인자 계약에 맞춰 DSL을 작성한다.
+- **함수**: [functions/index.ts](frontend/src/lib/functions/index.ts)에 모은 `defineFunction()` 구현을 등록한다. 생성된 UI의 데이터 계산·필터링 등을 브라우저에서 수행한다.
+- **액션**: [actions.ts](frontend/src/lib/actions.ts)의 `defineAction()`은 모델이 사용할 `CopyToClipboard` 계약을 정의한다. 실제 복사는 `runLibraryAction()`이 실행한다.
+
+컴포넌트를 React 파일로 작성하는 것만으로 통합이 끝나지 않는다. **라이브러리 등록, 모델에 전달할 계약 생성, 화면의 동일 라이브러리 연결**이 함께 필요하다. 함수의 실제 `fn` 코드나 React 구현을 Python에 복사하는 방식은 사용하지 않는다.
+
+### 3. 같은 카탈로그에서 일반·보고서 시스템 프롬프트 생성
+
+일반 생성 진입점인 [src/library.ts](frontend/src/library.ts)는 로컬 카탈로그와 일반 `promptOptions`를 export한다. [report-library.ts](frontend/src/reporting/report-library.ts)는 같은 카탈로그를 재사용하고 보고서 지침을 합성한다. `frontend/package.json`의 `generate` 스크립트는 다음 자산을 만든다.
+
+```text
+src/lib/library.ts + src/lib/prompt-options.ts
+  └─ src/library.ts
+       ├─ src/generated/system-prompt.txt
+       └─ src/generated/spec.json
+
+같은 library + reporting/prompt-options.ts
+  └─ src/reporting/report-library.ts
+       └─ src/generated/report-system-prompt.txt
+```
+
+프롬프트에는 DSL 문법과 등록된 컴포넌트·함수·액션의 사용 계약이 들어간다. `spec.json`은 생성된 구조 명세이며 보고서 파싱 검증에도 사용한다. 현재 Python은 `spec.json`을 직접 읽지 않고 패키지 내부의 두 프롬프트 텍스트를 읽는다.
+
+프로젝트 루트 기준 동기화 절차는 다음과 같다.
+
+```bash
+cd frontend
+npm run generate
+
+cp src/generated/system-prompt.txt ../backend-langgraph/agent/system-prompt.txt
+cp src/generated/report-system-prompt.txt ../backend-langgraph/agent/report-system-prompt.txt
+
+cmp src/generated/system-prompt.txt ../backend-langgraph/agent/system-prompt.txt
+cmp src/generated/report-system-prompt.txt ../backend-langgraph/agent/report-system-prompt.txt
+```
+
+복사 후에는 Python 서버를 재시작한다. 프롬프트는 그래프 모듈을 로드할 때 읽으므로, 파일만 바꾸면 실행 중인 그래프가 이전 계약을 계속 사용할 수 있다. 카탈로그의 이름·인자 순서·규칙을 변경할 때도 같은 절차가 필요하다.
+
+### 4. Python 생성과 OpenUI 스트리밍 연결
+
+브라우저는 [page.tsx](frontend/src/app/page.tsx)의 `fetchLLM({ url: "/api/chat", streamAdapter: agUIAdapter() })`를 통해 요청한다. [API route](frontend/src/app/api/chat/route.ts)는 Python의 `intent` graph로 의도를 분류한 뒤 일반 `agent` 또는 `report` 경로를 선택한다.
+
+```text
+사용자 질문 / 업로드 문서
+  → AgentInterface → fetchLLM → Next.js /api/chat
+  → Python intent graph: 일반 질문 / 보고서 판단
+      ├─ chat   → agent graph + system-prompt.txt
+      └─ report → 보고서 처리 + report graph + report-system-prompt.txt
+  → Python의 OpenUIStreamTransformer
+  → protocol v2 custom:openui → Next.js → AG-UI SSE
+  → agUIAdapter → AgentInterface 내부 OpenUI 렌더링
+  → Intelligent UI 카탈로그의 React 컴포넌트
+```
+
+일반 `agent`는 `create_deep_agent()`에 모델·mock 도구·프롬프트를 연결한다. `report`는 도구 바인딩 없는 별도 StateGraph 모델 노드다. [streaming.py](backend-langgraph/agent/streaming.py)의 `OpenUIStreamTransformer`는 생성 텍스트와 도구 이벤트를 OpenUI 채널로 변환한다. `graph.py`의 `stream_transformers()`는 서버가 실행마다 변환기를 만들도록 클래스를 반환하는 연결 지점이다.
+
+서버는 React 컴포넌트를 전송하지 않는다. 서버가 생성한 **OpenUI Lang 텍스트**를 브라우저가 받아, 등록된 React 구현으로 화면을 만든다. OpenAI 키와 모델 호출은 Python 백엔드가 소유한다.
+
+### 5. 생성된 화면을 실제로 동작시키기
+
+[page.tsx](frontend/src/app/page.tsx)는 `AgentInterface`에 `componentLibrary={library}`와 `onAction`을 전달한다. 생성 프롬프트와 렌더러가 같은 카탈로그를 사용해야 모델이 쓴 컴포넌트와 함수를 화면에서 찾을 수 있다.
+
+| 사용자 동작 | 처리 경로 | 모델 재호출 |
+| --- | --- | --- |
+| Slider·Select 등 입력 변경 | `$state` 갱신 → 관련 표현식·등록 함수 재평가 → 화면 갱신 | 로컬 상태·계산만 쓰는 경우 없음 |
+| `@CopyToClipboard(...)` 클릭 | `onAction` → `runLibraryAction()` → 브라우저 복사 | 없음 |
+| `@ToAssistant(...)` 실행 | AgentInterface가 다음 대화 요청 전송 | 있음 |
+| 사진·지도 경로 조회 | image-search/wiki/street-route 등 보조 API 사용 | 해당 조회 자체에는 불필요 |
+| 대화·폼 상태 저장 | `reportChatStorage`·`SaveMessages`와 localStorage 연결 | 없음 |
+
+테마 CSS, 지도 CSS, 정적 자산, 미디어 API, 저장소도 함께 연결해야 원본과 같은 사용 경험이 성립한다. `/gallery`와 `/preview`는 모델 없이 프로그램과 카탈로그 동작을 확인하는 개발용 화면이다.
+
+### 6. 보고서 기능과 검증 범위 구분
+
+`src/reporting/`은 이관한 카탈로그를 활용해 추가한 앱 기능이다. 인식 가능한 벤더 문서는 원문에서 숫자·표를 구조화하고 보고서 프로그램을 조립하며, 모델은 별도 AI 해설을 생성한다. 일반 주제 보고서는 모델이 전체 프로그램을 생성하고 parser·구성 조건을 검사하며 필요 시 한 차례 수정을 요청한다. 세부 경로는 [시스템 설계 IUI-107~110](docs/stock/system.md#iui-107-보고서-생성과-원문-보존)을 따른다.
+
+이 검증 경로가 모든 일반 채팅 응답에 자동 적용되는 것은 아니다. 카탈로그 등록과 프롬프트 동기화는 생성 계약을 맞추는 절차이며, 모든 자연어 요청의 올바른 DSL 생성이나 해설의 사실 정확성을 보장하지 않는다.
+
+통합 변경을 확인할 때는 다음 순서로 검증한다.
+
+1. `npm run generate` 후 두 프롬프트를 복사·비교하고 Python을 재시작한다.
+2. 프런트엔드에서 `npm test`, `npm run lint`, `npm run typecheck`, `npm run verify`를 실행한다.
+3. 백엔드에서 `uv run pytest`, `uv run ruff check agent tests`를 실행한다.
+4. 두 서버 실행 상태에서 `npm run test:smoke`로 실제 모델 생성·도구·현재 카탈로그 파싱을 확인한다.
+5. 브라우저에서 입력에 따른 계산, 액션, 후속 대화, 새로고침 복원을 확인하고 보고서 변경은 `npm run test:e2e:reports`로 검사한다.
+
+이 절은 현재 소스와 stock·최초 이관 기록을 대조한 문서 보완이다. 위 테스트를 이번 문서 작업에서 다시 실행한 것은 아니다. 앞선 서비스 실행에서는 백엔드 `/ok` 정상과 프런트엔드 HTTP 200까지만 확인했다.
+
+
+### Intelligent UI `createLibrary()` 설정 전체 구성
+
+2026-10-25 기준 [frontend/src/lib/library.ts](frontend/src/lib/library.ts)의 `createLibrary()`에 실제 전달하는 설정은 **`root`, `components`, `functions`, `actions`, `componentGroups` 다섯 가지**다. 이 절은 현재 앱의 설정 전체를 설명하며, OpenUI API가 제공할 수 있는 모든 선택 옵션을 나열하는 문서는 아니다.
+
+```tsx
+export const library = createLibrary({
+  root: "Col",        // 최상위 UI 컴포넌트
+  components: [...],  // 사용할 React 컴포넌트와 DSL 계약
+  functions,          // DSL에서 실행할 계산 함수
+  actions,            // 사용자 이벤트 액션 계약
+  componentGroups: [  // 모델에 전달할 그룹·사용 지침
+    { name: "Layout", components: [...], notes: [...] },
+    // Text, Inputs, Media and data, Play, Drawing
+  ],
+});
+```
+
+| 설정 | 현재 값 | 책임 |
+| --- | --- | --- |
+| `root` | `"Col"` | 최상위에 사용할 등록 컴포넌트를 지정한다. |
+| `components` | 55개 컴포넌트 정의 | DSL 이름·입력 스키마·설명과 React 렌더링 구현을 등록한다. |
+| `functions` | 59개 함수 정의 | DSL의 `@Name(...)` 호출과 브라우저의 계산 구현을 연결한다. |
+| `actions` | `CopyToClipboard` 1개 | 사용자 동작으로 발생시킬 커스텀 액션의 이름·입력 계약을 등록한다. |
+| `componentGroups` | 6개 그룹 | 등록 컴포넌트를 용도별로 묶고 모델에 추가 사용 지침을 제공한다. |
+
+#### 1. `root`: 최상위 레이아웃
+
+```tsx
+root: "Col"
+```
+
+현재 카탈로그의 세로 레이아웃 컴포넌트 `Col`을 선택한다. 생성 프로그램의 전형적인 시작은 다음과 같다.
+
+```text
+root = Col([heading, content])
+```
+
+설정의 `root: "Col"`은 컴포넌트 선택이고, DSL의 `root = ...`는 화면 진입점 선언이다. OpenUI 기본 카탈로그는 `Stack`을 사용하지만 이 카탈로그는 `Col`·`Row`·`Box`를 사용한다. `Stack`은 현재 목록에 등록돼 있지 않다. `Col`은 세로 배치, `Row`는 가로 배치, `Box`는 방향·크기·배경 등을 지정하는 컨테이너다. 실제 계약은 [layout.tsx](frontend/src/lib/components/layout.tsx)에 있다.
+
+#### 2. `components`: 화면 요소 전체 등록
+
+각 항목은 `defineComponent()`로 만든 정의다. `name`은 DSL에서 쓰는 이름이고, `props` 스키마는 입력과 위치 기반 인자 계약을 제공하며, `component`는 실제 React 렌더링을 담당한다. TypeScript 변수명과 DSL 이름이 다를 수 있다.
+
+| 용도 | 등록된 DSL 이름 | 구현 |
+| --- | --- | --- |
+| 레이아웃 9개 | `Col`, `Row`, `Box`, `Grid`, `Card`, `Carousel`, `Popover`, `Divider`, `Spacer` | [layout.tsx](frontend/src/lib/components/layout.tsx), [extra.tsx](frontend/src/lib/components/extra.tsx) |
+| 텍스트·문서 12개 | `Title`, `Text`, `Caption`, `Label`, `Badge`, `Link`, `List`, `ListItem`, `Markdown`, `Quote`, `Code`, `Math` | [text.tsx](frontend/src/lib/components/text.tsx), [extra.tsx](frontend/src/lib/components/extra.tsx) |
+| 입력·폼 13개 | `Button`, `IconButton`, `Pressable`, `Input`, `TextArea`, `Select`, `SegmentedControl`, `Slider`, `Checkbox`, `RadioGroup`, `DatePicker`, `Timer`, `Form` | [controls.tsx](frontend/src/lib/components/controls.tsx), [layout.tsx](frontend/src/lib/components/layout.tsx) |
+| 미디어·데이터 8개 | `SearchImage`, `Image`, `Icon`, `Table`, `Chart`, `Map`, `MapMarker`, `YouTube` | [media.tsx](frontend/src/lib/components/media.tsx), [table.tsx](frontend/src/lib/components/table.tsx), [chart.tsx](frontend/src/lib/components/chart.tsx), [map.tsx](frontend/src/lib/components/map/map.tsx), [extra.tsx](frontend/src/lib/components/extra.tsx) |
+| 학습·피드백 2개 | `Flashcard`, `Celebration` | [extra.tsx](frontend/src/lib/components/extra.tsx) |
+| 도형·HTML 11개 | `Svg`, `G`, `Circle`, `Ellipse`, `Rect`, `Line`, `Path`, `Polyline`, `Polygon`, `SvgText`, `HtmlView` | [svg.tsx](frontend/src/lib/components/svg.tsx), [html-view.tsx](frontend/src/lib/components/html-view.tsx) |
+
+`MathBlock`의 DSL 이름은 `Math`, `MapView`의 DSL 이름은 `Map`이다. `...svgComponents`는 SVG 정의 10개를 펼쳐 등록하는 JavaScript 배열 문법이다. 모델이 `MathBlock(...)`이나 `MapView(...)`라는 TypeScript 변수명을 그대로 사용하면 현재 DSL 이름과 맞지 않는다.
+
+#### 3. `functions`: UI 내부 계산 함수 전체 등록
+
+[functions/index.ts](frontend/src/lib/functions/index.ts)는 다음 여섯 모듈의 배열을 합친다.
+
+| 모듈 | 개수 | 등록 함수 전체 |
+| --- | --- | --- |
+| [lists.ts](frontend/src/lib/functions/lists.ts) | 19 | `Append`, `Prepend`, `Concat`, `Remove`, `RemoveAt`, `Update`, `Toggle`, `Includes`, `Find`, `IndexOf`, `Take`, `Slice`, `Unique`, `Reverse`, `Range`, `Pick`, `Shuffle`, `Flatten`, `Chunk` |
+| [numbers.ts](frontend/src/lib/functions/numbers.ts) | 9 | `Pow`, `Sqrt`, `Random`, `Clamp`, `Percent`, `Lerp`, `Allocate`, `Payment`, `Convert` |
+| [text.ts](frontend/src/lib/functions/text.ts) | 12 | `Format`, `Join`, `Plural`, `Pad`, `Upper`, `Lower`, `Trim`, `Capitalize`, `Split`, `Replace`, `Duration`, `Default` |
+| [colors.ts](frontend/src/lib/functions/colors.ts) | 1 | `MixColor` |
+| [dates.ts](frontend/src/lib/functions/dates.ts) | 8 | `Now`, `FormatDate`, `AddDays`, `DaysBetween`, `Today`, `AddMonths`, `MonthsBetween`, `StartOf` |
+| [data.ts](frontend/src/lib/functions/data.ts) | 10 | `GroupBy`, `Pivot`, `Top`, `Between`, `Bucket`, `Cumulative`, `MovingAvg`, `Change`, `Histogram`, `Stats` |
+
+`defineFunction()`에는 `name`, `description`, `params`, `returns`, `fn`이 정의돼 있다. 모델에는 사용 계약을 제공하고, 실제 `fn`은 브라우저가 실행한다.
+
+```text
+percentage = @Percent(3, 4)
+```
+
+위 표현식은 등록된 JavaScript 구현으로 계산해 `75`를 반환한다. `$state`를 참조하는 계산은 상태 변화에 따라 재평가되며 해당 계산만으로 LLM/Python을 호출하지 않는다. 난수·시간 함수는 재평가 시 결과가 달라질 수 있다. 입력 검증이나 실행 실패는 함수 평가 결과가 `null`이 될 수 있으므로 처리해야 한다.
+
+이 배열은 앱이 추가 등록한 함수 목록이다. OpenUI 런타임의 내장 기능인 `@Set`, `@Each`, `@Filter` 등 전체를 이 파일에서 정의하는 것은 아니다. LangGraph의 서버 도구와도 실행 위치와 목적이 다르다.
+
+#### 4. `actions`: 사용자 이벤트 계약과 호스트 실행 연결
+
+[actions.ts](frontend/src/lib/actions.ts)는 현재 `CopyToClipboard` 하나를 등록한다.
+
+```tsx
+export const CopyToClipboard = defineAction({
+  name: "CopyToClipboard",
+  description: "Copy text to the clipboard, e.g. a shopping list built with @Join",
+  params: z.object({ text: z.string() }),
+});
+export const actions = [CopyToClipboard];
+```
+
+모델은 버튼 등에 `@CopyToClipboard("복사할 내용")`을 연결할 수 있다. `defineAction()`은 계약을 등록하고, 실제 동작은 앱이 전달한 핸들러에서 처리한다.
+
+```text
+사용자 클릭
+  → OpenUI ActionEvent { type: "CopyToClipboard", params: { text: ... } }
+  → page.tsx의 onAction
+  → runLibraryAction(event)
+  → navigator.clipboard.writeText(text)
+```
+
+`CopyToClipboard.name`은 액션 이름 문자열 `"CopyToClipboard"`다. 현재 구현은 Clipboard API 실패 시 textarea 복사 방식을 시도한다. `functions`는 값을 계산해 반환하고, `actions`는 이벤트를 통해 복사 같은 동작을 요청한다. 내장 `@ToAssistant`·`@OpenUrl`은 현재 앱에서 AgentInterface가 처리하며 이 커스텀 액션 배열과 구분된다.
+
+#### 5. `componentGroups`: 그룹별 모델 사용 지침
+
+각 그룹은 다음 구조를 갖는다.
+
+```tsx
+{
+  name: "Layout",             // 그룹 제목
+  components: ["Col", ...],  // 이미 등록된 컴포넌트의 DSL 이름
+  notes: ["..."],            // 선택적 추가 지침
+}
+```
+
+| 그룹 | 포함 컴포넌트 | 추가 지침 |
+| --- | --- | --- |
+| `Layout` | 레이아웃 9개 | gap/padding은 4px 단위 단계, 길이는 px 또는 CSS 길이, radius와 색상 토큰의 사용 규칙 |
+| `Text` | 텍스트·문서 12개 | 별도 `notes` 없음 |
+| `Inputs` | 입력·폼 13개 | 첫 인자는 보통 `$variable` 값. 입력은 화면 계산을 바꾸거나 Form 제출로 이어지도록 구성 |
+| `Media and data` | 미디어·데이터 8개 | 별도 `notes` 없음 |
+| `Play` | `Flashcard`, `Celebration` | 별도 `notes` 없음 |
+| `Drawing` | SVG 10개와 `HtmlView` | 별도 `notes` 없음 |
+
+그룹은 React 화면에 섹션이나 컴포넌트를 자동 배치하는 설정이 아니다. 모델이 카탈로그를 이해하도록 분류와 규칙을 제공한다. 실제 컴포넌트 등록은 `components` 배열에서 수행한다. `notes`도 모델 지침이므로 그 문장 자체가 모든 규칙을 런타임에서 강제하는 검증 코드는 아니다.
+
+#### 6. `createLibrary()` 바깥의 CSS와 프롬프트 옵션
+
+같은 파일에 있지만 다음 항목은 `createLibrary()`의 인자가 아니다.
+
+- `theme.css`, `components.css`, `map.css` import: 컴포넌트의 테마·레이아웃·지도 스타일을 로드한다.
+- `export { dashboardPromptOptions, promptOptions } from "./prompt-options"`: 생성 CLI가 사용할 지침·예시를 별도로 노출한다. `dashboardPromptOptions`를 export했다고 기본 생성 명령이 두 옵션을 모두 합치는 것은 아니다.
+- 일반 생성 진입점 [src/library.ts](frontend/src/library.ts): 위 `library`와 일반 `promptOptions`를 노출한다.
+- 보고서 생성 진입점 [report-library.ts](frontend/src/reporting/report-library.ts): 같은 `library`에 보고서용 `promptOptions`를 합성한다.
+
+#### 7. 설정의 두 소비처와 변경 절차
+
+```text
+createLibrary({ root, components, functions, actions, componentGroups })
+  ├─ 생성 시: CLI + promptOptions
+  │    → 일반/보고서 프롬프트 + spec.json
+  │    → 두 프롬프트를 Python 패키지 자산으로 명시적 복사
+  └─ 브라우저 실행 시: AgentInterface의 componentLibrary={library}
+       → DSL 컴포넌트 렌더링·함수 평가·액션 이벤트
+```
+
+새 항목을 추가할 때는 구현과 등록을 마친 후 `frontend`에서 `npm run generate`를 실행한다. 생성된 `system-prompt.txt`와 `report-system-prompt.txt`를 `backend-langgraph/agent/`에 복사·비교하고 Python 서버를 재시작한다. 이어 새 DSL 이름·인자·계산·클릭 동작을 적절한 테스트와 브라우저에서 확인한다. 렌더러만 갱신하면 모델이 새 계약을 모를 수 있고, 프롬프트만 갱신하면 브라우저가 해당 구현을 찾지 못할 수 있다.
+
+이번 추가는 현재 소스의 설정·등록 목록을 설명한 문서 작업이다. 기존 사용자 수정과 런타임 코드는 유지했고, 모델 호출·브라우저 검증은 재실행하지 않았다.
+
+### 등록 함수 59개를 직접 실행해 보는 사용자 프롬프트
+2026-10-25 기준 `src/lib/functions/`의 등록 함수 전체를 대상으로 한 수동 실행용 입력 예시다. 각 행의 프롬프트를 하나씩 채팅에 입력한다. **아래 예시는 실제 모델 생성·브라우저 실행을 모두 통과한 결과가 아니라, 현재 함수 계약에 맞춰 작성한 요청 목록**이다.
+#### 공통 요청과 확인 방법
+각 행의 프롬프트 앞에 다음 공통 요청을 붙이면, 모델이 계산 결과를 상수로 적는 대신 등록 함수를 사용하도록 명확히 지시할 수 있다.
+```text
+보고서가 아닌 함수 디버깅용 일반 인터랙티브 UI를 만들어줘.
+아래에 지정한 @함수를 OpenUI Lang 표현식에서 실제 호출해줘.
+결과를 미리 계산해서 상수로 적거나 다른 함수로 대체하지 마.
+상태 기본값은 literal로 선언하고 입력·버튼 변경에 따라 결과가 화면에 보이게 해줘.
+객체와 배열 결과는 표나 목록으로, null·false·0은 서로 구분해서 표시해줘.
+원문 데이터의 객체 키는 따옴표로 감싸줘.
+```
+1. 브라우저 개발자 도구 Console을 열고 `Intelligent UI fn`으로 필터링한다.
+2. 한 프롬프트씩 제출하고 생성 화면의 입력을 바꾸거나 버튼을 누른다.
+3. 대상 함수의 `@함수명 input`과 `@함수명 result` 로그를 확인한다. 오류는 `@함수명 error`로 출력된다.
+4. 결과가 맞아 보여도 로그가 없으면 함수가 호출됐다고 판단하지 않는다. 입력 스키마에서 거부된 호출은 fn 실행 로그가 없을 수 있다.
+
+함수 로그는 실제 `fn` 실행 시 출력된다. 상태 재평가로 로그가 여러 번 발생할 수 있다. `Pick`·`Shuffle`·`Random`·현재 시각 등은 버튼의 `@Set` 안에서 호출해 한 번 뽑은 값을 상태에 저장하도록 요청한다. 동일한 난수·순서가 다시 나올 수도 있으므로 화면 변화만으로 호출 여부를 판단하지 않는다.
+
+#### 목록 함수 — 19개
+| 함수 / Console 검색어 | 복사할 사용자 프롬프트 |
+| --- | --- |
+| `@Append` | 장보기 목록 ["사과", "우유"] 끝에 입력한 항목을 추가하는 UI를 만들어줘. 추가 버튼에서 @Append($items, $item)을 @Set으로 저장해줘. |
+| `@Prepend` | 할 일 ["회의", "메일"] 맨 앞에 새 할 일을 넣는 UI를 만들어줘. 버튼에서 @Prepend($items, $item)을 사용해줘. |
+| `@Concat` | ["사과", "배"]와 ["우유", "빵"] 두 목록을 합치는 UI를 만들어줘. @Concat($left, $right) 결과를 표시해줘. |
+| `@Remove` | 상품 [{id:1,name:"사과"},{id:2,name:"우유"}]에서 ID 2를 삭제하는 버튼을 만들어줘. @Remove($items, "id", 2)를 사용해줘. |
+| `@RemoveAt` | ["사과", "우유", "빵"]에서 삭제할 인덱스를 선택하는 UI를 만들어줘. @RemoveAt($items, $index)를 사용하고 인덱스는 0부터라고 표시해줘. |
+| `@Update` | 할 일 [{id:1,title:"청소",done:false},{id:2,title:"운동",done:false}]의 ID 1을 완료 처리하는 버튼을 만들어줘. @Update($items, "id", 1, "done", true)를 사용해줘. |
+| `@Toggle` | 사과·배·포도 선택 버튼을 만들어줘. 선택 목록은 문자열 배열이고 클릭할 때 @Toggle($selected, "사과")처럼 항목을 넣거나 빼줘. |
+| `@Includes` | 목록 ["사과", "배"]에 입력한 과일이 있는지 확인하는 UI를 만들어줘. @Includes($items, $query) 결과를 있음/없음으로 표시해줘. |
+| `@Find` | [{id:1,name:"사과"},{id:2,name:"우유"}]에서 ID로 상품을 찾는 UI를 만들어줘. @Find($items, "id", $id)를 사용하고 없는 ID도 입력해볼 수 있게 해줘. |
+| `@IndexOf` | ["사과", "배", "포도"]에서 입력한 항목의 위치를 @IndexOf($items, $query)로 표시해줘. 없는 항목이면 -1이라고 표시해줘. |
+| `@Take` | [1,2,3,4,5]에서 처음 N개를 보여주는 UI를 만들어줘. @Take($items, $n)를 사용하고 N을 -2로 바꿔 마지막 두 개도 확인하게 해줘. |
+| `@Slice` | 문자열 "abcdef"의 시작·끝 인덱스를 입력해 자르는 UI를 만들어줘. @Slice($text, $start, $end)를 사용하고 기본값 1,4의 결과 bcd를 보여줘. |
+| `@Unique` | ["사과", "사과", "배", "우유", "배"]의 중복을 제거하는 UI를 만들어줘. @Unique($items) 결과를 표시해줘. |
+| `@Reverse` | [1,2,3,4]를 역순으로 보여주는 UI를 만들어줘. @Reverse($items)를 사용해 원본과 결과를 함께 보여줘. |
+| `@Range` | 시작·끝·간격 입력으로 숫자 목록을 만드는 UI를 만들어줘. @Range($start, $end, $step)를 사용하고 기본값은 0,10,2로 해줘. 끝값은 제외라고 표시해줘. |
+| `@Pick` | ["한식", "중식", "일식"]에서 메뉴를 뽑는 버튼을 만들어줘. 클릭 이벤트에서 @Set($picked, @Pick($menus))를 실행하고 결과를 유지해줘. |
+| `@Shuffle` | ["A", "B", "C", "D"]의 순서를 섞는 버튼을 만들어줘. 클릭 이벤트에서 @Set($items, @Shuffle($items))를 실행해줘. |
+| `@Flatten` | [[1,2],[3],[4,5]]를 한 배열로 합치는 UI를 만들어줘. @Flatten($items)를 사용해 원본과 결과를 표시해줘. |
+| `@Chunk` | [1,2,3,4,5,6,7]을 페이지 크기만큼 나누는 UI를 만들어줘. @Chunk($items, $size)를 사용하고 기본 크기는 3으로 해줘. |
+
+#### 수치 함수 — 9개
+| 함수 / Console 검색어 | 복사할 사용자 프롬프트 |
+| --- | --- |
+| `@Pow` | 밑과 지수를 입력하는 거듭제곱 계산기를 만들어줘. @Pow($base, $exponent)를 사용하고 기본값 2,3의 결과 8을 표시해줘. |
+| `@Sqrt` | 숫자 입력의 제곱근을 @Sqrt($number)로 보여주는 계산기를 만들어줘. 기본값은 81이고 음수 입력의 null도 구분해서 보여줘. |
+| `@Random` | 주사위 버튼을 만들어줘. 클릭 이벤트에서 @Set($roll, @Random(1, 6, true))를 실행하고 결과를 다음 클릭까지 유지해줘. |
+| `@Clamp` | 입력값을 0~100으로 제한하는 계산기를 만들어줘. @Clamp($value, 0, 100)를 사용하고 120과 -10을 입력해볼 수 있게 해줘. |
+| `@Percent` | 완료 수와 전체 수를 입력하는 완료율 계산기를 만들어줘. @Percent($done, $total)를 사용하고 기본값은 3,4로 해줘. |
+| `@Lerp` | 시작 10과 끝 30 사이의 보간 계산기를 만들어줘. 0~1 슬라이더의 $t로 @Lerp(10, 30, $t)를 계산하고 기본값 0.5의 결과 20을 보여줘. |
+| `@Allocate` | 100을 세 사람에게 같은 가중치로 나누는 배분 계산기를 만들어줘. @Allocate($total, [1,1,1], 2)를 사용하고 33.34,33.33,33.33 및 합계를 확인하게 해줘. |
+| `@Payment` | 가상 대출의 회차별 상환액 계산기를 만들어줘. 원금 1000, 회차 이율 0%, 횟수 10을 기본값으로 @Payment($principal, $rate, $periods)를 사용해줘. 입력 이율은 회차별 퍼센트라고 표시해줘. |
+| `@Convert` | 길이 단위 변환기를 만들어줘. 기본값 1km를 m로 바꾸고 @Convert($value, $from, $to)를 사용해줘. 단위는 km,m,cm에서 선택하게 해줘. |
+
+#### 문자열 함수 — 12개
+| 함수 / Console 검색어 | 복사할 사용자 프롬프트 |
+| --- | --- |
+| `@Format` | 숫자 12345.678을 통화 문자열로 표시하는 UI를 만들어줘. @Format($value, "currency", 2, "USD")를 사용하고 숫자를 수정하게 해줘. |
+| `@Join` | ["사과", "배", "우유"]를 선택한 구분자로 연결하는 UI를 만들어줘. @Join($items, $separator)를 사용하고 기본 구분자는 쉼표로 해줘. |
+| `@Plural` | 인원수에 따라 영어 명사를 표시하는 UI를 만들어줘. @Plural($count, "guest")를 사용하고 1 guest와 3 guests를 확인하게 해줘. |
+| `@Pad` | 숫자 7을 네 자리 코드 0007로 만드는 UI를 만들어줘. @Pad($value, 4, "0")를 사용하고 숫자를 수정하게 해줘. |
+| `@Upper` | 입력 "Hello world"를 대문자로 바꾸는 UI를 만들어줘. @Upper($text)를 사용해줘. |
+| `@Lower` | 입력 "Hello WORLD"를 소문자로 바꾸는 UI를 만들어줘. @Lower($text)를 사용해줘. |
+| `@Trim` | 입력 문자열 "  hello  "의 앞뒤 공백을 제거하는 UI를 만들어줘. @Trim($text)를 사용하고 원본과 결과를 따옴표로 감싸 공백 차이가 보이게 해줘. |
+| `@Capitalize` | 입력 "new york city"의 단어 첫 글자를 대문자로 바꾸는 UI를 만들어줘. @Capitalize($text)를 사용해줘. |
+| `@Split` | 입력 "a, b,,c"를 목록으로 분리하는 UI를 만들어줘. @Split($text, ",")를 사용하고 빈 항목 제거 결과를 보여줘. |
+| `@Replace` | 문장 "cat and cat"에서 cat을 dog로 모두 바꾸는 UI를 만들어줘. @Replace($text, $find, $replacement)를 사용하고 세 입력을 수정하게 해줘. |
+| `@Duration` | 초 단위를 시계 문자열로 바꾸는 UI를 만들어줘. @Duration($seconds, "clock")를 사용하고 기본값 4800의 결과 1:20:00을 보여줘. |
+| `@Default` | 문자열 입력이 비면 "미입력"을 표시하는 UI를 만들어줘. @Default($text, "미입력")를 사용하고 기본값은 빈 문자열로 해줘. |
+
+#### 색상 함수 — 1개
+| 함수 / Console 검색어 | 복사할 사용자 프롬프트 |
+| --- | --- |
+| `@MixColor` | 흰색과 파란색의 혼합 비율을 바꾸는 UI를 만들어줘. @MixColor("#ffffff", "#0285ff", $t)를 사용해 0~1 슬라이더와 결과 색상 코드·미리보기를 보여줘. |
+
+#### 날짜 함수 — 8개
+| 함수 / Console 검색어 | 복사할 사용자 프롬프트 |
+| --- | --- |
+| `@Now` | 현재 시각 기록 버튼을 만들어줘. $stamp 기본값은 빈 문자열로 하고 클릭할 때 @Set($stamp, @Now())로 ISO 문자열을 저장해 보여줘. 자동 갱신은 하지 마. |
+| `@FormatDate` | 날짜 "2026-10-25"를 표시하는 UI를 만들어줘. @FormatDate($date, $style)를 사용하고 iso,long,weekday 스타일을 선택하게 해줘. |
+| `@AddDays` | 기준 날짜에 일수를 더하는 UI를 만들어줘. @AddDays($date, $days)를 사용하고 기본값 "2026-10-25",7의 결과 "2026-11-01"을 보여줘. |
+| `@DaysBetween` | 두 날짜의 일수 차이를 계산하는 UI를 만들어줘. @DaysBetween($from, $to)를 사용하고 기본값 "2026-10-01","2026-10-25"의 결과 24를 보여줘. |
+| `@Today` | 오늘 날짜 확인 버튼을 만들어줘. $today 기본값은 빈 문자열이고 클릭할 때 @Set($today, @Today())로 브라우저 시간대의 오늘 날짜를 저장해 보여줘. |
+| `@AddMonths` | 날짜에 개월 수를 더하는 UI를 만들어줘. @AddMonths($date, $months)를 사용하고 기본값 "2026-01-31",1의 결과 "2026-02-28"을 보여줘. |
+| `@MonthsBetween` | 두 날짜 사이의 온전한 개월 수를 계산하는 UI를 만들어줘. @MonthsBetween($from, $to)를 사용하고 기본값 "2026-01-15","2026-04-15"의 결과 3을 보여줘. |
+| `@StartOf` | 날짜가 속한 주·월·년의 시작일을 보여주는 UI를 만들어줘. @StartOf($date, $unit)를 사용하고 기본 날짜 "2026-10-25", 단위 week로 월요일 "2026-10-19"를 보여줘. |
+
+#### 데이터 함수 — 10개
+| 함수 / Console 검색어 | 복사할 사용자 프롬프트 |
+| --- | --- |
+| `@GroupBy` | 데이터 [{category:"A",amount:10},{category:"B",amount:20},{category:"A",amount:30}]를 카테고리별 합계 표로 만들어줘. @GroupBy($rows, "category", "amount", "sum")을 실제 사용해줘. |
+| `@Pivot` | 데이터 [{region:"East",product:"A",amount:10},{region:"East",product:"B",amount:20},{region:"West",product:"A",amount:30}]를 지역별 행·상품별 열로 피벗해줘. @Pivot($rows, "region", "product", "amount", "sum")으로 표를 만들어줘. |
+| `@Top` | 상품 [{name:"A",sales:10},{name:"B",sales:30},{name:"C",sales:20}]의 매출 상위 2개를 보여줘. @Top($rows, "sales", $n, "desc")를 사용하고 N을 변경하게 해줘. |
+| `@Between` | 가격 [{name:"A",price:10},{name:"B",price:20},{name:"C",price:30}]을 최저·최고 가격으로 필터링하는 UI를 만들어줘. @Between($rows, "price", $min, $max)를 사용하고 기본값은 15,25로 해줘. |
+| `@Bucket` | 매출 [{date:"2026-10-01",amount:10},{date:"2026-10-03",amount:30}]을 일별 집계하는 UI를 만들어줘. @Bucket($rows, "date", "day", "amount", "sum")을 사용하고 중간 날짜 10월 2일의 0도 표시해줘. |
+| `@Cumulative` | [{day:"월",amount:10},{day:"화",amount:20},{day:"수",amount:30}]의 누적 합계를 보여줘. @Cumulative($rows, "amount")를 사용하고 결과 10,30,60을 표로 비교해줘. |
+| `@MovingAvg` | 수치 [10,20,30,40]의 이동평균 UI를 만들어줘. @MovingAvg($values, "", $window)를 사용하고 기본 창 크기는 2로 해줘. |
+| `@Change` | 현재와 이전 값의 증감률 계산기를 만들어줘. @Change($current, $previous)를 사용하고 기본값 120,100에서 20%를 보여줘. 이전 값이 0일 때 null도 표시해줘. |
+| `@Histogram` | [1,2,3,7,8,9]를 두 구간 히스토그램으로 만들어줘. @Histogram($values, 2, 0, 10)을 사용하고 구간별 개수도 표로 보여줘. |
+| `@Stats` | [10,20,30,40]의 기초 통계 UI를 만들어줘. @Stats($values)를 사용하고 count,min,max,mean,median,stdev를 각각 표시해줘. |
+
+#### 호출되지 않거나 생성이 잘못됐을 때 추가 요청
+```text
+방금 UI에서 지정한 @함수의 실행 로그가 보이지 않아.
+해당 함수를 실제로 호출하는 표현식이 화면 결과나 버튼 동작에 연결되도록 수정해줘.
+함수의 위치 기반 인자 순서와 타입을 지키고, 계산된 상수로 대체하지 마.
+```
+`error`가 보이면 로그의 입력과 예외를 함수 스키마에 대조한다. 모델에게 수정 요청할 때는 대상 함수명·입력·오류 내용을 함께 전달한다. 전체 59개를 한 화면에 한 번에 생성하도록 요청하면 누락·타입 오류를 찾기 어려우므로 개별 실행 후 그룹별 통합을 시도한다. 별도 Python 도구나 외부 API 호출은 이 계산 함수 확인에 필요하지 않다.

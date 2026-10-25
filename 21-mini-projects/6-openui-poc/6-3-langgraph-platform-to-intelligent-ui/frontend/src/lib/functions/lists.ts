@@ -1,4 +1,4 @@
-import { defineFunction } from "@openuidev/react-lang";
+import { defineDebugFunction as defineFunction } from "./debug";
 import { z } from "zod/v4";
 import { list, MAX_ITEMS, read, same } from "./shared";
 

@@ -1,4 +1,4 @@
-import { defineFunction } from "@openuidev/react-lang";
+import { defineDebugFunction as defineFunction } from "./debug";
 import { z } from "zod/v4";
 
 const HEX = /^#?([\da-f]{3}|[\da-f]{6})$/i;

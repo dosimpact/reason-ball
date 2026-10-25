@@ -1,4 +1,4 @@
-import { defineFunction } from "@openuidev/react-lang";
+import { defineDebugFunction as defineFunction } from "./debug";
 import { z } from "zod/v4";
 import { isoDay, parseDate } from "./dates";
 import { agg, aggregate, finite, groups, list, MAX_ITEMS, numbers, read, toNum, type Agg } from "./shared";

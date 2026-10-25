@@ -81,19 +81,27 @@ export default function Home() {
         starters={starters}
         components={{ UserMessage: ReportUserMessage }}
       >
+        {/* 사이드바 하단 영역에 테마 전환 버튼을 배치합니다. */}
         <AgentInterface.SidebarFooter>
+          {/* 현재 테마를 표시하고, 변경한 테마 설정을 저장합니다. */}
           <AgentInterface.ThemeModeToggle mode={mode} onModeChange={setPreference} />
         </AgentInterface.SidebarFooter>
+        {/* 대화 헤더의 제목을 숨기고 끝 영역에 문서 업로드·보고서 생성 버튼을 표시합니다. */}
         <AgentInterface.ThreadHeader showChatTitle={false} end={<ReportDocumentInput />} />
+        {/* 모바일 헤더에도 같은 문서 업로드·보고서 생성 버튼을 제공합니다. */}
         <AgentInterface.MobileHeader actions={<ReportDocumentInput />} />
+        {/* 새 대화의 환영 화면: 마스코트·안내 문구·카드형 시작 질문과 배경 빛 효과를 표시합니다. */}
         <AgentInterface.Welcome
           image={<img src={withBase("/shiro-woodworker.svg")} alt="" className="welcome-mascot" />}
           title="What can I help with?"
           starterVariant="card"
           glowAnimation
         />
+        {/* 생성이 끝난 대화 메시지와 폼 상태 변경을 localStorage에 저장합니다. 화면은 표시하지 않습니다. */}
         <SaveMessages />
+        {/* 선택한 대화 ID를 저장하고 새로고침 후 마지막으로 열었던 대화를 복원합니다. */}
         <ChatSession />
+        {/* 인쇄 시 근거 표 셀에 열 제목을 붙이고 차트 SVG의 viewBox를 보정하며, 인쇄 후 viewBox를 복원합니다. */}
         <ReportPrintLayout />
       </AgentInterface>
     </div>
