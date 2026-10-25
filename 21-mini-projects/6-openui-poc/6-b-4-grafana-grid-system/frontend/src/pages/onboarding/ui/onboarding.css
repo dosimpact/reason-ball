@@ -1,0 +1,120 @@
+.onboarding {
+  background: #0f141c;
+  color: #dce6f3;
+  min-height: 100vh;
+  padding: 0 6vw 80px;
+  font:
+    15px/1.85 Arial,
+    sans-serif;
+}
+.onboarding nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  gap: 24px;
+  background: #0f141cf2;
+  padding: 20px 0;
+  border-bottom: 1px solid #2c3747;
+  flex-wrap: wrap;
+}
+.onboarding a {
+  color: #75ddc5;
+  text-decoration: none;
+}
+.onboarding header {
+  padding: 80px 0 40px;
+  max-width: 900px;
+}
+.onboarding header span {
+  letter-spacing: 3px;
+  font-size: 12px;
+  color: #75ddc5;
+}
+.onboarding h1 {
+  font-size: 56px;
+  line-height: 1.25;
+  letter-spacing: -2px;
+}
+.onboarding h2 {
+  font-size: 27px;
+  margin-top: 0;
+  color: #fff;
+}
+.onboarding section {
+  scroll-margin-top: 110px;
+  padding: 44px 0;
+  border-bottom: 1px solid #2c3747;
+  max-width: 1300px;
+}
+.onboarding p,
+.onboarding li {
+  max-width: 1000px;
+  color: #aab9ce;
+}
+.onboard-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.onboard-cards article {
+  padding: 24px;
+  background: #1b2432;
+  border: 1px solid #344155;
+  border-radius: 14px;
+}
+.onboard-cards b {
+  color: #75ddc5;
+}
+.architecture-flow {
+  height: 500px;
+  border: 1px solid #344155;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.onboarding pre {
+  padding: 24px;
+  background: #1b2432;
+  border-radius: 12px;
+  overflow: auto;
+  line-height: 1.8;
+  font-size: 13px;
+}
+.onboarding code {
+  color: #8cddd1;
+}
+.onboarding table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.onboarding td,
+.onboarding th {
+  padding: 13px;
+  border-bottom: 1px solid #344155;
+  text-align: left;
+  font-size: 13px;
+}
+.onboard-note {
+  border-left: 3px solid #e8bc69;
+  padding: 16px;
+  background: #25251f;
+}
+@media (max-width: 700px) {
+  .architecture-flow .react-flow__minimap {
+    display: none;
+  }
+  .onboarding h1 {
+    font-size: 38px;
+  }
+  .onboard-cards {
+    grid-template-columns: 1fr;
+  }
+  .onboarding nav {
+    gap: 12px;
+    font-size: 12px;
+  }
+  .onboarding table {
+    display: block;
+    overflow: auto;
+  }
+}
