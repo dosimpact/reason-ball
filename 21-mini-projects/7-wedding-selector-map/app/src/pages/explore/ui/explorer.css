@@ -2255,3 +2255,34 @@
 .comparison-tray > button:hover {
   background: var(--orot-secondary-hover);
 }
+
+/* Keep filled theme tabs inside the heading instead of inheriting 54px tabs. */
+.map-first .explore-heading {
+  height: auto;
+  min-height: 50px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 7px 12px;
+}
+.map-first .kind-tabs {
+  height: auto;
+  min-width: 0;
+  gap: 4px;
+}
+.map-first .kind-tabs > button {
+  height: 34px;
+  flex-shrink: 0;
+  padding: 0 7px;
+  gap: 4px;
+  white-space: nowrap;
+  border-radius: 6px;
+}
+.map-first .kind-tabs > button > svg,
+.map-first .kind-tabs > button > span {
+  flex-shrink: 0;
+}
+.map-first .mobile-view-toggle {
+  flex-shrink: 0;
+  margin-left: auto;
+}

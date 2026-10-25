@@ -180,3 +180,165 @@
     display: none;
   }
 }
+
+:root[data-theme="burgundy"] {
+  --orot-canvas: #fcf7f8;
+  --orot-surface-muted: color-mix(in srgb, #90002f 5%, white);
+  --orot-border: color-mix(in srgb, #90002f 16%, white);
+  --orot-border-strong: color-mix(in srgb, #90002f 48%, white);
+  --orot-ink: #302d34;
+  --orot-text: #504b54;
+  --orot-muted: #716b75;
+  --orot-primary: #90002f;
+  --orot-primary-text: #90002f;
+  --orot-primary-hover: color-mix(in srgb, #90002f 80%, black);
+  --orot-primary-soft: color-mix(in srgb, #90002f 16%, white);
+  --orot-primary-border: color-mix(in srgb, #90002f 48%, white);
+  --orot-primary-muted: color-mix(in srgb, #90002f 65%, white);
+  --orot-secondary: #c44516;
+  --orot-secondary-hover: color-mix(in srgb, #c44516 80%, black);
+  --orot-secondary-soft: color-mix(in srgb, #c44516 16%, white);
+  --orot-secondary-border: color-mix(in srgb, #c44516 48%, white);
+}
+
+:root[data-theme="cobalt"] {
+  --orot-canvas: #f6f8fd;
+  --orot-surface-muted: color-mix(in srgb, #1246df 5%, white);
+  --orot-border: color-mix(in srgb, #1246df 16%, white);
+  --orot-border-strong: color-mix(in srgb, #1246df 48%, white);
+  --orot-ink: #302d34;
+  --orot-text: #504b54;
+  --orot-muted: #716b75;
+  --orot-primary: #1246df;
+  --orot-primary-text: #1246df;
+  --orot-primary-hover: color-mix(in srgb, #1246df 80%, black);
+  --orot-primary-soft: color-mix(in srgb, #1246df 16%, white);
+  --orot-primary-border: color-mix(in srgb, #1246df 48%, white);
+  --orot-primary-muted: color-mix(in srgb, #1246df 65%, white);
+  --orot-secondary: #c64a12;
+  --orot-secondary-hover: color-mix(in srgb, #c64a12 80%, black);
+  --orot-secondary-soft: color-mix(in srgb, #c64a12 16%, white);
+  --orot-secondary-border: color-mix(in srgb, #c64a12 48%, white);
+}
+
+:root[data-theme="violet"] {
+  --orot-canvas: #f9f7fd;
+  --orot-surface-muted: color-mix(in srgb, #6900ce 5%, white);
+  --orot-border: color-mix(in srgb, #6900ce 16%, white);
+  --orot-border-strong: color-mix(in srgb, #6900ce 48%, white);
+  --orot-ink: #302d34;
+  --orot-text: #504b54;
+  --orot-muted: #716b75;
+  --orot-primary: #6900ce;
+  --orot-primary-text: #6900ce;
+  --orot-primary-hover: color-mix(in srgb, #6900ce 80%, black);
+  --orot-primary-soft: color-mix(in srgb, #6900ce 16%, white);
+  --orot-primary-border: color-mix(in srgb, #6900ce 48%, white);
+  --orot-primary-muted: color-mix(in srgb, #6900ce 65%, white);
+  --orot-secondary: #c41566;
+  --orot-secondary-hover: color-mix(in srgb, #c41566 80%, black);
+  --orot-secondary-soft: color-mix(in srgb, #c41566 16%, white);
+  --orot-secondary-border: color-mix(in srgb, #c41566 48%, white);
+}
+
+:root[data-theme="ruby"] {
+  --orot-canvas: #fdf7f8;
+  --orot-surface-muted: color-mix(in srgb, #ca0635 5%, white);
+  --orot-border: color-mix(in srgb, #ca0635 16%, white);
+  --orot-border-strong: color-mix(in srgb, #ca0635 48%, white);
+  --orot-ink: #302d34;
+  --orot-text: #504b54;
+  --orot-muted: #716b75;
+  --orot-primary: #ca0635;
+  --orot-primary-text: #ca0635;
+  --orot-primary-hover: color-mix(in srgb, #ca0635 80%, black);
+  --orot-primary-soft: color-mix(in srgb, #ca0635 16%, white);
+  --orot-primary-border: color-mix(in srgb, #ca0635 48%, white);
+  --orot-primary-muted: color-mix(in srgb, #ca0635 65%, white);
+  --orot-secondary: #3530b9;
+  --orot-secondary-hover: color-mix(in srgb, #3530b9 80%, black);
+  --orot-secondary-soft: color-mix(in srgb, #3530b9 16%, white);
+  --orot-secondary-border: color-mix(in srgb, #3530b9 48%, white);
+}
+
+:root[data-theme="navy"] {
+  --orot-canvas: #f4faf6;
+  --orot-surface-muted: color-mix(in srgb, #006b45 5%, white);
+  --orot-border: color-mix(in srgb, #006b45 16%, white);
+  --orot-border-strong: color-mix(in srgb, #006b45 48%, white);
+  --orot-ink: #302d34;
+  --orot-text: #504b54;
+  --orot-muted: #716b75;
+  --orot-primary: #006b45;
+  --orot-primary-text: #006b45;
+  --orot-primary-hover: color-mix(in srgb, #006b45 80%, black);
+  --orot-primary-soft: color-mix(in srgb, #006b45 16%, white);
+  --orot-primary-border: color-mix(in srgb, #006b45 48%, white);
+  --orot-primary-muted: color-mix(in srgb, #006b45 65%, white);
+  --orot-secondary: #976600;
+  --orot-secondary-hover: color-mix(in srgb, #976600 80%, black);
+  --orot-secondary-soft: color-mix(in srgb, #976600 16%, white);
+  --orot-secondary-border: color-mix(in srgb, #976600 48%, white);
+}
+
+.theme-dialog {
+  width: min(740px, calc(100vw - 32px));
+  max-width: 740px !important;
+}
+@media (min-width: 640px) {
+  .theme-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Vivid themes use filled accents, not just pastel variations. */
+html:is(
+    [data-theme="burgundy"],
+    [data-theme="cobalt"],
+    [data-theme="violet"],
+    [data-theme="ruby"],
+    [data-theme="navy"]
+  )
+  :is(
+    .rail-item.active,
+    .prices-rail-item.active,
+    .prices-kind-tabs button.active,
+    .kind-tabs > button.active
+  ) {
+  background: var(--orot-primary);
+  color: var(--orot-white);
+  border-radius: 7px;
+}
+html:is(
+    [data-theme="burgundy"],
+    [data-theme="cobalt"],
+    [data-theme="violet"],
+    [data-theme="ruby"],
+    [data-theme="navy"]
+  )
+  .prices-rail-item.active
+  > span {
+  color: var(--orot-white);
+}
+html:is(
+    [data-theme="burgundy"],
+    [data-theme="cobalt"],
+    [data-theme="violet"],
+    [data-theme="ruby"],
+    [data-theme="navy"]
+  )
+  .atlas-price-marker:not(.atlas-price-marker-selected) {
+  border: 2px solid var(--orot-primary);
+}
+html:is(
+    [data-theme="burgundy"],
+    [data-theme="cobalt"],
+    [data-theme="violet"],
+    [data-theme="ruby"],
+    [data-theme="navy"]
+  )
+  :is(.atlas-marker-district, .prices-condition-chip) {
+  background: var(--orot-secondary);
+  color: var(--orot-white);
+  border-color: var(--orot-secondary);
+}

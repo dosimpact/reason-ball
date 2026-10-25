@@ -1,3 +1,4 @@
+import { themes } from "@/features/theme/model/themes";
 import { ThemePicker } from "@/features/theme/ui/theme-picker";
 import type { Metadata } from "next";
 import "@/app/globals.css";
@@ -14,7 +15,7 @@ export default function RootLayout({
       <body>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('orot:theme');if(['taupe','pearl','rosewood','mocha','midnight'].includes(t))document.documentElement.dataset.theme=t;}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('orot:theme');if(${JSON.stringify(themes.map((theme) => theme.id))}.includes(t))document.documentElement.dataset.theme=t;}catch(e){}})();`,
           }}
         />
         {children}
