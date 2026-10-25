@@ -95,3 +95,7 @@ frontend: `npm run lint`, `npm run typecheck`, `npm run verify`, 서버 실행 �
 
 ### MERGE-102 현재 검증 결과
 Python 39개, 프런트엔드 408개, Playwright E2E 4개 PASS. Ruff/typecheck/production build/uv build PASS. Lint 0 errors/4 inherited warnings. 실제 provider 호출 및 task-owned 서버/Chrome 자동 종료를 확인했다. 자세한 범위와 증거는 [통합 검증 기록](../flow/2026-10-18-unified-library.md)을 따른다.
+
+## DOC-README-001 실행 문서 정합성 (2026-10-25)
+
+현재 경로는 `6-b-2-open-ui-sec-with-intelligent-ui`이며 실행 포트는 백엔드 2038, UI 3046다. 설치 도구·환경 설정·이동 후 캐시 복구는 [프로젝트 README](../../README.md)를 따른다. [점검 기록](../flow/2026-10-25-readme-audit.md)은 정적 대조 결과이며 전체 런타임 재검증을 뜻하지 않는다.

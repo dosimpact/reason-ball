@@ -273,3 +273,7 @@ LangGraph SEC 수집 tool call은 기존 collect_sec_reports를 사용한다. �
 실제 대화5b6ee045-b0e9-4b95-b253-bed548dc58e5(`[실데이터 검증] 자체 SEC 수집과 캐시`)에서 수집 상태→3년 financial 패널→FY2024 제외→실제 갱신을 확인했다. FY2023/2024/2025 매출은383285000000/391035000000/416161000000 USD. 패널db82c9c3-e7fd-4f55-beed-22f60d0f73e5의 ID/배치 유지, 제외 후2023/2025만 표시. 처음 갱신에서 동기SQLite 연결이 LangGraph 이벤트 루프 차단 검사에 걸렸다. operation_applied 조회를 asyncio.to_thread로 이동하고 비동기 루프 밖 DB 접근 회귀 테스트를 추가한 뒤 같은 대화에서 갱신 성공(error=None,last_success_at 갱신). 브라우저 reload와 수동 새로고침도 성공했다. 최초 실패 이력은 보존했다.
 
 증거: backend-langgraph/output/python-bff-settings-probe.json, python-sec-collection-success.json, native-sec-tools-success.json, sec-native-settings-tests.txt, native-sec-e2e/; frontend/output/playwright/native-sec-excluded-refreshed.png. 이는 BFF API 연동이 아니라 6-7 Python의 직접 SEC 호출 성공이다. 다음은 새 SEC 원문의 검색/분석 연결,자동 갱신 및 전체 요구 최종 감사다.
+
+## DOC-README-001 실행 문서 정합성 (2026-10-25)
+
+현재 경로는 `6-b-4-grafana-grid-system`이며 실행 포트는 백엔드 2041, UI 3049다. 설치 도구·환경 설정·이동 후 캐시 복구는 [프로젝트 README](../../README.md)를 따른다. [점검 기록](../flow/2026-10-25-readme-audit.md)은 정적 대조 결과이며 전체 런타임 재검증을 뜻하지 않는다.

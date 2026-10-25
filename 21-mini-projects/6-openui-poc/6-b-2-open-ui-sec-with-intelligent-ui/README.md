@@ -1,5 +1,7 @@
 # SEC document comparison + Intelligent UI
 
+[전체 예제 비교](../README.md) · [프런트엔드 안내](frontend/README.md) · [백엔드 안내](backend-langgraph/README.md)
+
 6-2의 문서 비교 앱을 독립 복사하고, 6-3의 추가 UI 기능을 통합한 프로젝트다. 원본 환경 파일은 그대로 복사했다. 기존 문서 검색/출처/SQLite 대화 저장을 유지한다. SEC 실시간 수집기를 추가한 것은 아니며, 준비된 보고서를 검색한다.
 
 ## 실행
@@ -49,3 +51,23 @@ npm run test:e2e
 - [통합 및 검증 기록](docs/flow/2026-10-18-unified-library.md)
 
 6-2에서 복사된 기존 flow/Report는 원본 프로젝트의 과거 이력이다. 환경/PDF/SQLite/검증 산출물은 Git 제외다.
+
+## 새 환경 설정과 디렉터리 이동
+
+실행 명령의 `cd`는 각각 이 프로젝트 루트를 기준으로 한다. Python 3.12와 uv, Node.js 20.9+ 및 npm이 필요하다. 백엔드는 `uv.lock`, 프런트엔드는 `package-lock.json`을 사용한다.
+
+처음 실행할 때만 각 폴더의 `.env.example`을 `.env`로 복사한다. 기존 `.env`는 보존한다. 백엔드에 `OPENAI_API_KEY`를 설정하고, 프런트엔드에는 `LANGGRAPH_API_URL=http://127.0.0.1:2038`를 명시한다. 복사된 예시 파일의 주소가 다르면 이 프로젝트 포트로 바꾼다.
+
+이동 후 실행 문제가 생기면 이 프로젝트 서버를 종료한 뒤 다음을 실행한다. `.langgraph_api`, PDF, SQLite, 브라우저 저장 데이터는 캐시 정리 대상에서 제외한다.
+
+```bash
+# frontend/에서
+rm -rf .next
+npm ci
+# backend-langgraph/에서
+uv sync --frozen --reinstall-package langgraph-cli
+```
+
+이후 위 실행 절차로 재시작한다. 캐시 재생성이나 HTTP 200 확인은 실제 모델 응답·브라우저 상호작용 검증과 별개다.
+
+이 예제와 `6-a-3-openui-shadcn-langgraph-py`는 기본 포트 2038/3046을 공유한다. 기본 설정으로 동시에 실행하지 않는다. 동시 실행 시 백엔드 `--port`, 프런트엔드 `dev` 포트, `LANGGRAPH_API_URL`과 테스트 설정을 함께 변경한다.

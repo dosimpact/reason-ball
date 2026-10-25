@@ -45,7 +45,7 @@ frontend: `npm ci`, `npm run dev` 또는 `npm run verify` 후 `npm start`(127.0.
 backend: `uv run pytest` 39개, `uv run ruff check agent tests`, `uv build`.
 frontend: `npm run lint`, `npm run typecheck`, `npm run verify`, 서버 실행 상태에서 `npm run test:smoke`(실제 provider 비용).
 
-검증 증거: [전체 기능 이관 기록](../flow/2026-10-18-document-comparison-complete.md). 이전 flow/Report는 당시 상태의 이력이며 현재 설계는 이 문서를 따른다.
+과거 전체 기능 이관 기록 파일은 현재 디렉터리에 포함되어 있지 않다. 이번 [README 점검 기록](../flow/2026-10-25-readme-audit.md)은 정적 대조만 수행했으며 과거 런타임 검증을 대체하지 않는다. 이전 flow/Report는 당시 상태의 이력이며 현재 설계는 이 문서를 따른다.
 
 ## CODE-001 한국어 주석과 코드 읽기 안내
 
@@ -80,3 +80,7 @@ frontend: `npm run lint`, `npm run typecheck`, `npm run verify`, 서버 실행 �
 5. comparison-chat.tsx, document-library.tsx, lib/backend.ts: 비교 화면·문서 목록과 Python HTTP 연결.
 
 이 프로젝트의 langgraph.json은 http.app으로 비교 API도 같은 서버에 탑재한다. comparison-prompt.ts의 문자열은 모델 지침이며 일반 코드 주석과 구분한다. tools.py의 mock 도구는 비교 그래프에 등록하지 않는다.
+
+## DOC-README-001 실행 문서 정합성 (2026-10-25)
+
+현재 경로는 `6-b-1-langgraph-platform-to-py-document`이며 실행 포트는 백엔드 2035, UI 3043다. 설치 도구·환경 설정·이동 후 캐시 복구는 [프로젝트 README](../../README.md)를 따른다. [점검 기록](../flow/2026-10-25-readme-audit.md)은 정적 대조 결과이며 전체 런타임 재검증을 뜻하지 않는다.

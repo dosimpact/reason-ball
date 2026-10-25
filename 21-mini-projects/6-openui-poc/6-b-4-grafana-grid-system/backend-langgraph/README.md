@@ -1,18 +1,18 @@
-# Python LangGraph backend
+# Filing Studio Python LangGraph 백엔드
 
-Python 3.12 및 [uv](https://docs.astral.sh/uv/)만 필요 
+Python 3.12 및 [uv](https://docs.astral.sh/uv/)만 필요
 
 ```bash
 uv sync --frozen
 cp .env.example .env  # 최초 설정 시에만
 # .env에 OPENAI_API_KEY를 설정한다.
-uv run langgraph dev --port 2038 --no-browser
+uv run langgraph dev --port 2041 --no-browser
 ```
 
-- API: http://127.0.0.1:2038
-- API 문서: http://127.0.0.1:2038/docs
+- API: http://127.0.0.1:2041
+- API 문서: http://127.0.0.1:2041/docs
 - 모델: OPENAI_MODEL, 기본 `gpt-4.1-mini`
-- 그래프: `langgraph.json` → `agent/graph.py:graph`
+- 기본 그래프: `langgraph.json` → `agent/graph.py:graph`. 대시보드 요청은 custom HTTP app의 build_dashboard_graph를 사용한다.
 - 도구: `agent/documents.py`의 실제 PDF 검색 search_documents. 기존 mock 도구는 비교 그래프에 등록하지 않는다.
 - 스트림: `agent/streaming.py`가 Python protocol 이벤트를 AG-UI `custom:openui`로 변환한다.
 - 프롬프트: `agent/system-prompt.txt`는 함께 배포하는 자산이다. 실행 시 프런트엔드 파일을 읽거나 Node를 호출하지 않는다.
@@ -67,4 +67,10 @@ uv run prepare-documents --no-samples --documents-dir ./documents
 
 ## 비교 API와 대화 저장
 
-langgraph.json의 http.app으로 agent/app.py를 같은 2038 서버에 탑재한다. /comparison/documents, /comparison/chat, /comparison/threads/*를 제공한다. 요청마다 현재 문서 목록으로 그래프 프롬프트를 구성하고 Python LangGraph v3 스트림을 AG-UI SSE로 전달한다. conversations.sqlite는 documents.sqlite와 별개여서 문서 재준비로 대화를 삭제하지 않는다. 중단된 도구 호출은 다음 실행에서 정리한다. 로컬 단일 프로세스 데모이며 인증/멀티프로세스 동시성은 범위 밖이다.
+langgraph.json의 http.app으로 agent/app.py를 같은 2041 서버에 탑재한다. /comparison/documents, /comparison/chat, /comparison/threads/*를 제공한다. 요청마다 현재 문서 목록으로 그래프 프롬프트를 구성하고 Python LangGraph v3 스트림을 AG-UI SSE로 전달한다. conversations.sqlite는 documents.sqlite와 별개여서 문서 재준비로 대화를 삭제하지 않는다. 중단된 도구 호출은 다음 실행에서 정리한다. 로컬 단일 프로세스 데모이며 인증/멀티프로세스 동시성은 범위 밖이다.
+
+## 대시보드와 SEC 경로
+
+`agent/app.py`의 `/dashboard/*`가 Chat·Canvas 요청을 처리하며 `/comparison/*`는 승계한 비교 API다. `agent/settings.py`는 외부 환경변수 → 프로젝트 루트 `.env` → 백엔드 `.env` 순으로 설정한다. `OPENAI_API_KEY`, `SEC_USER_AGENT`를 준비한다. SEC 원문은 `sec.sqlite`, Canvas/대화는 `conversations.sqlite`, PDF 검색 인덱스는 `documents.sqlite`로 분리한다.
+
+카탈로그 생성 경로는 frontend의 `src/shared/ui/openui/generated/system-prompt.txt`다. [상위 README](../README.md)의 동기화 명령을 사용한다. SEC 직접 수집의 현재 검증 한계는 [구현 현황](../docs/stock/implementation-status.md)을 따른다. 이번 README 정비에서 외부 API 수집은 다시 실행하지 않았다.

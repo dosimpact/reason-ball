@@ -1,6 +1,6 @@
 # Python LangGraph backend
 
-Python 3.12 및 [uv](https://docs.astral.sh/uv/)만 필요 
+Python 3.12 및 [uv](https://docs.astral.sh/uv/)만 필요
 
 ```bash
 uv sync --frozen

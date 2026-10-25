@@ -1,5 +1,7 @@
 # Filing Studio — SEC Chat + Canvas
 
+[전체 예제 비교](../README.md) · [프런트엔드 안내](frontend/README.md) · [백엔드 안내](backend-langgraph/README.md)
+
 6-5의 문서 비교·Intelligent UI를 시작점으로, 헤드리스 Chat과 Grafana 방식의 자체 Canvas를 연결한 독립 앱이다. Grafana 서버나 계정은 사용하지 않는다. Python Deep Agent는 SEC 수집 서브에이전트, 문서 검색, 연간 재무 데이터와 Canvas 명령을 사용한다.
 
 > 구현·검증은 진행 중이다. 현재 환경에서 SEC 직접 접근은 HTTP 403으로 차단되어 실제 최신 원문 수집 성공을 검증하지 못했다. 준비된 PDF 검색과 모델·임베딩 호출은 동작한다. 전체 완료 여부는 [구현 현황](docs/stock/implementation-status.md)을 따른다.
@@ -60,3 +62,21 @@ npm run verify
 `npm run test:e2e`는 승계한 `/comparison`과 갤러리 회귀 테스트다. 새 대시보드의 실제 사용자 흐름은 Playwright CLI로 확인하고 `frontend/output/playwright/`에 증거를 저장한다. 기존 테스트는 소유하지 않은 서버를 재사용하지 않는다. 이 작업이 소유한 실행 서버에서 기존 E2E를 돌릴 때만 `E2E_EXTERNAL_SERVERS=1`을 사용한다.
 
 [문서 지도](docs/README.md) · [사용자 시나리오](docs/stock/user-scenarios.md) · [제품 설계](docs/stock/business.md) · [시스템 설계](docs/stock/system.md)
+
+## 새 환경 설정과 디렉터리 이동
+
+실행 명령의 `cd`는 각각 이 프로젝트 루트를 기준으로 한다. Python 3.12와 uv, Node.js 20.9+ 및 npm이 필요하다. 백엔드는 `uv.lock`, 프런트엔드는 `package-lock.json`을 사용한다.
+
+처음 실행할 때만 각 폴더의 `.env.example`을 `.env`로 복사한다. 기존 `.env`는 보존한다. 백엔드에 `OPENAI_API_KEY`를 설정하고, 프런트엔드에는 `LANGGRAPH_API_URL=http://127.0.0.1:2041`를 명시한다. 복사된 예시 파일의 주소가 다르면 이 프로젝트 포트로 바꾼다.
+
+이동 후 실행 문제가 생기면 이 프로젝트 서버를 종료한 뒤 다음을 실행한다. `.langgraph_api`, PDF, SQLite, 브라우저 저장 데이터는 캐시 정리 대상에서 제외한다.
+
+```bash
+# frontend/에서
+rm -rf .next
+npm ci
+# backend-langgraph/에서
+uv sync --frozen --reinstall-package langgraph-cli
+```
+
+이후 위 실행 절차로 재시작한다. 캐시 재생성이나 HTTP 200 확인은 실제 모델 응답·브라우저 상호작용 검증과 별개다.

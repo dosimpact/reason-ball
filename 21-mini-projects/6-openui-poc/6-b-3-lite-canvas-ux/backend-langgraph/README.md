@@ -7,7 +7,7 @@ uv run langgraph dev --port 2040 --no-browser
 
 API: http://127.0.0.1:2040 / 문서: http://127.0.0.1:2040/docs
 
-`.env`에 OPENAI_API_KEY를 둔다. `OPENAI_MODEL`은 메인/질문 모델(기본 gpt-4.1-mini), `OPENAI_REPORT_MODEL`은 리포트 생성/검토 모델(기본 gpt-5.4)이다. 검증 URL은 `OPENUI_VALIDATOR_URL`(기본 http://127.0.0.1:3048/api/program/validate).
+`.env`에 OPENAI_API_KEY를 둔다. `OPENAI_MODEL`은 메인/질문 모델(기본 gpt-4.1-mini), `OPENAI_REPORT_MODEL`은 리포트 생성 모델(기본 gpt-5.4), `OPENAI_REVIEW_MODEL`은 수치 검토 모델(기본 gpt-5.4-mini)이다. 검증 URL은 `OPENUI_VALIDATOR_URL`(기본 http://127.0.0.1:3048/api/program/validate).
 
 메인 StateGraph가 LLM 의도 판단 후 compiled report subgraph로 라우팅한다. subgraph가 Canvas open과 OpenUI delta를 발행하고, 파서 및 원문 검토 후 저장한다. 질문에는 checkpoint의 report/원문/quote 문맥을 사용한다.
 

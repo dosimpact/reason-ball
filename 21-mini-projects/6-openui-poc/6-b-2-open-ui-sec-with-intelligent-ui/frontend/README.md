@@ -4,6 +4,8 @@ Next.js/OpenUI 화면과 Python 백엔드로의 HTTP 프록시다. API 키, PDF,
 
 ```bash
 npm ci
+npm run generate
+# 최초 설정 후 LANGGRAPH_API_URL=http://127.0.0.1:2038 확인
 npm run dev
 # 또는
 npm run verify

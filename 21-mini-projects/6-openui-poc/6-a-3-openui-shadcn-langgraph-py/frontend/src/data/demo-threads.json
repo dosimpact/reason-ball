@@ -1,0 +1,219 @@
+[
+  {
+    "thread": {
+      "id": "shadcn-demo-v1-startup",
+      "title": "01 · 스타트업 대시보드",
+      "createdAt": "2026-10-25T09:53:28.997Z"
+    },
+    "messages": [
+      {
+        "id": "demo-startup-user",
+        "role": "user",
+        "content": "Create a startup analytics dashboard with sample numbers. Include CardHeader, TagBlock, key metrics Table, annual goal Progress, Tabs with Revenue BarChart, Growth LineChart and Breakdown PieChart, and FollowUpBlock. Use only the registered shadcn catalog. Write visible labels and explanations in Korean where natural. Use English short chart category labels. Do not describe how to build it: return the rendered OpenUI Lang program."
+      },
+      {
+        "id": "lc_run--01a1727a-afb7-7ef3-ac72-d7fb6d8d7dfc",
+        "role": "assistant",
+        "content": "root = Card([header, tags, keyMetrics, goalProgress, tabs, followUps])\nheader = CardHeader(\"스타트업 분석 대시보드\", \"주요 지표와 연간 목표 현황을 한 눈에 확인하세요\")\ntags = TagBlock([tagLive, tagKPI, tag2024])\ntagLive = Tag(\"실시간 데이터\", \"default\")\ntagKPI = Tag(\"핵심 지표\", \"secondary\")\ntag2024 = Tag(\"2024년\", \"outline\")\nkeyMetrics = Table(cols, rows)\ncols = [Col(\"지표\", \"string\"), Col(\"현재 값\", \"number\"), Col(\"전월 대비(%)\", \"number\")]\nrows = [\n  [\"사용자 수\", 12500, 8.5],\n  [\"월 매출 ($K)\", 320, 12.3],\n  [\"신규 고객\", 870, 15.0],\n  [\"이탈률(%)\", 4.2, -1.1]\n]\ngoalProgress = Progress(75, \"2024년 연간 목표 달성도\")\ntabs = Tabs([tabRevenue, tabGrowth, tabBreakdown], \"revenue\")\ntabRevenue = TabItem(\"revenue\", \"매출\", [revChart])\ntabGrowth = TabItem(\"growth\", \"성장률\", [growthChart])\ntabBreakdown = TabItem(\"breakdown\", \"분석\", [breakdownPie])\nrevChart = BarChart([\"Q1\", \"Q2\", \"Q3\", \"Q4\"], [Series(\"매출\", [200, 280, 320, 400])], \"grouped\", \"분기\", \"매출($K)\")\ngrowthChart = LineChart([\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\"], [Series(\"사용자 증가율\", [5, 7, 8, 9, 10]), Series(\"매출 증가율\", [4, 6, 7, 8, 9])], \"월\", \"증가율(%)\")\nbreakdownPie = PieChart([Slice(\"웹\", 45), Slice(\"모바일\", 35), Slice(\"기타\", 20)])\nfollowUps = FollowUpBlock([fuDetails, fuForecast])\nfuDetails = FollowUpItem(\"상세 지표 보기\")\nfuForecast = FollowUpItem(\"향후 전망 분석\")"
+      }
+    ]
+  },
+  {
+    "thread": {
+      "id": "shadcn-demo-v1-travel",
+      "title": "02 · 여행 계획",
+      "createdAt": "2026-10-25T09:53:24.450Z"
+    },
+    "messages": [
+      {
+        "id": "demo-travel-user",
+        "role": "user",
+        "content": "Design a Tokyo, Paris and New York trip planner. Include a range CalendarBlock for two months, Accordion with 3 destination descriptions and budgets, and a preferences Form with Select, Slider and CheckBoxGroup. Add FollowUpBlock. Clearly label budgets as examples. Use only the registered shadcn catalog. Write visible labels and explanations in Korean where natural. Use English short chart category labels. Do not describe how to build it: return the rendered OpenUI Lang program."
+      },
+      {
+        "id": "lc_run--01a1727a-9ec3-7c51-90cc-b771268f1ee3",
+        "role": "assistant",
+        "content": "root = Card([title, cal, accordion, form, followUps])\ntitle = TextContent(\"도시별 여행 계획 - 도쿄, 파리, 뉴욕\", \"large-heavy\")\n\ncal = CalendarBlock(\"range\", \"2024-06-01\", 2)\n\naccordion = Accordion([accTok, accPar, accNY], \"multiple\")\n\naccTok = AccordionItem(\"tokyo\", \"도쿄\", [descTok, budgetTok])\ndescTok = TextContent(\"도쿄는 현대와 전통이 공존하는 일본의 수도입니다. 다양한 음식과 쇼핑, 문화 체험이 가능합니다.\", \"default\")\nbudgetTok = TextContent(\"예산 예시: 항공료 80만원, 숙박 50만원, 식비 및 교통비 30만원 (총 160만원)\", \"small\")\n\naccPar = AccordionItem(\"paris\", \"파리\", [descPar, budgetPar])\ndescPar = TextContent(\"파리는 로맨틱한 거리와 세계적인 미술관, 맛있는 음식으로 유명한 프랑스의 수도입니다.\", \"default\")\nbudgetPar = TextContent(\"예산 예시: 항공료 100만원, 숙박 60만원, 식비 및 교통비 40만원 (총 200만원)\", \"small\")\n\naccNY = AccordionItem(\"newyork\", \"뉴욕\", [descNY, budgetNY])\ndescNY = TextContent(\"뉴욕은 미국의 금융과 예술의 중심지이며, 유명한 랜드마크와 다양한 행사로 가득합니다.\", \"default\")\nbudgetNY = TextContent(\"예산 예시: 항공료 120만원, 숙박 70만원, 식비 및 교통비 50만원 (총 240만원)\", \"small\")\n\nform = Form(\"preferences\", btns, [prefCityField, budgetSliderField, activitiesCheckboxField])\n\nprefCityField = FormControl(\"선호 도시 선택\", Select(\"city\", [SelectItem(\"tokyo\", \"도쿄\"), SelectItem(\"paris\", \"파리\"), SelectItem(\"newyork\", \"뉴욕\")], \"도시를 선택하세요\", { required: true }))\n\nbudgetSliderField = FormControl(\"예산 범위 (만원)\", Slider(\"budget\", 100, 300, 10, 160))\n\nactivitiesCheckboxField = FormControl(\"관심 활동\", CheckBoxGroup(\"activities\", [CheckBoxItem(\"shopping\", \"쇼핑\"), CheckBoxItem(\"museum\", \"미술관/박물관\"), CheckBoxItem(\"food\", \"음식 탐방\"), CheckBoxItem(\"walk\", \"도보 관광\")]))\n\nbtns = Buttons([Button(\"계획 저장\", { type: \"continue_conversation\" }, \"default\")])\n\nfollowUps = FollowUpBlock([fu1, fu2, fu3])\nfu1 = FollowUpItem(\"도쿄 여행 정보 더 보기\")\nfu2 = FollowUpItem(\"파리 맛집 추천\")\nfu3 = FollowUpItem(\"뉴욕 관광 명소 알려줘\")"
+      }
+    ]
+  },
+  {
+    "thread": {
+      "id": "shadcn-demo-v1-market",
+      "title": "03 · 주식 비교",
+      "createdAt": "2026-10-25T09:53:32.728Z"
+    },
+    "messages": [
+      {
+        "id": "demo-market-user",
+        "role": "user",
+        "content": "Call get_stock_price for AAPL, NVDA, GOOGL and TSLA. Render a market overview with a Table, TagBlock, biggest-mover Alert, and DrawerBlock containing BarChart comparing their returned prices. Clearly explain that all prices are mock demo data. Add FollowUpBlock. Use only the registered shadcn catalog. Write visible labels and explanations in Korean where natural. Use English short chart category labels. Do not describe how to build it: return the rendered OpenUI Lang program."
+      },
+      {
+        "id": "assistant-call_ngMK27SGA2bHenn0865xAmP0",
+        "role": "assistant",
+        "content": "",
+        "toolCalls": [
+          {
+            "id": "call_ngMK27SGA2bHenn0865xAmP0",
+            "type": "function",
+            "function": {
+              "name": "get_stock_price",
+              "arguments": "{\"symbol\": \"AAPL\"}"
+            }
+          }
+        ]
+      },
+      {
+        "id": "assistant-call_dTixlwmfxcMIZ5ofBLoB4NyG",
+        "role": "assistant",
+        "content": "",
+        "toolCalls": [
+          {
+            "id": "call_dTixlwmfxcMIZ5ofBLoB4NyG",
+            "type": "function",
+            "function": {
+              "name": "get_stock_price",
+              "arguments": "{\"symbol\": \"NVDA\"}"
+            }
+          }
+        ]
+      },
+      {
+        "id": "assistant-call_wM4uQY5LBRtq4q0GhPW6ygFI",
+        "role": "assistant",
+        "content": "",
+        "toolCalls": [
+          {
+            "id": "call_wM4uQY5LBRtq4q0GhPW6ygFI",
+            "type": "function",
+            "function": {
+              "name": "get_stock_price",
+              "arguments": "{\"symbol\": \"GOOGL\"}"
+            }
+          }
+        ]
+      },
+      {
+        "id": "assistant-call_BYBIoftBRyLRIbJrGwzIWWBk",
+        "role": "assistant",
+        "content": "",
+        "toolCalls": [
+          {
+            "id": "call_BYBIoftBRyLRIbJrGwzIWWBk",
+            "type": "function",
+            "function": {
+              "name": "get_stock_price",
+              "arguments": "{\"symbol\": \"TSLA\"}"
+            }
+          }
+        ]
+      },
+      {
+        "id": "tool-result-call_ngMK27SGA2bHenn0865xAmP0",
+        "role": "tool",
+        "toolCallId": "call_ngMK27SGA2bHenn0865xAmP0",
+        "content": "{\"symbol\": \"AAPL\", \"price\": 193.57, \"change\": 3.73, \"change_percent\": 1.96, \"volume\": \"59.0M\", \"day_high\": 195.07, \"day_low\": 184.91}"
+      },
+      {
+        "id": "tool-result-call_dTixlwmfxcMIZ5ofBLoB4NyG",
+        "role": "tool",
+        "toolCallId": "call_dTixlwmfxcMIZ5ofBLoB4NyG",
+        "content": "{\"symbol\": \"NVDA\", \"price\": 877.8, \"change\": 2.52, \"change_percent\": 0.29, \"volume\": \"13.3M\", \"day_high\": 879.3, \"day_low\": 871.56}"
+      },
+      {
+        "id": "tool-result-call_wM4uQY5LBRtq4q0GhPW6ygFI",
+        "role": "tool",
+        "toolCallId": "call_wM4uQY5LBRtq4q0GhPW6ygFI",
+        "content": "{\"symbol\": \"GOOGL\", \"price\": 145.58, \"change\": 3.78, \"change_percent\": 2.67, \"volume\": \"22.0M\", \"day_high\": 147.08, \"day_low\": 136.82}"
+      },
+      {
+        "id": "tool-result-call_BYBIoftBRyLRIbJrGwzIWWBk",
+        "role": "tool",
+        "toolCallId": "call_BYBIoftBRyLRIbJrGwzIWWBk",
+        "content": "{\"symbol\": \"TSLA\", \"price\": 247.79, \"change\": -0.63, \"change_percent\": -0.25, \"volume\": \"44.2M\", \"day_high\": 250.55, \"day_low\": 246.59}"
+      },
+      {
+        "id": "lc_run--01a1727a-c710-7001-9326-72f9c6c6034a",
+        "role": "assistant",
+        "content": "root = Card([header, tags, alert, table, drawer, followUps])\nheader = CardHeader(\"시장 개요\", \"아래는 NASDAQ 주요 종목 주가 현황입니다. 모든 가격은 데모용 가상 데이터임을 참고하세요.\")\ntags = TagBlock([tagDemo, tagInfo])\ntagDemo = Tag(\"데모 데이터\", \"destructive\")\ntagInfo = Tag(\"가격 단위: USD\", \"secondary\")\nbiggestMoverSymbol = \"GOOGL\"\nbiggestMoverChange = 2.67\nalert = Alert(\"가장 큰 변동: GOOGL\", \"GOOGL 주가가 +2.67% 상승했습니다. (데모 데이터 기준)\", \"info\")\ntable = Table(cols, rows)\ncols = [Col(\"종목\", \"string\"), Col(\"가격 (USD)\", \"number\"), Col(\"변동 (%)\", \"number\"), Col(\"거래량\", \"string\")]\nrows = [\n  [\"AAPL\", 193.57, 1.96, \"59.0M\"],\n  [\"NVDA\", 877.8, 0.29, \"13.3M\"],\n  [\"GOOGL\", 145.58, 2.67, \"22.0M\"],\n  [\"TSLA\", 247.79, -0.25, \"44.2M\"]\n]\ndrawer = DrawerBlock(\"주가 차트 보기\", \"주요 종목 주가 비교 (데모 데이터)\", \"각 종목의 가격을 BarChart로 표시한 비교차트입니다.\", [chart])\nchart = BarChart(labels, [series], \"grouped\", \"Symbol\", \"Price (USD)\")\nlabels = [\"AAPL\", \"NVDA\", \"GOOGL\", \"TSLA\"]\nseries = Series(\"Price\", [193.57, 877.8, 145.58, 247.79])\nfollowUps = FollowUpBlock([fu1, fu2, fu3])\nfu1 = FollowUpItem(\"다른 주식 심볼도 보여줘\")\nfu2 = FollowUpItem(\"실시간 주가 업데이트 방법 알려줘\")\nfu3 = FollowUpItem(\"주가 차트 종류 변경하기\")"
+      }
+    ]
+  },
+  {
+    "thread": {
+      "id": "shadcn-demo-v1-rsvp",
+      "title": "04 · 행사 RSVP 폼",
+      "createdAt": "2026-10-25T09:53:35.148Z"
+    },
+    "messages": [
+      {
+        "id": "demo-rsvp-user",
+        "role": "user",
+        "content": "Create a tech summit RSVP. Include info Alert, Form with name/email Input, ticket Select, diet RadioGroup, DatePicker, group-size Slider, sessions CheckBoxGroup, notification SwitchGroup, and submit Button. Add FollowUpBlock. This is a demo form, no real registration. Use only the registered shadcn catalog. Write visible labels and explanations in Korean where natural. Use English short chart category labels. Do not describe how to build it: return the rendered OpenUI Lang program."
+      },
+      {
+        "id": "lc_run--01a1727a-d3f9-7c32-9b59-ef85ca7087ba",
+        "role": "assistant",
+        "content": "root = Card([infoAlert, form, followUps])\ninfoAlert = Alert(\"기술 서밋 참가 신청\", \"본 양식은 데모용입니다. 실제 등록은 이루어지지 않습니다.\", \"info\")\nform = Form(\"tech_summit_rsvp\", btnSubmit, [nameField, emailField, ticketField, dietField, dateField, groupSizeField, sessionsField, notificationField])\nnameField = FormControl(\"이름\", Input(\"name\", \"이름을 입력하세요\", \"text\", { required: true, minLength: 2 }))\nemailField = FormControl(\"이메일\", Input(\"email\", \"you@example.com\", \"email\", { required: true, email: true }))\nticketField = FormControl(\"티켓 종류\", Select(\"ticket\", ticketOptions, \"티켓을 선택하세요\", { required: true }))\ndietField = FormControl(\"식단 선택\", RadioGroup(\"diet\", dietOptions))\ndateField = FormControl(\"참석 예정일\", DatePicker(\"attendance_date\", \"참석할 날짜를 선택하세요\"))\ngroupSizeField = FormControl(\"참석 인원 수\", Slider(\"group_size\", 1, 10, 1, 1))\nsessionsField = FormControl(\"참여 세션 선택\", CheckBoxGroup(\"sessions\", sessionOptions))\nnotificationField = FormControl(\"공지 수신 동의\", SwitchGroup(\"notifications\", notificationOptions))\nbtnSubmit = Buttons([submitButton])\nsubmitButton = Button(\"제출\", { type: \"continue_conversation\" }, \"default\")\nticketOptions = [SelectItem(\"standard\", \"일반\"), SelectItem(\"vip\", \"VIP\"), SelectItem(\"student\", \"학생\")]\ndietOptions = [RadioItem(\"none\", \"없음\"), RadioItem(\"vegetarian\", \"채식주의자\"), RadioItem(\"vegan\", \"비건\"), RadioItem(\"halal\", \"할랄 식단\")]\nsessionOptions = [CheckBoxItem(\"keynote\", \"기조연설\"), CheckBoxItem(\"workshop\", \"워크숍\"), CheckBoxItem(\"networking\", \"네트워킹\"), CheckBoxItem(\"expo\", \"전시회\")]\nnotificationOptions = [SwitchItem(\"email\", \"이메일 알림\"), SwitchItem(\"sms\", \"SMS 알림\")]\nfollowUps = FollowUpBlock([fu1, fu2])\nfu1 = FollowUpItem(\"참석자 명단 보기\")\nfu2 = FollowUpItem(\"다른 행사 정보\")"
+      }
+    ]
+  },
+  {
+    "thread": {
+      "id": "shadcn-demo-v1-standup",
+      "title": "05 · 팀 스탠드업",
+      "createdAt": "2026-10-25T09:53:45.403Z"
+    },
+    "messages": [
+      {
+        "id": "demo-standup-user",
+        "role": "user",
+        "content": "Create a sample team standup board with sprint Progress, task Table for 5 members, blockers Alert, Yesterday/Today/Blockers Accordion, and DialogBlock with sprint metrics PieChart and summary Table. Add FollowUpBlock. Use only the registered shadcn catalog. Write visible labels and explanations in Korean where natural. Use English short chart category labels. Do not describe how to build it: return the rendered OpenUI Lang program."
+      },
+      {
+        "id": "lc_run--01a1727a-fbcb-73b3-873e-bdff441e0e8e",
+        "role": "assistant",
+        "content": "root = Card([header, progress, taskTable, blockersAlert, accordion, sprintDialog, followUps])\nheader = CardHeader(\"팀 스탠드업 보드\", \"현재 스프린트 진행 상황 및 팀 작업 현황입니다.\")\nprogress = Progress(70, \"스프린트 진행률\")\ntaskTable = Table(taskCols, taskRows)\ntaskCols = [Col(\"팀원\", \"string\"), Col(\"작업\", \"string\"), Col(\"상태\", \"string\"), Col(\"우선순위\", \"string\"), Col(\"완료율(%)\", \"number\")]\ntaskRows = [\n  [\"홍길동\", \"로그인 기능 개발\", \"진행 중\", \"높음\", 60],\n  [\"김영희\", \"API 문서 작성\", \"완료\", \"중간\", 100],\n  [\"이철수\", \"UI 디자인 검토\", \"대기 중\", \"낮음\", 10],\n  [\"박민수\", \"테스트 케이스 작성\", \"진행 중\", \"중간\", 40],\n  [\"최은지\", \"배포 자동화 설정\", \"진행 중\", \"높음\", 50]\n]\nblockersAlert = Alert(\"차단 문제 알림\", \"홍길동 님이 로그인 기능에서 API 응답 지연 문제를 겪고 있습니다.\", \"destructive\")\naccordion = Accordion([yesterdayItem, todayItem, blockersItem], \"multiple\")\nyesterdayItem = AccordionItem(\"yesterday\", \"어제 한 일\", [TextContent(\"- 로그인 화면 UI 초기 설계 완료\\n- API 설계 미팅 참석\")])\ntodayItem = AccordionItem(\"today\", \"오늘 할 일\", [TextContent(\"- 로그인 기능 개발 계속\\n- API 응답 문제 조사 및 해결\")])\nblockersItem = AccordionItem(\"blockers\", \"차단 사항\", [TextContent(\"- API 서버 응답 속도 저하 문제\"), TextContent(\"- 디자인 가이드라인 미확정\")])\nsprintDialog = DialogBlock(\"스프린트 상세 보기\", \"스프린트 성과 지표\", \"스프린트 관련 상세 통계와 작업 성과입니다.\", [pieChart, summaryTable], \"default\")\npieChart = PieChart(pieSlices, true)\npieSlices = [\n  Slice(\"Done\", 45),\n  Slice(\"In Prog\", 40),\n  Slice(\"To Do\", 15)\n]\nsummaryTable = Table(summaryCols, summaryRows)\nsummaryCols = [Col(\"지표\", \"string\"), Col(\"값\", \"string\")]\nsummaryRows = [\n  [\"총 작업 수\", \"20\"],\n  [\"완료된 작업\", \"9\"],\n  [\"진행 중 작업\", \"8\"],\n  [\"남은 작업\", \"3\"],\n  [\"차단 사항\", \"2\"]\n]\nfollowUps = FollowUpBlock([fuAddTask, fuViewMetrics, fuUpdateBlocker])\nfuAddTask = FollowUpItem(\"작업 추가하기\")\nfuViewMetrics = FollowUpItem(\"스프린트 성과 보기\")\nfuUpdateBlocker = FollowUpItem(\"차단 사항 업데이트\")"
+      }
+    ]
+  },
+  {
+    "thread": {
+      "id": "shadcn-demo-v1-recipe",
+      "title": "06 · 레시피 카드",
+      "createdAt": "2026-10-25T09:53:39.929Z"
+    },
+    "messages": [
+      {
+        "id": "demo-recipe-user",
+        "role": "user",
+        "content": "Create a Spicy Thai Basil Chicken recipe with TagBlock and Tabs for Ingredients Table, Instructions Accordion with 5 steps, and Nutrition donut PieChart and Table. Add Blockquote, a Button opening a DialogBlock for recipe tips, and FollowUpBlock. Nutrition values are illustrative estimates. Use only the registered shadcn catalog. Write visible labels and explanations in Korean where natural. Use English short chart category labels. Do not describe how to build it: return the rendered OpenUI Lang program."
+      },
+      {
+        "id": "lc_run--01a1727a-e54b-7af2-bf87-901a2f68d3cf",
+        "role": "assistant",
+        "content": "root = Card([header, tags, tabs, blockquote, tipsDialog, followUps])\nheader = CardHeader(\"매콤한 태국 바질 치킨 레시피\", \"진한 향과 매콤한 맛을 즐겨보세요.\")\ntags = TagBlock([tagSpicy, tagThai, tagQuick])\ntagSpicy = Tag(\"매운맛\", \"destructive\")\ntagThai = Tag(\"태국요리\", \"secondary\")\ntagQuick = Tag(\"간단\", \"default\")\n\ntabs = Tabs([tabIngredients, tabInstructions, tabNutrition], \"ingredients\")\n\ntabIngredients = TabItem(\"ingredients\", \"재료\", [ingredientsTable])\ningredientsTable = Table(colsIngredients, rowsIngredients)\ncolsIngredients = [Col(\"재료\", \"string\"), Col(\"양\", \"string\")]\nrowsIngredients = [\n  [\"닭가슴살 (잘게 썬것)\", \"300g\"],\n  [\"신선한 바질잎\", \"1컵\"],\n  [\"마늘 (다진 것)\", \"3쪽\"],\n  [\"홍고추 (슬라이스)\", \"2개\"],\n  [\"간장\", \"2큰술\"],\n  [\"어간장\", \"1큰술\"],\n  [\"설탕\", \"1작은술\"],\n  [\"식용유\", \"2큰술\"]\n]\n\ntabInstructions = TabItem(\"instructions\", \"조리법\", [instructionsAccordion])\ninstructionsAccordion = Accordion([step1, step2, step3, step4, step5], \"single\")\nstep1 = AccordionItem(\"step1\", \"1단계: 준비하기\", [TextContent(\"닭가슴살을 깨끗이 손질하고 잘게 썰어주세요.\")])\nstep2 = AccordionItem(\"step2\", \"2단계: 재료 볶기\", [TextContent(\"팬에 식용유를 두르고 다진 마늘과 홍고추를 볶아 향을 내세요.\")])\nstep3 = AccordionItem(\"step3\", \"3단계: 닭가슴살 추가\", [TextContent(\"닭가슴살을 팬에 넣고 익을 때까지 볶아줍니다.\")])\nstep4 = AccordionItem(\"step4\", \"4단계: 양념 넣기\", [TextContent(\"간장, 어간장, 설탕을 넣어 잘 섞어줍니다.\")])\nstep5 = AccordionItem(\"step5\", \"5단계: 바질 추가 및 마무리\", [TextContent(\"바질잎을 넣고 살짝 볶은 후 불을 끄고 완성하세요.\")])\n\ntabNutrition = TabItem(\"nutrition\", \"영양정보\", [nutritionChart, nutritionTable])\nnutritionChart = PieChart(nutritionSlices, true)\nnutritionSlices = [\n  Slice(\"Protein\", 40),\n  Slice(\"Fat\", 30),\n  Slice(\"Carbs\", 20),\n  Slice(\"Fiber\", 10)\n]\nnutritionTable = Table(colsNutrition, rowsNutrition)\ncolsNutrition = [Col(\"영양소\", \"string\"), Col(\"함량 (%)\", \"number\")]\nrowsNutrition = [\n  [\"단백질\", 40],\n  [\"지방\", 30],\n  [\"탄수화물\", 20],\n  [\"식이섬유\", 10]\n]\n\nblockquote = Blockquote(\"태국 요리는 신선한 재료와 강한 맛의 조화가 중요합니다.\", \"셰프 찬\")\n\ntipsDialog = DialogBlock(\"레시피 팁 보기\", \"요리 팁\", \"매콤한 맛을 조절하려면 홍고추 양을 조절하세요.\", [tipsContent], \"secondary\")\ntipsContent = TextContent(\"신선한 바질을 사용하면 더 좋은 향이 납니다. 닭고기는 너무 오래 볶지 않도록 주의하세요.\")\n\nfollowUps = FollowUpBlock([fu1, fu2])\nfu1 = FollowUpItem(\"다른 태국 요리 레시피 보여줘\")\nfu2 = FollowUpItem(\"매운맛을 줄이는 방법 알려줘\")"
+      }
+    ]
+  },
+  {
+    "thread": {
+      "id": "shadcn-demo-v1-charts",
+      "title": "07 · 차트 쇼케이스",
+      "createdAt": "2026-10-25T09:53:51.368Z"
+    },
+    "messages": [
+      {
+        "id": "demo-charts-user",
+        "role": "user",
+        "content": "Create a compact sample Global Tech Industry Report with TagBlock and Tabs for seven chart types: grouped BarChart, LineChart, AreaChart, donut PieChart, RadarChart, ScatterChart with labeled Point entries, and RadialChart. Each chart needs sample data. Add a summary Table and FollowUpBlock. Use only the registered shadcn catalog. Write visible labels and explanations in Korean where natural. Use English short chart category labels. Do not describe how to build it: return the rendered OpenUI Lang program."
+      },
+      {
+        "id": "lc_run--01a1727b-113b-7d32-aafd-61fa688096b2",
+        "role": "assistant",
+        "content": "root = Card([header, tags, tabs, summaryTable, followUps])\nheader = CardHeader(\"글로벌 기술 산업 보고서\", \"기술 산업의 최신 동향과 시장 분석에 대한 요약 그래프 및 표\")\ntags = TagBlock([Tag(\"2024년 1분기\", \"default\"), Tag(\"글로벌\", \"secondary\"), Tag(\"기술 산업\", \"outline\")])\ntabs = Tabs([tabBar, tabLine, tabArea, tabPie, tabRadar, tabScatter, tabRadial], \"bar\")\ntabBar = TabItem(\"bar\", \"막대 차트\", [barChart, barDesc])\ntabLine = TabItem(\"line\", \"선 차트\", [lineChart, lineDesc])\ntabArea = TabItem(\"area\", \"면적 차트\", [areaChart, areaDesc])\ntabPie = TabItem(\"pie\", \"도넛 차트\", [pieChart, pieDesc])\ntabRadar = TabItem(\"radar\", \"레이더 차트\", [radarChart, radarDesc])\ntabScatter = TabItem(\"scatter\", \"산점도 차트\", [scatterChart, scatterDesc])\ntabRadial = TabItem(\"radial\", \"방사형 차트\", [radialChart, radialDesc])\nbarChart = BarChart([\"Jan\", \"Feb\", \"Mar\", \"Apr\"], [sBar1, sBar2], \"grouped\", \"월\", \"수익($M)\")\nsBar1 = Series(\"North America\", [40, 38, 45, 50])\nsBar2 = Series(\"Asia Pacific\", [30, 35, 33, 37])\nbarDesc = TextContent(\"월별 지역별 수익 비교 (미국과 아시아 태평양)\", \"small\")\nlineChart = LineChart([\"Q1\", \"Q2\", \"Q3\", \"Q4\"], [sLine1], \"분기\", \"사용자 수(천명)\")\nsLine1 = Series(\"Active Users\", [1200, 1350, 1500, 1600])\nlineDesc = TextContent(\"분기별 활성 사용자 수 추이\", \"small\")\nareaChart = AreaChart([\"2019\", \"2020\", \"2021\", \"2022\", \"2023\"], [sArea1], \"연도\", \"데이터 트래픽(PB)\")\nsArea1 = Series(\"Global Traffic\", [50, 70, 90, 110, 130])\nareaDesc = TextContent(\"글로벌 데이터 트래픽 규모의 연도별 변화\", \"small\")\npieChart = PieChart([slice1, slice2, slice3], true)\nslice1 = Slice(\"Software\", 45)\nslice2 = Slice(\"Hardware\", 35)\nslice3 = Slice(\"Services\", 20)\npieDesc = TextContent(\"기술 산업 내 부문별 매출 비중 (도넛형)\", \"small\")\nradarChart = RadarChart([\"Innovation\", \"Market Share\", \"Revenue\", \"Customer Satisfaction\", \"Growth\"], [sRadar1])\nsRadar1 = Series(\"Company A\", [80, 75, 90, 85, 70])\nradarDesc = TextContent(\"회사 A의 주요 성과 지표 평가\", \"small\")\nscatterChart = ScatterChart([sScatter1], \"기술 점수\", \"시장점유율(%)\")\nsScatter1 = ScatterSeries(\"세계 주요기업\", [p1, p2, p3])\np1 = Point(70, 35, \"Company X\")\np2 = Point(65, 50, \"Company Y\")\np3 = Point(80, 45, \"Company Z\")\nscatterDesc = TextContent(\"기업들의 기술 점수와 시장 점유율 관계\", \"small\")\nradialChart = RadialChart([sliceR1, sliceR2, sliceR3])\nsliceR1 = Slice(\"R&D\", 40)\nsliceR2 = Slice(\"Marketing\", 30)\nsliceR3 = Slice(\"Operations\", 30)\nradialDesc = TextContent(\"부서별 예산 배분 비율 (방사형 차트)\", \"small\")\nsummaryTable = Table(cols, rows)\ncols = [Col(\"항목\", \"string\"), Col(\"2023년\", \"number\"), Col(\"2024년 예상\", \"number\")]\nrows = [[\"총 매출($M)\", 4500, 4800], [\"신규 사용자(천명)\", 5000, 5500], [\"R&D 투자($M)\", 900, 950]]\nfollowUps = FollowUpBlock([fu1, fu2, fu3])\nfu1 = FollowUpItem(\"더 많은 시장별 분석 보기\")\nfu2 = FollowUpItem(\"기술 트렌드 전망 요청\")\nfu3 = FollowUpItem(\"경쟁사 비교 차트 추가\")"
+      }
+    ]
+  }
+]
