@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("같은 패널에서 FY2025를 제외하고 FY2024와 FY2026만 남겨줘. 패널 ID와 위치를 유지해. 두 해는 연속 연도가 아니므로 두 해 사이 증가율을 전년 대비라고 표시하지 마. 회계연도 종료일은 정확히 2024-01-28과 2026-01-25로 표시해줘. publish_ui_panel의 sources 인자에도 근거 링크 두 개를 꼭 전달해줘. 현재 sources 필드가 비어 있어."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

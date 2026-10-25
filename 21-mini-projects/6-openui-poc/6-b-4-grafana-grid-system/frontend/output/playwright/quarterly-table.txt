@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { const c=page.getByRole("region",{name:"Canvas dashboard"}); await c.getByText("177,837",{exact:true}).scrollIntoViewIfNeeded(); await page.screenshot({path:"output/playwright/quarterly-table.png"}); })(page);
+```

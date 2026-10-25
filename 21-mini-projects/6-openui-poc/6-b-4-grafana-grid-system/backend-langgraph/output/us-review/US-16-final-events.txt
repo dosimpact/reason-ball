@@ -1,0 +1,110 @@
+data: {"type": "RUN_STARTED", "threadId": "91765b16-e509-4a7c-a35a-b92e5186bf39", "runId": "8a120189-a104-4218-a365-c180b6c8d571"}
+
+data: {"type": "STATE_SNAPSHOT", "snapshot": {"dashboard": {"revision": 1, "tabs": [{"id": "main", "title": "Overview"}], "active_tab_id": "main", "panels": [], "artifacts": [{"id": "886923fb-b7de-47f9-abd3-ecc8d6e55a64", "title": "NVIDIA FY2025 and FY2026 Sales Comparison Table", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "header = CardHeader(\"NVIDIA Sales Comparison\", \"Fiscal Year 2025 vs 2026\")\nsalesTable = Table([\nCol(\"Fiscal Year\", [\"2026\", \"2025\"]),\nCol(\"Total Net Revenue (USD millions)\", [\"$215,938 (p. 37)\", \"$130,497 (p. 130)\"])\n])\nnoteCallout = Callout(\n  \"info\",\n  \"출처 및 단위\",\n  \"매출은 백만 달러(USD millions) 단위이며, 각각 NVIDIA 10-K 2026년(페이지 37)과 NVIDIA 연례보고서 2025년(페이지 130)에서 발췌하였습니다.\"\n)\nroot = Card([header, salesTable, noteCallout], [\n  {title: \"Revenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago.\", sourceName: \"NVIDIA 10-K · Page 37\", url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37\"},\n  {title: \"Total net revenue for the fiscal year ended January 26, 2025 was $130.5 billion.\", sourceName: \"NVIDIA Annual Report 2025 · Page 130\", url: \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"}\n])", "ui_state": {}, "source_artifact_id": null, "query": {}, "data": {}, "sources": [{"title": "Revenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago.", "sourceName": "NVIDIA 10-K · Page 37", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37"}, {"title": "Total net revenue for the fiscal year ended January 26, 2025 was $130.5 billion.", "sourceName": "NVIDIA Annual Report 2025 · Page 130", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130"}]}], "selected_panel_id": null, "export_request": null}}}
+
+data: {"type": "TOOL_CALL_START", "toolCallId": "call_DvkiLHFYNQSxp1IfmpL8PAz4", "toolCallName": "inspect_dashboard"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_DvkiLHFYNQSxp1IfmpL8PAz4", "delta": "{}"}
+
+data: {"type": "TOOL_CALL_END", "toolCallId": "call_DvkiLHFYNQSxp1IfmpL8PAz4"}
+
+data: {"type": "TOOL_CALL_RESULT", "messageId": "tool-result-call_DvkiLHFYNQSxp1IfmpL8PAz4", "toolCallId": "call_DvkiLHFYNQSxp1IfmpL8PAz4", "content": "{\"revision\": 1, \"tabs\": [{\"id\": \"main\", \"title\": \"Overview\"}], \"active_tab_id\": \"main\", \"panels\": [], \"artifacts\": [{\"id\": \"886923fb-b7de-47f9-abd3-ecc8d6e55a64\", \"title\": \"NVIDIA FY2025 and FY2026 Sales Comparison Table\", \"kind\": \"openui\", \"tab_id\": \"main\", \"layout\": {\"x\": 0, \"y\": 0, \"w\": 12, \"h\": 12}, \"pinned\": false, \"refresh\": {\"mode\": \"live\", \"interval_seconds\": 0, \"last_attempt_at\": null, \"last_success_at\": null, \"error\": null}, \"program\": \"header = CardHeader(\\\"NVIDIA Sales Comparison\\\", \\\"Fiscal Year 2025 vs 2026\\\")\\nsalesTable = Table([\\nCol(\\\"Fiscal Year\\\", [\\\"2026\\\", \\\"2025\\\"]),\\nCol(\\\"Total Net Revenue (USD millions)\\\", [\\\"$215,938 (p. 37)\\\", \\\"$130,497 (p. 130)\\\"])\\n])\\nnoteCallout = Callout(\\n  \\\"info\\\",\\n  \\\"출처 및 단위\\\",\\n  \\\"매출은 백만 달러(USD millions) 단위이며, 각각 NVIDIA 10-K 2026년(페이지 37)과 NVIDIA 연례보고서 2025년(페이지 130)에서 발췌하였습니다.\\\"\\n)\\nroot = Card([header, salesTable, noteCallout], [\\n  {title: \\\"Revenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago.\\\", sourceName: \\\"NVIDIA 10-K · Page 37\\\", url: \\\"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37\\\"},\\n  {title: \\\"Total net revenue for the fiscal year ended January 26, 2025 was $130.5 billion.\\\", sourceName: \\\"NVIDIA Annual Report 2025 · Page 130\\\", url: \\\"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\\\"}\\n])\", \"ui_state\": {}, \"source_artifact_id\": null, \"query\": {}, \"data\": {}, \"sources\": [{\"title\": \"Revenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago.\", \"sourceName\": \"NVIDIA 10-K · Page 37\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37\"}, {\"title\": \"Total net revenue for the fiscal year ended January 26, 2025 was $130.5 billion.\", \"sourceName\": \"NVIDIA Annual Report 2025 · Page 130\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"}]}], \"selected_panel_id\": null, \"export_request\": null}", "role": "tool"}
+
+data: {"type": "TOOL_CALL_START", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "toolCallName": "publish_ui_panel"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "{\"title\":\"FY"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "2010 미확인 안내"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": " 및 FY"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "2025"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "/FY"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "2026 비교\",\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "program\":\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "explanation = Text"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "Content(\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "준비"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "된 최근"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": " 보고서"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "에서 FY"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "2010"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": " 매출"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "은 확인"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "하지 못했습니다."}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": " 확보된 FY2025와 FY202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "6의 실제 원문 근거로 범위를"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": " 바꾸었습니다.\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "\")\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "nroot"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": " = Card"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "([ex"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "planation,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": " DashboardArtifact"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "(\\\"886"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "923fb"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "-b7"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "de-"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "47f"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "9-ab"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "d3"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "-ecc"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "8d"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "6e"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "55a"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "64\\\")"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "])\",\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "destination\":\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "delta": "canvas\"}"}
+
+data: {"type": "TOOL_CALL_END", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9"}
+
+data: {"type": "TOOL_CALL_RESULT", "messageId": "tool-result-call_V1m8eJK8YrnIJC5qZHXdYjO9", "toolCallId": "call_V1m8eJK8YrnIJC5qZHXdYjO9", "content": "{\"error\": \"Invalid destination or nested artifact\"}", "role": "tool"}
+
+data: {"type": "TEXT_MESSAGE_START", "messageId": "126bc02e-5e2f-4bd1-a84e-153c10722ed0", "role": "assistant"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "126bc02e-5e2f-4bd1-a84e-153c10722ed0", "delta": "root = Card([Callout(\"warning\", \"분석 결과 저장 미완료\", \"요청한 변경을 모두 저장하지 못했습니다. 이미 적용된 변경은 유지됩니다. 패널 상태를 확인한 뒤 다시 요청해 주세요.\")])"}
+
+data: {"type": "TEXT_MESSAGE_END", "messageId": "126bc02e-5e2f-4bd1-a84e-153c10722ed0"}
+
+data: {"type": "STATE_SNAPSHOT", "snapshot": {"dashboard": {"revision": 1, "tabs": [{"id": "main", "title": "Overview"}], "active_tab_id": "main", "panels": [], "artifacts": [{"id": "886923fb-b7de-47f9-abd3-ecc8d6e55a64", "title": "NVIDIA FY2025 and FY2026 Sales Comparison Table", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "header = CardHeader(\"NVIDIA Sales Comparison\", \"Fiscal Year 2025 vs 2026\")\nsalesTable = Table([\nCol(\"Fiscal Year\", [\"2026\", \"2025\"]),\nCol(\"Total Net Revenue (USD millions)\", [\"$215,938 (p. 37)\", \"$130,497 (p. 130)\"])\n])\nnoteCallout = Callout(\n  \"info\",\n  \"출처 및 단위\",\n  \"매출은 백만 달러(USD millions) 단위이며, 각각 NVIDIA 10-K 2026년(페이지 37)과 NVIDIA 연례보고서 2025년(페이지 130)에서 발췌하였습니다.\"\n)\nroot = Card([header, salesTable, noteCallout], [\n  {title: \"Revenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago.\", sourceName: \"NVIDIA 10-K · Page 37\", url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37\"},\n  {title: \"Total net revenue for the fiscal year ended January 26, 2025 was $130.5 billion.\", sourceName: \"NVIDIA Annual Report 2025 · Page 130\", url: \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"}\n])", "ui_state": {}, "source_artifact_id": null, "query": {}, "data": {}, "sources": [{"title": "Revenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago.", "sourceName": "NVIDIA 10-K · Page 37", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37"}, {"title": "Total net revenue for the fiscal year ended January 26, 2025 was $130.5 billion.", "sourceName": "NVIDIA Annual Report 2025 · Page 130", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130"}]}], "selected_panel_id": null, "export_request": null}}}
+
+data: {"type": "RUN_FINISHED", "threadId": "91765b16-e509-4a7c-a35a-b92e5186bf39", "runId": "8a120189-a104-4218-a365-c180b6c8d571"}
+

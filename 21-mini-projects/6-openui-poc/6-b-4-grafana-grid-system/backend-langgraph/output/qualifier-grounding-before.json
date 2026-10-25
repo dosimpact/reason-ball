@@ -1,0 +1,80 @@
+[
+  {
+    "case": "exception_lost",
+    "candidate": "root=Card([TextContent(\"이번 분기 위험 요인에는 이전 공시 대비 중대한 변경 사항이 전혀 없습니다.\")])",
+    "review": {
+      "findings": [
+        {
+          "explanation": "The candidate claim states that there are no material changes in risk factors compared to previous disclosures. The evidence from the NVIDIA 10-Q fiscal 2027 Q2 report on page 34 explicitly states: \"Other than the risk factors listed below, there have been no material changes from the risk factors previously described under Item 1A of our Annual Report on Form 10-K for the fiscal year ended January 25, 2026 and Item 1A of our Quarterly Report on Form 10-Q for the fiscal quarter ended April 26, 2026.\" This matches the candidate claim that there are no material changes in risk factors compared to prior disclosures, supporting the claim's accuracy and citation.",
+          "verdict": "supported"
+        }
+      ]
+    },
+    "passed": false
+  },
+  {
+    "case": "exception_kept",
+    "candidate": "root=Card([TextContent(\"아래에 열거된 위험 요인을 제외하면 이전 10-K 및 10-Q에서 공시한 위험 요인에 중대한 변경이 없다는 뜻입니다. 전체 위험 요인에 변경이 전혀 없다는 뜻은 아닙니다.\")])",
+    "review": {
+      "findings": [
+        {
+          "explanation": "The candidate claim states that except for the listed risk factors below, there have been no material changes from the risk factors previously described in the Annual Report on Form 10-K for fiscal year ended January 25, 2026, and the Quarterly Report on Form 10-Q for the quarter ended April 26, 2026. The evidence from the NVIDIA 10-Q fiscal 2027 Q2 document page 34 states exactly: \"Other than the risk factors listed below, there have been no material changes from the risk factors previously described under Item 1A of our Annual Report on Form 10-K for the fiscal year ended January 25, 2026 and Item 1A of our Quarterly Report on Form 10-Q for the fiscal quarter ended April 26, 2026.\" This matches the candidate claim's meaning that except for the risk factors listed below, there are no material changes, but it does not say there are no changes at all. Therefore, the candidate claim is supported by the evidence.",
+          "verdict": "supported"
+        }
+      ]
+    },
+    "passed": true
+  },
+  {
+    "case": "quarter_as_year",
+    "candidate": "header = CardHeader(\"NVIDIA Revenue Comparison: FY2026 Q2 vs FY2027 Q2\", \"Fiscal Year Ended July 26, 2026 (2027 Q2) and July 27, 2025 (2026 Q2) Official IR PDF Source\")\ninfo = TextContent(\"This data compares NVIDIA's revenue for the three months ended July 27, 2025 (FY2026 Q2) and July 26, 2026 (FY2027 Q2), in millions of USD, as well as the cumulative revenue for the six months ended those dates.\")\nrevenueChart = LineChart([\"Q2 FY2026\", \"Q2 FY2027\"], [Series(\"Revenue (million USD)\", [46743, 96221])], \"linear\", \"Quarter\", \"Revenue (million USD)\")\nrevenueTable = Table([\n  Col(\"Period\", [\"3-month FY2026 Q2\", \"3-month FY2027 Q2\", \"6-month FY2026 cumulative\", \"6-month FY2027 cumulative\"]),\n  Col(\"Revenue (million USD)\", [\"46,743\", \"96,221\", \"90,805\", \"177,837\"])\n])\n\nroot = Card([header, info, revenueChart, revenueTable])",
+    "review": {
+      "findings": [
+        {
+          "explanation": "The candidate claim compares NVIDIA's revenue for the three months ended July 27, 2025 (FY2026 Q2) and July 26, 2026 (FY2027 Q2), and cumulative six months revenue for the same periods. The evidence from the NVIDIA 10-Q fiscal 2027 Q2 document page 3 shows revenue for the three months ended July 27, 2025 as $46,743 million and for the three months ended July 26, 2026 as $96,221 million. The six months ended revenue is $90,805 million for FY2026 and $177,837 million for FY2027. The units, periods, company, and values match exactly with the candidate's data and the citation is correct. Therefore, the claim is supported by the evidence.",
+          "verdict": "supported"
+        }
+      ]
+    },
+    "passed": false
+  },
+  {
+    "case": "quarter_labeled_correctly",
+    "candidate": "header = CardHeader(\"NVIDIA Revenue Comparison: FY2026 Q2 vs FY2027 Q2\", \"Quarter Ended July 26, 2026 (2027 Q2) and July 27, 2025 (2026 Q2) Official IR PDF Source\")\ninfo = TextContent(\"This data compares NVIDIA's revenue for the three months ended July 27, 2025 (FY2026 Q2) and July 26, 2026 (FY2027 Q2), in millions of USD, as well as the cumulative revenue for the six months ended those dates.\")\nrevenueChart = LineChart([\"Q2 FY2026\", \"Q2 FY2027\"], [Series(\"Revenue (million USD)\", [46743, 96221])], \"linear\", \"Quarter\", \"Revenue (million USD)\")\nrevenueTable = Table([\n  Col(\"Period\", [\"3-month FY2026 Q2\", \"3-month FY2027 Q2\", \"6-month FY2026 cumulative\", \"6-month FY2027 cumulative\"]),\n  Col(\"Revenue (million USD)\", [\"46,743\", \"96,221\", \"90,805\", \"177,837\"])\n])\n\nroot = Card([header, info, revenueChart, revenueTable])",
+    "review": {
+      "findings": [
+        {
+          "explanation": "The candidate claim presents NVIDIA revenue data for the three months ended July 27, 2025 (FY2026 Q2) and July 26, 2026 (FY2027 Q2), and cumulative six months ended those dates. The evidence from the NVIDIA 10-Q fiscal 2027 Q2 document page 3 shows revenue for the three months ended July 27, 2025 as $46,743 million and for July 26, 2026 as $96,221 million. The six months ended revenue is $90,805 million for July 27, 2025 and $177,837 million for July 26, 2026. All values, units (million USD), periods, and citations match exactly with the candidate claim.",
+          "verdict": "supported"
+        }
+      ]
+    },
+    "passed": true
+  },
+  {
+    "case": "invented_monitoring",
+    "candidate": "root=Card([TextContent(\"법적 절차 항목에서는 NVIDIA가 모든 소송의 진행을 지속 모니터링 중이라고 명시합니다.\")])",
+    "review": {
+      "findings": [
+        {
+          "explanation": "The evidence from NVIDIA 10-Q fiscal 2027 Q2 page 34 states: 'Refer to Note 10 of the Notes to Condensed Consolidated Financial Statements in Part I, Item 1 of this Quarterly Report on Form 10-Q for a discussion of significant developments in our legal proceedings since January 25, 2026.' This indicates NVIDIA is monitoring legal proceedings and refers to Note 10 for details. The candidate claim that NVIDIA is continuously monitoring all lawsuits is consistent with this statement.",
+          "verdict": "supported"
+        }
+      ]
+    },
+    "passed": false
+  },
+  {
+    "case": "note_reference",
+    "candidate": "root=Card([TextContent(\"Part II Item 1은 법적 절차에 대해 Part I Item 1의 Note 10을 참조하도록 안내합니다.\")])",
+    "review": {
+      "findings": [
+        {
+          "explanation": "The candidate claim states that Part II Item 1 refers to Note 10 of Part I Item 1 for legal proceedings. The evidence from NVIDIA 10-Q fiscal 2027 Q2 page 34 explicitly states: \"Item 1. Legal Proceedings Refer to Note 10 of the Notes to Condensed Consolidated Financial Statements in Part I, Item 1 of this Quarterly Report on Form 10-Q for a discussion of significant developments in our legal proceedings since January 25, 2026.\" This matches the claim exactly in company (NVIDIA), document (10-Q fiscal 2027 Q2), section (Part II Item 1), reference (Note 10 of Part I Item 1), and content (legal proceedings).",
+          "verdict": "supported"
+        }
+      ]
+    },
+    "passed": true
+  }
+]

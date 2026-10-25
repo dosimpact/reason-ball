@@ -1,0 +1,35 @@
+{
+  "scenario": "US-03",
+  "title": "위험 요인 섹션",
+  "thread_id": "6def6477-66d5-4529-891d-0e87459a50b7",
+  "turns": [
+    {
+      "number": 1,
+      "question": "준비된 실제 PDF nvidia(FY2026), nvidia-2025(FY2025), amd, intel만 사용하고 SEC 네트워크 호출은 하지 마. 출처와 회계기간·단위를 명시하고 근거 없는 수치는 만들지 마. nvidia FY2026 보고서의 위험 요인 섹션에서 수출 규제와 관련한 부분만 찾아 짧게 발췌하고 쉽게 설명해줘. 실제 읽은 페이지와 전체 섹션 중 일부라는 범위를 표시해줘.",
+      "finished": true,
+      "errors": [],
+      "panels": 1,
+      "diagnostics": {
+        "plan": {
+          "remove_tab_contents_confirmed": false,
+          "minimum_new_panels": 1,
+          "clarification": "",
+          "source_read": "original",
+          "operations": [
+            "add"
+          ],
+          "instruction": "Add a new panel with a short excerpt and easy explanation of the export control risk section from NVIDIA FY2026 report. Include source page and section info, noting it is a partial extract.",
+          "targets": []
+        },
+        "completed": [
+          [
+            "add",
+            "094c90e2-689e-4523-a573-5cf6193a6e7f"
+          ]
+        ],
+        "missing": [],
+        "status": "finished"
+      }
+    }
+  ]
+}

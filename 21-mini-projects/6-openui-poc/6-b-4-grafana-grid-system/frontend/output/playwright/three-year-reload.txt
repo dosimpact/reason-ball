@@ -1,0 +1,10 @@
+### Ran Playwright code
+```js
+await (async page => { await page.reload(); const canvas=page.getByRole("region",{name:"Canvas dashboard"}); await canvas.getByRole("button",{name:"NVIDIA 연도별 매출",exact:true}).waitFor(); for(const value of ["$60,922","$130,497","$215,938"]) await canvas.getByRole("cell",{name:value,exact:true}).waitFor(); await page.screenshot({path:"output/playwright/three-year-rescope.png",fullPage:true}); })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+- Console: 1 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-10-25T03-11-07-501Z.log#L7-L13

@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("비교 탭에 있는 패널이야. 그것만 검증 완료로 바꿔줘."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

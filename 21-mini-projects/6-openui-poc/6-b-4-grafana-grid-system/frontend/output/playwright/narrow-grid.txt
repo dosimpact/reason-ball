@@ -1,0 +1,179 @@
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+### Snapshot
+```yaml
+- generic [active] [ref=f7e1]:
+  - button "Open Next.js Dev Tools" [ref=f7e7] [cursor=pointer]
+  - alert [ref=f7e11]
+  - generic:
+    - button "Open OpenUI Inspect" [ref=f7e13] [cursor=pointer]
+    - option "LLM-like" [selected]
+    - option "24 chars"
+    - option "Per line"
+    - option "Per char"
+    - option "0.25×"
+    - option "0.5×"
+    - option "1×" [selected]
+    - option "2×"
+    - option "4×"
+    - option "8×"
+  - generic [ref=f7e29]:
+    - banner [ref=f7e30]:
+      - button "대화 목록 토글" [ref=f7e31] [cursor=pointer]: ☰
+      - generic [ref=f7e32]: ◈
+      - strong [ref=f7e33]: Filing Studio
+      - link "사용 안내 ↗" [ref=f7e35] [cursor=pointer]:
+        - /url: /onboarding
+      - link "UI 갤러리" [ref=f7e36] [cursor=pointer]:
+        - /url: /gallery
+      - button "테마 전환" [ref=f7e37] [cursor=pointer]: ☀
+    - main [ref=f7e90]:
+      - generic [ref=f7e91]:
+        - generic [ref=f7e92]:
+          - text: WORKSPACE
+          - heading "이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로" [level=1] [ref=f7e93]
+        - generic [ref=f7e94]:
+          - button "대화" [ref=f7e95] [cursor=pointer]
+          - button "대화 + Canvas" [ref=f7e96] [cursor=pointer]
+          - button "Canvas" [pressed] [ref=f7e97] [cursor=pointer]
+      - region "Canvas dashboard" [ref=f7e297]:
+        - generic [ref=f7e298]:
+          - generic [ref=f7e299]:
+            - text: YOUR RESEARCH SPACE
+            - heading "Canvas 1 panels" [level=2] [ref=f7e300]:
+              - text: Canvas
+              - generic [ref=f7e301]: 1 panels
+          - generic [ref=f7e302]:
+            - generic [ref=f7e303] [cursor=pointer]:
+              - text: 가져오기
+              - button "Canvas JSON 가져오기" [ref=f7e304]
+            - button "JSON" [ref=f7e305] [cursor=pointer]
+            - button "CSV" [ref=f7e306] [cursor=pointer]
+            - button "PDF / 인쇄" [ref=f7e307] [cursor=pointer]
+        - tablist [ref=f7e308]:
+          - tab "Overview" [selected] [ref=f7e309] [cursor=pointer]
+          - button "Canvas 탭 추가" [ref=f7e310] [cursor=pointer]: ＋
+        - generic [ref=f7e313]:
+          - generic [ref=f7e314]:
+            - button "반도체 비교 요약 이동" [disabled] [ref=f7e315]: ⠿
+            - button "반도체 비교 요약" [ref=f7e316] [cursor=pointer]
+            - button "반도체 비교 요약 고정" [ref=f7e317] [cursor=pointer]: ◇
+            - button "반도체 비교 요약 삭제" [ref=f7e318] [cursor=pointer]: ×
+          - generic [ref=f7e322]:
+            - generic [ref=f7e323]:
+              - generic [ref=f7e324]: Latest Fiscal Year Net Revenue Comparison
+              - generic [ref=f7e326]: NVIDIA 2026 vs AMD 2025 vs Intel 2025
+            - generic [ref=f7e328]:
+              - button "Scroll right" [ref=f7e382] [cursor=pointer]
+              - table [ref=f7e330]:
+                - rowgroup [ref=f7e331]:
+                  - row [ref=f7e332]:
+                    - columnheader "Company" [ref=f7e333]
+                    - columnheader "Revenue" [ref=f7e336]
+                    - columnheader "Page Source" [ref=f7e339]
+                - rowgroup [ref=f7e342]:
+                  - row [ref=f7e343]:
+                    - cell "NVIDIA" [ref=f7e344]
+                    - cell "$215.9 billion (p. 37)" [ref=f7e345]
+                    - cell "Page 37, 40" [ref=f7e346]
+                  - row [ref=f7e347]:
+                    - cell "AMD" [ref=f7e348]
+                    - cell "Not found" [ref=f7e349]
+                    - cell "Not found" [ref=f7e350]
+                  - row [ref=f7e351]:
+                    - cell "Intel" [ref=f7e352]
+                    - cell "$52.9 billion (p. 27, 76)" [ref=f7e353]
+                    - cell "Page 27, 76" [ref=f7e354]
+            - generic [ref=f7e355]:
+              - generic [ref=f7e356]:
+                - generic [ref=f7e357]: Sources
+                - generic [ref=f7e386]:
+                  - button [disabled] [ref=f7e387]
+                  - button [ref=f7e391] [cursor=pointer]
+              - generic [ref=f7e359]:
+                - button "NVIDIA · Page 37 NVIDIA · Page 37 “Revenue for fiscal year 2026 was $215.9 billion, up 65%.”" [ref=f7e361] [cursor=pointer]:
+                  - generic [ref=f7e362]:
+                    - generic [ref=f7e363]:
+                      - img "NVIDIA · Page 37"
+                    - generic [ref=f7e364]: NVIDIA · Page 37
+                  - generic [ref=f7e365]: “Revenue for fiscal year 2026 was $215.9 billion, up 65%.”
+                - 'button "Intel · Page 27, 76 Intel · Page 27, 76 Consolidated Results of Operations: Net revenue $52,853 million in 2025" [ref=f7e367] [cursor=pointer]':
+                  - generic [ref=f7e368]:
+                    - generic [ref=f7e369]:
+                      - img "Intel · Page 27, 76"
+                    - generic [ref=f7e370]: Intel · Page 27, 76
+                  - generic [ref=f7e371]: "Consolidated Results of Operations: Net revenue $52,853 million in 2025"
+          - generic [ref=f7e372]:
+            - generic [ref=f7e373]: OpenUI
+            - combobox "반도체 비교 요약 탭 이동" [ref=f7e374] [cursor=pointer]:
+              - option "Overview" [selected]
+            - generic [ref=f7e375]:
+              - text: 너비
+              - combobox "반도체 비교 요약 너비" [disabled] [ref=f7e376] [cursor=pointer]:
+                - option "4"
+                - option "5"
+                - option "6"
+                - option "7"
+                - option "8"
+                - option "9"
+                - option "10"
+                - option "11"
+                - option "12" [selected]
+                - option "13"
+                - option "14"
+                - option "15"
+                - option "16"
+                - option "17"
+                - option "18"
+                - option "19"
+                - option "20"
+                - option "21"
+                - option "22"
+                - option "23"
+                - option "24"
+            - generic [ref=f7e377]:
+              - text: 높이
+              - combobox "반도체 비교 요약 높이" [ref=f7e378] [cursor=pointer]:
+                - option "4"
+                - option "5"
+                - option "6"
+                - option "7"
+                - option "8"
+                - option "9"
+                - option "10"
+                - option "11"
+                - option "12"
+                - option "13"
+                - option "14"
+                - option "15"
+                - option "16"
+                - option "17"
+                - option "18"
+                - option "19" [selected]
+                - option "20"
+                - option "21"
+                - option "22"
+                - option "23"
+                - option "24"
+                - option "25"
+                - option "26"
+                - option "27"
+                - option "28"
+                - option "29"
+                - option "30"
+                - option "31"
+                - option "32"
+                - option "33"
+                - option "34"
+                - option "35"
+                - option "36"
+                - option "37"
+                - option "38"
+                - option "39"
+                - option "40"
+            - button "반도체 비교 요약 위로 이동" [ref=f7e379] [cursor=pointer]: ↑
+```

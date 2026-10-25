@@ -1,0 +1,47 @@
+
+> @reason-ball/sec-dashboard@0.1.0 verify
+> npm run lint:fsd && next build
+
+
+> @reason-ball/sec-dashboard@0.1.0 lint:fsd
+> steiger ./src --fail-on-warnings
+
+✔ No problems found!
+▲ Next.js 16.1.6 (Turbopack)
+- Experiments (use with caution):
+  ⨯ turbopackMinify
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 12.5s
+  Running TypeScript ...
+  Collecting page data using 10 workers ...
+  Generating static pages using 10 workers (0/16) ...
+  Generating static pages using 10 workers (4/16) 
+  Generating static pages using 10 workers (8/16) 
+  Generating static pages using 10 workers (12/16) 
+✓ Generating static pages using 10 workers (16/16) in 629.6ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/chat
+├ ƒ /api/dashboard/[...path]
+├ ƒ /api/documents
+├ ƒ /api/image-search
+├ ƒ /api/street-route
+├ ƒ /api/threads/[...path]
+├ ƒ /api/validate
+├ ƒ /api/wiki
+├ ○ /comparison
+├ ○ /documents
+├ ○ /gallery
+├ ○ /icon.svg
+├ ○ /onboarding
+├ ○ /preview
+└ ○ /print
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

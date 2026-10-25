@@ -1,0 +1,84 @@
+{
+  "scenario": "US-11",
+  "title": "패널 배치",
+  "thread_id": "afd6c000-21dd-4b6d-a3a4-eb10b75a9a4a",
+  "turns": [
+    {
+      "number": 1,
+      "question": "준비된 실제 PDF nvidia(FY2026), nvidia-2025(FY2025), amd, intel만 사용하고 SEC 네트워크 호출은 하지 마. 출처와 회계기간·단위를 명시하고 근거 없는 수치는 만들지 마. NVIDIA FY2025와 FY2026의 매출을 원문으로 확인하고 Canvas에 매출 차트 패널 하나를 만들어줘. 제목은 NVIDIA 매출로 해줘. 그리고 같은 보고서의 주요 사업을 요약한 별도 패널 하나를 추가해줘. 요약 패널 제목은 사업 요약으로 해줘.",
+      "finished": true,
+      "errors": [],
+      "panels": 2,
+      "diagnostics": {
+        "plan": {
+          "remove_tab_contents_confirmed": false,
+          "minimum_new_panels": 2,
+          "clarification": "",
+          "source_read": "original",
+          "operations": [
+            "add"
+          ],
+          "instruction": "Add two panels to the main tab: one with a sales chart titled 'NVIDIA 매출' showing NVIDIA FY2025 and FY2026 sales from the prepared PDFs, and another panel summarizing the main NVIDIA businesses from the same reports titled '사업 요약'.",
+          "targets": []
+        },
+        "completed": [
+          [
+            "add",
+            "d72a6735-6e8f-4a4a-bdba-8aa607dfcf75"
+          ],
+          [
+            "add",
+            "e6dfc8bf-eaf1-454d-b9c2-24fd60543f13"
+          ]
+        ],
+        "missing": [],
+        "status": "finished"
+      }
+    },
+    {
+      "number": 2,
+      "question": "NVIDIA 매출 패널은 왼쪽 위에 너비 14, 높이 12로, 사업 요약은 오른쪽에 너비 10, 높이 12로 배치해줘. 기존 내용과 출처는 유지해줘.",
+      "finished": true,
+      "errors": [],
+      "panels": 2,
+      "diagnostics": {
+        "plan": {
+          "remove_tab_contents_confirmed": false,
+          "minimum_new_panels": 0,
+          "clarification": "",
+          "source_read": "none",
+          "operations": [
+            "layout"
+          ],
+          "instruction": "Change layout of NVIDIA 매출 panel to left top with width 14 and height 12, and 사업 요약 panel to right with width 10 and height 12, keeping existing content and sources.",
+          "targets": [
+            {
+              "operation": "layout",
+              "target_id": "d72a6735-6e8f-4a4a-bdba-8aa607dfcf75"
+            },
+            {
+              "operation": "layout",
+              "target_id": "e6dfc8bf-eaf1-454d-b9c2-24fd60543f13"
+            }
+          ]
+        },
+        "completed": [
+          [
+            "layout",
+            ""
+          ],
+          [
+            "layout",
+            "d72a6735-6e8f-4a4a-bdba-8aa607dfcf75"
+          ],
+          [
+            "layout",
+            "e6dfc8bf-eaf1-454d-b9c2-24fd60543f13"
+          ]
+        ],
+        "missing": [],
+        "status": "finished"
+      }
+    }
+  ]
+}

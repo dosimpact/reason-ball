@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { const c=page.getByRole("region",{name:"Canvas dashboard"}); await c.getByRole("img",{name:"Bar chart",exact:true}).waitFor(); if((await c.innerText()).includes("Fiscal Year Ended")) throw Error("year-end label"); await page.screenshot({path:"output/playwright/qualifier-quarter-chart.png"}); })(page);
+```

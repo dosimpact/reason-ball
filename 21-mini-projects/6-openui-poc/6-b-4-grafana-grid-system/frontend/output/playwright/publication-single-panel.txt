@@ -1,0 +1,9 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("button",{name:"[회귀 검증] 단일 분기 패널 게시",exact:true}).click(); const canvas=page.getByRole("region",{name:"Canvas dashboard"}); await canvas.getByRole("button",{name:"NVIDIA 분기·누적 매출 검토",exact:true}).waitFor(); await page.reload(); await canvas.getByRole("button",{name:"NVIDIA 분기·누적 매출 검토",exact:true}).waitFor(); if(await canvas.getByRole("button",{name:"NVIDIA 분기·누적 매출 검토 삭제",exact:true}).count()!==1) throw Error("panel count mismatch"); await page.screenshot({path:"output/playwright/publication-single-panel.png"}); })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+### Events
+- New console entries: .playwright-cli/console-2026-10-25T04-05-05-207Z.log#L5-L7

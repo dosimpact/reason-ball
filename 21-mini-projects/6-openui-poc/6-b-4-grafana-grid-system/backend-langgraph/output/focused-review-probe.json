@@ -1,0 +1,58 @@
+[
+  {
+    "case": "quarter_as_year",
+    "review": {
+      "qualifier_findings": [],
+      "period_findings": [
+        {
+          "explanation": "The header states 'Fiscal Year Ended July 26, 2026 (2027 Q2) and July 27, 2025 (2026 Q2)'. The source document specifies the period as 'Quarter ended July 26, 2026 (three and six months shown separately)', indicating these dates are quarter ends, not fiscal year ends. Therefore, calling July 26, 2026 and July 27, 2025 'Fiscal Year Ended' is incorrect and unsupported by the evidence.",
+          "verdict": "unsupported"
+        }
+      ],
+      "findings": []
+    },
+    "passed": true
+  },
+  {
+    "case": "quarter_labeled_correctly",
+    "review": {
+      "qualifier_findings": [],
+      "period_findings": [
+        {
+          "explanation": "The header states 'FY2026 Q2' and 'FY2027 Q2' and the subtitle says 'Quarter Ended July 26, 2026 (2027 Q2) and July 27, 2025 (2026 Q2)'. The source evidence confirms these dates correspond to the quarters ended July 26, 2026 and July 27, 2025, respectively, matching Q2 of fiscal years 2027 and 2026. The periods are correctly labeled as quarters ended on those dates, not fiscal year ends. The wording is accurate and consistent with the source.",
+          "verdict": "supported"
+        }
+      ],
+      "findings": []
+    },
+    "passed": true
+  },
+  {
+    "case": "actual_unqualified_followup",
+    "review": {
+      "qualifier_findings": [
+        {
+          "explanation": "Candidate states '대체로 변경 사항이 없으나, 아래에 기술된 위험 요인에서는 일부 실질적인 변경 사항이 있음을 명시하고 있습니다.' Evidence states: 'Other than the risk factors listed below, there have been no material changes from the risk factors previously described under Item 1A of our Annual Report on Form 10-K for the fiscal year ended January 25, 2026 and Item 1A of our Quarterly Report on Form 10-Q for the fiscal quarter ended April 26, 2026.' The evidence explicitly limits 'no material changes' to 'other than the risk factors listed below', implying changes exist inside the listed risk factors. The candidate correctly reflects this exception and uncertainty.",
+          "verdict": "supported"
+        }
+      ],
+      "period_findings": [],
+      "findings": []
+    },
+    "passed": false
+  },
+  {
+    "case": "exception_kept",
+    "review": {
+      "qualifier_findings": [
+        {
+          "explanation": "Candidate states: '아래에 열거된 위험 요인을 제외하면 이전 10-K 및 10-Q에서 공시한 위험 요인에 중대한 변경이 없다는 뜻입니다. 전체 위험 요인에 변경이 전혀 없다는 뜻은 아닙니다.' Evidence states: 'Other than the risk factors listed below, there have been no material changes from the risk factors previously described under Item 1A of our Annual Report on Form 10-K for the fiscal year ended January 25, 2026 and Item 1A of our Quarterly Report on Form 10-Q for the fiscal quarter ended April 26, 2026.' The candidate correctly captures the exception clause and the uncertainty that no change at all is not implied. This is a correct interpretation of the evidence qualifier sentence.",
+          "verdict": "supported"
+        }
+      ],
+      "period_findings": [],
+      "findings": []
+    },
+    "passed": true
+  }
+]

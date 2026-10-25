@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { if(await page.getByText("분석 결과 저장 미완료",{exact:true}).count()) throw Error("false failure"); await page.getByRole("heading",{name:"Canvas 2 panels",exact:true}).waitFor(); await page.getByRole("textbox",{name:"연구 메모",exact:true}).last().fill("매출 증가 원인을 원문과 대조"); await page.getByRole("checkbox",{name:"기간 비교",exact:true}).last().check(); })(page);
+```

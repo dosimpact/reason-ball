@@ -1,0 +1,408 @@
+data: {"type": "RUN_STARTED", "threadId": "cc3b5b4a-f4bf-4655-841a-fdd5457a17b7", "runId": "12b0e47c-17e3-47d9-9b40-8c90656c1607"}
+
+data: {"type": "STATE_SNAPSHOT", "snapshot": {"dashboard": {"revision": 3, "tabs": [{"id": "main", "title": "Overview"}], "active_tab_id": "main", "panels": [{"id": "5b0e6387-d287-466c-9e8b-d5562123d3c0", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, revenueChart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026, January 26, 2025, and January 28, 2024\")\nrevenueChart = LineChart([\"FY2024\", \"FY2025\", \"FY2026\"], [Series(\"Revenue (USD millions)\", [60922, 130497, 215938])], \"linear\", \"Fiscal Year\", \"Revenue (USD millions)\")\nsources = [{\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026, January 26, 2025, and January 28, 2024.\", \"sourceName\":\"NVIDIA 10-K 2026 (p. 51)\", \"url\":\"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\":\"NVIDIA Corporation Fiscal Year 2025 Summary including revenue details for 2024 and 2025, highlighting 114% revenue growth from 2024 to 2025.\", \"sourceName\":\"NVIDIA Annual Report 2025 (p. 130)\", \"url\":\"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"}],\n  destination: \"canvas\",\n  panel_id: \"5b0e6387-d287-466c-9e8b-d5562123d3c0\"\n}", "ui_state": {}, "source_artifact_id": "acec9b8d-0001-4e1d-96b0-cf3236c8d574", "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026, January 26, 2025, and January 28, 2024.", "sourceName": "NVIDIA 10-K 2026 (p. 51)", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation Fiscal Year 2025 Summary including revenue details for 2024 and 2025, highlighting 114% revenue growth from 2024 to 2025.", "sourceName": "NVIDIA Annual Report 2025 (p. 130)", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130"}]}], "artifacts": [{"id": "acec9b8d-0001-4e1d-96b0-cf3236c8d574", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, revenueChart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nrevenueChart = LineChart([\"FY2025\", \"FY2026\"], [Series(\"Revenue (USD millions)\", [130497, 215938])], \"linear\", \"Fiscal Year\", \"Revenue (USD millions)\")\nsources = [{\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026 and January 26, 2025.\", \"sourceName\":\"NVIDIA 10-K 2026 (p. 51)\", \"url\":\"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 26, 2025 and January 28, 2024.\", \"sourceName\":\"NVIDIA Annual Report 2025 (p. 144)\", \"url\":\"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144\"}]\n", "ui_state": {}, "source_artifact_id": null, "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026 and January 26, 2025.", "sourceName": "NVIDIA 10-K 2026 (p. 51)", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 26, 2025 and January 28, 2024.", "sourceName": "NVIDIA Annual Report 2025 (p. 144)", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144"}]}], "selected_panel_id": "5b0e6387-d287-466c-9e8b-d5562123d3c0", "export_request": null}}}
+
+data: {"type": "TOOL_CALL_START", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "toolCallName": "publish_ui_panel"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "{\"title"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\":\"N"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "VIDIA 매"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "출\",\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "panel_id"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\":\"5"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "b0"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "e638"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "7-d"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "287-"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "466c"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "-9"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "e8"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "b-d"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "556212"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "3d"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "3c"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "0\",\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "program\":\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "root ="}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " Card(["}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "header,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " revenueChart"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": ", warning"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "Note],"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " sources)\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "nheader"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " = Card"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "Header(\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "NVIDIA"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 매출"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "사용자"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 요청으로"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " FY202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "5 제외"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "; FY"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "2024"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "와 FY"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "2026"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 선택 비교"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\")\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "nre"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "venueChart"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " = Line"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "Chart(["}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\"FY"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "2024"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "FY202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "6\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "], ["}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "Series(\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "Revenue ("}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "USD millions"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": ")\\\", [609"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "22,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 215"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "938])"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "], \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "linear\\\","}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " \\\"Fiscal"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " Year\\\","}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " \\\"Revenue"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " (USD"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " millions)\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\")\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "nwarning"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "Note ="}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " Callout"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "(\\\"info"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "FY202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "5 제외"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "이 차"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "트는"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 사용자 요청"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "에 따라"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " FY202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "5를"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 제외하고"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " FY202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "4와"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " FY202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "6만"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 표시합니다"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": ". 전"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "년 대비"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 성장률"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "은 비"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "연속"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 구간"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "이므로"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 표시하지"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 않습니다.\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\")\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "nsources"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " = [{"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\"title"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\":\\\"N"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "VIDIA Corporation"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " Consolidated"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " Statements of"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " Income,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " Fiscal years"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " ended January"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 25"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": ", "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "2026"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": ", January"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 26"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": ", "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "2025"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": ", and"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " January "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "28,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "4.\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "sourceName"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\":\\\"N"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "VIDIA "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "10-K"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "6 ("}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "p."}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 51"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": ")\\\","}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " \\\"url"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\":\\\"https"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "://invest"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "or.n"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "vidia.com"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "/files/doc"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "_financial"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "s/"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "2026"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "/q4"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "/10"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "K-N"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "VDA"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": ".pdf#"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "page="}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "51\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "}, {"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\"title"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\":\\\"N"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "VIDIA Corporation"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " Fiscal Year"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "5 Summary"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " including revenue"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " details for"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "4 and"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "5.\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "sourceName"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\":\\\"N"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "VIDIA Annual"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " Report "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "2025"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " (p"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": ". "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "130)\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "url\\\":\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "https://"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "s201"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": ".q4"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "cdn.com"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "/141"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "608511"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "/files/doc"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "_financial"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "s/"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "2025"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "/annual"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "/NVIDIA"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "-202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "5-"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "Annual-"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "Report.pdf"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "#page"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "=130"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\"}],"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\n"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "  destination:"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": " \\\"canvas"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "\\\"\\n"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "delta": "}\"}"}
+
+data: {"type": "TOOL_CALL_END", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc"}
+
+data: {"type": "TOOL_CALL_RESULT", "messageId": "tool-result-call_BgXocmQgWWBJ3n8MtReFOuUc", "toolCallId": "call_BgXocmQgWWBJ3n8MtReFOuUc", "content": "{\"success\": true, \"panel_id\": \"5b0e6387-d287-466c-9e8b-d5562123d3c0\", \"revision\": 4}", "role": "tool"}
+
+data: {"type": "STATE_DELTA", "delta": [{"op": "replace", "path": "/dashboard", "value": {"revision": 4, "tabs": [{"id": "main", "title": "Overview"}], "active_tab_id": "main", "panels": [{"id": "5b0e6387-d287-466c-9e8b-d5562123d3c0", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, revenueChart, warningNote], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"사용자 요청으로 FY2025 제외; FY2024와 FY2026 선택 비교\")\nrevenueChart = LineChart([\"FY2024\", \"FY2026\"], [Series(\"Revenue (USD millions)\", [60922, 215938])], \"linear\", \"Fiscal Year\", \"Revenue (USD millions)\")\nwarningNote = Callout(\"info\", \"FY2025 제외\", \"이 차트는 사용자 요청에 따라 FY2025를 제외하고 FY2024와 FY2026만 표시합니다. 전년 대비 성장률은 비연속 구간이므로 표시하지 않습니다.\")\nsources = [{\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026, January 26, 2025, and January 28, 2024.\", \"sourceName\":\"NVIDIA 10-K 2026 (p. 51)\", \"url\":\"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\":\"NVIDIA Corporation Fiscal Year 2025 Summary including revenue details for 2024 and 2025.\", \"sourceName\":\"NVIDIA Annual Report 2025 (p. 130)\", \"url\":\"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"}],\n  destination: \"canvas\"\n}", "ui_state": {}, "source_artifact_id": "acec9b8d-0001-4e1d-96b0-cf3236c8d574", "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026, January 26, 2025, and January 28, 2024.", "sourceName": "NVIDIA 10-K 2026 (p. 51)", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation Fiscal Year 2025 Summary including revenue details for 2024 and 2025.", "sourceName": "NVIDIA Annual Report 2025 (p. 130)", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130"}]}], "artifacts": [{"id": "acec9b8d-0001-4e1d-96b0-cf3236c8d574", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, revenueChart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nrevenueChart = LineChart([\"FY2025\", \"FY2026\"], [Series(\"Revenue (USD millions)\", [130497, 215938])], \"linear\", \"Fiscal Year\", \"Revenue (USD millions)\")\nsources = [{\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026 and January 26, 2025.\", \"sourceName\":\"NVIDIA 10-K 2026 (p. 51)\", \"url\":\"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 26, 2025 and January 28, 2024.\", \"sourceName\":\"NVIDIA Annual Report 2025 (p. 144)\", \"url\":\"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144\"}]\n", "ui_state": {}, "source_artifact_id": null, "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026 and January 26, 2025.", "sourceName": "NVIDIA 10-K 2026 (p. 51)", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 26, 2025 and January 28, 2024.", "sourceName": "NVIDIA Annual Report 2025 (p. 144)", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144"}]}], "selected_panel_id": "5b0e6387-d287-466c-9e8b-d5562123d3c0", "export_request": null}}]}
+
+data: {"type": "TEXT_MESSAGE_START", "messageId": "38d7a9b6-0af8-4109-8dbe-5a6e16ad7987", "role": "assistant"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "38d7a9b6-0af8-4109-8dbe-5a6e16ad7987", "delta": "root = Card([Callout(\"info\", \"FY2025 제외\", \"이 차트는 사용자 요청에 따라 FY2025를 제외하고 FY2024와 FY2026만 표시합니다. 비연속 구간의 전년 대비 성장률은 표시하지 않습니다.\")], [])"}
+
+data: {"type": "TEXT_MESSAGE_END", "messageId": "38d7a9b6-0af8-4109-8dbe-5a6e16ad7987"}
+
+data: {"type": "STATE_SNAPSHOT", "snapshot": {"dashboard": {"revision": 4, "tabs": [{"id": "main", "title": "Overview"}], "active_tab_id": "main", "panels": [{"id": "5b0e6387-d287-466c-9e8b-d5562123d3c0", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, revenueChart, warningNote], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"사용자 요청으로 FY2025 제외; FY2024와 FY2026 선택 비교\")\nrevenueChart = LineChart([\"FY2024\", \"FY2026\"], [Series(\"Revenue (USD millions)\", [60922, 215938])], \"linear\", \"Fiscal Year\", \"Revenue (USD millions)\")\nwarningNote = Callout(\"info\", \"FY2025 제외\", \"이 차트는 사용자 요청에 따라 FY2025를 제외하고 FY2024와 FY2026만 표시합니다. 전년 대비 성장률은 비연속 구간이므로 표시하지 않습니다.\")\nsources = [{\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026, January 26, 2025, and January 28, 2024.\", \"sourceName\":\"NVIDIA 10-K 2026 (p. 51)\", \"url\":\"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\":\"NVIDIA Corporation Fiscal Year 2025 Summary including revenue details for 2024 and 2025.\", \"sourceName\":\"NVIDIA Annual Report 2025 (p. 130)\", \"url\":\"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"}],\n  destination: \"canvas\"\n}", "ui_state": {}, "source_artifact_id": "acec9b8d-0001-4e1d-96b0-cf3236c8d574", "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026, January 26, 2025, and January 28, 2024.", "sourceName": "NVIDIA 10-K 2026 (p. 51)", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation Fiscal Year 2025 Summary including revenue details for 2024 and 2025.", "sourceName": "NVIDIA Annual Report 2025 (p. 130)", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130"}]}], "artifacts": [{"id": "acec9b8d-0001-4e1d-96b0-cf3236c8d574", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, revenueChart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nrevenueChart = LineChart([\"FY2025\", \"FY2026\"], [Series(\"Revenue (USD millions)\", [130497, 215938])], \"linear\", \"Fiscal Year\", \"Revenue (USD millions)\")\nsources = [{\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026 and January 26, 2025.\", \"sourceName\":\"NVIDIA 10-K 2026 (p. 51)\", \"url\":\"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 26, 2025 and January 28, 2024.\", \"sourceName\":\"NVIDIA Annual Report 2025 (p. 144)\", \"url\":\"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144\"}]\n", "ui_state": {}, "source_artifact_id": null, "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026 and January 26, 2025.", "sourceName": "NVIDIA 10-K 2026 (p. 51)", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 26, 2025 and January 28, 2024.", "sourceName": "NVIDIA Annual Report 2025 (p. 144)", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144"}]}], "selected_panel_id": "5b0e6387-d287-466c-9e8b-d5562123d3c0", "export_request": null}}}
+
+data: {"type": "RUN_FINISHED", "threadId": "cc3b5b4a-f4bf-4655-841a-fdd5457a17b7", "runId": "12b0e47c-17e3-47d9-9b40-8c90656c1607"}
+

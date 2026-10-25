@@ -1,0 +1,14 @@
+### Ran Playwright code
+```js
+await (async page => { await page.reload(); await page.getByRole("heading",{name:"Canvas 1 panels",exact:true}).waitFor(); await page.getByRole("cell",{name:"$60,922",exact:true}).waitFor(); await page.getByRole("cell",{name:"$215,938",exact:true}).waitFor(); if(await page.getByRole("cell",{name:"$130,497",exact:true}).count()) throw Error("excluded year retained"); await page.screenshot({path:"output/playwright/history-exclude.png",fullPage:true}); })(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+- Console: 1 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-10-24T19-56-02-499Z.log#L92-L96

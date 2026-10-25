@@ -1,0 +1,30 @@
+{
+  "plan": {
+    "instruction": "사용자가 중복된 NVIDIA 분기·누적 매출 패널 중 ID가 8895c0ea-c5ff-4451-bc2e-899612eafc17인 패널만 삭제하고, ID가 6ef02a5c-767d-4bca-9798-9789d2b2fa31인 패널은 유지하며, 새 패널 추가는 하지 말라고 명확히 요청했습니다. 따라서 중복 패널 삭제 작업만 수행합니다.",
+    "remove_tab_contents_confirmed": false,
+    "clarification": "",
+    "source_read": "none",
+    "operations": [
+      "remove"
+    ],
+    "minimum_new_panels": 0,
+    "targets": [
+      {
+        "operation": "remove",
+        "target_id": "8895c0ea-c5ff-4451-bc2e-899612eafc17"
+      }
+    ]
+  },
+  "completed": [
+    [
+      "remove",
+      ""
+    ],
+    [
+      "remove",
+      "8895c0ea-c5ff-4451-bc2e-899612eafc17"
+    ]
+  ],
+  "missing": [],
+  "status": "finished"
+}

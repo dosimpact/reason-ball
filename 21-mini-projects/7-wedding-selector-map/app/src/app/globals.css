@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;450;500;550;600;650;700&family=Noto+Serif+KR:wght@400;500;600&display=swap");
+@import "tailwindcss";
+@import "./themes.css";
+:root {
+  --orot-canvas: #f8f6f3;
+  --orot-surface: #ffffff;
+  --orot-surface-muted: #f0ece7;
+  --orot-border: #e3ddd6;
+  --orot-border-strong: #c7b9ab;
+  --orot-ink: #342f2b;
+  --orot-text: #514941;
+  --orot-muted: #776b60;
+  --orot-primary-text: #685648;
+  --orot-primary: #806957;
+  --orot-primary-hover: #675344;
+  --orot-primary-soft: #eee7df;
+  --orot-primary-border: #d4c3b2;
+  --orot-primary-muted: #b39b85;
+  --orot-secondary: #a65f4d;
+  --orot-secondary-hover: #884a3c;
+  --orot-secondary-soft: #f6ece7;
+  --orot-secondary-border: #dfb9aa;
+  --orot-chart-secondary: var(--orot-secondary);
+  --orot-danger: #b92e3c;
+  --orot-warning: #806236;
+  --orot-warning-soft: #f5f0e5;
+  --orot-white: #ffffff;
+  --background: var(--orot-canvas);
+  --foreground: var(--orot-ink);
+  --primary: var(--orot-primary);
+  --primary-foreground: var(--orot-white);
+  --secondary: var(--orot-surface-muted);
+  --secondary-foreground: var(--orot-text);
+  --muted: var(--orot-surface-muted);
+  --muted-foreground: var(--orot-muted);
+  --accent: var(--orot-primary-soft);
+  --accent-foreground: var(--orot-primary-text);
+  --destructive: var(--orot-danger);
+  --border: var(--orot-border);
+  --input: var(--orot-border);
+  --ring: var(--orot-primary);
+  --popover: var(--orot-surface);
+  --popover-foreground: var(--orot-ink);
+  --radius: 0.75rem;
+}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--orot-canvas);
+  color: var(--orot-ink);
+  font-family: "DM Sans", "Noto Sans KR", sans-serif;
+  font-size: 13px;
+  letter-spacing: -0.025em;
+  -webkit-font-smoothing: antialiased;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button,
+a,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: default;
+}
+button,
+select {
+  transition:
+    background 0.15s,
+    color 0.15s,
+    box-shadow 0.15s;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--orot-primary-muted);
+  outline-offset: 4px;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+select {
+  cursor: pointer;
+}
+input::placeholder {
+  color: var(--orot-muted);
+}
+::selection {
+  background: var(--orot-border);
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--orot-primary-border);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+

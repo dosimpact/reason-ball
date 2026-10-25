@@ -1,0 +1,321 @@
+{
+  "schemaVersion": "0.1.0",
+  "datasetId": "louisvis-season-and-options",
+  "entities": [
+    {
+      "id": "venue",
+      "kind": "core:venue",
+      "label": "루이비스 강서점"
+    },
+    {
+      "id": "meal",
+      "kind": "service:meal",
+      "label": "식사"
+    },
+    {
+      "id": "rental",
+      "kind": "service:rental",
+      "label": "대관료·필수사항"
+    },
+    {
+      "id": "mc",
+      "kind": "service:master_of_ceremonies",
+      "label": "전문사회"
+    },
+    {
+      "id": "makeup",
+      "kind": "service:makeup",
+      "label": "남성 혼주미용"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source",
+      "kind": "attachment",
+      "localPath": "database/참가격_웨딩홀_업체별_공시원본/서울(강남외)/루이비스 강서점__31514.xlsx",
+      "sha256": "c6ad3236f05483f1d89ed48ad52c44040bf456eef808f12680a1db5012651864",
+      "mediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "extractionState": "partial"
+    }
+  ],
+  "disclosures": [
+    {
+      "id": "disclosure",
+      "venueId": "venue",
+      "sourceIds": [
+        "source"
+      ],
+      "status": "current_at_observation",
+      "observedAt": "2026-10-25T21:54:39+09:00",
+      "extensions": {
+        "review:observationBasis": "추가원본 수집목록 checked_at 기준 일괄 스냅샷. 이 예제의 별도 검수 시각은 아님."
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e-season",
+      "sourceId": "source",
+      "locator": {
+        "kind": "spreadsheet",
+        "sheet": "Sheet1",
+        "cellRange": "A4:E6"
+      },
+      "rawText": "성수기 최고가 / 비수기 최저가; 250명 89,000원 / 200명 63,000원; 8,700,000 / 2,700,000",
+      "method": "xml",
+      "verification": "source_checked"
+    },
+    {
+      "id": "e-options",
+      "sourceId": "source",
+      "locator": {
+        "kind": "spreadsheet",
+        "sheet": "Sheet1",
+        "cellRange": "A8:E8"
+      },
+      "rawText": "기타비용 / 전문사회 300,000원 / 혼주미용 여성 198,.000원 남성 77,000원",
+      "method": "xml",
+      "verification": "source_checked"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "peak",
+      "evidenceIds": [
+        "e-season"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "label": "성수기 최고가",
+      "rawText": "성수기 최고가",
+      "expression": {
+        "op": "predicate",
+        "field": "event:season",
+        "operator": "eq",
+        "value": "peak"
+      }
+    },
+    {
+      "id": "offpeak",
+      "evidenceIds": [
+        "e-season"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "label": "비수기 최저가",
+      "rawText": "비수기 최저가",
+      "expression": {
+        "op": "predicate",
+        "field": "event:season",
+        "operator": "eq",
+        "value": "offpeak"
+      }
+    }
+  ],
+  "facts": [
+    {
+      "id": "guarantee-peak",
+      "evidenceIds": [
+        "e-season"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "subjectId": "venue",
+      "predicate": "guests:minimum_guarantee",
+      "valueState": "known",
+      "value": 250,
+      "unit": "unit:person",
+      "conditionIds": [
+        "peak"
+      ]
+    },
+    {
+      "id": "guarantee-offpeak",
+      "evidenceIds": [
+        "e-season"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "subjectId": "venue",
+      "predicate": "guests:minimum_guarantee",
+      "valueState": "known",
+      "value": 200,
+      "unit": "unit:person",
+      "conditionIds": [
+        "offpeak"
+      ]
+    }
+  ],
+  "priceTerms": [
+    {
+      "id": "peak-meal",
+      "evidenceIds": [
+        "e-season"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "subjectId": "venue",
+      "itemId": "meal",
+      "role": "payable",
+      "state": "known",
+      "amount": {
+        "kind": "exact",
+        "value": "89000"
+      },
+      "currency": "KRW",
+      "basis": {
+        "quantity": "1",
+        "unit": "unit:person"
+      },
+      "taxTreatment": "included",
+      "serviceChargeTreatment": "not_disclosed",
+      "requirement": "unknown",
+      "rawText": "(기본 250명) 89,000원",
+      "conditionIds": [
+        "peak"
+      ]
+    },
+    {
+      "id": "off-meal",
+      "evidenceIds": [
+        "e-season"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "subjectId": "venue",
+      "itemId": "meal",
+      "role": "payable",
+      "state": "known",
+      "amount": {
+        "kind": "exact",
+        "value": "63000"
+      },
+      "currency": "KRW",
+      "basis": {
+        "quantity": "1",
+        "unit": "unit:person"
+      },
+      "taxTreatment": "included",
+      "serviceChargeTreatment": "not_disclosed",
+      "requirement": "unknown",
+      "rawText": "(기본 200명) 63,000원",
+      "conditionIds": [
+        "offpeak"
+      ]
+    },
+    {
+      "id": "peak-rental",
+      "evidenceIds": [
+        "e-season"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "subjectId": "venue",
+      "itemId": "rental",
+      "role": "payable",
+      "state": "known",
+      "amount": {
+        "kind": "exact",
+        "value": "8700000"
+      },
+      "currency": "KRW",
+      "basis": {
+        "quantity": "1",
+        "unit": "unit:event"
+      },
+      "taxTreatment": "included",
+      "serviceChargeTreatment": "not_disclosed",
+      "requirement": "unknown",
+      "rawText": "8700000",
+      "conditionIds": [
+        "peak"
+      ]
+    },
+    {
+      "id": "off-rental",
+      "evidenceIds": [
+        "e-season"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "subjectId": "venue",
+      "itemId": "rental",
+      "role": "payable",
+      "state": "known",
+      "amount": {
+        "kind": "exact",
+        "value": "2700000"
+      },
+      "currency": "KRW",
+      "basis": {
+        "quantity": "1",
+        "unit": "unit:event"
+      },
+      "taxTreatment": "included",
+      "serviceChargeTreatment": "not_disclosed",
+      "requirement": "unknown",
+      "rawText": "2700000",
+      "conditionIds": [
+        "offpeak"
+      ]
+    },
+    {
+      "id": "mc-fee",
+      "evidenceIds": [
+        "e-options"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "subjectId": "venue",
+      "itemId": "mc",
+      "role": "payable",
+      "state": "known",
+      "amount": {
+        "kind": "exact",
+        "value": "300000"
+      },
+      "currency": "KRW",
+      "basis": {
+        "quantity": "1",
+        "unit": "unit:event"
+      },
+      "taxTreatment": "included",
+      "serviceChargeTreatment": "not_disclosed",
+      "requirement": "unknown",
+      "rawText": "전문사회 300,000원",
+      "conditionIds": []
+    },
+    {
+      "id": "male-makeup",
+      "evidenceIds": [
+        "e-options"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "subjectId": "venue",
+      "itemId": "makeup",
+      "role": "payable",
+      "state": "known",
+      "amount": {
+        "kind": "exact",
+        "value": "77000"
+      },
+      "currency": "KRW",
+      "basis": {
+        "quantity": "1",
+        "unit": "unit:person"
+      },
+      "taxTreatment": "included",
+      "serviceChargeTreatment": "not_disclosed",
+      "requirement": "unknown",
+      "rawText": "남성 77,000원",
+      "conditionIds": []
+    }
+  ],
+  "relations": [],
+  "policies": [],
+  "derivations": [],
+  "extensions": {
+    "review:scope": "원본 일부 항목의 수동 매핑 예제. 전체 업체 변환 및 시각 검수 완료를 의미하지 않음. observedAt 시각은 일자 정밀도만 알려져 있으므로 아래 원문을 우선한다."
+  }
+}

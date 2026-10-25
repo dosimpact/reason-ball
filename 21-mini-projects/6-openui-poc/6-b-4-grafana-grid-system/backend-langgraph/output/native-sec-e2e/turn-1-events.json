@@ -1,0 +1,3501 @@
+[
+  {
+    "type": "RUN_STARTED",
+    "threadId": "5b6ee045-b0e9-4b95-b253-bed548dc58e5",
+    "runId": "2c3d613d-b0a9-4155-bc47-c84b1cb2b6fb"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 0,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [],
+        "artifacts": [],
+        "selected_panel_id": null,
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_RG6xBEiqoeBZ5cuFds4PpZsN",
+    "toolCallName": "find_sec_company"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_RG6xBEiqoeBZ5cuFds4PpZsN",
+    "delta": "{\"query\": \"Apple\"}"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_HQ6L287VT7vkIyqFH3dntMp3",
+    "toolCallName": "list_sec_reports"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_HQ6L287VT7vkIyqFH3dntMp3",
+    "delta": "{\"cik\": \"\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_RG6xBEiqoeBZ5cuFds4PpZsN"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_HQ6L287VT7vkIyqFH3dntMp3"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_RG6xBEiqoeBZ5cuFds4PpZsN",
+    "toolCallId": "call_RG6xBEiqoeBZ5cuFds4PpZsN",
+    "content": "[{\"cik\": \"0000320193\", \"name\": \"Apple Inc.\", \"ticker\": \"AAPL\"}, {\"cik\": \"0001418121\", \"name\": \"Apple Hospitality REIT, Inc.\", \"ticker\": \"APLE\"}, {\"cik\": \"0000063330\", \"name\": \"MAUI LAND & PINEAPPLE CO INC\", \"ticker\": \"MLP\"}, {\"cik\": \"0001134982\", \"name\": \"Apple iSports Group, Inc.\", \"ticker\": \"AAPI\"}, {\"cik\": \"0001938109\", \"name\": \"Pineapple Financial Inc.\", \"ticker\": \"PAPL\"}, {\"cik\": \"0001710495\", \"name\": \"PINEAPPLE EXPRESS CANNABIS Co\", \"ticker\": \"PNXP\"}]",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_HQ6L287VT7vkIyqFH3dntMp3",
+    "toolCallId": "call_HQ6L287VT7vkIyqFH3dntMp3",
+    "content": "[{\"id\": \"0001045810-26-000075\", \"cik\": \"0001045810\", \"company\": \"NVIDIA CORP\", \"form\": \"10-Q\", \"report_date\": \"2026-07-26\", \"filed\": \"2026-08-26\", \"url\": \"https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm\", \"status\": \"failed\", \"error\": \"HTTPStatusError: SEC original unavailable\", \"fetched_at\": \"2026-10-25T03:55:16.341175+00:00\"}, {\"id\": \"0000320193-26-000020\", \"cik\": \"0000320193\", \"company\": \"Apple Inc.\", \"form\": \"10-Q\", \"report_date\": \"2026-06-27\", \"filed\": \"2026-07-31\", \"url\": \"https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm\", \"status\": \"downloaded\", \"error\": null, \"fetched_at\": \"2026-10-25T06:32:08.789363+00:00\"}, {\"id\": \"0000320193-26-000013\", \"cik\": \"0000320193\", \"company\": \"Apple Inc.\", \"form\": \"10-Q\", \"report_date\": \"2026-03-28\", \"filed\": \"2026-05-01\", \"url\": \"https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm\", \"status\": \"downloaded\", \"error\": null, \"fetched_at\": \"2026-10-25T06:32:09.770008+00:00\"}, {\"id\": \"0000320193-26-000006\", \"cik\": \"0000320193\", \"company\": \"Apple Inc.\", \"form\": \"10-Q\", \"report_date\": \"2025-12-27\", \"filed\": \"2026-01-30\", \"url\": \"https://www.sec.gov/Archives/edgar/data/320193/000032019326000006/aapl-20251227.htm\", \"status\": \"downloaded\", \"error\": null, \"fetched_at\": \"2026-10-25T06:32:10.771203+00:00\"}, {\"id\": \"0000320193-25-000079\", \"cik\": \"0000320193\", \"company\": \"Apple Inc.\", \"form\": \"10-K\", \"report_date\": \"2025-09-27\", \"filed\": \"2025-10-31\", \"url\": \"https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm\", \"status\": \"downloaded\", \"error\": null, \"fetched_at\": \"2026-10-25T06:30:33.062008+00:00\"}, {\"id\": \"0000320193-24-000123\", \"cik\": \"0000320193\", \"company\": \"Apple Inc.\", \"form\": \"10-K\", \"report_date\": \"2024-09-28\", \"filed\": \"2024-11-01\", \"url\": \"https://www.sec.gov/Archives/edgar/data/320193/000032019324000123/aapl-20240928.htm\", \"status\": \"downloaded\", \"error\": null, \"fetched_at\": \"2026-10-25T06:32:06.850725+00:00\"}, {\"id\": \"0000320193-23-000106\", \"cik\": \"0000320193\", \"company\": \"Apple Inc.\", \"form\": \"10-K\", \"report_date\": \"2023-09-30\", \"filed\": \"2023-11-03\", \"url\": \"https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/aapl-20230930.htm\", \"status\": \"downloaded\", \"error\": null, \"fetched_at\": \"2026-10-25T06:32:07.876184+00:00\"}]",
+    "role": "tool"
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "root"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ="
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Card"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(["
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "header"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " list"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Reports"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "])\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "header"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ="
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Card"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Header"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Apple"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Inc"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "."
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ("
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "A"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "APL"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ")"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " SEC"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Reports"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Collection"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Status"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "최근"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "3"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "년"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-K"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 및"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 최근"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "1"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "년"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-Q"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\")\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "list"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Reports"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ="
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Table"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "([\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Col"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "구"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "분"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " [\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-K"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-K"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-K"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-Q"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"]),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Col"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "보고"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "서"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 날짜"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " [\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "5"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "09"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "27"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "4"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "09"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "28"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "3"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "09"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "30"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "6"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "06"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "27"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"]),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Col"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "제"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "출"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "일"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " [\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "5"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "31"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "4"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "11"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "01"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "3"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "11"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "03"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "6"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "07"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "31"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"]),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Col"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "원"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "문"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 링크"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " [\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "   "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Link"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "보기"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "https"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "://"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "www"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".sec"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".gov"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Archives"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "ed"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "gar"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/data"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "320"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "193"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "032"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "019"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "325"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "079"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/a"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "apl"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "509"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "27"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".htm"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "   "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Link"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "보기"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "https"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "://"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "www"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".sec"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".gov"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Archives"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "ed"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "gar"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/data"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "320"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "193"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "032"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "019"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "324"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "123"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/a"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "apl"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "409"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "28"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".htm"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "   "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Link"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "보기"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "https"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "://"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "www"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".sec"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".gov"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Archives"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "ed"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "gar"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/data"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "320"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "193"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "032"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "019"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "323"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "106"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/a"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "apl"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "309"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "30"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".htm"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "   "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Link"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "보기"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "https"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "://"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "www"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".sec"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".gov"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Archives"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "ed"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "gar"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/data"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "320"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "193"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "032"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "019"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "326"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "020"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/a"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "apl"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "606"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "27"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".htm"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\")\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ]),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Col"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "수"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "집"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 상태"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " [\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "다운"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "로드"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 완료"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "다운"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "로드"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 완료"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "다운"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "로드"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 완료"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "다운"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "로드"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 완료"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"])\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "])"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "root"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ="
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Card"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(["
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "header"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " reports"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "List"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "])\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "header"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ="
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Card"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Header"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Apple"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Inc"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "."
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ("
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "A"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "APL"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ")"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " SEC"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 보고"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "서"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 현"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "황"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "최근"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "3"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "년"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-K"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 및"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 최근"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "1"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "년"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-Q"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\")\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "reports"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "List"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ="
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Table"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "([\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Col"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "보고"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "서"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 종류"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " [\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-K"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-K"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-K"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-Q"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"]),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Col"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "보고"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "서"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 기간"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " [\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "5"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "09"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "27"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ("
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Fiscal"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Year"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " End"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "ed"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ")\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "4"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "09"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "28"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ("
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Fiscal"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Year"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " End"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "ed"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ")\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "3"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "09"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "30"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ("
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Fiscal"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Year"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " End"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "ed"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ")\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "6"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "06"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "27"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ("
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Quarter"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " End"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "ed"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ")"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"]),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Col"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "제"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "출"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 일"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "자"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " [\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "5"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "31"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "4"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "11"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "01"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "3"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "11"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "03"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "6"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "07"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "31"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"]),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Col"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "원"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "문"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 링크"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " [\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "   "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Link"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "링"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "크"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "https"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "://"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "www"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".sec"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".gov"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Archives"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "ed"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "gar"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/data"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "320"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "193"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "032"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "019"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "325"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "079"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/a"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "apl"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "509"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "27"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".htm"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "   "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Link"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "링"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "크"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "https"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "://"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "www"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".sec"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".gov"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Archives"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "ed"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "gar"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/data"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "320"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "193"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "032"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "019"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "324"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "123"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/a"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "apl"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "409"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "28"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".htm"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "   "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Link"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "링"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "크"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "https"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "://"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "www"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".sec"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".gov"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Archives"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "ed"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "gar"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/data"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "320"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "193"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "032"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "019"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "323"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "106"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/a"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "apl"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "309"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "30"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".htm"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "   "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Link"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "링"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "크"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "https"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "://"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "www"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".sec"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".gov"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "Archives"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "ed"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "gar"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/data"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "320"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "193"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "032"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "019"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "326"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "000"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "020"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "/a"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "apl"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "-"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "606"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "27"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": ".htm"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\")\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " ]),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " Col"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "수"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "집"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 상태"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " [\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "다운"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "로드"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 완료"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "다운"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "로드"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 완료"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "다운"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "로드"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 완료"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "다운"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "로드"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": " 완료"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "\"])\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381",
+    "delta": "])"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "lc_run--01a171c3-19b3-7002-b57b-0cb4367f5381"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 0,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [],
+        "artifacts": [],
+        "selected_panel_id": null,
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "RUN_FINISHED",
+    "threadId": "5b6ee045-b0e9-4b95-b253-bed548dc58e5",
+    "runId": "2c3d613d-b0a9-4155-bc47-c84b1cb2b6fb"
+  }
+]

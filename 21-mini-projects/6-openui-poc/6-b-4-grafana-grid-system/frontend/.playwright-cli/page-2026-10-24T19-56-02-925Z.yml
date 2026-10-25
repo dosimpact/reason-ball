@@ -1,0 +1,195 @@
+- generic [active] [ref=f20e1]:
+  - main [ref=f20e2]:
+    - navigation [ref=f20e3]:
+      - link "← Filing Studio" [ref=f20e4] [cursor=pointer]:
+        - /url: /
+      - link "사용 경험" [ref=f20e5] [cursor=pointer]:
+        - /url: "#experience"
+      - link "Canvas 조작" [ref=f20e6] [cursor=pointer]:
+        - /url: "#canvas-guide"
+      - link "전체 구조" [ref=f20e7] [cursor=pointer]:
+        - /url: "#architecture"
+      - link "데이터" [ref=f20e8] [cursor=pointer]:
+        - /url: "#data"
+      - link "OpenUI" [ref=f20e9] [cursor=pointer]:
+        - /url: "#openui"
+      - link "실행·검증" [ref=f20e10] [cursor=pointer]:
+        - /url: "#operations"
+    - generic [ref=f20e11]:
+      - text: FILING STUDIO / ONBOARDING
+      - heading "질문이 분석으로, 분석이 대시보드로." [level=1] [ref=f20e12]: 질문이 분석으로,분석이 대시보드로.
+      - paragraph [ref=f20e13]: SEC 사업보고서를 읽고 비교하며, 필요한 결과를 지속 가능한 Canvas로 만드는 자체 앱입니다.
+    - generic [ref=f20e14]:
+      - heading "1. 사용자에게 보이는 흐름" [level=2] [ref=f20e15]
+      - generic [ref=f20e16]:
+        - article [ref=f20e17]:
+          - text: 01 · 대화에서 시작
+          - paragraph [ref=f20e18]: 기업명·티커로 보고서를 찾고, 요약·섹션 읽기·기업 간 비교를 요청합니다. 준비된 PDF도 검색합니다.
+        - article [ref=f20e19]:
+          - text: 02 · 결과를 Canvas로
+          - paragraph [ref=f20e20]: 차트·표·메모·인터랙티브 UI를 대화에서 추가하거나 직접 생성합니다. 패널의 출처와 조회 조건도 유지합니다.
+        - article [ref=f20e21]:
+          - text: 03 · 계속 다듬기
+          - paragraph [ref=f20e22]: 드래그·리사이즈·고정·탭 이동을 직접 하거나 대화로 요청합니다. 이전 대화를 열면 서버에 저장한 대시보드를 복원합니다.
+      - paragraph [ref=f20e23]: "예: “최근 10년 매출을 보여줘” → “이 그래프를 Canvas에 추가해줘” → “2020년은 제외해줘” → “전체를 내려받고 싶어”. 대상을 특정할 수 없으면 먼저 확인합니다."
+    - generic [ref=f20e24]:
+      - heading "Canvas 조작 안내" [level=2] [ref=f20e25]
+      - list [ref=f20e26]:
+        - listitem [ref=f20e27]: 대화 결과의 추가 버튼이나 드래그로 현재 입력값까지 Canvas에 복사합니다. 이후 Canvas의 입력 변경은 대화 원본과 독립적입니다.
+        - listitem [ref=f20e28]: 패널 핸들을 드래그해 이동하고 오른쪽 아래에서 크기를 바꿉니다. 도중에 Escape를 누르면 취소합니다. 방향키로 이동하고 Shift+방향키로 크기를 조절할 수도 있습니다.
+        - listitem [ref=f20e29]: 고정한 패널은 이동·크기·탭 변경이 차단됩니다. 먼저 고정을 해제하세요. 패널 이동 버튼은 다른 탭에 있는 대상도 찾아 강조합니다.
+        - listitem [ref=f20e30]: 현재 탭 삭제는 탭 제목과 포함 패널 수를 확인한 뒤 실행합니다. 다른 탭과 대화·원본 결과는 남고, 마지막 탭은 유지합니다.
+        - listitem [ref=f20e31]: 좁은 Canvas에서는 한 열로 표시하고 직접 드래그를 끕니다. 넓은 화면으로 돌아오면 저장된 배치를 다시 사용합니다.
+        - listitem [ref=f20e32]: 분석 중 중단하면 미완성 상태가 대화에 남습니다. 이전 대화를 다시 열어 후속 질문을 이어갈 수 있습니다.
+    - generic [ref=f20e33]:
+      - heading "2. 전체 시스템 — 이동·확대 가능한 구조도" [level=2] [ref=f20e34]
+      - paragraph [ref=f20e35]: 왼쪽은 사용자 화면, 가운데는 요청과 에이전트, 오른쪽은 수집·분석·영속 저장입니다. 마우스로 확대하거나 노드를 이동하며 관계를 살펴보세요.
+      - application [ref=f20e37]:
+        - generic [ref=f20e39]:
+          - generic:
+            - generic:
+              - img:
+                - group "Edge from user to chat" [ref=f20e40] [cursor=pointer]
+              - img:
+                - group "Edge from user to canvas" [ref=f20e43] [cursor=pointer]
+              - img:
+                - group "Edge from chat to api" [ref=f20e46] [cursor=pointer]
+              - img:
+                - group "Edge from canvas to api" [ref=f20e49] [cursor=pointer]
+              - img:
+                - group "Edge from api to agent" [ref=f20e52] [cursor=pointer]:
+                  - generic [ref=f20e55]: AG-UI
+              - img:
+                - group "Edge from api to commands" [ref=f20e57] [cursor=pointer]
+              - img:
+                - group "Edge from agent to sec" [ref=f20e60] [cursor=pointer]
+              - img:
+                - group "Edge from agent to search" [ref=f20e63] [cursor=pointer]
+              - img:
+                - group "Edge from agent to commands"
+              - img:
+                - group "Edge from sec to db"
+              - img:
+                - group "Edge from search to db"
+              - img:
+                - group "Edge from commands to db" [ref=f20e66] [cursor=pointer]
+            - generic:
+              - group [ref=f20e69]: 사용자 · 질문 / 직접 조작
+              - group [ref=f20e71]: Headless Chat · OpenUI Renderer
+              - group [ref=f20e74]: Canvas · 24열 패널 / 탭
+              - group [ref=f20e77]: Next.js HTTP proxy
+              - group [ref=f20e80]: Python Deep Agent
+              - group [ref=f20e83]: 공통 Canvas 명령 · revision
+              - group [ref=f20e86]: SEC 수집 subagent / subgraph
+              - group [ref=f20e89]: 문서 비교 / 섹션 / XBRL 분석
+              - group [ref=f20e92]: SQLite · 원문 / 벡터 / 대화 / 패널
+        - generic "Control Panel" [ref=f20e94]:
+          - button "Zoom In" [ref=f20e95] [cursor=pointer]
+          - button "Zoom Out" [ref=f20e98] [cursor=pointer]
+          - button "Fit View" [ref=f20e101] [cursor=pointer]
+          - button "Toggle Interactivity" [ref=f20e104] [cursor=pointer]
+        - img "Mini Map" [ref=f20e108]
+        - link "React Flow attribution" [ref=f20e119] [cursor=pointer]:
+          - /url: https://reactflow.dev/attribution
+          - text: React Flow
+      - paragraph [ref=f20e121]:
+        - text: 대화 요청은
+        - code [ref=f20e122]: /api/dashboard/chat
+        - text: 에서 Python
+        - code [ref=f20e123]: /dashboard/chat
+        - text: 으로 전달됩니다. 서버는 AG-UI 텍스트·도구·상태 이벤트를 보내고, 화면은 요청을 시작한 대화에만 적용합니다.
+    - generic [ref=f20e124]:
+      - heading "3. 숫자와 문장의 근거" [level=2] [ref=f20e125]
+      - list [ref=f20e126]:
+        - listitem [ref=f20e127]: "공시 수집: 기업을 CIK로 식별하고 Submissions에서 공시를 찾은 뒤 원문을 저장합니다. 다운로드 실패와 준비 완료를 구분합니다."
+        - listitem [ref=f20e128]: "섹션: Item별 원문과 위치를 보관합니다. 추출에 실패한 섹션을 임의로 만들지 않고 전체 원문을 확인할 수 있게 합니다."
+        - listitem [ref=f20e129]: "검색: 기존 PDF의 페이지별 벡터와 SEC 원문의 섹션별 벡터를 SQLite에 저장합니다. 유사도는 근거의 순위를 뜻하며 사실 부재의 확정이 아닙니다."
+        - listitem [ref=f20e130]: "원문 확인 범위: 준비된 PDF의 페이지 원문을 읽고 긴 페이지는 이어 읽습니다. 원문 확인 요청의 답변 뒤에는 실제 읽은 페이지·섹션 범위를 별도로 표시합니다. 검색 결과나 일부 페이지를 전체 보고서 완독으로 해석하지 마세요."
+        - listitem [ref=f20e131]: "연간 수치: XBRL의 연간 기간, 통화·단위, 원래 공시와 정정 공시를 구분합니다. 누락 연도는 0으로 채우지 않으며 연도가 연속되지 않으면 YoY를 계산하지 않습니다."
+      - paragraph [ref=f20e132]: 현재 환경의 SEC 직접 접근은 403을 반환했습니다. 모델·임베딩 호출은 확인했지만, 최신 원문 수집 성공 여부는 별도 검증해야 합니다. 준비된 PDF 비교와 Canvas 작업은 독립적으로 진행할 수 있습니다.
+    - generic [ref=f20e133]:
+      - heading "4. Canvas 상태가 일관되는 이유" [level=2] [ref=f20e134]
+      - paragraph [ref=f20e135]: 브라우저와 에이전트는 같은 패널 명령을 사용합니다. 패널 ID는 계속 유지되며, 기존 패널 수정 요청은 해당 ID를 대상으로 처리합니다. 모델의 신규 생성 개수나 모든 필드의 의미적 정확성까지 자동 검사하는 것은 아닙니다.
+      - list [ref=f20e136]:
+        - listitem [ref=f20e137]: 현재 대화의 대시보드와 revision을 읽습니다.
+        - listitem [ref=f20e138]: 변경 명령에 operation ID와 base revision을 붙입니다.
+        - listitem [ref=f20e139]: 서버가 스키마·고정·참조·충돌을 검사하고 SQLite에 저장합니다.
+        - listitem [ref=f20e140]: AG-UI STATE_SNAPSHOT 또는 STATE_DELTA로 화면을 갱신합니다.
+      - paragraph [ref=f20e141]: 이미 처리한 명령은 중복 적용하지 않습니다. 사용자가 먼저 변경했다면 오래된 명령을 거절하고 현재 상태를 다시 읽습니다. 패널을 지워도 원문 보고서와 대화는 남습니다.
+    - generic [ref=f20e142]:
+      - heading "5. OpenUI 카탈로그와 프롬프트" [level=2] [ref=f20e143]
+      - paragraph [ref=f20e144]:
+        - text: 기존 6-5의 컴포넌트·함수·액션 계약을 보존합니다.
+        - code [ref=f20e145]: Col
+        - text: 은 표의 열,
+        - code [ref=f20e146]: VStack
+        - text: 은 세로 레이아웃입니다. 독립 패널의 프로그램은 자신의 root와 변수를 가져야 합니다.
+      - generic [ref=f20e147]: Frontend catalog (SSOT) components + defineFunction + defineAction ↓ npm run generate src/shared/ui/openui/generated/spec.json src/shared/ui/openui/generated/system-prompt.txt ↓ explicit cp backend-langgraph/agent/system-prompt.txt ↓ Deep Agent → OpenUI program → Renderer
+      - heading "defineFunction — YearOverYear" [level=3] [ref=f20e148]
+      - paragraph [ref=f20e149]:
+        - code [ref=f20e150]: "@YearOverYear(120, 100)"
+        - text: 은 20을 반환합니다. 분모가 0이면 null입니다. 사용자 가정에 따른 계산기에 사용할 수 있지만, 보고서의 누락 수치를 대신 만들지 않습니다.
+      - heading "재무 패널 갱신과 Snapshot" [level=3] [ref=f20e151]
+      - paragraph [ref=f20e152]: 지금 새로고침은 저장된 SEC 조회 조건을 다시 실행하며 모델을 호출하지 않습니다. Live 모드에서는 자동 갱신을 끄거나 1·5·15분으로 설정합니다. 열린 Canvas 탭과 보이는 브라우저에서만 갱신하며 앱을 닫은 동안에는 실행하지 않습니다. Snapshot은 현재 데이터를 보관하고 Live로 전환하기 전에는 갱신하지 않습니다.
+      - paragraph [ref=f20e153]: 마지막 정상 조회와 원천 확인 시각, 최근 공시일을 구분합니다. 조회가 실패하면 마지막 데이터를 유지하고 오류를 표시합니다. SEC 접근이 차단된 현재 환경에서는 실제 갱신 성공을 확인하지 못했으며 컨트롤은 격리된 가정 데이터로 검증했습니다.
+      - heading "defineAction — FocusPanel" [level=3] [ref=f20e154]
+      - paragraph [ref=f20e155]:
+        - code [ref=f20e156]: "@FocusPanel(\"실제 패널 ID\")"
+        - text: 는 호스트의 공통 명령으로 해당 패널을 선택하고 화면에서 찾습니다. 클라이언트가 임의 코드를 실행하는 구조가 아닙니다.
+      - heading "검증할 예제" [level=3] [ref=f20e157]
+      - paragraph [ref=f20e158]: “현재값 120, 전년값 100인 가정용 성장률 계산기를 만들고 값을 바꿀 수 있게 해줘.” 이후 실제 패널 ID를 사용한 이동 버튼을 요청할 수 있습니다. 기존 CopyToClipboard와 59개 계산 함수도 유지합니다.
+    - generic [ref=f20e159]:
+      - heading "6. 소스 코드 읽는 순서" [level=2] [ref=f20e160]
+      - table [ref=f20e161]:
+        - rowgroup [ref=f20e162]:
+          - row [ref=f20e163]:
+            - columnheader "경로" [ref=f20e164]
+            - columnheader "책임" [ref=f20e165]
+        - rowgroup [ref=f20e166]:
+          - row [ref=f20e167]:
+            - cell [ref=f20e168]:
+              - code [ref=f20e169]: frontend/src/pages/workspace
+            - cell "헤드리스 대화, 목록, 전체 배치" [ref=f20e170]
+          - row [ref=f20e171]:
+            - cell [ref=f20e172]:
+              - code [ref=f20e173]: frontend/src/features/dashboard
+            - cell "Canvas 조작, AG-UI 분배, 다운로드" [ref=f20e174]
+          - row [ref=f20e175]:
+            - cell [ref=f20e176]:
+              - code [ref=f20e177]: frontend/src/entities/dashboard
+            - cell "패널 계약과 OpenUI 렌더링" [ref=f20e178]
+          - row [ref=f20e179]:
+            - cell [ref=f20e180]:
+              - code [ref=f20e181]: frontend/src/shared/ui/openui
+            - cell "승계한 UI·함수·액션 카탈로그" [ref=f20e182]
+          - row [ref=f20e183]:
+            - cell [ref=f20e184]:
+              - code [ref=f20e185]: backend-langgraph/agent/dashboard
+            - cell "Deep Agent, HTTP, 도구, 상태 명령" [ref=f20e186]
+          - row [ref=f20e187]:
+            - cell [ref=f20e188]:
+              - code [ref=f20e189]: backend-langgraph/agent/sec
+            - cell "SEC 클라이언트·수집 그래프·파싱·검색" [ref=f20e190]
+          - row [ref=f20e191]:
+            - cell [ref=f20e192]:
+              - code [ref=f20e193]: backend-langgraph/agent/documents.py
+            - cell "기존 PDF 검색과 임베딩" [ref=f20e194]
+          - row [ref=f20e195]:
+            - cell [ref=f20e196]:
+              - code [ref=f20e197]: backend-langgraph/agent/history.py
+            - cell "서버 소유 대화 저장" [ref=f20e198]
+      - paragraph [ref=f20e199]: 프런트엔드는 FSD 계층과 public API를 사용합니다. 저장·네트워크·계산·렌더링을 분리하여 한 함수가 한 수준의 책임을 갖도록 구성합니다.
+    - generic [ref=f20e200]:
+      - heading "7. 실행과 검증" [level=2] [ref=f20e201]
+      - generic [ref=f20e202]: "# backend-langgraph uv sync --frozen uv run langgraph dev --port 2041 --no-browser # frontend npm ci npm run dev # http://127.0.0.1:3049 # Catalog change npm run generate cp src/shared/ui/openui/generated/system-prompt.txt ../backend-langgraph/agent/system-prompt.txt # Restart backend after prompt asset changes # Checks uv run pytest uv run ruff check agent tests npm test npm run typecheck npm run lint npm run verify"
+      - paragraph [ref=f20e203]: 루트 .env 및 백엔드 .env는 서버에서만 읽습니다. SQLite 파일, 원문 PDF, 키, 캐시는 Git에 올리지 않습니다. 기존 서버를 재사용하거나 종료하지 않고 이 프로젝트의 포트를 사용합니다.
+      - paragraph [ref=f20e204]: 검증은 정적 검사, 단위 테스트, 실제 공급자/API 호출, 브라우저 사용자 흐름으로 나누어 기록합니다. 과거 6-5의 성공 기록은 이번 프로젝트의 성공 증거가 아닙니다.
+    - generic [ref=f20e205]:
+      - heading "8. 내보내기와 지원 범위" [level=2] [ref=f20e206]
+      - paragraph [ref=f20e207]: JSON은 모든 탭의 패널·조회 조건·배치·출처·입력값을 담습니다. 가져오기는 기존 내용을 보존하며 새 탭에 추가합니다. CSV는 재무 행과 일반 표·차트의 값을 패널·탭·행·열·시각화 종류로 구분하고 저장된 입력값과 계산을 반영합니다. 표·차트가 없는 패널은 PDF 또는 JSON으로 전체 내용을 보관합니다. PDF는 브라우저 인쇄에서 저장하며, 생성 중인 답변은 완료한 후 내보내는 것이 좋습니다.
+      - paragraph [ref=f20e208]: 로컬 단일 사용자 앱입니다. 공개 배포 인증, 다중 사용자 협업, OCR은 별도 범위입니다. SEC 오류와 자료 부족은 화면에서 안내하며 성공으로 위장하지 않습니다.
+      - paragraph [ref=f20e209]:
+        - link "대시보드로 돌아가기 →" [ref=f20e210] [cursor=pointer]:
+          - /url: /
+  - button "Open Next.js Dev Tools" [ref=f20e216] [cursor=pointer]
+  - alert [ref=f20e220]

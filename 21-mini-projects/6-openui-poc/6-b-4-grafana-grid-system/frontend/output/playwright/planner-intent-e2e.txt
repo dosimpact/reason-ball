@@ -1,0 +1,6 @@
+### Ran Playwright code
+```js
+await (async page => { await page.reload(); await page.getByText("어느 연도를 제외할까요? FY2024, FY2025, 아니면 FY2026 중에서 선택해 주세요.",{exact:true}).waitFor(); const canvas=page.getByRole("region",{name:"Canvas dashboard"}); for(const y of ["FY2024","FY2025","FY2026"]) await canvas.getByText(y,{exact:true}).waitFor(); await page.screenshot({path:"output/playwright/planner-intent-e2e.png"}); })(page);
+```
+### Events
+- New console entries: .playwright-cli/console-2026-10-25T03-50-54-968Z.log#L5-L8

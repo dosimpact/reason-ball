@@ -1,0 +1,6 @@
+### Ran Playwright code
+```js
+await (async page => { await page.reload(); const canvas=page.getByRole("region",{name:"Canvas dashboard"}); await canvas.getByText("FY2024",{exact:true}).waitFor(); await canvas.getByText("FY2026",{exact:true}).waitFor(); if(await canvas.getByText("FY2025",{exact:true}).count()) throw Error("excluded year still on axis"); await page.screenshot({path:"output/playwright/grounding-scope-e2e.png"}); console.log(await canvas.innerText()); })(page);
+```
+### Events
+- New console entries: .playwright-cli/console-2026-10-25T03-47-06-007Z.log#L5-L8

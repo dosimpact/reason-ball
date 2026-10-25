@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByText("어느 연도를 제외할까요? FY2024, FY2025, 아니면 FY2026 중에서 선택해 주세요.",{exact:true}).scrollIntoViewIfNeeded(); await page.screenshot({path:"output/playwright/planner-clarification.png"}); })(page);
+```

@@ -1,0 +1,85 @@
+{
+  "scenario": "US-12",
+  "title": "고정과 포커스",
+  "thread_id": "5d775bd8-e745-48f1-b83c-16271b676278",
+  "turns": [
+    {
+      "number": 1,
+      "question": "준비된 실제 PDF nvidia(FY2026), nvidia-2025(FY2025), amd, intel만 사용하고 SEC 네트워크 호출은 하지 마. 출처와 회계기간·단위를 명시하고 근거 없는 수치는 만들지 마. NVIDIA FY2025와 FY2026의 매출을 원문으로 확인하고 Canvas에 매출 차트 패널 하나를 만들어줘. 제목은 NVIDIA 매출로 해줘. ",
+      "finished": true,
+      "errors": [],
+      "panels": 1,
+      "diagnostics": {
+        "plan": {
+          "remove_tab_contents_confirmed": false,
+          "minimum_new_panels": 1,
+          "clarification": "",
+          "source_read": "original",
+          "operations": [
+            "add"
+          ],
+          "instruction": "Create a sales chart panel titled 'NVIDIA 매출' using the revenue data for NVIDIA FY2025 and FY2026 verified from the prepared PDF documents, referencing sources and accounting periods clearly.",
+          "targets": []
+        },
+        "completed": [
+          [
+            "add",
+            "06614960-164e-4f98-9b2d-e5ed246d1eae"
+          ],
+          [
+            "artifact_publish",
+            "230d4b98-b163-40a1-bd67-679617375d18"
+          ]
+        ],
+        "missing": [],
+        "status": "finished"
+      }
+    },
+    {
+      "number": 2,
+      "question": "NVIDIA 매출 패널을 현재 위치에 고정해줘. 그리고 이 패널로 이동하는 버튼을 대화에 제공해줘.",
+      "finished": true,
+      "errors": [],
+      "panels": 1,
+      "diagnostics": {
+        "plan": {
+          "remove_tab_contents_confirmed": false,
+          "minimum_new_panels": 0,
+          "clarification": "",
+          "source_read": "none",
+          "operations": [
+            "pin",
+            "select"
+          ],
+          "instruction": "Pin the existing NVIDIA 매출 panel in the main tab and provide a button in the chat to select (focus) this panel.",
+          "targets": [
+            {
+              "operation": "pin",
+              "target_id": "06614960-164e-4f98-9b2d-e5ed246d1eae"
+            },
+            {
+              "operation": "select",
+              "target_id": "06614960-164e-4f98-9b2d-e5ed246d1eae"
+            }
+          ]
+        },
+        "completed": [
+          [
+            "pin",
+            "06614960-164e-4f98-9b2d-e5ed246d1eae"
+          ],
+          [
+            "select",
+            ""
+          ],
+          [
+            "select",
+            "06614960-164e-4f98-9b2d-e5ed246d1eae"
+          ]
+        ],
+        "missing": [],
+        "status": "finished"
+      }
+    }
+  ]
+}

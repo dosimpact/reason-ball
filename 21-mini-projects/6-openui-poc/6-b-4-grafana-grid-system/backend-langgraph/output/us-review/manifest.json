@@ -1,0 +1,475 @@
+[
+  {
+    "scenario": "US-01",
+    "title": "보고서 찾기와 수집 상태",
+    "thread_id": "d21faccc-ff6a-4078-9e18-8e10b5748f66",
+    "messages": 14,
+    "panels": 0,
+    "note": "SEC 403 실제 실패와 로컬 PDF 존재 정정. 신규 수집 성공 아님.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 0,
+        "clarification": "",
+        "source_read": "none",
+        "operations": [],
+        "instruction": "Perform search_documents for 'nvidia' on '매출' to confirm local NVIDIA documents exist without making SEC requests or Canvas changes, then clarify in chat only.",
+        "targets": []
+      },
+      "completed": [],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([header, secCollectStatus, localPdfStatus])\nheader = CardHeader(\"NVIDIA 10-K 보고서 수집 및 로컬 PDF 현황\", \"CIK 1045810\")\nsecCollectStatus = TextContent(\"SEC API를 통한 최신 10-K 보고서 신규 수집은 403 오류로 실패하였습니다.\\n- SEC 접근이 거부되어 새 자료 수집은 불가능한 상태입니다.\", \"default\")\nlocalPdfStatus = TextContent(\"하지만 로컬에는 'nvidia'와 'nvidia-2025' 문서가 정상적으로 준비되어 있어 매출 정보를 확인할 수 있습니다.\\n- 준비된 로컬 PDF로 분석이 가능합니다.\", \"default\")"
+  },
+  {
+    "scenario": "US-02",
+    "title": "전체 요약",
+    "thread_id": "82794092-925a-4eb0-b400-8ea570af6ede",
+    "messages": 28,
+    "panels": 1,
+    "note": "사업·위험·경영진 설명·실적 요약. 저장 실패 후 요약 패널 생성 보완.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 1,
+        "clarification": "",
+        "source_read": "none",
+        "operations": [
+          "add"
+        ],
+        "instruction": "Add a new Canvas panel titled 'NVIDIA 보고서 전체 요약' with four TextContent sections summarizing 사업 개요, 위험 요인, 경영진 설명, and 재무 실적 from the NVIDIA FY2026 report with source references, as explicitly authorized.",
+        "targets": []
+      },
+      "completed": [
+        [
+          "add",
+          "a8e1d024-d5ec-40ef-9b89-22d5b6ec2859"
+        ]
+      ],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([\n  TextContent(\"사업 개요: NVIDIA는 대규모 AI 인프라와 가속 컴퓨팅 분야에서 선도적인 기업으로, Blackwell 아키텍처 기반의 데이터 센터 솔루션 및 CUDA 플랫폼과 광범위한 소프트웨어 스택을 제공한다. 주요 시장은 데이터 센터, 게이밍, 프로페셔널 비주얼라이제이션, 자동차 분야이다. (출처: 4-7페이지)\"),\n  TextContent(\"위험 요인: 시장과 기술 변화에 대응 실패, 공급망 불확실성, 경쟁 심화, 규제 환경 변화, 지적 재산권 보호 위험, AI 오픈소스 모델 부상 등이 대표적인 위험으로 꼽힌다. 글로벌 경제 및 지정학적 리스크도 비즈니스에 영향을 줄 수 있다. (출처: 12-14페이지)\"),\n  TextContent(\"경영진 설명: 2026 회계연도 매출성장은 주로 데이터 센터와 AI 솔루션 플랫폼의 확장에 기인하며, Blackwell 아키텍처가 데이터 센터 매출 대부분을 차지한다. 신제품 Rubin 플랫폼 및 Blackwell Ultra가 도입되었고, 공급망 문제 및 제품 전환 복잡성이 매출 변동성에 영향을 미쳤으며, 미중 무역 제한으로 인한 재고 비용 충당금 발생했다. (출처: 36-37페이지)\"),\n  TextContent(\"재무 실적: 2026 회계연도 매출은 2,159억 달러(백만 단위 215,938)로 전년 대비 65% 증가하였다. 총 이익률은 71.1%로 전년 대비 3.9%포인트 하락했으며, 영업비용은 230억 달러(23,076백만 달러)로 41% 상승했다. 순이익은 1,200억 달러(120,067백만 달러)이다. (출처: 36-37페이지)\")\n])"
+  },
+  {
+    "scenario": "US-03",
+    "title": "위험 요인 섹션",
+    "thread_id": "6def6477-66d5-4529-891d-0e87459a50b7",
+    "messages": 14,
+    "panels": 1,
+    "note": "수출 규제 섹션 일부 발췌·설명, 읽은 페이지 범위 표시.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 1,
+        "clarification": "",
+        "source_read": "original",
+        "operations": [
+          "add"
+        ],
+        "instruction": "Add a new panel with a short excerpt and easy explanation of the export control risk section from NVIDIA FY2026 report. Include source page and section info, noting it is a partial extract.",
+        "targets": []
+      },
+      "completed": [
+        [
+          "add",
+          "094c90e2-689e-4523-a573-5cf6193a6e7f"
+        ]
+      ],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([header, excerpt, explanation], null)\nheader = CardHeader(\"Export Control Risk - NVIDIA FY2026 Report\", \"Item 1A. Risk Factors section, partial extract\")\nexcerpt = TextContent(\"The U.S. government announced export restrictions and licensing requirements since August 2022 targeting semiconductor and supercomputing industries in China, Russia, and other regions. These impact specific NVIDIA products such as the A100 and H100 integrated circuits, and imposed burdensome licensing conditions that may limit business opportunities and encourage customers to consider alternative suppliers.\", \"default\")\nexplanation = TextContent(\"In simple terms, U.S. export controls restrict NVIDIA's ability to sell certain high-performance chips and related technology to some countries. This can lead to lost sales, more complex licensing steps, and competition from other chip makers not subject to these restrictions.\", \"default\")\n\n// Source: NVIDIA 10-K Fiscal 2026, pages 9-11 (partial section)"
+  },
+  {
+    "scenario": "US-04",
+    "title": "연속 질문",
+    "thread_id": "6d1ac76e-92ec-4921-b18d-8eb50c565ae7",
+    "messages": 32,
+    "panels": 1,
+    "note": "매출 증가 원인→데이터센터 후속 질문.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 0,
+        "clarification": "",
+        "source_read": "overview",
+        "operations": [],
+        "instruction": "Explain in detail about NVIDIA's Data Center business from the confirmed sources, distinguishing confirmed facts from interpretation, without changing the Canvas.",
+        "targets": []
+      },
+      "completed": [],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([header, sectionBlock], sources)\nheader = CardHeader(\"NVIDIA 데이터센터 사업 분석 (FY2026)\", \"NVIDIA 10-K, Fiscal Year Ended January 25, 2026\")\n\nsectionBlock = SectionBlock([\n  SectionItem(\"overview\", \"개요 및 전략\", [\n    TextContent(\"NVIDIA의 FY2026 매출 증가는 주로 데이터센터 컴퓨팅 및 네트워킹 플랫폼에서 비롯되었습니다. Blackwell 아키텍처가 데이터센터 매출의 대다수를 차지하며 가속 컴퓨팅과 AI 수요가 크게 증가했습니다.\", \"default\"),\n    TextContent(\"NVIDIA는 GPU, CPU, DPU를 포함한 AI 서버용 프로세싱 유닛과 NVLink, 이더넷, 인피니밴드 등 고성능 데이터센터 네트워킹 솔루션을 제공합니다. 강력한 풀스택 소프트웨어와 결합된 전방위 가속 플랫폼 전략을 통해 AI 교육과 추론 작업에 집중하고 있습니다.\", \"default\"),\n    TextContent(\"또한, Rubin 플랫폼 출시로 대규모 장기 컨텍스트 워크플로우와 에이전트형 AI에 대한 지원을 준비하며, 제품 출시에는 다소 지연 및 공급망 관리 이슈를 경험하기도 했습니다.\", \"default\"),\n    TextContent(\"미국 정부 수출 제약 영향으로 인해 H20 제품군 관련 과잉 재고 및 구매 약정에 대해 $45억의 차감 충당금을 반영했으나, 일부 제품은 허가 하에 중국 시장에 소량 출하되었습니다.\", \"default\"),\n  ]),\n  SectionItem(\"revenue_concentration\", \"매출 집중도 및 고객\", [\n    TextContent(\"직접 고객 중 한 곳이 전체 매출의 22%, 또 다른 고객이 14%에 해당하며, 모두 Compute & Networking 세그먼트에서 발생했습니다. 이는 데이터센터 사업 수요가 핵심임을 시사합니다.\", \"default\"),\n    TextContent(\"간접 고객 매출의 상당 부분도 클라우드 서비스 제공자 및 AI 연구 업체에서 발생하여 데이터센터 인프라 수요 증가를 뒷받침하고 있습니다.\", \"default\"),\n  ]),\n  SectionItem(\"financials\", \"재무 사항 및 비용\", [\n    TextContent(\"데이터센터 사업 매출 증가는 NVIDIA 전체 매출 성장에 크게 기여했으며, 그 결과 FY2026 총매출은 $215.9B(약 266조원)로 전년 대비 65% 증가했습니다.\", \"default\"),\n    TextContent(\"총 이익률은 71.1%로 감소했는데, 이는 Blackwell 플랫폼 전환과 $45억 차감 충당금 영향 때문입니다. 연구 개발 비용도 43% 증가해 AI 및 컴퓨팅 인프라에 대한 투자가 확대되었음을 보여줍니다.\", \"default\"),\n  ])\n])\n\nsources = [\n  {\n    title: \"“Revenue growth in FY2026 was driven by data center compute and networking platforms for accelerated computing and AI solutions. Blackwell architectures represented the majority of Data Center revenue.”\",\n    sourceName: \"NVIDIA 10-K · Page 36\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=36\"\n  },\n  {\n    title: \"“Full-stack data center-scale compute and networking solutions across GPUs, CPUs, DPUs, interconnects, systems, and software are offered. Blackwell computing platform’s demand drove 59% Data Center Compute growth.”\",\n    sourceName: \"NVIDIA 10-K · Page 6\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6\"\n  },\n  {\n    title: \"“Direct customer sales concentration is high and mainly attributable to Compute & Networking segment. One customer accounted for 22% of total revenue in FY2026.”\",\n    sourceName: \"NVIDIA 10-K · Page 41\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=41\"\n  },\n  {\n    title: \"“Total gross margin decreased to 71.1% in FY2026 from 75% in FY2025 due to Blackwell transition and $4.5B charge for excess inventory. Research and development expenses increased 43% driven by compute infrastructure investments.”\",\n    sourceName: \"NVIDIA 10-K · Page 41\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=41\"\n  },\n  {\n    title: \"“$4.5 billion charge in Q1 FY2026 related to H20 excess inventory and purchase obligations following US export restrictions to China.”\",\n    sourceName: \"NVIDIA 10-K · Page 36\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=36\"\n  }\n]"
+  },
+  {
+    "scenario": "US-05",
+    "title": "기업 비교",
+    "thread_id": "18d3d40e-07b5-41f2-aec8-1d30f711c2fd",
+    "messages": 27,
+    "panels": 0,
+    "note": "NVIDIA/AMD/Intel 실적·사업·위험 비교. 기존 artifact 재표시 보완.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 0,
+        "clarification": "",
+        "source_read": "none",
+        "operations": [],
+        "instruction": "Display existing artifact 7c998a1d-d14f-417e-a0e2-284fa795c736 in chat only; no Canvas additions or edits requested.",
+        "targets": []
+      },
+      "completed": [],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([DashboardArtifact(\"7c998a1d-d14f-417e-a0e2-284fa795c736\")])"
+  },
+  {
+    "scenario": "US-06",
+    "title": "3년 추이",
+    "thread_id": "384d3ac0-19a1-4c7f-941c-8962745ad079",
+    "messages": 15,
+    "panels": 0,
+    "note": "NVIDIA FY2024~2026 추이와 성장률. 실제 원문 출처 포함.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 0,
+        "clarification": "",
+        "source_read": "none",
+        "operations": [],
+        "instruction": "Display existing artifact 3752e135-90fe-4cb8-83a0-7fd054b6e096 in chat only, without registering or modifying Canvas.",
+        "targets": []
+      },
+      "completed": [],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([DashboardArtifact(\"3752e135-90fe-4cb8-83a0-7fd054b6e096\")])"
+  },
+  {
+    "scenario": "US-07",
+    "title": "대화 속 차트와 입력",
+    "thread_id": "5885559f-4a46-4eda-8302-bdaab390e454",
+    "messages": 8,
+    "panels": 0,
+    "note": "실제 매출 초기값의 입력 계산기. 입력 변경 100% 반영 후 원복.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 0,
+        "clarification": "",
+        "source_read": "none",
+        "operations": [],
+        "instruction": "사용자가 요청한 매출 차트와 입력 계산기를 대화에 표시, Canvas 변경 또는 아티팩트 등록 금지. BarChart와 VStack 구성, 초기값 및 출처 명시.",
+        "targets": []
+      },
+      "completed": [],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "$current = 215938\n$prior = 130497\n\nroot = Card([\n  BarChart([\"FY2024\", \"FY2025\", \"FY2026\"], [Series(\"매출(백만 USD)\", [60922, 130497, 215938])]),\n  VStack([\n    IuiInput($current, \"현재 매출\", \"number\"),\n    IuiInput($prior, \"전년 매출\", \"number\"),\n    IuiText(@YearOverYear($current, $prior)),\n    TextContent(\"입력 변경은 가정 계산입니다.\")\n  ])\n], [\n  {\"title\": \"NVIDIA Annual Report, fiscal 2025 (includes 10-K) · 130페이지\", \"sourceName\": \"NVIDIA 2025 · Pg 130\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"},\n  {\"title\": \"NVIDIA 10-K, fiscal 2026 · 37페이지\", \"sourceName\": \"NVIDIA 2026 · Pg 37\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37\"}\n])"
+  },
+  {
+    "scenario": "US-08",
+    "title": "채팅 차트를 Canvas로",
+    "thread_id": "66258d9f-df2f-4e6c-81f6-6efb44ef8507",
+    "messages": 22,
+    "panels": 1,
+    "note": "대화 차트를 Canvas로 추가, 최종 패널 1개.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 1,
+        "clarification": "",
+        "source_read": "none",
+        "operations": [
+          "add"
+        ],
+        "instruction": "Add the NVIDIA FY2024 to FY2026 Revenue Trend (With Verification Note) chart panel to the main tab in the Canvas.",
+        "targets": []
+      },
+      "completed": [
+        [
+          "add",
+          "c4ccf129-3a01-429e-b661-dc1dd2733a68"
+        ]
+      ],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([Callout(\"success\", \"Canvas 업데이트 완료\", \"NVIDIA FY2024 to FY2026 Revenue Trend 차트를 메인 탭에 추가했습니다.\")])"
+  },
+  {
+    "scenario": "US-09",
+    "title": "선택 패널 후속 질문",
+    "thread_id": "9687bfca-2d78-4e28-947f-61330160bef6",
+    "messages": 17,
+    "panels": 1,
+    "note": "선택 패널의 최고 성장 연도 후속 질문, 패널 유지.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 0,
+        "clarification": "",
+        "source_read": "original",
+        "operations": [],
+        "instruction": "Provide explanation of the year with the highest year-over-year revenue growth for NVIDIA and its reason from original source for the user, without changing the existing NVIDIA 매출 panel or its layout.",
+        "targets": []
+      },
+      "completed": [],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([\n  CardHeader(\"NVIDIA 전년 대비 매출 성장률 최고 연도 및 이유\", \"출처: NVIDIA Annual Report, fiscal 2025 PDF 130쪽\"),\n  TextContent(\"NVIDIA의 전년 대비 매출 성장률이 가장 높았던 해는 FY2025로, 매출이 114% 증가한 해입니다. (FY2024: $60.9 billion → FY2025: $130.5 billion)\", \"default\"),\n  TextContent(\"그 이유는 Data Center 매출이 142% 증가했기 때문인데, 이는 대용량 언어 모델, 추천 엔진, 생성 AI 애플리케이션에 사용되는 Hopper 아키텍처 가속 컴퓨팅 플랫폼에 대한 수요 증가에서 비롯되었습니다. 또한 FY2025 4분기에 Blackwell 아키텍처 기반 생산 시스템 출하가 시작된 점도 긍정적 영향을 미쳤습니다.\", \"default\"),\n  TextContent(\"Gaming, Professional Visualization, Automotive 부문 매출도 각각 9%, 21%, 55% 증가하며 총 성장에 기여했습니다.\", \"default\"),\n  TextContent(\"원문 발췌: \\\"Revenue for fiscal year 2025 was $130.5 billion, up 114% from a year ago. Data Center revenue for fiscal year 2025 was up 142% from a year ago. The strong year-on-year growth was driven by demand for our Hopper architecture accelerated computing platform... We began shipping production systems of the Blackwell architecture in the fourth quarter of fiscal year 2025.\\\"\", \"small-heavy\")\n])"
+  },
+  {
+    "scenario": "US-10",
+    "title": "기간 확대와 제외",
+    "thread_id": "cc3b5b4a-f4bf-4655-841a-fdd5457a17b7",
+    "messages": 51,
+    "panels": 1,
+    "note": "2년→3년→FY2025 제외. 같은 ID·배치 유지. 제외 의도 명시 후 근거 검사 통과.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 0,
+        "clarification": "",
+        "source_read": "none",
+        "operations": [
+          "update"
+        ],
+        "instruction": "Update the existing NVIDIA 매출 panel (ID 5b0e6387-d287-466c-9e8b-d5562123d3c0) to show only FY2024 and FY2026 revenue values, exclude FY2025, remove YoY growth display due to non-continuous years, and explicitly add a note in chart title and description about exclusion by user request. Keep the panel ID, layout, and sources unchanged.",
+        "targets": [
+          {
+            "operation": "update",
+            "target_id": "5b0e6387-d287-466c-9e8b-d5562123d3c0"
+          }
+        ]
+      },
+      "completed": [
+        [
+          "update",
+          "5b0e6387-d287-466c-9e8b-d5562123d3c0"
+        ]
+      ],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([Callout(\"info\", \"FY2025 제외\", \"이 차트는 사용자 요청에 따라 FY2025를 제외하고 FY2024와 FY2026만 표시합니다. 비연속 구간의 전년 대비 성장률은 표시하지 않습니다.\")], [])"
+  },
+  {
+    "scenario": "US-11",
+    "title": "패널 배치",
+    "thread_id": "afd6c000-21dd-4b6d-a3a4-eb10b75a9a4a",
+    "messages": 23,
+    "panels": 2,
+    "note": "매출 14열/사업 요약 10열 좌우 배치.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 0,
+        "clarification": "",
+        "source_read": "none",
+        "operations": [
+          "layout"
+        ],
+        "instruction": "Change layout of NVIDIA 매출 panel to left top with width 14 and height 12, and 사업 요약 panel to right with width 10 and height 12, keeping existing content and sources.",
+        "targets": [
+          {
+            "operation": "layout",
+            "target_id": "d72a6735-6e8f-4a4a-bdba-8aa607dfcf75"
+          },
+          {
+            "operation": "layout",
+            "target_id": "e6dfc8bf-eaf1-454d-b9c2-24fd60543f13"
+          }
+        ]
+      },
+      "completed": [
+        [
+          "layout",
+          ""
+        ],
+        [
+          "layout",
+          "d72a6735-6e8f-4a4a-bdba-8aa607dfcf75"
+        ],
+        [
+          "layout",
+          "e6dfc8bf-eaf1-454d-b9c2-24fd60543f13"
+        ]
+      ],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([Callout(\"success\", \"패널 배치 조정 완료\", \"NVIDIA 매출 패널을 왼쪽 위로 너비 14, 높이 12로, 사업 요약 패널을 오른쪽으로 너비 10, 높이 12로 배치했습니다. 기존 내용과 출처는 유지되어 있습니다.\")])"
+  },
+  {
+    "scenario": "US-12",
+    "title": "고정과 포커스",
+    "thread_id": "5d775bd8-e745-48f1-b83c-16271b676278",
+    "messages": 27,
+    "panels": 1,
+    "note": "고정 후 실제 이동 버튼 클릭, 선택 ID 확인.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 0,
+        "clarification": "",
+        "source_read": "none",
+        "operations": [
+          "pin",
+          "select"
+        ],
+        "instruction": "핀된 상태를 유지하며 'NVIDIA 매출' 패널로 이동합니다.",
+        "targets": [
+          {
+            "operation": "pin",
+            "target_id": "06614960-164e-4f98-9b2d-e5ed246d1eae"
+          },
+          {
+            "operation": "select",
+            "target_id": "06614960-164e-4f98-9b2d-e5ed246d1eae"
+          }
+        ]
+      },
+      "completed": [
+        [
+          "pin",
+          "06614960-164e-4f98-9b2d-e5ed246d1eae"
+        ],
+        [
+          "select",
+          ""
+        ],
+        [
+          "select",
+          "06614960-164e-4f98-9b2d-e5ed246d1eae"
+        ]
+      ],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([Buttons([Button(\"NVIDIA 매출 패널로 이동\", @ToAssistant(\"NVIDIA 매출 패널로 이동\"))])])"
+  },
+  {
+    "scenario": "US-13",
+    "title": "패널 삭제",
+    "thread_id": "99021697-ddaa-4c99-828a-98ff832fe287",
+    "messages": 44,
+    "panels": 1,
+    "note": "위험 패널만 삭제, 매출 패널·대화·보고서 유지.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 0,
+        "clarification": "",
+        "source_read": "none",
+        "operations": [
+          "remove"
+        ],
+        "instruction": "Remove the '위험 요인' panel as requested, keep NVIDIA 매출 panel and other contents.",
+        "targets": [
+          {
+            "operation": "remove",
+            "target_id": "e96af53f-26b3-4367-9d07-cbcb9519ec08"
+          }
+        ]
+      },
+      "completed": [
+        [
+          "remove",
+          ""
+        ],
+        [
+          "remove",
+          "e96af53f-26b3-4367-9d07-cbcb9519ec08"
+        ]
+      ],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([DashboardArtifact(\"957c9182-6bab-4963-9e2b-79c495526d93\")])"
+  },
+  {
+    "scenario": "US-14",
+    "title": "전체 다운로드",
+    "thread_id": "e67fca90-bca4-4488-b9e2-4fbc146908d9",
+    "messages": 22,
+    "panels": 1,
+    "note": "실제 패널 JSON/CSV/PDF 다운로드 확인.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 0,
+        "clarification": "",
+        "source_read": "none",
+        "operations": [],
+        "instruction": "Explain in conversation the format and usage of JSON, CSV, and PDF downloads for the NVIDIA 매출 panel on Overview tab, without initiating downloads or making Canvas changes.",
+        "targets": []
+      },
+      "completed": [],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([TextContent(\"Overview 탭의 NVIDIA 매출 패널은 다음 3가지 형식으로 내보내기를 지원합니다.\\n\\n• JSON: Canvas 배치, 패널 구성, 출처 정보를 완벽하게 복원할 수 있는 구조화된 파일입니다. 분석과 재사용, 재구성을 위해 유용합니다.\\n\\n• CSV: 차트와 표의 핵심 수치 데이터를 추출하는 용도로 적합합니다. Excel 등 데이터 처리 도구에서 바로 활용할 수 있습니다.\\n\\n• PDF: 인간이 읽고 공유하기 쉬운 문서 형식이며, 현재의 화면 레이아웃과 시각 표시를 그대로 보존합니다.\\n\\n브라우저 기본 다운로드 컨트롤로 직접 저장·검증하는 방식을 권장합니다.\")])"
+  },
+  {
+    "scenario": "US-15",
+    "title": "이전 분석 이어가기",
+    "thread_id": "97c17199-a06f-4b08-af99-3082a5750a75",
+    "messages": 46,
+    "panels": 1,
+    "note": "패널 생성 보완 후 대화 재선택·새로고침에서 복원 확인.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 1,
+        "clarification": "",
+        "source_read": "none",
+        "operations": [
+          "add"
+        ],
+        "instruction": "Add a Canvas panel titled 'NVIDIA 매출' showing a BarChart for FY2025 and FY2026 revenues using 130497M and 215938M USD respectively, with sources from NVIDIA PDF page 37 and nvidia-2025 PDF page 130, publish to the main tab.",
+        "targets": []
+      },
+      "completed": [
+        [
+          "add",
+          "9b42ed40-2f30-42dd-974e-46c60fff43cf"
+        ]
+      ],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([\n  TextContent(\"NVIDIA 매출 Canvas 패널이 성공적으로 저장되었습니다. FY2025 매출 130,497백만 USD, FY2026 매출 215,938백만 USD를 바탕으로 작성되었습니다.\")\n])"
+  },
+  {
+    "scenario": "US-16",
+    "title": "자료 부족과 회복",
+    "thread_id": "91765b16-e509-4a7c-a35a-b92e5186bf39",
+    "messages": 50,
+    "panels": 0,
+    "note": "자료 부족 요청→확보된 두 해로 범위 변경. 기존 비교 artifact 재표시 보완.",
+    "diagnostic": {
+      "plan": {
+        "remove_tab_contents_confirmed": false,
+        "minimum_new_panels": 0,
+        "clarification": "",
+        "source_read": "none",
+        "operations": [],
+        "instruction": "Show the existing artifact 886923fb-b7de-47f9-abd3-ecc8d6e55a64 in chat as read-only without adding, updating or selecting any Canvas panel.",
+        "targets": []
+      },
+      "completed": [],
+      "missing": [],
+      "status": "finished"
+    },
+    "last_answer": "root = Card([DashboardArtifact(\"886923fb-b7de-47f9-abd3-ecc8d6e55a64\")])"
+  }
+]

@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("삭제할 메모가 있는 임시 분석 탭을 삭제하려고 해. 패널까지 삭제하는 것은 아직 승인하지 않았어. 포함된 패널 수를 확인하고 먼저 질문해줘."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

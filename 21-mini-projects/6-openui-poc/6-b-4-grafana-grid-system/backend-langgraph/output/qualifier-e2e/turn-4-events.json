@@ -1,0 +1,540 @@
+[
+  {
+    "type": "RUN_STARTED",
+    "threadId": "c763a580-e535-4570-a4a9-90c06f27d750",
+    "runId": "54db3e3d-5bba-4457-8f7a-dad75db25731"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 1,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "2cd6608a-22fd-4aaf-bf60-fdc95e1aa55d",
+            "title": "NVIDIA 분기 매출",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([CardHeader(\"NVIDIA 분기 매출\", \"회계연도 및 실제 분기 종료일 포함\"), BarChart([\"FY2026 Q2: 2025-07-27\", \"FY2027 Q2: 2026-07-26\"], [Series(\"매출 (백만 USD)\", [46743, 96221])], \"grouped\", \"분기 종료일\", \"백만 USD\")], null)",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "Condensed Consolidated Statements of Income, 3개월 매출 (백만 USD): FY2027 Q2 96,221, FY2026 Q2 46,743",
+                "sourceName": "NVIDIA · Page 3",
+                "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+              }
+            ]
+          }
+        ],
+        "artifacts": [],
+        "selected_panel_id": "2cd6608a-22fd-4aaf-bf60-fdc95e1aa55d",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "root"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " ="
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " Card"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "([\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " Text"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "Content"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "N"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "VIDIA"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "10"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "-Q"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "7"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "년"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "2"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "분"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "기"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 위험"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 요"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "인"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 섹"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "션"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "은"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "6"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "년"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "1"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "월"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "25"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "일"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 회"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "계"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "연"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "도"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 종료"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "와"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "6"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "년"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "4"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "월"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "26"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "일"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 분"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "기"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "보고"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "서"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "에"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 기술"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "된"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 위험"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 요"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "인"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "들과"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 비교"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "하여"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 실"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "질"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "적인"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 변경"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "이"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 없"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "음을"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 명"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "확"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "히"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 하고"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " 있습니다"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": ".\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "default"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "\")\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2",
+    "delta": "])"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "lc_run--01a17142-1f0c-75c0-8b6d-09fc66da72e2"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 1,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "2cd6608a-22fd-4aaf-bf60-fdc95e1aa55d",
+            "title": "NVIDIA 분기 매출",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([CardHeader(\"NVIDIA 분기 매출\", \"회계연도 및 실제 분기 종료일 포함\"), BarChart([\"FY2026 Q2: 2025-07-27\", \"FY2027 Q2: 2026-07-26\"], [Series(\"매출 (백만 USD)\", [46743, 96221])], \"grouped\", \"분기 종료일\", \"백만 USD\")], null)",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "Condensed Consolidated Statements of Income, 3개월 매출 (백만 USD): FY2027 Q2 96,221, FY2026 Q2 46,743",
+                "sourceName": "NVIDIA · Page 3",
+                "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+              }
+            ]
+          }
+        ],
+        "artifacts": [],
+        "selected_panel_id": "2cd6608a-22fd-4aaf-bf60-fdc95e1aa55d",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "RUN_FINISHED",
+    "threadId": "c763a580-e535-4570-a4a9-90c06f27d750",
+    "runId": "54db3e3d-5bba-4457-8f7a-dad75db25731"
+  }
+]

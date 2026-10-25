@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("데이터센터 매출도 비교 표에 추가해줘. NVIDIA는 Revenue by End Market 표를 다른 검색어로 찾아 원문을 확인해줘. 보고 부문 Compute & Networking과 최종시장 Data Center는 구분해야 해. AMD도 데이터센터 매출 원문을 확인해줘. 방금 만든 원문 확인 총매출 비교 패널만 갱신하고 기존 반도체 비교 요약 패널은 유지해줘."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

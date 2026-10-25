@@ -1,0 +1,39 @@
+{
+  "scenario": "US-01",
+  "title": "보고서 찾기와 수집 상태",
+  "thread_id": "d21faccc-ff6a-4078-9e18-8e10b5748f66",
+  "turns": [
+    {
+      "number": 1,
+      "question": "NVIDIA CIK 1045810의 최근 10-K 보고서 수집을 한 번 요청해줘. SEC가 거절하면 반복 요청하지 말고 실제 HTTP 상태와 확보 여부를 알려줘. 이미 준비된 로컬 PDF는 신규 SEC 수집과 구분해서 목록을 알려줘.",
+      "finished": true,
+      "errors": [],
+      "panels": 0,
+      "diagnostics": {
+        "plan": {
+          "remove_tab_contents_confirmed": false,
+          "minimum_new_panels": 1,
+          "clarification": "",
+          "source_read": "none",
+          "operations": [
+            "artifact_publish",
+            "add"
+          ],
+          "instruction": "Publish a reusable chat artifact with information about the status of the data collection request for NVIDIA CIK 1045810's recent 10-K SEC filings, including whether the HTTP retrieval succeeded or failed and whether local PDFs are available.",
+          "targets": []
+        },
+        "completed": [
+          [
+            "artifact_publish",
+            "0e964015-2f44-4487-9ca4-bbb7a6ffe7f9"
+          ]
+        ],
+        "missing": [
+          "add",
+          "add 1 more distinct new panels; do not recreate successful ones"
+        ],
+        "status": "finished"
+      }
+    }
+  ]
+}

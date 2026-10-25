@@ -1,0 +1,62 @@
+[
+  {
+    "plan": {
+      "remove_tab_contents_confirmed": true,
+      "minimum_new_panels": 0,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "tab_remove"
+      ],
+      "instruction": "Delete the '새 작업' tab and its containing '다음 질문' panel, keeping the 'Overview' tab and contents intact.",
+      "targets": [
+        {
+          "operation": "tab_remove",
+          "target_id": "09ab1d61-bce1-4345-9e04-25e10ec53551"
+        }
+      ]
+    },
+    "completed": [
+      [
+        "remove",
+        "52c1eeb4-0ff1-460a-bfc1-28bb507fde82"
+      ],
+      [
+        "tab_remove",
+        ""
+      ],
+      [
+        "tab_remove",
+        "09ab1d61-bce1-4345-9e04-25e10ec53551"
+      ]
+    ],
+    "missing": [],
+    "status": "finished"
+  },
+  {
+    "plan": {
+      "remove_tab_contents_confirmed": false,
+      "minimum_new_panels": 1,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "tab_add",
+        "add"
+      ],
+      "instruction": "Add a new tab '새 작업' with a text memo panel titled '다음 질문'.",
+      "targets": []
+    },
+    "completed": [
+      [
+        "add",
+        "52c1eeb4-0ff1-460a-bfc1-28bb507fde82"
+      ],
+      [
+        "tab_add",
+        ""
+      ]
+    ],
+    "missing": [],
+    "status": "finished"
+  }
+]

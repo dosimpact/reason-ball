@@ -1,0 +1,13 @@
+### Ran Playwright code
+```js
+await (async page => { const source=page.getByRole("button",{name:"NVIDIA 매출 증가 및 매출총이익률 변화 요약 (36-37페이지) Canvas로 드래그",exact:true}); await source.scrollIntoViewIfNeeded(); const b=await source.boundingBox(); const grid=await page.locator(".react-grid-layout").boundingBox(); if(!b||!grid||grid.width<600) throw Error("Missing wide grid"); const x=grid.x+(grid.width+12)/24*4+5, y=grid.y+40*3+5; const url="http://127.0.0.1:3049/api/dashboard/state/c1422a2c-930b-4a2e-af67-d0b3a3e55bb1"; const saved=page.waitForResponse(r=>r.url()===url&&r.request().method()==="POST"); await page.mouse.move(b.x+b.width/2,b.y+b.height/2); await page.mouse.down(); await page.mouse.move(b.x+10,b.y+10,{steps:4}); await page.mouse.move(x,y,{steps:20}); await page.mouse.up(); if(!(await saved).ok()) throw Error("Drop failed"); const s=await (await page.request.get(url)).json(); const p=s.panels.find(p=>p.source_artifact_id==="d24abbbf-1cba-442b-9ccf-a504e7cee2f0"); if(!p||p.layout.x!==4||p.layout.y!==3) throw Error("Wrong drop position: "+JSON.stringify(p?.layout)); await page.reload(); await page.locator("[data-panel-id=\""+p.id+"\"]").waitFor(); const pb=await page.locator("[data-panel-id=\""+p.id+"\"]").boundingBox(); const gb=await page.locator(".react-grid-layout").boundingBox(); if(Math.abs(pb.y-gb.y-120)>2) throw Error("Display lost saved gap"); await page.screenshot({path:"output/playwright/artifact-grid-drop.png"}); })(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+### Events
+- New console entries: .playwright-cli/console-2026-10-24T18-29-21-791Z.log#L258-L261

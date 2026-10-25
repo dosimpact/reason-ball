@@ -1,0 +1,13 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("tab",{name:"입력 검증",exact:true}).click(); const url="http://127.0.0.1:3049/api/dashboard/state/063437c5-a7e0-42f9-a240-44d1c0ee5b42"; const before=await (await page.request.get(url)).json(); const sb=await page.getByRole("button",{name:"가정 성장률 이동",exact:true}).boundingBox(),tb=await page.getByRole("button",{name:"입력 계산기 이동",exact:true}).boundingBox(); const saved=page.waitForResponse(r=>r.url()===url&&r.request().method()==="POST"); await page.mouse.move(sb.x+10,sb.y+10); await page.mouse.down(); await page.mouse.move(tb.x+10,tb.y+10,{steps:20}); await page.mouse.up(); if(!(await saved).ok()) throw Error("Save failed"); const after=await (await page.request.get(url)).json(); const strip=o=>{const {layout,...content}=o;return content;}; for(const p of after.panels){ const old=before.panels.find(o=>o.id===p.id); if(JSON.stringify(strip(p))!==JSON.stringify(strip(old))) throw Error("Content changed"); } const [a,b]=after.panels.map(p=>p.layout); if(a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y) throw Error("Overlap"); await page.reload(); await page.getByRole("button",{name:"가정 성장률 이동",exact:true}).waitFor(); const boxes=await page.locator(".dashboard-panel").evaluateAll(ns=>ns.map(n=>{const b=n.getBoundingClientRect();return {x:b.x,y:b.y,w:b.width,h:b.height};}));const [c,d]=boxes;if(c.x<d.x+d.w&&c.x+c.w>d.x&&c.y<d.y+d.h&&c.y+c.h>d.y) throw Error("Rendered overlap"); await page.screenshot({path:"output/playwright/grid-collision.png"}); })(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+### Events
+- New console entries: .playwright-cli/console-2026-10-24T18-29-21-791Z.log#L262-L267

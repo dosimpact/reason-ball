@@ -1,0 +1,455 @@
+.atlas-venue-map {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  overflow: hidden;
+  background: var(--orot-surface-muted);
+}
+.atlas-map-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.atlas-map-canvas.leaflet-container {
+  font-family: inherit;
+  background: var(--orot-surface-muted);
+}
+.atlas-marker-shell {
+  background: transparent;
+  border: 0;
+}
+.atlas-price-marker {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  width: 160px;
+  height: 54px;
+  padding: 9px 10px;
+  background: var(--orot-surface);
+  color: var(--orot-text);
+  border: 1px solid var(--orot-border);
+  border-radius: 8px;
+  box-shadow: 0 3px 12px color-mix(in srgb, var(--orot-ink) 12.55%, transparent);
+  letter-spacing: -0.3px;
+  transition:
+    transform 0.18s,
+    background 0.18s;
+  position: relative;
+}
+.atlas-marker-name {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 650;
+}
+.atlas-marker-price {
+  display: block;
+  font-size: 10px;
+  line-height: 13px;
+  font-weight: 400;
+  color: var(--orot-muted);
+  white-space: nowrap;
+}
+.atlas-price-marker-selected .atlas-marker-price {
+  color: var(--orot-border);
+}
+.atlas-price-marker-planning:not(.atlas-price-marker-selected)
+  .atlas-marker-price {
+  color: var(--orot-muted);
+}
+.atlas-marker-tooltip-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 260px;
+}
+.atlas-marker-tooltip-content .atlas-marker-name {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  word-break: keep-all;
+}
+.atlas-price-marker:after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: calc(50% - 4px);
+  height: 8px;
+  width: 8px;
+  transform: rotate(45deg);
+  background: inherit;
+  border-right: inherit;
+  border-bottom: inherit;
+}
+.atlas-price-marker:hover {
+  transform: translateY(-3px);
+}
+.atlas-price-marker-selected {
+  background: var(--orot-text);
+  color: var(--orot-surface);
+  border-color: var(--orot-text);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--orot-ink) 27.06%, transparent);
+  transform: translateY(-3px);
+}
+.atlas-price-marker-planning:not(.atlas-price-marker-selected) {
+  color: var(--orot-warning);
+  border-color: var(--orot-primary-border);
+}
+.atlas-region-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  min-width: 102px;
+  max-width: 145px;
+  height: 36px;
+  padding: 0 13px;
+  border: 1px dashed var(--orot-primary-muted);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--orot-canvas) 87.45%, transparent);
+  box-shadow: 0 3px 12px color-mix(in srgb, var(--orot-ink) 7.06%, transparent);
+  color: var(--orot-text);
+  font-size: 11px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.atlas-map-caption {
+  position: absolute;
+  left: 24px;
+  top: 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 400;
+  padding: 9px 13px;
+  border: 1px solid color-mix(in srgb, var(--orot-white) 70.2%, transparent);
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--orot-surface) 90.98%, transparent);
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--orot-text) 3.14%, transparent);
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  color: var(--orot-text);
+  pointer-events: none;
+}
+.atlas-map-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orot-muted);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--orot-muted) 9.41%, transparent);
+}
+.atlas-map-tools {
+  position: absolute;
+  right: 22px;
+  top: 23px;
+  display: flex;
+  flex-direction: column;
+  z-index: 400;
+  background: var(--orot-surface);
+  border: 1px solid var(--orot-border);
+  border-radius: 7px;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--orot-ink) 6.27%, transparent);
+  overflow: hidden;
+}
+.atlas-map-tools button {
+  display: grid;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  background: transparent;
+  color: var(--orot-text);
+  border: 0;
+  cursor: pointer;
+}
+.atlas-map-tools button + button {
+  border-top: 1px solid var(--orot-surface-muted);
+}
+.atlas-map-tools button:hover {
+  background: var(--orot-surface-muted);
+}
+.atlas-map-tools button:focus-visible {
+  outline: 2px solid var(--orot-text);
+  outline-offset: -3px;
+}
+.atlas-map-legend {
+  position: absolute;
+  left: 22px;
+  bottom: 28px;
+  z-index: 400;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 10px 12px;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--orot-surface) 90.98%, transparent);
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--orot-text) 3.14%, transparent);
+  color: var(--orot-muted);
+  font-size: 10px;
+  pointer-events: none;
+}
+.atlas-map-legend span {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.atlas-legend-price {
+  width: 9px;
+  height: 9px;
+  background: var(--orot-text);
+  border: 1px solid var(--orot-text);
+  border-radius: 2px;
+}
+.atlas-legend-region {
+  width: 10px;
+  height: 10px;
+  border: 1px dashed var(--orot-muted);
+  border-radius: 50%;
+}
+.atlas-map-external {
+  position: absolute;
+  z-index: 400;
+  right: 22px;
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 9px 10px;
+  background: color-mix(in srgb, var(--orot-surface) 90.98%, transparent);
+  color: var(--orot-text);
+  font-size: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--orot-border);
+  text-decoration: none;
+}
+.atlas-map-external:hover {
+  background: var(--orot-white);
+}
+.atlas-map-network-note {
+  position: absolute;
+  top: 78px;
+  left: 22px;
+  right: 22px;
+  z-index: 400;
+  max-width: 340px;
+  background: color-mix(in srgb, var(--orot-canvas) 93.33%, transparent);
+  color: var(--orot-muted);
+  border: 1px solid var(--orot-border);
+  border-radius: 5px;
+  padding: 10px 12px;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.atlas-map-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--orot-muted);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  background:
+    radial-gradient(circle at 30% 40%, var(--orot-border), transparent 60%),
+    var(--orot-surface-muted);
+  z-index: 1;
+}
+.atlas-map-tooltip {
+  font-family: inherit;
+  font-size: 11px;
+  color: var(--orot-text);
+  border: 1px solid var(--orot-border);
+  background: var(--orot-surface);
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--orot-ink) 6.27%, transparent);
+  border-radius: 5px;
+  padding: 7px 10px;
+}
+.atlas-map-canvas .leaflet-control-attribution {
+  font-size: 8px;
+  background: color-mix(in srgb, var(--orot-surface) 85.1%, transparent);
+  color: var(--orot-muted);
+  max-width: 100%;
+}
+.atlas-map-canvas .leaflet-control-attribution a {
+  color: var(--orot-muted);
+}
+.atlas-region-popup strong {
+  color: var(--orot-text);
+  font-size: 13px;
+}
+.atlas-region-popup p {
+  font-size: 11px;
+  color: var(--orot-muted);
+  line-height: 1.6;
+  margin: 8px 0;
+}
+.atlas-region-popup button {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  border: 0;
+  border-top: 1px solid var(--orot-surface-muted);
+  background: none;
+  text-align: left;
+  color: var(--orot-text);
+  font-size: 11px;
+  cursor: pointer;
+}
+.atlas-region-popup button:hover {
+  color: var(--orot-warning);
+}
+.atlas-map-canvas .leaflet-popup-content-wrapper {
+  border-radius: 10px;
+  background: var(--orot-surface);
+}
+.atlas-map-canvas .leaflet-popup-tip {
+  background: var(--orot-surface);
+}
+@media (max-width: 760px) {
+  .atlas-map-caption {
+    left: 14px;
+    top: 14px;
+    font-size: 10px;
+    max-width: calc(100% - 80px);
+  }
+  .atlas-map-tools {
+    right: 13px;
+    top: 14px;
+  }
+  .atlas-map-legend {
+    left: 12px;
+    bottom: 25px;
+    font-size: 9px;
+    max-width: calc(100% - 24px);
+  }
+  .atlas-map-external {
+    right: 12px;
+    bottom: 99px;
+    font-size: 9px;
+  }
+  .atlas-map-tools button {
+    width: 35px;
+    height: 35px;
+  }
+  .atlas-price-marker {
+    padding: 9px 10px;
+  }
+}
+
+.atlas-location-dot {
+  display: block;
+  width: 13px;
+  height: 13px;
+  background: var(--orot-muted);
+  border: 2px solid var(--orot-surface);
+  border-radius: 50%;
+  box-shadow: 0 1px 7px color-mix(in srgb, var(--orot-ink) 23.92%, transparent);
+  transition: transform 0.15s;
+}
+.atlas-location-dot:hover {
+  transform: scale(1.5);
+  background: var(--orot-text);
+}
+
+.atlas-marker-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+.atlas-marker-district {
+  flex-shrink: 0;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--orot-surface-muted);
+  color: var(--orot-text);
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 13px;
+  white-space: nowrap;
+}
+.atlas-price-marker-selected .atlas-marker-district {
+  background: color-mix(in srgb, var(--orot-white) 14.12%, transparent);
+  color: var(--orot-canvas);
+}
+
+/* Map UI follows the same semantic palette as the rest of the app. */
+.atlas-price-marker,
+.atlas-price-marker-planning:not(.atlas-price-marker-selected) {
+  background: var(--orot-surface);
+  color: var(--orot-primary-text);
+  border-color: var(--orot-primary-border);
+}
+.atlas-marker-price,
+.atlas-price-marker-planning:not(.atlas-price-marker-selected)
+  .atlas-marker-price {
+  color: var(--orot-muted);
+}
+.atlas-price-marker:hover {
+  border-color: var(--orot-primary);
+}
+.atlas-price-marker-selected {
+  background: var(--orot-primary);
+  border-color: var(--orot-primary);
+  color: var(--primary-foreground);
+}
+.atlas-price-marker-selected .atlas-marker-price {
+  color: var(--primary-foreground);
+}
+.atlas-marker-district {
+  background: var(--orot-primary-soft);
+  color: var(--orot-primary-text);
+}
+.atlas-price-marker-selected .atlas-marker-district {
+  background: color-mix(in srgb, var(--orot-white) 18%, transparent);
+  color: var(--primary-foreground);
+}
+.atlas-region-marker {
+  background: var(--orot-primary-soft);
+  border-color: var(--orot-primary-muted);
+  color: var(--orot-primary-text);
+}
+.atlas-location-dot,
+.atlas-map-live-dot,
+.atlas-legend-price {
+  background: var(--orot-primary);
+}
+.atlas-location-dot:hover {
+  background: var(--orot-primary-hover);
+}
+.atlas-legend-price,
+.atlas-legend-region {
+  border-color: var(--orot-primary);
+}
+.atlas-map-tools button,
+.atlas-map-external,
+.atlas-region-popup strong,
+.atlas-region-popup button,
+.atlas-map-tooltip {
+  color: var(--orot-primary-text);
+}
+.atlas-map-tools button:hover {
+  background: var(--orot-primary-soft);
+}
+.atlas-map-tools button:focus-visible {
+  outline-color: var(--orot-primary-text);
+}
+.atlas-map-legend,
+.atlas-region-popup p {
+  color: var(--orot-muted);
+}
+.atlas-map-network-note {
+  background: var(--orot-warning-soft);
+  color: var(--orot-warning);
+  border-color: var(--orot-warning);
+}

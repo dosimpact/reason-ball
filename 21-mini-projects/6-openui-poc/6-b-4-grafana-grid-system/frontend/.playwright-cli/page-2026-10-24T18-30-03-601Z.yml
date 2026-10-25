@@ -1,0 +1,245 @@
+- generic [active] [ref=f3e1]:
+  - button "Open Next.js Dev Tools" [ref=f3e65] [cursor=pointer]
+  - alert [ref=f3e69]
+  - generic:
+    - button "Open OpenUI Inspect" [ref=f3e311] [cursor=pointer]
+    - option "LLM-like" [selected]
+    - option "24 chars"
+    - option "Per line"
+    - option "Per char"
+    - option "0.25×"
+    - option "0.5×"
+    - option "1×" [selected]
+    - option "2×"
+    - option "4×"
+    - option "8×"
+  - generic [ref=f3e327]:
+    - banner [ref=f3e328]:
+      - button "대화 목록 토글" [ref=f3e329] [cursor=pointer]: ☰
+      - generic [ref=f3e330]: ◈
+      - strong [ref=f3e331]: Filing Studio
+      - generic [ref=f3e332]: SEC research, in conversation
+      - link "사용 안내 ↗" [ref=f3e333] [cursor=pointer]:
+        - /url: /onboarding
+      - link "UI 갤러리" [ref=f3e334] [cursor=pointer]:
+        - /url: /gallery
+      - button "테마 전환" [ref=f3e335] [cursor=pointer]: ☀
+    - generic [ref=f3e336]:
+      - complementary [ref=f3e337]:
+        - button "＋ 새 분석" [ref=f3e338] [cursor=pointer]
+        - generic [ref=f3e339]: RESEARCH HISTORY
+        - navigation "대화 목록" [ref=f3e340]:
+          - generic [ref=f3e341]:
+            - button "이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로" [ref=f3e342] [cursor=pointer]
+            - button "이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로 이름 변경" [ref=f3e343] [cursor=pointer]: ⋯
+            - button "이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로 대화 삭제" [ref=f3e344] [cursor=pointer]: ×
+          - generic [ref=f3e345]:
+            - button "반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘." [ref=f3e346] [cursor=pointer]
+            - button "반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘. 이름 변경" [ref=f3e347] [cursor=pointer]: ⋯
+            - button "반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘. 대화 삭제" [ref=f3e348] [cursor=pointer]: ×
+          - generic [ref=f3e349]:
+            - button "리액트 코드 하나 만들어봐" [ref=f3e350] [cursor=pointer]
+            - button "리액트 코드 하나 만들어봐 이름 변경" [ref=f3e351] [cursor=pointer]: ⋯
+            - button "리액트 코드 하나 만들어봐 대화 삭제" [ref=f3e352] [cursor=pointer]: ×
+          - generic [ref=f3e353]:
+            - button "너는 무엇을 할 수 있니?" [ref=f3e354] [cursor=pointer]
+            - button "너는 무엇을 할 수 있니? 이름 변경" [ref=f3e355] [cursor=pointer]: ⋯
+            - button "너는 무엇을 할 수 있니? 대화 삭제" [ref=f3e356] [cursor=pointer]: ×
+          - generic [ref=f3e357]:
+            - button "Break down each company's revenue by reportable segment for the latest fiscal year." [ref=f3e358] [cursor=pointer]
+            - button "Break down each company's revenue by reportable segment for the latest fiscal year. 이름 변경" [ref=f3e359] [cursor=pointer]: ⋯
+            - button "Break down each company's revenue by reportable segment for the latest fiscal year. 대화 삭제" [ref=f3e360] [cursor=pointer]: ×
+          - generic [ref=f3e361]:
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel." [ref=f3e362] [cursor=pointer]
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 이름 변경" [ref=f3e363] [cursor=pointer]: ⋯
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 대화 삭제" [ref=f3e364] [cursor=pointer]: ×
+          - generic [ref=f3e365]:
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel." [ref=f3e366] [cursor=pointer]
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 이름 변경" [ref=f3e367] [cursor=pointer]: ⋯
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 대화 삭제" [ref=f3e368] [cursor=pointer]: ×
+          - generic [ref=f3e369]:
+            - button "문서 비교 · 매출과 R&D (검증 완료)" [ref=f3e370] [cursor=pointer]
+            - button "문서 비교 · 매출과 R&D (검증 완료) 이름 변경" [ref=f3e371] [cursor=pointer]: ⋯
+            - button "문서 비교 · 매출과 R&D (검증 완료) 대화 삭제" [ref=f3e372] [cursor=pointer]: ×
+          - generic [ref=f3e373]:
+            - button "이전 검증 · 검색 지침 보완 전" [ref=f3e374] [cursor=pointer]
+            - button "이전 검증 · 검색 지침 보완 전 이름 변경" [ref=f3e375] [cursor=pointer]: ⋯
+            - button "이전 검증 · 검색 지침 보완 전 대화 삭제" [ref=f3e376] [cursor=pointer]: ×
+          - generic [ref=f3e377]:
+            - button "Compare latest total revenue and revenue growth across NVIDIA, AMD and Intel. Cite pages and include" [ref=f3e378] [cursor=pointer]
+            - button "Compare latest total revenue and revenue growth across NVIDIA, AMD and Intel. Cite pages and include 이름 변경" [ref=f3e379] [cursor=pointer]: ⋯
+            - button "Compare latest total revenue and revenue growth across NVIDIA, AMD and Intel. Cite pages and include 대화 삭제" [ref=f3e380] [cursor=pointer]: ×
+        - generic [ref=f3e381]:
+          - link "보고서 라이브러리 ↗" [ref=f3e382] [cursor=pointer]:
+            - /url: /documents
+          - generic [ref=f3e383]: Source-grounded analysisYour own research workspace
+      - main [ref=f3e384]:
+        - generic [ref=f3e385]:
+          - generic [ref=f3e386]:
+            - text: WORKSPACE
+            - heading "이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로" [level=1] [ref=f3e387]
+          - generic [ref=f3e388]:
+            - button "대화" [ref=f3e389] [cursor=pointer]
+            - button "대화 + Canvas" [pressed] [ref=f3e390] [cursor=pointer]
+            - button "Canvas" [ref=f3e391] [cursor=pointer]
+        - generic [ref=f3e392]:
+          - region "Research chat" [ref=f3e393]:
+            - generic [ref=f3e394]:
+              - article [ref=f3e395]:
+                - generic [ref=f3e396]: YOU
+                - paragraph [ref=f3e397]: 이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로 보여줘. SEC 재수집은 하지 마.
+              - article [ref=f3e398]:
+                - generic [ref=f3e399]: FILING STUDIO
+                - generic [ref=f3e402]:
+                  - generic [ref=f3e403]:
+                    - generic [ref=f3e404]: Latest Fiscal Year Net Revenue Comparison
+                    - generic [ref=f3e406]: NVIDIA 2026 vs AMD 2025 vs Intel 2025
+                  - table [ref=f3e410]:
+                    - rowgroup [ref=f3e411]:
+                      - row [ref=f3e412]:
+                        - columnheader "Company" [ref=f3e413]
+                        - columnheader "Revenue" [ref=f3e416]
+                        - columnheader "Page Source" [ref=f3e419]
+                    - rowgroup [ref=f3e422]:
+                      - row [ref=f3e423]:
+                        - cell "NVIDIA" [ref=f3e424]
+                        - cell "$215.9 billion (p. 37)" [ref=f3e425]
+                        - cell "Page 37, 40" [ref=f3e426]
+                      - row [ref=f3e427]:
+                        - cell "AMD" [ref=f3e428]
+                        - cell "Not found" [ref=f3e429]
+                        - cell "Not found" [ref=f3e430]
+                      - row [ref=f3e431]:
+                        - cell "Intel" [ref=f3e432]
+                        - cell "$52.9 billion (p. 27, 76)" [ref=f3e433]
+                        - cell "Page 27, 76" [ref=f3e434]
+                  - generic [ref=f3e435]:
+                    - generic [ref=f3e436]: Sources
+                    - generic [ref=f3e439]:
+                      - button "NVIDIA · Page 37 NVIDIA · Page 37 “Revenue for fiscal year 2026 was $215.9 billion, up 65%.”" [ref=f3e441] [cursor=pointer]:
+                        - generic [ref=f3e442]:
+                          - img "NVIDIA · Page 37" [ref=f3e444]
+                          - generic [ref=f3e445]: NVIDIA · Page 37
+                        - generic [ref=f3e446]: “Revenue for fiscal year 2026 was $215.9 billion, up 65%.”
+                      - 'button "Intel · Page 27, 76 Intel · Page 27, 76 Consolidated Results of Operations: Net revenue $52,853 million in 2025" [ref=f3e448] [cursor=pointer]':
+                        - generic [ref=f3e449]:
+                          - img "Intel · Page 27, 76" [ref=f3e451]
+                          - generic [ref=f3e452]: Intel · Page 27, 76
+                        - generic [ref=f3e453]: "Consolidated Results of Operations: Net revenue $52,853 million in 2025"
+              - region "저장 가능한 분석 결과" [ref=f3e454]:
+                - text: CANVAS에 담을 결과
+                - generic [ref=f3e455]:
+                  - generic [ref=f3e458]:
+                    - generic [ref=f3e459]:
+                      - generic [ref=f3e460]: Latest Fiscal Year Net Revenue Comparison
+                      - generic [ref=f3e462]: NVIDIA 2026 vs AMD 2025 vs Intel 2025
+                    - table [ref=f3e466]:
+                      - rowgroup [ref=f3e467]:
+                        - row [ref=f3e468]:
+                          - columnheader "Company" [ref=f3e469]
+                          - columnheader "Revenue" [ref=f3e472]
+                          - columnheader "Page Source" [ref=f3e475]
+                      - rowgroup [ref=f3e478]:
+                        - row [ref=f3e479]:
+                          - cell "NVIDIA" [ref=f3e480]
+                          - cell "$215.9 billion (p. 37)" [ref=f3e481]
+                          - cell "Page 37, 40" [ref=f3e482]
+                        - row [ref=f3e483]:
+                          - cell "AMD" [ref=f3e484]
+                          - cell "Not found" [ref=f3e485]
+                          - cell "Not found" [ref=f3e486]
+                        - row [ref=f3e487]:
+                          - cell "Intel" [ref=f3e488]
+                          - cell "$52.9 billion (p. 27, 76)" [ref=f3e489]
+                          - cell "Page 27, 76" [ref=f3e490]
+                    - generic [ref=f3e491]:
+                      - generic [ref=f3e492]: Sources
+                      - generic [ref=f3e495]:
+                        - button "NVIDIA · Page 37 NVIDIA · Page 37 “Revenue for fiscal year 2026 was $215.9 billion, up 65%.”" [ref=f3e497] [cursor=pointer]:
+                          - generic [ref=f3e498]:
+                            - img "NVIDIA · Page 37" [ref=f3e500]
+                            - generic [ref=f3e501]: NVIDIA · Page 37
+                          - generic [ref=f3e502]: “Revenue for fiscal year 2026 was $215.9 billion, up 65%.”
+                        - 'button "Intel · Page 27, 76 Intel · Page 27, 76 Consolidated Results of Operations: Net revenue $52,853 million in 2025" [ref=f3e504] [cursor=pointer]':
+                          - generic [ref=f3e505]:
+                            - img "Intel · Page 27, 76" [ref=f3e507]
+                            - generic [ref=f3e508]: Intel · Page 27, 76
+                          - generic [ref=f3e509]: "Consolidated Results of Operations: Net revenue $52,853 million in 2025"
+                  - generic [ref=f3e510]:
+                    - button "＋ Canvas에 추가" [ref=f3e511] [cursor=pointer]
+                    - 'button "Latest Fiscal Year Net Revenue Comparison: NVIDIA, AMD, Intel Canvas로 드래그" [ref=f3e512] [cursor=pointer]': ⠿ 드래그
+            - generic [ref=f3e513]:
+              - generic [ref=f3e514]: 기업이나 보고서에 대해 질문하세요
+              - textbox "기업이나 보고서에 대해 질문하세요" [ref=f3e515]:
+                - /placeholder: 기업을 찾거나, 보고서를 비교하거나, Canvas를 수정해 보세요…
+              - generic [ref=f3e516]:
+                - generic [ref=f3e517]: "선택한 패널: Latest Fiscal Year Net Revenue Comparison: NVIDIA, AMD, Intel"
+                - button "전송 ↑" [disabled] [ref=f3e518]
+          - separator "대화와 Canvas 너비 조절" [ref=f3e519]
+          - region "Canvas dashboard" [ref=f3e520]:
+            - generic [ref=f3e521]:
+              - generic [ref=f3e522]:
+                - text: YOUR RESEARCH SPACE
+                - heading "Canvas 1 panels" [level=2] [ref=f3e523]:
+                  - text: Canvas
+                  - generic [ref=f3e524]: 1 panels
+              - generic [ref=f3e525]:
+                - generic [ref=f3e526] [cursor=pointer]:
+                  - text: 가져오기
+                  - button "Canvas JSON 가져오기" [ref=f3e527]
+                - button "JSON" [ref=f3e528] [cursor=pointer]
+                - button "CSV" [ref=f3e529] [cursor=pointer]
+                - button "PDF / 인쇄" [ref=f3e530] [cursor=pointer]
+            - tablist [ref=f3e531]:
+              - tab "Overview" [selected] [ref=f3e532] [cursor=pointer]
+              - button "Canvas 탭 추가" [ref=f3e533] [cursor=pointer]: ＋
+            - generic [ref=f3e536]:
+              - generic [ref=f3e537]:
+                - 'button "Latest Fiscal Year Net Revenue Comparison: NVIDIA, AMD, Intel 이동" [ref=f3e538]': ⠿
+                - 'button "Latest Fiscal Year Net Revenue Comparison: NVIDIA, AMD, Intel" [ref=f3e539] [cursor=pointer]'
+                - 'button "Latest Fiscal Year Net Revenue Comparison: NVIDIA, AMD, Intel 고정" [ref=f3e540] [cursor=pointer]': ◇
+                - 'button "Latest Fiscal Year Net Revenue Comparison: NVIDIA, AMD, Intel 삭제" [ref=f3e541] [cursor=pointer]': ×
+              - generic [ref=f3e545]:
+                - generic [ref=f3e546]:
+                  - generic [ref=f3e547]: Latest Fiscal Year Net Revenue Comparison
+                  - generic [ref=f3e549]: NVIDIA 2026 vs AMD 2025 vs Intel 2025
+                - table [ref=f3e553]:
+                  - rowgroup [ref=f3e554]:
+                    - row [ref=f3e555]:
+                      - columnheader "Company" [ref=f3e556]
+                      - columnheader "Revenue" [ref=f3e559]
+                      - columnheader "Page Source" [ref=f3e562]
+                  - rowgroup [ref=f3e565]:
+                    - row [ref=f3e566]:
+                      - cell "NVIDIA" [ref=f3e567]
+                      - cell "$215.9 billion (p. 37)" [ref=f3e568]
+                      - cell "Page 37, 40" [ref=f3e569]
+                    - row [ref=f3e570]:
+                      - cell "AMD" [ref=f3e571]
+                      - cell "Not found" [ref=f3e572]
+                      - cell "Not found" [ref=f3e573]
+                    - row [ref=f3e574]:
+                      - cell "Intel" [ref=f3e575]
+                      - cell "$52.9 billion (p. 27, 76)" [ref=f3e576]
+                      - cell "Page 27, 76" [ref=f3e577]
+                - generic [ref=f3e578]:
+                  - generic [ref=f3e579]: Sources
+                  - generic [ref=f3e582]:
+                    - button "NVIDIA · Page 37 NVIDIA · Page 37 “Revenue for fiscal year 2026 was $215.9 billion, up 65%.”" [ref=f3e584] [cursor=pointer]:
+                      - generic [ref=f3e585]:
+                        - generic [ref=f3e586]:
+                          - img "NVIDIA · Page 37"
+                        - generic [ref=f3e587]: NVIDIA · Page 37
+                      - generic [ref=f3e588]: “Revenue for fiscal year 2026 was $215.9 billion, up 65%.”
+                    - 'button "Intel · Page 27, 76 Intel · Page 27, 76 Consolidated Results of Operations: Net revenue $52,853 million in 2025" [ref=f3e590] [cursor=pointer]':
+                      - generic [ref=f3e591]:
+                        - generic [ref=f3e592]:
+                          - img "Intel · Page 27, 76"
+                        - generic [ref=f3e593]: Intel · Page 27, 76
+                      - generic [ref=f3e594]: "Consolidated Results of Operations: Net revenue $52,853 million in 2025"
+              - generic [ref=f3e595]:
+                - generic [ref=f3e596]: OpenUI
+                - 'combobox "Latest Fiscal Year Net Revenue Comparison: NVIDIA, AMD, Intel 탭 이동" [ref=f3e597] [cursor=pointer]':
+                  - option "Overview" [selected]
+                - 'button "Latest Fiscal Year Net Revenue Comparison: NVIDIA, AMD, Intel 너비 늘리기" [ref=f3e598] [cursor=pointer]': ↔
+                - 'button "Latest Fiscal Year Net Revenue Comparison: NVIDIA, AMD, Intel 위로 이동" [ref=f3e599] [cursor=pointer]': ↑

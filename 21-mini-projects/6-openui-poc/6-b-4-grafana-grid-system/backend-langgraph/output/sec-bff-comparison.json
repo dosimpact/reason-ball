@@ -1,0 +1,38 @@
+{
+  "checked_at": "2026-10-25T04:44:06.522279+00:00",
+  "url": "https://data.sec.gov/submissions/CIK0001045810.json",
+  "results": [
+    {
+      "client": "node fetch",
+      "ua": "existing dashboard identity, configured contact",
+      "accept": "BFF Accept",
+      "status": 403
+    },
+    {
+      "client": "BFF SecClientService, current .env",
+      "ua": "reason-hwang-bff/0.1 (sample contact)",
+      "status": 200,
+      "company": "NVIDIA CORP",
+      "filings": 1000
+    },
+    {
+      "client": "httpx",
+      "ua": "sec-dashboard/0.1 (configured real contact)",
+      "accept": "BFF Accept",
+      "status": 403
+    },
+    {
+      "client": "node fetch",
+      "ua": "sec-dashboard/0.1 (configured real contact)",
+      "accept": "BFF Accept",
+      "status": 403
+    },
+    {
+      "client": "BFF SecClientService",
+      "ua": "reason-hwang-bff/0.1 (configured real contact)",
+      "status": 403
+    }
+  ],
+  "controlled_comparison": "The two BFF calls differ only in contact text in User-Agent; environment sample contact replaced by the user-provided real contact.",
+  "limits": "This establishes a request-header-dependent response in this run, not an email blacklist or universal SEC denial. All calls are direct SEC GET; no database cache used. No BFF source/env/database changed."
+}

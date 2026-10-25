@@ -1,0 +1,22 @@
+- generic [active] [ref=f1e1]:
+  - main [ref=f1e2]:
+    - navigation [ref=f1e3]:
+      - link "← 돌아가기" [ref=f1e4] [cursor=pointer]:
+        - /url: /
+      - button "PDF로 저장 / 인쇄" [disabled] [ref=f1e5]
+    - heading "SEC Research · Canvas report" [level=1] [ref=f1e6]
+    - paragraph [ref=f1e7]: 전체 탭의 저장된 분석 결과 · 0 panels
+  - button "Open Next.js Dev Tools" [ref=f1e13] [cursor=pointer]
+  - alert [ref=f1e17]
+  - generic:
+    - button "Open OpenUI Inspect" [ref=f1e19] [cursor=pointer]
+    - option "LLM-like" [selected]
+    - option "24 chars"
+    - option "Per line"
+    - option "Per char"
+    - option "0.25×"
+    - option "0.5×"
+    - option "1×" [selected]
+    - option "2×"
+    - option "4×"
+    - option "8×"

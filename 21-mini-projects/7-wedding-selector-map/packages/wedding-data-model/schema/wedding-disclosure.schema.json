@@ -1,0 +1,1376 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:wedding-atlas:disclosure-superset:0.1.0",
+  "title": "Wedding disclosure superset draft",
+  "description": "Source-preserving domain envelope. Structural validity does not imply extraction correctness or quotation validity.",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "datasetId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entity"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "disclosures": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/disclosure"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/condition"
+      }
+    },
+    "facts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/fact"
+      }
+    },
+    "priceTerms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/priceTerm"
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relation"
+      }
+    },
+    "policies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/policy"
+      }
+    },
+    "derivations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/derivation"
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+      },
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "datasetId",
+    "entities",
+    "sources",
+    "disclosures",
+    "evidence",
+    "conditions",
+    "facts",
+    "priceTerms",
+    "relations",
+    "policies",
+    "derivations"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "entity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "extensions": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "label"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "attachment",
+            "web_page",
+            "derived",
+            "embedded_asset"
+          ]
+        },
+        "localPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "mediaType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "declaredMediaType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "originalFilename": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "capturedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "parentSourceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "archiveMember": {
+          "type": "string",
+          "minLength": 1
+        },
+        "extractionState": {
+          "enum": [
+            "not_started",
+            "partial",
+            "complete",
+            "failed"
+          ]
+        },
+        "extensions": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "localPath",
+        "sha256",
+        "mediaType",
+        "extractionState"
+      ],
+      "additionalProperties": false
+    },
+    "dateValue": {
+      "type": "object",
+      "properties": {
+        "raw": {
+          "type": "string",
+          "minLength": 1
+        },
+        "iso": {
+          "type": "string",
+          "format": "date"
+        },
+        "state": {
+          "enum": [
+            "known",
+            "invalid",
+            "not_disclosed"
+          ]
+        }
+      },
+      "required": [
+        "raw",
+        "state"
+      ],
+      "additionalProperties": false
+    },
+    "disclosure": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "venueId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "postId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "published": {
+          "$ref": "#/$defs/dateValue"
+        },
+        "registered": {
+          "$ref": "#/$defs/dateValue"
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "enum": [
+            "current_at_observation",
+            "historical",
+            "unknown"
+          ]
+        },
+        "supersedesId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rawMetadata": {
+          "type": "object"
+        },
+        "extensions": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "id",
+        "venueId",
+        "sourceIds",
+        "observedAt",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "locator": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "spreadsheet",
+            "page",
+            "xml",
+            "web",
+            "image",
+            "archive",
+            "whole_source"
+          ]
+        },
+        "sheet": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cellRange": {
+          "type": "string",
+          "minLength": 1
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bbox": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "width": {
+              "type": "number",
+              "minimum": 0
+            },
+            "height": {
+              "type": "number",
+              "minimum": 0
+            },
+            "coordinateSystem": {
+              "enum": [
+                "normalized_top_left",
+                "normalized_bottom_left",
+                "pdf_points"
+              ]
+            }
+          },
+          "required": [
+            "x",
+            "y",
+            "width",
+            "height",
+            "coordinateSystem"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator": {
+          "$ref": "#/$defs/locator"
+        },
+        "rawText": {
+          "type": "string"
+        },
+        "rawValue": {},
+        "rawStructure": {},
+        "method": {
+          "enum": [
+            "xml",
+            "native_text",
+            "ocr",
+            "manual",
+            "binary_reference"
+          ]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "verification": {
+          "enum": [
+            "unreviewed",
+            "source_checked",
+            "uncertain"
+          ]
+        },
+        "parentEvidenceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "extensions": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "id",
+        "sourceId",
+        "locator",
+        "method",
+        "verification"
+      ],
+      "additionalProperties": false
+    },
+    "expression": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "literal"
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+            }
+          },
+          "required": [
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "price_ref"
+            },
+            "priceId": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "op",
+            "priceId"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "context"
+            },
+            "field": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+            }
+          },
+          "required": [
+            "op",
+            "field"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "enum": [
+                "add",
+                "subtract",
+                "multiply",
+                "divide",
+                "min",
+                "max",
+                "ceil",
+                "floor"
+              ]
+            },
+            "args": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/expression"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "op",
+            "args"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "conditionNode": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "enum": [
+                "all",
+                "any"
+              ]
+            },
+            "children": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/conditionNode"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "op",
+            "children"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "not"
+            },
+            "child": {
+              "$ref": "#/$defs/conditionNode"
+            }
+          },
+          "required": [
+            "op",
+            "child"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "predicate"
+            },
+            "field": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+            },
+            "operator": {
+              "enum": [
+                "eq",
+                "ne",
+                "gt",
+                "gte",
+                "lt",
+                "lte",
+                "in",
+                "between",
+                "exists"
+              ]
+            },
+            "value": {},
+            "unit": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+            }
+          },
+          "required": [
+            "op",
+            "field",
+            "operator",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "raw"
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "op",
+            "text"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "condition": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "disclosureId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "conditionIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "interpretation": {
+          "enum": [
+            "unreviewed",
+            "reviewed",
+            "ambiguous",
+            "rejected"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rawText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expression": {
+          "$ref": "#/$defs/conditionNode"
+        },
+        "extensions": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "id",
+        "evidenceIds",
+        "disclosureId",
+        "interpretation",
+        "label",
+        "rawText",
+        "expression"
+      ],
+      "additionalProperties": false
+    },
+    "fact": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "disclosureId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "conditionIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "interpretation": {
+          "enum": [
+            "unreviewed",
+            "reviewed",
+            "ambiguous",
+            "rejected"
+          ]
+        },
+        "subjectId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "predicate": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+        },
+        "valueState": {
+          "enum": [
+            "known",
+            "not_disclosed",
+            "unknown",
+            "not_applicable",
+            "conflicting",
+            "unreadable"
+          ]
+        },
+        "value": {},
+        "unit": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+        },
+        "rawText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supersedesFactIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "extensions": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "id",
+        "evidenceIds",
+        "disclosureId",
+        "interpretation",
+        "subjectId",
+        "predicate",
+        "valueState"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "valueState": {
+                "const": "known"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "value"
+            ]
+          }
+        }
+      ]
+    },
+    "amount": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "exact"
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+            }
+          },
+          "required": [
+            "kind",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "range"
+            },
+            "lower": {
+              "type": "string",
+              "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+            },
+            "upper": {
+              "type": "string",
+              "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+            },
+            "lowerInclusive": {
+              "type": "boolean"
+            },
+            "upperInclusive": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "additionalProperties": false,
+          "anyOf": [
+            {
+              "required": [
+                "lower"
+              ]
+            },
+            {
+              "required": [
+                "upper"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "percentage"
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+            },
+            "basisRef": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "value",
+            "basisRef"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "formula"
+            },
+            "expression": {
+              "$ref": "#/$defs/expression"
+            }
+          },
+          "required": [
+            "kind",
+            "expression"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "unresolved"
+            },
+            "rawText": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "rawText"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "priceTerm": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "disclosureId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "conditionIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "interpretation": {
+          "enum": [
+            "unreviewed",
+            "reviewed",
+            "ambiguous",
+            "rejected"
+          ]
+        },
+        "subjectId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "itemId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "audienceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "enum": [
+            "list",
+            "payable",
+            "discount",
+            "surcharge",
+            "deposit",
+            "refund",
+            "penalty",
+            "minimum_spend",
+            "unknown"
+          ]
+        },
+        "state": {
+          "enum": [
+            "known",
+            "free",
+            "included",
+            "on_request",
+            "not_disclosed",
+            "not_applicable",
+            "unreadable",
+            "conflicting"
+          ]
+        },
+        "amount": {
+          "$ref": "#/$defs/amount"
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "basis": {
+          "type": "object",
+          "properties": {
+            "quantity": {
+              "type": "string",
+              "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+            },
+            "unit": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+            }
+          },
+          "required": [
+            "quantity",
+            "unit"
+          ],
+          "additionalProperties": false
+        },
+        "taxTreatment": {
+          "enum": [
+            "included",
+            "excluded",
+            "mixed",
+            "not_disclosed"
+          ]
+        },
+        "serviceChargeTreatment": {
+          "enum": [
+            "included",
+            "excluded",
+            "mixed",
+            "not_disclosed"
+          ]
+        },
+        "requirement": {
+          "enum": [
+            "mandatory",
+            "optional",
+            "conditional",
+            "unknown"
+          ]
+        },
+        "rawText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rounding": {
+          "type": "string",
+          "minLength": 1
+        },
+        "calculationBasisText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stacking": {
+          "enum": [
+            "allowed",
+            "exclusive",
+            "conditional",
+            "unknown"
+          ]
+        },
+        "extensions": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "id",
+        "evidenceIds",
+        "disclosureId",
+        "interpretation",
+        "subjectId",
+        "itemId",
+        "role",
+        "state",
+        "basis",
+        "rawText",
+        "requirement",
+        "taxTreatment",
+        "serviceChargeTreatment"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "known"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "amount"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "amount"
+            ],
+            "properties": {
+              "amount": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "exact",
+                      "range"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "currency"
+            ]
+          }
+        }
+      ]
+    },
+    "relation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "disclosureId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "conditionIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "interpretation": {
+          "enum": [
+            "unreviewed",
+            "reviewed",
+            "ambiguous",
+            "rejected"
+          ]
+        },
+        "fromId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "predicate": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+        },
+        "toId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rawText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "extensions": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "id",
+        "evidenceIds",
+        "disclosureId",
+        "interpretation",
+        "fromId",
+        "predicate",
+        "toId"
+      ],
+      "additionalProperties": false
+    },
+    "policy": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "disclosureId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "conditionIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "interpretation": {
+          "enum": [
+            "unreviewed",
+            "reviewed",
+            "ambiguous",
+            "rejected"
+          ]
+        },
+        "subjectId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+        },
+        "rawText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evaluation": {
+          "enum": [
+            "preserve_only",
+            "structured_unverified",
+            "reviewed"
+          ]
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "conditionIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              },
+              "actorId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "rawText": {
+                "type": "string",
+                "minLength": 1
+              },
+              "effects": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+                    },
+                    "priceTermId": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "rawText": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "rawText"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "conditionIds",
+              "rawText",
+              "effects"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "extensions": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "id",
+        "evidenceIds",
+        "disclosureId",
+        "interpretation",
+        "subjectId",
+        "kind",
+        "rawText",
+        "evaluation",
+        "rules"
+      ],
+      "additionalProperties": false
+    },
+    "derivation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outputRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inputRefs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "methodVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "computedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rawExpression": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewStatus": {
+          "enum": [
+            "unreviewed",
+            "reviewed",
+            "rejected"
+          ]
+        },
+        "extensions": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[A-Za-z0-9_.:/-]+$"
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "id",
+        "outputRef",
+        "inputRefs",
+        "method",
+        "methodVersion",
+        "reviewStatus"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
