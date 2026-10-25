@@ -1,0 +1,89 @@
+{
+  "revision": 3,
+  "tabs": [
+    {
+      "id": "main",
+      "title": "Overview"
+    }
+  ],
+  "active_tab_id": "main",
+  "panels": [
+    {
+      "id": "d72a6735-6e8f-4a4a-bdba-8aa607dfcf75",
+      "title": "NVIDIA 매출",
+      "kind": "openui",
+      "tab_id": "main",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 12
+      },
+      "pinned": false,
+      "refresh": {
+        "mode": "live",
+        "interval_seconds": 0,
+        "last_attempt_at": null,
+        "last_success_at": null,
+        "error": null
+      },
+      "program": "root = Card([header, salesChart])\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years 2025 & 2026, USD\")\nsalesChart = LineChart([\"FY2025\", \"FY2026\"], [Series(\"매출 (USD billions)\", [130.5, 215.9])], \"linear\", \"회계연도\", \"매출 (USD billions)\")\n",
+      "ui_state": {},
+      "source_artifact_id": null,
+      "query": {},
+      "data": {},
+      "sources": [
+        {
+          "title": "“Fiscal 2025 marked an extraordinary year for NVIDIA’s growth with revenue surging 114% year on year to $130.5 billion.”",
+          "sourceName": "NVIDIA Annual Report, fiscal 2025 · Page 18",
+          "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18"
+        },
+        {
+          "title": "“Total revenue for fiscal year 2026 was $215.9 billion.”",
+          "sourceName": "NVIDIA 10-K, fiscal 2026 · Page 51",
+          "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"
+        }
+      ]
+    },
+    {
+      "id": "e6dfc8bf-eaf1-454d-b9c2-24fd60543f13",
+      "title": "사업 요약",
+      "kind": "openui",
+      "tab_id": "main",
+      "layout": {
+        "x": 14,
+        "y": 0,
+        "w": 10,
+        "h": 12
+      },
+      "pinned": false,
+      "refresh": {
+        "mode": "live",
+        "interval_seconds": 0,
+        "last_attempt_at": null,
+        "last_success_at": null,
+        "error": null
+      },
+      "program": "root = Card([header, businessSummary])\nheader = CardHeader(\"사업 요약\", \"NVIDIA 주요 사업 및 기술 개요\")\nbusinessSummary = VStack([\n  TextContent(\"NVIDIA의 주요 사업은 컴퓨팅 및 네트워킹, 그래픽스로 구성되어 있습니다. 2025년 회계연도 매출은 총 $130.5 billion으로 데이터 센터 수요가 크게 견인하였으며, Hopper 아키텍처와 AI 관련 제품의 강력한 성장세가 두드러졌습니다.\") ,\n  TextContent(\"그래픽스 부문은 GeForce RTX 50 시리즈와 RTX AI PC 등 AI 기반 게이밍 및 창작 도구를 제공하며, 고성능 GPU 기술을 접목해 게이머와 개발자 시장에서 높은 경쟁력을 보유합니다.\"),\n  TextContent(\"데이터 센터 부문에서는 Hopper 아키텍처 기반 가속 컴퓨팅 및 AI 솔루션이 주요 매출 동력이며, 대규모 언어 모델과 생성 AI 애플리케이션을 지원하는 제품군이 포함됩니다.\"),\n  TextContent(\"네트워킹 솔루션으로는 Spectrum-X 엔드 투 엔드 이더넷 플랫폼이 있으며, AI 관련 이더넷 기술 활용이 증가하고 있습니다.\"),\n  TextContent(\"2026년에도 지속적인 매출 성장과 시장 확대가 예상되며, 혁신적인 GPU, DPU, SoC 제품을 포함한 차세대 컴퓨팅 기술에 주력하고 있습니다.\")\n])\n",
+      "ui_state": {},
+      "source_artifact_id": null,
+      "query": {},
+      "data": {},
+      "sources": [
+        {
+          "title": "“Fiscal 2025 marked an extraordinary year for NVIDIA’s growth with revenue surging 114% year on year to $130.5 billion on strength across all market platforms.”",
+          "sourceName": "NVIDIA Annual Report, fiscal 2025 · Page 18",
+          "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18"
+        },
+        {
+          "title": "NVIDIA 10-K, fiscal 2026 · Page 9",
+          "sourceName": "NVIDIA 10-K, fiscal 2026 · Page 9",
+          "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=9"
+        }
+      ]
+    }
+  ],
+  "artifacts": [],
+  "selected_panel_id": "e6dfc8bf-eaf1-454d-b9c2-24fd60543f13",
+  "export_request": null
+}

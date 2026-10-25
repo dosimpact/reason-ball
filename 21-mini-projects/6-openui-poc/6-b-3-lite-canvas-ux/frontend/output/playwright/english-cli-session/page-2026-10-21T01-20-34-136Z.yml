@@ -1,0 +1,63 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - complementary [ref=e3]:
+      - link "Lite Canvas SUPPLIER INTELLIGENCE" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e8]:
+          - text: Lite Canvas
+          - generic [ref=e9]: SUPPLIER INTELLIGENCE
+      - button "새 대화" [ref=e10] [cursor=pointer]
+      - generic [ref=e12]: 최근 대화
+      - navigation "대화 목록" [ref=e102]:
+        - button "공급업체1 영문 리포트 생성해줘" [ref=e103] [cursor=pointer]
+      - paragraph [ref=e13]: 공급업체1–8의 자료로분석하고, 비교하고, 질문하세요.
+    - region "채팅" [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17]: WORKSPACE
+          - heading "공급업체1 영문 리포트 생성해줘" [level=1] [ref=e104]
+        - button "다크 테마로 전환" [ref=e19] [cursor=pointer]
+      - generic [ref=e22]:
+        - article [ref=e105]:
+          - generic [ref=e106]: YOU
+          - generic [ref=e107]: 공급업체1 영문 리포트 생성해줘
+        - article [ref=e284]:
+          - generic [ref=e285]: ANALYST
+          - generic [ref=e286]: 공급업체1 리포트를 Canvas에 만들었습니다. 내용을 선택해 질문하거나 PDF로 저장하고 공유할 수 있습니다.
+        - article [ref=e737]:
+          - generic [ref=e738]: YOU
+          - generic [ref=e739]: 영문 리포트를 다시 만들어줘
+        - status [ref=e740]: 리포트 전문 에이전트에 연결했습니다
+      - generic [ref=e68]:
+        - generic [ref=e69]:
+          - textbox "채팅 메시지" [ref=e70]:
+            - /placeholder: 공급업체 리포트를 요청하거나 질문하세요
+          - button "메시지 보내기" [disabled] [ref=e71]
+        - paragraph [ref=e74]: Enter로 보내기 · Shift+Enter로 줄바꿈
+    - separator "채팅과 Canvas 크기 조절" [ref=e108]
+    - region "리포트 Canvas" [ref=e742]:
+      - generic [ref=e743]:
+        - generic [ref=e744]:
+          - generic [ref=e745]: REPORT CANVAS
+          - heading "Supplier 1 Performance Report" [level=2] [ref=e746]
+        - generic [ref=e747]:
+          - button "PDF 저장" [disabled] [ref=e748]
+          - button "공유 링크" [disabled] [ref=e752]
+          - button "Canvas 닫기" [ref=e756] [cursor=pointer]
+      - generic [ref=e760]:
+        - status [ref=e761]: 자료를 분석하고 리포트를 구성하고 있습니다
+        - article "리포트 본문" [ref=e764]
+  - button "Open Next.js Dev Tools" [ref=e80] [cursor=pointer]
+  - alert [ref=e84]
+  - generic:
+    - button "Open OpenUI Inspect" [ref=e86] [cursor=pointer]
+    - option "LLM-like" [selected]
+    - option "24 chars"
+    - option "Per line"
+    - option "Per char"
+    - option "0.25×"
+    - option "0.5×"
+    - option "1×" [selected]
+    - option "2×"
+    - option "4×"
+    - option "8×"

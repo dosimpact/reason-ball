@@ -1,0 +1,88 @@
+[
+  {
+    "case": "explain",
+    "plan": {
+      "instruction": "The user asked to explain the FY2026 sales increase for the selected panel, which is a request for analysis and explanation related to an existing Canvas panel. This is a follow-up question about the selected panel's data, so the output should be in chat, not a new Canvas panel or artifact.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [],
+      "minimum_new_panels": 0,
+      "targets": []
+    },
+    "passed": true
+  },
+  {
+    "case": "update",
+    "plan": {
+      "instruction": "The user requests to update the selected Canvas panel to display sales data for FY2024 to FY2026, extending the current 3-year range and including FY2025 which was previously excluded. This is a content update to the existing panel titled 'NVIDIA 3년 매출 (FY2025 제외)'.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "update"
+      ],
+      "minimum_new_panels": 0,
+      "targets": [
+        {
+          "operation": "update",
+          "target_id": "f976c1a4-a0e2-45aa-ae95-1ac5951f20a4"
+        }
+      ]
+    },
+    "passed": true
+  },
+  {
+    "case": "pin",
+    "plan": {
+      "instruction": "The user requested to pin the currently selected panel on the Canvas with the command '현재 선택한 패널을 고정해줘.' The selected panel ID is 'f976c1a4-a0e2-45aa-ae95-1ac5951f20a4'.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "pin"
+      ],
+      "minimum_new_panels": 0,
+      "targets": [
+        {
+          "operation": "pin",
+          "target_id": "f976c1a4-a0e2-45aa-ae95-1ac5951f20a4"
+        }
+      ]
+    },
+    "passed": true
+  },
+  {
+    "case": "layout",
+    "plan": {
+      "instruction": "The user requested to enlarge the width of the currently selected Canvas panel titled 'NVIDIA 3년 매출 (FY2025 제외)' to 16. This is a layout update to the existing panel.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "layout"
+      ],
+      "minimum_new_panels": 0,
+      "targets": [
+        {
+          "operation": "layout",
+          "target_id": "f976c1a4-a0e2-45aa-ae95-1ac5951f20a4"
+        }
+      ]
+    },
+    "passed": true
+  },
+  {
+    "case": "exclude_ambiguous",
+    "plan": {
+      "instruction": "The user requests to exclude one year of data from the existing NVIDIA 3-year revenue chart on Canvas. However, the user did not specify which year to exclude. Clarification is needed to identify the exact year to remove from the chart.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "어느 연도를 제외할까요?",
+      "source_read": "none",
+      "operations": [],
+      "minimum_new_panels": 0,
+      "targets": []
+    },
+    "passed": true
+  }
+]

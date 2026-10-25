@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("button",{name:"＋ 새 분석",exact:true}).click(); await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("Overview에는 보관 메모 패널 하나를 만들고, 임시 분석이라는 새 탭 하나를 만들어 그 안에 검토 메모 패널 하나를 만들어줘. 두 패널은 간단한 텍스트 메모야."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

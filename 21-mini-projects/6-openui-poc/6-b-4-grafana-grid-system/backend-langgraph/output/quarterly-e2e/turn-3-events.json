@@ -1,0 +1,3137 @@
+[
+  {
+    "type": "RUN_STARTED",
+    "threadId": "3c5b1b38-446f-4bc2-811e-cd93185c26b3",
+    "runId": "8d292d1f-5fe8-46b1-a097-a9a71f07edac"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 1,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [],
+        "artifacts": [
+          {
+            "id": "dcd21232-ee7e-42d0-ab02-c142e558bd85",
+            "title": "NVIDIA 분기·누적 매출",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, revenueTrendChart, table6M], [{title:\"“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”\", sourceName:\"NVIDIA · Page 3\", url:\"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}])\nheader = CardHeader(\"NVIDIA 분기·누적 매출\", \"Quarter ended July 26, 2026. 단위: 백만 USD\")\nrevenueTrendChart = LineChart([\"2026년 2분기\", \"2027년 2분기\", \"2026년 상반기\", \"2027년 상반기\"], [Series(\"매출(백만 USD)\", [46743, 96221, 90805, 177837])], \"linear\", \"기간\", \"매출(백만 USD)\", 240)\ntable6M = Table([Col(\"항목\", [\"매출\", \"매출원가\", \"매출총이익\", \"영업비용(R&D)\", \"영업비용(SG&A)\", \"영업이익\", \"기타순수익\", \"세전순이익\", \"법인세비용\", \"순이익\"]), Col(\"2026년 상반기(~7월 27일)\", [\"90,805\", \"30,284\", \"60,521\", \"8,280\", \"2,163\", \"50,078\", \"3,039\", \"53,117\", \"7,920\", \"45,197\"]), Col(\"2027년 상반기(~7월 26일)\", [\"177,837\", \"44,538\", \"133,299\", \"13,375\", \"2,654\", \"117,270\", \"24,140\", \"141,410\", \"23,400\", \"118,010\"])])",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”",
+                "sourceName": "NVIDIA · Page 3",
+                "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+              }
+            ]
+          }
+        ],
+        "selected_panel_id": null,
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "toolCallName": "publish_ui_panel"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "{\"title\":\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "VIDIA 분"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "기·"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "누적"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 매출"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\",\"program"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\":\"root"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " = Card([header, quarterly"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "Chart,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " separator,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " table6"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "M,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " disclaimer],"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " [{title"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ":\\\"“"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "Revenue $"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "96,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "221 million"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " for Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2 FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2027"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " and $"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "46,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "743 million"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " for Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2 FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2026; $"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "177,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "837 million"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " for "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "6 months"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "7 and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " $90"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ",805"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " million for"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 6"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " months FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ".”\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " sourceName"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ":\\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "VIDIA ·"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " Page "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "3\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " url:\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "https://"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "investor"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ".nvidia"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ".com/files"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "/doc_fin"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "ancials"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "/202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "7/N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "VDA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "-202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "7-Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "10Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "-Final"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "-including"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "-exhib"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "its.pdf"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "#page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "=3"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\"}"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "])\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "nheader"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " = Card"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "Header(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 분기"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "·누"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "적 매"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "출\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"회"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "계연"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "도 구"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "분:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "6 Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2 ("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2025"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "년 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "7월"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 27"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "일),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "7 Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2 ("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "년 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "7월"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 26"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "일)."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 단위"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ": 백"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "만 USD"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\")\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "nquarter"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "lyChart"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " = Line"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "Chart(["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\"FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " Q2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " (7"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "/27"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "/202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "5)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "7 Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2 ("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "7/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "26/2026)\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "], ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "Series(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "분기"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 매출"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " (백만 USD"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ")\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " [467"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "43,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 962"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "21])"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "], \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "linear\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"분"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "기\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"매"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "출 ("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "백만"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " USD)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\", "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "240)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "nseparator"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " = Separator"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "()\\nt"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "able6"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "M ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " Table(["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "Col(\\\"항목"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\", ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\"매"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "출\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"매"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "출원"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "가\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"매"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "출총"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "이익"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "영업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "비용(R&D"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ")\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"영"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "업비"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "용(S"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "G&A"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ")\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"영"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "업이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "익\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"기"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "타순"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "수익"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "세전"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "순이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "익\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"법"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "인세"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "비용"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\", \\\"순이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "익\\\"]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "), Col"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "(\\\"FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 6"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "개월 누"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "적 ("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2025"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "년 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "7월"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 27"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "일 기준"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ")\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " [\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "90,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "805\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"30"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ",284"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "60,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "521\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"8"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ",280"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "163\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"50,078"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "3,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "039\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"53"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ",117\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"7,920"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "45,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "197\\\"]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "), Col"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "(\\\"FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2027"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 6"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "개월 누"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "적 ("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "년 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "7월"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 26"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "일 기준"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ")\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " [\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "177,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "837\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"44"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ",538"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "133,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "299\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"13"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ",375"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "654\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "117,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "270\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"24"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ",140"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "141,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "410\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " \\\"23"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ",400"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "118,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "010\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\"])])"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\\nd"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "isclaimer"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " = Text"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "Content(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "본 데이터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "는 공식"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " NVIDIA FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "2027"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " Q2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " IR PDF"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "에서 발"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "췌한"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 공식 정보"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "이며,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 추가 SEC"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 수집"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 본이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": " 아닙니다"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": ". 원"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "문 페이지"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "는 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "3쪽"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "입니다.\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "small\\\")"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\",\"destination"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\":\"canvas"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "delta": "\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "toolCallId": "call_jv0PfwJ6DuHzgooErtjWH2Lb",
+    "content": "{\"success\": true, \"panel_id\": \"6ef02a5c-767d-4bca-9798-9789d2b2fa31\", \"revision\": 2, \"artifact_id\": null}",
+    "role": "tool"
+  },
+  {
+    "type": "STATE_DELTA",
+    "delta": [
+      {
+        "op": "replace",
+        "path": "/dashboard",
+        "value": {
+          "revision": 2,
+          "tabs": [
+            {
+              "id": "main",
+              "title": "Overview"
+            }
+          ],
+          "active_tab_id": "main",
+          "panels": [
+            {
+              "id": "6ef02a5c-767d-4bca-9798-9789d2b2fa31",
+              "title": "NVIDIA 분기·누적 매출",
+              "kind": "openui",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": false,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "root = Card([header, quarterlyChart, separator, table6M, disclaimer], [{title:\"“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”\", sourceName:\"NVIDIA · Page 3\", url:\"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}])\nheader = CardHeader(\"NVIDIA 분기·누적 매출\", \"회계연도 구분: FY2026 Q2 (2025년 7월 27일), FY2027 Q2 (2026년 7월 26일). 단위: 백만 USD\")\nquarterlyChart = LineChart([\"FY2026 Q2 (7/27/2025)\", \"FY2027 Q2 (7/26/2026)\"], [Series(\"분기 매출 (백만 USD)\", [46743, 96221])], \"linear\", \"분기\", \"매출 (백만 USD)\", 240)\nseparator = Separator()\ntable6M = Table([Col(\"항목\", [\"매출\", \"매출원가\", \"매출총이익\", \"영업비용(R&D)\", \"영업비용(SG&A)\", \"영업이익\", \"기타순수익\", \"세전순이익\", \"법인세비용\", \"순이익\"]), Col(\"FY2026 6개월 누적 (2025년 7월 27일 기준)\", [\"90,805\", \"30,284\", \"60,521\", \"8,280\", \"2,163\", \"50,078\", \"3,039\", \"53,117\", \"7,920\", \"45,197\"]), Col(\"FY2027 6개월 누적 (2026년 7월 26일 기준)\", [\"177,837\", \"44,538\", \"133,299\", \"13,375\", \"2,654\", \"117,270\", \"24,140\", \"141,410\", \"23,400\", \"118,010\"])])\ndisclaimer = TextContent(\"본 데이터는 공식 NVIDIA FY2027 Q2 IR PDF에서 발췌한 공식 정보이며, 추가 SEC 수집 본이 아닙니다. 원문 페이지는 3쪽입니다.\", \"small\")",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {},
+              "data": {},
+              "sources": [
+                {
+                  "title": "“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”",
+                  "sourceName": "NVIDIA · Page 3",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+                }
+              ]
+            }
+          ],
+          "artifacts": [
+            {
+              "id": "dcd21232-ee7e-42d0-ab02-c142e558bd85",
+              "title": "NVIDIA 분기·누적 매출",
+              "kind": "openui",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": false,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "root = Card([header, revenueTrendChart, table6M], [{title:\"“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”\", sourceName:\"NVIDIA · Page 3\", url:\"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}])\nheader = CardHeader(\"NVIDIA 분기·누적 매출\", \"Quarter ended July 26, 2026. 단위: 백만 USD\")\nrevenueTrendChart = LineChart([\"2026년 2분기\", \"2027년 2분기\", \"2026년 상반기\", \"2027년 상반기\"], [Series(\"매출(백만 USD)\", [46743, 96221, 90805, 177837])], \"linear\", \"기간\", \"매출(백만 USD)\", 240)\ntable6M = Table([Col(\"항목\", [\"매출\", \"매출원가\", \"매출총이익\", \"영업비용(R&D)\", \"영업비용(SG&A)\", \"영업이익\", \"기타순수익\", \"세전순이익\", \"법인세비용\", \"순이익\"]), Col(\"2026년 상반기(~7월 27일)\", [\"90,805\", \"30,284\", \"60,521\", \"8,280\", \"2,163\", \"50,078\", \"3,039\", \"53,117\", \"7,920\", \"45,197\"]), Col(\"2027년 상반기(~7월 26일)\", [\"177,837\", \"44,538\", \"133,299\", \"13,375\", \"2,654\", \"117,270\", \"24,140\", \"141,410\", \"23,400\", \"118,010\"])])",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {},
+              "data": {},
+              "sources": [
+                {
+                  "title": "“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”",
+                  "sourceName": "NVIDIA · Page 3",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+                }
+              ]
+            }
+          ],
+          "selected_panel_id": "6ef02a5c-767d-4bca-9798-9789d2b2fa31",
+          "export_request": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_I1KZH4ztsjgIOpKn0njbW2TM",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_I1KZH4ztsjgIOpKn0njbW2TM",
+    "delta": "{\"document"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_I1KZH4ztsjgIOpKn0njbW2TM",
+    "delta": "_id\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_I1KZH4ztsjgIOpKn0njbW2TM",
+    "delta": "nvidia"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_I1KZH4ztsjgIOpKn0njbW2TM",
+    "delta": "-202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_I1KZH4ztsjgIOpKn0njbW2TM",
+    "delta": "7-q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_I1KZH4ztsjgIOpKn0njbW2TM",
+    "delta": "2\",\"page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_I1KZH4ztsjgIOpKn0njbW2TM",
+    "delta": "\":3}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_I1KZH4ztsjgIOpKn0njbW2TM"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_I1KZH4ztsjgIOpKn0njbW2TM",
+    "toolCallId": "call_I1KZH4ztsjgIOpKn0njbW2TM",
+    "content": "{\"document_id\": \"nvidia-2027-q2\", \"document\": \"NVIDIA 10-Q, fiscal 2027 Q2\", \"period\": \"Quarter ended July 26, 2026 (three and six months shown separately)\", \"page\": 3, \"total_pages\": 61, \"text\": \"Part I. Financial Information\\nItem 1. Financial Statements (Unaudited)\\nNVIDIA Corporation and Subsidiaries\\nCondensed Consolidated Statements of Income\\n(In millions, except per share data)\\n(Unaudited)\\n  Three Months Ended Six Months Ended\\n  Jul 26, 2026 Jul 27, 2025 Jul 26, 2026 Jul 27, 2025\\nRevenue $ 96,221 $ 46,743 $ 177,837 $ 90,805 \\nCost of revenue  24,079  12,890  44,538  30,284 \\nGross profit  72,142  33,853  133,299  60,521 \\nOperating expenses    \\nResearch and development  7,054  4,291  13,375  8,280 \\nSales, general and administrative  1,354  1,122  2,654  2,163 \\nTotal operating expenses  8,408  5,413  16,029  10,443 \\nOperating income  63,734  28,440  117,270  50,078 \\nOther income, net  7,773  2,766  24,140  3,039 \\nIncome before income tax  71,507  31,206  141,410  53,117 \\nIncome tax expense  11,819  4,784  23,400  7,920 \\nNet income $ 59,688 $ 26,422 $ 118,010 $ 45,197 \\nNet income per share:\\nBasic $ 2.47 $ 1.08 $ 4.87 $ 1.85 \\nDiluted $ 2.46 $ 1.08 $ 4.85 $ 1.84 \\nWeighted average shares used in per share \\ncomputation:\\nBasic  24,190  24,366  24,238  24,404 \\nDiluted  24,285  24,532  24,338  24,571 \\nSee accompanying Notes to Condensed Consolidated Financial Statements.\\n3\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "toolCallName": "publish_ui_panel"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "{\"title\":\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "VIDIA 분"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "기·"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "누적"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 매출"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\",\"program\":\"root"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " = Card([header, quarterlyChart, separator, table6M,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " disclaimer], [{title:\\\"“Revenue $"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "96,221 million for Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "2 FY2027 and $46,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "743 million for Q2 FY2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "; $177,837 million"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " for "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "6 months"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "7 and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " $90"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ",805"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " million for 6 months FY2026.”\\\", sourceName:\\\"NVIDIA · Page 3\\\", url:\\\"https://investor.nvidia.com/files"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "/doc_fin"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "ancials"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "/202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "7/N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "VDA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "-202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "7-Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "2-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "10Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "-Final"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "-including"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "-exhib"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "its.pdf"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "#page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "=3"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\"}"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "])\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "nheader"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " = Card"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "Header(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 분기"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "·누"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "적 매"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "출\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"회"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "계연"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "도 구"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "분:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "6 Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "2 ("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "2025"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "년 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "7월"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 27"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "일),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "7 Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "2 ("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "년 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "7월"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 26"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "일)."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 단위"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ": 백만 USD"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\")\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "nquarter"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "lyChart"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " = Line"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "Chart(["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\"FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " Q2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " (7"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "/27"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "/202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "5)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "7 Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "2 ("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "7/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "26/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ")\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "], ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "Series(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "분기"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 매출 (백"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "만 USD"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ")\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " [467"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "43,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 962"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "21])"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "], \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "linear\\\", \\\"분기"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "매출"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " (백"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "만 USD"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ")\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 240"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ")\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "separator ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " Separator()\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "ntable"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "6M"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " = Table"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "([Col"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "(\\\"항"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "목\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " [\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "매출\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"매"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "출원"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "가\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"매"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "출총"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "이익"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "영업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "비용"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "(R&D"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ")\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"영"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "업비"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "용(S"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "G&A"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ")\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"영"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "업이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "익\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"기"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "타순"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "수익"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "세전"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "순이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "익\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"법"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "인세"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "비용"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "순이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "익\\\"]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "), Col"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "(\\\"FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 6"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "개월 누"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "적 ("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "2025"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "년 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "7월"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 27"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "일 기준"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ")\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " [\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "90,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "805\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"30"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ",284"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "60,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "521\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"8"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ",280"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "2,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "163\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"50"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ",078"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "3,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "039\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"53"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ",117"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "7,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "920\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"45"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ",197"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\"]),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " Col(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "7 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "6개월"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 누적"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " (202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "6년"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 7"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "월 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "26일"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 기준)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\", ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\"177"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ",837"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "44,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "538\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"133"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ",299"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "13,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "375\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ",654"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "117,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "270\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"24"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ",140"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "141,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "410\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " \\\"23"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ",400"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "118,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "010\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\"])])"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\\nd"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "isclaimer"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " = Text"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "Content(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "본 데이터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "는 공식"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " NVIDIA FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "2027"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " Q2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " IR PDF"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "에서 발"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "췌한"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 공식 정보"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "이며,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 추가 SEC"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 수집"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "본이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": " 아닙니다"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": ". 원"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "문 페이지"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "는 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "3쪽"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "입니다.\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "small\\\")"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\",\"destination"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "delta": "\":\"canvas\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_hWUD4M1845BcXPJ5lru2s31Q",
+    "toolCallId": "call_hWUD4M1845BcXPJ5lru2s31Q",
+    "content": "{\"success\": true, \"panel_id\": \"8895c0ea-c5ff-4451-bc2e-899612eafc17\", \"revision\": 3, \"artifact_id\": null}",
+    "role": "tool"
+  },
+  {
+    "type": "STATE_DELTA",
+    "delta": [
+      {
+        "op": "replace",
+        "path": "/dashboard",
+        "value": {
+          "revision": 3,
+          "tabs": [
+            {
+              "id": "main",
+              "title": "Overview"
+            }
+          ],
+          "active_tab_id": "main",
+          "panels": [
+            {
+              "id": "6ef02a5c-767d-4bca-9798-9789d2b2fa31",
+              "title": "NVIDIA 분기·누적 매출",
+              "kind": "openui",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 12,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": false,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "root = Card([header, quarterlyChart, separator, table6M, disclaimer], [{title:\"“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”\", sourceName:\"NVIDIA · Page 3\", url:\"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}])\nheader = CardHeader(\"NVIDIA 분기·누적 매출\", \"회계연도 구분: FY2026 Q2 (2025년 7월 27일), FY2027 Q2 (2026년 7월 26일). 단위: 백만 USD\")\nquarterlyChart = LineChart([\"FY2026 Q2 (7/27/2025)\", \"FY2027 Q2 (7/26/2026)\"], [Series(\"분기 매출 (백만 USD)\", [46743, 96221])], \"linear\", \"분기\", \"매출 (백만 USD)\", 240)\nseparator = Separator()\ntable6M = Table([Col(\"항목\", [\"매출\", \"매출원가\", \"매출총이익\", \"영업비용(R&D)\", \"영업비용(SG&A)\", \"영업이익\", \"기타순수익\", \"세전순이익\", \"법인세비용\", \"순이익\"]), Col(\"FY2026 6개월 누적 (2025년 7월 27일 기준)\", [\"90,805\", \"30,284\", \"60,521\", \"8,280\", \"2,163\", \"50,078\", \"3,039\", \"53,117\", \"7,920\", \"45,197\"]), Col(\"FY2027 6개월 누적 (2026년 7월 26일 기준)\", [\"177,837\", \"44,538\", \"133,299\", \"13,375\", \"2,654\", \"117,270\", \"24,140\", \"141,410\", \"23,400\", \"118,010\"])])\ndisclaimer = TextContent(\"본 데이터는 공식 NVIDIA FY2027 Q2 IR PDF에서 발췌한 공식 정보이며, 추가 SEC 수집 본이 아닙니다. 원문 페이지는 3쪽입니다.\", \"small\")",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {},
+              "data": {},
+              "sources": [
+                {
+                  "title": "“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”",
+                  "sourceName": "NVIDIA · Page 3",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+                }
+              ]
+            },
+            {
+              "id": "8895c0ea-c5ff-4451-bc2e-899612eafc17",
+              "title": "NVIDIA 분기·누적 매출",
+              "kind": "openui",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": false,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "root = Card([header, quarterlyChart, separator, table6M, disclaimer], [{title:\"“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”\", sourceName:\"NVIDIA · Page 3\", url:\"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}])\nheader = CardHeader(\"NVIDIA 분기·누적 매출\", \"회계연도 구분: FY2026 Q2 (2025년 7월 27일), FY2027 Q2 (2026년 7월 26일). 단위: 백만 USD\")\nquarterlyChart = LineChart([\"FY2026 Q2 (7/27/2025)\", \"FY2027 Q2 (7/26/2026)\"], [Series(\"분기 매출 (백만 USD)\", [46743, 96221])], \"linear\", \"분기\", \"매출 (백만 USD)\", 240)\nseparator = Separator()\ntable6M = Table([Col(\"항목\", [\"매출\", \"매출원가\", \"매출총이익\", \"영업비용(R&D)\", \"영업비용(SG&A)\", \"영업이익\", \"기타순수익\", \"세전순이익\", \"법인세비용\", \"순이익\"]), Col(\"FY2026 6개월 누적 (2025년 7월 27일 기준)\", [\"90,805\", \"30,284\", \"60,521\", \"8,280\", \"2,163\", \"50,078\", \"3,039\", \"53,117\", \"7,920\", \"45,197\"]), Col(\"FY2027 6개월 누적 (2026년 7월 26일 기준)\", [\"177,837\", \"44,538\", \"133,299\", \"13,375\", \"2,654\", \"117,270\", \"24,140\", \"141,410\", \"23,400\", \"118,010\"])])\ndisclaimer = TextContent(\"본 데이터는 공식 NVIDIA FY2027 Q2 IR PDF에서 발췌한 공식 정보이며, 추가 SEC 수집본이 아닙니다. 원문 페이지는 3쪽입니다.\", \"small\")",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {},
+              "data": {},
+              "sources": [
+                {
+                  "title": "“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”",
+                  "sourceName": "NVIDIA · Page 3",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+                }
+              ]
+            }
+          ],
+          "artifacts": [
+            {
+              "id": "dcd21232-ee7e-42d0-ab02-c142e558bd85",
+              "title": "NVIDIA 분기·누적 매출",
+              "kind": "openui",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": false,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "root = Card([header, revenueTrendChart, table6M], [{title:\"“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”\", sourceName:\"NVIDIA · Page 3\", url:\"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}])\nheader = CardHeader(\"NVIDIA 분기·누적 매출\", \"Quarter ended July 26, 2026. 단위: 백만 USD\")\nrevenueTrendChart = LineChart([\"2026년 2분기\", \"2027년 2분기\", \"2026년 상반기\", \"2027년 상반기\"], [Series(\"매출(백만 USD)\", [46743, 96221, 90805, 177837])], \"linear\", \"기간\", \"매출(백만 USD)\", 240)\ntable6M = Table([Col(\"항목\", [\"매출\", \"매출원가\", \"매출총이익\", \"영업비용(R&D)\", \"영업비용(SG&A)\", \"영업이익\", \"기타순수익\", \"세전순이익\", \"법인세비용\", \"순이익\"]), Col(\"2026년 상반기(~7월 27일)\", [\"90,805\", \"30,284\", \"60,521\", \"8,280\", \"2,163\", \"50,078\", \"3,039\", \"53,117\", \"7,920\", \"45,197\"]), Col(\"2027년 상반기(~7월 26일)\", [\"177,837\", \"44,538\", \"133,299\", \"13,375\", \"2,654\", \"117,270\", \"24,140\", \"141,410\", \"23,400\", \"118,010\"])])",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {},
+              "data": {},
+              "sources": [
+                {
+                  "title": "“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”",
+                  "sourceName": "NVIDIA · Page 3",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+                }
+              ]
+            }
+          ],
+          "selected_panel_id": "8895c0ea-c5ff-4451-bc2e-899612eafc17",
+          "export_request": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "39fdb8e3-610f-423c-b0ae-a8684aba0290",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "39fdb8e3-610f-423c-b0ae-a8684aba0290",
+    "delta": "root = Card([Callout(\"success\", \"Canvas에 NVIDIA 분기·누적 매출 패널이 추가되었습니다.\", \"FY2026 Q2와 FY2027 Q2의 3개월 분기 매출 차트와 6개월 누적 매출 표를 같은 패널에 배열했고, 회계연도 및 실제 종료일을 명확히 구분하였습니다. 공식 NVIDIA FY2027 Q2 IR PDF 3쪽의 출처를 포함하였습니다.\")])"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "39fdb8e3-610f-423c-b0ae-a8684aba0290"
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "067136ef-5da2-4eb8-b57d-82b2abd90d43",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "067136ef-5da2-4eb8-b57d-82b2abd90d43",
+    "delta": "root = Card([Callout(\"info\", \"확인한 원문 범위\", \"이번 요청에서 확인한 원문: NVIDIA 10-Q, fiscal 2027 Q2 · 3페이지. 위 목록은 이번 요청에서 직접 읽은 범위입니다. 이전 대화의 검색 구절과는 구분되며, 전체 보고서와 모든 주석을 검토했다는 뜻은 아닙니다.\")], [{\"title\": \"NVIDIA 10-Q, fiscal 2027 Q2 · 3페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}])"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "067136ef-5da2-4eb8-b57d-82b2abd90d43"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 3,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "6ef02a5c-767d-4bca-9798-9789d2b2fa31",
+            "title": "NVIDIA 분기·누적 매출",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 12,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, quarterlyChart, separator, table6M, disclaimer], [{title:\"“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”\", sourceName:\"NVIDIA · Page 3\", url:\"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}])\nheader = CardHeader(\"NVIDIA 분기·누적 매출\", \"회계연도 구분: FY2026 Q2 (2025년 7월 27일), FY2027 Q2 (2026년 7월 26일). 단위: 백만 USD\")\nquarterlyChart = LineChart([\"FY2026 Q2 (7/27/2025)\", \"FY2027 Q2 (7/26/2026)\"], [Series(\"분기 매출 (백만 USD)\", [46743, 96221])], \"linear\", \"분기\", \"매출 (백만 USD)\", 240)\nseparator = Separator()\ntable6M = Table([Col(\"항목\", [\"매출\", \"매출원가\", \"매출총이익\", \"영업비용(R&D)\", \"영업비용(SG&A)\", \"영업이익\", \"기타순수익\", \"세전순이익\", \"법인세비용\", \"순이익\"]), Col(\"FY2026 6개월 누적 (2025년 7월 27일 기준)\", [\"90,805\", \"30,284\", \"60,521\", \"8,280\", \"2,163\", \"50,078\", \"3,039\", \"53,117\", \"7,920\", \"45,197\"]), Col(\"FY2027 6개월 누적 (2026년 7월 26일 기준)\", [\"177,837\", \"44,538\", \"133,299\", \"13,375\", \"2,654\", \"117,270\", \"24,140\", \"141,410\", \"23,400\", \"118,010\"])])\ndisclaimer = TextContent(\"본 데이터는 공식 NVIDIA FY2027 Q2 IR PDF에서 발췌한 공식 정보이며, 추가 SEC 수집 본이 아닙니다. 원문 페이지는 3쪽입니다.\", \"small\")",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”",
+                "sourceName": "NVIDIA · Page 3",
+                "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+              }
+            ]
+          },
+          {
+            "id": "8895c0ea-c5ff-4451-bc2e-899612eafc17",
+            "title": "NVIDIA 분기·누적 매출",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, quarterlyChart, separator, table6M, disclaimer], [{title:\"“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”\", sourceName:\"NVIDIA · Page 3\", url:\"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}])\nheader = CardHeader(\"NVIDIA 분기·누적 매출\", \"회계연도 구분: FY2026 Q2 (2025년 7월 27일), FY2027 Q2 (2026년 7월 26일). 단위: 백만 USD\")\nquarterlyChart = LineChart([\"FY2026 Q2 (7/27/2025)\", \"FY2027 Q2 (7/26/2026)\"], [Series(\"분기 매출 (백만 USD)\", [46743, 96221])], \"linear\", \"분기\", \"매출 (백만 USD)\", 240)\nseparator = Separator()\ntable6M = Table([Col(\"항목\", [\"매출\", \"매출원가\", \"매출총이익\", \"영업비용(R&D)\", \"영업비용(SG&A)\", \"영업이익\", \"기타순수익\", \"세전순이익\", \"법인세비용\", \"순이익\"]), Col(\"FY2026 6개월 누적 (2025년 7월 27일 기준)\", [\"90,805\", \"30,284\", \"60,521\", \"8,280\", \"2,163\", \"50,078\", \"3,039\", \"53,117\", \"7,920\", \"45,197\"]), Col(\"FY2027 6개월 누적 (2026년 7월 26일 기준)\", [\"177,837\", \"44,538\", \"133,299\", \"13,375\", \"2,654\", \"117,270\", \"24,140\", \"141,410\", \"23,400\", \"118,010\"])])\ndisclaimer = TextContent(\"본 데이터는 공식 NVIDIA FY2027 Q2 IR PDF에서 발췌한 공식 정보이며, 추가 SEC 수집본이 아닙니다. 원문 페이지는 3쪽입니다.\", \"small\")",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”",
+                "sourceName": "NVIDIA · Page 3",
+                "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+              }
+            ]
+          }
+        ],
+        "artifacts": [
+          {
+            "id": "dcd21232-ee7e-42d0-ab02-c142e558bd85",
+            "title": "NVIDIA 분기·누적 매출",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, revenueTrendChart, table6M], [{title:\"“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”\", sourceName:\"NVIDIA · Page 3\", url:\"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}])\nheader = CardHeader(\"NVIDIA 분기·누적 매출\", \"Quarter ended July 26, 2026. 단위: 백만 USD\")\nrevenueTrendChart = LineChart([\"2026년 2분기\", \"2027년 2분기\", \"2026년 상반기\", \"2027년 상반기\"], [Series(\"매출(백만 USD)\", [46743, 96221, 90805, 177837])], \"linear\", \"기간\", \"매출(백만 USD)\", 240)\ntable6M = Table([Col(\"항목\", [\"매출\", \"매출원가\", \"매출총이익\", \"영업비용(R&D)\", \"영업비용(SG&A)\", \"영업이익\", \"기타순수익\", \"세전순이익\", \"법인세비용\", \"순이익\"]), Col(\"2026년 상반기(~7월 27일)\", [\"90,805\", \"30,284\", \"60,521\", \"8,280\", \"2,163\", \"50,078\", \"3,039\", \"53,117\", \"7,920\", \"45,197\"]), Col(\"2027년 상반기(~7월 26일)\", [\"177,837\", \"44,538\", \"133,299\", \"13,375\", \"2,654\", \"117,270\", \"24,140\", \"141,410\", \"23,400\", \"118,010\"])])",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "“Revenue $96,221 million for Q2 FY2027 and $46,743 million for Q2 FY2026; $177,837 million for 6 months FY2027 and $90,805 million for 6 months FY2026.”",
+                "sourceName": "NVIDIA · Page 3",
+                "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+              }
+            ]
+          }
+        ],
+        "selected_panel_id": "8895c0ea-c5ff-4451-bc2e-899612eafc17",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "RUN_FINISHED",
+    "threadId": "3c5b1b38-446f-4bc2-811e-cd93185c26b3",
+    "runId": "8d292d1f-5fe8-46b1-a097-a9a71f07edac"
+  }
+]

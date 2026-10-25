@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("비교를 다시 진행해줘. NVIDIA와 AMD의 연간 총매출과 데이터센터 매출을 비교하되, 근거에 없는 수치는 미확인으로 남기고 확인된 값만 표에 넣어줘. 회계연도와 단위를 표시하고 원문을 읽어 확인해줘. Canvas는 바꾸지 마."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

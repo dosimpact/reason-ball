@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("button",{name:"＋ 새 분석",exact:true}).click(); await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("NVIDIA의 최근 SEC 10-K 보고서를 찾아 내려받아줘. 수집에 실패하면 실패 이유와 확보 여부를 알려줘."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

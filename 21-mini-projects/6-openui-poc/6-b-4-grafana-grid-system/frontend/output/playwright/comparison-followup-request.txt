@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("navigation",{name:"대화 목록"}).getByRole("button",{name:/^이미 준비된 NVIDIA, AMD, Intel PDF에서/}).first().click(); await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("이번에는 Intel을 제외하고 NVIDIA와 AMD만 비교해줘. 비교 항목은 최신 연간 총매출과 데이터센터 사업 매출로 바꿔줘. AMD가 앞서 Not found였으니 다른 검색어로 다시 찾고, 원문 페이지까지 확인해서 표에 회계연도·단위·페이지 출처를 표시해줘. 기존 Canvas 패널은 바꾸지 말고 대화에서 답해줘."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

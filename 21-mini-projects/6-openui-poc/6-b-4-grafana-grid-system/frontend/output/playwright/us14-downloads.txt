@@ -1,0 +1,17 @@
+### Ran Playwright code
+```js
+await (async page => { const canvas=page.getByRole("region",{name:"Canvas dashboard"}); await canvas.getByRole("button",{name:"NVIDIA 매출",exact:true}).waitFor(); for(const format of ["JSON","CSV"]){const pending=page.waitForEvent("download");await canvas.getByRole("button",{name:format,exact:true}).click();await (await pending).saveAs("output/playwright/US-14-export."+format.toLowerCase());} const pending=page.waitForEvent("popup");await canvas.getByRole("button",{name:"PDF / 인쇄",exact:true}).click();const print=await pending;await print.waitForLoadState("networkidle");await print.pdf({path:"output/playwright/US-14-export.pdf",format:"A4",printBackground:true});await print.close();})(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/gallery)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+- Console: 3 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-10-25T03-19-08-918Z.log#L46-L49
+- Downloading file sec-dashboard-2026-10-25.json ...
+- Downloaded file sec-dashboard-2026-10-25.json to ".playwright-cli/sec-dashboard-2026-10-25.json"
+- Downloading file sec-dashboard-2026-10-25.csv ...
+- Downloaded file sec-dashboard-2026-10-25.csv to ".playwright-cli/sec-dashboard-2026-10-25.csv"

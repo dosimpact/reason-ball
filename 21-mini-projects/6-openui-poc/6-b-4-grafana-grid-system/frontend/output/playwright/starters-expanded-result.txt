@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("button",{name:"＋ 새 분석",exact:true}).click(); for(const title of ["가정 계산기","분석 입력 폼","메모와 체크리스트"]) await page.getByRole("button",{name:new RegExp(title)}).waitFor(); await page.screenshot({path:"output/playwright/starters-expanded.png"}); })(page);
+```

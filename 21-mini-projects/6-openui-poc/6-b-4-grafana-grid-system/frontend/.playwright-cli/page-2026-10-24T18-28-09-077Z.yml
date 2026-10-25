@@ -1,0 +1,180 @@
+- generic [active] [ref=f2e1]:
+  - main [ref=f2e2]:
+    - navigation [ref=f2e3]:
+      - link "← Filing Studio" [ref=f2e4] [cursor=pointer]:
+        - /url: /
+      - link "사용 경험" [ref=f2e5] [cursor=pointer]:
+        - /url: "#experience"
+      - link "전체 구조" [ref=f2e6] [cursor=pointer]:
+        - /url: "#architecture"
+      - link "데이터" [ref=f2e7] [cursor=pointer]:
+        - /url: "#data"
+      - link "OpenUI" [ref=f2e8] [cursor=pointer]:
+        - /url: "#openui"
+      - link "실행·검증" [ref=f2e9] [cursor=pointer]:
+        - /url: "#operations"
+    - generic [ref=f2e10]:
+      - text: FILING STUDIO / ONBOARDING
+      - heading "질문이 분석으로, 분석이 대시보드로." [level=1] [ref=f2e11]: 질문이 분석으로,분석이 대시보드로.
+      - paragraph [ref=f2e12]: SEC 사업보고서를 읽고 비교하며, 필요한 결과를 지속 가능한 Canvas로 만드는 자체 앱입니다.
+    - generic [ref=f2e13]:
+      - heading "1. 사용자에게 보이는 흐름" [level=2] [ref=f2e14]
+      - generic [ref=f2e15]:
+        - article [ref=f2e16]:
+          - text: 01 · 대화에서 시작
+          - paragraph [ref=f2e17]: 기업명·티커로 보고서를 찾고, 요약·섹션 읽기·기업 간 비교를 요청합니다. 준비된 PDF도 검색합니다.
+        - article [ref=f2e18]:
+          - text: 02 · 결과를 Canvas로
+          - paragraph [ref=f2e19]: 차트·표·메모·인터랙티브 UI를 대화에서 추가하거나 직접 생성합니다. 패널의 출처와 조회 조건도 유지합니다.
+        - article [ref=f2e20]:
+          - text: 03 · 계속 다듬기
+          - paragraph [ref=f2e21]: 드래그·리사이즈·고정·탭 이동을 직접 하거나 대화로 요청합니다. 이전 대화를 열면 서버에 저장한 대시보드를 복원합니다.
+      - paragraph [ref=f2e22]: "예: “최근 10년 매출을 보여줘” → “이 그래프를 Canvas에 추가해줘” → “2020년은 제외해줘” → “전체를 내려받고 싶어”. 대상을 특정할 수 없으면 먼저 확인합니다."
+    - generic [ref=f2e23]:
+      - heading "2. 전체 시스템 — 이동·확대 가능한 구조도" [level=2] [ref=f2e24]
+      - paragraph [ref=f2e25]: 왼쪽은 사용자 화면, 가운데는 요청과 에이전트, 오른쪽은 수집·분석·영속 저장입니다. 마우스로 확대하거나 노드를 이동하며 관계를 살펴보세요.
+      - application [ref=f2e27]:
+        - generic [ref=f2e29]:
+          - generic:
+            - generic:
+              - img:
+                - group "Edge from user to chat" [ref=f2e30] [cursor=pointer]
+              - img:
+                - group "Edge from user to canvas" [ref=f2e33] [cursor=pointer]
+              - img:
+                - group "Edge from chat to api" [ref=f2e36] [cursor=pointer]
+              - img:
+                - group "Edge from canvas to api" [ref=f2e39] [cursor=pointer]
+              - img:
+                - group "Edge from api to agent" [ref=f2e42] [cursor=pointer]:
+                  - generic [ref=f2e45]: AG-UI
+              - img:
+                - group "Edge from api to commands" [ref=f2e47] [cursor=pointer]
+              - img:
+                - group "Edge from agent to sec" [ref=f2e50] [cursor=pointer]
+              - img:
+                - group "Edge from agent to search" [ref=f2e53] [cursor=pointer]
+              - img:
+                - group "Edge from agent to commands"
+              - img:
+                - group "Edge from sec to db"
+              - img:
+                - group "Edge from search to db"
+              - img:
+                - group "Edge from commands to db" [ref=f2e56] [cursor=pointer]
+            - generic:
+              - group [ref=f2e59]: 사용자 · 질문 / 직접 조작
+              - group [ref=f2e61]: Headless Chat · OpenUI Renderer
+              - group [ref=f2e64]: Canvas · 24열 패널 / 탭
+              - group [ref=f2e67]: Next.js HTTP proxy
+              - group [ref=f2e70]: Python Deep Agent
+              - group [ref=f2e73]: 공통 Canvas 명령 · revision
+              - group [ref=f2e76]: SEC 수집 subagent / subgraph
+              - group [ref=f2e79]: 문서 비교 / 섹션 / XBRL 분석
+              - group [ref=f2e82]: SQLite · 원문 / 벡터 / 대화 / 패널
+        - generic "Control Panel" [ref=f2e84]:
+          - button "Zoom In" [ref=f2e85] [cursor=pointer]
+          - button "Zoom Out" [ref=f2e88] [cursor=pointer]
+          - button "Fit View" [ref=f2e91] [cursor=pointer]
+          - button "Toggle Interactivity" [ref=f2e94] [cursor=pointer]
+        - img "Mini Map" [ref=f2e98]
+        - link "React Flow attribution" [ref=f2e109] [cursor=pointer]:
+          - /url: https://reactflow.dev/attribution
+          - text: React Flow
+      - paragraph [ref=f2e111]:
+        - text: 대화 요청은
+        - code [ref=f2e112]: /api/dashboard/chat
+        - text: 에서 Python
+        - code [ref=f2e113]: /dashboard/chat
+        - text: 으로 전달됩니다. 서버는 AG-UI 텍스트·도구·상태 이벤트를 보내고, 화면은 요청을 시작한 대화에만 적용합니다.
+    - generic [ref=f2e114]:
+      - heading "3. 숫자와 문장의 근거" [level=2] [ref=f2e115]
+      - list [ref=f2e116]:
+        - listitem [ref=f2e117]: "공시 수집: 기업을 CIK로 식별하고 Submissions에서 공시를 찾은 뒤 원문을 저장합니다. 다운로드 실패와 준비 완료를 구분합니다."
+        - listitem [ref=f2e118]: "섹션: Item별 원문과 위치를 보관합니다. 추출에 실패한 섹션을 임의로 만들지 않고 전체 원문을 확인할 수 있게 합니다."
+        - listitem [ref=f2e119]: "검색: 기존 PDF의 페이지별 벡터와 SEC 원문의 섹션별 벡터를 SQLite에 저장합니다. 유사도는 근거의 순위를 뜻하며 사실 부재의 확정이 아닙니다."
+        - listitem [ref=f2e120]: "연간 수치: XBRL의 연간 기간, 통화·단위, 원래 공시와 정정 공시를 구분합니다. 누락 연도는 0으로 채우지 않으며 연도가 연속되지 않으면 YoY를 계산하지 않습니다."
+      - paragraph [ref=f2e121]: 현재 환경의 SEC 직접 접근은 403을 반환했습니다. 모델·임베딩 호출은 확인했지만, 최신 원문 수집 성공 여부는 별도 검증해야 합니다. 준비된 PDF 비교와 Canvas 작업은 독립적으로 진행할 수 있습니다.
+    - generic [ref=f2e122]:
+      - heading "4. Canvas 상태가 일관되는 이유" [level=2] [ref=f2e123]
+      - paragraph [ref=f2e124]: 브라우저와 에이전트는 같은 패널 명령을 사용합니다. 패널 ID는 계속 유지되며, 제목 변경이나 기간 확장으로 다른 패널을 만들지 않습니다.
+      - list [ref=f2e125]:
+        - listitem [ref=f2e126]: 현재 대화의 대시보드와 revision을 읽습니다.
+        - listitem [ref=f2e127]: 변경 명령에 operation ID와 base revision을 붙입니다.
+        - listitem [ref=f2e128]: 서버가 스키마·고정·참조·충돌을 검사하고 SQLite에 저장합니다.
+        - listitem [ref=f2e129]: AG-UI STATE_SNAPSHOT 또는 STATE_DELTA로 화면을 갱신합니다.
+      - paragraph [ref=f2e130]: 이미 처리한 명령은 중복 적용하지 않습니다. 사용자가 먼저 변경했다면 오래된 명령을 거절하고 현재 상태를 다시 읽습니다. 패널을 지워도 원문 보고서와 대화는 남습니다.
+    - generic [ref=f2e131]:
+      - heading "5. OpenUI 카탈로그와 프롬프트" [level=2] [ref=f2e132]
+      - paragraph [ref=f2e133]:
+        - text: 기존 6-5의 컴포넌트·함수·액션 계약을 보존합니다.
+        - code [ref=f2e134]: Col
+        - text: 은 표의 열,
+        - code [ref=f2e135]: VStack
+        - text: 은 세로 레이아웃입니다. 독립 패널의 프로그램은 자신의 root와 변수를 가져야 합니다.
+      - generic [ref=f2e136]: Frontend catalog (SSOT) components + defineFunction + defineAction ↓ npm run generate src/shared/ui/openui/generated/spec.json src/shared/ui/openui/generated/system-prompt.txt ↓ explicit cp backend-langgraph/agent/system-prompt.txt ↓ Deep Agent → OpenUI program → Renderer
+      - heading "defineFunction — YearOverYear" [level=3] [ref=f2e137]
+      - paragraph [ref=f2e138]:
+        - code [ref=f2e139]: "@YearOverYear(120, 100)"
+        - text: 은 20을 반환합니다. 분모가 0이면 null입니다. 사용자 가정에 따른 계산기에 사용할 수 있지만, 보고서의 누락 수치를 대신 만들지 않습니다.
+      - heading "defineAction — FocusPanel" [level=3] [ref=f2e140]
+      - paragraph [ref=f2e141]:
+        - code [ref=f2e142]: "@FocusPanel(\"실제 패널 ID\")"
+        - text: 는 호스트의 공통 명령으로 해당 패널을 선택하고 화면에서 찾습니다. 클라이언트가 임의 코드를 실행하는 구조가 아닙니다.
+      - heading "검증할 예제" [level=3] [ref=f2e143]
+      - paragraph [ref=f2e144]: “현재값 120, 전년값 100인 가정용 성장률 계산기를 만들고 값을 바꿀 수 있게 해줘.” 이후 실제 패널 ID를 사용한 이동 버튼을 요청할 수 있습니다. 기존 CopyToClipboard와 59개 계산 함수도 유지합니다.
+    - generic [ref=f2e145]:
+      - heading "6. 소스 코드 읽는 순서" [level=2] [ref=f2e146]
+      - table [ref=f2e147]:
+        - rowgroup [ref=f2e148]:
+          - row [ref=f2e149]:
+            - columnheader "경로" [ref=f2e150]
+            - columnheader "책임" [ref=f2e151]
+        - rowgroup [ref=f2e152]:
+          - row [ref=f2e153]:
+            - cell [ref=f2e154]:
+              - code [ref=f2e155]: frontend/src/pages/workspace
+            - cell "헤드리스 대화, 목록, 전체 배치" [ref=f2e156]
+          - row [ref=f2e157]:
+            - cell [ref=f2e158]:
+              - code [ref=f2e159]: frontend/src/features/dashboard
+            - cell "Canvas 조작, AG-UI 분배, 다운로드" [ref=f2e160]
+          - row [ref=f2e161]:
+            - cell [ref=f2e162]:
+              - code [ref=f2e163]: frontend/src/entities/dashboard
+            - cell "패널 계약과 OpenUI 렌더링" [ref=f2e164]
+          - row [ref=f2e165]:
+            - cell [ref=f2e166]:
+              - code [ref=f2e167]: frontend/src/shared/ui/openui
+            - cell "승계한 UI·함수·액션 카탈로그" [ref=f2e168]
+          - row [ref=f2e169]:
+            - cell [ref=f2e170]:
+              - code [ref=f2e171]: backend-langgraph/agent/dashboard
+            - cell "Deep Agent, HTTP, 도구, 상태 명령" [ref=f2e172]
+          - row [ref=f2e173]:
+            - cell [ref=f2e174]:
+              - code [ref=f2e175]: backend-langgraph/agent/sec
+            - cell "SEC 클라이언트·수집 그래프·파싱·검색" [ref=f2e176]
+          - row [ref=f2e177]:
+            - cell [ref=f2e178]:
+              - code [ref=f2e179]: backend-langgraph/agent/documents.py
+            - cell "기존 PDF 검색과 임베딩" [ref=f2e180]
+          - row [ref=f2e181]:
+            - cell [ref=f2e182]:
+              - code [ref=f2e183]: backend-langgraph/agent/history.py
+            - cell "서버 소유 대화 저장" [ref=f2e184]
+      - paragraph [ref=f2e185]: 프런트엔드는 FSD 계층과 public API를 사용합니다. 저장·네트워크·계산·렌더링을 분리하여 한 함수가 한 수준의 책임을 갖도록 구성합니다.
+    - generic [ref=f2e186]:
+      - heading "7. 실행과 검증" [level=2] [ref=f2e187]
+      - generic [ref=f2e188]: "# backend-langgraph uv sync --frozen uv run langgraph dev --port 2041 --no-browser # frontend npm ci npm run dev # http://127.0.0.1:3049 # Catalog change npm run generate cp src/shared/ui/openui/generated/system-prompt.txt ../backend-langgraph/agent/system-prompt.txt # Restart backend after prompt asset changes # Checks uv run pytest uv run ruff check agent tests npm test npm run typecheck npm run lint npm run verify"
+      - paragraph [ref=f2e189]: 루트 .env 및 백엔드 .env는 서버에서만 읽습니다. SQLite 파일, 원문 PDF, 키, 캐시는 Git에 올리지 않습니다. 기존 서버를 재사용하거나 종료하지 않고 이 프로젝트의 포트를 사용합니다.
+      - paragraph [ref=f2e190]: 검증은 정적 검사, 단위 테스트, 실제 공급자/API 호출, 브라우저 사용자 흐름으로 나누어 기록합니다. 과거 6-5의 성공 기록은 이번 프로젝트의 성공 증거가 아닙니다.
+    - generic [ref=f2e191]:
+      - heading "8. 내보내기와 지원 범위" [level=2] [ref=f2e192]
+      - paragraph [ref=f2e193]: JSON은 패널·조회 조건·배치·출처를 담습니다. CSV는 재무 행과 일반 패널의 프로그램을 포함합니다. PDF는 브라우저 인쇄에서 저장하며, 생성 중인 답변은 완료한 후 내보내는 것이 좋습니다.
+      - paragraph [ref=f2e194]: 로컬 단일 사용자 앱입니다. 공개 배포 인증, 다중 사용자 협업, OCR은 별도 범위입니다. SEC 오류와 자료 부족은 화면에서 안내하며 성공으로 위장하지 않습니다.
+      - paragraph [ref=f2e195]:
+        - link "대시보드로 돌아가기 →" [ref=f2e196] [cursor=pointer]:
+          - /url: /
+  - button "Open Next.js Dev Tools" [ref=f2e202] [cursor=pointer]
+  - alert [ref=f2e206]

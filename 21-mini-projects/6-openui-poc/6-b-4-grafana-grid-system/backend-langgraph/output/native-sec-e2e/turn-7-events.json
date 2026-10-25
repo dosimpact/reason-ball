@@ -1,0 +1,280 @@
+[
+  {
+    "type": "RUN_STARTED",
+    "threadId": "5b6ee045-b0e9-4b95-b253-bed548dc58e5",
+    "runId": "3227f81a-49a0-433d-8e87-7e86a73bfd75"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 10,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "db82c9c3-e7fd-4f55-beed-22f60d0f73e5",
+            "title": "Apple Inc. (AAPL) 최근 3년 매출 및 YoY 증감 (FY2024 제외)",
+            "kind": "financial",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 16,
+              "h": 13
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "snapshot",
+              "interval_seconds": 60,
+              "last_attempt_at": "2026-10-25T06:57:33.979446+00:00",
+              "last_success_at": "2026-10-25T06:57:33.979446+00:00",
+              "error": null
+            },
+            "program": "",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {
+              "cik": "0000320193",
+              "metric": "revenue",
+              "years": 3,
+              "exclude_years": [
+                2024
+              ]
+            },
+            "data": {
+              "company": "Apple Inc.",
+              "cik": "0000320193",
+              "metric": "revenue",
+              "rows": [
+                {
+                  "period": "2023-09-30",
+                  "start": "2022-09-25",
+                  "year": 2023,
+                  "value": 383285000000,
+                  "unit": "USD",
+                  "filed": "2025-10-31",
+                  "accession": "0000320193-25-000079",
+                  "form": "10-K",
+                  "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+                  "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html",
+                  "growth_percent": null
+                },
+                {
+                  "period": "2025-09-27",
+                  "start": "2024-09-29",
+                  "year": 2025,
+                  "value": 416161000000,
+                  "unit": "USD",
+                  "filed": "2025-10-31",
+                  "accession": "0000320193-25-000079",
+                  "form": "10-K",
+                  "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+                  "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html",
+                  "growth_percent": null
+                }
+              ],
+              "missing_years": [],
+              "available_units": [
+                "USD"
+              ],
+              "period_basis": "annual period end date; latest filed observation",
+              "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+              "queried_at": "2026-10-25T06:57:33.975685+00:00",
+              "source_fetched_at": "2026-10-25T06:57:33.943378+00:00",
+              "latest_filing_date": "2025-10-31"
+            },
+            "sources": [
+              {
+                "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+                "title": "SEC Company Facts"
+              }
+            ]
+          }
+        ],
+        "artifacts": [],
+        "selected_panel_id": "db82c9c3-e7fd-4f55-beed-22f60d0f73e5",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_peGbvcueDcpNJcPayg505Vvz",
+    "toolCallName": "read_sec_section"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_peGbvcueDcpNJcPayg505Vvz",
+    "delta": "{\"filing_id\": \"0000320193-26-000020\", \"section\": \"Part I Item 1\"}"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_2nTyB8zUp4tiG2belCUZ1ZEA",
+    "toolCallName": "read_sec_section"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_2nTyB8zUp4tiG2belCUZ1ZEA",
+    "delta": "{\"filing_id\": \"0000320193-26-000020\", \"section\": \"Part I Item 2\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_peGbvcueDcpNJcPayg505Vvz"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_2nTyB8zUp4tiG2belCUZ1ZEA"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_peGbvcueDcpNJcPayg505Vvz",
+    "toolCallId": "call_peGbvcueDcpNJcPayg505Vvz",
+    "content": "{\"filing_id\": \"0000320193-26-000020\", \"company\": \"Apple Inc.\", \"report_date\": \"2026-06-27\", \"section\": \"Part I Item 1\", \"text\": \"Item 1. Financial Statements\\nApple Inc.\\nCONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited)\\n(In millions, except number of shares, which are reflected in thousands, and per-share amounts)\\nThree Months Ended\\nNine Months Ended\\nJune 27,\\n2026\\nJune 28,\\n2025\\nJune 27,\\n2026\\nJune 28,\\n2025\\nNet sales:\\nProducts\\n$\\n78,678\\n$\\n66,613\\n$\\n272,629\\n$\\n233,287\\nServices\\n30,739\\n27,423\\n91,728\\n80,408\\nTotal net sales\\n109,417\\n94,036\\n364,357\\n313,695\\nCost of sales:\\nProducts\\n47,153\\n43,620\\n163,810\\n147,097\\nServices\\n7,494\\n6,698\\n21,765\\n19,738\\nTotal cost of sales\\n54,647\\n50,318\\n185,575\\n166,835\\nGross margin\\n54,770\\n43,718\\n178,782\\n146,860\\nOperating expenses:\\nResearch and development\\n11,729\\n8,866\\n34,035\\n25,684\\nSelling, general and administrative\\n7,346\\n6,650\\n22,315\\n20,553\\nTotal operating expenses\\n19,075\\n15,516\\n56,350\\n46,237\\nOperating income\\n35,695\\n28,202\\n122,432\\n100,623\\nOther income/(expense), net\\n572\\n(\\n171\\n)\\n670\\n(\\n698\\n)\\nIncome before provision for income taxes\\n36,267\\n28,031\\n123,102\\n99,925\\nProvision for income taxes\\n6,478\\n4,597\\n21,638\\n15,381\\nNet income\\n$\\n29,789\\n$\\n23,434\\n$\\n101,464\\n$\\n84,544\\nEarnings per share:\\nBasic\\n$\\n2.03\\n$\\n1.57\\n$\\n6.91\\n$\\n5.64\\nDiluted\\n$\\n2.02\\n$\\n1.57\\n$\\n6.88\\n$\\n5.62\\nShares used in computing earnings per share:\\nBasic\\n14,656,110\\n14,902,886\\n14,692,515\\n14,992,898\\nDiluted\\n14,714,676\\n14,948,179\\n14,750,302\\n15,051,726\\nSee accompanying Notes to Condensed Consolidated Financial Statements.\\nApple Inc. | Q3 2026 Form 10-Q | 1\\nApple Inc.\\nCONDENSED CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME (Unaudited)\\n(In millions)\\nThree Months Ended\\nNine Months Ended\\nJune 27,\\n2026\\nJune 28,\\n2025\\nJune 27,\\n2026\\nJune 28,\\n2025\\nNet income\\n$\\n29,789\\n$\\n23,434\\n$\\n101,464\\n$\\n84,544\\nOther comprehensive income/(loss):\\nChange in foreign currency translation, net of tax\\n(\\n24\\n)\\n449\\n(\\n116\\n)\\n(\\n86\\n)\\nChange in unrealized gains/losses on derivative instruments, net of tax:\\nChange in fair value of derivative instruments\\n356\\n(\\n523\\n)\\n729\\n810\\nAdjustment for net (gains)/losses realized and included in net income\\n67\\n(\\n571\\n)\\n348\\n(\\n415\\n)\\nTotal change in unrealized gains/losses on derivative instruments\\n423\\n(\\n1,094\\n)\\n1,077\\n395\\nChange in unrealized gains/losses on marketable debt securities, net of tax:\\nChange in fair value of marketable debt securities\\n441\\n640\\n57\\n90\\nAdjustment for net (gains)/losses realized and included in net income\\n27\\n(\\n1\\n)\\n45\\n404\\nTotal change in unrealized gains/losses on marketable debt securities\\n468\\n639\\n102\\n494\\nTotal other comprehensive income/(loss)\\n867\\n(\\n6\\n)\\n1,063\\n803\\nTotal comprehensive income\\n$\\n30,656\\n$\\n23,428\\n$\\n102,527\\n$\\n85,347\\nSee accompanying Notes to Condensed Consolidated Financial Statements.\\nApple Inc. | Q3 2026 Form 10-Q | 2\\nApple Inc.\\nCONDENSED CONSOLIDATED BALANCE SHEETS (Unaudited)\\n(In millions, except number of shares, which are reflected in thousands, and par value)\\nJune 27,\\n2026\\nSeptember 27,\\n2025\\nASSETS:\\nCurrent assets:\\nCash and cash equivalents\\n$\\n39,544\\n$\\n35,934\\nMarketable securities\\n22,855\\n18,763\\nAccounts receivable, net\\n31,398\\n39,777\\nVendor non-trade receivables\\n27,509\\n33,180\\nInventories\\n11,092\\n5,718\\nOther current assets\\n17,420\\n14,585\\nTotal current assets\\n149,818\\n147,957\\nNon-current assets:\\nMarketable securities\\n84,118\\n77,723\\nProperty, plant and equipment, net\\n51,431\\n49,834\\nIntangible assets, net\\n20,342\\n11,093\\nOther non-current assets\\n77,557\\n72,634\\nTotal non-current assets\\n233,448\\n211,284\\nTotal assets\\n$\\n383,266\\n$\\n359,241\\nLIABILITIES AND SHAREHOLDERS’ EQUITY:\\nCurrent liabilities:\\nAccounts payable\\n$\\n64,525\\n$\\n69,860\\nOther current liabilities\\n62,259\\n66,387\\nDeferred revenue\\n9,538\\n9,055\\nCommercial paper\\n1,997\\n7,979\\nTerm debt\\n11,007\\n12,350\\nTotal current liabilities\\n149,326\\n165,631\\nNon-current liabilities:\\nTerm debt\\n71,340\\n78,328\\nOther non-current liabilities\\n55,080\\n41,549\\nTotal non-current liabilities\\n126,420\\n119,877\\nTotal liabilities\\n275,746\\n285,508\\nCommitments and contingencies\\nShareholders’ equity:\\nCommon stock and additional paid-in capital, $\\n0.00001\\npar value:\\n50,400,000\\nshares authorized;\\n14,608,963\\nand\\n14,773,260\\nshares issued and outstanding, respectively\\n100,702\\n93,568\\nRetained earnings/(Accumulated deficit)\\n11,326\\n(\\n14,264\\n)\\nAccumulated other comprehensive loss\\n(\\n4,508\\n)\\n(\\n5,571\\n)\\nTotal shareholders’ equity\\n107,520\\n73,733\\nTotal liabilities and shareholders’ equity\\n$\\n383,266\\n$\\n359,241\\nSee accompanying Notes to Condensed Consolidated Financial Statements.\\nApple Inc. | Q3 2026 Form 10-Q | 3\\nApple Inc.\\nCONDENSED CONSOLIDATED STATEMENTS OF SHAREHOLDERS’ EQUITY (Unaudited)\\n(In millions, except per-share amounts)\\nThree Months Ended\\nNine Months Ended\\nJune 27,\\n2026\\nJune 28,\\n2025\\nJune 27,\\n2026\\nJune 28,\\n2025\\nTotal shareholders’ equity, beginning balances\\n$\\n106,491\\n$\\n66,796\\n$\\n73,733\\n$\\n56,950\\nCommon stock and additional paid-in capital:\\nBeginning balances\\n99,507\\n88,711\\n93,568\\n83,276\\nCommon stock issued\\n—\\n—\\n878\\n825\\nCommon stock withheld related to net share settlement of equity awards\\n(\\n2,396\\n)\\n(\\n2,163\\n)\\n(\\n4,704\\n)\\n(\\n4,260\\n)\\nShare-based compensation\\n3,591\\n3,258\\n10,960\\n9,965\\nEnding balances\\n100,702\\n89,806\\n100,702\\n89,806\\nRetained earnings/(Accumulated deficit):\\nBeginning balances\\n12,359\\n(\\n15,552\\n)\\n(\\n14,264\\n)\\n(\\n19,154\\n)\\nNet income\\n29,789\\n23,434\\n101,464\\n84,544\\nDividends and dividend equivalents declared\\n(\\n3,998\\n)\\n(\\n3,912\\n)\\n(\\n11,733\\n)\\n(\\n11,525\\n)\\nCommon stock withheld related to net share settlement of equity awards\\n(\\n875\\n)\\n(\\n411\\n)\\n(\\n1,899\\n)\\n(\\n1,598\\n)\\nCommon stock repurchased\\n(\\n25,949\\n)\\n(\\n21,166\\n)\\n(\\n62,242\\n)\\n(\\n69,874\\n)\\nEnding balances\\n11,326\\n(\\n17,607\\n)\\n11,326\\n(\\n17,607\\n)\\nAccumulated other comprehensive loss:\\nBeginning balances\\n(\\n5,375\\n)\\n(\\n6,363\\n)\\n(\\n5,571\\n)\\n(\\n7,172\\n)\\nOther comprehensive income/(loss)\\n867\\n(\\n6\\n)\\n1,063\\n803\\nEnding balances\\n(\\n4,508\\n)\\n(\\n6,369\\n)\\n(\\n4,508\\n)\\n(\\n6,369\\n)\\nTotal shareholders’ equity, ending balances\\n$\\n107,520\\n$\\n65,830\\n$\\n107,520\\n$\\n65,830\\nDividends and dividend equivalents declared per share or RSU\\n$\\n0.27\\n$\\n0.26\\n$\\n0.79\\n$\\n0.76\\nSee accompanying Notes to Condensed Consolidated Financial Statements.\\nApple Inc. | Q3 2026 Form 10-Q | 4\\nApple Inc.\\nCONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS (Unaudited)\\n(In millions)\\nNine Months Ended\\nJune 27,\\n2026\\nJune 28,\\n2025\\nCash, cash equivalents, and restricted cash and cash equivalents, beginning balances\\n$\\n35,934\\n$\\n29,943\\nOperating activities:\\nNet income\\n101,464\\n84,544\\nAdjustments to reconcile net income to cash generated by operating activities:\\nDepreciation and amortization\\n9,973\\n8,571\\nShare-based compensation expense\\n10,523\\n9,680\\nOther\\n(\\n2,037\\n)\\n(\\n1,748\\n)\\nChanges in operating assets and liabilities:\\nAccounts receivable, net\\n8,316\\n5,685\\nVendor non-trade receivables\\n5,671\\n13,555\\nInventories\\n(\\n5,461\\n)\\n1,223\\nOther current and non-current assets\\n(\\n16,266\\n)\\n(\\n6,116\\n)\\nAccounts payable\\n(\\n5,203\\n)\\n(\\n18,479\\n)\\nOther current and non-current liabilities\\n10,016\\n(\\n15,161\\n)\\nCash generated by operating activities\\n116,996\\n81,754\\nInvesting activities:\\nPurchases of marketable securities\\n(\\n48,752\\n)\\n(\\n17,591\\n)\\nProceeds from maturities of marketable securities\\n26,504\\n35,036\\nProceeds from sales of marketable securities\\n12,016\\n10,785\\nPayments for acquisition of property, plant and equipment\\n(\\n6,799\\n)\\n(\\n9,473\\n)\\nOther\\n(\\n1,780\\n)\\n(\\n975\\n)\\nCash generated by/(used in) investing activities\\n(\\n18,811\\n)\\n17,782\\nFinancing activities:\\nPayments for taxes related to net share settlement of equity awards\\n(\\n6,462\\n)\\n(\\n5,719\\n)\\nPayments for dividends and dividend equivalents\\n(\\n11,778\\n)\\n(\\n11,559\\n)\\nRepurchases of common stock\\n(\\n62,094\\n)\\n(\\n70,579\\n)\\nProceeds from issuance of term debt, net\\n—\\n4,481\\nRepayments of term debt\\n(\\n8,146\\n)\\n(\\n9,682\\n)\\nRepayments of commercial paper, net\\n(\\n5,911\\n)\\n(\\n65\\n)\\nOther\\n(\\n184\\n)\\n(\\n87\\n)\\nCash used in financing activities\\n(\\n94,575\\n)\\n(\\n93,210\\n)\\nIncrease in cash, cash equivalents, and restricted cash and cash equivalents\\n3,610\\n6,326\\nCash, cash equivalents, and restricted cash and cash equivalents, ending balances\\n$\\n39,544\\n$\\n36,269\\nSupplemental cash flow disclosure:\\nCash paid for income taxes, net\\n$\\n26,555\\n$\\n37,332\\nSee accompanying Notes to Condensed Consolidated Financial Statements.\\nApple Inc. | Q3 2026 Form 10-Q | 5\\nApple Inc.\\nNotes to Condensed Consolidated Financial Statements (Unaudited)\\nNote 1 –\\nSummary of Significant Accounting Policies\\nBasis of Presentation and Preparation\\nThe condensed consolidated financial statements include the accounts of Apple Inc. and its wholly owned subsidiaries (collectively “Apple” or the “Company”). In the opinion of the Company’s management, the condensed consolidated financial statements reflect all adjustments, which are normal and recurring in nature, necessary for fair financial statement presentation. The preparation of these condensed consolidated financial statements and accompanying notes in conformity with U.S. generally accepted accounting principles (“GAAP”) requires the use of management estimates. Certain prior period amounts in the condensed consolidated financial statements and accompanying notes have been reclassified to conform to the current period’s presentation. These condensed consolidated financial statements and accompanying notes should be read in conjunction with the Company’s annual consolidated financial statements and accompanying notes included in its Annual Report on Form 10-K for the fiscal year ended September 27, 2025 (the “2025 Form 10-K”).\\nThe Company’s fiscal year is the 52- or 53-week period that ends on the last Saturday of September. An additional week is included in the first fiscal quarter every five or six years to realign the Company’s fiscal quarters with calendar quarters. The Company’s fiscal years 2026 and 2025 span 52 weeks each. Unless otherwise stated, references to particular years, quarters, months and periods refer to the Company’s fiscal years ended in September and the associated quarters, months and periods of those fiscal years.\\nNote 2 –\\nRevenue\\nThe following table shows disaggregated net sales, as well as the portion of total net sales that was previously deferred, for the three- and nine-month periods ended June 27, 2026 and June 28, 2025 (in millions):\\nThree Months Ended\\nNine Months Ended\\nJune 27,\\n2026\\nJune 28,\\n2025\\nJune 27,\\n2026\\nJune 28,\\n2025\\niPhone\\n®\\n$\\n54,252\\n$\\n44,582\\n$\\n196,515\\n$\\n160,561\\nMac\\n®\\n10,352\\n8,046\\n27,137\\n24,982\\niPad\\n®\\n6,191\\n6,581\\n21,700\\n21,071\\nWearables, Home and Accessories\\n7,883\\n7,404\\n27,277\\n26,673\\nServices\\n30,739\\n27,423\\n91,728\\n80,408\\nTotal net sales\\n$\\n109,417\\n$\\n94,036\\n$\\n364,357\\n$\\n313,695\\nPortion of total net sales that was included in deferred revenue as of the beginning of the period\\n$\\n4,086\\n$\\n4,015\\n$\\n7,260\\n$\\n6,958\\nThe Company’s proportion of net sales by disaggregated revenue source was generally consistent for each reportable segment in Note 10, “Segment Information” for the three- and nine-month periods ended June 27, 2026 and June 28, 2025, except in Greater China, where iPhone revenue represented a moderately higher proportion of net sales.\\nAs of June 27, 2026 and September 27, 2025, the Company had total deferred revenue of $\\n14.9\\nbillion and $\\n13.7\\nbillion, respectively. As of June 27, 2026, the Company expects\\n64\\n% of total deferred revenue to be realized in less than a year,\\n23\\n% within one-to-two years,\\n11\\n% within two-to-three years and\\n2\\n% in greater than three years.\\nApple Inc. | Q3 2026 Form 10-Q | 6\\nNote 3 –\\nEarnings Per Share\\nThe following table shows the computation of basic and diluted earnings per share for the three- and nine-month periods ended June 27, 2026 and June 28, 2025 (net income in millions and shares in thousands):\\nThree Months Ended\\nNine Months Ended\\nJune 27,\\n2026\\nJune 28,\\n2025\\nJune 27,\\n2026\\nJune 28,\\n2025\\nNumerator:\\nNet income\\n$\\n29,789\\n$\\n23,434\\n$\\n101,464\\n$\\n84,544\\nDenominator:\\nWeighted-average basic shares outstanding\\n14,656,110\\n14,902,886\\n14,692,515\\n14,992,898\\nEffect of dilutive share-based awards\\n58,566\\n45,293\\n57,787\\n58,828\\nWeighted-average diluted shares\\n14,714,676\\n14,948,179\\n14,750,302\\n15,051,726\\nBasic earnings per share\\n$\\n2.03\\n$\\n1.57\\n$\\n6.91\\n$\\n5.64\\nDiluted earnings per share\\n$\\n2.02\\n$\\n1.57\\n$\\n6.88\\n$\\n5.62\\nNote 4 –\\nFinancial Instruments\\nCash, Cash Equivalents and Marketable Securities\\nThe following tables show the Company’s cash, cash equivalents and marketable securities by significant investment category as of June 27, 2026 and September 27, 2025 (in millions):\\nJune 27, 2026\\nAdjusted\\nCost\\nUnrealized\\nGains\\nUnrealized\\nLosses\\nFair\\nValue\\nCash and\\nCash\\nEquivalents\\nCurrent\\nMarketable\\nSecurities\\nNon-Current\\nMarketable\\nSecurities\\nCash\\n$\\n26,777\\n$\\n—\\n$\\n—\\n$\\n26,777\\n$\\n26,777\\n$\\n—\\n$\\n—\\nLevel 1:\\nMoney market funds\\n7,840\\n—\\n—\\n7,840\\n7,840\\n—\\n—\\nMutual funds\\n873\\n222\\n(\\n1\\n)\\n1,094\\n—\\n1,094\\n—\\nSubtotal\\n8,713\\n222\\n(\\n1\\n)\\n8,934\\n7,840\\n1,094\\n—\\nLevel 2\\n(1)\\n:\\nU.S. Treasury securities\\n20,398\\n11\\n(\\n253\\n)\\n20,156\\n735\\n4,034\\n15,387\\nU.S. agency securities\\n6,176\\n—\\n(\\n100\\n)\\n6,076\\n988\\n2,898\\n2,190\\nNon-U.S. government securities\\n5,207\\n71\\n(\\n349\\n)\\n4,929\\n—\\n299\\n4,630\\nCertificates of deposit and time deposits\\n3,025\\n—\\n—\\n3,025\\n2,521\\n504\\n—\\nCommercial paper\\n3,828\\n—\\n—\\n3,828\\n683\\n3,145\\n—\\nCorporate debt securities\\n49,679\\n121\\n(\\n709\\n)\\n49,091\\n—\\n10,808\\n38,283\\nMortgage- and asset-backed securities\\n24,828\\n65\\n(\\n1,192\\n)\\n23,701\\n—\\n73\\n23,628\\nSubtotal\\n113,141\\n268\\n(\\n2,603\\n)\\n110,806\\n4,927\\n21,761\\n84,118\\nTotal\\n$\\n148,631\\n$\\n490\\n$\\n(\\n2,604\\n)\\n$\\n146,517\\n$\\n39,544\\n$\\n22,855\\n$\\n84,118\\nApple Inc. | Q3 2026 Form 10-Q | 7\\nSeptember 27, 2025\\nAdjusted\\nCost\\nUnrealized\\nGains\\nUnrealized\\nLosses\\nFair\\nValue\\nCash and\\nCash\\nEquivalents\\nCurrent\\nMarketable\\nSecurities\\nNon-Current\\nMarketable\\nSecurities\\nCash\\n$\\n28,267\\n$\\n—\\n$\\n—\\n$\\n28,267\\n$\\n28,267\\n$\\n—\\n$\\n—\\nLevel 1:\\nMoney market funds\\n5,272\\n—\\n—\\n5,272\\n5,272\\n—\\n—\\nMutual funds\\n679\\n177\\n(\\n2\\n)\\n854\\n—\\n854\\n—\\nSubtotal\\n5,951\\n177\\n(\\n2\\n)\\n6,126\\n5,272\\n854\\n—\\nLevel 2\\n(1)\\n:\\nU.S. Treasury securities\\n16,074\\n56\\n(\\n282\\n)\\n15,848\\n1,190\\n3,712\\n10,946\\nU.S. agency securities\\n5,269\\n—\\n(\\n149\\n)\\n5,120\\n251\\n2,456\\n2,413\\nNon-U.S. government securities\\n6,586\\n111\\n(\\n424\\n)\\n6,273\\n—\\n855\\n5,418\\nCertificates of deposit and time deposits\\n917\\n—\\n—\\n917\\n904\\n—\\n13\\nCommercial paper\\n100\\n—\\n—\\n100\\n50\\n50\\n—\\nCorporate debt securities\\n47,210\\n266\\n(\\n916\\n)\\n46,560\\n—\\n10,623\\n35,937\\nMunicipal securities\\n207\\n—\\n(\\n2\\n)\\n205\\n—\\n119\\n86\\nMortgage- and asset-backed securities\\n24,130\\n126\\n(\\n1,252\\n)\\n23,004\\n—\\n94\\n22,910\\nSubtotal\\n100,493\\n559\\n(\\n3,025\\n)\\n98,027\\n2,395\\n17,909\\n77,723\\nTotal\\n$\\n134,711\\n$\\n736\\n$\\n(\\n3,027\\n)\\n$\\n132,420\\n$\\n35,934\\n$\\n18,763\\n$\\n77,723\\n(1)\\nThe valuation techniques used to measure the fair values of the Company’s Level 2 financial instruments, which generally have counterparties with high credit ratings, are based on quoted market prices or model-driven valuations using significant inputs derived from or corroborated by observable market data.\\nAs of June 27, 2026,\\n81\\n% of the Company’s non-current marketable debt securities other than mortgage- and asset-backed securities had maturities between 1 and 5 years,\\n16\\n% between 5 and 10 years, and\\n3\\n% greater than 10 years. As of June 27, 2026,\\n14\\n% of the Company’s non-current mortgage- and asset-backed securities had maturities between 1 and 5 years,\\n21\\n% between 5 and 10 years, and\\n65\\n% greater than 10 years.\\nDerivative Instruments and Hedging\\nThe Company may use derivative instruments to partially offset its business exposure to foreign exchange and interest rate risk. However, the Company may choose not to hedge certain exposures for a variety of reasons, including accounting considerations or the prohibitive economic cost of hedging particular exposures. There can be no assurance the hedges will offset more than a portion of the financial impact resulting from movements in foreign exchange or interest rates.\\nForeign Exchange Rate Risk\\nTo protect gross margins from fluctuations in foreign exchange rates, the Company may use forwards, options or other instruments, and may designate these instruments as cash flow hedges. The Company generally hedges portions of its forecasted foreign currency exposure associated with revenue and inventory purchases, typically for up to\\n12\\nmonths.\\nTo protect the Company’s foreign currency–denominated term debt or marketable securities from fluctuations in foreign exchange rates, the Company may use forwards, cross-currency swaps or other instruments. The Company designates these instruments as either cash flow or fair value hedges. As\", \"offset\": 0, \"next_offset\": 16000, \"total_characters\": 26666, \"available_sections\": [\"Part I Item 1\", \"Part I Item 2\", \"Part I Item 3\", \"Part I Item 4\", \"Part II Item 1\", \"Part II Item 1A\", \"Part II Item 2\", \"Part II Item 5\", \"Part II Item 6\"], \"url\": \"https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm\"}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_2nTyB8zUp4tiG2belCUZ1ZEA",
+    "toolCallId": "call_2nTyB8zUp4tiG2belCUZ1ZEA",
+    "content": "{\"filing_id\": \"0000320193-26-000020\", \"company\": \"Apple Inc.\", \"report_date\": \"2026-06-27\", \"section\": \"Part I Item 2\", \"text\": \"Item 2. Management’s Discussion and Analysis of Financial Condition and Results of Operations\\nThis Item and other sections of this Quarterly Report on Form 10-Q (“Form 10-Q”) contain forward-looking statements, within the meaning of the Private Securities Litigation Reform Act of 1995, that involve risks and uncertainties. Forward-looking statements provide current expectations of future events based on certain assumptions and include any statement that does not directly relate to any historical or current fact. For example, statements in this Form 10-Q regarding the potential future impact of macroeconomic conditions and tariffs and other measures on the Company’s business and results of operations are forward-looking statements\\n.\\nForward-looking statements can also be identified by words such as “future,” “anticipates,” “believes,” “estimates,” “expects,” “intends,” “plans,” “predicts,” “will,” “would,” “could,” “can,” “may,” and similar terms. Forward-looking statements are not guarantees of future performance and the Company’s actual results may differ significantly from the results discussed in the forward-looking statements. Factors that might cause such differences include, but are not limited to, those discussed in Part I, Item 1A of the 2025 Form 10-K and Part II, Item 1A of this Form 10-Q, in each case under the heading “Risk Factors.” The Company assumes no obligation to revise or update any forward-looking statements for any reason, except as required by law.\\nUnless otherwise stated, all information presented herein is based on the Company’s fiscal calendar, and references to particular years, quarters, months or periods refer to the Company’s fiscal years ended in September and the associated quarters, months and periods of those fiscal years.\\nThe following discussion should be read in conjunction with the 2025 Form 10-K filed with the U.S. Securities and Exchange Commission (“SEC”) and the condensed consolidated financial statements and accompanying notes included in Part I, Item 1 of this Form 10-Q.\\nAvailable Information\\nThe Company periodically provides certain information for investors on its corporate website, www.apple.com, and its investor relations website, investor.apple.com. This includes press releases and other information about financial performance, information on corporate governance, and details related to the Company’s annual meeting of shareholders. The information contained on the websites referenced in this Form 10-Q is not incorporated by reference into this filing. Further, the Company’s references to website URLs are intended to be inactive textual references only.\\nBusiness Seasonality and Product Introductions\\nThe Company has historically experienced higher net sales in its first quarter compared to other quarters in its fiscal year due in part to seasonal holiday demand. Additionally, new product and service introductions can significantly impact net sales, cost of sales and operating expenses. The timing of product introductions can also impact the Company’s net sales to its indirect distribution channels as these channels are filled with new inventory following a product launch, and channel inventory of an older product often declines as the launch of a newer product approaches. Net sales can also be affected when consumers and distributors anticipate a product introduction.\\nDuring the third quarter of 2026, the Company announced iOS 27, macOS\\n®\\n27 Golden Gate, iPadOS\\n®\\n27, watchOS\\n®\\n27, visionOS\\n®\\n27 and tvOS\\n®\\n27, and introduced Siri AI.\\nMacroeconomic Conditions\\nMacroeconomic conditions, including inflation, interest rates, component pricing and currency fluctuations, have directly and indirectly impacted, and could in the future materially impact, the Company’s results of operations and financial condition.\\nThe Company is experiencing a period of supply constraints and increasing costs for components driven by factors such as industry supply-demand imbalances for components, including advanced semiconductors, storage (NAND) and memory (DRAM). The Company expects these trends to intensify, which may materially negatively impact the Company’s revenue, costs, gross margin, results of operations and financial condition. Actions, such as price increases, that have been and may in the future be taken by the Company may not effectively mitigate these negative impacts, and may also reduce demand for the Company’s products and materially adversely affect the Company’s revenue, costs, gross margin, results of operations and financial condition.\\nApple Inc. | Q3 2026 Form 10-Q | 13\\nTariffs and Other Measures\\nBeginning in the second quarter of 2025, new tariffs were announced on imports to the U.S., including additional tariffs on imports from China, India, Japan, South Korea, Taiwan, Vietnam and the European Union (“EU”), among others. In response, several countries have imposed, or threatened to impose, reciprocal tariffs on imports from the U.S. and other retaliatory measures. On January 14, 2026, initial results were published of the previously announced U.S. Department of Commerce investigation under Section 232 of the Trade Expansion Act of 1962, as amended, into imports of semiconductors, semiconductor manufacturing equipment, and their derivative products, including downstream products that contain semiconductors. The announcement of the initial results of the investigation did not impose any additional tariffs affecting the Company’s products. Separately, on February 20, 2026, the U.S. Supreme Court (“Supreme Court”) issued a ruling striking down certain tariffs previously imposed under the International Emergency Economic Powers Act of 1977. The Company has applied for a refund of tariffs paid, following the processes established by U.S. Customs and Border Protection, and has recognized any refunds received as a reduction of products cost of sales. Various modifications to U.S. tariffs have been announced, including the recent imposition of tariffs under Section 301 of the Trade Act of 1974, and further changes could be made in the future, which may include additional measures under the Section 232 semiconductor sector investigation, additional sector-based tariffs, further actions under Section 301, or other measures. Tariffs and other measures that are applied to the Company’s products or their components can have a material adverse impact on the Company’s business, results of operations and financial condition, including impacting the Company’s supply chain, the availability of rare earths and other raw materials and components, pricing and gross margin. The ultimate impact remains uncertain and will depend on several factors, including whether additional or incremental U.S. tariffs or other measures are announced or imposed, to what extent other countries implement tariffs or other retaliatory measures in response, and the overall magnitude and duration of these measures. Trade and other international disputes can have an adverse impact on the overall macroeconomic environment and result in shifts and reductions in consumer spending and negative consumer sentiment for the Company’s products and services, all of which can further adversely affect the Company’s business and results of operations.\\nSegment Operating Performance\\nThe following table shows net sales by reportable segment for the three- and nine-month periods ended June 27, 2026 and June 28, 2025 (dollars in millions):\\nThree Months Ended\\nNine Months Ended\\nJune 27,\\n2026\\nJune 28,\\n2025\\nChange\\nJune 27,\\n2026\\nJune 28,\\n2025\\nChange\\nAmericas\\n$\\n45,781\\n$\\n41,198\\n11%\\n$\\n149,403\\n$\\n134,161\\n11%\\nEurope\\n29,395\\n24,014\\n22%\\n95,596\\n82,329\\n16%\\nGreater China\\n18,816\\n15,369\\n22%\\n64,839\\n49,884\\n30%\\nJapan\\n6,554\\n5,782\\n13%\\n24,368\\n22,067\\n10%\\nRest of Asia Pacific\\n8,871\\n7,673\\n16%\\n30,151\\n25,254\\n19%\\nTotal net sales\\n$\\n109,417\\n$\\n94,036\\n16%\\n$\\n364,357\\n$\\n313,695\\n16%\\nAmericas\\nAmericas net sales increased during the third quarter and first nine months of 2026 compared to the same periods in 2025 primarily due to higher net sales of iPhone, Services and Mac.\\nEurope\\nEurope net sales increased during the third quarter and first nine months of 2026 compared to the same periods in 2025 primarily due to higher net sales of iPhone, Services and Mac. The strength in foreign currencies relative to the U.S. dollar had a net favorable year-over-year impact on Europe net sales during the first nine months of 2026.\\nGreater China\\nGreater China net sales increased during the third quarter and first nine months of 2026 compared to the same periods in 2025 primarily due to higher net sales of iPhone. The strength in the renminbi relative to the U.S. dollar had a favorable year-over-year impact on Greater China net sales during the third quarter and first nine months of 2026.\\nApple Inc. | Q3 2026 Form 10-Q | 14\\nJapan\\nJapan net sales increased during the third quarter and first nine months of 2026 compared to the same periods in 2025 due to higher net sales of iPhone. The weakness in the yen relative to the U.S. dollar had an unfavorable year-over-year impact on Japan net sales during the third quarter and first nine months of 2026.\\nRest of Asia Pacific\\nRest of Asia Pacific net sales increased during the third quarter and first nine months of 2026 compared to the same periods in 2025 primarily due to higher net sales of iPhone, Services and Mac. The strength in foreign currencies relative to the U.S. dollar had a net favorable year-over-year impact on Rest of Asia Pacific net sales during the third quarter of 2026.\\nProducts and Services Performance\\nThe following table shows net sales by category for the three- and nine-month periods ended June 27, 2026 and June 28, 2025 (dollars in millions):\\nThree Months Ended\\nNine Months Ended\\nJune 27,\\n2026\\nJune 28,\\n2025\\nChange\\nJune 27,\\n2026\\nJune 28,\\n2025\\nChange\\niPhone\\n$\\n54,252\\n$\\n44,582\\n22%\\n$\\n196,515\\n$\\n160,561\\n22%\\nMac\\n10,352\\n8,046\\n29%\\n27,137\\n24,982\\n9%\\niPad\\n6,191\\n6,581\\n(6)\\n%\\n21,700\\n21,071\\n3%\\nWearables, Home and Accessories\\n7,883\\n7,404\\n6%\\n27,277\\n26,673\\n2%\\nServices\\n30,739\\n27,423\\n12%\\n91,728\\n80,408\\n14%\\nTotal net sales\\n$\\n109,417\\n$\\n94,036\\n16%\\n$\\n364,357\\n$\\n313,695\\n16%\\niPhone\\niPhone net sales increased during the third quarter and first nine months of 2026 compared to the same periods in 2025 primarily due to higher net sales of Pro models.\\nMac\\nMac net sales increased during the third quarter and first nine months of 2026 compared to the same periods in 2025 due to higher net sales of laptops.\\niPad\\niPad net sales decreased during the third quarter of 2026 compared to the third quarter of 2025 primarily due to lower net sales of iPad mini\\n®\\nand iPad Air\\n®\\n. Year-over-year iPad net sales increased during the first nine months of 2026 primarily due to higher net sales of iPad, partially offset by lower net sales of iPad mini.\\nWearables, Home and Accessories\\nWearables, Home and Accessories net sales increased during the third quarter and first nine months of 2026 compared to the same periods in 2025 due to higher net sales of Accessories and Wearables.\\nServices\\nServices net sales increased during the third quarter and first nine months of 2026 compared to the same periods in 2025 primarily due to higher net sales from advertising and cloud services.\\nApple Inc. | Q3 2026 Form 10-Q | 15\\nGross Margin\\nProducts and Services gross margin and gross margin percentage for the three- and nine-month periods ended June 27, 2026 and June 28, 2025, were as follows (dollars in millions):\\nThree Months Ended\\nNine Months Ended\\nJune 27,\\n2026\\nJune 28,\\n2025\\nJune 27,\\n2026\\nJune 28,\\n2025\\nGross margin:\\nProducts\\n$\\n31,525\\n$\\n22,993\\n$\\n108,819\\n$\\n86,190\\nServices\\n23,245\\n20,725\\n69,963\\n60,670\\nTotal gross margin\\n$\\n54,770\\n$\\n43,718\\n$\\n178,782\\n$\\n146,860\\nGross margin percentage:\\nProducts\\n40.1\\n%\\n34.5\\n%\\n39.9\\n%\\n36.9\\n%\\nServices\\n75.6\\n%\\n75.6\\n%\\n76.3\\n%\\n75.5\\n%\\nTotal gross margin percentage\\n50.1\\n%\\n46.5\\n%\\n49.1\\n%\\n46.8\\n%\\nProducts Gross Margin\\nProducts gross margin and gross margin percentage increased during the third quarter and first nine months of 2026 compared to the same periods in 2025 primarily due to a different mix of products and tariff refunds, partially offset by higher costs, including memory.\\nServices Gross Margin\\nServices gross margin increased during the third quarter and first nine months of 2026 compared to the same periods in 2025 primarily due to higher Services net sales and a different mix of services, partially offset by higher costs.\\nServices gross margin percentage was flat during the third quarter of 2026 compared to the third quarter of 2025. Year-over-year Services gross margin percentage increased during the first nine months of 2026 primarily due to a different mix of services, partially offset by higher costs.\\nThe Company’s future gross margins can be impacted by a variety of factors, as discussed in Part I, Item 1A of the 2025 Form 10-K and Part II, Item 1A of this Form 10-Q, in each case under the heading “Risk Factors.” As a result, the Company believes, in general, gross margins will be subject to volatility and downward pressure.\\nApple Inc. | Q3 2026 Form 10-Q | 16\\nOperating Expenses\\nOperating expenses for the three- and nine-month periods ended June 27, 2026 and June 28, 2025, were as follows (dollars in millions):\\nThree Months Ended\\nNine Months Ended\\nJune 27,\\n2026\\nJune 28,\\n2025\\nChange\\nJune 27,\\n2026\\nJune 28,\\n2025\\nChange\\nResearch and development\\n$\\n11,729\\n$\\n8,866\\n32\\n%\\n$\\n34,035\\n$\\n25,684\\n33\\n%\\nPercentage of total net sales\\n11\\n%\\n9\\n%\\n9\\n%\\n8\\n%\\nSelling, general and administrative\\n$\\n7,346\\n$\\n6,650\\n10\\n%\\n$\\n22,315\\n$\\n20,553\\n9\\n%\\nPercentage of total net sales\\n7\\n%\\n7\\n%\\n6\\n%\\n7\\n%\\nTotal operating expenses\\n$\\n19,075\\n$\\n15,516\\n23\\n%\\n$\\n56,350\\n$\\n46,237\\n22\\n%\\nPercentage of total net sales\\n17\\n%\\n17\\n%\\n15\\n%\\n15\\n%\\nResearch and Development\\nResearch and development (“R&D”) expense increased during the third quarter and first nine months of 2026 compared to the same periods in 2025 primarily due to higher infrastructure-related costs, including investments in artificial intelligence, and headcount-related expenses.\\nSelling, General and Administrative\\nSelling, general and administrative expense increased during the third quarter and first nine months of 2026 compared to the same periods in 2025. The increases were driven by various factors, none of which were significant individually or in the aggregate.\\nProvision for Income Taxes\\nProvision for income taxes, effective tax rate and statutory federal income tax rate for the three- and nine-month periods ended June 27, 2026 and June 28, 2025, were as follows (dollars in millions):\\nThree Months Ended\\nNine Months Ended\\nJune 27,\\n2026\\nJune 28,\\n2025\\nJune 27,\\n2026\\nJune 28,\\n2025\\nProvision for income taxes\\n$\\n6,478\\n$\\n4,597\\n$\\n21,638\\n$\\n15,381\\nEffective tax rate\\n17.9\\n%\\n16.4\\n%\\n17.6\\n%\\n15.4\\n%\\nStatutory federal income tax rate\\n21\\n%\\n21\\n%\\n21\\n%\\n21\\n%\\nThe Company’s effective tax rate for the third quarter and first nine months of 2026 was lower than the statutory federal income tax rate primarily due to a lower effective tax rate on foreign earnings, including the impact of changes in unrecognized tax benefits, the impact of the U.S. federal R&D credit, and tax benefits from share-based compensation, partially offset by state income taxes.\\nThe Company’s effective tax rate for the third quarter of 2026 was higher compared to the third quarter of 2025 primarily due to a higher effective tax rate on foreign earnings, partially offset by the impact of changes in unrecognized tax benefits and tax benefits from share-based compensation. The Company’s effective tax rate for the first nine months of 2026 was higher compared to the same period in 2025 primarily due to a higher effective tax rate on foreign earnings, including the impact of changes in unrecognized tax benefits, the impact of foreign currency loss regulations issued by the U.S. Department of the Treasury in December 2024, and the tax impact from foreign currency revaluations in the first quarter of 2025 related to the State Aid Decision.\\nApple Inc. | Q3 2026 Form 10-Q | 17\\nLiquidity and Capital Resources\\nT\", \"offset\": 0, \"next_offset\": 16000, \"total_characters\": 21537, \"available_sections\": [\"Part I Item 1\", \"Part I Item 2\", \"Part I Item 3\", \"Part I Item 4\", \"Part II Item 1\", \"Part II Item 1A\", \"Part II Item 2\", \"Part II Item 5\", \"Part II Item 6\"], \"url\": \"https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm\"}",
+    "role": "tool"
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "f06d56f5-818e-4b09-8ee8-ee6c46f3e4c8",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "f06d56f5-818e-4b09-8ee8-ee6c46f3e4c8",
+    "delta": "root = Card([header, salesTable], sources)\nheader = CardHeader(\"Apple Inc. 10-Q Q3 2026 재무 매출 현황\", \"분기별 및 누적 매출과 기간, 단위, SEC 원문 출처\")\nsalesTable = Table([\n  Col(\"기간 구분\", [\"분기 매출\", \"누적 매출\"]),\n  Col(\"종료일\", [\"2026-06-27\", \"2026-06-27\"]),\n  Col(\"기간 길이\", [\"3개월\", \"9개월\"]),\n  Col(\"단위\", [\"USD 백만\", \"USD 백만\"]),\n  Col(\"매출액\", [\"$109,417\", \"$364,357\"]),\n  Col(\"출처\", [\n    Link(\"SEC 10-Q Part I Item 1\", \"https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm\"),\n    Link(\"SEC 10-Q Part I Item 1\", \"https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm\")\n  ])\n])\nsources = [{title: \"Apple Inc. Q3 2026 Form 10-Q Part I Item 1\", sourceName: \"Apple Inc. · 2026-06-27\", url: \"https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm\"}]"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "f06d56f5-818e-4b09-8ee8-ee6c46f3e4c8"
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "7416193e-eeb3-4af8-b7e6-3589c392f238",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "7416193e-eeb3-4af8-b7e6-3589c392f238",
+    "delta": "root = Card([Callout(\"info\", \"확인한 원문 범위\", \"이번 요청에서 확인한 원문: Apple Inc. · Part I Item 1 (부분 범위); Apple Inc. · Part I Item 2 (부분 범위). 위 목록은 이번 요청에서 직접 읽은 범위입니다. 이전 대화의 검색 구절과는 구분되며, 전체 보고서와 모든 주석을 검토했다는 뜻은 아닙니다.\")], [{\"title\": \"Apple Inc. · Part I Item 2\", \"sourceName\": \"확인한 원문\", \"url\": \"https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm\"}])"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "7416193e-eeb3-4af8-b7e6-3589c392f238"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 10,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "db82c9c3-e7fd-4f55-beed-22f60d0f73e5",
+            "title": "Apple Inc. (AAPL) 최근 3년 매출 및 YoY 증감 (FY2024 제외)",
+            "kind": "financial",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 16,
+              "h": 13
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "snapshot",
+              "interval_seconds": 60,
+              "last_attempt_at": "2026-10-25T06:57:33.979446+00:00",
+              "last_success_at": "2026-10-25T06:57:33.979446+00:00",
+              "error": null
+            },
+            "program": "",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {
+              "cik": "0000320193",
+              "metric": "revenue",
+              "years": 3,
+              "exclude_years": [
+                2024
+              ]
+            },
+            "data": {
+              "company": "Apple Inc.",
+              "cik": "0000320193",
+              "metric": "revenue",
+              "rows": [
+                {
+                  "period": "2023-09-30",
+                  "start": "2022-09-25",
+                  "year": 2023,
+                  "value": 383285000000,
+                  "unit": "USD",
+                  "filed": "2025-10-31",
+                  "accession": "0000320193-25-000079",
+                  "form": "10-K",
+                  "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+                  "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html",
+                  "growth_percent": null
+                },
+                {
+                  "period": "2025-09-27",
+                  "start": "2024-09-29",
+                  "year": 2025,
+                  "value": 416161000000,
+                  "unit": "USD",
+                  "filed": "2025-10-31",
+                  "accession": "0000320193-25-000079",
+                  "form": "10-K",
+                  "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+                  "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html",
+                  "growth_percent": null
+                }
+              ],
+              "missing_years": [],
+              "available_units": [
+                "USD"
+              ],
+              "period_basis": "annual period end date; latest filed observation",
+              "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+              "queried_at": "2026-10-25T06:57:33.975685+00:00",
+              "source_fetched_at": "2026-10-25T06:57:33.943378+00:00",
+              "latest_filing_date": "2025-10-31"
+            },
+            "sources": [
+              {
+                "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+                "title": "SEC Company Facts"
+              }
+            ]
+          }
+        ],
+        "artifacts": [],
+        "selected_panel_id": "db82c9c3-e7fd-4f55-beed-22f60d0f73e5",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "RUN_FINISHED",
+    "threadId": "5b6ee045-b0e9-4b95-b253-bed548dc58e5",
+    "runId": "3227f81a-49a0-433d-8e87-7e86a73bfd75"
+  }
+]

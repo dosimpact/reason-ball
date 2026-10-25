@@ -1,0 +1,302 @@
+[
+  {
+    "type": "RUN_STARTED",
+    "threadId": "5b6ee045-b0e9-4b95-b253-bed548dc58e5",
+    "runId": "506d857b-a6b0-4139-ad83-6c8cedd2d1a6"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 0,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [],
+        "artifacts": [],
+        "selected_panel_id": null,
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_Mwh47wuK8H8j18iqQLvw8fsq",
+    "toolCallName": "publish_financial_chart"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Mwh47wuK8H8j18iqQLvw8fsq",
+    "delta": "{\"c"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Mwh47wuK8H8j18iqQLvw8fsq",
+    "delta": "ik\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Mwh47wuK8H8j18iqQLvw8fsq",
+    "delta": "0000320193"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Mwh47wuK8H8j18iqQLvw8fsq",
+    "delta": "\",\"metric"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Mwh47wuK8H8j18iqQLvw8fsq",
+    "delta": "\":\"re"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Mwh47wuK8H8j18iqQLvw8fsq",
+    "delta": "venue\",\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Mwh47wuK8H8j18iqQLvw8fsq",
+    "delta": "years\":3,\"destination\":\"canvas\",\"title\":\"Apple Inc. ("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Mwh47wuK8H8j18iqQLvw8fsq",
+    "delta": "AAPL) 최근 3년 매출 및 YoY 증감\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_Mwh47wuK8H8j18iqQLvw8fsq"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_Mwh47wuK8H8j18iqQLvw8fsq",
+    "toolCallId": "call_Mwh47wuK8H8j18iqQLvw8fsq",
+    "content": "{\"success\": true, \"panel_id\": \"db82c9c3-e7fd-4f55-beed-22f60d0f73e5\", \"revision\": 1, \"destination\": \"canvas\", \"artifact_id\": null}",
+    "role": "tool"
+  },
+  {
+    "type": "STATE_DELTA",
+    "delta": [
+      {
+        "op": "replace",
+        "path": "/dashboard",
+        "value": {
+          "revision": 1,
+          "tabs": [
+            {
+              "id": "main",
+              "title": "Overview"
+            }
+          ],
+          "active_tab_id": "main",
+          "panels": [
+            {
+              "id": "db82c9c3-e7fd-4f55-beed-22f60d0f73e5",
+              "title": "Apple Inc. (AAPL) 최근 3년 매출 및 YoY 증감",
+              "kind": "financial",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": false,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {
+                "cik": "0000320193",
+                "metric": "revenue",
+                "years": 3,
+                "exclude_years": []
+              },
+              "data": {
+                "company": "Apple Inc.",
+                "cik": "0000320193",
+                "metric": "revenue",
+                "rows": [
+                  {
+                    "period": "2023-09-30",
+                    "start": "2022-09-25",
+                    "year": 2023,
+                    "value": 383285000000,
+                    "unit": "USD",
+                    "filed": "2025-10-31",
+                    "accession": "0000320193-25-000079",
+                    "form": "10-K",
+                    "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+                    "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html",
+                    "growth_percent": null
+                  },
+                  {
+                    "period": "2024-09-28",
+                    "start": "2023-10-01",
+                    "year": 2024,
+                    "value": 391035000000,
+                    "unit": "USD",
+                    "filed": "2025-10-31",
+                    "accession": "0000320193-25-000079",
+                    "form": "10-K",
+                    "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+                    "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html",
+                    "growth_percent": 2.022
+                  },
+                  {
+                    "period": "2025-09-27",
+                    "start": "2024-09-29",
+                    "year": 2025,
+                    "value": 416161000000,
+                    "unit": "USD",
+                    "filed": "2025-10-31",
+                    "accession": "0000320193-25-000079",
+                    "form": "10-K",
+                    "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+                    "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html",
+                    "growth_percent": 6.4255
+                  }
+                ],
+                "missing_years": [],
+                "available_units": [
+                  "USD"
+                ],
+                "period_basis": "annual period end date; latest filed observation",
+                "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+                "queried_at": "2026-10-25T06:33:07.441460+00:00",
+                "source_fetched_at": "2026-10-25T06:32:11.693168+00:00",
+                "latest_filing_date": "2025-10-31"
+              },
+              "sources": [
+                {
+                  "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+                  "title": "SEC Company Facts"
+                }
+              ]
+            }
+          ],
+          "artifacts": [],
+          "selected_panel_id": "db82c9c3-e7fd-4f55-beed-22f60d0f73e5",
+          "export_request": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "toolCallName": "refresh_canvas_panel"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "{\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "panel_id"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "\":\"db"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "82c"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "9c"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "3-e"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "7fd"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "-4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "f55"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "-beed"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "-22"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "f60"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "d0"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "f73"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "e5"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "delta": "\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_tyAJxPIECNpvJXvXDNEn61d3",
+    "toolCallId": "call_tyAJxPIECNpvJXvXDNEn61d3",
+    "content": "Blocking call to os.mkdir\n\nHeads up! LangGraph dev identified a synchronous blocking call in your code. When running in an ASGI web server, blocking calls can degrade performance for everyone since they tie up the event loop.\n\nHere are your options to fix this:\n\n1. Best approach: Use an async driver so the call is non-blocking\n   For example, use 'await aiohttp.get()' instead of 'requests.get()', or asyncpg instead of psycopg2.\n\n2. If an async driver isn't available: wrap the blocking call in a thread\n   Example: 'await asyncio.to_thread(your_blocking_function)'\n\n3. Dev-only override: run 'langgraph dev --allow-blocking'\n\nThese blocking operations can prevent health checks and slow down other runs in your deployment. Following these recommendations will help keep your LangGraph application running smoothly!",
+    "role": "tool",
+    "isError": true,
+    "error": "Blocking call to os.mkdir\n\nHeads up! LangGraph dev identified a synchronous blocking call in your code. When running in an ASGI web server, blocking calls can degrade performance for everyone since they tie up the event loop.\n\nHere are your options to fix this:\n\n1. Best approach: Use an async driver so the call is non-blocking\n   For example, use 'await aiohttp.get()' instead of 'requests.get()', or asyncpg instead of psycopg2.\n\n2. If an async driver isn't available: wrap the blocking call in a thread\n   Example: 'await asyncio.to_thread(your_blocking_function)'\n\n3. Dev-only override: run 'langgraph dev --allow-blocking'\n\nThese blocking operations can prevent health checks and slow down other runs in your deployment. Following these recommendations will help keep your LangGraph application running smoothly!"
+  },
+  {
+    "type": "RUN_ERROR",
+    "message": "Blocking call to os.mkdir\n\nHeads up! LangGraph dev identified a synchronous blocking call in your code. When running in an ASGI web server, blocking calls can degrade performance for everyone since they tie up the event loop.\n\nHere are your options to fix this:\n\n1. Best approach: Use an async driver so the call is non-blocking\n   For example, use 'await aiohttp.get()' instead of 'requests.get()', or asyncpg instead of psycopg2.\n\n2. If an async driver isn't available: wrap the blocking call in a thread\n   Example: 'await asyncio.to_thread(your_blocking_function)'\n\n3. Dev-only override: run 'langgraph dev --allow-blocking'\n\nThese blocking operations can prevent health checks and slow down other runs in your deployment. Following these recommendations will help keep your LangGraph application running smoothly!"
+  },
+  {
+    "type": "RUN_ERROR",
+    "message": "분석을 완료하지 못했습니다. 저장된 결과를 유지했으며 다시 요청할 수 있습니다."
+  }
+]

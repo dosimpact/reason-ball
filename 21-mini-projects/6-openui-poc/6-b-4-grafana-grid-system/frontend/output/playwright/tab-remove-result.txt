@@ -1,0 +1,12 @@
+### Ran Playwright code
+```js
+await (async page => { const url="http://127.0.0.1:3049/api/dashboard/state/063437c5-a7e0-42f9-a240-44d1c0ee5b42"; const original=await (await page.request.get(url)).json(); const tab=original.tabs.find(t=>t.title==="삭제 확인 검증").id; const r=await page.request.post(url,{data:{action:"add",payload:{title:"삭제 검증 패널",tab_id:tab,program:"root = Card([TextContent(\"삭제 검증용 가정 데이터\")])"},panel_id:crypto.randomUUID(),base_revision:original.revision,operation_id:crypto.randomUUID()}}); if(!r.ok()) throw Error(await r.text()); await page.reload(); await page.getByRole("button",{name:"현재 탭 삭제",exact:true}).waitFor(); const before=await (await page.request.get(url)).json(); page.once("dialog",async d=>{ if(!d.message().includes("패널 1개")) throw Error("Missing scope"); await d.dismiss(); }); await page.getByRole("button",{name:"현재 탭 삭제",exact:true}).click(); if(JSON.stringify(before)!==JSON.stringify(await (await page.request.get(url)).json())) throw Error("Cancel changed state"); page.once("dialog",d=>d.accept()); const response=page.waitForResponse(r=>r.url()===url&&r.request().method()==="POST"); await page.getByRole("button",{name:"현재 탭 삭제",exact:true}).click(); if(!(await response).ok()) throw Error("Delete failed"); const after=await (await page.request.get(url)).json(); if(after.tabs.some(t=>t.id===tab)||after.panels.some(p=>p.tab_id===tab)) throw Error("Tab remains"); if(JSON.stringify(after.panels)!==JSON.stringify(original.panels)||JSON.stringify(after.artifacts)!==JSON.stringify(original.artifacts)) throw Error("Unrelated data changed"); await page.reload(); })(page);
+```
+### Open tabs
+- 0: (current) [](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+### Page
+- Page URL: http://127.0.0.1:3049/
+### Modal state
+- ["confirm" dialog with message "“삭제 확인 검증” 탭과 포함된 패널 1개를 삭제할까요? 다른 탭, 대화와 원본 결과는 유지됩니다."]: can be handled by dialog-accept or dialog-dismiss

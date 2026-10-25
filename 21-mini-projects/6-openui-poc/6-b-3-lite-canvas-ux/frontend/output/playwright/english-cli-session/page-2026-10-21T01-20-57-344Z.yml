@@ -1,0 +1,56 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - complementary [ref=e3]:
+      - link "Lite Canvas SUPPLIER INTELLIGENCE" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e8]:
+          - text: Lite Canvas
+          - generic [ref=e9]: SUPPLIER INTELLIGENCE
+      - button "새 대화" [ref=e10] [cursor=pointer]
+      - generic [ref=e12]: 최근 대화
+      - navigation "대화 목록"
+      - paragraph [ref=e13]: 공급업체1–8의 자료로분석하고, 비교하고, 질문하세요.
+    - region "채팅" [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17]: WORKSPACE
+          - heading "공급업체 인사이트" [level=1] [ref=e18]
+        - button "다크 테마로 전환" [ref=e19] [cursor=pointer]
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - generic [ref=e28]: FROM QUESTION TO INSIGHT
+          - heading "어떤 질문으로 시작해 볼까요?" [level=2] [ref=e29]: 어떤 질문으로시작해 볼까요?
+          - paragraph [ref=e30]: 리포트부터 여행 지도까지 시각화하고,궁금한 부분은 바로 이어서 물어보세요.
+          - generic "추천 질문" [ref=e31]:
+            - group [ref=e32]:
+              - generic "리포트 만들기4개" [ref=e33] [cursor=pointer]:
+                - text: 리포트 만들기
+                - generic [ref=e34]: 4개
+              - paragraph [ref=e35]: Canvas에서 확인하고 PDF로 저장하세요.
+              - generic [ref=e36]:
+                - button "공급업체1 리포트 생성해줘" [ref=e37] [cursor=pointer]
+                - button "공급업체1 영문 리포트 생성해줘" [ref=e40] [cursor=pointer]
+                - button "공급업체1 영문 PDF 보고서용으로 리포트 만들어줘" [ref=e43] [cursor=pointer]
+                - button "공급업체1 PDF 보고서용으로 리포트 만들어줘" [ref=e46] [cursor=pointer]
+            - group [ref=e49]:
+              - generic "공급업체에 질문하기3개" [ref=e50] [cursor=pointer]:
+                - text: 공급업체에 질문하기
+                - generic [ref=e51]: 3개
+              - paragraph [ref=e52]: 원문을 바탕으로 채팅에서 시각화해 답합니다.
+              - generic [ref=e53]:
+                - button "공급업체1의 W1/W2 광고 매출을 비교하고 수치 모순도 설명해줘" [ref=e54] [cursor=pointer]
+                - button "공급업체1의 재고 위험에서 우선 확인할 상품을 알려줘" [ref=e57] [cursor=pointer]
+                - button "어떤 공급업체 자료가 있어?" [ref=e60] [cursor=pointer]
+            - group [ref=e63]:
+              - generic "일상 · 여행 · 인터랙티브 UI8개" [ref=e64] [cursor=pointer]:
+                - text: 일상 · 여행 · 인터랙티브 UI
+                - generic [ref=e65]: 8개
+        - status [ref=e66]
+      - generic [ref=e68]:
+        - generic [ref=e69]:
+          - textbox "채팅 메시지" [ref=e70]:
+            - /placeholder: 공급업체 리포트를 요청하거나 질문하세요
+          - button "메시지 보내기" [disabled] [ref=e71]
+        - paragraph [ref=e74]: Enter로 보내기 · Shift+Enter로 줄바꿈
+  - button "Open Next.js Dev Tools" [ref=e80] [cursor=pointer]
+  - alert [ref=e84]

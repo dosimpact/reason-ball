@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("SEC 조회를 다시 한 번 확인하고, 실패 시 준비된 PDF 목록을 기준으로 NVIDIA 보고서를 사용할 수 있는지 정확히 알려줘. SEC 수집 저장소가 비어 있는 것과 PDF가 없는 것은 구분해줘."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

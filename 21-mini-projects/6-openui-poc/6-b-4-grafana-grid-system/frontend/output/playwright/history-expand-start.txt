@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("방금 만든 NVIDIA 연도별 매출 패널의 ID와 위치는 유지해줘. FY2025 보고서 원문에 있는 FY2024 매출도 포함해 FY2024~FY2026 세 해로 차트를 늘려줘. 금액 단위와 회계연도 종료일을 표시하고 출처를 패널 sources에도 저장해줘. FY2026 성장 이유는 원문 표현대로 가속 컴퓨팅과 AI 전환으로 구분해줘."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

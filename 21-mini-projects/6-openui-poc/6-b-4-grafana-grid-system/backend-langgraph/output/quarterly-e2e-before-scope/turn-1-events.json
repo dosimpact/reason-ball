@@ -1,0 +1,1367 @@
+[
+  {
+    "type": "RUN_STARTED",
+    "threadId": "394dfd8f-5444-48f0-9c93-a1363d652c08",
+    "runId": "ce674046-3dfc-4019-99ac-48a5368ce796"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 0,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [],
+        "artifacts": [],
+        "selected_panel_id": null,
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_Pw5Ze1alcl7QuP0ARzsJdapA",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Pw5Ze1alcl7QuP0ARzsJdapA",
+    "delta": "{\"document"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Pw5Ze1alcl7QuP0ARzsJdapA",
+    "delta": "_id\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Pw5Ze1alcl7QuP0ARzsJdapA",
+    "delta": "nvidia"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Pw5Ze1alcl7QuP0ARzsJdapA",
+    "delta": "-202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Pw5Ze1alcl7QuP0ARzsJdapA",
+    "delta": "7-q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Pw5Ze1alcl7QuP0ARzsJdapA",
+    "delta": "2\",\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Pw5Ze1alcl7QuP0ARzsJdapA",
+    "delta": "page\":"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Pw5Ze1alcl7QuP0ARzsJdapA",
+    "delta": "3}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_Pw5Ze1alcl7QuP0ARzsJdapA"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_Pw5Ze1alcl7QuP0ARzsJdapA",
+    "toolCallId": "call_Pw5Ze1alcl7QuP0ARzsJdapA",
+    "content": "{\"document_id\": \"nvidia-2027-q2\", \"document\": \"NVIDIA 10-Q, fiscal 2027 Q2\", \"period\": \"Quarter ended July 26, 2026 (three and six months shown separately)\", \"page\": 3, \"total_pages\": 61, \"text\": \"Part I. Financial Information\\nItem 1. Financial Statements (Unaudited)\\nNVIDIA Corporation and Subsidiaries\\nCondensed Consolidated Statements of Income\\n(In millions, except per share data)\\n(Unaudited)\\n  Three Months Ended Six Months Ended\\n  Jul 26, 2026 Jul 27, 2025 Jul 26, 2026 Jul 27, 2025\\nRevenue $ 96,221 $ 46,743 $ 177,837 $ 90,805 \\nCost of revenue  24,079  12,890  44,538  30,284 \\nGross profit  72,142  33,853  133,299  60,521 \\nOperating expenses    \\nResearch and development  7,054  4,291  13,375  8,280 \\nSales, general and administrative  1,354  1,122  2,654  2,163 \\nTotal operating expenses  8,408  5,413  16,029  10,443 \\nOperating income  63,734  28,440  117,270  50,078 \\nOther income, net  7,773  2,766  24,140  3,039 \\nIncome before income tax  71,507  31,206  141,410  53,117 \\nIncome tax expense  11,819  4,784  23,400  7,920 \\nNet income $ 59,688 $ 26,422 $ 118,010 $ 45,197 \\nNet income per share:\\nBasic $ 2.47 $ 1.08 $ 4.87 $ 1.85 \\nDiluted $ 2.46 $ 1.08 $ 4.85 $ 1.84 \\nWeighted average shares used in per share \\ncomputation:\\nBasic  24,190  24,366  24,238  24,404 \\nDiluted  24,285  24,532  24,338  24,571 \\nSee accompanying Notes to Condensed Consolidated Financial Statements.\\n3\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "toolCallName": "publish_ui_panel"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "{\"title"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\":\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "VIDIA FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "2027"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Q2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Revenue Comparison"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " and Financial Tables\",\"program\":\"root = Card([header,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " revenueChart, revenueTable3m, revenueTable6m, note], sources"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ")\\nheader = CardHeader(\\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "VIDIA FY2027 Q2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Revenue Comparison\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "Quarter ended"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " July "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "26,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " 202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "6 vs"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " July "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "27, 2025 · Official IR PDF\\\")\\n\\nrevenueData3m = [96221"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ", 46743]\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "revenueData6"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "m ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " [177"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "837,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " 908"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "05]\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "nlabels"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " = ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\\"FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "2027"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Q2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "6 Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "2\\\"]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\nre"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "venueChart"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " = Bar"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "Chart(labels"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ", ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "Series(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "Revenue ("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "million USD"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ")\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " revenueData"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "3m"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ")], \\\"grouped"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "Quarter\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " \\\"Revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " (million"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " USD)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\", "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "240)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "n\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "Table3"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "m ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Table([\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Col(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "Quarter\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " [\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "7 Q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "2\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " \\\"FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Q2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\\"]),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "  Col"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "(\\\"Revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " (million"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " USD)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\", ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\\"96"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ",221"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "46,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "743\\\"]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ")\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "])\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "nre"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "venueTable"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "6m"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " = Table"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "([\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "  Col(\\\"Period"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\\", ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\\"Six"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Months End"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "ed July"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " 26"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ", "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "Six Months"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Ended"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " July "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "27,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " 202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "5\\\"]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "),\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Col(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "Revenue ("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "million USD"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ")\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " [\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "177,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "837\\\", \\\"90"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ",805"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\\"])\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "n])"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\nn"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "ote ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " TextContent"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "(\\\"Data"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " are for"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " the periods"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " ended July 26"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ", "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " and July"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " 27"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ", "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "2025"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ", in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " million USD"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ". Source"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ": NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " official Investor"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Relations PDF"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ", page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " 3"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ".\\\")"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "\\ns"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "ources ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " [{title"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "Condensed"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Consolidated"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Statements of"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Income showing"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " revenue for Q2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " and "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "6 months"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " ended July"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " 26"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ", "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " vs July"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " 27"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ", "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "2025"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ".\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " sourceName"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " 10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "-Q ·"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " Page "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "3\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " url:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": " \\\"https"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "://invest"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "or.n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "vidia.com"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "/files/doc"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "_financial"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "s/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "2027"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "/NV"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "DA-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "2027"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "-Q2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "-10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "Q-F"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "inal-in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "cluding-ex"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "hibits"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": ".pdf#"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "page="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "3\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "}]\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "delta": "n\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "toolCallId": "call_OaC92jRmMhPcWMBGmPBRyPLf",
+    "content": "{\"success\": true, \"panel_id\": \"2491ace2-d405-4af7-8b5e-039d915d50b3\", \"revision\": 1, \"artifact_id\": \"2491ace2-d405-4af7-8b5e-039d915d50b3\"}",
+    "role": "tool"
+  },
+  {
+    "type": "STATE_DELTA",
+    "delta": [
+      {
+        "op": "replace",
+        "path": "/dashboard",
+        "value": {
+          "revision": 1,
+          "tabs": [
+            {
+              "id": "main",
+              "title": "Overview"
+            }
+          ],
+          "active_tab_id": "main",
+          "panels": [],
+          "artifacts": [
+            {
+              "id": "2491ace2-d405-4af7-8b5e-039d915d50b3",
+              "title": "NVIDIA FY2027 Q2 Revenue Comparison and Financial Tables",
+              "kind": "openui",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": false,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "root = Card([header, revenueChart, revenueTable3m, revenueTable6m, note], sources)\nheader = CardHeader(\"NVIDIA FY2027 Q2 Revenue Comparison\", \"Quarter ended July 26, 2026 vs July 27, 2025 · Official IR PDF\")\n\nrevenueData3m = [96221, 46743]\nrevenueData6m = [177837, 90805]\nlabels = [\"FY2027 Q2\", \"FY2026 Q2\"]\n\nrevenueChart = BarChart(labels, [Series(\"Revenue (million USD)\", revenueData3m)], \"grouped\", \"Quarter\", \"Revenue (million USD)\", 240)\n\nrevenueTable3m = Table([\n  Col(\"Quarter\", [\"FY2027 Q2\", \"FY2026 Q2\"]),\n  Col(\"Revenue (million USD)\", [\"96,221\", \"46,743\"])\n])\nrevenueTable6m = Table([\n  Col(\"Period\", [\"Six Months Ended July 26, 2026\", \"Six Months Ended July 27, 2025\"]),\n  Col(\"Revenue (million USD)\", [\"177,837\", \"90,805\"])\n])\nnote = TextContent(\"Data are for the periods ended July 26, 2026 and July 27, 2025, in million USD. Source: NVIDIA official Investor Relations PDF, page 3.\")\nsources = [{title: \"Condensed Consolidated Statements of Income showing revenue for Q2 and 6 months ended July 26, 2026 vs July 27, 2025.\", sourceName: \"NVIDIA 10-Q · Page 3\", url: \"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}]\n",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {},
+              "data": {},
+              "sources": [
+                {
+                  "title": "Condensed Consolidated Statements of Income showing revenue for Q2 and 6 months ended July 26, 2026 vs July 27, 2025.",
+                  "sourceName": "NVIDIA 10-Q · Page 3",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+                }
+              ]
+            }
+          ],
+          "selected_panel_id": null,
+          "export_request": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "toolCallName": "add_artifact_to_canvas"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "delta": "{\"artifact"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "delta": "_id\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "delta": "2491"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "delta": "ace2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "delta": "-d405"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "delta": "-4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "delta": "af7-8b5e-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "delta": "039d"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "delta": "915d"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "delta": "50b"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "delta": "3\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "toolCallId": "call_p1TgOvIQRicU9YvZ0FCYcpQD",
+    "content": "{\"success\": true, \"panel_id\": \"bf5f0eb1-6c7a-4d14-8d58-80f296c0b16b\", \"revision\": 2}",
+    "role": "tool"
+  },
+  {
+    "type": "STATE_DELTA",
+    "delta": [
+      {
+        "op": "replace",
+        "path": "/dashboard",
+        "value": {
+          "revision": 2,
+          "tabs": [
+            {
+              "id": "main",
+              "title": "Overview"
+            }
+          ],
+          "active_tab_id": "main",
+          "panels": [
+            {
+              "id": "bf5f0eb1-6c7a-4d14-8d58-80f296c0b16b",
+              "title": "NVIDIA FY2027 Q2 Revenue Comparison and Financial Tables",
+              "kind": "openui",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": false,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "root = Card([header, revenueChart, revenueTable3m, revenueTable6m, note], sources)\nheader = CardHeader(\"NVIDIA FY2027 Q2 Revenue Comparison\", \"Quarter ended July 26, 2026 vs July 27, 2025 · Official IR PDF\")\n\nrevenueData3m = [96221, 46743]\nrevenueData6m = [177837, 90805]\nlabels = [\"FY2027 Q2\", \"FY2026 Q2\"]\n\nrevenueChart = BarChart(labels, [Series(\"Revenue (million USD)\", revenueData3m)], \"grouped\", \"Quarter\", \"Revenue (million USD)\", 240)\n\nrevenueTable3m = Table([\n  Col(\"Quarter\", [\"FY2027 Q2\", \"FY2026 Q2\"]),\n  Col(\"Revenue (million USD)\", [\"96,221\", \"46,743\"])\n])\nrevenueTable6m = Table([\n  Col(\"Period\", [\"Six Months Ended July 26, 2026\", \"Six Months Ended July 27, 2025\"]),\n  Col(\"Revenue (million USD)\", [\"177,837\", \"90,805\"])\n])\nnote = TextContent(\"Data are for the periods ended July 26, 2026 and July 27, 2025, in million USD. Source: NVIDIA official Investor Relations PDF, page 3.\")\nsources = [{title: \"Condensed Consolidated Statements of Income showing revenue for Q2 and 6 months ended July 26, 2026 vs July 27, 2025.\", sourceName: \"NVIDIA 10-Q · Page 3\", url: \"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}]\n",
+              "ui_state": {},
+              "source_artifact_id": "2491ace2-d405-4af7-8b5e-039d915d50b3",
+              "query": {},
+              "data": {},
+              "sources": [
+                {
+                  "title": "Condensed Consolidated Statements of Income showing revenue for Q2 and 6 months ended July 26, 2026 vs July 27, 2025.",
+                  "sourceName": "NVIDIA 10-Q · Page 3",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+                }
+              ]
+            }
+          ],
+          "artifacts": [
+            {
+              "id": "2491ace2-d405-4af7-8b5e-039d915d50b3",
+              "title": "NVIDIA FY2027 Q2 Revenue Comparison and Financial Tables",
+              "kind": "openui",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": false,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "root = Card([header, revenueChart, revenueTable3m, revenueTable6m, note], sources)\nheader = CardHeader(\"NVIDIA FY2027 Q2 Revenue Comparison\", \"Quarter ended July 26, 2026 vs July 27, 2025 · Official IR PDF\")\n\nrevenueData3m = [96221, 46743]\nrevenueData6m = [177837, 90805]\nlabels = [\"FY2027 Q2\", \"FY2026 Q2\"]\n\nrevenueChart = BarChart(labels, [Series(\"Revenue (million USD)\", revenueData3m)], \"grouped\", \"Quarter\", \"Revenue (million USD)\", 240)\n\nrevenueTable3m = Table([\n  Col(\"Quarter\", [\"FY2027 Q2\", \"FY2026 Q2\"]),\n  Col(\"Revenue (million USD)\", [\"96,221\", \"46,743\"])\n])\nrevenueTable6m = Table([\n  Col(\"Period\", [\"Six Months Ended July 26, 2026\", \"Six Months Ended July 27, 2025\"]),\n  Col(\"Revenue (million USD)\", [\"177,837\", \"90,805\"])\n])\nnote = TextContent(\"Data are for the periods ended July 26, 2026 and July 27, 2025, in million USD. Source: NVIDIA official Investor Relations PDF, page 3.\")\nsources = [{title: \"Condensed Consolidated Statements of Income showing revenue for Q2 and 6 months ended July 26, 2026 vs July 27, 2025.\", sourceName: \"NVIDIA 10-Q · Page 3\", url: \"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}]\n",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {},
+              "data": {},
+              "sources": [
+                {
+                  "title": "Condensed Consolidated Statements of Income showing revenue for Q2 and 6 months ended July 26, 2026 vs July 27, 2025.",
+                  "sourceName": "NVIDIA 10-Q · Page 3",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+                }
+              ]
+            }
+          ],
+          "selected_panel_id": "bf5f0eb1-6c7a-4d14-8d58-80f296c0b16b",
+          "export_request": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "1af25df2-eb90-4755-ad5d-15bbffae6bd7",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "1af25df2-eb90-4755-ad5d-15bbffae6bd7",
+    "delta": "root = Card([DashboardArtifact(\"2491ace2-d405-4af7-8b5e-039d915d50b3\")])\nroot = Card([DashboardArtifact(\"2491ace2-d405-4af7-8b5e-039d915d50b3\")])"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "1af25df2-eb90-4755-ad5d-15bbffae6bd7"
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "b03a451e-c91d-421b-8d72-c4f810b5bcc8",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "b03a451e-c91d-421b-8d72-c4f810b5bcc8",
+    "delta": "root = Card([Callout(\"info\", \"확인한 원문 범위\", \"이번 요청에서 확인한 원문: NVIDIA 10-Q, fiscal 2027 Q2 · 3페이지. 위 목록은 이번 요청에서 직접 읽은 범위입니다. 이전 대화의 검색 구절과는 구분되며, 전체 보고서와 모든 주석을 검토했다는 뜻은 아닙니다.\")], [{\"title\": \"NVIDIA 10-Q, fiscal 2027 Q2 · 3페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}])"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "b03a451e-c91d-421b-8d72-c4f810b5bcc8"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 2,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "bf5f0eb1-6c7a-4d14-8d58-80f296c0b16b",
+            "title": "NVIDIA FY2027 Q2 Revenue Comparison and Financial Tables",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, revenueChart, revenueTable3m, revenueTable6m, note], sources)\nheader = CardHeader(\"NVIDIA FY2027 Q2 Revenue Comparison\", \"Quarter ended July 26, 2026 vs July 27, 2025 · Official IR PDF\")\n\nrevenueData3m = [96221, 46743]\nrevenueData6m = [177837, 90805]\nlabels = [\"FY2027 Q2\", \"FY2026 Q2\"]\n\nrevenueChart = BarChart(labels, [Series(\"Revenue (million USD)\", revenueData3m)], \"grouped\", \"Quarter\", \"Revenue (million USD)\", 240)\n\nrevenueTable3m = Table([\n  Col(\"Quarter\", [\"FY2027 Q2\", \"FY2026 Q2\"]),\n  Col(\"Revenue (million USD)\", [\"96,221\", \"46,743\"])\n])\nrevenueTable6m = Table([\n  Col(\"Period\", [\"Six Months Ended July 26, 2026\", \"Six Months Ended July 27, 2025\"]),\n  Col(\"Revenue (million USD)\", [\"177,837\", \"90,805\"])\n])\nnote = TextContent(\"Data are for the periods ended July 26, 2026 and July 27, 2025, in million USD. Source: NVIDIA official Investor Relations PDF, page 3.\")\nsources = [{title: \"Condensed Consolidated Statements of Income showing revenue for Q2 and 6 months ended July 26, 2026 vs July 27, 2025.\", sourceName: \"NVIDIA 10-Q · Page 3\", url: \"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}]\n",
+            "ui_state": {},
+            "source_artifact_id": "2491ace2-d405-4af7-8b5e-039d915d50b3",
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "Condensed Consolidated Statements of Income showing revenue for Q2 and 6 months ended July 26, 2026 vs July 27, 2025.",
+                "sourceName": "NVIDIA 10-Q · Page 3",
+                "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+              }
+            ]
+          }
+        ],
+        "artifacts": [
+          {
+            "id": "2491ace2-d405-4af7-8b5e-039d915d50b3",
+            "title": "NVIDIA FY2027 Q2 Revenue Comparison and Financial Tables",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, revenueChart, revenueTable3m, revenueTable6m, note], sources)\nheader = CardHeader(\"NVIDIA FY2027 Q2 Revenue Comparison\", \"Quarter ended July 26, 2026 vs July 27, 2025 · Official IR PDF\")\n\nrevenueData3m = [96221, 46743]\nrevenueData6m = [177837, 90805]\nlabels = [\"FY2027 Q2\", \"FY2026 Q2\"]\n\nrevenueChart = BarChart(labels, [Series(\"Revenue (million USD)\", revenueData3m)], \"grouped\", \"Quarter\", \"Revenue (million USD)\", 240)\n\nrevenueTable3m = Table([\n  Col(\"Quarter\", [\"FY2027 Q2\", \"FY2026 Q2\"]),\n  Col(\"Revenue (million USD)\", [\"96,221\", \"46,743\"])\n])\nrevenueTable6m = Table([\n  Col(\"Period\", [\"Six Months Ended July 26, 2026\", \"Six Months Ended July 27, 2025\"]),\n  Col(\"Revenue (million USD)\", [\"177,837\", \"90,805\"])\n])\nnote = TextContent(\"Data are for the periods ended July 26, 2026 and July 27, 2025, in million USD. Source: NVIDIA official Investor Relations PDF, page 3.\")\nsources = [{title: \"Condensed Consolidated Statements of Income showing revenue for Q2 and 6 months ended July 26, 2026 vs July 27, 2025.\", sourceName: \"NVIDIA 10-Q · Page 3\", url: \"https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3\"}]\n",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "Condensed Consolidated Statements of Income showing revenue for Q2 and 6 months ended July 26, 2026 vs July 27, 2025.",
+                "sourceName": "NVIDIA 10-Q · Page 3",
+                "url": "https://investor.nvidia.com/files/doc_financials/2027/NVDA-2027-Q2-10Q-Final-including-exhibits.pdf#page=3"
+              }
+            ]
+          }
+        ],
+        "selected_panel_id": "bf5f0eb1-6c7a-4d14-8d58-80f296c0b16b",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "RUN_FINISHED",
+    "threadId": "394dfd8f-5444-48f0-9c93-a1363d652c08",
+    "runId": "ce674046-3dfc-4019-99ac-48a5368ce796"
+  }
+]

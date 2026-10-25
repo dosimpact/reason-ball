@@ -1,0 +1,13 @@
+### Ran Playwright code
+```js
+await (async page => { await page.reload(); const canvas=page.getByRole("region",{name:"Canvas dashboard"}); const save=async fn=>{const response=page.waitForResponse(r=>r.url().includes("/api/dashboard/state/")&&r.request().method()==="POST"&&r.status()===200);await fn();await response;}; page.once("dialog",d=>d.accept("분리 검증")); await save(()=>canvas.getByRole("button",{name:"Canvas 탭 추가",exact:true}).click()); await canvas.getByRole("tab",{name:"분리 검증",exact:true}).waitFor(); page.once("dialog",d=>d.accept()); await save(()=>canvas.getByRole("button",{name:"현재 탭 삭제",exact:true}).click()); if(await canvas.getByRole("tab").count()!==1) throw Error("tab cleanup"); const downloading=page.waitForEvent("download"); await canvas.getByRole("button",{name:"JSON",exact:true}).click(); await (await downloading).saveAs("output/playwright/refactor-export.json"); await page.getByRole("navigation",{name:"대화 목록"}).getByRole("button",{name:/^Canvas에 연구 메모와 확인 체크리스트.*실제$/}).first().click(); await page.getByRole("button",{name:"Canvas",exact:true}).click(); const memo=canvas.getByRole("textbox",{name:"연구 메모",exact:true}); const original=await memo.inputValue(); await save(()=>memo.fill("분리 후 입력 저장 검증")); await page.reload(); await page.getByRole("button",{name:"Canvas",exact:true}).click(); await canvas.getByRole("textbox",{name:"연구 메모",exact:true}).waitFor(); if(await memo.inputValue()!=="분리 후 입력 저장 검증") throw Error("input lost"); await save(()=>memo.fill(original)); })(page);
+```
+### Open tabs
+- 0: (current) [](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+- 3: [Filing Studio · SEC Research](http://127.0.0.1:3049/onboarding)
+### Page
+- Page URL: http://127.0.0.1:3049/
+### Modal state
+- ["prompt" dialog with message "새 탭 이름"]: can be handled by dialog-accept or dialog-dismiss

@@ -1,0 +1,41 @@
+{
+  "revision": 2,
+  "tabs": [
+    {
+      "id": "main",
+      "title": "Overview"
+    }
+  ],
+  "active_tab_id": "main",
+  "panels": [
+    {
+      "id": "f6381f39-9c16-41be-9ef7-52aa25a3b685",
+      "title": "NVIDIA 매출",
+      "kind": "openui",
+      "tab_id": "main",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 12
+      },
+      "pinned": true,
+      "refresh": {
+        "mode": "live",
+        "interval_seconds": 0,
+        "last_attempt_at": null,
+        "last_success_at": null,
+        "error": null
+      },
+      "program": "root = Card([\n  CardHeader(\"NVIDIA FY2024~FY2026 매출 비교\", \"출처: NVIDIA Annual Report, fiscal 2025 PDF 130쪽 · NVIDIA 10-K, fiscal 2026 PDF 37쪽\"),\n  Table([\n    Col(\"회계연도\", [\"FY2024\", \"FY2025\", \"FY2026\"]),\n    Col(\"매출액\", [\"$60.9 billion (p. 130)\", \"$130.5 billion (p. 130)\", \"$215.9 billion (p. 37)\"])\n  ]),\n  LineChart(\n    [\"FY2024\", \"FY2025\", \"FY2026\"],\n    [Series(\"매출 (10억 USD)\", [60.922, 130.497, 215.938])],\n    \"linear\",\n    \"회계연도\",\n    \"매출 (10억 USD)\",\n    300\n  )\n])",
+      "ui_state": {},
+      "source_artifact_id": null,
+      "query": {},
+      "data": {},
+      "sources": []
+    }
+  ],
+  "artifacts": [],
+  "selected_panel_id": "f6381f39-9c16-41be-9ef7-52aa25a3b685",
+  "export_request": null
+}

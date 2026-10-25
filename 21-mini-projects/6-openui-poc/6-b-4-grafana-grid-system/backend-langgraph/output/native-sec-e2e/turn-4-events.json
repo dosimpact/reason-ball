@@ -1,0 +1,398 @@
+[
+  {
+    "type": "RUN_STARTED",
+    "threadId": "5b6ee045-b0e9-4b95-b253-bed548dc58e5",
+    "runId": "23cb6e51-25ed-4faa-8a4d-c403a67702b0"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 2,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "db82c9c3-e7fd-4f55-beed-22f60d0f73e5",
+            "title": "Apple Inc. (AAPL) 최근 3년 매출 및 YoY 증감 (FY2024 제외)",
+            "kind": "financial",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {
+              "cik": "0000320193",
+              "metric": "revenue",
+              "years": 3,
+              "exclude_years": [
+                2024
+              ]
+            },
+            "data": {
+              "company": "Apple Inc.",
+              "cik": "0000320193",
+              "metric": "revenue",
+              "rows": [
+                {
+                  "period": "2023-09-30",
+                  "start": "2022-09-25",
+                  "year": 2023,
+                  "value": 383285000000,
+                  "unit": "USD",
+                  "filed": "2025-10-31",
+                  "accession": "0000320193-25-000079",
+                  "form": "10-K",
+                  "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+                  "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html",
+                  "growth_percent": null
+                },
+                {
+                  "period": "2025-09-27",
+                  "start": "2024-09-29",
+                  "year": 2025,
+                  "value": 416161000000,
+                  "unit": "USD",
+                  "filed": "2025-10-31",
+                  "accession": "0000320193-25-000079",
+                  "form": "10-K",
+                  "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+                  "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html",
+                  "growth_percent": null
+                }
+              ],
+              "missing_years": [],
+              "available_units": [
+                "USD"
+              ],
+              "period_basis": "annual period end date; latest filed observation",
+              "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+              "queried_at": "2026-10-25T06:33:13.521798+00:00",
+              "source_fetched_at": "2026-10-25T06:32:11.693168+00:00",
+              "latest_filing_date": "2025-10-31"
+            },
+            "sources": [
+              {
+                "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+                "title": "SEC Company Facts"
+              }
+            ]
+          }
+        ],
+        "artifacts": [],
+        "selected_panel_id": "db82c9c3-e7fd-4f55-beed-22f60d0f73e5",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "toolCallName": "refresh_canvas_panel"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "delta": "{\"panel_id\":\"db82"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "delta": "c9"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "delta": "c3"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "delta": "-e7"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "delta": "fd-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "delta": "4f"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "delta": "55-beed-22f"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "delta": "60d"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "delta": "0f"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "delta": "73e"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "delta": "5\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "toolCallId": "call_ufNvNIWAZsJ4VhYMG5AHNegQ",
+    "content": "{\"success\": true, \"error\": null, \"revision\": 3}",
+    "role": "tool"
+  },
+  {
+    "type": "STATE_DELTA",
+    "delta": [
+      {
+        "op": "replace",
+        "path": "/dashboard",
+        "value": {
+          "revision": 3,
+          "tabs": [
+            {
+              "id": "main",
+              "title": "Overview"
+            }
+          ],
+          "active_tab_id": "main",
+          "panels": [
+            {
+              "id": "db82c9c3-e7fd-4f55-beed-22f60d0f73e5",
+              "title": "Apple Inc. (AAPL) 최근 3년 매출 및 YoY 증감 (FY2024 제외)",
+              "kind": "financial",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": false,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": "2026-10-25T06:34:35.592333+00:00",
+                "last_success_at": "2026-10-25T06:34:35.592333+00:00",
+                "error": null
+              },
+              "program": "",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {
+                "cik": "0000320193",
+                "metric": "revenue",
+                "years": 3,
+                "exclude_years": [
+                  2024
+                ]
+              },
+              "data": {
+                "company": "Apple Inc.",
+                "cik": "0000320193",
+                "metric": "revenue",
+                "rows": [
+                  {
+                    "period": "2023-09-30",
+                    "start": "2022-09-25",
+                    "year": 2023,
+                    "value": 383285000000,
+                    "unit": "USD",
+                    "filed": "2025-10-31",
+                    "accession": "0000320193-25-000079",
+                    "form": "10-K",
+                    "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+                    "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html",
+                    "growth_percent": null
+                  },
+                  {
+                    "period": "2025-09-27",
+                    "start": "2024-09-29",
+                    "year": 2025,
+                    "value": 416161000000,
+                    "unit": "USD",
+                    "filed": "2025-10-31",
+                    "accession": "0000320193-25-000079",
+                    "form": "10-K",
+                    "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+                    "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html",
+                    "growth_percent": null
+                  }
+                ],
+                "missing_years": [],
+                "available_units": [
+                  "USD"
+                ],
+                "period_basis": "annual period end date; latest filed observation",
+                "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+                "queried_at": "2026-10-25T06:34:35.587022+00:00",
+                "source_fetched_at": "2026-10-25T06:34:35.548085+00:00",
+                "latest_filing_date": "2025-10-31"
+              },
+              "sources": [
+                {
+                  "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+                  "title": "SEC Company Facts"
+                }
+              ]
+            }
+          ],
+          "artifacts": [],
+          "selected_panel_id": "db82c9c3-e7fd-4f55-beed-22f60d0f73e5",
+          "export_request": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "390d74e8-9535-4b1f-91e2-63609c751d3d",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "390d74e8-9535-4b1f-91e2-63609c751d3d",
+    "delta": "root = Card([Callout(\"success\", \"새로고침 완료\", \"Apple Inc. (AAPL) 매출 패널이 SEC 데이터로 최신 상태로 새로고침 되었습니다. FY2024 제외 설정과 기존 배치가 유지됩니다.\")])"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "390d74e8-9535-4b1f-91e2-63609c751d3d"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 3,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "db82c9c3-e7fd-4f55-beed-22f60d0f73e5",
+            "title": "Apple Inc. (AAPL) 최근 3년 매출 및 YoY 증감 (FY2024 제외)",
+            "kind": "financial",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": "2026-10-25T06:34:35.592333+00:00",
+              "last_success_at": "2026-10-25T06:34:35.592333+00:00",
+              "error": null
+            },
+            "program": "",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {
+              "cik": "0000320193",
+              "metric": "revenue",
+              "years": 3,
+              "exclude_years": [
+                2024
+              ]
+            },
+            "data": {
+              "company": "Apple Inc.",
+              "cik": "0000320193",
+              "metric": "revenue",
+              "rows": [
+                {
+                  "period": "2023-09-30",
+                  "start": "2022-09-25",
+                  "year": 2023,
+                  "value": 383285000000,
+                  "unit": "USD",
+                  "filed": "2025-10-31",
+                  "accession": "0000320193-25-000079",
+                  "form": "10-K",
+                  "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+                  "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html",
+                  "growth_percent": null
+                },
+                {
+                  "period": "2025-09-27",
+                  "start": "2024-09-29",
+                  "year": 2025,
+                  "value": 416161000000,
+                  "unit": "USD",
+                  "filed": "2025-10-31",
+                  "accession": "0000320193-25-000079",
+                  "form": "10-K",
+                  "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+                  "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html",
+                  "growth_percent": null
+                }
+              ],
+              "missing_years": [],
+              "available_units": [
+                "USD"
+              ],
+              "period_basis": "annual period end date; latest filed observation",
+              "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+              "queried_at": "2026-10-25T06:34:35.587022+00:00",
+              "source_fetched_at": "2026-10-25T06:34:35.548085+00:00",
+              "latest_filing_date": "2025-10-31"
+            },
+            "sources": [
+              {
+                "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+                "title": "SEC Company Facts"
+              }
+            ]
+          }
+        ],
+        "artifacts": [],
+        "selected_panel_id": "db82c9c3-e7fd-4f55-beed-22f60d0f73e5",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "RUN_FINISHED",
+    "threadId": "5b6ee045-b0e9-4b95-b253-bed548dc58e5",
+    "runId": "23cb6e51-25ed-4faa-8a4d-c403a67702b0"
+  }
+]

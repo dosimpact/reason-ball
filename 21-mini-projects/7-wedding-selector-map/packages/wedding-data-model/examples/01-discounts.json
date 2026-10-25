@@ -1,0 +1,235 @@
+{
+  "schemaVersion": "0.1.0",
+  "datasetId": "ian-discount-roles",
+  "entities": [
+    {
+      "id": "venue",
+      "kind": "core:venue",
+      "label": "이안스퀘어 웨딩"
+    },
+    {
+      "id": "meal",
+      "kind": "service:meal",
+      "label": "식사"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source",
+      "kind": "attachment",
+      "localPath": "database/참가격_웨딩홀_업체별_공시원본/충청.세종/이안스퀘어 웨딩__31828.xlsx",
+      "sha256": "e0d58c67024bb3f2506545f4e2d9ff1c7ec8cbc115111d9956e909f1878d5f52",
+      "mediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "extractionState": "partial"
+    }
+  ],
+  "disclosures": [
+    {
+      "id": "disclosure",
+      "venueId": "venue",
+      "sourceIds": [
+        "source"
+      ],
+      "status": "current_at_observation",
+      "observedAt": "2026-10-25T21:54:39+09:00",
+      "extensions": {
+        "review:observationBasis": "추가원본 수집목록 checked_at 기준 일괄 스냅샷. 이 예제의 별도 검수 시각은 아님."
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e-header",
+      "sourceId": "source",
+      "locator": {
+        "kind": "spreadsheet",
+        "sheet": "Sheet1",
+        "cellRange": "B3:E5"
+      },
+      "rawText": "식비: 정가 / 한정 프로모션 할인 / 당일 계약 할인 / 모두 적용 후 금액",
+      "method": "xml",
+      "verification": "source_checked"
+    },
+    {
+      "id": "e-unit",
+      "sourceId": "source",
+      "locator": {
+        "kind": "spreadsheet",
+        "sheet": "Sheet1",
+        "cellRange": "A2"
+      },
+      "rawText": "① 가격(단위:만원, VAT 포함)",
+      "method": "xml",
+      "verification": "source_checked"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "both",
+      "evidenceIds": [
+        "e-header"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "label": "모두 적용 후 금액",
+      "rawText": "모두 적용 후 금액",
+      "expression": {
+        "op": "raw",
+        "text": "한정 프로모션 할인 및 당일 계약 할인 모두 적용. 대상 일자 등 상세 자격은 미확인."
+      }
+    }
+  ],
+  "facts": [
+    {
+      "id": "unit-warning",
+      "evidenceIds": [
+        "e-unit"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "subjectId": "venue",
+      "predicate": "quality:unit_conflict",
+      "valueState": "conflicting",
+      "rawText": "표 제목 단위와 개별 셀 원 단위가 불일치. 예제 금액은 셀의 원 표기를 따름."
+    }
+  ],
+  "priceTerms": [
+    {
+      "id": "list",
+      "evidenceIds": [
+        "e-header"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "subjectId": "venue",
+      "itemId": "meal",
+      "role": "list",
+      "state": "known",
+      "amount": {
+        "kind": "exact",
+        "value": "61000"
+      },
+      "currency": "KRW",
+      "basis": {
+        "quantity": "1",
+        "unit": "unit:person"
+      },
+      "taxTreatment": "included",
+      "serviceChargeTreatment": "not_disclosed",
+      "requirement": "unknown",
+      "rawText": "61,000원",
+      "conditionIds": []
+    },
+    {
+      "id": "promo",
+      "evidenceIds": [
+        "e-header"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "subjectId": "venue",
+      "itemId": "meal",
+      "role": "discount",
+      "state": "known",
+      "amount": {
+        "kind": "exact",
+        "value": "10000"
+      },
+      "currency": "KRW",
+      "basis": {
+        "quantity": "1",
+        "unit": "unit:person"
+      },
+      "taxTreatment": "included",
+      "serviceChargeTreatment": "not_disclosed",
+      "requirement": "unknown",
+      "rawText": "10,000원",
+      "conditionIds": [],
+      "stacking": "conditional"
+    },
+    {
+      "id": "same-day",
+      "evidenceIds": [
+        "e-header"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "subjectId": "venue",
+      "itemId": "meal",
+      "role": "discount",
+      "state": "known",
+      "amount": {
+        "kind": "exact",
+        "value": "5000"
+      },
+      "currency": "KRW",
+      "basis": {
+        "quantity": "1",
+        "unit": "unit:person"
+      },
+      "taxTreatment": "included",
+      "serviceChargeTreatment": "not_disclosed",
+      "requirement": "unknown",
+      "rawText": "5,000원",
+      "conditionIds": [],
+      "stacking": "conditional"
+    },
+    {
+      "id": "final",
+      "evidenceIds": [
+        "e-header"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "subjectId": "venue",
+      "itemId": "meal",
+      "role": "payable",
+      "state": "known",
+      "amount": {
+        "kind": "exact",
+        "value": "46000"
+      },
+      "currency": "KRW",
+      "basis": {
+        "quantity": "1",
+        "unit": "unit:person"
+      },
+      "taxTreatment": "included",
+      "serviceChargeTreatment": "not_disclosed",
+      "requirement": "unknown",
+      "rawText": "46,000원",
+      "conditionIds": [
+        "both"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "id": "rel-promo",
+      "evidenceIds": [
+        "e-header"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "fromId": "promo",
+      "predicate": "pricing:discounts",
+      "toId": "list"
+    },
+    {
+      "id": "rel-same-day",
+      "evidenceIds": [
+        "e-header"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "reviewed",
+      "fromId": "same-day",
+      "predicate": "pricing:discounts",
+      "toId": "list"
+    }
+  ],
+  "policies": [],
+  "derivations": [],
+  "extensions": {
+    "review:scope": "원본 일부 항목의 수동 매핑 예제. 전체 업체 변환 및 시각 검수 완료를 의미하지 않음. observedAt 시각은 일자 정밀도만 알려져 있으므로 아래 원문을 우선한다."
+  }
+}

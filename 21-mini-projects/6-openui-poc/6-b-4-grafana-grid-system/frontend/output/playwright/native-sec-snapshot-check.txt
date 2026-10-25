@@ -1,0 +1,6 @@
+### Result
+{"monitor":{"started":1792911505525,"requests":0,"elapsed":230663},"manualDisabled":true,"autoDisabled":true}
+### Ran Playwright code
+```js
+await (async page => { const evidence={monitor:await page.evaluate(()=>({...window.__snapshotCheck,elapsed:Date.now()-window.__snapshotCheck.started})),manualDisabled:await page.getByRole("button",{name:"지금 새로고침",exact:true}).isDisabled(),autoDisabled:await page.getByRole("combobox",{name:/자동 갱신$/}).isDisabled()}; await page.screenshot({path:"output/playwright/native-sec-snapshot.png"}); await page.getByRole("combobox",{name:/갱신 모드$/}).selectOption("live"); await page.getByRole("combobox",{name:/자동 갱신$/}).selectOption("0"); return evidence; })(page);
+```

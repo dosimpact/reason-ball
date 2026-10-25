@@ -1,0 +1,92 @@
+[
+  {
+    "case": "overview",
+    "request": "nvidia FY2026 보고서의 사업·위험 요인·경영진 설명·재무 핵심을 실제 원문 영역별로 확인해 한국어로 요약해줘.",
+    "plan": {
+      "instruction": "The user requests a summary in Korean of NVIDIA's FY2026 report focusing on business, risk factors, management discussion, and financial highlights, with verification from the original text sections. This requires reading the original report sections and summarizing them in Korean. No explicit request to create or update any Canvas panel is made, so the output will be a chat summary.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "original",
+      "operations": [],
+      "minimum_new_panels": 0,
+      "targets": []
+    },
+    "passed": true
+  },
+  {
+    "case": "chart",
+    "request": "엔비디아의 최근 3년 매출과 성장률을 차트로 보여줘.",
+    "plan": {
+      "instruction": "The user requests a chart showing Nvidia's recent 3 years revenue and growth rate. This is a visualization request for chat output, not a Canvas panel addition.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [],
+      "minimum_new_panels": 0,
+      "targets": []
+    },
+    "passed": true
+  },
+  {
+    "case": "chat_only",
+    "request": "매출은 차트로 보여줘. Canvas에는 추가하지 마.",
+    "plan": {
+      "instruction": "The user requests to see the sales data as a chart but explicitly says not to add it to Canvas. This means the output should be shown in chat only, without creating or modifying any Canvas panels.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "overview",
+      "operations": [],
+      "minimum_new_panels": 0,
+      "targets": []
+    },
+    "passed": true
+  },
+  {
+    "case": "reusable",
+    "request": "차트를 대화 안에 Canvas에 추가 가능한 결과로 게시해줘. 지금은 Canvas에는 추가하지 마.",
+    "plan": {
+      "instruction": "The user requests to publish a chart result as a reusable chat artifact that can be added to Canvas later, but not to add it to Canvas now. This authorizes publishing an artifact only, without adding any new Canvas panels.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "artifact_publish"
+      ],
+      "minimum_new_panels": 0,
+      "targets": []
+    },
+    "passed": true
+  },
+  {
+    "case": "canvas",
+    "request": "매출 그래프를 Canvas에 추가해줘.",
+    "plan": {
+      "instruction": "The user requests to add a sales graph to Canvas with the phrase '매출 그래프를 Canvas에 추가해줘.' This authorizes adding a new panel to Canvas.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "add"
+      ],
+      "minimum_new_panels": 1,
+      "targets": []
+    },
+    "passed": true
+  },
+  {
+    "case": "two_panels",
+    "request": "Canvas에 연구 메모와 확인 체크리스트를 각각 하나씩 만들어줘.",
+    "plan": {
+      "instruction": "The user requests to create one research memo and one verification checklist in Canvas. This requires adding two new panels to the current 'main' tab.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "add"
+      ],
+      "minimum_new_panels": 2,
+      "targets": []
+    },
+    "passed": true
+  }
+]

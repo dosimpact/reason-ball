@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("button",{name:"중단",exact:true}).waitFor({state:"hidden",timeout:55000}); })(page);
+```

@@ -1,0 +1,45 @@
+[
+  {
+    "case": "requested_subset",
+    "review": {
+      "findings": [
+        {
+          "explanation": "The candidate claim presents NVIDIA revenue for FY2024 and FY2026 as 60,922 million USD and 215,938 million USD respectively. Evidence from the NVIDIA 10-K fiscal 2026 (page 51) confirms revenue for the year ended Jan 28, 2024 (FY2024) as $60,922 million and for the year ended Jan 25, 2026 (FY2026) as $215,938 million. The units (millions USD), company (NVIDIA), and fiscal periods match exactly. The candidate excludes FY2025 as requested by the user. Therefore, the claim is fully supported by the evidence.",
+          "verdict": "supported"
+        }
+      ]
+    },
+    "issues": [],
+    "passed": true
+  },
+  {
+    "case": "wrong_value",
+    "review": {
+      "findings": [
+        {
+          "explanation": "The candidate claim presents a chart header \"NVIDIA 매출\" with fiscal years FY2024 and FY2026 and revenue values in millions USD. The chart data shows FY2024 revenue as 999999 and FY2026 revenue as 215,938 million USD. Evidence from the NVIDIA 10-K fiscal 2026 (page 51) shows actual revenue for FY2024 (year ended Jan 28, 2024) as $60,922 million and for FY2026 (year ended Jan 25, 2026) as $215,938 million. The FY2026 figure matches exactly, but the FY2024 figure in the candidate is 999,999 which does not match the evidence. The user requested to exclude FY2025 from checking and not to check numbers, but the candidate includes FY2024 and FY2026 and provides a specific number for FY2024 that is incorrect. Since the FY2024 number is incorrect and the user scope excludes only FY2025, this claim is unsupported due to the incorrect FY2024 figure.",
+          "verdict": "unsupported"
+        }
+      ]
+    },
+    "issues": [
+      "The candidate claim presents a chart header \"NVIDIA 매출\" with fiscal years FY2024 and FY2026 and revenue values in millions USD. The chart data shows FY2024 revenue as 999999 and FY2026 revenue as 215,938 million USD. Evidence from the NVIDIA 10-K fiscal 2026 (page 51) shows actual revenue for FY2024 (year ended Jan 28, 2024) as $60,922 million and for FY2026 (year ended Jan 25, 2026) as $215,938 million. The FY2026 figure matches exactly, but the FY2024 figure in the candidate is 999,999 which does not match the evidence. The user requested to exclude FY2025 from checking and not to check numbers, but the candidate includes FY2024 and FY2026 and provides a specific number for FY2024 that is incorrect. Since the FY2024 number is incorrect and the user scope excludes only FY2025, this claim is unsupported due to the incorrect FY2024 figure."
+    ],
+    "passed": true
+  },
+  {
+    "case": "gap_yoy",
+    "review": {
+      "findings": [
+        {
+          "explanation": "The evidence from the NVIDIA 10-K for fiscal year ended January 25, 2026 shows revenue for FY2024 (year ended Jan 28, 2024) as $60,922 million and for FY2026 (year ended Jan 25, 2026) as $215,938 million. The candidate claim states FY2024 revenue as 60,922 million USD and FY2026 revenue as 215,938 million USD, which matches the evidence exactly. However, the claim states \"Year-over-year growth from FY2024 to FY2026 is 254.4%\". Growth from FY2024 to FY2026 spans two years, not one year, so it is not year-over-year growth. Therefore, the growth percentage is mislabeled as year-over-year growth, making this part of the claim unsupported.",
+          "verdict": "unsupported"
+        }
+      ]
+    },
+    "issues": [
+      "The evidence from the NVIDIA 10-K for fiscal year ended January 25, 2026 shows revenue for FY2024 (year ended Jan 28, 2024) as $60,922 million and for FY2026 (year ended Jan 25, 2026) as $215,938 million. The candidate claim states FY2024 revenue as 60,922 million USD and FY2026 revenue as 215,938 million USD, which matches the evidence exactly. However, the claim states \"Year-over-year growth from FY2024 to FY2026 is 254.4%\". Growth from FY2024 to FY2026 spans two years, not one year, so it is not year-over-year growth. Therefore, the growth percentage is mislabeled as year-over-year growth, making this part of the claim unsupported."
+    ],
+    "passed": true
+  }
+]

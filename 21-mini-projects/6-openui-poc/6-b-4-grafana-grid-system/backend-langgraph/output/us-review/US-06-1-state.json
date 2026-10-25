@@ -1,0 +1,52 @@
+{
+  "revision": 1,
+  "tabs": [
+    {
+      "id": "main",
+      "title": "Overview"
+    }
+  ],
+  "active_tab_id": "main",
+  "panels": [],
+  "artifacts": [
+    {
+      "id": "3752e135-90fe-4cb8-83a0-7fd054b6e096",
+      "title": "NVIDIA FY2024-FY2026 Revenue Summary and Trend",
+      "kind": "openui",
+      "tab_id": "main",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 12
+      },
+      "pinned": false,
+      "refresh": {
+        "mode": "live",
+        "interval_seconds": 0,
+        "last_attempt_at": null,
+        "last_success_at": null,
+        "error": null
+      },
+      "program": "f2024 = 60922\nf2025 = 130497\nf2026 = 215938\nrev_labels = [\"FY2024\", \"FY2025\", \"FY2026\"]\nrev_values = [f2024 / 1000, f2025 / 1000, f2026 / 1000]  # billions\nrev_growth_2025 = @Round((f2025 - f2024) / f2024 * 100, 1)\nrev_growth_2026 = @Round((f2026 - f2025) / f2025 * 100, 1)\ngrowth_labels = [\"FY2025 YoY\", \"FY2026 YoY\"]\ngrowth_values = [rev_growth_2025, rev_growth_2026]\n\nheader = CardHeader(\"NVIDIA Revenue Comparison FY2024 to FY2026\", \"From official NVIDIA annual reports for fiscal years 2025 and 2026\")\n\nrevenue_table = Table([\n  Col(\"Fiscal Year\", [\"FY2024\", \"FY2025\", \"FY2026\"]),\n  Col(\"Revenue (USD billions)\", [\"$60.9B (p. 130, 2025 report)\", \"$130.5B (p. 130, 2025 report)\", \"$215.9B (p. 37, 2026 report)\"])\n])\n\nrevenue_chart = LineChart(\n  rev_labels,\n  [Series(\"Revenue (USD billions)\", rev_values)],\n  \"linear\",\n  \"Fiscal Year\",\n  \"Revenue (USD billions)\",\n  240\n)\ngrowth_chart = BarChart(\n  growth_labels,\n  [Series(\"Growth Rate (%)\", growth_values)],\n  \"grouped\",\n  \"Fiscal Year\",\n  \"% Change\",\n  160\n)\n\ngrowth_note = Callout(\n  \"info\",\n  \"Year-Over-Year Revenue Growth\",\n  \"FY2025 revenue increased by \" + rev_growth_2025 + \"% compared to FY2024. FY2026 revenue increased by \" + rev_growth_2026 + \"% compared to FY2025.\"\n)\n\nroot = Card([\n  header,\n  revenue_table,\n  revenue_chart,\n  growth_chart,\n  growth_note\n], [\n  {\"title\": \"\\u201CRevenue for fiscal year 2025 was $130.5 billion, up 114% from a year ago.\\u201D\", \"sourceName\": \"NVIDIA 2025 Annual Report · Page 130\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"},\n  {\"title\": \"\\u201CRevenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago.\\u201D\", \"sourceName\": \"NVIDIA 10-K 2026 · Page 37\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37\"}\n])",
+      "ui_state": {},
+      "source_artifact_id": null,
+      "query": {},
+      "data": {},
+      "sources": [
+        {
+          "title": "“Revenue for fiscal year 2025 was $130.5 billion, up 114% from a year ago.”",
+          "sourceName": "NVIDIA 2025 Annual Report · Page 130",
+          "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130"
+        },
+        {
+          "title": "“Revenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago.”",
+          "sourceName": "NVIDIA 10-K 2026 · Page 37",
+          "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37"
+        }
+      ]
+    }
+  ],
+  "selected_panel_id": null,
+  "export_request": null
+}

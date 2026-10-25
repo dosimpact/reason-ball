@@ -1,0 +1,2659 @@
+- generic [ref=f2e2]:
+  - banner [ref=f2e3]:
+    - generic [ref=f2e4]:
+      - generic [ref=f2e5]: OpenUI
+      - generic [ref=f2e7]: Component gallery
+    - navigation "Theme" [ref=f2e8]:
+      - link "Light" [ref=f2e9] [cursor=pointer]:
+        - /url: "?theme=light"
+      - link "Dark" [ref=f2e10] [cursor=pointer]:
+        - /url: "?theme=dark"
+  - main [ref=f2e11]:
+    - generic [ref=f2e12]:
+      - heading "Primitives, composed by the model" [level=1] [ref=f2e13]
+      - paragraph [ref=f2e14]: Hand-written OpenUI Lang 1.0 programs rendered by the 1.0 Renderer with this app's library. 55 components and 59 functions.
+      - navigation "Composition" [ref=f2e15]:
+        - text: Composition
+        - link "Web analytics, PostHog style" [ref=f2e16] [cursor=pointer]:
+          - /url: "#web-analytics"
+        - link "Compare two phones" [ref=f2e17] [cursor=pointer]:
+          - /url: "#compare-phones"
+        - link "Spanish flashcards and a quiz" [ref=f2e18] [cursor=pointer]:
+          - /url: "#flashcards"
+        - link "New primitives" [ref=f2e19] [cursor=pointer]:
+          - /url: "#primitives"
+      - navigation "Working tools" [ref=f2e20]:
+        - text: Working tools
+        - link "Sunday roast" [ref=f2e21] [cursor=pointer]:
+          - /url: "#recipe"
+        - link "Split the bill" [ref=f2e22] [cursor=pointer]:
+          - /url: "#bill"
+        - link "The Monty Hall problem" [ref=f2e23] [cursor=pointer]:
+          - /url: "#monty"
+        - link "Retirement savings" [ref=f2e24] [cursor=pointer]:
+          - /url: "#savings"
+        - link "GDP, explained" [ref=f2e25] [cursor=pointer]:
+          - /url: "#gdp-explained"
+        - link "Central limit theorem" [ref=f2e26] [cursor=pointer]:
+          - /url: "#clt"
+        - link "A 7-speed bike" [ref=f2e27] [cursor=pointer]:
+          - /url: "#bicycle"
+        - link "Assemble a youth bike" [ref=f2e28] [cursor=pointer]:
+          - /url: "#bike-repair"
+        - link "San Francisco in a day" [ref=f2e29] [cursor=pointer]:
+          - /url: "#route"
+        - link "Pacific Northwest road trip" [ref=f2e30] [cursor=pointer]:
+          - /url: "#roadtrip"
+        - link "Find your paint color" [ref=f2e31] [cursor=pointer]:
+          - /url: "#room"
+        - link "Fold an origami fox" [ref=f2e32] [cursor=pointer]:
+          - /url: "#origami"
+        - link "Plan a vegetable garden" [ref=f2e33] [cursor=pointer]:
+          - /url: "#garden"
+        - link "Capsule wardrobe" [ref=f2e34] [cursor=pointer]:
+          - /url: "#wardrobe"
+        - link "The drone photography market" [ref=f2e35] [cursor=pointer]:
+          - /url: "#drones"
+        - link "A retro arcade game" [ref=f2e36] [cursor=pointer]:
+          - /url: "#game"
+        - link "Sales dashboard" [ref=f2e37] [cursor=pointer]:
+          - /url: "#dash-sales"
+        - link "Support dashboard" [ref=f2e38] [cursor=pointer]:
+          - /url: "#dash-support"
+        - 'link "Prompt example: shopping list" [ref=f2e39] [cursor=pointer]':
+          - /url: "#example-list"
+        - 'link "Prompt example: a composed trip" [ref=f2e40] [cursor=pointer]':
+          - /url: "#example-trip"
+        - 'link "Prompt example: steps with drawings" [ref=f2e41] [cursor=pointer]':
+          - /url: "#example-steps"
+        - 'link "Prompt example: dashboard" [ref=f2e42] [cursor=pointer]':
+          - /url: "#example-dashboard"
+      - navigation "Components" [ref=f2e43]:
+        - text: Components
+        - link "An answer, composed" [ref=f2e44] [cursor=pointer]:
+          - /url: "#answer"
+        - link "Text" [ref=f2e45] [cursor=pointer]:
+          - /url: "#text"
+        - link "Lists and timeline" [ref=f2e46] [cursor=pointer]:
+          - /url: "#lists"
+        - link "Buttons" [ref=f2e47] [cursor=pointer]:
+          - /url: "#buttons"
+        - link "Layout" [ref=f2e48] [cursor=pointer]:
+          - /url: "#layout"
+        - link "Sliders bound to state" [ref=f2e49] [cursor=pointer]:
+          - /url: "#gdp"
+        - link "Segmented control" [ref=f2e50] [cursor=pointer]:
+          - /url: "#segmented"
+        - link "Checkbox list" [ref=f2e51] [cursor=pointer]:
+          - /url: "#checklist"
+        - link "Pressable grid" [ref=f2e52] [cursor=pointer]:
+          - /url: "#pressable"
+        - link "Inputs and form" [ref=f2e53] [cursor=pointer]:
+          - /url: "#inputs"
+        - link "Svg driven by a slider" [ref=f2e54] [cursor=pointer]:
+          - /url: "#svg"
+        - link "Charts" [ref=f2e55] [cursor=pointer]:
+          - /url: "#chart"
+        - link "Table" [ref=f2e56] [cursor=pointer]:
+          - /url: "#table"
+        - link "Images" [ref=f2e57] [cursor=pointer]:
+          - /url: "#images"
+        - link "Map with a route" [ref=f2e58] [cursor=pointer]:
+          - /url: "#map"
+        - link "HtmlView game" [ref=f2e59] [cursor=pointer]:
+          - /url: "#html"
+        - link "Timer" [ref=f2e60] [cursor=pointer]:
+          - /url: "#timer"
+        - link "Color scale" [ref=f2e61] [cursor=pointer]:
+          - /url: "#heatmap"
+        - link "Icons" [ref=f2e62] [cursor=pointer]:
+          - /url: "#icons"
+    - heading "Composition" [level=2] [ref=f2e63]
+    - region [ref=f2e64]:
+      - generic [ref=f2e65]:
+        - heading "Web analytics, PostHog style" [level=2] [ref=f2e66]
+        - paragraph [ref=f2e67]: A date range drives every number. KPI cards with change badges, an area trend with a metric switch, source bars and a funnel from Box widths, a top-pages Table and a retention grid from @MixColor.
+      - generic [ref=f2e71]:
+        - generic [ref=f2e72]:
+          - generic [ref=f2e73]:
+            - heading "Web analytics" [level=2] [ref=f2e74]
+            - paragraph [ref=f2e75]: yoursite.com · sample data
+          - radiogroup [ref=f2e76]:
+            - radio "7 days" [ref=f2e77] [cursor=pointer]
+            - radio "30 days" [ref=f2e78] [cursor=pointer]
+            - radio "90 days" [ref=f2e79] [cursor=pointer]
+        - generic [ref=f2e80]:
+          - generic [ref=f2e81]:
+            - paragraph [ref=f2e82]: Visitors
+            - heading "244.4K" [level=2] [ref=f2e83]
+            - generic [ref=f2e84]: +12.4%
+          - generic [ref=f2e85]:
+            - paragraph [ref=f2e86]: Pageviews
+            - heading "540.3K" [level=2] [ref=f2e87]
+            - generic [ref=f2e88]: +8.1%
+          - generic [ref=f2e89]:
+            - paragraph [ref=f2e90]: Session length
+            - heading "3m 12s" [level=2] [ref=f2e91]
+            - generic [ref=f2e92]: "-4.2%"
+          - generic [ref=f2e93]:
+            - paragraph [ref=f2e94]: Bounce rate
+            - heading "41%" [level=2] [ref=f2e95]
+            - generic [ref=f2e96]: "-2.6%"
+        - generic [ref=f2e97]:
+          - generic [ref=f2e98]:
+            - heading "Traffic" [level=4] [ref=f2e99]
+            - radiogroup [ref=f2e100]:
+              - radio "Visitors" [ref=f2e101] [cursor=pointer]
+              - radio "Pageviews" [ref=f2e102] [cursor=pointer]
+          - figure [ref=f2e103]
+        - generic [ref=f2e105]:
+          - generic [ref=f2e106]:
+            - heading "Top sources" [level=4] [ref=f2e107]
+            - generic [ref=f2e108]:
+              - generic [ref=f2e110]:
+                - paragraph [ref=f2e113]: Google
+                - paragraph [ref=f2e114]: 100.2K
+              - generic [ref=f2e118]:
+                - paragraph [ref=f2e121]: Direct
+                - paragraph [ref=f2e122]: 58.7K
+              - generic [ref=f2e126]:
+                - paragraph [ref=f2e129]: Hacker News
+                - paragraph [ref=f2e130]: 36.7K
+              - generic [ref=f2e134]:
+                - paragraph [ref=f2e137]: Twitter / X
+                - paragraph [ref=f2e138]: 26.9K
+              - generic [ref=f2e142]:
+                - paragraph [ref=f2e145]: Newsletter
+                - paragraph [ref=f2e146]: 22K
+          - generic [ref=f2e149]:
+            - heading "Top pages" [level=4] [ref=f2e150]
+            - table [ref=f2e152]:
+              - rowgroup [ref=f2e153]:
+                - row [ref=f2e154]:
+                  - columnheader "Page" [ref=f2e155]
+                  - columnheader "Views" [ref=f2e156]
+                  - columnheader "Avg. time" [ref=f2e157]
+              - rowgroup [ref=f2e158]:
+                - row [ref=f2e159]:
+                  - cell "/" [ref=f2e160]
+                  - cell "167.5K" [ref=f2e161]
+                  - cell "0:48" [ref=f2e162]
+                - row [ref=f2e163]:
+                  - cell "/pricing" [ref=f2e164]
+                  - cell "97.3K" [ref=f2e165]
+                  - cell "1:52" [ref=f2e166]
+                - row [ref=f2e167]:
+                  - cell "/blog/launch-week" [ref=f2e168]
+                  - cell "75.6K" [ref=f2e169]
+                  - cell "4:05" [ref=f2e170]
+                - row [ref=f2e171]:
+                  - cell "/docs/quickstart" [ref=f2e172]
+                  - cell "59.4K" [ref=f2e173]
+                  - cell "3:31" [ref=f2e174]
+                - row [ref=f2e175]:
+                  - cell "/signup" [ref=f2e176]
+                  - cell "32.4K" [ref=f2e177]
+                  - cell "1:10" [ref=f2e178]
+        - generic [ref=f2e179]:
+          - generic [ref=f2e180]:
+            - heading "Signup funnel" [level=4] [ref=f2e181]
+            - generic [ref=f2e182]:
+              - generic [ref=f2e184]:
+                - paragraph [ref=f2e185]: Visited site
+                - paragraph [ref=f2e186]: 244.4K · 100%
+              - generic [ref=f2e189]:
+                - paragraph [ref=f2e190]: Viewed pricing
+                - paragraph [ref=f2e191]: 92.9K · 38%
+              - generic [ref=f2e194]:
+                - paragraph [ref=f2e195]: Started signup
+                - paragraph [ref=f2e196]: 30.6K · 12.5%
+              - generic [ref=f2e199]:
+                - paragraph [ref=f2e200]: Activated
+                - paragraph [ref=f2e201]: 18.1K · 7.4%
+          - generic [ref=f2e203]:
+            - heading "Weekly retention" [level=4] [ref=f2e204]
+            - generic [ref=f2e205]:
+              - paragraph [ref=f2e207]: Cohort
+              - generic [ref=f2e209]:
+                - paragraph [ref=f2e211]: W0
+                - paragraph [ref=f2e213]: W1
+                - paragraph [ref=f2e215]: W2
+                - paragraph [ref=f2e217]: W3
+                - paragraph [ref=f2e219]: W4
+            - generic [ref=f2e220]:
+              - generic [ref=f2e221]:
+                - generic [ref=f2e222]:
+                  - paragraph [ref=f2e223]: Sep 7
+                  - paragraph [ref=f2e224]: 1,840
+                - generic [ref=f2e226]:
+                  - paragraph [ref=f2e228]: 100%
+                  - paragraph [ref=f2e230]: 41%
+                  - paragraph [ref=f2e232]: 30%
+                  - paragraph [ref=f2e234]: 26%
+                  - paragraph [ref=f2e236]: 23%
+              - generic [ref=f2e237]:
+                - generic [ref=f2e238]:
+                  - paragraph [ref=f2e239]: Sep 14
+                  - paragraph [ref=f2e240]: 2,015
+                - generic [ref=f2e242]:
+                  - paragraph [ref=f2e244]: 100%
+                  - paragraph [ref=f2e246]: 44%
+                  - paragraph [ref=f2e248]: 33%
+                  - paragraph [ref=f2e250]: 27%
+              - generic [ref=f2e252]:
+                - generic [ref=f2e253]:
+                  - paragraph [ref=f2e254]: Sep 21
+                  - paragraph [ref=f2e255]: 1,922
+                - generic [ref=f2e257]:
+                  - paragraph [ref=f2e259]: 100%
+                  - paragraph [ref=f2e261]: 39%
+                  - paragraph [ref=f2e263]: 29%
+              - generic [ref=f2e266]:
+                - generic [ref=f2e267]:
+                  - paragraph [ref=f2e268]: Sep 28
+                  - paragraph [ref=f2e269]: 2,210
+                - generic [ref=f2e271]:
+                  - paragraph [ref=f2e273]: 100%
+                  - paragraph [ref=f2e275]: 46%
+              - generic [ref=f2e279]:
+                - generic [ref=f2e280]:
+                  - paragraph [ref=f2e281]: Oct 5
+                  - paragraph [ref=f2e282]: 2,390
+                - paragraph [ref=f2e286]: 100%
+      - group [ref=f2e291]:
+        - generic "OpenUI Lang" [ref=f2e292] [cursor=pointer]
+    - region [ref=f2e293]:
+      - generic [ref=f2e294]:
+        - heading "Compare two phones" [level=2] [ref=f2e295]
+        - paragraph [ref=f2e296]: Images found by query, a spec Table with component cells, RadioGroup cards that change the pick below.
+      - generic [ref=f2e300]:
+        - heading "iPhone 17 vs Pixel 11" [level=2] [ref=f2e301]
+        - paragraph [ref=f2e302]: Two flagship phones at the same price. The iPhone is the safer all-rounder; the Pixel wins on photos and AI features.
+        - generic [ref=f2e303]:
+          - generic [ref=f2e304]:
+            - img "iPhone 17" [ref=f2e306]
+            - generic [ref=f2e307]:
+              - heading "iPhone 17" [level=3] [ref=f2e308]
+              - generic [ref=f2e309]: From $799
+            - paragraph [ref=f2e310]: A19 · 6.3-inch 120 Hz
+          - generic [ref=f2e314]:
+            - img "Pixel 11" [ref=f2e316]
+            - generic [ref=f2e317]:
+              - heading "Pixel 11" [level=3] [ref=f2e318]
+              - generic [ref=f2e319]: From $799
+            - paragraph [ref=f2e320]: Tensor G6 · 6.3-inch 120 Hz
+        - heading "Side by side" [level=3] [ref=f2e324]
+        - table [ref=f2e326]:
+          - rowgroup [ref=f2e327]:
+            - row [ref=f2e328]:
+              - columnheader [ref=f2e329]
+              - columnheader "iPhone 17" [ref=f2e330]
+              - columnheader "Pixel 11" [ref=f2e331]
+          - rowgroup [ref=f2e332]:
+            - row [ref=f2e333]:
+              - cell "Main camera" [ref=f2e334]
+              - cell [ref=f2e335]:
+                - paragraph [ref=f2e336]: 48 MP
+              - cell [ref=f2e337]:
+                - paragraph [ref=f2e338]: 50 MP
+            - row [ref=f2e342]:
+              - cell "Battery life" [ref=f2e343]
+              - cell [ref=f2e344]:
+                - paragraph [ref=f2e345]: Up to 30 h video
+              - cell [ref=f2e346]:
+                - paragraph [ref=f2e347]: Up to 31 h video
+            - row [ref=f2e351]:
+              - cell "Updates" [ref=f2e352]
+              - cell [ref=f2e353]:
+                - paragraph [ref=f2e354]: About 6 years
+              - cell [ref=f2e355]:
+                - paragraph [ref=f2e356]: 7 years
+            - row [ref=f2e360]:
+              - cell "Charging" [ref=f2e361]
+              - cell [ref=f2e362]:
+                - paragraph [ref=f2e363]: 40 W wired · MagSafe
+              - cell [ref=f2e367]:
+                - paragraph [ref=f2e368]: 30 W wired · Qi2
+            - row [ref=f2e369]:
+              - cell "Ecosystem" [ref=f2e370]
+              - cell [ref=f2e371]:
+                - paragraph [ref=f2e372]: iMessage, Watch, Mac
+              - cell [ref=f2e373]:
+                - paragraph [ref=f2e374]: Gemini, Android
+        - heading "Which suits you?" [level=3] [ref=f2e375]
+        - group [ref=f2e376]:
+          - generic [ref=f2e377]:
+            - generic [ref=f2e378] [cursor=pointer]:
+              - radio "Photos Low light, zoom, editing" [ref=f2e379]
+              - generic [ref=f2e380]:
+                - generic [ref=f2e381]: Photos
+                - generic [ref=f2e382]: Low light, zoom, editing
+            - generic [ref=f2e383] [cursor=pointer]:
+              - radio "My other devices Mac, Watch, iMessage" [ref=f2e384]
+              - generic [ref=f2e385]:
+                - generic [ref=f2e386]: My other devices
+                - generic [ref=f2e387]: Mac, Watch, iMessage
+            - generic [ref=f2e388] [cursor=pointer]:
+              - radio "Battery A long day of use" [ref=f2e389]
+              - generic [ref=f2e390]:
+                - generic [ref=f2e391]: Battery
+                - generic [ref=f2e392]: A long day of use
+        - generic [ref=f2e394]:
+          - img "Pixel 11" [ref=f2e396]
+          - generic [ref=f2e397]:
+            - paragraph [ref=f2e398]: Our pick for you
+            - heading "Pixel 11" [level=2] [ref=f2e399]
+            - paragraph [ref=f2e400]: A little more screen-on time and slower battery wear.
+      - group [ref=f2e401]:
+        - generic "OpenUI Lang" [ref=f2e402] [cursor=pointer]
+    - region [ref=f2e403]:
+      - generic [ref=f2e404]:
+        - heading "Spanish flashcards and a quiz" [level=2] [ref=f2e405]
+        - paragraph [ref=f2e406]: Flashcards in a Carousel, then a quiz that keeps score with @Set and bursts a Celebration on 4 of 4.
+      - generic [ref=f2e410]:
+        - heading "8 Spanish words for the kitchen" [level=2] [ref=f2e411]
+        - paragraph [ref=f2e412]: Tap a card to see the English, then try the quiz.
+        - generic [ref=f2e417]:
+          - button "🥄 la cuchara Tap to flip" [ref=f2e419] [cursor=pointer]:
+            - generic [ref=f2e420]:
+              - generic [ref=f2e421]:
+                - heading "🥄" [level=2] [ref=f2e422]
+                - heading "la cuchara" [level=2] [ref=f2e423]
+                - generic [ref=f2e424]: Tap to flip
+              - generic [aria-hidden] [ref=f2e425]:
+                - heading [level=3] [ref=f2e426]: the spoon
+                - paragraph [ref=f2e427]: la cuchara
+          - button "🔪 el cuchillo Tap to flip" [ref=f2e429] [cursor=pointer]:
+            - generic [ref=f2e430]:
+              - generic [ref=f2e431]:
+                - heading "🔪" [level=2] [ref=f2e432]
+                - heading "el cuchillo" [level=2] [ref=f2e433]
+                - generic [ref=f2e434]: Tap to flip
+              - generic [aria-hidden] [ref=f2e435]:
+                - heading [level=3] [ref=f2e436]: the knife
+                - paragraph [ref=f2e437]: el cuchillo
+          - button "🍴 el tenedor Tap to flip" [ref=f2e439] [cursor=pointer]:
+            - generic [ref=f2e440]:
+              - generic [ref=f2e441]:
+                - heading "🍴" [level=2] [ref=f2e442]
+                - heading "el tenedor" [level=2] [ref=f2e443]
+                - generic [ref=f2e444]: Tap to flip
+              - generic [aria-hidden] [ref=f2e445]:
+                - heading [level=3] [ref=f2e446]: the fork
+                - paragraph [ref=f2e447]: el tenedor
+          - button "🍳 la sartén Tap to flip" [ref=f2e449] [cursor=pointer]:
+            - generic [ref=f2e450]:
+              - generic [ref=f2e451]:
+                - heading "🍳" [level=2] [ref=f2e452]
+                - heading "la sartén" [level=2] [ref=f2e453]
+                - generic [ref=f2e454]: Tap to flip
+              - generic [aria-hidden] [ref=f2e455]:
+                - heading [level=3] [ref=f2e456]: the frying pan
+                - paragraph [ref=f2e457]: la sartén
+          - button "🍲 la olla Tap to flip" [ref=f2e459] [cursor=pointer]:
+            - generic [ref=f2e460]:
+              - generic [ref=f2e461]:
+                - heading "🍲" [level=2] [ref=f2e462]
+                - heading "la olla" [level=2] [ref=f2e463]
+                - generic [ref=f2e464]: Tap to flip
+              - generic [aria-hidden] [ref=f2e465]:
+                - heading [level=3] [ref=f2e466]: the pot
+                - paragraph [ref=f2e467]: la olla
+          - button "🔥 el horno Tap to flip" [ref=f2e469] [cursor=pointer]:
+            - generic [ref=f2e470]:
+              - generic [ref=f2e471]:
+                - heading "🔥" [level=2] [ref=f2e472]
+                - heading "el horno" [level=2] [ref=f2e473]
+                - generic [ref=f2e474]: Tap to flip
+              - generic [aria-hidden] [ref=f2e475]:
+                - heading [level=3] [ref=f2e476]: the oven
+                - paragraph [ref=f2e477]: el horno
+          - button "🧊 la nevera Tap to flip" [ref=f2e479] [cursor=pointer]:
+            - generic [ref=f2e480]:
+              - generic [ref=f2e481]:
+                - heading "🧊" [level=2] [ref=f2e482]
+                - heading "la nevera" [level=2] [ref=f2e483]
+                - generic [ref=f2e484]: Tap to flip
+              - generic [aria-hidden] [ref=f2e485]:
+                - heading [level=3] [ref=f2e486]: the fridge
+                - paragraph [ref=f2e487]: la nevera
+          - button "🥛 el vaso Tap to flip" [ref=f2e489] [cursor=pointer]:
+            - generic [ref=f2e490]:
+              - generic [ref=f2e491]:
+                - heading "🥛" [level=2] [ref=f2e492]
+                - heading "el vaso" [level=2] [ref=f2e493]
+                - generic [ref=f2e494]: Tap to flip
+              - generic [aria-hidden] [ref=f2e495]:
+                - heading [level=3] [ref=f2e496]: the glass
+                - paragraph [ref=f2e497]: el vaso
+        - heading "Quick quiz" [level=3] [ref=f2e498]
+        - generic [ref=f2e499]:
+          - generic [ref=f2e500]:
+            - paragraph [ref=f2e501]: Question 1 of 4
+            - generic [ref=f2e502]: Score
+          - heading "What is ?" [level=2] [ref=f2e503]
+          - paragraph [ref=f2e504]: "Last answer:"
+      - group [ref=f2e505]:
+        - generic "OpenUI Lang" [ref=f2e506] [cursor=pointer]
+    - region [ref=f2e507]:
+      - generic [ref=f2e508]:
+        - heading "New primitives" [level=2] [ref=f2e509]
+        - paragraph [ref=f2e510]: Text with inline components, Carousel, Popover, Quote, Math, Code, RadioGroup pills, a scatter Chart, Flashcard and YouTube.
+      - generic [ref=f2e514]:
+        - heading "New primitives" [level=2] [ref=f2e515]
+        - paragraph [ref=f2e516]:
+          - text: Text can mix
+          - generic [ref=f2e517]: inline
+          - text: components, icons and
+          - generic [ref=f2e524]:
+            - math [ref=f2e526]:
+              - generic [ref=f2e527]: "2"
+            - generic [ref=f2e532]: "2"
+          - text: math.
+        - generic [ref=f2e545]:
+          - img "Golden Gate Bridge" [ref=f2e547]
+          - img "Alcatraz Island" [ref=f2e549]
+          - img "Painted Ladies" [ref=f2e551]
+          - img "Lombard Street" [ref=f2e553]
+        - generic [ref=f2e554]:
+          - paragraph [ref=f2e555]: Inflation adjusts nominal GDP
+          - button [ref=f2e556] [cursor=pointer]
+        - blockquote [ref=f2e559]:
+          - paragraph [ref=f2e560]: Simplicity is the ultimate sophistication.
+          - generic [ref=f2e561]: Leonardo da Vinci
+        - generic [ref=f2e564]:
+          - math [ref=f2e566]:
+            - generic [ref=f2e568]:
+              - generic [ref=f2e569]:
+                - generic [ref=f2e570]: x
+                - generic [ref=f2e571]: ˉ
+              - generic [ref=f2e572]: ∼
+              - generic [ref=f2e573]: "N"
+              - generic [ref=f2e574]:
+                - generic [ref=f2e575]: (
+                - generic [ref=f2e576]: μ
+                - generic [ref=f2e577]: ","
+                - generic [ref=f2e578]:
+                  - generic [ref=f2e579]:
+                    - generic [ref=f2e580]: σ
+                    - generic [ref=f2e581]: "2"
+                  - generic [ref=f2e582]: "n"
+                - generic [ref=f2e583]: )
+          - generic [aria-hidden] [ref=f2e584]:
+            - generic [ref=f2e585]:
+              - generic [ref=f2e589]:
+                - generic [ref=f2e590]: x
+                - text: ˉ
+              - text: ∼
+            - generic [ref=f2e591]:
+              - text: "N"
+              - generic [ref=f2e592]:
+                - generic [ref=f2e593]: (
+                - text: μ,
+                - generic [ref=f2e598]:
+                  - generic [ref=f2e599]: "n"
+                  - generic [ref=f2e602]:
+                    - text: σ
+                    - generic [ref=f2e603]: "2"
+                - generic [ref=f2e611]: )
+        - generic [ref=f2e612]:
+          - generic [ref=f2e613]:
+            - generic [ref=f2e614]: javascript
+            - button "Copy code" [ref=f2e615] [cursor=pointer]: Copy
+          - code [ref=f2e620]: const total = items.reduce((sum, i) => sum + i.price, 0)
+        - group "Size" [ref=f2e621]:
+          - generic [ref=f2e623]:
+            - generic [ref=f2e624] [cursor=pointer]:
+              - radio "S" [ref=f2e625]
+              - generic [ref=f2e626]: S
+            - generic [ref=f2e628] [cursor=pointer]:
+              - radio "M" [ref=f2e629]
+              - generic [ref=f2e630]: M
+            - generic [ref=f2e632] [cursor=pointer]:
+              - radio "L" [ref=f2e633]
+              - generic [ref=f2e634]: L
+            - generic [ref=f2e636] [cursor=pointer]:
+              - radio "XL" [ref=f2e637]
+              - generic [ref=f2e638]: XL
+        - figure [ref=f2e640]
+        - generic [ref=f2e642]:
+          - button "Bonjour Tap to flip" [ref=f2e643] [cursor=pointer]:
+            - generic [ref=f2e644]:
+              - generic [ref=f2e645]:
+                - generic [ref=f2e646]: Bonjour
+                - generic [ref=f2e647]: Tap to flip
+              - generic [ref=f2e649]: Hello
+          - button "Merci Tap to flip" [ref=f2e650] [cursor=pointer]:
+            - generic [ref=f2e651]:
+              - generic [ref=f2e652]:
+                - generic [ref=f2e653]: Merci
+                - generic [ref=f2e654]: Tap to flip
+              - generic [ref=f2e656]: Thank you
+        - iframe [ref=f2e658]
+      - group [ref=f2e659]:
+        - generic "OpenUI Lang" [ref=f2e660] [cursor=pointer]
+    - heading "Working tools" [level=2] [ref=f2e661]
+    - region [ref=f2e662]:
+      - generic [ref=f2e663]:
+        - heading "Sunday roast" [level=2] [ref=f2e664]
+        - paragraph [ref=f2e665]: A guest stepper rescales the shopping list (@Each, @Clamp, @Format); tick items and steps with @Toggle; @CopyToClipboard with @Join.
+      - generic [ref=f2e669]:
+        - generic [ref=f2e670]:
+          - heading "Sunday roast with friends" [level=2] [ref=f2e671]
+          - paragraph [ref=f2e672]: Rosemary and garlic lamb, golden potatoes and all the good things on the side. The shopping list grows with your guest list.
+        - generic [ref=f2e673]:
+          - generic [ref=f2e674]:
+            - img "Lamb roast dinner" [ref=f2e675]
+            - paragraph [ref=f2e676]: Rosemary & garlic lamb
+            - paragraph [ref=f2e677]: The centerpiece, with gravy and mint sauce
+          - generic [ref=f2e678]:
+            - img "Roast potato" [ref=f2e679]
+            - paragraph [ref=f2e680]: Extra-crispy potatoes
+            - paragraph [ref=f2e681]: Fluffy inside, golden edges
+          - generic [ref=f2e682]:
+            - img "Apple crumble" [ref=f2e683]
+            - paragraph [ref=f2e684]: Bramley apple crumble
+            - paragraph [ref=f2e685]: Warm, with custard or cream
+        - generic [ref=f2e687]:
+          - generic [ref=f2e688]:
+            - paragraph [ref=f2e689]: Guests
+            - paragraph [ref=f2e690]: Quantities follow the guest count
+          - button "Fewer guests" [ref=f2e691] [cursor=pointer]
+          - heading [level=2]
+          - button "More guests" [ref=f2e693] [cursor=pointer]
+        - generic [ref=f2e695]:
+          - generic [ref=f2e696]:
+            - generic [ref=f2e697]:
+              - heading "Shopping list" [level=3] [ref=f2e698]
+              - generic [ref=f2e699]: 0 of 7 in the basket
+            - generic [ref=f2e700]:
+              - button [ref=f2e701] [cursor=pointer]:
+                - generic [ref=f2e702]:
+                  - paragraph [ref=f2e705]: Bone-in leg of lamb
+                  - paragraph [ref=f2e706]: 0 kg
+              - button [ref=f2e707] [cursor=pointer]:
+                - generic [ref=f2e708]:
+                  - paragraph [ref=f2e711]: Potatoes
+                  - paragraph [ref=f2e712]: 0 g
+              - button [ref=f2e713] [cursor=pointer]:
+                - generic [ref=f2e714]:
+                  - paragraph [ref=f2e717]: Carrots
+                  - paragraph [ref=f2e718]: "0"
+              - button [ref=f2e719] [cursor=pointer]:
+                - generic [ref=f2e720]:
+                  - paragraph [ref=f2e723]: Parsnips
+                  - paragraph [ref=f2e724]: "0"
+              - button [ref=f2e725] [cursor=pointer]:
+                - generic [ref=f2e726]:
+                  - paragraph [ref=f2e729]: Tenderstem broccoli
+                  - paragraph [ref=f2e730]: 0 g
+              - button [ref=f2e731] [cursor=pointer]:
+                - generic [ref=f2e732]:
+                  - paragraph [ref=f2e735]: Apples for the crumble
+                  - paragraph [ref=f2e736]: "0"
+              - button [ref=f2e737] [cursor=pointer]:
+                - generic [ref=f2e738]:
+                  - paragraph [ref=f2e741]: Bunches of rosemary
+                  - paragraph [ref=f2e742]: "0"
+            - button "Copy shopping list" [ref=f2e743] [cursor=pointer]
+          - generic [ref=f2e745]:
+            - generic [ref=f2e746]:
+              - heading "Cooking plan" [level=3] [ref=f2e747]
+              - paragraph [ref=f2e748]: 0 of 5 done
+            - generic [ref=f2e749]:
+              - button [ref=f2e750] [cursor=pointer]:
+                - generic [ref=f2e754]:
+                  - paragraph [ref=f2e755]: Saturday · Get ahead
+                  - paragraph [ref=f2e756]: Make the crumble, marinate the lamb and set the table.
+              - button [ref=f2e757] [cursor=pointer]:
+                - generic [ref=f2e761]:
+                  - paragraph [ref=f2e762]: 12:30 PM · Lamb in
+                  - paragraph [ref=f2e763]: 200°C for 20 minutes, then 180°C for about 25 minutes per 500 g.
+              - button [ref=f2e764] [cursor=pointer]:
+                - generic [ref=f2e768]:
+                  - paragraph [ref=f2e769]: 1:15 PM · Potatoes in
+                  - paragraph [ref=f2e770]: Parboil, rough up the edges and roast in hot fat.
+              - button [ref=f2e771] [cursor=pointer]:
+                - generic [ref=f2e775]:
+                  - paragraph [ref=f2e776]: 2:30 PM · Rest and carve
+                  - paragraph [ref=f2e777]: Rest the lamb for 20 minutes while the vegetables finish.
+              - button [ref=f2e778] [cursor=pointer]:
+                - generic [ref=f2e782]:
+                  - paragraph [ref=f2e783]: 3:00 PM · Serve
+                  - paragraph [ref=f2e784]: The crumble goes in as you sit down.
+            - button "Start over" [ref=f2e785] [cursor=pointer]
+      - group [ref=f2e787]:
+        - generic "OpenUI Lang" [ref=f2e788] [cursor=pointer]
+    - region [ref=f2e789]:
+      - generic [ref=f2e790]:
+        - heading "Split the bill" [level=2] [ref=f2e791]
+        - paragraph [ref=f2e792]: Add and remove people and items (@Append, @Remove); who shared what with @Update and @Toggle; tax and tip; @Allocate keeps the cents adding up; copy the split.
+      - generic [ref=f2e796]:
+        - generic [ref=f2e797]:
+          - generic [ref=f2e798]:
+            - heading "The check, please" [level=2] [ref=f2e799]
+            - paragraph [ref=f2e800]: Everyone pays the same share.
+          - radiogroup [ref=f2e801]:
+            - radio "By item" [ref=f2e802] [cursor=pointer]
+            - radio "Equally" [ref=f2e803] [cursor=pointer]
+        - generic [ref=f2e804]:
+          - textbox "Add a person" [ref=f2e805]
+          - button "Add" [ref=f2e806] [cursor=pointer]
+        - separator [ref=f2e808]
+        - generic [ref=f2e809]:
+          - heading "Items" [level=3] [ref=f2e810]
+          - paragraph [ref=f2e811]: $0.00
+        - generic [ref=f2e812]:
+          - textbox "Item" [ref=f2e813]
+          - textbox "Price" [ref=f2e814]
+          - button "Add item" [disabled] [ref=f2e815]
+        - separator [ref=f2e817]
+        - generic [ref=f2e818]:
+          - generic [ref=f2e819]:
+            - generic [ref=f2e820]:
+              - generic [ref=f2e821]: Tax
+              - status [ref=f2e822]: 0%
+            - slider "Tax" [ref=f2e823] [cursor=pointer]: "0"
+          - generic [ref=f2e824]:
+            - generic [ref=f2e825]:
+              - generic [ref=f2e826]: Tip
+              - status [ref=f2e827]: 0%
+            - slider "Tip" [ref=f2e828] [cursor=pointer]: "0"
+        - generic [ref=f2e829]:
+          - separator [ref=f2e830]
+          - generic [ref=f2e831]:
+            - paragraph [ref=f2e832]: Total with tax and tip
+            - heading "$0.00" [level=2] [ref=f2e833]
+          - button "Copy the split" [ref=f2e834] [cursor=pointer]
+      - group [ref=f2e836]:
+        - generic "OpenUI Lang" [ref=f2e837] [cursor=pointer]
+    - region [ref=f2e838]:
+      - generic [ref=f2e839]:
+        - heading "The Monty Hall problem" [level=2] [ref=f2e840]
+        - paragraph [ref=f2e841]: "Pick a door: @Random inside @Set hides the car and opens a goat door. Switch or stay, and simulate 1,000 games with @Range and @Each."
+      - generic [ref=f2e845]:
+        - generic [ref=f2e846]:
+          - heading "Should you switch doors?" [level=2] [ref=f2e847]
+          - paragraph [ref=f2e848]: One car. Two goats. A surprisingly good reason to switch.
+        - generic [ref=f2e849]:
+          - button [ref=f2e850] [cursor=pointer]:
+            - generic [ref=f2e851]:
+              - paragraph [ref=f2e852]: Door 1
+              - heading "🐐" [level=1] [ref=f2e853]
+              - paragraph [ref=f2e854]: Closed
+          - button [ref=f2e855] [cursor=pointer]:
+            - generic [ref=f2e856]:
+              - paragraph [ref=f2e857]: Door 2
+              - heading "🐐" [level=1] [ref=f2e858]
+              - paragraph [ref=f2e859]: Closed
+          - button [ref=f2e860] [cursor=pointer]:
+            - generic [ref=f2e861]:
+              - paragraph [ref=f2e862]: Door 3
+              - heading "🐐" [level=1] [ref=f2e863]
+              - paragraph [ref=f2e864]: Closed
+        - generic [ref=f2e865]:
+          - heading "You found the car!" [level=3] [ref=f2e866]
+          - paragraph [ref=f2e867]: "Switching wins whenever your first pick was a goat: 2 out of 3 times."
+        - generic [ref=f2e868]:
+          - button "Play again" [ref=f2e869] [cursor=pointer]
+          - button "Simulate 1,000 games" [ref=f2e871] [cursor=pointer]
+      - group [ref=f2e873]:
+        - generic "OpenUI Lang" [ref=f2e874] [cursor=pointer]
+    - region [ref=f2e875]:
+      - generic [ref=f2e876]:
+        - heading "Retirement savings" [level=2] [ref=f2e877]
+        - paragraph [ref=f2e878]: "@Each over @Range builds the yearly balance with @Pow; four sliders drive the chart, the totals and the $1 million milestone."
+      - generic [ref=f2e882]:
+        - generic [ref=f2e883]:
+          - generic [ref=f2e884]:
+            - heading "Retirement savings" [level=2] [ref=f2e885]
+            - paragraph [ref=f2e886]: Turn today's contributions into a picture of tomorrow.
+          - button "Reset" [ref=f2e887] [cursor=pointer]
+        - generic [ref=f2e889]:
+          - generic [ref=f2e890]:
+            - paragraph [ref=f2e891]: Balance in
+            - heading "$0" [level=2] [ref=f2e892]
+          - generic [ref=f2e893]:
+            - paragraph [ref=f2e894]: You put in
+            - heading "$0" [level=2] [ref=f2e895]
+          - generic [ref=f2e896]:
+            - paragraph [ref=f2e897]: Growth
+            - heading "$0" [level=2] [ref=f2e898]
+        - figure [ref=f2e899]:
+          - generic [ref=f2e901]:
+            - generic [ref=f2e902]: Contributions
+            - generic [ref=f2e904]: Balance
+        - paragraph [ref=f2e909]: At this pace the balance stays under $1 million.
+        - generic [ref=f2e910]:
+          - generic [ref=f2e911]:
+            - generic [ref=f2e912]:
+              - generic [ref=f2e913]: Starting balance
+              - status [ref=f2e914]: $0
+            - slider "Starting balance" [ref=f2e915] [cursor=pointer]: "0"
+          - generic [ref=f2e916]:
+            - generic [ref=f2e917]:
+              - generic [ref=f2e918]: Monthly contribution
+              - status [ref=f2e919]: $0
+            - slider "Monthly contribution" [ref=f2e920] [cursor=pointer]: "0"
+          - generic [ref=f2e921]:
+            - generic [ref=f2e922]:
+              - generic [ref=f2e923]: Years
+              - status [ref=f2e924]: 1 yrs
+            - slider "Years" [ref=f2e925] [cursor=pointer]: "1"
+          - generic [ref=f2e926]:
+            - generic [ref=f2e927]:
+              - generic [ref=f2e928]: Annual return
+              - status [ref=f2e929]: 0%
+            - slider "Annual return" [ref=f2e930] [cursor=pointer]: "0"
+        - paragraph [ref=f2e931]: Assumes monthly compounding and contributions at the end of each month. Returns are not guaranteed; this is an illustration, not advice.
+      - group [ref=f2e932]:
+        - generic "OpenUI Lang" [ref=f2e933] [cursor=pointer]
+    - region [ref=f2e934]:
+      - generic [ref=f2e935]:
+        - heading "GDP, explained" [level=2] [ref=f2e936]
+        - paragraph [ref=f2e937]: Four sliders; the bar and legend come from one parts list with @Each; negative net exports explain themselves; a knowledge check.
+      - generic [ref=f2e941]:
+        - generic [ref=f2e942]:
+          - generic [ref=f2e943]:
+            - heading "What makes up GDP?" [level=2] [ref=f2e944]
+            - paragraph [ref=f2e945]: An economy, in four parts.
+          - generic [ref=f2e946]: Illustrative economy
+        - paragraph [ref=f2e947]: Total output
+        - heading "$0 trillion" [level=2] [ref=f2e948]
+        - generic [ref=f2e950]:
+          - generic [ref=f2e951]:
+            - paragraph [ref=f2e953]: Consumer spending
+            - paragraph [ref=f2e954]: $0B
+          - generic [ref=f2e955]:
+            - paragraph [ref=f2e957]: Business investment
+            - paragraph [ref=f2e958]: $0B
+          - generic [ref=f2e959]:
+            - paragraph [ref=f2e961]: Government spending
+            - paragraph [ref=f2e962]: $0B
+          - generic [ref=f2e963]:
+            - paragraph [ref=f2e965]: Net exports
+            - paragraph [ref=f2e966]: $0B
+        - generic [ref=f2e967]:
+          - generic [ref=f2e968]:
+            - generic [ref=f2e969]:
+              - generic [ref=f2e970]: Consumer spending, $ billions
+              - status [ref=f2e971]: "0"
+            - slider "Consumer spending, $ billions" [ref=f2e972] [cursor=pointer]: "0"
+          - generic [ref=f2e973]:
+            - generic [ref=f2e974]:
+              - generic [ref=f2e975]: Business investment, $ billions
+              - status [ref=f2e976]: "0"
+            - slider "Business investment, $ billions" [ref=f2e977] [cursor=pointer]: "0"
+          - generic [ref=f2e978]:
+            - generic [ref=f2e979]:
+              - generic [ref=f2e980]: Government spending, $ billions
+              - status [ref=f2e981]: "0"
+            - slider "Government spending, $ billions" [ref=f2e982] [cursor=pointer]: "0"
+          - generic [ref=f2e983]:
+            - generic [ref=f2e984]:
+              - generic [ref=f2e985]: Net exports, $ billions
+              - status [ref=f2e986]: "-200"
+            - slider "Net exports, $ billions" [ref=f2e987] [cursor=pointer]: "-200"
+        - generic [ref=f2e988]:
+          - button "Reset economy" [ref=f2e989] [cursor=pointer]
+          - generic [ref=f2e991]: GDP = C + I + G + (X − M)
+        - paragraph [ref=f2e992]: GDP counts the value of final goods and services produced within a country. Imports are subtracted because they were produced elsewhere.
+        - generic [ref=f2e993]:
+          - group "The same goods cost 10% more this year. What changes?" [ref=f2e994]:
+            - generic [ref=f2e996]:
+              - generic [ref=f2e997] [cursor=pointer]:
+                - radio "Real GDP increases by 10%" [ref=f2e998]
+                - generic [ref=f2e999]: Real GDP increases by 10%
+              - generic [ref=f2e1001] [cursor=pointer]:
+                - radio "Nominal GDP rises; real GDP is unchanged" [ref=f2e1002]
+                - generic [ref=f2e1003]: Nominal GDP rises; real GDP is unchanged
+              - generic [ref=f2e1005] [cursor=pointer]:
+                - radio "Both measures stay the same" [ref=f2e1006]
+                - generic [ref=f2e1007]: Both measures stay the same
+          - paragraph [ref=f2e1009]:
+            - strong [ref=f2e1010]: Not quite.
+            - text: Real GDP adjusts for price changes, so higher prices alone raise nominal GDP but not real output.
+      - group [ref=f2e1011]:
+        - generic "OpenUI Lang" [ref=f2e1012] [cursor=pointer]
+    - region [ref=f2e1013]:
+      - generic [ref=f2e1014]:
+        - heading "Central limit theorem" [level=2] [ref=f2e1015]
+        - paragraph [ref=f2e1016]: Draw samples with @Random inside @Set; @Histogram and @Stats show the means narrowing like 1/√n for three populations.
+      - generic [ref=f2e1020]:
+        - generic [ref=f2e1021]:
+          - heading "The central limit theorem" [level=2] [ref=f2e1022]
+          - paragraph [ref=f2e1023]: Different populations. The same bell-shaped pattern.
+        - radiogroup [ref=f2e1024]:
+          - radio "Skewed" [ref=f2e1025] [cursor=pointer]
+          - radio "Uniform" [ref=f2e1026] [cursor=pointer]
+          - radio "Bimodal" [ref=f2e1027] [cursor=pointer]
+        - generic [ref=f2e1028]:
+          - generic [ref=f2e1029]:
+            - heading "Population" [level=4] [ref=f2e1030]
+            - paragraph [ref=f2e1031]: The values we draw from
+            - figure [ref=f2e1032]
+          - generic [ref=f2e1034]:
+            - heading "Sample means" [level=4] [ref=f2e1035]
+            - paragraph [ref=f2e1036]: The average of each sample of
+            - paragraph [ref=f2e1038]: Draw samples to see the pattern
+        - generic [ref=f2e1039]:
+          - generic [ref=f2e1040]:
+            - generic [ref=f2e1041]: Values per sample
+            - status [ref=f2e1042]: "1"
+          - slider "Values per sample" [ref=f2e1043] [cursor=pointer]: "1"
+        - generic [ref=f2e1044]:
+          - button "Draw 100 samples" [ref=f2e1045] [cursor=pointer]
+          - button "Draw 500" [ref=f2e1047] [cursor=pointer]
+          - button "Reset" [ref=f2e1048] [cursor=pointer]
+        - generic [ref=f2e1050]:
+          - generic [ref=f2e1051]:
+            - paragraph [ref=f2e1052]: Samples
+            - heading "0" [level=2] [ref=f2e1053]
+          - generic [ref=f2e1054]:
+            - paragraph [ref=f2e1055]: Mean of the means
+            - heading "-" [level=2] [ref=f2e1056]
+            - paragraph [ref=f2e1057]: "Population: 0.5"
+          - generic [ref=f2e1058]:
+            - paragraph [ref=f2e1059]: Spread of the means
+            - heading "-" [level=2] [ref=f2e1060]
+            - paragraph [ref=f2e1061]: "Theory, σ/√n: 0"
+        - paragraph [ref=f2e1062]: As the sample size grows, the averages of samples pile up in a bell shape around the population mean, even when the population itself is skewed.
+        - generic [ref=f2e1063]:
+          - group "What changes when the sample size grows?" [ref=f2e1064]:
+            - generic [ref=f2e1066]:
+              - generic [ref=f2e1067] [cursor=pointer]:
+                - radio "The population becomes normal" [ref=f2e1068]
+                - generic [ref=f2e1069]: The population becomes normal
+              - generic [ref=f2e1071] [cursor=pointer]:
+                - radio "The sample means form a narrower bell shape" [ref=f2e1072]
+                - generic [ref=f2e1073]: The sample means form a narrower bell shape
+              - generic [ref=f2e1075] [cursor=pointer]:
+                - radio "Every mean becomes exactly the same" [ref=f2e1076]
+                - generic [ref=f2e1077]: Every mean becomes exactly the same
+          - paragraph [ref=f2e1079]:
+            - strong [ref=f2e1080]: Not quite.
+            - text: The population stays the same. The means become more normal and their spread shrinks like 1/√n.
+      - group [ref=f2e1081]:
+        - generic "OpenUI Lang" [ref=f2e1082] [cursor=pointer]
+    - region [ref=f2e1083]:
+      - generic [ref=f2e1084]:
+        - heading "A 7-speed bike" [level=2] [ref=f2e1085]
+        - paragraph [ref=f2e1086]: A gear slider drives an Svg of seven sprockets (@Each over @Range, index access), the ratio and the speed at a cadence.
+      - generic [ref=f2e1090]:
+        - generic [ref=f2e1091]:
+          - heading "Inside a 7-speed bike" [level=2] [ref=f2e1092]
+          - paragraph [ref=f2e1093]: One chainring at the front, seven sprockets at the back and a derailleur that moves the chain between them. Small sprockets make each pedal stroke go further; big ones make hills easier.
+        - generic [ref=f2e1094]:
+          - img "City bicycle" [ref=f2e1095]
+          - img "Derailleur" [ref=f2e1096]
+          - img "Bicycle shifter" [ref=f2e1097]
+        - heading "The main parts" [level=3] [ref=f2e1098]
+        - table [ref=f2e1100]:
+          - rowgroup [ref=f2e1101]:
+            - row [ref=f2e1102]:
+              - columnheader "Part" [ref=f2e1103]
+              - columnheader "What it does" [ref=f2e1104]
+          - rowgroup [ref=f2e1105]:
+            - row [ref=f2e1106]:
+              - cell "Frame and fork" [ref=f2e1107]
+              - cell "Hold everything together, steer and set the riding position" [ref=f2e1108]
+            - row [ref=f2e1109]:
+              - cell "Crankset and pedals" [ref=f2e1110]
+              - cell "Turn leg power into rotation" [ref=f2e1111]
+            - row [ref=f2e1112]:
+              - cell "Chainring" [ref=f2e1113]
+              - cell "The single front gear, here 40 teeth" [ref=f2e1114]
+            - row [ref=f2e1115]:
+              - cell "Chain" [ref=f2e1116]
+              - cell "Carries the power to the rear wheel" [ref=f2e1117]
+            - row [ref=f2e1118]:
+              - cell "7 rear sprockets" [ref=f2e1119]
+              - cell "Seven sizes, so seven gear ratios" [ref=f2e1120]
+            - row [ref=f2e1121]:
+              - cell "Rear derailleur" [ref=f2e1122]
+              - cell "Moves the chain from sprocket to sprocket" [ref=f2e1123]
+            - row [ref=f2e1124]:
+              - cell "Shifter and cable" [ref=f2e1125]
+              - cell "Pull or release the cable to pick a gear" [ref=f2e1126]
+            - row [ref=f2e1127]:
+              - cell "Brakes, wheels and tires" [ref=f2e1128]
+              - cell "Stop, roll and grip the road" [ref=f2e1129]
+        - heading "How power reaches the wheel" [level=3] [ref=f2e1130]
+        - generic [ref=f2e1131]:
+          - generic [ref=f2e1132]:
+            - paragraph [ref=f2e1135]: Pedals
+            - paragraph [ref=f2e1140]: Chainring
+            - paragraph [ref=f2e1145]: Chain
+            - paragraph [ref=f2e1150]: Rear sprocket
+            - paragraph [ref=f2e1155]: Rear wheel
+          - paragraph [ref=f2e1156]: The shifter pulls a cable; the derailleur guides the chain onto the sprocket you choose.
+        - generic [ref=f2e1157]:
+          - generic [ref=f2e1158]:
+            - generic [ref=f2e1159]:
+              - generic [ref=f2e1160]: Explore the seven gears
+              - heading "Gear of 7" [level=2] [ref=f2e1161]
+            - generic [ref=f2e1162]: Easy, for climbing
+          - img [ref=f2e1163]:
+            - generic [ref=f2e1164]: 28T
+            - generic [ref=f2e1168]: 24T
+            - generic [ref=f2e1172]: 21T
+            - generic [ref=f2e1176]: 18T
+            - generic [ref=f2e1180]: 16T
+            - generic [ref=f2e1184]: 14T
+            - generic [ref=f2e1188]: 12T
+          - generic [ref=f2e1192]:
+            - generic [ref=f2e1193]:
+              - generic [ref=f2e1194]: Gear
+              - status [ref=f2e1195]: "1"
+            - slider "Gear" [ref=f2e1196] [cursor=pointer]: "1"
+            - generic [aria-hidden] [ref=f2e1197]:
+              - generic [ref=f2e1198]: 1 · Easy
+              - generic [ref=f2e1199]: "4"
+              - generic [ref=f2e1200]: 7 · Fast
+          - generic [ref=f2e1201]:
+            - generic [ref=f2e1202]:
+              - paragraph [ref=f2e1203]: Rear sprocket
+              - heading "teeth" [level=2] [ref=f2e1204]
+            - generic [ref=f2e1205]:
+              - paragraph [ref=f2e1206]: Gear ratio
+              - 'heading "0 : 1" [level=2] [ref=f2e1207]'
+            - generic [ref=f2e1208]:
+              - paragraph [ref=f2e1209]: Speed at rpm
+              - heading "0 km/h" [level=2] [ref=f2e1210]
+          - generic [ref=f2e1211]:
+            - generic [ref=f2e1212]:
+              - generic [ref=f2e1213]: Pedaling cadence
+              - status [ref=f2e1214]: 50 rpm
+            - slider "Pedaling cadence" [ref=f2e1215] [cursor=pointer]: "50"
+          - paragraph [ref=f2e1216]: Each turn of the pedals turns the rear wheel 0 times. Light to push, good for hills and starting from a stop.
+          - paragraph [ref=f2e1217]: Assumes a 40-tooth chainring, a 12-28 freewheel and a 700c wheel (2.1 m around). Real bikes vary.
+        - heading "Freewheel or cassette?" [level=3] [ref=f2e1218]
+        - generic [ref=f2e1219]:
+          - img "Cassette (bicycle)" [ref=f2e1220]
+          - generic [ref=f2e1221]:
+            - generic [ref=f2e1222]:
+              - paragraph [ref=f2e1223]: Freewheel
+              - paragraph [ref=f2e1224]: The ratchet sits inside the sprocket cluster, which screws onto the hub. Common on budget and youth bikes.
+            - generic [ref=f2e1225]:
+              - paragraph [ref=f2e1226]: Cassette
+              - paragraph [ref=f2e1227]: The sprockets slide onto a freehub that holds the ratchet. Better axle support and easy gear swaps.
+        - paragraph [ref=f2e1228]: "Seven speeds keep the drivetrain simple, light and cheap to maintain: one shifter, one derailleur and no front gear changes to think about."
+      - group [ref=f2e1229]:
+        - generic "OpenUI Lang" [ref=f2e1230] [cursor=pointer]
+    - region [ref=f2e1231]:
+      - generic [ref=f2e1232]:
+        - heading "Assemble a youth bike" [level=2] [ref=f2e1233]
+        - paragraph [ref=f2e1234]: Tap steps to tick them (@Toggle on indexes) with a progress bar; the brake type rewrites one step; the inseam sets the saddle height.
+      - generic [ref=f2e1238]:
+        - generic [ref=f2e1239]:
+          - heading "Assemble a youth bike" [level=2] [ref=f2e1240]
+          - paragraph [ref=f2e1241]: Most youth bikes arrive about 85% built. You fit the handlebars, front wheel, pedals and saddle, then set up the brakes. Tap each step as you finish it.
+        - generic [ref=f2e1242]:
+          - generic [ref=f2e1243]: 45 to 90 minutes
+          - generic [ref=f2e1244]: Beginner friendly
+          - generic [ref=f2e1245]: Adult job, kid helper
+        - generic [ref=f2e1246]:
+          - generic [ref=f2e1247]: Brake type
+          - radiogroup [ref=f2e1248]:
+            - radio "Rim" [ref=f2e1249] [cursor=pointer]
+            - radio "Disc" [ref=f2e1250] [cursor=pointer]
+            - radio "Coaster" [ref=f2e1251] [cursor=pointer]
+        - generic [ref=f2e1252]:
+          - generic [ref=f2e1253]: You will need
+          - list [ref=f2e1254]:
+            - listitem [ref=f2e1255]:
+              - generic [ref=f2e1257]: 4, 5 and 6 mm Allen keys
+            - listitem [ref=f2e1258]:
+              - generic [ref=f2e1260]: 15 mm pedal wrench
+            - listitem [ref=f2e1261]:
+              - generic [ref=f2e1263]: Phillips screwdriver
+            - listitem [ref=f2e1264]:
+              - generic [ref=f2e1266]: Pump with a pressure gauge
+            - listitem [ref=f2e1267]:
+              - generic [ref=f2e1269]: Scissors for the zip ties
+        - heading "Assembly, step by step" [level=3] [ref=f2e1270]
+        - generic [ref=f2e1272]:
+          - paragraph [ref=f2e1273]: 0 of 8 steps done
+          - button "Reset" [ref=f2e1274] [cursor=pointer]
+        - generic [ref=f2e1277]:
+          - button [ref=f2e1278] [cursor=pointer]:
+            - generic [ref=f2e1282]:
+              - paragraph [ref=f2e1283]: 1. Unbox and check
+              - paragraph [ref=f2e1284]: "Cut the zip ties, remove the packaging and lay the parts out: front wheel, pedals marked L and R, saddle and reflectors."
+          - button [ref=f2e1285] [cursor=pointer]:
+            - generic [ref=f2e1289]:
+              - paragraph [ref=f2e1290]: 2. Fit the handlebars
+              - paragraph [ref=f2e1291]: Seat the stem, line the bars up with the front wheel and tighten the bolts evenly, a little at a time.
+          - button [ref=f2e1292] [cursor=pointer]:
+            - generic [ref=f2e1296]:
+              - paragraph [ref=f2e1297]: 3. Install the front wheel
+              - paragraph [ref=f2e1298]: "Seat the axle fully in the fork, then close the quick release or tighten both axle nuts. Spin it: it should run straight."
+          - button [ref=f2e1299] [cursor=pointer]:
+            - generic [ref=f2e1303]:
+              - paragraph [ref=f2e1304]: 4. Attach the pedals
+              - paragraph [ref=f2e1305]: The right pedal threads clockwise, the left anticlockwise. Start both by hand, then snug them with the 15 mm wrench.
+          - button [ref=f2e1306] [cursor=pointer]:
+            - generic [ref=f2e1310]:
+              - paragraph [ref=f2e1311]: 5. Set the saddle height
+              - paragraph [ref=f2e1312]: Insert the seat post at least to its minimum insertion mark, set the height below and tighten the clamp.
+          - button [ref=f2e1313] [cursor=pointer]:
+            - generic [ref=f2e1317]:
+              - paragraph [ref=f2e1318]: 6. Set up the rim brakes
+              - paragraph [ref=f2e1319]: "Pedal backwards: the rear wheel should lock. Make sure the brake arm is bolted to the frame strap."
+          - button [ref=f2e1320] [cursor=pointer]:
+            - generic [ref=f2e1324]:
+              - paragraph [ref=f2e1325]: 7. Inflate the tires
+              - paragraph [ref=f2e1326]: Pump to the pressure printed on the sidewall and check the bead sits evenly all round.
+          - button [ref=f2e1327] [cursor=pointer]:
+            - generic [ref=f2e1331]:
+              - paragraph [ref=f2e1332]: 8. Final safety check
+              - paragraph [ref=f2e1333]: Check every bolt, fit the reflectors and the bell, and test the brakes at walking pace.
+        - heading "Visual references" [level=3] [ref=f2e1334]
+        - generic [ref=f2e1335]:
+          - generic [ref=f2e1336]:
+            - img "Bicycle wheel quick release" [ref=f2e1337]
+            - paragraph [ref=f2e1338]: Front wheel seated in the fork
+          - generic [ref=f2e1339]:
+            - img "Bicycle pedal" [ref=f2e1340]
+            - paragraph [ref=f2e1341]: "Pedals: right clockwise, left anticlockwise"
+          - generic [ref=f2e1342]:
+            - img "V-brake" [ref=f2e1343]
+            - paragraph [ref=f2e1344]: Brake pads meet the rim squarely
+          - generic [ref=f2e1345]:
+            - img "Seatpost" [ref=f2e1346]
+            - paragraph [ref=f2e1347]: Never above the minimum insertion mark
+        - generic [ref=f2e1348]:
+          - heading "Saddle height" [level=4] [ref=f2e1349]
+          - generic [ref=f2e1350]:
+            - generic [ref=f2e1351]: Your child's inseam, in cm
+            - textbox "Your child's inseam, in cm" [ref=f2e1352]
+          - paragraph [ref=f2e1353]: Measure from the floor to the crotch, in socks, with the back against a wall.
+        - paragraph [ref=f2e1358]: "Before the first ride: the brakes stop the bike, both wheels are tight, the bars do not twist against the front wheel and the helmet fits snugly."
+      - group [ref=f2e1359]:
+        - generic "OpenUI Lang" [ref=f2e1360] [cursor=pointer]
+    - region [ref=f2e1361]:
+      - generic [ref=f2e1362]:
+        - heading "San Francisco in a day" [level=2] [ref=f2e1363]
+        - paragraph [ref=f2e1364]: Map markers from @Each with a street route; the pace rescales the schedule (@Cumulative, @Pad); a pin or a row selects the stop.
+      - generic [ref=f2e1368]:
+        - generic [ref=f2e1369]:
+          - heading "San Francisco in one day" [level=2] [ref=f2e1370]
+          - paragraph [ref=f2e1371]: A scenic loop from the waterfront to the Golden Gate, with time to eat, walk and take photos. Tap a pin or a stop for details.
+        - generic [ref=f2e1372]:
+          - img "Golden Gate Bridge" [ref=f2e1373]
+          - img "Painted Ladies Alamo Square" [ref=f2e1374]
+          - img "San Francisco cable car" [ref=f2e1375]
+        - generic [ref=f2e1376]:
+          - generic [ref=f2e1377]: 8 stops
+          - generic [ref=f2e1378]: About 9.1 hours
+          - generic [ref=f2e1379]: Walk, cable car and bus
+        - region "Map" [ref=f2e1381]:
+          - generic [ref=f2e1383]:
+            - combobox "Filter places" [ref=f2e1385] [cursor=pointer]:
+              - option "All places" [selected]
+              - option "Food"
+              - option "Views"
+              - option "Landmarks"
+              - option "Parks"
+            - button "Show every place" [ref=f2e1386] [cursor=pointer]
+            - button "About this map" [ref=f2e1389] [cursor=pointer]
+          - button "Expand" [ref=f2e1393] [cursor=pointer]
+          - status [ref=f2e1396]: Street route loading.
+        - generic [ref=f2e1397]:
+          - heading "Stop by stop" [level=3] [ref=f2e1398]
+          - radiogroup [ref=f2e1399]:
+            - radio "Relaxed" [ref=f2e1400] [cursor=pointer]
+            - radio "Balanced" [ref=f2e1401] [cursor=pointer]
+            - radio "Packed" [ref=f2e1402] [cursor=pointer]
+        - generic [ref=f2e1403]:
+          - button [ref=f2e1404] [cursor=pointer]:
+            - generic [ref=f2e1405]:
+              - img "Ferry Building San Francisco" [ref=f2e1407]
+              - generic [ref=f2e1408]:
+                - generic [ref=f2e1409]:
+                  - paragraph [ref=f2e1410]: 9:00 AM
+                  - paragraph [ref=f2e1411]: 45 min
+                - paragraph [ref=f2e1412]: Ferry Building
+                - paragraph [ref=f2e1413]: Coffee and pastries in the 1898 market hall on the bay.
+          - button [ref=f2e1414] [cursor=pointer]:
+            - generic [ref=f2e1415]:
+              - img "Coit Tower San Francisco" [ref=f2e1417]
+              - generic [ref=f2e1418]:
+                - generic [ref=f2e1419]:
+                  - paragraph [ref=f2e1420]: 10:05 AM
+                  - paragraph [ref=f2e1421]: 45 min
+                - paragraph [ref=f2e1422]: Coit Tower
+                - paragraph [ref=f2e1423]: Climb Telegraph Hill for Depression-era murals and a 360° view.
+          - button [ref=f2e1424] [cursor=pointer]:
+            - generic [ref=f2e1425]:
+              - img "Lombard Street San Francisco" [ref=f2e1427]
+              - generic [ref=f2e1428]:
+                - generic [ref=f2e1429]:
+                  - paragraph [ref=f2e1430]: 11:10 AM
+                  - paragraph [ref=f2e1431]: 30 min
+                - paragraph [ref=f2e1432]: Lombard Street
+                - paragraph [ref=f2e1433]: Walk down the crooked block of brick switchbacks and hydrangeas.
+          - button [ref=f2e1434] [cursor=pointer]:
+            - generic [ref=f2e1435]:
+              - img "Fisherman's Wharf San Francisco" [ref=f2e1437]
+              - generic [ref=f2e1438]:
+                - generic [ref=f2e1439]:
+                  - paragraph [ref=f2e1440]: 12:00 PM
+                  - paragraph [ref=f2e1441]: 60 min
+                - paragraph [ref=f2e1442]: Fisherman's Wharf
+                - paragraph [ref=f2e1443]: Sea lions at Pier 39 and clam chowder in a sourdough bowl.
+          - button [ref=f2e1444] [cursor=pointer]:
+            - generic [ref=f2e1445]:
+              - img "Palace of Fine Arts San Francisco" [ref=f2e1447]
+              - generic [ref=f2e1448]:
+                - generic [ref=f2e1449]:
+                  - paragraph [ref=f2e1450]: 1:20 PM
+                  - paragraph [ref=f2e1451]: 40 min
+                - paragraph [ref=f2e1452]: Palace of Fine Arts
+                - paragraph [ref=f2e1453]: A Roman-style rotunda reflected in a quiet lagoon.
+          - button [ref=f2e1454] [cursor=pointer]:
+            - generic [ref=f2e1455]:
+              - img "Golden Gate Bridge San Francisco" [ref=f2e1457]
+              - generic [ref=f2e1458]:
+                - generic [ref=f2e1459]:
+                  - paragraph [ref=f2e1460]: 2:20 PM
+                  - paragraph [ref=f2e1461]: 75 min
+                - paragraph [ref=f2e1462]: Golden Gate Bridge
+                - paragraph [ref=f2e1463]: Walk out to the first tower for the classic view back at the city.
+          - button [ref=f2e1464] [cursor=pointer]:
+            - generic [ref=f2e1465]:
+              - img "Golden Gate Park San Francisco" [ref=f2e1467]
+              - generic [ref=f2e1468]:
+                - generic [ref=f2e1469]:
+                  - paragraph [ref=f2e1470]: 3:55 PM
+                  - paragraph [ref=f2e1471]: 60 min
+                - paragraph [ref=f2e1472]: Golden Gate Park
+                - paragraph [ref=f2e1473]: The Japanese Tea Garden and the Conservatory of Flowers.
+          - button [ref=f2e1474] [cursor=pointer]:
+            - generic [ref=f2e1475]:
+              - img "Alamo Square San Francisco" [ref=f2e1477]
+              - generic [ref=f2e1478]:
+                - generic [ref=f2e1479]:
+                  - paragraph [ref=f2e1480]: 5:15 PM
+                  - paragraph [ref=f2e1481]: 30 min
+                - paragraph [ref=f2e1482]: Alamo Square
+                - paragraph [ref=f2e1483]: End with the Painted Ladies and the skyline at sunset.
+        - generic [ref=f2e1484]:
+          - paragraph [ref=f2e1485]: Times are estimates and include about 20 minutes to get to each next stop. Cable cars run every 10 minutes or so; a Muni day pass covers them and the buses.
+          - button "Plan a second day" [ref=f2e1487] [cursor=pointer]
+      - group [ref=f2e1489]:
+        - generic "OpenUI Lang" [ref=f2e1490] [cursor=pointer]
+    - region [ref=f2e1491]:
+      - generic [ref=f2e1492]:
+        - heading "Pacific Northwest road trip" [level=2] [ref=f2e1493]
+        - paragraph [ref=f2e1494]: Nine stops on a driving route; tap a day to select its stop; the budget tier and traveler stepper recompute the totals and the chart.
+      - generic [ref=f2e1498]:
+        - generic [ref=f2e1499]:
+          - heading "Ten days in the Pacific Northwest" [level=2] [ref=f2e1500]
+          - paragraph [ref=f2e1501]: Rain forest, wild beaches, the Columbia River Gorge and a volcano, in one loop from Seattle. Tap a day to find it on the map.
+        - generic [ref=f2e1502]:
+          - img "Mount Rainier Paradise" [ref=f2e1503]
+          - img "Hoh Rain Forest" [ref=f2e1504]
+          - img "Cannon Beach Haystack Rock" [ref=f2e1505]
+        - generic [ref=f2e1506]:
+          - generic [ref=f2e1507]: Best July to September
+          - generic [ref=f2e1508]: About 1,150 miles
+          - generic [ref=f2e1509]: 9 nights
+        - region "Map" [ref=f2e1511]:
+          - generic [ref=f2e1513]:
+            - combobox "Filter places" [ref=f2e1515] [cursor=pointer]:
+              - option "All places" [selected]
+              - option "City"
+              - option "Town"
+              - option "Nature"
+            - button "Show every place" [ref=f2e1516] [cursor=pointer]
+            - button "About this map" [ref=f2e1519] [cursor=pointer]
+          - button "Expand" [ref=f2e1523] [cursor=pointer]
+          - status [ref=f2e1526]: Street route loading.
+        - heading "Day by day" [level=3] [ref=f2e1527]
+        - generic [ref=f2e1528]:
+          - button [ref=f2e1529] [cursor=pointer]:
+            - generic [ref=f2e1530]:
+              - heading "1" [level=3] [ref=f2e1532]
+              - generic [ref=f2e1533]:
+                - paragraph [ref=f2e1534]: Seattle
+                - paragraph [ref=f2e1535]: Arrive · overnight in Seattle
+                - paragraph [ref=f2e1536]: Pike Place Market, the waterfront and the Space Needle at dusk.
+          - button [ref=f2e1537] [cursor=pointer]:
+            - generic [ref=f2e1538]:
+              - heading "2" [level=3] [ref=f2e1540]
+              - generic [ref=f2e1541]:
+                - paragraph [ref=f2e1542]: Ferry to the Olympic Peninsula
+                - paragraph [ref=f2e1543]: 2.5 h with the ferry · overnight in Port Angeles
+                - paragraph [ref=f2e1544]: Take the Edmonds ferry, then drive up to Hurricane Ridge for mountain views.
+          - button [ref=f2e1545] [cursor=pointer]:
+            - generic [ref=f2e1546]:
+              - heading "3" [level=3] [ref=f2e1548]
+              - generic [ref=f2e1549]:
+                - paragraph [ref=f2e1550]: Hoh Rain Forest
+                - paragraph [ref=f2e1551]: 2 h · overnight in Forks
+                - paragraph [ref=f2e1552]: Walk the Hall of Mosses under moss-draped maples; stop at Lake Crescent on the way.
+          - button [ref=f2e1553] [cursor=pointer]:
+            - generic [ref=f2e1554]:
+              - heading "4" [level=3] [ref=f2e1556]
+              - generic [ref=f2e1557]:
+                - paragraph [ref=f2e1558]: The wild coast
+                - paragraph [ref=f2e1559]: 1 h · overnight in Kalaloch
+                - paragraph [ref=f2e1560]: Sea stacks, driftwood and tide pools at Ruby Beach and Rialto Beach.
+          - button [ref=f2e1561] [cursor=pointer]:
+            - generic [ref=f2e1562]:
+              - heading "5" [level=3] [ref=f2e1564]
+              - generic [ref=f2e1565]:
+                - paragraph [ref=f2e1566]: South to Astoria
+                - paragraph [ref=f2e1567]: 3.5 h · overnight in Astoria
+                - paragraph [ref=f2e1568]: Cross the Columbia at its mouth and climb the Astoria Column.
+          - button [ref=f2e1569] [cursor=pointer]:
+            - generic [ref=f2e1570]:
+              - heading "6" [level=3] [ref=f2e1572]
+              - generic [ref=f2e1573]:
+                - paragraph [ref=f2e1574]: Cannon Beach
+                - paragraph [ref=f2e1575]: 40 min · overnight in Cannon Beach
+                - paragraph [ref=f2e1576]: Haystack Rock at low tide, then the trail at Ecola State Park.
+          - button [ref=f2e1577] [cursor=pointer]:
+            - generic [ref=f2e1578]:
+              - heading "7" [level=3] [ref=f2e1580]
+              - generic [ref=f2e1581]:
+                - paragraph [ref=f2e1582]: Portland
+                - paragraph [ref=f2e1583]: 1.5 h · overnight in Portland
+                - paragraph [ref=f2e1584]: Food carts, Powell's Books and the Japanese Garden.
+          - button [ref=f2e1585] [cursor=pointer]:
+            - generic [ref=f2e1586]:
+              - heading "8" [level=3] [ref=f2e1588]
+              - generic [ref=f2e1589]:
+                - paragraph [ref=f2e1590]: Columbia River Gorge
+                - paragraph [ref=f2e1591]: 1 h each way · overnight in Portland
+                - paragraph [ref=f2e1592]: Multnomah Falls and the waterfall corridor; check whether a timed permit is needed.
+          - button [ref=f2e1593] [cursor=pointer]:
+            - generic [ref=f2e1594]:
+              - heading "9" [level=3] [ref=f2e1596]
+              - generic [ref=f2e1597]:
+                - paragraph [ref=f2e1598]: Mount Rainier
+                - paragraph [ref=f2e1599]: 3.5 h · overnight in Ashford
+                - paragraph [ref=f2e1600]: Wildflower meadows and glacier views on the Skyline Trail at Paradise.
+          - button [ref=f2e1601] [cursor=pointer]:
+            - generic [ref=f2e1602]:
+              - heading "10" [level=3] [ref=f2e1604]
+              - generic [ref=f2e1605]:
+                - paragraph [ref=f2e1606]: Back to Seattle
+                - paragraph [ref=f2e1607]: 2.5 h
+                - paragraph [ref=f2e1608]: A last morning hike, then return the car in Seattle.
+        - generic [ref=f2e1609]:
+          - generic [ref=f2e1610]:
+            - heading "Estimated budget" [level=3] [ref=f2e1611]
+            - radiogroup [ref=f2e1612]:
+              - radio "Budget" [ref=f2e1613] [cursor=pointer]
+              - radio "Mid-range" [ref=f2e1614] [cursor=pointer]
+              - radio "Comfort" [ref=f2e1615] [cursor=pointer]
+          - generic [ref=f2e1616]:
+            - paragraph [ref=f2e1617]: Travelers
+            - button "Fewer travelers" [ref=f2e1618] [cursor=pointer]
+            - paragraph
+            - button "More travelers" [ref=f2e1620] [cursor=pointer]
+          - generic [ref=f2e1622]:
+            - generic [ref=f2e1623]:
+              - paragraph [ref=f2e1624]: Trip total
+              - heading "$526" [level=2] [ref=f2e1625]
+            - generic [ref=f2e1626]:
+              - paragraph [ref=f2e1627]: Per person
+              - heading "$0" [level=2] [ref=f2e1628]
+          - figure [ref=f2e1629]
+          - paragraph [ref=f2e1631]: Summer prices for 9 nights, 0 rooms, one rental car. Treat it as a starting point.
+        - generic [ref=f2e1632]:
+          - heading "Before you go" [level=4] [ref=f2e1633]
+          - list [ref=f2e1634]:
+            - listitem [ref=f2e1635]:
+              - generic [ref=f2e1637]: Book lodges near Olympic and Rainier months ahead for summer.
+            - listitem [ref=f2e1638]:
+              - generic [ref=f2e1640]: Multnomah Falls may need a timed-use permit in peak season.
+            - listitem [ref=f2e1641]:
+              - generic [ref=f2e1643]: Check wildfire closures and air quality the week you leave.
+            - listitem [ref=f2e1644]:
+              - generic [ref=f2e1646]: An America the Beautiful pass covers both national parks.
+        - button "Swap a day for the San Juan Islands" [ref=f2e1648] [cursor=pointer]
+      - group [ref=f2e1650]:
+        - generic "OpenUI Lang" [ref=f2e1651] [cursor=pointer]
+    - region [ref=f2e1652]:
+      - generic [ref=f2e1653]:
+        - heading "Find your paint color" [level=2] [ref=f2e1654]
+        - paragraph [ref=f2e1655]: Three answers score six colors (@Includes, @Sort, @Take); the room Svg takes the picked color, the sofa and a light tint over the top.
+      - generic [ref=f2e1659]:
+        - generic [ref=f2e1660]:
+          - heading "Find your living room color" [level=2] [ref=f2e1661]
+          - paragraph [ref=f2e1662]: Answer three questions and the matches update. Tap any color to paint the room.
+        - generic [ref=f2e1678]:
+          - paragraph
+          - paragraph [ref=f2e1680]: Low light deepens every color
+        - heading "Tell me about your room" [level=3] [ref=f2e1681]
+        - generic [ref=f2e1682]:
+          - group "How should it feel?" [ref=f2e1683]:
+            - generic [ref=f2e1685]:
+              - generic [ref=f2e1686] [cursor=pointer]:
+                - radio "Calm and restful" [ref=f2e1687]
+                - generic [ref=f2e1688]: Calm and restful
+              - generic [ref=f2e1690] [cursor=pointer]:
+                - radio "Warm and cozy" [ref=f2e1691]
+                - generic [ref=f2e1692]: Warm and cozy
+              - generic [ref=f2e1694] [cursor=pointer]:
+                - radio "Light and airy" [ref=f2e1695]
+                - generic [ref=f2e1696]: Light and airy
+              - generic [ref=f2e1698] [cursor=pointer]:
+                - radio "A bold statement" [ref=f2e1699]
+                - generic [ref=f2e1700]: A bold statement
+          - group "What light does it get?" [ref=f2e1702]:
+            - generic [ref=f2e1704]:
+              - generic [ref=f2e1705] [cursor=pointer]:
+                - radio "North facing, cool light" [ref=f2e1706]
+                - generic [ref=f2e1707]: North facing, cool light
+              - generic [ref=f2e1709] [cursor=pointer]:
+                - radio "South facing, warm sun" [ref=f2e1710]
+                - generic [ref=f2e1711]: South facing, warm sun
+              - generic [ref=f2e1713] [cursor=pointer]:
+                - radio "East or west, changing" [ref=f2e1714]
+                - generic [ref=f2e1715]: East or west, changing
+              - generic [ref=f2e1717] [cursor=pointer]:
+                - radio "Little daylight" [ref=f2e1718]
+                - generic [ref=f2e1719]: Little daylight
+          - group "Your sofa" [ref=f2e1721]:
+            - generic [ref=f2e1723]:
+              - generic [ref=f2e1724] [cursor=pointer]:
+                - radio "Grey" [ref=f2e1725]
+                - generic [ref=f2e1726]: Grey
+              - generic [ref=f2e1728] [cursor=pointer]:
+                - radio "Blue" [ref=f2e1729]
+                - generic [ref=f2e1730]: Blue
+              - generic [ref=f2e1732] [cursor=pointer]:
+                - radio "Green" [ref=f2e1733]
+                - generic [ref=f2e1734]: Green
+              - generic [ref=f2e1736] [cursor=pointer]:
+                - radio "Brown leather" [ref=f2e1737]
+                - generic [ref=f2e1738]: Brown leather
+              - generic [ref=f2e1740] [cursor=pointer]:
+                - radio "White or cream" [ref=f2e1741]
+                - generic [ref=f2e1742]: White or cream
+        - heading "Your best matches" [level=3] [ref=f2e1744]
+        - generic [ref=f2e1745]:
+          - button "Warm ivory Soft and bright, never stark Worth a look" [ref=f2e1746] [cursor=pointer]:
+            - paragraph [ref=f2e1748]: Warm ivory
+            - paragraph [ref=f2e1749]: Soft and bright, never stark
+            - generic [ref=f2e1750]: Worth a look
+          - button "Sage green Grounded and restful Worth a look" [ref=f2e1751] [cursor=pointer]:
+            - paragraph [ref=f2e1753]: Sage green
+            - paragraph [ref=f2e1754]: Grounded and restful
+            - generic [ref=f2e1755]: Worth a look
+          - button "Greige A warm neutral that goes with everything Worth a look" [ref=f2e1756] [cursor=pointer]:
+            - paragraph [ref=f2e1758]: Greige
+            - paragraph [ref=f2e1759]: A warm neutral that goes with everything
+            - generic [ref=f2e1760]: Worth a look
+        - heading "All six colors" [level=3] [ref=f2e1761]
+        - generic [ref=f2e1762]:
+          - button [ref=f2e1763] [cursor=pointer]:
+            - paragraph [ref=f2e1766]: Warm ivory
+          - button [ref=f2e1767] [cursor=pointer]:
+            - paragraph [ref=f2e1770]: Sage green
+          - button [ref=f2e1771] [cursor=pointer]:
+            - paragraph [ref=f2e1774]: Greige
+          - button [ref=f2e1775] [cursor=pointer]:
+            - paragraph [ref=f2e1778]: Dusty blue
+          - button [ref=f2e1779] [cursor=pointer]:
+            - paragraph [ref=f2e1782]: Terracotta
+          - button [ref=f2e1783] [cursor=pointer]:
+            - paragraph [ref=f2e1786]: Deep navy
+        - paragraph [ref=f2e1787]: Paint chips look different on the wall. Try a large sample on two walls and look at it in the morning and the evening before you commit.
+      - group [ref=f2e1788]:
+        - generic "OpenUI Lang" [ref=f2e1789] [cursor=pointer]
+    - region [ref=f2e1790]:
+      - generic [ref=f2e1791]:
+        - heading "Fold an origami fox" [level=2] [ref=f2e1792]
+        - paragraph [ref=f2e1793]: Six Svg diagrams in a list; Back and Next step through them with @Clamp, and the thumbnails jump to a step.
+      - generic [ref=f2e1797]:
+        - generic [ref=f2e1798]:
+          - heading "Fold an origami fox" [level=2] [ref=f2e1799]
+          - paragraph [ref=f2e1800]: "A simple fox face from one square of paper: no cutting, about five minutes. Orange on one side and white on the other works best."
+          - generic [ref=f2e1801]:
+            - generic [ref=f2e1802]: Beginner
+            - generic [ref=f2e1803]: 5 minutes
+            - generic [ref=f2e1804]: One square sheet
+        - generic [ref=f2e1805]:
+          - generic [ref=f2e1806]:
+            - generic [ref=f2e1807]: Step 1 of 6
+            - paragraph [ref=f2e1808]: 16.666666666666664% folded
+          - heading [level=3]
+          - paragraph
+          - generic [ref=f2e1812]:
+            - button "Back" [ref=f2e1813] [cursor=pointer]
+            - button "Next fold" [ref=f2e1815] [cursor=pointer]
+        - heading "All six steps" [level=3] [ref=f2e1817]
+        - generic [ref=f2e1818]:
+          - button [ref=f2e1819] [cursor=pointer]:
+            - paragraph [ref=f2e1823]: 1. Start with a diamond
+          - button [ref=f2e1824] [cursor=pointer]:
+            - paragraph [ref=f2e1827]: 2. Fold it in half
+          - button [ref=f2e1828] [cursor=pointer]:
+            - paragraph [ref=f2e1831]: 3. Corners to the point
+          - button [ref=f2e1832] [cursor=pointer]:
+            - paragraph [ref=f2e1837]: 4. Make the ears
+          - button [ref=f2e1838] [cursor=pointer]:
+            - paragraph [ref=f2e1844]: 5. Fold the forehead
+          - button [ref=f2e1845] [cursor=pointer]:
+            - paragraph [ref=f2e1855]: 6. Turn over and add a face
+        - paragraph [ref=f2e1859]: "Sharp creases make the difference: run a fingernail along each fold before the next one."
+      - group [ref=f2e1860]:
+        - generic "OpenUI Lang" [ref=f2e1861] [cursor=pointer]
+    - region [ref=f2e1862]:
+      - generic [ref=f2e1863]:
+        - heading "Plan a vegetable garden" [level=2] [ref=f2e1864]
+        - paragraph [ref=f2e1865]: Bed size and sun sliders, crop chips with @Toggle; a square-foot Grid with $w columns, a sun warning, a summary Table and a checklist.
+      - generic [ref=f2e1869]:
+        - generic [ref=f2e1870]:
+          - heading "Plan a small vegetable garden" [level=2] [ref=f2e1871]
+          - paragraph [ref=f2e1872]: Set the bed size and how much sun it gets, choose your crops, and the square-foot plan fills itself in.
+        - generic [ref=f2e1873]:
+          - generic [ref=f2e1874]:
+            - generic [ref=f2e1875]:
+              - generic [ref=f2e1876]:
+                - generic [ref=f2e1877]: Bed width
+                - status [ref=f2e1878]: 2 ft
+              - slider "Bed width" [ref=f2e1879] [cursor=pointer]: "2"
+            - generic [ref=f2e1880]:
+              - generic [ref=f2e1881]:
+                - generic [ref=f2e1882]: Bed length
+                - status [ref=f2e1883]: 2 ft
+              - slider "Bed length" [ref=f2e1884] [cursor=pointer]: "2"
+            - generic [ref=f2e1885]:
+              - generic [ref=f2e1886]:
+                - generic [ref=f2e1887]: Direct sun
+                - status [ref=f2e1888]: 2 h
+              - slider "Direct sun" [ref=f2e1889] [cursor=pointer]: "2"
+          - generic [ref=f2e1890]:
+            - generic [ref=f2e1891]: 0 square feet
+            - generic [ref=f2e1892]: About 0 bags of soil for 10 inches deep
+        - heading "Pick what to grow" [level=3] [ref=f2e1893]
+        - generic [ref=f2e1894]:
+          - button [ref=f2e1895] [cursor=pointer]:
+            - generic [ref=f2e1896]:
+              - paragraph [ref=f2e1897]: 🍅
+              - paragraph [ref=f2e1898]: Tomatoes
+          - button [ref=f2e1899] [cursor=pointer]:
+            - generic [ref=f2e1900]:
+              - paragraph [ref=f2e1901]: 🌶️
+              - paragraph [ref=f2e1902]: Peppers
+          - button [ref=f2e1903] [cursor=pointer]:
+            - generic [ref=f2e1904]:
+              - paragraph [ref=f2e1905]: 🌱
+              - paragraph [ref=f2e1906]: Beans
+          - button [ref=f2e1907] [cursor=pointer]:
+            - generic [ref=f2e1908]:
+              - paragraph [ref=f2e1909]: 🥬
+              - paragraph [ref=f2e1910]: Lettuce
+          - button [ref=f2e1911] [cursor=pointer]:
+            - generic [ref=f2e1912]:
+              - paragraph [ref=f2e1913]: 🍃
+              - paragraph [ref=f2e1914]: Spinach
+          - button [ref=f2e1915] [cursor=pointer]:
+            - generic [ref=f2e1916]:
+              - paragraph [ref=f2e1917]: 🥕
+              - paragraph [ref=f2e1918]: Carrots
+          - button [ref=f2e1919] [cursor=pointer]:
+            - generic [ref=f2e1920]:
+              - paragraph [ref=f2e1921]: 🔴
+              - paragraph [ref=f2e1922]: Radishes
+          - button [ref=f2e1923] [cursor=pointer]:
+            - generic [ref=f2e1924]:
+              - paragraph [ref=f2e1925]: 🌿
+              - paragraph [ref=f2e1926]: Basil
+        - paragraph [ref=f2e1928]: Choose at least one crop to see the plan.
+        - heading "Your bed, square by square" [level=3] [ref=f2e1929]
+        - paragraph [ref=f2e1931]: Each square is one foot across; the number is how many plants fit in it.
+        - heading "Planting summary" [level=3] [ref=f2e1932]
+        - table [ref=f2e1934]:
+          - rowgroup [ref=f2e1935]:
+            - row [ref=f2e1936]:
+              - columnheader "Crop" [ref=f2e1937]
+              - columnheader "Squares" [ref=f2e1938]
+              - columnheader "Plants" [ref=f2e1939]
+              - columnheader "First harvest" [ref=f2e1940]
+              - columnheader "Sun" [ref=f2e1941]
+          - rowgroup
+        - heading "What you will need" [level=3] [ref=f2e1942]
+        - generic [ref=f2e1943]:
+          - generic [ref=f2e1944]:
+            - paragraph [ref=f2e1945]: 0 of 6 ready
+            - button "Reset" [ref=f2e1946] [cursor=pointer]
+          - generic [ref=f2e1948]:
+            - button [ref=f2e1949] [cursor=pointer]:
+              - paragraph [ref=f2e1953]: A raised bed or a dug-over plot
+            - button [ref=f2e1954] [cursor=pointer]:
+              - paragraph [ref=f2e1958]: Compost-rich soil
+            - button [ref=f2e1959] [cursor=pointer]:
+              - paragraph [ref=f2e1963]: Seeds or seedlings
+            - button [ref=f2e1964] [cursor=pointer]:
+              - paragraph [ref=f2e1968]: Mulch
+            - button [ref=f2e1969] [cursor=pointer]:
+              - paragraph [ref=f2e1973]: A watering can or drip hose
+            - button [ref=f2e1974] [cursor=pointer]:
+              - paragraph [ref=f2e1978]: Stakes or a trellis
+      - group [ref=f2e1979]:
+        - generic "OpenUI Lang" [ref=f2e1980] [cursor=pointer]
+    - region [ref=f2e1981]:
+      - generic [ref=f2e1982]:
+        - heading "Capsule wardrobe" [level=2] [ref=f2e1983]
+        - paragraph [ref=f2e1984]: Trip length and weather rebuild the packing list (@Concat, @Take) and the day-by-day outfits (modulo indexes); a packing checklist.
+      - generic [ref=f2e1988]:
+        - generic [ref=f2e1989]:
+          - heading "A capsule wardrobe for a week away" [level=2] [ref=f2e1990]
+          - paragraph [ref=f2e1991]: A dozen pieces in one palette that all work together. Change the trip and the list and the outfits follow.
+        - generic [ref=f2e1992]:
+          - img "Folded clothes" [ref=f2e1993]
+          - img "Capsule wardrobe" [ref=f2e1994]
+          - img "Suitcase" [ref=f2e1995]
+        - generic [ref=f2e1997]:
+          - generic [ref=f2e1998]:
+            - generic [ref=f2e1999]:
+              - generic [ref=f2e2000]: Trip length
+              - status [ref=f2e2001]: 3 days
+            - slider "Trip length" [ref=f2e2002] [cursor=pointer]: "3"
+          - generic [ref=f2e2003]:
+            - generic [ref=f2e2004]: Weather
+            - radiogroup [ref=f2e2005]:
+              - radio "Warm" [ref=f2e2006] [cursor=pointer]
+              - radio "Mild" [ref=f2e2007] [cursor=pointer]
+              - radio "Cool" [ref=f2e2008] [cursor=pointer]
+        - heading "The palette" [level=3] [ref=f2e2009]
+        - generic [ref=f2e2010]:
+          - paragraph [ref=f2e2013]: Navy
+          - paragraph [ref=f2e2016]: White
+          - paragraph [ref=f2e2019]: Stone
+          - paragraph [ref=f2e2022]: Olive
+          - paragraph [ref=f2e2025]: Tan
+        - heading "Packing list" [level=3] [ref=f2e2026]
+        - generic [ref=f2e2027]:
+          - generic [ref=f2e2028]:
+            - paragraph [ref=f2e2029]: 0 of 11 packed
+            - button "Reset" [ref=f2e2030] [cursor=pointer]
+          - generic [ref=f2e2033]:
+            - button [ref=f2e2034] [cursor=pointer]:
+              - generic [ref=f2e2035]:
+                - paragraph [ref=f2e2038]: White tee
+                - paragraph [ref=f2e2039]: Top
+            - button [ref=f2e2040] [cursor=pointer]:
+              - generic [ref=f2e2041]:
+                - paragraph [ref=f2e2044]: Navy Oxford shirt
+                - paragraph [ref=f2e2045]: Top
+            - button [ref=f2e2046] [cursor=pointer]:
+              - generic [ref=f2e2047]:
+                - paragraph [ref=f2e2050]: Striped long-sleeve tee
+                - paragraph [ref=f2e2051]: Top
+            - button [ref=f2e2052] [cursor=pointer]:
+              - generic [ref=f2e2053]:
+                - paragraph [ref=f2e2056]: Dark jeans
+                - paragraph [ref=f2e2057]: Bottom
+            - button [ref=f2e2058] [cursor=pointer]:
+              - generic [ref=f2e2059]:
+                - paragraph [ref=f2e2062]: Stone chinos
+                - paragraph [ref=f2e2063]: Bottom
+            - button [ref=f2e2064] [cursor=pointer]:
+              - generic [ref=f2e2065]:
+                - paragraph [ref=f2e2068]: Unstructured navy jacket
+                - paragraph [ref=f2e2069]: Layer
+            - button [ref=f2e2070] [cursor=pointer]:
+              - generic [ref=f2e2071]:
+                - paragraph [ref=f2e2074]: White sneakers
+                - paragraph [ref=f2e2075]: Shoes
+            - button [ref=f2e2076] [cursor=pointer]:
+              - generic [ref=f2e2077]:
+                - paragraph [ref=f2e2080]: Tan loafers
+                - paragraph [ref=f2e2081]: Shoes
+            - button [ref=f2e2082] [cursor=pointer]:
+              - generic [ref=f2e2083]:
+                - paragraph [ref=f2e2086]: Socks and underwear × 0
+                - paragraph [ref=f2e2087]: Basics
+            - button [ref=f2e2088] [cursor=pointer]:
+              - generic [ref=f2e2089]:
+                - paragraph [ref=f2e2092]: Sleepwear
+                - paragraph [ref=f2e2093]: Basics
+            - button [ref=f2e2094] [cursor=pointer]:
+              - generic [ref=f2e2095]:
+                - paragraph [ref=f2e2098]: Compact umbrella
+                - paragraph [ref=f2e2099]: Basics
+        - heading "Outfits, day by day" [level=3] [ref=f2e2100]
+        - paragraph [ref=f2e2102]: Wear the bulkiest shoes and layer on the travel day, and roll rather than fold to fit everything in a carry-on.
+      - group [ref=f2e2103]:
+        - generic "OpenUI Lang" [ref=f2e2104] [cursor=pointer]
+    - region [ref=f2e2105]:
+      - generic [ref=f2e2106]:
+        - heading "The drone photography market" [level=2] [ref=f2e2107]
+        - paragraph [ref=f2e2108]: Segments, a market-size Chart and a players Table; four sliders run a business model with profit, margin and break-even.
+      - generic [ref=f2e2112]:
+        - generic [ref=f2e2113]:
+          - heading "The drone photography market" [level=2] [ref=f2e2114]
+          - paragraph [ref=f2e2115]: "Aerial photos and video for property, events, inspection and media: a young market where cheap hardware meets licensed, skilled work."
+        - heading "How the market is structured" [level=3] [ref=f2e2116]
+        - generic [ref=f2e2117]:
+          - generic [ref=f2e2118]:
+            - img "Suburb aerial view" [ref=f2e2119]
+            - paragraph [ref=f2e2120]: Real estate and architecture
+            - paragraph [ref=f2e2121]: Listing photos and video, the steadiest source of work.
+          - generic [ref=f2e2122]:
+            - img "Wedding photography" [ref=f2e2123]
+            - paragraph [ref=f2e2124]: Weddings and events
+            - paragraph [ref=f2e2125]: Seasonal and priced per event, often sold with a ground crew.
+          - generic [ref=f2e2126]:
+            - img "Solar farm aerial" [ref=f2e2127]
+            - paragraph [ref=f2e2128]: Inspection and surveying
+            - paragraph [ref=f2e2129]: Roofs, solar farms and building sites; more training, better pay.
+          - generic [ref=f2e2130]:
+            - img "Aerial photography coastline" [ref=f2e2131]
+            - paragraph [ref=f2e2132]: Media and tourism
+            - paragraph [ref=f2e2133]: "Stock footage, tourism boards and film: visible but competitive."
+        - heading "How big is it?" [level=3] [ref=f2e2134]
+        - generic [ref=f2e2135]:
+          - generic [ref=f2e2136]:
+            - generic [ref=f2e2137]:
+              - paragraph [ref=f2e2138]: Drone photography services, worldwide, 2026
+              - heading "$1.1B" [level=2] [ref=f2e2139]
+            - generic [ref=f2e2140]: About 19% a year
+          - figure [ref=f2e2141]
+          - paragraph [ref=f2e2143]: Illustrative figures in the range of public market reports; estimates vary widely with the market definition.
+        - heading "Who makes money" [level=3] [ref=f2e2144]
+        - table [ref=f2e2146]:
+          - rowgroup [ref=f2e2147]:
+            - row [ref=f2e2148]:
+              - columnheader "Who" [ref=f2e2149]
+              - columnheader "How they earn" [ref=f2e2150]
+              - columnheader "Margin" [ref=f2e2151]
+          - rowgroup [ref=f2e2152]:
+            - row [ref=f2e2153]:
+              - cell "Drone makers" [ref=f2e2154]
+              - cell "Hardware, cameras and accessories" [ref=f2e2155]
+              - cell "Medium" [ref=f2e2156]
+            - row [ref=f2e2158]:
+              - cell "Freelance pilots" [ref=f2e2159]
+              - cell "Per shoot or per project" [ref=f2e2160]
+              - cell "High" [ref=f2e2161]
+            - row [ref=f2e2163]:
+              - cell "Agencies" [ref=f2e2164]
+              - cell "Bundles of photo, video and editing" [ref=f2e2165]
+              - cell "Medium" [ref=f2e2166]
+            - row [ref=f2e2168]:
+              - cell "Software platforms" [ref=f2e2169]
+              - cell "Mapping and processing subscriptions" [ref=f2e2170]
+              - cell "High" [ref=f2e2171]
+        - heading "Try the economics of a drone photo business" [level=3] [ref=f2e2173]
+        - generic [ref=f2e2174]:
+          - generic [ref=f2e2175]:
+            - generic [ref=f2e2176]:
+              - generic [ref=f2e2177]:
+                - generic [ref=f2e2178]: Projects per month
+                - status [ref=f2e2179]: "0"
+              - slider "Projects per month" [ref=f2e2180] [cursor=pointer]: "0"
+            - generic [ref=f2e2181]:
+              - generic [ref=f2e2182]:
+                - generic [ref=f2e2183]: Price per project
+                - status [ref=f2e2184]: $100
+              - slider "Price per project" [ref=f2e2185] [cursor=pointer]: "100"
+            - generic [ref=f2e2186]:
+              - generic [ref=f2e2187]:
+                - generic [ref=f2e2188]: Cost per project
+                - status [ref=f2e2189]: $0
+              - slider "Cost per project" [ref=f2e2190] [cursor=pointer]: "0"
+            - generic [ref=f2e2191]:
+              - generic [ref=f2e2192]:
+                - generic [ref=f2e2193]: Fixed costs per month
+                - status [ref=f2e2194]: $0
+              - slider "Fixed costs per month" [ref=f2e2195] [cursor=pointer]: "0"
+          - generic [ref=f2e2196]:
+            - generic [ref=f2e2197]:
+              - paragraph [ref=f2e2198]: Revenue a month
+              - heading "$0" [level=2] [ref=f2e2199]
+            - generic [ref=f2e2200]:
+              - paragraph [ref=f2e2201]: Profit a month
+              - heading "$0" [level=2] [ref=f2e2202]
+            - generic [ref=f2e2203]:
+              - paragraph [ref=f2e2204]: Margin
+              - heading "0%" [level=2] [ref=f2e2205]
+            - generic [ref=f2e2206]:
+              - paragraph [ref=f2e2207]: Break-even
+              - heading "Never" [level=2] [ref=f2e2208]
+          - figure [ref=f2e2209]:
+            - generic [ref=f2e2211]:
+              - generic [ref=f2e2212]: Revenue
+              - generic [ref=f2e2214]: Costs
+          - paragraph [ref=f2e2216]: Each project costs more than it earns, so more work only loses more money.
+          - paragraph [ref=f2e2217]: Illustrative. Fixed costs cover insurance, gear, software and marketing; project costs cover editing and travel.
+        - heading "What is changing" [level=3] [ref=f2e2218]
+        - list [ref=f2e2219]:
+          - listitem [ref=f2e2220]:
+            - generic [ref=f2e2222]: Cheaper drones with better cameras push basic photo prices down.
+          - listitem [ref=f2e2223]:
+            - generic [ref=f2e2225]: Licensing, such as FAA Part 107 in the US, keeps casual competition out of paid work.
+          - listitem [ref=f2e2226]:
+            - generic [ref=f2e2228]: Inspection, mapping and thermal imaging grow faster than photography alone.
+          - listitem [ref=f2e2229]:
+            - generic [ref=f2e2231]: Clients increasingly want edited video and 3D models, not just photos.
+        - button "Compare with drone inspection services" [ref=f2e2233] [cursor=pointer]
+      - group [ref=f2e2235]:
+        - generic "OpenUI Lang" [ref=f2e2236] [cursor=pointer]
+    - region [ref=f2e2237]:
+      - generic [ref=f2e2238]:
+        - heading "A retro arcade game" [level=2] [ref=f2e2239]
+        - paragraph [ref=f2e2240]: HtmlView runs a canvas space shooter with keyboard and on-screen controls, in the sandboxed iframe.
+      - generic [ref=f2e2244]:
+        - heading "Neon Invaders" [level=2] [ref=f2e2245]
+        - paragraph [ref=f2e2246]: A tiny retro shooter. Clear each wave before the invaders land; every wave is faster than the last.
+        - iframe [ref=f2e2248]:
+          - generic [ref=f4e1]:
+            - generic [ref=f4e2]:
+              - generic [ref=f4e3]: SCORE 0
+              - generic [ref=f4e4]: WAVE 1
+              - generic [ref=f4e5]: ♥♥♥
+            - generic [ref=f4e7]:
+              - button "Move left" [ref=f4e8] [cursor=pointer]: ◀
+              - button "FIRE" [ref=f4e9] [cursor=pointer]
+              - button "Move right" [ref=f4e10] [cursor=pointer]: ▶
+            - button "START GAME" [ref=f4e12] [cursor=pointer]
+            - paragraph [ref=f4e13]: Arrow keys move, space fires. On a phone, use the buttons.
+      - group [ref=f2e2249]:
+        - generic "OpenUI Lang" [ref=f2e2250] [cursor=pointer]
+    - region [ref=f2e2251]:
+      - generic [ref=f2e2252]:
+        - heading "Sales dashboard" [level=2] [ref=f2e2253]
+        - paragraph [ref=f2e2254]: Query(get_orders) with channel and period filters; @Bucket, @Cumulative, @Change, @GroupBy, @Pivot and @Top.
+      - generic [ref=f2e2258]:
+        - generic [ref=f2e2259]:
+          - generic [ref=f2e2260]:
+            - heading "Store performance" [level=2] [ref=f2e2261]
+            - paragraph [ref=f2e2262]: Demo data, refreshed every 5 minutes
+          - combobox [ref=f2e2264] [cursor=pointer]:
+            - option "Choose…" [disabled] [selected]
+            - option "All channels"
+            - option "Web"
+            - option "Mobile"
+            - option "Retail"
+          - radiogroup [ref=f2e2265]:
+            - radio "30d" [ref=f2e2266] [cursor=pointer]
+            - radio "90d" [ref=f2e2267] [cursor=pointer]
+            - radio "1y" [ref=f2e2268] [cursor=pointer]
+        - generic [ref=f2e2269]:
+          - generic [ref=f2e2270]:
+            - paragraph [ref=f2e2271]: Revenue
+            - heading "$0" [level=2] [ref=f2e2272]
+          - generic [ref=f2e2273]:
+            - paragraph [ref=f2e2274]: Orders
+            - heading "0" [level=2] [ref=f2e2275]
+          - generic [ref=f2e2276]:
+            - paragraph [ref=f2e2277]: Average order
+            - heading "$0.00" [level=2] [ref=f2e2278]
+          - generic [ref=f2e2279]:
+            - paragraph [ref=f2e2280]: Last 7 days
+            - heading "$0" [level=2] [ref=f2e2282]
+        - generic [ref=f2e2283]:
+          - generic [ref=f2e2284]:
+            - generic [ref=f2e2285]:
+              - heading "Revenue" [level=4] [ref=f2e2286]
+              - radiogroup [ref=f2e2287]:
+                - radio "Weekly" [ref=f2e2288] [cursor=pointer]
+                - radio "Cumulative" [ref=f2e2289] [cursor=pointer]
+            - figure [ref=f2e2290]
+          - generic [ref=f2e2292]:
+            - heading "Channel mix" [level=4] [ref=f2e2293]
+            - figure [ref=f2e2294]
+        - generic [ref=f2e2296]:
+          - generic [ref=f2e2297]:
+            - heading "Revenue by region and category" [level=4] [ref=f2e2298]
+            - figure [ref=f2e2299]
+          - generic [ref=f2e2301]:
+            - heading "Top products" [level=4] [ref=f2e2302]
+            - table [ref=f2e2304]:
+              - rowgroup [ref=f2e2305]:
+                - row [ref=f2e2306]:
+                  - columnheader "Product" [ref=f2e2307]
+                  - columnheader "Units" [ref=f2e2308]
+                  - columnheader "Revenue" [ref=f2e2309]
+              - rowgroup
+      - group [ref=f2e2310]:
+        - generic "OpenUI Lang" [ref=f2e2311] [cursor=pointer]
+    - region [ref=f2e2312]:
+      - generic [ref=f2e2313]:
+        - heading "Support dashboard" [level=2] [ref=f2e2314]
+        - paragraph [ref=f2e2315]: Query(get_tickets); weekly opened vs solved with @Bucket and @Between; @Stats, @Histogram, @MovingAvg; the oldest waiting tickets.
+      - generic [ref=f2e2319]:
+        - generic [ref=f2e2320]:
+          - generic [ref=f2e2321]:
+            - heading "Support desk" [level=2] [ref=f2e2322]
+            - paragraph [ref=f2e2323]: Tickets opened in the selected period
+          - combobox [ref=f2e2325] [cursor=pointer]:
+            - option "Choose…" [disabled] [selected]
+            - option "All teams"
+            - option "Billing"
+            - option "Technical"
+            - option "Accounts"
+            - option "Shipping"
+          - radiogroup [ref=f2e2326]:
+            - radio "30d" [ref=f2e2327] [cursor=pointer]
+            - radio "60d" [ref=f2e2328] [cursor=pointer]
+            - radio "6m" [ref=f2e2329] [cursor=pointer]
+        - generic [ref=f2e2330]:
+          - generic [ref=f2e2331]:
+            - paragraph [ref=f2e2332]: Opened
+            - heading "0" [level=2] [ref=f2e2333]
+          - generic [ref=f2e2334]:
+            - paragraph [ref=f2e2335]: Waiting
+            - heading "0" [level=2] [ref=f2e2336]
+            - paragraph [ref=f2e2337]: 0 urgent
+          - generic [ref=f2e2338]:
+            - paragraph [ref=f2e2339]: Median time to solve
+            - heading "0 h" [level=2] [ref=f2e2340]
+            - paragraph [ref=f2e2341]: Slowest 0 h
+          - generic [ref=f2e2342]:
+            - paragraph [ref=f2e2343]: Satisfaction
+            - heading "0 / 5" [level=2] [ref=f2e2344]
+        - generic [ref=f2e2345]:
+          - generic [ref=f2e2346]:
+            - heading "Opened and solved by week" [level=4] [ref=f2e2347]
+            - figure [ref=f2e2348]
+          - generic [ref=f2e2350]:
+            - heading "Average hours to solve, by team" [level=4] [ref=f2e2351]
+            - figure [ref=f2e2352]
+        - generic [ref=f2e2354]:
+          - generic [ref=f2e2355]:
+            - heading "How long tickets take (hours)" [level=4] [ref=f2e2356]
+            - figure [ref=f2e2357]
+          - generic [ref=f2e2359]:
+            - heading "Satisfaction, 7-day average" [level=4] [ref=f2e2360]
+            - figure [ref=f2e2361]
+        - generic [ref=f2e2363]:
+          - heading "Waiting longest" [level=4] [ref=f2e2364]
+          - table [ref=f2e2366]:
+            - rowgroup [ref=f2e2367]:
+              - row [ref=f2e2368]:
+                - columnheader "Ticket" [ref=f2e2369]
+                - columnheader "Team" [ref=f2e2370]
+                - columnheader "Priority" [ref=f2e2371]
+                - columnheader "Waiting" [ref=f2e2372]
+            - rowgroup
+      - group [ref=f2e2373]:
+        - generic "OpenUI Lang" [ref=f2e2374] [cursor=pointer]
+    - region [ref=f2e2375]:
+      - generic [ref=f2e2376]:
+        - 'heading "Prompt example: shopping list" [level=2] [ref=f2e2377]'
+        - paragraph [ref=f2e2378]: Example 1 of the working-tool prompt.
+      - generic [ref=f2e2382]:
+        - heading "Pasta night for" [level=2] [ref=f2e2383]
+        - generic [ref=f2e2384]:
+          - button "Fewer" [ref=f2e2385] [cursor=pointer]
+          - paragraph
+          - button "More" [ref=f2e2387] [cursor=pointer]
+        - generic [ref=f2e2389]:
+          - button [ref=f2e2390] [cursor=pointer]:
+            - paragraph [ref=f2e2394]: 0 g spaghetti
+          - button [ref=f2e2395] [cursor=pointer]:
+            - paragraph [ref=f2e2399]: 0 tomatoes
+          - button [ref=f2e2400] [cursor=pointer]:
+            - paragraph [ref=f2e2404]: 0 g parmesan
+        - button "Copy list" [ref=f2e2405] [cursor=pointer]
+      - group [ref=f2e2407]:
+        - generic "OpenUI Lang" [ref=f2e2408] [cursor=pointer]
+    - region [ref=f2e2409]:
+      - generic [ref=f2e2410]:
+        - 'heading "Prompt example: a composed trip" [level=2] [ref=f2e2411]'
+        - paragraph [ref=f2e2412]: "Example 2 of the prompt: composition with photos, rows and a form."
+      - generic [ref=f2e2416]:
+        - heading "Three days in Lisbon" [level=2] [ref=f2e2417]
+        - paragraph [ref=f2e2418]:
+          - text: "Hills, tiled facades and the Tagus: start in"
+          - strong [ref=f2e2419]: Alfama
+          - text: ", give a day to Belém, then take the train to Sintra."
+        - generic [ref=f2e2421]:
+          - img "Alfama Lisbon" [ref=f2e2423]
+          - img "Belém Tower" [ref=f2e2425]
+          - img "Pena Palace" [ref=f2e2427]
+        - generic [ref=f2e2428]:
+          - generic [ref=f2e2429]: Best in April to June
+          - generic [ref=f2e2430]: Tram 28
+          - generic [ref=f2e2431]: About €120 a day
+        - heading "Day by day" [level=3] [ref=f2e2432]
+        - generic [ref=f2e2433]:
+          - generic [ref=f2e2434]:
+            - img "São Jorge Castle" [ref=f2e2436]
+            - generic [ref=f2e2437]:
+              - paragraph [ref=f2e2438]: Day 1 · Alfama
+              - paragraph [ref=f2e2442]: Climb to the castle, then lunch on grilled sardines.
+          - generic [ref=f2e2443]:
+            - img "Jerónimos Monastery" [ref=f2e2445]
+            - generic [ref=f2e2446]:
+              - paragraph [ref=f2e2447]: Day 2 · Belém
+              - paragraph [ref=f2e2451]: The monastery, the tower and pastéis de Belém.
+          - generic [ref=f2e2452]:
+            - img "Pena Palace" [ref=f2e2454]
+            - generic [ref=f2e2455]:
+              - paragraph [ref=f2e2456]: Day 3 · Sintra
+              - paragraph [ref=f2e2460]: Train from Rossio; book the palace for 9 AM.
+        - generic [ref=f2e2461]:
+          - heading "Make it yours" [level=4] [ref=f2e2462]
+          - generic [ref=f2e2463]:
+            - group "Pace" [ref=f2e2464]:
+              - generic [ref=f2e2466]:
+                - generic [ref=f2e2467] [cursor=pointer]:
+                  - radio "Relaxed" [ref=f2e2468]
+                  - generic [ref=f2e2469]: Relaxed
+                - generic [ref=f2e2471] [cursor=pointer]:
+                  - radio "Packed" [ref=f2e2472]
+                  - generic [ref=f2e2473]: Packed
+            - button "Plan my trip" [ref=f2e2475] [cursor=pointer]
+      - group [ref=f2e2476]:
+        - generic "OpenUI Lang" [ref=f2e2477] [cursor=pointer]
+    - region [ref=f2e2478]:
+      - generic [ref=f2e2479]:
+        - 'heading "Prompt example: steps with drawings" [level=2] [ref=f2e2480]'
+        - paragraph [ref=f2e2481]: "Example 3 of the prompt: a drawing for each step, driven by $step."
+      - generic [ref=f2e2485]:
+        - generic [ref=f2e2486]:
+          - heading "Build a small bookcase" [level=2] [ref=f2e2487]
+          - paragraph [ref=f2e2488]: Four steps and about 30 minutes. You need the Allen key from the box and a hammer.
+        - generic [ref=f2e2489]:
+          - generic [ref=f2e2490]:
+            - generic [ref=f2e2491]: Step 1 of 4
+            - paragraph [ref=f2e2492]: 25% done
+          - heading [level=3]
+          - paragraph
+          - generic [ref=f2e2494]:
+            - button "Back" [ref=f2e2495] [cursor=pointer]
+            - button "Next step" [ref=f2e2497] [cursor=pointer]
+        - generic [ref=f2e2499]:
+          - button [ref=f2e2500] [cursor=pointer]:
+            - img [ref=f2e2501]:
+              - generic [ref=f2e2510]: Sides
+              - generic [ref=f2e2511]: Top
+              - generic [ref=f2e2512]: Shelf
+              - generic [ref=f2e2513]: Bottom
+            - paragraph [ref=f2e2514]: 1. Lay out the parts
+          - button [ref=f2e2515] [cursor=pointer]:
+            - img [ref=f2e2516]:
+              - generic [ref=f2e2525]: Cam lock
+            - paragraph [ref=f2e2526]: 2. Fix the boards to one side
+          - button [ref=f2e2527] [cursor=pointer]:
+            - paragraph [ref=f2e2535]: 3. Add the other side
+          - button [ref=f2e2536] [cursor=pointer]:
+            - img [ref=f2e2537]:
+              - generic [ref=f2e2546]: Back panel
+            - paragraph [ref=f2e2547]: 4. Nail on the back
+      - group [ref=f2e2548]:
+        - generic "OpenUI Lang" [ref=f2e2549] [cursor=pointer]
+    - region [ref=f2e2550]:
+      - generic [ref=f2e2551]:
+        - 'heading "Prompt example: dashboard" [level=2] [ref=f2e2552]'
+        - paragraph [ref=f2e2553]: Example 4, shown when the demo data tools are in the prompt.
+      - generic [ref=f2e2557]:
+        - generic [ref=f2e2558]:
+          - heading "Sales, last 90 days" [level=2] [ref=f2e2559]
+          - radiogroup [ref=f2e2560]:
+            - radio "All" [ref=f2e2561] [cursor=pointer]
+            - radio "North" [ref=f2e2562] [cursor=pointer]
+            - radio "South" [ref=f2e2563] [cursor=pointer]
+            - radio "East" [ref=f2e2564] [cursor=pointer]
+            - radio "West" [ref=f2e2565] [cursor=pointer]
+        - generic [ref=f2e2566]:
+          - generic [ref=f2e2567]:
+            - paragraph [ref=f2e2568]: Revenue
+            - heading "$0" [level=2] [ref=f2e2569]
+          - generic [ref=f2e2570]:
+            - paragraph [ref=f2e2571]: Orders
+            - heading "0" [level=2] [ref=f2e2572]
+        - generic [ref=f2e2573]:
+          - generic [ref=f2e2574]:
+            - heading "Revenue by week" [level=4] [ref=f2e2575]
+            - figure [ref=f2e2576]
+          - generic [ref=f2e2578]:
+            - heading "By region" [level=4] [ref=f2e2579]
+            - figure [ref=f2e2580]
+        - table [ref=f2e2583]:
+          - rowgroup [ref=f2e2584]:
+            - row [ref=f2e2585]:
+              - columnheader "Product" [ref=f2e2586]
+              - columnheader "Revenue" [ref=f2e2587]
+          - rowgroup
+      - group [ref=f2e2588]:
+        - generic "OpenUI Lang" [ref=f2e2589] [cursor=pointer]
+    - heading "Components" [level=2] [ref=f2e2590]
+    - region [ref=f2e2591]:
+      - generic [ref=f2e2592]:
+        - heading "An answer, composed" [level=2] [ref=f2e2593]
+        - paragraph [ref=f2e2594]: Root Col without a gap spaces blocks like an article. Title, Text, Markdown, Grid, Card.
+      - generic [ref=f2e2598]:
+        - heading "A slow Saturday in Lisbon" [level=2] [ref=f2e2599]
+        - paragraph [ref=f2e2600]:
+          - text: Start by the river, climb into
+          - strong [ref=f2e2601]: Alfama
+          - text: for lunch, and end the day at a
+          - emphasis [ref=f2e2602]: miradouro
+          - text: with the city below you.
+        - generic [ref=f2e2603]:
+          - img "Belém Tower Lisbon" [ref=f2e2604]
+          - img "Alfama Lisbon" [ref=f2e2605]
+          - img "Miradouro da Senhora do Monte" [ref=f2e2606]
+        - heading "Before you go" [level=3] [ref=f2e2607]
+        - list [ref=f2e2609]:
+          - listitem [ref=f2e2610]: Trams 28 and 12 get crowded after 10 AM.
+          - listitem [ref=f2e2611]: "Wear shoes with grip: the cobbles are polished smooth."
+          - listitem [ref=f2e2612]:
+            - text: Most museums close on
+            - strong [ref=f2e2613]: Mondays
+            - text: .
+        - generic [ref=f2e2614]:
+          - generic [ref=f2e2615]:
+            - paragraph [ref=f2e2616]: Walking
+            - heading "6.4 km" [level=2] [ref=f2e2617]
+          - generic [ref=f2e2618]:
+            - paragraph [ref=f2e2619]: Day pass
+            - heading "€6.80" [level=2] [ref=f2e2620]
+          - generic [ref=f2e2621]:
+            - paragraph [ref=f2e2622]: Sunset
+            - heading "7:42 PM" [level=2] [ref=f2e2623]
+        - paragraph [ref=f2e2624]: Times are estimates, not live data.
+      - group [ref=f2e2625]:
+        - generic "OpenUI Lang" [ref=f2e2626] [cursor=pointer]
+    - region [ref=f2e2627]:
+      - generic [ref=f2e2628]:
+        - heading "Text" [level=2] [ref=f2e2629]
+        - paragraph [ref=f2e2630]: Title sizes, Text with inline marks, Caption, Label, Badge colors, Link, Markdown with a table.
+      - generic [ref=f2e2634]:
+        - heading "A little clarity goes a long way" [level=2] [ref=f2e2635]
+        - paragraph [ref=f2e2636]: Typography that keeps the answer easy to read.
+        - paragraph [ref=f2e2637]:
+          - text: "The best interface brings the useful details forward:"
+          - strong [ref=f2e2638]: emphasis where it matters
+          - text: ","
+          - emphasis [ref=f2e2639]: a quiet aside
+          - text: ","
+          - code [ref=f2e2640]: inline code
+          - text: and
+          - link "a link" [ref=f2e2641] [cursor=pointer]:
+            - /url: https://openui.com
+          - text: .
+        - generic [ref=f2e2642]:
+          - generic [ref=f2e2643]:
+            - paragraph [ref=f2e2644]: Big number, 2xl
+            - heading "$1.00T" [level=2] [ref=f2e2645]
+          - generic [ref=f2e2646]:
+            - paragraph [ref=f2e2647]: Card title, lg
+            - heading "What makes up GDP?" [level=2] [ref=f2e2648]
+          - generic [ref=f2e2649]:
+            - paragraph [ref=f2e2650]: Section, sm
+            - heading "Explore a growth scenario" [level=4] [ref=f2e2651]
+            - paragraph [ref=f2e2652]: Struck through
+        - generic [ref=f2e2653]:
+          - generic [ref=f2e2654]: Illustrative
+          - generic [ref=f2e2655]: Available
+          - generic [ref=f2e2656]: In progress
+          - generic [ref=f2e2657]: Needs review
+          - generic [ref=f2e2658]: Sold out
+          - generic [ref=f2e2659]: New
+          - generic [ref=f2e2660]: Popular
+        - generic [ref=f2e2661]:
+          - generic [ref=f2e2662]: Source
+          - link "Bureau of Economic Analysis" [ref=f2e2663] [cursor=pointer]:
+            - /url: https://www.bea.gov
+          - generic [ref=f2e2667]: Unsafe links render as text
+        - separator [ref=f2e2668]
+        - generic [ref=f2e2669]:
+          - heading "Markdown prose" [level=4] [ref=f2e2670]
+          - paragraph [ref=f2e2671]:
+            - text: A paragraph with
+            - strong [ref=f2e2672]: bold
+            - text: ","
+            - emphasis [ref=f2e2673]: italic
+            - text: and strike.
+          - list [ref=f2e2674]:
+            - listitem [ref=f2e2675]: Numbered steps
+            - listitem [ref=f2e2676]: Read in order
+          - blockquote [ref=f2e2677]: A quote stays quiet.
+          - table [ref=f2e2679]:
+            - rowgroup [ref=f2e2680]:
+              - row [ref=f2e2681]:
+                - columnheader "Plan" [ref=f2e2682]
+                - columnheader "Seats" [ref=f2e2683]
+                - columnheader "Price" [ref=f2e2684]
+            - rowgroup [ref=f2e2685]:
+              - row [ref=f2e2686]:
+                - cell "Basic" [ref=f2e2687]
+                - cell "1" [ref=f2e2688]
+                - cell "$9" [ref=f2e2689]
+              - row [ref=f2e2690]:
+                - cell "Team" [ref=f2e2691]
+                - cell "10" [ref=f2e2692]
+                - cell "$49" [ref=f2e2693]
+      - group [ref=f2e2694]:
+        - generic "OpenUI Lang" [ref=f2e2695] [cursor=pointer]
+    - region [ref=f2e2696]:
+      - generic [ref=f2e2697]:
+        - heading "Lists and timeline" [level=2] [ref=f2e2698]
+        - paragraph [ref=f2e2699]: List markers bullet, number and none; ListItem with a text marker; the timeline connector.
+      - generic [ref=f2e2703]:
+        - heading "Sunday cooking schedule" [level=2] [ref=f2e2704]
+        - paragraph [ref=f2e2705]:
+          - text: Assuming you serve at
+          - strong [ref=f2e2706]: 2:00 PM
+          - text: .
+        - list [ref=f2e2707]:
+          - listitem [ref=f2e2708]:
+            - generic [ref=f2e2709]: 10:45 AM
+            - generic [ref=f2e2710]:
+              - generic [ref=f2e2711]: Prepare everything
+              - generic [ref=f2e2712]: Season the lamb, peel the potatoes and trim the beans.
+          - listitem [ref=f2e2713]:
+            - generic [ref=f2e2714]: 11:15 AM
+            - generic [ref=f2e2715]:
+              - generic [ref=f2e2716]: Start roasting
+              - generic [ref=f2e2717]: The lamb goes into a 200°C oven until it reaches 60°C inside.
+          - listitem [ref=f2e2718]:
+            - generic [ref=f2e2719]: 12:00 PM
+            - generic [ref=f2e2720]:
+              - generic [ref=f2e2721]: Potatoes in
+              - generic [ref=f2e2722]: Parboil for 10 minutes, rough up the edges and roast in hot oil.
+          - listitem [ref=f2e2723]:
+            - generic [ref=f2e2724]: 1:30 PM
+            - generic [ref=f2e2725]:
+              - generic [ref=f2e2726]: Rest and carve
+              - generic [ref=f2e2727]: Rest the lamb for 20 minutes while the gravy simmers.
+        - separator [ref=f2e2728]
+        - generic [ref=f2e2729]:
+          - generic [ref=f2e2730]:
+            - heading "Packing" [level=4] [ref=f2e2731]
+            - list [ref=f2e2732]:
+              - listitem [ref=f2e2733]:
+                - generic [ref=f2e2735]: Light rain jacket
+              - listitem [ref=f2e2736]:
+                - generic [ref=f2e2738]: Comfortable shoes
+              - listitem [ref=f2e2739]:
+                - generic [ref=f2e2741]: A reusable bottle
+          - generic [ref=f2e2742]:
+            - heading "Steps" [level=4] [ref=f2e2743]
+            - list [ref=f2e2744]:
+              - listitem [ref=f2e2745]:
+                - generic [aria-hidden] [ref=f2e2746]: "1"
+                - generic [ref=f2e2747]: Choose a direction
+              - listitem [ref=f2e2748]:
+                - generic [aria-hidden] [ref=f2e2749]: "2"
+                - generic [ref=f2e2750]: Explore the answer
+              - listitem [ref=f2e2751]:
+                - generic [aria-hidden] [ref=f2e2752]: "3"
+                - generic [ref=f2e2753]: Keep the conversation going
+      - group [ref=f2e2754]:
+        - generic "OpenUI Lang" [ref=f2e2755] [cursor=pointer]
+    - region [ref=f2e2756]:
+      - generic [ref=f2e2757]:
+        - heading "Buttons" [level=2] [ref=f2e2758]
+        - paragraph [ref=f2e2759]: Variants, colors, sizes, icons, disabled, block; IconButton. Buttons without an action send their label.
+      - generic [ref=f2e2763]:
+        - generic [ref=f2e2764]:
+          - button "Customize my capsule" [ref=f2e2765] [cursor=pointer]
+          - button "Copy split" [ref=f2e2767] [cursor=pointer]
+          - button "Reset" [ref=f2e2769] [cursor=pointer]
+          - button "Soft" [ref=f2e2771] [cursor=pointer]
+        - generic [ref=f2e2772]:
+          - button "Small" [ref=f2e2773] [cursor=pointer]
+          - button "Medium" [ref=f2e2774] [cursor=pointer]
+          - button "Large" [ref=f2e2775] [cursor=pointer]
+          - button "Disabled" [disabled] [ref=f2e2776]
+        - generic [ref=f2e2777]:
+          - button "Delete" [ref=f2e2778] [cursor=pointer]
+          - button "Confirm" [ref=f2e2779] [cursor=pointer]
+          - button "Remove" [ref=f2e2780] [cursor=pointer]
+          - button "Open docs" [ref=f2e2782] [cursor=pointer]
+        - generic [ref=f2e2784]:
+          - button "Save" [ref=f2e2785] [cursor=pointer]
+          - button "Share" [ref=f2e2787] [cursor=pointer]
+          - button "Add" [ref=f2e2789] [cursor=pointer]
+          - button "Bookmark" [ref=f2e2791] [cursor=pointer]
+        - button "Add to my route" [ref=f2e2793] [cursor=pointer]
+      - group [ref=f2e2795]:
+        - generic "OpenUI Lang" [ref=f2e2796] [cursor=pointer]
+    - region [ref=f2e2797]:
+      - generic [ref=f2e2798]:
+        - heading "Layout" [level=2] [ref=f2e2799]
+        - paragraph [ref=f2e2800]: Box backgrounds, radius, border, sizes and flex; Grid with minChildWidth; Card outline and soft; Spacer.
+      - generic [ref=f2e2804]:
+        - generic [ref=f2e2805]:
+          - generic [ref=f2e2806]:
+            - paragraph [ref=f2e2807]: Photography services · demo estimate
+            - heading "$617M" [level=2] [ref=f2e2808]
+            - paragraph [ref=f2e2809]: 2025, U.S. · narrow market definition
+          - generic [ref=f2e2810]:
+            - paragraph [ref=f2e2811]: Commercial drones · demo estimate
+            - heading "$4.1B" [level=2] [ref=f2e2812]
+            - paragraph [ref=f2e2813]: 2024, U.S. · broader market definition
+        - generic [ref=f2e2814]: Warm neutrals
+        - generic [ref=f2e2820]:
+          - paragraph [ref=f2e2822]: Info tint
+          - paragraph [ref=f2e2824]: Success tint
+          - paragraph [ref=f2e2826]: Warning tint
+          - generic [ref=f2e2827]:
+            - paragraph [ref=f2e2828]: On a hex color
+            - paragraph [ref=f2e2829]: Text stays readable
+        - generic [ref=f2e2830]:
+          - generic [ref=f2e2831]:
+            - paragraph [ref=f2e2832]: Subtotal
+            - paragraph [ref=f2e2833]: $156.00
+          - generic [ref=f2e2834]:
+            - paragraph [ref=f2e2835]: Tax · 8.5%
+            - paragraph [ref=f2e2836]: $13.26
+          - separator [ref=f2e2837]
+          - generic [ref=f2e2838]:
+            - paragraph [ref=f2e2839]: Total
+            - heading "$169.26" [level=2] [ref=f2e2840]
+      - group [ref=f2e2841]:
+        - generic "OpenUI Lang" [ref=f2e2842] [cursor=pointer]
+    - region [ref=f2e2843]:
+      - generic [ref=f2e2844]:
+        - heading "Sliders bound to state" [level=2] [ref=f2e2845]
+        - paragraph [ref=f2e2846]: Four Slider($x) bindings; a computed total, a split bar sized by flex, and @Reset.
+      - generic [ref=f2e2850]:
+        - generic [ref=f2e2851]:
+          - generic [ref=f2e2852]:
+            - heading "What makes up GDP?" [level=2] [ref=f2e2853]
+            - paragraph [ref=f2e2854]: An economy, in four parts.
+          - generic [ref=f2e2855]: Illustrative economy
+        - paragraph [ref=f2e2856]: Total output
+        - heading "$0 trillion" [level=2] [ref=f2e2857]
+        - generic [ref=f2e2858]:
+          - paragraph [ref=f2e2860]: $B
+          - paragraph [ref=f2e2862]: $B
+          - paragraph [ref=f2e2864]: $B
+        - generic [ref=f2e2865]:
+          - generic [ref=f2e2866]:
+            - generic [ref=f2e2867]:
+              - generic [ref=f2e2868]: Consumer spending
+              - status [ref=f2e2869]: 0B
+            - slider "Consumer spending" [ref=f2e2870] [cursor=pointer]: "0"
+          - generic [ref=f2e2871]:
+            - generic [ref=f2e2872]:
+              - generic [ref=f2e2873]: Business investment
+              - status [ref=f2e2874]: 0B
+            - slider "Business investment" [ref=f2e2875] [cursor=pointer]: "0"
+          - generic [ref=f2e2876]:
+            - generic [ref=f2e2877]:
+              - generic [ref=f2e2878]: Government spending
+              - status [ref=f2e2879]: 0B
+            - slider "Government spending" [ref=f2e2880] [cursor=pointer]: "0"
+          - generic [ref=f2e2881]:
+            - generic [ref=f2e2882]:
+              - generic [ref=f2e2883]: Net exports
+              - status [ref=f2e2884]: "-200B"
+            - slider "Net exports" [ref=f2e2885] [cursor=pointer]: "-200"
+        - button "Reset economy" [ref=f2e2886] [cursor=pointer]
+        - paragraph [ref=f2e2888]: "GDP = C + I + G + (X − M). Move any slider: the total and the bar follow."
+      - group [ref=f2e2889]:
+        - generic "OpenUI Lang" [ref=f2e2890] [cursor=pointer]
+    - region [ref=f2e2891]:
+      - generic [ref=f2e2892]:
+        - heading "Segmented control" [level=2] [ref=f2e2893]
+        - paragraph [ref=f2e2894]: SegmentedControl($mode) switches what renders; number Input and a Slider feed the per-person total.
+      - generic [ref=f2e2898]:
+        - generic [ref=f2e2899]:
+          - heading "What are you splitting?" [level=3] [ref=f2e2900]
+          - radiogroup [ref=f2e2901]:
+            - radio "By item" [ref=f2e2902] [cursor=pointer]
+            - radio "Equally" [ref=f2e2903] [cursor=pointer]
+        - generic [ref=f2e2904]:
+          - generic [ref=f2e2905]:
+            - generic [ref=f2e2906]: People at the table
+            - textbox "People at the table" [ref=f2e2907]
+          - generic [ref=f2e2908]:
+            - generic [ref=f2e2909]:
+              - generic [ref=f2e2910]: Tip
+              - status [ref=f2e2911]: 0%
+            - slider "Tip" [ref=f2e2912] [cursor=pointer]: "0"
+            - generic [aria-hidden] [ref=f2e2913]:
+              - generic [ref=f2e2914]: None
+              - generic [ref=f2e2915]: 15%
+              - generic [ref=f2e2916]: 30%
+        - generic [ref=f2e2917]:
+          - generic [ref=f2e2918]:
+            - paragraph [ref=f2e2919]: Total with tip
+            - heading "$156" [level=2] [ref=f2e2920]
+          - generic [ref=f2e2921]:
+            - paragraph [ref=f2e2922]: Each of
+            - paragraph [ref=f2e2923]: $156
+      - group [ref=f2e2924]:
+        - generic "OpenUI Lang" [ref=f2e2925] [cursor=pointer]
+    - region [ref=f2e2926]:
+      - generic [ref=f2e2927]:
+        - heading "Checkbox list" [level=2] [ref=f2e2928]
+        - paragraph [ref=f2e2929]: Six Checkbox($pN) bindings with lineThrough; @Count(@Filter(...)) drives the progress text and bar.
+      - generic [ref=f2e2933]:
+        - generic [ref=f2e2934]:
+          - heading "Your suitcase" [level=3] [ref=f2e2935]
+          - paragraph [ref=f2e2936]: 0/6 packed
+        - generic [ref=f2e2938]:
+          - generic [ref=f2e2939] [cursor=pointer]:
+            - checkbox "The everyday tee" [ref=f2e2940]
+            - generic [ref=f2e2941]: The everyday tee
+          - generic [ref=f2e2942] [cursor=pointer]:
+            - checkbox "Relaxed Oxford shirt" [ref=f2e2943]
+            - generic [ref=f2e2944]: Relaxed Oxford shirt
+          - generic [ref=f2e2945] [cursor=pointer]:
+            - checkbox "Unstructured jacket" [ref=f2e2946]
+            - generic [ref=f2e2947]: Unstructured jacket
+          - generic [ref=f2e2948] [cursor=pointer]:
+            - checkbox "Straight-leg trousers" [ref=f2e2949]
+            - generic [ref=f2e2950]: Straight-leg trousers
+          - generic [ref=f2e2951] [cursor=pointer]:
+            - checkbox "Minimal leather sneakers" [ref=f2e2952]
+            - generic [ref=f2e2953]: Minimal leather sneakers
+          - generic [ref=f2e2954] [cursor=pointer]:
+            - checkbox "Everywhere tote" [ref=f2e2955]
+            - generic [ref=f2e2956]: Everywhere tote
+        - button "Clear" [ref=f2e2957] [cursor=pointer]
+      - group [ref=f2e2958]:
+        - generic "OpenUI Lang" [ref=f2e2959] [cursor=pointer]
+    - region [ref=f2e2960]:
+      - generic [ref=f2e2961]:
+        - heading "Pressable grid" [level=2] [ref=f2e2962]
+        - paragraph [ref=f2e2963]: Pressable tiles set $bed with @Set and show the selected ring; the detail line reads $bed.
+      - generic [ref=f2e2967]:
+        - heading "Your 4 × 4 ft garden plan" [level=2] [ref=f2e2968]
+        - paragraph [ref=f2e2969]: Tap a planter to see what grows there.
+        - generic [ref=f2e2970]:
+          - button [ref=f2e2971] [cursor=pointer]:
+            - generic [ref=f2e2972]:
+              - paragraph [ref=f2e2975]: Lettuce + radishes
+              - paragraph [ref=f2e2976]: 24-inch planter
+          - button [ref=f2e2977] [cursor=pointer]:
+            - generic [ref=f2e2978]:
+              - paragraph [ref=f2e2981]: Snap peas
+              - paragraph [ref=f2e2982]: Pot + trellis
+          - button [ref=f2e2983] [cursor=pointer]:
+            - generic [ref=f2e2984]:
+              - paragraph [ref=f2e2987]: Kale
+              - paragraph [ref=f2e2988]: 12-inch pot
+          - button [ref=f2e2989] [cursor=pointer]:
+            - generic [ref=f2e2990]:
+              - paragraph [ref=f2e2993]: Herbs
+              - paragraph [ref=f2e2994]: 1 to 2 small pots
+        - paragraph [ref=f2e2998]: "Selected: ****. Give it 6+ hours of sunlight."
+      - group [ref=f2e2999]:
+        - generic "OpenUI Lang" [ref=f2e3000] [cursor=pointer]
+    - region [ref=f2e3001]:
+      - generic [ref=f2e3002]:
+        - heading "Inputs and form" [level=2] [ref=f2e3003]
+        - paragraph [ref=f2e3004]: Input (text and number), DatePicker, Select, RadioGroup, TextArea inside a Form; the button sends the values as context.
+      - generic [ref=f2e3008]:
+        - heading "Make it yours" [level=2] [ref=f2e3009]
+        - generic [ref=f2e3010]:
+          - generic [ref=f2e3011]:
+            - generic [ref=f2e3012]:
+              - generic [ref=f2e3013]: Name
+              - textbox "Name" [ref=f2e3014]:
+                - /placeholder: Your name
+            - generic [ref=f2e3015]:
+              - generic [ref=f2e3016]: Travelers
+              - textbox "Travelers" [ref=f2e3017]
+          - generic [ref=f2e3018]:
+            - generic [ref=f2e3019]:
+              - generic [ref=f2e3020]: Start date
+              - textbox "Start date" [ref=f2e3021]
+            - generic [ref=f2e3022]:
+              - generic [ref=f2e3023]: Preferred pace
+              - combobox "Preferred pace" [ref=f2e3024] [cursor=pointer]:
+                - option "Choose…" [disabled] [selected]
+                - option "Relaxed"
+                - option "Balanced"
+                - option "Active"
+          - group "What weather are you packing for?" [ref=f2e3025]:
+            - generic [ref=f2e3027]:
+              - generic [ref=f2e3028] [cursor=pointer]:
+                - radio "Hot / tropical" [ref=f2e3029]
+                - generic [ref=f2e3030]: Hot / tropical
+              - generic [ref=f2e3032] [cursor=pointer]:
+                - radio "Mild / mixed weather" [ref=f2e3033]
+                - generic [ref=f2e3034]: Mild / mixed weather
+              - generic [ref=f2e3036] [cursor=pointer]:
+                - radio "Cold / rainy" [ref=f2e3037]
+                - generic [ref=f2e3038]: Cold / rainy
+          - generic [ref=f2e3040]:
+            - generic [ref=f2e3041]: Anything else?
+            - textbox "Anything else?" [ref=f2e3042]:
+              - /placeholder: A place you would love to visit…
+          - button "Customize my trip" [ref=f2e3043] [cursor=pointer]
+      - group [ref=f2e3045]:
+        - generic "OpenUI Lang" [ref=f2e3046] [cursor=pointer]
+    - region [ref=f2e3047]:
+      - generic [ref=f2e3048]:
+        - heading "Svg driven by a slider" [level=2] [ref=f2e3049]
+        - paragraph [ref=f2e3050]: G transforms and SvgText read $angle; every shape component appears.
+      - generic [ref=f2e3054]:
+        - heading "Turn the crank" [level=3] [ref=f2e3055]
+        - paragraph [ref=f2e3056]: The rear sprocket turns 2.5 times as far as the chainring.
+        - img [ref=f2e3057]:
+          - generic [ref=f2e3065]: Rear 0°
+        - generic [ref=f2e3066]:
+          - generic [ref=f2e3067]:
+            - generic [ref=f2e3068]: Crank angle
+            - status [ref=f2e3069]: 0°
+          - slider "Crank angle" [ref=f2e3070] [cursor=pointer]: "0"
+        - img [ref=f2e3071]:
+          - generic [ref=f2e3076]: Rect · Ellipse · Polygon · Polyline
+      - group [ref=f2e3077]:
+        - generic "OpenUI Lang" [ref=f2e3078] [cursor=pointer]
+    - region [ref=f2e3079]:
+      - generic [ref=f2e3080]:
+        - heading "Charts" [level=2] [ref=f2e3081]
+        - paragraph [ref=f2e3082]: SegmentedControl switches Chart($type); currency and percent formats; stacked bars; pie and donut.
+      - generic [ref=f2e3086]:
+        - generic [ref=f2e3087]:
+          - generic [ref=f2e3088]:
+            - heading "Drone services revenue" [level=3] [ref=f2e3089]
+            - paragraph [ref=f2e3090]: Illustrative revenue path, not a forecast
+          - radiogroup [ref=f2e3091]:
+            - radio "bar" [ref=f2e3092] [cursor=pointer]
+            - radio "line" [ref=f2e3093] [cursor=pointer]
+            - radio "area" [ref=f2e3094] [cursor=pointer]
+        - figure [ref=f2e3095]:
+          - generic [ref=f2e3097]:
+            - generic [ref=f2e3098]: Photography
+            - generic [ref=f2e3100]: Inspection
+        - generic [ref=f2e3102]:
+          - generic [ref=f2e3103]:
+            - heading "How people get around" [level=4] [ref=f2e3104]
+            - figure [ref=f2e3105]
+          - generic [ref=f2e3107]:
+            - heading "Budget" [level=4] [ref=f2e3108]
+            - figure [ref=f2e3109]
+      - group [ref=f2e3111]:
+        - generic "OpenUI Lang" [ref=f2e3112] [cursor=pointer]
+    - region [ref=f2e3113]:
+      - generic [ref=f2e3114]:
+        - heading "Table" [level=2] [ref=f2e3115]
+        - paragraph [ref=f2e3116]: Rows of cells in column order; number columns align right; a cell can be a component.
+      - generic [ref=f2e3120]:
+        - heading "Who makes money in this market?" [level=3] [ref=f2e3121]
+        - table [ref=f2e3123]:
+          - rowgroup [ref=f2e3124]:
+            - row [ref=f2e3125]:
+              - columnheader "Player" [ref=f2e3126]
+              - columnheader "Business model" [ref=f2e3127]
+              - columnheader "Typical margin" [ref=f2e3128]
+              - columnheader "Difficulty" [ref=f2e3129]
+          - rowgroup [ref=f2e3130]:
+            - row [ref=f2e3131]:
+              - cell "Drone manufacturers" [ref=f2e3132]
+              - cell "Sell drones, cameras and accessories" [ref=f2e3133]
+              - cell "38%" [ref=f2e3134]
+              - cell "Hard" [ref=f2e3135]
+            - row [ref=f2e3137]:
+              - cell "Freelance pilots" [ref=f2e3138]
+              - cell "Charge per shoot or project" [ref=f2e3139]
+              - cell "55%" [ref=f2e3140]
+              - cell "Easy" [ref=f2e3141]
+            - row [ref=f2e3143]:
+              - cell "Mapping companies" [ref=f2e3144]
+              - cell "SaaS and data processing fees" [ref=f2e3145]
+              - cell "24%" [ref=f2e3146]
+              - cell "Medium" [ref=f2e3147]
+            - row [ref=f2e3149]:
+              - cell "Enterprises" [ref=f2e3150]
+              - cell "Operate their own fleets" [ref=f2e3151]
+              - cell "n/a" [ref=f2e3152]
+              - cell "Medium" [ref=f2e3153]
+        - table [ref=f2e3156]:
+          - rowgroup [ref=f2e3157]:
+            - row [ref=f2e3158]:
+              - columnheader "Month" [ref=f2e3159]
+              - columnheader "Shoots" [ref=f2e3160]
+              - columnheader "Revenue" [ref=f2e3161]
+          - rowgroup [ref=f2e3162]:
+            - row [ref=f2e3163]:
+              - cell "January" [ref=f2e3164]
+              - cell "8" [ref=f2e3165]
+              - cell "$2,000" [ref=f2e3166]
+            - row [ref=f2e3167]:
+              - cell "February" [ref=f2e3168]
+              - cell "12" [ref=f2e3169]
+              - cell "$3,000" [ref=f2e3170]
+            - row [ref=f2e3171]:
+              - cell "March" [ref=f2e3172]
+              - cell "15" [ref=f2e3173]
+              - cell "$3,750" [ref=f2e3174]
+      - group [ref=f2e3175]:
+        - generic "OpenUI Lang" [ref=f2e3176] [cursor=pointer]
+    - region [ref=f2e3177]:
+      - generic [ref=f2e3178]:
+        - heading "Images" [level=2] [ref=f2e3179]
+        - paragraph [ref=f2e3180]: A working src; no src (search by alt); a failing src that falls back to search; a failing src with nothing found.
+      - generic [ref=f2e3184]:
+        - heading "Golden hour in San Francisco" [level=3] [ref=f2e3185]
+        - generic [ref=f2e3186]:
+          - generic [ref=f2e3187]:
+            - img "Golden Gate Bridge from Battery East" [ref=f2e3189]
+            - paragraph [ref=f2e3190]: Working src
+            - paragraph [ref=f2e3191]: Loads the given URL
+          - generic [ref=f2e3192]:
+            - img "Alcatraz Island" [ref=f2e3193]
+            - paragraph [ref=f2e3194]: No src
+            - paragraph [ref=f2e3195]: Found by searching the query
+          - generic [ref=f2e3196]:
+            - img "Palace of Fine Arts" [ref=f2e3198]
+            - paragraph [ref=f2e3199]: Broken src
+            - paragraph [ref=f2e3200]: Falls back to search
+          - generic [ref=f2e3201]:
+            - img "qzxv unfindable subject 0000" [ref=f2e3203]
+            - paragraph [ref=f2e3204]: Nothing found
+            - paragraph [ref=f2e3205]: Quiet placeholder
+      - group [ref=f2e3206]:
+        - generic "OpenUI Lang" [ref=f2e3207] [cursor=pointer]
+    - region [ref=f2e3208]:
+      - generic [ref=f2e3209]:
+        - heading "Map with a route" [level=2] [ref=f2e3210]
+        - paragraph [ref=f2e3211]: "Map(markers, route, $stop): street route via /api/street-route, category filter, emoji and numbered pins; clicking a pin sets $stop."
+      - generic [ref=f2e3215]:
+        - heading "San Francisco, your way" [level=3] [ref=f2e3216]
+        - paragraph [ref=f2e3217]: Tap a pin to choose where to start.
+        - region "Map" [ref=f2e3219]:
+          - generic [ref=f2e3221]:
+            - combobox "Filter places" [ref=f2e3223] [cursor=pointer]:
+              - option "All places" [selected]
+              - option "Food"
+              - option "Views"
+              - option "Landmarks"
+            - button "Show every place" [ref=f2e3224] [cursor=pointer]
+            - button "About this map" [ref=f2e3227] [cursor=pointer]
+          - button "Expand" [ref=f2e3231] [cursor=pointer]
+          - status [ref=f2e3234]: Street route loading.
+        - paragraph [ref=f2e3239]: Starting at ****
+      - group [ref=f2e3240]:
+        - generic "OpenUI Lang" [ref=f2e3241] [cursor=pointer]
+    - region [ref=f2e3242]:
+      - generic [ref=f2e3243]:
+        - heading "HtmlView game" [level=2] [ref=f2e3244]
+        - paragraph [ref=f2e3245]: A sandboxed canvas game (allow-scripts, opaque origin, strict CSP) that sizes itself to its content.
+      - generic [ref=f2e3249]:
+        - heading "Take a little break" [level=3] [ref=f2e3250]
+        - paragraph [ref=f2e3251]: Catch the dot as many times as you can in 15 seconds.
+        - iframe [ref=f2e3253]:
+          - generic [ref=f5e1]:
+            - generic [ref=f5e2]:
+              - generic [ref=f5e3]: Score 0
+              - generic [ref=f5e4]: Press start
+            - button "Start" [ref=f5e7] [cursor=pointer]
+      - group [ref=f2e3254]:
+        - generic "OpenUI Lang" [ref=f2e3255] [cursor=pointer]
+    - region [ref=f2e3256]:
+      - generic [ref=f2e3257]:
+        - heading "Timer" [level=2] [ref=f2e3258]
+        - paragraph [ref=f2e3259]: Timer($left) counts the bound seconds down; preset buttons @Set it, and a statement reacts when $left reaches 0.
+      - generic [ref=f2e3263]:
+        - heading "Steep your tea" [level=3] [ref=f2e3264]
+        - generic [ref=f2e3265]:
+          - button "Green · 2 min" [ref=f2e3266] [cursor=pointer]
+          - button "Black · 4 min" [ref=f2e3267] [cursor=pointer]
+          - button "Herbal · 6 min" [ref=f2e3268] [cursor=pointer]
+        - timer "Time left" [ref=f2e3269]:
+          - generic [ref=f2e3270]:
+            - generic [ref=f2e3271]: Time left
+            - generic [ref=f2e3272]: 0:00
+          - generic [ref=f2e3273]:
+            - button "Start" [disabled] [ref=f2e3274]
+            - button "Reset" [disabled] [ref=f2e3276]
+        - paragraph [ref=f2e3278]: Start the timer when the water reaches the leaves.
+      - group [ref=f2e3279]:
+        - generic "OpenUI Lang" [ref=f2e3280] [cursor=pointer]
+    - region [ref=f2e3281]:
+      - generic [ref=f2e3282]:
+        - heading "Color scale" [level=2] [ref=f2e3283]
+        - paragraph [ref=f2e3284]: "@MixColor turns a value into a color between two hex colors, for heatmaps and tints."
+      - generic [ref=f2e3288]:
+        - heading "When the café is busiest" [level=3] [ref=f2e3289]
+        - paragraph [ref=f2e3290]: Average customers per hour, last 4 weeks
+        - generic [ref=f2e3291]:
+          - paragraph [ref=f2e3292]: Mon
+          - paragraph [ref=f2e3293]: Tue
+          - paragraph [ref=f2e3294]: Wed
+          - paragraph [ref=f2e3295]: Thu
+          - paragraph [ref=f2e3296]: Fri
+          - paragraph [ref=f2e3297]: Sat
+          - paragraph [ref=f2e3298]: Sun
+        - generic [ref=f2e3299]:
+          - paragraph [ref=f2e3301]: "12"
+          - paragraph [ref=f2e3303]: "14"
+          - paragraph [ref=f2e3305]: "13"
+          - paragraph [ref=f2e3307]: "15"
+          - paragraph [ref=f2e3309]: "18"
+          - paragraph [ref=f2e3311]: "34"
+          - paragraph [ref=f2e3313]: "30"
+          - paragraph [ref=f2e3315]: "28"
+          - paragraph [ref=f2e3317]: "30"
+          - paragraph [ref=f2e3319]: "29"
+          - paragraph [ref=f2e3321]: "31"
+          - paragraph [ref=f2e3323]: "36"
+          - paragraph [ref=f2e3325]: "52"
+          - paragraph [ref=f2e3327]: "47"
+          - paragraph [ref=f2e3329]: "41"
+          - paragraph [ref=f2e3331]: "44"
+          - paragraph [ref=f2e3333]: "40"
+          - paragraph [ref=f2e3335]: "45"
+          - paragraph [ref=f2e3337]: "50"
+          - paragraph [ref=f2e3339]: "58"
+          - paragraph [ref=f2e3341]: "49"
+          - paragraph [ref=f2e3343]: "22"
+          - paragraph [ref=f2e3345]: "24"
+          - paragraph [ref=f2e3347]: "23"
+          - paragraph [ref=f2e3349]: "27"
+          - paragraph [ref=f2e3351]: "38"
+          - paragraph [ref=f2e3353]: "44"
+          - paragraph [ref=f2e3355]: "35"
+        - generic [ref=f2e3356]:
+          - paragraph [ref=f2e3357]: Quiet
+          - paragraph [ref=f2e3364]: Busy
+      - group [ref=f2e3365]:
+        - generic "OpenUI Lang" [ref=f2e3366] [cursor=pointer]
+    - region [ref=f2e3367]:
+      - generic [ref=f2e3368]:
+        - heading "Icons" [level=2] [ref=f2e3369]
+        - paragraph [ref=f2e3370]: Lucide names at each size and in a few colors. An unknown name renders nothing.
+      - group [ref=f2e3392]:
+        - generic "OpenUI Lang" [ref=f2e3393] [cursor=pointer]

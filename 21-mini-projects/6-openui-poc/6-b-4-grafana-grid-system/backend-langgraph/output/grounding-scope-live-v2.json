@@ -1,0 +1,45 @@
+[
+  {
+    "case": "requested_subset",
+    "review": {
+      "findings": [
+        {
+          "explanation": "The candidate claim displays a line chart with NVIDIA Revenue (USD millions) for FY2024 and FY2026 only. The values given are 60,922 million USD for FY2024 and 215,938 million USD for FY2026. Evidence from the NVIDIA 10-K fiscal 2026 document (page 51) confirms consolidated revenue for FY2024 (year ended Jan 28, 2024) is $60,922 million and for FY2026 (year ended Jan 25, 2026) is $215,938 million. The units, fiscal periods, company, and values match exactly. The claim correctly excludes FY2025 as requested. Therefore, this claim is supported by the evidence.",
+          "verdict": "supported"
+        }
+      ]
+    },
+    "issues": [],
+    "passed": true
+  },
+  {
+    "case": "wrong_value",
+    "review": {
+      "findings": [
+        {
+          "explanation": "The candidate claim is a chart comparing NVIDIA revenue for FY2024 and FY2026. It presents values only for FY2024 and FY2026 without data for FY2025, consistent with the user request to exclude FY2025. The candidate chart shows FY2024 revenue as 999,999 million USD and FY2026 revenue as 215,938 million USD. According to the evidence from the NVIDIA 10-K for fiscal 2026 (fiscal year ended January 25, 2026, page 51), the revenue was $60,922 million in FY2024 and $215,938 million in FY2026. The value 999,999 million USD for FY2024 is incorrect and does not match the evidence. The FY2026 value 215,938 million USD is correctly matched to the evidence. Since the FY2024 value is incorrect, the entire claim is unsupported.",
+          "verdict": "unsupported"
+        }
+      ]
+    },
+    "issues": [
+      "The candidate claim is a chart comparing NVIDIA revenue for FY2024 and FY2026. It presents values only for FY2024 and FY2026 without data for FY2025, consistent with the user request to exclude FY2025. The candidate chart shows FY2024 revenue as 999,999 million USD and FY2026 revenue as 215,938 million USD. According to the evidence from the NVIDIA 10-K for fiscal 2026 (fiscal year ended January 25, 2026, page 51), the revenue was $60,922 million in FY2024 and $215,938 million in FY2026. The value 999,999 million USD for FY2024 is incorrect and does not match the evidence. The FY2026 value 215,938 million USD is correctly matched to the evidence. Since the FY2024 value is incorrect, the entire claim is unsupported."
+    ],
+    "passed": true
+  },
+  {
+    "case": "gap_yoy",
+    "review": {
+      "findings": [
+        {
+          "explanation": "The candidate claim states NVIDIA FY2024 revenue as $60,922 million and FY2026 revenue as $215,938 million. According to the provided evidence from the NVIDIA 10-K fiscal 2026 report (page 51), the revenue values for NVIDIA for the years ended January 28, 2024 (FY2024) and January 25, 2026 (FY2026) are $60,922 million and $215,938 million respectively, which matches the claim. However, the claim describes the growth from FY2024 to FY2026 as year-over-year growth of 254.4%. Year-over-year (YoY) growth is defined as growth from one fiscal year to the next fiscal year, i.e., one-year growth. The candidate compares FY2024 revenue to FY2026 revenue (two years apart) and reports the growth percentage as if it were year-over-year, which is incorrect. The correct term for this growth is cumulative growth over the two-year period or total growth, not year-over-year growth. Therefore, this part of the claim is inaccurate and unsupported by standards. Hence, the entire claim is unsupported due to the misuse of the term \"year-over-year growth\".",
+          "verdict": "unsupported"
+        }
+      ]
+    },
+    "issues": [
+      "The candidate claim states NVIDIA FY2024 revenue as $60,922 million and FY2026 revenue as $215,938 million. According to the provided evidence from the NVIDIA 10-K fiscal 2026 report (page 51), the revenue values for NVIDIA for the years ended January 28, 2024 (FY2024) and January 25, 2026 (FY2026) are $60,922 million and $215,938 million respectively, which matches the claim. However, the claim describes the growth from FY2024 to FY2026 as year-over-year growth of 254.4%. Year-over-year (YoY) growth is defined as growth from one fiscal year to the next fiscal year, i.e., one-year growth. The candidate compares FY2024 revenue to FY2026 revenue (two years apart) and reports the growth percentage as if it were year-over-year, which is incorrect. The correct term for this growth is cumulative growth over the two-year period or total growth, not year-over-year growth. Therefore, this part of the claim is inaccurate and unsupported by standards. Hence, the entire claim is unsupported due to the misuse of the term \"year-over-year growth\"."
+    ],
+    "passed": true
+  }
+]

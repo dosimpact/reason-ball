@@ -1,0 +1,41 @@
+{
+  "revision": 3,
+  "tabs": [
+    {
+      "id": "main",
+      "title": "Overview"
+    }
+  ],
+  "active_tab_id": "main",
+  "panels": [
+    {
+      "id": "d400f856-8406-430e-a128-b847ed865be0",
+      "title": "NVIDIA 분기·누적 매출 검토",
+      "kind": "openui",
+      "tab_id": "main",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 12
+      },
+      "pinned": false,
+      "refresh": {
+        "mode": "live",
+        "interval_seconds": 0,
+        "last_attempt_at": null,
+        "last_success_at": null,
+        "error": null
+      },
+      "program": "header = CardHeader(\"NVIDIA 분기·누적 매출 검토\", \"Quarter Ended July 26, 2026 (2027 Q2) and July 27, 2025 (2026 Q2) Official IR PDF Source\")\ninfo = TextContent(\"NVIDIA의 FY2026 Q2(3개월)와 FY2027 Q2(3개월) 매출(백만 USD)과 6개월 누적 매출을 비교합니다. 공식 IR PDF에서 발췌한 최신 분기 데이터입니다.\")\nrevenueChart = LineChart([\"FY2026 Q2\", \"FY2027 Q2\"], [Series(\"매출 (백만 USD)\", [46743, 96221])], \"linear\", \"분기\", \"매출 (백만 USD)\")\nrevenueTable = Table([Col(\"기간\", [\"FY2026 Q2 (3개월)\", \"FY2027 Q2 (3개월)\", \"FY2026 6개월 누적\", \"FY2027 6개월 누적\"]), Col(\"매출 (백만 USD)\", [\"46,743\", \"96,221\", \"90,805\", \"177,837\"])])\nroot = Card([header, info, revenueChart, revenueTable])",
+      "ui_state": {},
+      "source_artifact_id": null,
+      "query": {},
+      "data": {},
+      "sources": []
+    }
+  ],
+  "artifacts": [],
+  "selected_panel_id": "d400f856-8406-430e-a128-b847ed865be0",
+  "export_request": null
+}

@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("기존 채팅 결과 f0ff5fcc-d0a3-4ab2-b2b4-31e8ba753df7을 다시 보기만 할게. 신규 등록이나 Canvas 변경 없이 DashboardArtifact로 표시해줘."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

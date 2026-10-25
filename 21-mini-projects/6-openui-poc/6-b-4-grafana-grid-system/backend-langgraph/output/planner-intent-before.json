@@ -1,0 +1,97 @@
+[
+  {
+    "case": "overview",
+    "request": "nvidia FY2026 보고서의 사업·위험 요인·경영진 설명·재무 핵심을 실제 원문 영역별로 확인해 한국어로 요약해줘.",
+    "plan": {
+      "remove_tab_contents_confirmed": false,
+      "minimum_new_panels": 1,
+      "clarification": "",
+      "source_read": "overview",
+      "operations": [
+        "add"
+      ],
+      "instruction": "Add a new Canvas panel summarizing the NVIDIA FY2026 report's business, risk factors, management commentary, and financial highlights in Korean from original source sections.",
+      "targets": []
+    },
+    "passed": false
+  },
+  {
+    "case": "chart",
+    "request": "엔비디아의 최근 3년 매출과 성장률을 차트로 보여줘.",
+    "plan": {
+      "remove_tab_contents_confirmed": false,
+      "minimum_new_panels": 1,
+      "clarification": "",
+      "source_read": "overview",
+      "operations": [
+        "add"
+      ],
+      "instruction": "Add a new panel showing a chart of Nvidia's recent 3-year sales and growth rates.",
+      "targets": []
+    },
+    "passed": false
+  },
+  {
+    "case": "chat_only",
+    "request": "매출은 차트로 보여줘. Canvas에는 추가하지 마.",
+    "plan": {
+      "remove_tab_contents_confirmed": false,
+      "minimum_new_panels": 0,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [],
+      "instruction": "Show sales as a chart but do not add it to Canvas.",
+      "targets": []
+    },
+    "passed": true
+  },
+  {
+    "case": "reusable",
+    "request": "차트를 대화 안에 Canvas에 추가 가능한 결과로 게시해줘. 지금은 Canvas에는 추가하지 마.",
+    "plan": {
+      "remove_tab_contents_confirmed": false,
+      "minimum_new_panels": 1,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "artifact_publish",
+        "add"
+      ],
+      "instruction": "Publish a chart result in chat for later Canvas addition, without adding to Canvas now.",
+      "targets": []
+    },
+    "passed": false
+  },
+  {
+    "case": "canvas",
+    "request": "매출 그래프를 Canvas에 추가해줘.",
+    "plan": {
+      "remove_tab_contents_confirmed": false,
+      "minimum_new_panels": 1,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "add"
+      ],
+      "instruction": "Add a sales graph panel to the main tab on Canvas.",
+      "targets": []
+    },
+    "passed": true
+  },
+  {
+    "case": "two_panels",
+    "request": "Canvas에 연구 메모와 확인 체크리스트를 각각 하나씩 만들어줘.",
+    "plan": {
+      "remove_tab_contents_confirmed": false,
+      "minimum_new_panels": 2,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "add"
+      ],
+      "instruction": "Add one research memo panel and one confirmation checklist panel to the main tab.",
+      "targets": []
+    },
+    "passed": true
+  }
+]

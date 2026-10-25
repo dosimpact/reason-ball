@@ -1,0 +1,13 @@
+
+> @reason-ball/sec-dashboard@0.1.0 test:e2e
+> playwright test --grep MERGE-101|MERGE-102
+
+
+Running 2 tests using 1 worker
+
+(node:36664) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 e2e/integration.spec.ts:31:5 › MERGE-101 original table/sources, reactive controls, function alias, SVG and clipboard coexist (6.8s)
+  ✓  2 e2e/integration.spec.ts:49:5 › MERGE-102 migrated gallery renders all examples in both themes (15.2s)
+
+  2 passed (23.0s)

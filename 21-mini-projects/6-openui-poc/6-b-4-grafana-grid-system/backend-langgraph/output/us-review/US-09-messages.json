@@ -1,0 +1,209 @@
+[
+  {
+    "role": "user",
+    "content": "준비된 실제 PDF nvidia(FY2026), nvidia-2025(FY2025), amd, intel만 사용하고 SEC 네트워크 호출은 하지 마. 출처와 회계기간·단위를 명시하고 근거 없는 수치는 만들지 마. NVIDIA의 FY2024~FY2026 3년 매출을 nvidia-2025의 실적 요약 원문과 nvidia의 실적 요약 원문에서 확인해 차트와 표로 보여줘. FY2025 문서의 실적 요약은 PDF130쪽, FY2026은 PDF37쪽을 확인해. Canvas에 NVIDIA 매출이라는 제목의 차트 패널 하나로 만들어줘."
+  },
+  {
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "type": "function",
+        "id": "call_28pA5NZgaVzEmRx3jCXdnDFz",
+        "function": {
+          "name": "read_document_page",
+          "arguments": "{\"document_id\": \"nvidia-2025\", \"page\": 130}"
+        }
+      },
+      {
+        "type": "function",
+        "id": "call_tPavsem04Ec6sa0zGupUGBG8",
+        "function": {
+          "name": "read_document_page",
+          "arguments": "{\"document_id\": \"nvidia\", \"page\": 37}"
+        }
+      }
+    ],
+    "content": [
+      {
+        "type": "tool_call",
+        "id": "call_28pA5NZgaVzEmRx3jCXdnDFz",
+        "name": "read_document_page",
+        "args": {
+          "document_id": "nvidia-2025",
+          "page": 130
+        }
+      },
+      {
+        "type": "tool_call",
+        "id": "call_tPavsem04Ec6sa0zGupUGBG8",
+        "name": "read_document_page",
+        "args": {
+          "document_id": "nvidia",
+          "page": 37
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "name": "read_document_page",
+    "tool_call_id": "call_28pA5NZgaVzEmRx3jCXdnDFz",
+    "content": "{\"document_id\": \"nvidia-2025\", \"document\": \"NVIDIA Annual Report, fiscal 2025 (includes 10-K)\", \"period\": \"Fiscal year ended January 26, 2025\", \"page\": 130, \"total_pages\": 181, \"text\": \"Israel and Regional Conflicts\\nWe are monitoring the impact of the geopolitical conflict in and around Israel on our operations, including the health and \\nsafety of our approximately 4,700 employees in the region who primarily support the research and development, \\noperations, and sales and marketing of our networking products. Our global supply chain for our networking products has \\nnot experienced any significant impact. Some of our employees in the region have been on active military duty for an \\nextended period and may continue to be absent, which may cause disruption to our product development or operations. \\nWe have not experienced significant impact or expense to our business; however, if the conflict is further extended or \\nexpanded, it could impact future product development, operations, and revenue or create other uncertainty for our \\nbusiness.\\nFiscal Year 2025 Summary\\n  Year Ended\\n  Jan 26, 2025 Jan 28, 2024 Change\\n($ in millions, except per share data)\\nRevenue $ 130,497 $ 60,922 Up 114%\\nGross margin  75.0 %  72.7 % Up 2.3 pts\\nOperating expenses $ 16,405 $ 11,329 Up 45%\\nOperating income $ 81,453 $ 32,972 Up 147%\\nNet income $ 72,880 $ 29,760 Up 145%\\nNet income per diluted share $ 2.94 $ 1.19 Up 147%\\nWe specialize in markets where our computing platforms can provide tremendous acceleration for applications. These \\nplatforms incorporate processors, interconnects, software, algorithms, systems, and services to deliver unique value. Our \\nplatforms address four large markets where our expertise is critical: Data Center, Gaming, Professional Visualization, and \\nAutomotive.\\nRevenue for fiscal year 2025 was $130.5 billion, up 114% from a year ago.\\nData Center revenue for fiscal year 2025 was up 142% from a year ago. The strong year-on-year growth was driven by \\ndemand for our Hopper architecture accelerated computing platform used for large language models, recommendation \\nengines, and generative AI applications. We began shipping production systems of the Blackwell architecture in the \\nfourth quarter of fiscal year 2025.\\nGaming revenue for fiscal year 2025 was up 9% from a year ago, driven by sales of our GeForce RTX 40 Series GPUs. \\nProfessional Visualization revenue for fiscal year 2025 was up 21% from a year ago, driven by the continued ramp of Ada \\nRTX GPU workstations for use cases such as generative AI-powered design, simulation, and engineering.\\nAutomotive revenue for fiscal year 2025 was up 55% from a year ago, driven by sales of our self-driving platforms.\\nGross margin increased in fiscal year 2025 driven by a higher mix of Data Center revenue. \\nOperating expenses for fiscal year 2025 were up 45% from a year ago, driven by higher compensation and benefits \\nexpenses due to employee growth and compensation increases, and engineering development, compute and \\ninfrastructure costs for new product introductions. \\nCritical Accounting Estimates\\nOur consolidated financial statements are prepared in accordance with accounting principles generally accepted in the \\nUnited States, or U.S. GAAP. The preparation of these financial statements requires us to make estimates and judgments \\nthat affect the reported amounts of assets, liabilities, revenue, cost of revenue, expenses and related disclosure of \\ncontingencies. Critical accounting estimates are those estimates that involve a significant level of estimation uncertainty \\nand could have a material impact on our financial condition or results of operations. We have critical accounting \\nestimates in the areas of inventories, income taxes, and revenue recognition. Refer to Note 1  of the Notes to the \\nConsolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for a summary of significant \\naccounting policies.\\nInventories\\nWe charge cost of sales for inventory provisions to write-down our inventory to the lower of cost or net realizable value or \\nfor obsolete or excess inventory, and for excess product purchase commitments. Most of our inventory provisions relate \\nto excess quantities of products or components, based on our inventory levels and future product purchase \\n38\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\", \"text_available\": true}"
+  },
+  {
+    "role": "tool",
+    "name": "read_document_page",
+    "tool_call_id": "call_tPavsem04Ec6sa0zGupUGBG8",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 37, \"total_pages\": 93, \"text\": \"Table of Contents\\nWe have made, and expect to continue making, investments that support our technology roadmap and the broader AI ecosystem. In fiscal year 2026, we made\\nthe following investments:\\n• We invested $17.5 billion in private companies and infrastructure funds, primarily to support early ‑ stage startups. These investments include AI model\\nmakers that purchase our products directly or through CSPs. Many of these investments are illiquid and non ‑ marketable. The related early-stage\\nstartups may not become profitable in the near term, or at all, and there can be no assurance that we will realize a return on our investments.\\n• We made investments in publicly-held equity securities where the value may fluctuate significantly due to changes in stock prices and could adversely\\naffect our financial results.\\n• To support the build-out of complex datacenter infrastructures, we enter into commercial arrangements, including guarantees with partners. We\\nprovided $3.5 billion in land, power, and shell guarantees to early ‑ stage companies, generally over multi ‑ year periods. If the escrow and the partners'\\noperating activities are not sufficient to cover an event of default under these guarantees, we may elect to assume the underlying leases for internal use\\nor sublease them to third parties.\\nMacroeconomic factors, including tariffs, inflation, interest rate changes, capital market volatility, global supply chain constraints, and global economic and\\ngeopolitical developments, have direct and indirect impacts on our results of operations, particularly demand for our products. While difficult to isolate and\\nquantify, these macroeconomic factors impact our supply chain and manufacturing costs, employee wages, costs for capital equipment, the value of our\\ninvestments, revenue and competitive position. Our product and solution pricing generally does not fluctuate with short-term changes in our costs. Within our\\nsupply chain, we continuously manage product availability and costs with our vendors.\\nRefer to “Item 1A. Risk Factors – Risks Related to Regulatory, Legal, Our Stock and Other Matters” for a further discussion of the potential impact of these\\nfactors on our business.\\nFiscal Year 2026 Summary\\n Year Ended\\n Jan 25, 2026 Jan 26, 2025 Change\\n($ in millions, except per share data)\\nRevenue $ 215,938 $ 130,497 Up 65%\\nGross margin 71.1 % 75.0 % -3.9 pts\\nOperating expenses $ 23,076 $ 16,405 Up 41%\\nOperating income $ 130,387 $ 81,453 Up 60%\\nNet income $ 120,067 $ 72,880 Up 65%\\nNet income per diluted share $ 4.90 $ 2.94 Up 67%\\nRevenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago.\\nData Center revenue for fiscal year 2026 was up 68% from a year ago. The strong year-on-year growth was driven by the major platform shifts – accelerated\\ncomputing and AI.\\nGaming revenue for fiscal year 2026 was up 41% from a year ago, driven by strong Blackwell demand. We expect supply constraints to be a headwind to\\nGaming in the first quarter of fiscal 2027 and beyond.\\nProfessional Visualization revenue for fiscal year 2026 was up 70% from a year ago, driven by exceptional demand for Blackwell as well as the launch of our\\nnew DGX Spark.\\nAutomotive revenue for fiscal year 2026 was up 39% from a year ago, driven by continued adoption of our self-driving platforms.\\nGross margin decreased in fiscal year 2026 as our business model transitioned from offering Hopper HGX systems to Blackwell full-scale datacenter solutions.\\nThe gross margin decrease was also impacted by a $4.5 billion charge associated with H20 excess inventory and purchase obligations.\\nOperating expenses for fiscal year 2026 were up 41% from a year ago, driven by higher compensation and benefits expenses due to employee growth and\\ncompute and infrastructure costs.\\n37\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37\", \"text_available\": true}"
+  },
+  {
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "type": "function",
+        "id": "call_GsgXTZCP4pyoakX3tagtHhbB",
+        "function": {
+          "name": "publish_ui_panel",
+          "arguments": "{\"title\": \"NVIDIA 매출\", \"program\": \"revenueRows = [\\n  { year: \\\"FY2024\\\", revenue: \\\"$60.9 billion\\\", revenueNum: 60.922 },\\n  { year: \\\"FY2025\\\", revenue: \\\"$130.5 billion\\\", revenueNum: 130.497 },\\n  { year: \\\"FY2026\\\", revenue: \\\"$215.9 billion\\\", revenueNum: 215.938 },\\n]\\n\\nrevenueTable = Table([\\n  Col(\\\"회계연도\\\", revenueRows.year, \\\"string\\\"),\\n  Col(\\\"매출액\\\", revenueRows.revenue, \\\"string\\\")\\n])\\n\\nrevenueChart = LineChart(\\n  revenueRows.year,\\n  [\\n    Series(\\\"매출 (10억 USD)\\\", revenueRows.revenueNum)\\n  ],\\n  \\\"linear\\\",\\n  \\\"회계연도\\\",\\n  \\\"매출 (10억 USD)\\\",\\n  300\\n)\\n\\nroot = Card([\\n  CardHeader(\\\"NVIDIA FY2024~FY2026 매출 비교\\\", \\\"출처: NVIDIA 10-K, fiscal 2025 PDF 130쪽 · NVIDIA 10-K, fiscal 2026 PDF 37쪽\\\"),\\n  revenueTable,\\n  revenueChart\\n])\", \"destination\": \"canvas\"}"
+        }
+      }
+    ],
+    "content": [
+      {
+        "type": "tool_call",
+        "id": "call_GsgXTZCP4pyoakX3tagtHhbB",
+        "name": "publish_ui_panel",
+        "args": {
+          "title": "NVIDIA 매출",
+          "program": "revenueRows = [\n  { year: \"FY2024\", revenue: \"$60.9 billion\", revenueNum: 60.922 },\n  { year: \"FY2025\", revenue: \"$130.5 billion\", revenueNum: 130.497 },\n  { year: \"FY2026\", revenue: \"$215.9 billion\", revenueNum: 215.938 },\n]\n\nrevenueTable = Table([\n  Col(\"회계연도\", revenueRows.year, \"string\"),\n  Col(\"매출액\", revenueRows.revenue, \"string\")\n])\n\nrevenueChart = LineChart(\n  revenueRows.year,\n  [\n    Series(\"매출 (10억 USD)\", revenueRows.revenueNum)\n  ],\n  \"linear\",\n  \"회계연도\",\n  \"매출 (10억 USD)\",\n  300\n)\n\nroot = Card([\n  CardHeader(\"NVIDIA FY2024~FY2026 매출 비교\", \"출처: NVIDIA 10-K, fiscal 2025 PDF 130쪽 · NVIDIA 10-K, fiscal 2026 PDF 37쪽\"),\n  revenueTable,\n  revenueChart\n])",
+          "destination": "canvas"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "name": "publish_ui_panel",
+    "tool_call_id": "call_GsgXTZCP4pyoakX3tagtHhbB",
+    "content": "{\"success\": false, \"error\": \"Panel evidence validation failed\", \"issues\": [\"The candidate claims NVIDIA revenue for fiscal year 2024 as $60.9 billion, which matches the evidence from the fiscal year 2025 report on page 130: Revenue $60,922 million ($60.922 billion).\", \"The candidate claims NVIDIA revenue for fiscal year 2025 as $130.5 billion, which matches evidence from the fiscal year 2025 report on page 130: Revenue $130,497 million ($130.497 billion).\", \"The candidate claims NVIDIA revenue for fiscal year 2026 as $215.9 billion, which matches evidence from the fiscal year 2026 report on page 37: Revenue $215,938 million ($215.938 billion).\"], \"instruction\": \"Read sources and correct unsupported claims, or explicitly label hypothetical assumptions. Existing panel is unchanged.\"}"
+  },
+  {
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "type": "function",
+        "id": "call_I2Uq0VmfhFDtWalpoKk3KVT1",
+        "function": {
+          "name": "publish_ui_panel",
+          "arguments": "{\"title\": \"NVIDIA 매출\", \"program\": \"root = Card([\\n  CardHeader(\\\"NVIDIA FY2024~FY2026 매출 비교\\\", \\\"출처: NVIDIA Annual Report, fiscal 2025 PDF 130쪽 · NVIDIA 10-K, fiscal 2026 PDF 37쪽\\\"),\\n  Table([\\n    Col(\\\"회계연도\\\", [\\\"FY2024\\\", \\\"FY2025\\\", \\\"FY2026\\\"]),\\n    Col(\\\"매출액\\\", [\\\"$60.9 billion (p. 130)\\\", \\\"$130.5 billion (p. 130)\\\", \\\"$215.9 billion (p. 37)\\\"])\\n  ]),\\n  LineChart(\\n    [\\\"FY2024\\\", \\\"FY2025\\\", \\\"FY2026\\\"],\\n    [Series(\\\"매출 (10억 USD)\\\", [60.922, 130.497, 215.938])],\\n    \\\"linear\\\",\\n    \\\"회계연도\\\",\\n    \\\"매출 (10억 USD)\\\",\\n    300\\n  )\\n])\", \"destination\": \"canvas\"}"
+        }
+      }
+    ],
+    "content": [
+      {
+        "type": "text",
+        "text": "root = Card([\n  CardHeader(\"NVIDIA FY2024~FY2026 매출 비교\", \"출처: NVIDIA Annual Report, fiscal 2025 PDF 130쪽 · NVIDIA 10-K, fiscal 2026 PDF 37쪽\"),\n  Table([\n    Col(\"회계연도\", [\"FY2024\", \"FY2025\", \"FY2026\"]),\n    Col(\"매출액\", [\"$60.9 billion (p. 130)\", \"$130.5 billion (p. 130)\", \"$215.9 billion (p. 37)\"])\n  ]),\n  LineChart(\n    [\"FY2024\", \"FY2025\", \"FY2026\"],\n    [Series(\"매출 (10억 USD)\", [60.922, 130.497, 215.938])],\n    \"linear\",\n    \"회계연도\",\n    \"매출 (10억 USD)\",\n    300\n  )\n])"
+      },
+      {
+        "type": "tool_call",
+        "id": "call_I2Uq0VmfhFDtWalpoKk3KVT1",
+        "name": "publish_ui_panel",
+        "args": {
+          "title": "NVIDIA 매출",
+          "program": "root = Card([\n  CardHeader(\"NVIDIA FY2024~FY2026 매출 비교\", \"출처: NVIDIA Annual Report, fiscal 2025 PDF 130쪽 · NVIDIA 10-K, fiscal 2026 PDF 37쪽\"),\n  Table([\n    Col(\"회계연도\", [\"FY2024\", \"FY2025\", \"FY2026\"]),\n    Col(\"매출액\", [\"$60.9 billion (p. 130)\", \"$130.5 billion (p. 130)\", \"$215.9 billion (p. 37)\"])\n  ]),\n  LineChart(\n    [\"FY2024\", \"FY2025\", \"FY2026\"],\n    [Series(\"매출 (10억 USD)\", [60.922, 130.497, 215.938])],\n    \"linear\",\n    \"회계연도\",\n    \"매출 (10억 USD)\",\n    300\n  )\n])",
+          "destination": "canvas"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "name": "publish_ui_panel",
+    "tool_call_id": "call_I2Uq0VmfhFDtWalpoKk3KVT1",
+    "content": "{\"success\": true, \"panel_id\": \"f6381f39-9c16-41be-9ef7-52aa25a3b685\", \"revision\": 1, \"artifact_id\": null}"
+  },
+  {
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "type": "function",
+        "id": "call_4E5ZdKZMAVahnWiKCErtpEV6",
+        "function": {
+          "name": "pin_canvas_panel",
+          "arguments": "{\"panel_id\": \"f6381f39-9c16-41be-9ef7-52aa25a3b685\", \"pinned\": true}"
+        }
+      }
+    ],
+    "content": [
+      {
+        "type": "text",
+        "text": "root = Card([\n  CardHeader(\"NVIDIA FY2024~FY2026 매출 비교\", \"출처: NVIDIA Annual Report, fiscal 2025 PDF 130쪽 · NVIDIA 10-K, fiscal 2026 PDF 37쪽\"),\n  Table([\n    Col(\"회계연도\", [\"FY2024\", \"FY2025\", \"FY2026\"]),\n    Col(\"매출액\", [\"$60.9 billion (p. 130)\", \"$130.5 billion (p. 130)\", \"$215.9 billion (p. 37)\"])\n  ]),\n  LineChart(\n    [\"FY2024\", \"FY2025\", \"FY2026\"],\n    [Series(\"매출 (10억 USD)\", [60.922, 130.497, 215.938])],\n    \"linear\",\n    \"회계연도\",\n    \"매출 (10억 USD)\",\n    300\n  )\n])"
+      },
+      {
+        "type": "tool_call",
+        "id": "call_4E5ZdKZMAVahnWiKCErtpEV6",
+        "name": "pin_canvas_panel",
+        "args": {
+          "panel_id": "f6381f39-9c16-41be-9ef7-52aa25a3b685",
+          "pinned": true
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "name": "pin_canvas_panel",
+    "tool_call_id": "call_4E5ZdKZMAVahnWiKCErtpEV6",
+    "content": "{\"success\": true, \"panel_id\": \"f6381f39-9c16-41be-9ef7-52aa25a3b685\", \"revision\": 2}"
+  },
+  {
+    "role": "assistant",
+    "content": "root = Card([\n  CardHeader(\"NVIDIA FY2024~FY2026 매출 비교\", \"출처: NVIDIA Annual Report, fiscal 2025 PDF 130쪽 · NVIDIA 10-K, fiscal 2026 PDF 37쪽\"),\n  Table([\n    Col(\"회계연도\", [\"FY2024\", \"FY2025\", \"FY2026\"]),\n    Col(\"매출액\", [\"$60.9 billion (p. 130)\", \"$130.5 billion (p. 130)\", \"$215.9 billion (p. 37)\"])\n  ]),\n  LineChart(\n    [\"FY2024\", \"FY2025\", \"FY2026\"],\n    [Series(\"매출 (10억 USD)\", [60.922, 130.497, 215.938])],\n    \"linear\",\n    \"회계연도\",\n    \"매출 (10억 USD)\",\n    300\n  )\n])"
+  },
+  {
+    "role": "assistant",
+    "content": "root = Card([Callout(\"info\", \"확인한 원문 범위\", \"이번 요청에서 확인한 원문: NVIDIA Annual Report, fiscal 2025 (includes 10-K) · 130페이지; NVIDIA 10-K, fiscal 2026 · 37페이지. 위 목록은 이번 요청에서 직접 읽은 범위입니다. 이전 대화의 검색 구절과는 구분되며, 전체 보고서와 모든 주석을 검토했다는 뜻은 아닙니다.\")], [{\"title\": \"NVIDIA Annual Report, fiscal 2025 (includes 10-K) · 130페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 37페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37\"}])"
+  },
+  {
+    "role": "user",
+    "content": "현재 NVIDIA 매출 패널에서 전년 대비 성장률이 가장 높았던 해와 이유를 원문 근거로 설명해줘. 패널 내용과 배치는 변경하지 마."
+  },
+  {
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "type": "function",
+        "id": "call_7uEZsnHqGZ70LDvmVd4xkNlv",
+        "function": {
+          "name": "read_document_page",
+          "arguments": "{\"document_id\": \"nvidia-2025\", \"page\": 130}"
+        }
+      }
+    ],
+    "content": [
+      {
+        "type": "tool_call",
+        "id": "call_7uEZsnHqGZ70LDvmVd4xkNlv",
+        "name": "read_document_page",
+        "args": {
+          "document_id": "nvidia-2025",
+          "page": 130
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "name": "read_document_page",
+    "tool_call_id": "call_7uEZsnHqGZ70LDvmVd4xkNlv",
+    "content": "{\"document_id\": \"nvidia-2025\", \"document\": \"NVIDIA Annual Report, fiscal 2025 (includes 10-K)\", \"period\": \"Fiscal year ended January 26, 2025\", \"page\": 130, \"total_pages\": 181, \"text\": \"Israel and Regional Conflicts\\nWe are monitoring the impact of the geopolitical conflict in and around Israel on our operations, including the health and \\nsafety of our approximately 4,700 employees in the region who primarily support the research and development, \\noperations, and sales and marketing of our networking products. Our global supply chain for our networking products has \\nnot experienced any significant impact. Some of our employees in the region have been on active military duty for an \\nextended period and may continue to be absent, which may cause disruption to our product development or operations. \\nWe have not experienced significant impact or expense to our business; however, if the conflict is further extended or \\nexpanded, it could impact future product development, operations, and revenue or create other uncertainty for our \\nbusiness.\\nFiscal Year 2025 Summary\\n  Year Ended\\n  Jan 26, 2025 Jan 28, 2024 Change\\n($ in millions, except per share data)\\nRevenue $ 130,497 $ 60,922 Up 114%\\nGross margin  75.0 %  72.7 % Up 2.3 pts\\nOperating expenses $ 16,405 $ 11,329 Up 45%\\nOperating income $ 81,453 $ 32,972 Up 147%\\nNet income $ 72,880 $ 29,760 Up 145%\\nNet income per diluted share $ 2.94 $ 1.19 Up 147%\\nWe specialize in markets where our computing platforms can provide tremendous acceleration for applications. These \\nplatforms incorporate processors, interconnects, software, algorithms, systems, and services to deliver unique value. Our \\nplatforms address four large markets where our expertise is critical: Data Center, Gaming, Professional Visualization, and \\nAutomotive.\\nRevenue for fiscal year 2025 was $130.5 billion, up 114% from a year ago.\\nData Center revenue for fiscal year 2025 was up 142% from a year ago. The strong year-on-year growth was driven by \\ndemand for our Hopper architecture accelerated computing platform used for large language models, recommendation \\nengines, and generative AI applications. We began shipping production systems of the Blackwell architecture in the \\nfourth quarter of fiscal year 2025.\\nGaming revenue for fiscal year 2025 was up 9% from a year ago, driven by sales of our GeForce RTX 40 Series GPUs. \\nProfessional Visualization revenue for fiscal year 2025 was up 21% from a year ago, driven by the continued ramp of Ada \\nRTX GPU workstations for use cases such as generative AI-powered design, simulation, and engineering.\\nAutomotive revenue for fiscal year 2025 was up 55% from a year ago, driven by sales of our self-driving platforms.\\nGross margin increased in fiscal year 2025 driven by a higher mix of Data Center revenue. \\nOperating expenses for fiscal year 2025 were up 45% from a year ago, driven by higher compensation and benefits \\nexpenses due to employee growth and compensation increases, and engineering development, compute and \\ninfrastructure costs for new product introductions. \\nCritical Accounting Estimates\\nOur consolidated financial statements are prepared in accordance with accounting principles generally accepted in the \\nUnited States, or U.S. GAAP. The preparation of these financial statements requires us to make estimates and judgments \\nthat affect the reported amounts of assets, liabilities, revenue, cost of revenue, expenses and related disclosure of \\ncontingencies. Critical accounting estimates are those estimates that involve a significant level of estimation uncertainty \\nand could have a material impact on our financial condition or results of operations. We have critical accounting \\nestimates in the areas of inventories, income taxes, and revenue recognition. Refer to Note 1  of the Notes to the \\nConsolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for a summary of significant \\naccounting policies.\\nInventories\\nWe charge cost of sales for inventory provisions to write-down our inventory to the lower of cost or net realizable value or \\nfor obsolete or excess inventory, and for excess product purchase commitments. Most of our inventory provisions relate \\nto excess quantities of products or components, based on our inventory levels and future product purchase \\n38\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\", \"text_available\": true}"
+  },
+  {
+    "role": "assistant",
+    "content": "root = Card([\n  CardHeader(\"NVIDIA 전년 대비 매출 성장률 최고 연도 및 이유\", \"출처: NVIDIA Annual Report, fiscal 2025 PDF 130쪽\"),\n  TextContent(\"NVIDIA의 전년 대비 매출 성장률이 가장 높았던 해는 FY2025로, 매출이 114% 증가한 해입니다. (FY2024: $60.9 billion → FY2025: $130.5 billion)\", \"default\"),\n  TextContent(\"그 이유는 Data Center 매출이 142% 증가했기 때문인데, 이는 대용량 언어 모델, 추천 엔진, 생성 AI 애플리케이션에 사용되는 Hopper 아키텍처 가속 컴퓨팅 플랫폼에 대한 수요 증가에서 비롯되었습니다. 또한 FY2025 4분기에 Blackwell 아키텍처 기반 생산 시스템 출하가 시작된 점도 긍정적 영향을 미쳤습니다.\", \"default\"),\n  TextContent(\"Gaming, Professional Visualization, Automotive 부문 매출도 각각 9%, 21%, 55% 증가하며 총 성장에 기여했습니다.\", \"default\"),\n  TextContent(\"원문 발췌: \\\"Revenue for fiscal year 2025 was $130.5 billion, up 114% from a year ago. Data Center revenue for fiscal year 2025 was up 142% from a year ago. The strong year-on-year growth was driven by demand for our Hopper architecture accelerated computing platform... We began shipping production systems of the Blackwell architecture in the fourth quarter of fiscal year 2025.\\\"\", \"small-heavy\")\n])"
+  },
+  {
+    "role": "assistant",
+    "content": "root = Card([Callout(\"info\", \"확인한 원문 범위\", \"이번 요청에서 확인한 원문: NVIDIA Annual Report, fiscal 2025 (includes 10-K) · 130페이지. 위 목록은 이번 요청에서 직접 읽은 범위입니다. 이전 대화의 검색 구절과는 구분되며, 전체 보고서와 모든 주석을 검토했다는 뜻은 아닙니다.\")], [{\"title\": \"NVIDIA Annual Report, fiscal 2025 (includes 10-K) · 130페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"}])"
+  }
+]

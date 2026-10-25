@@ -1,0 +1,586 @@
+[
+  {
+    "type": "RUN_STARTED",
+    "threadId": "5d775bd8-e745-48f1-b83c-16271b676278",
+    "runId": "0c6982e3-daf6-4f88-a7ce-a9a9837568ea"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 2,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "06614960-164e-4f98-9b2d-e5ed246d1eae",
+            "title": "NVIDIA 매출",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nchart = LineChart(labels, [series], \"linear\", \"회계연도\", \"매출 (백만 달러)\")\nlabels = [\"FY 2025\", \"FY 2026\"]\nseries = Series(\"매출\", [130497, 215938])\nsources = [{\"title\": \"“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”\", \"sourceName\": \"NVIDIA 10-K, fiscal 2026 and 2025\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78\"}, {\"title\": \"“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18\"}]}",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”",
+                "sourceName": "NVIDIA 10-K, fiscal 2026 and 2025",
+                "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78"
+              },
+              {
+                "title": "“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”",
+                "sourceName": "NVIDIA Annual Report, fiscal 2025",
+                "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18"
+              }
+            ]
+          }
+        ],
+        "artifacts": [
+          {
+            "id": "230d4b98-b163-40a1-bd67-679617375d18",
+            "title": "NVIDIA 매출",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nchart = LineChart(labels, [series], \"linear\", \"회계연도\", \"매출 (백만 달러)\")\nlabels = [\"FY 2025\", \"FY 2026\"]\nseries = Series(\"매출\", [130497, 215938])\nsources = [{\"title\": \"“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”\", \"sourceName\": \"NVIDIA 10-K, fiscal 2026 and 2025\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78\"}, {\"title\": \"“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18\"}]",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”",
+                "sourceName": "NVIDIA 10-K, fiscal 2026 and 2025",
+                "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78"
+              },
+              {
+                "title": "“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”",
+                "sourceName": "NVIDIA Annual Report, fiscal 2025",
+                "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18"
+              }
+            ]
+          }
+        ],
+        "selected_panel_id": "06614960-164e-4f98-9b2d-e5ed246d1eae",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "toolCallName": "pin_canvas_panel"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "{\"panel_id\":\"06614960"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "-164"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "e-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "4f"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "98-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "9b"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "2d"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "-e5"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "ed246"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "d1"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "eae"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "\",\"p"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "inned\":"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "delta": "true}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "toolCallId": "call_9jPitAsb3wwtjTXcmE3eeJmp",
+    "content": "{\"success\": true, \"panel_id\": \"06614960-164e-4f98-9b2d-e5ed246d1eae\", \"revision\": 3}",
+    "role": "tool"
+  },
+  {
+    "type": "STATE_DELTA",
+    "delta": [
+      {
+        "op": "replace",
+        "path": "/dashboard",
+        "value": {
+          "revision": 3,
+          "tabs": [
+            {
+              "id": "main",
+              "title": "Overview"
+            }
+          ],
+          "active_tab_id": "main",
+          "panels": [
+            {
+              "id": "06614960-164e-4f98-9b2d-e5ed246d1eae",
+              "title": "NVIDIA 매출",
+              "kind": "openui",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": true,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nchart = LineChart(labels, [series], \"linear\", \"회계연도\", \"매출 (백만 달러)\")\nlabels = [\"FY 2025\", \"FY 2026\"]\nseries = Series(\"매출\", [130497, 215938])\nsources = [{\"title\": \"“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”\", \"sourceName\": \"NVIDIA 10-K, fiscal 2026 and 2025\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78\"}, {\"title\": \"“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18\"}]}",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {},
+              "data": {},
+              "sources": [
+                {
+                  "title": "“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”",
+                  "sourceName": "NVIDIA 10-K, fiscal 2026 and 2025",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78"
+                },
+                {
+                  "title": "“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”",
+                  "sourceName": "NVIDIA Annual Report, fiscal 2025",
+                  "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18"
+                }
+              ]
+            }
+          ],
+          "artifacts": [
+            {
+              "id": "230d4b98-b163-40a1-bd67-679617375d18",
+              "title": "NVIDIA 매출",
+              "kind": "openui",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": false,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nchart = LineChart(labels, [series], \"linear\", \"회계연도\", \"매출 (백만 달러)\")\nlabels = [\"FY 2025\", \"FY 2026\"]\nseries = Series(\"매출\", [130497, 215938])\nsources = [{\"title\": \"“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”\", \"sourceName\": \"NVIDIA 10-K, fiscal 2026 and 2025\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78\"}, {\"title\": \"“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18\"}]",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {},
+              "data": {},
+              "sources": [
+                {
+                  "title": "“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”",
+                  "sourceName": "NVIDIA 10-K, fiscal 2026 and 2025",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78"
+                },
+                {
+                  "title": "“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”",
+                  "sourceName": "NVIDIA Annual Report, fiscal 2025",
+                  "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18"
+                }
+              ]
+            }
+          ],
+          "selected_panel_id": "06614960-164e-4f98-9b2d-e5ed246d1eae",
+          "export_request": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "toolCallName": "modify_dashboard"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "{\"action\":\"select\",\"panel"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "_id\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "066149"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "60-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "164e"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "-4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "f98"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "-9"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "b2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "d-e"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "5ed"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "246d"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "1e"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "delta": "ae\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "toolCallId": "call_ZgeOAhGFjedOBtYcWqNyDyzf",
+    "content": "{\"success\": true, \"panel_id\": \"06614960-164e-4f98-9b2d-e5ed246d1eae\", \"revision\": 4}",
+    "role": "tool"
+  },
+  {
+    "type": "STATE_DELTA",
+    "delta": [
+      {
+        "op": "replace",
+        "path": "/dashboard",
+        "value": {
+          "revision": 4,
+          "tabs": [
+            {
+              "id": "main",
+              "title": "Overview"
+            }
+          ],
+          "active_tab_id": "main",
+          "panels": [
+            {
+              "id": "06614960-164e-4f98-9b2d-e5ed246d1eae",
+              "title": "NVIDIA 매출",
+              "kind": "openui",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": true,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nchart = LineChart(labels, [series], \"linear\", \"회계연도\", \"매출 (백만 달러)\")\nlabels = [\"FY 2025\", \"FY 2026\"]\nseries = Series(\"매출\", [130497, 215938])\nsources = [{\"title\": \"“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”\", \"sourceName\": \"NVIDIA 10-K, fiscal 2026 and 2025\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78\"}, {\"title\": \"“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18\"}]}",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {},
+              "data": {},
+              "sources": [
+                {
+                  "title": "“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”",
+                  "sourceName": "NVIDIA 10-K, fiscal 2026 and 2025",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78"
+                },
+                {
+                  "title": "“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”",
+                  "sourceName": "NVIDIA Annual Report, fiscal 2025",
+                  "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18"
+                }
+              ]
+            }
+          ],
+          "artifacts": [
+            {
+              "id": "230d4b98-b163-40a1-bd67-679617375d18",
+              "title": "NVIDIA 매출",
+              "kind": "openui",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": false,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nchart = LineChart(labels, [series], \"linear\", \"회계연도\", \"매출 (백만 달러)\")\nlabels = [\"FY 2025\", \"FY 2026\"]\nseries = Series(\"매출\", [130497, 215938])\nsources = [{\"title\": \"“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”\", \"sourceName\": \"NVIDIA 10-K, fiscal 2026 and 2025\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78\"}, {\"title\": \"“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18\"}]",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {},
+              "data": {},
+              "sources": [
+                {
+                  "title": "“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”",
+                  "sourceName": "NVIDIA 10-K, fiscal 2026 and 2025",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78"
+                },
+                {
+                  "title": "“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”",
+                  "sourceName": "NVIDIA Annual Report, fiscal 2025",
+                  "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18"
+                }
+              ]
+            }
+          ],
+          "selected_panel_id": "06614960-164e-4f98-9b2d-e5ed246d1eae",
+          "export_request": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "10c25a5a-3fec-4b7a-a95f-43dcd98ad260",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "10c25a5a-3fec-4b7a-a95f-43dcd98ad260",
+    "delta": "root = Card([btn])\nbtn = Buttons([button], \"row\")\nbutton = Button(\"NVIDIA 매출 패널로 이동\", @ToAssistant(\"NVIDIA 매출 패널로 이동\"))"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "10c25a5a-3fec-4b7a-a95f-43dcd98ad260"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 4,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "06614960-164e-4f98-9b2d-e5ed246d1eae",
+            "title": "NVIDIA 매출",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": true,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nchart = LineChart(labels, [series], \"linear\", \"회계연도\", \"매출 (백만 달러)\")\nlabels = [\"FY 2025\", \"FY 2026\"]\nseries = Series(\"매출\", [130497, 215938])\nsources = [{\"title\": \"“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”\", \"sourceName\": \"NVIDIA 10-K, fiscal 2026 and 2025\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78\"}, {\"title\": \"“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18\"}]}",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”",
+                "sourceName": "NVIDIA 10-K, fiscal 2026 and 2025",
+                "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78"
+              },
+              {
+                "title": "“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”",
+                "sourceName": "NVIDIA Annual Report, fiscal 2025",
+                "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18"
+              }
+            ]
+          }
+        ],
+        "artifacts": [
+          {
+            "id": "230d4b98-b163-40a1-bd67-679617375d18",
+            "title": "NVIDIA 매출",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nchart = LineChart(labels, [series], \"linear\", \"회계연도\", \"매출 (백만 달러)\")\nlabels = [\"FY 2025\", \"FY 2026\"]\nseries = Series(\"매출\", [130497, 215938])\nsources = [{\"title\": \"“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”\", \"sourceName\": \"NVIDIA 10-K, fiscal 2026 and 2025\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78\"}, {\"title\": \"“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18\"}]",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”",
+                "sourceName": "NVIDIA 10-K, fiscal 2026 and 2025",
+                "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78"
+              },
+              {
+                "title": "“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”",
+                "sourceName": "NVIDIA Annual Report, fiscal 2025",
+                "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18"
+              }
+            ]
+          }
+        ],
+        "selected_panel_id": "06614960-164e-4f98-9b2d-e5ed246d1eae",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "RUN_FINISHED",
+    "threadId": "5d775bd8-e745-48f1-b83c-16271b676278",
+    "runId": "0c6982e3-daf6-4f88-a7ce-a9a9837568ea"
+  }
+]

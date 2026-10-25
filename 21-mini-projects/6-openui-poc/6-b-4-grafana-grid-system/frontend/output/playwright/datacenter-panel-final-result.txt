@@ -1,0 +1,13 @@
+### Ran Playwright code
+```js
+await (async page => { const url="http://127.0.0.1:3049/api/dashboard/state/5cff361a-f605-4d80-959f-e14cf102255c"; const s=await (await page.request.get(url)).json(); if(s.panels.length!==2) throw Error("Unexpected panel count"); const p=s.panels.find(p=>p.id==="e6e73e13-1d47-4674-a370-e3ee368021ab"); if(JSON.stringify(p.layout)!==JSON.stringify({x:0,y:0,w:12,h:12})) throw Error("Layout changed"); const old=s.panels.find(p=>p.id==="ab08b739-1255-4512-b815-3e57a2fbdcad"); const artifact=s.artifacts.find(a=>a.id===old.source_artifact_id); if(old.program!==artifact.program||old.title!=="반도체 비교 요약") throw Error("Original changed"); await page.getByRole("button",{name:"Canvas",exact:true}).click(); const panel=page.locator("[data-panel-id=\""+p.id+"\"]"); for(const value of ["215,938","34,639","193,737","16,635"]) await panel.getByRole("cell",{name:value,exact:true}).waitFor(); await page.reload(); await panel.getByRole("cell",{name:"193,737",exact:true}).waitFor(); await page.screenshot({path:"output/playwright/datacenter-panel-final.png"}); })(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+### Events
+- New console entries: .playwright-cli/console-2026-10-24T19-56-02-499Z.log#L32-L35

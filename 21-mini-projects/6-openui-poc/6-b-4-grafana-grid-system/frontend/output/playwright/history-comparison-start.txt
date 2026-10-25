@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("button",{name:"＋ 새 분석",exact:true}).click(); await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("준비된 NVIDIA 보고서 두 개(nvidia FY2026, nvidia-2025 FY2025)만 사용해 비교해줘. 각각 원문의 연간 실적 요약을 읽고 FY2025와 FY2026 매출과 전년 대비 증가율을 비교해. 특히 두 보고서에서 매출 증가 이유가 어떻게 달라졌는지 근거 페이지와 함께 설명해줘. SEC API는 호출하지 말고, 확인한 두 해의 매출 차트를 Canvas에 하나 만들어줘. 제목은 NVIDIA 연도별 매출로 해줘. 보고서에 없는 수치는 채우지 마."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

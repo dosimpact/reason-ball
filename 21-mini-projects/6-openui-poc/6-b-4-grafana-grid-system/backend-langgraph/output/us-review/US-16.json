@@ -1,0 +1,64 @@
+{
+  "scenario": "US-16",
+  "title": "자료 부족과 회복",
+  "thread_id": "91765b16-e509-4a7c-a35a-b92e5186bf39",
+  "turns": [
+    {
+      "number": 1,
+      "question": "준비된 실제 PDF nvidia(FY2026), nvidia-2025(FY2025), amd, intel만 사용하고 SEC 네트워크 호출은 하지 마. 출처와 회계기간·단위를 명시하고 근거 없는 수치는 만들지 마. 현재 준비된 PDF만으로 NVIDIA FY2010 매출을 확인할 수 있는지 점검해줘. 확보하지 못한 연도는 자료 부족으로 안내하고 추정값을 만들지 마. 추가 다운로드는 하지 마.",
+      "finished": true,
+      "errors": [],
+      "panels": 0,
+      "diagnostics": {
+        "plan": {
+          "remove_tab_contents_confirmed": false,
+          "minimum_new_panels": 1,
+          "clarification": "",
+          "source_read": "none",
+          "operations": [
+            "add"
+          ],
+          "instruction": "Add a panel to check availability of NVIDIA FY2010 sales data from prepared PDF documents for FY2026, FY2025, AMD, and Intel without network calls.",
+          "targets": []
+        },
+        "completed": [],
+        "missing": [
+          "add",
+          "add 1 more distinct new panels; do not recreate successful ones"
+        ],
+        "status": "finished"
+      }
+    },
+    {
+      "number": 2,
+      "question": "그럼 확보된 FY2025와 FY2026으로 범위를 바꿔서 실제 매출 비교 표를 보여줘. 원문을 읽고 출처를 표시해줘.",
+      "finished": true,
+      "errors": [],
+      "panels": 0,
+      "diagnostics": {
+        "plan": {
+          "remove_tab_contents_confirmed": false,
+          "minimum_new_panels": 1,
+          "clarification": "",
+          "source_read": "overview",
+          "operations": [
+            "add"
+          ],
+          "instruction": "Add a panel showing a sales comparison table for FY2025 and FY2026 with source references based on original report pages.",
+          "targets": []
+        },
+        "completed": [
+          [
+            "artifact_publish",
+            "886923fb-b7de-47f9-abd3-ecc8d6e55a64"
+          ]
+        ],
+        "missing": [
+          "add",
+          "add 1 more distinct new panels; do not recreate successful ones"
+        ],
+        "status": "finished"
+      }
+    }
+  ]
+}

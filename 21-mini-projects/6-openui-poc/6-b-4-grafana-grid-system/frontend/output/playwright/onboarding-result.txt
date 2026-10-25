@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { const v=page.locator(".react-flow__viewport"); const before=await v.getAttribute("style"); await page.getByRole("button",{name:"Zoom In",exact:true}).click(); if(before===await v.getAttribute("style")) throw Error("Zoom unchanged"); await page.screenshot({path:"output/playwright/onboarding-desktop.png"}); await page.setViewportSize({width:390,height:844}); await page.getByRole("button",{name:"Fit View",exact:true}).click(); if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)) throw Error("Page overflow"); await page.screenshot({path:"output/playwright/onboarding-mobile.png"}); })(page);
+```

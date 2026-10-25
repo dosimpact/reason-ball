@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("앞선 요청을 이어서 완료해줘. 페이지를 추측하지 말고 find_document_pages로 두 문서 각각의 Fiscal Year 2025 Summary / Fiscal Year 2026 Summary 문구를 찾아 해당 원문을 읽어줘. 매출과 증가 이유를 비교하고 NVIDIA 연도별 매출 패널 하나를 저장해줘."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

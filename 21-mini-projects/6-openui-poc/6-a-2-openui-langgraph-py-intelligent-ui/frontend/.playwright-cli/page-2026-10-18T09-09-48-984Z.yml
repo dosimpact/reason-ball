@@ -1,0 +1,32 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e7]:
+          - img "Intelligent UI · Python" [ref=e8]
+          - button "Expand sidebar"
+        - generic [ref=e9]:
+          - button "New chat" [ref=e10] [cursor=pointer]:
+            - generic: New Chat
+          - button "Chat history" [ref=e15] [cursor=pointer]
+      - button "Switch to dark theme" [ref=e20] [cursor=pointer]
+    - generic [ref=e26]:
+      - banner [ref=e27]
+      - generic [ref=e30]:
+        - heading "What can I help with?" [level=2] [ref=e34]
+        - generic [ref=e35]:
+          - generic [ref=e38]:
+            - textbox "Ask anything..." [ref=e39]
+            - button "Send" [disabled] [ref=e41]
+          - generic [ref=e46]:
+            - button "Plan a day out" [ref=e47] [cursor=pointer]
+            - button "Explore a city" [ref=e54] [cursor=pointer]
+            - button "Find weekend ideas" [ref=e60] [cursor=pointer]
+            - button "Plan a meal" [ref=e69] [cursor=pointer]
+            - button "Build a calculator" [ref=e77] [cursor=pointer]
+            - button "Play on a Game Boy" [ref=e82] [cursor=pointer]
+            - button "Jam on a drum pad" [ref=e87] [cursor=pointer]
+            - button "Take a trivia quiz" [ref=e95] [cursor=pointer]
+    - generic [aria-hidden]:
+      - status
+  - alert [ref=e106]

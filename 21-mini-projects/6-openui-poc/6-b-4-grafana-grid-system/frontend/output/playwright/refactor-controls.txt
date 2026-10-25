@@ -1,0 +1,14 @@
+### Ran Playwright code
+```js
+await (async page => { await page.reload(); const splitter=page.getByRole("separator",{name:"대화와 Canvas 너비 조절"}); await splitter.press("Home"); if(await splitter.getAttribute("aria-valuenow")!=="30") throw Error("Home"); await splitter.press("End"); if(await splitter.getAttribute("aria-valuenow")!=="70") throw Error("End"); await splitter.press("Enter"); if(await splitter.getAttribute("aria-valuenow")!=="48") throw Error("reset"); await page.getByRole("button",{name:"Canvas",exact:true}).click(); const canvas=page.getByRole("region",{name:"Canvas dashboard"}); const width=canvas.getByRole("combobox",{name:"보관 메모 너비",exact:true}); const original=await width.inputValue(); const save=async fn=>{const response=page.waitForResponse(r=>r.url().includes("/api/dashboard/state/")&&r.request().method()==="POST"&&r.status()===200);await fn();await response;}; await save(()=>width.selectOption(original==="12"?"13":"12")); await save(()=>width.selectOption(original)); await save(()=>canvas.getByRole("button",{name:"보관 메모 고정",exact:true}).click()); if(!await width.isDisabled()) throw Error("pin width"); await save(()=>canvas.getByRole("button",{name:"보관 메모 고정 해제",exact:true}).click()); await page.reload(); await page.getByRole("button",{name:"Canvas",exact:true}).click(); if(await page.getByRole("region",{name:"Canvas dashboard"}).getByRole("combobox",{name:"보관 메모 너비",exact:true}).inputValue()!==original) throw Error("restore"); })(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+- 3: [Filing Studio · SEC Research](http://127.0.0.1:3049/onboarding)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+### Events
+- New console entries: .playwright-cli/console-2026-10-24T19-56-02-499Z.log#L137-L148

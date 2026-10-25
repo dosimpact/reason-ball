@@ -1,0 +1,21 @@
+[
+  {
+    "case": "requested_subset",
+    "issues": [
+      "The candidate program claims to display revenue for FY2024 and FY2026 only, excluding FY2025 as requested, which is consistent with the user's exclusion of FY2025. The revenue values shown for FY2024 and FY2026 (60,922 million USD and 215,938 million USD respectively) are supported by the evidence from the NVIDIA 10-K fiscal 2026 report page 51 and the NVIDIA Annual Report fiscal 2025 page 144, which provide revenue for these fiscal years with the same amounts. There are no unsupported or misattributed factual or numeric claims related to company, metric, period, or supporting evidence in the candidate's answer."
+    ]
+  },
+  {
+    "case": "wrong_value",
+    "issues": [
+      "The candidate program presents a revenue figure of 999999 million USD for FY2024, which is not supported by the evidence. The evidenced revenue for NVIDIA in FY2024 is $60,922 million as per the fiscal year ended January 28, 2024, from both the fiscal 2025 and fiscal 2026 reports.",
+      "The FY2026 NVIDIA revenue shown as 215,938 million USD is supported by evidence from the fiscal 2026 10-K consolidated statements of income."
+    ]
+  },
+  {
+    "case": "gap_yoy",
+    "issues": [
+      "The candidate's claim of 'Year-over-year growth from FY2024 to FY2026 is 254.4%' is unsupported and incorrect. The evidence shows NVIDIA's revenue was $60,922 million in FY2024 and $215,938 million in FY2026. The growth from $60,922 million to $215,938 million is approximately 254.4% increase over two years, but this is not a year-over-year growth figure as the candidate states, and the user requested to exclude FY2025 data. The candidate also references FY2024 and FY2026 revenues but does not provide any information excluding FY2025 as requested. Additionally, the term 'year-over-year growth from FY2024 to FY2026' is misleading because it spans two years, not one."
+    ]
+  }
+]

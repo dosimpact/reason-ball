@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("SEC 재수집은 그만하고 이미 준비된 NVIDIA PDF로 이어가자. 준비된 문서 목록에 있는 NVIDIA의 37페이지를 읽어서 연간 매출과 성장률을 한 문장으로 알려줘. 앞서 PDF도 없다고 한 설명이 맞았는지도 정정해줘. Canvas나 저장 가능한 카드는 만들지 말고 대화로만 답해줘."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

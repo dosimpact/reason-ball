@@ -1,0 +1,714 @@
+data: {"type": "RUN_STARTED", "threadId": "cc3b5b4a-f4bf-4655-841a-fdd5457a17b7", "runId": "ab13e303-0a25-46b2-8e93-6cde7a44c06b"}
+
+data: {"type": "STATE_SNAPSHOT", "snapshot": {"dashboard": {"revision": 3, "tabs": [{"id": "main", "title": "Overview"}], "active_tab_id": "main", "panels": [{"id": "5b0e6387-d287-466c-9e8b-d5562123d3c0", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, revenueChart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026, January 26, 2025, and January 28, 2024\")\nrevenueChart = LineChart([\"FY2024\", \"FY2025\", \"FY2026\"], [Series(\"Revenue (USD millions)\", [60922, 130497, 215938])], \"linear\", \"Fiscal Year\", \"Revenue (USD millions)\")\nsources = [{\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026, January 26, 2025, and January 28, 2024.\", \"sourceName\":\"NVIDIA 10-K 2026 (p. 51)\", \"url\":\"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\":\"NVIDIA Corporation Fiscal Year 2025 Summary including revenue details for 2024 and 2025, highlighting 114% revenue growth from 2024 to 2025.\", \"sourceName\":\"NVIDIA Annual Report 2025 (p. 130)\", \"url\":\"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"}],\n  destination: \"canvas\",\n  panel_id: \"5b0e6387-d287-466c-9e8b-d5562123d3c0\"\n}", "ui_state": {}, "source_artifact_id": "acec9b8d-0001-4e1d-96b0-cf3236c8d574", "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026, January 26, 2025, and January 28, 2024.", "sourceName": "NVIDIA 10-K 2026 (p. 51)", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation Fiscal Year 2025 Summary including revenue details for 2024 and 2025, highlighting 114% revenue growth from 2024 to 2025.", "sourceName": "NVIDIA Annual Report 2025 (p. 130)", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130"}]}], "artifacts": [{"id": "acec9b8d-0001-4e1d-96b0-cf3236c8d574", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, revenueChart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nrevenueChart = LineChart([\"FY2025\", \"FY2026\"], [Series(\"Revenue (USD millions)\", [130497, 215938])], \"linear\", \"Fiscal Year\", \"Revenue (USD millions)\")\nsources = [{\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026 and January 26, 2025.\", \"sourceName\":\"NVIDIA 10-K 2026 (p. 51)\", \"url\":\"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 26, 2025 and January 28, 2024.\", \"sourceName\":\"NVIDIA Annual Report 2025 (p. 144)\", \"url\":\"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144\"}]\n", "ui_state": {}, "source_artifact_id": null, "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026 and January 26, 2025.", "sourceName": "NVIDIA 10-K 2026 (p. 51)", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 26, 2025 and January 28, 2024.", "sourceName": "NVIDIA Annual Report 2025 (p. 144)", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144"}]}], "selected_panel_id": "5b0e6387-d287-466c-9e8b-d5562123d3c0", "export_request": null}}}
+
+data: {"type": "TOOL_CALL_START", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "toolCallName": "publish_ui_panel"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "{\"title"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\":\"N"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "VIDIA 매"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "출\",\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "panel_id"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\":\"5"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "b0"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "e638"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "7-d"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "287-"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "466c-9e8"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "b-d"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "556212"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "3d"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "3c"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "0\",\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "program\":\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "root ="}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " Card(["}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "header,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " revenueChart"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "], sources"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": ")\\n"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "header ="}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " CardHeader"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "(\\\"N"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "VIDIA 매"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "출\\\","}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " \\\"Fiscal"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " years ended January 25,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "6 and"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " January "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "28,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "4\\\")"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\\n"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "revenue"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "Chart ="}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " LineChart"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "([\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "FY202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "4\\\","}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " \\\"FY"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "2026"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\\\"],"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " [Series"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "(\\\"Revenue"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " (USD"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " millions)\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\", ["}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "60922"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": ", "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "215938"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "])],"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " \\\"linear"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\\\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "Fiscal Year"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\\\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "Revenue ("}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "USD millions"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": ")\\\")"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\\ns"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "ources ="}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " [{\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "title\\\":\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "NVIDIA"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " Corporation Consolid"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "ated Statements of Income"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": ", Fiscal"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " years ended"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " January "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "25,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "6,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " January "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "26,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "5,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " and January"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " 28"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": ", "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "2024"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": ".\\\","}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " \\\"source"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "Name\\\":\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "NVIDIA"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " 10"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "-K "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "2026"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " (p"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": ". "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "51)\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "url\\\":\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "https://"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "investor"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": ".nvidia"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": ".com/files"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "/doc_fin"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "ancials"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "/202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "6/q"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "4/"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "10K"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "-NV"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "DA.pdf"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "#page"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "=51"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\\\"},"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " {\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "title\\\":\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "NVIDIA"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " Corporation Fiscal"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " Year "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "2025"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " Summary including"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " revenue details"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " for "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "2024"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " and "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "2025"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": ", highlighting"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " 114"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "% revenue"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " growth from"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "4 to"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "5.\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "sourceName"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\\\":\\\"N"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "VIDIA Annual"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " Report "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "2025"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " (p"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": ". "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "130)\\\","}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " \\\"url"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\\\":\\\"https"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "://s"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "201.q"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "4cdn"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": ".com/"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "141608"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "511/files"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "/doc_fin"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "ancials"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "/202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "5/"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "annual/N"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "VIDIA-"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "2025"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "-Annual"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "-Report"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": ".pdf#"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "page="}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "130\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "}],\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "n "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " destination:"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " \\\"canvas"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\\\",\\n  panel"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "_id:"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": " \\\"5"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "b0"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "e638"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "7-d"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "287-"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "466c"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "-9"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "e8"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "b-d"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "556212"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "3d"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "3c0\\\"\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "n}"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG", "delta": "\"}"}
+
+data: {"type": "TOOL_CALL_END", "toolCallId": "call_Whn0lxeSw1X8YnNUVAT49zGG"}
+
+data: {"type": "TOOL_CALL_START", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "toolCallName": "publish_ui_panel"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "{\"title"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\":\"N"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "VIDIA 매"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "출\",\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "panel_id"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\":\"5"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "b0"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "e638"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "7-d"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "287-"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "466c"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "-9"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "e8"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "b-d"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "556212"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "3d"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "3c"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "0\",\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "program\":\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "root ="}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " Card([header,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " revenueChart"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "], sources"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": ")\\n"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "header ="}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " CardHeader"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "(\\\"N"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "VIDIA 매"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "출\\\","}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " \\\"Fiscal"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " years ended"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " January "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "25,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "6 and"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " January "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "28,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "4\\\")"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\\n"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "revenue"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "Chart ="}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " LineChart"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "([\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "FY202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "4\\\","}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " \\\"FY"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "2026"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\\\"],"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " [Series"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "(\\\"Revenue"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " (USD"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " millions)\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\", [60922"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": ", "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "215938"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "])], \\\"linear"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\\\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "Fiscal Year"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\\\", \\\"Revenue ("}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "USD millions"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": ")\\\")"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\\ns"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "ources ="}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " [{\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "title\\\":\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "NVIDIA"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " Corporation Consolid"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "ated Statements"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " of Income"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": ", Fiscal"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " years ended"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " January "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "25,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "6,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " January "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "26,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "5,"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " and January"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " 28"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": ", "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "2024"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": ".\\\","}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " \\\"source"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "Name\\\":\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "NVIDIA"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " 10"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "-K "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "2026"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " (p"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": ". "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "51)\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "url\\\":\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "https://"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "investor"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": ".nvidia"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": ".com/files"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "/doc_fin"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "ancials"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "/202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "6/q"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "4/"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "10K"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "-NV"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "DA.pdf"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "#page"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "=51"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\\\"},"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " {\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "title\\\":\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "NVIDIA"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " Corporation Fiscal"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " Year "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "2025"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " Summary including"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " revenue details"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " for "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "2024"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " and "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "2025"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": ", highlighting"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " 114"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "% revenue"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " growth from"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "4 to"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " 202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "5.\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "sourceName"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\\\":\\\"N"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "VIDIA Annual"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " Report "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "2025"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " (p"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": ". "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "130)\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\", \\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "url\\\":\\\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "https://"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "s201"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": ".q4"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "cdn.com"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "/141"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "608511"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "/files/doc"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "_financial"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "s/"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "2025"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "/annual"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "/NVIDIA"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "-202"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "5-"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "Annual-"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "Report.pdf"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "#page"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "=130"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\\\"}"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " ],\\"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "n "}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " destination:"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": " \\\"canvas"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "\\\"\\n"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O", "delta": "}\"}"}
+
+data: {"type": "TOOL_CALL_END", "toolCallId": "call_LaNbG9VRCPRNiPttkOi1Yc1O"}
+
+data: {"type": "TEXT_MESSAGE_START", "messageId": "0b996d31-e5e7-41bf-a74f-d2645965b0fe", "role": "assistant"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "0b996d31-e5e7-41bf-a74f-d2645965b0fe", "delta": "root = Card([Callout(\"warning\", \"분석 결과 저장 미완료\", \"요청한 변경을 모두 저장하지 못했습니다. 이미 적용된 변경은 유지됩니다. 패널 상태를 확인한 뒤 다시 요청해 주세요.\")])"}
+
+data: {"type": "TEXT_MESSAGE_END", "messageId": "0b996d31-e5e7-41bf-a74f-d2645965b0fe"}
+
+data: {"type": "STATE_SNAPSHOT", "snapshot": {"dashboard": {"revision": 3, "tabs": [{"id": "main", "title": "Overview"}], "active_tab_id": "main", "panels": [{"id": "5b0e6387-d287-466c-9e8b-d5562123d3c0", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, revenueChart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026, January 26, 2025, and January 28, 2024\")\nrevenueChart = LineChart([\"FY2024\", \"FY2025\", \"FY2026\"], [Series(\"Revenue (USD millions)\", [60922, 130497, 215938])], \"linear\", \"Fiscal Year\", \"Revenue (USD millions)\")\nsources = [{\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026, January 26, 2025, and January 28, 2024.\", \"sourceName\":\"NVIDIA 10-K 2026 (p. 51)\", \"url\":\"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\":\"NVIDIA Corporation Fiscal Year 2025 Summary including revenue details for 2024 and 2025, highlighting 114% revenue growth from 2024 to 2025.\", \"sourceName\":\"NVIDIA Annual Report 2025 (p. 130)\", \"url\":\"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"}],\n  destination: \"canvas\",\n  panel_id: \"5b0e6387-d287-466c-9e8b-d5562123d3c0\"\n}", "ui_state": {}, "source_artifact_id": "acec9b8d-0001-4e1d-96b0-cf3236c8d574", "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026, January 26, 2025, and January 28, 2024.", "sourceName": "NVIDIA 10-K 2026 (p. 51)", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation Fiscal Year 2025 Summary including revenue details for 2024 and 2025, highlighting 114% revenue growth from 2024 to 2025.", "sourceName": "NVIDIA Annual Report 2025 (p. 130)", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130"}]}], "artifacts": [{"id": "acec9b8d-0001-4e1d-96b0-cf3236c8d574", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, revenueChart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nrevenueChart = LineChart([\"FY2025\", \"FY2026\"], [Series(\"Revenue (USD millions)\", [130497, 215938])], \"linear\", \"Fiscal Year\", \"Revenue (USD millions)\")\nsources = [{\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026 and January 26, 2025.\", \"sourceName\":\"NVIDIA 10-K 2026 (p. 51)\", \"url\":\"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\":\"NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 26, 2025 and January 28, 2024.\", \"sourceName\":\"NVIDIA Annual Report 2025 (p. 144)\", \"url\":\"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144\"}]\n", "ui_state": {}, "source_artifact_id": null, "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 25, 2026 and January 26, 2025.", "sourceName": "NVIDIA 10-K 2026 (p. 51)", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation Consolidated Statements of Income, Fiscal years ended January 26, 2025 and January 28, 2024.", "sourceName": "NVIDIA Annual Report 2025 (p. 144)", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144"}]}], "selected_panel_id": "5b0e6387-d287-466c-9e8b-d5562123d3c0", "export_request": null}}}
+
+data: {"type": "RUN_FINISHED", "threadId": "cc3b5b4a-f4bf-4655-841a-fdd5457a17b7", "runId": "ab13e303-0a25-46b2-8e93-6cde7a44c06b"}
+

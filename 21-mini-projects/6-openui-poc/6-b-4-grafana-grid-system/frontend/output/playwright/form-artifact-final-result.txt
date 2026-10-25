@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("button",{name:"중지",exact:true}).waitFor({state:"hidden",timeout:55000}); const latest=page.locator(".chat-message.role-assistant").last(); if(await latest.getByTestId("chat-artifact").count()!==1) throw Error("Expected artifact wrapper"); if(await latest.getByRole("form").count()!==1) throw Error("Expected one form"); await page.screenshot({path:"output/playwright/form-artifact-final.png"}); })(page);
+```

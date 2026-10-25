@@ -1,0 +1,98 @@
+[
+  {
+    "case": "overview",
+    "request": "nvidia FY2026 보고서의 사업·위험 요인·경영진 설명·재무 핵심을 실제 원문 영역별로 확인해 한국어로 요약해줘.",
+    "plan": {
+      "instruction": "The user requests a summary of specific sections from the Nvidia FY2026 report in Korean, which is a textual analysis and explanation task suitable for chat output.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "original",
+      "operations": [],
+      "minimum_new_panels": 0,
+      "maximum_new_panels": 0,
+      "targets": []
+    },
+    "passed": true
+  },
+  {
+    "case": "chart",
+    "request": "엔비디아의 최근 3년 매출과 성장률을 차트로 보여줘.",
+    "plan": {
+      "instruction": "The user requests a chart showing Nvidia's recent 3-year revenue and growth rate, which is a visualization to be shown in the chat for analysis and explanation.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "overview",
+      "operations": [],
+      "minimum_new_panels": 0,
+      "maximum_new_panels": 0,
+      "targets": []
+    },
+    "passed": true
+  },
+  {
+    "case": "chat_only",
+    "request": "매출은 차트로 보여줘. Canvas에는 추가하지 마.",
+    "plan": {
+      "instruction": "The user explicitly requested to show sales as a chart but not to add it to the Canvas ('Canvas에는 추가하지 마'). Therefore, the output destination should be chat, not canvas or chat_artifact.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [],
+      "minimum_new_panels": 0,
+      "maximum_new_panels": 0,
+      "targets": []
+    },
+    "passed": true
+  },
+  {
+    "case": "reusable",
+    "request": "차트를 대화 안에 Canvas에 추가 가능한 결과로 게시해줘. 지금은 Canvas에는 추가하지 마.",
+    "plan": {
+      "instruction": "The user explicitly requests to post the chart as a result that can be added to the Canvas but not to add it to the Canvas now. This means the output should be a reusable/addable chat output (chat_artifact), not a direct Canvas modification or a simple chat message.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "artifact_publish"
+      ],
+      "minimum_new_panels": 0,
+      "maximum_new_panels": 0,
+      "targets": []
+    },
+    "passed": true
+  },
+  {
+    "case": "canvas",
+    "request": "매출 그래프를 Canvas에 추가해줘.",
+    "plan": {
+      "instruction": "The user requests to add a sales graph panel to the Canvas with the phrase '매출 그래프를 Canvas에 추가해줘.'",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "add"
+      ],
+      "minimum_new_panels": 1,
+      "maximum_new_panels": 1,
+      "targets": []
+    },
+    "passed": true
+  },
+  {
+    "case": "two_panels",
+    "request": "Canvas에 연구 메모와 확인 체크리스트를 각각 하나씩 만들어줘.",
+    "plan": {
+      "instruction": "The user requests to create one research memo and one confirmation checklist on the Canvas. This requires adding two new panels to the 'main' tab.",
+      "remove_tab_contents_confirmed": false,
+      "clarification": "",
+      "source_read": "none",
+      "operations": [
+        "add"
+      ],
+      "minimum_new_panels": 2,
+      "maximum_new_panels": 2,
+      "targets": []
+    },
+    "passed": true
+  }
+]

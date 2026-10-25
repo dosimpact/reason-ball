@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("지금 Select를 사용한 수정 폼을 publish_ui_panel destination=chat으로 새로 등록해줘. root 안에는 반환된 artifact ID의 DashboardArtifact만 표시해줘. 기존 Canvas는 변경하지 마."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

@@ -1,0 +1,128 @@
+- generic [ref=f3e1]:
+  - button "Open Next.js Dev Tools" [ref=f3e65] [cursor=pointer]
+  - alert [ref=f3e69]
+  - generic:
+    - button "Open OpenUI Inspect" [ref=f3e311] [cursor=pointer]
+    - option "LLM-like" [selected]
+    - option "24 chars"
+    - option "Per line"
+    - option "Per char"
+    - option "0.25×"
+    - option "0.5×"
+    - option "1×" [selected]
+    - option "2×"
+    - option "4×"
+    - option "8×"
+  - generic [ref=f3e327]:
+    - banner [ref=f3e328]:
+      - button "대화 목록 토글" [ref=f3e329] [cursor=pointer]: ☰
+      - generic [ref=f3e330]: ◈
+      - strong [ref=f3e331]: Filing Studio
+      - generic [ref=f3e332]: SEC research, in conversation
+      - link "사용 안내 ↗" [ref=f3e333] [cursor=pointer]:
+        - /url: /onboarding
+      - link "UI 갤러리" [ref=f3e334] [cursor=pointer]:
+        - /url: /gallery
+      - button "테마 전환" [ref=f3e335] [cursor=pointer]: ☀
+    - generic [ref=f3e336]:
+      - complementary [ref=f3e337]:
+        - button "＋ 새 분석" [ref=f3e338] [cursor=pointer]
+        - generic [ref=f3e339]: RESEARCH HISTORY
+        - navigation "대화 목록" [ref=f3e340]:
+          - generic [ref=f3e625]:
+            - button "데모 성장률 계산기를 Canvas에 만들어줘. 실제 보고서 수치가 아닌 가정임을 표시하고, 현재값 120과 전년값 100을 각각 수정할 수 있어야 해. YearOverYear 함수" [ref=f3e626] [cursor=pointer]
+            - button "데모 성장률 계산기를 Canvas에 만들어줘. 실제 보고서 수치가 아닌 가정임을 표시하고, 현재값 120과 전년값 100을 각각 수정할 수 있어야 해. YearOverYear 함수 이름 변경" [ref=f3e627] [cursor=pointer]: ⋯
+            - button "데모 성장률 계산기를 Canvas에 만들어줘. 실제 보고서 수치가 아닌 가정임을 표시하고, 현재값 120과 전년값 100을 각각 수정할 수 있어야 해. YearOverYear 함수 대화 삭제" [ref=f3e628] [cursor=pointer]: ×
+          - generic [ref=f3e341]:
+            - button "이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로" [ref=f3e342] [cursor=pointer]
+            - button "이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로 이름 변경" [ref=f3e343] [cursor=pointer]: ⋯
+            - button "이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로 대화 삭제" [ref=f3e344] [cursor=pointer]: ×
+          - generic [ref=f3e345]:
+            - button "반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘." [ref=f3e346] [cursor=pointer]
+            - button "반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘. 이름 변경" [ref=f3e347] [cursor=pointer]: ⋯
+            - button "반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘. 대화 삭제" [ref=f3e348] [cursor=pointer]: ×
+          - generic [ref=f3e349]:
+            - button "리액트 코드 하나 만들어봐" [ref=f3e350] [cursor=pointer]
+            - button "리액트 코드 하나 만들어봐 이름 변경" [ref=f3e351] [cursor=pointer]: ⋯
+            - button "리액트 코드 하나 만들어봐 대화 삭제" [ref=f3e352] [cursor=pointer]: ×
+          - generic [ref=f3e353]:
+            - button "너는 무엇을 할 수 있니?" [ref=f3e354] [cursor=pointer]
+            - button "너는 무엇을 할 수 있니? 이름 변경" [ref=f3e355] [cursor=pointer]: ⋯
+            - button "너는 무엇을 할 수 있니? 대화 삭제" [ref=f3e356] [cursor=pointer]: ×
+          - generic [ref=f3e357]:
+            - button "Break down each company's revenue by reportable segment for the latest fiscal year." [ref=f3e358] [cursor=pointer]
+            - button "Break down each company's revenue by reportable segment for the latest fiscal year. 이름 변경" [ref=f3e359] [cursor=pointer]: ⋯
+            - button "Break down each company's revenue by reportable segment for the latest fiscal year. 대화 삭제" [ref=f3e360] [cursor=pointer]: ×
+          - generic [ref=f3e361]:
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel." [ref=f3e362] [cursor=pointer]
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 이름 변경" [ref=f3e363] [cursor=pointer]: ⋯
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 대화 삭제" [ref=f3e364] [cursor=pointer]: ×
+          - generic [ref=f3e365]:
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel." [ref=f3e366] [cursor=pointer]
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 이름 변경" [ref=f3e367] [cursor=pointer]: ⋯
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 대화 삭제" [ref=f3e368] [cursor=pointer]: ×
+          - generic [ref=f3e369]:
+            - button "문서 비교 · 매출과 R&D (검증 완료)" [ref=f3e370] [cursor=pointer]
+            - button "문서 비교 · 매출과 R&D (검증 완료) 이름 변경" [ref=f3e371] [cursor=pointer]: ⋯
+            - button "문서 비교 · 매출과 R&D (검증 완료) 대화 삭제" [ref=f3e372] [cursor=pointer]: ×
+          - generic [ref=f3e373]:
+            - button "이전 검증 · 검색 지침 보완 전" [ref=f3e374] [cursor=pointer]
+            - button "이전 검증 · 검색 지침 보완 전 이름 변경" [ref=f3e375] [cursor=pointer]: ⋯
+            - button "이전 검증 · 검색 지침 보완 전 대화 삭제" [ref=f3e376] [cursor=pointer]: ×
+          - generic [ref=f3e377]:
+            - button "Compare latest total revenue and revenue growth across NVIDIA, AMD and Intel. Cite pages and include" [ref=f3e378] [cursor=pointer]
+            - button "Compare latest total revenue and revenue growth across NVIDIA, AMD and Intel. Cite pages and include 이름 변경" [ref=f3e379] [cursor=pointer]: ⋯
+            - button "Compare latest total revenue and revenue growth across NVIDIA, AMD and Intel. Cite pages and include 대화 삭제" [ref=f3e380] [cursor=pointer]: ×
+        - generic [ref=f3e381]:
+          - link "보고서 라이브러리 ↗" [ref=f3e382] [cursor=pointer]:
+            - /url: /documents
+          - generic [ref=f3e383]: Source-grounded analysisYour own research workspace
+      - main [ref=f3e384]:
+        - generic [ref=f3e385]:
+          - generic [ref=f3e386]:
+            - text: WORKSPACE
+            - heading "데모 성장률 계산기를 Canvas에 만들어줘. 실제 보고서 수치가 아닌 가정임을 표시하고, 현재값 120과 전년값 100을 각각 수정할 수 있어야 해. YearOverYear 함수" [level=1] [ref=f3e629]
+          - generic [ref=f3e388]:
+            - button "대화" [ref=f3e389] [cursor=pointer]
+            - button "대화 + Canvas" [pressed] [ref=f3e390] [cursor=pointer]
+            - button "Canvas" [ref=f3e391] [cursor=pointer]
+        - generic [ref=f3e392]:
+          - region "Research chat" [ref=f3e393]:
+            - generic [ref=f3e394]:
+              - article [ref=f3e630]:
+                - generic [ref=f3e631]: YOU
+                - paragraph [ref=f3e632]: 데모 성장률 계산기를 Canvas에 만들어줘. 실제 보고서 수치가 아닌 가정임을 표시하고, 현재값 120과 전년값 100을 각각 수정할 수 있어야 해. YearOverYear 함수를 사용해서 성장률을 실시간 표시해줘.
+              - article [ref=f3e633]:
+                - generic [ref=f3e634]: FILING STUDIO
+                - paragraph [ref=f3e635]: "$curValue = 120 $prevValue = 100 $growthRate = @YearOverYear($curValue, $prevValue) growthRateText = $growthRate != null ? @Format($growthRate, \"percent\", 1) : \"N/A\" root = Card([ CardHeader(\"데모 성장률 계산기\", \"가정된 수치 예제입니다\"), Form(\"growth_form\", Buttons([Button(\"리셋\", @Reset($curValue, $prevValue))]), [ FormControl(\"현재 값\", IuiInput($curValue, \"현재 값 입력\", \"number\"), \"수치를 입력하세요\"), FormControl(\"전년 값\", IuiInput($prevValue, \"전년 값 입력\", \"number\"), \"수치를 입력하세요\") ]), TextContent(\"현재 값: \" + $curValue, \"large-heavy\"), TextContent(\"전년 값: \" + $prevValue, \"large-heavy\"), TextContent(\"성장률: \" + growthRateText, \"large-heavy\"), Callout(\"info\", \"주의\", \"이 계산기는 실제 보고서 수치가 아닌 가정된 수치를 사용합니다.\") ])"
+            - generic [ref=f3e513]:
+              - generic [ref=f3e514]: 기업이나 보고서에 대해 질문하세요
+              - textbox "기업이나 보고서에 대해 질문하세요" [active] [ref=f3e515]:
+                - /placeholder: 기업을 찾거나, 보고서를 비교하거나, Canvas를 수정해 보세요…
+              - generic [ref=f3e516]:
+                - generic [ref=f3e517]: Enter 전송 · Shift + Enter 줄바꿈
+                - button "전송 ↑" [disabled] [ref=f3e518]
+          - separator "대화와 Canvas 너비 조절" [ref=f3e519]
+          - region "Canvas dashboard" [ref=f3e636]:
+            - generic [ref=f3e637]:
+              - generic [ref=f3e638]:
+                - text: YOUR RESEARCH SPACE
+                - heading "Canvas 0 panels" [level=2] [ref=f3e639]:
+                  - text: Canvas
+                  - generic [ref=f3e640]: 0 panels
+              - generic [ref=f3e641]:
+                - generic [ref=f3e642] [cursor=pointer]:
+                  - text: 가져오기
+                  - button "Canvas JSON 가져오기" [ref=f3e643]
+                - button "JSON" [ref=f3e644] [cursor=pointer]
+                - button "CSV" [ref=f3e645] [cursor=pointer]
+                - button "PDF / 인쇄" [ref=f3e646] [cursor=pointer]
+            - tablist [ref=f3e647]:
+              - tab "Overview" [selected] [ref=f3e648] [cursor=pointer]
+              - button "Canvas 탭 추가" [ref=f3e649] [cursor=pointer]: ＋
+            - generic [ref=f3e651]:
+              - generic [ref=f3e652]: ▦
+              - heading "생각을 모으는 공간" [level=3] [ref=f3e653]
+              - paragraph [ref=f3e654]: 대화에서 얻은 차트와 요약을 여기에 담으세요.
+              - paragraph [ref=f3e655]: “매출 그래프를 Canvas에 추가해줘”
+              - generic [ref=f3e656]: 드래그 · 크기 조절 · 위치 고정 · 내보내기

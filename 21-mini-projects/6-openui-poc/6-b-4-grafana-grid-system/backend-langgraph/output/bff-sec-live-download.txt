@@ -1,0 +1,23 @@
+
+> @reason-hwang/bff-apps@0.0.0 test:sec-live /Users/dodo/workspace/focus/reason-ball/20-portfolio/1-reason-hwang/2-bff-apps
+> pnpm build && node scripts/verify-sec-database.cjs
+
+
+> @reason-hwang/bff-apps@0.0.0 build /Users/dodo/workspace/focus/reason-ball/20-portfolio/1-reason-hwang/2-bff-apps
+> nest build
+
+[Nest] 52658  - 10/25/2026, 2:19:10 PM    WARN [SecClientService] SEC_USER_AGENT is using the example email. Replace it with a real contact email to avoid SEC request throttling/blocks.
+Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
++   false,
+    true,
+    true,
+    true,
+-   true
+  ]
+
+/Users/dodo/workspace/focus/reason-ball/20-portfolio/1-reason-hwang/2-bff-apps:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @reason-hwang/bff-apps@0.0.0 test:sec-live: `pnpm build && node scripts/verify-sec-database.cjs`
+Exit status 1

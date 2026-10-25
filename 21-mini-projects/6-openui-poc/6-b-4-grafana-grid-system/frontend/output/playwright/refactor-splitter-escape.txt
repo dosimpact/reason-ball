@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page=>{const splitter=page.getByRole("separator",{name:"대화와 Canvas 너비 조절"}); await splitter.press("Enter"); const box=await splitter.boundingBox(); if(!box)throw Error("splitter hidden"); await page.mouse.move(box.x+box.width/2,box.y+50); await page.mouse.down(); await page.mouse.move(box.x+100,box.y+50,{steps:8}); if(await splitter.getAttribute("aria-valuenow")==="48")throw Error("drag did not change width"); await page.keyboard.press("Escape"); await page.mouse.up(); if(await splitter.getAttribute("aria-valuenow")!=="48")throw Error("Escape did not restore width");})(page);
+```

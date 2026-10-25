@@ -1,0 +1,78 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - button "대화 목록 토글" [ref=e4] [cursor=pointer]: ☰
+      - generic [ref=e5]: ◈
+      - strong [ref=e6]: Filing Studio
+      - generic [ref=e7]: SEC research, in conversation
+      - link "사용 안내 ↗" [ref=e8] [cursor=pointer]:
+        - /url: /onboarding
+      - link "UI 갤러리" [ref=e9] [cursor=pointer]:
+        - /url: /gallery
+      - button "테마 전환" [ref=e10] [cursor=pointer]: ☀
+    - generic [ref=e11]:
+      - complementary [ref=e12]:
+        - button "＋ 새 분석" [ref=e13] [cursor=pointer]
+        - generic [ref=e14]: RESEARCH HISTORY
+        - navigation "대화 목록" [ref=e15]
+        - generic [ref=e16]:
+          - link "보고서 라이브러리 ↗" [ref=e17] [cursor=pointer]:
+            - /url: /documents
+          - generic [ref=e18]: Source-grounded analysisYour own research workspace
+      - main [ref=e19]:
+        - generic [ref=e20]:
+          - generic [ref=e21]:
+            - text: WORKSPACE
+            - heading "새로운 관점으로 기업을 읽다" [level=1] [ref=e22]
+          - generic [ref=e23]:
+            - button "대화" [ref=e24] [cursor=pointer]
+            - button "대화 + Canvas" [pressed] [ref=e25] [cursor=pointer]
+            - button "Canvas" [ref=e26] [cursor=pointer]
+        - generic [ref=e27]:
+          - region "Research chat" [ref=e28]:
+            - generic [ref=e30]:
+              - text: FROM FILINGS TO INSIGHT
+              - heading [level=2] [ref=e31]:
+                - text: 질문에서 시작하는
+                - emphasis [ref=e32]: 나만의 리서치.
+              - paragraph [ref=e33]: 사업보고서를 함께 읽고, 비교하고,중요한 발견을 대시보드에 모으세요.
+              - generic [ref=e34]:
+                - button "보고서 찾기 ↗ 엔비디아의 최근 사업보고서를 찾아줘." [ref=e35] [cursor=pointer]:
+                  - strong [ref=e36]: 보고서 찾기 ↗
+                  - generic [ref=e37]: 엔비디아의 최근 사업보고서를 찾아줘.
+                - button "기업 비교 ↗ 준비된 NVIDIA, AMD, Intel 보고서의 주요 사업과 위험 요인을 비교해줘." [ref=e38] [cursor=pointer]:
+                  - strong [ref=e39]: 기업 비교 ↗
+                  - generic [ref=e40]: 준비된 NVIDIA, AMD, Intel 보고서의 주요 사업과 위험 요인을 비교해줘.
+                - button "10년의 흐름 ↗ 엔비디아의 최근 10년 매출과 성장률을 차트로 보여줘." [ref=e41] [cursor=pointer]:
+                  - strong [ref=e42]: 10년의 흐름 ↗
+                  - generic [ref=e43]: 엔비디아의 최근 10년 매출과 성장률을 차트로 보여줘.
+                - button "Canvas 만들기 ↗ 반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘." [ref=e44] [cursor=pointer]:
+                  - strong [ref=e45]: Canvas 만들기 ↗
+                  - generic [ref=e46]: 반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘.
+              - generic [ref=e47]: 보고서의 수치와 해석은 연결된 출처에서 확인하세요.
+            - generic [ref=e48]:
+              - generic [ref=e49]: 기업이나 보고서에 대해 질문하세요
+              - textbox "기업이나 보고서에 대해 질문하세요" [ref=e50]:
+                - /placeholder: 기업을 찾거나, 보고서를 비교하거나, Canvas를 수정해 보세요…
+              - generic [ref=e51]:
+                - generic [ref=e52]: Enter 전송 · Shift + Enter 줄바꿈
+                - button "전송 ↑" [disabled] [ref=e53]
+          - separator "대화와 Canvas 너비 조절" [ref=e54]
+          - generic [ref=e56]:
+            - generic [ref=e57]: ▦
+            - heading "당신의 분석 대시보드" [level=3] [ref=e58]
+            - paragraph [ref=e59]: 대화를 시작하고 원하는 결과를 Canvas에 담으세요.
+  - button "Open Next.js Dev Tools" [ref=e65] [cursor=pointer]
+  - alert [ref=e69]
+  - generic:
+    - button "Open OpenUI Inspect" [ref=e71] [cursor=pointer]
+    - option "LLM-like" [selected]
+    - option "24 chars"
+    - option "Per line"
+    - option "Per char"
+    - option "0.25×"
+    - option "0.5×"
+    - option "1×" [selected]
+    - option "2×"
+    - option "4×"
+    - option "8×"
