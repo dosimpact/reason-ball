@@ -1,0 +1,338 @@
+- generic [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e65] [cursor=pointer]
+  - alert [ref=e69]
+  - generic:
+    - complementary "Deploy your OpenUI app" [ref=e917]:
+      - generic [ref=e918]:
+        - strong [ref=e919]: Ready to share your app?
+        - button "Dismiss deployment hint" [ref=e920] [cursor=pointer]
+      - paragraph [ref=e924]:
+        - text: Deploy from your project folder to your Vercel account.
+        - link "Deployment docs ↗" [ref=e925] [cursor=pointer]:
+          - /url: https://www.openui.com/docs/api-reference/cli?utm_source=openui&utm_medium=referral&utm_campaign=openui_devtools&utm_content=local_deploy_hint#deploy
+      - generic [ref=e926]:
+        - generic [ref=e927]:
+          - code [ref=e928]: npx @openuidev/cli@latest deploy
+          - button "Copy deploy command" [ref=e929] [cursor=pointer]
+        - status
+    - button "Open OpenUI Inspect" [ref=e71] [cursor=pointer]
+    - option "LLM-like" [selected]
+    - option "24 chars"
+    - option "Per line"
+    - option "Per char"
+    - option "0.25×"
+    - option "0.5×"
+    - option "1×" [selected]
+    - option "2×"
+    - option "4×"
+    - option "8×"
+  - generic [ref=e489]:
+    - banner [ref=e490]:
+      - button "대화 목록 토글" [ref=e491] [cursor=pointer]: ☰
+      - generic [ref=e492]: ◈
+      - strong [ref=e493]: Filing Studio
+      - generic [ref=e494]: SEC research, in conversation
+      - link "사용 안내 ↗" [ref=e495] [cursor=pointer]:
+        - /url: /onboarding
+      - link "UI 갤러리" [ref=e496] [cursor=pointer]:
+        - /url: /gallery
+      - button "테마 전환" [ref=e497] [cursor=pointer]: ☀
+    - generic [ref=e498]:
+      - complementary [ref=e499]:
+        - button "＋ 새 분석" [ref=e500] [cursor=pointer]
+        - generic [ref=e501]: RESEARCH HISTORY
+        - navigation "대화 목록" [ref=e502]:
+          - generic [ref=e503]:
+            - button "반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘." [ref=e504] [cursor=pointer]
+            - button "반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘. 이름 변경" [ref=e505] [cursor=pointer]: ⋯
+            - button "반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘. 대화 삭제" [ref=e506] [cursor=pointer]: ×
+          - generic [ref=e507]:
+            - button "리액트 코드 하나 만들어봐" [ref=e508] [cursor=pointer]
+            - button "리액트 코드 하나 만들어봐 이름 변경" [ref=e509] [cursor=pointer]: ⋯
+            - button "리액트 코드 하나 만들어봐 대화 삭제" [ref=e510] [cursor=pointer]: ×
+          - generic [ref=e511]:
+            - button "너는 무엇을 할 수 있니?" [ref=e512] [cursor=pointer]
+            - button "너는 무엇을 할 수 있니? 이름 변경" [ref=e513] [cursor=pointer]: ⋯
+            - button "너는 무엇을 할 수 있니? 대화 삭제" [ref=e514] [cursor=pointer]: ×
+          - generic [ref=e515]:
+            - button "Break down each company's revenue by reportable segment for the latest fiscal year." [ref=e516] [cursor=pointer]
+            - button "Break down each company's revenue by reportable segment for the latest fiscal year. 이름 변경" [ref=e517] [cursor=pointer]: ⋯
+            - button "Break down each company's revenue by reportable segment for the latest fiscal year. 대화 삭제" [ref=e518] [cursor=pointer]: ×
+          - generic [ref=e519]:
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel." [ref=e520] [cursor=pointer]
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 이름 변경" [ref=e521] [cursor=pointer]: ⋯
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 대화 삭제" [ref=e522] [cursor=pointer]: ×
+          - generic [ref=e523]:
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel." [ref=e524] [cursor=pointer]
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 이름 변경" [ref=e525] [cursor=pointer]: ⋯
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 대화 삭제" [ref=e526] [cursor=pointer]: ×
+          - generic [ref=e527]:
+            - button "문서 비교 · 매출과 R&D (검증 완료)" [ref=e528] [cursor=pointer]
+            - button "문서 비교 · 매출과 R&D (검증 완료) 이름 변경" [ref=e529] [cursor=pointer]: ⋯
+            - button "문서 비교 · 매출과 R&D (검증 완료) 대화 삭제" [ref=e530] [cursor=pointer]: ×
+          - generic [ref=e531]:
+            - button "이전 검증 · 검색 지침 보완 전" [ref=e532] [cursor=pointer]
+            - button "이전 검증 · 검색 지침 보완 전 이름 변경" [ref=e533] [cursor=pointer]: ⋯
+            - button "이전 검증 · 검색 지침 보완 전 대화 삭제" [ref=e534] [cursor=pointer]: ×
+          - generic [ref=e535]:
+            - button "Compare latest total revenue and revenue growth across NVIDIA, AMD and Intel. Cite pages and include" [ref=e536] [cursor=pointer]
+            - button "Compare latest total revenue and revenue growth across NVIDIA, AMD and Intel. Cite pages and include 이름 변경" [ref=e537] [cursor=pointer]: ⋯
+            - button "Compare latest total revenue and revenue growth across NVIDIA, AMD and Intel. Cite pages and include 대화 삭제" [ref=e538] [cursor=pointer]: ×
+        - generic [ref=e539]:
+          - link "보고서 라이브러리 ↗" [ref=e540] [cursor=pointer]:
+            - /url: /documents
+          - generic [ref=e541]: Source-grounded analysisYour own research workspace
+      - main [ref=e542]:
+        - generic [ref=e543]:
+          - generic [ref=e544]:
+            - text: WORKSPACE
+            - heading "반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘." [level=1] [ref=e545]
+          - generic [ref=e546]:
+            - button "대화" [ref=e547] [cursor=pointer]
+            - button "대화 + Canvas" [pressed] [ref=e548] [cursor=pointer]
+            - button "Canvas" [ref=e549] [cursor=pointer]
+        - generic [ref=e550]:
+          - region "Research chat" [ref=e551]:
+            - generic [ref=e552]:
+              - article [ref=e553]:
+                - generic [ref=e554]: YOU
+                - paragraph [ref=e555]: 반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘.
+              - article [ref=e556]:
+                - generic [ref=e557]: FILING STUDIO
+                - generic [ref=e560]:
+                  - generic [ref=e561]: 반도체 기업 분석을 위한 체크리스트
+                  - paragraph [ref=e567]: 이 체크리스트는 반도체 기업의 재무, 기술력, 시장 위치 등을 종합적으로 분석할 때 참고할 수 있는 주요 항목들로 구성되어 있습니다.
+                  - generic [ref=e568]:
+                    - generic [ref=e570]:
+                      - generic [ref=e571]: "1"
+                      - generic [ref=e574]:
+                        - generic [ref=e575]: 기업 개요
+                        - generic [ref=e576]: 설립연도, 본사 위치, 시장 상장 정보 등 기본 정보 확인
+                    - generic [ref=e578]:
+                      - generic [ref=e579]: "2"
+                      - generic [ref=e582]:
+                        - generic [ref=e583]: 재무 성과
+                        - generic [ref=e584]: 매출, 영업이익, 순이익, 성장률 분석
+                    - generic [ref=e586]:
+                      - generic [ref=e587]: "3"
+                      - generic [ref=e590]:
+                        - generic [ref=e591]: 연구개발 투자
+                        - generic [ref=e592]: 연구개발비 지출과 투자 비중, 혁신 성과 평가
+                    - generic [ref=e594]:
+                      - generic [ref=e595]: "4"
+                      - generic [ref=e598]:
+                        - generic [ref=e599]: 생산 능력
+                        - generic [ref=e600]: 시설 규모, 제조 공정 수준, 생산 수율
+                    - generic [ref=e602]:
+                      - generic [ref=e603]: "5"
+                      - generic [ref=e606]:
+                        - generic [ref=e607]: 기술력 및 특허
+                        - generic [ref=e608]: 보유 특허 현황 및 핵심 기술 경쟁력 평가
+                    - generic [ref=e610]:
+                      - generic [ref=e611]: "6"
+                      - generic [ref=e614]:
+                        - generic [ref=e615]: 시장 점유율 및 경쟁사
+                        - generic [ref=e616]: 주요 경쟁사와 시장 점유율 비교
+                    - generic [ref=e618]:
+                      - generic [ref=e619]: "7"
+                      - generic [ref=e622]:
+                        - generic [ref=e623]: 주요 제품 및 매출 비중
+                        - generic [ref=e624]: 제품별 매출 분포 및 신제품 개발 동향
+                    - generic [ref=e626]:
+                      - generic [ref=e627]: "8"
+                      - generic [ref=e630]:
+                        - generic [ref=e631]: 공급망 관리
+                        - generic [ref=e632]: 협력사, 원자재 조달 상황, 리스크 관리
+                    - generic [ref=e634]:
+                      - generic [ref=e635]: "9"
+                      - generic [ref=e638]:
+                        - generic [ref=e639]: 글로벌 진출 전략
+                        - generic [ref=e640]: 해외 시장 진출 현황 및 계획
+                    - generic [ref=e642]:
+                      - generic [ref=e643]: "10"
+                      - generic [ref=e646]:
+                        - generic [ref=e647]: 환경, 사회, 지배구조(ESG)
+                        - generic [ref=e648]: ESG 활동 및 정책 평가
+                    - generic [ref=e650]:
+                      - generic [ref=e651]: "11"
+                      - generic [ref=e654]:
+                        - generic [ref=e655]: 리스크 요인
+                        - generic [ref=e656]: 산업 내외부 위험 요인 및 대응 전략
+                    - generic [ref=e658]:
+                      - generic [ref=e659]: "12"
+                      - generic [ref=e662]:
+                        - generic [ref=e663]: 미래 성장 전략
+                        - generic [ref=e664]: 단기 및 장기 성장 계획 및 투자 방향
+              - article [ref=e665]:
+                - generic [ref=e666]: YOU
+                - paragraph [ref=e667]: Canvas의 체크리스트 패널 제목을 반도체 리서치로 변경하고 너비를 24열로 넓힌 다음 위치를 고정해줘.
+              - article [ref=e668]:
+                - generic [ref=e669]: FILING STUDIO
+                - generic [ref=e672]:
+                  - generic [ref=e673]: 반도체 리서치
+                  - paragraph [ref=e679]: 이 체크리스트는 반도체 기업의 재무, 기술력, 시장 위치 등을 종합적으로 분석할 때 참고할 수 있는 주요 항목들로 구성되어 있습니다.
+                  - generic [ref=e680]:
+                    - generic [ref=e682]:
+                      - generic [ref=e683]: "1"
+                      - generic [ref=e686]:
+                        - generic [ref=e687]: 기업 개요
+                        - generic [ref=e688]: 설립연도, 본사 위치, 시장 상장 정보 등 기본 정보 확인
+                    - generic [ref=e690]:
+                      - generic [ref=e691]: "2"
+                      - generic [ref=e694]:
+                        - generic [ref=e695]: 재무 성과
+                        - generic [ref=e696]: 매출, 영업이익, 순이익, 성장률 분석
+                    - generic [ref=e698]:
+                      - generic [ref=e699]: "3"
+                      - generic [ref=e702]:
+                        - generic [ref=e703]: 연구개발 투자
+                        - generic [ref=e704]: 연구개발비 지출과 투자 비중, 혁신 성과 평가
+                    - generic [ref=e706]:
+                      - generic [ref=e707]: "4"
+                      - generic [ref=e710]:
+                        - generic [ref=e711]: 생산 능력
+                        - generic [ref=e712]: 시설 규모, 제조 공정 수준, 생산 수율
+                    - generic [ref=e714]:
+                      - generic [ref=e715]: "5"
+                      - generic [ref=e718]:
+                        - generic [ref=e719]: 기술력 및 특허
+                        - generic [ref=e720]: 보유 특허 현황 및 핵심 기술 경쟁력 평가
+                    - generic [ref=e722]:
+                      - generic [ref=e723]: "6"
+                      - generic [ref=e726]:
+                        - generic [ref=e727]: 시장 점유율 및 경쟁사
+                        - generic [ref=e728]: 주요 경쟁사와 시장 점유율 비교
+                    - generic [ref=e730]:
+                      - generic [ref=e731]: "7"
+                      - generic [ref=e734]:
+                        - generic [ref=e735]: 주요 제품 및 매출 비중
+                        - generic [ref=e736]: 제품별 매출 분포 및 신제품 개발 동향
+                    - generic [ref=e738]:
+                      - generic [ref=e739]: "8"
+                      - generic [ref=e742]:
+                        - generic [ref=e743]: 공급망 관리
+                        - generic [ref=e744]: 협력사, 원자재 조달 상황, 리스크 관리
+                    - generic [ref=e746]:
+                      - generic [ref=e747]: "9"
+                      - generic [ref=e750]:
+                        - generic [ref=e751]: 글로벌 진출 전략
+                        - generic [ref=e752]: 해외 시장 진출 현황 및 계획
+                    - generic [ref=e754]:
+                      - generic [ref=e755]: "10"
+                      - generic [ref=e758]:
+                        - generic [ref=e759]: 환경, 사회, 지배구조(ESG)
+                        - generic [ref=e760]: ESG 활동 및 정책 평가
+                    - generic [ref=e762]:
+                      - generic [ref=e763]: "11"
+                      - generic [ref=e766]:
+                        - generic [ref=e767]: 리스크 요인
+                        - generic [ref=e768]: 산업 내외부 위험 요인 및 대응 전략
+                    - generic [ref=e770]:
+                      - generic [ref=e771]: "12"
+                      - generic [ref=e774]:
+                        - generic [ref=e775]: 미래 성장 전략
+                        - generic [ref=e776]: 단기 및 장기 성장 계획 및 투자 방향
+              - article [ref=e933]:
+                - generic [ref=e934]: YOU
+                - paragraph [ref=e935]: 패널 제목 변경이 아직 반영되지 않았어. 기존 체크리스트 패널의 제목만 반도체 리서치로 변경해줘.
+              - article [ref=e936]:
+                - generic [ref=e937]: FILING STUDIO
+                - paragraph [ref=e938]: 반도체 기업 분석 체크리스트 패널의 제목이 '반도체 리서치'로 변경되었고, 너비는 24열, 위치는 고정(pinned)되었습니다. 추가로 필요한 것이 있으면 말씀해 주세요.
+            - generic [ref=e777]:
+              - generic [ref=e778]: 기업이나 보고서에 대해 질문하세요
+              - textbox "기업이나 보고서에 대해 질문하세요" [active] [ref=e779]:
+                - /placeholder: 기업을 찾거나, 보고서를 비교하거나, Canvas를 수정해 보세요…
+              - generic [ref=e780]:
+                - generic [ref=e781]: "선택한 패널: 반도체 리서치"
+                - button "전송 ↑" [disabled] [ref=e782]
+          - separator "대화와 Canvas 너비 조절" [ref=e783]
+          - region "Canvas dashboard" [ref=e784]:
+            - generic [ref=e785]:
+              - generic [ref=e786]:
+                - text: YOUR RESEARCH SPACE
+                - heading "Canvas 1 panels" [level=2] [ref=e787]:
+                  - text: Canvas
+                  - generic [ref=e788]: 1 panels
+              - generic [ref=e789]:
+                - button "JSON" [ref=e790] [cursor=pointer]
+                - button "CSV" [ref=e791] [cursor=pointer]
+                - button "PDF / 인쇄" [ref=e792] [cursor=pointer]
+            - tablist [ref=e793]:
+              - tab "Overview" [selected] [ref=e794] [cursor=pointer]
+              - button "Canvas 탭 추가" [ref=e795] [cursor=pointer]: ＋
+            - generic [ref=e798]:
+              - generic [ref=e799]:
+                - button "반도체 리서치 이동" [disabled] [ref=e939]: ⠿
+                - button "반도체 리서치" [ref=e940] [cursor=pointer]
+                - button "반도체 리서치 고정 해제" [ref=e941] [cursor=pointer]: ◆
+                - button "반도체 리서치 삭제" [ref=e942] [cursor=pointer]: ×
+              - generic [ref=e807]:
+                - generic [ref=e808]: 반도체 기업 분석을 위한 체크리스트
+                - paragraph [ref=e814]: 이 체크리스트는 반도체 기업의 재무, 기술력, 시장 위치 등을 종합적으로 분석할 때 참고할 수 있는 주요 항목들로 구성되어 있습니다.
+                - generic [ref=e815]:
+                  - generic [ref=e817]:
+                    - generic [ref=e818]: "1"
+                    - generic [ref=e821]:
+                      - generic [ref=e822]: 기업 개요
+                      - generic [ref=e823]: 설립연도, 본사 위치, 시장 상장 정보 등 기본 정보 확인
+                  - generic [ref=e825]:
+                    - generic [ref=e826]: "2"
+                    - generic [ref=e829]:
+                      - generic [ref=e830]: 재무 성과
+                      - generic [ref=e831]: 매출, 영업이익, 순이익, 성장률 분석
+                  - generic [ref=e833]:
+                    - generic [ref=e834]: "3"
+                    - generic [ref=e837]:
+                      - generic [ref=e838]: 연구개발 투자
+                      - generic [ref=e839]: 연구개발비 지출과 투자 비중, 혁신 성과 평가
+                  - generic [ref=e841]:
+                    - generic [ref=e842]: "4"
+                    - generic [ref=e845]:
+                      - generic [ref=e846]: 생산 능력
+                      - generic [ref=e847]: 시설 규모, 제조 공정 수준, 생산 수율
+                  - generic [ref=e849]:
+                    - generic [ref=e850]: "5"
+                    - generic [ref=e853]:
+                      - generic [ref=e854]: 기술력 및 특허
+                      - generic [ref=e855]: 보유 특허 현황 및 핵심 기술 경쟁력 평가
+                  - generic [ref=e857]:
+                    - generic [ref=e858]: "6"
+                    - generic [ref=e861]:
+                      - generic [ref=e862]: 시장 점유율 및 경쟁사
+                      - generic [ref=e863]: 주요 경쟁사와 시장 점유율 비교
+                  - generic [ref=e865]:
+                    - generic [ref=e866]: "7"
+                    - generic [ref=e869]:
+                      - generic [ref=e870]: 주요 제품 및 매출 비중
+                      - generic [ref=e871]: 제품별 매출 분포 및 신제품 개발 동향
+                  - generic [ref=e873]:
+                    - generic [ref=e874]: "8"
+                    - generic [ref=e877]:
+                      - generic [ref=e878]: 공급망 관리
+                      - generic [ref=e879]: 협력사, 원자재 조달 상황, 리스크 관리
+                  - generic [ref=e881]:
+                    - generic [ref=e882]: "9"
+                    - generic [ref=e885]:
+                      - generic [ref=e886]: 글로벌 진출 전략
+                      - generic [ref=e887]: 해외 시장 진출 현황 및 계획
+                  - generic [ref=e889]:
+                    - generic [ref=e890]: "10"
+                    - generic [ref=e893]:
+                      - generic [ref=e894]: 환경, 사회, 지배구조(ESG)
+                      - generic [ref=e895]: ESG 활동 및 정책 평가
+                  - generic [ref=e897]:
+                    - generic [ref=e898]: "11"
+                    - generic [ref=e901]:
+                      - generic [ref=e902]: 리스크 요인
+                      - generic [ref=e903]: 산업 내외부 위험 요인 및 대응 전략
+                  - generic [ref=e905]:
+                    - generic [ref=e906]: "12"
+                    - generic [ref=e909]:
+                      - generic [ref=e910]: 미래 성장 전략
+                      - generic [ref=e911]: 단기 및 장기 성장 계획 및 투자 방향
+              - generic [ref=e912]:
+                - generic [ref=e913]: OpenUI
+                - combobox "반도체 리서치 탭 이동" [ref=e943] [cursor=pointer]:
+                  - option "Overview" [selected]
+                - button "반도체 리서치 너비 늘리기" [disabled] [ref=e944]: ↔
+                - button "반도체 리서치 위로 이동" [disabled] [ref=e945]: ↑

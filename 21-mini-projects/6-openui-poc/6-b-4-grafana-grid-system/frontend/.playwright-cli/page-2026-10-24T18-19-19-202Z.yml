@@ -1,0 +1,134 @@
+- generic [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e65] [cursor=pointer]
+  - alert [ref=e69]
+  - generic:
+    - complementary "Deploy your OpenUI app" [ref=e917]:
+      - generic [ref=e918]:
+        - strong [ref=e919]: Ready to share your app?
+        - button "Dismiss deployment hint" [ref=e920] [cursor=pointer]
+      - paragraph [ref=e924]:
+        - text: Deploy from your project folder to your Vercel account.
+        - link "Deployment docs ↗" [ref=e925] [cursor=pointer]:
+          - /url: https://www.openui.com/docs/api-reference/cli?utm_source=openui&utm_medium=referral&utm_campaign=openui_devtools&utm_content=local_deploy_hint#deploy
+      - generic [ref=e926]:
+        - generic [ref=e927]:
+          - code [ref=e928]: npx @openuidev/cli@latest deploy
+          - button "Copy deploy command" [ref=e929] [cursor=pointer]
+        - status
+    - button "Open OpenUI Inspect" [ref=e71] [cursor=pointer]
+    - option "LLM-like" [selected]
+    - option "24 chars"
+    - option "Per line"
+    - option "Per char"
+    - option "0.25×"
+    - option "0.5×"
+    - option "1×" [selected]
+    - option "2×"
+    - option "4×"
+    - option "8×"
+  - generic [ref=e489]:
+    - banner [ref=e490]:
+      - button "대화 목록 토글" [ref=e491] [cursor=pointer]: ☰
+      - generic [ref=e492]: ◈
+      - strong [ref=e493]: Filing Studio
+      - generic [ref=e494]: SEC research, in conversation
+      - link "사용 안내 ↗" [ref=e495] [cursor=pointer]:
+        - /url: /onboarding
+      - link "UI 갤러리" [ref=e496] [cursor=pointer]:
+        - /url: /gallery
+      - button "테마 전환" [ref=e497] [cursor=pointer]: ☀
+    - generic [ref=e498]:
+      - complementary [ref=e499]:
+        - button "＋ 새 분석" [ref=e500] [cursor=pointer]
+        - generic [ref=e501]: RESEARCH HISTORY
+        - navigation "대화 목록" [ref=e502]:
+          - generic [ref=e970]:
+            - button "이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로" [ref=e971] [cursor=pointer]
+            - button "이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로 이름 변경" [ref=e972] [cursor=pointer]: ⋯
+            - button "이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로 대화 삭제" [disabled] [ref=e973]: ×
+          - generic [ref=e503]:
+            - button "반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘." [ref=e504] [cursor=pointer]
+            - button "반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘. 이름 변경" [ref=e505] [cursor=pointer]: ⋯
+            - button "반도체 기업 분석을 위한 체크리스트 카드를 Canvas에 만들어줘. 대화 삭제" [ref=e506] [cursor=pointer]: ×
+          - generic [ref=e507]:
+            - button "리액트 코드 하나 만들어봐" [ref=e508] [cursor=pointer]
+            - button "리액트 코드 하나 만들어봐 이름 변경" [ref=e509] [cursor=pointer]: ⋯
+            - button "리액트 코드 하나 만들어봐 대화 삭제" [ref=e510] [cursor=pointer]: ×
+          - generic [ref=e511]:
+            - button "너는 무엇을 할 수 있니?" [ref=e512] [cursor=pointer]
+            - button "너는 무엇을 할 수 있니? 이름 변경" [ref=e513] [cursor=pointer]: ⋯
+            - button "너는 무엇을 할 수 있니? 대화 삭제" [ref=e514] [cursor=pointer]: ×
+          - generic [ref=e515]:
+            - button "Break down each company's revenue by reportable segment for the latest fiscal year." [ref=e516] [cursor=pointer]
+            - button "Break down each company's revenue by reportable segment for the latest fiscal year. 이름 변경" [ref=e517] [cursor=pointer]: ⋯
+            - button "Break down each company's revenue by reportable segment for the latest fiscal year. 대화 삭제" [ref=e518] [cursor=pointer]: ×
+          - generic [ref=e519]:
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel." [ref=e520] [cursor=pointer]
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 이름 변경" [ref=e521] [cursor=pointer]: ⋯
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 대화 삭제" [ref=e522] [cursor=pointer]: ×
+          - generic [ref=e523]:
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel." [ref=e524] [cursor=pointer]
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 이름 변경" [ref=e525] [cursor=pointer]: ⋯
+            - button "Compare total revenue and revenue growth for the latest fiscal year across NVIDIA, AMD, and Intel. 대화 삭제" [ref=e526] [cursor=pointer]: ×
+          - generic [ref=e527]:
+            - button "문서 비교 · 매출과 R&D (검증 완료)" [ref=e528] [cursor=pointer]
+            - button "문서 비교 · 매출과 R&D (검증 완료) 이름 변경" [ref=e529] [cursor=pointer]: ⋯
+            - button "문서 비교 · 매출과 R&D (검증 완료) 대화 삭제" [ref=e530] [cursor=pointer]: ×
+          - generic [ref=e531]:
+            - button "이전 검증 · 검색 지침 보완 전" [ref=e532] [cursor=pointer]
+            - button "이전 검증 · 검색 지침 보완 전 이름 변경" [ref=e533] [cursor=pointer]: ⋯
+            - button "이전 검증 · 검색 지침 보완 전 대화 삭제" [ref=e534] [cursor=pointer]: ×
+          - generic [ref=e535]:
+            - button "Compare latest total revenue and revenue growth across NVIDIA, AMD and Intel. Cite pages and include" [ref=e536] [cursor=pointer]
+            - button "Compare latest total revenue and revenue growth across NVIDIA, AMD and Intel. Cite pages and include 이름 변경" [ref=e537] [cursor=pointer]: ⋯
+            - button "Compare latest total revenue and revenue growth across NVIDIA, AMD and Intel. Cite pages and include 대화 삭제" [ref=e538] [cursor=pointer]: ×
+        - generic [ref=e539]:
+          - link "보고서 라이브러리 ↗" [ref=e540] [cursor=pointer]:
+            - /url: /documents
+          - generic [ref=e541]: Source-grounded analysisYour own research workspace
+      - main [ref=e542]:
+        - generic [ref=e543]:
+          - generic [ref=e544]:
+            - text: WORKSPACE
+            - heading "이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로" [level=1] [ref=e974]
+          - generic [ref=e546]:
+            - button "대화" [ref=e547] [cursor=pointer]
+            - button "대화 + Canvas" [pressed] [ref=e548] [cursor=pointer]
+            - button "Canvas" [ref=e549] [cursor=pointer]
+        - generic [ref=e550]:
+          - region "Research chat" [ref=e551]:
+            - generic [ref=e552]:
+              - article [ref=e975]:
+                - generic [ref=e976]: YOU
+                - paragraph [ref=e977]: 이미 준비된 NVIDIA, AMD, Intel PDF에서 최신 연간 매출을 비교해줘. 실제 검색한 수치와 페이지 출처를 담은 표를 대화 안에 Canvas에 추가할 수 있는 형태로 보여줘. SEC 재수집은 하지 마.
+              - status [ref=e978]:
+                - text: 보고서와 분석 결과를 확인하고 있습니다…
+                - button "중지" [ref=e980] [cursor=pointer]
+            - generic [ref=e777]:
+              - generic [ref=e778]: 기업이나 보고서에 대해 질문하세요
+              - textbox "기업이나 보고서에 대해 질문하세요" [active] [ref=e779]:
+                - /placeholder: 기업을 찾거나, 보고서를 비교하거나, Canvas를 수정해 보세요…
+              - generic [ref=e780]:
+                - generic [ref=e781]: Enter 전송 · Shift + Enter 줄바꿈
+                - button "전송 ↑" [disabled] [ref=e782]
+          - separator "대화와 Canvas 너비 조절" [ref=e783]
+          - region "Canvas dashboard" [ref=e981]:
+            - generic [ref=e982]:
+              - generic [ref=e983]:
+                - text: YOUR RESEARCH SPACE
+                - heading "Canvas 0 panels" [level=2] [ref=e984]:
+                  - text: Canvas
+                  - generic [ref=e985]: 0 panels
+              - generic [ref=e986]:
+                - button "JSON" [ref=e987] [cursor=pointer]
+                - button "CSV" [ref=e988] [cursor=pointer]
+                - button "PDF / 인쇄" [ref=e989] [cursor=pointer]
+            - tablist [ref=e990]:
+              - tab "Overview" [selected] [ref=e991] [cursor=pointer]
+              - button "Canvas 탭 추가" [ref=e992] [cursor=pointer]: ＋
+            - generic [ref=e994]:
+              - generic [ref=e995]: ▦
+              - heading "생각을 모으는 공간" [level=3] [ref=e996]
+              - paragraph [ref=e997]: 대화에서 얻은 차트와 요약을 여기에 담으세요.
+              - paragraph [ref=e998]: “매출 그래프를 Canvas에 추가해줘”
+              - generic [ref=e999]: 드래그 · 크기 조절 · 위치 고정 · 내보내기

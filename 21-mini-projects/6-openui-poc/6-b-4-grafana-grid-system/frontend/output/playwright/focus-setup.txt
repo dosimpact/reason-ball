@@ -1,0 +1,14 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("navigation",{name:"대화 목록"}).getByRole("button",{name:/^데모 성장률 계산기를 Canvas에/}).first().click(); await page.getByRole("button",{name:"대화 + Canvas",exact:true}).click(); })(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+- Console: 0 errors, 3 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-10-24T18-29-21-791Z.log#L268-L270

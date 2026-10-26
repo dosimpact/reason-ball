@@ -1,0 +1,57 @@
+- generic [ref=e1]:
+  - main [ref=e2]:
+    - complementary [ref=e3]:
+      - link "Lite Canvas SUPPLIER INTELLIGENCE" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e8]:
+          - text: Lite Canvas
+          - generic [ref=e9]: SUPPLIER INTELLIGENCE
+      - button "새 대화" [ref=e10] [cursor=pointer]
+      - generic [ref=e12]: 최근 대화
+      - navigation "대화 목록" [ref=e85]:
+        - button "공급업체1 영문 PDF 보고서용으로 리포트 만들어줘" [ref=e86] [cursor=pointer]
+      - paragraph [ref=e13]: 공급업체1–8의 자료로분석하고, 비교하고, 질문하세요.
+    - region "채팅" [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17]: WORKSPACE
+          - heading "공급업체1 영문 PDF 보고서용으로 리포트 만들어줘" [level=1] [ref=e87]
+        - button "다크 테마로 전환" [ref=e19] [cursor=pointer]
+      - generic [ref=e22]:
+        - article [ref=e88]:
+          - generic [ref=e89]: YOU
+          - generic [ref=e90]: 공급업체1 영문 PDF 보고서용으로 리포트 만들어줘
+        - status [ref=e66]: 리포트 전문 에이전트에 연결했습니다
+      - generic [ref=e68]:
+        - generic [ref=e69]:
+          - textbox "채팅 메시지" [active] [ref=e70]:
+            - /placeholder: 공급업체 리포트를 요청하거나 질문하세요
+          - button "메시지 보내기" [disabled] [ref=e71]
+        - paragraph [ref=e74]: Enter로 보내기 · Shift+Enter로 줄바꿈
+    - separator "채팅과 Canvas 크기 조절" [ref=e91]
+    - region "리포트 Canvas" [ref=e93]:
+      - generic [ref=e94]:
+        - generic [ref=e95]:
+          - generic [ref=e96]: PDF REPORT CANVAS
+          - heading "Supplier 1 Performance Report" [level=2] [ref=e97]
+        - generic [ref=e98]:
+          - button "PDF 저장" [disabled] [ref=e99]
+          - button "공유 링크" [disabled] [ref=e103]
+          - button "Canvas 닫기" [ref=e107] [cursor=pointer]
+      - generic [ref=e111]:
+        - status [ref=e112]: 자료를 분석하고 리포트를 구성하고 있습니다
+        - article "리포트 본문" [ref=e115]
+  - button "Open Next.js Dev Tools" [ref=e80] [cursor=pointer]
+  - alert [ref=e84]
+  - generic:
+    - button "Open OpenUI Inspect" [ref=e121] [cursor=pointer]
+    - option "LLM-like" [selected]
+    - option "24 chars"
+    - option "Per line"
+    - option "Per char"
+    - option "0.25×"
+    - option "0.5×"
+    - option "1×" [selected]
+    - option "2×"
+    - option "4×"
+    - option "8×"

@@ -1,0 +1,988 @@
+data: {"type": "RUN_STARTED", "threadId": "584f60e3-9ba4-4f3f-9e5d-e84cbee40801", "runId": "50336b9c-7eaa-47e9-b90f-47565f7cfc3d"}
+
+data: {"type": "TOOL_CALL_START", "toolCallId": "call_ebtbHndwUHqSEdUur26sqdSu", "toolCallName": "search_documents"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_ebtbHndwUHqSEdUur26sqdSu", "delta": "{\"query\":\"R&D spending"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_ebtbHndwUHqSEdUur26sqdSu", "delta": " for the"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_ebtbHndwUHqSEdUur26sqdSu", "delta": " latest fiscal year\",\"document_ids"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_ebtbHndwUHqSEdUur26sqdSu", "delta": "\":[\"n"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_ebtbHndwUHqSEdUur26sqdSu", "delta": "vidia\",\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_ebtbHndwUHqSEdUur26sqdSu", "delta": "amd\",\""}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_ebtbHndwUHqSEdUur26sqdSu", "delta": "intel\"],\"passages_per_document\":"}
+
+data: {"type": "TOOL_CALL_ARGS", "toolCallId": "call_ebtbHndwUHqSEdUur26sqdSu", "delta": "2}"}
+
+data: {"type": "TOOL_CALL_END", "toolCallId": "call_ebtbHndwUHqSEdUur26sqdSu"}
+
+data: {"type": "TOOL_CALL_RESULT", "messageId": "tool-result-call_ebtbHndwUHqSEdUur26sqdSu", "toolCallId": "call_ebtbHndwUHqSEdUur26sqdSu", "content": "{\"query\": \"R&D spending for the latest fiscal year\", \"results\": [{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"found\": true, \"passages\": [{\"page\": 41, \"text\": \"5, respectively. Operating Expenses Year Ended Jan 25, 2026 Jan 26, 2025 $ Change % Change ($ in millions) Research and development $ 18,497 $ 12,914 $ 5,583 43 % Sales, general and administrative 4,579 3,491 1,088 31 % Total operating expenses $ 23,076 $ 16,405 $ 6,671 41 % The increases in research and development expenses for fiscal year 2026 were driven by a 29% increase in compensation and benefits expense, including stock-based compensation, reflecting employee growth and compensation increases and a 79% increase in compute and infrastructure. 41\", \"score\": 0.533, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=41\"}, {\"page\": 37, \"text\": \" costs with our vendors. Refer to “Item 1A. Risk Factors – Risks Related to Regulatory, Legal, Our Stock and Other Matters” for a further discussion of the potential impact of these factors on our business. Fiscal Year 2026 Summary Year Ended Jan 25, 2026 Jan 26, 2025 Change ($ in millions, except per share data) Revenue $ 215,938 $ 130,497 Up 65% Gross margin 71.1 % 75.0 % -3.9 pts Operating expenses $ 23,076 $ 16,405 Up 41% Operating income $ 130,387 $ 81,453 Up 60% Net income $ 120,067 $ 72,880 Up 65% Net income per diluted share $ 4.90 $ 2.94 Up 67% Revenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago. Data Center revenue for fiscal year 2026 was up 68% from a year ago. The strong year-on-year growth was driven by the major platform shifts – accelerated computing and AI. Gaming revenue for fiscal year 2026 was up 41% from a year ago, driven by strong Blackwell demand. We expect supply constraints to be a headwind to Gaming in the first quarter of fiscal 2027 and beyond. Professional Visualization revenue for fiscal year 2026 was up 70% from a year ago, driven by exceptional demand for Blackwell as well as the launch of our new DGX Spark. Automotive revenue fo\", \"score\": 0.458, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37\"}]}, {\"document_id\": \"amd\", \"document\": \"AMD 10-K, fiscal 2025\", \"period\": \"Fiscal year ended December 27, 2025\", \"found\": true, \"passages\": [{\"page\": 56, \"text\": \"s associated with the U.S. government export control on AMD Instinct™ MI308 Data Center GPU products. Expenses Research and Development Expenses Research and development expenses of $8.1 billion in 2025 increased by $1.6 billion, or 25%, compared to $6.5 billion in 2024. The increase was primarily due to higher employee-related costs from an increase in headcount in support of our continued focus on our AI strategy. Marketing, General and Administrative Expenses Marketing, general and administrative expenses of $4.1 billion in 2025 increased by $1.4 billion, or 52%, compared to $2.7 billion in 2024. The increase was primarily due to an increase in go-to-market activities to support our revenue growth. 53\", \"score\": 0.497, \"url\": \"https://ir.amd.com/financial-information/sec-filings/content/0000002488-26-000018/0000002488-26-000018.pdf#page=56\"}, {\"page\": 78, \"text\": \"hips 12,324 (6,267) 6,057 12,324 (5,124) 7,200 Product trademarks 914 (305) 609 914 (225) 689 Acquisition-related intangible assets subject to amortization 26,837 (10,132) 16,705 26,646 (7,878) 18,768 In-process research and development (IPR&D) not subject to amortization — — — 162 — 162 Total acquisition-related intangible assets, net $ 26,837 $ (10,132) $ 16,705 $ 26,808 $ (7,878) $ 18,930 In April 2025, $162 million of IPR&D intangible asset reached technological feasibility, was placed in service as developed technology and started amortization over its estimated useful life of 5 years. Acquisition-related intangible amortization expense was $2.3 billion, $2.4 billion and $2.8 billion in fiscal year 2025, 2024 and 2023, respectively. Based on the carrying value of acquisition-related intangibles recorded as of December 27, 2025, and assuming no subsequent impairment of the underlying assets, the estimated future annual amortization expense for acquisition-related intangibles is as follows: Fiscal Year 2026 2027 2028 2029 2030 2031 and thereafter Total (In millions) Future annual amortization $ 2,153 $ 2,036 $ 1,923 $ 1,691 $ 1,454 $ 7,448 $ 16,705 75\", \"score\": 0.49, \"url\": \"https://ir.amd.com/financial-information/sec-filings/content/0000002488-26-000018/0000002488-26-000018.pdf#page=78\"}]}, {\"document_id\": \"intel\", \"document\": \"Intel 10-K, fiscal 2025\", \"period\": \"Fiscal year ended December 27, 2025\", \"found\": true, \"passages\": [{\"page\": 40, \"text\": \"r success highly uncertain. We are making significant, long-term and inherently risky investments in R&D and manufacturing facilities that may not realize a favorable return. To compete successfully, we must maintain an effective R&D program, develop new products and manufacturing processes, improve our products and processes and make significant capital investments in new and existing manufacturing facilities, all ahead of competitors and market demand. The R&D efforts and capital investments we require are significant as we compete across both product and process technologies and we may not have the ability to fund such investments at the level needed to be competitive. We incurred R&D expenses of $13.8 billion in 2025, $16.5 billion in 2024 and $16.0 billion in 2023. We are focusing our R&D efforts across several key areas, including process and packaging technology, our xPU products and features, AI and software. Our investments are typically long-term and, even where successful, often do not contribute to our operating results for a number of years. We cannot guarantee that our efforts will deliver the benefits we anticipate, including as a result of our new products or techno\", \"score\": 0.585, \"url\": \"https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-26-000011/0000050863-26-000011.pdf#page=40\"}, {\"page\": 29, \"text\": \"Consolidated R&D and MG&A Expenses Total R&D and MG&A expenses for 2025 were $18.4 billion, down 17% compared to 2024. These expenses represented 34.8% of revenue for 2025 and 41.5% of revenue for 2024. In support of our strategy, we continue to make investments to advance our product and process technology roadmaps. As a result of our 2025 and 2024 Restructuring Plans and other related cost-reduction measures and the divestiture of Altera, we expect total R&D and MG&A expenses to decrease in 2026 relative to recent historical periods. Research and Development $B Marketing, General, and Administrative $B (Percentages in chart indicate operating expenses as a percentage of total revenue) Research and Development 2025 vs. 2024 2025 R&D expenses decreased by $2.8 billion, or 17%, from 2024, primarily driven by lower payroll-related expenditures resulting from headcount reductions taken under the 2025 and 2024 Restructuring Plans and other related cost-reduction measures, and $610 million of lower share-based compensation. These 2025 R&D expense reductions were partially offset by higher 2025 incentive-based cash compensation of $418 million. Marketing, General, and Administrative 2025\", \"score\": 0.522, \"url\": \"https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-26-000011/0000050863-26-000011.pdf#page=29\"}]}]}", "role": "tool"}
+
+data: {"type": "TEXT_MESSAGE_START", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "role": "assistant"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "root"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ="}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Card"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "(["}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "header"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " table"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " chart"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " follow"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Ups"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "],"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " sources"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ")\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "header"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ="}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Card"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Header"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "(\""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "R"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "&D"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Spending"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Comparison"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "N"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "VIDIA"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " AMD"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Intel"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " latest"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " fiscal"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " years"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\")\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "table"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ="}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Table"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "([\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Col"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "(\""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Company"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " [\""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "N"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "VIDIA"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "AMD"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Intel"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\"]),\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Col"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "(\""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "R"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "&D"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Spending"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ("}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "latest"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " fiscal"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " year"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ")\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " [\""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "$"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "18"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "5"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " billion"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ("}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "p"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "41"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ")\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \"$"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "8"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "1"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " billion"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ("}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "p"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "56"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ")\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \"$"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "13"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "8"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " billion"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ("}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "p"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "40"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ")"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\"]),\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Col"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "(\""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "R"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "&D"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Spending"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Change"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Yo"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Y"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " [\""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Up"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "43"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "%"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ("}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "p"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "41"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ")\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Up"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "25"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "%"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ("}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "p"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "56"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ")\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Down"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "17"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "%"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ("}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "p"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "29"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ")"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\"])\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "])\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "chart"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ="}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Bar"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Chart"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "(\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " [\""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "N"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "VIDIA"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "AMD"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Intel"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\"],\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ["}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Series"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "(\""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "R"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "&D"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Spending"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ("}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "USD"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " billions"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ")\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ["}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "18"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "5"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "8"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "1"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "13"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "8"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "])"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "],\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "group"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "ed"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\",\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Company"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\",\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "USD"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " billions"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\"\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ")\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "follow"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Ups"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ="}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Follow"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Up"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Block"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "([\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Follow"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Up"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Item"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "(\""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Compare"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " operating"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " income"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " across"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " NVIDIA"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " AMD"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " and"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Intel"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\"),\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Follow"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Up"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Item"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "(\""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Break"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " down"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " revenue"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " by"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " segments"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " for"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " each"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " company"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\")\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "])\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "sources"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ="}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " [\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " {"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "title"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ":"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "“"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Research"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " and"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " development"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " expenses"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " $"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "18"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "5"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " billion"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " up"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "43"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "%"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " from"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " prior"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " year"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ".”"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " source"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Name"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ":"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "N"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "VIDIA"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ·"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Page"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "41"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " url"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ":"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "https"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "://"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "invest"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "or"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ".n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "vidia"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ".com"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/files"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/doc"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "_fin"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "ancial"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "s"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "202"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "6"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/q"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "4"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "10"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "K"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-N"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "V"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "DA"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ".pdf"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "#"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "page"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "="}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "41"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\"},\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " {"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "title"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ":"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "“"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Research"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " and"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " development"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " expenses"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " $"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "8"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "1"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " billion"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " up"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "25"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "%"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " from"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " prior"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " year"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ".”"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " source"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Name"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ":"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "AMD"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ·"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Page"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "56"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " url"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ":"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "https"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "://"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "ir"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ".am"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "d"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ".com"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "financial"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-information"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/sec"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-fil"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "ings"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/content"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "000"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "000"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "248"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "8"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "26"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "000"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "018"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "000"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "000"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "248"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "8"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "26"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "000"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "018"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ".pdf"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "#"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "page"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "="}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "56"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\"},\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " {"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "title"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ":"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "“"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "R"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "&D"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " expenses"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " of"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " $"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "13"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "8"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " billion"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " in"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "202"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "5"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " down"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "17"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "%"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " from"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "202"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "4"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ".”"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " source"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Name"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ":"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "Intel"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " ·"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " Page"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "40"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " &"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "29"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " url"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ":"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": " \""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "https"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "://"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "www"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ".int"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "c"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ".com"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "fil"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "ings"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-re"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "ports"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/all"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-sec"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-fil"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "ings"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/content"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "000"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "005"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "086"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "3"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "26"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "000"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "011"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "/"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "000"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "005"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "086"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "3"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "26"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "-"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "000"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "011"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": ".pdf"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "#"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "page"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "="}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "40"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "\"}\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5", "delta": "]"}
+
+data: {"type": "TEXT_MESSAGE_END", "messageId": "lc_run--01a14e05-1bfe-7190-a6be-bc1897847ea5"}
+
+data: {"type": "RUN_FINISHED", "threadId": "584f60e3-9ba4-4f3f-9e5d-e84cbee40801", "runId": "50336b9c-7eaa-47e9-b90f-47565f7cfc3d"}
+

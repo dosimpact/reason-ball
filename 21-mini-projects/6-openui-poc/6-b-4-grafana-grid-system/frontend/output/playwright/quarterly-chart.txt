@@ -1,0 +1,9 @@
+### Ran Playwright code
+```js
+await (async page => { await page.reload(); const canvas=page.getByRole("region",{name:"Canvas dashboard"}); await canvas.getByRole("img",{name:"Line chart",exact:true}).waitFor(); for(const v of ["90,805","177,837"]) await canvas.getByText(v,{exact:true}).waitFor(); await canvas.getByText("FY2026 Q2 (7/27/2025)",{exact:true}).waitFor(); await canvas.getByText("FY2027 Q2 (7/26/2026)",{exact:true}).waitFor(); await page.screenshot({path:"output/playwright/quarterly-chart.png"}); })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+### Events
+- New console entries: .playwright-cli/console-2026-10-25T03-58-17-276Z.log#L7-L8

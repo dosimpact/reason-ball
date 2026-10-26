@@ -1,0 +1,588 @@
+data: {"type":"RUN_STARTED","threadId":"7356426d-0505-4723-aa60-11407b647a72","runId":"01a14da4-0c27-7cb0-bdda-56f75e222ece"}
+
+data: {"type":"TOOL_CALL_START","toolCallId":"call_FjEZeMVZSNDPY7KjfLwfdvKZ","toolCallName":"get_stock_price"}
+
+data: {"type":"TOOL_CALL_ARGS","toolCallId":"call_FjEZeMVZSNDPY7KjfLwfdvKZ","delta":"{\"symbol\": \"AAPL\"}"}
+
+data: {"type":"TOOL_CALL_START","toolCallId":"call_Uu4yOjQkxZwo5LLCWYQ1AY3f","toolCallName":"search_web"}
+
+data: {"type":"TOOL_CALL_ARGS","toolCallId":"call_Uu4yOjQkxZwo5LLCWYQ1AY3f","delta":"{\"query\": \"James Webb Space Telescope\"}"}
+
+data: {"type":"TOOL_CALL_END","toolCallId":"call_FjEZeMVZSNDPY7KjfLwfdvKZ"}
+
+data: {"type":"TOOL_CALL_END","toolCallId":"call_Uu4yOjQkxZwo5LLCWYQ1AY3f"}
+
+data: {"type":"TOOL_CALL_RESULT","messageId":"tool-result-call_FjEZeMVZSNDPY7KjfLwfdvKZ","toolCallId":"call_FjEZeMVZSNDPY7KjfLwfdvKZ","content":"{\"symbol\": \"AAPL\", \"price\": 188.32, \"change\": -1.52, \"change_percent\": -0.8, \"volume\": \"23.1M\", \"day_high\": 192.86, \"day_low\": 187.12}","role":"tool"}
+
+data: {"type":"TOOL_CALL_RESULT","messageId":"tool-result-call_Uu4yOjQkxZwo5LLCWYQ1AY3f","toolCallId":"call_Uu4yOjQkxZwo5LLCWYQ1AY3f","content":"{\"query\": \"James Webb Space Telescope\", \"results\": [{\"title\": \"Top result for \\\"James Webb Space Telescope\\\"\", \"snippet\": \"Comprehensive overview of James Webb Space Telescope with the latest information.\"}, {\"title\": \"James Webb Space Telescope - Latest News\", \"snippet\": \"Recent developments and updates related to James Webb Space Telescope.\"}, {\"title\": \"Understanding James Webb Space Telescope\", \"snippet\": \"An in-depth guide explaining everything about James Webb Space Telescope.\"}]}","role":"tool"}
+
+data: {"type":"TEXT_MESSAGE_START","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","role":"assistant"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"root"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Stack"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(["}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"stock"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Card"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" jw"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"st"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Card"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"],"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"column"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"m"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"center"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"center"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")\n"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"stock"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Card"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Card"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(["}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"stock"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Header"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" stock"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Body"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"],"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"card"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"column"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"s"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")\n"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"stock"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Header"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Card"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Header"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(\""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"A"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"APL"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Stock"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Price"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")\n"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"stock"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Body"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Stack"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(["}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"price"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" change"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" volume"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" range"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"],"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"column"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"xs"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")\n"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"price"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Content"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(\""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Current"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Price"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":":"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" $"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"188"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"."}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"32"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"large"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"-heavy"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")\n"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"change"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Content"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(\""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Change"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":":"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" -"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"1"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"."}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"52"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" (-"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"0"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"."}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"8"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"%)"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"default"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")\n"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"volume"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Content"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(\""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Volume"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":":"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" "}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"23"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"."}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"1"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"M"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"default"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")\n"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"range"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Content"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(\""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Day"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Range"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":":"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" $"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"187"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"."}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"12"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" -"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" $"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"192"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"."}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"86"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"default"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")\n"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"jw"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"st"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Card"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Card"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(["}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"jw"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"st"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Header"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" jw"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"st"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Content"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"],"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"card"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"column"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"s"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")\n"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"jw"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"st"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Header"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Card"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Header"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(\""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"James"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Webb"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Space"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Telescope"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Info"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")\n"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"jw"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"st"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Content"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Stack"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(["}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"top"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Result"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" news"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Result"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" guide"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Result"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"],"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"column"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"s"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")\n"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"top"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Result"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Content"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(\""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Top"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" result"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":":"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Comprehensive"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" overview"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" of"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" James"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Webb"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Space"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Telescope"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" with"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" the"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" latest"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" information"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":".\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"default"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")\n"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"news"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Result"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Content"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(\""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Latest"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" News"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":":"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Recent"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" developments"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" and"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" updates"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" related"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" to"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" James"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Webb"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Space"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Telescope"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":".\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"default"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")\n"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"guide"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Result"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" ="}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Text"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Content"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"(\""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"Guide"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":":"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" An"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" in"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"-depth"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" guide"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" explaining"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" everything"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" about"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" James"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Webb"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Space"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" Telescope"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":".\","}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":" \""}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"default"}
+
+data: {"type":"TEXT_MESSAGE_CONTENT","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc","delta":"\")"}
+
+data: {"type":"TEXT_MESSAGE_END","messageId":"lc_run--01a14da4-1575-71b0-9c2a-02cf561c64fc"}
+
+data: {"type":"RUN_FINISHED","threadId":"7356426d-0505-4723-aa60-11407b647a72","runId":"01a14da4-0c27-7cb0-bdda-56f75e222ece"}
+

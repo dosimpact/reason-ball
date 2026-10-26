@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { const form=page.locator(".chat-message").getByRole("form").last(); await form.getByRole("textbox").nth(0).fill("AMD"); await form.getByRole("textbox").nth(1).fill("데이터센터 성장 원인"); await form.getByRole("combobox").click(); await page.getByRole("option",{name:"Segments",exact:true}).click(); await form.getByRole("button",{name:"Copy to clipboard",exact:true}).click(); const copied=await page.evaluate(()=>navigator.clipboard.readText()); if(!copied.includes("AMD")||!copied.includes("데이터센터 성장 원인")||!copied.includes("segments")) throw Error("Copy missing current values"); })(page);
+```

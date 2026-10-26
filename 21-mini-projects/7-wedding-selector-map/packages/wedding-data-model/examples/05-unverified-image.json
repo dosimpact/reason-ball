@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "0.1.0",
+  "datasetId": "queenbell-unverified-image",
+  "entities": [
+    {
+      "id": "venue",
+      "kind": "core:venue",
+      "label": "퀸벨호텔"
+    },
+    {
+      "id": "meal",
+      "kind": "service:meal",
+      "label": "식사"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source",
+      "kind": "attachment",
+      "localPath": "database/참가격_웨딩홀_업체별_공시원본/대구/퀸벨호텔__31660.jpg",
+      "sha256": "35feb345f6865268a70921fd6cde7712b56578a3cb36efbab426e0bd6fc8e2b7",
+      "mediaType": "image/jpeg",
+      "extractionState": "partial"
+    }
+  ],
+  "disclosures": [
+    {
+      "id": "disclosure",
+      "venueId": "venue",
+      "sourceIds": [
+        "source"
+      ],
+      "status": "current_at_observation",
+      "observedAt": "2026-10-25T21:54:39+09:00",
+      "extensions": {
+        "review:observationBasis": "추가원본 수집목록 checked_at 기준 일괄 스냅샷. 이 예제의 별도 검수 시각은 아님."
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e-image",
+      "sourceId": "source",
+      "locator": {
+        "kind": "whole_source"
+      },
+      "rawText": "2027년 예식 기준금액 안내",
+      "method": "ocr",
+      "verification": "unreviewed"
+    }
+  ],
+  "conditions": [],
+  "facts": [
+    {
+      "id": "unreviewed-heading",
+      "evidenceIds": [
+        "e-image"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "unreviewed",
+      "subjectId": "venue",
+      "predicate": "disclosure:heading",
+      "valueState": "known",
+      "value": "2027년 예식 기준금액 안내",
+      "rawText": "OCR 인식 결과. 이미지와 수치 대조 전에는 가격 비교에 사용하지 않음."
+    }
+  ],
+  "priceTerms": [],
+  "relations": [],
+  "policies": [],
+  "derivations": [],
+  "extensions": {
+    "review:scope": "원본 일부 항목의 수동 매핑 예제. 전체 업체 변환 및 시각 검수 완료를 의미하지 않음. observedAt 시각은 일자 정밀도만 알려져 있으므로 아래 원문을 우선한다."
+  }
+}

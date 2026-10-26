@@ -1,0 +1,13 @@
+### Ran Playwright code
+```js
+await (async page => {await page.getByRole("navigation",{name:"대화 목록"}).getByRole("button",{name:"[실데이터 재검토] US-12 · 고정과 포커스",exact:true}).click();await page.getByRole("button",{name:"대화 + Canvas",exact:true}).click();const sent=page.waitForResponse(r=>r.url().includes("/api/dashboard/chat")&&r.request().method()==="POST");await page.getByRole("button",{name:"NVIDIA 매출 패널로 이동",exact:true}).click();await (await sent).finished();await page.getByRole("button",{name:"중지",exact:true}).waitFor({state:"hidden",timeout:60000});await page.screenshot({path:"output/playwright/US-12-focus.png"});})(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/gallery)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+- Console: 4 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-10-25T03-19-08-918Z.log#L97-L98

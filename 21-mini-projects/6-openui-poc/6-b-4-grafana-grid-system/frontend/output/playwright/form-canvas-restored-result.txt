@@ -1,0 +1,13 @@
+### Ran Playwright code
+```js
+await (async page => { const result=page.locator(".chat-message.role-assistant").last(); const form=result.getByRole("form"); await form.getByRole("textbox").nth(0).fill("AMD"); await form.getByRole("textbox").nth(1).fill("데이터센터 성장 원인"); await form.getByRole("combobox").click(); await page.getByRole("option",{name:"Segments",exact:true}).click(); await form.getByRole("button",{name:"Copy to clipboard",exact:true}).click(); const copied=await page.evaluate(()=>navigator.clipboard.readText()); if(!copied.includes("segments")) throw Error("Selection not copied"); const url="http://127.0.0.1:3049/api/dashboard/state/421a24e5-0886-45d6-a0b9-f9002eed77f2"; const saved=page.waitForResponse(r=>r.url()===url&&r.request().method()==="POST"); await result.getByRole("button",{name:"＋ Canvas에 추가",exact:true}).click(); if(!(await saved).ok()) throw Error("Add failed"); await page.reload(); await page.getByRole("button",{name:"Canvas",exact:true}).click(); const panel=page.locator(".dashboard-panel").first(); await panel.getByRole("textbox").first().waitFor(); if(await panel.getByRole("textbox").nth(0).inputValue()!=="AMD") throw Error("Company lost"); if(await panel.getByRole("textbox").nth(1).inputValue()!=="데이터센터 성장 원인") throw Error("Question lost"); if(!(await panel.getByRole("combobox").first().innerText()).includes("Segments")) throw Error("Selection lost"); await page.screenshot({path:"output/playwright/form-canvas-restored.png"}); })(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+### Events
+- New console entries: .playwright-cli/console-2026-10-24T19-56-02-499Z.log#L62-L63

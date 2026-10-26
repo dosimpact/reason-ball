@@ -1,0 +1,120 @@
+{
+  "schemaVersion": "0.1.0",
+  "datasetId": "gravity-package-total",
+  "entities": [
+    {
+      "id": "venue",
+      "kind": "core:venue",
+      "label": "그래비티 조선 서울 판교"
+    },
+    {
+      "id": "meal",
+      "kind": "service:meal",
+      "label": "식사"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source",
+      "kind": "attachment",
+      "localPath": "database/참가격_웨딩홀_업체별_공시원본/경기도/그래비티 조선 서울 판교__31637.hwp",
+      "sha256": "1b78c97a97dc3ff2f93ace4a7cc1e33ff2cec0018a0c9d60a97f193fa0e1b8e0",
+      "mediaType": "application/x-hwp",
+      "extractionState": "partial"
+    }
+  ],
+  "disclosures": [
+    {
+      "id": "disclosure",
+      "venueId": "venue",
+      "sourceIds": [
+        "source"
+      ],
+      "status": "current_at_observation",
+      "observedAt": "2026-10-25T21:54:39+09:00",
+      "extensions": {
+        "review:observationBasis": "추가원본 수집목록 checked_at 기준 일괄 스냅샷. 이 예제의 별도 검수 시각은 아님."
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e-total",
+      "sourceId": "source",
+      "locator": {
+        "kind": "whole_source"
+      },
+      "rawText": "Space Ballroom / 최소 150명 / 16,500,000원 ~ 19,500,000원 / 추가 1명당 110,000원 ~ 130,000원",
+      "method": "native_text",
+      "verification": "unreviewed"
+    }
+  ],
+  "conditions": [],
+  "facts": [],
+  "priceTerms": [
+    {
+      "id": "base-total",
+      "evidenceIds": [
+        "e-total"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "unreviewed",
+      "subjectId": "venue",
+      "itemId": "meal",
+      "role": "payable",
+      "state": "known",
+      "amount": {
+        "kind": "range",
+        "lower": "16500000",
+        "upper": "19500000",
+        "lowerInclusive": true,
+        "upperInclusive": true
+      },
+      "currency": "KRW",
+      "basis": {
+        "quantity": "150",
+        "unit": "unit:person"
+      },
+      "taxTreatment": "included",
+      "serviceChargeTreatment": "not_disclosed",
+      "requirement": "unknown",
+      "rawText": "최소 150명 16,500,000원 ~ 19,500,000원",
+      "conditionIds": []
+    },
+    {
+      "id": "extra-person",
+      "evidenceIds": [
+        "e-total"
+      ],
+      "disclosureId": "disclosure",
+      "interpretation": "unreviewed",
+      "subjectId": "venue",
+      "itemId": "meal",
+      "role": "surcharge",
+      "state": "known",
+      "amount": {
+        "kind": "range",
+        "lower": "110000",
+        "upper": "130000",
+        "lowerInclusive": true,
+        "upperInclusive": true
+      },
+      "currency": "KRW",
+      "basis": {
+        "quantity": "1",
+        "unit": "unit:person"
+      },
+      "taxTreatment": "included",
+      "serviceChargeTreatment": "not_disclosed",
+      "requirement": "unknown",
+      "rawText": "추가 1명당 110,000원 ~ 130,000원",
+      "conditionIds": []
+    }
+  ],
+  "relations": [],
+  "policies": [],
+  "derivations": [],
+  "extensions": {
+    "review:scope": "원본 일부 항목의 수동 매핑 예제. 전체 업체 변환 및 시각 검수 완료를 의미하지 않음. observedAt 시각은 일자 정밀도만 알려져 있으므로 아래 원문을 우선한다."
+  }
+}

@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { const canvas=page.getByRole("region",{name:"Canvas dashboard",exact:true}); await canvas.getByRole("button",{name:"보관 메모",exact:true}).waitFor(); if(await canvas.getByRole("tab").count()!==1 || await canvas.getByRole("tab",{name:"새 작업",exact:true}).count()) throw Error("unexpected Canvas tabs"); await canvas.getByRole("tab",{name:"Overview",exact:true}).waitFor(); })(page);
+```

@@ -1,0 +1,13 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("button",{name:"＋ 새 분석",exact:true}).click(); await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).waitFor({state:"visible"}); await page.getByRole("button",{name:/^메모와 체크리스트/}).click(); })(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+### Events
+- New console entries: .playwright-cli/console-2026-10-24T19-56-02-499Z.log#L64-L65

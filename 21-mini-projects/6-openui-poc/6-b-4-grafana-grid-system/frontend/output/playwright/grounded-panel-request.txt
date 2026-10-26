@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("이번에는 검증된 총매출 표를 Canvas에 새 패널로 추가해줘. 제목은 원문 확인 총매출 비교. NVIDIA 40페이지와 AMD 55페이지를 다시 읽어 수치와 기간을 확인하고, 백만 달러 단위 및 원문 페이지 링크를 포함해줘. 기존 반도체 비교 요약 패널은 유지해줘."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

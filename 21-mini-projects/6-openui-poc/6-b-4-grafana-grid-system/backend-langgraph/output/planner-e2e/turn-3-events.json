@@ -1,0 +1,903 @@
+[
+  {
+    "type": "RUN_STARTED",
+    "threadId": "0e8b3943-39f7-47e2-816c-f9f054d22633",
+    "runId": "d6643411-286b-4899-988a-8e66e4973a1d"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 1,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "2f3e53be-e6f7-4064-9430-6c213d084563",
+            "title": "NVIDIA FY2024-FY2026 Revenue Chart",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, revenueChart, sourceInfo])\nheader = CardHeader(\"NVIDIA Revenue FY2024 to FY2026\", \"Fiscal Years; Unit: Million USD\")\nrevenueChart = LineChart([\"FY2024\", \"FY2025\", \"FY2026\"], [Series(\"Revenue\", [60922, 130497, 215938])], \"linear\", \"Fiscal Year\", \"Revenue (Million USD)\")\nsourceInfo = Callout(\"info\", \"Source\", \"NVIDIA 10-K, Fiscal Year Ended January 25, 2026, p.51\")",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": []
+          }
+        ],
+        "artifacts": [],
+        "selected_panel_id": "2f3e53be-e6f7-4064-9430-6c213d084563",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "root"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " ="
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Card"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "([\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Card"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "Header"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "N"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "VIDIA"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " FY"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "6"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Revenue"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Increase"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Explanation"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "Based"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " on"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Fiscal"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Year"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Revenue"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Data"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "\"),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Text"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "Content"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "N"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "VIDIA"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "'s"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " revenue"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " for"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Fiscal"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Year"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "6"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " was"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " $"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "215"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "."
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "9"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " billion"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": ","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " up"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " from"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " $"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "60"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "."
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "9"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " billion"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " in"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Fiscal"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Year"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "4"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "."
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " This"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " represents"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " an"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " increase"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " of"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " approximately"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "254"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "%"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " over"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " the"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " two"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "-year"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " period"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "."
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " The"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " revenue"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " more"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " than"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " trip"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "led"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " from"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " FY"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "4"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " to"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " FY"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "6"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": ","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " reflecting"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " strong"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " growth"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " and"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " demand"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": ".\"),\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Call"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "out"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "(\""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "info"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "Calculation"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "\","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " \""
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "Percentage"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " increase"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " calculated"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " as"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " (("
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "FY"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "6"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " -"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " FY"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "4"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": ")"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " /"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " FY"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "202"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "4"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": ")"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " *"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "100"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " ="
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " (("
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "215"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": ","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "938"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " -"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "60"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": ","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "922"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": ")"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " /"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "60"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": ","
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "922"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": ")"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " *"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "100"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " ≈"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " "
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "254"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "%."
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " Figures"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " are"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " in"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " million"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": " USD"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": ".\")\n"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801",
+    "delta": "])"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "lc_run--01a1712e-5dd0-7242-abf2-28aee8d78801"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 1,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "2f3e53be-e6f7-4064-9430-6c213d084563",
+            "title": "NVIDIA FY2024-FY2026 Revenue Chart",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, revenueChart, sourceInfo])\nheader = CardHeader(\"NVIDIA Revenue FY2024 to FY2026\", \"Fiscal Years; Unit: Million USD\")\nrevenueChart = LineChart([\"FY2024\", \"FY2025\", \"FY2026\"], [Series(\"Revenue\", [60922, 130497, 215938])], \"linear\", \"Fiscal Year\", \"Revenue (Million USD)\")\nsourceInfo = Callout(\"info\", \"Source\", \"NVIDIA 10-K, Fiscal Year Ended January 25, 2026, p.51\")",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": []
+          }
+        ],
+        "artifacts": [],
+        "selected_panel_id": "2f3e53be-e6f7-4064-9430-6c213d084563",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "RUN_FINISHED",
+    "threadId": "0e8b3943-39f7-47e2-816c-f9f054d22633",
+    "runId": "d6643411-286b-4899-988a-8e66e4973a1d"
+  }
+]

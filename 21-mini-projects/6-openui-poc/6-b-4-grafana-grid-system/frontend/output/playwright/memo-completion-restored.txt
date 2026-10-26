@@ -1,0 +1,6 @@
+### Ran Playwright code
+```js
+await (async page => { await page.reload(); await page.getByRole("heading",{name:"Canvas 2 panels",exact:true}).waitFor(); if(await page.getByRole("textbox",{name:"연구 메모",exact:true}).last().inputValue() !== "매출 증가 원인을 원문과 대조") throw Error("memo lost"); if(!await page.getByRole("checkbox",{name:"기간 비교",exact:true}).last().isChecked()) throw Error("check lost"); if(await page.getByRole("checkbox",{name:"원문 확인",exact:true}).last().isChecked()) throw Error("unchecked changed"); if(await page.getByText("분석 결과 저장 미완료",{exact:true}).count()) throw Error("false failure restored"); await page.screenshot({path:"output/playwright/memo-completion.png",fullPage:true}); })(page);
+```
+### Events
+- New console entries: .playwright-cli/console-2026-10-24T19-56-02-499Z.log#L82-L83

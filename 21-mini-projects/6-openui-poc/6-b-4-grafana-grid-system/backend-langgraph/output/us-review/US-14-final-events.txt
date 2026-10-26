@@ -1,0 +1,352 @@
+data: {"type": "RUN_STARTED", "threadId": "e67fca90-bca4-4488-b9e2-4fbc146908d9", "runId": "1bdf6a27-d84c-45f6-89e3-384262baeb24"}
+
+data: {"type": "STATE_SNAPSHOT", "snapshot": {"dashboard": {"revision": 2, "tabs": [{"id": "main", "title": "Overview"}], "active_tab_id": "main", "panels": [{"id": "0a0accf5-59ea-42b3-8677-48ca84b88a48", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal year ended January 25, 2026 and January 26, 2025 · Revenue in millions USD\")\nchart = BarChart([\"FY2025\", \"FY2026\"], [Series(\"Revenue\", [130.497, 215.938])], \"grouped\", \"Fiscal Year\", \"Revenue (USD billions)\")\nsources = [{\"title\": \"NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 25, 2026\", \"sourceName\": \"NVIDIA 10-K fiscal 2026 · Page 51\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\": \"NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 26, 2025\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025 · Page 144\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144\"}]", "ui_state": {}, "source_artifact_id": "7a7738e9-332b-4bd2-823c-05292602d99b", "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 25, 2026", "sourceName": "NVIDIA 10-K fiscal 2026 · Page 51", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 26, 2025", "sourceName": "NVIDIA Annual Report, fiscal 2025 · Page 144", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144"}]}], "artifacts": [{"id": "7a7738e9-332b-4bd2-823c-05292602d99b", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal year ended January 25, 2026 and January 26, 2025 · Revenue in millions USD\")\nchart = BarChart([\"FY2025\", \"FY2026\"], [Series(\"Revenue\", [130.497, 215.938])], \"grouped\", \"Fiscal Year\", \"Revenue (USD billions)\")\nsources = [{\"title\": \"NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 25, 2026\", \"sourceName\": \"NVIDIA 10-K fiscal 2026 · Page 51\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\": \"NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 26, 2025\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025 · Page 144\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144\"}]", "ui_state": {}, "source_artifact_id": null, "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 25, 2026", "sourceName": "NVIDIA 10-K fiscal 2026 · Page 51", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 26, 2025", "sourceName": "NVIDIA Annual Report, fiscal 2025 · Page 144", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144"}]}], "selected_panel_id": "0a0accf5-59ea-42b3-8677-48ca84b88a48", "export_request": null}}}
+
+data: {"type": "TEXT_MESSAGE_START", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "role": "assistant"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "root"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " ="}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " Card"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "(["}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "Text"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "Content"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "(\""}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "Overview"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 탭"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "의"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " NVIDIA"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 매"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "출"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 패"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "널"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "은"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 다음"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " "}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "3"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "가지"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 형"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "식"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "으로"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 내"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "보"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "내"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "기를"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 지원"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "합니다"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": ".\\"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "\\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "•"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " JSON"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": ":"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " Canvas"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 배"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "치"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 패"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "널"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 구성"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 출"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "처"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 정보를"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 완"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "벽"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "하게"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 복"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "원"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "할"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 수"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 있는"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 구조"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "화"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "된"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 파일"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "입니다"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 분석"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "과"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 재"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "사용"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 재"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "구"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "성을"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 위해"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 유"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "용"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "합니다"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": ".\\"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "\\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "•"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " CSV"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": ":"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 차"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "트"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "와"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 표"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "의"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 핵"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "심"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 수"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "치"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 데이터를"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 추"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "출"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "하는"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 용"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "도로"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 적"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "합"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "합니다"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "."}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " Excel"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 등"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 데이터"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 처리"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 도"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "구"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "에서"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 바로"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 활용"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "할"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 수"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 있습니다"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": ".\\"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "\\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "•"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " PDF"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": ":"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 인간"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "이"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 읽"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "고"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 공유"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "하기"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 쉬"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "운"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 문"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "서"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 형"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "식"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "이며"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": ","}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 현재"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "의"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 화면"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 레"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "이"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "아"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "웃"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "과"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 시"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "각"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 표시"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "를"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 그대로"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 보"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "존"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "합니다"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": ".\\"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "\\n"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "브"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "라우"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "저"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 기본"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 다운로드"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 컨"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "트"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "롤"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "로"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 직접"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 저장"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "·"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "검"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "증"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "하는"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 방"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "식을"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": " 권"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "장"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "합니다"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": ".\")"}
+
+data: {"type": "TEXT_MESSAGE_CONTENT", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a", "delta": "])"}
+
+data: {"type": "TEXT_MESSAGE_END", "messageId": "lc_run--01a1711c-e76d-7293-8063-df288dc77c5a"}
+
+data: {"type": "STATE_SNAPSHOT", "snapshot": {"dashboard": {"revision": 2, "tabs": [{"id": "main", "title": "Overview"}], "active_tab_id": "main", "panels": [{"id": "0a0accf5-59ea-42b3-8677-48ca84b88a48", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal year ended January 25, 2026 and January 26, 2025 · Revenue in millions USD\")\nchart = BarChart([\"FY2025\", \"FY2026\"], [Series(\"Revenue\", [130.497, 215.938])], \"grouped\", \"Fiscal Year\", \"Revenue (USD billions)\")\nsources = [{\"title\": \"NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 25, 2026\", \"sourceName\": \"NVIDIA 10-K fiscal 2026 · Page 51\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\": \"NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 26, 2025\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025 · Page 144\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144\"}]", "ui_state": {}, "source_artifact_id": "7a7738e9-332b-4bd2-823c-05292602d99b", "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 25, 2026", "sourceName": "NVIDIA 10-K fiscal 2026 · Page 51", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 26, 2025", "sourceName": "NVIDIA Annual Report, fiscal 2025 · Page 144", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144"}]}], "artifacts": [{"id": "7a7738e9-332b-4bd2-823c-05292602d99b", "title": "NVIDIA 매출", "kind": "openui", "tab_id": "main", "layout": {"x": 0, "y": 0, "w": 12, "h": 12}, "pinned": false, "refresh": {"mode": "live", "interval_seconds": 0, "last_attempt_at": null, "last_success_at": null, "error": null}, "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal year ended January 25, 2026 and January 26, 2025 · Revenue in millions USD\")\nchart = BarChart([\"FY2025\", \"FY2026\"], [Series(\"Revenue\", [130.497, 215.938])], \"grouped\", \"Fiscal Year\", \"Revenue (USD billions)\")\nsources = [{\"title\": \"NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 25, 2026\", \"sourceName\": \"NVIDIA 10-K fiscal 2026 · Page 51\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51\"}, {\"title\": \"NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 26, 2025\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025 · Page 144\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144\"}]", "ui_state": {}, "source_artifact_id": null, "query": {}, "data": {}, "sources": [{"title": "NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 25, 2026", "sourceName": "NVIDIA 10-K fiscal 2026 · Page 51", "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=51"}, {"title": "NVIDIA Corporation and Subsidiaries Consolidated Statements of Income Year Ended Jan 26, 2025", "sourceName": "NVIDIA Annual Report, fiscal 2025 · Page 144", "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=144"}]}], "selected_panel_id": "0a0accf5-59ea-42b3-8677-48ca84b88a48", "export_request": null}}}
+
+data: {"type": "RUN_FINISHED", "threadId": "e67fca90-bca4-4488-b9e2-4fbc146908d9", "runId": "1bdf6a27-d84c-45f6-89e3-384262baeb24"}
+

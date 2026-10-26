@@ -1,0 +1,5789 @@
+[
+  {
+    "type": "RUN_STARTED",
+    "threadId": "82794092-925a-4eb0-b400-8ea570af6ede",
+    "runId": "6d2e990e-4ab6-4d1f-a43d-78d496d9f6dc"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 0,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [],
+        "artifacts": [],
+        "selected_panel_id": null,
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_gOGVAbYCX9774tU2TmzZPgQI",
+    "toolCallName": "find_document_pages"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_gOGVAbYCX9774tU2TmzZPgQI",
+    "delta": "{\"document_id\": \"nvidia\", \"phrase\": \"Business\"}"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_0TAWv9TyKCDsAKNCvT6dzzkb",
+    "toolCallName": "find_document_pages"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_0TAWv9TyKCDsAKNCvT6dzzkb",
+    "delta": "{\"document_id\": \"nv"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_0TAWv9TyKCDsAKNCvT6dzzkb",
+    "delta": "idia\", \"phrase\": \"Risk Factors\"}"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_jRdoohM7pyHtP1mTa9XeInvr",
+    "toolCallName": "find_document_pages"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jRdoohM7pyHtP1mTa9XeInvr",
+    "delta": "{\"document_id\": \"nvidia\", \"phr"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jRdoohM7pyHtP1mTa9XeInvr",
+    "delta": "ase\": \"Management’s"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_jRdoohM7pyHtP1mTa9XeInvr",
+    "delta": " Discussion and Analysis\"}"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_lqXu0inBpqPsmkkukKHuPgtW",
+    "toolCallName": "find_document_pages"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_lqXu0inBpqPsmkkukKHuPgtW",
+    "delta": "{\"document_id\": \"nvidia\", \"phrase\": \"Financial Highlights\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_gOGVAbYCX9774tU2TmzZPgQI"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_0TAWv9TyKCDsAKNCvT6dzzkb"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_jRdoohM7pyHtP1mTa9XeInvr"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_lqXu0inBpqPsmkkukKHuPgtW"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_gOGVAbYCX9774tU2TmzZPgQI",
+    "toolCallId": "call_gOGVAbYCX9774tU2TmzZPgQI",
+    "content": "{\"document_id\": \"nvidia\", \"phrase\": \"Business\", \"total_matches\": 36, \"matches\": [{\"page\": 2, \"excerpt\": \"Table of Contents NVIDIA Corporation Table of Contents Page Part I Item 1. Business 4 Item 1A. Risk Factors 12 Item 1B. Unresolved Staff Comments 32 Item 1C Cybersecurity 32 Item 2. Properties 33 Item 3. Legal Proceedings 33 Item 4. Mine Safety Disclosures 33 Part II Item 5. Market for Registrant’s Common Equity, Related \"}, {\"page\": 4, \"excerpt\": \"Table of Contents Part I Item 1. Business Our Company NVIDIA pioneered accelerated computing to help solve the most challenging computational problems. NVIDIA is now a data center scale AI infrastructure company reshaping all industries. Our technology stack includes the foundatio\"}, {\"page\": 5, \"excerpt\": \"d in California in April 1993 and reincorporated in Delaware in April 1998. Our Businesses We report our business results in two segments. The Compute & Networking segment includes our Data Center accelerated computing and networking platforms and AI solutions and software, and Automotive platforms and autonomous and electric \"}, {\"page\": 7, \"excerpt\": \"driving, mapping, and parking services, and intelligent in-vehicle experiences. Business Strategies NVIDIA’s key strategies that shape our overall business approach include: Advancing the NVIDIA accelerated computing platform. Our accelerated computing platform can solve complex problems in significantly less time and with low\"}, {\"page\": 9, \"excerpt\": \"continue entering such license agreements. Government Regulations Our worldwide business activities are subject to various laws, rules, and regulations of the United States as well as of foreign governments. Over the past three years, we have been subject to a series of shifting and expanding export control restrictions, impac\"}, {\"page\": 10, \"excerpt\": \"d the benefit to our competitors will have a material and adverse impact on our business, operating results, and financial condition. In addition to controls targeting D:1, D:4 and D:5 countries, the USG has also imposed worldwide export controls impacting our products, and may impose additional controls in the future. In Janu\"}, {\"page\": 11, \"excerpt\": \"Table of Contents The licensing process may not be resolved before significant business opportunities evaporate. Even if the USG grants any requested licenses, the licenses have already and may in the future be temporary, impose burdensome conditions regarding the installation, maintenance, and use of such products, or includ\"}, {\"page\": 12, \"excerpt\": \"ost recently served as Senior Vice President and Chief Financial Officer of the Business Technology and Operations Finance organization at Cisco Systems, Inc., a networking equipment company, since 2010. At Cisco, Ms. Kress was responsible for financial strategy, planning, reporting and business development for all business se\"}]}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_0TAWv9TyKCDsAKNCvT6dzzkb",
+    "toolCallId": "call_0TAWv9TyKCDsAKNCvT6dzzkb",
+    "content": "{\"document_id\": \"nvidia\", \"phrase\": \"Risk Factors\", \"total_matches\": 9, \"matches\": [{\"page\": 2, \"excerpt\": \"ts NVIDIA Corporation Table of Contents Page Part I Item 1. Business 4 Item 1A. Risk Factors 12 Item 1B. Unresolved Staff Comments 32 Item 1C Cybersecurity 32 Item 2. Properties 33 Item 3. Legal Proceedings 33 Item 4. Mine Safety Disclosures 33 Part II Item 5. Market for Registrant’s Common Equity, Related Stockholder Matters and \"}, {\"page\": 3, \"excerpt\": \"factors in this Annual Report on Form 10-K in greater detail under the heading “Risk Factors.” Given these risks, uncertainties, and other factors, you should not place undue reliance on these forward-looking statements. Also, these forward-looking statements represent our estimates and assumptions only as of the date of this fili\"}, {\"page\": 11, \"excerpt\": \" manufacturing locations and negatively impact our business. Refer to “Item 1A. Risk Factors – Risks Related to Regulatory, Legal, Our Stock, and Other Matters” for a discussion of this potential impact. Compliance with laws, rules, and regulations has not otherwise had a material effect upon our capital expenditures, results of o\"}, {\"page\": 12, \"excerpt\": \" or connected to it are not a part of this Annual Report on Form 10-K. Item 1A. Risk Factors The following risk factors should be considered in addition to the other information in this Annual Report on Form 10-K. The following risks could harm our business, financial condition, results of operations or reputation, which could cau\"}, {\"page\": 14, \"excerpt\": \"Table of Contents Risk Factors Risks Related to Our Industry and Markets Failure to meet the evolving needs of our industry and markets may adversely impact our financial results. Our accelerated computing platforms experience rapid changes in technology, customer requi\"}, {\"page\": 32, \"excerpt\": \"al information, product, and physical security requirements. Refer to “Item 1A. Risk factors” in this annual report on Form 10-K for additional information about cybersecurity-related risks. Governance Information security matters, including managing and assessing risks from cybersecurity threats, remain under the oversight of the\"}, {\"page\": 36, \"excerpt\": \"ondition and results of operations should be read in conjunction with “Item 1A. Risk Factors,” our Consolidated Financial Statements and related Notes thereto, as well as other cautionary statements and risks described elsewhere in this Annual Report on Form 10-K, before deciding to purchase, hold, or sell shares of our common sto\"}, {\"page\": 37, \"excerpt\": \"usly manage product availability and costs with our vendors. Refer to “Item 1A. Risk Factors – Risks Related to Regulatory, Legal, Our Stock and Other Matters” for a further discussion of the potential impact of these factors on our business. Fiscal Year 2026 Summary Year Ended Jan 25, 2026 Jan 26, 2025 Change ($ in millions, exce\"}]}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_lqXu0inBpqPsmkkukKHuPgtW",
+    "toolCallId": "call_lqXu0inBpqPsmkkukKHuPgtW",
+    "content": "{\"document_id\": \"nvidia\", \"phrase\": \"Financial Highlights\", \"total_matches\": 0, \"matches\": []}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_jRdoohM7pyHtP1mTa9XeInvr",
+    "toolCallId": "call_jRdoohM7pyHtP1mTa9XeInvr",
+    "content": "{\"document_id\": \"nvidia\", \"phrase\": \"Management’s Discussion and Analysis\", \"total_matches\": 1, \"matches\": [{\"page\": 2, \"excerpt\": \"ters and Issuer Purchases of Equity Securities 33 Item 6. [Reserved] 35 Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations 36 Item 7A. Quantitative and Qualitative Disclosures About Market Risk 44 Item 8. Financial Statements and Supplementary Data 45 Item 9. Changes in and Disagreements with Accountants on Acco\"}]}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_uXNdxm3zTUFnLddoKU0SXNbT",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_uXNdxm3zTUFnLddoKU0SXNbT",
+    "delta": "{\"document_id\": \"nvidia\", \"page\": 4}"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_DGSEzOZdMXbg9vupbsaNKNJC",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_DGSEzOZdMXbg9vupbsaNKNJC",
+    "delta": "{\"document_id\": \"nvidia\", \"page\": 5}"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_ikcQucUlU6MtrI50HrLfTgPG",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ikcQucUlU6MtrI50HrLfTgPG",
+    "delta": "{\"document_id\":"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ikcQucUlU6MtrI50HrLfTgPG",
+    "delta": " \"nvidia\", \"page\": 6}"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_7kDQj3a3HtAdToyBVecciipM",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_7kDQj3a3HtAdToyBVecciipM",
+    "delta": "{\"document_id\": \"nvidia\", \"page\": 7}"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_SHGFCol2bIH3MCNvqmDJDlhM",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_SHGFCol2bIH3MCNvqmDJDlhM",
+    "delta": "{\"document_id\": \"nvidia\", \"page\": 12}"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_pstk41ckTDQHVfbQ8YrtyfWL",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_pstk41ckTDQHVfbQ8YrtyfWL",
+    "delta": "{\"document_id\": \"nvidia\", \"page\": 13}"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_ZhxS6tyGXForOMXN49wyRDrM",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_ZhxS6tyGXForOMXN49wyRDrM",
+    "delta": "{\"document_id\": \"nvidia\", \"page\": 14}"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_e3W3HH4nemPvKnUjULsb466a",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_e3W3HH4nemPvKnUjULsb466a",
+    "delta": "{\"document_id\": \"nvidia\", \"page\": 36}"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_prtay7KC6TQrhHEiyBckjTJ9",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_prtay7KC6TQrhHEiyBckjTJ9",
+    "delta": "{\"document_id\": \"nvidia\", \"page\": 37}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_uXNdxm3zTUFnLddoKU0SXNbT"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_DGSEzOZdMXbg9vupbsaNKNJC"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_ikcQucUlU6MtrI50HrLfTgPG"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_7kDQj3a3HtAdToyBVecciipM"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_SHGFCol2bIH3MCNvqmDJDlhM"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_pstk41ckTDQHVfbQ8YrtyfWL"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_ZhxS6tyGXForOMXN49wyRDrM"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_e3W3HH4nemPvKnUjULsb466a"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_prtay7KC6TQrhHEiyBckjTJ9"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_ikcQucUlU6MtrI50HrLfTgPG",
+    "toolCallId": "call_ikcQucUlU6MtrI50HrLfTgPG",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 6, \"total_pages\": 93, \"text\": \"Table of Contents\\nODMs, system integrators and distributors which we partner with to help bring our products to market. We also have partnerships in automotive, healthcare,\\nfinancial services, manufacturing, retail, and technology among others, to accelerate the adoption of AI.\\nAt the foundation of the NVIDIA accelerated computing platform are our GPUs, which excel at parallel workloads such as the training and inferencing of neural\\nnetworks. These Data Center systems are extreme co-designed with the GPU, CPU, NVLink switch, DPU, NIC, and scale-out networking along with software\\nstacks and algorithms to deliver data center-scale computing solutions.\\nWhile our approach starts with powerful chips, what makes it a full-stack computing platform is our large body of software, including the CUDA development\\nplatform, the CUDA-X collection of acceleration libraries, AI models and training data sets, APIs, SDKs, and domain-specific application frameworks.\\nIn addition to software delivered to customers as an integral part of our data center computing and networking platform, we offer paid licenses to NVIDIA AI\\nEnterprise, a comprehensive suite of enterprise-grade AI software and NVIDIA vGPU software for graphics-rich virtual desktops and workstations.\\nIn fiscal year 2025, we launched the NVIDIA Blackwell architecture, a full set of data center scale infrastructure that includes GPUs, CPUs, DPUs, interconnects,\\nswitch chips and systems, and networking adapters. Blackwell excels at processing cutting edge generative AI and accelerated computing workloads with\\nmarket leading performance and efficiency. Offered in a number of configurations, for customers across industries and a diverse set of AI and accelerated\\ncomputing use cases. In fiscal year 2026, we unveiled the NVIDIA Rubin platform, which is expected to commence production shipments in the second half of\\nfiscal year 2027. Built for agentic AI and reasoning, it excels at processing multi-step problem-solving and massive long-context workflows, delivering up to a 10x\\nreduction in cost per token compared to Blackwell.\\nFor physical AI, we provide an end-to-end platform spanning data center infrastructure, open models, systems, embedded compute modules, and software\\nstacks to train, simulate, and deploy advanced automation and robotics solutions.\\nGaming\\nGaming is the largest entertainment industry, with PC gaming as the predominant platform. Many factors propel its growth, including new high production value\\ngames, the continued rise of eSports, social connectivity and the increasing popularity of game streamers, modders, or gamers who remaster games, and\\ncreators.\\nOur products for the gaming market include GeForce RTX GPUs for gaming desktop and laptop PCs, GeForce NOW cloud gaming service, as well as SoCs and\\ndevelopment services for game consoles.\\nOur gaming platforms leverage our GPUs and sophisticated software to enhance the gaming experience with smoother, higher quality graphics. NVIDIA RTX\\nfeatures ray tracing technology for real-time, cinematic-quality rendering, and deep learning super sampling, or NVIDIA DLSS, our AI technology that boosts\\nframe rates while generating high-quality images for games. RTX GPUs also feature NVIDIA tensor core technology making them well suited to accelerate a new\\ngeneration of on-device AI applications.\\nIn fiscal year 2025, we announced the NVIDIA Blackwell GeForce RTX 50 Series family of desktop and laptop GPUs. The Blackwell architecture introduced\\nneural graphics which combines AI models with traditional rendering to boost game performance, image quality, and interactivity, as well as the next generation\\nof our DLSS technology powered by a new transformer model architecture. In fiscal year 2026, we launched and scaled Blackwell architecture for gaming and\\nGeForce NOW.\\nProfessional Visualization\\nWe serve the Professional Visualization market by working closely with independent software vendors, or ISVs, to optimize their offerings for NVIDIA GPUs. Our\\nGPU computing platform enhances productivity and introduces new capabilities for critical workflows in many fields, such as design, engineering, and digital\\ncontent creation across a wide range of industry verticals. Additionally, the increasing number of generative and agentic AI applications is giving rise to the need\\nfor the enhanced AI and data processing capabilities of our RTX PRO GPUs.\\nMany leading 3D design and content creation applications developed by our ecosystem partners support RTX, allowing professionals to accelerate and\\ntransform their workflows with NVIDIA RTX PRO GPUs and software. As these applications increasingly integrate AI, these GPUs are used and leverage the\\nsame Tensor Core technology found in our Data Center solutions.\\nAutomotive\\nAutomotive is comprised of platform solutions for automated driving from the cloud to the car. Leveraging our technology leadership in AI and building on long-\\nstanding relationships across several hundred automotive ecosystem partners, we are delivering a full stack end-to-end solution for the AV market under the\\nDRIVE Hyperion platform. This platform consists of development infrastructure, high-performance, energy efficient DRIVE AGX computing hardware\\n6\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_SHGFCol2bIH3MCNvqmDJDlhM",
+    "toolCallId": "call_SHGFCol2bIH3MCNvqmDJDlhM",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 12, \"total_pages\": 93, \"text\": \"Table of Contents\\ncompany. Mr. Huang holds a B.S.E.E. degree from Oregon State University and an M.S.E.E. degree from Stanford University.\\nColette M. Kress joined NVIDIA in 2013 as Executive Vice President and Chief Financial Officer. Prior to NVIDIA, Ms. Kress most recently served as Senior\\nVice President and Chief Financial Officer of the Business Technology and Operations Finance organization at Cisco Systems, Inc., a networking equipment\\ncompany, since 2010. At Cisco, Ms. Kress was responsible for financial strategy, planning, reporting and business development for all business segments,\\nengineering and operations. From 1997 to 2010 Ms. Kress held a variety of positions at Microsoft, a software company, including, beginning in 2006, Chief\\nFinancial Officer of the Server and Tools division, where Ms. Kress was responsible for financial strategy, planning, reporting and business development for the\\ndivision. Prior to joining Microsoft, Ms. Kress spent eight years at Texas Instruments Incorporated, a semiconductor company, where she held a variety of finance\\npositions. Ms. Kress holds a B.S. degree in Finance from University of Arizona and an M.B.A. degree from Southern Methodist University.\\nAjay K. Puri joined NVIDIA in 2005 as Senior Vice President, Worldwide Sales and became Executive Vice President, Worldwide Field Operations in 2009. Prior\\nto NVIDIA, he held positions in sales, marketing, and general management over a 22-year career at Sun Microsystems, Inc., a computing systems company. Mr.\\nPuri previously held marketing, management consulting, and product development positions at Hewlett-Packard, an information technology company, Booz Allen\\nHamilton Inc., a management and technology consulting company, and Texas Instruments Incorporated. Mr. Puri holds a B.S.E.E. degree from the University of\\nMinnesota, an M.S.E.E. degree from the California Institute of Technology and an M.B.A. degree from Harvard Business School.\\nDebora Shoquist joined NVIDIA in 2007 as Senior Vice President of Operations and in 2009 became Executive Vice President of Operations. Prior to NVIDIA,\\nMs. Shoquist served from 2004 to 2007 as Executive Vice President of Operations at JDS Uniphase Corp., a provider of communications test and measurement\\nsolutions and optical products for the telecommunications industry. She served from 2002 to 2004 as Senior Vice President and General Manager of the Electro-\\nOptics business at Coherent, Inc., a manufacturer of commercial and scientific laser equipment. Previously, she worked at Quantum Corp., a data protection\\ncompany, as President of the Personal Computer Hard Disk Drive Division, and at Hewlett-Packard. Ms. Shoquist holds a B.S. degree in Electrical Engineering\\nfrom Kansas State University and a B.S. degree in Biology from Santa Clara University.\\nTimothy S. Teter joined NVIDIA in 2017 as Senior Vice President, General Counsel and Secretary and became Executive Vice President, General Counsel and\\nSecretary in February 2018. Prior to NVIDIA, Mr. Teter spent more than two decades at the law firm of Cooley LLP, where he focused on litigating patent and\\ntechnology related matters. Prior to attending law school, he worked as an engineer at Lockheed Missiles and Space Company, an aerospace company. Mr.\\nTeter holds a B.S. degree in Mechanical Engineering from the University of California at Davis and a J.D. degree from Stanford Law School.\\nAvailable Information\\nOur annual reports on Form 10-K, quarterly reports on Form 10-Q, current reports on Form 8-K and, if applicable, amendments to those reports filed or furnished\\npursuant to Section 13(a) or 15(d) of the Securities Exchange Act of 1934, as amended, or the Exchange Act, are available free of charge on or through our\\nwebsite, http://www.nvidia.com, as soon as reasonably practicable after we electronically file such material with, or furnish it to, the Securities and Exchange\\nCommission, or the SEC. The SEC’s website, http://www.sec.gov, contains reports, proxy and information statements, and other information regarding issuers\\nthat file electronically with the SEC. Our web site and the information on it or connected to it are not a part of this Annual Report on Form 10-K.\\nItem 1A. Risk Factors\\nThe following risk factors should be considered in addition to the other information in this Annual Report on Form 10-K. The following risks could harm our\\nbusiness, financial condition, results of operations or reputation, which could cause our stock price to decline. Additional risks, trends and uncertainties not\\npresently known to us or that we currently believe are immaterial may also harm our business, financial condition, results of operations or reputation.\\nRisk Factors Summary\\nRisks Related to Our Industry and Markets\\n• Failure to meet the evolving needs of our industry and markets may adversely impact our financial results.\\n• Competition could adversely impact our market share and financial results.\\nRisks Related to Demand, Supply, and Manufacturing\\n• Long manufacturing lead times and uncertain supply and capacity availability, combined with a failure to estimate customer demand accurately has led\\nand could lead to mismatches between supply and demand.\\n12\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=12\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_DGSEzOZdMXbg9vupbsaNKNJC",
+    "toolCallId": "call_DGSEzOZdMXbg9vupbsaNKNJC",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 5, \"total_pages\": 93, \"text\": \"Table of Contents\\nnetworking, data processing, online shopping, live video, and translation. AI model makers use our infrastructure and software hosted at CSPs to develop, build\\nand run AI models, product offerings, and services.\\nEnterprises and startups across a broad range of industries use our accelerated computing platforms to build new generative and agentic AI-enabled products\\nand services, and/or to dramatically accelerate and reduce the costs of their workloads and workflows. The enterprise software industry uses them for new AI\\nassistants, chatbots, and agents; the transportation industry for autonomous driving; the healthcare industry for accelerated and computer-aided drug discovery;\\nand the financial services industry for customer support and fraud detection.\\nResearchers and developers use our computing solutions to accelerate a wide range of important applications, from simulating molecular dynamics to climate\\nforecasting. With support for 6,000 applications, NVIDIA computing enables some of the most promising areas of discovery, from climate prediction to materials\\nscience and from wind tunnel simulation to genomics. Including GPUs and networking, NVIDIA powers over 78% of the supercomputers on the global TOP500\\nlist, including 9 of the top 10 systems on the Green500 list.\\nGamers choose NVIDIA GPUs to enjoy immersive, increasingly cinematic virtual worlds. In addition to serving the growing number of gamers, the market for PC\\nGPUs is expanding because of the growing population of live streamers, broadcasters, artists, and creators. With the advent of generative and agentic AI, we\\nexpect a broader set of PC users to choose NVIDIA GPUs for running these applications locally on their PC, which is critical for privacy, latency, and cost-\\nsensitive AI applications.\\nProfessional artists, architects and designers use NVIDIA partner products accelerated with our GPUs and software platform for a range of creative, engineering,\\nand design use cases, such as creating visual effects in movies or designing buildings and products. In addition, generative and agentic AI is expanding the\\nmarket for our workstation-class GPUs, as more enterprise customers develop and deploy AI applications with their data on-premises.\\nHeadquartered in Santa Clara, California, NVIDIA was incorporated in California in April 1993 and reincorporated in Delaware in April 1998.\\nOur Businesses\\nWe report our business results in two segments.\\nThe Compute & Networking segment includes our Data Center accelerated computing and networking platforms and AI solutions and software, and Automotive\\nplatforms and autonomous and electric vehicle solutions including software.\\nThe Graphics segment includes GeForce GPUs for gaming and PCs, and Quadro/NVIDIA RTX GPUs for enterprise workstation graphics.\\nOur Markets\\nWe specialize in markets where our computing and AI infrastructure platforms can provide tremendous acceleration for applications. These platforms incorporate\\nprocessors, interconnects, software, algorithms, systems, and services to deliver unique value. Our platforms address four large markets where our expertise is\\ncritical: Data Center, Gaming, Professional Visualization, and Automotive.\\nData Center\\nThe NVIDIA Data Center platform is focused on accelerating compute-intensive workloads, such as AI, data processing, graphics, robotics, and scientific\\ncomputing, delivering superior total cost of ownership relative to conventional CPU-only approaches. It is deployed in cloud, hyperscale, on-premises and edge\\ndata centers. The platform consists of data center compute and networking infrastructure offerings typically delivered to customers as rack-scale systems,\\nsubsystems, or modules, along with software and services.\\nOur Data Center infrastructure systems include supercomputing platforms and servers, bringing together our higher performance, energy efficient GPUs, CPUs,\\ninterconnects, and fully optimized AI and HPC software stacks. In addition, they include a growing body of acceleration libraries, AI models and training data\\nsets, APIs, SDKs, and domain-specific application frameworks.\\nOur networking offerings include NVLink interconnects and switches, end-to-end platforms for InfiniBand and Ethernet, consisting of network adapters, cables,\\nDPUs, switch chips and systems, as well as software. This has enabled us to architect data center-scale computing platforms that can interconnect up to\\nhundreds of thousands of compute nodes with high-performance networking. Fueled by an expansion in AI and HPC workloads, the data center has become the\\nnew unit of computing, with networking as an integral part. In fiscal year 2026, we introduced NVIDIA NVLink Fusion to enable hyperscalers and custom ASIC\\ndesigners to integrate custom CPUs and XPUs with our platform.\\nOur customers include all major public and private cloud providers, AI model makers, enterprises and startups, and public sector entities. We work with industry\\nleaders to help build or transform their applications and data center infrastructure. Some of our direct customers include original equipment manufacturers, or\\nOEMs, original device manufacturers, or\\n5\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=5\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_pstk41ckTDQHVfbQ8YrtyfWL",
+    "toolCallId": "call_pstk41ckTDQHVfbQ8YrtyfWL",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 13, \"total_pages\": 93, \"text\": \"Table of Contents\\n• Dependency on third-party suppliers and their technology to manufacture, assemble, test, or package our products reduces our control over product\\nquantity and quality, manufacturing yields, and product delivery schedules and could harm our business.\\n• Defects in our products have caused and could cause us to incur significant expenses to remediate and could damage our business.\\nRisks Related to Our Global Operating Business\\n• Adverse economic conditions may harm our business.\\n• International sales and operations are a significant part of our business, which exposes us to risks that could harm our business. \\n• Product, system security and data protection incidents or breaches, as well as cyber-attacks could disrupt our operations and adversely affect our\\nfinancial condition, stock price and reputation.\\n• Business disruptions could harm our operations and financial results. \\n• Climate change may have a long-term impact on our business. \\n• We may not be able to realize the potential benefits of business investments or acquisitions, nor successfully integrate acquisition targets. \\n• A significant amount of our revenue stems from a limited number of partners and distributors and we have a concentration of sales to customers who\\npurchase directly or indirectly from us, and our revenue could be adversely affected if we lose or are prevented from selling to any of these customers. \\n• Commercial arrangements expose us to counterparty risks, which may negatively impact our business, financial condition, or results of operations.\\n• We may be unable to attract, retain, and motivate our executives and key employees. \\n• Modification or interruption of our business processes and information systems may disrupt our business and internal controls. \\n• Our operating results have in the past fluctuated and may in the future fluctuate, and if our operating results are below the expectations of securities\\nanalysts or investors, our stock price could decline. \\nRisks Related to Regulatory, Legal, Our Stock, and Other Matters\\n• We are subject to complex laws, rules, regulations, and political and other actions, including restrictions on the export of our products, which may\\nadversely impact our business. \\n• Scrutiny regarding our corporate sustainability practices could result in financial, reputational, or operational harm and liability. \\n• Issues relating to the responsible use of our technologies, including AI, may result in reputational or financial harm and liability. \\n• Adequately protecting our IP rights could be costly, and our ability to compete could be harmed if we are unsuccessful or if we are prohibited from\\nmaking or selling our products. \\n• We are subject to stringent and changing data privacy and security laws, rules, regulations, and other obligations. These areas could damage our\\nreputation, deter customers, affect product design, or result in legal or regulatory proceedings and liability. \\n• Our operating results may be adversely impacted by additional tax liabilities, higher than expected tax rates, changes in tax laws, and other tax-related\\nfactors. \\n• Our business is exposed to the burden and risks associated with litigation, investigations, and regulatory proceedings. \\n• Delaware law, provisions in our governing documents and our agreement with Microsoft could delay or prevent a change in control. \\n13\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=13\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_prtay7KC6TQrhHEiyBckjTJ9",
+    "toolCallId": "call_prtay7KC6TQrhHEiyBckjTJ9",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 37, \"total_pages\": 93, \"text\": \"Table of Contents\\nWe have made, and expect to continue making, investments that support our technology roadmap and the broader AI ecosystem. In fiscal year 2026, we made\\nthe following investments:\\n• We invested $17.5 billion in private companies and infrastructure funds, primarily to support early ‑ stage startups. These investments include AI model\\nmakers that purchase our products directly or through CSPs. Many of these investments are illiquid and non ‑ marketable. The related early-stage\\nstartups may not become profitable in the near term, or at all, and there can be no assurance that we will realize a return on our investments.\\n• We made investments in publicly-held equity securities where the value may fluctuate significantly due to changes in stock prices and could adversely\\naffect our financial results.\\n• To support the build-out of complex datacenter infrastructures, we enter into commercial arrangements, including guarantees with partners. We\\nprovided $3.5 billion in land, power, and shell guarantees to early ‑ stage companies, generally over multi ‑ year periods. If the escrow and the partners'\\noperating activities are not sufficient to cover an event of default under these guarantees, we may elect to assume the underlying leases for internal use\\nor sublease them to third parties.\\nMacroeconomic factors, including tariffs, inflation, interest rate changes, capital market volatility, global supply chain constraints, and global economic and\\ngeopolitical developments, have direct and indirect impacts on our results of operations, particularly demand for our products. While difficult to isolate and\\nquantify, these macroeconomic factors impact our supply chain and manufacturing costs, employee wages, costs for capital equipment, the value of our\\ninvestments, revenue and competitive position. Our product and solution pricing generally does not fluctuate with short-term changes in our costs. Within our\\nsupply chain, we continuously manage product availability and costs with our vendors.\\nRefer to “Item 1A. Risk Factors – Risks Related to Regulatory, Legal, Our Stock and Other Matters” for a further discussion of the potential impact of these\\nfactors on our business.\\nFiscal Year 2026 Summary\\n Year Ended\\n Jan 25, 2026 Jan 26, 2025 Change\\n($ in millions, except per share data)\\nRevenue $ 215,938 $ 130,497 Up 65%\\nGross margin 71.1 % 75.0 % -3.9 pts\\nOperating expenses $ 23,076 $ 16,405 Up 41%\\nOperating income $ 130,387 $ 81,453 Up 60%\\nNet income $ 120,067 $ 72,880 Up 65%\\nNet income per diluted share $ 4.90 $ 2.94 Up 67%\\nRevenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago.\\nData Center revenue for fiscal year 2026 was up 68% from a year ago. The strong year-on-year growth was driven by the major platform shifts – accelerated\\ncomputing and AI.\\nGaming revenue for fiscal year 2026 was up 41% from a year ago, driven by strong Blackwell demand. We expect supply constraints to be a headwind to\\nGaming in the first quarter of fiscal 2027 and beyond.\\nProfessional Visualization revenue for fiscal year 2026 was up 70% from a year ago, driven by exceptional demand for Blackwell as well as the launch of our\\nnew DGX Spark.\\nAutomotive revenue for fiscal year 2026 was up 39% from a year ago, driven by continued adoption of our self-driving platforms.\\nGross margin decreased in fiscal year 2026 as our business model transitioned from offering Hopper HGX systems to Blackwell full-scale datacenter solutions.\\nThe gross margin decrease was also impacted by a $4.5 billion charge associated with H20 excess inventory and purchase obligations.\\nOperating expenses for fiscal year 2026 were up 41% from a year ago, driven by higher compensation and benefits expenses due to employee growth and\\ncompute and infrastructure costs.\\n37\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_7kDQj3a3HtAdToyBVecciipM",
+    "toolCallId": "call_7kDQj3a3HtAdToyBVecciipM",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 7, \"total_pages\": 93, \"text\": \"Table of Contents\\nrunning an in-vehicle operating system (DRIVE OS), a reference sensor set that supports full self-driving capability as well as an open, modular DRIVE software\\nplatform for autonomous driving, mapping, and parking services, and intelligent in-vehicle experiences.\\nBusiness Strategies\\nNVIDIA’s key strategies that shape our overall business approach include:\\nAdvancing the NVIDIA accelerated computing platform. Our accelerated computing platform can solve complex problems in significantly less time and with\\nlower power consumption than alternative computational approaches. It can help solve problems that were previously deemed unsolvable. We work to deliver\\ncontinued performance leaps that outpace Moore’s Law by leveraging innovation across the architecture, chip design, system, interconnect, algorithm, and\\nsoftware layers. This full-stack innovation approach allows us to deliver order-of-magnitude performance advantages relative to legacy approaches in our target\\nmarkets, which include Data Center, Gaming, Professional Visualization, and Automotive. While the computing requirements of these end markets are diverse,\\nwe address them with a unified underlying architecture leveraging our GPUs, CPUs, CUDA and networking technologies as the fundamental building blocks. The\\nprogrammable nature of our architecture allows us to make leveraged investments in research and development: we can support several multi-billion-dollar end\\nmarkets with shared underlying technology by using a variety of software stacks developed either internally or by third-party developers and partners. We utilize\\nthis platform approach in each of our target markets.\\nExtending our technology and platform leadership in AI. We provide a complete, end-to-end accelerated computing platform for AI, addressing both training\\nand inferencing. This includes full-stack data center-scale compute and networking solutions across processing units, interconnects, systems, and software. Our\\ncompute solutions include all three major processing units in AI servers – GPUs, CPUs, and DPUs. GPUs are uniquely suited to AI, and we will continue to add\\nAI-specific features to our GPU architecture to further extend our leadership position.\\nIn addition, we offer NVIDIA AI Enterprise—a comprehensive software suite designed to simplify the development and deployment of production-grade, end-to-\\nend generative AI applications. NVIDIA AI Enterprise includes: NVIDIA NIM, which increases token throughput using industry-leading open and proprietary\\nmodels; NVIDIA NeMo, a complete solution for curating, fine-tuning, reinforcement learning, evaluating, and safeguarding domain-adapted models; and AI\\nBlueprints, pre-built, runnable templates that help enterprises build, optimize, and deploy AI agents while preserving privacy. These tools enable organizations to\\nsecurely develop and run AI applications on NVIDIA-accelerated infrastructure anywhere.\\nOur AI technology leadership is reinforced by our large and expanding ecosystem. Our computing platforms are available from virtually every major server maker\\nand CSP, as well as on our own AI supercomputers. There are over 7.5 million developers worldwide using CUDA and our other software tools to help deploy our\\ntechnology in our target markets. We are the leader in accelerating and releasing open AI models which enterprises, sovereigns, and startups can leverage to\\ndevelop and run applications on our platform. We evangelize AI through partnerships with hundreds of universities and tens of thousands of startups through our\\nInception program. Additionally, our Deep Learning Institute provides instruction on the latest techniques on how to design, train, and deploy neural networks in\\napplications using our accelerated computing platform.\\nExtending our technology and platform leadership in computer graphics. We believe that computer graphics infused with AI is fundamental to the\\ncontinued expansion and evolution of computing. We apply our research and development resources to enhance the user experience for consumer\\nentertainment and professional visualization applications and create new virtual world and simulation capabilities. Our technologies are instrumental in driving\\nthe gaming, design, and creative industries forward, as developers leverage our libraries and algorithms to deliver an optimized experience on our GeForce and\\nNVIDIA RTX platforms. Our computer graphics platforms leverage AI end-to-end, from the developer tools and cloud services to the Tensor Cores included in all\\nRTX-class GPUs. Blackwell GPUs’ advanced AI and neural rendering capabilities combined with NVIDIA’s world-class AI software stacks significantly accelerate\\nAI workloads running locally on PCs. Omniverse is real-time 3D design collaboration and virtual world simulation software that empowers artists, designers, and\\ncreators to connect and collaborate in leading design applications.\\nAdvancing the leading autonomous vehicle platform. We believe the advent of autonomous vehicles, or AV, and electric vehicles, or EV, is revolutionizing\\nthe transportation industry. The algorithms required for autonomous driving - such as reasoning, perception, localization, and planning - are too complex for\\nlegacy hand-coded approaches and will use multiple neural networks instead. Therefore, we provide an AI-based hardware and software solution, designed and\\nimplemented from the ground up based on automotive safety standards, for the AV and EV market under the DRIVE brand, which we are bringing to market\\nthrough our partnerships across the transportation industry including with automotive OEMs, mobility service providers, robotaxis, tier-1 suppliers, and start-ups.\\nOur AV solution also includes the GPU-based hardware required to train the neural networks before their in-vehicle deployment, as well as to re-simulate their\\noperation prior to any over-the-air software updates. We believe our comprehensive, top-to-bottom and end-to-end approach will enable the transportation\\nindustry to solve the complex problems arising from the shift to autonomous driving.\\n7\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=7\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_e3W3HH4nemPvKnUjULsb466a",
+    "toolCallId": "call_e3W3HH4nemPvKnUjULsb466a",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 36, \"total_pages\": 93, \"text\": \"Table of Contents\\nItem 7. Management's Discussion and Analysis of Financial Condition and Results of Operations\\nThe following discussion and analysis of our financial condition and results of operations should be read in conjunction with “Item 1A. Risk Factors,” our\\nConsolidated Financial Statements and related Notes thereto, as well as other cautionary statements and risks described elsewhere in this Annual Report on\\nForm 10-K, before deciding to purchase, hold, or sell shares of our common stock.\\nOverview\\nOur Company and Our Businesses\\nNVIDIA pioneered accelerated computing to help solve the most challenging computational problems. Since our original focus on PC graphics, we have\\nexpanded to several other large and important computationally intensive fields. Fueled by the sustained demand for exceptional 3D graphics and the scale of the\\ngaming market, NVIDIA has leveraged its GPU architecture to create platforms for scientific computing, AI, data science, autonomous vehicles, robotics, and\\ndigital twin applications. NVIDIA is now a data center scale AI infrastructure company reshaping all industries.\\nOur two operating segments are \\\"Compute & Networking\\\" and \\\"Graphics.\\\" Refer to Note 16 of the Notes to the Consolidated Financial Statements in Part IV,\\nItem 15 of this Annual Report on Form 10-K for additional information.\\nHeadquartered in Santa Clara, California, NVIDIA was incorporated in California in April 1993 and reincorporated in Delaware in April 1998.\\nRecent Developments, Future Objectives and Challenges\\nRevenue growth in fiscal year 2026 was driven by data center compute and networking platforms for accelerated computing and AI solutions. Our Blackwell\\narchitectures represented the majority of our Data Center revenue.\\nThe availability of data centers, energy, and capital to support the buildout of NVIDIA AI infrastructure by our customers and partners is crucial, and any shortage\\nof these or other necessary resources could impact our future revenue and financial performance. Expanding energy capacity to meet demand is a complex,\\nmulti-year process that involves significant regulatory, technical, and construction challenges. In addition, access to capital can be particularly constrained for\\nless-capitalized companies, which may face difficulties securing financing for large-scale infrastructure projects. These limitations could delay customer and\\npartner deployments or reduce the scale of accelerated computing and AI adoption.\\nWe continue to execute Data Center compute product introductions, bringing new advanced architectures on a one-year product cadence, including our Rubin\\nplatform. We began shipping production units of our new Blackwell Ultra platforms including GB300 in the second quarter of fiscal year 2026. The complexity of\\nour product transitions and sophisticated system configurations has and may in the future cause delays in production and create challenges in managing supply\\nand demand. This could further result in revenue volatility, quality issues, increased inventory provisions, decreases in product yields and higher material costs,\\nand/or increased warranty costs. Customers may postpone purchasing new architectures or may adopt new technologies more gradually than anticipated,\\naffecting our revenue timing and supply chain expenses.\\nIn April 2025, the USG informed us that a license is required for exports of our H20 product into the China market. As a result of these requirements, we incurred\\na $4.5 billion charge in the first quarter of fiscal year 2026 associated with H20 for excess inventory and purchase obligations, as the demand for H20\\ndiminished. In August 2025, the USG granted licenses that would allow us to ship certain H20 products to certain China-based customers. We generated\\napproximately $60 million in H20 revenue under those licenses.\\nIn February 2026, the USG granted a license that would allow us to ship small amounts of H200 products to specific China-based customers. To date, we have\\nnot generated any revenue under the H200 licensing program, and do not yet know whether any imports will be allowed into China. The license requires that the\\nH200s go through an inspection process in the United States prior to any shipment to the customer. As a result, any H200 shipped under the new licensing\\nprogram will be subject to a 25% tariff upon importation into the United States.\\nThe recent rise in high-quality open-source foundation models is making advanced AI capabilities broadly accessible. Open-source AI is dependent on developer\\nadoption and if deployed on our competitors’ platforms, it could reduce demand for our products and services.\\nWhile currently our supply chain is mainly concentrated in Asia, we are expanding into the U.S. and Latin America. These moves are expected to strengthen our\\nsupply chain, add resiliency and redundancy, and meet the growing demand for AI infrastructure. Our ability to increase manufacturing capabilities will depend\\non the local region's manufacturing ecosystem's capacity to ramp production supply to the required volume and on a timely basis.\\n36\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=36\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_uXNdxm3zTUFnLddoKU0SXNbT",
+    "toolCallId": "call_uXNdxm3zTUFnLddoKU0SXNbT",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 4, \"total_pages\": 93, \"text\": \"Table of Contents\\nPart I\\nItem 1. Business\\nOur Company\\nNVIDIA pioneered accelerated computing to help solve the most challenging computational problems. NVIDIA is now a data center scale AI infrastructure\\ncompany reshaping all industries.\\nOur technology stack includes the foundational NVIDIA CUDA development platform that runs on all NVIDIA GPUs, as well as hundreds of domain-specific\\nsoftware libraries, frameworks, algorithms, software development kits, or SDKs, and application programming interfaces, or APIs. This deep and broad software\\nstack accelerates the performance and facilitates the deployment of NVIDIA accelerated computing for computationally intensive workloads such as artificial\\nintelligence, or AI, model training and inference, data analytics, scientific computing, robotics, and 3D graphics, with vertical-specific optimizations to address\\nindustries ranging from healthcare and telecom to automotive and manufacturing.\\nIntroduced with the Blackwell architecture, our data-center-scale offerings feature extreme co-design where the infrastructure’s chips, networking, systems,\\nsoftware, and algorithms are holistically architected and optimized to maximize performance and scale. Hundreds of thousands of GPUs can be interconnected\\nto function as a single giant computer. This type of data center architecture and scale is needed for the development and deployment of modern AI and\\naccelerated computing applications.\\nThe GPU was initially used to simulate human imagination, enabling the virtual worlds of video games and films. Today, it also simulates human intelligence,\\nenabling a deeper understanding of language, science, and the physical world. Its parallel processing capabilities, supported by tens of thousands of computing\\ncores, are essential for deep learning algorithms. This form of AI, in which software writes itself by learning from large amounts of data, can serve as the brain of\\ncomputers, robots, and self-driving cars that can perceive, understand and reason about the world. GPU-powered AI solutions are being developed by\\nthousands of enterprises to deliver services and products that would have been immensely difficult or even impossible with traditional coding. Examples include\\ngenerative AI, which can create new content such as text, code, images, audio, video, molecule structures, and recommendation systems; and agentic AI where\\nsystems of AI models work in concert to automatically complete a task.\\nNVIDIA has a platform strategy, bringing together hardware, systems, software, algorithms, libraries, AI models and training data sets, and services to create\\nunique value for the markets we serve. While the computing requirements of these end markets are diverse, we address them with a unified underlying\\nprogrammable architecture allowing us to support several multi-billion-dollar end markets with the same underlying technology by using a variety of software\\nstacks developed either internally or by third-party developers and partners. The large and growing number of developers and installed base across our\\nplatforms strengthens our ecosystem and increases the value of our platform for our customers.\\nInnovation is at our core. We have invested over $76.7 billion in research and development since our inception, yielding inventions that are essential to modern\\ncomputing. Our invention of the GPU in 1999 sparked the growth of the PC gaming market and redefined computer graphics. With our introduction of CUDA in\\n2006, we opened the parallel processing capabilities of our GPU to a broad range of compute-intensive applications, paving the way for the emergence of\\nmodern AI. In 2012, the AlexNet neural network, trained on NVIDIA GPUs, won the ImageNet computer image recognition competition, marking the “Big Bang”\\nmoment of AI. We introduced our first Tensor Core GPU in 2017, built from the ground-up for the new era of AI, and our first autonomous driving system-on-\\nchips, or SoC, in 2018. Our acquisition of Mellanox in 2020 expanded our offerings to include networking, enabled our platforms to be data center scale, and led\\nto the introduction of a new processor class – the data processing unit, or DPU. Over the past 5 years, we have built full software stacks that run on top of our\\nGPUs and CUDA to bring AI to the world’s largest industries, including NVIDIA DRIVE stack for autonomous driving, Clara for healthcare, Omniverse for physical\\nAI applications, and NVIDIA AI Enterprise software – essentially an operating system for enterprise AI applications. In 2023, we introduced our first data center\\nCPU, Grace, built for giant-scale AI and high-performance computing, or HPC. In 2024, we launched the NVIDIA Blackwell architecture – connecting 36 Grace\\nCPUs and 72 Blackwell GPUs in a data center scale, liquid-cooled design – for real-time trillion-parameter inference and training. In fiscal year 2026, we\\nlaunched and scaled the NVIDIA Blackwell Ultra platform, optimized for agentic, reasoning, and physical AI. Building on the architectural breakthroughs of\\nBlackwell and leveraging Dynamo inference software, it delivers a significant increase in token throughput and reduction in cost per token compared to the\\nHopper generation. More recently, in support of market development, we have accelerated the release cadence of our open AI model platforms including NVIDIA\\nNemotron for agentic AI and Cosmos for physical AI. With a strong engineering culture, we drive fast, yet harmonized, product and technology innovations in all\\ndimensions of computing including silicon, systems, networking, software and algorithms. More than half of our engineers work on software.\\nAll major cloud service providers, or CSPs, AI model makers, and enterprises use our data center-scale infrastructure and computing platforms to accelerate the\\nservices and offerings they deliver to billions of end users and customers, including AI solutions and assistants, AI foundation models, advertising, search,\\nrecommendation systems, social\\n4\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=4\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_ZhxS6tyGXForOMXN49wyRDrM",
+    "toolCallId": "call_ZhxS6tyGXForOMXN49wyRDrM",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 14, \"total_pages\": 93, \"text\": \"Table of Contents\\nRisk Factors\\nRisks Related to Our Industry and Markets\\nFailure to meet the evolving needs of our industry and markets may adversely impact our financial results.\\nOur accelerated computing platforms experience rapid changes in technology, customer requirements, competitive products, and industry standards.\\nOur success depends on our ability to:\\n• timely identify industry changes, adapt our strategies, and develop new or enhance and maintain existing products and technologies that meet the\\nevolving needs of our markets, including addressing unexpected shifts in industry standards or disruptive technological innovations that could render\\nour products incompatible with those developed by other companies;\\n• develop or secure access to new products and technologies through investments in research and development;\\n• launch new offerings with new business models including software, services, and cloud solutions, as well as software-, infrastructure-, or platform-as-a-\\nservice solutions;\\n• expand the ecosystem for our products and technologies;\\n• meet evolving and prevailing customer and industry safety, security, reliability expectations, and compliance standards;\\n• manage product and software lifecycles to maintain customer and end-user satisfaction;\\n• develop, acquire, maintain, and secure access to the internal and external infrastructure needed to scale our business, including sufficient energy for\\npowering data centers using our products, acquisition integrations, customer support, e-commerce, IP licensing capabilities, and cloud service capacity;\\nand\\n• complete technical, financial, operational, compliance, sales and marketing investments for the above activities.\\nWe have invested in research and development in markets where we have a limited operating history, which may not produce meaningful revenue for several\\nyears, if at all. If we fail to develop or monetize new products and technologies, or if they do not become widely adopted, our financial results could be adversely\\naffected. Obtaining design wins may involve a lengthy process and depends on our ability to anticipate and provide features and functionality that customers will\\ndemand. They also do not guarantee revenue. Failure to obtain a design win may prevent us from obtaining future design wins in subsequent generations. We\\ncannot ensure that our products and technologies will provide value to our customers and partners. If we fail any of these key success criteria, our financial\\nresults may be harmed.\\nWe have entered into an intellectual property license arrangement with Groq, Inc., or Groq, that required significant, nonrefundable payments. Successfully\\nincorporating the licensed technology into our architectures and product roadmaps requires significant engineering effort and may not occur on expected\\ntimelines or at all. The licensed technology may not achieve the desired results as designed or achieve customer or ecosystem adoption. The economic\\noutcomes of this arrangement depend on our ability to translate the licensed technology into commercially viable products and services over time, and we may\\nbe unable to recover the associated costs or realize an adequate return on this spend. If our efforts to use the licensed technology are delayed or unsuccessful,\\nour business, operating results, and financial condition could be negatively impacted.\\nWe entered into multi-year cloud service agreements to support our research and development activities. The timing and availability of these cloud services have\\nchanged and may continue to shift, impacting our revenue, expenses, and development timelines, and these arrangements may not deliver anticipated benefits.\\nWe also offer or plan to offer standalone software solutions, including NVIDIA AI Enterprise, NVIDIA Omniverse, NVIDIA DRIVE, and other software products.\\nThese business models or strategies may not be successful, and we may fail to sell any meaningful standalone software or services. We may incur significant\\ncosts and may not achieve any significant revenue from these offerings.\\nCompetition could adversely impact our market share and financial results.\\nOur target markets remain competitive, and competition may intensify with expanding and changing product and service offerings, industry standards, customer\\nand market needs, new entrants and consolidations. Our competitors’ products, services and technologies, including those mentioned above in this Annual\\nReport on Form 10-K, may be cheaper or provide better functionality or features than ours, which has resulted and may in the future result in lower-than-\\nexpected selling prices or demand for our products. Some of our competitors operate their own fabrication facilities, and have longer operating histories, larger\\ncustomer bases, more comprehensive IP portfolios and patent protections, more design wins, and greater financial, sales, marketing and distribution resources\\nthan we do. These competitors may be able to acquire market share and/or prevent us from doing so, more effectively identify and capitalize upon opportunities\\nin new markets and end-user trends, more quickly transition their products, and impinge on our ability to procure sufficient\\n14\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=14\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "toolCallName": "publish_ui_panel"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "{\"title\":\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "VIDIA FY2026 보고서"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 요약"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\",\"program"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\":\"root"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " = Card([header"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", business, riskFactors, managementDiscussion, financialHighlights], [{title: \\\"“NVIDIA는 가속"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 컴퓨팅과 AI 인프라 분야를 선도하여 다양한 산업에서 혁신을 주도하고 있다.”\\\", sourceName: \\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "VIDIA · Page "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "4-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "7\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " url: \\\"https://investor.nvidia.com/files/doc_financial"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "s/2026/q4/10K-NVDA.pdf#page=4\\\"}, {title: \\\"“위험 요인에는 산업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 변화 불"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "일치"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", 공급"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "망 문제"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", 경쟁"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 심화"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", 규"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "제 위험"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 등이 포함"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "된다.\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\", source"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "Name:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " \\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "VIDIA ·"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " Page "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "12-14\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " url:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " \\\"https"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "://invest"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "or.n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "vidia.com"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "/files/doc"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "_financial"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "s/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "/q4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "/10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "K-N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "VDA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ".pdf#"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "page="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "12\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "}, {"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "title:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " \\\"“"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 회계"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "연도"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 수익"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "은 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "2159"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "억 달"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "러로"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 전년"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 대비 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "65%"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 증가함"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ".\\\"\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " sourceName"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " · Page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 36"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "-37"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\", url"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "https://"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "investor"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ".nvidia"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ".com/files"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "/doc_fin"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "ancials"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "/202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "6/q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "4/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "10K"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "-NV"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "DA.pdf"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "#page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "=36"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\"}"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "])\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "header ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " CardHeader"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "(\\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "VIDIA FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 주요 내용"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 요약"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\", \\\"페이지 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "4-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "7,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 12"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "-14"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "36-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "37 검"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "토,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 출처"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ": 공식"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " PDF\\\")"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\nbusiness"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " = VStack"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "([\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "  Inline"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "Header(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "사업 개"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "요\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " \\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "VIDIA는"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 가속"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 컴퓨"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "팅과"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " AI 인"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "프라"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 제공업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "체로"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "서,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 칩,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 네트"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "워킹"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", 시스템"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", 소"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "프트웨어"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", 알고"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "리즘"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 등 전"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "방위"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 플랫폼을"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 갖춤"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ".\\\"),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\n  Text"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "Content(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "1993"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "년 설"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "립, 199"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "8년"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 델라"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "웨어 재"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "법인화\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " Blackwell"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 아키"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "텍처"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 기반 대"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "규모"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 데이터센터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " AI 인"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "프라"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 솔루"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "션 제공"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- CUDA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 플랫폼 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " AI 관련"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 소프트"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "웨어 스"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "택 제공"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- 데이터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "센터,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 게임,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 프로페"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "셔널"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 비주"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "얼라이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "제이션"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", 자동차"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "대 시장"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 집중\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "),\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " TextContent"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "(\\\"-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " AI 모델"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 트레이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "닝 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 추론"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 가속"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "화,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 클라우"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "드,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 온프"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "레미"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "스,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 엣지"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "까지 아"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "우름"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- 주요"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 고객:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 글로벌 클"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "라우드"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 서비스 제공"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "자,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " AI 모델"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 제작사"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", 다양한"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 산업기업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "과 스타트업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "7."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "5백"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "만 개발"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "자 생"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "태계"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 확장"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 중\\\")"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "], "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "8)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "riskFactors = VStack([\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " InlineHeader"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "(\\\"위"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "험 요"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "인 요"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "약\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " \\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "VIDIA가"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 직면"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "한 주요"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 위험 요소"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "와 업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "계 환경"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 관련 위"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "협\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "),\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n  TextContent"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "(\\\"-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 시장과"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 기술 변화"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 대응 실패"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 가능성"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- 공급"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "망 불"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "확실"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "성과 제조"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 지연"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 및 품"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "질 문제"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- 글로벌"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 경제 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 지정학"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "적 리"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "스크 영향"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- 규"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "제 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 법률"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", 특히"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 수출"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 통제"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 및 데이터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 보안"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 문제 강화"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- 경쟁"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 심화"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 및 지"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "적 재"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "산권"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 침해"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 위험\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 신규 사업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 투자 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 인수"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 통합"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 실패 위험"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\"),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "  Text"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "Content(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- AI"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 오픈"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "소스"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 모델 확"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "산 시"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 당사"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 제품 수"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "요 감소"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 우려"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- 사업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 성과"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 변동"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "성 큼"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", 주"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "가 영향 가능성"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\")\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n],"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 8"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ")\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\nmanagement"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "Discussion = VStack([\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " InlineHeader"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "(\\\"경"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "영진"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 설명 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 분석\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " \\\"재"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "무 상태"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 및 운영"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 결과에 대한 설명"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\"),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\n  Text"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "Content(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- 데이터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 센터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 및 AI"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 솔루"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "션 플랫폼"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "의 급"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "성장"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 주도"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- Black"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "well 아"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "키텍"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "처가"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 전체 데이터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "센터 매"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "출의"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 대다"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "수를 차"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "지\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 에너지"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 및 자"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "본 접근"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "성이 사업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 성장에"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 중요\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 신제품"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " Rubin 플랫폼"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", Black"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "well Ultra"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 플랫폼 도"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "입과"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 확장"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 진행 중"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- 공급"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "망 제"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "약과"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 제품 전"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "환의"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 복잡"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "성으로"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 매출"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 변동"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "성 존재"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\"),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "  Text"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "Content(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- 미"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "중 무"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "역 제한"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 조치"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "에 따른"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 재고"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 충당"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "금 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 매출 영향\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " AI 생"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "태계"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 및 스타"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "트업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "에 대한"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 전략적"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 투자 지속"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "- 공급"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "망 지역"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 다변"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "화로"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 강인"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "성과 중"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "복성"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 강화 시"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "도\\\")"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "], "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "8)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "financialHighlights = VStack"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "([\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "  Inline"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "Header(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "재무"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 하이라"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "이트\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " \\\"202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "6 회"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "계연"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "도 주요"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 재무"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 지표"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\"),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "  Table"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "([Col"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "(\\\"항"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "목\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " [\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "매출"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "(백"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "만 달"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "러)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "총 이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "익률"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "(%)"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "영업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "비용"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "(백만 달"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "러)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "영업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "이익"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "(백"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "만 달"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "러)\\\", \\\"순이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "익("
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "백만"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 달러"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ")\\\"]),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " Col(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "년\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " [\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "215,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "938\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " \\\"71"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ".1"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "23,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "076\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " \\\"130"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ",387"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "120,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "067\\\"]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "), Col"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "(\\\"202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "5년"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\", ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\"130"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ",497"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "75."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "0\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " \\\"16"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ",405"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "81,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "453\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " \\\"72"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ",880"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\\"])]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "),\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " TextContent"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "(\\\"-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 매출"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 65"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "% 증가"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", 데이터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 센터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 및 AI"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 솔루"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "션 부"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "문이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 성장 견"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "인\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 총 이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "익률"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 3"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ".9"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "% 포"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "인트 감소"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", H"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "20 재"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "고 충"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "당금"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " $45"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "억 영향"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 포함\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 영업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "비용"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 41"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "% 증가"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": ", 직원"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 증가 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 인프"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "라 투자"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": " 영향\\\")"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "], "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "8)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6",
+    "delta": "n\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_nylAEUCNuNXIqQz2WInpX5d6"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "toolCallName": "publish_ui_panel"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "{\"title\":\"NVIDIA FY2026 보고서 요약"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\",\"program"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\":\"root"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " = Card"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "([header"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", business"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", risk"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "Factors,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " managementDiscussion"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", financial"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "Highlights],"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " [{title"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "“N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "VIDIA는"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 가속"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 컴퓨"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "팅과"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " AI 인"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "프라 분야를 선도"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "하여 다양한"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 산업에서"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 혁신"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "을 주"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "도하고"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 있다.”\\\", source"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "Name:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "VIDIA ·"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " Page "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "4-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "7\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " url:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"https"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "://invest"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "or.n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "vidia.com"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "/files/doc"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "_financial"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "s/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "/q4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "/10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "K-N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "VDA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ".pdf#"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "page="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "4\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "}, {"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "title:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"“"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "위험"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 요인"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "에는 산업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 변화 불"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "일치"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 공급"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "망 문제"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 경쟁"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 심화"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 규"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "제 위험"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 등이 포함"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "된다.\\\"\\\", source"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "Name:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "VIDIA ·"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " Page "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "12-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "14\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " url:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"https"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "://invest"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "or.n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "vidia.com"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "/files/doc"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "_financial"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "s/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "/q4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "/10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "K-N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "VDA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ".pdf#"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "page="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "12\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "}, {"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "title:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"“"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 회계"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "연도"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 수익"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "은 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "215,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "938백"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "만 달"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "러로"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 전년"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 대비 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "65% 증가함"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ".\\\"\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " sourceName"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " · Page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 36"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "-37"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\", url"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "https://"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "investor"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ".nvidia"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ".com/files"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "/doc_fin"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "ancials"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "/202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "6/q"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "4/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "10K"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "-NV"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "DA.pdf"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "#page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "=36"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\"}"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "])\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "header ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " CardHeader"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "(\\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "VIDIA FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 주요 내용"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 요약"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\", \\\"페이지 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "4-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "7,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 12"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "-14"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "36-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "37 검"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "토,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 출처"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ": 공식"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " PDF\\\")"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\nbusiness"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " = VStack"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "([\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "  InlineHeader"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "(\\\"사업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 개요"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "는 가"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "속 컴"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "퓨팅"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "과 AI"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 인프"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "라 제공"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "업체"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "로서"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 칩"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 네"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "트워"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "킹,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 시스템,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 소프트"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "웨어,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 알고리"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "즘 등"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 전방"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "위 플랫폼"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "을 갖"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "춤.\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "),\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " TextContent"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "(\\\"-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 199"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "3년"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 설립"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "1998"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "년 델"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "라웨어"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 재법"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "인화"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "- Black"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "well 아"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "키텍"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "처 기반"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 대규"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "모 데이터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "센터 AI"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 인프"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "라 솔"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "루션 제공\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " CUDA 플랫폼"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 및 AI"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 관련 소"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "프트웨어"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 스택"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 제공\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 데이터센터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 게임"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 프로"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "페셔"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "널 비"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "주얼"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "라이제"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "이션,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 자동차 "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "4대"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 시장 집중"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\"),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\n  Text"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "Content(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "- AI"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 모델 트"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "레이닝"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 및 추"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "론 가"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "속화"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 클"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "라우드"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 온"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "프레"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "미스"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 엣"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "지까지"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 아우"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "름\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 주요 고객"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ": 글로벌"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 클라우"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "드 서비스"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 제공자"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", AI"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 모델 제작"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "사,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 다양한 산업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "기업과"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 스타트"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "업\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 7"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ".5"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "백만"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 개발자"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 생태"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "계 확"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "장 중"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\")\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n],"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 8"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ")\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\nrisk"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "Factors ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " VStack([\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " InlineHeader"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "(\\\"위"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "험 요"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "인 요"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "약\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "VIDIA가"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 직면"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "한 주요"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 위험 요소"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "와 업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "계 환경"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 관련 위"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "협\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "),\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " TextContent"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "(\\\"-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 시장과"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 기술 변화"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 대응 실패"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 가능성"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "- 공급"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "망 불"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "확실"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "성과 제조"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 지연"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 및 품"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "질 문제"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "- 글로벌"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 경제 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 지정학"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "적 리"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "스크 영향"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "- 규"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "제 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 법률"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 특히"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 수출"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 통제"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 및 데이터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 보안"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 문제 강화"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "- 경쟁"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 심화"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 및 지"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "적 재"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "산권"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 침해"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 위험\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 신규 사업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 투자 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 인수"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 통합"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 실패 위험"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\"),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "  Text"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "Content(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "- AI"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 오픈"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "소스"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 모델 확"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "산 시"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 당사"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 제품 수"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "요 감소"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 우려"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "- 사업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 성과"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 변동"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "성 큼"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 주"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "가 영향"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 가능성"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\")\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n],"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 8"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ")\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\nmanagement"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "Discussion ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " VStack([\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " InlineHeader"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "(\\\"경"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "영진"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 설명 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 분석\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"재"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "무 상태"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 및 운영"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 결과에"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 대한 설명"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\"),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\n  Text"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "Content(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "- 데이터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 센터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 및 AI"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 솔루"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "션 플랫폼"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "의 급"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "성장"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 주도"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "- Black"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "well 아"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "키텍"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "처가"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 전체 데이터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "센터 매"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "출의"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 대다"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "수를 차"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "지\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 에너지"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 및 자"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "본 접근"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "성이 사업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 성장에 중요\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 신제품"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " Rubin 플랫폼"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", Blackwell Ultra"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 플랫폼 도"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "입과"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 확장"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 진행 중"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "- 공급"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "망 제"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "약과"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 제품 전"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "환의"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 복잡"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "성으로 매출"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 변동"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "성 존재"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\"),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "  Text"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "Content(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "- 미"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "중 무"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "역 제한"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 조치"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "에 따른"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 재고"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 충당"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "금 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 매출 영향\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " AI 생"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "태계"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 및 스타"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "트업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "에 대한"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 전략적"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 투자 지속"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "- 공급"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "망 지역"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 다변"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "화로"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 강인"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "성과 중"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "복성"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 강화 시"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "도\\\")"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "], "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "8)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "financialHighlights"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " = VStack"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "([\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "  Inline"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "Header(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "재무"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 하이라"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "이트\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "6 회"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "계연"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "도 주요"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 재무"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 지표"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " (단"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "위:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 백만"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 달러"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ")\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "),\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " Table(["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "Col(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "항목"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\", ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\"매"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "출\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"총"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 이익"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "률 (%)"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "영업비용"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "영업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "이익"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "순이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "익\\\"]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "), Col"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "(\\\"202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "6년"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\", ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\"215,938"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "71."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "1\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"23"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ",076"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "130,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "387\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"120"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ",067"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\"]),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " Col(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "2025"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "년\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " [\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "130,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "497\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"75"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ".0"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "16,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "405\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " \\\"81"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ",453"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "72,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "880\\\"])]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "),\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " TextContent"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "(\\\"-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 매출"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 65"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "% 증가"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 데이터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 센터"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 및 AI"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 솔루"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "션 부"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "문이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 성장 견"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "인\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 총 이"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "익률"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 3"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ".9"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "% 포"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "인트 감소"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", H"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "20 재"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "고 충"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "당금"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 45"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "억 달"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "러 영향"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 포함\\\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n-"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 영업"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "비용"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 41"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "% 증가"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": ", 직원"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 증가 및"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 인프"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "라 투자"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": " 영향\\\")"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "], "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "8)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1",
+    "delta": "n\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_MOZO1Eqoq5sLSgMFUDCVaCc1"
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "c11b64a5-81cc-49bd-991d-6bc8912cdf6e",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "c11b64a5-81cc-49bd-991d-6bc8912cdf6e",
+    "delta": "root = Card([Callout(\"warning\", \"분석 결과 저장 미완료\", \"요청한 변경을 모두 저장하지 못했습니다. 이미 적용된 변경은 유지됩니다. 패널 상태를 확인한 뒤 다시 요청해 주세요.\")])"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "c11b64a5-81cc-49bd-991d-6bc8912cdf6e"
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "771d9b77-a075-44d2-b33f-b1f8d19d72da",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "771d9b77-a075-44d2-b33f-b1f8d19d72da",
+    "delta": "root = Card([Callout(\"info\", \"확인한 원문 범위\", \"이번 요청에서 확인한 원문: NVIDIA 10-K, fiscal 2026 · 4페이지; NVIDIA 10-K, fiscal 2026 · 5페이지; NVIDIA 10-K, fiscal 2026 · 6페이지; NVIDIA 10-K, fiscal 2026 · 7페이지; NVIDIA 10-K, fiscal 2026 · 12페이지; NVIDIA 10-K, fiscal 2026 · 13페이지; NVIDIA 10-K, fiscal 2026 · 14페이지; NVIDIA 10-K, fiscal 2026 · 36페이지; NVIDIA 10-K, fiscal 2026 · 37페이지. 위 목록은 이번 요청에서 직접 읽은 범위입니다. 이전 대화의 검색 구절과는 구분되며, 전체 보고서와 모든 주석을 검토했다는 뜻은 아닙니다.\")], [{\"title\": \"NVIDIA 10-K, fiscal 2026 · 4페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=4\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 5페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=5\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 6페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 7페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=7\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 12페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=12\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 13페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=13\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 14페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=14\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 36페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=36\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 37페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37\"}])"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "771d9b77-a075-44d2-b33f-b1f8d19d72da"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 0,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [],
+        "artifacts": [],
+        "selected_panel_id": null,
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "RUN_FINISHED",
+    "threadId": "82794092-925a-4eb0-b400-8ea570af6ede",
+    "runId": "6d2e990e-4ab6-4d1f-a43d-78d496d9f6dc"
+  }
+]

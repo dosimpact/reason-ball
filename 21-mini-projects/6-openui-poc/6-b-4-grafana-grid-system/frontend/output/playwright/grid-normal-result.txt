@@ -1,0 +1,13 @@
+### Ran Playwright code
+```js
+await (async page => { const url="http://127.0.0.1:3049/api/dashboard/state/063437c5-a7e0-42f9-a240-44d1c0ee5b42"; const before=await (await page.request.get(url)).json(); const grip=page.getByRole("button",{name:"가정 성장률 이동",exact:true}); await grip.scrollIntoViewIfNeeded(); const b=await grip.boundingBox(); await page.mouse.move(b.x+b.width/2,b.y+b.height/2); await page.mouse.down(); await page.mouse.move(b.x+200,b.y-120,{steps:12}); const saved=page.waitForResponse(r=>r.url()===url && r.request().method()==="POST"); await page.mouse.up(); const response=await saved; if(!response.ok()) throw Error("Layout rejected"); const after=await (await page.request.get(url)).json(); if(JSON.stringify(before)===JSON.stringify(after)) throw Error("Normal drag not saved"); await page.reload(); })(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+### Events
+- New console entries: .playwright-cli/console-2026-10-24T18-29-21-791Z.log#L242-L245

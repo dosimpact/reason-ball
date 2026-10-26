@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("button",{name:"[회귀 검증] 채팅 차트와 Canvas 추가",exact:true}).click(); const canvas=page.getByRole("region",{name:"Canvas dashboard"}); await canvas.getByRole("img",{name:"Line chart",exact:true}).waitFor(); await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("이 차트에서 1년치는 빼줘."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

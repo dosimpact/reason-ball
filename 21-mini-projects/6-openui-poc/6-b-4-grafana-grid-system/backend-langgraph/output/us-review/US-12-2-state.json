@@ -1,0 +1,90 @@
+{
+  "revision": 4,
+  "tabs": [
+    {
+      "id": "main",
+      "title": "Overview"
+    }
+  ],
+  "active_tab_id": "main",
+  "panels": [
+    {
+      "id": "06614960-164e-4f98-9b2d-e5ed246d1eae",
+      "title": "NVIDIA 매출",
+      "kind": "openui",
+      "tab_id": "main",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 12
+      },
+      "pinned": true,
+      "refresh": {
+        "mode": "live",
+        "interval_seconds": 0,
+        "last_attempt_at": null,
+        "last_success_at": null,
+        "error": null
+      },
+      "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nchart = LineChart(labels, [series], \"linear\", \"회계연도\", \"매출 (백만 달러)\")\nlabels = [\"FY 2025\", \"FY 2026\"]\nseries = Series(\"매출\", [130497, 215938])\nsources = [{\"title\": \"“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”\", \"sourceName\": \"NVIDIA 10-K, fiscal 2026 and 2025\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78\"}, {\"title\": \"“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18\"}]}",
+      "ui_state": {},
+      "source_artifact_id": null,
+      "query": {},
+      "data": {},
+      "sources": [
+        {
+          "title": "“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”",
+          "sourceName": "NVIDIA 10-K, fiscal 2026 and 2025",
+          "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78"
+        },
+        {
+          "title": "“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”",
+          "sourceName": "NVIDIA Annual Report, fiscal 2025",
+          "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "230d4b98-b163-40a1-bd67-679617375d18",
+      "title": "NVIDIA 매출",
+      "kind": "openui",
+      "tab_id": "main",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 12
+      },
+      "pinned": false,
+      "refresh": {
+        "mode": "live",
+        "interval_seconds": 0,
+        "last_attempt_at": null,
+        "last_success_at": null,
+        "error": null
+      },
+      "program": "root = Card([header, chart], sources)\nheader = CardHeader(\"NVIDIA 매출\", \"Fiscal years ended January 25, 2026 and January 26, 2025\")\nchart = LineChart(labels, [series], \"linear\", \"회계연도\", \"매출 (백만 달러)\")\nlabels = [\"FY 2025\", \"FY 2026\"]\nseries = Series(\"매출\", [130497, 215938])\nsources = [{\"title\": \"“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”\", \"sourceName\": \"NVIDIA 10-K, fiscal 2026 and 2025\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78\"}, {\"title\": \"“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”\", \"sourceName\": \"NVIDIA Annual Report, fiscal 2025\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18\"}]",
+      "ui_state": {},
+      "source_artifact_id": null,
+      "query": {},
+      "data": {},
+      "sources": [
+        {
+          "title": "“Revenue $215.9 billion in fiscal 2026 compared to $130.5 billion in fiscal 2025.”",
+          "sourceName": "NVIDIA 10-K, fiscal 2026 and 2025",
+          "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78"
+        },
+        {
+          "title": "“Revenue $130.5 billion in fiscal 2025, up 114% year on year.”",
+          "sourceName": "NVIDIA Annual Report, fiscal 2025",
+          "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=18"
+        }
+      ]
+    }
+  ],
+  "selected_panel_id": "06614960-164e-4f98-9b2d-e5ed246d1eae",
+  "export_request": null
+}

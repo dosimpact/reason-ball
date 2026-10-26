@@ -1,0 +1,43 @@
+{
+  "name": "@wedding-atlas/app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1 --port 3078",
+    "build": "next build && node scripts/package-standalone.mjs",
+    "start": "node scripts/start-standalone.mjs",
+    "build:data": "python3 scripts/build-data.py",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "tsx --test tests/*.test.ts",
+    "format": "prettier --write app src tests *.ts *.mjs scripts/*.mjs",
+    "format:check": "prettier --check app src tests *.ts *.mjs scripts/*.mjs",
+    "sync:data": "python3 scripts/sync-data.py",
+    "validate:data": "uv run --no-project --with jsonschema python scripts/validate-data.py",
+    "test:standalone": "node scripts/verify-standalone.mjs"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "latest",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "leaflet": "^1.9.4",
+    "lucide-react": "latest",
+    "next": "latest",
+    "radix-ui": "^1.8.1",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwind-merge": "latest",
+    "tailwindcss": "latest"
+  },
+  "devDependencies": {
+    "@types/leaflet": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "latest",
+    "prettier": "3.9.10",
+    "tsx": "latest",
+    "typescript": "^5.9.3"
+  }
+}

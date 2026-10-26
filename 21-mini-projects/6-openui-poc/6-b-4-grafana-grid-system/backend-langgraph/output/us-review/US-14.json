@@ -1,0 +1,59 @@
+{
+  "scenario": "US-14",
+  "title": "전체 다운로드",
+  "thread_id": "e67fca90-bca4-4488-b9e2-4fbc146908d9",
+  "turns": [
+    {
+      "number": 1,
+      "question": "준비된 실제 PDF nvidia(FY2026), nvidia-2025(FY2025), amd, intel만 사용하고 SEC 네트워크 호출은 하지 마. 출처와 회계기간·단위를 명시하고 근거 없는 수치는 만들지 마. NVIDIA FY2025와 FY2026의 매출을 원문으로 확인하고 Canvas에 매출 차트 패널 하나를 만들어줘. 제목은 NVIDIA 매출로 해줘. ",
+      "finished": true,
+      "errors": [],
+      "panels": 0,
+      "diagnostics": {
+        "plan": {
+          "remove_tab_contents_confirmed": false,
+          "minimum_new_panels": 1,
+          "clarification": "",
+          "source_read": "original",
+          "operations": [
+            "add"
+          ],
+          "instruction": "Add a new panel titled 'NVIDIA 매출' in the main tab, showing a revenue chart comparing NVIDIA FY2025 and FY2026 using the prepared PDFs only, with source and accounting period noted.",
+          "targets": []
+        },
+        "completed": [
+          [
+            "artifact_publish",
+            "7a7738e9-332b-4bd2-823c-05292602d99b"
+          ]
+        ],
+        "missing": [
+          "add",
+          "add 1 more distinct new panels; do not recreate successful ones"
+        ],
+        "status": "finished"
+      }
+    },
+    {
+      "number": 2,
+      "question": "Canvas 전체를 JSON, CSV, PDF로 내려받고 싶어. 다운로드 컨트롤을 제공하고 각 형식에 포함되는 범위를 설명해줘. 실제 파일 저장 전에는 완료했다고 말하지 마.",
+      "finished": true,
+      "errors": [],
+      "panels": 0,
+      "diagnostics": {
+        "plan": {
+          "remove_tab_contents_confirmed": false,
+          "minimum_new_panels": 0,
+          "clarification": "다운로드 컨트롤을 어느 탭에 제공할까요?",
+          "source_read": "none",
+          "operations": [],
+          "instruction": "다운로드 컨트롤을 제공할 탭 지정 필요",
+          "targets": []
+        },
+        "completed": [],
+        "missing": [],
+        "status": "finished"
+      }
+    }
+  ]
+}

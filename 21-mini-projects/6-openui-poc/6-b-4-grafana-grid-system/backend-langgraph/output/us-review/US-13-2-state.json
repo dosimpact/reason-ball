@@ -1,0 +1,47 @@
+{
+  "revision": 3,
+  "tabs": [
+    {
+      "id": "main",
+      "title": "Overview"
+    }
+  ],
+  "active_tab_id": "main",
+  "panels": [
+    {
+      "id": "957c9182-6bab-4963-9e2b-79c495526d93",
+      "title": "NVIDIA 매출",
+      "kind": "openui",
+      "tab_id": "main",
+      "layout": {
+        "x": 0,
+        "y": 12,
+        "w": 12,
+        "h": 12
+      },
+      "pinned": false,
+      "refresh": {
+        "mode": "live",
+        "interval_seconds": 0,
+        "last_attempt_at": null,
+        "last_success_at": null,
+        "error": null
+      },
+      "program": "header = CardHeader(\"NVIDIA 매출\", \"Fiscal year ended January 26, 2025 and January 25, 2026\")\n\nsales2025 = \"$130.5 billion (p. 78)\"\nsales2026 = \"$215.9 billion (p. 78)\"\n\nrevenueTable = Table([Col(\"Fiscal Year\", [\"2025\", \"2026\"]), Col(\"Revenue (USD billions)\", [sales2025, sales2026])])\n\nrevenueChart = LineChart([\"2025\", \"2026\"], [Series(\"Revenue (USD billions)\", [130.5, 215.9])], \"linear\", \"Fiscal Year\", \"Revenue (USD billions)\")\n\nroot = Card([header, revenueTable, revenueChart], [{title: \"Consolidated revenue and geographic revenue breakdown\", sourceName: \"NVIDIA 10-K, fiscal 2026 · Page 78\", url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78\"}])",
+      "ui_state": {},
+      "source_artifact_id": null,
+      "query": {},
+      "data": {},
+      "sources": [
+        {
+          "title": "Consolidated revenue and geographic revenue breakdown",
+          "sourceName": "NVIDIA 10-K, fiscal 2026 · Page 78",
+          "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=78"
+        }
+      ]
+    }
+  ],
+  "artifacts": [],
+  "selected_panel_id": null,
+  "export_request": null
+}

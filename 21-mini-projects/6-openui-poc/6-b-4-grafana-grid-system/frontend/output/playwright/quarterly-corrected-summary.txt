@@ -1,0 +1,9 @@
+### Ran Playwright code
+```js
+await (async page => { await page.reload(); const corrected=page.getByText(/위험 요인\(Item 1A\) 도입부에서는 아래에 열거된 리스크를 제외하면/); await corrected.waitFor(); await corrected.scrollIntoViewIfNeeded(); await page.screenshot({path:"output/playwright/quarterly-corrected-summary.png"}); })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+### Events
+- New console entries: .playwright-cli/console-2026-10-25T03-58-17-276Z.log#L9-L14

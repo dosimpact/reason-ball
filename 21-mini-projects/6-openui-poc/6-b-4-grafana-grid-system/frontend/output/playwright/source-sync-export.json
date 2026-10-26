@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "exported_at": "2026-10-24T20:43:15.177Z",
+  "dashboard": {
+    "revision": 4,
+    "tabs": [
+      {
+        "id": "main",
+        "title": "Overview"
+      }
+    ],
+    "active_tab_id": "main",
+    "panels": [
+      {
+        "id": "7712d4c6-14f6-43bb-a1a7-c8ada6dcee82",
+        "title": "NVIDIA 연도별 매출",
+        "kind": "openui",
+        "tab_id": "main",
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        "pinned": false,
+        "refresh": {
+          "mode": "live",
+          "interval_seconds": 0,
+          "last_attempt_at": null,
+          "last_success_at": null,
+          "error": null
+        },
+        "program": "header = CardHeader(\"NVIDIA 연도별 매출 비교\", \"Fiscal Year 2024, 2026 Summary\")\n\nsummaryTable = Table([\n    Col(\"Metric\", [\"Revenue (USD millions)\"]),\n    Col(\"FY 2024\", [\"$60,922\"]),\n    Col(\"FY 2026\", [\"$215,938\"])\n])\n\nsummaryTable2 = Table([\n    Col(\"Metric\", [\"Gross Margin\"]),\n    Col(\"FY 2024\", [\"72.7%\"]),\n    Col(\"FY 2026\", [\"71.1%\"])\n])\n\nsummaryTable3 = Table([\n    Col(\"Metric\", [\"Operating Expenses (USD millions)\"]),\n    Col(\"FY 2024\", [\"$11,329\"]),\n    Col(\"FY 2026\", [\"$23,076\"])\n])\n\nsummaryTable4 = Table([\n    Col(\"Metric\", [\"Operating Income (USD millions)\"]),\n    Col(\"FY 2024\", [\"$32,972\"]),\n    Col(\"FY 2026\", [\"$130,387\"])\n])\n\nsummaryTable5 = Table([\n    Col(\"Metric\", [\"Net Income (USD millions)\"]),\n    Col(\"FY 2024\", [\"$29,760\"]),\n    Col(\"FY 2026\", [\"$120,067\"])\n])\n\nrevenueChart = BarChart(\n    [\"Fiscal Year Ended 2024-01-28\", \"Fiscal Year Ended 2026-01-25\"],\n    [Series(\"Revenue (USD millions)\", [60922, 215938])],\n    \"grouped\",\n    \"Fiscal Year End Date\",\n    \"Revenue (USD millions)\"\n)\n\nreasonsText = TextContent(\"2024년 매출은 $60.9 billion, 2026년 매출은 $215.9 billion으로 각각 보고서에 명시된 수치입니다. 2026년 매출 증가는 가속 컴퓨팅과 AI 전환에 기인합니다. 2024년과 2026년은 연속 연도가 아니므로 두 해 사이 증가율을 전년 대비라고 표시하지 않습니다. 매출 단위는 모두 백만 달러(USD)이며 회계연도 종료일은 2024-01-28과 2026-01-25입니다.\")\n\nsources = [\n    {\"title\": \"Fiscal Year 2026 Summary, NVIDIA 10-K, fiscal 2026\", \"sourceName\": \"NVIDIA · Page 37\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37\"},\n    {\"title\": \"Fiscal Year 2024 Summary, NVIDIA Annual Report, fiscal 2025\", \"sourceName\": \"NVIDIA · Page 130\", \"url\": \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"}\n]\n\nroot = Card([header, summaryTable, summaryTable2, summaryTable3, summaryTable4, summaryTable5, revenueChart, reasonsText], sources)\n",
+        "ui_state": {},
+        "source_artifact_id": null,
+        "query": {},
+        "data": {},
+        "sources": [
+          {
+            "title": "Fiscal Year 2026 Summary, NVIDIA 10-K, fiscal 2026",
+            "sourceName": "NVIDIA · Page 37",
+            "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37"
+          },
+          {
+            "title": "Fiscal Year 2024 Summary, NVIDIA Annual Report, fiscal 2025",
+            "sourceName": "NVIDIA · Page 130",
+            "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130"
+          }
+        ]
+      }
+    ],
+    "artifacts": [],
+    "selected_panel_id": "7712d4c6-14f6-43bb-a1a7-c8ada6dcee82",
+    "export_request": null
+  }
+}

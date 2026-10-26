@@ -1,0 +1,52 @@
+{
+  "revision": 1,
+  "tabs": [
+    {
+      "id": "main",
+      "title": "Overview"
+    }
+  ],
+  "active_tab_id": "main",
+  "panels": [],
+  "artifacts": [
+    {
+      "id": "886923fb-b7de-47f9-abd3-ecc8d6e55a64",
+      "title": "NVIDIA FY2025 and FY2026 Sales Comparison Table",
+      "kind": "openui",
+      "tab_id": "main",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 12
+      },
+      "pinned": false,
+      "refresh": {
+        "mode": "live",
+        "interval_seconds": 0,
+        "last_attempt_at": null,
+        "last_success_at": null,
+        "error": null
+      },
+      "program": "header = CardHeader(\"NVIDIA Sales Comparison\", \"Fiscal Year 2025 vs 2026\")\nsalesTable = Table([\nCol(\"Fiscal Year\", [\"2026\", \"2025\"]),\nCol(\"Total Net Revenue (USD millions)\", [\"$215,938 (p. 37)\", \"$130,497 (p. 130)\"])\n])\nnoteCallout = Callout(\n  \"info\",\n  \"출처 및 단위\",\n  \"매출은 백만 달러(USD millions) 단위이며, 각각 NVIDIA 10-K 2026년(페이지 37)과 NVIDIA 연례보고서 2025년(페이지 130)에서 발췌하였습니다.\"\n)\nroot = Card([header, salesTable, noteCallout], [\n  {title: \"Revenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago.\", sourceName: \"NVIDIA 10-K · Page 37\", url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37\"},\n  {title: \"Total net revenue for the fiscal year ended January 26, 2025 was $130.5 billion.\", sourceName: \"NVIDIA Annual Report 2025 · Page 130\", url: \"https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130\"}\n])",
+      "ui_state": {},
+      "source_artifact_id": null,
+      "query": {},
+      "data": {},
+      "sources": [
+        {
+          "title": "Revenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago.",
+          "sourceName": "NVIDIA 10-K · Page 37",
+          "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=37"
+        },
+        {
+          "title": "Total net revenue for the fiscal year ended January 26, 2025 was $130.5 billion.",
+          "sourceName": "NVIDIA Annual Report 2025 · Page 130",
+          "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2025/annual/NVIDIA-2025-Annual-Report.pdf#page=130"
+        }
+      ]
+    }
+  ],
+  "selected_panel_id": null,
+  "export_request": null
+}

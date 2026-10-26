@@ -1,0 +1,14 @@
+### Ran Playwright code
+```js
+await page.getByRole('button', { name: '가정 매출 계산기를 대화 안에 만들어줘. 현재값 100을 숫자 입력으로 바꾸면 두 배 값도 보여줘. 실제 기업 수치가 아닌 검증용 가정이라고 표시해줘. publish_ui_pane', exact: true }).click();
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+- Console: 22 errors, 2 warnings
+### Snapshot
+- [Snapshot](.playwright-cli/page-2026-10-24T19-49-08-782Z.yml)

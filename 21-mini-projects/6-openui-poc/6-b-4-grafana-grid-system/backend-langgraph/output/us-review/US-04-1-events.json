@@ -1,0 +1,4076 @@
+[
+  {
+    "type": "RUN_STARTED",
+    "threadId": "6d1ac76e-92ec-4921-b18d-8eb50c565ae7",
+    "runId": "38252fe8-3c0a-4579-86e2-03bd117964c6"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 0,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [],
+        "artifacts": [],
+        "selected_panel_id": null,
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_D6xnQDs0RQeUKm1cJJwkuSPF",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_D6xnQDs0RQeUKm1cJJwkuSPF",
+    "delta": "{\"document"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_D6xnQDs0RQeUKm1cJJwkuSPF",
+    "delta": "_id\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_D6xnQDs0RQeUKm1cJJwkuSPF",
+    "delta": "nvidia"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_D6xnQDs0RQeUKm1cJJwkuSPF",
+    "delta": "\",\"page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_D6xnQDs0RQeUKm1cJJwkuSPF",
+    "delta": "\":6"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_D6xnQDs0RQeUKm1cJJwkuSPF",
+    "delta": "}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_D6xnQDs0RQeUKm1cJJwkuSPF"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_D6xnQDs0RQeUKm1cJJwkuSPF",
+    "toolCallId": "call_D6xnQDs0RQeUKm1cJJwkuSPF",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 6, \"total_pages\": 93, \"text\": \"Table of Contents\\nODMs, system integrators and distributors which we partner with to help bring our products to market. We also have partnerships in automotive, healthcare,\\nfinancial services, manufacturing, retail, and technology among others, to accelerate the adoption of AI.\\nAt the foundation of the NVIDIA accelerated computing platform are our GPUs, which excel at parallel workloads such as the training and inferencing of neural\\nnetworks. These Data Center systems are extreme co-designed with the GPU, CPU, NVLink switch, DPU, NIC, and scale-out networking along with software\\nstacks and algorithms to deliver data center-scale computing solutions.\\nWhile our approach starts with powerful chips, what makes it a full-stack computing platform is our large body of software, including the CUDA development\\nplatform, the CUDA-X collection of acceleration libraries, AI models and training data sets, APIs, SDKs, and domain-specific application frameworks.\\nIn addition to software delivered to customers as an integral part of our data center computing and networking platform, we offer paid licenses to NVIDIA AI\\nEnterprise, a comprehensive suite of enterprise-grade AI software and NVIDIA vGPU software for graphics-rich virtual desktops and workstations.\\nIn fiscal year 2025, we launched the NVIDIA Blackwell architecture, a full set of data center scale infrastructure that includes GPUs, CPUs, DPUs, interconnects,\\nswitch chips and systems, and networking adapters. Blackwell excels at processing cutting edge generative AI and accelerated computing workloads with\\nmarket leading performance and efficiency. Offered in a number of configurations, for customers across industries and a diverse set of AI and accelerated\\ncomputing use cases. In fiscal year 2026, we unveiled the NVIDIA Rubin platform, which is expected to commence production shipments in the second half of\\nfiscal year 2027. Built for agentic AI and reasoning, it excels at processing multi-step problem-solving and massive long-context workflows, delivering up to a 10x\\nreduction in cost per token compared to Blackwell.\\nFor physical AI, we provide an end-to-end platform spanning data center infrastructure, open models, systems, embedded compute modules, and software\\nstacks to train, simulate, and deploy advanced automation and robotics solutions.\\nGaming\\nGaming is the largest entertainment industry, with PC gaming as the predominant platform. Many factors propel its growth, including new high production value\\ngames, the continued rise of eSports, social connectivity and the increasing popularity of game streamers, modders, or gamers who remaster games, and\\ncreators.\\nOur products for the gaming market include GeForce RTX GPUs for gaming desktop and laptop PCs, GeForce NOW cloud gaming service, as well as SoCs and\\ndevelopment services for game consoles.\\nOur gaming platforms leverage our GPUs and sophisticated software to enhance the gaming experience with smoother, higher quality graphics. NVIDIA RTX\\nfeatures ray tracing technology for real-time, cinematic-quality rendering, and deep learning super sampling, or NVIDIA DLSS, our AI technology that boosts\\nframe rates while generating high-quality images for games. RTX GPUs also feature NVIDIA tensor core technology making them well suited to accelerate a new\\ngeneration of on-device AI applications.\\nIn fiscal year 2025, we announced the NVIDIA Blackwell GeForce RTX 50 Series family of desktop and laptop GPUs. The Blackwell architecture introduced\\nneural graphics which combines AI models with traditional rendering to boost game performance, image quality, and interactivity, as well as the next generation\\nof our DLSS technology powered by a new transformer model architecture. In fiscal year 2026, we launched and scaled Blackwell architecture for gaming and\\nGeForce NOW.\\nProfessional Visualization\\nWe serve the Professional Visualization market by working closely with independent software vendors, or ISVs, to optimize their offerings for NVIDIA GPUs. Our\\nGPU computing platform enhances productivity and introduces new capabilities for critical workflows in many fields, such as design, engineering, and digital\\ncontent creation across a wide range of industry verticals. Additionally, the increasing number of generative and agentic AI applications is giving rise to the need\\nfor the enhanced AI and data processing capabilities of our RTX PRO GPUs.\\nMany leading 3D design and content creation applications developed by our ecosystem partners support RTX, allowing professionals to accelerate and\\ntransform their workflows with NVIDIA RTX PRO GPUs and software. As these applications increasingly integrate AI, these GPUs are used and leverage the\\nsame Tensor Core technology found in our Data Center solutions.\\nAutomotive\\nAutomotive is comprised of platform solutions for automated driving from the cloud to the car. Leveraging our technology leadership in AI and building on long-\\nstanding relationships across several hundred automotive ecosystem partners, we are delivering a full stack end-to-end solution for the AV market under the\\nDRIVE Hyperion platform. This platform consists of development infrastructure, high-performance, energy efficient DRIVE AGX computing hardware\\n6\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_BulzqyOshPpLdfP26CbogACM",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_BulzqyOshPpLdfP26CbogACM",
+    "delta": "{\"document_id\":\"nvidia\",\"page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_BulzqyOshPpLdfP26CbogACM",
+    "delta": "\":8}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_BulzqyOshPpLdfP26CbogACM"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_BulzqyOshPpLdfP26CbogACM",
+    "toolCallId": "call_BulzqyOshPpLdfP26CbogACM",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 8, \"total_pages\": 93, \"text\": \"Table of Contents\\nLeveraging our intellectual property, or IP. We believe our IP is a valuable asset that can be accessed by our customers and partners through license and\\ndevelopment agreements when they desire to build such capabilities directly into their own products or have us do so through a custom development. Such\\nlicense and development arrangements can further enhance the reach of our technology.\\nSales and Marketing\\nOur worldwide sales and marketing strategy is key to achieving our objective of providing markets with our high-performance and efficient computing platforms\\nand software. Our sales and marketing teams, located across our global markets, work closely with customers and various industry ecosystems through our\\npartner network. Our partner network incorporates global, regional and specialized CSPs, OEMs, ODMs, ISVs, global system integrators, add-in board\\nmanufacturers, or AIBs, distributors, automotive manufacturers and tier-1 automotive suppliers, and other ecosystem participants.\\nMembers of our sales team have technical expertise and product and industry knowledge. We also employ a team of application engineers and solution\\narchitects to provide pre-sales assistance to our partner network in designing, testing, and qualifying system designs that incorporate our platforms. For\\nexample, our solution architects work with CSPs to provide pre-sales assistance to enable our customers to optimize their hardware and software infrastructure\\nfor generative and agentic AI and LLM training and deployment. They also work with foundation model and enterprise software developers to enable our\\ncustomers to optimize the training and fine-tuning of their models and services, and with enterprise end-users, often in collaboration with their global system\\nintegrator of choice, to fine-tune models and build AI applications. We believe that the depth and quality of our design support are key to improving our partner\\nnetwork’s time-to-market, maintaining a high level of customer satisfaction, and fostering relationships that encourage our customers and partner network to use\\nthe next generation of our products within each platform.\\nTo encourage the development of applications optimized for our platforms and software, we seek to establish and maintain strong relationships in the software\\ndevelopment community. Engineering and marketing personnel engage with key software developers to promote and discuss our platforms, as well as to\\nascertain individual product requirements and solve technical problems. Our developer program supports the development of AI frameworks, SDKs, and APIs for\\nsoftware applications and game titles that are optimized for our platforms. Our Deep Learning Institute provides in-person and online training for developers in\\nindustries and organizations around the world to build AI and accelerated computing applications that leverage our platforms.\\nSeasonality\\nOur computing platforms serve a diverse set of markets such as data centers, gaming, professional visualization, and automotive. Our desktop gaming products\\ntypically see stronger revenue in the second half of our fiscal year. Historical seasonality trends may not repeat.\\nManufacturing\\nWe utilize a fabless and contracting manufacturing strategy, whereby we employ and partner with key suppliers for all phases of the manufacturing process,\\nincluding wafer fabrication, assembly, testing, and packaging. We use the expertise of industry-leading suppliers that are certified by the International\\nOrganization for Standardization in such areas as fabrication, assembly, quality control and assurance, reliability, and testing. Additionally, we can avoid many of\\nthe significant costs and risks associated with owning and operating manufacturing operations. While we may directly procure certain raw materials used in the\\nproduction of our products, such as memory, substrates, and a variety of components, our suppliers are responsible for procurement of most raw materials used\\nin the production of our products. As a result, we can focus our resources on product design, quality assurance, marketing, and customer support. In periods of\\ngrowth, we may place non-cancellable inventory orders for certain product components in advance of our historical lead times, pay premiums, or provide\\ndeposits to secure future supply and capacity and may need to continue to do so.\\nWe have expanded our supplier relationships to build redundancy and resilience in our operations to provide long-term manufacturing capacity aligned with\\ngrowing customer demand. While currently our supply chain is mainly concentrated in Asia, we are expanding into the U.S. and Latin America. We utilize\\nfoundries, such as Taiwan Semiconductor Manufacturing Company Limited, or TSMC, and Samsung Electronics Co., Ltd., or Samsung, to produce our\\nsemiconductor wafers. We purchase memory from SK Hynix Inc., Micron Technology, Inc., and Samsung. We utilize CoWoS technology for semiconductor\\npackaging. We engage with independent subcontractors and contract manufacturers such as Hon Hai Precision Industry Co., Ltd., Wistron Corporation, and\\nFabrinet to perform assembly, testing and packaging of our final products.\\nCompetition\\nThe market for our products is intensely competitive and is characterized by rapid technological change and evolving industry standards. We believe that the\\nprincipal competitive factors in this market are performance, breadth of product offerings, access to customers and partners and distribution channels, software\\nsupport, conformity to industry standard APIs, manufacturing capabilities, processor pricing, and total system costs. We believe that our ability to remain\\ncompetitive will depend on how well we are able to anticipate the features and functions that customers and partners will\\n8\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=8\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_zyeyAp3eb0YE18MZiKl4j2aX",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_zyeyAp3eb0YE18MZiKl4j2aX",
+    "delta": "{\"document"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_zyeyAp3eb0YE18MZiKl4j2aX",
+    "delta": "_id\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_zyeyAp3eb0YE18MZiKl4j2aX",
+    "delta": "nvidia"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_zyeyAp3eb0YE18MZiKl4j2aX",
+    "delta": "\",\"page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_zyeyAp3eb0YE18MZiKl4j2aX",
+    "delta": "\":9"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_zyeyAp3eb0YE18MZiKl4j2aX",
+    "delta": "}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_zyeyAp3eb0YE18MZiKl4j2aX"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_zyeyAp3eb0YE18MZiKl4j2aX",
+    "toolCallId": "call_zyeyAp3eb0YE18MZiKl4j2aX",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 9, \"total_pages\": 93, \"text\": \"Table of Contents\\ndemand and whether we are able to deliver consistent volumes of our products at acceptable levels of quality and at competitive prices. We expect competition\\nto increase from both existing competitors and new market entrants with products that may be lower priced than ours or may provide better performance or\\nadditional features not provided by our products. In addition, it is possible that new competitors or alliances among competitors could emerge and acquire\\nsignificant market share.\\nA significant source of competition comes from companies that provide or intend to provide GPUs, CPUs, DPUs, embedded SoCs, and other accelerated, AI\\ncomputing processor products, and providers of semiconductor-based high-performance interconnect products based on InfiniBand, Ethernet, Fibre Channel,\\nand proprietary technologies. Some of our competitors may have greater marketing, financial, distribution and manufacturing resources than we do and may be\\nmore able to adapt to customers or technological changes. We expect an increasingly competitive environment in the future.\\nOur current competitors include:\\n• suppliers and licensors of hardware and software for discrete and integrated GPUs, custom chips and other accelerated computing solutions, including\\nsolutions offered for AI, such as Advanced Micro Devices, Inc., or AMD, Huawei Technologies Co. Ltd., or Huawei, and Intel Corporation, or Intel;\\n• large cloud services companies with internal teams designing hardware and software that incorporate accelerated or AI computing functionality as part\\nof their internal solutions or platforms, such as Alibaba Group, Alphabet Inc., Amazon, Inc., or Amazon, Baidu, Inc., Huawei, and Microsoft Corporation,\\nor Microsoft;\\n• suppliers of Arm-based CPUs and companies that incorporate hardware and software for CPUs as part of their internal solutions or platforms, such as\\nAmazon, Huawei, and Microsoft;\\n• suppliers of hardware and software for SoC products that are used in servers or embedded into automobiles, autonomous machines, and gaming\\ndevices, such as Ambarella, Inc., AMD, Broadcom, Intel, Qualcomm Incorporated, Renesas Electronics Corporation, and Samsung, or companies with\\ninternal teams designing SoC products for their own products and services, such as Tesla, Inc.; and\\n• networking products consisting of switches, network adapters (including DPUs), and cable solutions (including optical modules) include such as AMD,\\nArista Networks, Broadcom, Cisco Systems, Inc., Hewlett Packard Enterprise Company, Huawei, Intel, Lumentum Holdings Inc., and Marvell\\nTechnology, Inc, as well as internal teams of system vendors and large cloud services companies.\\nPatents and Proprietary Rights\\nWe rely primarily on a combination of patents, trademarks, trade secrets, employee and third-party nondisclosure agreements, and licensing arrangements to\\nprotect our IP in the United States and internationally. Our currently issued patents have expiration dates from March 2026 to June 2045. We have numerous\\npatents issued, allowed, and pending in the United States and in foreign jurisdictions. Our patents and pending patent applications primarily relate to our\\nproducts and the technology used in connection with our products. We also rely on international treaties, organizations, and foreign laws to protect our IP. The\\nlaws of certain foreign countries in which our products are or may be manufactured or sold, including various countries in Asia, may not protect our products or\\nIP rights to the same extent as the laws of the United States. This decreased protection makes the possibility of piracy of our technology and products more\\nlikely. We continuously assess whether and where to seek formal protection for innovations and technologies based on such factors as:\\n• the location in which our products are manufactured;\\n• our strategic technology or product directions in different countries;\\n• the degree to which IP laws exist and are meaningfully enforced in different jurisdictions; and\\n• the commercial significance of our operations and our competitors' operations in particular countries and regions.\\nWe have licensed technology from third parties and expect to continue entering such license agreements.\\nGovernment Regulations\\nOur worldwide business activities are subject to various laws, rules, and regulations of the United States as well as of foreign governments.\\nOver the past three years, we have been subject to a series of shifting and expanding export control restrictions, impacting our ability to serve customers outside\\nthe United States.\\n9\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=9\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_QnsZU2VuZ2bQOqDb10Bh5kEL",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_QnsZU2VuZ2bQOqDb10Bh5kEL",
+    "delta": "{\"document"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_QnsZU2VuZ2bQOqDb10Bh5kEL",
+    "delta": "_id\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_QnsZU2VuZ2bQOqDb10Bh5kEL",
+    "delta": "nvidia"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_QnsZU2VuZ2bQOqDb10Bh5kEL",
+    "delta": "\",\"page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_QnsZU2VuZ2bQOqDb10Bh5kEL",
+    "delta": "\":44}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_QnsZU2VuZ2bQOqDb10Bh5kEL"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_QnsZU2VuZ2bQOqDb10Bh5kEL",
+    "toolCallId": "call_QnsZU2VuZ2bQOqDb10Bh5kEL",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 44, \"total_pages\": 93, \"text\": \"Table of Contents\\nOutstanding Indebtedness and Commercial Paper Program\\nOur aggregate debt maturities as of January 25, 2026, by year payable, are as follows:\\n Jan 25, 2026\\n (In millions)\\nDue in one year $ 1,000 \\nDue in one to five years 2,750 \\nDue in five to ten years 1,250 \\nDue in greater than ten years 3,500 \\nUnamortized debt discount and issuance costs (32)\\nNet carrying amount $ 8,468 \\nLess short-term portion 999 \\nTotal long-term portion $ 7,469 \\nIn January 2026, we increased the amount of our commercial paper program, pursuant to which we may issue unsecured commercial paper notes from time to\\ntime or all at once up to $25.0 billion. As of January 25, 2026, no commercial paper was outstanding. We will continue to evaluate issuing commercial paper as a\\ncomponent of our overall liquidity strategy.\\nRefer to Note 11 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for further discussion.\\nMaterial Cash Requirements and Other Obligations\\nFor descriptions of our facility lease guarantees, long-term debt, purchase commitments, and operating lease obligations, refer to Note 10, Note 11, Note 12, and\\nNote 17 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K, respectively.\\nWe expect to continue investing in our ecosystem. We are finalizing an investment and partnership agreement with OpenAI. There is no assurance that we will\\nenter into an investment and partnership agreement with OpenAI or that a transaction will be completed. Refer to Item 1A. Risk Factors for additional information\\nregarding our investments.\\nDuring fiscal year 2026 and fiscal year 2025, we spent $6.1 billion and $3.4 billion on capital expenditures, respectively. We expect to increase capital\\nexpenditures in fiscal year 2027 relative to fiscal year 2026 to support the future growth of our business.\\nUnrecognized tax benefits of $4.0 billion, which includes related interest and penalties of $374 million, were recorded in non-current income tax payable at the\\nend of fiscal year 2026. We are unable to estimate the timing of any potential tax liability, interest payments, or penalties in individual years due to uncertainties\\nin the underlying income tax positions and the timing of the effective settlement of such tax positions. We are currently under examination by the Internal\\nRevenue Service for our fiscal years 2023 and 2024. Refer to Note 13 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual\\nReport on Form 10-K for further information.\\nAdoption of New and Recently Issued Accounting Pronouncements\\nRefer to Note 1 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for a discussion of adoption of new\\nand recently issued accounting pronouncements.\\nItem 7A. Quantitative and Qualitative Disclosures about Market Risk\\nInvestment and Interest Rate Risk\\nWe are exposed to interest rate risk related to our fixed-rate investment portfolio and outstanding debt. The investment portfolio is managed consistent with our\\noverall liquidity strategy in support of both working capital needs and growth of our businesses.\\nAccording to our sensitivity analysis on our investment portfolio, a decrease in the yield curve of 0.5% as of the end of fiscal year 2026 and 2025 would decrease\\nthe fair value for these investments by approximately $0.2 billion.\\nAs of the end of fiscal year 2026, we had $8.5 billion of senior Notes outstanding. We carry the Notes at face value less unamortized discount on our\\nConsolidated Balance Sheets. As the Notes bear interest at a fixed rate, we have no financial statement risk associated with changes in interest rates. Refer to\\nNote 11 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for additional information.\\n44\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=44\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_srhYwo2Pkcl1g5lGWPhHrGK8",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_srhYwo2Pkcl1g5lGWPhHrGK8",
+    "delta": "{\"document"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_srhYwo2Pkcl1g5lGWPhHrGK8",
+    "delta": "_id\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_srhYwo2Pkcl1g5lGWPhHrGK8",
+    "delta": "nvidia"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_srhYwo2Pkcl1g5lGWPhHrGK8",
+    "delta": "\",\"page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_srhYwo2Pkcl1g5lGWPhHrGK8",
+    "delta": "\":45"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_srhYwo2Pkcl1g5lGWPhHrGK8",
+    "delta": "}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_srhYwo2Pkcl1g5lGWPhHrGK8"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_srhYwo2Pkcl1g5lGWPhHrGK8",
+    "toolCallId": "call_srhYwo2Pkcl1g5lGWPhHrGK8",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 45, \"total_pages\": 93, \"text\": \"Table of Contents\\nPublicly-held equity securities are subject to market price volatility. A hypothetical 10% decrease in our publicly-held equity securities would decrease the fair\\nvalue of the publicly-held equity securities balance by $1.8 billion and an insignificant amount as of January 25, 2026 and January 26, 2025, respectively.\\nNon-marketable equity securities are measured based on cost minus impairment, if any, and are adjusted for observable price changes in orderly transactions\\nfor an identical or similar investment in the same issuer. Valuations of our non-marketable equity securities are inherently complex due to the lack of readily\\navailable market data and observable transactions, and impact of macroeconomic factors.\\nFor a description of our equity investments, refer to Notes 7 and 8 of the Notes to Condensed Consolidated Financial Statements in Part IV, Item 15 of this\\nAnnual Report on Form 10-K for additional information.\\nForeign Exchange Rate Risk\\nWe consider our direct exposure to foreign exchange rate fluctuations to be minimal as substantially all of our sales are in United States dollars and foreign\\ncurrency forward contracts are used to offset movements of foreign currency exchange rates. Gains or losses from foreign currency remeasurement are included\\nin other income or expenses. The impact of foreign currency transaction gain or loss included in determining net income was not significant for fiscal years 2026\\nand 2025.\\nSales and arrangements with third-party manufacturers provide for pricing and payment in United States dollars, and, therefore, are not subject to exchange rate\\nfluctuations. Increases in the value of the United States’ dollar relative to other currencies would make our products more expensive, which could negatively\\nimpact our ability to compete. Conversely, decreases in the value of the United States’ dollar relative to other currencies could result in our suppliers raising their\\nmanufacturing costs.\\nIf the U.S. dollar strengthened by 10% as of January 25, 2026 and January 26, 2025, the amount recorded in Accumulated other comprehensive income (loss)\\nrelated to our foreign exchange contracts before tax effect would have been an adverse impact of $180 million and $136 million, respectively. Change in value of\\nour foreign exchange contracts recorded in Accumulated other comprehensive income (loss) would be expected to offset a corresponding change in hedged\\nforecasted foreign currency expenses when recognized.\\nIf an adverse 10% foreign exchange rate change was applied to our balance sheet hedging contracts, it would have resulted in an adverse impact on income\\nbefore taxes of $124 million and $129 million as of January 25, 2026 and January 26, 2025, respectively. These changes in fair values would be offset in Total\\nother income, net, by corresponding change in fair values of the foreign currency denominated monetary assets and liabilities, assuming the hedge contracts\\nfully cover the foreign currency denominated monetary assets and liabilities balances.\\nRefer to Note 10 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for additional information.\\nItem 8. Financial Statements and Supplementary Data\\nThe information required by this Item is set forth in our Consolidated Financial Statements and Notes thereto included in this Annual Report on Form 10-K. \\nItem 9. Changes in and Disagreements with Accountants on Accounting and Financial Disclosure\\nNone. \\nItem 9A. Controls and Procedures\\nControls and Procedures\\nDisclosure Controls and Procedures\\nBased on their evaluation as of January 25, 2026, our management, including our Chief Executive Officer and Chief Financial Officer, has concluded that our\\ndisclosure controls and procedures (as defined in Rule 13a-15(e) under the Exchange Act) were effective to provide reasonable assurance that the information\\nwe are required to disclose in reports that we file or submit under the Exchange Act is recorded, processed, summarized and reported within the time periods\\nspecified in the SEC rules and forms, and that such information is accumulated and communicated to our management, including our Chief Executive Officer\\nand our Chief Financial Officer, as appropriate, to allow timely decisions regarding required disclosures.\\nManagement’s Annual Report on Internal Control Over Financial Reporting\\nOur management is responsible for establishing and maintaining adequate internal control over financial reporting, as such term is defined in Exchange Act\\nRule 13a-15(f). Under the supervision and with the participation of our\\n45\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=45\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_i07856LZHaqYQHzsPRRYalb9",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_i07856LZHaqYQHzsPRRYalb9",
+    "delta": "{\"document_id\":\"nvidia\",\"page\":43}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_i07856LZHaqYQHzsPRRYalb9"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_i07856LZHaqYQHzsPRRYalb9",
+    "toolCallId": "call_i07856LZHaqYQHzsPRRYalb9",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 43, \"total_pages\": 93, \"text\": \"Table of Contents\\n Year Ended\\nJan 25, 2026 Jan 26, 2025\\n (In millions)\\nNet cash provided by operating activities $ 102,718 $ 64,089 \\nNet cash used in investing activities $ (52,228) $ (20,421)\\nNet cash used in financing activities $ (48,474) $ (42,359)\\nOur fixed income security investments include highly rated, diversified investment types and credit exposures with shorter maturities.\\nCash provided by operating activities increased in fiscal year 2026 compared to fiscal year 2025, due to higher revenue.\\nCash used in investing activities increased in fiscal year 2026 compared to fiscal year 2025, primarily driven by higher purchases of equity investment securities\\nand the execution of a non-exclusive license agreement with Groq.\\nCash used in financing activities increased in fiscal year 2026 compared to fiscal year 2025, mainly due to higher share repurchases.\\nLiquidity\\nOur primary sources of liquidity include cash, cash equivalents, marketable securities, and cash generated by our operations. As of January 25, 2026, we had\\n$62.6 billion in cash, cash equivalents, and marketable securities. We believe that we have sufficient liquidity to meet our operating requirements for at least the\\nnext twelve months and for the foreseeable future, including our future obligations. We continuously evaluate our liquidity and capital resources, including our\\naccess to external capital, to ensure we can finance future capital requirements.\\nOur marketable securities consist of publicly-held equity securities, debt securities issued by the U.S. government and its agencies, highly-rated corporations\\nand financial institutions, and foreign government entities, as well as certificates of deposit issued by highly-rated financial institutions. These marketable\\nsecurities are primarily denominated in U.S. dollars. Refer to Note 7 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual\\nReport on Form 10-K for additional information.\\nExcept for approximately $1.7 billion of cash, cash equivalents, and marketable securities held outside the U.S. for which we have not accrued any related\\nforeign or state taxes if we repatriate these amounts to the U.S., substantially all of our cash, cash equivalents and marketable securities held outside the U.S. at\\nthe end of fiscal year 2026 are available for use in the U.S. without incurring additional U.S. federal income taxes. Our first quarter of any fiscal year (including\\nfiscal year 2027) generally does not include any estimated federal and state income tax payments and our second quarter of any fiscal year (including fiscal year\\n2027) generally includes two estimated federal and state income tax payments.\\nCapital Return to Shareholders\\nOn August 26, 2025, our Board of Directors approved an additional $60.0 billion in share repurchase authorization, without expiration. In fiscal year 2026, we\\nrepurchased 282 million shares of our common stock for $40.4 billion. As of January 25, 2026, we were authorized, subject to certain specifications, to\\nrepurchase up to $58.5 billion of our common stock.\\nFrom January 26, 2026 through February 20, 2026, we repurchased 8 million shares for $1.5 billion pursuant to a pre-established trading plan. We may execute\\nrepurchases from time to time, subject to market conditions, operating requirements, and other investment opportunities, in the open market, in privately\\nnegotiated transactions, pursuant to a Rule 10b5-1 trading plan or in structured share repurchase agreements in compliance with Rule 10b-18 of the Exchange\\nAct. Our share repurchase program may be suspended at any time at our discretion.\\nIn fiscal year 2026, we paid cash dividends to our shareholders of $974 million. The payment of future cash dividends is subject to our Board of Directors'\\ncontinuing determination that the declaration of dividends is in the best interests of our shareholders.\\nThe U.S. Inflation Reduction Act of 2022 requires a 1% excise tax on certain share repurchases in excess of shares issued for employee compensation made\\nafter December 31, 2022. The excise tax is included in our share repurchase cost and was not material for fiscal years 2026 and 2025.\\n43\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=43\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_0boDW5tUHBp9PK0V8mypdWQZ",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_0boDW5tUHBp9PK0V8mypdWQZ",
+    "delta": "{\"document"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_0boDW5tUHBp9PK0V8mypdWQZ",
+    "delta": "_id\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_0boDW5tUHBp9PK0V8mypdWQZ",
+    "delta": "nvidia"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_0boDW5tUHBp9PK0V8mypdWQZ",
+    "delta": "\",\"page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_0boDW5tUHBp9PK0V8mypdWQZ",
+    "delta": "\":40"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_0boDW5tUHBp9PK0V8mypdWQZ",
+    "delta": "}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_0boDW5tUHBp9PK0V8mypdWQZ"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_0boDW5tUHBp9PK0V8mypdWQZ",
+    "toolCallId": "call_0boDW5tUHBp9PK0V8mypdWQZ",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 40, \"total_pages\": 93, \"text\": \"Table of Contents\\nThe following table sets forth, for the periods indicated, certain items in our Consolidated Statements of Income expressed as a percentage of revenue.\\nYear Ended\\n Jan 25, 2026 Jan 26, 2025\\nRevenue 100.0 % 100.0 %\\nCost of revenue 28.9 25.0 \\nGross profit 71.1 75.0 \\nOperating expenses  \\nResearch and development 8.6 9.9 \\nSales, general and administrative 2.1 2.7 \\nTotal operating expenses 10.7 12.6 \\nOperating income 60.4 62.4 \\nInterest income 1.1 1.4 \\nInterest expense (0.1) (0.2)\\nOther income, net 4.2 0.8 \\nTotal other income, net 5.2 2.0 \\nIncome before income tax 65.5 64.4 \\nIncome tax expense 9.9 8.6 \\nNet income 55.6 % 55.8 %\\nReportable Segments\\nRevenue by Reportable Segments\\nYear Ended\\nJan 25, 2026 Jan 26, 2025\\n$\\nChange\\n%\\nChange\\n($ in millions)\\nCompute & Networking $ 193,479 $ 116,193 $ 77,286 67 %\\nGraphics 22,459 14,304 8,155 57 %\\nTotal $ 215,938 $ 130,497 $ 85,441 65 %\\nOperating Income by Reportable Segments\\nYear Ended\\nJan 25, 2026 Jan 26, 2025\\n$\\nChange\\n%\\nChange\\n($ in millions)\\nCompute & Networking $ 130,141 $ 82,875 $ 47,266 57 %\\nGraphics 9,156 5,085 4,071 80 %\\nTotal $ 139,297 $ 87,960 $ 51,337 58 %\\nCompute & Networking revenue – The year over year increase was driven by the major platform shifts – accelerated computing and AI. Revenue from Data\\nCenter computing grew 59% driven by demand for our Blackwell computing platform. Revenue from Data Center networking grew 142% driven by the\\nintroduction and continued ramp of NVLink compute fabric for GB200 and GB300 systems and the growth of Ethernet and InfiniBand platforms.\\nGraphics revenue – The year over year increase was driven by sales of our Blackwell architecture.\\nReportable segment operating income – The year over year increase in Compute & Networking segment operating income was driven by growth in revenue,\\npartially offset by a $4.5 billion charge associated with H20 excess inventory and purchase obligations in the first quarter of fiscal year 2026. The year over year\\nincrease in Graphics segment operating income was driven by the growth in revenue.\\n40\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "toolCallName": "publish_ui_panel"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "{\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "title\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "6 Revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Increase Summary"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\",\"program"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\":\"root"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " = Card"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "([header"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ", summary"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ", table"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ", call"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "out],"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " sources)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "header ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " CardHeader"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "(\\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "VIDIA FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Revenue Increase"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Analysis\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " \\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "VIDIA "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "10-K"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ", Fiscal"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Year End"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "ed January"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " 25"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ", "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\")\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "summary ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " TextContent"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "(\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "  \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "'s revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " increased significantly"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " in fiscal"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " year "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " compared to"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " fiscal year"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " 202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "5,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " mainly driven"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " by growth"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " in accelerated"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " computing and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " AI platforms"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ". The"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Compute &"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Networking segment"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " revenue rose"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " 67"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "% year"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "-over-year"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ", with"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Data Center"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " computing growing"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " 59"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "% fueled"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " by demand"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " for the"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Blackwell"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " computing platform"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " and Data"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Center networking"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " revenue growing"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " 142"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "% due"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " to the"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " introduction and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " ramp-up"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " of NV"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "Link compute"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " fabric and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " growth in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Ethernet and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Infini"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "Band platforms"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ". The"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Graphics segment"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " also saw"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " a "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "57%"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " revenue increase"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ", driven"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " by sales"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " of GPUs"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " built on"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " the Black"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "well architecture"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ". These"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " factors collectively contributed to"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " a "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "65%"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " total revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " increase to"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " $215"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ".9"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " billion in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "6."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\"\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "  \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " The company"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " also launched"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " new technology"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " platforms such"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " as the"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Blackwell"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " architecture in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "5 and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " the Rubin"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " platform in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "6,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " expected to"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " commence shipments"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " in FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "2027"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ", further"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " supporting their"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " AI and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " accelerated computing"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " leadership."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\"\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "  \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Operating income"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " increased in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " both major"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " segments despite"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " a notable"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " $4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ".5"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " billion charge"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " related to"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " inventory and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " purchase obligations"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " early in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "6."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " This reflects"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " strong demand"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " and strategic"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " investment in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " new AI"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " and computing"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " hardware."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\"\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "  ,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " \\\"default"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\"\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ")\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\nt"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "able ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Table([\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Col(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "Segment\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " [\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "Compute &"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Networking\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " \\\"Graphics"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "Total\\\"]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "),\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Col(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "Revenue FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\", ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\"$"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "193."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "5 billion"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\", \\\"$"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "22."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "5 billion"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\", \\\"$"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "215."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "9 billion"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\"]),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "  Col"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "(\\\"Revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "5\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " [\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "$116"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ".2"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " billion\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " \\\"$14"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ".3"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " billion\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " \\\"$130"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ".5"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " billion\\\"]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "),\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Col(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "Year-over"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "-Year Change"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\", ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\"67"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "%\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " \\\"57"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "%\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " \\\"65"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "%\\\"]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ")\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "])\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "callout"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " = Call"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "out(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "info\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " \\\"Revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Growth Drivers"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "\\\",\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "  \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "The primary"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " drivers for"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " NVIDIA's"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "6 revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " growth were"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " the accelerated"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " computing and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " AI platform"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " shifts,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " particularly with"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Data Center"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " demand for"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Blackwell"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " and networking"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " platforms,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " and increased"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Graphics sales"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " with Blackwell GPUs"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ".\\\"\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "sources ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " [\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " {\\n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " title:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " \\\"“"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "Compute &"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Networking revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " increased "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "67%"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " year-over"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "-year driven"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " by accelerated"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " computing and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " AI,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Data Center"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " demand for"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Blackwell"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " platform,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " and strong"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " networking growth"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ".”\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " sourceName"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " 10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "-K ·"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Page "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "40\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " url:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " \\\"https"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "://invest"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "or.n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "vidia.com"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "/files/doc"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "_financial"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "s/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "/q4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "/10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "K-N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "VDA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ".pdf#"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "page="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "40\\\"\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " },\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " {\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "    title"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "“Black"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "well architecture"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " launched in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "5,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Rubin platform"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " introduced in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "6 targeting"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " agentic"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " AI workflows"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ", supporting"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " future growth"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ".”\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " sourceName"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " 10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "-K ·"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Page "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "6\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " url:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " \\\"https"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "://invest"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "or.n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "vidia.com"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "/files/doc"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "_financial"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "s/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "/q4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "/10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "K-N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "VDA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ".pdf#"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "page="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "6\\\"\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " },\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " {\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "    title"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "“A"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " $4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ".5"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " billion charge"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " related to"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " excess inventory"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " and purchase"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " obligations impacted"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " the Compute"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " & Networking"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " segment operating"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " income in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " early FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ".”\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " sourceName"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " 10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "-K ·"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " Page "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "40\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " url:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " \\\"https"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "://invest"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "or.n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "vidia.com"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "/files/doc"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "_financial"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "s/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "/q4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "/10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "K-N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "VDA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": ".pdf#"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "page="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "40\\\"\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": " }\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "]\",\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "destination\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "delta": "canvas\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "toolCallId": "call_V5Ve7T5nIAEEyXoLGJ2QHZCL",
+    "content": "{\"success\": false, \"error\": \"Invalid OpenUI program: ['field \\\"/size\\\" expects one of [\\\"small\\\", \\\"default\\\", \\\"large\\\", \\\"small-heavy\\\", \\\"large-heavy\\\"] but got \\\" The company also launched new technology platforms such as the Blackwell architecture in FY2025 and the Rubin platform in FY2026, expected to commence shipments in FY2027, further supporting their AI and accelerated computing leadership.\\\"', 'TextContent takes 2 arg(s), got 4 (2 excess dropped)']\", \"message\": \"Fix the program using the catalog; existing panel retained\"}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "toolCallName": "publish_ui_panel"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "{\"title"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\":\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "VIDIA FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Revenue Increase"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Summary\",\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "program\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "root ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Card(["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "header,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " summary,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " table,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " callout"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "], sources)\\n\\nheader = Card"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "Header(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " FY2026 Revenue Increase Analysis\\\", \\\"NVIDIA 10-K, Fiscal Year Ended January 25, 2026\\\")\\n\\nsummary = Text"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "Content(\\n  \\\"N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "VIDIA's revenue increased significantly in fiscal year 2026 compared to fiscal year "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "2025, mainly driven by"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " growth in accelerated computing and AI platforms."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " The Compute & Networking"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " segment revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " rose "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "67%"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " year-over"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "-year,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " with Data"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Center computing"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " growing "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "59%"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " fueled by"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " demand for"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " the Black"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "well computing"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " platform and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Data Center"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " networking revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " growing "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "142%"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " due to"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " the introduction"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " and ramp"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "-up of"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " NVLink"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " compute fabric"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " and growth"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " in Ethernet"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " and Inf"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "iniBand"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " platforms."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " The Graphics"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " segment also"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " saw a"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " 57"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "% revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " increase,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " driven by"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " sales of"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " GPUs built"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " on the"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Blackwell"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " architecture."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " These factors"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " collectively contributed"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " to a"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " 65"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "% total revenue increase"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " to $"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "215."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "9 billion"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " in FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ". Operating"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " income increased"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " in both"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " major segments"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " despite a notable $"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "4."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "5 billion"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " charge related"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " to inventory"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " and purchase"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " obligations early"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " in FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ". This"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " reflects strong"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " demand and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " strategic investment"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " in new"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " AI and computing hardware"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ".\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "  \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "default\\\"\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n)\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "ntable"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " = Table"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "([\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "  Col(\\\"Segment"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\", ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\"Compute"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " & Networking"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "Graphics\\\", \\\"Total"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\"]),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "  Col"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "(\\\"Revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "6\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " [\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "$193"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ".5"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " billion\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " \\\"$22"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ".5"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " billion\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " \\\"$215"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ".9"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " billion\\\"]"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "),\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Col(\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "Revenue FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "2025"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\", ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\"$"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "116."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "2 billion"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\", \\\"$"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "14."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "3 billion"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\", \\\"$"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "130."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "5 billion"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\"]),"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "  Col"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "(\\\"Year"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "-over-Year"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Change\\\","
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " [\\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "67%"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\", \\\"57%"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\", \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "65%"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\"])\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n])"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\ncall"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "out ="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Callout"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "(\\\"info"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\",\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "  \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "Revenue Growth"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Drivers\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " \\\"The"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " primary drivers"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " for NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "'s FY"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " revenue growth"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " were the"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " accelerated computing"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " and AI"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " platform shifts"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ", particularly"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " with Data"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Center demand"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " for Black"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "well and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " networking platforms"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ", and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " increased Graphics"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " sales with"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Blackwell"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " GPUs."
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\\"\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ")\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\nsources"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " = ["
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "  {\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " title:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " \\\"“"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "Compute &"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Networking revenue"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " increased "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "67%"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " year-over"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "-year driven"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " by accelerated"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " computing and"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " AI,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Data Center"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " demand for"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Blackwell"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " platform,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " and strong"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " networking growth"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ".”\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " sourceName"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " 10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "-K ·"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Page "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "40\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " url:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " \\\"https"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "://invest"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "or.n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "vidia.com"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "/files/doc"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "_financial"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "s/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "/q4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "/10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "K-N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "VDA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ".pdf#"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "page="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "40\\\"\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " },\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " {\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "    title"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "“Black"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "well architecture"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " launched in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "5,"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Rubin platform"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " introduced in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " FY202"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "6 targeting"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " agentic"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " AI workflows"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ", supporting"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " future growth"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ".”\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " sourceName"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " 10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "-K ·"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Page "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "6\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " url:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " \\\"https"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "://invest"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "or.n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "vidia.com"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "/files/doc"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "_financial"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "s/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "/q4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "/10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "K-N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "VDA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ".pdf#"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "page="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "6\\\"\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " },\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " {\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "    title"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "“A"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " $4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ".5"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " billion charge"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " related to"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " excess inventory"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " and purchase"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " obligations impacted"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " the Compute"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " & Networking"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " segment operating"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " income in"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " early FY2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ".”\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " sourceName"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": ": \\\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "NVIDIA"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " 10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "-K ·"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " Page "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "40\\\",\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n   "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " url:"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " \\\"https"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "://invest"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "or.n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "vidia.com"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "/files/doc"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "_financial"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "s/"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "2026"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "/q4"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "/10"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "K-N"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "VDA.pdf#"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "page="
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "40\\\"\\"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "n "
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": " }\\n"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "]\",\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "destination\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "delta": "canvas\"}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "toolCallId": "call_Qh7dvat3NWyqKEHB2mLcXzDh",
+    "content": "{\"success\": true, \"panel_id\": \"45b517cc-3750-418e-8090-e8ad1a2aeb63\", \"revision\": 1, \"artifact_id\": null}",
+    "role": "tool"
+  },
+  {
+    "type": "STATE_DELTA",
+    "delta": [
+      {
+        "op": "replace",
+        "path": "/dashboard",
+        "value": {
+          "revision": 1,
+          "tabs": [
+            {
+              "id": "main",
+              "title": "Overview"
+            }
+          ],
+          "active_tab_id": "main",
+          "panels": [
+            {
+              "id": "45b517cc-3750-418e-8090-e8ad1a2aeb63",
+              "title": "NVIDIA FY2026 Revenue Increase Summary",
+              "kind": "openui",
+              "tab_id": "main",
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "w": 12,
+                "h": 12
+              },
+              "pinned": false,
+              "refresh": {
+                "mode": "live",
+                "interval_seconds": 0,
+                "last_attempt_at": null,
+                "last_success_at": null,
+                "error": null
+              },
+              "program": "root = Card([header, summary, table, callout], sources)\n\nheader = CardHeader(\"NVIDIA FY2026 Revenue Increase Analysis\", \"NVIDIA 10-K, Fiscal Year Ended January 25, 2026\")\n\nsummary = TextContent(\n  \"NVIDIA's revenue increased significantly in fiscal year 2026 compared to fiscal year 2025, mainly driven by growth in accelerated computing and AI platforms. The Compute & Networking segment revenue rose 67% year-over-year, with Data Center computing growing 59% fueled by demand for the Blackwell computing platform and Data Center networking revenue growing 142% due to the introduction and ramp-up of NVLink compute fabric and growth in Ethernet and InfiniBand platforms. The Graphics segment also saw a 57% revenue increase, driven by sales of GPUs built on the Blackwell architecture. These factors collectively contributed to a 65% total revenue increase to $215.9 billion in FY2026. Operating income increased in both major segments despite a notable $4.5 billion charge related to inventory and purchase obligations early in FY2026. This reflects strong demand and strategic investment in new AI and computing hardware.\",\n  \"default\"\n)\n\ntable = Table([\n  Col(\"Segment\", [\"Compute & Networking\", \"Graphics\", \"Total\"]),\n  Col(\"Revenue FY2026\", [\"$193.5 billion\", \"$22.5 billion\", \"$215.9 billion\"]),\n  Col(\"Revenue FY2025\", [\"$116.2 billion\", \"$14.3 billion\", \"$130.5 billion\"]),\n  Col(\"Year-over-Year Change\", [\"67%\", \"57%\", \"65%\"])\n])\n\ncallout = Callout(\"info\",\n  \"Revenue Growth Drivers\",\n  \"The primary drivers for NVIDIA's FY2026 revenue growth were the accelerated computing and AI platform shifts, particularly with Data Center demand for Blackwell and networking platforms, and increased Graphics sales with Blackwell GPUs.\"\n)\n\nsources = [\n  {\n    title: \"“Compute & Networking revenue increased 67% year-over-year driven by accelerated computing and AI, Data Center demand for Blackwell platform, and strong networking growth.”\",\n    sourceName: \"NVIDIA 10-K · Page 40\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40\"\n  },\n  {\n    title: \"“Blackwell architecture launched in FY2025, Rubin platform introduced in FY2026 targeting agentic AI workflows, supporting future growth.”\",\n    sourceName: \"NVIDIA 10-K · Page 6\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6\"\n  },\n  {\n    title: \"“A $4.5 billion charge related to excess inventory and purchase obligations impacted the Compute & Networking segment operating income in early FY2026.”\",\n    sourceName: \"NVIDIA 10-K · Page 40\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40\"\n  }\n]",
+              "ui_state": {},
+              "source_artifact_id": null,
+              "query": {},
+              "data": {},
+              "sources": [
+                {
+                  "title": "“Compute & Networking revenue increased 67% year-over-year driven by accelerated computing and AI, Data Center demand for Blackwell platform, and strong networking growth.”",
+                  "sourceName": "NVIDIA 10-K · Page 40",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40"
+                },
+                {
+                  "title": "“Blackwell architecture launched in FY2025, Rubin platform introduced in FY2026 targeting agentic AI workflows, supporting future growth.”",
+                  "sourceName": "NVIDIA 10-K · Page 6",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6"
+                },
+                {
+                  "title": "“A $4.5 billion charge related to excess inventory and purchase obligations impacted the Compute & Networking segment operating income in early FY2026.”",
+                  "sourceName": "NVIDIA 10-K · Page 40",
+                  "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40"
+                }
+              ]
+            }
+          ],
+          "artifacts": [],
+          "selected_panel_id": "45b517cc-3750-418e-8090-e8ad1a2aeb63",
+          "export_request": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "f68dcf82-7e60-4f41-88b3-3334ed959ea1",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "f68dcf82-7e60-4f41-88b3-3334ed959ea1",
+    "delta": "root = Card([header, summary, table, callout], sources)\nheader = CardHeader(\"NVIDIA FY2026 Revenue Increase Analysis\", \"NVIDIA 10-K, Fiscal Year Ended January 25, 2026\")\nsummary = TextContent(\n  \"NVIDIA's revenue increased significantly in fiscal year 2026 compared to fiscal year 2025, mainly driven by growth in accelerated computing and AI platforms. The Compute & Networking segment revenue rose 67% year-over-year, with Data Center computing growing 59% fueled by demand for the Blackwell computing platform and Data Center networking revenue growing 142% due to the introduction and ramp-up of NVLink compute fabric and growth in Ethernet and InfiniBand platforms. The Graphics segment also saw a 57% revenue increase, driven by sales of GPUs built on the Blackwell architecture. These factors collectively contributed to a 65% total revenue increase to $215.9 billion in FY2026. Operating income increased in both major segments despite a notable $4.5 billion charge related to inventory and purchase obligations early in FY2026. This reflects strong demand and strategic investment in new AI and computing hardware.\",\n  \"default\"\n)\ntable = Table([\n  Col(\"Segment\", [\"Compute & Networking\", \"Graphics\", \"Total\"]),\n  Col(\"Revenue FY2026\", [\"$193.5 billion\", \"$22.5 billion\", \"$215.9 billion\"]),\n  Col(\"Revenue FY2025\", [\"$116.2 billion\", \"$14.3 billion\", \"$130.5 billion\"]),\n  Col(\"Year-over-Year Change\", [\"67%\", \"57%\", \"65%\"])\n])\ncallout = Callout(\"info\",\n  \"Revenue Growth Drivers\",\n  \"The primary drivers for NVIDIA's FY2026 revenue growth were the accelerated computing and AI platform shifts, particularly with Data Center demand for Blackwell and networking platforms, and increased Graphics sales with Blackwell GPUs.\"\n)\nsources = [\n  {\n    title: \"“Compute & Networking revenue increased 67% year-over-year driven by accelerated computing and AI, Data Center demand for Blackwell platform, and strong networking growth.”\",\n    sourceName: \"NVIDIA 10-K · Page 40\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40\"\n  },\n  {\n    title: \"“Blackwell architecture launched in FY2025, Rubin platform introduced in FY2026 targeting agentic AI workflows, supporting future growth.”\",\n    sourceName: \"NVIDIA 10-K · Page 6\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6\"\n  },\n  {\n    title: \"“A $4.5 billion charge related to excess inventory and purchase obligations impacted the Compute & Networking segment operating income in early FY2026.”\",\n    sourceName: \"NVIDIA 10-K · Page 40\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40\"\n  }\n]"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "f68dcf82-7e60-4f41-88b3-3334ed959ea1"
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "2f8f69fe-def6-4ac2-87ca-3041d3449991",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "2f8f69fe-def6-4ac2-87ca-3041d3449991",
+    "delta": "root = Card([Callout(\"info\", \"확인한 원문 범위\", \"이번 요청에서 확인한 원문: NVIDIA 10-K, fiscal 2026 · 6페이지; NVIDIA 10-K, fiscal 2026 · 8페이지; NVIDIA 10-K, fiscal 2026 · 9페이지; NVIDIA 10-K, fiscal 2026 · 44페이지; NVIDIA 10-K, fiscal 2026 · 45페이지; NVIDIA 10-K, fiscal 2026 · 43페이지; NVIDIA 10-K, fiscal 2026 · 40페이지. 위 목록은 이번 요청에서 직접 읽은 범위입니다. 이전 대화의 검색 구절과는 구분되며, 전체 보고서와 모든 주석을 검토했다는 뜻은 아닙니다.\")], [{\"title\": \"NVIDIA 10-K, fiscal 2026 · 6페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 8페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=8\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 9페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=9\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 44페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=44\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 45페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=45\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 43페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=43\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 40페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40\"}])"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "2f8f69fe-def6-4ac2-87ca-3041d3449991"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 1,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "45b517cc-3750-418e-8090-e8ad1a2aeb63",
+            "title": "NVIDIA FY2026 Revenue Increase Summary",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, summary, table, callout], sources)\n\nheader = CardHeader(\"NVIDIA FY2026 Revenue Increase Analysis\", \"NVIDIA 10-K, Fiscal Year Ended January 25, 2026\")\n\nsummary = TextContent(\n  \"NVIDIA's revenue increased significantly in fiscal year 2026 compared to fiscal year 2025, mainly driven by growth in accelerated computing and AI platforms. The Compute & Networking segment revenue rose 67% year-over-year, with Data Center computing growing 59% fueled by demand for the Blackwell computing platform and Data Center networking revenue growing 142% due to the introduction and ramp-up of NVLink compute fabric and growth in Ethernet and InfiniBand platforms. The Graphics segment also saw a 57% revenue increase, driven by sales of GPUs built on the Blackwell architecture. These factors collectively contributed to a 65% total revenue increase to $215.9 billion in FY2026. Operating income increased in both major segments despite a notable $4.5 billion charge related to inventory and purchase obligations early in FY2026. This reflects strong demand and strategic investment in new AI and computing hardware.\",\n  \"default\"\n)\n\ntable = Table([\n  Col(\"Segment\", [\"Compute & Networking\", \"Graphics\", \"Total\"]),\n  Col(\"Revenue FY2026\", [\"$193.5 billion\", \"$22.5 billion\", \"$215.9 billion\"]),\n  Col(\"Revenue FY2025\", [\"$116.2 billion\", \"$14.3 billion\", \"$130.5 billion\"]),\n  Col(\"Year-over-Year Change\", [\"67%\", \"57%\", \"65%\"])\n])\n\ncallout = Callout(\"info\",\n  \"Revenue Growth Drivers\",\n  \"The primary drivers for NVIDIA's FY2026 revenue growth were the accelerated computing and AI platform shifts, particularly with Data Center demand for Blackwell and networking platforms, and increased Graphics sales with Blackwell GPUs.\"\n)\n\nsources = [\n  {\n    title: \"“Compute & Networking revenue increased 67% year-over-year driven by accelerated computing and AI, Data Center demand for Blackwell platform, and strong networking growth.”\",\n    sourceName: \"NVIDIA 10-K · Page 40\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40\"\n  },\n  {\n    title: \"“Blackwell architecture launched in FY2025, Rubin platform introduced in FY2026 targeting agentic AI workflows, supporting future growth.”\",\n    sourceName: \"NVIDIA 10-K · Page 6\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6\"\n  },\n  {\n    title: \"“A $4.5 billion charge related to excess inventory and purchase obligations impacted the Compute & Networking segment operating income in early FY2026.”\",\n    sourceName: \"NVIDIA 10-K · Page 40\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40\"\n  }\n]",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "“Compute & Networking revenue increased 67% year-over-year driven by accelerated computing and AI, Data Center demand for Blackwell platform, and strong networking growth.”",
+                "sourceName": "NVIDIA 10-K · Page 40",
+                "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40"
+              },
+              {
+                "title": "“Blackwell architecture launched in FY2025, Rubin platform introduced in FY2026 targeting agentic AI workflows, supporting future growth.”",
+                "sourceName": "NVIDIA 10-K · Page 6",
+                "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6"
+              },
+              {
+                "title": "“A $4.5 billion charge related to excess inventory and purchase obligations impacted the Compute & Networking segment operating income in early FY2026.”",
+                "sourceName": "NVIDIA 10-K · Page 40",
+                "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40"
+              }
+            ]
+          }
+        ],
+        "artifacts": [],
+        "selected_panel_id": "45b517cc-3750-418e-8090-e8ad1a2aeb63",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "RUN_FINISHED",
+    "threadId": "6d1ac76e-92ec-4921-b18d-8eb50c565ae7",
+    "runId": "38252fe8-3c0a-4579-86e2-03bd117964c6"
+  }
+]

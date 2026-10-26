@@ -1,0 +1,7 @@
+### Ran Playwright code
+```js
+await (async page => { const canvas = page.getByRole("region", {name:"Canvas dashboard"}); if (await canvas.getByRole("tab",{name:"분리 검증",exact:true}).count()) throw new Error("temporary tab remains"); await canvas.getByRole("button",{name:"보관 메모",exact:true}).waitFor(); const download = page.waitForEvent("download"); await canvas.getByRole("button",{name:"JSON",exact:true}).click(); await (await download).saveAs("output/playwright/refactor-export.json"); })(page);
+```
+### Events
+- Downloading file sec-dashboard-2026-10-24.json ...
+- Downloaded file sec-dashboard-2026-10-24.json to ".playwright-cli/sec-dashboard-2026-10-24.json"

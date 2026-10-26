@@ -1,0 +1,41 @@
+{
+  "revision": 1,
+  "tabs": [
+    {
+      "id": "main",
+      "title": "Overview"
+    }
+  ],
+  "active_tab_id": "main",
+  "panels": [
+    {
+      "id": "d400f856-8406-430e-a128-b847ed865be0",
+      "title": "NVIDIA 분기 매출 검토",
+      "kind": "openui",
+      "tab_id": "main",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 12
+      },
+      "pinned": false,
+      "refresh": {
+        "mode": "live",
+        "interval_seconds": 0,
+        "last_attempt_at": null,
+        "last_success_at": null,
+        "error": null
+      },
+      "program": "header = CardHeader(\"NVIDIA Revenue Comparison: FY2026 Q2 vs FY2027 Q2\", \"Fiscal Year Ended July 26, 2026 (2027 Q2) and July 27, 2025 (2026 Q2) Official IR PDF Source\")\ninfo = TextContent(\"This data compares NVIDIA's revenue for the three months ended July 27, 2025 (FY2026 Q2) and July 26, 2026 (FY2027 Q2), in millions of USD, as well as the cumulative revenue for the six months ended those dates.\")\nrevenueChart = LineChart([\"Q2 FY2026\", \"Q2 FY2027\"], [Series(\"Revenue (million USD)\", [46743, 96221])], \"linear\", \"Quarter\", \"Revenue (million USD)\")\nrevenueTable = Table([\n  Col(\"Period\", [\"3-month FY2026 Q2\", \"3-month FY2027 Q2\", \"6-month FY2026 cumulative\", \"6-month FY2027 cumulative\"]),\n  Col(\"Revenue (million USD)\", [\"46,743\", \"96,221\", \"90,805\", \"177,837\"])\n])\n\nroot = Card([header, info, revenueChart, revenueTable])",
+      "ui_state": {},
+      "source_artifact_id": null,
+      "query": {},
+      "data": {},
+      "sources": []
+    }
+  ],
+  "artifacts": [],
+  "selected_panel_id": "d400f856-8406-430e-a128-b847ed865be0",
+  "export_request": null
+}

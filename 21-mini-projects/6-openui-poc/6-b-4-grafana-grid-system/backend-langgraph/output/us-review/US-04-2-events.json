@@ -1,0 +1,273 @@
+[
+  {
+    "type": "RUN_STARTED",
+    "threadId": "6d1ac76e-92ec-4921-b18d-8eb50c565ae7",
+    "runId": "e8d925f8-69a0-4b19-8249-2fdd81529696"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 1,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "45b517cc-3750-418e-8090-e8ad1a2aeb63",
+            "title": "NVIDIA FY2026 Revenue Increase Summary",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, summary, table, callout], sources)\n\nheader = CardHeader(\"NVIDIA FY2026 Revenue Increase Analysis\", \"NVIDIA 10-K, Fiscal Year Ended January 25, 2026\")\n\nsummary = TextContent(\n  \"NVIDIA's revenue increased significantly in fiscal year 2026 compared to fiscal year 2025, mainly driven by growth in accelerated computing and AI platforms. The Compute & Networking segment revenue rose 67% year-over-year, with Data Center computing growing 59% fueled by demand for the Blackwell computing platform and Data Center networking revenue growing 142% due to the introduction and ramp-up of NVLink compute fabric and growth in Ethernet and InfiniBand platforms. The Graphics segment also saw a 57% revenue increase, driven by sales of GPUs built on the Blackwell architecture. These factors collectively contributed to a 65% total revenue increase to $215.9 billion in FY2026. Operating income increased in both major segments despite a notable $4.5 billion charge related to inventory and purchase obligations early in FY2026. This reflects strong demand and strategic investment in new AI and computing hardware.\",\n  \"default\"\n)\n\ntable = Table([\n  Col(\"Segment\", [\"Compute & Networking\", \"Graphics\", \"Total\"]),\n  Col(\"Revenue FY2026\", [\"$193.5 billion\", \"$22.5 billion\", \"$215.9 billion\"]),\n  Col(\"Revenue FY2025\", [\"$116.2 billion\", \"$14.3 billion\", \"$130.5 billion\"]),\n  Col(\"Year-over-Year Change\", [\"67%\", \"57%\", \"65%\"])\n])\n\ncallout = Callout(\"info\",\n  \"Revenue Growth Drivers\",\n  \"The primary drivers for NVIDIA's FY2026 revenue growth were the accelerated computing and AI platform shifts, particularly with Data Center demand for Blackwell and networking platforms, and increased Graphics sales with Blackwell GPUs.\"\n)\n\nsources = [\n  {\n    title: \"“Compute & Networking revenue increased 67% year-over-year driven by accelerated computing and AI, Data Center demand for Blackwell platform, and strong networking growth.”\",\n    sourceName: \"NVIDIA 10-K · Page 40\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40\"\n  },\n  {\n    title: \"“Blackwell architecture launched in FY2025, Rubin platform introduced in FY2026 targeting agentic AI workflows, supporting future growth.”\",\n    sourceName: \"NVIDIA 10-K · Page 6\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6\"\n  },\n  {\n    title: \"“A $4.5 billion charge related to excess inventory and purchase obligations impacted the Compute & Networking segment operating income in early FY2026.”\",\n    sourceName: \"NVIDIA 10-K · Page 40\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40\"\n  }\n]",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "“Compute & Networking revenue increased 67% year-over-year driven by accelerated computing and AI, Data Center demand for Blackwell platform, and strong networking growth.”",
+                "sourceName": "NVIDIA 10-K · Page 40",
+                "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40"
+              },
+              {
+                "title": "“Blackwell architecture launched in FY2025, Rubin platform introduced in FY2026 targeting agentic AI workflows, supporting future growth.”",
+                "sourceName": "NVIDIA 10-K · Page 6",
+                "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6"
+              },
+              {
+                "title": "“A $4.5 billion charge related to excess inventory and purchase obligations impacted the Compute & Networking segment operating income in early FY2026.”",
+                "sourceName": "NVIDIA 10-K · Page 40",
+                "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40"
+              }
+            ]
+          }
+        ],
+        "artifacts": [],
+        "selected_panel_id": "45b517cc-3750-418e-8090-e8ad1a2aeb63",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_EX5aoDY17MqrlFViqC73lHMA",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_EX5aoDY17MqrlFViqC73lHMA",
+    "delta": "{\"document_id\":\"nvidia\",\"page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_EX5aoDY17MqrlFViqC73lHMA",
+    "delta": "\":7}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_EX5aoDY17MqrlFViqC73lHMA"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_EX5aoDY17MqrlFViqC73lHMA",
+    "toolCallId": "call_EX5aoDY17MqrlFViqC73lHMA",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 7, \"total_pages\": 93, \"text\": \"Table of Contents\\nrunning an in-vehicle operating system (DRIVE OS), a reference sensor set that supports full self-driving capability as well as an open, modular DRIVE software\\nplatform for autonomous driving, mapping, and parking services, and intelligent in-vehicle experiences.\\nBusiness Strategies\\nNVIDIA’s key strategies that shape our overall business approach include:\\nAdvancing the NVIDIA accelerated computing platform. Our accelerated computing platform can solve complex problems in significantly less time and with\\nlower power consumption than alternative computational approaches. It can help solve problems that were previously deemed unsolvable. We work to deliver\\ncontinued performance leaps that outpace Moore’s Law by leveraging innovation across the architecture, chip design, system, interconnect, algorithm, and\\nsoftware layers. This full-stack innovation approach allows us to deliver order-of-magnitude performance advantages relative to legacy approaches in our target\\nmarkets, which include Data Center, Gaming, Professional Visualization, and Automotive. While the computing requirements of these end markets are diverse,\\nwe address them with a unified underlying architecture leveraging our GPUs, CPUs, CUDA and networking technologies as the fundamental building blocks. The\\nprogrammable nature of our architecture allows us to make leveraged investments in research and development: we can support several multi-billion-dollar end\\nmarkets with shared underlying technology by using a variety of software stacks developed either internally or by third-party developers and partners. We utilize\\nthis platform approach in each of our target markets.\\nExtending our technology and platform leadership in AI. We provide a complete, end-to-end accelerated computing platform for AI, addressing both training\\nand inferencing. This includes full-stack data center-scale compute and networking solutions across processing units, interconnects, systems, and software. Our\\ncompute solutions include all three major processing units in AI servers – GPUs, CPUs, and DPUs. GPUs are uniquely suited to AI, and we will continue to add\\nAI-specific features to our GPU architecture to further extend our leadership position.\\nIn addition, we offer NVIDIA AI Enterprise—a comprehensive software suite designed to simplify the development and deployment of production-grade, end-to-\\nend generative AI applications. NVIDIA AI Enterprise includes: NVIDIA NIM, which increases token throughput using industry-leading open and proprietary\\nmodels; NVIDIA NeMo, a complete solution for curating, fine-tuning, reinforcement learning, evaluating, and safeguarding domain-adapted models; and AI\\nBlueprints, pre-built, runnable templates that help enterprises build, optimize, and deploy AI agents while preserving privacy. These tools enable organizations to\\nsecurely develop and run AI applications on NVIDIA-accelerated infrastructure anywhere.\\nOur AI technology leadership is reinforced by our large and expanding ecosystem. Our computing platforms are available from virtually every major server maker\\nand CSP, as well as on our own AI supercomputers. There are over 7.5 million developers worldwide using CUDA and our other software tools to help deploy our\\ntechnology in our target markets. We are the leader in accelerating and releasing open AI models which enterprises, sovereigns, and startups can leverage to\\ndevelop and run applications on our platform. We evangelize AI through partnerships with hundreds of universities and tens of thousands of startups through our\\nInception program. Additionally, our Deep Learning Institute provides instruction on the latest techniques on how to design, train, and deploy neural networks in\\napplications using our accelerated computing platform.\\nExtending our technology and platform leadership in computer graphics. We believe that computer graphics infused with AI is fundamental to the\\ncontinued expansion and evolution of computing. We apply our research and development resources to enhance the user experience for consumer\\nentertainment and professional visualization applications and create new virtual world and simulation capabilities. Our technologies are instrumental in driving\\nthe gaming, design, and creative industries forward, as developers leverage our libraries and algorithms to deliver an optimized experience on our GeForce and\\nNVIDIA RTX platforms. Our computer graphics platforms leverage AI end-to-end, from the developer tools and cloud services to the Tensor Cores included in all\\nRTX-class GPUs. Blackwell GPUs’ advanced AI and neural rendering capabilities combined with NVIDIA’s world-class AI software stacks significantly accelerate\\nAI workloads running locally on PCs. Omniverse is real-time 3D design collaboration and virtual world simulation software that empowers artists, designers, and\\ncreators to connect and collaborate in leading design applications.\\nAdvancing the leading autonomous vehicle platform. We believe the advent of autonomous vehicles, or AV, and electric vehicles, or EV, is revolutionizing\\nthe transportation industry. The algorithms required for autonomous driving - such as reasoning, perception, localization, and planning - are too complex for\\nlegacy hand-coded approaches and will use multiple neural networks instead. Therefore, we provide an AI-based hardware and software solution, designed and\\nimplemented from the ground up based on automotive safety standards, for the AV and EV market under the DRIVE brand, which we are bringing to market\\nthrough our partnerships across the transportation industry including with automotive OEMs, mobility service providers, robotaxis, tier-1 suppliers, and start-ups.\\nOur AV solution also includes the GPU-based hardware required to train the neural networks before their in-vehicle deployment, as well as to re-simulate their\\noperation prior to any over-the-air software updates. We believe our comprehensive, top-to-bottom and end-to-end approach will enable the transportation\\nindustry to solve the complex problems arising from the shift to autonomous driving.\\n7\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=7\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_vVxbIseRYRwGkpmD0IPNqyKB",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_vVxbIseRYRwGkpmD0IPNqyKB",
+    "delta": "{\"document_id\":\"nvidia\",\"page\":39}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_vVxbIseRYRwGkpmD0IPNqyKB"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_vVxbIseRYRwGkpmD0IPNqyKB",
+    "toolCallId": "call_vVxbIseRYRwGkpmD0IPNqyKB",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 39, \"total_pages\": 93, \"text\": \"Table of Contents\\nRevenue Recognition\\nRevenue Allowances\\nFor products sold with a right of return, we record a reduction to revenue by establishing a sales return allowance for estimated product returns at the time\\nrevenue is recognized, based primarily on historical return rates. However, if product returns for a fiscal period are anticipated to exceed historical return rates,\\nwe may determine that additional sales return allowances are required to reflect our estimated exposure for product returns. Return rights for certain stocking\\ndistributors for specific products are contractually limited based on a percentage of prior quarter shipments. For shipments to other customers, we do not allow\\nreturns, although we may approve returns for credit or refund based on applicable facts and circumstances.\\nWe account for customer programs, which involve rebates and marketing development funds, or MDFs, as a reduction in revenue and accrue for such programs\\nbased on the amount we expect to be claimed by customers. Certain customer programs include distributor price incentives or other channel programs for\\nspecific products and customer classes which require judgment as to whether the applicable incentives will be attained. Estimates for customer program\\naccruals include a combination of historical attainment and claim rates and may be adjusted based on relevant internal and external factors.\\nContracts with Multiple Performance Obligations\\nOur contracts may contain more than one performance obligation. Judgment is required in determining whether each performance obligation within a customer\\ncontract is distinct. Except for License and Development Arrangements, NVIDIA products and services function on a standalone basis and do not require a\\nsignificant amount of integration or interdependency. Therefore, multiple performance obligations contained within a customer contract are considered distinct\\nand are not combined for revenue recognition purposes.\\nWe allocate the total transaction price to each distinct performance obligation in an arrangement with multiple performance obligations on a relative standalone\\nselling price basis. In most cases, we can establish standalone selling price based on directly observable prices of products or services sold separately in\\ncomparable circumstances to similar customers. If standalone selling price is not directly observable, such as when we do not sell a product or service\\nseparately, we determine standalone selling price based on market data and other observable inputs.\\nResults of Operations\\nA discussion regarding our financial condition and results of operations for fiscal year 2026 compared to fiscal year 2025 is presented below. A discussion\\nregarding our financial condition and results of operations for fiscal year 2025 compared to fiscal year 2024 can be found under Item 7 in our Annual Report on\\nForm 10-K for the fiscal year ended January 26, 2025, filed with the SEC on February 26, 2025, which is available free of charge on the SEC’s website at\\nhttp://www.sec.gov and at our investor relations website, http://investor.nvidia.com.\\n39\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=39\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_25Ir07FBHCO4lUdgrxcyc0gN",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_25Ir07FBHCO4lUdgrxcyc0gN",
+    "delta": "{\"document_id\":\"nvidia\",\"page\":41}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_25Ir07FBHCO4lUdgrxcyc0gN"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_25Ir07FBHCO4lUdgrxcyc0gN",
+    "toolCallId": "call_25Ir07FBHCO4lUdgrxcyc0gN",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 41, \"total_pages\": 93, \"text\": \"Table of Contents\\nConcentration of Revenue\\nWe refer to customers who purchase products directly from NVIDIA as direct customers, such as AIBs, distributors, ODMs, OEMs, CSPs, AI model makers, and\\nsystem integrators. Certain direct customers may use either internal resources or third-party system integrators to complete their build. We refer to indirect\\ncustomers as those who purchase products through our direct customers; indirect customers include CSPs, Neocloud builders, AI model makers, enterprises,\\nand public sector entities. Our revenue is concentrated among a limited number of direct and indirect customers and this trend may continue.\\nDirect Customers – For fiscal year 2026, sales to one direct customer represented 22% of total revenue and sales to another direct customer represented 14%\\nof total revenue, all of which were primarily attributable to the Compute & Networking segment.\\nFor fiscal year 2025, sales to one direct customer represented 12% of total revenue and sales to two direct customers each represented 11% of total revenue, all\\nof which were primarily attributable to the Compute & Networking segment.\\nFor fiscal year 2024, sales to one direct customer represented 13% of total revenue, and were primarily attributable to the Compute & Networking segment.\\nIndirect Customers – Indirect customer revenue is an estimation based upon multiple factors including customer purchase order information, product\\nspecifications, internal sales data, and other sources. Indirect customers primarily purchase our products through system integrators and distributors. We\\ngenerate a significant amount of our revenue from a limited number of indirect customers, some individually representing 10% or more of our revenue. Certain\\ncompanies purchase cloud and related services through various direct and indirect customers. We estimate that one AI research and deployment company\\ncontributed to a meaningful amount of our revenue purchasing cloud services from our customers in fiscal year 2026.\\nRevenue by geographic region is designated based on the location of the headquarters of direct customers. The end customer and shipping location may be\\ndifferent from our customers' headquarters location. Revenue from sales to customers headquartered outside of the United States accounted for 31% and 41%\\nof total revenue for fiscal years 2026 and 2025, respectively.\\nGross Profit and Gross Margin\\nGross profit consists of total net revenue less cost of revenue. Cost of revenue consists of the cost of semiconductors, including wafer fabrication, assembly,\\ntesting and packaging, board and device costs, manufacturing support costs, including labor and overhead associated with such purchases, final test yield\\nfallout, inventory and warranty provisions, memory and component costs, tariffs, and shipping costs. Cost of revenue also includes acquisition-related intangible\\namortization expense, costs for license and development and service arrangements, IP-related costs, and stock-based compensation related to personnel\\nassociated with manufacturing operations.\\nGross margins decreased to 71.1% in fiscal year 2026 from 75.0% in fiscal year 2025 as our business model transitioned from offering Hopper HGX systems to\\nBlackwell full-scale datacenter solutions and a $4.5 billion charge associated with H20 excess inventory and purchase obligations in the first quarter of fiscal\\nyear 2026.\\nProvisions for inventory and excess inventory purchase obligations totaled $7.2 billion and $3.7 billion for fiscal years 2026 and 2025, respectively, including $4.5\\nbillion associated with H20 excess inventory and purchase obligations for the first quarter of fiscal year 2026. Sales of previously reserved inventory and\\nsettlements of excess inventory purchase obligations resulted in a provision release of $1.5 billion and $689 million for fiscal years 2026 and 2025, respectively.\\nThe net effect on our gross margin was an unfavorable impact of 2.6% and 2.3% in fiscal years 2026 and 2025, respectively.\\nOperating Expenses\\n Year Ended\\n Jan 25, 2026 Jan 26, 2025\\n$\\nChange\\n%\\nChange\\n ($ in millions)\\nResearch and development $ 18,497 $ 12,914 $ 5,583 43 %\\nSales, general and administrative 4,579 3,491 1,088 31 %\\nTotal operating expenses $ 23,076 $ 16,405 $ 6,671 41 %\\nThe increases in research and development expenses for fiscal year 2026 were driven by a 29% increase in compensation and benefits expense, including\\nstock-based compensation, reflecting employee growth and compensation increases and a 79% increase in compute and infrastructure.\\n41\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=41\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TOOL_CALL_START",
+    "toolCallId": "call_Fr9m3OoDlknV7qeeaKQxiRbv",
+    "toolCallName": "read_document_page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Fr9m3OoDlknV7qeeaKQxiRbv",
+    "delta": "{\"document_id\":\""
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Fr9m3OoDlknV7qeeaKQxiRbv",
+    "delta": "nvidia"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Fr9m3OoDlknV7qeeaKQxiRbv",
+    "delta": "\",\"page"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Fr9m3OoDlknV7qeeaKQxiRbv",
+    "delta": "\":36"
+  },
+  {
+    "type": "TOOL_CALL_ARGS",
+    "toolCallId": "call_Fr9m3OoDlknV7qeeaKQxiRbv",
+    "delta": "}"
+  },
+  {
+    "type": "TOOL_CALL_END",
+    "toolCallId": "call_Fr9m3OoDlknV7qeeaKQxiRbv"
+  },
+  {
+    "type": "TOOL_CALL_RESULT",
+    "messageId": "tool-result-call_Fr9m3OoDlknV7qeeaKQxiRbv",
+    "toolCallId": "call_Fr9m3OoDlknV7qeeaKQxiRbv",
+    "content": "{\"document_id\": \"nvidia\", \"document\": \"NVIDIA 10-K, fiscal 2026\", \"period\": \"Fiscal year ended January 25, 2026\", \"page\": 36, \"total_pages\": 93, \"text\": \"Table of Contents\\nItem 7. Management's Discussion and Analysis of Financial Condition and Results of Operations\\nThe following discussion and analysis of our financial condition and results of operations should be read in conjunction with “Item 1A. Risk Factors,” our\\nConsolidated Financial Statements and related Notes thereto, as well as other cautionary statements and risks described elsewhere in this Annual Report on\\nForm 10-K, before deciding to purchase, hold, or sell shares of our common stock.\\nOverview\\nOur Company and Our Businesses\\nNVIDIA pioneered accelerated computing to help solve the most challenging computational problems. Since our original focus on PC graphics, we have\\nexpanded to several other large and important computationally intensive fields. Fueled by the sustained demand for exceptional 3D graphics and the scale of the\\ngaming market, NVIDIA has leveraged its GPU architecture to create platforms for scientific computing, AI, data science, autonomous vehicles, robotics, and\\ndigital twin applications. NVIDIA is now a data center scale AI infrastructure company reshaping all industries.\\nOur two operating segments are \\\"Compute & Networking\\\" and \\\"Graphics.\\\" Refer to Note 16 of the Notes to the Consolidated Financial Statements in Part IV,\\nItem 15 of this Annual Report on Form 10-K for additional information.\\nHeadquartered in Santa Clara, California, NVIDIA was incorporated in California in April 1993 and reincorporated in Delaware in April 1998.\\nRecent Developments, Future Objectives and Challenges\\nRevenue growth in fiscal year 2026 was driven by data center compute and networking platforms for accelerated computing and AI solutions. Our Blackwell\\narchitectures represented the majority of our Data Center revenue.\\nThe availability of data centers, energy, and capital to support the buildout of NVIDIA AI infrastructure by our customers and partners is crucial, and any shortage\\nof these or other necessary resources could impact our future revenue and financial performance. Expanding energy capacity to meet demand is a complex,\\nmulti-year process that involves significant regulatory, technical, and construction challenges. In addition, access to capital can be particularly constrained for\\nless-capitalized companies, which may face difficulties securing financing for large-scale infrastructure projects. These limitations could delay customer and\\npartner deployments or reduce the scale of accelerated computing and AI adoption.\\nWe continue to execute Data Center compute product introductions, bringing new advanced architectures on a one-year product cadence, including our Rubin\\nplatform. We began shipping production units of our new Blackwell Ultra platforms including GB300 in the second quarter of fiscal year 2026. The complexity of\\nour product transitions and sophisticated system configurations has and may in the future cause delays in production and create challenges in managing supply\\nand demand. This could further result in revenue volatility, quality issues, increased inventory provisions, decreases in product yields and higher material costs,\\nand/or increased warranty costs. Customers may postpone purchasing new architectures or may adopt new technologies more gradually than anticipated,\\naffecting our revenue timing and supply chain expenses.\\nIn April 2025, the USG informed us that a license is required for exports of our H20 product into the China market. As a result of these requirements, we incurred\\na $4.5 billion charge in the first quarter of fiscal year 2026 associated with H20 for excess inventory and purchase obligations, as the demand for H20\\ndiminished. In August 2025, the USG granted licenses that would allow us to ship certain H20 products to certain China-based customers. We generated\\napproximately $60 million in H20 revenue under those licenses.\\nIn February 2026, the USG granted a license that would allow us to ship small amounts of H200 products to specific China-based customers. To date, we have\\nnot generated any revenue under the H200 licensing program, and do not yet know whether any imports will be allowed into China. The license requires that the\\nH200s go through an inspection process in the United States prior to any shipment to the customer. As a result, any H200 shipped under the new licensing\\nprogram will be subject to a 25% tariff upon importation into the United States.\\nThe recent rise in high-quality open-source foundation models is making advanced AI capabilities broadly accessible. Open-source AI is dependent on developer\\nadoption and if deployed on our competitors’ platforms, it could reduce demand for our products and services.\\nWhile currently our supply chain is mainly concentrated in Asia, we are expanding into the U.S. and Latin America. These moves are expected to strengthen our\\nsupply chain, add resiliency and redundancy, and meet the growing demand for AI infrastructure. Our ability to increase manufacturing capabilities will depend\\non the local region's manufacturing ecosystem's capacity to ramp production supply to the required volume and on a timely basis.\\n36\", \"offset\": 0, \"next_offset\": null, \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=36\", \"text_available\": true}",
+    "role": "tool"
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "efcadf01-f56f-4121-be41-2bfba3e26005",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "efcadf01-f56f-4121-be41-2bfba3e26005",
+    "delta": "root = Card([header, sectionBlock], sources)\nheader = CardHeader(\"NVIDIA 데이터센터 사업 분석 (FY2026)\", \"NVIDIA 10-K, Fiscal Year Ended January 25, 2026\")\n\nsectionBlock = SectionBlock([\n  SectionItem(\"overview\", \"개요 및 전략\", [\n    TextContent(\"NVIDIA의 FY2026 매출 증가는 주로 데이터센터 컴퓨팅 및 네트워킹 플랫폼에서 비롯되었습니다. Blackwell 아키텍처가 데이터센터 매출의 대다수를 차지하며 가속 컴퓨팅과 AI 수요가 크게 증가했습니다.\", \"default\"),\n    TextContent(\"NVIDIA는 GPU, CPU, DPU를 포함한 AI 서버용 프로세싱 유닛과 NVLink, 이더넷, 인피니밴드 등 고성능 데이터센터 네트워킹 솔루션을 제공합니다. 강력한 풀스택 소프트웨어와 결합된 전방위 가속 플랫폼 전략을 통해 AI 교육과 추론 작업에 집중하고 있습니다.\", \"default\"),\n    TextContent(\"또한, Rubin 플랫폼 출시로 대규모 장기 컨텍스트 워크플로우와 에이전트형 AI에 대한 지원을 준비하며, 제품 출시에는 다소 지연 및 공급망 관리 이슈를 경험하기도 했습니다.\", \"default\"),\n    TextContent(\"미국 정부 수출 제약 영향으로 인해 H20 제품군 관련 과잉 재고 및 구매 약정에 대해 $45억의 차감 충당금을 반영했으나, 일부 제품은 허가 하에 중국 시장에 소량 출하되었습니다.\", \"default\"),\n  ]),\n  SectionItem(\"revenue_concentration\", \"매출 집중도 및 고객\", [\n    TextContent(\"직접 고객 중 한 곳이 전체 매출의 22%, 또 다른 고객이 14%에 해당하며, 모두 Compute & Networking 세그먼트에서 발생했습니다. 이는 데이터센터 사업 수요가 핵심임을 시사합니다.\", \"default\"),\n    TextContent(\"간접 고객 매출의 상당 부분도 클라우드 서비스 제공자 및 AI 연구 업체에서 발생하여 데이터센터 인프라 수요 증가를 뒷받침하고 있습니다.\", \"default\"),\n  ]),\n  SectionItem(\"financials\", \"재무 사항 및 비용\", [\n    TextContent(\"데이터센터 사업 매출 증가는 NVIDIA 전체 매출 성장에 크게 기여했으며, 그 결과 FY2026 총매출은 $215.9B(약 266조원)로 전년 대비 65% 증가했습니다.\", \"default\"),\n    TextContent(\"총 이익률은 71.1%로 감소했는데, 이는 Blackwell 플랫폼 전환과 $45억 차감 충당금 영향 때문입니다. 연구 개발 비용도 43% 증가해 AI 및 컴퓨팅 인프라에 대한 투자가 확대되었음을 보여줍니다.\", \"default\"),\n  ])\n])\n\nsources = [\n  {\n    title: \"“Revenue growth in FY2026 was driven by data center compute and networking platforms for accelerated computing and AI solutions. Blackwell architectures represented the majority of Data Center revenue.”\",\n    sourceName: \"NVIDIA 10-K · Page 36\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=36\"\n  },\n  {\n    title: \"“Full-stack data center-scale compute and networking solutions across GPUs, CPUs, DPUs, interconnects, systems, and software are offered. Blackwell computing platform’s demand drove 59% Data Center Compute growth.”\",\n    sourceName: \"NVIDIA 10-K · Page 6\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6\"\n  },\n  {\n    title: \"“Direct customer sales concentration is high and mainly attributable to Compute & Networking segment. One customer accounted for 22% of total revenue in FY2026.”\",\n    sourceName: \"NVIDIA 10-K · Page 41\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=41\"\n  },\n  {\n    title: \"“Total gross margin decreased to 71.1% in FY2026 from 75% in FY2025 due to Blackwell transition and $4.5B charge for excess inventory. Research and development expenses increased 43% driven by compute infrastructure investments.”\",\n    sourceName: \"NVIDIA 10-K · Page 41\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=41\"\n  },\n  {\n    title: \"“$4.5 billion charge in Q1 FY2026 related to H20 excess inventory and purchase obligations following US export restrictions to China.”\",\n    sourceName: \"NVIDIA 10-K · Page 36\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=36\"\n  }\n]"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "efcadf01-f56f-4121-be41-2bfba3e26005"
+  },
+  {
+    "type": "TEXT_MESSAGE_START",
+    "messageId": "7dc406f3-914d-4890-80f5-b5130b1d019c",
+    "role": "assistant"
+  },
+  {
+    "type": "TEXT_MESSAGE_CONTENT",
+    "messageId": "7dc406f3-914d-4890-80f5-b5130b1d019c",
+    "delta": "root = Card([Callout(\"info\", \"확인한 원문 범위\", \"이번 요청에서 확인한 원문: NVIDIA 10-K, fiscal 2026 · 7페이지; NVIDIA 10-K, fiscal 2026 · 39페이지; NVIDIA 10-K, fiscal 2026 · 41페이지; NVIDIA 10-K, fiscal 2026 · 36페이지. 위 목록은 이번 요청에서 직접 읽은 범위입니다. 이전 대화의 검색 구절과는 구분되며, 전체 보고서와 모든 주석을 검토했다는 뜻은 아닙니다.\")], [{\"title\": \"NVIDIA 10-K, fiscal 2026 · 7페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=7\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 39페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=39\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 41페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=41\"}, {\"title\": \"NVIDIA 10-K, fiscal 2026 · 36페이지\", \"sourceName\": \"확인한 원문\", \"url\": \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=36\"}])"
+  },
+  {
+    "type": "TEXT_MESSAGE_END",
+    "messageId": "7dc406f3-914d-4890-80f5-b5130b1d019c"
+  },
+  {
+    "type": "STATE_SNAPSHOT",
+    "snapshot": {
+      "dashboard": {
+        "revision": 1,
+        "tabs": [
+          {
+            "id": "main",
+            "title": "Overview"
+          }
+        ],
+        "active_tab_id": "main",
+        "panels": [
+          {
+            "id": "45b517cc-3750-418e-8090-e8ad1a2aeb63",
+            "title": "NVIDIA FY2026 Revenue Increase Summary",
+            "kind": "openui",
+            "tab_id": "main",
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "w": 12,
+              "h": 12
+            },
+            "pinned": false,
+            "refresh": {
+              "mode": "live",
+              "interval_seconds": 0,
+              "last_attempt_at": null,
+              "last_success_at": null,
+              "error": null
+            },
+            "program": "root = Card([header, summary, table, callout], sources)\n\nheader = CardHeader(\"NVIDIA FY2026 Revenue Increase Analysis\", \"NVIDIA 10-K, Fiscal Year Ended January 25, 2026\")\n\nsummary = TextContent(\n  \"NVIDIA's revenue increased significantly in fiscal year 2026 compared to fiscal year 2025, mainly driven by growth in accelerated computing and AI platforms. The Compute & Networking segment revenue rose 67% year-over-year, with Data Center computing growing 59% fueled by demand for the Blackwell computing platform and Data Center networking revenue growing 142% due to the introduction and ramp-up of NVLink compute fabric and growth in Ethernet and InfiniBand platforms. The Graphics segment also saw a 57% revenue increase, driven by sales of GPUs built on the Blackwell architecture. These factors collectively contributed to a 65% total revenue increase to $215.9 billion in FY2026. Operating income increased in both major segments despite a notable $4.5 billion charge related to inventory and purchase obligations early in FY2026. This reflects strong demand and strategic investment in new AI and computing hardware.\",\n  \"default\"\n)\n\ntable = Table([\n  Col(\"Segment\", [\"Compute & Networking\", \"Graphics\", \"Total\"]),\n  Col(\"Revenue FY2026\", [\"$193.5 billion\", \"$22.5 billion\", \"$215.9 billion\"]),\n  Col(\"Revenue FY2025\", [\"$116.2 billion\", \"$14.3 billion\", \"$130.5 billion\"]),\n  Col(\"Year-over-Year Change\", [\"67%\", \"57%\", \"65%\"])\n])\n\ncallout = Callout(\"info\",\n  \"Revenue Growth Drivers\",\n  \"The primary drivers for NVIDIA's FY2026 revenue growth were the accelerated computing and AI platform shifts, particularly with Data Center demand for Blackwell and networking platforms, and increased Graphics sales with Blackwell GPUs.\"\n)\n\nsources = [\n  {\n    title: \"“Compute & Networking revenue increased 67% year-over-year driven by accelerated computing and AI, Data Center demand for Blackwell platform, and strong networking growth.”\",\n    sourceName: \"NVIDIA 10-K · Page 40\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40\"\n  },\n  {\n    title: \"“Blackwell architecture launched in FY2025, Rubin platform introduced in FY2026 targeting agentic AI workflows, supporting future growth.”\",\n    sourceName: \"NVIDIA 10-K · Page 6\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6\"\n  },\n  {\n    title: \"“A $4.5 billion charge related to excess inventory and purchase obligations impacted the Compute & Networking segment operating income in early FY2026.”\",\n    sourceName: \"NVIDIA 10-K · Page 40\",\n    url: \"https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40\"\n  }\n]",
+            "ui_state": {},
+            "source_artifact_id": null,
+            "query": {},
+            "data": {},
+            "sources": [
+              {
+                "title": "“Compute & Networking revenue increased 67% year-over-year driven by accelerated computing and AI, Data Center demand for Blackwell platform, and strong networking growth.”",
+                "sourceName": "NVIDIA 10-K · Page 40",
+                "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40"
+              },
+              {
+                "title": "“Blackwell architecture launched in FY2025, Rubin platform introduced in FY2026 targeting agentic AI workflows, supporting future growth.”",
+                "sourceName": "NVIDIA 10-K · Page 6",
+                "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=6"
+              },
+              {
+                "title": "“A $4.5 billion charge related to excess inventory and purchase obligations impacted the Compute & Networking segment operating income in early FY2026.”",
+                "sourceName": "NVIDIA 10-K · Page 40",
+                "url": "https://investor.nvidia.com/files/doc_financials/2026/q4/10K-NVDA.pdf#page=40"
+              }
+            ]
+          }
+        ],
+        "artifacts": [],
+        "selected_panel_id": "45b517cc-3750-418e-8090-e8ad1a2aeb63",
+        "export_request": null
+      }
+    }
+  },
+  {
+    "type": "RUN_FINISHED",
+    "threadId": "6d1ac76e-92ec-4921-b18d-8eb50c565ae7",
+    "runId": "e8d925f8-69a0-4b19-8249-2fdd81529696"
+  }
+]

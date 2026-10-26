@@ -1,0 +1,13 @@
+### Ran Playwright code
+```js
+await (async page => {await page.getByRole("navigation",{name:"대화 목록"}).getByRole("button",{name:"[실데이터 재검토] US-07 · 대화 속 차트와 입력",exact:true}).click();const current=page.getByRole("textbox",{name:"현재 매출",exact:true});await current.waitFor();const original=await current.inputValue();await current.fill("260994");await page.getByText("100",{exact:true}).waitFor();await current.fill(original);await page.screenshot({path:"output/playwright/US-07-input.png"});})(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/gallery)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+- Console: 2 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-10-25T03-19-08-918Z.log#L94-L96

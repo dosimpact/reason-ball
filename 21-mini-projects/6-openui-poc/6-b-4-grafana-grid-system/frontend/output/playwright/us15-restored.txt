@@ -1,0 +1,13 @@
+### Ran Playwright code
+```js
+await (async page => {await page.getByRole("navigation",{name:"대화 목록"}).getByRole("button",{name:"[실데이터 재검토] US-15 · 이전 분석 이어가기",exact:true}).click();await page.getByRole("button",{name:"대화 + Canvas",exact:true}).click();await page.getByRole("region",{name:"Canvas dashboard"}).getByRole("button",{name:"NVIDIA 매출",exact:true}).waitFor();await page.reload();await page.getByRole("region",{name:"Canvas dashboard"}).getByRole("button",{name:"NVIDIA 매출",exact:true}).waitFor();await page.screenshot({path:"output/playwright/US-15-restored.png"});})(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/gallery)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+- Console: 1 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-10-25T03-19-08-918Z.log#L86-L93

@@ -1,0 +1,383 @@
+- generic [active] [ref=f1e1]:
+  - main [ref=f1e2]:
+    - region "리포트 Canvas" [ref=f1e3]:
+      - generic [ref=f1e4]:
+        - generic [ref=f1e5]:
+          - generic [ref=f1e6]: REPORT CANVAS
+          - heading "Supplier 1 Performance Report" [level=2] [ref=f1e7]
+        - generic [ref=f1e8]:
+          - button "다크 테마로 전환" [ref=f1e9] [cursor=pointer]
+          - button "PDF 저장" [ref=f1e12] [cursor=pointer]
+      - article "리포트 본문" [ref=f1e17]:
+        - generic [ref=f1e21]:
+          - generic [ref=f1e22]:
+            - heading "Supplier performance report" [level=2] [ref=f1e23]
+            - paragraph [ref=f1e24]: "Period: 1 Oct 2026 to 14 Oct 2026. This English rebuild keeps the original source values visible, compares W1 and W2 directly, and flags contradictions where source claims do not match arithmetic from the supplied base figures."
+            - generic [ref=f1e25]:
+              - generic [ref=f1e26]: Vendor-level review
+              - generic [ref=f1e28]: "Currency: KRW"
+              - generic [ref=f1e30]: "Periods: W1 vs W2"
+              - generic [ref=f1e32]: 3 campaigns
+              - generic [ref=f1e34]: 5 inventory risks
+          - generic [ref=f1e36]:
+            - heading "Executive conclusion" [level=3] [ref=f1e37]
+            - paragraph [ref=f1e38]: W2 improved on the top line, with ad sales rising from 8,000,000 KRW to 9,000,000 KRW and ROAS increasing from 169% to 177% in the supplied KPI base values. However, conversion rate fell from 5.2% to 3.5% and average order value dropped from 30,000 KRW to 20,000 KRW, so the sales gain rests more on higher traffic than on stronger conversion quality. The largest immediate downside remains concentrated inventory disruption, especially Sample product0019 and Sample product0022, while one source budget recommendation needs verification because the before and after budget values are identical.
+            - generic [ref=f1e39]:
+              - generic [ref=f1e40]: Top-line up
+              - generic [ref=f1e42]: ROAS up
+              - generic [ref=f1e44]: Conversion weaker
+              - generic [ref=f1e46]: Inventory risk concentrated
+              - generic [ref=f1e48]: Source figures require verification
+            - generic [ref=f1e50]:
+              - heading "Prominent data check" [level=3] [ref=f1e54]
+              - paragraph [ref=f1e55]: The source narrative should not be treated as self-validating. Several KPI claims conflict with direct W1-to-W2 arithmetic already embedded in the supplied KPI rows, and the highest-ranked budget action describes an 'increase' from 100,000 KRW to 100,000 KRW, which is numerically a zero change. These items should be escalated as verification issues, not silently corrected.
+              - table [ref=f1e57]:
+                - rowgroup [ref=f1e58]:
+                  - row [ref=f1e59]:
+                    - columnheader "Metric" [ref=f1e60]
+                    - columnheader "W1" [ref=f1e61]
+                    - columnheader "W2" [ref=f1e62]
+                    - columnheader "Original claim" [ref=f1e63]
+                    - columnheader "Direct arithmetic" [ref=f1e64]
+                    - columnheader "Status" [ref=f1e65]
+                - rowgroup [ref=f1e66]:
+                  - row [ref=f1e67]:
+                    - cell "Ad sales" [ref=f1e68]
+                    - cell "8,000,000 KRW" [ref=f1e69]
+                    - cell "9,000,000 KRW" [ref=f1e70]
+                    - cell "+800,000 KRW (+10.1%)" [ref=f1e71]
+                    - cell "+₩1,000,000 / +12.5%" [ref=f1e72]
+                    - cell "Source figures require verification" [ref=f1e73]
+                  - row [ref=f1e74]:
+                    - cell "ROAS" [ref=f1e75]
+                    - cell "169%" [ref=f1e76]
+                    - cell "177%" [ref=f1e77]
+                    - cell "+8%p (+4.7%)" [ref=f1e78]
+                    - cell "+8 pts / +4.73%" [ref=f1e79]
+                    - cell "Consistent" [ref=f1e80]
+                  - row [ref=f1e81]:
+                    - cell "Ad spend" [ref=f1e82]
+                    - cell "5,000,000 KRW" [ref=f1e83]
+                    - cell "5,000,000 KRW" [ref=f1e84]
+                    - cell "+200,000 KRW (+5.1%)" [ref=f1e85]
+                    - cell "₩0 / 0%" [ref=f1e86]
+                    - cell "Source figures require verification" [ref=f1e87]
+                  - row [ref=f1e88]:
+                    - cell "Impressions" [ref=f1e89]
+                    - cell "900,000" [ref=f1e90]
+                    - cell "1,000,000" [ref=f1e91]
+                    - cell "+100,000 (+19.4%)" [ref=f1e92]
+                    - cell "+100,000 / +11.11%" [ref=f1e93]
+                    - cell "Source figures require verification" [ref=f1e94]
+                  - row [ref=f1e95]:
+                    - cell "Click-through rate" [ref=f1e96]
+                    - cell "0.6%" [ref=f1e97]
+                    - cell "0.8%" [ref=f1e98]
+                    - cell "+0.2%p (+47.9%)" [ref=f1e99]
+                    - cell "+0.2 pts / +33.33%" [ref=f1e100]
+                    - cell "Source figures require verification" [ref=f1e101]
+                  - row [ref=f1e102]:
+                    - cell "Conversion rate" [ref=f1e103]
+                    - cell "5.2%" [ref=f1e104]
+                    - cell "3.5%" [ref=f1e105]
+                    - cell "−2.0%p (−32.4%)" [ref=f1e106]
+                    - cell "-1.7 pts / -32.69%" [ref=f1e107]
+                    - cell "Source figures require verification" [ref=f1e108]
+                  - row [ref=f1e109]:
+                    - cell "Average order value" [ref=f1e110]
+                    - cell "30,000 KRW" [ref=f1e111]
+                    - cell "20,000 KRW" [ref=f1e112]
+                    - cell "−2,000 KRW (−7.8%)" [ref=f1e113]
+                    - cell "-₩10,000 / -33.33%" [ref=f1e114]
+                    - cell "Source figures require verification" [ref=f1e115]
+                  - row [ref=f1e116]:
+                    - cell "Number of campaigns" [ref=f1e117]
+                    - cell "6" [ref=f1e118]
+                    - cell "6" [ref=f1e119]
+                    - cell "0" [ref=f1e120]
+                    - cell "0 / 0%" [ref=f1e121]
+                    - cell "Consistent" [ref=f1e122]
+                  - row [ref=f1e123]:
+                    - cell "Number of budget-exhausted campaigns" [ref=f1e124]
+                    - cell "2" [ref=f1e125]
+                    - cell "1" [ref=f1e126]
+                    - cell "−1" [ref=f1e127]
+                    - cell "-1 / -50%" [ref=f1e128]
+                    - cell "Consistent" [ref=f1e129]
+          - generic [ref=f1e130]:
+            - generic [ref=f1e131]:
+              - paragraph [ref=f1e132]: Ad sales
+              - heading "9,000,000 KRW" [level=2] [ref=f1e133]
+              - paragraph [ref=f1e134]: "W1: 8,000,000 KRW"
+              - generic [ref=f1e135]:
+                - generic [ref=f1e136]: Improved
+                - generic [ref=f1e137]: +12.5%
+              - paragraph [ref=f1e138]: "Original source claim: +800,000 KRW (+10.1%)"
+            - generic [ref=f1e139]:
+              - paragraph [ref=f1e140]: ROAS
+              - heading "177%" [level=2] [ref=f1e141]
+              - paragraph [ref=f1e142]: "W1: 169%"
+              - generic [ref=f1e143]:
+                - generic [ref=f1e144]: Improved
+                - generic [ref=f1e145]: +4.73%
+              - paragraph [ref=f1e146]: "Original source claim: +8%p (+4.7%)"
+            - generic [ref=f1e147]:
+              - paragraph [ref=f1e148]: Ad spend
+              - heading "5,000,000 KRW" [level=2] [ref=f1e149]
+              - paragraph [ref=f1e150]: "W1: 5,000,000 KRW"
+              - generic [ref=f1e151]:
+                - generic [ref=f1e152]: Flat
+                - generic [ref=f1e153]: 0%
+              - paragraph [ref=f1e154]: "Original source claim: +200,000 KRW (+5.1%)"
+            - generic [ref=f1e155]:
+              - paragraph [ref=f1e156]: Impressions
+              - heading "1,000,000" [level=2] [ref=f1e157]
+              - paragraph [ref=f1e158]: "W1: 900,000"
+              - generic [ref=f1e159]:
+                - generic [ref=f1e160]: Improved
+                - generic [ref=f1e161]: +11.11%
+              - paragraph [ref=f1e162]: "Original source claim: +100,000 (+19.4%)"
+            - generic [ref=f1e163]:
+              - paragraph [ref=f1e164]: Click-through rate
+              - heading "0.8%" [level=2] [ref=f1e165]
+              - paragraph [ref=f1e166]: "W1: 0.6%"
+              - generic [ref=f1e167]:
+                - generic [ref=f1e168]: Improved
+                - generic [ref=f1e169]: +33.33%
+              - paragraph [ref=f1e170]: "Original source claim: +0.2%p (+47.9%)"
+            - generic [ref=f1e171]:
+              - paragraph [ref=f1e172]: Conversion rate
+              - heading "3.5%" [level=2] [ref=f1e173]
+              - paragraph [ref=f1e174]: "W1: 5.2%"
+              - generic [ref=f1e175]:
+                - generic [ref=f1e176]: Declined
+                - generic [ref=f1e177]: "-32.69%"
+              - paragraph [ref=f1e178]: "Original source claim: −2.0%p (−32.4%)"
+          - generic [ref=f1e179]:
+            - heading "Vendor performance interpretation" [level=3] [ref=f1e180]
+            - figure [ref=f1e181]:
+              - generic [ref=f1e183]:
+                - generic [ref=f1e184]: w1
+                - generic [ref=f1e186]: w2
+            - paragraph [ref=f1e188]: "The first comparison isolates the vendor's two money KPIs with the same unit: ad sales and ad spend. Ad sales rose by 1,000,000 KRW on direct arithmetic while spend stayed flat at 5,000,000 KRW, which is directionally consistent with the ROAS improvement shown elsewhere. The limit is that the original spend claim still says +200,000 KRW, so the efficiency story is plausible from the base values but should still be confirmed against the original reporting source."
+          - generic [ref=f1e189]:
+            - generic [ref=f1e190]:
+              - heading "Campaign view" [level=3] [ref=f1e191]
+              - generic [ref=f1e192]:
+                - generic [ref=f1e193]: Campaign filter
+                - combobox "Campaign filter" [ref=f1e194] [cursor=pointer]:
+                  - option "Choose…" [disabled] [selected]
+                  - option "All campaigns"
+                  - option "Sample campaign004"
+                  - option "Sample campaign003"
+                  - option "Sample campaign010"
+            - generic [ref=f1e195]:
+              - 'heading "Campaign comparison: W1 vs W2 ad sales" [level=3] [ref=f1e196]'
+              - figure [ref=f1e197]
+              - paragraph [ref=f1e199]: "Among the campaigns visible in the supplied structured data, Sample campaign004 shows the clearest absolute increase, moving from 1,000,000 KRW in W1 to 2,000,000 KRW in W2. Sample campaign003 is commercially important because it has the largest W2 sales value in the comparison set, yet its row is internally inconsistent: the base values are flat at 2,000,000 KRW while the source claim says +300,000 KRW. Sample campaign010 contributes only 90,000 KRW in W2, so it should be treated as a new but still early-stage activation rather than a confirmed growth engine."
+            - generic [ref=f1e200]:
+              - heading "Campaign efficiency vs target" [level=3] [ref=f1e201]
+              - figure [ref=f1e202]
+              - paragraph [ref=f1e204]: Efficiency differs materially by campaign. Sample campaign003 exceeds target with 383% ROAS versus a 294% target, while Sample campaign004 sits below target at 200% against 254%, indicating that its sales recovery has not yet translated into target-level efficiency. Sample campaign010 trails more sharply at 165% versus a 300% target, so the prudent interpretation is to gather more history before considering scale-up rather than infer a stable upward trend.
+            - generic [ref=f1e205]:
+              - heading "Exact campaign inspection" [level=3] [ref=f1e206]
+              - table [ref=f1e208]:
+                - rowgroup [ref=f1e209]:
+                  - row [ref=f1e210]:
+                    - columnheader "Campaign" [ref=f1e211]
+                    - columnheader "ID" [ref=f1e212]
+                    - columnheader "Kind" [ref=f1e213]
+                    - columnheader "W1 sales" [ref=f1e214]
+                    - columnheader "W2 sales" [ref=f1e215]
+                    - columnheader "Source claim" [ref=f1e216]
+                    - columnheader "Spend" [ref=f1e217]
+                    - columnheader "ROAS" [ref=f1e218]
+                    - columnheader "Target" [ref=f1e219]
+                    - columnheader "Attainment" [ref=f1e220]
+                    - columnheader "Check" [ref=f1e221]
+                - rowgroup [ref=f1e222]:
+                  - row [ref=f1e223]:
+                    - cell "Sample campaign004" [ref=f1e224]
+                    - cell "CAMP_004" [ref=f1e225]
+                    - cell "MPS" [ref=f1e226]
+                    - cell "₩1,000,000" [ref=f1e227]
+                    - cell "₩2,000,000" [ref=f1e228]
+                    - cell "+1,000,000 KRW" [ref=f1e229]
+                    - cell "₩2,000,000" [ref=f1e230]
+                    - cell "200%" [ref=f1e231]
+                    - cell "254%" [ref=f1e232]
+                    - cell "78.6%" [ref=f1e233]
+                    - cell "Base values consistent" [ref=f1e234]
+                  - row [ref=f1e235]:
+                    - cell "Sample campaign003" [ref=f1e236]
+                    - cell "CAMP_003" [ref=f1e237]
+                    - cell "MPS" [ref=f1e238]
+                    - cell "₩2,000,000" [ref=f1e239]
+                    - cell "₩2,000,000" [ref=f1e240]
+                    - cell "+300,000 KRW" [ref=f1e241]
+                    - cell "₩1,000,000" [ref=f1e242]
+                    - cell "383%" [ref=f1e243]
+                    - cell "294%" [ref=f1e244]
+                    - cell "130%" [ref=f1e245]
+                    - cell "Source figures require verification" [ref=f1e246]
+                  - row [ref=f1e247]:
+                    - cell "Sample campaign010" [ref=f1e248]
+                    - cell "CAMP_010" [ref=f1e249]
+                    - cell "MPS" [ref=f1e250]
+                    - cell "₩0" [ref=f1e251]
+                    - cell "₩90,000" [ref=f1e252]
+                    - cell "+90,000 KRW" [ref=f1e253]
+                    - cell "₩60,000" [ref=f1e254]
+                    - cell "165%" [ref=f1e255]
+                    - cell "300%" [ref=f1e256]
+                    - cell "54.9%" [ref=f1e257]
+                    - cell "Base values consistent" [ref=f1e258]
+              - paragraph [ref=f1e259]: This compact table is the reconciliation view for exact campaign numbers. It preserves IDs, spend, target and attainment so that campaign-level statements can be checked against the structured rows before any recommendation is repeated externally.
+          - generic [ref=f1e260]:
+            - generic [ref=f1e261]:
+              - generic [ref=f1e262]:
+                - heading "Inventory risk concentration" [level=3] [ref=f1e263]
+                - radiogroup [ref=f1e264]:
+                  - radio "Risk amount" [ref=f1e265] [cursor=pointer]
+                  - radio "Stockout hours" [ref=f1e266] [cursor=pointer]
+              - figure [ref=f1e267]
+              - paragraph [ref=f1e269]: The stockout-hours view points to the same operational priority. Sample product0019 logged 137 hours out of stock, followed by Sample product0022 at 115 hours and Sample product0013 at 92 hours, which is long enough to matter for campaign delivery and sales continuity. The source supports the existence of stockout constraints, but it does not fully prove whether every downstream performance change is caused only by inventory, so causal attribution beyond the stock records still needs verification.
+            - generic [ref=f1e270]:
+              - heading "Product revenue and revenue-at-risk" [level=3] [ref=f1e271]
+              - figure [ref=f1e272]:
+                - generic [ref=f1e274]:
+                  - generic [ref=f1e275]: revenue
+                  - generic [ref=f1e277]: risk
+              - paragraph [ref=f1e279]: This view keeps the unit consistent in KRW and shows why the inventory issue is strategically important. High-revenue products such as Sample product0018 and Sample product0019 are not just large sellers; they also carry explicit quantified risk, which means replenishment prioritization should follow both revenue scale and risk size rather than hours alone. In practical terms, protecting a large-selling product with moderate hours can still matter more than restoring a small product with a longer interruption.
+          - generic [ref=f1e280]:
+            - heading "Ranked recommendations" [level=3] [ref=f1e281]
+            - generic [ref=f1e282]:
+              - generic [ref=f1e283]:
+                - generic [ref=f1e284]:
+                  - generic [ref=f1e285]: Priority 1
+                  - generic [ref=f1e286]: Budget / delivery
+                - heading [level=3] [ref=f1e287]:
+                  - strong [ref=f1e288]: "Sample campaign003 (CAMP_003):"
+                  - text: Increase daily budget from 100,000 KRW to 100,000 KRW
+                - paragraph [ref=f1e289]: "During W2, full-day OOB occurred 7 days ago (reached the 8-hour cap; utilization 98.8%). ROAS 410% vs. target ROAS (T.ROAS) 294% — efficiency is strong and budget is the key constraint. Sample recommendation service recommendation date: 2026-10-15."
+                - generic [ref=f1e290]:
+                  - paragraph [ref=f1e291]: Source section
+                  - paragraph [ref=f1e292]: Section 4 — OOB, budget action available
+                - generic [ref=f1e293]:
+                  - paragraph [ref=f1e294]: Impact
+                  - paragraph [ref=f1e295]: Unquantified (source-based recommendation provided)
+                - paragraph [ref=f1e296]: "Assessment: verification needed. The narrative says budget is the key constraint, but the written recommendation changes daily budget from 100,000 KRW to 100,000 KRW, which is no increase at all."
+              - generic [ref=f1e297]:
+                - generic [ref=f1e298]:
+                  - generic [ref=f1e299]: Priority 2
+                  - generic [ref=f1e300]: Monitoring
+                - heading [level=3] [ref=f1e301]:
+                  - strong [ref=f1e302]: "Sample campaign047 (CAMP_047):"
+                  - text: Review whether the campaign is intentionally showing low delivery
+                - paragraph [ref=f1e303]: "Daily budget 500,000 KRW; utilization only 2.5% over the past 7 days. There is currently no recommendation the seller can act on directly. Before considering budget or bid actions, the AE should confirm whether the low delivery is due to eligibility constraints (reference: active out-of-stock (OOS) time exists on VID VID_0018 and VID_0019)."
+                - generic [ref=f1e304]:
+                  - paragraph [ref=f1e305]: Source section
+                  - paragraph [ref=f1e306]: Section 5 — Low utilization, no support recommendation
+                - generic [ref=f1e307]:
+                  - paragraph [ref=f1e308]: Impact
+                  - paragraph [ref=f1e309]: Not quantifiable
+                - paragraph [ref=f1e310]: "Assessment: reasonable diagnostic next step. Low utilization is explicit in the source, and the note about active stockouts on VID_0018 and VID_0019 makes an eligibility or inventory constraint plausible, but not fully proven."
+              - generic [ref=f1e311]:
+                - generic [ref=f1e312]:
+                  - generic [ref=f1e313]: Priority 3
+                  - generic [ref=f1e314]: Monitoring
+                - heading [level=3] [ref=f1e315]:
+                  - strong [ref=f1e316]: "Sample campaign009 (CAMP_009):"
+                  - text: Monitor utilization trend
+                - paragraph [ref=f1e317]: Daily budget 100,000 KRW; utilization 45.5% — moderate level but below full delivery. There is currently no recommendation the seller can act on directly.
+                - generic [ref=f1e318]:
+                  - paragraph [ref=f1e319]: Source section
+                  - paragraph [ref=f1e320]: Section 5 — Low utilization, no support recommendation
+                - generic [ref=f1e321]:
+                  - paragraph [ref=f1e322]: Impact
+                  - paragraph [ref=f1e323]: Not quantifiable
+                - paragraph [ref=f1e324]: "Assessment: monitor rather than intervene. The source gives no direct seller action and no quantified upside, so this remains a watch-list item rather than an execution-ready lever."
+            - paragraph [ref=f1e325]: The ranking below preserves the supplied action order, but each card distinguishes verified evidence from uncertain interpretation. Where the source provides contradictory numeric values or no quantified upside, the recommendation is labelled accordingly rather than converted into a stronger claim.
+          - generic [ref=f1e326]:
+            - heading "Original-source details and evidence trail" [level=3] [ref=f1e327]
+            - paragraph [ref=f1e328]: These compact evidence blocks preserve the original source rows in a printable form. They keep IDs, periods and source wording visible so that any stakeholder can trace the analytical narrative back to the supplied data and section references.
+            - generic [ref=f1e329]:
+              - generic [ref=f1e330]:
+                - heading "KPI source audit" [level=3] [ref=f1e331]
+                - list [ref=f1e332]:
+                  - listitem [ref=f1e333]:
+                    - generic [ref=f1e335]:
+                      - generic [ref=f1e336]: Ad sales
+                      - generic [ref=f1e337]: "W1 8,000,000 KRW | W2 9,000,000 KRW | claim: +800,000 KRW (+10.1%) | direct arithmetic: +₩1,000,000, +12.5%"
+                  - listitem [ref=f1e338]:
+                    - generic [ref=f1e340]:
+                      - generic [ref=f1e341]: ROAS
+                      - generic [ref=f1e342]: "W1 169% | W2 177% | claim: +8%p (+4.7%) | direct arithmetic: +8 pts, +4.73%"
+                  - listitem [ref=f1e343]:
+                    - generic [ref=f1e345]:
+                      - generic [ref=f1e346]: Ad spend
+                      - generic [ref=f1e347]: "W1 5,000,000 KRW | W2 5,000,000 KRW | claim: +200,000 KRW (+5.1%) | direct arithmetic: ₩0, 0%"
+                  - listitem [ref=f1e348]:
+                    - generic [ref=f1e350]:
+                      - generic [ref=f1e351]: Impressions
+                      - generic [ref=f1e352]: "W1 900,000 | W2 1,000,000 | claim: +100,000 (+19.4%) | direct arithmetic: +100,000, +11.11%"
+                  - listitem [ref=f1e353]:
+                    - generic [ref=f1e355]:
+                      - generic [ref=f1e356]: Click-through rate
+                      - generic [ref=f1e357]: "W1 0.6% | W2 0.8% | claim: +0.2%p (+47.9%) | direct arithmetic: +0.2 pts, +33.33%"
+                  - listitem [ref=f1e358]:
+                    - generic [ref=f1e360]:
+                      - generic [ref=f1e361]: Conversion rate
+                      - generic [ref=f1e362]: "W1 5.2% | W2 3.5% | claim: −2.0%p (−32.4%) | direct arithmetic: -1.7 pts, -32.69%"
+                  - listitem [ref=f1e363]:
+                    - generic [ref=f1e365]:
+                      - generic [ref=f1e366]: Average order value
+                      - generic [ref=f1e367]: "W1 30,000 KRW | W2 20,000 KRW | claim: −2,000 KRW (−7.8%) | direct arithmetic: -₩10,000, -33.33%"
+                  - listitem [ref=f1e368]:
+                    - generic [ref=f1e370]:
+                      - generic [ref=f1e371]: Number of campaigns
+                      - generic [ref=f1e372]: "W1 6 | W2 6 | claim: 0 | direct arithmetic: 0, 0%"
+                  - listitem [ref=f1e373]:
+                    - generic [ref=f1e375]:
+                      - generic [ref=f1e376]: Number of budget-exhausted campaigns
+                      - generic [ref=f1e377]: "W1 2 | W2 1 | claim: −1 | direct arithmetic: -1, -50%"
+              - generic [ref=f1e378]:
+                - heading "Inventory risk source references" [level=3] [ref=f1e379]
+                - list [ref=f1e380]:
+                  - listitem [ref=f1e381]:
+                    - generic [ref=f1e383]:
+                      - generic [ref=f1e384]: VID_0018 — Sample product0018
+                      - generic [ref=f1e385]: "Recent 2 weeks 47h | risk: 500,000 KRW | linked campaigns: CAMP_062 — Sample campaign062 (MPS) | CAMP_047 — Sample campaign047 (MPS)"
+                  - listitem [ref=f1e386]:
+                    - generic [ref=f1e388]:
+                      - generic [ref=f1e389]: VID_0019 — Sample product0019
+                      - generic [ref=f1e390]: "Recent 2 weeks 137h | risk: 2,000,000 KRW | linked campaigns: CAMP_062 — Sample campaign062 (MPS) | CAMP_047 — Sample campaign047 (MPS)"
+                  - listitem [ref=f1e391]:
+                    - generic [ref=f1e393]:
+                      - generic [ref=f1e394]: VID_0022 — Sample product0022
+                      - generic [ref=f1e395]: "Recent 2 weeks 115h | risk: 1,000,000 KRW | linked campaigns: CAMP_003 — Sample campaign003 (MPS)"
+                  - listitem [ref=f1e396]:
+                    - generic [ref=f1e398]:
+                      - generic [ref=f1e399]: VID_0013 — Sample product0013
+                      - generic [ref=f1e400]: "Recent 2 weeks 92h | risk: 500,000 KRW | linked campaigns: CAMP_004 — Sample campaign004 (MPS)"
+                  - listitem [ref=f1e401]:
+                    - generic [ref=f1e403]:
+                      - generic [ref=f1e404]: VID_0021 — Sample product0021
+                      - generic [ref=f1e405]: "Out of stock for 35 hours in recent 2 weeks | risk: 200,000 KRW | linked campaigns: CAMP_003 — Sample campaign003 (MPS)"
+              - generic [ref=f1e406]:
+                - heading "Campaign source references" [level=3] [ref=f1e407]
+                - list [ref=f1e408]:
+                  - listitem [ref=f1e409]:
+                    - generic [ref=f1e411]:
+                      - generic [ref=f1e412]: CAMP_004 — Sample campaign004
+                      - generic [ref=f1e413]: W1 ₩1,000,000 | W2 ₩2,000,000 | spend ₩2,000,000 | ROAS 200% vs target 254% | source claim +1,000,000 KRW
+                  - listitem [ref=f1e414]:
+                    - generic [ref=f1e416]:
+                      - generic [ref=f1e417]: CAMP_003 — Sample campaign003
+                      - generic [ref=f1e418]: W1 ₩2,000,000 | W2 ₩2,000,000 | spend ₩1,000,000 | ROAS 383% vs target 294% | source claim +300,000 KRW
+                  - listitem [ref=f1e419]:
+                    - generic [ref=f1e421]:
+                      - generic [ref=f1e422]: CAMP_010 — Sample campaign010
+                      - generic [ref=f1e423]: W1 ₩0 | W2 ₩90,000 | spend ₩60,000 | ROAS 165% vs target 300% | source claim +90,000 KRW
+        - generic [ref=f1e424]: "Source: supplier-01_analysis_20261001_20261014_ko.md · AI-generated visualization. Figures requiring verification are identified in the report."
+  - button "Open Next.js Dev Tools" [ref=f1e430] [cursor=pointer]

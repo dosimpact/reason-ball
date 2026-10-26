@@ -1,0 +1,14 @@
+### Ran Playwright code
+```js
+await (async page => { const canvas=page.getByRole("region",{name:"Canvas dashboard"}); const memo=canvas.getByRole("textbox",{name:"연구 메모",exact:true}); const original=await memo.inputValue(); const save=page.waitForResponse(r=>r.url().includes("/api/dashboard/state/")&&r.request().method()==="POST"&&r.status()===200); await memo.fill(original+" / 분리 회귀 검증"); await save; const loaded=page.waitForResponse(r=>r.url().includes("/api/dashboard/state/")&&r.request().method()==="GET"&&r.status()===200); await page.reload(); await loaded; await page.getByRole("region",{name:"Canvas dashboard"}).getByRole("textbox",{name:"연구 메모",exact:true}).waitFor(); const restored=page.getByRole("region",{name:"Canvas dashboard"}).getByRole("textbox",{name:"연구 메모",exact:true}); if(await restored.inputValue()!==original+" / 분리 회귀 검증") throw new Error("memo reload mismatch"); const saving=page.waitForResponse(r=>r.url().includes("/api/dashboard/state/")&&r.request().method()==="POST"&&r.status()===200); await restored.fill(original); await saving; console.log("PASS: memo edited, reloaded, restored; original="+original); })(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+- 3: [Filing Studio · SEC Research](http://127.0.0.1:3049/onboarding)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+### Events
+- New console entries: .playwright-cli/console-2026-10-24T19-56-02-499Z.log#L169-L174

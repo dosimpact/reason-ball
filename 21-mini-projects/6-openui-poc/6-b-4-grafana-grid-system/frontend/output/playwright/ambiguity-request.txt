@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("매출 요약 패널의 제목을 실적 요약으로 바꿔줘. 현재 화면에서 선택된 패널은 이번 요청의 대상을 뜻하지 않아."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```

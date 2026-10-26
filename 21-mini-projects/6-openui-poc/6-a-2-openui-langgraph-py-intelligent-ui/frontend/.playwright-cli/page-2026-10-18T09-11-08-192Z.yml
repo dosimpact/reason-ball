@@ -1,0 +1,38 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e3]:
+    - generic [ref=f1e4]:
+      - generic [ref=f1e5]:
+        - generic [ref=f1e7]:
+          - img "Intelligent UI · Python" [ref=f1e8]
+          - button "Expand sidebar"
+        - generic [ref=f1e9]:
+          - button "New chat" [ref=f1e10] [cursor=pointer]:
+            - generic: New Chat
+          - button "Chat history" [ref=f1e15] [cursor=pointer]
+      - generic:
+        - generic:
+          - generic:
+            - generic: Threads
+            - generic:
+              - button "Build a working counter starting at 0 with an Increment butt"
+      - button "Switch to dark theme" [ref=f1e20] [cursor=pointer]
+    - generic [ref=f1e26]:
+      - banner [ref=f1e27]
+      - generic [ref=f1e30]:
+        - heading "What can I help with?" [level=2] [ref=f1e34]
+        - generic [ref=f1e35]:
+          - generic [ref=f1e38]:
+            - textbox "Ask anything..." [ref=f1e39]
+            - button "Send" [disabled] [ref=f1e41]
+          - generic [ref=f1e46]:
+            - button "Plan a day out" [ref=f1e47] [cursor=pointer]
+            - button "Explore a city" [ref=f1e54] [cursor=pointer]
+            - button "Find weekend ideas" [ref=f1e60] [cursor=pointer]
+            - button "Plan a meal" [ref=f1e69] [cursor=pointer]
+            - button "Build a calculator" [ref=f1e77] [cursor=pointer]
+            - button "Play on a Game Boy" [ref=f1e82] [cursor=pointer]
+            - button "Jam on a drum pad" [ref=f1e87] [cursor=pointer]
+            - button "Take a trivia quiz" [ref=f1e95] [cursor=pointer]
+    - generic [aria-hidden]:
+      - status
+  - alert [ref=f1e106]

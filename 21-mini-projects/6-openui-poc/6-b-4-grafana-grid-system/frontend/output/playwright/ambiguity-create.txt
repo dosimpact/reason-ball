@@ -1,0 +1,14 @@
+### Ran Playwright code
+```js
+await (async page => { await page.getByRole("button",{name:"＋ 새 분석",exact:true}).click(); await page.getByRole("textbox",{name:"기업이나 보고서에 대해 질문하세요"}).fill("동명 패널 검증용 Canvas를 만들어줘. Overview 탭에 제목이 매출 요약인 패널 하나, 비교 탭을 새로 만들어 제목이 똑같이 매출 요약인 패널 하나를 추가해줘. 첫 패널 본문은 검증용 가정 A: 100, 두 번째는 검증용 가정 B: 200으로 해줘. 실제 기업 데이터가 아니야. 총 두 패널이 필요해."); await page.getByRole("button",{name:"전송 ↑",exact:true}).click(); })(page);
+```
+### Open tabs
+- 0: (current) [Filing Studio · SEC Research](http://127.0.0.1:3049/)
+- 1: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=94bd6639-3a3f-4c19-acb7-6ad06cec31fe)
+- 2: [Filing Studio · SEC Research](http://127.0.0.1:3049/print?thread=568bc9a7-f1e6-43b9-b9a4-0ac08cd2e4d2)
+### Page
+- Page URL: http://127.0.0.1:3049/
+- Page Title: Filing Studio · SEC Research
+- Console: 0 errors, 3 warnings
+### Events
+- New console entries: .playwright-cli/console-2026-10-24T19-56-02-499Z.log#L14-L15

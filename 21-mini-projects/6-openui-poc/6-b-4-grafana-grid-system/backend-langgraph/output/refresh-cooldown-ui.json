@@ -1,0 +1,122 @@
+{
+  "before": {
+    "revision": 1,
+    "tabs": [
+      {
+        "id": "main",
+        "title": "Overview"
+      }
+    ],
+    "active_tab_id": "main",
+    "panels": [
+      {
+        "id": "cooldown-demo",
+        "title": "검증용 가정 데이터 · 갱신 실패 보존",
+        "kind": "financial",
+        "tab_id": "main",
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        "pinned": false,
+        "refresh": {
+          "mode": "live",
+          "interval_seconds": 0,
+          "last_attempt_at": null,
+          "last_success_at": null,
+          "error": null
+        },
+        "program": "",
+        "ui_state": {},
+        "source_artifact_id": null,
+        "query": {
+          "cik": "1",
+          "metric": "revenue",
+          "years": 3
+        },
+        "data": {
+          "rows": [
+            {
+              "period": "2024-12-31",
+              "value": 10,
+              "unit": "USD",
+              "growth_percent": null
+            },
+            {
+              "period": "2025-12-31",
+              "value": 12,
+              "unit": "USD",
+              "growth_percent": 20
+            }
+          ]
+        },
+        "sources": []
+      }
+    ],
+    "artifacts": [],
+    "selected_panel_id": "cooldown-demo",
+    "export_request": null
+  },
+  "after": {
+    "revision": 2,
+    "tabs": [
+      {
+        "id": "main",
+        "title": "Overview"
+      }
+    ],
+    "active_tab_id": "main",
+    "panels": [
+      {
+        "id": "cooldown-demo",
+        "title": "검증용 가정 데이터 · 갱신 실패 보존",
+        "kind": "financial",
+        "tab_id": "main",
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        "pinned": false,
+        "refresh": {
+          "mode": "live",
+          "interval_seconds": 0,
+          "last_attempt_at": "2026-10-25T04:32:16.353818+00:00",
+          "last_success_at": null,
+          "error": "SEC 요청 대기 중입니다. 약 60초 후 다시 시도하세요. 마지막 정상 데이터를 유지합니다."
+        },
+        "program": "",
+        "ui_state": {},
+        "source_artifact_id": null,
+        "query": {
+          "cik": "1",
+          "metric": "revenue",
+          "years": 3
+        },
+        "data": {
+          "rows": [
+            {
+              "period": "2024-12-31",
+              "value": 10,
+              "unit": "USD",
+              "growth_percent": null
+            },
+            {
+              "period": "2025-12-31",
+              "value": 12,
+              "unit": "USD",
+              "growth_percent": 20
+            }
+          ]
+        },
+        "sources": []
+      }
+    ],
+    "artifacts": [],
+    "selected_panel_id": "cooldown-demo",
+    "export_request": null
+  }
+}

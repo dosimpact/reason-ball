@@ -1,0 +1,4 @@
+### Ran Playwright code
+```js
+await (async page => { await page.setViewportSize({width:1920,height:1100}); await page.getByRole("button",{name:"중단·재개 및 위험 요인 검증",exact:true}).click(); await page.getByRole("button",{name:"대화 + Canvas",exact:true}).click(); })(page);
+```

@@ -1,0 +1,33 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - complementary [ref=e3]:
+      - link "Lite Canvas SUPPLIER INTELLIGENCE" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e8]:
+          - text: Lite Canvas
+          - generic [ref=e9]: SUPPLIER INTELLIGENCE
+      - button "새 대화" [ref=e10] [cursor=pointer]
+      - generic [ref=e12]: 최근 대화
+      - navigation "대화 목록"
+      - paragraph [ref=e13]: 공급업체1–8의 자료로분석하고, 비교하고, 질문하세요.
+    - region "채팅" [ref=e14]:
+      - generic [ref=e16]:
+        - generic [ref=e17]: WORKSPACE
+        - heading "공급업체 인사이트" [level=1] [ref=e18]
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - generic [ref=e25]: FROM QUESTION TO INSIGHT
+          - heading "대화로 시작하는 공급업체 리포트" [level=2] [ref=e26]: 대화로 시작하는공급업체 리포트
+          - paragraph [ref=e27]: 지표와 근거를 시각화하고,궁금한 부분은 바로 이어서 물어보세요.
+          - generic [ref=e28]:
+            - button "공급업체1 리포트 생성해줘" [ref=e29] [cursor=pointer]
+            - button "공급업체2 리포트 생성해줘" [ref=e32] [cursor=pointer]
+            - button "어떤 공급업체 자료가 있어?" [ref=e35] [cursor=pointer]
+        - status [ref=e38]
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - textbox "채팅 메시지" [ref=e42]:
+            - /placeholder: 공급업체 리포트를 요청하거나 질문하세요
+          - button "메시지 보내기" [disabled] [ref=e43]
+        - paragraph [ref=e46]: Enter로 보내기 · Shift+Enter로 줄바꿈
+  - alert [ref=e47]

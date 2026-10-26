@@ -1,0 +1,28 @@
+{
+  "scenario": "US-07",
+  "title": "대화 속 차트와 입력",
+  "thread_id": "5885559f-4a46-4eda-8302-bdaab390e454",
+  "turns": [
+    {
+      "number": 1,
+      "question": "준비된 실제 PDF nvidia(FY2026), nvidia-2025(FY2025), amd, intel만 사용하고 SEC 네트워크 호출은 하지 마. 출처와 회계기간·단위를 명시하고 근거 없는 수치는 만들지 마. NVIDIA의 FY2024~FY2026 3년 매출을 nvidia-2025의 실적 요약 원문과 nvidia의 실적 요약 원문에서 확인해 차트와 표로 보여줘. FY2025 문서의 실적 요약은 PDF130쪽, FY2026은 PDF37쪽을 확인해. 차트는 대화 안에 보여줘. 별도로 FY2025/FY2026 실제 매출을 초기값으로 한 성장률 계산기를 제공해줘. 사용자가 값을 바꾸면 가정 계산임을 구분하고 @YearOverYear 함수로 결과가 변해야 해. Canvas에는 추가하지 마.",
+      "finished": true,
+      "errors": [],
+      "panels": 0,
+      "diagnostics": {
+        "plan": {
+          "remove_tab_contents_confirmed": false,
+          "minimum_new_panels": 0,
+          "clarification": "",
+          "source_read": "original",
+          "operations": [],
+          "instruction": "Analyze NVIDIA FY2024~FY2026 revenue data from the provided PDFs (nvidia-2025 page 130, nvidia page 37) and present a revenue chart and table with source, period, and units clearly indicated. Also provide a growth rate calculator for FY2025/FY2026 based on actual revenue, with user input triggering @YearOverYear function. Provide results within chat only; no Canvas addition.",
+          "targets": []
+        },
+        "completed": [],
+        "missing": [],
+        "status": "finished"
+      }
+    }
+  ]
+}
