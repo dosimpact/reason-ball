@@ -48,6 +48,7 @@ tech-shared/
 | 소유 범위 | 문서 | 설명 |
 | --- | --- | --- |
 | `1-fe-host` | [Frontend architecture](1-fe-host/2-frontend-side-architecture.md) | Host·Remote·BFF 프런트 전달 구조. 관련 BFF도 같은 문서를 참조 |
+| `1-fe-host` | [OpenUI 사용 사례·코드 안내](1-fe-host/sec-intelligent-ui.md#openui-doc-001-사용-사례와-코드-안내) | SEC Chat의 Renderer와 관리자 AgentInterface 비교, 코드 경로와 생성물 동기화 |
 | `1-fe-host` | [Storybook](1-fe-host/storybook.md) | UI 예제, 구성, 검증 |
 | `1-fe-host` | [A2UI Host](1-fe-host/a2ui.md) | Registry, 렌더링, Runtime과 검증 |
 | `2-bff-apps` | [BFF 문서 지도](2-bff-apps/INDEX.md) | 디렉터리 정책·SSE·API·Swagger 안내 |

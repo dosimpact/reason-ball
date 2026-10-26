@@ -1,0 +1,2076 @@
+[
+  {
+    "id": "components-col",
+    "name": "Col",
+    "category": "components",
+    "signature": "Col(children: Node[], gap?: number, align?: \"start\" | \"center\" | \"end\" | \"stretch\")",
+    "description": "Vertical layout. Without gap it spaces blocks like an article.",
+    "note": "Col만 등록된 전용 라이브러리로 렌더링합니다. 각 문자열을 Col로 감싸 실제 요소 사이의 간격·정렬을 확인합니다.",
+    "examples": [
+      {
+        "title": "기본 세로 흐름",
+        "code": "root = Col([Col([\"첫 번째 항목\"]), Col([\"두 번째 항목\"]), Col([\"세 번째 항목\"])])"
+      },
+      {
+        "title": "간격 4 = 16px",
+        "code": "root = Col([Col([\"첫 번째 항목\"]), Col([\"두 번째 항목\"]), Col([\"세 번째 항목\"])], 4)"
+      },
+      {
+        "title": "중첩과 정렬",
+        "code": "root = Col([Col([Col([\"안쪽 A\"]), Col([\"안쪽 B\"])], 2), Col([Col([\"안쪽 C\"]), Col([\"안쪽 D\"])], 4)], 6, \"center\")"
+      }
+    ]
+  },
+  {
+    "id": "components-row",
+    "name": "Row",
+    "category": "components",
+    "signature": "Row(children: Node[], gap?: number, align?: \"start\" | \"center\" | \"end\" | \"stretch\", justify?: \"start\" | \"center\" | \"end\" | \"between\", wrap?: boolean)",
+    "description": "Horizontal layout; items are vertically centered.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 가로 배치",
+        "code": "root = Col([Row([Text(\"왼쪽\"), Text(\"가운데\"), Text(\"오른쪽\")], 4)])"
+      },
+      {
+        "title": "양끝 정렬",
+        "code": "root = Col([Row([Text(\"시작\"), Text(\"끝\")], 2, \"center\", \"between\", true)])"
+      }
+    ]
+  },
+  {
+    "id": "components-box",
+    "name": "Box",
+    "category": "components",
+    "signature": "Box(children?: Node[], direction?: \"row\" | \"col\", gap?: number, padding?: number, background?: Color, radius?: Radius, border?: boolean, width?: Length, height?: Length, flex?: number, align?: \"start\" | \"center\" | \"end\" | \"stretch\", justify?: \"start\" | \"center\" | \"end\" | \"between\", wrap?: boolean)",
+    "description": "Flex container, a column by default. radius also clips the content.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "배경·테두리",
+        "code": "root = Col([Box([Text(\"배경과 여백\")], \"col\", 2, 4, \"surface\", \"lg\", true)])"
+      },
+      {
+        "title": "가로 컨테이너",
+        "code": "root = Col([Box([Text(\"가로 A\"), Text(\"가로 B\")], \"row\", 4, 6, \"info\", \"xl\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-grid",
+    "name": "Grid",
+    "category": "components",
+    "signature": "Grid(children: Node[], columns?: number, minChildWidth?: number, gap?: number)",
+    "description": "Equal columns (default 2). With minChildWidth (px), columns drop on narrow screens.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "2열 그리드",
+        "code": "root = Col([Grid([Card([\"A\"]), Card([\"B\"]), Card([\"C\"]), Card([\"D\"])], 2, 120, 4)])"
+      },
+      {
+        "title": "반응형 최소 너비",
+        "code": "root = Col([Grid([Card([\"A\"]), Card([\"B\"]), Card([\"C\"])], 3, 160, 2)])"
+      }
+    ]
+  },
+  {
+    "id": "components-card",
+    "name": "Card",
+    "category": "components",
+    "signature": "Card(children: Node[], variant?: \"outline\" | \"soft\", padding?: number, gap?: number)",
+    "description": "Panel with a border; soft is a filled panel for summaries.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "테두리 카드",
+        "code": "root = Col([Card([Text(\"기본 테두리 카드\")])])"
+      },
+      {
+        "title": "배경과 내부 간격",
+        "code": "root = Col([Card([Text(\"부드러운 배경\"), Text(\"여백 6\")], \"soft\", 6, 3)])"
+      }
+    ]
+  },
+  {
+    "id": "components-carousel",
+    "name": "Carousel",
+    "category": "components",
+    "signature": "Carousel(children: Node[], itemWidth?: number, gap?: number)",
+    "description": "Horizontal row that scrolls and snaps, each child an item itemWidth px wide (default 240): photos, cards, options, days.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Carousel([Card([\"첫 카드\"]), Card([\"둘째 카드\"]), Card([\"셋째 카드\"])], 200, 3)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Carousel([Card([\"넓은 A\"]), Card([\"넓은 B\"])], 320, 6)])"
+      }
+    ]
+  },
+  {
+    "id": "components-popover",
+    "name": "Popover",
+    "category": "components",
+    "signature": "Popover(trigger: string | Node[], content: string | Node[])",
+    "description": "Shows content in a small panel when the trigger is clicked: a definition, a source, details behind an Icon(\"info\", \"sm\").",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Popover(\"눌러서 설명 보기\", \"접혀 있는 추가 설명입니다.\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Popover(\"용어: ROAS\", \"광고비 대비 광고 매출 비율\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-divider",
+    "name": "Divider",
+    "category": "components",
+    "signature": "Divider()",
+    "description": "",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Col([\"위쪽\", Divider(), \"아래쪽\"])])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Col([Divider(), \"구분선 사이 콘텐츠\", Divider()], 4)])"
+      }
+    ]
+  },
+  {
+    "id": "components-spacer",
+    "name": "Spacer",
+    "category": "components",
+    "signature": "Spacer()",
+    "description": "Fills the free space in a Row.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Row([\"왼쪽\", Spacer(), \"오른쪽\"])])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Row([\"A\", Spacer(), \"B\", Spacer(), \"C\"])])"
+      }
+    ]
+  },
+  {
+    "id": "components-title",
+    "name": "Title",
+    "category": "components",
+    "signature": "Title(text: string, size?: \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\", color?: Color)",
+    "description": "Heading; md for a card title, lg for a section, 2xl for a big number.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Title(\"페이지 제목\", \"lg\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Title(\"강조 숫자 1,234\", \"3xl\", \"info\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-text",
+    "name": "Text",
+    "category": "components",
+    "signature": "Text(text: string | Node[], size?: \"xs\" | \"sm\" | \"md\" | \"lg\", color?: Color, weight?: \"normal\" | \"medium\" | \"semibold\", italic?: boolean, lineThrough?: boolean, tabularNums?: boolean, maxLines?: number)",
+    "description": "Paragraph; supports **bold**, *italic*, `code` and [links](https://…). text may be a list mixing strings and inline components: [Icon(\"clock\", \"sm\"), \" 25 min · \", Badge(\"Easy\")].",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Text(\"일반 문장과 **강조**, *기울임*\", \"md\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Text(\"작고 흐린 안내\", \"sm\", \"muted\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-caption",
+    "name": "Caption",
+    "category": "components",
+    "signature": "Caption(text: string, color?: Color)",
+    "description": "Small secondary text.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Caption(\"보조 설명\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Caption(\"확인할 사항\", \"warning\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-label",
+    "name": "Label",
+    "category": "components",
+    "signature": "Label(text: string)",
+    "description": "Field or group label.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Label(\"이름\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Label(\"선택할 항목\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-badge",
+    "name": "Badge",
+    "category": "components",
+    "signature": "Badge(text: string, color?: \"neutral\" | \"info\" | \"success\" | \"warning\" | \"danger\" | \"purple\" | \"pink\", icon?: string)",
+    "description": "Pill tag; icon is an optional leading lucide name.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Badge(\"완료\", \"success\", \"check\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Badge(\"검토 필요\", \"warning\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-link",
+    "name": "Link",
+    "category": "components",
+    "signature": "Link(text: string, url: string)",
+    "description": "Opens an http(s) URL in a new tab.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Link(\"OpenUI\", \"https://www.openui.com\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Link(\"예시 사이트\", \"https://example.com\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-list",
+    "name": "List",
+    "category": "components",
+    "signature": "List(items: (string | ListItem)[], marker?: \"bullet\" | \"number\" | \"none\", timeline?: boolean)",
+    "description": "timeline joins the markers with a line.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([List([\"사과\", \"배\", \"우유\"], \"bullet\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([List([\"시작\", \"진행\", \"완료\"], \"number\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-listitem",
+    "name": "ListItem",
+    "category": "components",
+    "signature": "ListItem(title: string, description?: string, marker?: string, children?: Node[])",
+    "description": "marker replaces the bullet or number, e.g. a time or an emoji.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([List([ListItem(\"준비\", \"자료를 모읍니다\", \"1\"), ListItem(\"실행\", \"결과를 확인합니다\", \"2\")], \"none\", true)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([List([ListItem(\"메모\", \"하나의 항목에 제목과 설명\", \"→\")])])"
+      }
+    ]
+  },
+  {
+    "id": "components-markdown",
+    "name": "Markdown",
+    "category": "components",
+    "signature": "Markdown(text: string)",
+    "description": "Prose with headings, lists, quotes, code and tables.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Markdown(\"## 요약\\n- 첫 항목\\n- **강조** 항목\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Markdown(\"> 인용 문장\\n\\n본문과 `inline code`\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-quote",
+    "name": "Quote",
+    "category": "components",
+    "signature": "Quote(text: string, cite?: string)",
+    "description": "A quotation or a callout with a side rule; cite names the source.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Quote(\"작게 시작하고 직접 확인합니다.\", \"예시 문장\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Quote(\"출처를 생략한 인용\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-code",
+    "name": "Code",
+    "category": "components",
+    "signature": "Code(code: string, language?: string)",
+    "description": "Code block with a copy button.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Code(\"const total = 3 + 4;\", \"javascript\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Code(\"print(3 + 4)\", \"python\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-math",
+    "name": "Math",
+    "category": "components",
+    "signature": "Math(tex: string, inline?: boolean)",
+    "description": "LaTeX formula, e.g. Math(\"E = mc^2\"); inline true to sit in a Text list.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Math(\"E = mc^2\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Math(\"a^2 + b^2 = c^2\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-button",
+    "name": "Button",
+    "category": "components",
+    "signature": "Button(label: string, action?: ActionExpression, variant?: \"solid\" | \"outline\" | \"soft\" | \"ghost\", color?: \"primary\" | \"danger\" | \"success\", size?: \"sm\" | \"md\" | \"lg\", icon?: string, disabled?: boolean, block?: boolean)",
+    "description": "icon is a lucide name.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "클릭 카운터",
+        "code": "root = Col([Button(\"증가\", @Set($count, $count + 1)), Text(\"횟수: \" + $count)])\n$count = 0"
+      },
+      {
+        "title": "버튼 스타일",
+        "code": "root = Col([Button(\"외곽선\", @Set($clicked, true), \"outline\"), Button(\"비활성\", null, \"soft\", null, null, null, true), Text(\"클릭: \" + $clicked)])\n$clicked = false"
+      }
+    ]
+  },
+  {
+    "id": "components-iconbutton",
+    "name": "IconButton",
+    "category": "components",
+    "signature": "IconButton(icon: string, action?: ActionExpression, label?: string, variant?: \"outline\" | \"ghost\" | \"solid\")",
+    "description": "Round icon-only button; label is read aloud.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "아이콘 카운터",
+        "code": "root = Col([IconButton(\"plus\", @Set($n, $n + 1), \"하나 추가\"), Text(\"수량: \" + $n)])\n$n = 0"
+      },
+      {
+        "title": "초기화 버튼",
+        "code": "root = Col([IconButton(\"rotate-ccw\", @Set($n, 0), \"초기화\", \"solid\"), Input($n, \"수량\", \"number\")])\n$n = 5"
+      }
+    ]
+  },
+  {
+    "id": "components-pressable",
+    "name": "Pressable",
+    "category": "components",
+    "signature": "Pressable(children: Node[], action?: ActionExpression, selected?: boolean, padding?: number, background?: Color, radius?: Radius)",
+    "description": "Makes any content clickable, such as a tile or a swatch.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "선택 타일",
+        "code": "root = Col([Pressable([\"클릭하여 선택\"], @Set($on, !$on), $on, 4), Text(\"선택: \" + $on)])\n$on = false"
+      },
+      {
+        "title": "배경 타일",
+        "code": "root = Col([Pressable([\"확인\"], @Set($on, !$on), $on, 6, \"info\", \"lg\")])\n$on = true"
+      }
+    ]
+  },
+  {
+    "id": "components-input",
+    "name": "Input",
+    "category": "components",
+    "signature": "Input(value: $binding<string | number>, label?: string, type?: \"text\" | \"number\", placeholder?: string)",
+    "description": "Text or number field; a number field stores numbers.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "문자 입력",
+        "code": "root = Col([Input($value, \"이름\", \"text\", \"이름을 입력하세요\"), Text(\"입력: \" + $value)])\n$value = \"도도\""
+      },
+      {
+        "title": "숫자 입력",
+        "code": "root = Col([Input($value, \"수량\", \"number\"), Text(\"두 배: \" + ($value * 2))])\n$value = 3"
+      }
+    ]
+  },
+  {
+    "id": "components-textarea",
+    "name": "TextArea",
+    "category": "components",
+    "signature": "TextArea(value: $binding<string>, label?: string, placeholder?: string, rows?: number)",
+    "description": "",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "메모",
+        "code": "root = Col([TextArea($value, \"메모\", \"여기에 입력\", 3), Text($value)])\n$value = \"첫 메모\""
+      },
+      {
+        "title": "긴 입력",
+        "code": "root = Col([TextArea($value, \"초안\", \"자유롭게 작성\", 6), Text($value)])\n$value = \"\""
+      }
+    ]
+  },
+  {
+    "id": "components-select",
+    "name": "Select",
+    "category": "components",
+    "signature": "Select(value: $binding<string>, options: (string | {value: string, label: string})[], label?: string, placeholder?: string)",
+    "description": "Dropdown, for long option lists.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "문자열 옵션",
+        "code": "root = Col([Select($value, [\"서울\", \"부산\", \"제주\"], \"도시\"), Text(\"선택: \" + $value)])\n$value = \"서울\""
+      },
+      {
+        "title": "값과 라벨",
+        "code": "root = Col([Select($value, [{\"value\":\"a\",\"label\":\"기본\"},{\"value\":\"b\",\"label\":\"확장\"}], \"요금제\"), Text($value)])\n$value = \"a\""
+      }
+    ]
+  },
+  {
+    "id": "components-segmentedcontrol",
+    "name": "SegmentedControl",
+    "category": "components",
+    "signature": "SegmentedControl(value: $binding<string>, options: (string | {value: string, label: string})[], block?: boolean)",
+    "description": "2 to 4 short choices in a row.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "보기 선택",
+        "code": "root = Col([SegmentedControl($value, [\"일\", \"주\", \"월\"]), Text($value)])\n$value = \"주\""
+      },
+      {
+        "title": "전체 너비",
+        "code": "root = Col([SegmentedControl($value, [\"개요\", \"상세\"], true), Text($value)])\n$value = \"개요\""
+      }
+    ]
+  },
+  {
+    "id": "components-slider",
+    "name": "Slider",
+    "category": "components",
+    "signature": "Slider(value: $binding<number>, min: number, max: number, step?: number, label?: string, unit?: string, marks?: {value: number, label: string}[])",
+    "description": "Shows label and value; unit like \"%\" or \"$\" formats the value.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "비율 조절",
+        "code": "root = Col([Slider($value, 0, 100, 5, \"진행률\", \"%\"), Text(\"값: \" + $value)])\n$value = 30"
+      },
+      {
+        "title": "세밀한 조절",
+        "code": "root = Col([Slider($value, 0, 1, 0.1, \"혼합 비율\"), Text(\"값: \" + $value)])\n$value = 0.5"
+      }
+    ]
+  },
+  {
+    "id": "components-checkbox",
+    "name": "Checkbox",
+    "category": "components",
+    "signature": "Checkbox(checked: $binding<boolean>, label: string, lineThrough?: boolean)",
+    "description": "lineThrough strikes the label when checked, for to-do lists.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 체크",
+        "code": "root = Col([Checkbox($done, \"확인했습니다\"), Text(\"체크: \" + $done)])\n$done = false"
+      },
+      {
+        "title": "완료 취소선",
+        "code": "root = Col([Checkbox($done, \"문서 읽기\", true)])\n$done = true"
+      }
+    ]
+  },
+  {
+    "id": "components-radiogroup",
+    "name": "RadioGroup",
+    "category": "components",
+    "signature": "RadioGroup(value: $binding<string>, options: (string | {value: string, label: string, description?: string})[], label?: string, variant?: \"list\" | \"pills\" | \"cards\")",
+    "description": "pills for short choices; cards for choices that need a description line.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "목록 선택",
+        "code": "root = Col([RadioGroup($value, [\"기본\", \"확장\"], \"플랜\", \"list\"), Text($value)])\n$value = \"기본\""
+      },
+      {
+        "title": "카드 선택",
+        "code": "root = Col([RadioGroup($value, [{\"value\":\"a\",\"label\":\"입문\",\"description\":\"작게 시작\"},{\"value\":\"b\",\"label\":\"심화\",\"description\":\"더 많은 기능\"}], \"학습\", \"cards\"), Text($value)])\n$value = \"a\""
+      }
+    ]
+  },
+  {
+    "id": "components-datepicker",
+    "name": "DatePicker",
+    "category": "components",
+    "signature": "DatePicker(value: $binding<string>, label?: string, min?: string, max?: string)",
+    "description": "Dates are \"YYYY-MM-DD\".",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "날짜 선택",
+        "code": "root = Col([DatePicker($date, \"일정\"), Text($date)])\n$date = \"2026-10-25\""
+      },
+      {
+        "title": "범위 제한",
+        "code": "root = Col([DatePicker($date, \"10월 일정\", \"2026-10-01\", \"2026-10-31\"), Text($date)])\n$date = \"2026-10-15\""
+      }
+    ]
+  },
+  {
+    "id": "components-timer",
+    "name": "Timer",
+    "category": "components",
+    "signature": "Timer(seconds: $binding<number>, label?: string)",
+    "description": "Countdown with start, pause and reset. It counts the bound seconds down to 0, so other statements can react, e.g. $left == 0.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "짧은 타이머",
+        "code": "root = Col([Timer($seconds, \"10초 타이머\"), Text(\"남은 시간: \" + $seconds)])\n$seconds = 10"
+      },
+      {
+        "title": "완료 메시지",
+        "code": "root = Col([Timer($seconds, \"카운트다운\"), Text($seconds == 0 ? \"완료!\" : \"진행 대기/진행 중\")])\n$seconds = 5"
+      }
+    ]
+  },
+  {
+    "id": "components-form",
+    "name": "Form",
+    "category": "components",
+    "signature": "Form(children: Node[])",
+    "description": "Groups fields; their values go with any @ToAssistant inside.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "제출 이벤트",
+        "code": "root = Col([Form([Input($name, \"이름\"), Button(\"제출\", @ToAssistant(\"이 이름으로 인사해줘\"))])])\n$name = \"도도\""
+      },
+      {
+        "title": "선택 폼",
+        "code": "root = Col([Form([Select($city, [\"서울\", \"부산\"], \"도시\"), Button(\"계획 요청\", @ToAssistant(\"여행 계획을 만들어줘\"))])])\n$city = \"서울\""
+      }
+    ]
+  },
+  {
+    "id": "components-searchimage",
+    "name": "SearchImage",
+    "category": "components",
+    "signature": "SearchImage(query: string, aspectRatio?: number, radius?: Radius, fit?: \"cover\" | \"contain\")",
+    "description": "A real photo the app finds for query; it needs no URL and no tool. Name the exact thing in 2 to 4 words: \"Belém Tower Lisbon\", \"iPhone 17\", \"pastel de nata\". Use one for every place, dish, product or thing with a look.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. 외부 지도·이미지·영상 서비스 연결이 필요할 수 있습니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([SearchImage(\"Lisbon Belem Tower\", 1.5)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([SearchImage(\"Golden Gate Bridge\", 2, \"lg\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-image",
+    "name": "Image",
+    "category": "components",
+    "signature": "Image(src: string, alt: string, aspectRatio?: number, radius?: Radius, fit?: \"cover\" | \"contain\")",
+    "description": "Photo from a URL the user or a tool gave; if it fails, a photo is found for alt.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Image(\"/shiro-face.svg\", \"마스코트\", 1, \"lg\", \"contain\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Image(\"/shiro-woodworker.svg\", \"목공 마스코트\", 2, \"sm\", \"contain\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-icon",
+    "name": "Icon",
+    "category": "components",
+    "signature": "Icon(name: string, size?: \"sm\" | \"md\" | \"lg\" | \"xl\", color?: Color)",
+    "description": "Lucide icon by name, e.g. \"map-pin\".",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Icon(\"map-pin\", \"xl\", \"info\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Icon(\"check\", \"lg\", \"success\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-table",
+    "name": "Table",
+    "category": "components",
+    "signature": "Table(columns: string[], rows: any[][])",
+    "description": "Each row lists its cells in column order; a cell may be a component. Number columns align right.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Table([\"품목\", \"수량\"], [[\"사과\", 3], [\"우유\", 2]])])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Table([\"상태\", \"설명\"], [[Badge(\"완료\", \"success\"), \"검증 완료\"], [Badge(\"대기\"), \"다음 작업\"]])])"
+      }
+    ]
+  },
+  {
+    "id": "components-chart",
+    "name": "Chart",
+    "category": "components",
+    "signature": "Chart(type: \"bar\" | \"line\" | \"area\" | \"pie\" | \"donut\" | \"scatter\", data: Record<string, string | number>[], x?: string, series?: string[], format?: \"number\" | \"currency\" | \"percent\", currency?: string, stacked?: boolean, height?: number)",
+    "description": "Rows of data; x is the category key (a number key for scatter), series the value keys (default: every number key). percent values are like 45; currency is a code like \"EUR\".",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Chart(\"bar\", [{\"label\":\"월\",\"value\":10},{\"label\":\"화\",\"value\":20}], \"label\", [\"value\"])])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Chart(\"line\", [{\"label\":\"월\",\"value\":10},{\"label\":\"화\",\"value\":20},{\"label\":\"수\",\"value\":15}], \"label\", [\"value\"])])"
+      }
+    ]
+  },
+  {
+    "id": "components-map",
+    "name": "Map",
+    "category": "components",
+    "signature": "Map(markers: MapMarker[], route?: boolean, selected?: $binding<string>, height?: number)",
+    "description": "Street map fitted to its markers. route draws the road path in marker order; selected holds the clicked marker's label.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. 외부 지도·이미지·영상 서비스 연결이 필요할 수 있습니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Map([MapMarker(\"서울\", 37.5665, 126.978)], false, null, 260)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Map([MapMarker(\"리스본\", 38.7223, -9.1393), MapMarker(\"벨렝\", 38.6979, -9.2067)], false, null, 280)])"
+      }
+    ]
+  },
+  {
+    "id": "components-mapmarker",
+    "name": "MapMarker",
+    "category": "components",
+    "signature": "MapMarker(label: string, lat: number, lng: number, category?: string, icon?: string)",
+    "description": "A place on a Map; icon is one emoji, else the pin shows its number.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. 외부 지도·이미지·영상 서비스 연결이 필요할 수 있습니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Map([MapMarker(\"서울시청\", 37.5665, 126.978, \"관광\", \"🏛️\")], false, null, 260)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Map([MapMarker(\"리스본\", 38.7223, -9.1393, \"도시\", \"📍\")], false, null, 260)])"
+      }
+    ]
+  },
+  {
+    "id": "components-youtube",
+    "name": "YouTube",
+    "category": "components",
+    "signature": "YouTube(video: string, title?: string)",
+    "description": "Embedded YouTube video by id or URL. Only a video you know exists.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. 외부 지도·이미지·영상 서비스 연결이 필요할 수 있습니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([YouTube(\"aqz-KE-bpKQ\", \"Big Buck Bunny\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([YouTube(\"https://www.youtube.com/watch?v=aqz-KE-bpKQ\", \"URL로 영상 지정\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-flashcard",
+    "name": "Flashcard",
+    "category": "components",
+    "signature": "Flashcard(front: string | Node[], back: string | Node[], hint?: string)",
+    "description": "Card that flips between front and back when tapped. Put several in a Carousel or Grid.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Flashcard(\"사과의 영어는?\", \"Apple\", \"눌러서 정답 보기\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Flashcard(\"2 × 3\", \"6\")])"
+      }
+    ]
+  },
+  {
+    "id": "components-celebration",
+    "name": "Celebration",
+    "category": "components",
+    "signature": "Celebration(when: boolean)",
+    "description": "Bursts confetti when its condition turns true, e.g. Celebration($score == 5) at the end of a quiz.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "클릭하여 축하",
+        "code": "root = Col([Button(\"완료!\", @Set($done, !$done)), Celebration($done), Text(\"완료: \" + $done)])\n$done = false"
+      },
+      {
+        "title": "조건 충족",
+        "code": "root = Col([Checkbox($done, \"목표 달성\"), Celebration($done)])\n$done = false"
+      }
+    ]
+  },
+  {
+    "id": "components-svg",
+    "name": "Svg",
+    "category": "components",
+    "signature": "Svg(children: Node[], viewBox: string, width?: Length, height?: Length)",
+    "description": "A drawing for steps, parts, mechanisms, diagrams and layouts. Scales to its width; its shapes take expressions, so state can move them.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. SVG 도형은 Svg 부모 안에서 렌더링합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Svg([Circle(80, 50, 30, \"info\")], \"0 0 160 100\", 320, 200)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Svg([Rect(20, 20, 120, 60, \"surface\", \"info\", 2), SvgText(\"도형\", 80, 55, 18, \"ink\", \"middle\")], \"0 0 160 100\", 320, 200)])"
+      }
+    ]
+  },
+  {
+    "id": "components-circle",
+    "name": "Circle",
+    "category": "components",
+    "signature": "Circle(cx: number, cy: number, r: number, fill?: Color, stroke?: Color, strokeWidth?: number, opacity?: number)",
+    "description": "",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. SVG 도형은 Svg 부모 안에서 렌더링합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Svg([Circle(60, 50, 25, \"info\")], \"0 0 160 100\", 320, 200)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Svg([Circle(60, 50, 30, \"surface\", \"danger\", 3)], \"0 0 160 100\", 320, 200)])"
+      }
+    ]
+  },
+  {
+    "id": "components-ellipse",
+    "name": "Ellipse",
+    "category": "components",
+    "signature": "Ellipse(cx: number, cy: number, rx: number, ry: number, fill?: Color, stroke?: Color, strokeWidth?: number, opacity?: number)",
+    "description": "",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. SVG 도형은 Svg 부모 안에서 렌더링합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Svg([Ellipse(80, 50, 55, 25, \"success\")], \"0 0 160 100\", 320, 200)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Svg([Ellipse(80, 50, 30, 40, \"surface\", \"info\", 3)], \"0 0 160 100\", 320, 200)])"
+      }
+    ]
+  },
+  {
+    "id": "components-rect",
+    "name": "Rect",
+    "category": "components",
+    "signature": "Rect(x: number, y: number, width: number, height: number, fill?: Color, stroke?: Color, strokeWidth?: number, opacity?: number, rx?: number)",
+    "description": "",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. SVG 도형은 Svg 부모 안에서 렌더링합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Svg([Rect(20, 20, 100, 60, \"info\")], \"0 0 160 100\", 320, 200)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Svg([Rect(20, 20, 100, 60, \"surface\", \"purple\", 3, 1, 12)], \"0 0 160 100\", 320, 200)])"
+      }
+    ]
+  },
+  {
+    "id": "components-line",
+    "name": "Line",
+    "category": "components",
+    "signature": "Line(x1: number, y1: number, x2: number, y2: number, stroke?: Color, strokeWidth?: number, opacity?: number)",
+    "description": "",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. SVG 도형은 Svg 부모 안에서 렌더링합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Svg([Line(20, 20, 140, 80, \"info\", 3)], \"0 0 160 100\", 320, 200)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Svg([Line(20, 50, 140, 50, \"danger\", 6)], \"0 0 160 100\", 320, 200)])"
+      }
+    ]
+  },
+  {
+    "id": "components-path",
+    "name": "Path",
+    "category": "components",
+    "signature": "Path(d: string, fill?: Color, stroke?: Color, strokeWidth?: number, opacity?: number)",
+    "description": "",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. SVG 도형은 Svg 부모 안에서 렌더링합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Svg([Path(\"M20 80 Q80 0 140 80\", \"none\", \"info\", 3)], \"0 0 160 100\", 320, 200)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Svg([Path(\"M20 20 L140 20 L80 80 Z\", \"success\")], \"0 0 160 100\", 320, 200)])"
+      }
+    ]
+  },
+  {
+    "id": "components-polyline",
+    "name": "Polyline",
+    "category": "components",
+    "signature": "Polyline(points: string, stroke?: Color, strokeWidth?: number, fill?: Color, opacity?: number)",
+    "description": "points like \"0,0 10,5 20,0\".",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. SVG 도형은 Svg 부모 안에서 렌더링합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Svg([Polyline(\"20,80 60,20 100,60 140,30\", \"info\", 3)], \"0 0 160 100\", 320, 200)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Svg([Polyline(\"20,20 80,80 140,20\", \"danger\", 4)], \"0 0 160 100\", 320, 200)])"
+      }
+    ]
+  },
+  {
+    "id": "components-polygon",
+    "name": "Polygon",
+    "category": "components",
+    "signature": "Polygon(points: string, fill?: Color, stroke?: Color, strokeWidth?: number, opacity?: number)",
+    "description": "",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. SVG 도형은 Svg 부모 안에서 렌더링합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Svg([Polygon(\"80,10 145,85 15,85\", \"warning\")], \"0 0 160 100\", 320, 200)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Svg([Polygon(\"30,20 130,20 150,70 80,90 10,70\", \"info\")], \"0 0 160 100\", 320, 200)])"
+      }
+    ]
+  },
+  {
+    "id": "components-g",
+    "name": "G",
+    "category": "components",
+    "signature": "G(children: Node[], transform?: string, opacity?: number)",
+    "description": "Group; transform like \"rotate(30 50 50)\" or \"translate(10 0)\".",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. SVG 도형은 Svg 부모 안에서 렌더링합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Svg([G([Rect(0, 0, 60, 40, \"info\"), Circle(30, 20, 10, \"surface\")], \"translate(40 30)\")], \"0 0 160 100\", 320, 200)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Svg([G([Rect(40, 30, 60, 40, \"purple\")], \"rotate(20 70 50)\", 0.7)], \"0 0 160 100\", 320, 200)])"
+      }
+    ]
+  },
+  {
+    "id": "components-svgtext",
+    "name": "SvgText",
+    "category": "components",
+    "signature": "SvgText(text: string, x: number, y: number, size?: number, fill?: Color, anchor?: \"start\" | \"middle\" | \"end\", weight?: \"normal\" | \"medium\" | \"semibold\")",
+    "description": "",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다. SVG 도형은 Svg 부모 안에서 렌더링합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([Svg([SvgText(\"Hello SVG\", 80, 55, 20, \"ink\", \"middle\")], \"0 0 160 100\", 320, 200)])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([Svg([SvgText(\"가운데 정렬\", 80, 55, 16, \"info\", \"middle\", \"semibold\")], \"0 0 160 100\", 320, 200)])"
+      }
+    ]
+  },
+  {
+    "id": "components-htmlview",
+    "name": "HtmlView",
+    "category": "components",
+    "signature": "HtmlView(html: string, height?: number, title?: string)",
+    "description": "Sandboxed HTML page with inline JS, for games and canvas. No network except script CDNs. Fits its content unless height is set.",
+    "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
+    "examples": [
+      {
+        "title": "기본 사용 1",
+        "code": "root = Col([HtmlView(\"<h2>샌드박스 HTML</h2><p>독립된 HTML 콘텐츠입니다.</p>\", 160, \"HTML 예시\")])"
+      },
+      {
+        "title": "기본 사용 2",
+        "code": "root = Col([HtmlView(\"<button onclick=\\\"this.textContent=Number(this.textContent)+1\\\">0</button>\", 120, \"HTML 카운터\")])"
+      }
+    ]
+  },
+  {
+    "id": "functions-append",
+    "name": "Append",
+    "category": "functions",
+    "signature": "Append(list: any[], item: any) → any[]",
+    "description": "Copy of the list with item added at the end",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Append([1,2], 3)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Append([], \"첫 항목\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-prepend",
+    "name": "Prepend",
+    "category": "functions",
+    "signature": "Prepend(list: any[], item: any) → any[]",
+    "description": "Copy of the list with item added at the start",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Prepend([2,3], 1)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Prepend([], \"첫 항목\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-concat",
+    "name": "Concat",
+    "category": "functions",
+    "signature": "Concat(list: any[], more: any[]) → any[]",
+    "description": "Joins two lists",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Concat([1,2], [3,4])"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Concat([], [1])"
+      }
+    ]
+  },
+  {
+    "id": "functions-remove",
+    "name": "Remove",
+    "category": "functions",
+    "signature": "Remove(list: any[], field: string, value: any) → any[]",
+    "description": "Copy without the items whose field equals value; field \"\" compares the items themselves",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"id\"], @Each(result, \"r\", [r.id]))])\nresult = @Remove([{\"id\":1},{\"id\":2}], \"id\", 2)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Remove([\"사과\",\"배\"], \"\", \"사과\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-removeat",
+    "name": "RemoveAt",
+    "category": "functions",
+    "signature": "RemoveAt(list: any[], index: number) → any[]",
+    "description": "Copy without the item at index (0-based; negative counts from the end)",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @RemoveAt([\"A\",\"B\",\"C\"], 1)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @RemoveAt([\"A\",\"B\",\"C\"], -1)"
+      }
+    ]
+  },
+  {
+    "id": "functions-update",
+    "name": "Update",
+    "category": "functions",
+    "signature": "Update(list: any[], field: string, value: any, setField: string, setValue: any) → any[]",
+    "description": "Copy where items whose field equals value get setField set to setValue",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"id\", \"done\"], @Each(result, \"r\", [r.id, \"\" + r.done]))])\nresult = @Update([{\"id\":1,\"done\":false}], \"id\", 1, \"done\", true)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"id\", \"done\"], @Each(result, \"r\", [r.id, \"\" + r.done]))])\nresult = @Update([{\"id\":1,\"done\":false}], \"id\", 9, \"done\", true)"
+      }
+    ]
+  },
+  {
+    "id": "functions-toggle",
+    "name": "Toggle",
+    "category": "functions",
+    "signature": "Toggle(list: any[], item: any) → any[]",
+    "description": "Adds item if missing, removes it if present (a set of strings or numbers)",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Toggle([\"A\"], \"B\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Toggle([\"A\",\"B\"], \"A\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-includes",
+    "name": "Includes",
+    "category": "functions",
+    "signature": "Includes(list: any[] | string, item: any) → boolean",
+    "description": "True if the list has item, or the text contains it",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Includes([\"A\",\"B\"], \"A\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Includes(\"hello\", \"z\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-find",
+    "name": "Find",
+    "category": "functions",
+    "signature": "Find(list: any[], field: string, value: any) → any",
+    "description": "First item whose field equals value, or null",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null — 일치 항목 없음\" : \"찾은 이름: \" + result.name)])\nresult = @Find([{\"id\":1,\"name\":\"A\"}], \"id\", 1)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null — 일치 항목 없음\" : \"찾은 이름: \" + result.name)])\nresult = @Find([{\"id\":1,\"name\":\"A\"}], \"id\", 9)"
+      }
+    ]
+  },
+  {
+    "id": "functions-indexof",
+    "name": "IndexOf",
+    "category": "functions",
+    "signature": "IndexOf(list: any[], item: any) → number",
+    "description": "Index of item in the list, or -1",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @IndexOf([\"A\",\"B\"], \"B\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @IndexOf([\"A\",\"B\"], \"C\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-take",
+    "name": "Take",
+    "category": "functions",
+    "signature": "Take(list: any[], n: number) → any[]",
+    "description": "The first n items; a negative n takes the last n",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Take([1,2,3,4], 2)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Take([1,2,3,4], -2)"
+      }
+    ]
+  },
+  {
+    "id": "functions-slice",
+    "name": "Slice",
+    "category": "functions",
+    "signature": "Slice(list: any[] | string, start: number, end?: number) → any[] | string",
+    "description": "Items, or characters of text, from start up to end (not included); negative counts from the end",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Slice(\"abcdef\", 1, 4)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Slice([1,2,3,4], 1, 3)"
+      }
+    ]
+  },
+  {
+    "id": "functions-unique",
+    "name": "Unique",
+    "category": "functions",
+    "signature": "Unique(list: any[]) → any[]",
+    "description": "Distinct items in first-seen order",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Unique([1,1,2,3,2])"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Unique([\"A\",\"A\",\"B\"])"
+      }
+    ]
+  },
+  {
+    "id": "functions-reverse",
+    "name": "Reverse",
+    "category": "functions",
+    "signature": "Reverse(list: any[]) → any[]",
+    "description": "Copy in reverse order",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Reverse([1,2,3])"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Reverse([\"A\",\"B\"])"
+      }
+    ]
+  },
+  {
+    "id": "functions-range",
+    "name": "Range",
+    "category": "functions",
+    "signature": "Range(start: number, end: number, step?: number) → number[]",
+    "description": "Numbers from start up to end (not included) by step (default 1), e.g. @Range(0, 3) is [0, 1, 2]",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Range(0, 5)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Range(0, 10, 2)"
+      }
+    ]
+  },
+  {
+    "id": "functions-pick",
+    "name": "Pick",
+    "category": "functions",
+    "signature": "Pick(list: any[]) → any",
+    "description": "A random item, or null for an empty list; draws anew each time, so call it inside @Set",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Button(\"실행\", @Set($result, @Pick([\"A\",\"B\",\"C\"]))), Text($result == null ? \"null\" : \"결과: \" + $result)])\n$result = null"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Button(\"실행\", @Set($result, @Pick([]))), Text($result == null ? \"null\" : \"결과: \" + $result)])\n$result = null"
+      }
+    ]
+  },
+  {
+    "id": "functions-shuffle",
+    "name": "Shuffle",
+    "category": "functions",
+    "signature": "Shuffle(list: any[]) → any[]",
+    "description": "Copy in random order; call it inside @Set",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Button(\"실행\", @Set($result, @Shuffle([1,2,3,4]))), Table([\"결과\"], @Each($result, \"r\", [r]))])\n$result = []"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Button(\"실행\", @Set($result, @Shuffle([\"A\",\"B\",\"C\"]))), Table([\"결과\"], @Each($result, \"r\", [r]))])\n$result = []"
+      }
+    ]
+  },
+  {
+    "id": "functions-flatten",
+    "name": "Flatten",
+    "category": "functions",
+    "signature": "Flatten(list: any[]) → any[]",
+    "description": "One list from a list of lists, e.g. [[1, 2], [3]] is [1, 2, 3]",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Flatten([[1,2],[3]])"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Flatten([[\"A\"],[],[\"B\",\"C\"]])"
+      }
+    ]
+  },
+  {
+    "id": "functions-chunk",
+    "name": "Chunk",
+    "category": "functions",
+    "signature": "Chunk(list: any[], size: number) → any[][]",
+    "description": "The list cut into lists of size items, e.g. for weeks of 7 days or pages",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"묶음\"], @Each(result, \"r\", [@Join(r, \", \")]))])\nresult = @Chunk([1,2,3,4,5], 2)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"묶음\"], @Each(result, \"r\", [@Join(r, \", \")]))])\nresult = @Chunk([1,2,3], 1)"
+      }
+    ]
+  },
+  {
+    "id": "functions-pow",
+    "name": "Pow",
+    "category": "functions",
+    "signature": "Pow(base: number, exponent: number) → number",
+    "description": "base raised to exponent",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Pow(2, 3)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Pow(3, 2)"
+      }
+    ]
+  },
+  {
+    "id": "functions-sqrt",
+    "name": "Sqrt",
+    "category": "functions",
+    "signature": "Sqrt(number: number) → number",
+    "description": "Square root; null for a negative number",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Sqrt(81)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Sqrt(-1)"
+      }
+    ]
+  },
+  {
+    "id": "functions-random",
+    "name": "Random",
+    "category": "functions",
+    "signature": "Random(min: number, max: number, integer?: boolean) → number",
+    "description": "Random number from min to max (integer true: a whole number, max included); draws anew each time, so call it inside @Set",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Button(\"실행\", @Set($result, @Random(1, 6, true))), Text($result == null ? \"null\" : \"결과: \" + $result)])\n$result = null"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Button(\"실행\", @Set($result, @Random(0, 1))), Text($result == null ? \"null\" : \"결과: \" + $result)])\n$result = null"
+      }
+    ]
+  },
+  {
+    "id": "functions-clamp",
+    "name": "Clamp",
+    "category": "functions",
+    "signature": "Clamp(number: number, min: number, max: number) → number",
+    "description": "number kept between min and max",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Clamp(120, 0, 100)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Clamp(-10, 0, 100)"
+      }
+    ]
+  },
+  {
+    "id": "functions-percent",
+    "name": "Percent",
+    "category": "functions",
+    "signature": "Percent(part: number, total: number) → number",
+    "description": "part / total * 100, e.g. @Percent(3, 4) is 75; 0 when total is 0",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Percent(3, 4)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Percent(1, 0)"
+      }
+    ]
+  },
+  {
+    "id": "functions-lerp",
+    "name": "Lerp",
+    "category": "functions",
+    "signature": "Lerp(a: number, b: number, t: number) → number",
+    "description": "The value a fraction t of the way from a to b",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Lerp(10, 30, 0.5)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Lerp(10, 30, 1)"
+      }
+    ]
+  },
+  {
+    "id": "functions-allocate",
+    "name": "Allocate",
+    "category": "functions",
+    "signature": "Allocate(total: number, weights: number[], decimals?: number) → number[]",
+    "description": "Splits total in proportion to weights, rounded to decimals (default 2), so the parts add up to exactly total, e.g. @Allocate(100, [1, 1, 1]) is [33.34, 33.33, 33.33]",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Allocate(100, [1,1,1], 2)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Allocate(100, [1,3], 2)"
+      }
+    ]
+  },
+  {
+    "id": "functions-payment",
+    "name": "Payment",
+    "category": "functions",
+    "signature": "Payment(principal: number, rate: number, periods: number) → number",
+    "description": "Payment per period that repays principal over periods at rate percent per period, e.g. a 30-year loan at 6% a year: @Payment(300000, 6 / 12, 360)",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Payment(1000, 0, 10)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Payment(1000, 1, 10)"
+      }
+    ]
+  },
+  {
+    "id": "functions-convert",
+    "name": "Convert",
+    "category": "functions",
+    "signature": "Convert(value: number, from: string, to: string) → number",
+    "description": "value from one unit to another: mm cm m km in ft yd mi; mg g kg oz lb st; ml l tsp tbsp floz cup pt qt gal (US); m/s km/h mph kn; m2 km2 ft2 ha acre; c f k",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Convert(1, \"km\", \"m\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Convert(0, \"c\", \"f\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-format",
+    "name": "Format",
+    "category": "functions",
+    "signature": "Format(value: number, kind?: \"number\" | \"currency\" | \"percent\" | \"compact\", decimals?: number, currency?: string) → string",
+    "description": "Number as text: \"number\" 12,345.6, \"currency\" $12,345.68 (currency is a code like \"EUR\"), \"percent\" 45 -> 45%, \"compact\" 1.2M ($1.2M with a currency)",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Format(12345.678, \"currency\", 2, \"USD\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Format(45, \"percent\", 0)"
+      }
+    ]
+  },
+  {
+    "id": "functions-join",
+    "name": "Join",
+    "category": "functions",
+    "signature": "Join(list: any[], sep?: string, field?: string) → string",
+    "description": "Joins the items (or their field) into text with sep (default \", \"), skipping nulls",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Join([\"사과\",\"배\"], \", \")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Join([{\"name\":\"A\"},{\"name\":\"B\"}], \" / \", \"name\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-plural",
+    "name": "Plural",
+    "category": "functions",
+    "signature": "Plural(n: number, word: string, plural?: string) → string",
+    "description": "Count and word: @Plural(1, \"guest\") is \"1 guest\", 3 gives \"3 guests\"; plural defaults to word + \"s\"",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Plural(1, \"guest\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Plural(3, \"guest\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-pad",
+    "name": "Pad",
+    "category": "functions",
+    "signature": "Pad(value: string | number, length: number, char?: string) → string",
+    "description": "Pads the start of value to length with char (default \"0\"), e.g. 7 -> \"07\"",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Pad(7, 4, \"0\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Pad(42, 5, \"0\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-upper",
+    "name": "Upper",
+    "category": "functions",
+    "signature": "Upper(text: string) → string",
+    "description": "Text in upper case",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Upper(\"Hello\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Upper(\"openui\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-lower",
+    "name": "Lower",
+    "category": "functions",
+    "signature": "Lower(text: string) → string",
+    "description": "Text in lower case",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Lower(\"Hello\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Lower(\"OPENUI\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-trim",
+    "name": "Trim",
+    "category": "functions",
+    "signature": "Trim(text: string) → string",
+    "description": "Text without spaces at the start and end",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Trim(\"  hello  \")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Trim(\"   \")"
+      }
+    ]
+  },
+  {
+    "id": "functions-capitalize",
+    "name": "Capitalize",
+    "category": "functions",
+    "signature": "Capitalize(text: string) → string",
+    "description": "Each word with a capital first letter, e.g. \"new york\" is \"New York\"",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Capitalize(\"new york\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Capitalize(\"hello world\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-split",
+    "name": "Split",
+    "category": "functions",
+    "signature": "Split(text: string, sep?: string) → string[]",
+    "description": "List of the parts of text between sep (default \",\"), each trimmed, empty parts dropped, e.g. @Split(\"a, b,,c\") is [\"a\", \"b\", \"c\"]",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Split(\"a, b,,c\", \",\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Split(\"a/b/c\", \"/\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-replace",
+    "name": "Replace",
+    "category": "functions",
+    "signature": "Replace(text: string, find: string, replacement: string) → string",
+    "description": "Text with every find replaced by replacement",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Replace(\"cat and cat\", \"cat\", \"dog\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Replace(\"hello\", \"z\", \"x\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-duration",
+    "name": "Duration",
+    "category": "functions",
+    "signature": "Duration(seconds: number, style?: \"short\" | \"clock\") → string",
+    "description": "Seconds as text: \"short\" 1h 20m, 4m 05s, 45s (default); \"clock\" 1:20:00, 4:05",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Duration(4800, \"clock\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Duration(245, \"short\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-default",
+    "name": "Default",
+    "category": "functions",
+    "signature": "Default(value?: any, fallback: any) → any",
+    "description": "value, or fallback when value is null, \"\" or not a number, e.g. an empty number input: @Default($weight, 0)",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Default(\"\", \"미입력\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Default(0, 100)"
+      }
+    ]
+  },
+  {
+    "id": "functions-mixcolor",
+    "name": "MixColor",
+    "category": "functions",
+    "signature": "MixColor(from: string, to: string, t: number) → string",
+    "description": "The hex color a fraction t of the way from one hex color to another, e.g. @MixColor(\"#ffffff\", \"#0285ff\", 0.5) for a heatmap or a tint",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Col([Text(result), Box([\"색상 미리보기\"], \"col\", 2, 4, result)])])\nresult = @MixColor(\"#ffffff\", \"#0285ff\", 0.5)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Col([Text(result), Box([\"색상 미리보기\"], \"col\", 2, 4, result)])])\nresult = @MixColor(\"#ffffff\", \"#0285ff\", 1)"
+      }
+    ]
+  },
+  {
+    "id": "functions-now",
+    "name": "Now",
+    "category": "functions",
+    "signature": "Now() → string",
+    "description": "The current date and time as an ISO string",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Button(\"실행\", @Set($result, @Now())), Text($result == null ? \"null\" : \"결과: \" + $result)])\n$result = null"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Button(\"실행\", @Set($result, @Now())), Text($result == null ? \"null\" : \"결과: \" + $result)])\n$result = null"
+      }
+    ]
+  },
+  {
+    "id": "functions-today",
+    "name": "Today",
+    "category": "functions",
+    "signature": "Today() → string",
+    "description": "Today's date in the viewer's time zone, as \"YYYY-MM-DD\"",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Button(\"실행\", @Set($result, @Today())), Text($result == null ? \"null\" : \"결과: \" + $result)])\n$result = null"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Button(\"실행\", @Set($result, @Today())), Text($result == null ? \"null\" : \"결과: \" + $result)])\n$result = null"
+      }
+    ]
+  },
+  {
+    "id": "functions-formatdate",
+    "name": "FormatDate",
+    "category": "functions",
+    "signature": "FormatDate(date: string | number, style?: \"date\" | \"short\" | \"long\" | \"weekday\" | \"month\" | \"time\" | \"datetime\" | \"iso\") → string",
+    "description": "A date as text: \"date\" Oct 9, 2026 (default), \"short\" Oct 9, \"long\" Friday, October 9, 2026, \"weekday\" Fri, \"month\" Oct 2026, \"time\" 9:30 PM, \"datetime\", \"iso\" 2026-10-09. Dates are \"YYYY-MM-DD\", ISO or a timestamp",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @FormatDate(\"2026-10-25\", \"iso\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @FormatDate(\"2026-10-25\", \"long\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-adddays",
+    "name": "AddDays",
+    "category": "functions",
+    "signature": "AddDays(date: string | number, days: number) → string",
+    "description": "The date days later (negative: earlier), as \"YYYY-MM-DD\"",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @AddDays(\"2026-10-25\", 7)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @AddDays(\"2026-10-25\", -7)"
+      }
+    ]
+  },
+  {
+    "id": "functions-addmonths",
+    "name": "AddMonths",
+    "category": "functions",
+    "signature": "AddMonths(date: string | number, months: number) → string",
+    "description": "The date months later (negative: earlier), kept within the month (Jan 31 + 1 is Feb 28), as \"YYYY-MM-DD\"; 12 months is a year",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @AddMonths(\"2026-01-31\", 1)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @AddMonths(\"2026-10-25\", -1)"
+      }
+    ]
+  },
+  {
+    "id": "functions-daysbetween",
+    "name": "DaysBetween",
+    "category": "functions",
+    "signature": "DaysBetween(from: string | number, to: string | number) → number",
+    "description": "Calendar days from one date to another (negative if to is earlier)",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @DaysBetween(\"2026-10-01\", \"2026-10-25\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @DaysBetween(\"2026-10-25\", \"2026-10-01\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-monthsbetween",
+    "name": "MonthsBetween",
+    "category": "functions",
+    "signature": "MonthsBetween(from: string | number, to: string | number) → number",
+    "description": "Whole months from one date to another (negative if to is earlier); @Floor(@MonthsBetween(birthday, @Today()) / 12) is an age",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @MonthsBetween(\"2026-01-15\", \"2026-04-15\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @MonthsBetween(\"2026-04-15\", \"2026-01-15\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-startof",
+    "name": "StartOf",
+    "category": "functions",
+    "signature": "StartOf(date: string | number, unit: \"week\" | \"month\" | \"year\") → string",
+    "description": "First day of the date's \"week\" (Monday), \"month\" or \"year\", as \"YYYY-MM-DD\"",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @StartOf(\"2026-10-25\", \"week\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @StartOf(\"2026-10-25\", \"month\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-groupby",
+    "name": "GroupBy",
+    "category": "functions",
+    "signature": "GroupBy(rows: any[], key: string, field?: string, agg?: \"sum\" | \"avg\" | \"count\" | \"min\" | \"max\") → {key: string | number, value: number}[]",
+    "description": "One row per distinct key, in first-seen order; value is agg of field (default \"sum\"), or the row count without a field",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"key\", \"value\"], @Each(result, \"r\", [r.key, r.value]))])\nresult = @GroupBy([{\"key\":\"A\",\"value\":10},{\"key\":\"A\",\"value\":20},{\"key\":\"B\",\"value\":5}], \"key\", \"value\", \"sum\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"key\", \"value\"], @Each(result, \"r\", [r.key, r.value]))])\nresult = @GroupBy([{\"key\":\"A\"},{\"key\":\"A\"},{\"key\":\"B\"}], \"key\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-pivot",
+    "name": "Pivot",
+    "category": "functions",
+    "signature": "Pivot(rows: any[], rowKey: string, colKey: string, field?: string, agg?: \"sum\" | \"avg\" | \"count\" | \"min\" | \"max\") → Record<string, string | number>[]",
+    "description": "One row per rowKey value with a column per colKey value holding agg of field, for stacked or grouped charts",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"region\", \"A\", \"B\"], @Each(result, \"r\", [r.region, r.A, r.B]))])\nresult = @Pivot([{\"region\":\"East\",\"product\":\"A\",\"value\":10},{\"region\":\"East\",\"product\":\"B\",\"value\":20}], \"region\", \"product\", \"value\", \"sum\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"region\", \"A\"], @Each(result, \"r\", [r.region, r.A]))])\nresult = @Pivot([{\"region\":\"West\",\"product\":\"A\",\"value\":30}], \"region\", \"product\", \"value\", \"sum\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-top",
+    "name": "Top",
+    "category": "functions",
+    "signature": "Top(rows: any[], field: string, n: number, direction?: \"desc\" | \"asc\") → any[]",
+    "description": "The n rows with the largest field (\"asc\": the smallest)",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"value\"], @Each(result, \"r\", [r.value]))])\nresult = @Top([{\"value\":10},{\"value\":30},{\"value\":20}], \"value\", 2, \"desc\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"value\"], @Each(result, \"r\", [r.value]))])\nresult = @Top([{\"value\":10},{\"value\":30},{\"value\":20}], \"value\", 1, \"asc\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-between",
+    "name": "Between",
+    "category": "functions",
+    "signature": "Between(rows: any[], field: string, min?: any, max?: any) → any[]",
+    "description": "Rows whose field is from min to max, both included; compares numbers, or text such as \"YYYY-MM-DD\" dates. Leave min or max null for an open end",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"value\"], @Each(result, \"r\", [r.value]))])\nresult = @Between([{\"value\":10},{\"value\":20},{\"value\":30}], \"value\", 15, 25)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"value\"], @Each(result, \"r\", [r.value]))])\nresult = @Between([{\"value\":10},{\"value\":20},{\"value\":30}], \"value\", null, 20)"
+      }
+    ]
+  },
+  {
+    "id": "functions-bucket",
+    "name": "Bucket",
+    "category": "functions",
+    "signature": "Bucket(rows: any[], dateField: string, unit: \"day\" | \"week\" | \"month\", field?: string, agg?: \"sum\" | \"avg\" | \"count\" | \"min\" | \"max\") → {key: string | number, value: number}[]",
+    "description": "Rows per day, week (from Monday) or month of dateField, in date order, empty periods 0 for sum and count; key is \"YYYY-MM-DD\", or \"YYYY-MM\" for months",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"key\", \"value\"], @Each(result, \"r\", [r.key, r.value]))])\nresult = @Bucket([{\"date\":\"2026-10-01\",\"value\":10},{\"date\":\"2026-10-03\",\"value\":30}], \"date\", \"day\", \"value\", \"sum\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"key\", \"value\"], @Each(result, \"r\", [r.key, r.value]))])\nresult = @Bucket([{\"date\":\"2026-10-01\",\"value\":10},{\"date\":\"2026-11-01\",\"value\":30}], \"date\", \"month\", \"value\", \"sum\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-cumulative",
+    "name": "Cumulative",
+    "category": "functions",
+    "signature": "Cumulative(rows: any[], field: string) → any[]",
+    "description": "Copy of the rows with field replaced by its running total (field \"\" for a list of numbers)",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @Cumulative([10,20,30], \"\")"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"value\"], @Each(result, \"r\", [r.value]))])\nresult = @Cumulative([{\"value\":10},{\"value\":20}], \"value\")"
+      }
+    ]
+  },
+  {
+    "id": "functions-movingavg",
+    "name": "MovingAvg",
+    "category": "functions",
+    "signature": "MovingAvg(rows: any[], field: string, window: number) → any[]",
+    "description": "Copy of the rows with field replaced by the average of its last window values (field \"\" for a list of numbers)",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @MovingAvg([10,20,30,40], \"\", 2)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"결과\"], @Each(result, \"r\", [r]))])\nresult = @MovingAvg([10,20,30], \"\", 3)"
+      }
+    ]
+  },
+  {
+    "id": "functions-change",
+    "name": "Change",
+    "category": "functions",
+    "signature": "Change(current: number, previous: number) → number",
+    "description": "Percent change from previous to current, e.g. @Change(120, 100) is 20; null when previous is 0",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Change(120, 100)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Text(result == null ? \"null\" : \"결과: \" + result)])\nresult = @Change(120, 0)"
+      }
+    ]
+  },
+  {
+    "id": "functions-histogram",
+    "name": "Histogram",
+    "category": "functions",
+    "signature": "Histogram(values: number[], bins: number, min?: number, max?: number) → {key: string, value: number, start: number, end: number}[]",
+    "description": "Counts numbers into equal-width bins (value is the count); min and max fix the range, default the data's",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"key\", \"value\"], @Each(result, \"r\", [r.key, r.value]))])\nresult = @Histogram([1,2,3,7,8,9], 2, 0, 10)"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"key\", \"value\"], @Each(result, \"r\", [r.key, r.value]))])\nresult = @Histogram([1,2,3,4], 4, 0, 4)"
+      }
+    ]
+  },
+  {
+    "id": "functions-stats",
+    "name": "Stats",
+    "category": "functions",
+    "signature": "Stats(values: number[]) → {count: number, min: number, max: number, mean: number, median: number, stdev: number}",
+    "description": "Summary of numbers, all zeros for an empty list",
+    "note": "코드를 편집하고 적용하면 입력을 바꿀 수 있습니다. 브라우저 Console의 [Intelligent UI fn] 로그로 실행을 확인하세요.",
+    "examples": [
+      {
+        "title": "기본 호출",
+        "code": "root = Col([Table([\"count\", \"min\", \"max\", \"mean\", \"median\", \"stdev\"], [[result.count, result.min, result.max, result.mean, result.median, result.stdev]])])\nresult = @Stats([10,20,30,40])"
+      },
+      {
+        "title": "다른 입력 / 경계 사례",
+        "code": "root = Col([Table([\"count\", \"min\", \"max\", \"mean\", \"median\", \"stdev\"], [[result.count, result.min, result.max, result.mean, result.median, result.stdev]])])\nresult = @Stats([])"
+      }
+    ]
+  },
+  {
+    "id": "actions-copytoclipboard",
+    "name": "CopyToClipboard",
+    "category": "actions",
+    "signature": "CopyToClipboard(text: string)",
+    "description": "Copy text to the clipboard, e.g. a shopping list built with @Join",
+    "note": "클릭 시 이 페이지의 onAction → runLibraryAction으로 전달합니다. 복사 성공 여부는 상태 알림으로 표시합니다.",
+    "examples": [
+      {
+        "title": "고정 문장 복사",
+        "code": "root = Col([Button(\"문장 복사\", @CopyToClipboard(\"Hello Intelligent UI\"))])"
+      },
+      {
+        "title": "입력한 내용 복사",
+        "code": "root = Col([Input($text, \"복사할 내용\"), Button(\"입력 복사\", @CopyToClipboard($text))])\n$text = \"사과, 우유, 빵\""
+      }
+    ]
+  }
+]

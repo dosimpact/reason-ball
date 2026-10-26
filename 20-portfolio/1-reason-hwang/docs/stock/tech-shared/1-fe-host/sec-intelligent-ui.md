@@ -1,5 +1,39 @@
 # SEC Intelligent UI Host
 
+## OPENUI-DOC-001: 사용 사례와 코드 안내
+
+이 워크스페이스에서 OpenUI를 사용하는 화면은 `/sec-chat`과 `/sec-api-agent`다. OpenUI는 모델이 생성한 UI 프로그램을 React 컴포넌트로 표현하고, AG-UI는 답변·도구 실행 이벤트를 전달한다. 두 화면은 같은 카탈로그를 사용하지만 채팅 화면의 소유 범위가 다르다.
+
+| 구분 | `/sec-chat` | `/sec-api-agent` |
+| --- | --- | --- |
+| 용도 | 기업 확인과 SEC 10-K 근거 기반 대화 | SEC 기업·공시 조회, 원문 리서치와 수집 요청 |
+| 채팅 화면 | 자체 `SecChat`, 입력창·추천 질문·실행 기록 | OpenUI `AgentInterface`, Composer·대화 목록·Behind the scenes |
+| 답변 표시 | `@openuidev/react-lang`의 `Renderer`를 `AnswerView`에 직접 배치 | `@openuidev/react-ui`의 `AgentInterface`에 `componentLibrary` 전달 |
+| 전송 | 자체 `stream.ts`로 AG-UI와 SEC CUSTOM 이벤트 처리 | `fetchLLM` + `agUIAdapter()`로 AG-UI 처리 |
+| 근거 표시 | 생성 UI 외부의 `EvidenceView` | 리서치 결과를 UI로 구성; SEC Chat의 별도 근거 영역과 구절 ID 인용 검증을 그대로 제공하지 않음 |
+| 대화 보관 | 페이지 메모리 상태 | `ChatStorage` 구현의 메모리 Map; 대화 전환 시 유지, 새로고침 시 초기화 |
+
+### 코드 읽는 순서
+
+아래 링크는 저장소의 실제 구현을 가리킨다.
+
+1. 공유 카탈로그: [library.ts](../../../../1-fe-host/src/shared/ui/intelligent-ui/library.ts)에서 컴포넌트·함수·액션 등록을 확인한다.
+2. 직접 렌더링 사례: [AnswerView.tsx](../../../../1-fe-host/src/_pages/sec-chat/ui/AnswerView.tsx) → [stream.ts](../../../../1-fe-host/src/_pages/sec-chat/api/stream.ts). `Renderer`의 답변 표시와 action 처리, 프로그램 파싱 경계를 확인한다.
+3. 채팅 전체 사용 사례: [관리자 page.tsx](../../../../1-fe-host/src/_pages/sec-api-agent/ui/page.tsx) → [session-storage.ts](../../../../1-fe-host/src/_pages/sec-api-agent/model/session-storage.ts) → [Next 프록시](../../../../1-fe-host/src/_app/api/sec-api-agent/route.ts).
+4. 생성·전송: [Python 관리자 router.py](../../../../3-langgraph-fast/src/server/sec_deep_agent/router.py)의 `/chat`이 리서치 후 [compose_ui](../../../../3-langgraph-fast/src/domains/sec_chat/presentation.py)를 호출한다. 도구 이벤트는 `TOOL_CALL_*`, 완성된 OpenUI 프로그램은 `TEXT_MESSAGE_CONTENT`로 보낸다. `/research`의 Markdown 리포트 계약과 구분한다.
+5. 검증·생성물: [검증 route.ts](../../../../1-fe-host/src/_app/api/sec-ui/validate/route.ts)와 [sync-sec-ui.mjs](../../../../1-fe-host/scripts/sync-sec-ui.mjs)를 확인한다. 카탈로그 변경 후 아래 명령으로 프런트 spec과 Python 시스템 프롬프트를 동기화한다.
+
+```bash
+# 1-reason-hwang 루트에서 실행
+pnpm -C 1-fe-host sec-ui:generate
+```
+
+의존성은 [Host package.json](../../../../1-fe-host/package.json)에 선언되어 있다. `@openuidev/lang-core`·`react-lang`은 `1.0.1`, `react-ui`는 `^0.18.1`, 개발용 CLI는 `0.6.0`이며 실제 설치 해석은 이 워크스페이스의 lockfile을 따른다. 카탈로그 복사 출처와 현재 실행 방식은 아래 절을, 백엔드 상세는 [LangGraph 설계](../3-langgraph-fast/sec-intelligent-ui.md)를 따른다. 기존 A2UI 데모와는 별도 경로다.
+
+이 절은 코드 대조 결과다. 과거 실행 검증은 [2026-10-22 관리자 구현 기록](../../../flow/2026-10-22-fsd-sec-api-agent.md)에 있으며, 이번 문서 보완에서 브라우저·모델 실행을 재검증한 것은 아니다.
+
+## SEC Chat 구현과 운영
+
 - 경로: `/sec-chat` → `src/_pages/sec-chat/ui/SecChat.tsx`.
 - 전송: `/api/sec-chat/[...path]`가 `SEC_CHAT_API_URL`(기본 `http://127.0.0.1:8000`)로 제한된 SEC 경로만 중계한다. 서버 API 키는 브라우저에 전달하지 않는다.
 - 화면: 상시 채팅 입력 → `/resolve`로 일반 답변/기업 확인/분석 분기 → 필요 시 자동 최신 10-K 준비 → 원문 답변. 후보 선택은 대화 안에 표시하며 원래 질문을 유지한다. 회사 변경 시 공시 세션을 교체하고 화면의 기존 메시지는 유지한다. 새 대화로 세션/메시지를 초기화한다. Enter 전송, Shift+Enter 줄바꿈, IME 조합 보호, 진행 표시와 중단/오류 복구를 지원한다. 공시 메타데이터는 입력창 위 접이식 표시다.

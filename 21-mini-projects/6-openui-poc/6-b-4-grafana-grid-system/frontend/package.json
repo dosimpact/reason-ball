@@ -1,0 +1,71 @@
+{
+  "name": "@reason-ball/sec-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "generate": "openui generate src/app/config/library.ts --out src/shared/ui/openui/generated/system-prompt.txt && openui generate src/app/config/library.ts --spec --out src/shared/ui/openui/generated/spec.json",
+    "dev": "next dev --hostname 127.0.0.1 --port 3049",
+    "build": "next build",
+    "verify": "npm run lint:fsd && next build",
+    "start": "next start --hostname 127.0.0.1 --port 3049",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test:smoke": "node tests/smoke.mjs",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "lint:fsd": "steiger ./src --fail-on-warnings",
+    "format:dashboard": "prettier --write src/entities/dashboard src/features/dashboard src/pages/workspace src/pages/onboarding src/pages/print"
+  },
+  "dependencies": {
+    "@openuidev/lang-core": "1.0.1",
+    "@openuidev/langchain": "0.0.3",
+    "@openuidev/react-headless": "0.18.1",
+    "@openuidev/react-lang": "1.0.1",
+    "@openuidev/react-ui": "0.18.1",
+    "@xyflow/react": "^12.12.0",
+    "katex": "^0.16.47",
+    "lucide-react": "^1.59.0",
+    "maplibre-gl": "^6.13.0",
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-grid-layout": "^2.3.0",
+    "zod": "^4.4.3",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@feature-sliced/steiger-plugin": "^0.8.0",
+    "@openuidev/cli": "0.6.0",
+    "@playwright/test": "^1.58.0",
+    "@types/node": "^22.15.32",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "prettier": "^3.9.10",
+    "steiger": "^0.7.0",
+    "typescript": "^5",
+    "vitest": "^4.1.11"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@openuidev/lang-core",
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ],
+    "overrides": {
+      "postcss@<8.5.10": ">=8.5.10"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "@hono/node-server": ">=1"
+      }
+    }
+  },
+  "allowScripts": {
+    "@openuidev/lang-core": true,
+    "sharp": true,
+    "unrs-resolver": true
+  }
+}

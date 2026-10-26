@@ -1,0 +1,1192 @@
+# Open UI (React) + Langgraph  
+
+## 구축 레이어
+
+**생성형 UI 구축 (To build Generative UI):**
+- **1. OpenUI Lang**: 자체 컴포넌트로 인터페이스를 기술하는 선언형 DSL. JSON 기반 포맷 대비 절반 미만의 토큰으로 모델 생성이 가능하며, 스트리밍에 맞춰 렌더러가 점진적으로 화면을 표시한다.
+- **2. Agent Interface**: 대화 스레드, 스트리밍 메시지, 도구 실행 상태, 동적 생성 컴포넌트를 모두 지원하는 완성형 채팅 UI용 React SDK. 기존 에이전트 백엔드에 직접 연결하거나, assistant-ui, CopilotKit 또는 자체 채팅 UI에 렌더러만 얹어서 사용할 수 있다.
+
+**프로덕션 환경 운영 (To run it in production):**
+- **3. Gateway**: 생성형 UI를 위한 OpenRouter 역할. 여러 공급자(Provider)의 모델을 단일 API로 통합하며, 장애 발생 시 자동 페일오버(Failover) 및 스트리밍 중 잘못된 OpenUI Lang을 실시간 보정하는 Autofix가 내장되어 있다.
+- **4. Autofix**: 생성 완료 후 유효하지 않은 OpenUI Lang 코드를 단 한 번의 API 호출로 자동 수정(Repair). 기존 모델 공급자, 추론 환경, 에이전트 프레임워크를 그대로 유지한 채 적용 가능하다.
+- **5. 신뢰성 모니터링 (Reliability Monitoring)**: 생성된 인터페이스의 실패율, 반복되는 에러 유형, 실패 원인이 된 생성 내역을 추적·분석. Gateway/Autofix 사용 시 자동 활성화되며, 자체 추론 환경에서는 Observability SDK를 통해 연동할 수 있다.
+
+## 한계 
+- OpenUI의 LangGraph 연동 패키지는 JS/TS용   
+- 플링킹 이슈 및 validator failover 이슈 (오픈소스의 프리미엄 영역은 모니터링 부분임.)  
+- LangGraph JS 예제에는 LLM이 만든 OpenUI Lang을 서버에서 검증하고, 오류를 모델에 돌려보내 수정시키는 단계는 없다.( Gateway 쪽에서 검증·보정을 맡는 구조 - 돈내라 )
+
+## Details
+
+### LangGraph JS → Python: 마이그레이션 주요 라이브러리  
+
+openui/examples/agent-frameworks 에서 JS langgraph를 사용했는데 py langgraph로 이동하면서 2가지 라이브러리 python패키지가 없어 별도로 구현해야 한다.  
+
+| JS 라이브러리 | 원본 역할 | 현재 Python 구현 |
+| --- | --- | --- |
+| `@openuidev/langchain` | `openUIStreamTransformer`로 LangGraph 이벤트를 OpenUI 스트림으로 변환 | `OpenUIStreamTransformer`로 직접 구현 |
+| `@openuidev/lang-core` | `generateSystemPrompt()`로 컴포넌트 명세를 시스템 프롬프트로 변환 | 컴포넌트 카탈로그 SSOT는 FE에 있고, FE에서 Autogen으로 생성한 system-prompt.txt`를 읽어 사용 |
+| `deepagents` | `createDeepAgent()`로 모델·도구·프롬프트를 결합한 에이전트 그래프 생성 | Python `deepagents` 패키지의 `create_deep_agent()` 사용 |
+
+*deepagents 패키지란?  
+-  LangChain·LangGraph 기반 deepagents는 LLM이 도구를 사용하며 여러 단계의 작업을 수행하도록 에이전트를 구성해 주는 라이브러리   
+- https://github.com/langchain-ai/deepagents  
+- create_react_agent와의 차이점 (langchain.agents.create_agent ) - 파일, 컨텍스트 관리, 서브에이전트 위임 별도 구성이 필요없다. deepagents가 상위호환.
+- *js, py 모두 LangChain 팀에서 관리하는 공식 에이전트 프레임워크   
+
+### About langgraph system prompt  
+
+LLM이 **선언형 UI 언어(`openui-lang`)로만 응답하도록 강제하는 프롬프트**이다.  
+- openuidev/lang-core`의 `generateSystemPrompt()의 결과를 추출함. 기본 frontend 카탈로그가 포함됨.  
+
+1. 역할 및 제약
+- **순수 UI 코드 강제**: 일반 텍스트나 마크다운 설명 없이 전체 출력이 100% 유효한 `openui-lang`이어야 함.
+- **위치 기반 인자 (Positional Arguments)**: 키워드 인자(`key: value`)는 파싱을 깨뜨리므로 철저히 위치 기반 인자만 허용.
+- **루트 도달성**: 진입점은 항상 `root = Stack(...)`이며, `root`에서 참조되지 않는 변수는 렌더링에서 자동 탈락.
+
+2. 스트리밍 최적화 (Shell-First & Hoisting)  
+- **호이스팅(Hoisting) 전제**: 참조를 정의보다 먼저 사용할 수 있도록 파서가 지원.  
+- **점진적 렌더링 순서**: 
+  1. `root = Stack(...)` (최상단 배치로 UI 골격을 즉시 렌더링)
+  2. 컴포넌트 레이아웃 정의
+  3. 리프 데이터 값 (스트리밍되면서 점진적으로 데이터 주입)
+
+
+3. 컴포넌트 & 상태/액션 규칙  
+- **열 지향 테이블**: `Table`은 행(Row) 단위가 아닌 `Col` 단위의 열 중심 배열 구조 사용 (차트와의 데이터 연동 용이).  
+- **폼(Form) 규칙**: Form 중첩 금지, 스트리밍 지연 방지를 위해 각 `FormControl`을 개별 변수로 분리, 명시적 `Buttons` 필수.  
+- **반응형 상태 & 액션**: `$variable` 양방향 바인딩, 컬렉션 연산(`@Filter`, `@Sort`, `@Count`), 이벤트 트리거(`@ToAssistant`, `@OpenUrl`) 지원.  
+- **카드 전용 인라인 요소 제약**: `Text`, `BoldText`, `IconText`, `MetricIndicatorInline` 등은 카드 블록 내부에서만 사용 가능 (루트 직접 배치 불가).  
+
+### UI 컴포넌트 카탈로그와 langgraph system prompt sync방법
+
+LLM이 생성할 OpenUI 컴포넌트를 추가하거나 이름·인자·사용 규칙을 변경하면, 프런트엔드 렌더링 카탈로그와 백엔드 시스템 프롬프트를 함께 갱신해야 한다.  
+
+현재 방식: 생성 후 명시적으로 복사  
+- 1. 새 컴포넌트 구현과 명세를 OpenUI 라이브러리에 등록하고, 실제 렌더러와 `frontend/src/library.ts`의 생성용 export가 같은 카탈로그를 사용하도록 맞춘다. 
+- 2. `frontend`에서 프롬프트를 생성하고 백엔드 자산으로 복사한다.
+- 3. 변경된 프롬프트에 새 컴포넌트의 이름·인자·규칙이 포함됐는지 확인한다. `agent/graph.py`에서 붙이는 에이전트 지시문은 별도로 유지한다.
+
+```text
+[Frontend: 카탈로그 SSOT]
+├── components (React UI 컴포넌트)
+├── defineFunction() (사용자 정의 계산 함수)
+└── defineAction() (사용자 정의 버튼 액션)
+      │
+      ▼ (npm run generate)
+[빌드 타임 프롬프트 생성 (@openuidev/cli)]
+├── src/generated/spec.json (컴포넌트/함수 메타데이터 스펙)
+└── src/generated/system-prompt.txt (순수 openui-lang 지침 텍스트)
+      │
+      ▼ (명시적 파일 복사: cp)
+[Python LangGraph 백엔드]
+└── backend-langgraph/agent/system-prompt.txt
+      │  + 런타임 추가 지시문 (도구 설명, Mock 데이터 안내)
+      ▼
+[create_deep_agent()] ──► [LLM (OpenAI)]
+                               │ (openui-lang 코드 생성)
+                               ▼
+                    [브라우저 OpenUI 런타임]
+                    ├── React 컴포넌트 렌더링
+                    └── 클라이언트 fn 로직 직접 실행
+```
+
+
+### '데이터 조작 내장 함수: @Filter, @Sort, @Count, @Each 등' 확장 기능이 있는가 ? 
+
+**있다. `defineFunction()`으로 사용자 정의 함수를 만들고 라이브러리에 등록하면, OpenUI Lang에서 `@함수명(...)`으로 호출할 수 있다.** 내장 함수 자체를 수정할 필요는 없다.
+
+*아래 코드는 설명용 ( `openui/packages/lang-core/src/functions.ts`, `library.ts`, `runtime/evaluator.ts` ) 
+
+#### 정의와 등록
+
+```ts
+import { defineFunction } from "@openuidev/react-lang";
+import { openuiLibrary, openuiPromptOptions } from "@openuidev/react-ui/genui-lib";
+import { z } from "zod/v4";
+
+const DiscountPrice = defineFunction({
+  name: "DiscountPrice",
+  description: "가격에 할인율(0~100%)을 적용한 금액",
+  params: z.object({
+    price: z.number(),
+    discountPercent: z.number().min(0).max(100),
+  }),
+  returns: z.number(),
+  fn: ({ price, discountPercent }) => price * (1 - discountPercent / 100),
+});
+
+export const library = openuiLibrary.extend({
+  functions: { add: [DiscountPrice] },
+});
+export const promptOptions = openuiPromptOptions;
+```
+
+- 기존 라이브러리는 `extend({ functions: { add: [...] } })`로 확장가능 
+- 새 라이브러리를 구성할 때는 `createLibrary({ components: [...], functions: [...] })`에 등록
+- OpenUI Lang에서는 다음과 같이 계산값을 정의하여 UI에서 참조할 수 있다. 아래는 전체 UI 프로그램이 아닌 계산 부분이다.
+
+```text
+$price = 10000
+$discount = 20
+discounted = @DiscountPrice($price, $discount)
+```
+
+`params` 객체의 키 순서가 위치 기반 인자 순서다. 위 호출은 `fn({ price: 10000, discountPercent: 20 })`로 실행되어 `8000`을 반환한다. 상태가 바뀌면 해당 상태를 참조하는 표현식이 다시 평가된다. 이 앱에서 계산은 브라우저의 OpenUI 런타임이 수행하며, 매번 LLM이나 Python 백엔드를 호출하지 않는다.
+
+| 정의 항목 | 역할 |
+| --- | --- |
+| `name` | OpenUI Lang에서 호출할 함수 이름 |
+| `description` | 모델에 전달할 함수 용도 |
+| `params` | 입력 스키마와 인자 순서 |
+| `returns` | 선택적 반환값 스키마. 지정하면 런타임 검증에도 사용 |
+| `fn` | 개발자가 작성한 실제 실행 코드 |
+
+#### 현재 Python 프로젝트에 적용할 때
+
+1. `frontend/src/library.ts`에서 확장한 라이브러리를 export한다. 현재는 기본 `openuiLibrary`를 그대로 재노출한다.
+2. `frontend/src/app/page.tsx`도 그 라이브러리를 import하여 `componentLibrary`에 전달한다. 현재 페이지는 패키지의 기본 `openuiLibrary`를 직접 사용하므로, 생성 진입점만 바꾸면 실행 시 새 함수가 연결되지 않는다.
+3. 앞 절의 방식대로 `frontend`에서 `npm run generate`를 실행하고 생성된 프롬프트를 `backend-langgraph/agent/system-prompt.txt`에 명시적으로 복사한다. 새 함수 이름·설명·인자·반환형이 반영됐는지 확인한다.
+4. 백엔드를 재시작하고 변경된 프런트엔드를 실행한다. 새 함수 호출과 입력 상태 변경을 실제 브라우저에서 검증한다.
+
+**프롬프트에는 함수의 사용 계약이 들어가고, 실행 구현인 `fn`은 프런트엔드에 남는다.** Python에 같은 계산 함수를 옮길 필요는 없다. 다만 서버의 데이터 조회나 업무 처리가 필요한 기능은 별도 백엔드 도구/API로 설계해야 한다.
+
+#### 제약과 액션의 차이
+
+- 내장 함수나 기존 컴포넌트·함수·액션과 같은 이름은 등록할 수 없다. 예를 들어 `Filter`를 같은 이름으로 덮어쓰려 하면 라이브러리 생성 시 충돌 오류가 발생한다.
+- 함수 평가기는 `fn`을 동기로 호출한다. 계산용 함수는 부작용 없이 작성하는 것이 적합하며, 비동기 API 조회는 Query/tool 경로로 분리한다.
+- 인자·반환값 검증 실패 또는 함수 실행 중 예외는 평가 결과 `null`로 처리된다.
+- `defineFunction()`은 값을 계산하는 확장이다. 클릭 시 복사·외부 동작을 수행하는 확장은 `defineAction()`으로 정의하고 `onAction`에서 처리한다. 두 기능 모두 `@이름(...)` 문법을 쓰지만 실행 목적은 다르다.
+
+실제 확장 사례는 [open-intelligent-ui의 numbers.ts](../../22-reverse-engineering/open-intelligent-ui/src/lib/functions/numbers.ts)에 있는 `Pow`, `Clamp`, `Percent`, `Allocate` 등이다. [functions/index.ts](../../22-reverse-engineering/open-intelligent-ui/src/lib/functions/index.ts)에서 모으고 [library.ts](../../22-reverse-engineering/open-intelligent-ui/src/lib/library.ts)에서 등록한다. 이 별도 앱의 `npm run generate` / `npm run prompt`와 현재 Python 프로젝트의 `npm run generate` / 프롬프트 자산 복사 절차는 구분해야 한다.
+
+본진 근거: [함수 정의 계약](../../22-reverse-engineering/openui/packages/lang-core/src/functions.ts), [라이브러리 등록과 이름 충돌 검사](../../22-reverse-engineering/openui/packages/lang-core/src/library.ts), [함수 평가](../../22-reverse-engineering/openui/packages/lang-core/src/runtime/evaluator.ts), [React 렌더러의 등록 함수 테스트](../../22-reverse-engineering/openui/packages/react-lang/src/registeredFunctions.test.tsx).
+
+
+### 질문, openui-lang을 사용하게 되면 그럼 마크다운 출력대신에 openui lang으로만 대답하게 되는거야 ?
+
+**OpenUI 모드만 사용해도 일반 텍스트와 Markdown을 충분히 출력할 수 있다.** 현재 프로젝트는 LLM 응답의 바깥 형식을 OpenUI Lang으로 생성하도록 지시하지만, 그 안의 `TextContent`와 `MarkDownRenderer`에 설명 문장이나 Markdown을 담아 렌더링한다. 따라서 텍스트 설명을 제공하기 위해 반드시 `inlineMode`로 전환할 필요는 없다. `inlineMode`는 일반 Markdown 본문 사이에 UI 코드 블록을 배치하려는 별도의 출력 구성이다.
+
+#### 1. 현재 프로젝트 설정: 순수 UI 모드 (Pure Mode)
+
+현재 `backend-langgraph/agent/system-prompt.txt`의 첫 문장은 다음과 같이 선언되어 있다.
+
+> `You are an AI assistant that responds using openui-lang, a declarative UI language. Your ENTIRE response must be valid openui-lang code — no markdown, no explanations, just openui-lang.`
+
+- **응답 형식과 표시 내용을 구분한다**: “OpenUI Lang으로만 응답”은 LLM이 반환하는 **외부 문법**에 대한 지침이다. 화면의 모든 내용이 차트나 폼이어야 한다거나, 인사말·설명·Markdown을 표시할 수 없다는 뜻이 아니다. 인사와 설명도 OpenUI 컴포넌트 안에 넣으면 된다.
+- **일반 텍스트**: `TextContent`에 서식 없는 문자열을 넣으면 화면에는 보통 채팅 문장처럼 보인다. 예를 들어 `Hi`에 대한 응답도 다음처럼 생성할 수 있다.
+
+  ```text
+  root = Stack([greeting])
+  greeting = TextContent("Hello! How can I assist you today?")
+  ```
+
+  사용자는 “Hello! How can I assist you today?”라는 문장을 보지만, 실제 전송된 응답은 OpenUI Lang이고 프런트엔드는 이를 React 컴포넌트로 렌더링한다. 별도의 plain-text 응답 모드로 바뀐 것이 아니다.
+
+- **Markdown 텍스트**: 현재 컴포넌트 명세에서 `TextContent`는 Markdown을 지원하고, `MarkDownRenderer`는 Markdown 텍스트 렌더링을 명시적으로 제공한다. 제목·강조·목록·링크 등의 문법을 컴포넌트 문자열에 담을 수 있다.
+
+  ```text
+  root = Stack([intro, explanation])
+  intro = TextContent("아래는 **프로젝트 요약**입니다.")
+  explanation = MarkDownRenderer("## 주요 내용\n- **강조**와 *기울임*\n- 일반적인 설명 문장\n- [참고 링크](https://www.openui.com)")
+  ```
+
+  위의 `\n`은 문자열 내부의 줄바꿈이다. 응답 전체는 OpenUI Lang이지만 사용자는 제목·강조·목록·링크가 적용된 Markdown 문서를 보게 된다. Markdown 설명과 표·차트도 같은 `Stack`이나 `Card` 안에 함께 배치할 수 있다.
+
+- **표시 목적에 맞게 선택한다**: 짧은 설명은 `TextContent`, 문서형 Markdown 블록은 `MarkDownRenderer`, 구조화된 데이터는 `Table`·차트 등으로 표현하면 된다. 일반적인 텍스트·Markdown 답변과 UI를 함께 보여주는 데 순수 UI 모드만으로 충분하다.
+- **엄격한 원문 텍스트는 별도 요구사항이다**: `TextContent`도 Markdown을 해석하므로 `**문자열**`의 별표까지 그대로 보여주려는 경우는 서식 없는 문장을 표시하는 것과 다르다. 해당 목적에는 이스케이프, 코드 표시 또는 별도 plain-text 컴포넌트가 필요하다.
+- **현재 명세 근거**: [프런트엔드 컴포넌트 계약](frontend/src/generated/spec.json)의 `TextContent(text, size?)`와 `MarkDownRenderer(textMarkdown, variant?)`에 해당 지원이 정의되어 있다. 이 설명은 출력·렌더링 방식에 대한 문서 보완이며, 현재 프롬프트나 실행 모드를 변경한 것은 아니다.
+
+#### 2. OpenUI의 인라인 모드 (`inlineMode`: 텍스트 + UI 혼합)
+
+OpenUI 사양(`@openuidev/lang-core`)에는 **`inlineMode: true`** 옵션이 존재한다. 시스템 프롬프트 생성 시 `promptOptions: { inlineMode: true }`를 주면 프롬프트에 `## Inline Mode` 지침이 포함된다.
+
+- **단순 질문일 때**: UI 코드를 생성하지 않고 일반 챗봇처럼 순수 텍스트/마크다운으로만 응답한다 (기존 UI 유지).
+- **UI 생성/수정 요청일 때**: 마크다운 텍스트 설명과 함께 ````openui-lang ... ```` 코드 펜스로 UI 코드를 감싸서 출력한다.
+  ````markdown
+  요청하신 매출 통계 대시보드입니다:
+
+  ```openui-lang
+  root = Stack([title, chart])
+  title = TextContent("Q4 매출 현황", "large-heavy")
+  chart = BarChart(labels, [s1])
+  labels = ["10월", "11월", "12월"]
+  s1 = Series("매출", [100, 150, 200])
+  ```
+
+  추가로 수정이 필요한 부분이 있다면 알려주세요.
+  ````
+
+#### 3. 프런트엔드의 파싱 및 렌더링 분기 원리
+
+프런트엔드 라이브러리(`@openuidev/react-ui`)의 `readMessage`와 `hasLangSyntax` 유틸리티는 응답 본문에서 ````openui-lang 코드 펜스나 `root =` 선언을 감지한다.
+
+- ````openui-lang 펜스가 있으면: 펜스 외부의 텍스트는 일반 채팅 메시지(Markdown 버블)로 렌더링하고, 펜스 내부 코드는 OpenUI 런타임 렌더러(`Renderer`)로 전달해 상호작용 가능한 React 컴포넌트로 렌더링한다.
+- 펜스 없이 전체가 순수 코드인 경우: 전체를 UI 캔버스로 바로 렌더링한다.
+
+#### 4. 두 모드 요약 비교
+
+| 구분 | 순수 UI 모드 (현재 프로젝트 기본값) | 인라인 모드 (`inlineMode: true`) |
+| :--- | :--- | :--- |
+| **LLM 전체 응답** | OpenUI Lang 코드 안의 컴포넌트 문자열로 인사·설명·Markdown을 표현 | 일반 마크다운 대화 + ````openui-lang 코드 펜스 |
+| **마크다운 서식 지원** | `MarkDownRenderer`, `TextContent` 컴포넌트 내부에서 지원 | 일반 채팅 말풍선 본문에서 직접 지원 |
+| **적합한 화면 구조** | Claude Artifacts 캔버스 전용 뷰, 단독 대시보드 | ChatGPT / v0 형태의 대화형 인터페이스 |
+
+본진 근거: [인라인 모드 프롬프트 생성 로직](../../22-reverse-engineering/openui/packages/lang-core/src/parser/prompt.ts#L386-L410), [시스템 프롬프트 명세 문서](../../22-reverse-engineering/openui/docs/content/docs/openui-lang/system-prompts.mdx#L98), [메시지 파서 및 문법 감지](../../22-reverse-engineering/openui/packages/react-ui/src/utils/messages.ts#L52).
+
+
+### 질문: document-comparison의 “Behind the scenes / Used search documents”는 어떻게 표시되는가?
+
+질문: `openui/examples/cookbooks/document-comparison`에서 다음처럼 LLM이 작업하는 과정이 보였다. 이 화면은 어떻게 구현한 것인가?
+
+```text
+Behind the scenes
+Used search documents
+Used search documents
+Used search documents
+```
+
+**답변: OpenUI의 `AgentInterface`가 도구 호출 이벤트를 받아 자동으로 표시하는 실행 타임라인이다.** LLM이 `Used search documents`라는 문장을 직접 생성하는 것이 아니다. 아래 내용은 2026-10-18 현재 소스 확인 기준이다.
+
+#### 실행부터 표시까지의 흐름
+
+```text
+모델이 search_documents 호출 요청
+    ↓
+서버의 OpenAI SDK runTools()가 도구 실행
+    ↓
+도구 호출 정보가 응답 스트림에 포함
+    ↓
+openAIReadableStreamAdapter가 이벤트로 변환
+    ↓
+AgentInterface가 도구 활동을 관리
+    ↓
+ToolCallTimeline이 Behind the scenes 표시
+```
+
+1. **서버의 도구 등록·실행**: `src/app/api/chat/route.ts`에서 `openai.chat.completions.runTools()`에 `search_documents`와 실행 함수를 등록한다. 모델이 호출을 요청하면 SDK가 도구를 실행하고 결과를 모델에 전달한다. `runner.toReadableStream()`으로 스트림을 브라우저에 전달한다. 이 프로젝트의 해당 경로는 DeepAgents를 사용하지 않는다.
+2. **브라우저의 이벤트 변환**: `src/components/comparison-chat.tsx`의 `fetchLLM()`에 `openAIReadableStreamAdapter()`가 연결되어 있다. 어댑터는 스트림의 `delta.tool_calls`를 읽어 `TOOL_CALL_START`, `TOOL_CALL_ARGS`, `TOOL_CALL_END`로 변환한다.
+3. **도구 활동과 답변 구분**: 본진 `AgentInterface/Thread.tsx`가 도구 호출과 결과를 연결한 활동 목록을 만들고, `ToolCallTimeline`에 전달한다. 공개된 중간 설명이 있으면 타임라인의 텍스트 항목으로도 처리한다. 최종 답변은 별도 답변 영역에 표시한다.
+4. **표시 문구 생성**: `toolLabels.tsx`가 `search_documents`를 `search documents`로 바꾼다. 실행 중에는 `Using search documents`, 완료 상태 표시는 `Used search documents`가 된다. `ToolCallTimeline.tsx`는 진행 중 제목을 `Working`, 작업 종료 후 제목을 `Behind the scenes`로 표시한다.
+
+```ts
+// document-comparison/src/components/comparison-chat.tsx
+const llm = fetchLLM({
+  url: "/api/chat",
+  streamAdapter: openAIReadableStreamAdapter(),
+  messageFormat: openAIMessageFormat,
+});
+```
+
+#### 같은 문구가 세 번 나오는 이유
+
+UI가 같은 이름의 도구 호출을 세 건 표시한 것이다. 현재 `src/lib/prompt.ts`는 비교 기준마다 `search_documents`를 호출하고, 중요한 정보가 없으면 검색 표현을 바꾸어 재검색하도록 지시한다. 따라서 세 줄은 서로 다른 비교 기준의 검색이나 재검색일 수 있다. 정확한 검색 내용과 이유는 각 호출 인자를 확인해야 하며, 표시 문구만으로 세 문서를 각각 검색했다고 단정할 수 없다.
+
+#### Inline 모드 및 내부 사고 과정과의 관계
+
+- 이 타임라인은 **도구 호출과 공개된 중간 설명을 표시하는 기능**이며, 모델의 비공개 내부 사고 과정을 그대로 보여주는 기능이 아니다.
+- `Used search documents`는 UI가 만든 상태 문구이므로 일반 텍스트로 보이더라도 Inline 모드라는 증거가 아니다. 순수 OpenUI Lang 출력을 지시하는 현재 설정에서도 나타난다.
+- 최종 OpenUI 응답의 렌더링과 도구 활동 타임라인은 별도 경로다. 앞서 나눈 학습 레이어에서는 **3번 에이전트 실행 → 4번 스트림 전달 → 6번 채팅 화면·대화 상태**에 걸친 기능이다.
+- 어댑터의 `TOOL_CALL_END`는 모델 스트림의 `finish_reason: "tool_calls"`를 보고 생성된다. 이 이벤트 자체를 서버 도구 실행의 성공 증거와 동일하게 해석해서는 안 된다. 실제 결과·오류 검증에는 도구 결과 메시지까지 확인해야 한다.
+
+코드 근거:
+
+- [서버 도구 실행 및 스트림 전달](../../22-reverse-engineering/openui/examples/cookbooks/document-comparison/src/app/api/chat/route.ts)
+- [프런트엔드 어댑터 연결](../../22-reverse-engineering/openui/examples/cookbooks/document-comparison/src/components/comparison-chat.tsx)
+- [검색 횟수와 재검색 지침](../../22-reverse-engineering/openui/examples/cookbooks/document-comparison/src/lib/prompt.ts)
+- [OpenAI 스트림을 도구 이벤트로 변환](../../22-reverse-engineering/openui/packages/react-headless/src/stream/adapters/openai-readable-stream.ts)
+- [도구 활동 및 답변 영역 구성](../../22-reverse-engineering/openui/packages/react-ui/src/components/AgentInterface/Thread.tsx)
+- [도구 이름과 상태 문구 생성](../../22-reverse-engineering/openui/packages/react-ui/src/components/ToolCall/toolLabels.tsx)
+- [Behind the scenes 타임라인](../../22-reverse-engineering/openui/packages/react-ui/src/components/ToolCall/ToolCallTimeline.tsx)
+
+### Prompt Library 확장  
+
+
+
+## Example 분석 (1) - Base
+
+대상: `22-reverse-engineering/genui-chat-app`의 현재 코드. `src/app`을 진입점으로 관련 라이브러리·에이전트·채팅 구성을 정리한다.
+
+### 1. OpenUI 라이브러리 구성
+
+- [src/lib/library.ts](../../22-reverse-engineering/genui-chat-app/src/lib/library.ts): 기본 `openuiLibrary`와 `openuiPromptOptions`를 export한다. 별도 커스텀 라이브러리 구성은 없다.
+- [src/app/page.tsx](../../22-reverse-engineering/genui-chat-app/src/app/page.tsx): `@openuidev/react-ui/styles/index.css`를 import하고 `<OpenAIChat />`을 표시한다.
+- 실제 채팅의 `componentLibrary`에도 기본 `openuiLibrary`를 전달한다.
+
+### 2. 스키마 JSON 생성 → 시스템 프롬프트 조립
+
+`npm run generate`는 다음 명령으로 라이브러리 명세를 JSON으로 내보낸다. `predev`, `prebuild`에도 연결되어 있다.
+
+```bash
+openui generate src/lib/library.ts --spec --out src/generated/spec.json
+```
+
+생성된 `spec.json`은 역할상 두 부분으로 나뉜다. 별도 JSON 두 개를 만드는 의미는 아니다.
+
+| 구분 | 역할 |
+| --- | --- |
+| UI catalog — **what** | 사용 가능한 컴포넌트와 인자·스키마 등 라이브러리 계약 |
+| `promptOptions` — **how to use** | 컴포넌트 사용 지침·예시 등 프롬프트 구성 옵션 |
+
+[src/agent.ts](../../22-reverse-engineering/genui-chat-app/src/agent.ts)는 이를 분리하여 에이전트 생성 시 시스템 프롬프트를 조립한다. 이 경로는 생성된 `system-prompt.txt`를 읽지 않는다.
+
+```ts
+const { promptOptions, ...library } = librarySpec;
+// createAgent의 설정
+systemPrompt: generateSystemPrompt({ library, promptOptions })
+```
+
+### 3. agent.ts 구성: 시스템 프롬프트 + 도구 + 에이전트 상태
+
+- **에이전트**: LangChain의 `createAgent()`를 사용한다. 이 프로젝트는 `createDeepAgent()`를 사용하지 않는다.
+- **모델·프롬프트**: `ChatOpenAI`로 OpenAI에 직접 연결하고, 위에서 조립한 시스템 프롬프트를 전달한다.
+- **도구**: `get_weather` 하나를 등록한다. `location`을 Zod로 정의하고, 실제 구현은 [get-weather.ts](../../22-reverse-engineering/genui-chat-app/src/lib/tools/get-weather.ts)에 위임한다. 장소를 좌표로 변환한 후 Open-Meteo 현재 날씨를 조회하여 JSON 문자열로 반환한다.
+- **상태**: 기본 대화 메시지 상태에 더해 `StateSchema`로 `model` 필드를 정의한다. `selectedModel` 미들웨어가 매 모델 호출에 요청에서 선택한 모델을 적용한다.
+- **API 연결**: [src/app/api/chat/route.ts](../../22-reverse-engineering/genui-chat-app/src/app/api/chat/route.ts)가 요청·메시지·허용 모델·키 유무를 확인하고 `createGraph()`를 호출한다. `graph.stream({ messages, model }, { streamMode: "messages", encoding: "text/event-stream", ... })` 결과를 SSE로 반환한다. 대화 이력은 브라우저가 매 요청에 보내며 서버에는 저장하지 않는다.
+
+### 4. Chat UI
+
+[src/components/openai-chat.tsx](../../22-reverse-engineering/genui-chat-app/src/components/openai-chat.tsx)의 `AgentInterface`가 채팅 화면을 구성한다.
+
+- `fetchLLM()`이 `/api/chat`으로 선택 모델과 대화를 보낸다. `langGraphMessageFormat`으로 전송 메시지를 변환하고, `langGraphAdapter()`로 응답 SSE를 읽는다.
+- `componentLibrary={openuiLibrary}`로 모델이 만든 OpenUI Lang을 화면에 렌더링한다.
+- 모델 선택, 테마 전환, 시작 질문, 환영 화면을 구성한다.
+- `localChatStorage`와 `LocalChatPersistence`가 브라우저에 대화 목록·메시지를 저장한다.
+
+```text
+기본 라이브러리 + promptOptions → spec.json → agent.ts의 시스템 프롬프트
+사용자 입력 → AgentInterface → /api/chat → createAgent(모델 + 도구 + 상태)
+          ← OpenUI 렌더링    ← LangGraph 메시지 SSE
+```
+
+
+
+## Example 분석 (2) - Shadcn ui extension
+
+대상: `22-reverse-engineering/openui/examples/design-systems/shadcn`의 현재 구현. 아래 과정은 소스에 구현된 연결 순서이며, 과거 설치 명령의 실행 이력을 뜻하지 않는다. 이 예제의 `src`는 LangGraph나 Vercel AI SDK를 직접 사용하지 않고, OpenAI SDK와 자체 `runChatToolLoop()`로 모델·도구 호출을 처리한다.
+
+### 1. shadcn UI 추가 및 OpenUI 연결 과정
+
+#### 1-1. 실제 React UI 준비
+
+`src/components/ui/`에 `card.tsx`, `button.tsx`, `table.tsx` 등 실제 shadcn UI 구현이 있다. `components.json`은 `new-york` 스타일과 `@/components/ui` 경로를 지정한다.
+
+이 파일들은 화면에 표시할 React 컴포넌트다. LLM이 사용할 이름·인자·설명은 다음 단계의 OpenUI 정의에서 지정한다.
+
+#### 1-2. defineComponent로 LLM에 노출할 단위 정의
+
+`src/lib/shadcn-genui/components/`에서 실제 UI를 감싸고, 이름·Zod props 스키마·설명·렌더링 함수를 선언한다. 다음은 현재 `card-header.tsx`의 구조다.
+
+```tsx
+"use client";
+
+import {
+  CardDescription,
+  CardTitle,
+  CardHeader as ShadcnCardHeader,
+} from "@/components/ui/card";
+import { defineComponent } from "@openuidev/react-lang";
+import { z } from "zod";
+
+const CardHeaderSchema = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+});
+
+export const CardHeader = defineComponent({
+  name: "CardHeader",
+  props: CardHeaderSchema,
+  description: "Title/description header block for a Card.",
+  component: ({ props }) => (
+    <ShadcnCardHeader className="p-0">
+      <CardTitle>{props.title}</CardTitle>
+      {props.description && <CardDescription>{props.description}</CardDescription>}
+    </ShadcnCardHeader>
+  ),
+});
+```
+
+**React의 composition 단위와 LLM 카탈로그의 단위는 달라도 된다.** `CardTitle`과 `CardDescription`을 각각 등록하지 않고 `CardHeader(title, description)` 하나로 묶었다. LLM이 세부 요소를 독립적으로 조합해야 할 때만 별도 등록하면 된다.
+
+| OpenUI에 등록된 이름 | 내부에서 조합하는 React UI |
+| --- | --- |
+| `Card` | `Card` + `CardContent` |
+| `CardHeader` | `CardHeader` + `CardTitle` + `CardDescription` |
+
+#### 1-3. 자식 타입과 카탈로그에 등록
+
+`src/lib/shadcn-genui/index.tsx`는 `createLibrary()`로 카탈로그를 구성한다. 다음은 핵심 부분만 발췌한 코드다.
+
+```tsx
+const ChatCardChildUnion = z.union([
+  ...ChatContentChildUnion.options,
+  Tabs.ref,
+  Carousel.ref,
+]);
+
+const ChatCard = defineComponent({
+  name: "Card",
+  props: z.object({
+    children: z.array(ChatCardChildUnion),
+  }),
+  description:
+    "Vertical container for all content in a chat response. Children stack top to bottom automatically.",
+  component: ({ props, renderNode }) => (
+    <Card>
+      <CardContent className="p-0 space-y-3">
+        {renderNode(props.children)}
+      </CardContent>
+    </Card>
+  ),
+});
+
+export const shadcnChatLibrary = createLibrary({
+  root: "Card",
+  componentGroups: shadcnComponentGroups,
+  components: [
+    ChatCard,
+    CardHeader,
+    // 실제 코드에는 TextContent, Table, 차트, 폼 등도 등록되어 있다.
+  ],
+});
+```
+
+- `root: "Card"`는 `defineComponent({ name: "Card" })`를 최상위 컴포넌트로 지정한다. shadcn의 필수 제약이 아니라 응답을 카드 하나 안에 세로로 배치하려는 예제의 설계다.
+- 새 컴포넌트는 `components`에 등록하고, 필요한 경우 `unions.ts`의 허용 자식 타입에도 `.ref`를 추가한다. 등록 여부와 특정 컨테이너 안에 배치 가능한지는 별도 계약이다.
+- `componentGroups`는 컴포넌트를 용도별로 묶는다. `shadcnPromptOptions`에는 사용 예시와 추가 규칙이 정의되어 있다.
+
+#### 1-4. 같은 카탈로그에서 LLM용 명세 생성
+
+`src/library.ts`가 CLI의 진입점이다.
+
+```ts
+export {
+  shadcnChatLibrary as library,
+  shadcnPromptOptions as promptOptions,
+} from "./lib/shadcn-genui";
+```
+
+예제 디렉터리에서 다음 스크립트로 명세를 생성한다. `predev`, `prebuild`에도 연결되어 있다.
+
+```bash
+npm run generate
+# 실행되는 명령:
+# openui generate src/library.ts --spec --out src/generated/spec.json
+```
+
+`src/lib/model-prompt.ts`는 생성된 JSON을 읽어 `generateSystemPrompt({ library, ... })`를 호출한다. `/api/chat`은 그 결과를 system 메시지로 넣어 LLM에 전달한다. 즉, 카탈로그를 브라우저에 연결하는 것과 LLM에게 사용 가능한 명세를 알려 주는 것은 각각 필요하다.
+
+주의: 현재 `model-prompt.ts`는 JSON 전체를 `library`로 넘기며, Base 예제처럼 `promptOptions`를 분리해 `generateSystemPrompt({ library, promptOptions })`에 전달하지 않는다. 따라서 정의된 추가 규칙·예시가 실제 프롬프트에 반영되는지는 생성 결과와 호출 계약을 별도로 확인해야 한다. 이 정리에서는 코드 수정이나 프롬프트 실행 검증을 수행하지 않았다.
+
+#### 1-5. 브라우저 렌더러에 같은 카탈로그 연결
+
+`src/app/page.tsx`의 핵심 연결은 다음과 같다.
+
+```tsx
+const llm = fetchLLM({
+  url: "/api/chat",
+  streamAdapter: openAIAdapter(),
+  messageFormat: openAIMessageFormat,
+});
+
+<AgentInterface
+  llm={llm}
+  componentLibrary={shadcnChatLibrary}
+  agentName="shadcn/ui Chat"
+/>
+```
+
+LLM이 다음과 같은 OpenUI Lang을 출력하면 등록된 React 구현으로 렌더링한다.
+
+```text
+root = Card([header])
+header = CardHeader("매출 현황", "이번 달 실적")
+```
+
+```text
+실제 shadcn React UI
+  → defineComponent: 이름 + props + 설명 + 렌더링 함수
+  → createLibrary: shadcnChatLibrary
+      ├─ CLI → spec.json → 시스템 프롬프트 → LLM
+      └─ AgentInterface.componentLibrary → 응답의 React 렌더링
+```
+
+`AgentInterfaceBody`에 개별 shadcn 컴포넌트를 다시 등록할 필요는 없다. 새 종류를 추가하는 것은 개발자의 작업이고, 등록된 종류를 응답마다 선택·조합하는 것은 LLM의 역할이다.
+
+### 2. 네 가지 OpenUI 패키지의 역할
+
+예제의 직접 의존성 버전은 다음과 같다.
+
+```json
+{
+  "@openuidev/lang-core": "1.0.1",
+  "@openuidev/react-headless": "0.18.1",
+  "@openuidev/react-lang": "1.0.1",
+  "@openuidev/react-ui": "0.18.1"
+}
+```
+
+| 패키지 | 담당 역할 | 주요 API·기능 | 이 예제에서의 쓰임 |
+| --- | --- | --- | --- |
+| `lang-core` | React와 독립적인 OpenUI 언어 엔진 | 파싱·스트리밍 파싱, 라이브러리 명세, 프롬프트 생성, 평가·검증 | 서버에서 `generateSystemPrompt()`로 LLM용 지시문 생성 |
+| `react-lang` | OpenUI와 React의 연결 | `defineComponent`, `createLibrary`, `Renderer`, 폼 상태·액션 처리 | shadcn UI를 카탈로그로 정의하고 모델 출력을 React로 렌더링 |
+| `react-headless` | 디자인 없는 채팅 상태·통신 기능 | `ChatProvider`, `useThread`, `useThreadList`, `fetchLLM`, 스트림 어댑터, 저장소 연결 | 대화·메시지 상태와 스트리밍을 관리하는 기반 |
+| `react-ui` | 디자인이 포함된 채팅 UI와 기본 컴포넌트 | `AgentInterface`, 사이드바, 메시지 목록, 입력창, 테마 등 | 완성형 채팅 화면에 shadcn 응답 카탈로그 연결 |
+
+`react-ui`는 `react-headless`의 API도 재수출한다. 따라서 예제에서 `fetchLLM`, `openAIAdapter`를 `react-ui`에서 import해도 실제 구현의 소유 패키지는 `react-headless`다. headless가 LangGraph·Vercel AI SDK용 어댑터를 제공한다는 사실과, 이 예제에서 그 어댑터를 사용한다는 것은 다르다. 이 예제는 OpenAI 어댑터를 선택한다.
+
+### 3. 채팅 화면과 생성형 UI의 커스터마이징 경계
+
+- `AgentInterface.Sidebar`, `.Composer`, `.Messages` 같은 정적 속성은 React에서 조합할 컴포넌트를 공개하는 API다. LLM용 카탈로그 등록이 아니다.
+- `componentLibrary={shadcnChatLibrary}`는 AI 응답 내부의 렌더링을 바꾼다. 사이드바·입력창 등 기본 채팅 화면 전체를 shadcn으로 교체하지 않는다.
+- 현재 `AgentInterface`는 `components.AssistantMessage`, `components.UserMessage`, `components.ToolCallTimeline`을 통한 교체를 지원한다. 커스텀 assistant 메시지를 지정하면 기본 GenUI 렌더러보다 우선하므로 OpenUI 렌더링 연결도 직접 담당해야 한다.
+- 공개된 모든 컴포넌트가 교체 슬롯은 아니다. `AgentInterfaceBody`에는 `<Messages loader={<MessageLoading />} ... />`가 고정되어 있고, `Messages`와 `MessageLoading`은 자식 슬롯 교체 대상으로 등록되어 있지 않다. `<AgentInterface.Messages>`를 자식으로 추가해도 기본 목록을 대체하지 않는다.
+- 메시지 고정, 목록에서 제외, 채팅 화면 밖의 패널 표시처럼 구조 변경이 많으면 `react-headless`의 상태를 상위에서 공유하고 메시지 목록·로딩 UI를 직접 구성하는 방향이 적합하다. 생성형 UI에는 `react-lang`과 기존 shadcn 카탈로그를 유지할 수 있다.
+
+### 코드 근거 및 확인 범위
+
+2026-10-18 현재 로컬 소스를 읽어 정리했다. 이 문서 변경을 위해 설치·빌드·브라우저·실제 LLM 호출을 새로 실행하지 않았다.
+
+- [실제 shadcn UI](../../22-reverse-engineering/openui/examples/design-systems/shadcn/src/components/ui/card.tsx)
+- [CardHeader OpenUI 정의](../../22-reverse-engineering/openui/examples/design-systems/shadcn/src/lib/shadcn-genui/components/card-header.tsx)
+- [카탈로그·루트·그룹·예시](../../22-reverse-engineering/openui/examples/design-systems/shadcn/src/lib/shadcn-genui/index.tsx)
+- [허용 자식 타입](../../22-reverse-engineering/openui/examples/design-systems/shadcn/src/lib/shadcn-genui/unions.ts)
+- [프롬프트 생성](../../22-reverse-engineering/openui/examples/design-systems/shadcn/src/lib/model-prompt.ts)
+- [채팅 화면 연결](../../22-reverse-engineering/openui/examples/design-systems/shadcn/src/app/page.tsx)
+- [OpenAI 도구 호출 루프](../../22-reverse-engineering/openui/examples/design-systems/shadcn/src/lib/tool-loop.ts)
+- [lang-core 공개 API](../../22-reverse-engineering/openui/packages/lang-core/src/index.ts)
+- [react-lang 공개 API](../../22-reverse-engineering/openui/packages/react-lang/src/exports.ts)
+- [react-headless 공개 API](../../22-reverse-engineering/openui/packages/react-headless/src/index.ts)
+- [react-ui 공개 API](../../22-reverse-engineering/openui/packages/react-ui/src/index.ts)
+- [AgentInterface의 슬롯과 기본 레이아웃](../../22-reverse-engineering/openui/packages/react-ui/src/components/AgentInterface/AgentInterface.tsx)
+- [Messages와 MessageLoading](../../22-reverse-engineering/openui/packages/react-ui/src/components/AgentInterface/Thread.tsx)
+
+
+### Q&A — Shadcn 예제 분석 중 질문한 내용
+
+아래 답변은 앞선 대화와 로컬 코드 확인을 정리한 것이다. 대화 초반의 포괄적인 설명보다 실제 구현에서 확인된 지원 범위를 우선한다.
+
+#### Q1. 이 예제의 src에서는 LangGraph나 AI SDK를 사용하지 않는가?
+
+그렇다. 현재 `src`에는 LangGraph, LangChain, Vercel AI SDK 직접 사용이 없고, `package.json`에도 직접 의존성이 없다. 서버는 `openai` SDK로 Chat Completions를 호출하고 `runChatToolLoop()`로 도구 실행을 반복한다. OpenUI 패키지가 다른 프로토콜용 어댑터를 제공하는 것과 이 예제에서 사용하는 것은 구분해야 한다. 전이 의존성 전체가 없다는 의미는 아니다.
+
+#### Q2. runChatToolLoop는 LLM을 여러 번 호출하게 만드는 함수인가?
+
+그렇다. LLM이 도구 호출을 요청하면 서버가 도구를 실행하고 결과를 대화에 추가한 뒤 LLM을 다시 호출한다.
+
+```text
+LLM 호출 → tool_calls 반환 → 서버에서 도구 실행
+         → assistant의 tool_calls와 tool 결과를 messages에 추가
+         → LLM 재호출 → 답변
+```
+
+처음부터 답변하면 한 번만 호출한다. 기본 `maxRounds = 5`이므로 최대 다섯 번 호출하며, 마지막 호출에는 `tool_choice: "none"`을 지정한다. 이 반복은 서버의 도구 실행 제어이며, 브라우저에서 UI를 렌더링하는 과정과는 별개다.
+
+#### Q3. shadcn 컴포넌트는 어떻게 추가되는가?
+
+`src/components/ui/`에 실제 React UI를 준비하고, `src/lib/shadcn-genui/components/`에서 `defineComponent()`로 이름·props·설명·렌더링을 정의한다. 이를 `createLibrary()`의 `components`에 등록하고 필요한 부모의 자식 타입에도 포함한다. 이후 명세를 재생성해 LLM 프롬프트에 반영하고, 같은 라이브러리를 `AgentInterface.componentLibrary`에 연결한다. 구체적인 코드는 위의 1-1~1-5를 참고한다.
+
+#### Q4. Card, CardHeader, CardTitle, CardDescription처럼 composition으로 분리된 요소를 모두 카탈로그에 등록해야 하는가?
+
+아니다. **LLM이 독립적으로 선택·조합할 단위만 등록하면 된다.** 현재 `CardHeader` 하나가 내부에서 shadcn의 `CardHeader`, `CardTitle`, `CardDescription`을 조합한다.
+
+```text
+header = CardHeader("제목", "설명")
+```
+
+이 구조에서는 제목과 설명을 props로 전달하면 충분하다. 세부 요소를 LLM이 자유롭게 배치해야 할 요구가 있을 때 별도 컴포넌트로 노출한다. 고정된 상품 카드라면 `ProductCard(name, price, image)`처럼 전체를 하나로 감싸는 설계도 가능하다.
+
+#### Q5. AgentInterfaceBody에서도 OpenUI 컴포넌트를 다시 바인딩해야 하는가?
+
+개별 컴포넌트를 다시 등록할 필요는 없다. `page.tsx`에서 `componentLibrary={shadcnChatLibrary}`를 전달하면, `AgentInterface`가 그 라이브러리에 연결된 assistant 메시지 렌더러를 만들어 `AgentInterfaceBody`에 전달한다.
+
+```text
+AgentInterface(componentLibrary)
+  → 라이브러리가 연결된 assistant 메시지 렌더러
+  → AgentInterfaceBody → Messages
+```
+
+서버의 프롬프트용 명세와 클라이언트의 React 렌더링 연결은 각각 필요하지만, 둘의 원본은 같은 카탈로그다.
+
+#### Q6. AgentInterface.Sidebar = SidebarSlot 같은 기본 등록은 shadcn 카탈로그를 전달하면 무시되는가?
+
+아니다. 이 할당은 `AgentInterface.Sidebar`처럼 접근할 수 있게 React 컴포넌트를 공개하는 compound component API다. LLM 카탈로그 등록과는 다른 역할이다.
+
+- `Sidebar`, `Composer`, `ThreadHeader` 등은 채팅 앱의 화면 구성에 사용된다.
+- `shadcnChatLibrary`는 AI 응답 안의 카드·표·차트·폼 렌더링에 사용된다.
+- 실제 교체 슬롯으로 지원되는 부분에 커스텀 요소를 제공하면 그 부분이 교체된다. 카탈로그 전달만으로 사이드바나 입력창이 바뀌지는 않는다.
+
+또한 정적 속성으로 공개되어 있다는 사실만으로 기본 UI를 교체하는 슬롯이라고 판단하면 안 된다. `Messages`와 `MessageLoading`은 현재 그런 슬롯이 아니다.
+
+#### Q7. AgentInterface 자체가 라이브러리인가?
+
+정확히는 **`@openuidev/react-ui` 라이브러리가 제공하는 React 컴포넌트**다. `llm`으로 채팅 통신을 연결하고, `componentLibrary`로 생성형 UI 카탈로그를 연결하며, 기본 채팅 화면을 구성한다.
+
+#### Q8. createLibrary의 root가 왜 "Card"인가?
+
+이 예제는 AI 응답 전체를 하나의 카드 안에 세로로 배치하도록 설계했다. `root: "Card"`는 `defineComponent`의 `name: "Card"`를 가리킨다.
+
+```text
+root = Card([header, table, chart])
+```
+
+React 페이지 전체의 최상위나 `AgentInterface`의 루트를 뜻하지 않는다. **생성된 OpenUI 응답의 최상위 컴포넌트**다. 다른 레이아웃을 원하면 별도의 컨테이너를 정의·등록하고 루트, 허용 자식 타입, 관련 프롬프트 규칙을 함께 조정할 수 있다.
+
+#### Q9. AgentInterface는 커스터마이징 가능한가?
+
+가능하다. 이름·로고·테마 등의 props, 지원되는 composition 슬롯, 메시지 렌더러 교체 API를 제공한다.
+
+| 변경 대상 | 연결 방식 |
+| --- | --- |
+| 이름·로고·테마 | `agentName`, `logoUrl`, `theme` |
+| LLM 통신 | `llm` |
+| AI 응답 UI | `componentLibrary` |
+| 사이드바·입력창·대화 상단 등 | `Sidebar`, `Composer`, `ThreadHeader` 등 지원 슬롯 |
+| 개별 메시지 렌더링 | `components.AssistantMessage`, `components.UserMessage` |
+| 도구 활동 타임라인 | `components.ToolCallTimeline` |
+
+커스텀 assistant 메시지를 직접 지정하면 기본 카탈로그 기반 렌더러보다 우선한다. 이 경우 커스텀 구현이 OpenUI 렌더링을 직접 연결해야 한다.
+
+#### Q10. AgentInterface는 headless인가? 기본 디자인이 있는가?
+
+`AgentInterface`는 기본 디자인이 있는 완성형 UI다. 사이드바, 메시지 목록, 입력창, 시작 화면, 테마 등을 제공한다. 디자인 없이 상태·통신 기능을 사용하려면 `@openuidev/react-headless`를 사용한다. 현재 예제는 기본 채팅 화면에 `react-ui`를 사용하고 AI 응답 내부에는 shadcn 카탈로그를 사용한다.
+
+#### Q11. AgentInterface를 완전히 커스터마이징할 수 있는가?
+
+테마와 지원 슬롯으로 많은 부분을 바꿀 수 있지만, 현재 `AgentInterfaceBody`의 바깥 배치와 기본 메시지 목록은 내부 구현에 정해져 있다. 모든 구조를 props만으로 교체할 수 있는 것은 아니다.
+
+채팅 전체를 서비스 요구에 맞게 재구성하려면 `react-headless`로 상태·통신을 연결하고 화면을 직접 만드는 방법이 있다. 기존 `AgentInterface`를 유지하면서 필요한 교체 지점만 라이브러리 소스에 추가하는 방법도 있다. 설치된 `node_modules`를 직접 수정하는 대신, 변경을 유지할 수 있는 소스 수정·패치 방식으로 관리해야 한다.
+
+#### Q12. 특정 메시지를 고정해서 목록 밖, AgentInterface 밖으로 빼낼 수 있는가?
+
+가능한 설계지만 현재 예제에 구현된 기능은 아니다. 고정 상태는 `pinnedMessageIds`처럼 메시지 ID로 관리하고, 원본 메시지를 참조하면 스트리밍 갱신도 반영하기 쉽다. 목록에서 실제로 이동시키려면 고정된 ID를 일반 목록에서 제외해야 한다.
+
+현재 `AgentInterface`는 내부에서 `ChatProvider`를 생성하므로 외부의 형제 컴포넌트가 그 context를 직접 읽지는 못한다. 다음 두 방향을 검토할 수 있다.
+
+- **Portal:** 커스텀 메시지 렌더러가 외부 DOM 영역으로 렌더링한다. React context는 유지된다. 이때 컴포넌트는 여전히 `AgentInterface`의 React 트리에 속하며, 기본 목록의 바깥 래퍼·그룹 표시까지 제거되는지는 추가 처리가 필요하다.
+- **상위 상태 공유:** headless 기반으로 `ChatProvider`를 상위에 두고 메시지 목록과 고정 패널을 직접 구성한다. 이때 기존 `AgentInterface`를 그대로 넣으면 내부 Provider가 생기므로, 채팅 화면도 공유 상태를 사용하도록 조립해야 한다.
+
+메시지 재배치 요구가 많다면 두 번째 구조가 적합하다. 두 방식 모두 이 문서에서는 제안이며 실제 동작 검증을 수행하지 않았다.
+
+#### Q13. AgentInterface 하위 모듈들은 큰 편인가?
+
+로컬에서 확인한 소스 줄 수는 다음과 같다. 코드·주석·공백 등을 포함한 파일 규모이며, 번들 크기나 다운로드 용량은 아니다.
+
+| 범위 | 확인한 규모 |
+| --- | --- |
+| `AgentInterface.tsx` | 523줄 |
+| `AgentInterface/Thread.tsx` | 722줄 |
+| `Messages` 함수 | 약 50줄 |
+| `AgentInterface/` 전체 | TS·TSX·CSS·SCSS 58개 파일, 약 6,365줄 |
+| `react-ui/src` 전체 | 같은 확장자 기준 706개 파일, 약 47,394줄 |
+
+`Messages` 자체는 작지만 그룹화, 메시지 렌더링, 도구 타임라인, 스크롤 등 주변 기능과 연결되어 있다. 원하는 부분을 바꾸기 위해 패키지 전체를 복사할 필요는 없다.
+
+#### Q14. Messages와 MessageLoading을 커스터마이징하려면?
+
+`Messages` 자체는 `loader` prop을 받지만, 현재 `AgentInterfaceBody`는 아래와 같이 기본 로더를 고정해서 전달한다.
+
+```tsx
+<Messages
+  loader={<MessageLoading />}
+  assistantMessage={resolvedAssistantMessage}
+  userMessage={resolvedUserMessage}
+  toolCallTimeline={components?.ToolCallTimeline}
+/>
+```
+
+현재 `AgentInterface`에는 이 `loader`를 외부에서 지정하는 prop이나 메시지 목록 교체 슬롯이 없다. 다음 코드는 필요한 채팅 context 안에서 직접 조립할 때 사용할 수 있다.
+
+```tsx
+<AgentInterface.Messages
+  loader={<MyLoading />}
+  assistantMessage={MyAssistantMessage}
+  userMessage={MyUserMessage}
+/>
+```
+
+이를 `<AgentInterface>`의 자식으로 넣는 것만으로 기본 목록이 교체되지는 않는다. 기존 화면을 유지하려면 교체 지점을 추가하고, 고정·필터링·재배치까지 필요하면 headless 기반 커스텀 목록을 구성하는 방향을 선택한다.
+
+#### Q15. lang-core, react-headless, react-lang, react-ui의 차이는 무엇인가?
+
+- **`lang-core`:** OpenUI 언어를 파싱·평가하고 명세와 프롬프트를 처리하는 React 독립 엔진.
+- **`react-lang`:** 컴포넌트 카탈로그를 정의하고 OpenUI 출력을 React UI로 렌더링하는 연결 계층.
+- **`react-headless`:** 채팅 상태, 메시지·스레드, 스트리밍 통신, 저장소 연결을 담당하는 디자인 없는 기능 계층.
+- **`react-ui`:** 이 기능들을 활용하는 기본 디자인과 `AgentInterface` 등 완성형 UI.
+
+커스텀 채팅 화면을 만들더라도 OpenUI 렌더링을 포기할 필요는 없다. `react-headless`로 채팅을 구성하고 `react-lang`으로 기존 shadcn 카탈로그를 렌더링하며, 서버의 프롬프트 생성에는 `lang-core`를 유지할 수 있다.
+
+
+#### Q16. 이미 LangGraph SDK를 사용하는데 @openuidev/react-headless도 반드시 사용해야 하는가? 기능이 겹치지 않는가?
+
+**필수가 아니다. 이미 LangGraph React SDK가 메시지와 스트리밍 상태를 관리한다면, 이를 유지하고 `@openuidev/react-lang`의 `Renderer`만 연결할 수 있다.** 앞선 Q11~Q15에서 제안한 `react-headless`는 커스텀 채팅을 구성하는 한 가지 선택지이며 OpenUI 렌더링의 필수 조건이 아니다.
+
+OpenUI 공식 가이드는 기존 채팅의 메시지 목록·입력창·상태·통신을 유지한 채 assistant 메시지에 렌더러를 연결하는 구성을 지원한다. 자체 컴포넌트만 사용하면 기본 UI 패키지인 `react-ui`도 생략할 수 있다. [공식 Custom chat UI 가이드](https://www.openui.com/docs/build-agents/custom-chat-ui)
+
+##### 어떤 기능이 겹치는가?
+
+먼저 “LangGraph SDK 사용”이 서버/API 클라이언트 사용인지, 브라우저에서 `useStream`으로 상태까지 관리하는 것인지 구분해야 한다. 저수준 API 클라이언트만 사용한다면 React 상태 관리와 화면 연결은 별도로 필요하지만, 그 구현에 반드시 OpenUI headless를 사용해야 하는 것은 아니다.
+
+| 관심사 | LangGraph React SDK / useStream | OpenUI react-headless | OpenUI react-lang |
+| --- | --- | --- | --- |
+| 메시지·스트리밍 상태 | 담당 | 담당 — 역할이 겹치는 영역 | 입력받은 응답을 점진적으로 렌더링 |
+| 메시지 전송·실행 상태 | LangGraph 런타임 연결 | 설정한 ChatLLM·어댑터 연결 | 전송 기능 대신 액션 콜백 제공 |
+| 스레드·대화 상태 | LangGraph 스레드와 연결 | 채팅 상태와 저장소 어댑터 제공 | 채팅 스레드를 관리하지 않음 |
+| interrupt·checkpoint 등 | 버전과 서버 지원에 따라 LangGraph 실행 의미를 노출 | 일반 스트림 어댑터만으로 동일 기능이 자동 제공되는 것은 아님 | 담당하지 않음 |
+| OpenUI DSL → React UI | 별도 렌더러 연결 필요 | 별도 렌더러 연결 필요 | 담당 |
+| 폼·생성 UI 액션 | 애플리케이션에서 제출 동작 연결 | 채팅 UI와 연결 가능 | 폼 상태·onAction 제공 |
+
+LangChain 공식 문서는 프런트엔드 SDK가 메시지뿐 아니라 에이전트 상태, interrupt, checkpoint 등을 다루며, UI 라이브러리와 분리해 사용할 수 있다고 설명한다. 따라서 현재 SDK가 담당하는 실행 상태를 그대로 활용하는 설계가 가능하다. [공식 Frontend overview](https://docs.langchain.com/oss/python/langchain/frontend/overview)
+
+##### 이 요구사항에 맞는 구성
+
+메시지 고정과 외부 패널을 직접 구성하면서 이미 LangGraph SDK를 사용한다면 다음 구성을 우선 검토할 수 있다. 이는 두 라이브러리의 역할 분리에 근거한 설계 제안이다.
+
+```text
+LangGraph 서버
+  ↕ LangGraph SDK / useStream
+공유 메시지·실행 상태
+  ├─ 커스텀 메시지 목록
+  ├─ 고정 메시지 패널 — pinnedMessageIds로 같은 원본 참조
+  └─ 입력창·중지·승인 UI
+       │
+       └─ OpenUI 응답 메시지
+            → react-lang Renderer
+            → shadcnChatLibrary
+```
+
+이 구성에서는 OpenUI의 `ChatProvider`나 `useThread`가 필요하지 않다. 로컬 `react-lang/package.json`의 의존성에도 `react-headless`는 없고, `Renderer`는 `response`, `library`, `isStreaming`, `onAction` 등을 외부에서 받는다. 반면 기존 `AgentInterface`나 headless context를 읽는 메시지 목록을 그대로 사용하면 해당 내부 상태 계층이 계속 필요하다. [로컬 Renderer 구현](../../22-reverse-engineering/openui/packages/react-lang/src/Renderer.tsx), [로컬 패키지 의존성](../../22-reverse-engineering/openui/packages/react-lang/package.json)
+
+아래는 SDK 버전에 종속된 `useStream` 호출을 생략한 **렌더링 연결 예시**다. `content`는 현재 메시지의 누적 OpenUI 텍스트, `isStreaming`은 해당 메시지의 생성 상태이며, 부모가 LangGraph SDK 상태에서 전달한다. `sendMessage`는 기존 SDK 제출 함수에 연결한다.
+
+```tsx
+import {
+  BuiltinActionType,
+  Renderer,
+  type ActionEvent,
+} from "@openuidev/react-lang";
+import { shadcnChatLibrary } from "@/lib/shadcn-genui";
+
+export function GeneratedMessage({
+  content,
+  isStreaming,
+  sendMessage,
+}: {
+  content: string;
+  isStreaming: boolean;
+  sendMessage: (text: string) => void;
+}) {
+  const onAction = (event: ActionEvent) => {
+    if (event.type === BuiltinActionType.ContinueConversation) {
+      const formValues = event.formState
+        ? `\nForm values: ${JSON.stringify(event.formState)}`
+        : "";
+      sendMessage(`${event.humanFriendlyMessage}${formValues}`);
+    } else if (event.type === BuiltinActionType.OpenUrl) {
+      const raw = event.params?.url;
+      if (typeof raw !== "string") return;
+      try {
+        const url = new URL(raw, window.location.href);
+        if (url.protocol === "https:" || url.protocol === "http:") {
+          window.open(url.href, "_blank", "noopener,noreferrer");
+        }
+      } catch {
+        // 유효하지 않은 URL은 열지 않는다.
+      }
+    }
+  };
+
+  return (
+    <Renderer
+      response={content}
+      library={shadcnChatLibrary}
+      isStreaming={isStreaming}
+      onAction={onAction}
+    />
+  );
+}
+```
+
+`onAction`을 기존 전송 함수에 연결해야 follow-up과 폼 제출이 다음 대화로 이어진다. 모델에는 같은 카탈로그의 프롬프트를 제공하고, 일반 텍스트·도구 메시지를 구분하여 OpenUI 응답에만 렌더러를 적용한다. 메시지가 콘텐츠 블록 배열이라면 SDK 버전의 메시지 형식에 맞춰 OpenUI 텍스트를 추출해야 한다. 폼 상태를 재접속 후 복구하려면 `onStateUpdate`와 `initialState`를 애플리케이션 저장 방식에 연결한다. [공식 액션 연결 가이드](https://www.openui.com/docs/build-agents/custom-chat-ui#handle-actions), [로컬 Renderer props](../../22-reverse-engineering/openui/packages/react-lang/src/Renderer.tsx)
+
+##### 함께 사용해야 하는 경우와 상태 관리 주의점
+
+`AgentInterface`의 기본 화면을 유지하고 싶다면 내부의 headless 계층을 사용하게 된다. LangGraph SDK를 전송 계층에 활용하는 구성도 가능하지만, `ChatLLM`이 기대하는 이벤트·메시지 계약으로 연결하는 작업이 필요하다. LangGraph SDK와 OpenUI headless를 동시에 사용한다고 자동으로 상태가 동기화되지는 않는다. OpenUI 공식 문서에서도 Agent Interface는 선택 가능한 채팅 화면이며, 기존 대화 프레임워크가 있으면 렌더러를 추가하는 경로를 안내한다. [Agent Interface 소개](https://www.openui.com/docs/agent/getting-started/introduction)
+
+이미 `useStream`으로 관리 중인 동일 대화를 별도의 `ChatProvider`에서도 독립적으로 갱신하면 메시지 중복, 스트리밍 상태 불일치, 스레드 전환 동기화 문제가 생길 수 있다. 이중 사용 자체가 금지되는 것은 아니지만, 상태의 기준과 변환 책임을 명시해야 한다. 이번 요구에서는 **LangGraph SDK를 대화·실행 상태의 기준으로 유지하고 OpenUI는 렌더링에 사용하는 구성**이 중복을 줄인다.
+
+##### 버전 및 현재 프로젝트 확인 범위
+
+- 2026-10-18 확인한 최신 LangChain 문서는 `@langchain/react` v1을 중심으로 설명한다. 기존 `@langchain/langgraph-sdk/react`의 `useStream`과 import 경로·메시지 형식·API가 같다고 가정하면 안 된다. 실제 연결 코드는 사용 중인 lockfile 버전에 맞춰야 한다. [공식 React 마이그레이션 안내](https://reference.langchain.com/javascript/langchain-react/migration)
+- 이 `Report.md`가 속한 Python 예제의 `frontend/package.json`에는 현재 `@langchain/langgraph-sdk` 직접 의존성이 없고, `src/app/page.tsx`는 `AgentInterface + fetchLLM + agUIAdapter`를 사용한다. 따라서 위 구성은 “이미 LangGraph React SDK를 사용하는 앱”에 대한 답변이며, 이 폴더가 이미 해당 구성을 사용 중이라는 뜻은 아니다.
+- 공식 문서와 로컬 소스·의존성을 확인해 작성했다. 예시는 문서용이며 실제 SDK 연결, 타입 검사, 스트리밍·폼·고정 패널 동작 테스트는 수행하지 않았다. 런타임 코드와 의존성은 변경하지 않았다.
+
+## OpenUI에 Intelligent UI를 통합하는 과정 — 현재 6-3 구현
+
+> 2026-10-25 소스 확인 기준. 이 절은 앞의 기본 OpenUI 예제 설명에 이어 현재 Intelligent UI 통합 구조를 설명한다. 앞 절의 `openuiLibrary`·`Stack` 기반 설명과 달리, 현재 앱은 로컬 `src/lib/library.ts`의 `library`와 루트 `Col`을 사용한다. 변경 이력은 [문서화 기록](docs/flow/2026-10-25-intelligent-ui-integration-process.md), 현재 계약은 [시스템 설계 IUI-102](docs/stock/system.md#iui-102-ui-계약)를 따른다.
+
+### 1. 통합 범위: OpenUI 실행 기반 위에 UI 카탈로그와 앱 기능 연결
+
+이 프로젝트에서 Intelligent UI는 별도의 Python UI 엔진이 아니다. `open-intelligent-ui`에서 가져온 React 컴포넌트·계산 함수·액션·프롬프트 규칙·채팅 부속 기능을 OpenUI의 DSL과 렌더러에 연결한 구성이다. 기존 Python LangGraph 연결은 유지하고 화면에서 사용할 계약을 교체했다.
+
+| 계층 | 실제 역할 | 현재 구현 위치 |
+| --- | --- | --- |
+| OpenUI 실행 기반 | OpenUI Lang 파싱·평가·React 렌더링, 채팅 및 AG-UI 이벤트 처리 | `@openuidev/react-lang`, `@openuidev/react-ui` |
+| Intelligent UI 카탈로그 | 레이아웃·입력·차트·지도·미디어·SVG 컴포넌트, 계산 함수, 복사 액션 정의 | [src/lib/library.ts](frontend/src/lib/library.ts) |
+| 앱 연결 | 카탈로그·테마·액션·대화 저장소를 AgentInterface에 주입 | [page.tsx](frontend/src/app/page.tsx) |
+| Python 생성 | 같은 카탈로그에서 만든 프롬프트로 OpenUI Lang 생성 | [graph.py](backend-langgraph/agent/graph.py) |
+| 보고서 확장 | 문서 입력·원문 수치 구조화·보고서 생성 검증·인쇄 | [src/reporting](frontend/src/reporting/) |
+
+최초 이관에서는 원본 `src/lib` 43개 파일과 gallery/preview·정적 자산·미디어 API 등을 복사했다. 원본의 모델 호출 route와 analytics는 제외했다. 기본 OpenUI 카탈로그에 두 카탈로그를 모두 합친 것이 아니라, **생성과 렌더링에 사용할 카탈로그를 Intelligent UI 것으로 교체**했다. 당시 복사·검증 범위는 [최초 이관 기록](docs/flow/2026-10-18-intelligent-ui-python.md)에 남아 있다.
+
+### 2. 컴포넌트·함수·액션을 하나의 라이브러리로 등록
+
+[frontend/src/lib/library.ts](frontend/src/lib/library.ts)는 `createLibrary()`에 `root: "Col"`, 컴포넌트 목록, `functions`, `actions`, 컴포넌트 그룹별 설명을 등록한다. 현재 stock에 정리된 계약은 컴포넌트 55개·함수 59개와 `CopyToClipboard` 액션이다.
+
+- **컴포넌트**: `Col`, `Row`, `Card`, `Text`, `Slider`, `Chart`, `Map` 등으로 화면을 구성한다. 모델은 등록된 이름과 인자 계약에 맞춰 DSL을 작성한다.
+- **함수**: [functions/index.ts](frontend/src/lib/functions/index.ts)에 모은 `defineFunction()` 구현을 등록한다. 생성된 UI의 데이터 계산·필터링 등을 브라우저에서 수행한다.
+- **액션**: [actions.ts](frontend/src/lib/actions.ts)의 `defineAction()`은 모델이 사용할 `CopyToClipboard` 계약을 정의한다. 실제 복사는 `runLibraryAction()`이 실행한다.
+
+컴포넌트를 React 파일로 작성하는 것만으로 통합이 끝나지 않는다. **라이브러리 등록, 모델에 전달할 계약 생성, 화면의 동일 라이브러리 연결**이 함께 필요하다. 함수의 실제 `fn` 코드나 React 구현을 Python에 복사하는 방식은 사용하지 않는다.
+
+### 3. 같은 카탈로그에서 일반·보고서 시스템 프롬프트 생성
+
+일반 생성 진입점인 [src/library.ts](frontend/src/library.ts)는 로컬 카탈로그와 일반 `promptOptions`를 export한다. [report-library.ts](frontend/src/reporting/report-library.ts)는 같은 카탈로그를 재사용하고 보고서 지침을 합성한다. `frontend/package.json`의 `generate` 스크립트는 다음 자산을 만든다.
+
+```text
+src/lib/library.ts + src/lib/prompt-options.ts
+  └─ src/library.ts
+       ├─ src/generated/system-prompt.txt
+       └─ src/generated/spec.json
+
+같은 library + reporting/prompt-options.ts
+  └─ src/reporting/report-library.ts
+       └─ src/generated/report-system-prompt.txt
+```
+
+프롬프트에는 DSL 문법과 등록된 컴포넌트·함수·액션의 사용 계약이 들어간다. `spec.json`은 생성된 구조 명세이며 보고서 파싱 검증에도 사용한다. 현재 Python은 `spec.json`을 직접 읽지 않고 패키지 내부의 두 프롬프트 텍스트를 읽는다.
+
+프로젝트 루트 기준 동기화 절차는 다음과 같다.
+
+```bash
+cd frontend
+npm run generate
+
+cp src/generated/system-prompt.txt ../backend-langgraph/agent/system-prompt.txt
+cp src/generated/report-system-prompt.txt ../backend-langgraph/agent/report-system-prompt.txt
+
+cmp src/generated/system-prompt.txt ../backend-langgraph/agent/system-prompt.txt
+cmp src/generated/report-system-prompt.txt ../backend-langgraph/agent/report-system-prompt.txt
+```
+
+복사 후에는 Python 서버를 재시작한다. 프롬프트는 그래프 모듈을 로드할 때 읽으므로, 파일만 바꾸면 실행 중인 그래프가 이전 계약을 계속 사용할 수 있다. 카탈로그의 이름·인자 순서·규칙을 변경할 때도 같은 절차가 필요하다.
+
+### 4. Python 생성과 OpenUI 스트리밍 연결
+
+브라우저는 [page.tsx](frontend/src/app/page.tsx)의 `fetchLLM({ url: "/api/chat", streamAdapter: agUIAdapter() })`를 통해 요청한다. [API route](frontend/src/app/api/chat/route.ts)는 Python의 `intent` graph로 의도를 분류한 뒤 일반 `agent` 또는 `report` 경로를 선택한다.
+
+```text
+사용자 질문 / 업로드 문서
+  → AgentInterface → fetchLLM → Next.js /api/chat
+  → Python intent graph: 일반 질문 / 보고서 판단
+      ├─ chat   → agent graph + system-prompt.txt
+      └─ report → 보고서 처리 + report graph + report-system-prompt.txt
+  → Python의 OpenUIStreamTransformer
+  → protocol v2 custom:openui → Next.js → AG-UI SSE
+  → agUIAdapter → AgentInterface 내부 OpenUI 렌더링
+  → Intelligent UI 카탈로그의 React 컴포넌트
+```
+
+일반 `agent`는 `create_deep_agent()`에 모델·mock 도구·프롬프트를 연결한다. `report`는 도구 바인딩 없는 별도 StateGraph 모델 노드다. [streaming.py](backend-langgraph/agent/streaming.py)의 `OpenUIStreamTransformer`는 생성 텍스트와 도구 이벤트를 OpenUI 채널로 변환한다. `graph.py`의 `stream_transformers()`는 서버가 실행마다 변환기를 만들도록 클래스를 반환하는 연결 지점이다.
+
+서버는 React 컴포넌트를 전송하지 않는다. 서버가 생성한 **OpenUI Lang 텍스트**를 브라우저가 받아, 등록된 React 구현으로 화면을 만든다. OpenAI 키와 모델 호출은 Python 백엔드가 소유한다.
+
+### 5. 생성된 화면을 실제로 동작시키기
+
+[page.tsx](frontend/src/app/page.tsx)는 `AgentInterface`에 `componentLibrary={library}`와 `onAction`을 전달한다. 생성 프롬프트와 렌더러가 같은 카탈로그를 사용해야 모델이 쓴 컴포넌트와 함수를 화면에서 찾을 수 있다.
+
+| 사용자 동작 | 처리 경로 | 모델 재호출 |
+| --- | --- | --- |
+| Slider·Select 등 입력 변경 | `$state` 갱신 → 관련 표현식·등록 함수 재평가 → 화면 갱신 | 로컬 상태·계산만 쓰는 경우 없음 |
+| `@CopyToClipboard(...)` 클릭 | `onAction` → `runLibraryAction()` → 브라우저 복사 | 없음 |
+| `@ToAssistant(...)` 실행 | AgentInterface가 다음 대화 요청 전송 | 있음 |
+| 사진·지도 경로 조회 | image-search/wiki/street-route 등 보조 API 사용 | 해당 조회 자체에는 불필요 |
+| 대화·폼 상태 저장 | `reportChatStorage`·`SaveMessages`와 localStorage 연결 | 없음 |
+
+테마 CSS, 지도 CSS, 정적 자산, 미디어 API, 저장소도 함께 연결해야 원본과 같은 사용 경험이 성립한다. `/gallery`와 `/preview`는 모델 없이 프로그램과 카탈로그 동작을 확인하는 개발용 화면이다.
+
+### 6. 보고서 기능과 검증 범위 구분
+
+`src/reporting/`은 이관한 카탈로그를 활용해 추가한 앱 기능이다. 인식 가능한 벤더 문서는 원문에서 숫자·표를 구조화하고 보고서 프로그램을 조립하며, 모델은 별도 AI 해설을 생성한다. 일반 주제 보고서는 모델이 전체 프로그램을 생성하고 parser·구성 조건을 검사하며 필요 시 한 차례 수정을 요청한다. 세부 경로는 [시스템 설계 IUI-107~110](docs/stock/system.md#iui-107-보고서-생성과-원문-보존)을 따른다.
+
+이 검증 경로가 모든 일반 채팅 응답에 자동 적용되는 것은 아니다. 카탈로그 등록과 프롬프트 동기화는 생성 계약을 맞추는 절차이며, 모든 자연어 요청의 올바른 DSL 생성이나 해설의 사실 정확성을 보장하지 않는다.
+
+통합 변경을 확인할 때는 다음 순서로 검증한다.
+
+1. `npm run generate` 후 두 프롬프트를 복사·비교하고 Python을 재시작한다.
+2. 프런트엔드에서 `npm test`, `npm run lint`, `npm run typecheck`, `npm run verify`를 실행한다.
+3. 백엔드에서 `uv run pytest`, `uv run ruff check agent tests`를 실행한다.
+4. 두 서버 실행 상태에서 `npm run test:smoke`로 실제 모델 생성·도구·현재 카탈로그 파싱을 확인한다.
+5. 브라우저에서 입력에 따른 계산, 액션, 후속 대화, 새로고침 복원을 확인하고 보고서 변경은 `npm run test:e2e:reports`로 검사한다.
+
+이 절은 현재 소스와 stock·최초 이관 기록을 대조한 문서 보완이다. 위 테스트를 이번 문서 작업에서 다시 실행한 것은 아니다. 앞선 서비스 실행에서는 백엔드 `/ok` 정상과 프런트엔드 HTTP 200까지만 확인했다.
+
+
+### Intelligent UI `createLibrary()` 설정 전체 구성
+
+2026-10-25 기준 [frontend/src/lib/library.ts](frontend/src/lib/library.ts)의 `createLibrary()`에 실제 전달하는 설정은 **`root`, `components`, `functions`, `actions`, `componentGroups` 다섯 가지**다. 이 절은 현재 앱의 설정 전체를 설명하며, OpenUI API가 제공할 수 있는 모든 선택 옵션을 나열하는 문서는 아니다.
+
+```tsx
+export const library = createLibrary({
+  root: "Col",        // 최상위 UI 컴포넌트
+  components: [...],  // 사용할 React 컴포넌트와 DSL 계약
+  functions,          // DSL에서 실행할 계산 함수
+  actions,            // 사용자 이벤트 액션 계약
+  componentGroups: [  // 모델에 전달할 그룹·사용 지침
+    { name: "Layout", components: [...], notes: [...] },
+    // Text, Inputs, Media and data, Play, Drawing
+  ],
+});
+```
+
+| 설정 | 현재 값 | 책임 |
+| --- | --- | --- |
+| `root` | `"Col"` | 최상위에 사용할 등록 컴포넌트를 지정한다. |
+| `components` | 55개 컴포넌트 정의 | DSL 이름·입력 스키마·설명과 React 렌더링 구현을 등록한다. |
+| `functions` | 59개 함수 정의 | DSL의 `@Name(...)` 호출과 브라우저의 계산 구현을 연결한다. |
+| `actions` | `CopyToClipboard` 1개 | 사용자 동작으로 발생시킬 커스텀 액션의 이름·입력 계약을 등록한다. |
+| `componentGroups` | 6개 그룹 | 등록 컴포넌트를 용도별로 묶고 모델에 추가 사용 지침을 제공한다. |
+
+#### 1. `root`: 최상위 레이아웃
+
+```tsx
+root: "Col"
+```
+
+현재 카탈로그의 세로 레이아웃 컴포넌트 `Col`을 선택한다. 생성 프로그램의 전형적인 시작은 다음과 같다.
+
+```text
+root = Col([heading, content])
+```
+
+설정의 `root: "Col"`은 컴포넌트 선택이고, DSL의 `root = ...`는 화면 진입점 선언이다. OpenUI 기본 카탈로그는 `Stack`을 사용하지만 이 카탈로그는 `Col`·`Row`·`Box`를 사용한다. `Stack`은 현재 목록에 등록돼 있지 않다. `Col`은 세로 배치, `Row`는 가로 배치, `Box`는 방향·크기·배경 등을 지정하는 컨테이너다. 실제 계약은 [layout.tsx](frontend/src/lib/components/layout.tsx)에 있다.
+
+#### 2. `components`: 화면 요소 전체 등록
+
+각 항목은 `defineComponent()`로 만든 정의다. `name`은 DSL에서 쓰는 이름이고, `props` 스키마는 입력과 위치 기반 인자 계약을 제공하며, `component`는 실제 React 렌더링을 담당한다. TypeScript 변수명과 DSL 이름이 다를 수 있다.
+
+| 용도 | 등록된 DSL 이름 | 구현 |
+| --- | --- | --- |
+| 레이아웃 9개 | `Col`, `Row`, `Box`, `Grid`, `Card`, `Carousel`, `Popover`, `Divider`, `Spacer` | [layout.tsx](frontend/src/lib/components/layout.tsx), [extra.tsx](frontend/src/lib/components/extra.tsx) |
+| 텍스트·문서 12개 | `Title`, `Text`, `Caption`, `Label`, `Badge`, `Link`, `List`, `ListItem`, `Markdown`, `Quote`, `Code`, `Math` | [text.tsx](frontend/src/lib/components/text.tsx), [extra.tsx](frontend/src/lib/components/extra.tsx) |
+| 입력·폼 13개 | `Button`, `IconButton`, `Pressable`, `Input`, `TextArea`, `Select`, `SegmentedControl`, `Slider`, `Checkbox`, `RadioGroup`, `DatePicker`, `Timer`, `Form` | [controls.tsx](frontend/src/lib/components/controls.tsx), [layout.tsx](frontend/src/lib/components/layout.tsx) |
+| 미디어·데이터 8개 | `SearchImage`, `Image`, `Icon`, `Table`, `Chart`, `Map`, `MapMarker`, `YouTube` | [media.tsx](frontend/src/lib/components/media.tsx), [table.tsx](frontend/src/lib/components/table.tsx), [chart.tsx](frontend/src/lib/components/chart.tsx), [map.tsx](frontend/src/lib/components/map/map.tsx), [extra.tsx](frontend/src/lib/components/extra.tsx) |
+| 학습·피드백 2개 | `Flashcard`, `Celebration` | [extra.tsx](frontend/src/lib/components/extra.tsx) |
+| 도형·HTML 11개 | `Svg`, `G`, `Circle`, `Ellipse`, `Rect`, `Line`, `Path`, `Polyline`, `Polygon`, `SvgText`, `HtmlView` | [svg.tsx](frontend/src/lib/components/svg.tsx), [html-view.tsx](frontend/src/lib/components/html-view.tsx) |
+
+`MathBlock`의 DSL 이름은 `Math`, `MapView`의 DSL 이름은 `Map`이다. `...svgComponents`는 SVG 정의 10개를 펼쳐 등록하는 JavaScript 배열 문법이다. 모델이 `MathBlock(...)`이나 `MapView(...)`라는 TypeScript 변수명을 그대로 사용하면 현재 DSL 이름과 맞지 않는다.
+
+#### 3. `functions`: UI 내부 계산 함수 전체 등록
+
+[functions/index.ts](frontend/src/lib/functions/index.ts)는 다음 여섯 모듈의 배열을 합친다.
+
+| 모듈 | 개수 | 등록 함수 전체 |
+| --- | --- | --- |
+| [lists.ts](frontend/src/lib/functions/lists.ts) | 19 | `Append`, `Prepend`, `Concat`, `Remove`, `RemoveAt`, `Update`, `Toggle`, `Includes`, `Find`, `IndexOf`, `Take`, `Slice`, `Unique`, `Reverse`, `Range`, `Pick`, `Shuffle`, `Flatten`, `Chunk` |
+| [numbers.ts](frontend/src/lib/functions/numbers.ts) | 9 | `Pow`, `Sqrt`, `Random`, `Clamp`, `Percent`, `Lerp`, `Allocate`, `Payment`, `Convert` |
+| [text.ts](frontend/src/lib/functions/text.ts) | 12 | `Format`, `Join`, `Plural`, `Pad`, `Upper`, `Lower`, `Trim`, `Capitalize`, `Split`, `Replace`, `Duration`, `Default` |
+| [colors.ts](frontend/src/lib/functions/colors.ts) | 1 | `MixColor` |
+| [dates.ts](frontend/src/lib/functions/dates.ts) | 8 | `Now`, `FormatDate`, `AddDays`, `DaysBetween`, `Today`, `AddMonths`, `MonthsBetween`, `StartOf` |
+| [data.ts](frontend/src/lib/functions/data.ts) | 10 | `GroupBy`, `Pivot`, `Top`, `Between`, `Bucket`, `Cumulative`, `MovingAvg`, `Change`, `Histogram`, `Stats` |
+
+`defineFunction()`에는 `name`, `description`, `params`, `returns`, `fn`이 정의돼 있다. 모델에는 사용 계약을 제공하고, 실제 `fn`은 브라우저가 실행한다.
+
+```text
+percentage = @Percent(3, 4)
+```
+
+위 표현식은 등록된 JavaScript 구현으로 계산해 `75`를 반환한다. `$state`를 참조하는 계산은 상태 변화에 따라 재평가되며 해당 계산만으로 LLM/Python을 호출하지 않는다. 난수·시간 함수는 재평가 시 결과가 달라질 수 있다. 입력 검증이나 실행 실패는 함수 평가 결과가 `null`이 될 수 있으므로 처리해야 한다.
+
+이 배열은 앱이 추가 등록한 함수 목록이다. OpenUI 런타임의 내장 기능인 `@Set`, `@Each`, `@Filter` 등 전체를 이 파일에서 정의하는 것은 아니다. LangGraph의 서버 도구와도 실행 위치와 목적이 다르다.
+
+#### 4. `actions`: 사용자 이벤트 계약과 호스트 실행 연결
+
+[actions.ts](frontend/src/lib/actions.ts)는 현재 `CopyToClipboard` 하나를 등록한다.
+
+```tsx
+export const CopyToClipboard = defineAction({
+  name: "CopyToClipboard",
+  description: "Copy text to the clipboard, e.g. a shopping list built with @Join",
+  params: z.object({ text: z.string() }),
+});
+export const actions = [CopyToClipboard];
+```
+
+모델은 버튼 등에 `@CopyToClipboard("복사할 내용")`을 연결할 수 있다. `defineAction()`은 계약을 등록하고, 실제 동작은 앱이 전달한 핸들러에서 처리한다.
+
+```text
+사용자 클릭
+  → OpenUI ActionEvent { type: "CopyToClipboard", params: { text: ... } }
+  → page.tsx의 onAction
+  → runLibraryAction(event)
+  → navigator.clipboard.writeText(text)
+```
+
+`CopyToClipboard.name`은 액션 이름 문자열 `"CopyToClipboard"`다. 현재 구현은 Clipboard API 실패 시 textarea 복사 방식을 시도한다. `functions`는 값을 계산해 반환하고, `actions`는 이벤트를 통해 복사 같은 동작을 요청한다. 내장 `@ToAssistant`·`@OpenUrl`은 현재 앱에서 AgentInterface가 처리하며 이 커스텀 액션 배열과 구분된다.
+
+#### 5. `componentGroups`: 그룹별 모델 사용 지침
+
+각 그룹은 다음 구조를 갖는다.
+
+```tsx
+{
+  name: "Layout",             // 그룹 제목
+  components: ["Col", ...],  // 이미 등록된 컴포넌트의 DSL 이름
+  notes: ["..."],            // 선택적 추가 지침
+}
+```
+
+| 그룹 | 포함 컴포넌트 | 추가 지침 |
+| --- | --- | --- |
+| `Layout` | 레이아웃 9개 | gap/padding은 4px 단위 단계, 길이는 px 또는 CSS 길이, radius와 색상 토큰의 사용 규칙 |
+| `Text` | 텍스트·문서 12개 | 별도 `notes` 없음 |
+| `Inputs` | 입력·폼 13개 | 첫 인자는 보통 `$variable` 값. 입력은 화면 계산을 바꾸거나 Form 제출로 이어지도록 구성 |
+| `Media and data` | 미디어·데이터 8개 | 별도 `notes` 없음 |
+| `Play` | `Flashcard`, `Celebration` | 별도 `notes` 없음 |
+| `Drawing` | SVG 10개와 `HtmlView` | 별도 `notes` 없음 |
+
+그룹은 React 화면에 섹션이나 컴포넌트를 자동 배치하는 설정이 아니다. 모델이 카탈로그를 이해하도록 분류와 규칙을 제공한다. 실제 컴포넌트 등록은 `components` 배열에서 수행한다. `notes`도 모델 지침이므로 그 문장 자체가 모든 규칙을 런타임에서 강제하는 검증 코드는 아니다.
+
+#### 6. `createLibrary()` 바깥의 CSS와 프롬프트 옵션
+
+같은 파일에 있지만 다음 항목은 `createLibrary()`의 인자가 아니다.
+
+- `theme.css`, `components.css`, `map.css` import: 컴포넌트의 테마·레이아웃·지도 스타일을 로드한다.
+- `export { dashboardPromptOptions, promptOptions } from "./prompt-options"`: 생성 CLI가 사용할 지침·예시를 별도로 노출한다. `dashboardPromptOptions`를 export했다고 기본 생성 명령이 두 옵션을 모두 합치는 것은 아니다.
+- 일반 생성 진입점 [src/library.ts](frontend/src/library.ts): 위 `library`와 일반 `promptOptions`를 노출한다.
+- 보고서 생성 진입점 [report-library.ts](frontend/src/reporting/report-library.ts): 같은 `library`에 보고서용 `promptOptions`를 합성한다.
+
+#### 7. 설정의 두 소비처와 변경 절차
+
+```text
+createLibrary({ root, components, functions, actions, componentGroups })
+  ├─ 생성 시: CLI + promptOptions
+  │    → 일반/보고서 프롬프트 + spec.json
+  │    → 두 프롬프트를 Python 패키지 자산으로 명시적 복사
+  └─ 브라우저 실행 시: AgentInterface의 componentLibrary={library}
+       → DSL 컴포넌트 렌더링·함수 평가·액션 이벤트
+```
+
+새 항목을 추가할 때는 구현과 등록을 마친 후 `frontend`에서 `npm run generate`를 실행한다. 생성된 `system-prompt.txt`와 `report-system-prompt.txt`를 `backend-langgraph/agent/`에 복사·비교하고 Python 서버를 재시작한다. 이어 새 DSL 이름·인자·계산·클릭 동작을 적절한 테스트와 브라우저에서 확인한다. 렌더러만 갱신하면 모델이 새 계약을 모를 수 있고, 프롬프트만 갱신하면 브라우저가 해당 구현을 찾지 못할 수 있다.
+
+이번 추가는 현재 소스의 설정·등록 목록을 설명한 문서 작업이다. 기존 사용자 수정과 런타임 코드는 유지했고, 모델 호출·브라우저 검증은 재실행하지 않았다.
+
+### 등록 함수 59개를 직접 실행해 보는 사용자 프롬프트
+2026-10-25 기준 `src/lib/functions/`의 등록 함수 전체를 대상으로 한 수동 실행용 입력 예시다. 각 행의 프롬프트를 하나씩 채팅에 입력한다. **아래 예시는 실제 모델 생성·브라우저 실행을 모두 통과한 결과가 아니라, 현재 함수 계약에 맞춰 작성한 요청 목록**이다.
+#### 공통 요청과 확인 방법
+각 행의 프롬프트 앞에 다음 공통 요청을 붙이면, 모델이 계산 결과를 상수로 적는 대신 등록 함수를 사용하도록 명확히 지시할 수 있다.
+```text
+보고서가 아닌 함수 디버깅용 일반 인터랙티브 UI를 만들어줘.
+아래에 지정한 @함수를 OpenUI Lang 표현식에서 실제 호출해줘.
+결과를 미리 계산해서 상수로 적거나 다른 함수로 대체하지 마.
+상태 기본값은 literal로 선언하고 입력·버튼 변경에 따라 결과가 화면에 보이게 해줘.
+객체와 배열 결과는 표나 목록으로, null·false·0은 서로 구분해서 표시해줘.
+원문 데이터의 객체 키는 따옴표로 감싸줘.
+```
+1. 브라우저 개발자 도구 Console을 열고 `Intelligent UI fn`으로 필터링한다.
+2. 한 프롬프트씩 제출하고 생성 화면의 입력을 바꾸거나 버튼을 누른다.
+3. 대상 함수의 `@함수명 input`과 `@함수명 result` 로그를 확인한다. 오류는 `@함수명 error`로 출력된다.
+4. 결과가 맞아 보여도 로그가 없으면 함수가 호출됐다고 판단하지 않는다. 입력 스키마에서 거부된 호출은 fn 실행 로그가 없을 수 있다.
+
+함수 로그는 실제 `fn` 실행 시 출력된다. 상태 재평가로 로그가 여러 번 발생할 수 있다. `Pick`·`Shuffle`·`Random`·현재 시각 등은 버튼의 `@Set` 안에서 호출해 한 번 뽑은 값을 상태에 저장하도록 요청한다. 동일한 난수·순서가 다시 나올 수도 있으므로 화면 변화만으로 호출 여부를 판단하지 않는다.
+
+#### 목록 함수 — 19개
+| 함수 / Console 검색어 | 복사할 사용자 프롬프트 |
+| --- | --- |
+| `@Append` | 장보기 목록 ["사과", "우유"] 끝에 입력한 항목을 추가하는 UI를 만들어줘. 추가 버튼에서 @Append($items, $item)을 @Set으로 저장해줘. |
+| `@Prepend` | 할 일 ["회의", "메일"] 맨 앞에 새 할 일을 넣는 UI를 만들어줘. 버튼에서 @Prepend($items, $item)을 사용해줘. |
+| `@Concat` | ["사과", "배"]와 ["우유", "빵"] 두 목록을 합치는 UI를 만들어줘. @Concat($left, $right) 결과를 표시해줘. |
+| `@Remove` | 상품 [{id:1,name:"사과"},{id:2,name:"우유"}]에서 ID 2를 삭제하는 버튼을 만들어줘. @Remove($items, "id", 2)를 사용해줘. |
+| `@RemoveAt` | ["사과", "우유", "빵"]에서 삭제할 인덱스를 선택하는 UI를 만들어줘. @RemoveAt($items, $index)를 사용하고 인덱스는 0부터라고 표시해줘. |
+| `@Update` | 할 일 [{id:1,title:"청소",done:false},{id:2,title:"운동",done:false}]의 ID 1을 완료 처리하는 버튼을 만들어줘. @Update($items, "id", 1, "done", true)를 사용해줘. |
+| `@Toggle` | 사과·배·포도 선택 버튼을 만들어줘. 선택 목록은 문자열 배열이고 클릭할 때 @Toggle($selected, "사과")처럼 항목을 넣거나 빼줘. |
+| `@Includes` | 목록 ["사과", "배"]에 입력한 과일이 있는지 확인하는 UI를 만들어줘. @Includes($items, $query) 결과를 있음/없음으로 표시해줘. |
+| `@Find` | [{id:1,name:"사과"},{id:2,name:"우유"}]에서 ID로 상품을 찾는 UI를 만들어줘. @Find($items, "id", $id)를 사용하고 없는 ID도 입력해볼 수 있게 해줘. |
+| `@IndexOf` | ["사과", "배", "포도"]에서 입력한 항목의 위치를 @IndexOf($items, $query)로 표시해줘. 없는 항목이면 -1이라고 표시해줘. |
+| `@Take` | [1,2,3,4,5]에서 처음 N개를 보여주는 UI를 만들어줘. @Take($items, $n)를 사용하고 N을 -2로 바꿔 마지막 두 개도 확인하게 해줘. |
+| `@Slice` | 문자열 "abcdef"의 시작·끝 인덱스를 입력해 자르는 UI를 만들어줘. @Slice($text, $start, $end)를 사용하고 기본값 1,4의 결과 bcd를 보여줘. |
+| `@Unique` | ["사과", "사과", "배", "우유", "배"]의 중복을 제거하는 UI를 만들어줘. @Unique($items) 결과를 표시해줘. |
+| `@Reverse` | [1,2,3,4]를 역순으로 보여주는 UI를 만들어줘. @Reverse($items)를 사용해 원본과 결과를 함께 보여줘. |
+| `@Range` | 시작·끝·간격 입력으로 숫자 목록을 만드는 UI를 만들어줘. @Range($start, $end, $step)를 사용하고 기본값은 0,10,2로 해줘. 끝값은 제외라고 표시해줘. |
+| `@Pick` | ["한식", "중식", "일식"]에서 메뉴를 뽑는 버튼을 만들어줘. 클릭 이벤트에서 @Set($picked, @Pick($menus))를 실행하고 결과를 유지해줘. |
+| `@Shuffle` | ["A", "B", "C", "D"]의 순서를 섞는 버튼을 만들어줘. 클릭 이벤트에서 @Set($items, @Shuffle($items))를 실행해줘. |
+| `@Flatten` | [[1,2],[3],[4,5]]를 한 배열로 합치는 UI를 만들어줘. @Flatten($items)를 사용해 원본과 결과를 표시해줘. |
+| `@Chunk` | [1,2,3,4,5,6,7]을 페이지 크기만큼 나누는 UI를 만들어줘. @Chunk($items, $size)를 사용하고 기본 크기는 3으로 해줘. |
+
+#### 수치 함수 — 9개
+| 함수 / Console 검색어 | 복사할 사용자 프롬프트 |
+| --- | --- |
+| `@Pow` | 밑과 지수를 입력하는 거듭제곱 계산기를 만들어줘. @Pow($base, $exponent)를 사용하고 기본값 2,3의 결과 8을 표시해줘. |
+| `@Sqrt` | 숫자 입력의 제곱근을 @Sqrt($number)로 보여주는 계산기를 만들어줘. 기본값은 81이고 음수 입력의 null도 구분해서 보여줘. |
+| `@Random` | 주사위 버튼을 만들어줘. 클릭 이벤트에서 @Set($roll, @Random(1, 6, true))를 실행하고 결과를 다음 클릭까지 유지해줘. |
+| `@Clamp` | 입력값을 0~100으로 제한하는 계산기를 만들어줘. @Clamp($value, 0, 100)를 사용하고 120과 -10을 입력해볼 수 있게 해줘. |
+| `@Percent` | 완료 수와 전체 수를 입력하는 완료율 계산기를 만들어줘. @Percent($done, $total)를 사용하고 기본값은 3,4로 해줘. |
+| `@Lerp` | 시작 10과 끝 30 사이의 보간 계산기를 만들어줘. 0~1 슬라이더의 $t로 @Lerp(10, 30, $t)를 계산하고 기본값 0.5의 결과 20을 보여줘. |
+| `@Allocate` | 100을 세 사람에게 같은 가중치로 나누는 배분 계산기를 만들어줘. @Allocate($total, [1,1,1], 2)를 사용하고 33.34,33.33,33.33 및 합계를 확인하게 해줘. |
+| `@Payment` | 가상 대출의 회차별 상환액 계산기를 만들어줘. 원금 1000, 회차 이율 0%, 횟수 10을 기본값으로 @Payment($principal, $rate, $periods)를 사용해줘. 입력 이율은 회차별 퍼센트라고 표시해줘. |
+| `@Convert` | 길이 단위 변환기를 만들어줘. 기본값 1km를 m로 바꾸고 @Convert($value, $from, $to)를 사용해줘. 단위는 km,m,cm에서 선택하게 해줘. |
+
+#### 문자열 함수 — 12개
+| 함수 / Console 검색어 | 복사할 사용자 프롬프트 |
+| --- | --- |
+| `@Format` | 숫자 12345.678을 통화 문자열로 표시하는 UI를 만들어줘. @Format($value, "currency", 2, "USD")를 사용하고 숫자를 수정하게 해줘. |
+| `@Join` | ["사과", "배", "우유"]를 선택한 구분자로 연결하는 UI를 만들어줘. @Join($items, $separator)를 사용하고 기본 구분자는 쉼표로 해줘. |
+| `@Plural` | 인원수에 따라 영어 명사를 표시하는 UI를 만들어줘. @Plural($count, "guest")를 사용하고 1 guest와 3 guests를 확인하게 해줘. |
+| `@Pad` | 숫자 7을 네 자리 코드 0007로 만드는 UI를 만들어줘. @Pad($value, 4, "0")를 사용하고 숫자를 수정하게 해줘. |
+| `@Upper` | 입력 "Hello world"를 대문자로 바꾸는 UI를 만들어줘. @Upper($text)를 사용해줘. |
+| `@Lower` | 입력 "Hello WORLD"를 소문자로 바꾸는 UI를 만들어줘. @Lower($text)를 사용해줘. |
+| `@Trim` | 입력 문자열 "  hello  "의 앞뒤 공백을 제거하는 UI를 만들어줘. @Trim($text)를 사용하고 원본과 결과를 따옴표로 감싸 공백 차이가 보이게 해줘. |
+| `@Capitalize` | 입력 "new york city"의 단어 첫 글자를 대문자로 바꾸는 UI를 만들어줘. @Capitalize($text)를 사용해줘. |
+| `@Split` | 입력 "a, b,,c"를 목록으로 분리하는 UI를 만들어줘. @Split($text, ",")를 사용하고 빈 항목 제거 결과를 보여줘. |
+| `@Replace` | 문장 "cat and cat"에서 cat을 dog로 모두 바꾸는 UI를 만들어줘. @Replace($text, $find, $replacement)를 사용하고 세 입력을 수정하게 해줘. |
+| `@Duration` | 초 단위를 시계 문자열로 바꾸는 UI를 만들어줘. @Duration($seconds, "clock")를 사용하고 기본값 4800의 결과 1:20:00을 보여줘. |
+| `@Default` | 문자열 입력이 비면 "미입력"을 표시하는 UI를 만들어줘. @Default($text, "미입력")를 사용하고 기본값은 빈 문자열로 해줘. |
+
+#### 색상 함수 — 1개
+| 함수 / Console 검색어 | 복사할 사용자 프롬프트 |
+| --- | --- |
+| `@MixColor` | 흰색과 파란색의 혼합 비율을 바꾸는 UI를 만들어줘. @MixColor("#ffffff", "#0285ff", $t)를 사용해 0~1 슬라이더와 결과 색상 코드·미리보기를 보여줘. |
+
+#### 날짜 함수 — 8개
+| 함수 / Console 검색어 | 복사할 사용자 프롬프트 |
+| --- | --- |
+| `@Now` | 현재 시각 기록 버튼을 만들어줘. $stamp 기본값은 빈 문자열로 하고 클릭할 때 @Set($stamp, @Now())로 ISO 문자열을 저장해 보여줘. 자동 갱신은 하지 마. |
+| `@FormatDate` | 날짜 "2026-10-25"를 표시하는 UI를 만들어줘. @FormatDate($date, $style)를 사용하고 iso,long,weekday 스타일을 선택하게 해줘. |
+| `@AddDays` | 기준 날짜에 일수를 더하는 UI를 만들어줘. @AddDays($date, $days)를 사용하고 기본값 "2026-10-25",7의 결과 "2026-11-01"을 보여줘. |
+| `@DaysBetween` | 두 날짜의 일수 차이를 계산하는 UI를 만들어줘. @DaysBetween($from, $to)를 사용하고 기본값 "2026-10-01","2026-10-25"의 결과 24를 보여줘. |
+| `@Today` | 오늘 날짜 확인 버튼을 만들어줘. $today 기본값은 빈 문자열이고 클릭할 때 @Set($today, @Today())로 브라우저 시간대의 오늘 날짜를 저장해 보여줘. |
+| `@AddMonths` | 날짜에 개월 수를 더하는 UI를 만들어줘. @AddMonths($date, $months)를 사용하고 기본값 "2026-01-31",1의 결과 "2026-02-28"을 보여줘. |
+| `@MonthsBetween` | 두 날짜 사이의 온전한 개월 수를 계산하는 UI를 만들어줘. @MonthsBetween($from, $to)를 사용하고 기본값 "2026-01-15","2026-04-15"의 결과 3을 보여줘. |
+| `@StartOf` | 날짜가 속한 주·월·년의 시작일을 보여주는 UI를 만들어줘. @StartOf($date, $unit)를 사용하고 기본 날짜 "2026-10-25", 단위 week로 월요일 "2026-10-19"를 보여줘. |
+
+#### 데이터 함수 — 10개
+| 함수 / Console 검색어 | 복사할 사용자 프롬프트 |
+| --- | --- |
+| `@GroupBy` | 데이터 [{category:"A",amount:10},{category:"B",amount:20},{category:"A",amount:30}]를 카테고리별 합계 표로 만들어줘. @GroupBy($rows, "category", "amount", "sum")을 실제 사용해줘. |
+| `@Pivot` | 데이터 [{region:"East",product:"A",amount:10},{region:"East",product:"B",amount:20},{region:"West",product:"A",amount:30}]를 지역별 행·상품별 열로 피벗해줘. @Pivot($rows, "region", "product", "amount", "sum")으로 표를 만들어줘. |
+| `@Top` | 상품 [{name:"A",sales:10},{name:"B",sales:30},{name:"C",sales:20}]의 매출 상위 2개를 보여줘. @Top($rows, "sales", $n, "desc")를 사용하고 N을 변경하게 해줘. |
+| `@Between` | 가격 [{name:"A",price:10},{name:"B",price:20},{name:"C",price:30}]을 최저·최고 가격으로 필터링하는 UI를 만들어줘. @Between($rows, "price", $min, $max)를 사용하고 기본값은 15,25로 해줘. |
+| `@Bucket` | 매출 [{date:"2026-10-01",amount:10},{date:"2026-10-03",amount:30}]을 일별 집계하는 UI를 만들어줘. @Bucket($rows, "date", "day", "amount", "sum")을 사용하고 중간 날짜 10월 2일의 0도 표시해줘. |
+| `@Cumulative` | [{day:"월",amount:10},{day:"화",amount:20},{day:"수",amount:30}]의 누적 합계를 보여줘. @Cumulative($rows, "amount")를 사용하고 결과 10,30,60을 표로 비교해줘. |
+| `@MovingAvg` | 수치 [10,20,30,40]의 이동평균 UI를 만들어줘. @MovingAvg($values, "", $window)를 사용하고 기본 창 크기는 2로 해줘. |
+| `@Change` | 현재와 이전 값의 증감률 계산기를 만들어줘. @Change($current, $previous)를 사용하고 기본값 120,100에서 20%를 보여줘. 이전 값이 0일 때 null도 표시해줘. |
+| `@Histogram` | [1,2,3,7,8,9]를 두 구간 히스토그램으로 만들어줘. @Histogram($values, 2, 0, 10)을 사용하고 구간별 개수도 표로 보여줘. |
+| `@Stats` | [10,20,30,40]의 기초 통계 UI를 만들어줘. @Stats($values)를 사용하고 count,min,max,mean,median,stdev를 각각 표시해줘. |
+
+#### 호출되지 않거나 생성이 잘못됐을 때 추가 요청
+```text
+방금 UI에서 지정한 @함수의 실행 로그가 보이지 않아.
+해당 함수를 실제로 호출하는 표현식이 화면 결과나 버튼 동작에 연결되도록 수정해줘.
+함수의 위치 기반 인자 순서와 타입을 지키고, 계산된 상수로 대체하지 마.
+```
+`error`가 보이면 로그의 입력과 예외를 함수 스키마에 대조한다. 모델에게 수정 요청할 때는 대상 함수명·입력·오류 내용을 함께 전달한다. 전체 59개를 한 화면에 한 번에 생성하도록 요청하면 누락·타입 오류를 찾기 어려우므로 개별 실행 후 그룹별 통합을 시도한다. 별도 Python 도구나 외부 API 호출은 이 계산 함수 확인에 필요하지 않다.
