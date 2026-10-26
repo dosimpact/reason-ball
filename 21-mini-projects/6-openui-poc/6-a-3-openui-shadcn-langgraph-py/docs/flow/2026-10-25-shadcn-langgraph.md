@@ -1,0 +1,22 @@
+# 2026-10-25 shadcn + Python LangGraph integration
+
+- Requirement: SHADCN-001. Use the local original-reference/openui/examples/design-systems/shadcn frontend with the Python backend.
+- Source: copied shadcn-genui catalog, components/ui, page/layout/styles, library entrypoint and build configuration. Preserve reference and sibling projects.
+- Integration: replace OpenAI client stream adapter with AG-UI; retain the LangGraph HTTP proxy. Frontend does not call OpenAI or run tools. Python owns model/tool execution.
+- Ports: backend 2038, frontend 3046, to support simultaneous use with the original example.
+- Prompt: generate full system prompt and spec from the shadcn catalog, then explicitly sync prompt into the packaged Python asset.
+- Validation (2026-10-25):
+  - PASS: uv sync --frozen and frontend pnpm install; independent local dependencies.
+  - PASS: uv run pytest (13 tests), uv run ruff check agent tests.
+  - PASS: pnpm typecheck, pnpm build.
+  - PASS with 3 warnings: pnpm lint. Remaining warnings are TanStack compiler compatibility and two plain img optimization warnings from the reference components.
+  - PASS: pnpm test:smoke, actual OpenAI model calls for get_stock_price + search_web, follow-up, malformed/empty request 400. Evidence: frontend/output/validation/smoke-result.json and SSE files.
+  - PASS: pnpm test:e2e, 1 installed Google Chrome test (23 seconds including setup): Python get_stock_price → tool result → RUN_FINISHED, shadcn tabs/table, switch Details/Overview, zero page errors. Evidence: frontend/output/playwright/report/index.html and shadcn-chat.png.
+  - PASS: manual browser startup dashboard rendered table, progress, BarChart; Growth tab switched to LineChart.
+  - PASS: prompt byte equality (SHA-256 4d52932d2f6242a4bcbf139c19a4c516cb92afcca98a281a5518b6e5c92e74e8), current documentation links, ignored local .env files.
+  - Added local icon.svg after initial browser favicon 404.
+- Adaptations: named catalog render functions for React Hook lint; local Carousel initialization lint exception and complete event cleanup; Python import formatting; instruction to label invented dashboard data as samples. Source provenance lists copied and adapted files.
+- Local setup: reused the existing local example backend .env without displaying its contents; prepared frontend .env pointing to 2038. Both files remain ignored.
+- Runtime: project-owned frontend 3046 and backend 2038 are left running for review. Test browser is closed. Services and reference code outside this project were preserved.
+- Limits: not a full catalog interaction test; form submission, every chart/overlay, mobile layout, production deployment and persistence are not comprehensively validated. Default chat storage is in-memory.
+- Stock sections: SHADCN-001 in business.md and system.md.
