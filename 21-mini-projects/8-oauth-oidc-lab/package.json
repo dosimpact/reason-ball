@@ -1,0 +1,23 @@
+{
+  "name": "oauth-oidc-interactive-lab",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.33.4",
+  "scripts": {
+    "build": "pnpm --filter @oauth-lab/resource-server build && pnpm --filter @oauth-lab/web build",
+    "dev": "concurrently -k -n resource,web -c magenta,cyan \"pnpm --filter @oauth-lab/resource-server dev\" \"pnpm --filter @oauth-lab/web dev\"",
+    "dev:infra": "docker compose up keycloak",
+    "up": "docker compose up --build",
+    "down": "docker compose down",
+    "reset": "docker compose down --volumes --remove-orphans",
+    "lint": "pnpm -r --if-present lint",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "pnpm -r --if-present test",
+    "test:e2e": "playwright test",
+    "test:e2e:full": "FULL_E2E=1 playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2",
+    "concurrently": "9.2.1"
+  }
+}
