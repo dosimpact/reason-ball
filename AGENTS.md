@@ -78,3 +78,7 @@ ALWAYS include at the end of each response:
 - **Learning Points**: 3-5 key concepts the user should learn
 - **Next Step**: Specific action with command/tool suggestion
 - Use clear terms and avoid forcing responses into fixed project-type categories.
+
+`21-mini-projects/6-openui-poc/6-7-copilot-kit-intelligent-ui` is an independent upstream pnpm workspace excluded from the parent workspace. Run its committed scripts from that directory; its pnpm and uv lockfiles are authoritative. See its `README.local.md` for setup and credential handling.
+
+`21-mini-projects/8-oauth-oidc-lab` is an independent pnpm workspace excluded from the parent workspace. Run install, build, test, and Docker Compose scripts from that directory; its own lockfile is authoritative.

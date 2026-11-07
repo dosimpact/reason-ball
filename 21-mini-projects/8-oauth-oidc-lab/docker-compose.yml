@@ -1,0 +1,63 @@
+name: oauth-oidc-interactive-lab
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.8.1
+    command: start-dev --import-realm --hostname=http://localhost:8180
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HEALTH_ENABLED: "true"
+    ports:
+      - "8180:8080"
+      - "9000:9000"
+    volumes:
+      - ./keycloak/oauth-lab-realm.json:/opt/keycloak/data/import/oauth-lab-realm.json:ro
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/9000 && printf 'GET /health/ready HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n' >&3 && grep -q '200 OK' <&3"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  resource-server:
+    build:
+      context: .
+      dockerfile: apps/resource-server/Dockerfile
+    environment:
+      PORT: "4000"
+      OIDC_ISSUER: http://localhost:8180/realms/oauth-lab
+      OIDC_JWKS_URL: http://keycloak:8080/realms/oauth-lab/protocol/openid-connect/certs
+      OIDC_RESOURCE_AUDIENCE: oauth-lab-resource
+    ports:
+      - "4000:4000"
+    depends_on:
+      keycloak:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4000/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      APP_BASE_URL: http://localhost:3000
+      KEYCLOAK_PUBLIC_URL: http://localhost:8180
+      KEYCLOAK_INTERNAL_URL: http://keycloak:8080
+      RESOURCE_SERVER_URL: http://resource-server:4000
+      OIDC_REALM: oauth-lab
+      OIDC_CLIENT_ID: oauth-lab-bff
+      OIDC_CLIENT_SECRET: oauth-lab-secret-local-only
+      OIDC_RESOURCE_AUDIENCE: oauth-lab-resource
+      SESSION_SECRET: local-docker-session-secret-change-me-32
+      COOKIE_SECURE: "false"
+    ports:
+      - "3000:3000"
+    depends_on:
+      keycloak:
+        condition: service_healthy
+      resource-server:
+        condition: service_healthy

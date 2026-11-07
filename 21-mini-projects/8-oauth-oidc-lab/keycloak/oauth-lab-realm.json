@@ -1,0 +1,201 @@
+{
+  "realm": "oauth-lab",
+  "displayName": "OAuth 2.0 & OIDC Interactive Lab",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "resetPasswordAllowed": false,
+  "rememberMe": true,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "roles": {
+    "realm": [
+      {
+        "name": "lab-user",
+        "description": "May call the learner resource API"
+      },
+      {
+        "name": "lab-admin",
+        "description": "May call the administrator resource API"
+      }
+    ]
+  },
+  "clientScopes": [
+    {
+      "name": "resource.read",
+      "description": "Read the OAuth lab resource server",
+      "protocol": "openid-connect",
+      "attributes": {
+        "display.on.consent.screen": "true",
+        "include.in.token.scope": "true",
+        "consent.screen.text": "Read protected OAuth lab resources"
+      },
+      "protocolMappers": [
+        {
+          "name": "subject",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        },
+        {
+          "name": "preferred username",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "user.attribute": "username",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "preferred_username",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "email",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "user.attribute": "email",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "email",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "full name",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-full-name-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        },
+        {
+          "name": "realm roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "foo",
+            "introspection.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "realm_access.roles",
+            "jsonType.label": "String",
+            "multivalued": "true"
+          }
+        },
+        {
+          "name": "oauth-lab-resource-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "oauth-lab-resource",
+            "id.token.claim": "false",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "false",
+            "introspection.token.claim": "true"
+          }
+        }
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "oauth-lab-resource",
+      "name": "OAuth Lab Resource Server",
+      "enabled": true,
+      "bearerOnly": true,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false
+    },
+    {
+      "clientId": "oauth-lab-bff",
+      "name": "OAuth Lab Next.js BFF",
+      "description": "Local-only confidential learning client",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "oauth-lab-secret-local-only",
+      "publicClient": false,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "frontchannelLogout": true,
+      "redirectUris": [
+        "http://localhost:3000/api/auth/callback",
+        "http://127.0.0.1:3000/api/auth/callback"
+      ],
+      "webOrigins": [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:3000/*##http://127.0.0.1:3000/*"
+      },
+      "defaultClientScopes": [],
+      "optionalClientScopes": [
+        "resource.read"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "learner",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "OAuth",
+      "lastName": "Learner",
+      "email": "learner@oauth-lab.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "learner",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "lab-user"
+      ]
+    },
+    {
+      "username": "admin-learner",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Admin",
+      "lastName": "Learner",
+      "email": "admin@oauth-lab.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin-learner",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "lab-user",
+        "lab-admin"
+      ]
+    }
+  ]
+}
