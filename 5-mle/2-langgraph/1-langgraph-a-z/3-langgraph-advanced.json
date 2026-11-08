@@ -1,0 +1,26 @@
+{
+  "dependencies": [
+    "."
+  ],
+  "graphs": {
+    "advanced_01_semantic_cache": "graphs.advanced.01_semantic_cache.graph:graph",
+    "advanced_02_tool_rag": "graphs.advanced.02_tool_rag.graph:graph",
+    "advanced_03_async_webhook": "graphs.advanced.03_async_webhook.graph:graph",
+    "advanced_04_graceful_degradation": "graphs.advanced.04_graceful_degradation.graph:graph",
+    "advanced_04_graceful_degradation_retry": "graphs.advanced.04_graceful_degradation.graph:graph_retry",
+    "advanced_04_graceful_degradation_try_except": "graphs.advanced.04_graceful_degradation.graph:graph_try_except",
+    "advanced_04_graceful_degradation_fallback": "graphs.advanced.04_graceful_degradation.graph:graph_fallback",
+    "advanced_04_graceful_degradation_partial": "graphs.advanced.04_graceful_degradation.graph:graph_partial",
+    "advanced_05_code_sandbox": "graphs.advanced.05_code_sandbox.graph:graph",
+    "advanced_06_postgres_checkpointer": "graphs.advanced.06_postgres_checkpointer.graph:graph",
+    "advanced_07_vectordb_rag": "graphs.advanced.07_vectordb_rag.graph:graph",
+    "advanced_08_eval_harness": "graphs.advanced.08_eval_harness.graph:graph",
+    "advanced_09_observability": "graphs.advanced.09_observability.graph:graph",
+    "advanced_10_async_sse": "graphs.advanced.10_async_sse.graph:graph",
+    "advanced_11_multitenancy": "graphs.advanced.11_multitenancy.graph:graph",
+    "advanced_12_agent_middleware": "graphs.advanced.12_agent_middleware.graph:graph",
+    "advanced_12_todo_list_middleware": "graphs.advanced.12_agent_middleware.graph:todo_graph",
+    "advanced_13_summarization_middleware": "graphs.advanced.13_summarization_middleware.graph:graph"
+  },
+  "env": ".env"
+}

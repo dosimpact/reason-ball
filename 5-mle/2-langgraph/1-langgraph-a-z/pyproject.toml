@@ -1,0 +1,54 @@
+[project]
+name = "langgraph-a-z"
+version = "0.1.0"
+description = "Independent LangGraph fundamentals, agentic patterns, advanced graphs and React UI examples."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "langchain>=1.3.10",
+  "langchain-core>=1.0.0",
+  "langchain-openai>=1.0.0",
+  "langchain-ollama>=1.0.0",
+  "langchain-tavily>=0.2.18",
+  "langgraph>=1.2.11",
+  "langgraph-cli[inmem]>=0.4.31",
+  "langsmith>=0.3.0",
+  "pydantic>=2.0.0",
+  "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+ui = ["copilotkit>=0.1.94"]
+deep-agents = ["deepagents==0.7.34"]
+advanced = [
+  "fastapi>=0.115.0", "httpx>=0.27.0",
+  "langgraph-checkpoint-postgres>=2.0.0", "numpy>=1.26.0",
+  "psycopg[binary]>=3.2.0", "python-jose[cryptography]>=3.3.0",
+  "qdrant-client>=1.12.0", "rank-bm25>=0.2.2",
+  "sse-starlette>=2.1.0", "uvicorn>=0.34.0",
+]
+local-embeddings = ["sentence-transformers>=3.0.0"]
+
+[dependency-groups]
+dev = ["pytest>=8.0.0", "ruff>=0.11"]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["graphs*", "common*", "node*", "scripts*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "--import-mode=importlib"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint.per-file-ignores]
+"graphs/basic/**/[0-9]*.py" = ["N999"]
+"graphs/deep_agents/**/[0-9]*.py" = ["N999"]

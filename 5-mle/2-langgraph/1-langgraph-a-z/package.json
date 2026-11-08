@@ -1,0 +1,22 @@
+{
+  "name": "langgraph-a-z",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --dir frontend dev",
+    "dev:basic:state-and-flow": "uv run langgraph dev --config 1-langgraph-basic-state-and-flow.json --host 127.0.0.1 --port 2941 --no-browser",
+    "dev:basic:llm-base": "uv run langgraph dev --config 2-langgraph-basic-llm-base.json --host 127.0.0.1 --port 2941 --no-browser",
+    "dev:basic:tool-and-agent": "uv run langgraph dev --config 3-langgraph-basic-tool-and-agent.json --host 127.0.0.1 --port 2941 --no-browser",
+    "dev:basic:memory-and-approval": "uv run langgraph dev --config 4-langgraph-basic-memory-and-approval.json --host 127.0.0.1 --port 2941 --no-browser",
+    "dev:basic:parallel-and-subgraph": "uv run langgraph dev --config 5-langgraph-basic-parallel-and-subgraph.json --host 127.0.0.1 --port 2941 --no-browser",
+    "dev:basic:rag-and-reflection": "uv run langgraph dev --config 6-langgraph-basic-rag-and-reflection.json --host 127.0.0.1 --port 2941 --no-browser",
+    "dev:basic:planning-and-multi-agent": "uv run langgraph dev --config 7-langgraph-basic-planning-and-multi-agent.json --host 127.0.0.1 --port 2941 --no-browser",
+    "dev:basic:ui-events": "uv run langgraph dev --config langgraph-basic-ui-events.json --host 127.0.0.1 --port 2941 --no-browser",
+    "dev:advanced": "uv run --extra advanced langgraph dev --config 3-langgraph-advanced.json --host 127.0.0.1 --port 2941 --no-browser",
+    "dev:patterns": "uv run langgraph dev --config 4-langgraph-patterns.json --host 127.0.0.1 --port 2941 --no-browser",
+    "dev:ui": "uv run --extra ui langgraph dev --config 5-langgraph-ui.json --host 127.0.0.1 --port 2941 --no-browser",
+    "dev:deep-agents": "uv run --extra deep-agents langgraph dev --config 6-langgraph-deep-agents.json --host 127.0.0.1 --port 2943 --no-browser --allow-blocking",
+    "runtime:copilotkit": "pnpm --dir frontend runtime:copilotkit",
+    "validate": "uv run python scripts/validate_integration.py"
+  },
+  "packageManager": "pnpm@10.6.2"
+}
