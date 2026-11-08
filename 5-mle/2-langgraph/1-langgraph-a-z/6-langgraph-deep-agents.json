@@ -1,0 +1,26 @@
+{
+  "dependencies": [
+    "."
+  ],
+  "graphs": {
+    "01_minimal_agent": "graphs.deep_agents.1-harness_and_planning.01_minimal_agent:graph",
+    "02_harness_tools": "graphs.deep_agents.1-harness_and_planning.02_harness_tools:graph",
+    "03_task_planning": "graphs.deep_agents.1-harness_and_planning.03_task_planning:graph",
+    "04_state_filesystem": "graphs.deep_agents.2-filesystem_and_backends.04_state_filesystem:graph",
+    "05_disk_backend": "graphs.deep_agents.2-filesystem_and_backends.05_disk_backend:graph",
+    "06_store_backend": "graphs.deep_agents.2-filesystem_and_backends.06_store_backend:studio_graph",
+    "07_composite_backend": "graphs.deep_agents.2-filesystem_and_backends.07_composite_backend:studio_graph",
+    "08_memory_instructions": "graphs.deep_agents.3-memory_and_context.08_memory_instructions:graph",
+    "09_progressive_skills": "graphs.deep_agents.3-memory_and_context.09_progressive_skills:graph",
+    "10_large_result_offloading": "graphs.deep_agents.3-memory_and_context.10_large_result_offloading:graph",
+    "11_conversation_summary": "graphs.deep_agents.3-memory_and_context.11_conversation_summary:graph",
+    "12_specialized_subagent": "graphs.deep_agents.4-subagents_and_delegation.12_specialized_subagent:graph",
+    "13_parallel_isolation": "graphs.deep_agents.4-subagents_and_delegation.13_parallel_isolation:graph",
+    "14_human_approval": "graphs.deep_agents.5-control_and_reliability.14_human_approval:studio_graph",
+    "15_dynamic_tool_selection": "graphs.deep_agents.5-control_and_reliability.15_dynamic_tool_selection:graph",
+    "16_retry_and_limits": "graphs.deep_agents.5-control_and_reliability.16_retry_and_limits:graph",
+    "17_streaming_observability": "graphs.deep_agents.6-observability_and_workflow.17_streaming_observability:graph",
+    "18_research_workflow": "graphs.deep_agents.6-observability_and_workflow.18_research_workflow:graph"
+  },
+  "env": ".env"
+}

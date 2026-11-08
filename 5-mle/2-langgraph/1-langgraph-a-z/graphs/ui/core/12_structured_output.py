@@ -1,0 +1,299 @@
+"""Example 12: structured output extraction with validation metadata.
+
+쉽게 이해하기
+-------------
+Structured output은 모델에게 정해진 항목과 타입으로 답을 받는 방법이다.
+예: 설명 문장 대신 필드별 데이터를 추출해 화면에 표시한다.
+추출한 값의 검증 결과도 함께 반환한다.
+
+그래프 구조
+-----------
+입력 텍스트에서 지정 스키마에 맞는 데이터를 추출하고, 검증 결과와 필드별 표시 데이터를 반환한다.
+
+테스트 입력 예시
+----------------
+입력(JSON):
+```json
+{
+  "request": "Launch the SDK demo Friday. Engineering validates the schema; support writes a troubleshooting note. Priority high."
+}
+```
+관찰할 결과: parsed_object, schema_json, validation_status, validation_errors, field_rows를 확인합니다. 스키마 충족 여부는 모델 출력에 따릅니다.
+
+실행 조건·방법:
+실제 모델 호출에는 루트 .env의 provider/API 키가 필요하며 응답 문구는 실행마다 달라집니다.
+"""
+# 예제 개요: 모델 출력을 정해진 스키마로 추출하고 검증 결과를 함께 제공하는 예제입니다.
+# 핵심 흐름: 스키마 준비 → 구조화 추출 → 검증 → 최종 정리 순서로 실행합니다.
+
+from __future__ import annotations
+
+from typing import Any, Literal, TypedDict
+
+from langchain_core.messages import HumanMessage, SystemMessage
+from langgraph.graph import END, START, StateGraph
+from pydantic import BaseModel, Field
+
+from common.llm import create_llm
+
+
+Priority = Literal["low", "medium", "high"]
+Team = Literal["product", "engineering", "support", "security", "operations"]
+ValidationStatus = Literal["pending", "valid", "invalid"]
+
+
+# 상태 및 UI 데이터 계약: 아래 타입들은 노드 사이에 전달하거나 화면에 표시할 데이터 구조입니다.
+class ActionItem(BaseModel):
+    """A concrete follow-up item extracted from the request."""
+
+    owner: str = Field(description="Person or role responsible for the action.")
+    task: str = Field(description="Concrete action that should be completed.")
+    due: str = Field(description="Natural-language due date or timing.")
+
+
+class LaunchBrief(BaseModel):
+    """Structured launch-readiness brief for a product or operations request."""
+
+    title: str = Field(description="Short descriptive title.")
+    summary: str = Field(description="Two-sentence summary of the request.")
+    priority: Priority = Field(description="Execution priority.")
+    team: Team = Field(description="Primary owning team.")
+    deadline: str = Field(description="Date, milestone, or timing mentioned by the request.")
+    actions: list[ActionItem] = Field(description="Two to four concrete action items.", min_length=2)
+    risks: list[str] = Field(description="One to three notable risks.", min_length=1)
+    confidence: float = Field(description="Model confidence from 0.0 to 1.0.", ge=0.0, le=1.0)
+
+
+class FieldRow(TypedDict):
+    path: str
+    label: str
+    value: str
+    value_type: str
+
+
+# StructuredOutputState는 입력, 중간 결과, 최종 결과를 공유하는 그래프 상태입니다.
+class StructuredOutputState(TypedDict, total=False):
+    request: str
+    schema_name: str
+    schema_json: dict[str, Any]
+    raw_model_output: str
+    parsed_object: dict[str, Any]
+    validation_status: ValidationStatus
+    validation_errors: list[str]
+    field_rows: list[FieldRow]
+    final: str
+    trace: list[dict[str, Any]]
+
+
+DEFAULT_REQUEST = (
+    "Extract a launch-readiness brief from this note: The LangGraph SDK learning "
+    "workspace should ship a structured-output demo by Friday. Product owns the "
+    "release checklist, engineering must verify schema validation, support needs "
+    "a short troubleshooting note, and the main risk is confusing raw JSON with "
+    "validated fields."
+)
+
+
+def _stringify(value: Any) -> str:
+    if isinstance(value, list):
+        return ", ".join(_stringify(item) for item in value)
+    if isinstance(value, dict):
+        return ", ".join(f"{key}: {_stringify(item)}" for key, item in value.items())
+    return str(value)
+
+
+def _field_rows(parsed: dict[str, Any]) -> list[FieldRow]:
+    rows: list[FieldRow] = []
+    for key, value in parsed.items():
+        if key == "actions" and isinstance(value, list):
+            for index, action in enumerate(value, start=1):
+                if isinstance(action, dict):
+                    for field, field_value in action.items():
+                        rows.append(
+                            {
+                                "path": f"actions[{index - 1}].{field}",
+                                "label": f"Action {index} {field.replace('_', ' ').title()}",
+                                "value": _stringify(field_value),
+                                "value_type": type(field_value).__name__,
+                            }
+                        )
+                else:
+                    rows.append(
+                        {
+                            "path": f"actions[{index - 1}]",
+                            "label": f"Action {index}",
+                            "value": _stringify(action),
+                            "value_type": type(action).__name__,
+                        }
+                    )
+            continue
+
+        rows.append(
+            {
+                "path": key,
+                "label": key.replace("_", " ").title(),
+                "value": _stringify(value),
+                "value_type": "array" if isinstance(value, list) else type(value).__name__,
+            }
+        )
+    return rows
+
+
+def prepare_schema(state: StructuredOutputState) -> dict:
+    request = state.get("request", DEFAULT_REQUEST)
+    return {
+        "request": request,
+        "schema_name": "LaunchBrief",
+        "schema_json": LaunchBrief.model_json_schema(),
+        "validation_status": "pending",
+        "validation_errors": [],
+        "trace": [
+            {
+                "node": "prepare_schema",
+                "event": "schema_ready",
+                "schema": "LaunchBrief",
+            }
+        ],
+    }
+
+
+def extract_structured(state: StructuredOutputState) -> dict:
+    structured_llm = create_llm("luna").with_structured_output(LaunchBrief)
+    request = state.get("request", DEFAULT_REQUEST)
+    try:
+        result: LaunchBrief = structured_llm.invoke(
+            [
+                SystemMessage(
+                    content=(
+                        "Extract a structured launch brief from the user's note. "
+                        "Use only the requested schema fields. Keep each action concrete, "
+                        "assign realistic owners from the note when possible, and set "
+                        "confidence based on how explicit the input is."
+                    )
+                ),
+                HumanMessage(content=request),
+            ]
+        )
+        parsed = result.model_dump()
+        return {
+            "parsed_object": parsed,
+            "raw_model_output": result.model_dump_json(indent=2),
+            "trace": state.get("trace", [])
+            + [
+                {
+                    "node": "extract_structured",
+                    "event": "parsed",
+                    "field_count": len(parsed),
+                }
+            ],
+        }
+    except Exception as exc:  # pragma: no cover - provider failures are environment dependent
+        return {
+            "parsed_object": {},
+            "raw_model_output": str(exc),
+            "validation_status": "invalid",
+            "validation_errors": [f"Structured output call failed: {exc}"],
+            "trace": state.get("trace", [])
+            + [
+                {
+                    "node": "extract_structured",
+                    "event": "failed",
+                    "error": str(exc),
+                }
+            ],
+        }
+
+
+def validate_result(state: StructuredOutputState) -> dict:
+    parsed = state.get("parsed_object", {})
+    errors = list(state.get("validation_errors", []))
+
+    if not parsed:
+        errors.append("No parsed object was produced.")
+    else:
+        for field in ("title", "summary", "priority", "team", "deadline"):
+            if not str(parsed.get(field, "")).strip():
+                errors.append(f"`{field}` is required.")
+
+        actions = parsed.get("actions")
+        if not isinstance(actions, list) or len(actions) < 2:
+            errors.append("At least two action items are required.")
+        else:
+            for index, action in enumerate(actions, start=1):
+                if not isinstance(action, dict):
+                    errors.append(f"Action {index} must be an object.")
+                    continue
+                for field in ("owner", "task", "due"):
+                    if not str(action.get(field, "")).strip():
+                        errors.append(f"Action {index} is missing `{field}`.")
+
+        risks = parsed.get("risks")
+        if not isinstance(risks, list) or len(risks) == 0:
+            errors.append("At least one risk is required.")
+
+        confidence = parsed.get("confidence")
+        if not isinstance(confidence, (float, int)) or not 0 <= float(confidence) <= 1:
+            errors.append("Confidence must be between 0.0 and 1.0.")
+
+    rows = _field_rows(parsed)
+    status: ValidationStatus = "invalid" if errors else "valid"
+    return {
+        "validation_status": status,
+        "validation_errors": errors,
+        "field_rows": rows,
+        "trace": state.get("trace", [])
+        + [
+            {
+                "node": "validate_result",
+                "event": status,
+                "error_count": len(errors),
+                "row_count": len(rows),
+            }
+        ],
+    }
+
+
+# 각 단계에서 만든 결과를 최종 응답과 UI 표시 상태로 정리합니다.
+def finalize(state: StructuredOutputState) -> dict:
+    status = state.get("validation_status", "invalid")
+    parsed = state.get("parsed_object", {})
+    title = parsed.get("title", "Structured output")
+    action_count = len(parsed.get("actions", [])) if isinstance(parsed.get("actions"), list) else 0
+    return {
+        "final": f"{title}: validation {status}; {action_count} action items extracted.",
+        "trace": state.get("trace", [])
+        + [
+            {
+                "node": "finalize",
+                "event": "complete",
+                "validation_status": status,
+                "action_count": action_count,
+            }
+        ],
+    }
+
+
+# 그래프 구성: 노드를 등록한 뒤 START/END 연결과 조건부 경로를 정의하고 실행 가능한 그래프로 컴파일합니다.
+def build_graph():
+    builder = StateGraph(StructuredOutputState)
+    builder.add_node("prepare_schema", prepare_schema)
+    builder.add_node("extract_structured", extract_structured)
+    builder.add_node("validate_result", validate_result)
+    builder.add_node("finalize", finalize)
+
+    builder.add_edge(START, "prepare_schema")
+    builder.add_edge("prepare_schema", "extract_structured")
+    builder.add_edge("extract_structured", "validate_result")
+    builder.add_edge("validate_result", "finalize")
+    builder.add_edge("finalize", END)
+    return builder.compile()
+
+
+# 서버 진입점: langgraph.json이 이 graph 객체를 가져와 SDK 실행 요청에 사용합니다.
+graph = build_graph()
+
+
+# 단독 실행 데모: 이 파일을 직접 실행할 때만 샘플 입력으로 그래프를 호출합니다.
+if __name__ == "__main__":
+    output = graph.invoke({"request": DEFAULT_REQUEST})
+    print(output["final"])
