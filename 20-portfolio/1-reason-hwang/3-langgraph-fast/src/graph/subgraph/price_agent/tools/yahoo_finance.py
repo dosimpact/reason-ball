@@ -6,7 +6,7 @@ import json
 import math
 import os
 from dataclasses import dataclass
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal
 from typing import Any
 from zoneinfo import ZoneInfo
@@ -105,10 +105,28 @@ def _is_partial_bar(
     regular_end = _metadata_datetime(regular.get("end"))
     if regular_start is None or regular_end is None:
         return True
-    return regular_start <= exchange_now < regular_end
+    return exchange_now < regular_end
 
 
-def _history_period(count: int) -> str:
+def _is_partial_week(trading_date: date, metadata: dict[str, Any], *, now: datetime | None = None) -> bool:
+    # Conservatively finalize a Yahoo weekly bucket at the next local Monday.
+    zone = ZoneInfo(str(metadata.get("exchangeTimezoneName") or "UTC"))
+    current = (now or datetime.now(zone)).astimezone(zone).date()
+    monday = trading_date - timedelta(days=trading_date.weekday())
+    return current < monday + timedelta(days=7)
+
+
+def _history_period(count: int, interval: str = "1d") -> str:
+    if interval == "1wk":
+        return "max" if count > 500 else "10y"
+    if count > 1250:
+        return "max"
+    if count > 500:
+        return "10y"
+    if count > 250:
+        return "5y"
+    if count > 120:
+        return "2y"
     if count <= 20:
         return "1mo"
     if count <= 60:
@@ -147,15 +165,15 @@ def _fetch_historical_prices_uncached(
             "invalid_request",
             "A recognizable company name or ticker is required.",
         )
-    if interval != "1d":
-        raise PriceProviderError("invalid_request", "Only daily price bars are supported.")
-    if not 1 <= count <= 30:
-        raise PriceProviderError("invalid_request", "Price count must be between 1 and 30.")
+    if interval not in {"1d", "1wk"}:
+        raise PriceProviderError("invalid_request", "Only daily and weekly price bars are supported.")
+    if not 1 <= count <= 5000:
+        raise PriceProviderError("invalid_request", "Price count must be between 1 and 5000.")
 
     try:
         ticker = yf.Ticker(normalized_symbol)
         frame = ticker.history(
-            period=_history_period(count),
+            period=_history_period(count, interval),
             interval=interval,
             auto_adjust=auto_adjust,
             actions=False,
@@ -220,7 +238,10 @@ def _fetch_historical_prices_uncached(
                 currency=currency,
                 exchange=exchange_name,
                 fetched_at=fetched_at,
-                is_partial=is_last and _is_partial_bar(trading_date, metadata),
+                is_partial=is_last and (
+                    _is_partial_week(trading_date, metadata) if interval == "1wk"
+                    else _is_partial_bar(trading_date, metadata)
+                ),
             )
         except ValueError as exc:
             raise PriceProviderError(

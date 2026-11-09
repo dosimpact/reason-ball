@@ -1,0 +1,22 @@
+meta {
+  name: TA-002 Create isolated thread
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/threads
+  body: json
+  auth: none
+}
+body:json {
+  {"metadata":{"validation":"technical-analysis"}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("TA-002 thread created", function () {
+    expect(res.getBody().thread_id).to.be.a("string");
+    bru.setVar("taThread",res.getBody().thread_id);
+  });
+}

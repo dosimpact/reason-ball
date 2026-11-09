@@ -10,7 +10,7 @@
 - XOM처럼 별도 Financial Section을 명시한 경우 실제 대문자 본문 제목으로 MD&A, 감사보고서·연결재무제표·주석·보충정보, 정의 부분을 찾는다. 목차의 제목이나 번호만으로 본문을 인정하지 않는다. 임의 형식의 외부 PDF/별도 첨부 문서를 자동으로 읽는 범용 참조 해석기는 아니다.
 - 기업 검색은 정확한 티커를 먼저 확인한다. 자체 10-K가 없는 후속 법인은 검토된 `PREDECESSORS` 관계만 적용한다. 현재 XOM의 `0002115436` → `0000034088` 관계가 등록돼 있다. [2026년 2분기 SEC 공시](https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm)의 법인 재편 설명이 근거다. 실제 원문 CIK·접수번호를 보존하고 `requestedCik`·`issuerNote`를 반환하며 답변에도 재편 관계를 표시한다. 후속 법인이 자체 10-K를 제출하면 그 공시가 우선한다.
 - 모델 입력 최대 약 180,000자. 초과하면 Item별 균등·질문 관련 발췌를 사용하며 처리 범위를 표시한다. 모델 JSON의 Item 코드는 열거형이다. 원문을 최대 700자 구절 ID로 제공하고 모델은 evidence_id를 선택한다. 서버가 선택한 같은 Item의 구절을 인용문으로 복원하고 입력 근거와 원문 양쪽에서 검사한다. 모델이 인용문을 다시 쓰지 않는다. 실패 시 한 번 수정 요청 후 오류로 종료한다. 인용문 검증은 요약의 모든 의미·숫자에 대한 자동 사실 검증이 아니다.
-- 모델이 근거에 기반한 답변을 만든 뒤 `present` 노드에서 실제 전체 컴포넌트 카탈로그로 자유 OpenUI DSL을 생성한다. 차트·표·반응형 컨트롤을 요청에 맞게 구성하며 파서 오류는 한 번 수정한다. 출처·원문 인용·범위·한계는 별도 `sec.evidence`로 전달하여 호스트가 항상 표시한다.
+- 모델이 근거에 기반한 답변을 만든 뒤 `present` 노드가 공통 `graph/subgraphs/openui_output`을 호출해 실제 전체 컴포넌트 카탈로그로 자유 OpenUI DSL을 생성한다. 차트·표·반응형 컨트롤을 요청에 맞게 구성하며 파서 오류는 한 번 수정한다. 출처·원문 인용·범위·한계는 별도 `sec.evidence`로 전달하여 호스트가 항상 표시한다.
 - 근거 ID의 Item이 답변 Item과 다르면 그대로 거부한다. 재생성 시 이전 draft와 잘못된 ID·요청 Item·실제 근거 Item을 함께 전달한다. 예를 들어 Item 8 답변에 `7:16`을 선택했다면 이를 Item 8 근거로 조용히 인정하지 않는다. 한 번의 수정에도 검증되지 않으면 RUN_ERROR로 종료한다.
 - 환경: SEC_CHAT_BFF_URL, SEC_CHAT_MODEL, SEC_CHAT_MODEL_BASE_URL, SEC_CHAT_API_KEY. 모델 미지정 값은 OPENAI_*을 따른다. LangGraph 서버는 기존 실행 명령을 유지한다.
 - AG-UI: RUN_STARTED → heartbeat → TEXT_MESSAGE_START/CONTENT/END → RUN_FINISHED. 검증 실패는 RUN_ERROR, 취소는 모델 task 취소와 세션 잠금 해제. 정상 답변만 이력에 추가한다.
@@ -18,7 +18,7 @@
 
 - SEC-IUI-004: POST `/resolve`는 message(1~4000자), history(최대 12개 user/assistant 텍스트), 선택적 threadId를 받는다. 기존 세션이 있으면 서버 공시 식별자를 문맥으로 사용하고 만료 세션은 404다. `domains/sec_chat/conversation.py`가 구조화된 모델 의도를 해석하고 BFF 기업 조회로 CIK를 확인한다. 응답 action은 reply, choose, research다. 일반 답변은 기업 공시 사실을 생성하지 않도록 지시하며 분석은 기존 prepare/chat 경로를 사용한다. 복수 기업 요청은 한 기업을 먼저 확인한다. 공백 입력과 잘못된 이력은 422다.
 
-- SEC-IUI-005: 공시 그래프는 `route → retrieve → answer → present → after_answer → END`; 일반 대화 그래프는 `respond → present → after_answer → END`다. research 라우팅만 곧바로 END로 이동한다. 공통 `domains/sec_chat/follow_ups.py`의 `suggest_follow_ups`가 별도 구조화 LLM 호출을 수행한다. 질문 3개, 각 1~160자, 공백/중복/직전 질문 반복을 검증한다. 최근 이력과 답변 입력 길이를 제한하고 취소는 전파한다. 추천 오류/30초 초과는 `followUps=[]`, `followUpsStatus=unavailable`이며 정상 본문을 유지한다.
+- SEC-IUI-005: 공시 그래프는 `route → retrieve → answer → after_answer → present → END`; 일반 대화 그래프는 `respond → after_answer → present → END`다. research 라우팅만 곧바로 END로 이동한다. 공통 `domains/sec_chat/follow_ups.py`의 `suggest_follow_ups`가 별도 구조화 LLM 호출을 수행한다. 질문 3개, 각 1~160자, 공백/중복/직전 질문 반복을 검증한다. 최근 이력과 답변 입력 길이를 제한하고 취소는 전파한다. 추천 오류/30초 초과는 `followUps=[]`, `followUpsStatus=unavailable`이며 정상 본문을 유지한다.
 - `/resolve`의 표시 응답은 `followUps`/`followUpsStatus`를 포함한다. 공시 SSE는 TEXT_MESSAGE_END 다음 CUSTOM `name=sec.follow-ups`, `value={messageId, questions, status}`를 보낸 후 RUN_FINISHED로 종료한다. 추천은 OpenUI DSL에 섞지 않으며 기존 본문/인용 계약은 유지한다. 현재는 그래프의 추천 생성까지 완료한 후 본문과 추천을 함께 전달하므로 추가 모델 지연이 있다.
 
 - SEC-IUI-006: `tracked_node`는 각 노드의 실제 실행 경계를 CUSTOM `sec.activity` 데이터 `{id,label,status,kind:node}`로 전달한다. status는 running/completed/failed/cancelled/unavailable. 추천만 실패한 경우 unavailable이고 본문 성공은 유지한다. 모델의 중간 텍스트나 도구 호출로 위장하지 않는다.

@@ -1,0 +1,16 @@
+meta {
+  name: TA-005 Remove validation assistant
+  type: http
+  seq: 7
+}
+delete {
+  url: {{baseUrl}}/assistants/{{taAssistant}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 204
+}
+tests {
+  test("TA-005 removed", function () { expect(res.getStatus()).to.equal(204); });
+}

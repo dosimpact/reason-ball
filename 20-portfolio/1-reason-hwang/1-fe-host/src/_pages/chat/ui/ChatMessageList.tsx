@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { OutputView } from "@/shared/ui/intelligent-ui";
 import { Bot, User } from "lucide-react";
 
 import { Bubble, BubbleContent } from "@/shared/ui/bubble";
@@ -28,7 +30,7 @@ type ChatMessageListProps = {
 export function ChatMessageList({ messages }: ChatMessageListProps) {
   return (
     <MessageScrollerProvider>
-      <MessageScroller className="min-h-[28rem] rounded-lg border bg-card">
+      <MessageScroller className="h-[60vh] min-h-80 shrink-0 rounded-lg border bg-card">
         <MessageScrollerViewport>
           <MessageScrollerContent className="gap-4 p-4">
             {messages.length === 0 ? (
@@ -56,6 +58,7 @@ export function ChatMessageList({ messages }: ChatMessageListProps) {
 }
 
 function ChatMessageRow({ message }: { message: ChatMessage }) {
+  const [renderError, setRenderError] = useState(false);
   const isUser = message.role === "user";
 
   return (
@@ -74,6 +77,10 @@ function ChatMessageRow({ message }: { message: ChatMessage }) {
             {message.content || "Thinking..."}
           </BubbleContent>
         </Bubble>
+        {message.program && !renderError ? <div className="w-full min-w-0 rounded-lg border bg-background p-4" data-testid="technical-analysis-output">
+          <OutputView key={message.presentationId} program={message.program} onError={() => setRenderError(true)} />
+        </div> : null}
+        {renderError ? <p role="alert">차트를 표시하지 못했습니다. 위 분석 설명을 확인하세요.</p> : null}
         <MessageFooter>
           {message.status === "streaming" ? "Generating response..." : message.status}
         </MessageFooter>

@@ -6,6 +6,8 @@ export type ChatMessage = {
   id: string;
   role: ChatRole;
   content: string;
+  program?: string;
+  presentationId?: string;
   createdAt: string;
   status: ChatMessageStatus;
 };

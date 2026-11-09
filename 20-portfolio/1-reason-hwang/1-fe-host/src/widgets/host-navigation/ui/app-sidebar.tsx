@@ -43,7 +43,7 @@ const navItems = [
     icon: MessagesSquare,
   },
   {
-    title: "A2UI Demo",
+    title: "Generative UI",
     href: "/a2ui",
     icon: Boxes,
   },

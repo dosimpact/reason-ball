@@ -1,0 +1,26 @@
+meta {
+  name: TA-003 Live Yahoo and Deep Agent analysis
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/threads/{{taThread}}/runs/wait
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id":"technical_analysis_agent","input":{"messages":[{"role":"user","content":"AAPL 일봉 최근 120개로 RSI SMA MACD 분석해줘."}]}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("TA-003 verified analysis and OpenUI", function () {
+    const body=res.getBody();
+    expect(body.analysis_result.symbol).to.equal("AAPL");
+    expect(body.analysis_result.interval).to.equal("1d");
+    expect(body.analysis_result.dates).to.have.lengthOf(120);
+    expect(body.analysis_result.indicators.map(x=>x.name)).to.have.members(["RSI","SMA","MACD"]);
+    expect(body.presentation.program).to.include("Chart(");
+  });
+}

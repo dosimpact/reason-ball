@@ -14,7 +14,7 @@ from langchain_core.messages import AIMessage, HumanMessage
 from pydantic import BaseModel, Field
 
 from domains.sec_chat.conversation import ConversationMessage, ConversationRequest
-from domains.sec_chat.presentation import compose_ui
+from graph.primary_graphs.sec_deep_agent.presentation import build_research_ui_graph
 from domains.sec_tools.agent import artifacts
 from graph.primary_graphs.sec_deep_agent.workflow import build_sec_deep_agent
 from graph.primary_graphs.sec_intelligent_ui.workflow import chat_model
@@ -93,8 +93,8 @@ async def chat(body: ChatRequest):
                                      text=cast(str, m.content)[:4000]) for m in conversation[-13:-1]])
 
     async def execute(sink):
-        report = await research(request, sink)
-        return await compose_ui(request.message, report, chat_model(), host_evidence=False)
+        result = await build_research_ui_graph(research, chat_model(), activity=sink).ainvoke({"request": request})
+        return result["program"]
 
     async def stream():
         yield event('RUN_STARTED', threadId=body.threadId, runId=body.runId)

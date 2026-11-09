@@ -1,0 +1,26 @@
+meta {
+  name: reject-client-state
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/generative-ui/fixed
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  req.setBody({thread_id: "forged", state: {price: 0}});
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("Server state cannot be supplied", () => expect(res.getStatus()).to.equal(422));
+}

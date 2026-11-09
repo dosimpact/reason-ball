@@ -1,0 +1,24 @@
+meta {
+  name: TA-004 Unsupported indicator without stale chart
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/threads/{{taThread}}/runs/wait
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id":"technical_analysis_agent","input":{"messages":[{"role":"user","content":"EMA만 분석해줘. 다른 지표로 대체하지 마."}]}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("TA-004 unsupported request does not reuse prior report", function () {
+    const body=res.getBody();
+    expect(body.analysis_result).to.equal(null);
+    expect(body.presentation).to.equal(null);
+    expect(body.messages.at(-1).content).to.include("EMA");
+  });
+}

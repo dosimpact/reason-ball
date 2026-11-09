@@ -19,9 +19,9 @@ export default defineConfig({
       {
         resolve: { alias: { '@': path.resolve(dirname, 'src') } },
         test: {
-          name: 'a2ui',
+          name: 'generative-ui',
           environment: 'node',
-          include: ['src/_pages/a2ui-demo/lib/**/*.test.ts'],
+          include: ['src/_pages/generative-ui/**/*.test.ts'],
         },
       },
       {

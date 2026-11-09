@@ -1,6 +1,7 @@
 import type { ChatMessage, ChatThreadState } from "@/_pages/chat/model/chatTypes";
 
 export type ChatAction =
+  | { type: "assistantSnapshotReceived"; messageId: string; content: string; program?: string; presentationId?: string }
   | {
       type: "threadCreated";
       threadId: string;
@@ -40,6 +41,11 @@ export function chatReducer(
   action: ChatAction,
 ): ChatThreadState {
   switch (action.type) {
+    case "assistantSnapshotReceived":
+      return { ...state, messages: state.messages.map(message => message.id === action.messageId
+        ? { ...message, content: action.content, program: action.program, presentationId: action.presentationId }
+        : message) };
+
     case "threadCreated":
       return {
         ...state,

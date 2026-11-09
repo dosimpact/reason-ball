@@ -1,0 +1,33 @@
+meta {
+  name: sec-change-filing
+  type: http
+  seq: 14
+}
+post {
+  url: {{baseUrl}}/api/generative-ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  req.setBody({thread_id: bru.getVar("secThread"), action: {name: "sec_filings_page", revision: bru.getVar("secRevision"), context: {page: 1}}});
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = String(res.getBody()).split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("OPENUI-MIG-001 completed output", () => {
+    expect(events.some(e => e.type === "RUN_ERROR")).to.equal(false);
+    expect(events.some(e => e.type === "RUN_FINISHED")).to.equal(true);
+  });
+  const output = events.find(e => e.name === "ui.output")?.value;
+  test("sec-change-filing", () => { expect(output.program).to.equal(""); expect(output.controls).not.to.include("SHA-256"); expect(output.controls).to.include("공시 필터 적용"); });
+  bru.setVar("secRevision", output.revision);
+}
