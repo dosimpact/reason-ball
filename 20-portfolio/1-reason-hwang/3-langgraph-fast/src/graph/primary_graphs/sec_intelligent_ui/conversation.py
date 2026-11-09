@@ -37,7 +37,7 @@ def build_conversation_graph(model=None, client=None, activity=None, ui_validato
     graph.add_node("after_answer", tracked_node("다음 추천 질문 생성", after_answer, activity))
     graph.add_edge(START, "respond")
     # Research routing is internal, not a displayed answer. Its filing graph runs the hook once.
-    graph.add_conditional_edges("respond", lambda state: "research" if state["response"]["action"] == "research" else "answered", {"research": END, "answered": "present"})
-    graph.add_edge("present", "after_answer")
-    graph.add_edge("after_answer", END)
+    graph.add_conditional_edges("respond", lambda state: "research" if state["response"]["action"] == "research" else "answered", {"research": END, "answered": "after_answer"})
+    graph.add_edge("after_answer", "present")
+    graph.add_edge("present", END)
     return graph.compile()

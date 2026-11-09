@@ -7,7 +7,13 @@ export const CopyToClipboard = defineAction({
   params: z.object({ text: z.string() }),
 });
 
-export const actions = [CopyToClipboard];
+export const BusinessAction = defineAction({
+  name: "BusinessAction",
+  description: "Submit an explicitly available business action to the server. The host supplies the current thread and revision; never invent actions or identifiers.",
+  params: z.object({ name: z.string(), context: z.record(z.string(), z.unknown()) }),
+});
+
+export const actions = [CopyToClipboard, BusinessAction];
 
 async function copy(text: string): Promise<boolean> {
   try {

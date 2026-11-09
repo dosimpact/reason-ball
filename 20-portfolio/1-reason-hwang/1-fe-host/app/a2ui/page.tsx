@@ -1,1 +1,1 @@
-export { PageA2Ui as default } from "@/_pages/a2ui-demo";
+export { HomePage as default } from "@/_pages/generative-ui";

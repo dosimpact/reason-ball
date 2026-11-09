@@ -1,1 +1,1 @@
-export { PageA2UiDynamic as default } from "@/_pages/a2ui-demo";
+export { DynamicPage as default } from "@/_pages/generative-ui";

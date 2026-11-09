@@ -1,0 +1,34 @@
+meta {
+  name: sec-filter
+  type: http
+  seq: 11
+}
+post {
+  url: {{baseUrl}}/api/generative-ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  req.setBody({thread_id: bru.getVar("secThread"), action: {name: "sec_filings_filter", revision: bru.getVar("secRevision"), context: {status: "downloaded", form: "10-K", since: "2020-01-01"}}});
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = String(res.getBody()).split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("OPENUI-MIG-001 completed output", () => {
+    expect(events.some(e => e.type === "RUN_ERROR")).to.equal(false);
+    expect(events.some(e => e.type === "RUN_FINISHED")).to.equal(true);
+  });
+  const output = events.find(e => e.name === "ui.output")?.value;
+  test("Filtered stored filings", () => expect(output.controls).to.include("10-K"));
+  bru.setVar("secRevision", output.revision);
+  bru.setVar("secAccession", output.controls.match(/\d{10}-\d{2}-\d{6}/)[0]);
+}

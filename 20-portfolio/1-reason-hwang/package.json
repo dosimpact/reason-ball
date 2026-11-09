@@ -15,8 +15,6 @@
     "infra:up": "turbo run infra:up --filter='./infra/*'",
     "infra:down": "turbo run infra:down --filter='./infra/*'",
     "infra:ps": "turbo run infra:ps --filter='./infra/*'",
-    "a2ui:generate": "pnpm --filter reason-hwang-fe-host a2ui:generate",
-    "a2ui:check": "pnpm --filter reason-hwang-fe-host a2ui:check",
     "test:dev": "node --test scripts/dev-ports.test.mjs"
   },
   "devDependencies": {

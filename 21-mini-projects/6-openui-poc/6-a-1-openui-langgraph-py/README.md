@@ -8,7 +8,7 @@
 6-a-1-openui-langgraph-py/
 ├── backend-langgraph/  # Python 3.12 + uv + LangGraph / DeepAgents
 │   ├── agent/         # 그래프, 도구, 스트림 변환기, 프롬프트 자산
-│   ├── tests/
+│   ├── tests/  
 │   ├── .env.example
 │   ├── pyproject.toml
 │   ├── uv.lock

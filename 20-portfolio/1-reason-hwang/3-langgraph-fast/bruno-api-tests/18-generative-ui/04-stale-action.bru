@@ -1,0 +1,26 @@
+meta {
+  name: stale-action
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/generative-ui/fixed
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  req.setBody({thread_id: bru.getVar("fixedThread"), action: {name: "select_flight", revision: 1, context: {flightId: "demo-icn-nrt"}}});
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("Stale action rejected", () => expect(res.getStatus()).to.equal(422));
+}

@@ -8,6 +8,8 @@ import {
   useMemo,
   useReducer,
   useRef,
+  useState,
+  useEffect,
 } from "react";
 
 import {
@@ -35,6 +37,9 @@ type ChatContextValue = {
   error: string | null;
   sendMessage: (content: string) => Promise<void>;
   resetThread: () => void;
+  graphId: string;
+  graphs: { id: string; name: string }[];
+  selectGraph: (id: string) => void;
 };
 
 const ChatContext = createContext<ChatContextValue | null>(null);
@@ -44,6 +49,18 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const stateRef = useRef(state);
   const abortControllerRef = useRef<AbortController | null>(null);
   const configResult = useMemo(() => getLangGraphConfig(), []);
+  const [graphId, setGraphId] = useState(configResult.config?.assistantId ?? "starter_graph");
+  const graphs = useMemo(() => {
+    const items = [
+      { id: "starter_graph", name: "기본 채팅" },
+      { id: "simple_llm", name: "일반 에이전트" },
+      { id: "technical_analysis_agent", name: "기술적 분석 에이전트 · RSI / SMA / MACD" },
+    ];
+    const configured = configResult.config?.assistantId;
+    if (configured && !items.some(item => item.id === configured)) items.unshift({ id: configured, name: configured });
+    return items;
+  }, [configResult.config]);
+  useEffect(() => () => abortControllerRef.current?.abort(), []);
   const client = useMemo(() => {
     if (!configResult.config) {
       return null;
@@ -100,10 +117,11 @@ export function ChatProvider({ children }: { children: ReactNode }) {
           });
         }
 
+        const assistantMessageId = createMessageId("assistant");
         dispatch({
           type: "assistantMessageStarted",
           message: {
-            id: createMessageId("assistant"),
+            id: assistantMessageId,
             role: "assistant",
             content: "",
             createdAt: new Date().toISOString(),
@@ -112,11 +130,15 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         });
 
         await consumeStream({
-          config: configResult.config,
+          config: { ...configResult.config, assistantId: graphId, streamMode: graphId === "technical_analysis_agent" ? "values" : configResult.config.streamMode },
           client,
           threadId,
           content: trimmedContent,
           signal: abortControllerRef.current.signal,
+          onSnapshot: (content, presentation) => {
+            dispatch({ type: "assistantSnapshotReceived", messageId: assistantMessageId, content,
+              program: presentation?.program, presentationId: presentation?.id });
+          },
           onDelta: (delta) => {
             dispatch({
               type: "assistantMessageDeltaReceived",
@@ -130,6 +152,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         });
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError") {
+          dispatch({ type: "assistantMessageCompleted" });
           return;
         }
 
@@ -139,7 +162,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         });
       }
     },
-    [client, configResult.config, configResult.error],
+    [client, configResult.config, configResult.error, graphId],
   );
 
   const resetThread = useCallback(() => {
@@ -150,15 +173,22 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const selectGraph = useCallback((id: string) => {
+    if (stateRef.current.status === "streaming" || stateRef.current.status === "creating_thread") return;
+    if (!graphs.some(graph => graph.id === id)) return;
+    resetThread();
+    setGraphId(id);
+  }, [graphs, resetThread]);
+
   const value = useMemo(
     () => ({
       messages: state.messages,
       status: configResult.error ? "error" : state.status,
       error: configResult.error ?? state.error,
       sendMessage,
-      resetThread,
+      resetThread, graphId, graphs, selectGraph,
     }),
-    [configResult.error, resetThread, sendMessage, state.error, state.messages, state.status],
+    [configResult.error, resetThread, sendMessage, state.error, state.messages, state.status, graphId, graphs, selectGraph],
   );
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
@@ -181,6 +211,7 @@ async function consumeStream(params: {
   content: string;
   signal?: AbortSignal;
   onDelta: (content: string) => void;
+  onSnapshot: (content: string, presentation?: { id: string; program: string }) => void;
 }) {
   const stream = streamChatRun({
     client: params.client,
@@ -196,6 +227,17 @@ async function consumeStream(params: {
   });
 
   for await (const event of stream) {
+    if (params.signal?.aborted) return;
+    if (event.event === "values") {
+      const data = event.data as { messages?: { type?: string; role?: string; content?: unknown; tool_calls?: unknown[] }[]; presentation?: { id: string; program: string } | null };
+      const messages = data.messages ?? [];
+      // Only the current turn's final assistant prose, never tool calls or prior turn output.
+      const last = messages.at(-1);
+      const content = last && (last.type === "ai" || last.role === "assistant") && !last.tool_calls?.length && typeof last.content === "string" ? last.content : "";
+      params.onSnapshot(content, data.presentation ?? undefined);
+      continue;
+    }
+
     const chatEvent = toChatStreamEvent(event);
 
     if (!chatEvent) {

@@ -1,0 +1,35 @@
+meta {
+  name: dynamic
+  type: http
+  seq: 7
+}
+post {
+  url: {{baseUrl}}/api/generative-ui/dynamic
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+  Accept: text/event-stream
+}
+body:json {
+  {}
+}
+script:pre-request {
+  const thread = "bru-dynamic-" + Date.now();
+  bru.setVar("dynamicThread", thread);
+  req.setBody({thread_id: thread, message: "지역별 매출을 표와 차트로 비교해줘"});
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const events = String(res.getBody()).split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+  test("OPENUI-MIG-001 completed output", () => {
+    expect(events.some(e => e.type === "RUN_ERROR")).to.equal(false);
+    expect(events.some(e => e.type === "RUN_FINISHED")).to.equal(true);
+  });
+  const output = events.find(e => e.name === "ui.output")?.value;
+  test("Analysis and exact server totals", () => { expect(output.program.length).to.be.greaterThan(10); expect(output.controls).to.include("$680,000"); });
+  bru.setVar("dynamicRevision", output.revision);
+}

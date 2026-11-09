@@ -14,12 +14,13 @@
     "typecheck": "uv run --with pyright pyright",
     "sync": "uv sync",
     "clean": "rm -rf dist build .pytest_cache .ruff_cache .pyright .coverage coverage htmlcov",
-    "test:cabin:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 15-cabin-a2ui --env local",
-    "test:a2ui:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 13-a2ui --env local",
     "test:push-ui:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 16-push-ui-message --env local",
     "test:sec-chat": "uv run pytest tests/test_sec_intelligent_ui.py",
     "test:sec-chat:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 17-sec-intelligent-ui --env local",
-    "test:sec-tools": "uv run pytest tests/test_sec_tools.py tests/test_sec_intelligent_ui.py tests/test_sec_admin_chat.py"
+    "test:sec-tools": "uv run pytest tests/test_sec_tools.py tests/test_sec_intelligent_ui.py tests/test_sec_admin_chat.py",
+    "test:generative-ui:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 18-generative-ui --env openui-validation",
+    "test:technical-analysis": "uv run pytest tests/test_technical_analysis_agent.py tests/graph/subgraph/price_agent tests/infrastructure/technical_analysis tests/graph/shared/cache",
+    "test:technical-analysis:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 19-technical-analysis --env local"
   },
   "devDependencies": {
     "@usebruno/cli": "^2.13.0"

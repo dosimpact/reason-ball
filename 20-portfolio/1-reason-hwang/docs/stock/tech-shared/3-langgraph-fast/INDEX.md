@@ -16,3 +16,5 @@
 - Neo4j `neo4j` database: 공시 문서에서 추출한 연결형 지식과 근거 검색 데이터.
 
 - [SEC Intelligent UI](sec-intelligent-ui.md): A2UI 의존 없는 SEC 질의/근거/AG-UI 구현.
+
+- [기술적 분석 Deep Agent](../../technical-analysis/system-design.md): Yahoo 일봉·주봉 도구, TA-Lib 시그널, 공통 OpenUI 출력 및 LangGraph runtime 등록.

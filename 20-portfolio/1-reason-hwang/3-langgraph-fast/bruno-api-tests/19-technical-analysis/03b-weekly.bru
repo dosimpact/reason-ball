@@ -1,0 +1,26 @@
+meta {
+  name: TA-005 Weekly follow-up parameters
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/threads/{{taThread}}/runs/wait
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id":"technical_analysis_agent","input":{"messages":[{"role":"user","content":"같은 종목 주봉 120개로 바꾸고 RSI 7 SMA 50으로 변경해줘. MACD는 유지해줘."}]}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("TA-005 weekly follow-up keeps ticker and changes parameters", function () {
+    const body=res.getBody();
+    expect(body.analysis_result.symbol).to.equal("AAPL");
+    expect(body.analysis_result.interval).to.equal("1wk");
+    expect(body.analysis_result.indicators.find(x=>x.name==="RSI").parameters.timeperiod).to.equal(7);
+    expect(body.analysis_result.indicators.find(x=>x.name==="SMA").parameters.timeperiod).to.equal(50);
+    expect(body.presentation.program).to.include("Chart(");
+  });
+}

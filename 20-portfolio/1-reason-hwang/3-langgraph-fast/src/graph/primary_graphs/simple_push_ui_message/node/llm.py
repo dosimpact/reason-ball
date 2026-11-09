@@ -1,6 +1,6 @@
 from langchain_core.messages import SystemMessage
 
-from graph.primary_graphs.a2ui_demo.model import ModelSettings
+from graph.provider.ui_model import ModelSettings
 from graph.primary_graphs.simple_push_ui_message.progress import progress
 from graph.primary_graphs.simple_push_ui_message.tools.demo import TOOLS
 

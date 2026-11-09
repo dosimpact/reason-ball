@@ -21,13 +21,20 @@ def test_openui_stream_preserves_tool_lifecycle_and_history(monkeypatch):
             sink({'id': 'tool1', 'label': 'SEC 도구 · search_sec_companies', 'status': status})
         return {'report': 'Apple', 'sources': []}
 
-    async def compose(question, answer, model, **kwargs):
-        assert kwargs['host_evidence'] is False
-        return 'root = Markdown("Apple");'
+    from graph.subgraphs.openui_output import workflow
 
+    class Model:
+        def with_structured_output(self, schema):
+            return self
+        async def ainvoke(self, messages):
+            assert 'Apple' in messages[-1].content
+            return workflow.GeneratedUI(program='root = Markdown("Apple");')
+
+    async def validate(program):
+        return []
     monkeypatch.setattr(module, 'research', research)
-    monkeypatch.setattr(module, 'compose_ui', compose)
-    monkeypatch.setattr(module, 'chat_model', lambda: None)
+    monkeypatch.setattr(workflow, 'validate_program', validate)
+    monkeypatch.setattr(module, 'chat_model', Model)
     response = client().post('/api/sec-deep-agent/chat', json={
         'threadId': 'thread', 'runId': 'run', 'messages': [
             {'role': 'assistant', 'content': 'Earlier answer'}, {'role': 'user', 'content': 'AAPL'}]})

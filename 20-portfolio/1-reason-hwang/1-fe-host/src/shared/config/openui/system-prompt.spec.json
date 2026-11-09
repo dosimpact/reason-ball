@@ -559,6 +559,10 @@
     "CopyToClipboard": {
       "signature": "CopyToClipboard(text: string)",
       "description": "Copy text to the clipboard, e.g. a shopping list built with @Join"
+    },
+    "BusinessAction": {
+      "signature": "BusinessAction(name: string, context: Record<string, any>)",
+      "description": "Submit an explicitly available business action to the server. The host supplies the current thread and revision; never invent actions or identifiers."
     }
   },
   "schema": {
@@ -4130,6 +4134,29 @@
           },
           "required": [
             "text"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "BusinessAction": {
+        "description": "Submit an explicitly available business action to the server. The host supplies the current thread and revision; never invent actions or identifiers.",
+        "params": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "context": {
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {}
+            }
+          },
+          "required": [
+            "name",
+            "context"
           ],
           "additionalProperties": false
         }

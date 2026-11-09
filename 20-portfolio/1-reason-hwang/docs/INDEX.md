@@ -116,6 +116,10 @@ The technical subdirectories follow package ownership; the other stock directori
 | [`stock/us-corporate-filings/system-design.md`](stock/us-corporate-filings/system-design.md) | Implemented PostgreSQL filing content, migration, constraints, and verification |
 | [`stock/us-corporate-filings/intelligent-ui.md`](stock/us-corporate-filings/intelligent-ui.md) | SEC 10-K conversational analysis with OpenUI and AG-UI; no A2UI |
 
+### Technical Analysis
+
+[기술적 분석 문서 지도](stock/technical-analysis/INDEX.md): Yahoo 일봉·주봉, TA-Lib RSI/SMA/MACD, Deep Agent 및 Host OpenUI 시각화.
+
 ### Index DCF Visualizer
 
 [`stock/index-dcf-visualizer/`](stock/index-dcf-visualizer/) owns the assumptions, calculations, presentation, and validation behavior of the Index DCF Visualizer.
@@ -184,7 +188,7 @@ Detailed implementation notes are grouped by their technical owners:
 
 If a supporting document conflicts with code or a stock document, verify the implementation first and reconcile the appropriate domain stock document. Preserved imported notes may contain historical routes or paths. Use the [relocation map and reading rules](stock/tech-shared/INDEX.md) to resolve them; the move itself does not certify that every historical detail matches current code.
 
-- [A2UI 시스템 설계](stock/tech-shared/a2ui-system/INDEX.md): 전체 UI Registry, 정적 카탈로그, SDK/프로토콜 버전 계약, Dynamic/Fixed 및 사용자 action.
+- [Generative UI 통합 설계](stock/tech-shared/a2ui-system/INDEX.md): OpenUI 최종 출력 서브그래프, Dynamic·Fixed·Catalog·SEC 및 사용자 action.
 
 - [Push UI message 예제](stock/tech-shared/push-ui-message/INDEX.md): 턴별 진행 부가정보와 독립 채팅 UI.
 

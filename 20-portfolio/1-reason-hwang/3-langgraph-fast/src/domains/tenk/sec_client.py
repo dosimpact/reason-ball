@@ -21,7 +21,7 @@ def validate_filing_identity(cik: str, accession: str) -> None:
 
 class SecClient:
     def __init__(self, base_url: str | None = None, *, transport: httpx.AsyncBaseTransport | None = None):
-        self.base_url = (base_url or os.getenv("A2UI_SEC_BFF_URL", "http://127.0.0.1:2801")).rstrip("/")
+        self.base_url = (base_url or os.getenv("OPENUI_SEC_BFF_URL", os.getenv("A2UI_SEC_BFF_URL", "http://127.0.0.1:2801"))).rstrip("/")
         self.transport = transport
 
     async def _read(self, path: str, *, params: dict | None = None, max_bytes: int = 2 * 1024 * 1024) -> str:

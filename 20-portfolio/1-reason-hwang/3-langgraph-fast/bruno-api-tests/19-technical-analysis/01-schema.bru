@@ -1,0 +1,22 @@
+meta {
+  name: TA-001 Register technical analysis assistant
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/assistants
+  body: json
+  auth: none
+}
+body:json {
+  {"graph_id":"technical_analysis_agent","name":"TA validation"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("TA-001 graph registered", function () {
+    expect(res.getBody().graph_id).to.equal("technical_analysis_agent");
+    bru.setVar("taAssistant",res.getBody().assistant_id);
+  });
+}

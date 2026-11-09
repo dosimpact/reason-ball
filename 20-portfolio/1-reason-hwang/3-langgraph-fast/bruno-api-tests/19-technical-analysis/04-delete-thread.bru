@@ -1,0 +1,16 @@
+meta {
+  name: TA-004 Remove validation thread
+  type: http
+  seq: 6
+}
+delete {
+  url: {{baseUrl}}/threads/{{taThread}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 204
+}
+tests {
+  test("TA-004 removed", function () { expect(res.getStatus()).to.equal(204); });
+}

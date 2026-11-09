@@ -1,6 +1,6 @@
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from graph.primary_graphs.a2ui_demo.model import ModelSettings, OAuthResponsesChatOpenAI
+from graph.provider.ui_model import ModelSettings, OAuthResponsesChatOpenAI
 
 
 def test_oauth_responses_normalizes_system_role_without_affecting_api_key_model():
