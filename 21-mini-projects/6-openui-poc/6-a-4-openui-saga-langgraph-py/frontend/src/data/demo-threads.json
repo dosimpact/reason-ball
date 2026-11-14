@@ -1,0 +1,78 @@
+[
+  {
+    "thread": {
+      "id": "saga-demo-v1-health",
+      "title": "01 · Service health",
+      "createdAt": "2026-11-10T00:00:00.000Z"
+    },
+    "messages": [
+      {
+        "id": "saga-health-user",
+        "role": "user",
+        "content": "Show a sample service health overview."
+      },
+      {
+        "id": "saga-health-assistant",
+        "role": "assistant",
+        "content": "root = SagaPage([Text({\"text\": \"Service health overview · handcrafted offline example\"}), Alert({\"title\": \"Sample data\", \"text\": \"This example is authored locally. No live monitoring or model call was used.\", \"severity\": \"info\"}), BigValue({\"value\": {\"numeric\": 99.98, \"text\": \"99.98\", \"suffix\": \"% uptime\", \"color\": \"green\"}, \"width\": 360, \"height\": 150, \"colorMode\": \"value\", \"graphMode\": \"none\"}), Table({\"columns\": [\"Service\", \"Status\", \"Latency\"], \"rows\": [[\"API gateway\", \"Healthy\", \"42 ms\"], [\"Checkout\", \"Healthy\", \"78 ms\"], [\"Worker\", \"Degraded\", \"240 ms\"]], \"width\": 650, \"height\": 220})])"
+      }
+    ]
+  },
+  {
+    "thread": {
+      "id": "saga-demo-v1-release",
+      "title": "02 · Release planning",
+      "createdAt": "2026-11-10T00:00:00.000Z"
+    },
+    "messages": [
+      {
+        "id": "saga-release-user",
+        "role": "user",
+        "content": "Create a sample release planning workspace."
+      },
+      {
+        "id": "saga-release-assistant",
+        "role": "assistant",
+        "content": "root = SagaPage([Text({\"text\": \"Release planning · handcrafted offline example\"}), Badge({\"text\": \"Sample release · v2.4\", \"color\": \"blue\"}), Card({\"title\": \"A clear path to release\", \"text\": \"Confirm scope, validate staging and coordinate the rollout. Fictional sample plan.\"}), Table({\"columns\": [\"Milestone\", \"Owner\", \"Status\"], \"rows\": [[\"Feature freeze\", \"Platform\", \"Complete\"], [\"Staging validation\", \"Quality\", \"In progress\"], [\"Release review\", \"Product\", \"Planned\"]], \"width\": 650, \"height\": 230})])"
+      }
+    ]
+  },
+  {
+    "thread": {
+      "id": "saga-demo-v1-incident",
+      "title": "03 · Incident brief",
+      "createdAt": "2026-11-10T00:00:00.000Z"
+    },
+    "messages": [
+      {
+        "id": "saga-incident-user",
+        "role": "user",
+        "content": "Show a fictional incident brief with sample data."
+      },
+      {
+        "id": "saga-incident-assistant",
+        "role": "assistant",
+        "content": "root = SagaPage([Text({\"text\": \"Incident brief · handcrafted offline example\"}), Alert({\"title\": \"Fictional incident · elevated latency\", \"text\": \"All services, timestamps and metrics below are invented sample data.\", \"severity\": \"warning\"}), Table({\"columns\": [\"Time\", \"Event\", \"Owner\"], \"rows\": [[\"09:10\", \"Latency alert triggered\", \"On-call\"], [\"09:18\", \"Traffic shifted to standby\", \"Platform\"], [\"09:32\", \"Service recovered\", \"On-call\"]], \"width\": 650, \"height\": 220}), Card({\"title\": \"Follow-up actions\", \"text\": \"Review connection limits, improve alert thresholds and document the recovery procedure.\"})])"
+      }
+    ]
+  },
+  {
+    "thread": {
+      "id": "saga-demo-v1-preferences",
+      "title": "04 · Workspace preferences",
+      "createdAt": "2026-11-10T00:00:00.000Z"
+    },
+    "messages": [
+      {
+        "id": "saga-preferences-user",
+        "role": "user",
+        "content": "Show an editable sample preferences form. This is a handcrafted offline example."
+      },
+      {
+        "id": "saga-preferences-assistant",
+        "role": "assistant",
+        "content": "root = SagaPage([Text({text:\"Workspace preferences · handcrafted offline example\"}), SagaForm({name:\"workspace-preferences\",submitLabel:\"Save preferences\",message:\"Save my workspace preferences\"}, [Field({label:\"Workspace name\"}, [Input({name:\"workspace\",label:\"Workspace name\",value:\"Platform team\",placeholder:\"Workspace name\"})]), Field({label:\"Release notes\"}, [TextArea({name:\"notes\",label:\"Release notes\",value:\"Weekly release summary\",placeholder:\"Notes\"})])])])"
+      }
+    ]
+  }
+]

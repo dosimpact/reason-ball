@@ -1,8 +1,472 @@
 {
   "root": "Card",
   "components": {
+    "DataTableBlock": {
+      "signature": "DataTableBlock(columns: {key: string, label: string}[], rows: Record<string, string | number | boolean | any>[], filterColumn?: string, pageSize?: number)",
+      "description": "TanStack data table with sortable headers, filtering, column visibility and pagination."
+    },
+    "AspectRatioBlock": {
+      "signature": "AspectRatioBlock(ratio?: number, text: string, children?: any[])",
+      "description": "shadcn/ui aspect-ratio composition with accessible interactive primitives."
+    },
+    "AttachmentBlock": {
+      "signature": "AttachmentBlock(title: string, description: string, href: string)",
+      "description": "shadcn/ui attachment composition with accessible interactive primitives."
+    },
+    "BreadcrumbBlock": {
+      "signature": "BreadcrumbBlock(items: {label: string, href: string}[])",
+      "description": "shadcn/ui breadcrumb composition with accessible interactive primitives."
+    },
+    "BubbleBlock": {
+      "signature": "BubbleBlock(text: string, children?: any[])",
+      "description": "shadcn/ui bubble composition with accessible interactive primitives."
+    },
+    "ButtonGroupBlock": {
+      "signature": "ButtonGroupBlock(labels: string[])",
+      "description": "shadcn/ui button-group composition with accessible interactive primitives."
+    },
+    "CollapsibleBlock": {
+      "signature": "CollapsibleBlock(title: string, text: string, children?: any[])",
+      "description": "shadcn/ui collapsible composition with accessible interactive primitives."
+    },
+    "ComboboxBlock": {
+      "signature": "ComboboxBlock(options: string[], placeholder: string, name?: string)",
+      "description": "shadcn/ui combobox composition with accessible interactive primitives."
+    },
+    "CommandBlock": {
+      "signature": "CommandBlock(options: string[])",
+      "description": "shadcn/ui command composition with accessible interactive primitives."
+    },
+    "ContextMenuBlock": {
+      "signature": "ContextMenuBlock(label: string, items: string[])",
+      "description": "shadcn/ui context-menu composition with accessible interactive primitives."
+    },
+    "DirectionBlock": {
+      "signature": "DirectionBlock(direction: \"ltr\" | \"rtl\", text: string, children?: any[])",
+      "description": "shadcn/ui direction composition with accessible interactive primitives."
+    },
+    "EmptyBlock": {
+      "signature": "EmptyBlock(title: string, description: string)",
+      "description": "shadcn/ui empty composition with accessible interactive primitives."
+    },
+    "FieldBlock": {
+      "signature": "FieldBlock(label: string, description: string, placeholder: string, name?: string)",
+      "description": "shadcn/ui field composition with accessible interactive primitives."
+    },
+    "HoverCardBlock": {
+      "signature": "HoverCardBlock(label: string, text: string, children?: any[])",
+      "description": "shadcn/ui hover-card composition with accessible interactive primitives."
+    },
+    "InputGroupBlock": {
+      "signature": "InputGroupBlock(prefix: string, placeholder: string, name?: string)",
+      "description": "shadcn/ui input-group composition with accessible interactive primitives."
+    },
+    "InputOTPBlock": {
+      "signature": "InputOTPBlock(length?: number, name?: string)",
+      "description": "shadcn/ui input-otp composition with accessible interactive primitives."
+    },
+    "ItemBlock": {
+      "signature": "ItemBlock(title: string, description: string, children?: any[])",
+      "description": "shadcn/ui item composition with accessible interactive primitives."
+    },
+    "KbdBlock": {
+      "signature": "KbdBlock(keys: string[])",
+      "description": "shadcn/ui kbd composition with accessible interactive primitives."
+    },
+    "MarkerBlock": {
+      "signature": "MarkerBlock(text: string)",
+      "description": "shadcn/ui marker composition with accessible interactive primitives."
+    },
+    "MenubarBlock": {
+      "signature": "MenubarBlock(label: string, items: string[])",
+      "description": "shadcn/ui menubar composition with accessible interactive primitives."
+    },
+    "MessageBlock": {
+      "signature": "MessageBlock(author: string, text: string, children?: any[])",
+      "description": "shadcn/ui message composition with accessible interactive primitives."
+    },
+    "MessageScrollerBlock": {
+      "signature": "MessageScrollerBlock(messages: string[])",
+      "description": "shadcn/ui message-scroller composition with accessible interactive primitives."
+    },
+    "NativeSelectBlock": {
+      "signature": "NativeSelectBlock(label: string, options: string[], name?: string)",
+      "description": "shadcn/ui native-select composition with accessible interactive primitives."
+    },
+    "NavigationMenuBlock": {
+      "signature": "NavigationMenuBlock(items: {label: string, href: string}[])",
+      "description": "shadcn/ui navigation-menu composition with accessible interactive primitives."
+    },
+    "ResizableBlock": {
+      "signature": "ResizableBlock(first: string, second: string, firstContent?: any[], secondContent?: any[])",
+      "description": "shadcn/ui resizable composition with accessible interactive primitives."
+    },
+    "ScrollAreaBlock": {
+      "signature": "ScrollAreaBlock(items: string[])",
+      "description": "shadcn/ui scroll-area composition with accessible interactive primitives."
+    },
+    "SheetBlock": {
+      "signature": "SheetBlock(label: string, title: string, text: string, children?: any[])",
+      "description": "shadcn/ui sheet composition with accessible interactive primitives."
+    },
+    "SidebarBlock": {
+      "signature": "SidebarBlock(title: string, items: string[], children?: any[])",
+      "description": "shadcn/ui sidebar composition with accessible interactive primitives."
+    },
+    "SkeletonBlock": {
+      "signature": "SkeletonBlock(rows?: number)",
+      "description": "shadcn/ui skeleton composition with accessible interactive primitives."
+    },
+    "SpinnerBlock": {
+      "signature": "SpinnerBlock(label: string)",
+      "description": "shadcn/ui spinner composition with accessible interactive primitives."
+    },
+    "ToggleBlock": {
+      "signature": "ToggleBlock(label: string, name?: string)",
+      "description": "shadcn/ui toggle composition with accessible interactive primitives."
+    },
+    "ToggleGroupBlock": {
+      "signature": "ToggleGroupBlock(options: string[], name?: string)",
+      "description": "shadcn/ui toggle-group composition with accessible interactive primitives."
+    },
+    "TooltipBlock": {
+      "signature": "TooltipBlock(label: string, text: string)",
+      "description": "shadcn/ui tooltip composition with accessible interactive primitives."
+    },
+    "ToastBlock": {
+      "signature": "ToastBlock(label: string, message: string)",
+      "description": "shadcn/ui toast composition with accessible interactive primitives."
+    },
+    "PopoverBlock": {
+      "signature": "PopoverBlock(label: string, text: string, children?: any[])",
+      "description": "shadcn/ui popover composition with accessible interactive primitives."
+    },
+    "DropdownMenuBlock": {
+      "signature": "DropdownMenuBlock(label: string, items: string[])",
+      "description": "shadcn/ui dropdown-menu composition with accessible interactive primitives."
+    },
+    "TraceBlock": {
+      "signature": "TraceBlock(steps: {title: string, detail: string}[])",
+      "description": "shadcn/ui trace composition with accessible interactive primitives."
+    },
+    "QuestionnaireBlock": {
+      "signature": "QuestionnaireBlock(title: string, options: string[])",
+      "description": "shadcn/ui questionnaire composition with accessible interactive primitives."
+    },
+    "MagicMarquee": {
+      "signature": "MagicMarquee(text?: string, items?: string[], reverse?: boolean, pauseOnHover?: boolean, vertical?: boolean)",
+      "description": "An infinite scrolling component that can be used to display text, images, or videos.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicTerminal": {
+      "signature": "MagicTerminal(text?: string, startOnView?: boolean, delay?: number)",
+      "description": "A terminal component. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicHeroVideoDialog": {
+      "signature": "MagicHeroVideoDialog(src?: string, imageSrc?: string, videoSrc?: string, thumbnailSrc?: string, thumbnailAlt?: string)",
+      "description": "A hero video dialog component.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicBentoGrid": {
+      "signature": "MagicBentoGrid(cards?: {title: string, description: string, href: string, cta: string}[], text?: string, items?: string[])",
+      "description": "Bento grid is a layout used to showcase the features of a product in a simple and elegant way.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicAnimatedList": {
+      "signature": "MagicAnimatedList(text?: string, items?: string[], delay?: number)",
+      "description": "A list that animates each item in sequence with a delay. Used to showcase notifications or events on your landing page.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicDock": {
+      "signature": "MagicDock(text?: string, items?: string[], iconSize?: number, iconMagnification?: number, disableMagnification?: boolean, iconDistance?: number, direction?: \"top\" | \"middle\" | \"bottom\")",
+      "description": "An implementation of the MacOS dock using react + tailwindcss + motion. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicGlobe": {
+      "signature": "MagicGlobe(markers?: {latitude: number, longitude: number, size?: number}[], dark?: boolean, theta?: number, mapBrightness?: number)",
+      "description": "An autorotating, interactive, and highly performant globe made using WebGL.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicTweetCard": {
+      "signature": "MagicTweetCard(text?: string, tweetId?: string)",
+      "description": "A card that displays a tweet with the author's name, handle, and profile picture.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicOrbitingCircles": {
+      "signature": "MagicOrbitingCircles(text?: string, items?: string[], reverse?: boolean, radius?: number, path?: boolean, iconSize?: number, speed?: number, duration?: number, delay?: number)",
+      "description": "A collection of circles which move in orbit along a circular path. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicAvatarCircles": {
+      "signature": "MagicAvatarCircles(items?: string[], numPeople?: number)",
+      "description": "Overlapping circles of avatars.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicIconCloud": {
+      "signature": "MagicIconCloud(items?: string[], images?: string[], showControl?: boolean)",
+      "description": "An interactive 3D tag cloud component. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicLens": {
+      "signature": "MagicLens(text?: string, zoomFactor?: number, lensSize?: number, isStatic?: boolean, lensColor?: string, ariaLabel?: string, duration?: number)",
+      "description": "A interactive component that enables zooming into images, videos and other elements.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicPointer": {
+      "signature": "MagicPointer(text?: string)",
+      "description": "A component that displays a pointer when hovering over an element. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicSmoothCursor": {
+      "signature": "MagicSmoothCursor()",
+      "description": "A customizable, physics-based smooth cursor animation component with spring animations and rotation effects. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicProgressiveBlur": {
+      "signature": "MagicProgressiveBlur(text?: string, position?: \"top\" | \"bottom\" | \"both\")",
+      "description": "The Progressive Blur component adds a smooth blur gradient effect to scrollable content, indicating more content below or above.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicDottedMap": {
+      "signature": "MagicDottedMap()",
+      "description": "A component with a dotted map.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicAnimatedBeam": {
+      "signature": "MagicAnimatedBeam(nodes?: string[], edges?: {from: number, to: number}[], items?: string[], curvature?: number, reverse?: boolean, pathColor?: string, pathWidth?: number, pathOpacity?: number, gradientStartColor?: string, gradientStopColor?: string, repeatDelay?: number, startXOffset?: number, startYOffset?: number, endXOffset?: number, endYOffset?: number, duration?: number, delay?: number)",
+      "description": "An animated beam of light which travels along a path. Useful for showcasing the integration features of a website.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicBorderBeam": {
+      "signature": "MagicBorderBeam(size?: number, colorFrom?: string, colorTo?: string, reverse?: boolean, initialOffset?: number, borderWidth?: number, duration?: number, delay?: number)",
+      "description": "An animated beam of light which travels along the border of its container.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicShineBorder": {
+      "signature": "MagicShineBorder(borderWidth?: number, duration?: number)",
+      "description": "Shine border is an animated background border effect.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicMagicCard": {
+      "signature": "MagicMagicCard(text?: string, gradientSize?: number, gradientFrom?: string, gradientTo?: string)",
+      "description": "A spotlight effect that follows your mouse cursor and highlights borders on hover.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicGlareHover": {
+      "signature": "MagicGlareHover(text?: string, background?: string, opacity?: number, angle?: number, size?: number, playOnce?: boolean, duration?: number)",
+      "description": "A diagonal glare on hover using a ::before gradient and CSS variables (angle, size, duration, color).. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicMeteors": {
+      "signature": "MagicMeteors(number?: number, minDelay?: number, maxDelay?: number, minDuration?: number, maxDuration?: number, angle?: number)",
+      "description": "A meteor shower effect.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicConfetti": {
+      "signature": "MagicConfetti(text?: string, manualstart?: boolean)",
+      "description": "Confetti animations are best used to delight your users when something special happens. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicParticles": {
+      "signature": "MagicParticles(quantity?: number, staticity?: number, ease?: number, size?: number, refresh?: boolean, color?: string, vx?: number, vy?: number)",
+      "description": "Particles are a fun way to add some visual flair to your website. They can be used to create a sense of depth, movement, and interactivity.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicAnimatedThemeToggler": {
+      "signature": "MagicAnimatedThemeToggler(text?: string, fromCenter?: boolean, theme?: \"light\" | \"dark\", duration?: number)",
+      "description": "Theme toggle with View Transitions and animated clip-path masks (circle, polygons, star), optional viewport-centered origin.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicBlurFade": {
+      "signature": "MagicBlurFade(text?: string, offset?: number, direction?: \"up\" | \"down\" | \"left\" | \"right\", inView?: boolean, blur?: string, duration?: number, delay?: number)",
+      "description": "Blur fade in and out animation. Used to smoothly fade in and out content.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicTextAnimate": {
+      "signature": "MagicTextAnimate(text?: string, segmentClassName?: string, startOnView?: boolean, once?: boolean, accessible?: boolean, duration?: number, delay?: number)",
+      "description": "A text animation component that animates text using a variety of different animations.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicTypingAnimation": {
+      "signature": "MagicTypingAnimation(text?: string, words?: string[], typeSpeed?: number, deleteSpeed?: number, pauseDelay?: number, loop?: boolean, startOnView?: boolean, showCursor?: boolean, blinkCursor?: boolean, cursorStyle?: \"line\" | \"block\" | \"underscore\", duration?: number, delay?: number)",
+      "description": "Characters appearing in typed animation. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicLineShadowText": {
+      "signature": "MagicLineShadowText(text?: string)",
+      "description": "A text component with a moving line shadow.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicAuroraText": {
+      "signature": "MagicAuroraText(text?: string, colors?: string[], speed?: number)",
+      "description": "A beautiful aurora text effect. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicVideoText": {
+      "signature": "MagicVideoText(text?: string, src?: string, autoPlay?: boolean, muted?: boolean, loop?: boolean, preload?: \"auto\" | \"metadata\" | \"none\", textAnchor?: string, dominantBaseline?: string, fontFamily?: string)",
+      "description": "A component that displays text with a video playing in the background.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicNumberTicker": {
+      "signature": "MagicNumberTicker(value?: number, startValue?: number, direction?: \"up\" | \"down\", decimalPlaces?: number, delay?: number)",
+      "description": "Animate numbers to count up or down to a target number. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicAnimatedShinyText": {
+      "signature": "MagicAnimatedShinyText(text?: string, shimmerWidth?: number)",
+      "description": "A light glare effect which pans across text making it appear as if it is shimmering.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicAnimatedGradientText": {
+      "signature": "MagicAnimatedGradientText(text?: string, speed?: number, colorFrom?: string, colorTo?: string)",
+      "description": "An animated gradient background which transitions between colors for text.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicTextReveal": {
+      "signature": "MagicTextReveal(text?: string)",
+      "description": "Fade in text as you scroll down the page.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicDiaTextReveal": {
+      "signature": "MagicDiaTextReveal(text?: string)",
+      "description": "A horizontal color band sweeps across text, revealing a gradient shine before settling on the base color.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicHyperText": {
+      "signature": "MagicHyperText(text?: string, startOnView?: boolean, animateOnHover?: boolean, duration?: number, delay?: number)",
+      "description": "A text animation that scrambles letters before revealing the final text.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicWordRotate": {
+      "signature": "MagicWordRotate(items?: string[], words?: string[], duration?: number)",
+      "description": "A vertical rotation of words. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicScrollBasedVelocity": {
+      "signature": "MagicScrollBasedVelocity(text?: string, baseVelocity?: number, scrollReactivity?: boolean)",
+      "description": "Scrolling text whose speed changes based on scroll speed. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicSparklesText": {
+      "signature": "MagicSparklesText(text?: string, sparklesCount?: number)",
+      "description": "A dynamic text that generates continuous sparkles with smooth transitions, perfect for highlighting text with animated stars.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicMorphingText": {
+      "signature": "MagicMorphingText(items?: string[], texts?: string[])",
+      "description": "A dynamic text morphing component for Magic UI.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicSpinningText": {
+      "signature": "MagicSpinningText(text?: string, reverse?: boolean, radius?: number, duration?: number)",
+      "description": "The Spinning Text component animates text in a circular motion with customizable speed, direction, color, and transitions for dynamic and engaging effects.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicTextHighlighter": {
+      "signature": "MagicTextHighlighter(text?: string, color?: string, strokeWidth?: number, animationDuration?: number, iterations?: number, padding?: number, multiline?: boolean, isView?: boolean)",
+      "description": "A text highlighter that mimics the effect of a human-drawn marker stroke.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicText3DFlip": {
+      "signature": "MagicText3DFlip(text?: string, textClassName?: string, flipTextClassName?: string, staggerDuration?: number, rotateDirection?: \"top\" | \"right\" | \"bottom\" | \"left\")",
+      "description": "A text effect that flips each letter in 3D with a staggered animation on hover.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicSafari": {
+      "signature": "MagicSafari(imageSrc?: string, url?: string, videoSrc?: string)",
+      "description": "A safari browser mockup to showcase your website.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicIphone": {
+      "signature": "MagicIphone(imageSrc?: string, videoSrc?: string)",
+      "description": "A mockup of the iPhone. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicAndroid": {
+      "signature": "MagicAndroid(imageSrc?: string, videoSrc?: string)",
+      "description": "A mockup of an Android device.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicRainbowButton": {
+      "signature": "MagicRainbowButton(action?: {type: \"open_url\", url: string} | {type: \"continue_conversation\", context?: string} | {type: string, params?: Record<string, any>}, text?: string)",
+      "description": "An animated button with a rainbow effect.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicShimmerButton": {
+      "signature": "MagicShimmerButton(action?: {type: \"open_url\", url: string} | {type: \"continue_conversation\", context?: string} | {type: string, params?: Record<string, any>}, text?: string, shimmerColor?: string, shimmerSize?: string, borderRadius?: string, shimmerDuration?: string, background?: string)",
+      "description": "A button with a shimmering light which travels around the perimeter.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicRippleButton": {
+      "signature": "MagicRippleButton(action?: {type: \"open_url\", url: string} | {type: \"continue_conversation\", context?: string} | {type: string, params?: Record<string, any>}, text?: string, rippleColor?: string)",
+      "description": "An animated button with ripple useful for user engagement.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicFlickeringGrid": {
+      "signature": "MagicFlickeringGrid(squareSize?: number, gridGap?: number, flickerChance?: number, color?: string, maxOpacity?: number)",
+      "description": "A flickering grid background made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicAnimatedGridPattern": {
+      "signature": "MagicAnimatedGridPattern(x?: number, y?: number, strokeDasharray?: number, numSquares?: number, maxOpacity?: number, repeatDelay?: number, duration?: number)",
+      "description": "A animated background grid pattern made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicRetroGrid": {
+      "signature": "MagicRetroGrid(angle?: number, cellSize?: number, opacity?: number, lightLineColor?: string, darkLineColor?: string)",
+      "description": "An animated scrolling retro grid effect. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicRipple": {
+      "signature": "MagicRipple(mainCircleSize?: number, mainCircleOpacity?: number, numCircles?: number)",
+      "description": "An animated ripple effect typically used behind elements to emphasize them.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicDotPattern": {
+      "signature": "MagicDotPattern(x?: number, y?: number, cx?: number, cy?: number, cr?: number, glow?: boolean)",
+      "description": "A background dot pattern made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicGridPattern": {
+      "signature": "MagicGridPattern(x?: number, y?: number, strokeDasharray?: string)",
+      "description": "A background grid pattern made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicHexagonPattern": {
+      "signature": "MagicHexagonPattern(radius?: number, gap?: number, x?: number, y?: number, direction?: \"horizontal\" | \"vertical\", strokeDasharray?: string)",
+      "description": "A background hexagon pattern made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicStripedPattern": {
+      "signature": "MagicStripedPattern(direction?: \"left\" | \"right\")",
+      "description": "A background striped pattern made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicInteractiveGridPattern": {
+      "signature": "MagicInteractiveGridPattern(squaresClassName?: string)",
+      "description": "A interactive background grid pattern made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicLightRays": {
+      "signature": "MagicLightRays(count?: number, color?: string, blur?: number, speed?: number, length?: string)",
+      "description": "A component with animated light rays which shine down from above.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicNoiseTexture": {
+      "signature": "MagicNoiseTexture(frequency?: number, octaves?: number, slope?: number, noiseOpacity?: number)",
+      "description": "An SVG fractal noise layer using feTurbulence, desaturation, and contrast controls for subtle texture overlays.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicFloating3DParticles": {
+      "signature": "MagicFloating3DParticles()",
+      "description": "A canvas-based pseudo-3D particle field with perspective projection, continuous rotation and buoyant drift.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicDitherField": {
+      "signature": "MagicDitherField()",
+      "description": "An animated WebGL2 background of Bayer-dithered square dots. The dots follow a light pattern, an image or a video, take one color or a three-stop ramp, and brighten under the pointer.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicShinyButton": {
+      "signature": "MagicShinyButton(action?: {type: \"open_url\", url: string} | {type: \"continue_conversation\", context?: string} | {type: string, params?: Record<string, any>}, text?: string)",
+      "description": "A shiny button component with dynamic styles in the dark mode or light mode.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicFileTree": {
+      "signature": "MagicFileTree(items?: string[], indicator?: boolean, direction?: \"rtl\" | \"ltr\")",
+      "description": "A component used to showcase the folder and file structure of a directory.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicCodeComparison": {
+      "signature": "MagicCodeComparison(beforeCode?: string, afterCode?: string, language?: string, filename?: string, lightTheme?: string, darkTheme?: string, highlightColor?: string)",
+      "description": "A component which compares two code snippets.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicScrollProgress": {
+      "signature": "MagicScrollProgress(text?: string, items?: string[])",
+      "description": "Animated Scroll Progress for your pages. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicNeonGradientCard": {
+      "signature": "MagicNeonGradientCard(text?: string, firstColor?: string, secondColor?: string)",
+      "description": "A beautiful neon card effect. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicComicText": {
+      "signature": "MagicComicText(text?: string, fontSize?: number)",
+      "description": "Comic text animation. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicKineticText": {
+      "signature": "MagicKineticText(text?: string)",
+      "description": "A text component that animates font weight of characters on hover.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicCoolMode": {
+      "signature": "MagicCoolMode(text?: string)",
+      "description": "Cool mode effect for buttons, links, and other DOMs. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicPixelImage": {
+      "signature": "MagicPixelImage(imageSrc?: string, grayscaleAnimation?: boolean)",
+      "description": "A component that displays an image with a pixelated effect, creating a retro aesthetic.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicPulsatingButton": {
+      "signature": "MagicPulsatingButton(action?: {type: \"open_url\", url: string} | {type: \"continue_conversation\", context?: string} | {type: string, params?: Record<string, any>}, text?: string, pulseColor?: string, distance?: string, variant?: \"pulse\" | \"ripple\")",
+      "description": "An animated pulsating button useful for capturing attention of users.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicWarpBackground": {
+      "signature": "MagicWarpBackground(text?: string, perspective?: number, beamsPerSide?: number, beamSize?: number, beamDelayMax?: number, beamDelayMin?: number, beamDuration?: number, gridColor?: string)",
+      "description": "A card with a time warping background effect.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicInteractiveHoverButton": {
+      "signature": "MagicInteractiveHoverButton(action?: {type: \"open_url\", url: string} | {type: \"continue_conversation\", context?: string} | {type: string, params?: Record<string, any>}, text?: string)",
+      "description": "interactive-hover-button. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicAnimatedCircularProgressBar": {
+      "signature": "MagicAnimatedCircularProgressBar(value?: number, max?: number, min?: number, gaugePrimaryColor?: string, gaugeSecondaryColor?: string)",
+      "description": "Animated Circular Progress Bar is a component that displays a circular gauge with a percentage value.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicBacklight": {
+      "signature": "MagicBacklight(text?: string, blur?: number)",
+      "description": "A backlight glow effect for videos, images, and SVGs.. Uses serializable props; effect stays inside its generated area."
+    },
+    "MagicGlyphMatrix": {
+      "signature": "MagicGlyphMatrix(glyphs?: string, cellSize?: number, mutationRate?: number, interval?: number, fadeBottom?: number, color?: string)",
+      "description": "An animated grid of subtly shifting glyphs with fade effect and theme support.. Uses serializable props; effect stays inside its generated area."
+    },
     "Card": {
-      "signature": "Card(children: (TextContent | MarkDownRenderer | CardHeader | Alert | Badge | Avatar | CodeBlock | Image | ImageBlock | Progress | Separator | BarChart | LineChart | AreaChart | PieChart | RadarChart | RadialChart | ScatterChart | Table | TagBlock | Form | Buttons | Heading | Blockquote | InlineCode | PaginationBlock | DialogBlock | AlertDialogBlock | DrawerBlock | CalendarBlock | FollowUpBlock | Tabs | Carousel)[])",
+      "signature": "Card(children: (DataTableBlock | AspectRatioBlock | AttachmentBlock | BreadcrumbBlock | BubbleBlock | ButtonGroupBlock | CollapsibleBlock | ComboboxBlock | CommandBlock | ContextMenuBlock | DirectionBlock | EmptyBlock | FieldBlock | HoverCardBlock | InputGroupBlock | InputOTPBlock | ItemBlock | KbdBlock | MarkerBlock | MenubarBlock | MessageBlock | MessageScrollerBlock | NativeSelectBlock | NavigationMenuBlock | ResizableBlock | ScrollAreaBlock | SheetBlock | SidebarBlock | SkeletonBlock | SpinnerBlock | ToggleBlock | ToggleGroupBlock | TooltipBlock | ToastBlock | PopoverBlock | DropdownMenuBlock | TraceBlock | QuestionnaireBlock | MagicMarquee | MagicTerminal | MagicHeroVideoDialog | MagicBentoGrid | MagicAnimatedList | MagicDock | MagicGlobe | MagicTweetCard | MagicOrbitingCircles | MagicAvatarCircles | MagicIconCloud | MagicLens | MagicPointer | MagicSmoothCursor | MagicProgressiveBlur | MagicDottedMap | MagicAnimatedBeam | MagicBorderBeam | MagicShineBorder | MagicMagicCard | MagicGlareHover | MagicMeteors | MagicConfetti | MagicParticles | MagicAnimatedThemeToggler | MagicBlurFade | MagicTextAnimate | MagicTypingAnimation | MagicLineShadowText | MagicAuroraText | MagicVideoText | MagicNumberTicker | MagicAnimatedShinyText | MagicAnimatedGradientText | MagicTextReveal | MagicDiaTextReveal | MagicHyperText | MagicWordRotate | MagicScrollBasedVelocity | MagicSparklesText | MagicMorphingText | MagicSpinningText | MagicTextHighlighter | MagicText3DFlip | MagicSafari | MagicIphone | MagicAndroid | MagicRainbowButton | MagicShimmerButton | MagicRippleButton | MagicFlickeringGrid | MagicAnimatedGridPattern | MagicRetroGrid | MagicRipple | MagicDotPattern | MagicGridPattern | MagicHexagonPattern | MagicStripedPattern | MagicInteractiveGridPattern | MagicLightRays | MagicNoiseTexture | MagicFloating3DParticles | MagicDitherField | MagicShinyButton | MagicFileTree | MagicCodeComparison | MagicScrollProgress | MagicNeonGradientCard | MagicComicText | MagicKineticText | MagicCoolMode | MagicPixelImage | MagicPulsatingButton | MagicWarpBackground | MagicInteractiveHoverButton | MagicAnimatedCircularProgressBar | MagicBacklight | MagicGlyphMatrix | TextContent | MarkDownRenderer | CardHeader | Alert | Badge | Avatar | CodeBlock | Image | ImageBlock | Progress | Separator | BarChart | LineChart | AreaChart | PieChart | RadarChart | RadialChart | ScatterChart | Table | TagBlock | Form | Buttons | Heading | Blockquote | InlineCode | PaginationBlock | DialogBlock | AlertDialogBlock | DrawerBlock | CalendarBlock | FollowUpBlock | Tabs | Carousel)[])",
       "description": "Vertical container for all content in a chat response. Children stack top to bottom automatically."
     },
     "CardHeader": {
@@ -31,7 +495,7 @@
     },
     "CodeBlock": {
       "signature": "CodeBlock(code: string, language?: string, title?: string)",
-      "description": "Syntax-highlighted code block with optional language and title."
+      "description": "Copyable syntax-highlighted code block. Unknown languages render as plain text."
     },
     "Image": {
       "signature": "Image(src: string, alt?: string)",
@@ -182,7 +646,7 @@
       "description": "Tabbed content. items: TabItem[]. defaultValue: initially active tab."
     },
     "TabItem": {
-      "signature": "TabItem(value: string, trigger: string, content: (TextContent | MarkDownRenderer | CardHeader | Alert | Badge | Avatar | CodeBlock | Image | ImageBlock | Progress | Separator | BarChart | LineChart | AreaChart | PieChart | RadarChart | RadialChart | ScatterChart | Table | TagBlock | Form | Buttons | Heading | Blockquote | InlineCode | PaginationBlock | DialogBlock | AlertDialogBlock | DrawerBlock | CalendarBlock)[])",
+      "signature": "TabItem(value: string, trigger: string, content: (DataTableBlock | AspectRatioBlock | AttachmentBlock | BreadcrumbBlock | BubbleBlock | ButtonGroupBlock | CollapsibleBlock | ComboboxBlock | CommandBlock | ContextMenuBlock | DirectionBlock | EmptyBlock | FieldBlock | HoverCardBlock | InputGroupBlock | InputOTPBlock | ItemBlock | KbdBlock | MarkerBlock | MenubarBlock | MessageBlock | MessageScrollerBlock | NativeSelectBlock | NavigationMenuBlock | ResizableBlock | ScrollAreaBlock | SheetBlock | SidebarBlock | SkeletonBlock | SpinnerBlock | ToggleBlock | ToggleGroupBlock | TooltipBlock | ToastBlock | PopoverBlock | DropdownMenuBlock | TraceBlock | QuestionnaireBlock | MagicMarquee | MagicTerminal | MagicHeroVideoDialog | MagicBentoGrid | MagicAnimatedList | MagicDock | MagicGlobe | MagicTweetCard | MagicOrbitingCircles | MagicAvatarCircles | MagicIconCloud | MagicLens | MagicPointer | MagicSmoothCursor | MagicProgressiveBlur | MagicDottedMap | MagicAnimatedBeam | MagicBorderBeam | MagicShineBorder | MagicMagicCard | MagicGlareHover | MagicMeteors | MagicConfetti | MagicParticles | MagicAnimatedThemeToggler | MagicBlurFade | MagicTextAnimate | MagicTypingAnimation | MagicLineShadowText | MagicAuroraText | MagicVideoText | MagicNumberTicker | MagicAnimatedShinyText | MagicAnimatedGradientText | MagicTextReveal | MagicDiaTextReveal | MagicHyperText | MagicWordRotate | MagicScrollBasedVelocity | MagicSparklesText | MagicMorphingText | MagicSpinningText | MagicTextHighlighter | MagicText3DFlip | MagicSafari | MagicIphone | MagicAndroid | MagicRainbowButton | MagicShimmerButton | MagicRippleButton | MagicFlickeringGrid | MagicAnimatedGridPattern | MagicRetroGrid | MagicRipple | MagicDotPattern | MagicGridPattern | MagicHexagonPattern | MagicStripedPattern | MagicInteractiveGridPattern | MagicLightRays | MagicNoiseTexture | MagicFloating3DParticles | MagicDitherField | MagicShinyButton | MagicFileTree | MagicCodeComparison | MagicScrollProgress | MagicNeonGradientCard | MagicComicText | MagicKineticText | MagicCoolMode | MagicPixelImage | MagicPulsatingButton | MagicWarpBackground | MagicInteractiveHoverButton | MagicAnimatedCircularProgressBar | MagicBacklight | MagicGlyphMatrix | TextContent | MarkDownRenderer | CardHeader | Alert | Badge | Avatar | CodeBlock | Image | ImageBlock | Progress | Separator | BarChart | LineChart | AreaChart | PieChart | RadarChart | RadialChart | ScatterChart | Table | TagBlock | Form | Buttons | Heading | Blockquote | InlineCode | PaginationBlock | DialogBlock | AlertDialogBlock | DrawerBlock | CalendarBlock)[])",
       "description": "Tab panel. value: unique id, trigger: tab label, content: children."
     },
     "Accordion": {
@@ -190,7 +654,7 @@
       "description": "Collapsible sections. type: \"single\" | \"multiple\". items: AccordionItem[]."
     },
     "AccordionItem": {
-      "signature": "AccordionItem(value: string, trigger: string, content: (TextContent | MarkDownRenderer | CardHeader | Alert | Badge | Avatar | CodeBlock | Image | ImageBlock | Progress | Separator | BarChart | LineChart | AreaChart | PieChart | RadarChart | RadialChart | ScatterChart | Table | TagBlock | Form | Buttons | Heading | Blockquote | InlineCode | PaginationBlock | DialogBlock | AlertDialogBlock | DrawerBlock | CalendarBlock)[])",
+      "signature": "AccordionItem(value: string, trigger: string, content: (DataTableBlock | AspectRatioBlock | AttachmentBlock | BreadcrumbBlock | BubbleBlock | ButtonGroupBlock | CollapsibleBlock | ComboboxBlock | CommandBlock | ContextMenuBlock | DirectionBlock | EmptyBlock | FieldBlock | HoverCardBlock | InputGroupBlock | InputOTPBlock | ItemBlock | KbdBlock | MarkerBlock | MenubarBlock | MessageBlock | MessageScrollerBlock | NativeSelectBlock | NavigationMenuBlock | ResizableBlock | ScrollAreaBlock | SheetBlock | SidebarBlock | SkeletonBlock | SpinnerBlock | ToggleBlock | ToggleGroupBlock | TooltipBlock | ToastBlock | PopoverBlock | DropdownMenuBlock | TraceBlock | QuestionnaireBlock | MagicMarquee | MagicTerminal | MagicHeroVideoDialog | MagicBentoGrid | MagicAnimatedList | MagicDock | MagicGlobe | MagicTweetCard | MagicOrbitingCircles | MagicAvatarCircles | MagicIconCloud | MagicLens | MagicPointer | MagicSmoothCursor | MagicProgressiveBlur | MagicDottedMap | MagicAnimatedBeam | MagicBorderBeam | MagicShineBorder | MagicMagicCard | MagicGlareHover | MagicMeteors | MagicConfetti | MagicParticles | MagicAnimatedThemeToggler | MagicBlurFade | MagicTextAnimate | MagicTypingAnimation | MagicLineShadowText | MagicAuroraText | MagicVideoText | MagicNumberTicker | MagicAnimatedShinyText | MagicAnimatedGradientText | MagicTextReveal | MagicDiaTextReveal | MagicHyperText | MagicWordRotate | MagicScrollBasedVelocity | MagicSparklesText | MagicMorphingText | MagicSpinningText | MagicTextHighlighter | MagicText3DFlip | MagicSafari | MagicIphone | MagicAndroid | MagicRainbowButton | MagicShimmerButton | MagicRippleButton | MagicFlickeringGrid | MagicAnimatedGridPattern | MagicRetroGrid | MagicRipple | MagicDotPattern | MagicGridPattern | MagicHexagonPattern | MagicStripedPattern | MagicInteractiveGridPattern | MagicLightRays | MagicNoiseTexture | MagicFloating3DParticles | MagicDitherField | MagicShinyButton | MagicFileTree | MagicCodeComparison | MagicScrollProgress | MagicNeonGradientCard | MagicComicText | MagicKineticText | MagicCoolMode | MagicPixelImage | MagicPulsatingButton | MagicWarpBackground | MagicInteractiveHoverButton | MagicAnimatedCircularProgressBar | MagicBacklight | MagicGlyphMatrix | TextContent | MarkDownRenderer | CardHeader | Alert | Badge | Avatar | CodeBlock | Image | ImageBlock | Progress | Separator | BarChart | LineChart | AreaChart | PieChart | RadarChart | RadialChart | ScatterChart | Table | TagBlock | Form | Buttons | Heading | Blockquote | InlineCode | PaginationBlock | DialogBlock | AlertDialogBlock | DrawerBlock | CalendarBlock)[])",
       "description": "Collapsible item inside Accordion. value: unique id, trigger: header text."
     },
     "Carousel": {
@@ -239,6 +703,135 @@
     }
   },
   "componentGroups": [
+    {
+      "name": "Extended shadcn",
+      "components": [
+        "AspectRatioBlock",
+        "AttachmentBlock",
+        "BreadcrumbBlock",
+        "BubbleBlock",
+        "ButtonGroupBlock",
+        "CollapsibleBlock",
+        "ComboboxBlock",
+        "CommandBlock",
+        "ContextMenuBlock",
+        "DirectionBlock",
+        "EmptyBlock",
+        "FieldBlock",
+        "HoverCardBlock",
+        "InputGroupBlock",
+        "InputOTPBlock",
+        "ItemBlock",
+        "KbdBlock",
+        "MarkerBlock",
+        "MenubarBlock",
+        "MessageBlock",
+        "MessageScrollerBlock",
+        "NativeSelectBlock",
+        "NavigationMenuBlock",
+        "ResizableBlock",
+        "ScrollAreaBlock",
+        "SheetBlock",
+        "SidebarBlock",
+        "SkeletonBlock",
+        "SpinnerBlock",
+        "ToggleBlock",
+        "ToggleGroupBlock",
+        "TooltipBlock",
+        "ToastBlock",
+        "PopoverBlock",
+        "DropdownMenuBlock",
+        "TraceBlock",
+        "QuestionnaireBlock",
+        "DataTableBlock"
+      ]
+    },
+    {
+      "name": "Magic UI",
+      "components": [
+        "MagicMarquee",
+        "MagicTerminal",
+        "MagicHeroVideoDialog",
+        "MagicBentoGrid",
+        "MagicAnimatedList",
+        "MagicDock",
+        "MagicGlobe",
+        "MagicTweetCard",
+        "MagicOrbitingCircles",
+        "MagicAvatarCircles",
+        "MagicIconCloud",
+        "MagicLens",
+        "MagicPointer",
+        "MagicSmoothCursor",
+        "MagicProgressiveBlur",
+        "MagicDottedMap",
+        "MagicAnimatedBeam",
+        "MagicBorderBeam",
+        "MagicShineBorder",
+        "MagicMagicCard",
+        "MagicGlareHover",
+        "MagicMeteors",
+        "MagicConfetti",
+        "MagicParticles",
+        "MagicAnimatedThemeToggler",
+        "MagicBlurFade",
+        "MagicTextAnimate",
+        "MagicTypingAnimation",
+        "MagicLineShadowText",
+        "MagicAuroraText",
+        "MagicVideoText",
+        "MagicNumberTicker",
+        "MagicAnimatedShinyText",
+        "MagicAnimatedGradientText",
+        "MagicTextReveal",
+        "MagicDiaTextReveal",
+        "MagicHyperText",
+        "MagicWordRotate",
+        "MagicScrollBasedVelocity",
+        "MagicSparklesText",
+        "MagicMorphingText",
+        "MagicSpinningText",
+        "MagicTextHighlighter",
+        "MagicText3DFlip",
+        "MagicSafari",
+        "MagicIphone",
+        "MagicAndroid",
+        "MagicRainbowButton",
+        "MagicShimmerButton",
+        "MagicRippleButton",
+        "MagicFlickeringGrid",
+        "MagicAnimatedGridPattern",
+        "MagicRetroGrid",
+        "MagicRipple",
+        "MagicDotPattern",
+        "MagicGridPattern",
+        "MagicHexagonPattern",
+        "MagicStripedPattern",
+        "MagicInteractiveGridPattern",
+        "MagicLightRays",
+        "MagicNoiseTexture",
+        "MagicFloating3DParticles",
+        "MagicDitherField",
+        "MagicShinyButton",
+        "MagicFileTree",
+        "MagicCodeComparison",
+        "MagicScrollProgress",
+        "MagicNeonGradientCard",
+        "MagicComicText",
+        "MagicKineticText",
+        "MagicCoolMode",
+        "MagicPixelImage",
+        "MagicPulsatingButton",
+        "MagicWarpBackground",
+        "MagicInteractiveHoverButton",
+        "MagicAnimatedCircularProgressBar",
+        "MagicBacklight",
+        "MagicGlyphMatrix"
+      ],
+      "notes": [
+        "Use Magic-prefixed components for optional visual effects. Combine with shadcn content and controls inside Card."
+      ]
+    },
     {
       "name": "Content",
       "components": [
@@ -310,7 +903,7 @@
       "notes": [
         "- Define EACH FormControl as its own reference — do NOT inline all controls in one array.",
         "- NEVER nest Form inside Form.",
-        "- Form requires explicit buttons. Always pass a Buttons(...) reference as the third Form argument.",
+        "- Form requires explicit buttons. Always pass a Buttons(...) reference as the second Form argument.",
         "- rules is an optional object: { required: true, email: true, min: 8, maxLength: 100 }",
         "- The renderer shows error messages automatically — do NOT generate error text in the UI"
       ]
@@ -406,6 +999,354 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
+      "DataTableBlock": {
+        "$ref": "#/$defs/DataTableBlock"
+      },
+      "AspectRatioBlock": {
+        "$ref": "#/$defs/AspectRatioBlock"
+      },
+      "AttachmentBlock": {
+        "$ref": "#/$defs/AttachmentBlock"
+      },
+      "BreadcrumbBlock": {
+        "$ref": "#/$defs/BreadcrumbBlock"
+      },
+      "BubbleBlock": {
+        "$ref": "#/$defs/BubbleBlock"
+      },
+      "ButtonGroupBlock": {
+        "$ref": "#/$defs/ButtonGroupBlock"
+      },
+      "CollapsibleBlock": {
+        "$ref": "#/$defs/CollapsibleBlock"
+      },
+      "ComboboxBlock": {
+        "$ref": "#/$defs/ComboboxBlock"
+      },
+      "CommandBlock": {
+        "$ref": "#/$defs/CommandBlock"
+      },
+      "ContextMenuBlock": {
+        "$ref": "#/$defs/ContextMenuBlock"
+      },
+      "DirectionBlock": {
+        "$ref": "#/$defs/DirectionBlock"
+      },
+      "EmptyBlock": {
+        "$ref": "#/$defs/EmptyBlock"
+      },
+      "FieldBlock": {
+        "$ref": "#/$defs/FieldBlock"
+      },
+      "HoverCardBlock": {
+        "$ref": "#/$defs/HoverCardBlock"
+      },
+      "InputGroupBlock": {
+        "$ref": "#/$defs/InputGroupBlock"
+      },
+      "InputOTPBlock": {
+        "$ref": "#/$defs/InputOTPBlock"
+      },
+      "ItemBlock": {
+        "$ref": "#/$defs/ItemBlock"
+      },
+      "KbdBlock": {
+        "$ref": "#/$defs/KbdBlock"
+      },
+      "MarkerBlock": {
+        "$ref": "#/$defs/MarkerBlock"
+      },
+      "MenubarBlock": {
+        "$ref": "#/$defs/MenubarBlock"
+      },
+      "MessageBlock": {
+        "$ref": "#/$defs/MessageBlock"
+      },
+      "MessageScrollerBlock": {
+        "$ref": "#/$defs/MessageScrollerBlock"
+      },
+      "NativeSelectBlock": {
+        "$ref": "#/$defs/NativeSelectBlock"
+      },
+      "NavigationMenuBlock": {
+        "$ref": "#/$defs/NavigationMenuBlock"
+      },
+      "ResizableBlock": {
+        "$ref": "#/$defs/ResizableBlock"
+      },
+      "ScrollAreaBlock": {
+        "$ref": "#/$defs/ScrollAreaBlock"
+      },
+      "SheetBlock": {
+        "$ref": "#/$defs/SheetBlock"
+      },
+      "SidebarBlock": {
+        "$ref": "#/$defs/SidebarBlock"
+      },
+      "SkeletonBlock": {
+        "$ref": "#/$defs/SkeletonBlock"
+      },
+      "SpinnerBlock": {
+        "$ref": "#/$defs/SpinnerBlock"
+      },
+      "ToggleBlock": {
+        "$ref": "#/$defs/ToggleBlock"
+      },
+      "ToggleGroupBlock": {
+        "$ref": "#/$defs/ToggleGroupBlock"
+      },
+      "TooltipBlock": {
+        "$ref": "#/$defs/TooltipBlock"
+      },
+      "ToastBlock": {
+        "$ref": "#/$defs/ToastBlock"
+      },
+      "PopoverBlock": {
+        "$ref": "#/$defs/PopoverBlock"
+      },
+      "DropdownMenuBlock": {
+        "$ref": "#/$defs/DropdownMenuBlock"
+      },
+      "TraceBlock": {
+        "$ref": "#/$defs/TraceBlock"
+      },
+      "QuestionnaireBlock": {
+        "$ref": "#/$defs/QuestionnaireBlock"
+      },
+      "MagicMarquee": {
+        "$ref": "#/$defs/MagicMarquee"
+      },
+      "MagicTerminal": {
+        "$ref": "#/$defs/MagicTerminal"
+      },
+      "MagicHeroVideoDialog": {
+        "$ref": "#/$defs/MagicHeroVideoDialog"
+      },
+      "MagicBentoGrid": {
+        "$ref": "#/$defs/MagicBentoGrid"
+      },
+      "MagicAnimatedList": {
+        "$ref": "#/$defs/MagicAnimatedList"
+      },
+      "MagicDock": {
+        "$ref": "#/$defs/MagicDock"
+      },
+      "MagicGlobe": {
+        "$ref": "#/$defs/MagicGlobe"
+      },
+      "MagicTweetCard": {
+        "$ref": "#/$defs/MagicTweetCard"
+      },
+      "MagicOrbitingCircles": {
+        "$ref": "#/$defs/MagicOrbitingCircles"
+      },
+      "MagicAvatarCircles": {
+        "$ref": "#/$defs/MagicAvatarCircles"
+      },
+      "MagicIconCloud": {
+        "$ref": "#/$defs/MagicIconCloud"
+      },
+      "MagicLens": {
+        "$ref": "#/$defs/MagicLens"
+      },
+      "MagicPointer": {
+        "$ref": "#/$defs/MagicPointer"
+      },
+      "MagicSmoothCursor": {
+        "$ref": "#/$defs/MagicSmoothCursor"
+      },
+      "MagicProgressiveBlur": {
+        "$ref": "#/$defs/MagicProgressiveBlur"
+      },
+      "MagicDottedMap": {
+        "$ref": "#/$defs/MagicDottedMap"
+      },
+      "MagicAnimatedBeam": {
+        "$ref": "#/$defs/MagicAnimatedBeam"
+      },
+      "MagicBorderBeam": {
+        "$ref": "#/$defs/MagicBorderBeam"
+      },
+      "MagicShineBorder": {
+        "$ref": "#/$defs/MagicShineBorder"
+      },
+      "MagicMagicCard": {
+        "$ref": "#/$defs/MagicMagicCard"
+      },
+      "MagicGlareHover": {
+        "$ref": "#/$defs/MagicGlareHover"
+      },
+      "MagicMeteors": {
+        "$ref": "#/$defs/MagicMeteors"
+      },
+      "MagicConfetti": {
+        "$ref": "#/$defs/MagicConfetti"
+      },
+      "MagicParticles": {
+        "$ref": "#/$defs/MagicParticles"
+      },
+      "MagicAnimatedThemeToggler": {
+        "$ref": "#/$defs/MagicAnimatedThemeToggler"
+      },
+      "MagicBlurFade": {
+        "$ref": "#/$defs/MagicBlurFade"
+      },
+      "MagicTextAnimate": {
+        "$ref": "#/$defs/MagicTextAnimate"
+      },
+      "MagicTypingAnimation": {
+        "$ref": "#/$defs/MagicTypingAnimation"
+      },
+      "MagicLineShadowText": {
+        "$ref": "#/$defs/MagicLineShadowText"
+      },
+      "MagicAuroraText": {
+        "$ref": "#/$defs/MagicAuroraText"
+      },
+      "MagicVideoText": {
+        "$ref": "#/$defs/MagicVideoText"
+      },
+      "MagicNumberTicker": {
+        "$ref": "#/$defs/MagicNumberTicker"
+      },
+      "MagicAnimatedShinyText": {
+        "$ref": "#/$defs/MagicAnimatedShinyText"
+      },
+      "MagicAnimatedGradientText": {
+        "$ref": "#/$defs/MagicAnimatedGradientText"
+      },
+      "MagicTextReveal": {
+        "$ref": "#/$defs/MagicTextReveal"
+      },
+      "MagicDiaTextReveal": {
+        "$ref": "#/$defs/MagicDiaTextReveal"
+      },
+      "MagicHyperText": {
+        "$ref": "#/$defs/MagicHyperText"
+      },
+      "MagicWordRotate": {
+        "$ref": "#/$defs/MagicWordRotate"
+      },
+      "MagicScrollBasedVelocity": {
+        "$ref": "#/$defs/MagicScrollBasedVelocity"
+      },
+      "MagicSparklesText": {
+        "$ref": "#/$defs/MagicSparklesText"
+      },
+      "MagicMorphingText": {
+        "$ref": "#/$defs/MagicMorphingText"
+      },
+      "MagicSpinningText": {
+        "$ref": "#/$defs/MagicSpinningText"
+      },
+      "MagicTextHighlighter": {
+        "$ref": "#/$defs/MagicTextHighlighter"
+      },
+      "MagicText3DFlip": {
+        "$ref": "#/$defs/MagicText3DFlip"
+      },
+      "MagicSafari": {
+        "$ref": "#/$defs/MagicSafari"
+      },
+      "MagicIphone": {
+        "$ref": "#/$defs/MagicIphone"
+      },
+      "MagicAndroid": {
+        "$ref": "#/$defs/MagicAndroid"
+      },
+      "MagicRainbowButton": {
+        "$ref": "#/$defs/MagicRainbowButton"
+      },
+      "MagicShimmerButton": {
+        "$ref": "#/$defs/MagicShimmerButton"
+      },
+      "MagicRippleButton": {
+        "$ref": "#/$defs/MagicRippleButton"
+      },
+      "MagicFlickeringGrid": {
+        "$ref": "#/$defs/MagicFlickeringGrid"
+      },
+      "MagicAnimatedGridPattern": {
+        "$ref": "#/$defs/MagicAnimatedGridPattern"
+      },
+      "MagicRetroGrid": {
+        "$ref": "#/$defs/MagicRetroGrid"
+      },
+      "MagicRipple": {
+        "$ref": "#/$defs/MagicRipple"
+      },
+      "MagicDotPattern": {
+        "$ref": "#/$defs/MagicDotPattern"
+      },
+      "MagicGridPattern": {
+        "$ref": "#/$defs/MagicGridPattern"
+      },
+      "MagicHexagonPattern": {
+        "$ref": "#/$defs/MagicHexagonPattern"
+      },
+      "MagicStripedPattern": {
+        "$ref": "#/$defs/MagicStripedPattern"
+      },
+      "MagicInteractiveGridPattern": {
+        "$ref": "#/$defs/MagicInteractiveGridPattern"
+      },
+      "MagicLightRays": {
+        "$ref": "#/$defs/MagicLightRays"
+      },
+      "MagicNoiseTexture": {
+        "$ref": "#/$defs/MagicNoiseTexture"
+      },
+      "MagicFloating3DParticles": {
+        "$ref": "#/$defs/MagicFloating3DParticles"
+      },
+      "MagicDitherField": {
+        "$ref": "#/$defs/MagicDitherField"
+      },
+      "MagicShinyButton": {
+        "$ref": "#/$defs/MagicShinyButton"
+      },
+      "MagicFileTree": {
+        "$ref": "#/$defs/MagicFileTree"
+      },
+      "MagicCodeComparison": {
+        "$ref": "#/$defs/MagicCodeComparison"
+      },
+      "MagicScrollProgress": {
+        "$ref": "#/$defs/MagicScrollProgress"
+      },
+      "MagicNeonGradientCard": {
+        "$ref": "#/$defs/MagicNeonGradientCard"
+      },
+      "MagicComicText": {
+        "$ref": "#/$defs/MagicComicText"
+      },
+      "MagicKineticText": {
+        "$ref": "#/$defs/MagicKineticText"
+      },
+      "MagicCoolMode": {
+        "$ref": "#/$defs/MagicCoolMode"
+      },
+      "MagicPixelImage": {
+        "$ref": "#/$defs/MagicPixelImage"
+      },
+      "MagicPulsatingButton": {
+        "$ref": "#/$defs/MagicPulsatingButton"
+      },
+      "MagicWarpBackground": {
+        "$ref": "#/$defs/MagicWarpBackground"
+      },
+      "MagicInteractiveHoverButton": {
+        "$ref": "#/$defs/MagicInteractiveHoverButton"
+      },
+      "MagicAnimatedCircularProgressBar": {
+        "$ref": "#/$defs/MagicAnimatedCircularProgressBar"
+      },
+      "MagicBacklight": {
+        "$ref": "#/$defs/MagicBacklight"
+      },
+      "MagicGlyphMatrix": {
+        "$ref": "#/$defs/MagicGlyphMatrix"
+      },
       "Card": {
         "$ref": "#/$defs/Card"
       },
@@ -585,6 +1526,122 @@
       }
     },
     "required": [
+      "DataTableBlock",
+      "AspectRatioBlock",
+      "AttachmentBlock",
+      "BreadcrumbBlock",
+      "BubbleBlock",
+      "ButtonGroupBlock",
+      "CollapsibleBlock",
+      "ComboboxBlock",
+      "CommandBlock",
+      "ContextMenuBlock",
+      "DirectionBlock",
+      "EmptyBlock",
+      "FieldBlock",
+      "HoverCardBlock",
+      "InputGroupBlock",
+      "InputOTPBlock",
+      "ItemBlock",
+      "KbdBlock",
+      "MarkerBlock",
+      "MenubarBlock",
+      "MessageBlock",
+      "MessageScrollerBlock",
+      "NativeSelectBlock",
+      "NavigationMenuBlock",
+      "ResizableBlock",
+      "ScrollAreaBlock",
+      "SheetBlock",
+      "SidebarBlock",
+      "SkeletonBlock",
+      "SpinnerBlock",
+      "ToggleBlock",
+      "ToggleGroupBlock",
+      "TooltipBlock",
+      "ToastBlock",
+      "PopoverBlock",
+      "DropdownMenuBlock",
+      "TraceBlock",
+      "QuestionnaireBlock",
+      "MagicMarquee",
+      "MagicTerminal",
+      "MagicHeroVideoDialog",
+      "MagicBentoGrid",
+      "MagicAnimatedList",
+      "MagicDock",
+      "MagicGlobe",
+      "MagicTweetCard",
+      "MagicOrbitingCircles",
+      "MagicAvatarCircles",
+      "MagicIconCloud",
+      "MagicLens",
+      "MagicPointer",
+      "MagicSmoothCursor",
+      "MagicProgressiveBlur",
+      "MagicDottedMap",
+      "MagicAnimatedBeam",
+      "MagicBorderBeam",
+      "MagicShineBorder",
+      "MagicMagicCard",
+      "MagicGlareHover",
+      "MagicMeteors",
+      "MagicConfetti",
+      "MagicParticles",
+      "MagicAnimatedThemeToggler",
+      "MagicBlurFade",
+      "MagicTextAnimate",
+      "MagicTypingAnimation",
+      "MagicLineShadowText",
+      "MagicAuroraText",
+      "MagicVideoText",
+      "MagicNumberTicker",
+      "MagicAnimatedShinyText",
+      "MagicAnimatedGradientText",
+      "MagicTextReveal",
+      "MagicDiaTextReveal",
+      "MagicHyperText",
+      "MagicWordRotate",
+      "MagicScrollBasedVelocity",
+      "MagicSparklesText",
+      "MagicMorphingText",
+      "MagicSpinningText",
+      "MagicTextHighlighter",
+      "MagicText3DFlip",
+      "MagicSafari",
+      "MagicIphone",
+      "MagicAndroid",
+      "MagicRainbowButton",
+      "MagicShimmerButton",
+      "MagicRippleButton",
+      "MagicFlickeringGrid",
+      "MagicAnimatedGridPattern",
+      "MagicRetroGrid",
+      "MagicRipple",
+      "MagicDotPattern",
+      "MagicGridPattern",
+      "MagicHexagonPattern",
+      "MagicStripedPattern",
+      "MagicInteractiveGridPattern",
+      "MagicLightRays",
+      "MagicNoiseTexture",
+      "MagicFloating3DParticles",
+      "MagicDitherField",
+      "MagicShinyButton",
+      "MagicFileTree",
+      "MagicCodeComparison",
+      "MagicScrollProgress",
+      "MagicNeonGradientCard",
+      "MagicComicText",
+      "MagicKineticText",
+      "MagicCoolMode",
+      "MagicPixelImage",
+      "MagicPulsatingButton",
+      "MagicWarpBackground",
+      "MagicInteractiveHoverButton",
+      "MagicAnimatedCircularProgressBar",
+      "MagicBacklight",
+      "MagicGlyphMatrix",
       "Card",
       "CardHeader",
       "TextContent",
@@ -647,6 +1704,3175 @@
     ],
     "additionalProperties": false,
     "$defs": {
+      "DataTableBlock": {
+        "type": "object",
+        "properties": {
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "key",
+                "label"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              }
+            }
+          },
+          "filterColumn": {
+            "type": "string"
+          },
+          "pageSize": {
+            "default": 5,
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "columns",
+          "rows",
+          "pageSize"
+        ],
+        "additionalProperties": false,
+        "description": "TanStack data table with sortable headers, filtering, column visibility and pagination."
+      },
+      "AspectRatioBlock": {
+        "type": "object",
+        "properties": {
+          "ratio": {
+            "default": 1.7777777777777777,
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "text": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "ratio",
+          "text"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui aspect-ratio composition with accessible interactive primitives."
+      },
+      "AttachmentBlock": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "href"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui attachment composition with accessible interactive primitives."
+      },
+      "BreadcrumbBlock": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "href": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "href"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui breadcrumb composition with accessible interactive primitives."
+      },
+      "BubbleBlock": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui bubble composition with accessible interactive primitives."
+      },
+      "ButtonGroupBlock": {
+        "type": "object",
+        "properties": {
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "labels"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui button-group composition with accessible interactive primitives."
+      },
+      "CollapsibleBlock": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "title",
+          "text"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui collapsible composition with accessible interactive primitives."
+      },
+      "ComboboxBlock": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "placeholder": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "options",
+          "placeholder"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui combobox composition with accessible interactive primitives."
+      },
+      "CommandBlock": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "options"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui command composition with accessible interactive primitives."
+      },
+      "ContextMenuBlock": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "label",
+          "items"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui context-menu composition with accessible interactive primitives."
+      },
+      "DirectionBlock": {
+        "type": "object",
+        "properties": {
+          "direction": {
+            "type": "string",
+            "enum": [
+              "ltr",
+              "rtl"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "direction",
+          "text"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui direction composition with accessible interactive primitives."
+      },
+      "EmptyBlock": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "description"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui empty composition with accessible interactive primitives."
+      },
+      "FieldBlock": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "placeholder": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "placeholder"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui field composition with accessible interactive primitives."
+      },
+      "HoverCardBlock": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "label",
+          "text"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui hover-card composition with accessible interactive primitives."
+      },
+      "InputGroupBlock": {
+        "type": "object",
+        "properties": {
+          "prefix": {
+            "type": "string"
+          },
+          "placeholder": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "prefix",
+          "placeholder"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui input-group composition with accessible interactive primitives."
+      },
+      "InputOTPBlock": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "default": 6,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "length"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui input-otp composition with accessible interactive primitives."
+      },
+      "ItemBlock": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "title",
+          "description"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui item composition with accessible interactive primitives."
+      },
+      "KbdBlock": {
+        "type": "object",
+        "properties": {
+          "keys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "keys"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui kbd composition with accessible interactive primitives."
+      },
+      "MarkerBlock": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui marker composition with accessible interactive primitives."
+      },
+      "MenubarBlock": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "label",
+          "items"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui menubar composition with accessible interactive primitives."
+      },
+      "MessageBlock": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "author",
+          "text"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui message composition with accessible interactive primitives."
+      },
+      "MessageScrollerBlock": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "messages"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui message-scroller composition with accessible interactive primitives."
+      },
+      "NativeSelectBlock": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "options"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui native-select composition with accessible interactive primitives."
+      },
+      "NavigationMenuBlock": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "href": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "href"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui navigation-menu composition with accessible interactive primitives."
+      },
+      "ResizableBlock": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "string"
+          },
+          "second": {
+            "type": "string"
+          },
+          "firstContent": {
+            "type": "array",
+            "items": {}
+          },
+          "secondContent": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui resizable composition with accessible interactive primitives."
+      },
+      "ScrollAreaBlock": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui scroll-area composition with accessible interactive primitives."
+      },
+      "SheetBlock": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "label",
+          "title",
+          "text"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui sheet composition with accessible interactive primitives."
+      },
+      "SidebarBlock": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "children": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "title",
+          "items"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui sidebar composition with accessible interactive primitives."
+      },
+      "SkeletonBlock": {
+        "type": "object",
+        "properties": {
+          "rows": {
+            "default": 3,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          }
+        },
+        "required": [
+          "rows"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui skeleton composition with accessible interactive primitives."
+      },
+      "SpinnerBlock": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui spinner composition with accessible interactive primitives."
+      },
+      "ToggleBlock": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "label"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui toggle composition with accessible interactive primitives."
+      },
+      "ToggleGroupBlock": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "options"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui toggle-group composition with accessible interactive primitives."
+      },
+      "TooltipBlock": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "text"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui tooltip composition with accessible interactive primitives."
+      },
+      "ToastBlock": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "message"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui toast composition with accessible interactive primitives."
+      },
+      "PopoverBlock": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "label",
+          "text"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui popover composition with accessible interactive primitives."
+      },
+      "DropdownMenuBlock": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "label",
+          "items"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui dropdown-menu composition with accessible interactive primitives."
+      },
+      "TraceBlock": {
+        "type": "object",
+        "properties": {
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "detail": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title",
+                "detail"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "steps"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui trace composition with accessible interactive primitives."
+      },
+      "QuestionnaireBlock": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "title",
+          "options"
+        ],
+        "additionalProperties": false,
+        "description": "shadcn/ui questionnaire composition with accessible interactive primitives."
+      },
+      "MagicMarquee": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "items": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reverse": {
+            "type": "boolean"
+          },
+          "pauseOnHover": {
+            "type": "boolean"
+          },
+          "vertical": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "description": "An infinite scrolling component that can be used to display text, images, or videos.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicTerminal": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "startOnView": {
+            "type": "boolean"
+          },
+          "delay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "additionalProperties": false,
+        "description": "A terminal component. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicHeroVideoDialog": {
+        "type": "object",
+        "properties": {
+          "src": {
+            "type": "string"
+          },
+          "imageSrc": {
+            "type": "string"
+          },
+          "videoSrc": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "thumbnailSrc": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "thumbnailAlt": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A hero video dialog component.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicBentoGrid": {
+        "type": "object",
+        "properties": {
+          "cards": {
+            "maxItems": 12,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "href": {
+                  "type": "string"
+                },
+                "cta": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title",
+                "description",
+                "href",
+                "cta"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "items": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Bento grid is a layout used to showcase the features of a product in a simple and elegant way.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicAnimatedList": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "items": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "delay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "additionalProperties": false,
+        "description": "A list that animates each item in sequence with a delay. Used to showcase notifications or events on your landing page.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicDock": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "items": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "iconSize": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "iconMagnification": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "disableMagnification": {
+            "type": "boolean"
+          },
+          "iconDistance": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "top",
+              "middle",
+              "bottom"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "description": "An implementation of the MacOS dock using react + tailwindcss + motion. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicGlobe": {
+        "type": "object",
+        "properties": {
+          "markers": {
+            "maxItems": 100,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "latitude": {
+                  "type": "number",
+                  "minimum": -90,
+                  "maximum": 90
+                },
+                "longitude": {
+                  "type": "number",
+                  "minimum": -180,
+                  "maximum": 180
+                },
+                "size": {
+                  "type": "number",
+                  "minimum": 0.001,
+                  "maximum": 0.5
+                }
+              },
+              "required": [
+                "latitude",
+                "longitude"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "dark": {
+            "type": "boolean"
+          },
+          "theta": {
+            "type": "number",
+            "minimum": -3,
+            "maximum": 3
+          },
+          "mapBrightness": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "additionalProperties": false,
+        "description": "An autorotating, interactive, and highly performant globe made using WebGL.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicTweetCard": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "tweetId": {
+            "type": "string",
+            "pattern": "^\\d+$"
+          }
+        },
+        "additionalProperties": false,
+        "description": "A card that displays a tweet with the author's name, handle, and profile picture.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicOrbitingCircles": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "items": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reverse": {
+            "type": "boolean"
+          },
+          "radius": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "path": {
+            "type": "boolean"
+          },
+          "iconSize": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "speed": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          },
+          "delay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "additionalProperties": false,
+        "description": "A collection of circles which move in orbit along a circular path. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicAvatarCircles": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "numPeople": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        },
+        "additionalProperties": false,
+        "description": "Overlapping circles of avatars.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicIconCloud": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "images": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "showControl": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "description": "An interactive 3D tag cloud component. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicLens": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "zoomFactor": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "lensSize": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "isStatic": {
+            "type": "boolean"
+          },
+          "lensColor": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "ariaLabel": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          }
+        },
+        "additionalProperties": false,
+        "description": "A interactive component that enables zooming into images, videos and other elements.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicPointer": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A component that displays a pointer when hovering over an element. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicSmoothCursor": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false,
+        "description": "A customizable, physics-based smooth cursor animation component with spring animations and rotation effects. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicProgressiveBlur": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "position": {
+            "type": "string",
+            "enum": [
+              "top",
+              "bottom",
+              "both"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "description": "The Progressive Blur component adds a smooth blur gradient effect to scrollable content, indicating more content below or above.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicDottedMap": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false,
+        "description": "A component with a dotted map.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicAnimatedBeam": {
+        "type": "object",
+        "properties": {
+          "nodes": {
+            "minItems": 2,
+            "maxItems": 12,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "edges": {
+            "maxItems": 24,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 11
+                },
+                "to": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 11
+                }
+              },
+              "required": [
+                "from",
+                "to"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "items": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "curvature": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "reverse": {
+            "type": "boolean"
+          },
+          "pathColor": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "pathWidth": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "pathOpacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "gradientStartColor": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "gradientStopColor": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "repeatDelay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "startXOffset": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "startYOffset": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "endXOffset": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "endYOffset": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          },
+          "delay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "additionalProperties": false,
+        "description": "An animated beam of light which travels along a path. Useful for showcasing the integration features of a website.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicBorderBeam": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "colorFrom": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "colorTo": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "reverse": {
+            "type": "boolean"
+          },
+          "initialOffset": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "borderWidth": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          },
+          "delay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "additionalProperties": false,
+        "description": "An animated beam of light which travels along the border of its container.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicShineBorder": {
+        "type": "object",
+        "properties": {
+          "borderWidth": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          }
+        },
+        "additionalProperties": false,
+        "description": "Shine border is an animated background border effect.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicMagicCard": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "gradientSize": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "gradientFrom": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "gradientTo": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A spotlight effect that follows your mouse cursor and highlights borders on hover.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicGlareHover": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "background": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "opacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "angle": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "size": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "playOnce": {
+            "type": "boolean"
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          }
+        },
+        "additionalProperties": false,
+        "description": "A diagonal glare on hover using a ::before gradient and CSS variables (angle, size, duration, color).. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicMeteors": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "minDelay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "maxDelay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "minDuration": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "maxDuration": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "angle": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A meteor shower effect.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicConfetti": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "manualstart": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Confetti animations are best used to delight your users when something special happens. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicParticles": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "staticity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "ease": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "size": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "refresh": {
+            "type": "boolean"
+          },
+          "color": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "vx": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "vy": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        },
+        "additionalProperties": false,
+        "description": "Particles are a fun way to add some visual flair to your website. They can be used to create a sense of depth, movement, and interactivity.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicAnimatedThemeToggler": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "fromCenter": {
+            "type": "boolean"
+          },
+          "theme": {
+            "type": "string",
+            "enum": [
+              "light",
+              "dark"
+            ]
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          }
+        },
+        "additionalProperties": false,
+        "description": "Theme toggle with View Transitions and animated clip-path masks (circle, polygons, star), optional viewport-centered origin.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicBlurFade": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "offset": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "up",
+              "down",
+              "left",
+              "right"
+            ]
+          },
+          "inView": {
+            "type": "boolean"
+          },
+          "blur": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          },
+          "delay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "additionalProperties": false,
+        "description": "Blur fade in and out animation. Used to smoothly fade in and out content.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicTextAnimate": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "segmentClassName": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "startOnView": {
+            "type": "boolean"
+          },
+          "once": {
+            "type": "boolean"
+          },
+          "accessible": {
+            "type": "boolean"
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          },
+          "delay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "additionalProperties": false,
+        "description": "A text animation component that animates text using a variety of different animations.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicTypingAnimation": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "words": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "typeSpeed": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "deleteSpeed": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "pauseDelay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "loop": {
+            "type": "boolean"
+          },
+          "startOnView": {
+            "type": "boolean"
+          },
+          "showCursor": {
+            "type": "boolean"
+          },
+          "blinkCursor": {
+            "type": "boolean"
+          },
+          "cursorStyle": {
+            "type": "string",
+            "enum": [
+              "line",
+              "block",
+              "underscore"
+            ]
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          },
+          "delay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "additionalProperties": false,
+        "description": "Characters appearing in typed animation. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicLineShadowText": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A text component with a moving line shadow.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicAuroraText": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "colors": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "speed": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A beautiful aurora text effect. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicVideoText": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "src": {
+            "type": "string"
+          },
+          "autoPlay": {
+            "type": "boolean"
+          },
+          "muted": {
+            "type": "boolean"
+          },
+          "loop": {
+            "type": "boolean"
+          },
+          "preload": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "metadata",
+              "none"
+            ]
+          },
+          "textAnchor": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "dominantBaseline": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "fontFamily": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A component that displays text with a video playing in the background.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicNumberTicker": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "startValue": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "up",
+              "down"
+            ]
+          },
+          "decimalPlaces": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "delay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "additionalProperties": false,
+        "description": "Animate numbers to count up or down to a target number. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicAnimatedShinyText": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "shimmerWidth": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A light glare effect which pans across text making it appear as if it is shimmering.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicAnimatedGradientText": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "speed": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "colorFrom": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "colorTo": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "An animated gradient background which transitions between colors for text.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicTextReveal": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "Fade in text as you scroll down the page.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicDiaTextReveal": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A horizontal color band sweeps across text, revealing a gradient shine before settling on the base color.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicHyperText": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "startOnView": {
+            "type": "boolean"
+          },
+          "animateOnHover": {
+            "type": "boolean"
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          },
+          "delay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "additionalProperties": false,
+        "description": "A text animation that scrambles letters before revealing the final text.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicWordRotate": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "words": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          }
+        },
+        "additionalProperties": false,
+        "description": "A vertical rotation of words. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicScrollBasedVelocity": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "baseVelocity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "scrollReactivity": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Scrolling text whose speed changes based on scroll speed. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicSparklesText": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "sparklesCount": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A dynamic text that generates continuous sparkles with smooth transitions, perfect for highlighting text with animated stars.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicMorphingText": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "texts": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "A dynamic text morphing component for Magic UI.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicSpinningText": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "reverse": {
+            "type": "boolean"
+          },
+          "radius": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          }
+        },
+        "additionalProperties": false,
+        "description": "The Spinning Text component animates text in a circular motion with customizable speed, direction, color, and transitions for dynamic and engaging effects.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicTextHighlighter": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "color": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "strokeWidth": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "animationDuration": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "iterations": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "padding": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "multiline": {
+            "type": "boolean"
+          },
+          "isView": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "description": "A text highlighter that mimics the effect of a human-drawn marker stroke.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicText3DFlip": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "textClassName": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "flipTextClassName": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "staggerDuration": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "rotateDirection": {
+            "type": "string",
+            "enum": [
+              "top",
+              "right",
+              "bottom",
+              "left"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "description": "A text effect that flips each letter in 3D with a staggered animation on hover.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicSafari": {
+        "type": "object",
+        "properties": {
+          "imageSrc": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "videoSrc": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A safari browser mockup to showcase your website.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicIphone": {
+        "type": "object",
+        "properties": {
+          "imageSrc": {
+            "type": "string"
+          },
+          "videoSrc": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A mockup of the iPhone. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicAndroid": {
+        "type": "object",
+        "properties": {
+          "imageSrc": {
+            "type": "string"
+          },
+          "videoSrc": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A mockup of an Android device.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicRainbowButton": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "open_url"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "url"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "continue_conversation"
+                  },
+                  "context": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "params": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "An animated button with a rainbow effect.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicShimmerButton": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "open_url"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "url"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "continue_conversation"
+                  },
+                  "context": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "params": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "shimmerColor": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "shimmerSize": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "borderRadius": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "shimmerDuration": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "background": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A button with a shimmering light which travels around the perimeter.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicRippleButton": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "open_url"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "url"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "continue_conversation"
+                  },
+                  "context": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "params": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "rippleColor": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "An animated button with ripple useful for user engagement.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicFlickeringGrid": {
+        "type": "object",
+        "properties": {
+          "squareSize": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "gridGap": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "flickerChance": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "color": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "maxOpacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A flickering grid background made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicAnimatedGridPattern": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "strokeDasharray": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "numSquares": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "maxOpacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "repeatDelay": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 60
+          }
+        },
+        "additionalProperties": false,
+        "description": "A animated background grid pattern made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicRetroGrid": {
+        "type": "object",
+        "properties": {
+          "angle": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "cellSize": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "opacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "lightLineColor": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "darkLineColor": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "An animated scrolling retro grid effect. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicRipple": {
+        "type": "object",
+        "properties": {
+          "mainCircleSize": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "mainCircleOpacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "numCircles": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        },
+        "additionalProperties": false,
+        "description": "An animated ripple effect typically used behind elements to emphasize them.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicDotPattern": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "cx": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "cy": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "cr": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "glow": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "description": "A background dot pattern made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicGridPattern": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "strokeDasharray": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A background grid pattern made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicHexagonPattern": {
+        "type": "object",
+        "properties": {
+          "radius": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "gap": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "x": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "horizontal",
+              "vertical"
+            ]
+          },
+          "strokeDasharray": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A background hexagon pattern made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicStripedPattern": {
+        "type": "object",
+        "properties": {
+          "direction": {
+            "type": "string",
+            "enum": [
+              "left",
+              "right"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "description": "A background striped pattern made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicInteractiveGridPattern": {
+        "type": "object",
+        "properties": {
+          "squaresClassName": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A interactive background grid pattern made with SVGs, fully customizable using Tailwind CSS.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicLightRays": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "color": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "blur": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "speed": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "length": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A component with animated light rays which shine down from above.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicNoiseTexture": {
+        "type": "object",
+        "properties": {
+          "frequency": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "octaves": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "slope": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "noiseOpacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        },
+        "additionalProperties": false,
+        "description": "An SVG fractal noise layer using feTurbulence, desaturation, and contrast controls for subtle texture overlays.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicFloating3DParticles": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false,
+        "description": "A canvas-based pseudo-3D particle field with perspective projection, continuous rotation and buoyant drift.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicDitherField": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false,
+        "description": "An animated WebGL2 background of Bayer-dithered square dots. The dots follow a light pattern, an image or a video, take one color or a three-stop ramp, and brighten under the pointer.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicShinyButton": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "open_url"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "url"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "continue_conversation"
+                  },
+                  "context": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "params": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A shiny button component with dynamic styles in the dark mode or light mode.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicFileTree": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "indicator": {
+            "type": "boolean"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "rtl",
+              "ltr"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "description": "A component used to showcase the folder and file structure of a directory.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicCodeComparison": {
+        "type": "object",
+        "properties": {
+          "beforeCode": {
+            "type": "string",
+            "maxLength": 20000
+          },
+          "afterCode": {
+            "type": "string",
+            "maxLength": 20000
+          },
+          "language": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "filename": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "lightTheme": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "darkTheme": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "highlightColor": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A component which compares two code snippets.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicScrollProgress": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "items": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Animated Scroll Progress for your pages. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicNeonGradientCard": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "firstColor": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "secondColor": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A beautiful neon card effect. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicComicText": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "fontSize": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        },
+        "additionalProperties": false,
+        "description": "Comic text animation. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicKineticText": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A text component that animates font weight of characters on hover.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicCoolMode": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "Cool mode effect for buttons, links, and other DOMs. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicPixelImage": {
+        "type": "object",
+        "properties": {
+          "imageSrc": {
+            "type": "string"
+          },
+          "grayscaleAnimation": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "description": "A component that displays an image with a pixelated effect, creating a retro aesthetic.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicPulsatingButton": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "open_url"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "url"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "continue_conversation"
+                  },
+                  "context": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "params": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "pulseColor": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "distance": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "pulse",
+              "ripple"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "description": "An animated pulsating button useful for capturing attention of users.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicWarpBackground": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "perspective": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "beamsPerSide": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "beamSize": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "beamDelayMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "beamDelayMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "beamDuration": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "gridColor": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A card with a time warping background effect.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicInteractiveHoverButton": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "open_url"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "url"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "continue_conversation"
+                  },
+                  "context": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "params": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "interactive-hover-button. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicAnimatedCircularProgressBar": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "max": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "min": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "gaugePrimaryColor": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "gaugeSecondaryColor": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "Animated Circular Progress Bar is a component that displays a circular gauge with a percentage value.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicBacklight": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "blur": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        },
+        "additionalProperties": false,
+        "description": "A backlight glow effect for videos, images, and SVGs.. Uses serializable props; effect stays inside its generated area."
+      },
+      "MagicGlyphMatrix": {
+        "type": "object",
+        "properties": {
+          "glyphs": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "cellSize": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "mutationRate": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "interval": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "fadeBottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "color": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "additionalProperties": false,
+        "description": "An animated grid of subtly shifting glyphs with fade effect and theme support.. Uses serializable props; effect stays inside its generated area."
+      },
       "Card": {
         "type": "object",
         "properties": {
@@ -654,6 +4880,354 @@
             "type": "array",
             "items": {
               "anyOf": [
+                {
+                  "$ref": "#/$defs/DataTableBlock"
+                },
+                {
+                  "$ref": "#/$defs/AspectRatioBlock"
+                },
+                {
+                  "$ref": "#/$defs/AttachmentBlock"
+                },
+                {
+                  "$ref": "#/$defs/BreadcrumbBlock"
+                },
+                {
+                  "$ref": "#/$defs/BubbleBlock"
+                },
+                {
+                  "$ref": "#/$defs/ButtonGroupBlock"
+                },
+                {
+                  "$ref": "#/$defs/CollapsibleBlock"
+                },
+                {
+                  "$ref": "#/$defs/ComboboxBlock"
+                },
+                {
+                  "$ref": "#/$defs/CommandBlock"
+                },
+                {
+                  "$ref": "#/$defs/ContextMenuBlock"
+                },
+                {
+                  "$ref": "#/$defs/DirectionBlock"
+                },
+                {
+                  "$ref": "#/$defs/EmptyBlock"
+                },
+                {
+                  "$ref": "#/$defs/FieldBlock"
+                },
+                {
+                  "$ref": "#/$defs/HoverCardBlock"
+                },
+                {
+                  "$ref": "#/$defs/InputGroupBlock"
+                },
+                {
+                  "$ref": "#/$defs/InputOTPBlock"
+                },
+                {
+                  "$ref": "#/$defs/ItemBlock"
+                },
+                {
+                  "$ref": "#/$defs/KbdBlock"
+                },
+                {
+                  "$ref": "#/$defs/MarkerBlock"
+                },
+                {
+                  "$ref": "#/$defs/MenubarBlock"
+                },
+                {
+                  "$ref": "#/$defs/MessageBlock"
+                },
+                {
+                  "$ref": "#/$defs/MessageScrollerBlock"
+                },
+                {
+                  "$ref": "#/$defs/NativeSelectBlock"
+                },
+                {
+                  "$ref": "#/$defs/NavigationMenuBlock"
+                },
+                {
+                  "$ref": "#/$defs/ResizableBlock"
+                },
+                {
+                  "$ref": "#/$defs/ScrollAreaBlock"
+                },
+                {
+                  "$ref": "#/$defs/SheetBlock"
+                },
+                {
+                  "$ref": "#/$defs/SidebarBlock"
+                },
+                {
+                  "$ref": "#/$defs/SkeletonBlock"
+                },
+                {
+                  "$ref": "#/$defs/SpinnerBlock"
+                },
+                {
+                  "$ref": "#/$defs/ToggleBlock"
+                },
+                {
+                  "$ref": "#/$defs/ToggleGroupBlock"
+                },
+                {
+                  "$ref": "#/$defs/TooltipBlock"
+                },
+                {
+                  "$ref": "#/$defs/ToastBlock"
+                },
+                {
+                  "$ref": "#/$defs/PopoverBlock"
+                },
+                {
+                  "$ref": "#/$defs/DropdownMenuBlock"
+                },
+                {
+                  "$ref": "#/$defs/TraceBlock"
+                },
+                {
+                  "$ref": "#/$defs/QuestionnaireBlock"
+                },
+                {
+                  "$ref": "#/$defs/MagicMarquee"
+                },
+                {
+                  "$ref": "#/$defs/MagicTerminal"
+                },
+                {
+                  "$ref": "#/$defs/MagicHeroVideoDialog"
+                },
+                {
+                  "$ref": "#/$defs/MagicBentoGrid"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedList"
+                },
+                {
+                  "$ref": "#/$defs/MagicDock"
+                },
+                {
+                  "$ref": "#/$defs/MagicGlobe"
+                },
+                {
+                  "$ref": "#/$defs/MagicTweetCard"
+                },
+                {
+                  "$ref": "#/$defs/MagicOrbitingCircles"
+                },
+                {
+                  "$ref": "#/$defs/MagicAvatarCircles"
+                },
+                {
+                  "$ref": "#/$defs/MagicIconCloud"
+                },
+                {
+                  "$ref": "#/$defs/MagicLens"
+                },
+                {
+                  "$ref": "#/$defs/MagicPointer"
+                },
+                {
+                  "$ref": "#/$defs/MagicSmoothCursor"
+                },
+                {
+                  "$ref": "#/$defs/MagicProgressiveBlur"
+                },
+                {
+                  "$ref": "#/$defs/MagicDottedMap"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedBeam"
+                },
+                {
+                  "$ref": "#/$defs/MagicBorderBeam"
+                },
+                {
+                  "$ref": "#/$defs/MagicShineBorder"
+                },
+                {
+                  "$ref": "#/$defs/MagicMagicCard"
+                },
+                {
+                  "$ref": "#/$defs/MagicGlareHover"
+                },
+                {
+                  "$ref": "#/$defs/MagicMeteors"
+                },
+                {
+                  "$ref": "#/$defs/MagicConfetti"
+                },
+                {
+                  "$ref": "#/$defs/MagicParticles"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedThemeToggler"
+                },
+                {
+                  "$ref": "#/$defs/MagicBlurFade"
+                },
+                {
+                  "$ref": "#/$defs/MagicTextAnimate"
+                },
+                {
+                  "$ref": "#/$defs/MagicTypingAnimation"
+                },
+                {
+                  "$ref": "#/$defs/MagicLineShadowText"
+                },
+                {
+                  "$ref": "#/$defs/MagicAuroraText"
+                },
+                {
+                  "$ref": "#/$defs/MagicVideoText"
+                },
+                {
+                  "$ref": "#/$defs/MagicNumberTicker"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedShinyText"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedGradientText"
+                },
+                {
+                  "$ref": "#/$defs/MagicTextReveal"
+                },
+                {
+                  "$ref": "#/$defs/MagicDiaTextReveal"
+                },
+                {
+                  "$ref": "#/$defs/MagicHyperText"
+                },
+                {
+                  "$ref": "#/$defs/MagicWordRotate"
+                },
+                {
+                  "$ref": "#/$defs/MagicScrollBasedVelocity"
+                },
+                {
+                  "$ref": "#/$defs/MagicSparklesText"
+                },
+                {
+                  "$ref": "#/$defs/MagicMorphingText"
+                },
+                {
+                  "$ref": "#/$defs/MagicSpinningText"
+                },
+                {
+                  "$ref": "#/$defs/MagicTextHighlighter"
+                },
+                {
+                  "$ref": "#/$defs/MagicText3DFlip"
+                },
+                {
+                  "$ref": "#/$defs/MagicSafari"
+                },
+                {
+                  "$ref": "#/$defs/MagicIphone"
+                },
+                {
+                  "$ref": "#/$defs/MagicAndroid"
+                },
+                {
+                  "$ref": "#/$defs/MagicRainbowButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicShimmerButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicRippleButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicFlickeringGrid"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedGridPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicRetroGrid"
+                },
+                {
+                  "$ref": "#/$defs/MagicRipple"
+                },
+                {
+                  "$ref": "#/$defs/MagicDotPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicGridPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicHexagonPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicStripedPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicInteractiveGridPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicLightRays"
+                },
+                {
+                  "$ref": "#/$defs/MagicNoiseTexture"
+                },
+                {
+                  "$ref": "#/$defs/MagicFloating3DParticles"
+                },
+                {
+                  "$ref": "#/$defs/MagicDitherField"
+                },
+                {
+                  "$ref": "#/$defs/MagicShinyButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicFileTree"
+                },
+                {
+                  "$ref": "#/$defs/MagicCodeComparison"
+                },
+                {
+                  "$ref": "#/$defs/MagicScrollProgress"
+                },
+                {
+                  "$ref": "#/$defs/MagicNeonGradientCard"
+                },
+                {
+                  "$ref": "#/$defs/MagicComicText"
+                },
+                {
+                  "$ref": "#/$defs/MagicKineticText"
+                },
+                {
+                  "$ref": "#/$defs/MagicCoolMode"
+                },
+                {
+                  "$ref": "#/$defs/MagicPixelImage"
+                },
+                {
+                  "$ref": "#/$defs/MagicPulsatingButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicWarpBackground"
+                },
+                {
+                  "$ref": "#/$defs/MagicInteractiveHoverButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedCircularProgressBar"
+                },
+                {
+                  "$ref": "#/$defs/MagicBacklight"
+                },
+                {
+                  "$ref": "#/$defs/MagicGlyphMatrix"
+                },
                 {
                   "$ref": "#/$defs/TextContent"
                 },
@@ -902,7 +5476,7 @@
           "code"
         ],
         "additionalProperties": false,
-        "description": "Syntax-highlighted code block with optional language and title."
+        "description": "Copyable syntax-highlighted code block. Unknown languages render as plain text."
       },
       "Image": {
         "type": "object",
@@ -1723,6 +6297,354 @@
             "items": {
               "anyOf": [
                 {
+                  "$ref": "#/$defs/DataTableBlock"
+                },
+                {
+                  "$ref": "#/$defs/AspectRatioBlock"
+                },
+                {
+                  "$ref": "#/$defs/AttachmentBlock"
+                },
+                {
+                  "$ref": "#/$defs/BreadcrumbBlock"
+                },
+                {
+                  "$ref": "#/$defs/BubbleBlock"
+                },
+                {
+                  "$ref": "#/$defs/ButtonGroupBlock"
+                },
+                {
+                  "$ref": "#/$defs/CollapsibleBlock"
+                },
+                {
+                  "$ref": "#/$defs/ComboboxBlock"
+                },
+                {
+                  "$ref": "#/$defs/CommandBlock"
+                },
+                {
+                  "$ref": "#/$defs/ContextMenuBlock"
+                },
+                {
+                  "$ref": "#/$defs/DirectionBlock"
+                },
+                {
+                  "$ref": "#/$defs/EmptyBlock"
+                },
+                {
+                  "$ref": "#/$defs/FieldBlock"
+                },
+                {
+                  "$ref": "#/$defs/HoverCardBlock"
+                },
+                {
+                  "$ref": "#/$defs/InputGroupBlock"
+                },
+                {
+                  "$ref": "#/$defs/InputOTPBlock"
+                },
+                {
+                  "$ref": "#/$defs/ItemBlock"
+                },
+                {
+                  "$ref": "#/$defs/KbdBlock"
+                },
+                {
+                  "$ref": "#/$defs/MarkerBlock"
+                },
+                {
+                  "$ref": "#/$defs/MenubarBlock"
+                },
+                {
+                  "$ref": "#/$defs/MessageBlock"
+                },
+                {
+                  "$ref": "#/$defs/MessageScrollerBlock"
+                },
+                {
+                  "$ref": "#/$defs/NativeSelectBlock"
+                },
+                {
+                  "$ref": "#/$defs/NavigationMenuBlock"
+                },
+                {
+                  "$ref": "#/$defs/ResizableBlock"
+                },
+                {
+                  "$ref": "#/$defs/ScrollAreaBlock"
+                },
+                {
+                  "$ref": "#/$defs/SheetBlock"
+                },
+                {
+                  "$ref": "#/$defs/SidebarBlock"
+                },
+                {
+                  "$ref": "#/$defs/SkeletonBlock"
+                },
+                {
+                  "$ref": "#/$defs/SpinnerBlock"
+                },
+                {
+                  "$ref": "#/$defs/ToggleBlock"
+                },
+                {
+                  "$ref": "#/$defs/ToggleGroupBlock"
+                },
+                {
+                  "$ref": "#/$defs/TooltipBlock"
+                },
+                {
+                  "$ref": "#/$defs/ToastBlock"
+                },
+                {
+                  "$ref": "#/$defs/PopoverBlock"
+                },
+                {
+                  "$ref": "#/$defs/DropdownMenuBlock"
+                },
+                {
+                  "$ref": "#/$defs/TraceBlock"
+                },
+                {
+                  "$ref": "#/$defs/QuestionnaireBlock"
+                },
+                {
+                  "$ref": "#/$defs/MagicMarquee"
+                },
+                {
+                  "$ref": "#/$defs/MagicTerminal"
+                },
+                {
+                  "$ref": "#/$defs/MagicHeroVideoDialog"
+                },
+                {
+                  "$ref": "#/$defs/MagicBentoGrid"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedList"
+                },
+                {
+                  "$ref": "#/$defs/MagicDock"
+                },
+                {
+                  "$ref": "#/$defs/MagicGlobe"
+                },
+                {
+                  "$ref": "#/$defs/MagicTweetCard"
+                },
+                {
+                  "$ref": "#/$defs/MagicOrbitingCircles"
+                },
+                {
+                  "$ref": "#/$defs/MagicAvatarCircles"
+                },
+                {
+                  "$ref": "#/$defs/MagicIconCloud"
+                },
+                {
+                  "$ref": "#/$defs/MagicLens"
+                },
+                {
+                  "$ref": "#/$defs/MagicPointer"
+                },
+                {
+                  "$ref": "#/$defs/MagicSmoothCursor"
+                },
+                {
+                  "$ref": "#/$defs/MagicProgressiveBlur"
+                },
+                {
+                  "$ref": "#/$defs/MagicDottedMap"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedBeam"
+                },
+                {
+                  "$ref": "#/$defs/MagicBorderBeam"
+                },
+                {
+                  "$ref": "#/$defs/MagicShineBorder"
+                },
+                {
+                  "$ref": "#/$defs/MagicMagicCard"
+                },
+                {
+                  "$ref": "#/$defs/MagicGlareHover"
+                },
+                {
+                  "$ref": "#/$defs/MagicMeteors"
+                },
+                {
+                  "$ref": "#/$defs/MagicConfetti"
+                },
+                {
+                  "$ref": "#/$defs/MagicParticles"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedThemeToggler"
+                },
+                {
+                  "$ref": "#/$defs/MagicBlurFade"
+                },
+                {
+                  "$ref": "#/$defs/MagicTextAnimate"
+                },
+                {
+                  "$ref": "#/$defs/MagicTypingAnimation"
+                },
+                {
+                  "$ref": "#/$defs/MagicLineShadowText"
+                },
+                {
+                  "$ref": "#/$defs/MagicAuroraText"
+                },
+                {
+                  "$ref": "#/$defs/MagicVideoText"
+                },
+                {
+                  "$ref": "#/$defs/MagicNumberTicker"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedShinyText"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedGradientText"
+                },
+                {
+                  "$ref": "#/$defs/MagicTextReveal"
+                },
+                {
+                  "$ref": "#/$defs/MagicDiaTextReveal"
+                },
+                {
+                  "$ref": "#/$defs/MagicHyperText"
+                },
+                {
+                  "$ref": "#/$defs/MagicWordRotate"
+                },
+                {
+                  "$ref": "#/$defs/MagicScrollBasedVelocity"
+                },
+                {
+                  "$ref": "#/$defs/MagicSparklesText"
+                },
+                {
+                  "$ref": "#/$defs/MagicMorphingText"
+                },
+                {
+                  "$ref": "#/$defs/MagicSpinningText"
+                },
+                {
+                  "$ref": "#/$defs/MagicTextHighlighter"
+                },
+                {
+                  "$ref": "#/$defs/MagicText3DFlip"
+                },
+                {
+                  "$ref": "#/$defs/MagicSafari"
+                },
+                {
+                  "$ref": "#/$defs/MagicIphone"
+                },
+                {
+                  "$ref": "#/$defs/MagicAndroid"
+                },
+                {
+                  "$ref": "#/$defs/MagicRainbowButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicShimmerButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicRippleButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicFlickeringGrid"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedGridPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicRetroGrid"
+                },
+                {
+                  "$ref": "#/$defs/MagicRipple"
+                },
+                {
+                  "$ref": "#/$defs/MagicDotPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicGridPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicHexagonPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicStripedPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicInteractiveGridPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicLightRays"
+                },
+                {
+                  "$ref": "#/$defs/MagicNoiseTexture"
+                },
+                {
+                  "$ref": "#/$defs/MagicFloating3DParticles"
+                },
+                {
+                  "$ref": "#/$defs/MagicDitherField"
+                },
+                {
+                  "$ref": "#/$defs/MagicShinyButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicFileTree"
+                },
+                {
+                  "$ref": "#/$defs/MagicCodeComparison"
+                },
+                {
+                  "$ref": "#/$defs/MagicScrollProgress"
+                },
+                {
+                  "$ref": "#/$defs/MagicNeonGradientCard"
+                },
+                {
+                  "$ref": "#/$defs/MagicComicText"
+                },
+                {
+                  "$ref": "#/$defs/MagicKineticText"
+                },
+                {
+                  "$ref": "#/$defs/MagicCoolMode"
+                },
+                {
+                  "$ref": "#/$defs/MagicPixelImage"
+                },
+                {
+                  "$ref": "#/$defs/MagicPulsatingButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicWarpBackground"
+                },
+                {
+                  "$ref": "#/$defs/MagicInteractiveHoverButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedCircularProgressBar"
+                },
+                {
+                  "$ref": "#/$defs/MagicBacklight"
+                },
+                {
+                  "$ref": "#/$defs/MagicGlyphMatrix"
+                },
+                {
                   "$ref": "#/$defs/TextContent"
                 },
                 {
@@ -2237,6 +7159,354 @@
             "items": {
               "anyOf": [
                 {
+                  "$ref": "#/$defs/DataTableBlock"
+                },
+                {
+                  "$ref": "#/$defs/AspectRatioBlock"
+                },
+                {
+                  "$ref": "#/$defs/AttachmentBlock"
+                },
+                {
+                  "$ref": "#/$defs/BreadcrumbBlock"
+                },
+                {
+                  "$ref": "#/$defs/BubbleBlock"
+                },
+                {
+                  "$ref": "#/$defs/ButtonGroupBlock"
+                },
+                {
+                  "$ref": "#/$defs/CollapsibleBlock"
+                },
+                {
+                  "$ref": "#/$defs/ComboboxBlock"
+                },
+                {
+                  "$ref": "#/$defs/CommandBlock"
+                },
+                {
+                  "$ref": "#/$defs/ContextMenuBlock"
+                },
+                {
+                  "$ref": "#/$defs/DirectionBlock"
+                },
+                {
+                  "$ref": "#/$defs/EmptyBlock"
+                },
+                {
+                  "$ref": "#/$defs/FieldBlock"
+                },
+                {
+                  "$ref": "#/$defs/HoverCardBlock"
+                },
+                {
+                  "$ref": "#/$defs/InputGroupBlock"
+                },
+                {
+                  "$ref": "#/$defs/InputOTPBlock"
+                },
+                {
+                  "$ref": "#/$defs/ItemBlock"
+                },
+                {
+                  "$ref": "#/$defs/KbdBlock"
+                },
+                {
+                  "$ref": "#/$defs/MarkerBlock"
+                },
+                {
+                  "$ref": "#/$defs/MenubarBlock"
+                },
+                {
+                  "$ref": "#/$defs/MessageBlock"
+                },
+                {
+                  "$ref": "#/$defs/MessageScrollerBlock"
+                },
+                {
+                  "$ref": "#/$defs/NativeSelectBlock"
+                },
+                {
+                  "$ref": "#/$defs/NavigationMenuBlock"
+                },
+                {
+                  "$ref": "#/$defs/ResizableBlock"
+                },
+                {
+                  "$ref": "#/$defs/ScrollAreaBlock"
+                },
+                {
+                  "$ref": "#/$defs/SheetBlock"
+                },
+                {
+                  "$ref": "#/$defs/SidebarBlock"
+                },
+                {
+                  "$ref": "#/$defs/SkeletonBlock"
+                },
+                {
+                  "$ref": "#/$defs/SpinnerBlock"
+                },
+                {
+                  "$ref": "#/$defs/ToggleBlock"
+                },
+                {
+                  "$ref": "#/$defs/ToggleGroupBlock"
+                },
+                {
+                  "$ref": "#/$defs/TooltipBlock"
+                },
+                {
+                  "$ref": "#/$defs/ToastBlock"
+                },
+                {
+                  "$ref": "#/$defs/PopoverBlock"
+                },
+                {
+                  "$ref": "#/$defs/DropdownMenuBlock"
+                },
+                {
+                  "$ref": "#/$defs/TraceBlock"
+                },
+                {
+                  "$ref": "#/$defs/QuestionnaireBlock"
+                },
+                {
+                  "$ref": "#/$defs/MagicMarquee"
+                },
+                {
+                  "$ref": "#/$defs/MagicTerminal"
+                },
+                {
+                  "$ref": "#/$defs/MagicHeroVideoDialog"
+                },
+                {
+                  "$ref": "#/$defs/MagicBentoGrid"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedList"
+                },
+                {
+                  "$ref": "#/$defs/MagicDock"
+                },
+                {
+                  "$ref": "#/$defs/MagicGlobe"
+                },
+                {
+                  "$ref": "#/$defs/MagicTweetCard"
+                },
+                {
+                  "$ref": "#/$defs/MagicOrbitingCircles"
+                },
+                {
+                  "$ref": "#/$defs/MagicAvatarCircles"
+                },
+                {
+                  "$ref": "#/$defs/MagicIconCloud"
+                },
+                {
+                  "$ref": "#/$defs/MagicLens"
+                },
+                {
+                  "$ref": "#/$defs/MagicPointer"
+                },
+                {
+                  "$ref": "#/$defs/MagicSmoothCursor"
+                },
+                {
+                  "$ref": "#/$defs/MagicProgressiveBlur"
+                },
+                {
+                  "$ref": "#/$defs/MagicDottedMap"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedBeam"
+                },
+                {
+                  "$ref": "#/$defs/MagicBorderBeam"
+                },
+                {
+                  "$ref": "#/$defs/MagicShineBorder"
+                },
+                {
+                  "$ref": "#/$defs/MagicMagicCard"
+                },
+                {
+                  "$ref": "#/$defs/MagicGlareHover"
+                },
+                {
+                  "$ref": "#/$defs/MagicMeteors"
+                },
+                {
+                  "$ref": "#/$defs/MagicConfetti"
+                },
+                {
+                  "$ref": "#/$defs/MagicParticles"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedThemeToggler"
+                },
+                {
+                  "$ref": "#/$defs/MagicBlurFade"
+                },
+                {
+                  "$ref": "#/$defs/MagicTextAnimate"
+                },
+                {
+                  "$ref": "#/$defs/MagicTypingAnimation"
+                },
+                {
+                  "$ref": "#/$defs/MagicLineShadowText"
+                },
+                {
+                  "$ref": "#/$defs/MagicAuroraText"
+                },
+                {
+                  "$ref": "#/$defs/MagicVideoText"
+                },
+                {
+                  "$ref": "#/$defs/MagicNumberTicker"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedShinyText"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedGradientText"
+                },
+                {
+                  "$ref": "#/$defs/MagicTextReveal"
+                },
+                {
+                  "$ref": "#/$defs/MagicDiaTextReveal"
+                },
+                {
+                  "$ref": "#/$defs/MagicHyperText"
+                },
+                {
+                  "$ref": "#/$defs/MagicWordRotate"
+                },
+                {
+                  "$ref": "#/$defs/MagicScrollBasedVelocity"
+                },
+                {
+                  "$ref": "#/$defs/MagicSparklesText"
+                },
+                {
+                  "$ref": "#/$defs/MagicMorphingText"
+                },
+                {
+                  "$ref": "#/$defs/MagicSpinningText"
+                },
+                {
+                  "$ref": "#/$defs/MagicTextHighlighter"
+                },
+                {
+                  "$ref": "#/$defs/MagicText3DFlip"
+                },
+                {
+                  "$ref": "#/$defs/MagicSafari"
+                },
+                {
+                  "$ref": "#/$defs/MagicIphone"
+                },
+                {
+                  "$ref": "#/$defs/MagicAndroid"
+                },
+                {
+                  "$ref": "#/$defs/MagicRainbowButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicShimmerButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicRippleButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicFlickeringGrid"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedGridPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicRetroGrid"
+                },
+                {
+                  "$ref": "#/$defs/MagicRipple"
+                },
+                {
+                  "$ref": "#/$defs/MagicDotPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicGridPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicHexagonPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicStripedPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicInteractiveGridPattern"
+                },
+                {
+                  "$ref": "#/$defs/MagicLightRays"
+                },
+                {
+                  "$ref": "#/$defs/MagicNoiseTexture"
+                },
+                {
+                  "$ref": "#/$defs/MagicFloating3DParticles"
+                },
+                {
+                  "$ref": "#/$defs/MagicDitherField"
+                },
+                {
+                  "$ref": "#/$defs/MagicShinyButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicFileTree"
+                },
+                {
+                  "$ref": "#/$defs/MagicCodeComparison"
+                },
+                {
+                  "$ref": "#/$defs/MagicScrollProgress"
+                },
+                {
+                  "$ref": "#/$defs/MagicNeonGradientCard"
+                },
+                {
+                  "$ref": "#/$defs/MagicComicText"
+                },
+                {
+                  "$ref": "#/$defs/MagicKineticText"
+                },
+                {
+                  "$ref": "#/$defs/MagicCoolMode"
+                },
+                {
+                  "$ref": "#/$defs/MagicPixelImage"
+                },
+                {
+                  "$ref": "#/$defs/MagicPulsatingButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicWarpBackground"
+                },
+                {
+                  "$ref": "#/$defs/MagicInteractiveHoverButton"
+                },
+                {
+                  "$ref": "#/$defs/MagicAnimatedCircularProgressBar"
+                },
+                {
+                  "$ref": "#/$defs/MagicBacklight"
+                },
+                {
+                  "$ref": "#/$defs/MagicGlyphMatrix"
+                },
+                {
                   "$ref": "#/$defs/TextContent"
                 },
                 {
@@ -2357,7 +7627,9 @@
     ],
     "additionalRules": [
       "Every response is a single Card(children) — children stack vertically automatically.",
-      "Card is the only layout container. Do NOT use Stack. Use Tabs to switch between sections, Carousel for horizontal scroll.",
+      "Card is the response root. Inside Card, use registered layout containers, Tabs, Carousel and Magic components to organize content. Never invent unregistered components.",
+      "Magic-prefixed components add visual effects and rich presentation; combine them with shadcn forms, tables and navigation. Keep essential content readable without animation.",
+      "Use only serializable properties. Never generate JavaScript callbacks, DOM refs or arbitrary code as component props.",
       "Use FollowUpBlock at the END of a Card to suggest what the user can do or ask next.",
       "Carousel takes an array of slides, where each slide is an array of content.",
       "IMPORTANT: Every slide in a Carousel must use the same component structure in the same order.",

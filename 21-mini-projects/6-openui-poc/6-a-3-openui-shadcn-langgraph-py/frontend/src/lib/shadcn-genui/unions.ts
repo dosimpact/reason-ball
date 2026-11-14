@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { additionalContentRefs } from "./expanded-shadcn";
+import { magicContentRefs } from "./magic";
 
 import { Alert } from "./components/alert";
 import { AlertDialogBlock } from "./components/alert-dialog-block";
@@ -35,6 +37,8 @@ import { CardHeader } from "./components/card-header";
 import { Form } from "./components/form";
 
 export const ContentChildUnion = z.union([
+  ...additionalContentRefs,
+  ...magicContentRefs,
   TextContent.ref,
   MarkDownRenderer.ref,
   CardHeader.ref,

@@ -32,10 +32,15 @@ export default function Page() {
         llm={llm}
         storage={storage}
         componentLibrary={shadcnChatLibrary}
-        agentName="shadcn/ui + Python LangGraph"
+        agentName="shadcn/ui + Magic UI + Python LangGraph"
         theme={{ mode }}
         starterVariant="short"
         starters={[
+          {
+            displayText: "Magic UI showcase",
+            prompt:
+              "Create a sample product dashboard combining Magic UI animated text and metrics with shadcn tables and a preferences form. Use registered Magic-prefixed components and clearly label all figures as sample data.",
+          },
           {
             displayText: "Startup dashboard",
             prompt:

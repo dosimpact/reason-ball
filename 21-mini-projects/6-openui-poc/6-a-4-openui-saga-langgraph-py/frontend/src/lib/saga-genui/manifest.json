@@ -1,0 +1,3884 @@
+[
+  {
+    "name": "Icon",
+    "category": "Icon",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Icon/Icon",
+    "defaults": {
+      "name": "info-circle",
+      "label": "Information"
+    }
+  },
+  {
+    "name": "IconButton",
+    "category": "IconButton",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/IconButton/IconButton",
+    "defaults": {
+      "name": "info-circle",
+      "label": "Information",
+      "message": "Continue with Information",
+      "disabled": false
+    }
+  },
+  {
+    "name": "ConfirmButton",
+    "category": "ConfirmButton",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ConfirmButton/ConfirmButton",
+    "defaults": {
+      "label": "Continue",
+      "variant": "primary"
+    }
+  },
+  {
+    "name": "DeleteButton",
+    "category": "ConfirmButton",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ConfirmButton/DeleteButton",
+    "defaults": {
+      "label": "Continue",
+      "variant": "primary"
+    }
+  },
+  {
+    "name": "Tooltip",
+    "category": "Tooltip",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Tooltip/Tooltip",
+    "defaults": {
+      "content": "Sample helpful information",
+      "text": "Show information"
+    }
+  },
+  {
+    "name": "PopoverController",
+    "category": "Tooltip",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Tooltip/PopoverController",
+    "defaults": {}
+  },
+  {
+    "name": "Popover",
+    "category": "Tooltip",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Tooltip/Popover",
+    "defaults": {
+      "content": "Sample helpful information",
+      "text": "Show information"
+    }
+  },
+  {
+    "name": "Toggletip",
+    "category": "Toggletip",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Toggletip/Toggletip",
+    "defaults": {
+      "content": "Sample helpful information",
+      "text": "Show information"
+    }
+  },
+  {
+    "name": "Portal",
+    "category": "Portal",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Portal/Portal",
+    "defaults": {
+      "text": "Sample portal content"
+    }
+  },
+  {
+    "name": "getPortalContainer",
+    "category": "Portal",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Portal/Portal",
+    "defaults": {}
+  },
+  {
+    "name": "PortalContainer",
+    "category": "Portal",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Portal/Portal",
+    "defaults": {}
+  },
+  {
+    "name": "CustomScrollbar",
+    "category": "CustomScrollbar",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: Use `ScrollContainer` from `@grafana/ui` instead. It uses native scrollbars and has a simpler API.",
+    "source": "./components/CustomScrollbar/CustomScrollbar",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "TabbedContainer",
+    "category": "TabbedContainer",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/TabbedContainer/TabbedContainer",
+    "defaults": {
+      "tabs": [
+        {
+          "label": "Overview",
+          "value": "overview",
+          "content": "Overview content",
+          "icon": "info-circle"
+        },
+        {
+          "label": "Details",
+          "value": "details",
+          "content": "Details content",
+          "icon": "list-ul"
+        }
+      ]
+    }
+  },
+  {
+    "name": "ClipboardButton",
+    "category": "ClipboardButton",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ClipboardButton/ClipboardButton",
+    "defaults": {
+      "label": "Continue",
+      "variant": "primary"
+    }
+  },
+  {
+    "name": "Cascader",
+    "category": "Cascader",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Cascader/Cascader",
+    "defaults": {
+      "value": "alpha",
+      "options": [
+        {
+          "label": "Alpha",
+          "value": "alpha"
+        },
+        {
+          "label": "Beta",
+          "value": "beta"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Carousel",
+    "category": "Carousel",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Carousel/Carousel",
+    "defaults": {
+      "images": [
+        {
+          "path": "data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"240\" height=\"120\"%3E%3Crect width=\"240\" height=\"120\" fill=\"%235794f2\"/%3E%3C/svg%3E",
+          "name": "Sample image"
+        }
+      ]
+    }
+  },
+  {
+    "name": "ButtonCascader",
+    "category": "ButtonCascader",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ButtonCascader/ButtonCascader",
+    "defaults": {
+      "value": "alpha",
+      "options": [
+        {
+          "label": "Alpha",
+          "value": "alpha"
+        },
+        {
+          "label": "Beta",
+          "value": "beta"
+        }
+      ]
+    }
+  },
+  {
+    "name": "InlineToast",
+    "category": "InlineToast",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/InlineToast/InlineToast",
+    "defaults": {
+      "title": "Sample notification",
+      "text": "This is local sample data.",
+      "severity": "info"
+    }
+  },
+  {
+    "name": "LoadingPlaceholder",
+    "category": "LoadingPlaceholder",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/LoadingPlaceholder/LoadingPlaceholder",
+    "defaults": {
+      "text": "Loading sample\u2026"
+    }
+  },
+  {
+    "name": "LoadingBar",
+    "category": "LoadingBar",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/LoadingBar/LoadingBar",
+    "defaults": {
+      "text": "Loading sample\u2026"
+    }
+  },
+  {
+    "name": "PageLoader",
+    "category": "PageLoader",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/PageLoader/PageLoader",
+    "defaults": {
+      "text": "Loading sample\u2026"
+    }
+  },
+  {
+    "name": "ColorPicker",
+    "category": "ColorPicker",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ColorPicker/ColorPicker",
+    "defaults": {
+      "color": "#5794f2"
+    }
+  },
+  {
+    "name": "SeriesColorPicker",
+    "category": "ColorPicker",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ColorPicker/ColorPicker",
+    "defaults": {
+      "color": "#5794f2"
+    }
+  },
+  {
+    "name": "ColorPickerInput",
+    "category": "ColorPicker",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ColorPicker/ColorPickerInput",
+    "defaults": {
+      "color": "#5794f2"
+    }
+  },
+  {
+    "name": "SeriesColorPickerPopover",
+    "category": "ColorPicker",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ColorPicker/SeriesColorPickerPopover",
+    "defaults": {
+      "color": "#5794f2"
+    }
+  },
+  {
+    "name": "SeriesColorPickerPopoverWithTheme",
+    "category": "ColorPicker",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: Use `SeriesColorPickerPopover` instead. This export will be removed in a future major release.",
+    "source": "./components/ColorPicker/SeriesColorPickerPopover",
+    "defaults": {
+      "color": "#5794f2"
+    }
+  },
+  {
+    "name": "EmptySearchResult",
+    "category": "EmptySearchResult",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/EmptySearchResult/EmptySearchResult",
+    "defaults": {
+      "title": "No results yet",
+      "text": "Adjust the sample filters."
+    }
+  },
+  {
+    "name": "EmptyState",
+    "category": "EmptyState",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/EmptyState/EmptyState",
+    "defaults": {
+      "title": "No results yet",
+      "text": "Adjust the sample filters.",
+      "variant": "not-found"
+    }
+  },
+  {
+    "name": "UnitPicker",
+    "category": "UnitPicker",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/UnitPicker/UnitPicker",
+    "defaults": {
+      "value": "short"
+    }
+  },
+  {
+    "name": "StatsPicker",
+    "category": "StatsPicker",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/StatsPicker/StatsPicker",
+    "defaults": {
+      "value": [
+        "mean",
+        "max"
+      ],
+      "allowMultiple": true
+    }
+  },
+  {
+    "name": "RefreshPicker",
+    "category": "RefreshPicker",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/RefreshPicker/RefreshPicker",
+    "defaults": {
+      "value": "5s",
+      "intervals": [
+        "5s",
+        "10s",
+        "30s"
+      ]
+    }
+  },
+  {
+    "name": "defaultIntervals",
+    "category": "RefreshPicker",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/RefreshPicker/RefreshPicker",
+    "defaults": {}
+  },
+  {
+    "name": "TimeRangePicker",
+    "category": "DateTimePickers",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DateTimePickers/TimeRangePicker",
+    "defaults": {
+      "from": "now-6h",
+      "to": "now",
+      "timeZone": "utc"
+    }
+  },
+  {
+    "name": "TimeRangeProvider",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: This provider was gated by the `timeRangeProvider` feature flag, which was never enabled in any environment and has been removed. The provider is now dormant and will be removed in the next major version of `@grafana/ui`.",
+    "source": "./graveyard/TimeRangeContext/TimeRangeContext",
+    "defaults": {}
+  },
+  {
+    "name": "TimePickerTooltip",
+    "category": "DateTimePickers",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DateTimePickers/TimeRangePicker",
+    "defaults": {
+      "from": "now-6h",
+      "to": "now",
+      "timeZone": "utc"
+    }
+  },
+  {
+    "name": "TimeRangeLabel",
+    "category": "DateTimePickers",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DateTimePickers/TimeRangePicker/TimeRangeLabel",
+    "defaults": {
+      "from": "now-6h",
+      "to": "now",
+      "timeZone": "utc"
+    }
+  },
+  {
+    "name": "TimeOfDayPicker",
+    "category": "DateTimePickers",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DateTimePickers/TimeOfDayPicker",
+    "defaults": {
+      "value": "2026-01-15T12:00:00Z"
+    }
+  },
+  {
+    "name": "TimeZonePicker",
+    "category": "DateTimePickers",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DateTimePickers/TimeZonePicker",
+    "defaults": {
+      "value": "utc"
+    }
+  },
+  {
+    "name": "WeekStartPicker",
+    "category": "DateTimePickers",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DateTimePickers/WeekStartPicker",
+    "defaults": {
+      "value": "monday"
+    }
+  },
+  {
+    "name": "getWeekStart",
+    "category": "DateTimePickers",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/DateTimePickers/WeekStartPicker",
+    "defaults": {}
+  },
+  {
+    "name": "isWeekStart",
+    "category": "DateTimePickers",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/DateTimePickers/WeekStartPicker",
+    "defaults": {}
+  },
+  {
+    "name": "DatePicker",
+    "category": "DateTimePickers",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DateTimePickers/DatePicker/DatePicker",
+    "defaults": {
+      "value": "2026-01-15T12:00:00Z"
+    }
+  },
+  {
+    "name": "DatePickerWithInput",
+    "category": "DateTimePickers",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DateTimePickers/DatePickerWithInput/DatePickerWithInput",
+    "defaults": {
+      "value": "2026-01-15T12:00:00Z"
+    }
+  },
+  {
+    "name": "DateTimePicker",
+    "category": "DateTimePickers",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DateTimePickers/DateTimePicker/DateTimePicker",
+    "defaults": {
+      "value": "2026-01-15T12:00:00Z"
+    }
+  },
+  {
+    "name": "List",
+    "category": "List",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: Use ul/li/arr.map directly instead  https://developers.grafana.com/ui/latest/index.html?path=/docs/layout-deprecated-list--docs",
+    "source": "./components/List/List",
+    "defaults": {
+      "items": [
+        "API",
+        "Worker",
+        "Database"
+      ]
+    }
+  },
+  {
+    "name": "InteractiveTable",
+    "category": "InteractiveTable",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/InteractiveTable/InteractiveTableLazy",
+    "defaults": {
+      "columns": [
+        "Service",
+        "Requests"
+      ],
+      "rows": [
+        [
+          "API",
+          42
+        ],
+        [
+          "Worker",
+          27
+        ]
+      ],
+      "width": 500,
+      "height": 240
+    }
+  },
+  {
+    "name": "TagsInput",
+    "category": "TagsInput",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/TagsInput/TagsInput",
+    "defaults": {
+      "tags": [
+        "production",
+        "sample"
+      ]
+    }
+  },
+  {
+    "name": "AutoSaveField",
+    "category": "AutoSaveField",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/AutoSaveField/AutoSaveField",
+    "defaults": {
+      "label": "Sample field",
+      "text": "Sample input"
+    }
+  },
+  {
+    "name": "Pagination",
+    "category": "Pagination",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Pagination/Pagination",
+    "defaults": {
+      "currentPage": 1,
+      "numberOfPages": 5
+    }
+  },
+  {
+    "name": "Tag",
+    "category": "Tags",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Tags/Tag",
+    "defaults": {
+      "name": "production"
+    }
+  },
+  {
+    "name": "TagList",
+    "category": "Tags",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Tags/TagList",
+    "defaults": {
+      "tags": [
+        "production",
+        "sample"
+      ]
+    }
+  },
+  {
+    "name": "FilterPill",
+    "category": "FilterPill",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/FilterPill/FilterPill",
+    "defaults": {
+      "label": "Sample item"
+    }
+  },
+  {
+    "name": "ConfirmModal",
+    "category": "ConfirmModal",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ConfirmModal/ConfirmModal",
+    "defaults": {
+      "title": "Sample details",
+      "text": "Local interactive overlay",
+      "confirmText": "Confirm"
+    }
+  },
+  {
+    "name": "QueryField",
+    "category": "QueryField",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: ",
+    "source": "./components/QueryField/QueryField",
+    "defaults": {}
+  },
+  {
+    "name": "QueryInput",
+    "category": "QueryInput",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/QueryInput/QueryInput",
+    "defaults": {
+      "value": "Sample query",
+      "placeholder": "Enter a value",
+      "name": "sample",
+      "label": "QueryInput field",
+      "disabled": false,
+      "required": false
+    }
+  },
+  {
+    "name": "CodeEditor",
+    "category": "Monaco",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Monaco/CodeEditor",
+    "defaults": {
+      "value": "Sample query",
+      "placeholder": "Enter a value",
+      "name": "sample"
+    }
+  },
+  {
+    "name": "ReactMonacoEditor",
+    "category": "Monaco",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Monaco/ReactMonacoEditorLazy",
+    "defaults": {
+      "value": "Sample query",
+      "placeholder": "Enter a value",
+      "name": "sample"
+    }
+  },
+  {
+    "name": "ReactMonacoDiffEditor",
+    "category": "Monaco",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Monaco/ReactMonacoDiffEditorLazy",
+    "defaults": {
+      "original": "before",
+      "modified": "after",
+      "language": "text",
+      "height": 160
+    }
+  },
+  {
+    "name": "CodeEditorSuggestionItemKind",
+    "category": "Monaco",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Monaco/types",
+    "defaults": {}
+  },
+  {
+    "name": "variableSuggestionToCodeEditorSuggestion",
+    "category": "Monaco",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Monaco/utils",
+    "defaults": {}
+  },
+  {
+    "name": "Modal",
+    "category": "Modal",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Modal/Modal",
+    "defaults": {
+      "title": "Sample details",
+      "text": "Local interactive overlay",
+      "confirmText": "Confirm"
+    }
+  },
+  {
+    "name": "ModalHeader",
+    "category": "Modal",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Modal/ModalHeader",
+    "defaults": {
+      "title": "Sample header"
+    }
+  },
+  {
+    "name": "ModalTabsHeader",
+    "category": "Modal",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Modal/ModalTabsHeader",
+    "defaults": {
+      "title": "Sample tabs",
+      "activeTab": "overview",
+      "tabs": [
+        {
+          "value": "overview",
+          "label": "Overview"
+        },
+        {
+          "value": "details",
+          "label": "Details"
+        }
+      ],
+      "value": "overview"
+    }
+  },
+  {
+    "name": "ModalTabContent",
+    "category": "Modal",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Modal/ModalTabContent",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "ModalsProvider",
+    "category": "Modal",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: . Not the real implementation used by core.",
+    "source": "./components/Modal/ModalsContext",
+    "defaults": {}
+  },
+  {
+    "name": "ModalRoot",
+    "category": "Modal",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Modal/ModalsContext",
+    "defaults": {}
+  },
+  {
+    "name": "ModalsController",
+    "category": "Modal",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Modal/ModalsContext",
+    "defaults": {}
+  },
+  {
+    "name": "ModalsContext",
+    "category": "Modal",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Modal/ModalsContext",
+    "defaults": {}
+  },
+  {
+    "name": "PageToolbar",
+    "category": "PageLayout",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: Use Page instead  https://developers.grafana.com/ui/latest/index.html?path=/docs/navigation-deprecated-pagetoolbar--docs",
+    "source": "./components/PageLayout/PageToolbar",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "SetInterval",
+    "category": "SetInterval",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: ",
+    "source": "./components/SetInterval/SetInterval",
+    "defaults": {}
+  },
+  {
+    "name": "Table",
+    "category": "Table",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Table/Table",
+    "defaults": {
+      "columns": [
+        "Service",
+        "Requests"
+      ],
+      "rows": [
+        [
+          "API",
+          42
+        ],
+        [
+          "Worker",
+          27
+        ]
+      ],
+      "width": 500,
+      "height": 240
+    }
+  },
+  {
+    "name": "TableCellInspector",
+    "category": "Table",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Table/TableCellInspector",
+    "defaults": {
+      "value": "Sample cell",
+      "text": "Sample cell"
+    }
+  },
+  {
+    "name": "TableCellInspectorMode",
+    "category": "Table",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Table/TableCellInspector",
+    "defaults": {}
+  },
+  {
+    "name": "TableInputCSV",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: https://developers.grafana.com/ui/latest/index.html?path=/docs/inputs-deprecated-tableinputcsv--docs",
+    "source": "./graveyard/TableInputCSV/TableInputCSV",
+    "defaults": {}
+  },
+  {
+    "name": "TabsBar",
+    "category": "Tabs",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Tabs/TabsBar",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "Tab",
+    "category": "Tabs",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Tabs/Tab",
+    "defaults": {
+      "label": "Overview",
+      "active": true
+    }
+  },
+  {
+    "name": "VerticalTab",
+    "category": "Tabs",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Tabs/VerticalTab",
+    "defaults": {
+      "label": "Overview",
+      "active": true
+    }
+  },
+  {
+    "name": "TabContent",
+    "category": "Tabs",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Tabs/TabContent",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "Counter",
+    "category": "Tabs",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Tabs/Counter",
+    "defaults": {
+      "value": 12
+    }
+  },
+  {
+    "name": "RenderUserContentAsHTML",
+    "category": "RenderUserContentAsHTML",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/RenderUserContentAsHTML/RenderUserContentAsHTML",
+    "defaults": {
+      "text": "<p>Sample <strong>content</strong></p>"
+    }
+  },
+  {
+    "name": "BigValue",
+    "category": "BigValue",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/BigValue/BigValue",
+    "defaults": {
+      "value": {
+        "numeric": 42,
+        "text": "42",
+        "suffix": " req/s",
+        "color": "green"
+      },
+      "width": 360,
+      "height": 160,
+      "colorMode": "value",
+      "graphMode": "none"
+    }
+  },
+  {
+    "name": "BigValueColorMode",
+    "category": "BigValue",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/BigValue/BigValueTypes",
+    "defaults": {}
+  },
+  {
+    "name": "BigValueGraphMode",
+    "category": "BigValue",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/BigValue/BigValueTypes",
+    "defaults": {}
+  },
+  {
+    "name": "BigValueJustifyMode",
+    "category": "BigValue",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/BigValue/BigValueTypes",
+    "defaults": {}
+  },
+  {
+    "name": "BigValueTextMode",
+    "category": "BigValue",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/BigValue/BigValueTypes",
+    "defaults": {}
+  },
+  {
+    "name": "Sparkline",
+    "category": "Sparkline",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Sparkline/Sparkline",
+    "defaults": {
+      "width": 360,
+      "height": 100,
+      "values": [
+        2,
+        5,
+        3,
+        8,
+        6,
+        10
+      ]
+    }
+  },
+  {
+    "name": "BarGauge",
+    "category": "BarGauge",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/BarGauge/BarGauge",
+    "defaults": {
+      "value": {
+        "numeric": 72,
+        "text": "72%",
+        "color": "green"
+      },
+      "width": 360,
+      "height": 100,
+      "min": 0,
+      "max": 100,
+      "orientation": "horizontal",
+      "displayMode": "basic"
+    }
+  },
+  {
+    "name": "VizTooltip",
+    "category": "VizTooltip",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizTooltip",
+    "defaults": {
+      "label": "Requests",
+      "value": "42",
+      "text": "Sample tooltip"
+    }
+  },
+  {
+    "name": "VizTooltipContainer",
+    "category": "VizTooltip",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizTooltip",
+    "defaults": {
+      "label": "Requests",
+      "value": "42",
+      "text": "Sample tooltip"
+    }
+  },
+  {
+    "name": "VizTooltipContent",
+    "category": "VizTooltip",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizTooltip",
+    "defaults": {
+      "label": "Requests",
+      "value": "42",
+      "text": "Sample tooltip"
+    }
+  },
+  {
+    "name": "VizTooltipRow",
+    "category": "VizTooltip",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizTooltip",
+    "defaults": {
+      "label": "Requests",
+      "value": "42",
+      "text": "Sample tooltip"
+    }
+  },
+  {
+    "name": "VizTooltipWrapper",
+    "category": "VizTooltip",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizTooltip",
+    "defaults": {
+      "label": "Requests",
+      "value": "42",
+      "text": "Sample tooltip"
+    }
+  },
+  {
+    "name": "VizTooltipFooter",
+    "category": "VizTooltip",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizTooltip",
+    "defaults": {
+      "label": "Requests",
+      "value": "42",
+      "text": "Sample tooltip"
+    }
+  },
+  {
+    "name": "VizTooltipHeader",
+    "category": "VizTooltip",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizTooltip",
+    "defaults": {
+      "label": "Requests",
+      "value": "42",
+      "text": "Sample tooltip"
+    }
+  },
+  {
+    "name": "VizTooltipColorIndicator",
+    "category": "VizTooltip",
+    "status": "excluded",
+    "description": "Nonvisual enum exported from VizTooltip/types; the similarly named React renderer is not exported from the public stable entrypoint.",
+    "source": "./components/VizTooltip",
+    "defaults": {
+      "color": "green"
+    }
+  },
+  {
+    "name": "VizTooltipColorPlacement",
+    "category": "VizTooltip",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/VizTooltip",
+    "defaults": {}
+  },
+  {
+    "name": "DEFAULT_VIZ_TOOLTIP_COLOR_INDICATOR",
+    "category": "VizTooltip",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/VizTooltip",
+    "defaults": {}
+  },
+  {
+    "name": "getFieldDisplayItems",
+    "category": "VizTooltip",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/VizTooltip",
+    "defaults": {}
+  },
+  {
+    "name": "getFieldDisplayLinks",
+    "category": "VizTooltip",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/VizTooltip",
+    "defaults": {}
+  },
+  {
+    "name": "isTooltipScrollable",
+    "category": "VizTooltip",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/VizTooltip",
+    "defaults": {}
+  },
+  {
+    "name": "SeriesTable",
+    "category": "VizTooltip",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizTooltip",
+    "defaults": {
+      "items": [
+        {
+          "label": "API",
+          "color": "green",
+          "yAxis": 1
+        },
+        {
+          "label": "Worker",
+          "color": "blue",
+          "yAxis": 1
+        }
+      ]
+    }
+  },
+  {
+    "name": "SeriesTableRow",
+    "category": "VizTooltip",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizTooltip",
+    "defaults": {
+      "items": [
+        {
+          "label": "API",
+          "color": "green",
+          "yAxis": 1
+        },
+        {
+          "label": "Worker",
+          "color": "blue",
+          "yAxis": 1
+        }
+      ]
+    }
+  },
+  {
+    "name": "VizRepeater",
+    "category": "VizRepeater",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizRepeater/VizRepeater",
+    "defaults": {
+      "width": 500,
+      "height": 200,
+      "text": "Sample visualization"
+    }
+  },
+  {
+    "name": "PanelChrome",
+    "category": "PanelChrome",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/PanelChrome",
+    "defaults": {
+      "title": "Sample panel",
+      "width": 500,
+      "height": 220,
+      "text": "Sample panel content"
+    }
+  },
+  {
+    "name": "PanelChromeLoadingIndicator",
+    "category": "PanelChrome",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/PanelChrome",
+    "defaults": {
+      "loading": true
+    }
+  },
+  {
+    "name": "PanelContextProvider",
+    "category": "PanelChrome",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/PanelChrome",
+    "defaults": {}
+  },
+  {
+    "name": "PanelContextRoot",
+    "category": "PanelChrome",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/PanelChrome",
+    "defaults": {}
+  },
+  {
+    "name": "usePanelContext",
+    "category": "PanelChrome",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/PanelChrome",
+    "defaults": {}
+  },
+  {
+    "name": "useAdHocTransformations",
+    "category": "PanelChrome",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/PanelChrome",
+    "defaults": {}
+  },
+  {
+    "name": "VizLayout",
+    "category": "VizLayout",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizLayout/VizLayout",
+    "defaults": {
+      "width": 500,
+      "height": 200,
+      "text": "Sample visualization"
+    }
+  },
+  {
+    "name": "SeriesVisibilityChangeBehavior",
+    "category": "VizLegend",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/VizLegend/types",
+    "defaults": {}
+  },
+  {
+    "name": "VizLegend",
+    "category": "VizLegend",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizLegend/VizLegend",
+    "defaults": {
+      "items": [
+        {
+          "label": "API",
+          "color": "green",
+          "yAxis": 1
+        },
+        {
+          "label": "Worker",
+          "color": "blue",
+          "yAxis": 1
+        }
+      ]
+    }
+  },
+  {
+    "name": "VizLegendListItem",
+    "category": "VizLegend",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizLegend/VizLegendListItem",
+    "defaults": {
+      "items": [
+        {
+          "label": "API",
+          "color": "green",
+          "yAxis": 1
+        },
+        {
+          "label": "Worker",
+          "color": "blue",
+          "yAxis": 1
+        }
+      ]
+    }
+  },
+  {
+    "name": "Alert",
+    "category": "Alert",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Alert/Alert",
+    "defaults": {
+      "title": "Sample notification",
+      "text": "This is local sample data.",
+      "severity": "info"
+    }
+  },
+  {
+    "name": "Collapse",
+    "category": "Collapse",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Collapse/Collapse",
+    "defaults": {
+      "label": "Sample section",
+      "text": "Section content",
+      "isOpen": true
+    }
+  },
+  {
+    "name": "ControlledCollapse",
+    "category": "Collapse",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Collapse/Collapse",
+    "defaults": {
+      "label": "Sample section",
+      "text": "Section content",
+      "isOpen": true
+    }
+  },
+  {
+    "name": "CollapsableSection",
+    "category": "Collapse",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Collapse/CollapsableSection",
+    "defaults": {
+      "label": "Sample section",
+      "text": "Section content",
+      "isOpen": true
+    }
+  },
+  {
+    "name": "DataLinkButton",
+    "category": "DataLinks",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DataLinks/DataLinkButton",
+    "defaults": {
+      "title": "Documentation",
+      "url": "https://grafana.com/docs/",
+      "text": "Sample link"
+    }
+  },
+  {
+    "name": "FieldLinkList",
+    "category": "DataLinks",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DataLinks/FieldLinkList",
+    "defaults": {
+      "title": "Documentation",
+      "url": "https://grafana.com/docs/",
+      "text": "Sample link"
+    }
+  },
+  {
+    "name": "FullWidthButtonContainer",
+    "category": "Button",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Button/FullWidthButtonContainer",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "ClickOutsideWrapper",
+    "category": "ClickOutsideWrapper",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ClickOutsideWrapper/ClickOutsideWrapper",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "sharedSingleStatMigrationHandler",
+    "category": "SingleStatShared",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/SingleStatShared/SingleStatBaseOptions",
+    "defaults": {}
+  },
+  {
+    "name": "convertOldAngularValueMapping",
+    "category": "SingleStatShared",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: use convertOldAngularValueMappings instead Convert the angular single stat mapping to new react style",
+    "source": "./components/SingleStatShared/SingleStatBaseOptions",
+    "defaults": {}
+  },
+  {
+    "name": "sharedSingleStatPanelChangedHandler",
+    "category": "SingleStatShared",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/SingleStatShared/SingleStatBaseOptions",
+    "defaults": {}
+  },
+  {
+    "name": "CallToActionCard",
+    "category": "CallToActionCard",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: Use `<EmptyState variant=\"call-to-action\" />` instead.  https://developers.grafana.com/ui/latest/index.html?path=/docs/information-deprecated-calltoactioncard--docs",
+    "source": "./components/CallToActionCard/CallToActionCard",
+    "defaults": {
+      "title": "No results yet",
+      "text": "Adjust the sample filters."
+    }
+  },
+  {
+    "name": "ContextMenu",
+    "category": "ContextMenu",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ContextMenu/ContextMenu",
+    "defaults": {
+      "items": [
+        {
+          "label": "Inspect sample",
+          "icon": "search"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Menu",
+    "category": "Menu",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Menu/Menu",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "MenuGroup",
+    "category": "Menu",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Menu/MenuGroup",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "MenuItem",
+    "category": "Menu",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Menu/MenuItem",
+    "defaults": {
+      "label": "Sample item",
+      "message": "Continue with Sample item",
+      "disabled": false
+    }
+  },
+  {
+    "name": "WithContextMenu",
+    "category": "ContextMenu",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ContextMenu/WithContextMenu",
+    "defaults": {
+      "items": [
+        {
+          "label": "Inspect sample",
+          "icon": "search"
+        }
+      ]
+    }
+  },
+  {
+    "name": "DataLinksInlineEditor",
+    "category": "DataLinks",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DataLinks/DataLinksInlineEditor/DataLinksInlineEditor",
+    "defaults": {
+      "title": "Documentation",
+      "url": "https://grafana.com/docs/",
+      "text": "Sample link"
+    }
+  },
+  {
+    "name": "DataLinksInlineEditorBase",
+    "category": "DataLinks",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DataLinks/DataLinksInlineEditor/DataLinksInlineEditorBase",
+    "defaults": {
+      "title": "Documentation",
+      "url": "https://grafana.com/docs/",
+      "text": "Sample link"
+    }
+  },
+  {
+    "name": "DataLinkInput",
+    "category": "DataLinks",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DataLinks/DataLinkInput",
+    "defaults": {
+      "title": "Documentation",
+      "url": "https://grafana.com/docs/",
+      "text": "Sample link"
+    }
+  },
+  {
+    "name": "DataLinksContextMenu",
+    "category": "DataLinks",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DataLinks/DataLinksContextMenu",
+    "defaults": {
+      "items": [
+        {
+          "label": "Inspect sample",
+          "icon": "search"
+        }
+      ]
+    }
+  },
+  {
+    "name": "SeriesIcon",
+    "category": "VizLegend",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/VizLegend/SeriesIcon",
+    "defaults": {
+      "color": "#5794f2"
+    }
+  },
+  {
+    "name": "InfoBox",
+    "category": "InfoBox",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: use Alert with severity info.  https://developers.grafana.com/ui/latest/index.html?path=/docs/information-deprecated-infobox--docs",
+    "source": "./components/InfoBox/InfoBox",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "FeatureInfoBox",
+    "category": "InfoBox",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: use Alert with severity info",
+    "source": "./components/InfoBox/FeatureInfoBox",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "FeatureBadge",
+    "category": "FeatureBadge",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/FeatureBadge/FeatureBadge",
+    "defaults": {
+      "text": "Preview",
+      "featureState": "preview",
+      "status": "valid"
+    }
+  },
+  {
+    "name": "JSONFormatter",
+    "category": "JSONFormatter",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/JSONFormatter/JSONFormatter",
+    "defaults": {
+      "value": {
+        "service": "api",
+        "healthy": true,
+        "requests": 42
+      }
+    }
+  },
+  {
+    "name": "JsonExplorer",
+    "category": "JSONFormatter",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/JSONFormatter/json_explorer/json_explorer",
+    "defaults": {
+      "value": {
+        "service": "api",
+        "healthy": true,
+        "requests": 42
+      }
+    }
+  },
+  {
+    "name": "ErrorBoundary",
+    "category": "ErrorBoundary",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ErrorBoundary/ErrorBoundary",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "ErrorBoundaryAlert",
+    "category": "ErrorBoundary",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ErrorBoundary/ErrorBoundary",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "withErrorBoundary",
+    "category": "ErrorBoundary",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/ErrorBoundary/ErrorBoundary",
+    "defaults": {}
+  },
+  {
+    "name": "ErrorWithStack",
+    "category": "ErrorBoundary",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ErrorBoundary/ErrorWithStack",
+    "defaults": {
+      "title": "Sample error",
+      "text": "Demonstration error"
+    }
+  },
+  {
+    "name": "DataSourceHttpSettings",
+    "category": "DataSourceSettings",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: Use components from `@grafana/plugin-ui` instead, according to the [migration guide](https://github.com/grafana/plugin-ui/blob/main/src/components/ConfigEditor/migrating-from-datasource-http-settings.md).  https://developers.grafana.com/ui/latest/index.html?path=/docs/plugins-datasourcehttpsettings--docs",
+    "source": "./components/DataSourceSettings/DataSourceHttpSettings",
+    "defaults": {}
+  },
+  {
+    "name": "CustomHeadersSettings",
+    "category": "DataSourceSettings",
+    "status": "excluded",
+    "description": "Grafana-server datasource configuration integration; requires Grafana runtime configuration and credential handling.",
+    "source": "./components/DataSourceSettings/CustomHeadersSettings",
+    "defaults": {}
+  },
+  {
+    "name": "AlertingSettings",
+    "category": "DataSourceSettings",
+    "status": "excluded",
+    "description": "Grafana-server datasource configuration integration; requires Grafana runtime configuration and credential handling.",
+    "source": "./components/DataSourceSettings/AlertingSettings",
+    "defaults": {}
+  },
+  {
+    "name": "SecureSocksProxySettings",
+    "category": "DataSourceSettings",
+    "status": "excluded",
+    "description": "Grafana-server datasource configuration integration; requires Grafana runtime configuration and credential handling.",
+    "source": "./components/DataSourceSettings/SecureSocksProxySettings",
+    "defaults": {}
+  },
+  {
+    "name": "TLSAuthSettings",
+    "category": "DataSourceSettings",
+    "status": "excluded",
+    "description": "Grafana-server datasource configuration integration; requires Grafana runtime configuration and credential handling.",
+    "source": "./components/DataSourceSettings/TLSAuthSettings",
+    "defaults": {}
+  },
+  {
+    "name": "CertificationKey",
+    "category": "DataSourceSettings",
+    "status": "excluded",
+    "description": "Grafana-server datasource configuration integration; requires Grafana runtime configuration and credential handling.",
+    "source": "./components/DataSourceSettings/CertificationKey",
+    "defaults": {}
+  },
+  {
+    "name": "Spinner",
+    "category": "Spinner",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Spinner/Spinner",
+    "defaults": {
+      "text": "Loading sample\u2026"
+    }
+  },
+  {
+    "name": "FadeTransition",
+    "category": "transitions",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/transitions/FadeTransition",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "SlideOutTransition",
+    "category": "transitions",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/transitions/SlideOutTransition",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "Segment",
+    "category": "Segment",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Segment/Segment",
+    "defaults": {
+      "value": "alpha",
+      "options": [
+        {
+          "label": "Alpha",
+          "value": "alpha"
+        },
+        {
+          "label": "Beta",
+          "value": "beta"
+        }
+      ]
+    }
+  },
+  {
+    "name": "SegmentAsync",
+    "category": "Segment",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Segment/SegmentAsync",
+    "defaults": {
+      "value": "alpha",
+      "options": [
+        {
+          "label": "Alpha",
+          "value": "alpha"
+        },
+        {
+          "label": "Beta",
+          "value": "beta"
+        }
+      ]
+    }
+  },
+  {
+    "name": "SegmentInput",
+    "category": "Segment",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Segment/SegmentInput",
+    "defaults": {
+      "value": "Sample query",
+      "placeholder": "Enter a value",
+      "name": "sample"
+    }
+  },
+  {
+    "name": "SegmentSelect",
+    "category": "Segment",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Segment/SegmentSelect",
+    "defaults": {
+      "value": "alpha",
+      "options": [
+        {
+          "label": "Alpha",
+          "value": "alpha"
+        },
+        {
+          "label": "Beta",
+          "value": "beta"
+        }
+      ]
+    }
+  },
+  {
+    "name": "SegmentSection",
+    "category": "Segment",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Segment/SegmentSection",
+    "defaults": {
+      "text": "Sample segment"
+    }
+  },
+  {
+    "name": "Drawer",
+    "category": "Drawer",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Drawer/Drawer",
+    "defaults": {
+      "title": "Sample details",
+      "text": "Local interactive overlay",
+      "confirmText": "Confirm"
+    }
+  },
+  {
+    "name": "Slider",
+    "category": "Slider",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Slider/Slider",
+    "defaults": {
+      "value": 35,
+      "min": 0,
+      "max": 100,
+      "disabled": false
+    }
+  },
+  {
+    "name": "RangeSlider",
+    "category": "Slider",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Slider/RangeSlider",
+    "defaults": {
+      "value": 35,
+      "min": 0,
+      "max": 100,
+      "disabled": false
+    }
+  },
+  {
+    "name": "Form",
+    "category": "Forms",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: use the `useForm` hook from react-hook-form instead  https://developers.grafana.com/ui/latest/index.html?path=/docs/forms-form--docs",
+    "source": "./components/Forms/Form",
+    "defaults": {
+      "name": "sample",
+      "label": "Sample form",
+      "value": "Sample value"
+    }
+  },
+  {
+    "name": "sharedInputStyle",
+    "category": "Forms",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Forms/commonStyles",
+    "defaults": {}
+  },
+  {
+    "name": "InputControl",
+    "category": "InputControl",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: use the `Controller` component from react-hook-form instead",
+    "source": "./components/InputControl",
+    "defaults": {
+      "name": "sample",
+      "label": "Sample form",
+      "value": "Sample value"
+    }
+  },
+  {
+    "name": "Button",
+    "category": "Button",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Button/Button",
+    "defaults": {
+      "label": "Continue",
+      "variant": "primary",
+      "message": "Continue with Continue",
+      "disabled": false
+    }
+  },
+  {
+    "name": "LinkButton",
+    "category": "Button",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Button/Button",
+    "defaults": {
+      "label": "Continue",
+      "variant": "primary",
+      "href": "https://grafana.com/docs/"
+    }
+  },
+  {
+    "name": "clearButtonStyles",
+    "category": "Button",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Button/Button",
+    "defaults": {}
+  },
+  {
+    "name": "ButtonGroup",
+    "category": "Button",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Button/ButtonGroup",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "ToolbarButton",
+    "category": "ToolbarButton",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ToolbarButton/ToolbarButton",
+    "defaults": {
+      "label": "Continue",
+      "variant": "primary",
+      "message": "Continue with Continue",
+      "disabled": false
+    }
+  },
+  {
+    "name": "ToolbarButtonRow",
+    "category": "ToolbarButton",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ToolbarButton/ToolbarButtonRow",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "ValuePicker",
+    "category": "ValuePicker",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ValuePicker/ValuePicker",
+    "defaults": {
+      "value": "alpha",
+      "options": [
+        {
+          "label": "Alpha",
+          "value": "alpha"
+        },
+        {
+          "label": "Beta",
+          "value": "beta"
+        }
+      ]
+    }
+  },
+  {
+    "name": "fieldMatchersUI",
+    "category": "MatchersUI",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/MatchersUI/fieldMatchersUI",
+    "defaults": {}
+  },
+  {
+    "name": "useFieldMatchersOptions",
+    "category": "MatchersUI",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/MatchersUI/fieldMatchersUI",
+    "defaults": {}
+  },
+  {
+    "name": "MatcherScopeSelector",
+    "category": "MatchersUI",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/MatchersUI/MatcherScopeSelector",
+    "defaults": {
+      "value": "all"
+    }
+  },
+  {
+    "name": "getUniqueMatcherScopes",
+    "category": "MatchersUI",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/MatchersUI/MatcherScopeSelector",
+    "defaults": {}
+  },
+  {
+    "name": "buildScopeOptions",
+    "category": "MatchersUI",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/MatchersUI/MatcherScopeSelector",
+    "defaults": {}
+  },
+  {
+    "name": "Link",
+    "category": "Link",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Link/Link",
+    "defaults": {
+      "text": "Sample content",
+      "href": "https://grafana.com/docs/"
+    }
+  },
+  {
+    "name": "TextLink",
+    "category": "Link",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Link/TextLink",
+    "defaults": {
+      "text": "Sample content",
+      "href": "https://grafana.com/docs/"
+    }
+  },
+  {
+    "name": "Text",
+    "category": "Text",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Text/Text",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "Box",
+    "category": "Layout",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Layout/Box/Box",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "Stack",
+    "category": "Layout",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Layout/Stack/Stack",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "Grid",
+    "category": "Layout",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Layout/Grid/Grid",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "Space",
+    "category": "Layout",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Layout/Space",
+    "defaults": {
+      "spacing": 2
+    }
+  },
+  {
+    "name": "ScrollContainer",
+    "category": "ScrollContainer",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/ScrollContainer/ScrollContainer",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "Label",
+    "category": "Forms",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Forms/Label",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "Field",
+    "category": "Forms",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Forms/Field",
+    "defaults": {
+      "label": "Sample field",
+      "text": "Sample input"
+    }
+  },
+  {
+    "name": "FieldContext",
+    "category": "Forms",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Forms/FieldContext",
+    "defaults": {}
+  },
+  {
+    "name": "useFieldContext",
+    "category": "Forms",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Forms/FieldContext",
+    "defaults": {}
+  },
+  {
+    "name": "Legend",
+    "category": "Forms",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Forms/Legend",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "FieldSet",
+    "category": "Forms",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Forms/FieldSet",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "FieldValidationMessage",
+    "category": "Forms",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Forms/FieldValidationMessage",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "InlineField",
+    "category": "Forms",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Forms/InlineField",
+    "defaults": {
+      "label": "Sample field",
+      "text": "Sample input"
+    }
+  },
+  {
+    "name": "InlineSegmentGroup",
+    "category": "Forms",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Forms/InlineSegmentGroup",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "InlineLabel",
+    "category": "Forms",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Forms/InlineLabel",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "InlineFieldRow",
+    "category": "Forms",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Forms/InlineFieldRow",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "FieldArray",
+    "category": "Forms",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: use the `useFieldArray` hook from react-hook-form instead  https://developers.grafana.com/ui/latest/index.html?path=/docs/forms-fieldarray--docs",
+    "source": "./components/Forms/FieldArray",
+    "defaults": {
+      "name": "sample",
+      "label": "Sample form",
+      "value": "Sample value"
+    }
+  },
+  {
+    "name": "resetSelectStyles",
+    "category": "Select",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Select/resetSelectStyles",
+    "defaults": {}
+  },
+  {
+    "name": "SelectMenuOptions",
+    "category": "Select",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Select/SelectMenu",
+    "defaults": {}
+  },
+  {
+    "name": "getSelectStyles",
+    "category": "Select",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Select/getSelectStyles",
+    "defaults": {}
+  },
+  {
+    "name": "Combobox",
+    "category": "Combobox",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Combobox/Combobox",
+    "defaults": {
+      "value": "alpha",
+      "options": [
+        {
+          "label": "Alpha",
+          "value": "alpha"
+        },
+        {
+          "label": "Beta",
+          "value": "beta"
+        }
+      ],
+      "disabled": false
+    }
+  },
+  {
+    "name": "MultiCombobox",
+    "category": "Combobox",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Combobox/MultiCombobox",
+    "defaults": {
+      "value": "alpha",
+      "options": [
+        {
+          "label": "Alpha",
+          "value": "alpha"
+        },
+        {
+          "label": "Beta",
+          "value": "beta"
+        }
+      ],
+      "disabled": false
+    }
+  },
+  {
+    "name": "HorizontalGroup",
+    "category": "Layout",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: use Stack component instead",
+    "source": "./components/Layout/Layout",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "VerticalGroup",
+    "category": "Layout",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: use Stack component with the \"column\" direction instead",
+    "source": "./components/Layout/Layout",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "Container",
+    "category": "Layout",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Layout/Layout",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "Badge",
+    "category": "Badge",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Badge/Badge",
+    "defaults": {
+      "text": "Healthy",
+      "color": "green"
+    }
+  },
+  {
+    "name": "RadioButtonGroup",
+    "category": "Forms",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Forms/RadioButtonGroup/RadioButtonGroup",
+    "defaults": {
+      "value": "alpha",
+      "options": [
+        {
+          "label": "Alpha",
+          "value": "alpha"
+        },
+        {
+          "label": "Beta",
+          "value": "beta"
+        }
+      ]
+    }
+  },
+  {
+    "name": "RadioButtonDot",
+    "category": "Forms",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Forms/RadioButtonList/RadioButtonDot",
+    "defaults": {
+      "label": "Enable feature",
+      "value": false,
+      "name": "enabled",
+      "disabled": false
+    }
+  },
+  {
+    "name": "RadioButtonList",
+    "category": "Forms",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Forms/RadioButtonList/RadioButtonList",
+    "defaults": {
+      "value": "alpha",
+      "options": [
+        {
+          "label": "Alpha",
+          "value": "alpha"
+        },
+        {
+          "label": "Beta",
+          "value": "beta"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Input",
+    "category": "Input",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Input/Input",
+    "defaults": {
+      "value": "Sample query",
+      "placeholder": "Enter a value",
+      "name": "sample",
+      "label": "Input field",
+      "disabled": false,
+      "required": false,
+      "type": "text"
+    }
+  },
+  {
+    "name": "getInputStyles",
+    "category": "Input",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Input/Input",
+    "defaults": {}
+  },
+  {
+    "name": "AutoSizeInput",
+    "category": "Input",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Input/AutoSizeInput",
+    "defaults": {
+      "value": "Sample query",
+      "placeholder": "Enter a value",
+      "name": "sample"
+    }
+  },
+  {
+    "name": "FilterInput",
+    "category": "FilterInput",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/FilterInput/FilterInput",
+    "defaults": {
+      "value": "Sample query",
+      "placeholder": "Enter a value",
+      "name": "sample",
+      "label": "FilterInput field",
+      "disabled": false,
+      "required": false
+    }
+  },
+  {
+    "name": "Switch",
+    "category": "Switch",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Switch/Switch",
+    "defaults": {
+      "label": "Enable feature",
+      "value": false,
+      "name": "enabled",
+      "disabled": false
+    }
+  },
+  {
+    "name": "InlineSwitch",
+    "category": "Switch",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Switch/Switch",
+    "defaults": {
+      "label": "Enable feature",
+      "value": false,
+      "name": "enabled",
+      "disabled": false
+    }
+  },
+  {
+    "name": "Checkbox",
+    "category": "Forms",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Forms/Checkbox",
+    "defaults": {
+      "label": "Enable feature",
+      "value": false,
+      "name": "enabled",
+      "disabled": false
+    }
+  },
+  {
+    "name": "TextArea",
+    "category": "TextArea",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/TextArea/TextArea",
+    "defaults": {
+      "value": "Sample query",
+      "placeholder": "Enter a value",
+      "name": "sample",
+      "label": "TextArea field",
+      "disabled": false,
+      "required": false
+    }
+  },
+  {
+    "name": "FileUpload",
+    "category": "FileUpload",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/FileUpload/FileUpload",
+    "defaults": {
+      "text": "Choose local sample files"
+    }
+  },
+  {
+    "name": "FileDropzone",
+    "category": "FileDropzone",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/FileDropzone/FileDropzone",
+    "defaults": {
+      "text": "Choose local sample files"
+    }
+  },
+  {
+    "name": "FileDropzoneDefaultChildren",
+    "category": "FileDropzone",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/FileDropzone/FileDropzone",
+    "defaults": {
+      "text": "Choose local sample files"
+    }
+  },
+  {
+    "name": "FileListItem",
+    "category": "FileDropzone",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/FileDropzone/FileListItem",
+    "defaults": {
+      "name": "sample.csv",
+      "size": 1200
+    }
+  },
+  {
+    "name": "TimeRangeInput",
+    "category": "DateTimePickers",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DateTimePickers/TimeRangeInput",
+    "defaults": {
+      "from": "now-6h",
+      "to": "now",
+      "timeZone": "utc"
+    }
+  },
+  {
+    "name": "RelativeTimeRangePicker",
+    "category": "DateTimePickers",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/DateTimePickers/RelativeTimeRangePicker/RelativeTimeRangePicker",
+    "defaults": {
+      "from": "now-6h",
+      "to": "now",
+      "timeZone": "utc"
+    }
+  },
+  {
+    "name": "Card",
+    "category": "Card",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Card/Card",
+    "defaults": {
+      "title": "Service health",
+      "text": "Sample observability summary"
+    }
+  },
+  {
+    "name": "getCardStyles",
+    "category": "Card",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: Use `className` on respective components to modify styles",
+    "source": "./components/Card/Card",
+    "defaults": {}
+  },
+  {
+    "name": "CardContainer",
+    "category": "Card",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: Using `CardContainer` directly is discouraged and should be replaced with `Card`",
+    "source": "./components/Card/CardContainer",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "FormattedValueDisplay",
+    "category": "FormattedValueDisplay",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/FormattedValueDisplay/FormattedValueDisplay",
+    "defaults": {
+      "value": {
+        "numeric": 42,
+        "text": "42",
+        "suffix": " req/s",
+        "color": "green"
+      },
+      "width": 360,
+      "height": 160,
+      "colorMode": "value",
+      "graphMode": "none"
+    }
+  },
+  {
+    "name": "ButtonSelect",
+    "category": "Dropdown",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Dropdown/ButtonSelect",
+    "defaults": {
+      "value": "alpha",
+      "options": [
+        {
+          "label": "Alpha",
+          "value": "alpha"
+        },
+        {
+          "label": "Beta",
+          "value": "beta"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Dropdown",
+    "category": "Dropdown",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Dropdown/Dropdown",
+    "defaults": {
+      "label": "Open menu"
+    }
+  },
+  {
+    "name": "PluginSignatureBadge",
+    "category": "PluginSignatureBadge",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/PluginSignatureBadge/PluginSignatureBadge",
+    "defaults": {
+      "text": "Preview",
+      "featureState": "preview",
+      "status": "valid"
+    }
+  },
+  {
+    "name": "UserIcon",
+    "category": "UsersIndicator",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/UsersIndicator/UserIcon",
+    "defaults": {
+      "name": "Sample user",
+      "text": "SU"
+    }
+  },
+  {
+    "name": "UsersIndicator",
+    "category": "UsersIndicator",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/UsersIndicator/UsersIndicator",
+    "defaults": {
+      "users": [
+        {
+          "name": "Ada",
+          "login": "ada",
+          "avatarUrl": ""
+        }
+      ]
+    }
+  },
+  {
+    "name": "Avatar",
+    "category": "UsersIndicator",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/UsersIndicator/Avatar",
+    "defaults": {
+      "name": "Sample user",
+      "text": "SU"
+    }
+  },
+  {
+    "name": "InlineFormLabel",
+    "category": "FormLabel",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/FormLabel/FormLabel",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "Divider",
+    "category": "Divider",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Divider/Divider",
+    "defaults": {
+      "spacing": 2
+    }
+  },
+  {
+    "name": "getDragStyles",
+    "category": "DragHandle",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/DragHandle/DragHandle",
+    "defaults": {}
+  },
+  {
+    "name": "useSplitter",
+    "category": "Splitter",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Splitter/useSplitter",
+    "defaults": {}
+  },
+  {
+    "name": "LegacyForms",
+    "category": "uPlot",
+    "status": "excluded",
+    "description": "Deprecated, legacy, or graveyard export in pinned package.",
+    "source": "./components/uPlot/config",
+    "defaults": {}
+  },
+  {
+    "name": "getGraphFieldOptions",
+    "category": "uPlot",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/uPlot/config",
+    "defaults": {}
+  },
+  {
+    "name": "UPlotConfigBuilder",
+    "category": "uPlot",
+    "status": "excluded",
+    "description": "Nonvisual component infrastructure or context contract; not an independently mounted public visual control.",
+    "source": "./components/uPlot/config/UPlotConfigBuilder",
+    "defaults": {}
+  },
+  {
+    "name": "UPLOT_AXIS_FONT_SIZE",
+    "category": "uPlot",
+    "status": "excluded",
+    "description": "Nonvisual component infrastructure or context contract; not an independently mounted public visual control.",
+    "source": "./components/uPlot/config/UPlotAxisBuilder",
+    "defaults": {}
+  },
+  {
+    "name": "UPlotChart",
+    "category": "uPlot",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/uPlot/Plot",
+    "defaults": {
+      "width": 500,
+      "height": 220,
+      "values": [
+        2,
+        5,
+        3,
+        8,
+        6,
+        10
+      ]
+    }
+  },
+  {
+    "name": "PlotLegend",
+    "category": "uPlot",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/uPlot/PlotLegend",
+    "defaults": {
+      "items": [
+        {
+          "label": "API",
+          "color": "green",
+          "yAxis": 1
+        },
+        {
+          "label": "Worker",
+          "color": "blue",
+          "yAxis": 1
+        }
+      ]
+    }
+  },
+  {
+    "name": "XYCanvas",
+    "category": "uPlot",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/uPlot/geometries/XYCanvas",
+    "defaults": {
+      "width": 500,
+      "height": 220,
+      "values": [
+        2,
+        5,
+        3,
+        8,
+        6,
+        10
+      ]
+    }
+  },
+  {
+    "name": "Marker",
+    "category": "uPlot",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/uPlot/geometries/Marker",
+    "defaults": {
+      "width": 500,
+      "height": 220,
+      "values": [
+        2,
+        5,
+        3,
+        8,
+        6,
+        10
+      ]
+    }
+  },
+  {
+    "name": "EventsCanvas",
+    "category": "uPlot",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/uPlot/geometries/EventsCanvas",
+    "defaults": {
+      "width": 500,
+      "height": 220,
+      "values": [
+        2,
+        5,
+        3,
+        8,
+        6,
+        10
+      ]
+    }
+  },
+  {
+    "name": "TooltipPlugin2",
+    "category": "uPlot",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/uPlot/plugins/TooltipPlugin2",
+    "defaults": {
+      "width": 500,
+      "height": 220,
+      "values": [
+        2,
+        5,
+        3,
+        8,
+        6,
+        10
+      ]
+    }
+  },
+  {
+    "name": "CloseButton",
+    "category": "uPlot",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/uPlot/plugins/CloseButton",
+    "defaults": {
+      "width": 500,
+      "height": 220,
+      "values": [
+        2,
+        5,
+        3,
+        8,
+        6,
+        10
+      ]
+    }
+  },
+  {
+    "name": "EventBusPlugin",
+    "category": "uPlot",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/uPlot/plugins/EventBusPlugin",
+    "defaults": {
+      "width": 500,
+      "height": 220,
+      "values": [
+        2,
+        5,
+        3,
+        8,
+        6,
+        10
+      ]
+    }
+  },
+  {
+    "name": "KeyboardPlugin",
+    "category": "uPlot",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/uPlot/plugins/KeyboardPlugin",
+    "defaults": {
+      "width": 500,
+      "height": 220,
+      "values": [
+        2,
+        5,
+        3,
+        8,
+        6,
+        10
+      ]
+    }
+  },
+  {
+    "name": "XAxisInteractionAreaPlugin",
+    "category": "uPlot",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/uPlot/plugins/XAxisInteractionAreaPlugin",
+    "defaults": {
+      "width": 500,
+      "height": 220,
+      "values": [
+        2,
+        5,
+        3,
+        8,
+        6,
+        10
+      ]
+    }
+  },
+  {
+    "name": "FIXED_UNIT",
+    "category": "uPlot",
+    "status": "excluded",
+    "description": "Nonvisual component infrastructure or context contract; not an independently mounted public visual control.",
+    "source": "./components/uPlot/types",
+    "defaults": {}
+  },
+  {
+    "name": "BrowserLabel",
+    "category": "BrowserLabel",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/BrowserLabel/Label",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "PanelContainer",
+    "category": "PanelContainer",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: Use Box instead  https://developers.grafana.com/ui/latest/index.html?path=/docs/layout-deprecated-panelcontainer--docs",
+    "source": "./components/PanelContainer/PanelContainer",
+    "defaults": {
+      "text": "Sample content"
+    }
+  },
+  {
+    "name": "VariablesInputModal",
+    "category": "Actions",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Actions/VariablesInputModal",
+    "defaults": {
+      "title": "Sample details",
+      "text": "Local interactive overlay",
+      "confirmText": "Confirm"
+    }
+  },
+  {
+    "name": "GraphNG",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: ",
+    "source": "./graveyard/GraphNG/GraphNG",
+    "defaults": {}
+  },
+  {
+    "name": "TimeSeries",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Deprecated, legacy, or graveyard export in pinned package.",
+    "source": "./graveyard/TimeSeries/TimeSeries",
+    "defaults": {}
+  },
+  {
+    "name": "useGraphNGContext",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: ",
+    "source": "./graveyard/GraphNG/hooks",
+    "defaults": {}
+  },
+  {
+    "name": "preparePlotFrame",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Deprecated, legacy, or graveyard export in pinned package.",
+    "source": "./graveyard/GraphNG/utils",
+    "defaults": {}
+  },
+  {
+    "name": "buildScaleKey",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Deprecated, legacy, or graveyard export in pinned package.",
+    "source": "./graveyard/GraphNG/utils",
+    "defaults": {}
+  },
+  {
+    "name": "ZoomPlugin",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Deprecated, legacy, or graveyard export in pinned package.",
+    "source": "./graveyard/uPlot/plugins/ZoomPlugin",
+    "defaults": {}
+  },
+  {
+    "name": "TooltipPlugin",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Deprecated, legacy, or graveyard export in pinned package.",
+    "source": "./graveyard/uPlot/plugins/TooltipPlugin",
+    "defaults": {}
+  },
+  {
+    "name": "ElementSelectionContext",
+    "category": "ElementSelectionContext",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/ElementSelectionContext/ElementSelectionContext",
+    "defaults": {}
+  },
+  {
+    "name": "useElementSelection",
+    "category": "ElementSelectionContext",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/ElementSelectionContext/ElementSelectionContext",
+    "defaults": {}
+  },
+  {
+    "name": "CompletionItemKind",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./types/completion",
+    "defaults": {}
+  },
+  {
+    "name": "toIconName",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./types/icon",
+    "defaults": {}
+  },
+  {
+    "name": "isIconSize",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./types/icon",
+    "defaults": {}
+  },
+  {
+    "name": "getAvailableIcons",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./types/icon",
+    "defaults": {}
+  },
+  {
+    "name": "getFieldTypeIcon",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./types/icon",
+    "defaults": {}
+  },
+  {
+    "name": "getFieldTypeIconName",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./types/icon",
+    "defaults": {}
+  },
+  {
+    "name": "DEFAULT_ANNOTATION_COLOR",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/colors",
+    "defaults": {}
+  },
+  {
+    "name": "OK_COLOR",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/colors",
+    "defaults": {}
+  },
+  {
+    "name": "ALERTING_COLOR",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/colors",
+    "defaults": {}
+  },
+  {
+    "name": "NO_DATA_COLOR",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/colors",
+    "defaults": {}
+  },
+  {
+    "name": "PENDING_COLOR",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/colors",
+    "defaults": {}
+  },
+  {
+    "name": "REGION_FILL_ALPHA",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/colors",
+    "defaults": {}
+  },
+  {
+    "name": "colors",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/colors",
+    "defaults": {}
+  },
+  {
+    "name": "getTextColorForBackground",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/colors",
+    "defaults": {}
+  },
+  {
+    "name": "getTextColorForAlphaBackground",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/colors",
+    "defaults": {}
+  },
+  {
+    "name": "sortedColors",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/colors",
+    "defaults": {}
+  },
+  {
+    "name": "EventsWithValidation",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/validate",
+    "defaults": {}
+  },
+  {
+    "name": "validate",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/validate",
+    "defaults": {}
+  },
+  {
+    "name": "hasValidationEvent",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/validate",
+    "defaults": {}
+  },
+  {
+    "name": "regexValidation",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/validate",
+    "defaults": {}
+  },
+  {
+    "name": "SCHEMA",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/slate",
+    "defaults": {}
+  },
+  {
+    "name": "makeFragment",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/slate",
+    "defaults": {}
+  },
+  {
+    "name": "makeValue",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/slate",
+    "defaults": {}
+  },
+  {
+    "name": "linkModelToContextMenuItems",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/dataLinks",
+    "defaults": {}
+  },
+  {
+    "name": "getTagColorIndexFromName",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/tags",
+    "defaults": {}
+  },
+  {
+    "name": "getTagColorsFromName",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/tags",
+    "defaults": {}
+  },
+  {
+    "name": "getTagColor",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/tags",
+    "defaults": {}
+  },
+  {
+    "name": "getScrollbarWidth",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/scrollbar",
+    "defaults": {}
+  },
+  {
+    "name": "getCellLinks",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/table",
+    "defaults": {}
+  },
+  {
+    "name": "getCanvasContext",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/measureText",
+    "defaults": {}
+  },
+  {
+    "name": "measureText",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/measureText",
+    "defaults": {}
+  },
+  {
+    "name": "calculateFontSize",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/measureText",
+    "defaults": {}
+  },
+  {
+    "name": "createPointerDistance",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/usePointerDistance",
+    "defaults": {}
+  },
+  {
+    "name": "usePointerDistance",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/usePointerDistance",
+    "defaults": {}
+  },
+  {
+    "name": "useForceUpdate",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/useForceUpdate",
+    "defaults": {}
+  },
+  {
+    "name": "SearchFunctionType",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/searchFunctions",
+    "defaults": {}
+  },
+  {
+    "name": "createLogger",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/logger",
+    "defaults": {}
+  },
+  {
+    "name": "attachDebugger",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/debug",
+    "defaults": {}
+  },
+  {
+    "name": "NodeGraphDataFrameFieldNames",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/nodeGraph",
+    "defaults": {}
+  },
+  {
+    "name": "fuzzyMatch",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/fuzzy",
+    "defaults": {}
+  },
+  {
+    "name": "logOptions",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/logOptions",
+    "defaults": {}
+  },
+  {
+    "name": "copyTextToClipboard",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./utils/copyToClipboard",
+    "defaults": {}
+  },
+  {
+    "name": "DOMUtil",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/data",
+    "defaults": {}
+  },
+  {
+    "name": "ReactUtils",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/data",
+    "defaults": {}
+  },
+  {
+    "name": "withTheme",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./themes/ThemeContext",
+    "defaults": {}
+  },
+  {
+    "name": "withTheme2",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./themes/ThemeContext",
+    "defaults": {}
+  },
+  {
+    "name": "useTheme",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./themes/ThemeContext",
+    "defaults": {}
+  },
+  {
+    "name": "useTheme2",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./themes/ThemeContext",
+    "defaults": {}
+  },
+  {
+    "name": "useStyles",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./themes/ThemeContext",
+    "defaults": {}
+  },
+  {
+    "name": "useStyles2",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./themes/ThemeContext",
+    "defaults": {}
+  },
+  {
+    "name": "mockThemeContext",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./themes/ThemeContext",
+    "defaults": {}
+  },
+  {
+    "name": "getTheme",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./themes/getTheme",
+    "defaults": {}
+  },
+  {
+    "name": "mockTheme",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./themes/getTheme",
+    "defaults": {}
+  },
+  {
+    "name": "stylesFactory",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: use useStyles hook Creates memoized version of styles creator @param stylesCreator function accepting dependencies based on which styles are created",
+    "source": "./themes/stylesFactory",
+    "defaults": {}
+  },
+  {
+    "name": "GlobalStyles",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./themes/GlobalStyles/GlobalStyles",
+    "defaults": {}
+  },
+  {
+    "name": "styleMixins",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./slate-plugins/braces",
+    "defaults": {}
+  },
+  {
+    "name": "ClearPlugin",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./slate-plugins/clear",
+    "defaults": {}
+  },
+  {
+    "name": "ClipboardPlugin",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./slate-plugins/clipboard",
+    "defaults": {}
+  },
+  {
+    "name": "IndentationPlugin",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./slate-plugins/indentation",
+    "defaults": {}
+  },
+  {
+    "name": "NewlinePlugin",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./slate-plugins/newline",
+    "defaults": {}
+  },
+  {
+    "name": "RunnerPlugin",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./slate-plugins/runner",
+    "defaults": {}
+  },
+  {
+    "name": "SelectionShortcutsPlugin",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./slate-plugins/selection_shortcuts",
+    "defaults": {}
+  },
+  {
+    "name": "SlatePrism",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./slate-plugins/slate-prism",
+    "defaults": {}
+  },
+  {
+    "name": "SuggestionsPlugin",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./slate-plugins/suggestions",
+    "defaults": {}
+  },
+  {
+    "name": "Sidebar",
+    "category": "Sidebar",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/Sidebar/Sidebar",
+    "defaults": {
+      "text": "Sample sidebar"
+    }
+  },
+  {
+    "name": "useSidebar",
+    "category": "Sidebar",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Sidebar/Sidebar",
+    "defaults": {}
+  },
+  {
+    "name": "useSidebarContext",
+    "category": "Sidebar",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "./components/Sidebar/Sidebar",
+    "defaults": {}
+  },
+  {
+    "name": "DrawStyle",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "AxisPlacement",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "PointVisibility",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "LineInterpolation",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "ScaleDistribution",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "GraphGradientMode",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "BarGaugeDisplayMode",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "BarAlignment",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "BarValueVisibility",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "ScaleOrientation",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "ScaleDirection",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "StackingMode",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "GraphThresholdsStyleMode",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "LegendDisplayMode",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "TableCellDisplayMode",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "TooltipDisplayMode",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual utility, enum, hook, provider, context, style, or type-support export.",
+    "source": "@grafana/schema",
+    "defaults": {}
+  },
+  {
+    "name": "Select",
+    "category": "Select",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: Use Combobox component instead  https://developers.grafana.com/ui/latest/index.html?path=/docs/inputs-deprecated-select--docs",
+    "source": "./components/Select/Select",
+    "defaults": {
+      "value": "alpha",
+      "options": [
+        {
+          "label": "Alpha",
+          "value": "alpha"
+        },
+        {
+          "label": "Beta",
+          "value": "beta"
+        }
+      ]
+    }
+  },
+  {
+    "name": "AsyncSelect",
+    "category": "Select",
+    "status": "excluded",
+    "description": "Deprecated upstream in @grafana/ui@13.3.0: Use Combobox component instead  https://developers.grafana.com/ui/latest/index.html?path=/docs/inputs-deprecated-select--docs",
+    "source": "./components/Select/Select",
+    "defaults": {
+      "value": "alpha",
+      "options": [
+        {
+          "label": "Alpha",
+          "value": "alpha"
+        },
+        {
+          "label": "Beta",
+          "value": "beta"
+        }
+      ]
+    }
+  },
+  {
+    "name": "SecretInput",
+    "category": "SecretInput",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/SecretInput/SecretInput",
+    "defaults": {
+      "value": "",
+      "placeholder": "Enter a value",
+      "name": "sample",
+      "label": "SecretInput field",
+      "disabled": false,
+      "required": false,
+      "type": "password"
+    }
+  },
+  {
+    "name": "SecretTextArea",
+    "category": "SecretTextArea",
+    "status": "supported",
+    "description": "Standalone local adapter with typed serializable props; sample data and local state.",
+    "source": "./components/SecretTextArea/SecretTextArea",
+    "defaults": {
+      "value": "",
+      "placeholder": "Enter a value",
+      "name": "sample",
+      "label": "SecretTextArea field",
+      "disabled": false,
+      "required": false
+    }
+  },
+  {
+    "name": "MultiSelect",
+    "category": "Select",
+    "status": "excluded",
+    "description": "Deprecated upstream; replaced by Combobox / MultiCombobox.",
+    "source": "./components/Select/Select",
+    "defaults": {}
+  },
+  {
+    "name": "VirtualizedSelect",
+    "category": "Select",
+    "status": "excluded",
+    "description": "Deprecated upstream; replaced by Combobox / MultiCombobox.",
+    "source": "./components/Select/Select",
+    "defaults": {}
+  },
+  {
+    "name": "AsyncVirtualizedSelect",
+    "category": "Select",
+    "status": "excluded",
+    "description": "Deprecated upstream; replaced by Combobox / MultiCombobox.",
+    "source": "./components/Select/Select",
+    "defaults": {}
+  },
+  {
+    "name": "AsyncMultiSelect",
+    "category": "Select",
+    "status": "excluded",
+    "description": "Deprecated upstream; replaced by Combobox / MultiCombobox.",
+    "source": "./components/Select/Select",
+    "defaults": {}
+  },
+  {
+    "name": "ToggleAllState",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual enum, not a visual component.",
+    "source": "./components/Select/types",
+    "defaults": {}
+  },
+  {
+    "name": "SeriesVisibilityChangeMode",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual enum, not a visual component.",
+    "source": "./components/Select/types",
+    "defaults": {}
+  },
+  {
+    "name": "graphFieldOptions",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual graph field configuration utility.",
+    "source": "./components/uPlot/config",
+    "defaults": {}
+  },
+  {
+    "name": "ThemeContext",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual React theme context; applied by the application theme provider.",
+    "source": "@grafana/data",
+    "defaults": {}
+  },
+  {
+    "name": "BracesPlugin",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Deprecated Slate editor plugin; upstream directs migration to CodeMirror.",
+    "source": "./slate-plugins/braces",
+    "defaults": {}
+  },
+  {
+    "name": "LegacyInputStatus",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Legacy input status enum, not a maintained visual component.",
+    "source": "./components/Forms/Legacy/Input/Input",
+    "defaults": {}
+  },
+  {
+    "name": "floatingUtils",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual positioning utility namespace.",
+    "source": "./utils/floating",
+    "defaults": {}
+  },
+  {
+    "name": "commonOptionsBuilder",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Nonvisual field-options builder namespace.",
+    "source": "./options/builder",
+    "defaults": {}
+  },
+  {
+    "name": "SelectContainer",
+    "category": "Infrastructure",
+    "status": "excluded",
+    "description": "Implementation container for the deprecated Select family; legacy select controls are replaced by Combobox/MultiCombobox.",
+    "source": "./components/Select/SelectContainer",
+    "defaults": {}
+  }
+]
