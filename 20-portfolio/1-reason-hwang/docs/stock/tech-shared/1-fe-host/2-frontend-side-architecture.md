@@ -268,6 +268,8 @@ Remote 앱이 늘어나도 Host는 BFF 설정과 라우팅만 추가해 확장�
 | `src/widgets` | host-navigation, remote-app 독립 화면 블록 |
 | `src/shared` | ui, lib, config 공용 세그먼트 |
 
+Steiger와 `@feature-sliced/steiger-plugin`은 Host devDependencies에 이미 설치되어 있고 `lint`가 ESLint 뒤에 `lint:fsd`를 실행한다. 새 코드는 기존 레이어·슬라이스 안에 배치하고, 새 책임이 생길 때만 슬라이스를 추가한다. 파일 이동이 필요하면 `mv`와 import·공개 API·테스트 경로 수정을 우선하며, 함수 분리나 업무 로직 변경은 경계 위반을 해결할 때만 수행한다.
+
 페이지에서만 쓰는 모델·API·UI는 그 페이지 슬라이스에 둔다. 재사용 필요가 없는 entities/features 레이어는 만들지 않는다. 상위 레이어는 하위 레이어만 참조하고 슬라이스 외부에서는 `index.ts` 공개 API를 사용한다. Shared는 슬라이스 없이 세그먼트 단위로 제공한다.
 
 [공식 Next.js 가이드](https://fsd.how/docs/guides/tech/with-nextjs/)의 `_app`/`_pages` 별칭을 사용한다. Steiger의 파일 시스템 해석은 이를 지원하지만 typo 규칙이 밑줄을 오타로 판단하여, 두 폴더에 한해서 `fsd/typo-in-layer-name`만 비활성화했다. 의존성·공개 API 등 나머지 규칙은 전체에 적용한다.

@@ -213,3 +213,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [공통 AgentInterface 이관](flow/2026-11-14-agent-interface-migration.md): OPENUI-AGENT-001, 채팅 UI 통합과 검증.
 
 - [Host 메뉴 그룹 정리](flow/2026-11-14-host-navigation-groups.md): HOST-NAV-001, 기능 그룹과 활성 경로 검증.
+
+- [Host FSD·Steiger 적용 상태 점검](flow/2026-11-14-fsd-steiger-audit.md): FE-FSD-001, 기존 설치·경계·검사와 최소 변경 원칙.
