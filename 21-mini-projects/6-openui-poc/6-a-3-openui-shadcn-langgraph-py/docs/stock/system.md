@@ -59,3 +59,7 @@ backend pytest/ruff, frontend typecheck/lint/build, 실제 모델 API smoke, Chr
 CodeBlock은 한정된 언어의 Shiki JavaScript 엔진을 지연 로드하고 알 수 없는 언어는 일반 텍스트로 표시한다. DataTableBlock은 기존 TanStack 표 구현을 연결한다. 기존 Table 계약은 유지한다.
 
 카탈로그는 현재 175개 OpenUI 정의와 138개 결정적 예제를 제공한다. Chrome 전수 렌더링과 대표 상호작용, 실제 모델 생성 및 기존 대화 회귀를 확인했다. 모든 upstream prop/스타일 변형의 전수 검증은 아니다. 상세 검증 결과는 [진행 기록](../flow/2026-11-10-full-catalog-onboarding.md)을 따른다.
+
+## REPO-001 로컬 생성물 관리
+
+LangGraph 체크포인트·store (`backend-langgraph/.langgraph_api/`), 검증 출력 (`frontend/output/`), Next.js 환경 타입 파일 (`next-env.d.ts`)은 로컬 생성물이며 Git에서 추적하지 않는다. 환경 파일은 `.env.example`만 공유한다. 공통 ignore 규칙은 런타임 상태·의존성·캐시·테스트 결과를 제외한다. 배포에 필요한 생성 카탈로그와 패키지 프롬프트, 의도적으로 관리하는 데모 seed는 소스로 유지한다.
