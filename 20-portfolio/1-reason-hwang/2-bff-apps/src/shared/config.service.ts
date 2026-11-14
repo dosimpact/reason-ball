@@ -26,7 +26,7 @@ export class AppConfigService {
   get secDocumentMaxBytes() { return this.settings.secDocumentMaxBytes; }
   get secBulkSubmissionsUrl() { return this.settings.secBulkSubmissionsUrl; }
   get secBackfillBatchSize() { return this.settings.secBackfillBatchSize; }
-  get dataDir() { return this.settings.dataDir; }
+  get staticCacheDir() { return this.settings.staticCacheDir; }
   get secBulkArchivePath() { return this.settings.secBulkArchivePath; }
   get swaggerEnabled() { return this.settings.swaggerEnabled; }
 }
@@ -64,7 +64,7 @@ export function readEnvironment(env: NodeJS.ProcessEnv, cwd = process.cwd()) {
   };
   const swagger = env.SWAGGER_ENABLED ?? 'true';
   if (!['true', 'false'].includes(swagger)) throw new Error('SWAGGER_ENABLED must be true or false.');
-  const dataDir = path.resolve(cwd, env.DATA_DIR ?? './data');
+  const staticCacheDir = path.resolve(cwd, env.STATIC_CACHE_DIR ?? './data');
   const rawEnv = env.APP_ENV ?? env.NODE_ENV ?? 'local';
   const environments: Record<string, 'local' | 'stage' | 'prod'> = {
     local: 'local', development: 'local', test: 'local', stage: 'stage', staging: 'stage', prod: 'prod', production: 'prod',
@@ -90,8 +90,8 @@ export function readEnvironment(env: NodeJS.ProcessEnv, cwd = process.cwd()) {
     secDocumentMaxBytes: integer('SEC_DOCUMENT_MAX_BYTES', 32 * 1024 * 1024, 1),
     secBulkSubmissionsUrl: url('SEC_BULK_SUBMISSIONS_URL', 'https://www.sec.gov/Archives/edgar/daily-index/bulkdata/submissions.zip', ['http:', 'https:']),
     secBackfillBatchSize: integer('SEC_BACKFILL_BATCH_SIZE', 500, 1),
-    dataDir,
-    secBulkArchivePath: path.resolve(dataDir, 'sec-cache', 'submissions.zip'),
+    staticCacheDir,
+    secBulkArchivePath: path.resolve(staticCacheDir, 'sec-cache', 'submissions.zip'),
     swaggerEnabled: swagger === 'true',
   });
 }

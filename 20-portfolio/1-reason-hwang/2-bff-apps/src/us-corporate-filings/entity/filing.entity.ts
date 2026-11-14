@@ -63,7 +63,7 @@ export class Filing {
   @Column({ name: 'status', type: 'varchar', length: 16, default: 'pending' })
   status!: FilingStatus;
 
-  // 로컬 저장 파일 경로(DATA_DIR 기준 상대/절대 경로).
+  // 로컬 저장 파일 경로(STATIC_CACHE_DIR 기준 상대/절대 경로).
   @Column({ name: 'file_path', type: 'text', nullable: true })
   filePath!: string | null;
 

@@ -37,6 +37,7 @@ type ChatContextValue = {
   error: string | null;
   sendMessage: (content: string) => Promise<void>;
   resetThread: () => void;
+  cancelRun: () => void;
   graphId: string;
   graphs: { id: string; name: string }[];
   selectGraph: (id: string) => void;
@@ -186,6 +187,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       status: configResult.error ? "error" : state.status,
       error: configResult.error ?? state.error,
       sendMessage,
+      cancelRun: () => abortControllerRef.current?.abort(),
       resetThread, graphId, graphs, selectGraph,
     }),
     [configResult.error, resetThread, sendMessage, state.error, state.messages, state.status, graphId, graphs, selectGraph],

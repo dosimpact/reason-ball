@@ -28,7 +28,7 @@ async function main() {
   process.env.DATABASE_URL = `postgresql://postgres:fixture@127.0.0.1:${port}/company_test`;
   if (routeSuite) {
     fixtureDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sec-route-fixture-'));
-    process.env.DATA_DIR = fixtureDir;
+    process.env.STATIC_CACHE_DIR = fixtureDir;
     fs.mkdirSync(path.join(fixtureDir, 'sec-cache'));
     // Real ZIP reader, deterministic bulk company + historical document fixture.
     execFileSync('python3', ['-c', `import zipfile,json,sys

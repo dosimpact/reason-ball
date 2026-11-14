@@ -1,13 +1,13 @@
 "use client";
 
 import { GraphSelector } from "@/_pages/chat/ui/GraphSelector";
-import { ChatComposer } from "@/_pages/chat/ui/ChatComposer";
+import { AgentConversation } from "@/shared/ui/agent-conversation";
 import { ChatMessageList } from "@/_pages/chat/ui/ChatMessageList";
 import { ChatStatusBar } from "@/_pages/chat/ui/ChatStatusBar";
 import { useChat } from "@/_pages/chat/model/context/useChat";
 
 export function ChatPage() {
-  const { error, messages, resetThread, sendMessage, status, graphId, graphs, selectGraph } = useChat();
+  const { error, messages, resetThread, cancelRun, sendMessage, status, graphId, graphs, selectGraph } = useChat();
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-5">
@@ -23,12 +23,7 @@ export function ChatPage() {
       </header>
 
       <ChatStatusBar error={error} status={status} />
-      <ChatMessageList messages={messages} />
-      <ChatComposer
-        status={status}
-        onReset={resetThread}
-        onSendMessage={sendMessage}
-      />
+      <AgentConversation key={graphId} title="LangGraph Chat" messages={messages.map(message => ({ id: message.id, role: message.role === "user" ? "user" as const : "assistant" as const, content: message.content, view: <ChatMessageList messages={[message]} /> }))} onSend={sendMessage} onCancel={cancelRun} onReset={resetThread} />
     </div>
   );
 }

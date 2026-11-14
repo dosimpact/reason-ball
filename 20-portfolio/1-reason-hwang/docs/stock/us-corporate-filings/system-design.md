@@ -131,7 +131,7 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 - Node 회귀 테스트, TypeScript lint, 격리 PostgreSQL+Nest Bruno: 회사 pagination·티커 범위 28개, 백필/SSE·수정본·단일 원문·티커 범위 52개 시나리오.
 - 추가 HTTP 스트림 검증: started가 작업 완료 전에 도착, metadata-only가 본문 없이 pending 저장, bulk 원문 조회 왕복, 작업 이력 테이블 쓰기 없음.
 - Swagger MCP: 특정 기업 메타데이터→문서→completed, 잘못된 대상 400, 저장 원문 재조회.
-- 실제 실행: `node scripts/run-sec-backfill.cjs 20`은 별도 임시 포트에서 회사 전체 동기화 후 전체 기업 20년 백필을 실행한다. configured DB를 변경하므로 명시적 요청 시만 실행한다. `DATA_DIR/runs`에 SSE 기록을 남긴다.
+- 실제 실행: `node scripts/run-sec-backfill.cjs 20`은 별도 임시 포트에서 회사 전체 동기화 후 전체 기업 20년 백필을 실행한다. configured DB를 변경하므로 명시적 요청 시만 실행한다. `STATIC_CACHE_DIR/runs`에 SSE 기록을 남긴다.
 - 과거 opt-in `test:sec-live`는 단일 Apple 문서 실연동 검증이며 전체 수집 명령과 다르다.
 - 상세 결과와 실제 수집 상태는 [구현·검증 flow](../../flow/2026-09-20-bff-simplification-sse.md)를 참조한다. 코드 검증 통과와 전체 원문 수집 완료를 구분한다.
 
@@ -171,7 +171,7 @@ pnpm sec:sync
 
 `scripts/sync-sec.sh`는 패키지 디렉터리로 이동해 빌드한 뒤 기존 `run-sec-backfill.cjs 20`을 실행한다. 회사 동기화 → DB 티커 보유 회사의 최근 20년 공시 메타데이터 → 원문 다운로드 순서다. 별도 API 서버를 켤 필요 없이 자체 임시 포트를 사용한다. `.env`의 DB와 SEC_USER_AGENT 설정이 필요하다.
 
-진행 상황은 터미널과 `DATA_DIR/runs/backfill-*.sse`에 기록한다. 회사 동기화 실패 시 백필을 시작하지 않고, SSE error/완료 이벤트 누락/다운로드 실패 건수가 있으면 비정상 종료한다. `Ctrl-C`로 중단하며 재실행하면 메타데이터를 다시 동기화하고 기존 다운로드 완료 원문은 건너뛴다. 중단 지점부터 ZIP을 그대로 이어 읽는 방식은 아니다. 기존 프로세스와 중복 실행하지 않는다.
+진행 상황은 터미널과 `STATIC_CACHE_DIR/runs/backfill-*.sse`에 기록한다. 회사 동기화 실패 시 백필을 시작하지 않고, SSE error/완료 이벤트 누락/다운로드 실패 건수가 있으면 비정상 종료한다. `Ctrl-C`로 중단하며 재실행하면 메타데이터를 다시 동기화하고 기존 다운로드 완료 원문은 건너뛴다. 중단 지점부터 ZIP을 그대로 이어 읽는 방식은 아니다. 기존 프로세스와 중복 실행하지 않는다.
 
 `pnpm sec:sync --help`는 사용법만 출력하고 빌드·DB 연결·수집을 수행하지 않는다. 원문을 생략하려면 백필 API에 downloadDocuments=false를 명시한다. 이 자동 스크립트는 원문까지 수집한다.
 
@@ -185,3 +185,11 @@ GET /companies와 GET /filings의 기본값은 DB companies.ticker가 NULL·빈 
 `/sec-chat` Host → same-origin SEC 채팅 proxy → FastAPI LangGraph → 기존 BFF 수집/원문 API를 사용한다. 최신성 확인과 저장 문서 열기를 구분하며 Item 1·1A·3·7·8 근거를 사용한다. 모델이 선택한 원문 구절 ID를 서버가 실제 인용문으로 복원하고, AG-UI로 전달한 OpenUI 프로그램을 Intelligent UI 카탈로그로 검증·렌더링한다.
 
 현재 완료 상태와 인수 기준은 [도메인 기능 설계](intelligent-ui.md), 패키지 계약은 [Host](../tech-shared/1-fe-host/sec-intelligent-ui.md)와 [LangGraph](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md)에 둔다.
+
+## BFF-CACHE-001: 로컬 캐시 경로 설정
+
+환경 변수 `STATIC_CACHE_DIR`와 설정 getter `staticCacheDir`가 캐시 루트를 지정한다.
+기본값은 `./data`이며 상대경로는 BFF 실행 디렉터리를 기준으로 해석한다.
+SEC ZIP은 `sec-cache/submissions.zip`, 백필 실행 기록은 `runs/`에 저장한다.
+`LOG_DIR`는 별도 설정이다. HTTP 정적 파일 공개 디렉터리를 뜻하지 않는다.
+기존 `DATA_DIR`는 사용하지 않으므로 배포 환경에서도 새 이름으로 변경해야 한다.

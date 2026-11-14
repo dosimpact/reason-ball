@@ -13,7 +13,7 @@ async function main() {
   if (!Number.isInteger(years) || years < 1 || years > 30) throw new Error('years must be 1..30');
   const app = await NestFactory.create(AppModule, { logger: createAppLogger() });
   app.setGlobalPrefix('api/sec');
-  const directory = path.join(app.get(AppConfigService).dataDir, 'runs');
+  const directory = path.join(app.get(AppConfigService).staticCacheDir, 'runs');
   fs.mkdirSync(directory, { recursive: true });
   const stamp = new Date().toISOString().replace(/[:.]/g, '-');
   const logPath = path.join(directory, `backfill-${stamp}.sse`);

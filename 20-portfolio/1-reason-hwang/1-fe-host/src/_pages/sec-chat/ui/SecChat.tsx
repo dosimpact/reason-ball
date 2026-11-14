@@ -1,7 +1,8 @@
 "use client";
 
+import { AgentConversation } from "@/shared/ui/agent-conversation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUp, MessageSquarePlus, Square } from "lucide-react";
+import { ArrowUp, MessageSquarePlus } from "lucide-react";
 import { FollowUpQuestions } from "./FollowUpQuestions";
 import type { Evidence } from "./EvidenceView";
 import { AnswerView } from "./AnswerView";
@@ -28,7 +29,6 @@ export function SecChat() {
   const [prepared, setPrepared] = useState<Prepared>();
   const [messages, setMessages] = useState<Message[]>([]);
   const [choice, setChoice] = useState<Choice>();
-  const [question, setQuestion] = useState("");
   const [busy, setBusy] = useState("");
   const [error, setError] = useState("");
   const [activities, setActivities] = useState<Activity[]>([]);
@@ -80,7 +80,7 @@ export function SecChat() {
     const pending = choice;
     const controller = new AbortController(); abort.current = controller;
     activityLog.current = []; setActivities([]);
-    setBusy("메시지를 읽고 있어요"); setError(""); setQuestion(""); setChoice(undefined);
+    setBusy("메시지를 읽고 있어요"); setError(""); setChoice(undefined);
     append({ role: "user", text });
     try {
       if (selected && pending) {
@@ -99,7 +99,7 @@ export function SecChat() {
       const message = controller.signal.aborted ? "답변 생성을 중단했어요. 메시지를 다시 보내 이어갈 수 있어요." : (e as Error).message;
       for (const activity of activityLog.current.filter(item => item.status === "running")) recordActivity({ ...activity, status: controller.signal.aborted ? "cancelled" : "failed" });
       append({ role: "assistant", text: "" });
-      setError(message); setQuestion(current => current || text);
+      setError(message);
       if (pending) setChoice(pending);
     } finally {
       abort.current = null; setBusy(""); input.current?.focus();
@@ -115,22 +115,18 @@ export function SecChat() {
       } catch (e) { setError((e as Error).message); return; }
     }
     activityLog.current = []; setActivities([]);
-    setMessages([]); setPrepared(undefined); setCompany(undefined); setChoice(undefined); setQuestion(""); setError(""); input.current?.focus();
+    setMessages([]); setPrepared(undefined); setCompany(undefined); setChoice(undefined); setError(""); input.current?.focus();
   }
 
   return <main className="sec-chat">
     <header className="sec-chat-header"><h1>리서치 채팅</h1><button type="button" onClick={() => void reset()} disabled={!!busy}><MessageSquarePlus size={16} />새 대화</button></header>
     <div className="sec-chat-body">
       {messages.length === 0 && <section className="sec-welcome"><span className="sec-welcome-mark" aria-hidden="true">✳</span><h2>무엇이 궁금하세요?</h2><p>기업 이야기부터 재무 분석까지, 편하게 물어보세요.</p><div className="sec-suggestions">{suggestions.map(text => <button key={text} onClick={() => void send(text)}>{text}<ArrowUp size={15} aria-hidden="true" /></button>)}</div></section>}
-      <section className="sec-messages" aria-label="사업보고서 대화" aria-live="polite" aria-relevant="additions">
-        {messages.map((message, index) => <article className={`sec-message sec-message-${message.role}`} key={index} aria-label={message.role === "user" ? "내 메시지" : "답변"}>
-          {message.role === "assistant" && <span className="sec-message-author">리서치 어시스턴트</span>}
-          {message.role === "assistant" && <ActivityTimeline activities={message.activities ?? []} />}
+      <AgentConversation title="SEC 리서치" onSend={text => send(text)} onCancel={() => abort.current?.abort()} onReset={() => void reset()} messages={messages.map((message, index) => ({ id: String(index), role: message.role, content: message.text, view: <>          {message.role === "assistant" && <ActivityTimeline activities={message.activities ?? []} />}
           {message.program ? <AnswerView program={message.program} evidence={message.evidence} onMessage={text => { if (index === messages.length - 1) void send(text); }} onError={() => setError("Intelligent UI 렌더링 오류가 발생했습니다.")} /> : message.role === "assistant" ? <AnswerView program={`root = Col([Markdown(${JSON.stringify(message.text)})])`} /> : <p>{message.text}</p>}
           {message.role === "assistant" && <FollowUpQuestions questions={message.followUps ?? []} disabled={!!busy || index !== messages.length - 1} onSelect={text => void send(text)} />}
-        </article>)}
-        {choice && <div className="sec-choices" aria-label="기업 확인">{choice.companies.map(item => <button key={item.cik} disabled={!!busy} onClick={() => void send(`${item.name} (${item.ticker})`, item)}><strong>{item.ticker}</strong> {item.name}</button>)}</div>}
-      </section>
+</> }))} />
+      {choice && <div className="sec-choices" aria-label="기업 확인">{choice.companies.map(item => <button key={item.cik} disabled={!!busy} onClick={() => void send(`${item.name} (${item.ticker})`, item)}>{item.ticker} {item.name}</button>)}</div>}
       {busy && <ActivityTimeline activities={activities} working />}
       <div role="status" className="sec-status">{busy && <><span className="sec-status-dot" />{busy}</>}</div>
       {error && <p role="alert" className="sec-error">{error}</p>}
@@ -138,10 +134,7 @@ export function SecChat() {
     </div>
     <div className="sec-compose-dock">
       {prepared && <details className="sec-selected"><summary>{company?.name} · 10-K · {prepared.filing.filingDate}</summary><p>{prepared.filing.accessionNo}</p><p>{prepared.checkedAt ? `SEC 동기화 확인: ${prepared.checkedAt}` : "저장 문서 기준 — SEC 최신성 미확인"}</p>{prepared.missingItems.length > 0 && <p>추출하지 못한 Item: {prepared.missingItems.join(", ")}</p>}</details>}
-      <form className="sec-composer" onSubmit={event => { event.preventDefault(); void send(question); }}>
-        <textarea ref={input} aria-label="메시지" value={question} maxLength={4000} onChange={event => setQuestion(event.target.value)} placeholder="무엇이든 물어보세요" rows={2} onKeyDown={event => { if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); if (!busy) void send(question); } }} />
-        {busy ? <button key="stop" type="button" aria-label="답변 중단" onClick={event => { event.preventDefault(); abort.current?.abort(); }}><Square size={17} fill="currentColor" /></button> : <button key="send" type="submit" aria-label="메시지 보내기" disabled={!question.trim()}><ArrowUp size={20} /></button>}
-      </form>
+
       <p className="sec-compose-note">기업 분석은 SEC 10-K 원문을 확인합니다. Enter로 전송 · Shift+Enter로 줄바꿈</p>
     </div>
   </main>;
