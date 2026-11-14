@@ -21,8 +21,8 @@ export type LangGraphStreamEvent =
       };
     };
 
-export async function createChatThread(client: Client): Promise<string> {
-  const thread = await client.threads.create();
+export async function createChatThread(client: Client, metadata?: Record<string, unknown>): Promise<string> {
+  const thread = await client.threads.create({ metadata, graphId: typeof metadata?.graph_id === "string" ? metadata.graph_id : undefined });
 
   return thread.thread_id;
 }

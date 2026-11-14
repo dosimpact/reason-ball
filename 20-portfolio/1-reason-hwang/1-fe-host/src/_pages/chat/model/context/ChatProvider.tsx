@@ -16,6 +16,7 @@ import {
   createChatThread,
   streamChatRun,
 } from "@/_pages/chat/api/chatRunApi";
+import { listChatHistory, loadChatHistory, type ChatHistoryItem } from "../../api/chatHistoryApi";
 import { createLangGraphClient } from "@/_pages/chat/api/langgraphClient";
 import type {
   ChatMessage,
@@ -34,6 +35,13 @@ import {
 
 type ChatContextValue = {
   messages: ChatMessage[];
+  threadId: string | null;
+  conversationVersion: number;
+  history: ChatHistoryItem[];
+  historyLoading: boolean;
+  historyError: string | null;
+  refreshHistory: () => Promise<void>;
+  openThread: (threadId: string) => Promise<void>;
   status: ChatStatus;
   error: string | null;
   sendMessage: (content: string) => Promise<void>;
@@ -49,6 +57,11 @@ const ChatContext = createContext<ChatContextValue | null>(null);
 export function ChatProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(chatReducer, initialChatState);
   const stateRef = useRef(state);
+  const [history, setHistory] = useState<ChatHistoryItem[]>([]);
+  const [historyLoading, setHistoryLoading] = useState(false);
+  const [historyError, setHistoryError] = useState<string | null>(null);
+  const [conversationVersion, setConversationVersion] = useState(0);
+  const historyRequestRef = useRef<AbortController | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
   const configResult = useMemo(() => getLangGraphConfig(), []);
   const [graphId, setGraphId] = useState(configResult.config?.assistantId ?? "starter_graph");
@@ -73,6 +86,52 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
   stateRef.current = state;
 
+  const refreshHistory = useCallback(async () => {
+    if (!client) return;
+    historyRequestRef.current?.abort();
+    const controller = new AbortController();
+    historyRequestRef.current = controller;
+    setHistoryLoading(true);
+    setHistoryError(null);
+    try {
+      const items = await listChatHistory(client, graphId, controller.signal);
+      if (!controller.signal.aborted) setHistory(items);
+    } catch {
+      if (!controller.signal.aborted) setHistoryError("대화 기록을 불러오지 못했습니다. 다시 시도해 주세요.");
+    } finally {
+      if (!controller.signal.aborted) setHistoryLoading(false);
+    }
+  }, [client, graphId]);
+
+  useEffect(() => {
+    setHistory([]);
+    setHistoryError(null);
+    void refreshHistory();
+    return () => historyRequestRef.current?.abort();
+  }, [refreshHistory]);
+
+  const openThread = useCallback(async (threadId: string) => {
+    if (!client || ["creating_thread", "streaming", "loading_history"].includes(stateRef.current.status)) return;
+    if (!history.some(item => item.threadId === threadId && item.graphId === graphId && item.status !== "busy")) return;
+    abortControllerRef.current?.abort();
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+    dispatch({ type: "historyLoading" });
+    try {
+      const messages = await loadChatHistory(client, threadId, controller.signal);
+      if (abortControllerRef.current !== controller) return;
+      if (controller.signal.aborted) {
+        dispatch({ type: "historyLoadFailed", error: null });
+        return;
+      }
+      dispatch({ type: "historyLoaded", threadId, messages });
+      setConversationVersion(version => version + 1);
+    } catch {
+      if (abortControllerRef.current !== controller) return;
+      dispatch({ type: "historyLoadFailed", error: controller.signal.aborted ? null : "대화 기록을 열지 못했습니다. 새로고침 후 다시 시도해 주세요." });
+    }
+  }, [client, graphId, history]);
+
   const sendMessage = useCallback(
     async (content: string) => {
       const trimmedContent = content.trim();
@@ -80,7 +139,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       if (
         !trimmedContent ||
         stateRef.current.status === "creating_thread" ||
-        stateRef.current.status === "streaming"
+        stateRef.current.status === "streaming" ||
+        stateRef.current.status === "loading_history"
       ) {
         return;
       }
@@ -113,7 +173,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       let assistantMessageId: string | undefined;
       try {
         const threadId =
-          stateRef.current.threadId ?? (await createChatThread(client));
+          stateRef.current.threadId ?? (await createChatThread(client, { source: "host-chat", graph_id: graphId, title: trimmedContent.slice(0, 80) }));
 
         if (!isCurrentRequest()) return;
         if (!stateRef.current.threadId) {
@@ -159,6 +219,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         if (isCurrentRequest()) dispatch({
           type: "assistantMessageCompleted", messageId: currentMessageId,
         });
+        if (isCurrentRequest()) void refreshHistory();
       } catch (error) {
         if (!isCurrentRequest()) return;
         if (error instanceof DOMException && error.name === "AbortError") {
@@ -172,19 +233,20 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         });
       }
     },
-    [client, configResult.config, configResult.error, graphId],
+    [client, configResult.config, configResult.error, graphId, refreshHistory],
   );
 
   const resetThread = useCallback(() => {
     abortControllerRef.current?.abort();
     abortControllerRef.current = null;
+    setConversationVersion(version => version + 1);
     dispatch({
       type: "threadReset",
     });
   }, []);
 
   const selectGraph = useCallback((id: string) => {
-    if (stateRef.current.status === "streaming" || stateRef.current.status === "creating_thread") return;
+    if (["streaming", "creating_thread", "loading_history"].includes(stateRef.current.status)) return;
     if (!graphs.some(graph => graph.id === id)) return;
     resetThread();
     setGraphId(id);
@@ -193,13 +255,14 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const value = useMemo(
     () => ({
       messages: state.messages,
+      threadId: state.threadId, conversationVersion, history, historyLoading, historyError, refreshHistory, openThread,
       status: configResult.error ? "error" : state.status,
       error: configResult.error ?? state.error,
       sendMessage,
       cancelRun: () => abortControllerRef.current?.abort(),
       resetThread, graphId, graphs, selectGraph,
     }),
-    [configResult.error, resetThread, sendMessage, state.error, state.messages, state.status, graphId, graphs, selectGraph],
+    [configResult.error, resetThread, sendMessage, state.error, state.messages, state.status, state.threadId, graphId, graphs, selectGraph, conversationVersion, history, historyLoading, historyError, refreshHistory, openThread],
   );
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;

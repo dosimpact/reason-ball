@@ -15,7 +15,7 @@ export type ChatMessage = {
   status: ChatMessageStatus;
 };
 
-export type ChatStatus = "idle" | "creating_thread" | "streaming" | "error";
+export type ChatStatus = "idle" | "creating_thread" | "streaming" | "loading_history" | "error";
 
 export type ChatThreadState = {
   threadId: string | null;

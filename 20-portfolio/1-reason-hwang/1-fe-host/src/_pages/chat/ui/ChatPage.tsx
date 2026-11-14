@@ -1,5 +1,6 @@
 "use client";
 
+import { ChatHistory } from "./ChatHistory";
 import { ChatActivity } from "./ChatActivity";
 import { GraphSelector } from "./GraphSelector";
 import { AgentConversation, ChatNotice, ConversationText } from "@/shared/ui/agent-conversation";
@@ -7,12 +8,15 @@ import { OutputView } from "@/shared/ui/intelligent-ui";
 import { useChat } from "../model/context/useChat";
 
 export function ChatPage() {
-  const { error, messages, resetThread, cancelRun, sendMessage, status, graphId, graphs, selectGraph } = useChat();
-  const busy = status === "streaming" || status === "creating_thread";
-  return <AgentConversation key={graphId} title="Chat" welcomeTitle="무엇을 도와드릴까요?"
+  const { error, messages, resetThread, cancelRun, sendMessage, status, graphId, graphs, selectGraph, history, historyLoading, historyError, refreshHistory, openThread, threadId, conversationVersion } = useChat();
+  const busy = status === "streaming" || status === "creating_thread" || status === "loading_history";
+  return <AgentConversation key={`${graphId}:${conversationVersion}`} title="Chat" welcomeTitle="무엇을 도와드릴까요?"
     description="에이전트를 선택하고 대화하세요. 기술적 분석은 일봉·주봉과 RSI·SMA·MACD를 지원합니다."
-    toolbar={<GraphSelector graphs={graphs} value={graphId} onChange={selectGraph} disabled={busy} />}
-    status={<ChatNotice tone={error ? "error" : "status"}>{error ?? (busy ? "답변을 준비하고 있어요" : "Ready")}</ChatNotice>}
+    toolbar={<div className="flex flex-wrap items-center gap-3">
+      <GraphSelector graphs={graphs} value={graphId} onChange={selectGraph} disabled={busy} />
+      <ChatHistory items={history} loading={historyLoading} error={historyError} disabled={busy} selectedId={threadId} onRefresh={refreshHistory} onSelect={openThread} />
+    </div>}
+    status={<ChatNotice tone={error ? "error" : "status"}>{error ?? (status === "loading_history" ? "대화를 불러오는 중…" : busy ? "답변을 준비하고 있어요" : "Ready")}</ChatNotice>}
     busy={busy} messages={messages.map((message, index) => ({
       id: message.id, role: message.role === "user" ? "user" as const : "assistant" as const,
       content: message.content,

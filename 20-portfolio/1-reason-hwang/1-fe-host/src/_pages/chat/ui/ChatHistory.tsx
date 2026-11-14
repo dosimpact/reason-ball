@@ -1,0 +1,42 @@
+"use client";
+
+import { History } from "lucide-react";
+import type { ChatHistoryItem } from "../api/chatHistoryApi";
+
+export function ChatHistory({ items, loading, error, disabled, selectedId, onRefresh, onSelect }: {
+  items: ChatHistoryItem[];
+  loading: boolean;
+  error: string | null;
+  disabled: boolean;
+  selectedId: string | null;
+  onRefresh: () => Promise<void>;
+  onSelect: (threadId: string) => Promise<void>;
+}) {
+  return <details className="relative" onToggle={event => { if (event.currentTarget.open) void onRefresh(); }}>
+    <summary className="flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm">
+      <History size={15} aria-hidden="true" />History · 대화 기록
+    </summary>
+    <div className="absolute right-0 z-30 mt-2 max-h-80 w-80 max-w-[85vw] overflow-auto rounded-lg border bg-background p-3 shadow-lg">
+      <div className="mb-2 flex items-center justify-between gap-3 text-sm"><span>선택한 에이전트 · 최근 50개</span>
+        <button type="button" className="underline disabled:opacity-50" disabled={loading || disabled} onClick={() => void onRefresh()}>새로고침</button>
+      </div>
+      {loading && <p role="status" className="text-sm text-muted-foreground">대화 기록을 불러오는 중…</p>}
+      {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+      {!loading && !error && !items.length && <p className="text-sm text-muted-foreground">저장된 대화가 없습니다.</p>}
+      <ul className="space-y-1" aria-label="저장된 대화">
+        {items.map(item => <li key={item.threadId}>
+          <button type="button" className="w-full rounded-md px-3 py-2 text-left text-sm hover:bg-muted disabled:opacity-50"
+            disabled={disabled || loading || item.status === "busy"} aria-current={selectedId === item.threadId ? "true" : undefined}
+            onClick={async event => {
+              const details = event.currentTarget.closest("details");
+              await onSelect(item.threadId);
+              if (details) details.open = false;
+            }}>
+            <span className="block truncate">{item.title}</span>
+            <time dateTime={item.updatedAt} className="text-xs text-muted-foreground">{new Date(item.updatedAt).toLocaleString("ko-KR")}</time>
+          </button>
+        </li>)}
+      </ul>
+    </div>
+  </details>;
+}

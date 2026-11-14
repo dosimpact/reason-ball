@@ -83,3 +83,19 @@ SEC 채팅이 공유하는 renderer·카탈로그·채팅 프레임은 유지한
 `/open-ui/catalog`의 미디어·데이터 그룹에 `FinancialChart` 예제를 제공한다.
 FinancialChart 또는 TradingView로 검색해 캔들·거래량·SMA/RSI/MACD, 가격·거래량 전용, 빈 데이터 예제를 실행하고 코드를 편집·초기화할 수 있다.
 카탈로그 예제는 명시적으로 가상 시세와 표시 확인용 지표 값을 사용하며 모델·서버를 호출하지 않는다. 실제 데이터 조회 계약은 TA-QUERY-001을 따른다.
+
+## CHAT-HISTORY-001: /chat 대화 기록
+
+`/chat`의 History · 대화 기록은 LangGraph SDK의 thread search와 최신 state 조회에 연결한다.
+새 thread metadata에 `source=host-chat`, `graph_id`, 첫 질문의 앞 80자를 제목으로 기록한다.
+선택한 그래프의 최신 50개 대화를 갱신 시각 내림차순으로 표시하고 저장된 대화를 열어 같은 thread에서 이어 쓴다.
+목록 조회 오류와 메시지 복원 오류는 재시도할 수 있으며, 실행·복원 중에는 대화/그래프 전환을 막는다.
+전환·새 대화·취소 후 오래된 응답이 현재 메시지를 덮어쓰지 않도록 요청을 구분한다.
+
+복원 시 user/assistant 텍스트를 표시하고 tool 호출·도구 결과·추론 block은 제외한다.
+checkpoint가 보유한 최신 presentation만 마지막 assistant에 복원하며 과거 turn별 차트·도구 실행 패널은 복구하지 않는다.
+새 대화는 현재 화면을 비울 뿐 서버 thread를 삭제하지 않는다.
+기능 추가 이전에 source/graph_id가 없었던 thread는 목록에서 자동 분류하지 않는다.
+서버 재시작 후 보존 여부는 기존 PostgreSQL/checkpointer 설정을 따르며, 메모리 실행에서는 서버 종료 시 사라진다.
+
+[변경·검증 기록](../../../flow/2026-11-14-chat-history.md)

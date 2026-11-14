@@ -1,0 +1,110 @@
+import type { Client } from "@langchain/langgraph-sdk";
+
+import type { ChatMessage } from "../model/chatTypes";
+
+export type ChatHistoryItem = {
+  threadId: string;
+  title: string;
+  graphId: string;
+  updatedAt: string;
+  status: string;
+};
+
+export async function listChatHistory(
+  client: Client,
+  graphId: string,
+  signal?: AbortSignal,
+): Promise<ChatHistoryItem[]> {
+  const threads = await client.threads.search({
+    metadata: { source: "host-chat", graph_id: graphId },
+    limit: 50,
+    sortBy: "updated_at",
+    sortOrder: "desc",
+    signal,
+  });
+  if (!Array.isArray(threads)) throw new Error("대화 기록 응답 형식이 올바르지 않습니다.");
+  return threads.flatMap((thread) => {
+    if (!isRecord(thread) || typeof thread.thread_id !== "string") return [];
+    const metadata = isRecord(thread.metadata) ? thread.metadata : {};
+    if (metadata.source !== "host-chat" || metadata.graph_id !== graphId) return [];
+    return [{
+      threadId: thread.thread_id,
+      title: textValue(metadata.title).trim() || "제목 없는 대화",
+      graphId,
+      updatedAt: textValue(thread.updated_at) || textValue(thread.created_at),
+      status: textValue(thread.status) || "unknown",
+    }];
+  });
+}
+
+export async function loadChatHistory(
+  client: Client,
+  threadId: string,
+  signal?: AbortSignal,
+): Promise<ChatMessage[]> {
+  const state = await client.threads.getState(threadId, undefined, { signal });
+  return normalizeThreadMessages(state);
+}
+
+/** Rebuild visible conversation only; tool arguments and reasoning stay on the server. */
+export function normalizeThreadMessages(state: unknown): ChatMessage[] {
+  if (!isRecord(state) || !isRecord(state.values) || !Array.isArray(state.values.messages)) return [];
+  const values = state.values;
+  const sourceMessages = state.values.messages;
+  const presentation = isRecord(values.presentation) ? values.presentation : {};
+  const messages: ChatMessage[] = [];
+  const createdAt = textValue(state.created_at) || "1970-01-01T00:00:00.000Z";
+  const finalAssistantIndex = sourceMessages.findLastIndex((message: unknown) =>
+    isRecord(message) && visibleRole(message) === "assistant" && !hasToolCalls(message));
+  sourceMessages.forEach((message: unknown, index: number) => {
+    if (!isRecord(message)) return;
+    const role = visibleRole(message);
+    if (!role || (role === "assistant" && hasToolCalls(message))) return;
+    const content = messageText(message.content);
+    const program = index === finalAssistantIndex ? textValue(presentation.program) : "";
+    if (!content.trim() && !program.trim()) return;
+    messages.push({
+      id: textValue(message.id) || `history-${role}-${index}`,
+      role,
+      content,
+      createdAt: textValue(message.created_at) || textValue(message.createdAt) || createdAt,
+      status: "complete",
+    });
+  });
+  // A snapshot contains only the latest presentation, never one per historic turn.
+  const latest = messages.at(-1);
+  if (latest?.role === "assistant" && typeof presentation.program === "string" && presentation.program.trim()) {
+    latest.program = presentation.program;
+    if (typeof presentation.id === "string") latest.presentationId = presentation.id;
+  }
+  return messages;
+}
+
+function visibleRole(message: Record<string, unknown>): "user" | "assistant" | undefined {
+  const role = message.type ?? message.role;
+  if (role === "human" || role === "user") return "user";
+  if (role === "ai" || role === "assistant") return "assistant";
+}
+
+function hasToolCalls(message: Record<string, unknown>): boolean {
+  const additional = isRecord(message.additional_kwargs) ? message.additional_kwargs : {};
+  return [message.tool_calls, additional.tool_calls].some((calls) => Array.isArray(calls) && calls.length > 0);
+}
+
+function messageText(content: unknown): string {
+  if (typeof content === "string") return content;
+  if (!Array.isArray(content)) return "";
+  return content.map((block) => {
+    if (typeof block === "string") return block;
+    if (!isRecord(block) || (block.type !== undefined && block.type !== "text" && block.type !== "output_text")) return "";
+    return textValue(block.text);
+  }).join("");
+}
+
+function textValue(value: unknown): string {
+  return typeof value === "string" ? value : "";
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}

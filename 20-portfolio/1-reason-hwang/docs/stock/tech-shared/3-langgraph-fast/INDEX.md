@@ -29,3 +29,10 @@
 추가 CLI `--port`가 최종 우선한다. `langgraph.json`은 변경하지 않는다.
 SEC BFF 주소는 2980, UI validator 주소는 Host의 2983을 사용한다.
 공용 포트 계약은 [LOCAL-PORTS-002](../workspace.md#local-ports-002-애플리케이션-포트-프로필)를 따른다.
+
+## CHAT-HISTORY-001: Host 대화 기록 소비
+
+Host `/chat`은 기존 `/threads/search`와 `/threads/{id}/state`를 사용해
+`source=host-chat`·`graph_id` metadata를 가진 thread의 목록과 메시지를 복원한다.
+새 서버 endpoint나 DB schema는 추가하지 않는다. 서버 저장/복구 정책은 [DB Saver](3-langgraph-db-saver.md),
+화면 범위와 이전 thread 제한은 [Host](../1-fe-host/open-ui.md#chat-history-001-chat-대화-기록)를 따른다.

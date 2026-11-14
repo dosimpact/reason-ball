@@ -1,6 +1,9 @@
 import type { ChatMessage, ChatThreadState } from "@/_pages/chat/model/chatTypes";
 
 export type ChatAction =
+  | { type: "historyLoading" }
+  | { type: "historyLoaded"; threadId: string; messages: ChatMessage[] }
+  | { type: "historyLoadFailed"; error: string | null }
   | { type: "assistantSnapshotReceived"; messageId: string; content: string; program?: string; presentationId?: string; activities?: ChatMessage["activities"] }
   | {
       type: "threadCreated";
@@ -44,6 +47,12 @@ export function chatReducer(
 ): ChatThreadState {
   if ((action.type === "assistantMessageCompleted" || action.type === "streamFailed") && action.messageId && state.messages.findLast(message => message.role === "assistant")?.id !== action.messageId) return state;
   switch (action.type) {
+    case "historyLoading":
+      return { ...state, status: "loading_history", error: null };
+    case "historyLoaded":
+      return { threadId: action.threadId, messages: action.messages, status: "idle", error: null };
+    case "historyLoadFailed":
+      return { ...state, status: action.error ? "error" : "idle", error: action.error };
     case "assistantSnapshotReceived":
       return { ...state, messages: state.messages.map(message => message.id === action.messageId
         ? { ...message, content: action.content, program: action.program, presentationId: action.presentationId, activities: action.activities }
