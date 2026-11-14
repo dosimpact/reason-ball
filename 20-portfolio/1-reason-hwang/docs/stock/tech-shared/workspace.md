@@ -35,7 +35,10 @@ Decision and validation: [2026-10-02 boundary reconciliation](../../flow/2026-10
 | `pnpm install` | Install JavaScript workspace dependencies |
 | `pnpm test:dev` | Validate scoped development-port cleanup and collision handling |
 | `pnpm build` | Build packages that define a build task |
-| `pnpm start` | Start the production host and BFF |
+| `pnpm start` | Start the host, BFF, and LangGraph FastAPI together |
+| `pnpm start:fe-host` | Start only the frontend host |
+| `pnpm start:bff-apps` | Start only the BFF |
+| `pnpm start:langgraph-fast-api` | Start only LangGraph FastAPI |
 | `pnpm test` | Run package tests after dependency builds |
 | `pnpm test:e2e` | Run the host Playwright suite |
 | `pnpm lint` | Run package lint tasks |
