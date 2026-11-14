@@ -4,6 +4,7 @@ import { functions } from "./functions";
 import "./components/theme.css";
 import "./components/components.css";
 import "./components/map/map.css";
+import { QueryPanel } from "./components/query-panel";
 import { FinancialChart } from "./components/financial-chart";
 import { Chart } from "./components/chart";
 import { Carousel, Celebration, Code, Flashcard, MathBlock, Popover, Quote, YouTube } from "./components/extra";
@@ -41,7 +42,7 @@ export const library = createLibrary({
     Col, Row, Box, Grid, Card, Carousel, Popover, Divider, Spacer,
     Title, Text, Caption, Label, Badge, Link, List, ListItem, Markdown, Quote, Code, MathBlock,
     Button, IconButton, Pressable, Input, TextArea, Select, SegmentedControl, Slider, Checkbox, RadioGroup, DatePicker, Timer, Form,
-    SearchImage, Image, Icon, Table, Chart, FinancialChart, MapView, MapMarker, YouTube,
+    SearchImage, Image, Icon, Table, Chart, FinancialChart, QueryPanel, MapView, MapMarker, YouTube,
     Flashcard, Celebration,
     ...svgComponents, HtmlView,
   ],
@@ -65,8 +66,9 @@ export const library = createLibrary({
         '- Every input either changes something shown on the page, or sits in a Form whose submit Button sends a short first-person @ToAssistant ("Help me choose a bike"); the form values go with it. No dead inputs.',
       ],
     },
-    { name: "Media and data", components: ["SearchImage", "Image", "Icon", "Table", "Chart", "FinancialChart", "Map", "MapMarker", "YouTube"], notes: [
+    { name: "Media and data", components: ["SearchImage", "Image", "Icon", "Table", "Chart", "FinancialChart", "QueryPanel", "Map", "MapMarker", "YouTube"], notes: [
       '- FinancialChart consumes one trusted snapshot. Fetch it with data = Query("technical_analysis_chart", {ticker: $ticker, interval: $interval, count: $count, indicators: "SMA,RSI,MACD"}, {bars: [], status: "loading"}). The Host runs this allowlisted read tool without an LLM round trip.',
+      '- Put Query-backed data components and their editable argument controls inside QueryPanel(children, Action([@Run(queryStatement)])); every Query view must provide its own manual refresh icon and labelled argument fields together.',
       '- Query(tool, args, default, seconds) re-runs when reactive args change. Omit seconds or use 0 for historical answers. Explicit live mode may use 30 seconds only for the active latest answer. Price and all indicators must come from the same returned snapshot.',
     ] },
     { name: "Play", components: ["Flashcard", "Celebration"] },

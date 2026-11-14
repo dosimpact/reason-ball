@@ -69,6 +69,12 @@ def test_full_series_and_signals_match_talib():
         assert indicator["signal"]["state"] != "판단 불가"
     program = build_program({"answer": report})
     assert "FinancialChart(chart)" in program
+    assert "QueryPanel([" in program
+    assert "Action([@Run(chart)])" in program
+    assert 'Input($chart_ticker, "Yahoo 티커", "text")' in program
+    assert '"ticker":$chart_ticker' in program
+    assert '"interval":$chart_interval' in program
+    assert '"count":$chart_count' in program
     assert 'Query("technical_analysis_chart"' in program
     assert "$chart_refresh_seconds = 0" in program
     assert report["dates"][-1] in program

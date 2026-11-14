@@ -40,20 +40,21 @@ def build_program(state: dict) -> str:
         counts = list(
             dict.fromkeys([str(report["requested_count"]), "60", "120", "200"])
         )
-        nodes.extend(
-            [
-                'Input($chart_ticker, "Yahoo 티커", "text")',
-                'Select($chart_interval, [{"value":"1d","label":"일봉"},{"value":"1wk","label":"주봉"}], "주기")',
-                f'Select($chart_count, {dumps(counts)}, "봉 수")',
-                'Text("차트 조회 조건은 모델 호출 없이 변경됩니다. 아래 해석과 근거는 최초 분석 시점 기준입니다.")',
-            ]
-        )
+        query_controls = [
+            'Input($chart_ticker, "Yahoo 티커", "text")',
+            'Select($chart_interval, [{"value":"1d","label":"일봉"},{"value":"1wk","label":"주봉"}], "주기")',
+            f'Select($chart_count, {dumps(counts)}, "봉 수")',
+            'Text("차트 조회 조건은 모델 호출 없이 변경됩니다. 아래 해석과 근거는 최초 분석 시점 기준입니다.")',
+        ]
         statements.append(f"snapshot = {dumps(snapshot)}")
         statements.append("$chart_refresh_seconds = 0")
         statements.append(
             f'chart = Query("technical_analysis_chart", {query_args}, snapshot, $chart_refresh_seconds)'
         )
-        nodes.append("FinancialChart(chart)")
+        query_controls.append("FinancialChart(chart)")
+        nodes.append(
+            "QueryPanel([" + ", ".join(query_controls) + "], Action([@Run(chart)]))"
+        )
     for item in report["indicators"]:
         nodes.append(
             f"Title({dumps(item['name'] + ' (' + ' / '.join(str(v) for v in item['parameters'].values()) + ')')})"

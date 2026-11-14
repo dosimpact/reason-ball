@@ -161,6 +161,10 @@
       "signature": "FinancialChart(snapshot: {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], indicators?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string})",
       "description": "Financial OHLCV snapshot from technical_analysis_chart Query. One aligned bars array drives candlesticks, volume, SMA overlay and RSI/MACD panes on a shared time axis. Never invent prices or calculate indicators in the model."
     },
+    "QueryPanel": {
+      "signature": "QueryPanel(children: Node[], refreshAction: ActionExpression)",
+      "description": "Group editable Query argument controls and their data component together. Always pass Action([@Run(queryStatement)]) as refreshAction; the accessible refresh icon reruns that exact Query without changing arguments or calling the assistant. Include labelled controls before the data view."
+    },
     "Map": {
       "signature": "Map(markers: MapMarker[], route?: boolean, selected?: $binding<string>, height?: number)",
       "description": "Street map fitted to its markers. route draws the road path in marker order; selected holds the clicked marker's label."
@@ -293,12 +297,14 @@
         "Table",
         "Chart",
         "FinancialChart",
+        "QueryPanel",
         "Map",
         "MapMarker",
         "YouTube"
       ],
       "notes": [
         "- FinancialChart consumes one trusted snapshot. Fetch it with data = Query(\"technical_analysis_chart\", {ticker: $ticker, interval: $interval, count: $count, indicators: \"SMA,RSI,MACD\"}, {bars: [], status: \"loading\"}). The Host runs this allowlisted read tool without an LLM round trip.",
+        "- Put Query-backed data components and their editable argument controls inside QueryPanel(children, Action([@Run(queryStatement)])); every Query view must provide its own manual refresh icon and labelled argument fields together.",
         "- Query(tool, args, default, seconds) re-runs when reactive args change. Omit seconds or use 0 for historical answers. Explicit live mode may use 30 seconds only for the active latest answer. Price and all indicators must come from the same returned snapshot."
       ]
     },
@@ -698,6 +704,9 @@
       "FinancialChart": {
         "$ref": "#/$defs/FinancialChart"
       },
+      "QueryPanel": {
+        "$ref": "#/$defs/QueryPanel"
+      },
       "Map": {
         "$ref": "#/$defs/Map"
       },
@@ -788,6 +797,7 @@
       "Table",
       "Chart",
       "FinancialChart",
+      "QueryPanel",
       "Map",
       "MapMarker",
       "YouTube",
@@ -2194,6 +2204,24 @@
         ],
         "additionalProperties": false,
         "description": "Financial OHLCV snapshot from technical_analysis_chart Query. One aligned bars array drives candlesticks, volume, SMA overlay and RSI/MACD panes on a shared time axis. Never invent prices or calculate indicators in the model."
+      },
+      "QueryPanel": {
+        "type": "object",
+        "properties": {
+          "children": {
+            "type": "array",
+            "items": {}
+          },
+          "refreshAction": {
+            "$ref": "#/$defs/ActionExpression"
+          }
+        },
+        "required": [
+          "children",
+          "refreshAction"
+        ],
+        "additionalProperties": false,
+        "description": "Group editable Query argument controls and their data component together. Always pass Action([@Run(queryStatement)]) as refreshAction; the accessible refresh icon reruns that exact Query without changing arguments or calling the assistant. Include labelled controls before the data view."
       },
       "Map": {
         "type": "object",

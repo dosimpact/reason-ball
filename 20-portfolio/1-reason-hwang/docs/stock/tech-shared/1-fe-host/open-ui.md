@@ -65,3 +65,7 @@ SEC 채팅이 공유하는 renderer·카탈로그·채팅 프레임은 유지한
 `/chat`은 최신 assistant 출력에만 `active`를 전달한다. 해당 프로그램의 `$chart_refresh_seconds` 기본0을 사용자가 opt-in할 때30으로 전환한다. 이전 출력과 busy 출력은 polling을 멈춘다. Query key별 캐시가 설정 변경 중의 응답을 격리하며, 출력 교체/unmount는 소유 fetch를 취소하고 SDK timer와 chart observer를 정리한다. 모델 설명은 최초 분석 스냅샷이고 차트 조회는 대화 state를 바꾸지 않는다.
 
 계약과 검증은 [도메인 설계](../../technical-analysis/system-design.md#ta-query-001-조회-api와-차트-runtime), [flow](../../../flow/2026-11-14-openui-query-financial-charts.md)를 따른다.
+
+## TA-QUERY-002: QueryPanel
+
+공유 카탈로그 `QueryPanel(children, refreshAction)`은 Query의 편집 가능한 조건과 결과를 같은 반응형 패널에 묶는다. `refreshAction`은 `Action([@Run(queryStatement)])`를 전달하며 해당 Query를 직접 invalidate한다. 접근 가능한 `데이터 새로고침` 아이콘은 loading/streaming 중 disabled, pending 상태와 회전 표시를 제공한다. reduced-motion에서는 회전을 생략한다. loading hook은 같은 Renderer 안의 Query 전체에 적용되므로 복수 Query가 있으면 다른 패널도 조회 중 비활성화될 수 있다. 현재 금융 출력은 Query 하나다. 재조회는 `onMessage`나 모델 provider를 호출하지 않는다. 생성 프롬프트·schema는 기존 `sec-ui:generate`로 동기화한다.

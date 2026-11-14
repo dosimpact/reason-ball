@@ -6,7 +6,7 @@ import { fetchTechnicalAnalysisChart } from "./query-tools";
 afterEach(() => vi.unstubAllGlobals());
 describe("financial Query bridge", () => {
   it("validates Query with reactive args and refresh interval against the generated catalog", () => {
-    const parsed = createParser(spec.schema, spec.root).parse('$ticker = "AAPL"\n$chart_refresh_seconds = 0\ndata = Query("technical_analysis_chart", {ticker:$ticker, interval:"1d", count:120}, {bars:[]}, $chart_refresh_seconds)\nroot = Col([FinancialChart(data)])');
+    const parsed = createParser(spec.schema, spec.root).parse('$ticker = "AAPL"\n$chart_refresh_seconds = 0\ndata = Query("technical_analysis_chart", {ticker:$ticker, interval:"1d", count:120}, {bars:[]}, $chart_refresh_seconds)\nroot = Col([QueryPanel([Input($ticker,"티커","text"),FinancialChart(data)],Action([@Run(data)]))])');
     expect(parsed.meta.errors).toEqual([]);
     expect(parsed.meta.unresolved).toEqual([]);
     expect(parsed.meta.incomplete).toBe(false);

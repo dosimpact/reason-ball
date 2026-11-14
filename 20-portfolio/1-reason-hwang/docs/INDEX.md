@@ -223,3 +223,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [Host 공통 상단 헤더 제거](flow/2026-11-14-host-header-removal.md): HOST-HEADER-001, 앱 헤더 소유권·전체 높이·사이드바 제어 위치.
 
 - [OpenUI Query 금융 차트](flow/2026-11-14-openui-query-financial-charts.md): TA-QUERY-001, 모델 없는 Yahoo·TA-Lib 조회와 Lightweight Charts.
+
+- [OpenUI Query 수동 새로고침](flow/2026-11-14-openui-query-manual-refresh.md): TA-QUERY-002, 편집 가능한 조건·refresh icon·native Query 재조회.
