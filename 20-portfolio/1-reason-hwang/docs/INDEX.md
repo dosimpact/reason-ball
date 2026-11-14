@@ -211,3 +211,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [2026-11-14 OpenUI 명칭 통일](flow/2026-11-14-open-ui-naming.md): OPEN-UI-NAME-001, 화면·환경변수·Python 모듈·현재 문서 경로 및 검증.
 
 - [공통 AgentInterface 이관](flow/2026-11-14-agent-interface-migration.md): OPENUI-AGENT-001, 채팅 UI 통합과 검증.
+
+- [Host 메뉴 그룹 정리](flow/2026-11-14-host-navigation-groups.md): HOST-NAV-001, 기능 그룹과 활성 경로 검증.

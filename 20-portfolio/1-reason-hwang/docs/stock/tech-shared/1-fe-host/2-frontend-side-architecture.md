@@ -288,3 +288,10 @@ Host의 FastAPI 프록시는 2981, `REMOTE_BFF_URL`은 BFF 2980이다.
 각 Vite Remote는 자기 패키지의 `.env`에서 `PORT`(Template 2984/Todo 2985)와
 `REMOTE_BFF_URL`을 읽어 개발·preview 포트와 BFF 경유 asset origin을 설정한다.
 전체 계약은 [Workspace](../workspace.md#local-ports-002-애플리케이션-포트-프로필)를 따른다.
+
+
+## HOST-NAV-001: 사이드바 그룹
+
+Host 사이드바는 Overview(Home), Remote Apps(Template·Todo), AI Chat(LangGraph Chat·SEC API Agent·SEC Research Chat·Push UI Chat), Generative UI(UI Demos·Component Catalog)로 구성한다. 카탈로그와 Push UI 예제도 직접 진입할 수 있다. URL은 기존 경로를 유지한다. 경로 구간이 일치하는 항목 중 가장 구체적인 경로 하나만 활성화하여 카탈로그에서 UI Demos가 동시에 선택되지 않게 한다. 접힌 상태의 아이콘·툴팁과 모바일 Sidebar 동작은 공통 Sidebar를 따른다.
+
+[변경 및 검증](../../../flow/2026-11-14-host-navigation-groups.md)
