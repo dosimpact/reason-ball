@@ -7,7 +7,7 @@ Tools search local demo notes and aggregate fixed sales records. No internet sea
 From the independent workspace root:
 
 ```sh
-pnpm --filter reason-hwang-langgraph-fast dev
+pnpm --filter @reason-hwang/langgraph-fast-api dev
 pnpm --filter reason-hwang-fe-host dev
 ```
 

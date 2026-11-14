@@ -51,7 +51,7 @@ PostgreSQL·Neo4j와 모델 provider가 준비된 상태에서 workspace root의
 ```bash
 pnpm --filter @reason-hwang/bff-apps dev
 # 별도 터미널: 검증에 사용한 로컬 OAuth proxy의 경우
-SEC_CHAT_MODEL_BASE_URL=http://127.0.0.1:2890/v1 SEC_CHAT_MODEL=gpt-5.6-luna pnpm --filter reason-hwang-langgraph-fast dev
+SEC_CHAT_MODEL_BASE_URL=http://127.0.0.1:2890/v1 SEC_CHAT_MODEL=gpt-5.6-luna pnpm --filter @reason-hwang/langgraph-fast-api dev
 # 별도 터미널
 SEC_CHAT_API_URL=http://127.0.0.1:8000 pnpm --filter reason-hwang-fe-host dev
 ```

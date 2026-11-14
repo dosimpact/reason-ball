@@ -71,11 +71,11 @@ Bruno environments separate local, development, and staging base URLs. Tests tha
 Common commands include:
 
 ```sh
-pnpm --filter reason-hwang-langgraph-fast test
-pnpm --filter reason-hwang-langgraph-fast test:api
-pnpm --filter reason-hwang-langgraph-fast test:technical-analysis
-pnpm --filter reason-hwang-langgraph-fast test:tenk
-pnpm --filter reason-hwang-langgraph-fast test:bruno
+pnpm --filter @reason-hwang/langgraph-fast-api test
+pnpm --filter @reason-hwang/langgraph-fast-api test:api
+pnpm --filter @reason-hwang/langgraph-fast-api test:technical-analysis
+pnpm --filter @reason-hwang/langgraph-fast-api test:tenk
+pnpm --filter @reason-hwang/langgraph-fast-api test:bruno
 ```
 
 PostgreSQL and Neo4j integration tests require their documented services and opt-in environment flags. Do not reinterpret a skipped external-service test as a passing integration verification.

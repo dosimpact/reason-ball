@@ -67,7 +67,7 @@ pnpm --filter @reason-hwang/bff-apps dev
 LangGraph/FastAPI:
 
 ```bash
-pnpm --filter reason-hwang-langgraph-fast dev
+pnpm --filter @reason-hwang/langgraph-fast-api dev
 ```
 
 OAuth 프록시:
@@ -106,7 +106,7 @@ pnpm build
 ```bash
 pnpm --filter reason-hwang-fe-host test:e2e
 pnpm --filter @reason-hwang/bff-apps test
-pnpm --filter reason-hwang-langgraph-fast test
+pnpm --filter @reason-hwang/langgraph-fast-api test
 ```
 
 정적 검사:
@@ -114,8 +114,8 @@ pnpm --filter reason-hwang-langgraph-fast test
 ```bash
 pnpm --filter reason-hwang-fe-host lint
 pnpm --filter @reason-hwang/bff-apps lint
-pnpm --filter reason-hwang-langgraph-fast lint
-pnpm --filter reason-hwang-langgraph-fast typecheck
+pnpm --filter @reason-hwang/langgraph-fast-api lint
+pnpm --filter @reason-hwang/langgraph-fast-api typecheck
 ```
 
 ## 검증용 MCP 설치 및 연결
@@ -237,7 +237,7 @@ stdio 방식이므로 별도 HTTP 서버나 포트는 필요하지 않습니다.
 | `2-bff-apps` | `reason-hwang-bff-apps` |
 | `2-bff-apps/remotes/template` | `reason-hwang-remote-template` |
 | `2-bff-apps/remotes/todo` | `reason-hwang-remote-todo` |
-| `3-langgraph-fast` | `reason-hwang-langgraph-fast` |
+| `3-langgraph-fast` | `@reason-hwang/langgraph-fast-api` |
 | `infra/1-infra-graph-rag` | `reason-hwang-infra-graph-rag` |
 | `infra/2-codex-oauth-proxy` | `reason-hwang-codex-oauth-proxy` |
 
@@ -290,7 +290,7 @@ curl -X POST http://127.0.0.1:8000/graph/run \
 
 ```bash
 CHATGPT_OAUTH_PROXY_URL=http://127.0.0.1:18741 \
-pnpm --filter reason-hwang-langgraph-fast dev
+pnpm --filter @reason-hwang/langgraph-fast-api dev
 ```
 
 ```bash

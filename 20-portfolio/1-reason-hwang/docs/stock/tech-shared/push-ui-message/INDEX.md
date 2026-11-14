@@ -24,11 +24,11 @@
 ## 실행 및 검증 명령
 
 ```sh
-pnpm --filter reason-hwang-langgraph-fast dev
+pnpm --filter @reason-hwang/langgraph-fast-api dev
 pnpm --filter reason-hwang-fe-host dev
 pnpm --filter reason-hwang-fe-host test:push-ui
 pnpm --filter reason-hwang-fe-host test:push-ui:views
-pnpm --filter reason-hwang-langgraph-fast test:push-ui:api --env-var baseUrl=http://127.0.0.1:8000
+pnpm --filter @reason-hwang/langgraph-fast-api test:push-ui:api --env-var baseUrl=http://127.0.0.1:8000
 ```
 
 Python 단위 검사는 패키지 안에서 `uv run python -m pytest tests/test_push_ui_message_example.py -q`를 사용한다. 모델 factory는 기존 A2UI 모델 설정·OAuth 호환 처리를 재사용한다. 진행 이벤트만 실행 중 전송하며 최종 답변은 완료 시 전송한다.

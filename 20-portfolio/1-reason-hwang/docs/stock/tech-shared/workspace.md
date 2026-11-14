@@ -14,7 +14,7 @@ The root package and seven child packages are registered by `pnpm-workspace.yaml
 | `2-bff-apps` | `@reason-hwang/bff-apps` | NestJS/TypeScript |
 | `2-bff-apps/remotes/template` | `@reason-hwang/remote-template` | Vite React/TypeScript |
 | `2-bff-apps/remotes/todo` | `@reason-hwang/remote-todo` | Vite React/TypeScript |
-| `3-langgraph-fast` | `reason-hwang-langgraph-fast` | FastAPI/LangGraph/Python |
+| `3-langgraph-fast` | `@reason-hwang/langgraph-fast-api` | FastAPI/LangGraph/Python |
 | `infra/1-infra-graph-rag` | `@10k/infra` | Docker Compose |
 | `infra/2-codex-oauth-proxy` | `@reason-hwang/codex-oauth-proxy` | Python/Docker Compose |
 
