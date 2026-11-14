@@ -33,7 +33,7 @@ pnpm -C 3-langgraph-fast dev:langgraph
 pnpm -C 1-fe-host dev
 ```
 
-기본 runtime은 2024, Host는 2800이다. 모델 설정은 Python 패키지 `.env`의 기존 OpenAI 호환 설정을 사용한다. UI validator 기본값은 Host 2800이며 `SEC_CHAT_UI_VALIDATOR_URL`로 변경할 수 있다. 사용자 UI는 `http://127.0.0.1:2800/chat`이다.
+현재 로컬 포트 프로필은 runtime 2982, Host 2983이다. 모델 설정은 Python 패키지 `.env`의 기존 OpenAI 호환 설정을 사용한다. `LANGGRAPH_INTERNAL_API_URL=http://127.0.0.1:2982`와 `SEC_CHAT_UI_VALIDATOR_URL=http://127.0.0.1:2983/api/sec-ui/validate`를 맞춘다. 사용자 UI는 `http://127.0.0.1:2983/chat`이다. 코드의 fallback 포트와 실제 환경 프로필은 구분한다.
 
 ```sh
 pnpm -C 3-langgraph-fast test tests/test_technical_analysis_agent.py tests/graph/subgraph/price_agent tests/infrastructure/technical_analysis tests/graph/shared/cache
@@ -41,7 +41,14 @@ pnpm -C 1-fe-host typecheck
 pnpm -C 1-fe-host lint
 pnpm -C 1-fe-host exec vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/_pages/chat/ui/GraphSelector.stories.tsx src/_pages/chat/ui/ChatMessageList.stories.tsx
 # from 3-langgraph-fast/bruno-api-tests:
-../node_modules/.bin/bru run 19-technical-analysis --env local --env-var baseUrl=http://127.0.0.1:2024
+../node_modules/.bin/bru run 19-technical-analysis --env local --env-var baseUrl=http://127.0.0.1:2982
 ```
 
 Bruno는 실제 Yahoo·모델·Host validator 연결이 필요하다. 테스트용 thread/assistant를 생성하고 삭제한다. 필수 검증과 정리 원칙은 [검증 지도](../../validation/INDEX.md), 실행 증거는 [flow](../../flow/2026-11-08-technical-analysis-agent.md)에 기록한다.
+
+
+## TA-VAL-20261114: 실제 브라우저 검증과 관찰된 제한
+
+실제 Yahoo·모델·TA-Lib·OpenUI 경로에서 AAPL 일봉/주봉, RSI7·SMA60 후속 변경, 삼성전자 KRW, 200봉, 잘못된 티커 안내, EMA·5분봉 범위 제한, 그래프 변경 시 격리와 모바일 390px 차트를 확인했다. [검증 기록](../../flow/2026-11-14-technical-analysis-browser-validation.md)에서 PNG 보고서와 결과에 연결한다.
+
+관찰된 제한: 로컬 FE 환경이 runtime 대신 2981을 가리키면 분석이 실행되지 않는다. 현재 분석 본문의 Markdown 기호가 그대로 표시되지만 OpenUI 차트는 렌더링된다. 잘못된 지표 기간 요청은 경고 후 기본 설정으로 계산할 수 있어, 사용자 설정 확인 UX는 후속 개선 대상이다. 이번 검증에서는 코드·환경파일을 수정하지 않았다.

@@ -215,3 +215,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [Host 메뉴 그룹 정리](flow/2026-11-14-host-navigation-groups.md): HOST-NAV-001, 기능 그룹과 활성 경로 검증.
 
 - [Host FSD·Steiger 적용 상태 점검](flow/2026-11-14-fsd-steiger-audit.md): FE-FSD-001, 기존 설치·경계·검사와 최소 변경 원칙.
+
+- [기술적 분석 실제 브라우저·PNG 검증](flow/2026-11-14-technical-analysis-browser-validation.md): TA-001~005, 12개 시나리오와 원본 PNG 보고.
