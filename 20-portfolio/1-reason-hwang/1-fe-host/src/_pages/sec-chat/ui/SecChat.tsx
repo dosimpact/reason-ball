@@ -2,7 +2,6 @@
 
 import { AgentConversation } from "@/shared/ui/agent-conversation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUp, MessageSquarePlus } from "lucide-react";
 import { FollowUpQuestions } from "./FollowUpQuestions";
 import type { Evidence } from "./EvidenceView";
 import { AnswerView } from "./AnswerView";
@@ -118,11 +117,11 @@ export function SecChat() {
     setMessages([]); setPrepared(undefined); setCompany(undefined); setChoice(undefined); setError(""); input.current?.focus();
   }
 
-  return <main className="sec-chat">
-    <header className="sec-chat-header"><h1>리서치 채팅</h1><button type="button" onClick={() => void reset()} disabled={!!busy}><MessageSquarePlus size={16} />새 대화</button></header>
+  return <main className="sec-chat agent-chat-page">
+    <header className="sec-chat-header"><h1>리서치 채팅</h1></header>
     <div className="sec-chat-body">
-      {messages.length === 0 && <section className="sec-welcome"><span className="sec-welcome-mark" aria-hidden="true">✳</span><h2>무엇이 궁금하세요?</h2><p>기업 이야기부터 재무 분석까지, 편하게 물어보세요.</p><div className="sec-suggestions">{suggestions.map(text => <button key={text} onClick={() => void send(text)}>{text}<ArrowUp size={15} aria-hidden="true" /></button>)}</div></section>}
-      <AgentConversation title="SEC 리서치" onSend={text => send(text)} onCancel={() => abort.current?.abort()} onReset={() => void reset()} messages={messages.map((message, index) => ({ id: String(index), role: message.role, content: message.text, view: <>          {message.role === "assistant" && <ActivityTimeline activities={message.activities ?? []} />}
+
+      <AgentConversation welcomeTitle="무엇이 궁금하세요?" starters={suggestions.map(text => ({ displayText: text, prompt: text }))} busy={!!busy} title="SEC 리서치" onSend={text => send(text)} onCancel={() => abort.current?.abort()} onReset={() => void reset()} messages={messages.map((message, index) => ({ id: String(index), role: message.role, content: message.text, view: <>          {message.role === "assistant" && <ActivityTimeline activities={message.activities ?? []} />}
           {message.program ? <AnswerView program={message.program} evidence={message.evidence} onMessage={text => { if (index === messages.length - 1) void send(text); }} onError={() => setError("Intelligent UI 렌더링 오류가 발생했습니다.")} /> : message.role === "assistant" ? <AnswerView program={`root = Col([Markdown(${JSON.stringify(message.text)})])`} /> : <p>{message.text}</p>}
           {message.role === "assistant" && <FollowUpQuestions questions={message.followUps ?? []} disabled={!!busy || index !== messages.length - 1} onSelect={text => void send(text)} />}
 </> }))} />

@@ -28,7 +28,7 @@ SEC Chat에 대한 마스터 문서 입니다. 주요 개념, 기능, 도메인�
 
 | 개념 | 의미와 필요한 이유 | 현재 구현에서의 역할 |
 | --- | --- | --- |
-| **OpenUI DSL·카탈로그·Renderer** | DSL은 UI를 기술하는 전용 문법, 카탈로그는 사용 가능한 컴포넌트와 인자 규약, Renderer는 이를 실제 화면으로 만드는 역할이다. | LLM이 등록된 Markdown·차트·표·컨트롤을 조합한다. 임의 React 코드를 생성·실행하는 방식이 아니다. `AgentInterface`는 관리자 채팅의 입력창·대화 목록·타임라인 등 화면 틀을 제공한다. |
+| **OpenUI DSL·카탈로그·Renderer** | DSL은 UI를 기술하는 전용 문법, 카탈로그는 사용 가능한 컴포넌트와 인자 규약, Renderer는 이를 실제 화면으로 만드는 역할이다. | LLM이 등록된 Markdown·차트·표·컨트롤을 조합한다. 임의 React 코드를 생성·실행하는 방식이 아니다. `AgentInterface`는 두 채팅의 입력창·대화 목록 등 화면 틀을 제공한다. SEC Chat은 공통 adapter와 domain renderer를, 관리자 채팅은 기본 AG-UI adapter와 타임라인을 사용한다. |
 | **Structured output과 파서 검증** | 모델 응답의 형태와 UI 문법을 단계별로 검사한다. | `GeneratedUI`로 program 문자열을 받고, 실제 카탈로그 파서로 검사한 뒤 오류 시 한 번 수정한다. 구조화된 출력만으로 DSL이 유효해지는 것은 아니다. |
 | **SSE와 AG-UI** | SSE는 서버 이벤트를 순차적으로 전송하는 HTTP 방식이고, AG-UI는 실행·메시지·도구 이벤트의 의미와 형식이다. | `TEXT_MESSAGE_*`는 답변, `TOOL_CALL_*`는 관리자 도구 실행, `CUSTOM sec.activity`는 기존 채팅 진행 상태를 전달한다. OpenUI DSL은 답변 내용이고 AG-UI는 그 내용을 전달하는 이벤트 계약이다. |
 | **관찰 가능한 실행 기록** | 사용자가 어떤 작업이 실행되고 어디에서 실패했는지 확인하도록 한다. | Behind the scenes는 노드·SEC 도구의 실제 상태를 표시한다. 모델의 비공개 사고 과정이나 Deep Agent 내부 도구 전체를 보여주는 기능은 아니다. |
@@ -72,7 +72,7 @@ SEC Chat에 대한 마스터 문서 입니다. 주요 개념, 기능, 도메인�
 
 답변을 만드는 실제 작업 과정을 보여주는 접이식 타임라인이다. 실행 중에는 `Working`, 종료 후에는 `Behind the scenes`로 표시하며 완료·실패·중단을 구분한다. 모델의 내부 사고 과정은 표시하지 않는다.
 
-- **구현:** LangGraph 노드를 `tracked_node`로 감싸 시작·종료 상태를 수집하고, SSE의 `CUSTOM sec.activity` 이벤트로 전달한다. 프런트는 실행 ID별 상태를 갱신하고 대화 턴별로 보존한다. 공시 준비 같은 HTTP 요청은 별도로 표시한다. OpenUI의 표현 방식을 현재 자체 채팅 UI에 적용한 구현이다.
+- **구현:** LangGraph 노드를 `tracked_node`로 감싸 시작·종료 상태를 수집하고, SSE의 `CUSTOM sec.activity` 이벤트로 전달한다. 프런트는 실행 ID별 상태를 갱신하고 대화 턴별로 보존한다. 공시 준비 같은 HTTP 요청은 별도로 표시한다. 공통 OpenUI AgentInterface의 AssistantMessage 확장 화면에서 기존 ActivityTimeline을 표시한다.
 - **사용 사례:** 공시 다운로드나 답변 생성 중 어느 단계인지 확인하고, 실패·중단된 작업을 파악한다. 답변 후에는 근거 선택·인용 검증·추천 질문 생성이 완료됐는지 확인할 수 있다.
 - **코드:** [노드 상태 수집](../../3-langgraph-fast/src/domains/sec_chat/activity.py), [이벤트 스트리밍](../../3-langgraph-fast/src/server/sec_chat/activity_stream.py), [API 연결](../../3-langgraph-fast/src/server/sec_chat/router.py), [프런트 이벤트 처리](../../1-fe-host/src/_pages/sec-chat/api/stream.ts), [타임라인 UI](../../1-fe-host/src/_pages/sec-chat/ui/ActivityTimeline.tsx).
 

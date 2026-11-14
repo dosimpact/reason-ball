@@ -1,9 +1,9 @@
 import { test, expect, type Page } from '@playwright/test';
 
 async function send(page: Page, message: string) {
-  await page.getByRole('textbox', { name: '질문', exact: true }).fill(message);
-  await page.getByRole('button', { name: '보내기', exact: true }).click();
-  await expect(page.getByRole('button', { name: '중지', exact: true })).toHaveCount(0);
+  await page.getByPlaceholder('메시지를 입력하세요').fill(message);
+  await page.getByPlaceholder('메시지를 입력하세요').press('Enter');
+  await expect(page.getByRole('button', { name: 'Cancel message', exact: true })).toHaveCount(0);
   await expect(page.locator('section > [role="alert"]')).toHaveCount(0);
   return page.locator('article').last();
 }
@@ -50,7 +50,7 @@ test('SEC stored filing selection, citations and reset', async ({ page }) => {
   await panel.getByRole('combobox', { name: '원문 저장 상태', exact: true }).selectOption('downloaded');
   await panel.getByRole('combobox', { name: '공시 종류', exact: true }).selectOption('10-K');
   await panel.getByRole('button', { name: '공시 필터 적용', exact: true }).click();
-  await expect(page.getByRole('button', { name: '중지', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Cancel message', exact: true })).toHaveCount(0);
   panel = page.locator('article').last();
   await panel.getByRole('button', { name: '공시 선택', exact: true }).click();
   panel = page.locator('article').last();
@@ -78,14 +78,14 @@ test('Catalog search, state, edit and reset', async ({ page }) => {
 
 test('Cancel and new conversation discard in-flight output', async ({ page }) => {
   await page.goto('/open-ui/dynamic');
-  await page.getByRole('textbox', { name: '질문', exact: true }).fill('지역별 매출을 표와 차트로 비교해줘');
-  await page.getByRole('button', { name: '보내기', exact: true }).click();
+  await page.getByPlaceholder('메시지를 입력하세요').fill('지역별 매출을 표와 차트로 비교해줘');
+  await page.getByPlaceholder('메시지를 입력하세요').press('Enter');
   await expect(page.getByRole('status')).toContainText('진행 중');
-  await page.getByRole('button', { name: '중지', exact: true }).click();
-  await expect(page.getByRole('button', { name: '중지', exact: true })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Cancel message', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Cancel message', exact: true })).toHaveCount(0);
   await expect(page.locator('article')).toHaveCount(0);
   await page.getByRole('button', { name: '새 대화', exact: true }).click();
-  await expect(page.getByRole('textbox', { name: '질문', exact: true })).toHaveValue('');
+  await expect(page.getByPlaceholder('메시지를 입력하세요')).toHaveValue('');
   const panel = await send(page, '전체 매출 합계를 짧게 보여줘');
   await expect(panel).toContainText('조회 매출 $680,000 · 거래처 6개');
   await expect(page.locator('article')).toHaveCount(1);

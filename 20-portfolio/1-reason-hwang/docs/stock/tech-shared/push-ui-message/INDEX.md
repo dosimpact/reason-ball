@@ -8,7 +8,7 @@
 - 각 단계는 고유 UI ID를 가진다. 시작 이벤트는 append, 완료/실패 이벤트는 동일 ID와 merge=True로 갱신한다. 서로 다른 턴의 항목은 섞이지 않는다.
 - Tools: 로컬 예제 자료 검색, 고정 매출 데이터의 지역별 집계. 외부 검색/실제 운영 DB 조회로 표시하지 않는다. LLM이 도구를 선택한다; 일반 대화에는 불필요한 도구를 강제하지 않는다.
 - Transport: POST `/examples/push-ui-message/stream`; custom UI + 최종 assistant 이벤트의 SSE. 프런트는 전용 same-origin proxy를 사용한다.
-- Frontend: `features/push-ui-message/`에 transport, controller, pure view를 분리한다. 대화는 브라우저 메모리만 유지하며 최근 대화 텍스트를 다음 요청에 전송한다. 기존 chat은 변경하지 않는다.
+- Frontend: `_pages/examples-push-ui-message/`에 transport, controller, pure view를 분리한다. 입력과 대화 목록은 공통 `shared/ui/agent-conversation`의 OpenUI AgentInterface를 사용한다. 전용 `TurnView`는 AssistantMessage 확장 렌더러로 진행 단계와 완료·실패·취소 결과를 표시한다. 대화는 브라우저 메모리만 유지하며 최근 대화 텍스트를 다음 요청에 전송한다.
 - 제한: 최대 20개 이전 메시지, 메시지당 4000자, 도구 반복 제한, 모델 timeout, 취소/실패 상태 명시. 재연결/영구 저장/운영 DB 쓰기는 범위 밖.
 
 ## 검증 시나리오

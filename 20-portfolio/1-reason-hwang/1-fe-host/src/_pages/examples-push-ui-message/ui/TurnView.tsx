@@ -2,9 +2,9 @@ import { Turn } from "../model/model";
 
 const labels = { running: "진행 중", completed: "완료", failed: "실패", cancelled: "취소됨" };
 
-export function TurnView({ turn }: { turn: Turn }) {
+export function TurnView({ turn, showQuestion = true }: { turn: Turn; showQuestion?: boolean }) {
   return <article className="space-y-3 rounded-xl border p-5" aria-label="대화 턴">
-    <p className="whitespace-pre-wrap rounded-lg bg-muted p-3"><strong>나</strong> · {turn.question}</p>
+    {showQuestion && <p className="whitespace-pre-wrap rounded-lg bg-muted p-3"><strong>나</strong> · {turn.question}</p>}
     <div className="space-y-3">
       <p className="text-sm font-semibold">Assistant · {labels[turn.status]}</p>
       <details open className="rounded-lg border bg-muted/30 p-3">

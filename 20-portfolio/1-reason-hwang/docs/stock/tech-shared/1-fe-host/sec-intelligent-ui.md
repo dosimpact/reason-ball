@@ -7,9 +7,9 @@ SEC 대화 화면은 `/sec-chat`과 `/sec-api-agent`다. 두 화면은 [Generati
 | 구분 | `/sec-chat` | `/sec-api-agent` |
 | --- | --- | --- |
 | 용도 | 기업 확인과 SEC 10-K 근거 기반 대화 | SEC 기업·공시 조회, 원문 리서치와 수집 요청 |
-| 채팅 화면 | 자체 `SecChat`, 입력창·추천 질문·실행 기록 | OpenUI `AgentInterface`, Composer·대화 목록·Behind the scenes |
+| 채팅 화면 | `SecChat` controller + 공통 `AgentConversation`의 OpenUI AgentInterface·Composer·메시지 목록 | OpenUI `AgentInterface`, Composer·대화 목록·Behind the scenes |
 | 답변 표시 | `@openuidev/react-lang`의 `Renderer`를 공유 `OutputView`를 통해 `AnswerView`에 배치 | `@openuidev/react-ui`의 `AgentInterface`에 `componentLibrary` 전달 |
-| 전송 | 자체 `stream.ts`로 AG-UI와 SEC CUSTOM 이벤트 처리 | `fetchLLM` + `agUIAdapter()`로 AG-UI 처리 |
+| 전송 | 공통 ChatLLM adapter → 기존 `SecChat` controller·`stream.ts`로 AG-UI와 SEC CUSTOM 이벤트 처리 | `fetchLLM` + `agUIAdapter()`로 AG-UI 처리 |
 | 근거 표시 | 생성 UI 외부의 `EvidenceView` | 리서치 결과를 UI로 구성; SEC Chat의 별도 근거 영역과 구절 ID 인용 검증을 그대로 제공하지 않음 |
 | 대화 보관 | 페이지 메모리 상태 | `ChatStorage` 구현의 메모리 Map; 대화 전환 시 유지, 새로고침 시 초기화 |
 
@@ -78,3 +78,5 @@ SEC_CHAT_API_URL=http://127.0.0.1:8000 pnpm --filter @reason-hwang/fe-host dev
 ## SEC-ADMIN-001 독립 관리자 채팅
 
 `/sec-api-agent`는 OpenUI `AgentInterface`와 공유 `shared/ui/intelligent-ui` 카탈로그를 사용한다. Next 프록시가 Python `/api/sec-deep-agent/chat`의 표준 AG-UI SSE를 전달한다. `TOOL_CALL_START/ARGS/END/RESULT`는 기본 Behind the scenes에, 최종 `TEXT_MESSAGE_CONTENT`는 OpenUI 렌더러에 연결된다. 자세한 기능·문맥 제한·권한 범위는 [SEC stock](../../sec-chat.md#sec-api-관리자-채팅)을 따른다.
+
+`/sec-chat`의 표준 채팅 UI와 domain renderer 연결은 [OPENUI-AGENT-001](open-ui.md#openui-agent-001-공통-에이전트-인터페이스)을 따른다. SEC 근거와 추천 질문은 AssistantMessage 확장 화면에 남으며 관리자 채팅의 기본 Behind the scenes와 구분한다.

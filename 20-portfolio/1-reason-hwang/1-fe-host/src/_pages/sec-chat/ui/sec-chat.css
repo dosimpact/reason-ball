@@ -58,3 +58,7 @@
 .sec-quotes { display: grid; gap: 10px; margin: 14px 0; }
 .sec-quotes blockquote { border-left: 2px solid var(--border); padding: 8px 12px; }
 .sec-quotes blockquote p { margin-top: 6px; }
+
+.sec-chat.agent-chat-page { max-width: 100%; padding: 0; min-height: 0; }
+.agent-chat-page .sec-chat-body { padding: 12px 0; min-width: 0; }
+.agent-chat-page .sec-compose-dock { position: static; }

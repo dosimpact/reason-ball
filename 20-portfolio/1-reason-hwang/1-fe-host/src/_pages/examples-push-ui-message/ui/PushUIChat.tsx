@@ -42,9 +42,9 @@ export function PushUIChat() {
       <p className="text-sm text-muted-foreground">답변마다 도구 호출과 실행 진행 정보를 누적합니다. 자료 조사와 매출 조회는 로컬 데모 데이터입니다.</p>
       <p className="text-sm">예시: 매출 집계 기준을 조사하고 서울 매출을 조회해줘</p>
     </header>
-    <AgentConversation title="Push UI Message" onSend={submit} onCancel={() => controller.current?.abort()} onReset={() => { if (!controller.current) setTurns([]); }} messages={turns.flatMap(turn => [
+    <AgentConversation busy={turns.some(turn => turn.status === "running")} title="Push UI Message" onSend={submit} onCancel={() => controller.current?.abort()} onReset={() => { if (!controller.current) setTurns([]); }} messages={turns.flatMap(turn => [
       { id: `${turn.id}-user`, role: "user" as const, content: turn.question },
-      { id: turn.id, role: "assistant" as const, content: turn.answer, view: <TurnView turn={turn} /> },
+      { id: turn.id, role: "assistant" as const, content: turn.answer, view: <TurnView turn={turn} showQuestion={false} /> },
     ])} />
   </section>;
 }

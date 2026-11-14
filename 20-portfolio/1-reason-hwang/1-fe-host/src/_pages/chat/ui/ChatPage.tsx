@@ -2,7 +2,7 @@
 
 import { GraphSelector } from "@/_pages/chat/ui/GraphSelector";
 import { AgentConversation } from "@/shared/ui/agent-conversation";
-import { ChatMessageList } from "@/_pages/chat/ui/ChatMessageList";
+import { OutputView } from "@/shared/ui/intelligent-ui";
 import { ChatStatusBar } from "@/_pages/chat/ui/ChatStatusBar";
 import { useChat } from "@/_pages/chat/model/context/useChat";
 
@@ -23,7 +23,7 @@ export function ChatPage() {
       </header>
 
       <ChatStatusBar error={error} status={status} />
-      <AgentConversation key={graphId} title="LangGraph Chat" messages={messages.map(message => ({ id: message.id, role: message.role === "user" ? "user" as const : "assistant" as const, content: message.content, view: <ChatMessageList messages={[message]} /> }))} onSend={sendMessage} onCancel={cancelRun} onReset={resetThread} />
+      <AgentConversation busy={status === "streaming" || status === "creating_thread"} key={graphId} title="LangGraph Chat" messages={messages.map(message => ({ id: message.id, role: message.role === "user" ? "user" as const : "assistant" as const, content: message.content, view: <div>{message.content && <p className="whitespace-pre-wrap">{message.content}</p>}{message.program && <OutputView program={message.program} />}</div> }))} onSend={sendMessage} onCancel={cancelRun} onReset={resetThread} />
     </div>
   );
 }

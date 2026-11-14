@@ -48,14 +48,14 @@ function Session({ mode }: { mode: Mode }) {
   return <section>
     <p className="mb-4 rounded-lg bg-muted p-4 text-sm">{examples[mode]}</p>
     <p className="mb-4 text-sm text-muted-foreground">{mode === "sec" ? "연결된 서비스에 저장된 공시를 사용합니다." : "가상 데이터 데모이며 실제 매출·운항·예약 정보가 아닙니다."} 대화는 서버 재시작 또는 만료 후 유지되지 않습니다.</p>
-    <AgentConversation title={titles[mode]} onSend={question => run(question)} onCancel={cancel} messages={turns.flatMap((turn, index) => [
+    <AgentConversation busy={busy} title={titles[mode]} onSend={question => run(question)} onCancel={cancel} messages={turns.flatMap((turn, index) => [
       { id: `user-${turn.output.revision}`, role: "user" as const, content: turn.question },
-      { id: `assistant-${turn.output.revision}`, role: "assistant" as const, content: "", view: <><fieldset disabled={busy || index !== turns.length - 1} className="min-w-0 space-y-5">
+      { id: `assistant-${turn.output.revision}`, role: "assistant" as const, content: "", view: <article><fieldset disabled={busy || index !== turns.length - 1} className="min-w-0 space-y-5">
         {turn.output.program && <OutputView program={turn.output.program} busy={busy} onMessage={value => void run(value)} onError={() => setError("분석 화면을 표시하지 못했습니다.")} />}
         {turn.output.controls && <OutputView program={turn.output.controls} busy={busy} onBusinessAction={action => { if (index === turns.length - 1) void run("", action); }} onError={() => setError("선택 화면을 표시하지 못했습니다.")} />}
       </fieldset>
       {index !== turns.length - 1 && <p className="mt-3 text-sm text-muted-foreground">이전 결과입니다. 선택은 최신 화면에서 진행하세요.</p>}
-    </> },
+    </article> },
     ])} />
     {activity && <p role="status" className="my-4">{activity.label} · {activity.status === "completed" ? "완료" : activity.status === "failed" ? "실패" : "진행 중"}</p>}
     {error && <p role="alert" className="my-4 text-red-700">{error}</p>}

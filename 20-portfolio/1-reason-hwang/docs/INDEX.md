@@ -209,3 +209,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [2026-10-25 OpenUI 문서 보완](flow/2026-10-25-openui-documentation.md): OPENUI-DOC-001, 두 화면 비교·코드 탐색·생성물 동기화 안내.
 
 - [2026-11-14 OpenUI 명칭 통일](flow/2026-11-14-open-ui-naming.md): OPEN-UI-NAME-001, 화면·환경변수·Python 모듈·현재 문서 경로 및 검증.
+
+- [공통 AgentInterface 이관](flow/2026-11-14-agent-interface-migration.md): OPENUI-AGENT-001, 채팅 UI 통합과 검증.

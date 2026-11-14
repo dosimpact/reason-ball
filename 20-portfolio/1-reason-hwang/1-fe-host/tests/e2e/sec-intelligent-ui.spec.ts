@@ -28,8 +28,8 @@ for (const ticker of companies) {
     });
     await page.goto('/sec-chat');
     const preparedResponse = page.waitForResponse(r => r.url().endsWith('/api/sec-chat/prepare'), { timeout: 900_000 });
-    await page.getByRole('textbox', { name: '메시지', exact: true }).fill(`${ticker} 사업 개요를 간단히 알려줘`);
-    await page.getByRole('button', { name: '메시지 보내기', exact: true }).click();
+    await page.locator('textarea:visible').first().fill(`${ticker} 사업 개요를 간단히 알려줘`);
+    await page.getByRole('button', { name: /^(Send|Send message)$/ }).click();
     const response = await preparedResponse;
     const prepared = await response.json();
     expect(response.status(), JSON.stringify(prepared)).toBe(200);
@@ -50,8 +50,8 @@ for (const ticker of companies) {
     try {
       for (let index = 0; index < 7; index++) {
         const answerResponse = page.waitForResponse(r => r.url().endsWith('/api/sec-chat/chat'), { timeout: 360_000 });
-        await page.getByRole('textbox', { name: '메시지', exact: true }).fill(questions[index]);
-        await page.getByRole('button', { name: '메시지 보내기', exact: true }).click();
+        await page.locator('textarea:visible').first().fill(questions[index]);
+        await page.getByRole('button', { name: /^(Send|Send message)$/ }).click();
         const stream = await answerResponse;
         expect(stream.status()).toBe(200);
         await page.waitForFunction(index => (window as typeof window & { secChatStreams: { done: boolean }[] }).secChatStreams[index + 1]?.done, index, { timeout: 360_000 });

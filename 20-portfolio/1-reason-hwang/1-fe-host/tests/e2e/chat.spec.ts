@@ -10,14 +10,14 @@ test('streams a LangGraph assistant response in chat', async ({ page }) => {
     }
   });
 
+  await page.route('**/api/langgraph/threads', route => route.fulfill({ json: { thread_id: 'fixture-thread' } }));
+  await page.route('**/api/langgraph/threads/fixture-thread/runs/stream', route => route.fulfill({ contentType: 'text/event-stream', body: 'event: values\ndata: '+JSON.stringify({ messages: [{ type: 'ai', content: 'ok' }] })+'\n\n' }));
   await page.goto('/chat');
 
-  await page.getByRole('textbox', { name: 'Message' }).fill('Say ok');
-  await page.getByRole('button', { name: /send/i }).click();
+  await page.getByPlaceholder('메시지를 입력하세요').fill('Say ok');
+  await page.getByRole('button', { name: /^(Send|Send message)$/ }).click();
 
-  await expect(page.getByText('You')).toBeVisible();
   await expect(page.getByText('Say ok')).toBeVisible();
-  await expect(page.getByText('Assistant')).toBeVisible();
   await expect(page.getByText(/^ok$/i)).toBeVisible({ timeout: 20_000 });
   await expect(page.getByText('An internal error occurred')).toHaveCount(0);
   expect(langGraphRequests).toEqual(
