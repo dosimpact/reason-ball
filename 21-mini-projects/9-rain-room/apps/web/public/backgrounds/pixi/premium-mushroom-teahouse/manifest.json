@@ -1,0 +1,1485 @@
+{
+  "version": 1,
+  "animalLifeVersion": 1,
+  "animalPolicy": {
+    "staticBodiesRemoved": true,
+    "supportsPreserved": true,
+    "actorIds": [
+      "premium-mushroom-teahouse:mushroom-teahouse-snail",
+      "premium-mushroom-teahouse:actor-1"
+    ],
+    "proof": "bodyless static textures; live pose proof generated separately"
+  },
+  "id": "premium-mushroom-teahouse",
+  "width": 800,
+  "height": 820,
+  "weather": "rain",
+  "weatherMask": "/backgrounds/pixi/premium-mushroom-teahouse/weather-mask.png",
+  "weatherMaskHigh": "/backgrounds/pixi/premium-mushroom-teahouse/weather-mask-high.png",
+  "resolutionHigh": 3,
+  "humanRasterPolicy": {
+    "version": 1,
+    "selector": "[data-character],[data-character-id],[data-pose],[data-head-view],[data-premium-character],[data-premium-person],[data-person-view]",
+    "qualityResolution": 3,
+    "scope": "complete human ancestry; no native face, limb, clothing or held prop fragments"
+  },
+  "layers": [
+    {
+      "id": "rear",
+      "sourceRole": "structural",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/rear-base.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/rear-high.png",
+      "resolutionHigh": 3,
+      "x": 0,
+      "y": 0,
+      "width": 800,
+      "height": 820
+    },
+    {
+      "id": "weather",
+      "kind": "weather"
+    },
+    {
+      "id": "v0-0",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/73573922b8f49dcca92c.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-4e2c3728ce78f490311f.png",
+      "resolutionHigh": 3,
+      "x": 0,
+      "y": 126,
+      "width": 283,
+      "height": 378,
+      "sourceTag": "ellipse",
+      "sourceRole": "soft-effect",
+      "sourceClasses": [
+        "premium-light-breathe"
+      ],
+      "motions": [
+        {
+          "id": "motion-462",
+          "kind": "premium-light",
+          "cssName": "premium-light",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "className": "premium-light-breathe",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 1,
+              "alpha": 0.72
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "pivotX": 141.5,
+          "pivotY": 315
+        }
+      ],
+      "costGuard": {
+        "originalGroup": "bc119f383c-1",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/73573922b8f49dcca92c.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-4e2c3728ce78f490311f.png",
+        "originalWidth": 283,
+        "originalHeight": 378,
+        "originalArea": 106974,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 106974,
+        "nativeParts": 0
+      },
+      "motion": {
+        "id": "motion-462",
+        "kind": "premium-light",
+        "cssName": "premium-light",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "className": "premium-light-breathe",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 1,
+            "alpha": 0.72
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "pivotX": 141.5,
+        "pivotY": 315
+      }
+    },
+    {
+      "id": "v0-1",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/81391c6cfe684c600365.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-3b256446c028b2e4ddff.png",
+      "resolutionHigh": 3,
+      "x": 517,
+      "y": 126,
+      "width": 283,
+      "height": 378,
+      "sourceTag": "ellipse",
+      "sourceRole": "soft-effect",
+      "sourceClasses": [
+        "premium-light-breathe"
+      ],
+      "motions": [
+        {
+          "id": "motion-463",
+          "kind": "premium-light",
+          "cssName": "premium-light",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "className": "premium-light-breathe",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 1,
+              "alpha": 0.72
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "pivotX": 658.5,
+          "pivotY": 315
+        }
+      ],
+      "costGuard": {
+        "originalGroup": "bc119f383c-2",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/81391c6cfe684c600365.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-3b256446c028b2e4ddff.png",
+        "originalWidth": 283,
+        "originalHeight": 378,
+        "originalArea": 106974,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 106974,
+        "nativeParts": 0
+      },
+      "motion": {
+        "id": "motion-463",
+        "kind": "premium-light",
+        "cssName": "premium-light",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "className": "premium-light-breathe",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 1,
+            "alpha": 0.72
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "pivotX": 658.5,
+        "pivotY": 315
+      }
+    },
+    {
+      "id": "v0-2",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/b5c8f634ea23350076fa.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-474596f86768de7cc6fc.png",
+      "resolutionHigh": 3,
+      "x": 208,
+      "y": 458,
+      "width": 147,
+      "height": 37,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-0",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/b5c8f634ea23350076fa.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-474596f86768de7cc6fc.png",
+        "originalWidth": 147,
+        "originalHeight": 37,
+        "originalArea": 5439,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 5439,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-3",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/ba9c4af79039364ebd2e.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-67e936726c5e8a5dccb3.png",
+      "resolutionHigh": 3,
+      "x": 182,
+      "y": 394,
+      "width": 76,
+      "height": 70,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-464",
+          "kind": "signature-rock",
+          "cssName": "signature-rock",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            220,
+            430
+          ],
+          "className": "signature-sway",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": 0,
+              "y": 0,
+              "rotation": -0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "mushroom-teahouse-mushroom",
+          "pivotX": 220,
+          "pivotY": 464
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-mushroom-teahouse/clip-1259970aa6a3215eac8f.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-mushroom-teahouse/clip-high-ee059b7c02781dad7d52.png",
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-1",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/ba9c4af79039364ebd2e.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-67e936726c5e8a5dccb3.png",
+        "originalWidth": 76,
+        "originalHeight": 70,
+        "originalArea": 5320,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 5320,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-mushroom-teahouse/clip-1259970aa6a3215eac8f.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-mushroom-teahouse/clip-high-ee059b7c02781dad7d52.png"
+      },
+      "motion": {
+        "id": "motion-464",
+        "kind": "signature-rock",
+        "cssName": "signature-rock",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          220,
+          430
+        ],
+        "className": "signature-sway",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": 0,
+            "y": 0,
+            "rotation": -0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "mushroom-teahouse-mushroom",
+        "pivotX": 220,
+        "pivotY": 464
+      }
+    },
+    {
+      "id": "v0-4",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/03322a33bc85c88dca87.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-ca2a4458e83a7a1314d5.png",
+      "resolutionHigh": 3,
+      "x": 430,
+      "y": 514,
+      "width": 53,
+      "height": 10,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-2",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/03322a33bc85c88dca87.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-ca2a4458e83a7a1314d5.png",
+        "originalWidth": 53,
+        "originalHeight": 10,
+        "originalArea": 530,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 530,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-5",
+      "kind": "animal",
+      "animalId": "premium-mushroom-teahouse:mushroom-teahouse-snail",
+      "sourceMotionId": "mushroom-teahouse-snail",
+      "clipMask": "/backgrounds/pixi/premium-mushroom-teahouse/animal-clip-21e132bd460ca6361220.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-mushroom-teahouse/animal-clip-high-373f90164cbd515f8bbb.png"
+    },
+    {
+      "id": "v0-6",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/582e9e11c19ea9865ed6.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-26d40a3f6b3bc28af8b3.png",
+      "resolutionHigh": 3,
+      "x": 533,
+      "y": 218,
+      "width": 75,
+      "height": 38,
+      "sourceTag": "ellipse",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-465",
+          "kind": "signature-drift",
+          "cssName": "signature-drift",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            570,
+            230
+          ],
+          "className": "signature-drift",
+          "duration": 18,
+          "delay": -5.4,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": -8,
+              "y": 3,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 12,
+              "y": -7,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "mushroom-teahouse-spore",
+          "pivotX": 570.5,
+          "pivotY": 237
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-mushroom-teahouse/clip-1d3575ee4ceb2593987a.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-mushroom-teahouse/clip-high-6000f6bc20743e02fca1.png",
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-4",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/582e9e11c19ea9865ed6.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-26d40a3f6b3bc28af8b3.png",
+        "originalWidth": 75,
+        "originalHeight": 38,
+        "originalArea": 2850,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 2850,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-mushroom-teahouse/clip-1d3575ee4ceb2593987a.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-mushroom-teahouse/clip-high-6000f6bc20743e02fca1.png"
+      },
+      "motion": {
+        "id": "motion-465",
+        "kind": "signature-drift",
+        "cssName": "signature-drift",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          570,
+          230
+        ],
+        "className": "signature-drift",
+        "duration": 18,
+        "delay": -5.4,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": -8,
+            "y": 3,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 12,
+            "y": -7,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "mushroom-teahouse-spore",
+        "pivotX": 570.5,
+        "pivotY": 237
+      }
+    },
+    {
+      "id": "v0-7",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/1920e3f4d4f736519df4.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-48ab96630f05796d54d5.png",
+      "resolutionHigh": 3,
+      "x": 190,
+      "y": 585,
+      "width": 420,
+      "height": 235,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M340 660 Q290 760 335 820 L460 820 Q505 760 455 660\" fill=\"#9b9671\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M190 660 Q400 510 610 660 L610 685 Q400 720 190 685 Z\" fill=\"#a48462\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "primitiveCount": 2
+          }
+        ],
+        "primitiveCount": 2,
+        "nativeInstructions": 2,
+        "sourceBounds": {
+          "x": 190,
+          "y": 585,
+          "width": 420,
+          "height": 235
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-5",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/ccf157c09f90e82319ce.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-408bb45aad153d50b083.png",
+        "originalWidth": 420,
+        "originalHeight": 235,
+        "originalArea": 98700,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 11556,
+        "nativeParts": 2
+      }
+    },
+    {
+      "id": "v0-8",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/f8a826978a09224c2ef1.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-3dfe5c160c9b1f61ab2e.png",
+      "resolutionHigh": 3,
+      "x": 252,
+      "y": 614,
+      "width": 321,
+      "height": 36,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-5",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/ccf157c09f90e82319ce.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-408bb45aad153d50b083.png",
+        "originalWidth": 420,
+        "originalHeight": 235,
+        "originalArea": 98700,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 11556,
+        "nativeParts": 2
+      }
+    },
+    {
+      "id": "v0-9",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/14fd5aa37ef3f0370fd0.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-10c7843c26caf7bb9d71.png",
+      "resolutionHigh": 3,
+      "x": 305,
+      "y": 602,
+      "width": 87,
+      "height": 41,
+      "sourceTag": "ellipse",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><ellipse cy=\"26\" rx=\"44\" ry=\"7\" fill=\"#898d74\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M-26 -7 L26 -7 L22 20 Q1 33 -22 20 Z\" fill=\"#cbbd9a\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M25 -2 Q53 -10 48 10 Q45 22 24 17\" fill=\"none\" stroke=\"#cbbd9a\" stroke-width=\"7\" fill-opacity=\"1\" stroke-opacity=\"1\"/><ellipse cy=\"-7\" rx=\"26\" ry=\"5\" fill=\"#4f4130\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              0.9,
+              0,
+              0,
+              0.9,
+              345,
+              613
+            ],
+            "primitiveCount": 4
+          }
+        ],
+        "primitiveCount": 4,
+        "nativeInstructions": 4,
+        "sourceBounds": {
+          "x": 305,
+          "y": 602,
+          "width": 87,
+          "height": 41
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-5",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/ccf157c09f90e82319ce.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-408bb45aad153d50b083.png",
+        "originalWidth": 420,
+        "originalHeight": 235,
+        "originalArea": 98700,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 11556,
+        "nativeParts": 2
+      }
+    },
+    {
+      "id": "v0-10",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/6a885286f25fc7fbd142.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-2c9fef68aa859e4fd3ac.png",
+      "resolutionHigh": 3,
+      "x": 332,
+      "y": 562,
+      "width": 25,
+      "height": 34,
+      "sourceTag": "path",
+      "sourceRole": "soft-effect",
+      "sourceClasses": [
+        "premium-steam"
+      ],
+      "motions": [
+        {
+          "id": "motion-466",
+          "kind": "premium-steam",
+          "cssName": "premium-steam",
+          "ancestorMatrix": [
+            0.9,
+            0,
+            0,
+            0.9,
+            345,
+            613
+          ],
+          "className": "premium-steam",
+          "duration": 5.5,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0.5,
+              "x": 0,
+              "y": -6.3,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.14
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": false,
+          "baseAlpha": 0.32,
+          "pivotX": 344.5,
+          "pivotY": 596
+        }
+      ],
+      "vectorFallbackReason": "normalization-diff:0.000393",
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-6",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/6a885286f25fc7fbd142.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-2c9fef68aa859e4fd3ac.png",
+        "originalWidth": 25,
+        "originalHeight": 34,
+        "originalArea": 850,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 850,
+        "nativeParts": 0
+      },
+      "motion": {
+        "id": "motion-466",
+        "kind": "premium-steam",
+        "cssName": "premium-steam",
+        "ancestorMatrix": [
+          0.9,
+          0,
+          0,
+          0.9,
+          345,
+          613
+        ],
+        "className": "premium-steam",
+        "duration": 5.5,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0.5,
+            "x": 0,
+            "y": -6.3,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.14
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": false,
+        "baseAlpha": 0.32,
+        "pivotX": 344.5,
+        "pivotY": 596
+      }
+    },
+    {
+      "id": "v0-11",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/2a9b2619ef43d5b1cc8f.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-7fd14d46af8e09ed88fd.png",
+      "resolutionHigh": 3,
+      "x": 441,
+      "y": 608,
+      "width": 98,
+      "height": 35,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M-70 -5 L0 -23 L70 -5 L64 25 L0 10 L-64 25 Z\" fill=\"#c6b99a\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              0.7,
+              0,
+              0,
+              0.7,
+              490,
+              625
+            ],
+            "primitiveCount": 1
+          }
+        ],
+        "primitiveCount": 1,
+        "nativeInstructions": 1,
+        "sourceBounds": {
+          "x": 441,
+          "y": 608,
+          "width": 98,
+          "height": 35
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-7",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/c3b7f597f367cf6a6283.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-8c86d6c92e3e3eff391e.png",
+        "originalWidth": 702,
+        "originalHeight": 270,
+        "originalArea": 189540,
+        "retainedRasterCount": 2,
+        "retainedRasterArea": 11288,
+        "nativeParts": 5
+      }
+    },
+    {
+      "id": "v0-12",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/c8296eadf12db2e0a52f.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-f98e325fbdf5b0109ce3.png",
+      "resolutionHigh": 3,
+      "x": 451,
+      "y": 610,
+      "width": 78,
+      "height": 23,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-7",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/c3b7f597f367cf6a6283.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-8c86d6c92e3e3eff391e.png",
+        "originalWidth": 702,
+        "originalHeight": 270,
+        "originalArea": 189540,
+        "retainedRasterCount": 2,
+        "retainedRasterArea": 11288,
+        "nativeParts": 5
+      }
+    },
+    {
+      "id": "v0-13",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/715c7f1bd89a807dfe12.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-1b5776925114c761a680.png",
+      "resolutionHigh": 3,
+      "x": 65,
+      "y": 607,
+      "width": 680,
+      "height": 173,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><ellipse cy=\"15\" rx=\"75\" ry=\"20\" fill=\"#423e2d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M-70 -5 Q0 -45 70 -5 L70 18 Q0 45 -70 18 Z\" fill=\"#919477\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M-45 0 Q0 -15 45 0\" fill=\"none\" stroke=\"#b7a47a\" stroke-width=\"2\" fill-opacity=\"0.4\" stroke-opacity=\"0.4\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              140,
+              745
+            ],
+            "primitiveCount": 3
+          },
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><ellipse cy=\"15\" rx=\"75\" ry=\"20\" fill=\"#423e2d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M-70 -5 Q0 -45 70 -5 L70 18 Q0 45 -70 18 Z\" fill=\"#8c745e\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M-45 0 Q0 -15 45 0\" fill=\"none\" stroke=\"#b7a47a\" stroke-width=\"2\" fill-opacity=\"0.4\" stroke-opacity=\"0.4\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              670,
+              745
+            ],
+            "primitiveCount": 3
+          },
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M-28 -18 L28 -18 L20 44 L-20 44 Z\" fill=\"#8c7452\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              0.7,
+              0,
+              0,
+              0.7,
+              90,
+              620
+            ],
+            "primitiveCount": 1
+          }
+        ],
+        "primitiveCount": 7,
+        "nativeInstructions": 7,
+        "sourceBounds": {
+          "x": 65,
+          "y": 607,
+          "width": 680,
+          "height": 173
+        },
+        "proof": {
+          "meanAbsoluteError": 0.00026219512195121953,
+          "localMeanAbsoluteError": 0.0014620877252635158,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-7",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/c3b7f597f367cf6a6283.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-8c86d6c92e3e3eff391e.png",
+        "originalWidth": 702,
+        "originalHeight": 270,
+        "originalArea": 189540,
+        "retainedRasterCount": 2,
+        "retainedRasterArea": 11288,
+        "nativeParts": 5
+      }
+    },
+    {
+      "id": "v0-14",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/64d8484cbe88ed714d81.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-4719298cd3d603af5c6d.png",
+      "resolutionHigh": 3,
+      "x": 43,
+      "y": 510,
+      "width": 94,
+      "height": 101,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-7",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/c3b7f597f367cf6a6283.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-8c86d6c92e3e3eff391e.png",
+        "originalWidth": 702,
+        "originalHeight": 270,
+        "originalArea": 189540,
+        "retainedRasterCount": 2,
+        "retainedRasterArea": 11288,
+        "nativeParts": 5
+      }
+    },
+    {
+      "id": "v0-15",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/36a68ef70d70831d3f35.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-9a19cbbf2013056be9f5.png",
+      "resolutionHigh": 3,
+      "x": 594,
+      "y": 728,
+      "width": 112,
+      "height": 25,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><ellipse cy=\"12\" rx=\"65\" ry=\"14\" fill=\"#44563e\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              0.85,
+              0,
+              0,
+              0.85,
+              650,
+              730
+            ],
+            "primitiveCount": 1
+          }
+        ],
+        "primitiveCount": 1,
+        "nativeInstructions": 1,
+        "sourceBounds": {
+          "x": 594,
+          "y": 728,
+          "width": 112,
+          "height": 25
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-7",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/c3b7f597f367cf6a6283.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-8c86d6c92e3e3eff391e.png",
+        "originalWidth": 702,
+        "originalHeight": 270,
+        "originalArea": 189540,
+        "retainedRasterCount": 2,
+        "retainedRasterArea": 11288,
+        "nativeParts": 5
+      }
+    },
+    {
+      "id": "v0-16",
+      "kind": "animal",
+      "animalId": "premium-mushroom-teahouse:actor-1"
+    },
+    {
+      "id": "v0-17",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/21b6da2fa94e6a4693aa.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-265269467e21f641141b.png",
+      "resolutionHigh": 3,
+      "x": 12,
+      "y": 0,
+      "width": 776,
+      "height": 401,
+      "sourceTag": "ellipse",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-9",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/21b6da2fa94e6a4693aa.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-265269467e21f641141b.png",
+        "originalWidth": 776,
+        "originalHeight": 401,
+        "originalArea": 311176,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 311176,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-18",
+      "src": "/backgrounds/pixi/premium-mushroom-teahouse/f7a998c1a08c27b2a2a4.png",
+      "srcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-986519e01af23f68793d.png",
+      "resolutionHigh": 3,
+      "x": 407,
+      "y": 667,
+      "width": 96,
+      "height": 67,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [
+        "signature-swing"
+      ],
+      "motions": [
+        {
+          "id": "motion-467",
+          "kind": "signature-rock",
+          "cssName": "signature-rock",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            455,
+            700
+          ],
+          "className": "signature-swing",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": 0,
+              "y": 0,
+              "rotation": -0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "mushroom-teahouse-fan",
+          "pivotX": 455,
+          "pivotY": 667
+        }
+      ],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 30 L-46 -5 Q0 -58 46 -5 Z\" fill=\"#b5a281\" stroke=\"#d2be96\" stroke-width=\"2\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M0 30 L-34 -13.666666666666666\" fill=\"#000000\" stroke=\"#796d53\" stroke-width=\"2\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M0 30 L-17 -19.333333333333332\" fill=\"#000000\" stroke=\"#796d53\" stroke-width=\"2\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M0 30 L0 -25\" fill=\"#000000\" stroke=\"#796d53\" stroke-width=\"2\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M0 30 L17 -19.333333333333332\" fill=\"#000000\" stroke=\"#796d53\" stroke-width=\"2\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M0 30 L34 -13.666666666666666\" fill=\"#000000\" stroke=\"#796d53\" stroke-width=\"2\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cy=\"30\" r=\"4\" fill=\"#d0b582\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              455,
+              700
+            ],
+            "primitiveCount": 7
+          }
+        ],
+        "primitiveCount": 7,
+        "nativeInstructions": 13,
+        "sourceBounds": {
+          "x": 407,
+          "y": 667,
+          "width": 96,
+          "height": 67
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "bbfcc80b55-10",
+        "decision": "whole-native",
+        "originalSrc": "/backgrounds/pixi/premium-mushroom-teahouse/f7a998c1a08c27b2a2a4.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-mushroom-teahouse/high-986519e01af23f68793d.png",
+        "originalWidth": 96,
+        "originalHeight": 67,
+        "originalArea": 6432,
+        "retainedRasterCount": 0,
+        "retainedRasterArea": 0,
+        "nativeParts": 1
+      },
+      "motion": {
+        "id": "motion-467",
+        "kind": "signature-rock",
+        "cssName": "signature-rock",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          455,
+          700
+        ],
+        "className": "signature-swing",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": 0,
+            "y": 0,
+            "rotation": -0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "mushroom-teahouse-fan",
+        "pivotX": 455,
+        "pivotY": 667
+      }
+    }
+  ],
+  "provenance": {
+    "method": "Build-time bodyless React SVG/Sharp decomposition; live animals in ordered native slots",
+    "source": "authoring Cafe/PremiumScene",
+    "cssKeyframes": true,
+    "highResolutionSource": "original authoring SVG rasterized at 216 DPI, never enlarged from PNG",
+    "sourceDigest": "5c7ca82da872de064c14d1c3cfca3b8641222cc7101e0c5c55c93fecd8ec3466",
+    "sourceHashes": [
+      {
+        "path": "scripts/export-pixi-scenes.mjs",
+        "sha256": "cce24c18d6e635a612a959fc8d97d3f851eeaf67f3f0804a9336cf33b62a17f3"
+      },
+      {
+        "path": "scripts/pixi-animal-slots.mjs",
+        "sha256": "9bb84df02f536a81b1f8d18d4d403f01b9e65d81005d4bcdbf08af2cf348a204"
+      },
+      {
+        "path": "scripts/pixi-export-assets.mjs",
+        "sha256": "d420a92c1a9022c218f91d8ef4612834f98382fbfb8c4a32899a5312ddc40a7e"
+      },
+      {
+        "path": "scripts/pixi-vector-geometry.mjs",
+        "sha256": "be71a70f9cc5ee08df773822749e8bc9e0c4f7772f26c2e92c0636cc992c5a92"
+      },
+      {
+        "path": "src/pages/focus/lib/sceneEffectCycle.ts",
+        "sha256": "dcda423ecaed94108977149eab22dee726799d41d2075d8fab8c03b42842c73a"
+      },
+      {
+        "path": "src/pages/focus/lib/sceneTime.ts",
+        "sha256": "cad76a40f6c70d279306eadfbd11659cb4ae60254ab5e40a78a241ddb1a92c0b"
+      },
+      {
+        "path": "src/pages/focus/model/animalHabitats.ts",
+        "sha256": "92163ddce7670e57105d2331b27874dc26998c3b8177b6fe780f4cdf670721a6"
+      },
+      {
+        "path": "src/pages/focus/model/animalSpecies.ts",
+        "sha256": "b1664faeee27972cddff72dce8f41be17fe618b30138bfe1a5f25b674600a8f8"
+      },
+      {
+        "path": "src/pages/focus/model/animalSpecies.ts",
+        "sha256": "b1664faeee27972cddff72dce8f41be17fe618b30138bfe1a5f25b674600a8f8"
+      },
+      {
+        "path": "src/pages/focus/model/backgrounds.ts",
+        "sha256": "aa5522f3d96c7c3f2c8fe7b4a80067bef653e0c1bd42e782a1d7cf036cd780f9"
+      },
+      {
+        "path": "src/pages/focus/model/neonSigns.ts",
+        "sha256": "6d184d7ec7a74cb17d710ee9a7be172c67589e6b63c58aff0c5c5f32c3f03265"
+      },
+      {
+        "path": "src/pages/focus/model/premiumCast.ts",
+        "sha256": "5ce83484e6aac22c28465ffa9b323011ff599a4a68cd312a751e931a8c2a24cc"
+      },
+      {
+        "path": "src/pages/focus/model/premiumExperience.ts",
+        "sha256": "c69e9d0e81d152f7b9c1ee648ceab68b72664edf3b6099e6c176128d2639b640"
+      },
+      {
+        "path": "src/pages/focus/model/premiumSpaces.ts",
+        "sha256": "08e7600d4b06133c49a9c8801e85df579e48725139178f6d244fc870b53e3722"
+      },
+      {
+        "path": "src/pages/focus/model/sakuraPetals.ts",
+        "sha256": "4507fc1a89ab1732824218d328423c52d26e1028fc089792ffae81d7101a3151"
+      },
+      {
+        "path": "src/pages/focus/model/sceneAnimals.ts",
+        "sha256": "70e57324db99f5928688af7d794241909b3a01d89a1fa7b8d05eaae7a8b1d1cf"
+      },
+      {
+        "path": "src/pages/focus/model/sceneArchitecture.ts",
+        "sha256": "c9acf3dd253f7fde4fc4fb2afc11d72a6efeb6f911579f8c8fb35de9214ecc62"
+      },
+      {
+        "path": "src/pages/focus/model/sceneAutumn.ts",
+        "sha256": "f3961219ab5bfe519de5c347c13ac14f9d95e6d524a24ee5f0ccc782bbf99354"
+      },
+      {
+        "path": "src/pages/focus/model/sceneCast.ts",
+        "sha256": "277b47d7ef4f0254d18ed54bb57a94c111aee70a748f8d58cdbde82f91b4e3be"
+      },
+      {
+        "path": "src/pages/focus/model/sceneDetails.ts",
+        "sha256": "1231d4449d808be1d5c1aed01f5fa5b7ee8898b0114da6ccbc4eb7ec0893297d"
+      },
+      {
+        "path": "src/pages/focus/model/sceneEffects.ts",
+        "sha256": "5762a3e4fe39466bdd6ef10856f846f1308879aed3168f7ce94aa307978e3336"
+      },
+      {
+        "path": "src/pages/focus/model/sceneInterior.ts",
+        "sha256": "430d66d9abc3f7ac92acc00c1ef8c96c25d1f873c277358f6af2ed54a176ffb5"
+      },
+      {
+        "path": "src/pages/focus/model/scenePlants.ts",
+        "sha256": "e8f428446dbefb179eabbc00dbb3030cf981dcb9494fbca0a914931626d39d7b"
+      },
+      {
+        "path": "src/pages/focus/model/sceneWeather.ts",
+        "sha256": "3f712859413c6431388d7317ceba3d0a71af85f7b867c7d1d2853c2af08d239d"
+      },
+      {
+        "path": "src/pages/focus/model/thunderstorm.ts",
+        "sha256": "cd72ad96f69be1d0526808b7a506883339b5ab255f948eca80f950ecd452cd1d"
+      },
+      {
+        "path": "src/pages/focus/ui/AutumnScenery.tsx",
+        "sha256": "d057de93a3c8799da7ce41f51d311b60ed747799fba1e7ec02fd62d6ae495705"
+      },
+      {
+        "path": "src/pages/focus/ui/backgrounds.css",
+        "sha256": "35d273c6e3c016a06c3217879bc4b636fe73a0fee656d25ce4c6d67251659e4e"
+      },
+      {
+        "path": "src/pages/focus/ui/Cafe.tsx",
+        "sha256": "15f75b36611f816e8ae3f635ea3800e443b45108635a07d682606daa035631d8"
+      },
+      {
+        "path": "src/pages/focus/ui/LegacyOutdoorFixtures.tsx",
+        "sha256": "df773122841276c8e6789af11f989e9627bb70610ab902bb4d39dbd505382a59"
+      },
+      {
+        "path": "src/pages/focus/ui/NeonCityArt.tsx",
+        "sha256": "1fb5d3f98121b3ad808257ea61e7f9930c729b81f0a873c94147340c2892f63d"
+      },
+      {
+        "path": "src/pages/focus/ui/NeonFacadeLights.tsx",
+        "sha256": "28f141679ae5004663e74c8c25c4446fa5acf109da965132a4590fd487e37b22"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/CinemaFilm.tsx",
+        "sha256": "7e5b975c58a6f04947940d19143ecf32551531896a94e1fba0809e7994e895a3"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premium-signatures.css",
+        "sha256": "81ba95beeb28f2809329a6ae3501437164b4f9762e3b56f7a7fb9a2fe2dc61e7"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premium.css",
+        "sha256": "106215e1a3cd162aeac9b52465953ba33d46140d553a7e8d1061463d6cc56bfc"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumArchitecture.tsx",
+        "sha256": "86b5af6f4c4325f387ffae0f075ba0b975fe49e4d7e3e14ef92d35f9c1340db0"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumAtmosphere.tsx",
+        "sha256": "61aca5e6aa0d070a1cb6f399b6d7f36d958bf9fad24262143023fd32997bc6a6"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumAtmosphere.tsx",
+        "sha256": "61aca5e6aa0d070a1cb6f399b6d7f36d958bf9fad24262143023fd32997bc6a6"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumCharacter.tsx",
+        "sha256": "2db855ceca5754abaf1a709166d4c91cc81f59425dda8d3a1864dd6cfb0a5d66"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumFixtures.tsx",
+        "sha256": "5faa3563dd699ffaa3848c64455362e3cdfe19cd8a73a8bd594014b6fdec1f0e"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premiumGeometry.ts",
+        "sha256": "70ffccfa826b63c86043fdedbf6e085c7f4abc109eb105e0ecbaa5b60a7f6ae4"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumHeroes.tsx",
+        "sha256": "9d7182045b8f1015eca3c05c46ab987794b1b97f7f674d47c39833de076a55e2"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumInterior.tsx",
+        "sha256": "489284e5c51232bcd11273f20f55e4b6b581a5d7ec15d9f1152ba9b8c8fe5d37"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumObjects.tsx",
+        "sha256": "9489c16982f3a25d0d3faf283438b419b11d621dce26bb3d31c5ff32f8471e3d"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumScene.tsx",
+        "sha256": "64467d7455d104b16ff53ecfc2b7445c0c652b166709c0693f6bcc00fbe3cd3b"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumScene.tsx",
+        "sha256": "64467d7455d104b16ff53ecfc2b7445c0c652b166709c0693f6bcc00fbe3cd3b"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumSignatureDetails.tsx",
+        "sha256": "bbb9216a34fffd938a9bd7ca127af1fdc8a01f6959079d0e1a08ca361e30c3fa"
+      },
+      {
+        "path": "src/pages/focus/ui/RainOverlay.tsx",
+        "sha256": "8d4fc403218fed94666171eb68a4546416a43dbd90547b845b7bc902b7912b01"
+      },
+      {
+        "path": "src/pages/focus/ui/RainOverlay.tsx",
+        "sha256": "8d4fc403218fed94666171eb68a4546416a43dbd90547b845b7bc902b7912b01"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomFurnishings.tsx",
+        "sha256": "33cf9f4a214e365a372117c954ebde36846a8f97c86f33b18e0274610693a9a4"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomLighting.tsx",
+        "sha256": "22e29e36ae6cbc517a66fc4d0f8cca9d93546732e3a25da566e3169dbee9ee79"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomWallTexture.tsx",
+        "sha256": "59cc984b2f6e5ad496dcc4dc64c66bc4c79c0844b78ed78c2e8c018d33660832"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomWindow.tsx",
+        "sha256": "e4268594944caafc217f87fc250149344437c55ec68bcf29038a8ea25211f040"
+      },
+      {
+        "path": "src/pages/focus/ui/scene-effects.css",
+        "sha256": "49b91c04946138222d2215e334acad98c9a56c4d9e07f12136b75a96f15a259c"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneAtmosphere.tsx",
+        "sha256": "dc1445b3e812f7c9a96cfb630c04a40450900a3c290e2817e7447147d242a790"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneAtmosphere.tsx",
+        "sha256": "dc1445b3e812f7c9a96cfb630c04a40450900a3c290e2817e7447147d242a790"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneCaption.tsx",
+        "sha256": "ec6d1cdb0d8198676f0510f544254a7c06f1ddc0547616b816dd9ed0344538e9"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneCompanions.tsx",
+        "sha256": "847fc93209b8729b434b11849e9fa552b528e629454de1ee0459ce724e4802b2"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneDetails.tsx",
+        "sha256": "cdf50b1cff06573129dd38646188e8650ea834295da2b2236dfbf2cd7dfc73d6"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneLayer.tsx",
+        "sha256": "f4363e6d7d2049654d7f80ca55032266ffca066413889e2dffb18320141a87ea"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneOutdoorLife.tsx",
+        "sha256": "24ce6c78be438502d6b9cbddfd60a8a9858f725412b07ab13daf510b7a05055d"
+      },
+      {
+        "path": "src/pages/focus/ui/ScenePets.tsx",
+        "sha256": "4d8014045089a98ee4fca5a769f6fece72c8b97a6c49d2313aa817ffd5082abd"
+      },
+      {
+        "path": "src/pages/focus/ui/ScenePlants.tsx",
+        "sha256": "dc3d9871b65c2df495f9e15107f5127a4761b37d15f223a652207f5a44b45603"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneTable.tsx",
+        "sha256": "ed0922378a8e45b384070ba478ec12418dfaffe8f412b56bb9b062d3d9844a37"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWeatherDrawing.tsx",
+        "sha256": "565a350c95299ff5f996d1a0828b08b6bef82314cc5093e96deaf03c77848c5c"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWildlife.tsx",
+        "sha256": "82e4df15b2f069dbec95d1dd09b397896cb924fa6811785b1f0f5aa05e5de855"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWindow.tsx",
+        "sha256": "5cfdfc7c5c9ccf54502d66e35fd61f6fc50a5c0c13b8e86f97f84c6421da5720"
+      },
+      {
+        "path": "src/pages/focus/ui/SongInspiredArt.tsx",
+        "sha256": "da3f2ab3eeec24f87b5592fcbb1f4fcea184986f988b456783fb19bc72b380fb"
+      },
+      {
+        "path": "src/pages/focus/ui/SpecialCafeScenes.tsx",
+        "sha256": "eebc3d72d826f213a2fe195991a8adb5539dfb860fdad8579939191843160bc3"
+      },
+      {
+        "path": "src/pages/focus/ui/weather.css",
+        "sha256": "876af059984a83428327e34d1a41200ce430c7c4130cf9d1515bc9d2aa3fd6da"
+      }
+    ]
+  },
+  "proof": {
+    "variants": [
+      {
+        "coffeeCount": 0,
+        "meanAbsoluteError": 0.1154500762195122,
+        "maxChannelDifference": 21,
+        "channelFractionAbove2": 0.000008765243902439024,
+        "vectorComparison": {
+          "meanAbsoluteError": 0.11559908536585366,
+          "maxChannelDifference": 21,
+          "channelFractionAbove2": 0.000008765243902439024
+        }
+      }
+    ],
+    "vectorCoverage": [
+      {
+        "originalRunBaseline": {
+          "uniquePNGCount": 16,
+          "logicalArea": 4114785,
+          "decoded1xBytes": 16459140,
+          "decoded3xBytes": 148132260
+        },
+        "guardedHybrid": {
+          "uniquePNGCount": 16,
+          "logicalArea": 3842957,
+          "decoded1xBytes": 15371828,
+          "decoded3xBytes": 138346452
+        },
+        "coffeeCount": 0,
+        "nativeLayers": 6,
+        "nativePrimitives": 22,
+        "nativeParts": 8,
+        "textureDecodedBytesBefore": 52254936,
+        "textureDecodedBytesAfter": 43882452,
+        "compressedHighTextureBytesAvoided": 70792
+      }
+    ],
+    "staticBodiesRemoved": true,
+    "liveAnimalsExcludedFromStaticProof": true
+  }
+}

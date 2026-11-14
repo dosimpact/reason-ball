@@ -1,0 +1,169 @@
+.coffee-coupons {
+  padding-top: 24px;
+  color: var(--color-text);
+  min-width: 0;
+}
+.coffee-coupon-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+.coffee-coupon-heading strong {
+  font-size: 29px;
+  font-weight: 500;
+  color: #e3cda2;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.coffee-coupon-heading small {
+  margin-left: 6px;
+  font-size: 12px;
+  font-weight: 400;
+}
+.coffee-coupon-card {
+  padding: 16px;
+  border: 1px solid #71604788;
+  border-radius: var(--radius-card);
+  background: linear-gradient(145deg, #272219, #1c1b18);
+  box-shadow: inset 0 1px 0 #e9d7a712;
+}
+.coffee-coupon-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 2px 16px;
+  border-bottom: 1px dashed #8e7d5d66;
+}
+.coffee-coupon-title > svg {
+  width: 32px;
+  height: 32px;
+  color: #c7ad7c;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+.coffee-coupon-title h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ecdfc6;
+}
+.coffee-coupon-title p {
+  margin: 5px 0 0;
+  font-size: 10px;
+  color: #a89d88;
+  line-height: 1.5;
+}
+.coffee-coupon-title > span {
+  margin-left: auto;
+  font-size: 9px;
+  white-space: nowrap;
+  color: #b7aa90;
+}
+.coffee-stamps {
+  list-style: none;
+  margin: 20px 0 16px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px 8px;
+}
+.coffee-stamp {
+  aspect-ratio: 1;
+  border: 1px dashed #8e806055;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #887e694d;
+  min-width: 0;
+  font-size: 11px;
+}
+.coffee-stamp.is-filled {
+  color: #cfaf76;
+  border: 1.5px solid #cfaf76;
+  background: #b5904e0a;
+  box-shadow:
+    inset 0 0 0 3px #211e18,
+    inset 0 0 0 4px #bda27366;
+}
+.coffee-stamp > svg {
+  width: 80%;
+  height: 80%;
+  pointer-events: none;
+}
+.coffee-coupon-page {
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #b3a58a;
+  font-variant-numeric: tabular-nums;
+}
+.coffee-coupon-pagination {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+}
+.coffee-coupon-pagination > button {
+  min-height: var(--control-size);
+  min-width: var(--control-size);
+  padding: 8px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+.coffee-coupon-pagination > button:disabled {
+  opacity: 0.3;
+  cursor: default;
+  filter: none;
+}
+.coffee-coupon-progress-copy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 18px 0 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+.coffee-coupon-progress {
+  height: 3px;
+  overflow: hidden;
+  background: #423d30;
+  border-radius: 999px;
+}
+.coffee-coupon-progress > span {
+  display: block;
+  height: 100%;
+  background: #c7ac7b;
+  transition: width 0.25s;
+}
+.coffee-coupon-unknown {
+  min-height: 145px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+.coffee-notice,
+.coffee-error {
+  margin: 16px 0 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.coffee-notice {
+  color: var(--color-status);
+}
+.coffee-error {
+  color: var(--color-warning);
+}
+@media (prefers-reduced-motion: reduce) {
+  .coffee-coupon-progress > span {
+    transition: none;
+  }
+}

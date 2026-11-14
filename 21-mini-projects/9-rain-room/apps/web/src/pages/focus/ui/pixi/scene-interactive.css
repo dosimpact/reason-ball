@@ -1,0 +1,28 @@
+.scene-interactive-targets {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.scene-interactive-targets > .scene-interactive-target {
+  position: absolute;
+  display: block;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  min-height: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  box-shadow: none;
+  color: transparent;
+  cursor: default;
+  outline: none;
+  pointer-events: auto;
+  touch-action: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+.scene-interactive-targets > .scene-interactive-target:focus-visible {
+  outline: 2px solid #d6dac6;
+  outline-offset: 2px;
+}

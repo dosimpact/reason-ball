@@ -1,0 +1,229 @@
+.scene-weather-drawing {
+  pointer-events: none;
+}
+.weather-rain {
+  animation: weather-rain-fall 1.05s linear infinite;
+}
+[data-weather="heavy-rain"] .weather-rain {
+  animation: weather-rain-fall 0.78s linear infinite;
+}
+[data-weather="sleet"] .weather-rain {
+  animation-duration: 2s;
+}
+.weather-snow-0 {
+  animation: weather-snow-far 13s linear infinite;
+}
+.weather-snow-1 {
+  animation: weather-snow-near 9s linear infinite;
+}
+[data-weather="sleet"] .weather-snow-0 {
+  animation-duration: 11s;
+}
+[data-weather="sleet"] .weather-snow-1 {
+  animation-duration: 8s;
+}
+@keyframes weather-rain-fall {
+  from {
+    transform: translateY(-90px);
+  }
+  to {
+    transform: translateY(90px);
+  }
+}
+@keyframes weather-storm-fall {
+  from {
+    transform: translateY(-90px);
+  }
+  to {
+    transform: translateY(90px);
+  }
+}
+@keyframes weather-snow-far {
+  50% {
+    transform: translate(12px, 0);
+  }
+  from {
+    transform: translate(0, -66.5px);
+  }
+  to {
+    transform: translate(0, 66.5px);
+  }
+}
+@keyframes weather-snow-near {
+  50% {
+    transform: translate(-18px, 0);
+  }
+  from {
+    transform: translate(0, -76.5px);
+  }
+  to {
+    transform: translate(0, 76.5px);
+  }
+}
+.scene-weather-drawing[data-paused="true"] *,
+.scene-weather-drawing[data-static="true"] *,
+.premium-artwork[data-paused="true"] .scene-weather-drawing *,
+.premium-artwork[data-static="true"] .scene-weather-drawing * {
+  animation-play-state: paused !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-weather-drawing * {
+    animation: none !important;
+  }
+}
+
+[data-weather="storm"] .weather-rain,
+[data-weather="thunderstorm"] .weather-rain {
+  animation: weather-storm-fall 0.52s linear infinite;
+}
+.weather-rain-depth {
+  animation-delay: -0.37s;
+  animation-duration: 1.3s;
+}
+[data-weather="heavy-rain"] .weather-rain-depth {
+  animation-delay: -0.37s;
+  animation-duration: 1.05s;
+}
+[data-weather="storm"] .weather-rain-depth,
+[data-weather="thunderstorm"] .weather-rain-depth {
+  animation-delay: -0.37s;
+  animation-duration: 0.72s;
+}
+.scene-rain-overlay[data-gust="true"] [data-weather="storm"] .weather-rain,
+.scene-rain-overlay[data-gust="true"] [data-weather="thunderstorm"] .weather-rain {
+  animation-duration: 0.4s;
+  opacity: 0.78;
+}
+
+/* Two vertical copies per seeded petal wrap outside the aperture; no shared rigid sheet. */
+.weather-sakura-fall {
+  animation: weather-sakura-fall 45s linear infinite;
+}
+.weather-sakura-drift {
+  animation: weather-sakura-drift 16s ease-in-out infinite;
+}
+.weather-sakura-tumble {
+  animation: weather-sakura-tumble 12s linear infinite;
+  transform-origin: 0 0;
+}
+@keyframes weather-sakura-fall {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(var(--petal-wind), var(--petal-travel));
+  }
+}
+@keyframes weather-sakura-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(var(--petal-drift));
+  }
+  75% {
+    transform: translateX(calc(-1 * var(--petal-drift)));
+  }
+}
+@keyframes weather-sakura-tumble {
+  0% {
+    transform: rotate(0deg) scaleX(1);
+    opacity: 1;
+  }
+  25% {
+    transform: rotate(90deg) scaleX(0.32);
+    opacity: 0.76;
+  }
+  50% {
+    transform: rotate(180deg) scaleX(1);
+    opacity: 1;
+  }
+  75% {
+    transform: rotate(270deg) scaleX(0.5);
+    opacity: 0.82;
+  }
+  100% {
+    transform: rotate(360deg) scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* Native weather owns the exact clock; fallback CSS samples its shared pulse envelopes. */
+.weather-thunder-channel {
+  opacity: 0;
+  animation-name: weather-thunder-envelope;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+.scene-weather-drawing[data-static="true"] .weather-thunderstorm,
+.premium-artwork[data-static="true"] .weather-thunderstorm {
+  display: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .weather-thunderstorm {
+    display: none !important;
+  }
+}
+
+/* Shared model alpha samples at fixed cycle knots; falloff between knots is linear. */
+@keyframes weather-thunder-envelope {
+  0% {
+    opacity: var(--thunder-alpha-0, 0);
+  }
+  0.157407% {
+    opacity: var(--thunder-alpha-1, 0);
+  }
+  0.259259% {
+    opacity: var(--thunder-alpha-2, 0);
+  }
+  0.314815% {
+    opacity: var(--thunder-alpha-3, 0);
+  }
+  0.5% {
+    opacity: var(--thunder-alpha-4, 0);
+  }
+  0.703704% {
+    opacity: var(--thunder-alpha-5, 0);
+  }
+  1% {
+    opacity: var(--thunder-alpha-6, 0);
+  }
+  1.5% {
+    opacity: var(--thunder-alpha-7, 0);
+  }
+  2.166667% {
+    opacity: var(--thunder-alpha-8, 0);
+  }
+  2.592593% {
+    opacity: var(--thunder-alpha-9, 0);
+  }
+  2.777778% {
+    opacity: var(--thunder-alpha-10, 0);
+  }
+  2.962963% {
+    opacity: var(--thunder-alpha-11, 0);
+  }
+  3.5% {
+    opacity: var(--thunder-alpha-12, 0);
+  }
+  4% {
+    opacity: var(--thunder-alpha-13, 0);
+  }
+  5% {
+    opacity: var(--thunder-alpha-14, 0);
+  }
+  6% {
+    opacity: var(--thunder-alpha-15, 0);
+  }
+  7.037037% {
+    opacity: var(--thunder-alpha-16, 0);
+  }
+  11.111111% {
+    opacity: var(--thunder-alpha-17, 0);
+  }
+  100% {
+    opacity: var(--thunder-alpha-18, 0);
+  }
+}

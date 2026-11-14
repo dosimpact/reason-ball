@@ -1,0 +1,396 @@
+.background-picker {
+  min-width: 0;
+  padding-top: 28px;
+}
+.background-categories {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding: 2px 1px 18px;
+  scrollbar-width: thin;
+}
+.background-categories button {
+  flex: 0 0 auto;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.background-categories button[aria-pressed="true"] {
+  background: var(--color-action);
+  color: var(--color-action-text);
+  border-color: var(--color-action);
+}
+.background-count {
+  margin: 0 0 22px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+.background-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 12px;
+  padding-bottom: 8px;
+}
+.background-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  text-align: left;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+  border-radius: 14px;
+}
+.background-preview {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  aspect-ratio: 1.12;
+  background: #162824;
+}
+.background-card[aria-pressed="true"] .background-preview {
+  border-color: var(--color-status);
+}
+.background-preview .cafe.scene-thumbnail {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: 10px;
+}
+.scene-thumbnail svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.scene-thumbnail *,
+.scene-thumbnail .rain-layer,
+.scene-thumbnail .steam {
+  animation: none !important;
+}
+.background-selected {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-status);
+  color: #06261c;
+  font-weight: 700;
+  font-size: 14px;
+}
+.background-card-name {
+  margin: 12px 2px 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.background-card-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px 8px;
+  margin: 3px 2px 0;
+}
+.background-card-category {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+.background-card-presence,
+.scene-presence {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #d9c49a;
+  font-size: 10px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.background-card-presence > span,
+.scene-presence > span {
+  color: var(--color-status);
+  font-size: 5px;
+  letter-spacing: -1px;
+}
+.scene-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px 10px;
+  min-width: 0;
+}
+.scene-presence {
+  padding: 4px 9px;
+  border: 1px solid #d6bb8138;
+  border-radius: 999px;
+  background: #d6ad5b12;
+  font-size: 11px;
+}
+.focus-companions {
+  filter: drop-shadow(0 10px 14px #0005);
+}
+.cozy-room {
+  filter: saturate(0.95);
+}
+.background-card:focus-visible,
+.background-categories button:focus-visible {
+  outline: 2px solid var(--color-status);
+  outline-offset: 4px;
+}
+.scene-firefly {
+  animation: scene-firefly 5s ease-in-out infinite alternate;
+}
+@keyframes scene-firefly {
+  to {
+    opacity: 0.15;
+  }
+}
+@media (min-width: 640px) {
+  .background-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 26px 14px;
+  }
+}
+@media (max-width: 390px) {
+  .scene-presence {
+    padding: 3px 7px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-firefly {
+    animation: none;
+  }
+}
+/* A separate, filter-free layer also works above iOS's raster fullscreen fallback. */
+.cafe > svg.scene-rain-overlay,
+.scene-fullscreen > svg.scene-rain-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.36;
+}
+.scene-rain-drops {
+  animation: scene-rain-fall 1.35s linear infinite;
+}
+.scene-rain-overlay[data-static="true"] .scene-rain-drops {
+  animation: none;
+}
+@keyframes scene-rain-fall {
+  to {
+    transform: translateY(160px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-rain-drops {
+    animation: none;
+  }
+}
+.scene-caption .scene-caption-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+.scene-caption .scene-clock {
+  margin-left: auto;
+  flex: 0 0 auto;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  letter-spacing: 0.4px;
+  color: #e0e5d9;
+}
+.scene-bottom > .scene-title {
+  flex: 1;
+  min-width: 0;
+}
+.scene-title > .scene-name {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.scene-actions {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 4px;
+}
+.random-background {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 44px;
+  min-width: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+.random-background svg {
+  width: 13px;
+  height: 13px;
+}
+
+.cafe > svg.scene-rain-overlay.scene-rain-heavy,
+.scene-fullscreen > svg.scene-rain-overlay.scene-rain-heavy {
+  opacity: 0.52;
+}
+.scene-rain-heavy .scene-rain-drops {
+  animation-duration: 0.85s;
+}
+/* Runtime artwork shares the exact authoring viewBox/crop with all live overlays. */
+.runtime-cafe > img.scene-artwork {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.scene-fullscreen > .runtime-cafe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: 0;
+  margin: 0;
+}
+.runtime-fallback > .cafe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  min-height: 0;
+}
+.scene-image-error {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 4;
+  font-size: 11px;
+  color: #dedbd0;
+  background: #101813cc;
+  padding: 5px 8px;
+  border-radius: 6px;
+  pointer-events: none;
+}
+.runtime-fallback[data-paused="true"] * {
+  animation-play-state: paused !important;
+}
+/* The SVG object layer has no opaque room background or second vignette. */
+.scene-foreground {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.scene-foreground > .cafe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  background: transparent;
+  border-radius: 0;
+}
+.scene-foreground > .cafe:after {
+  display: none;
+}
+.runtime-cafe[data-paused="true"] .scene-foreground * {
+  animation-play-state: paused !important;
+}
+/* Give mobile rooms a more open view; every artwork/effect layer shares this box. */
+@media (max-width: 700px) {
+  .scene-preview {
+    height: clamp(320px, 92vw, 460px);
+    min-height: clamp(320px, 92vw, 460px);
+  }
+  .scene-preview > .runtime-cafe {
+    height: 100%;
+    min-height: 0;
+  }
+}
+.scene-page-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.focus-intro > .scene-page-title + .intro {
+  margin-top: 0;
+}
+
+/* Three small outdoor leaves per autumn room; the static opening mask never moves. */
+.autumn-leaf-fall {
+  animation: autumn-leaf-fall 22s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center center;
+}
+@keyframes autumn-leaf-fall {
+  0% {
+    transform: translate(-12px, -85px) rotate(-12deg);
+    opacity: 0;
+  }
+  15% {
+    transform: translate(2px, -45px) rotate(6deg);
+    opacity: 0.68;
+  }
+  50% {
+    transform: translate(-6px, 40px) rotate(84deg);
+    opacity: 0.8;
+  }
+  85% {
+    transform: translate(15px, 132px) rotate(156deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(20px, 170px) rotate(190deg);
+    opacity: 0;
+  }
+}
+.cafe[data-paused="true"] .autumn-leaf-fall,
+.premium-artwork[data-paused="true"] .autumn-leaf-fall {
+  animation-play-state: paused !important;
+}
+.cafe[data-static="true"] .autumn-leaf-fall,
+.premium-artwork[data-static="true"] .autumn-leaf-fall,
+.scene-thumbnail .autumn-leaf-fall {
+  display: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .autumn-leaf-fall {
+    display: none !important;
+  }
+}

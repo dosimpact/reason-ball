@@ -1,0 +1,301 @@
+/* Visuals come from the existing fullscreen, transport and HeaderActions rules.
+   The room stays below its sibling settings dialog in the same React root. */
+.scene-fullscreen.ritual-room {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  z-index: 1;
+  display: block;
+  padding: 0;
+  gap: 0;
+  min-height: 0;
+  isolation: isolate;
+}
+.ritual-room-art,
+.ritual-room-art > .cafe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  max-width: none;
+  max-height: none;
+  border: 0;
+  border-radius: 0;
+}
+.ritual-room .ritual-room-header {
+  height: auto;
+  min-height: 0;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px))
+    24px max(12px, env(safe-area-inset-left, 0px));
+  gap: 12px;
+  z-index: 5;
+}
+.ritual-room-heading {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.ritual-room-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.ritual-room-header-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+.ritual-room-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Art-only blackout: the old scene stays mounted until the fade has painted.
+   Header/player retain their own stacking and never fade or remount. */
+.ritual-scene-transition {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  background: var(--color-background);
+  pointer-events: none;
+  transition: opacity 600ms ease;
+}
+.ritual-scene-transition[data-phase="idle"] {
+  transition: none;
+}
+.ritual-scene-transition[data-phase="fading-out"] {
+  opacity: 1;
+  transition-duration: 240ms;
+}
+.ritual-scene-transition[data-phase="loading"] {
+  opacity: 1;
+  transition: none;
+}
+.ritual-scene-transition[data-reduced-motion="true"] {
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ritual-scene-transition {
+    transition: none;
+  }
+}
+
+/* Bound every canvas/fallback/error layer to the art stack, below room controls. */
+.ritual-room-art {
+  isolation: isolate;
+  z-index: 0;
+}
+
+/* The original flyout stays above the persistent player without changing its design. */
+.ritual-room-header .header-settings-panel {
+  max-height: max(64px, calc(var(--rain-room-viewport-height, 100dvh) - 112px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Keep recovery above the bottom player, using the existing renderer error skin. */
+.ritual-room .pixi-render-error {
+  top: calc(76px + env(safe-area-inset-top, 0px));
+  bottom: auto;
+}
+.ritual-room-scene-recovery {
+  z-index: 3;
+}
+.ritual-room-folded-error {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  z-index: 4;
+  text-align: center;
+}
+
+/* Two compact rows: centered focus time, then track and mode/play/next transport. */
+.fullscreen-player.ritual-room-player {
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  max-width: 460px;
+  max-height: calc(100% - 100px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  background: color-mix(in srgb, var(--color-glass) 75%, transparent);
+}
+.ritual-room-player .ritual-room-player-top {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  min-width: 0;
+}
+.ritual-room-player .ritual-room-timer-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  grid-column: 2;
+  justify-content: center;
+  min-width: 0;
+}
+.ritual-room-timer-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  text-align: center;
+}
+.ritual-room-timer-copy > .ritual-room-phase {
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--color-glass-secondary);
+}
+.ritual-room-player .ritual-room-timer {
+  font-size: 42px;
+  line-height: 1.05;
+  font-weight: 400;
+  letter-spacing: -1px;
+  color: var(--color-text);
+}
+.ritual-room-player .ritual-room-close {
+  grid-column: 3;
+  position: static;
+  width: 44px;
+  min-height: 44px;
+  align-self: start;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.ritual-room-player .ritual-room-close:hover:not(:disabled) {
+  background: transparent;
+}
+.ritual-room-player-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+.ritual-room-player .ritual-room-track {
+  grid-column: auto;
+  grid-row: auto;
+  min-width: 0;
+  gap: 2px;
+  padding: 0;
+}
+.ritual-room-player .ritual-room-track > span {
+  font-size: 11px;
+  color: var(--color-glass-secondary);
+}
+.ritual-room-player .ritual-room-track strong {
+  font-size: 14px;
+  line-height: 1.4;
+}
+.ritual-room-transport,
+.ritual-room-playback {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.ritual-room-playback > .playback-controls {
+  gap: 6px;
+}
+.ritual-room-player .playback-controls .ritual-room-music-toggle {
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  min-height: 52px;
+  background: var(--color-action-accent);
+  color: var(--color-action-on-accent);
+}
+.ritual-room-player .playback-controls .ritual-room-music-toggle:hover:not(:disabled) {
+  background: var(--color-action-accent-hover);
+}
+.ritual-room-player .playback-mode,
+.ritual-room-player .next-track {
+  color: var(--color-text-secondary);
+}
+.ritual-room-player .playback-mode:hover,
+.ritual-room-player .next-track:hover {
+  color: var(--color-text);
+  background: var(--color-control-hover);
+}
+@media (max-width: 380px) {
+  .fullscreen-player.ritual-room-player {
+    padding: 10px;
+    gap: 8px;
+  }
+  .ritual-room-player-bottom {
+    gap: 6px;
+  }
+  .ritual-room-playback > .playback-controls {
+    gap: 2px;
+  }
+  .ritual-room-player .ritual-room-timer {
+    font-size: 38px;
+  }
+  .ritual-room-player .ritual-room-track strong {
+    font-size: 13px;
+  }
+}
+@media (max-height: 450px) and (min-width: 480px) {
+  .fullscreen-player.ritual-room-player {
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    padding: 8px 12px;
+    gap: 4px;
+    max-width: 540px;
+  }
+  .ritual-room-player .ritual-room-timer {
+    font-size: 34px;
+  }
+  .ritual-room-timer-copy {
+    gap: 1px;
+  }
+}
+
+.ritual-room .ritual-room-restore {
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  right: max(16px, env(safe-area-inset-right, 0px));
+  max-width: calc(100% - 32px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
+}
+
+.ritual-room-player .ritual-room-player-settings {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  min-height: 44px;
+  align-self: start;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-glass-secondary);
+  box-shadow: none;
+}
+.ritual-room-player-settings svg {
+  width: 18px;
+  height: 18px;
+}
+.ritual-room-player .ritual-room-player-settings:hover:not(:disabled) {
+  background: transparent;
+  color: var(--color-text);
+}

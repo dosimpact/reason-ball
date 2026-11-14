@@ -1,0 +1,955 @@
+/* Original Rain Room controls; literal colors only illustrate device, wood and paper.
+   Fixed device geometry is shared by menu, checkout and printing. */
+.ritual-experience {
+  height: 100%;
+  min-height: 0;
+  background: var(--color-background);
+  color: var(--color-text);
+  padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right))
+    max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  font-family: var(--font-sans);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  overflow: clip;
+  font-size: var(--font-size-body);
+}
+.ritual-top-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.ritual-top-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  color: var(--color-text);
+  background: var(--color-surface-elevated);
+}
+.ritual-top-actions button > span:not(.ritual-sound-icon) {
+  display: none;
+}
+.ritual-heading {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.ritual-heading h1 {
+  font-size: var(--font-size-title);
+  font-weight: 500;
+  letter-spacing: -0.9px;
+  margin: 0;
+  line-height: 1.35;
+}
+.ritual-heading p {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 10px 0 0;
+}
+.ritual-counter-stage {
+  position: relative;
+  width: min(100%, 660px);
+  height: 100%;
+  max-height: 720px;
+  min-height: 0;
+  margin: auto;
+  padding: 0;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ritual-counter-stage:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -25vw;
+  right: -25vw;
+  top: 76%;
+  height: 30%;
+  background: linear-gradient(170deg, #4e3d2d, #241d17 55%, #181411);
+  border-top: 1px solid #8970524d;
+  box-shadow: 0 -15px 90px #b8842720;
+}
+.ritual-counter-light {
+  position: absolute;
+  inset: 10% -25% 0;
+  z-index: -2;
+  background: radial-gradient(ellipse, #b0925440, transparent 65%);
+  pointer-events: none;
+}
+.ritual-pos {
+  position: relative;
+  width: min(100%, 510px);
+  height: calc(100% - 96px);
+  max-height: 680px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.ritual-device-bezel {
+  padding: 16px 12px 0;
+  border-radius: 25px 25px 20px 20px;
+  background: linear-gradient(130deg, #393939, #242424 30%, #171717 80%, #333);
+  border: 1px solid #65665a;
+  box-shadow:
+    0 32px 65px #0009,
+    inset 0 1px #a7aa8729;
+  position: relative;
+  border-color: #505050;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 52px);
+  flex-shrink: 0;
+  min-height: 0;
+}
+.ritual-device-camera {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #0b0e0b;
+  box-shadow: 0 0 0 2px #33372d;
+  position: absolute;
+  top: 7px;
+  left: 50%;
+}
+.ritual-screen {
+  background: var(--color-surface);
+  border: 1px solid #000;
+  border-radius: var(--radius-control);
+  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.ritual-screen-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px;
+  min-height: 56px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.ritual-screen-heading > span:last-child {
+  letter-spacing: 0;
+  color: var(--color-text-secondary);
+}
+.ritual-menu {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding: 8px;
+  flex: 1;
+  min-height: 0;
+}
+.ritual-menu-item {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-elevated);
+  color: var(--color-text);
+}
+.ritual-menu-item .ritual-cup {
+  width: 100%;
+  height: 100%;
+  max-width: 110px;
+  max-height: 140px;
+  min-width: 0;
+  min-height: 0;
+}
+.ritual-menu-item[aria-pressed="true"] {
+  border-color: var(--color-action);
+  background: var(--color-action);
+  color: var(--color-action-text);
+  box-shadow: none;
+}
+.ritual-order-draft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+.ritual-primary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+.ritual-device-bottom {
+  height: 24px;
+  min-height: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+  color: #89907c;
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+.ritual-printer {
+  width: 82%;
+  height: 40px;
+  margin: -2px auto 0;
+  border-radius: 0 0 17px 17px;
+  background: linear-gradient(#242820, #34392e);
+  border: 1px solid #505544;
+  box-shadow: 0 11px 15px #0007;
+  position: relative;
+  min-height: 40px;
+  flex-shrink: 0;
+}
+.ritual-printer-slot {
+  height: 8px;
+  background: #070a07;
+  border-radius: 8px;
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  top: 15px;
+  box-shadow:
+    0 1px #69745b55,
+    inset 0 3px 3px #000;
+}
+.ritual-printer-light {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #b3be80;
+  box-shadow: 0 0 7px #c4d293;
+  right: 9%;
+  top: 17px;
+  border-radius: 50%;
+}
+.ritual-device-foot {
+  height: 12px;
+  width: 62%;
+  background: #11150f;
+  margin: auto;
+  border-radius: 0 0 50% 50%;
+  box-shadow: 0 14px 23px #0008;
+  flex-shrink: 0;
+}
+.ritual-checkout {
+  padding: 8px 18px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+  gap: 4px;
+}
+.ritual-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  min-height: 44px;
+  flex-shrink: 0;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+.ritual-checkout > .ritual-cup {
+  flex: 1;
+  min-height: 0;
+  width: min(156px, 30vw);
+  max-height: 180px;
+  margin: 0;
+}
+.ritual-checkout h2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.35;
+  letter-spacing: -0.9px;
+  flex-shrink: 0;
+}
+.ritual-temperature-label {
+  font-size: 12px;
+  letter-spacing: 0;
+  color: var(--color-status);
+}
+.ritual-bill {
+  margin: 8px 0 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 14px;
+  border-color: var(--color-border);
+  flex-shrink: 0;
+}
+.ritual-bill strong {
+  font-weight: 500;
+  color: var(--color-text);
+}
+.ritual-checkout > .ritual-primary {
+  width: 100%;
+  flex: none;
+  margin-top: 4px;
+}
+.ritual-print-confirm {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  gap: 12px;
+}
+.ritual-confirm-check {
+  width: 53px;
+  height: 53px;
+  border: 1px solid var(--color-status);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  color: var(--color-status);
+  border-color: var(--color-status);
+}
+.ritual-print-confirm h2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-top: 24px;
+  line-height: 1.35;
+  letter-spacing: -0.9px;
+  margin: 0;
+}
+.ritual-print-confirm p {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-bottom: 36px;
+  margin: 0;
+}
+.ritual-receipt {
+  position: absolute;
+  z-index: 4;
+  max-width: 390px;
+  margin: auto;
+  padding: 16px 20px;
+  background: linear-gradient(110deg, #f1ebde, #e8e0cf);
+  color: var(--ritual-paper-ink);
+  box-shadow:
+    0 22px 55px #0007,
+    0 1px 0 #fff9 inset;
+  font-variant-numeric: tabular-nums;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 99%,
+    97% 100%,
+    94% 99%,
+    91% 100%,
+    88% 99%,
+    85% 100%,
+    82% 99%,
+    79% 100%,
+    76% 99%,
+    73% 100%,
+    70% 99%,
+    67% 100%,
+    64% 99%,
+    61% 100%,
+    58% 99%,
+    55% 100%,
+    52% 99%,
+    49% 100%,
+    46% 99%,
+    43% 100%,
+    40% 99%,
+    37% 100%,
+    34% 99%,
+    31% 100%,
+    28% 99%,
+    25% 100%,
+    22% 99%,
+    19% 100%,
+    16% 99%,
+    13% 100%,
+    10% 99%,
+    7% 100%,
+    4% 99%,
+    0 100%
+  );
+  --ritual-paper-ink: #282828;
+  --ritual-paper-muted: #626262;
+  --ritual-paper-line: #aaa;
+  inset: 0;
+  height: 100%;
+  max-height: 680px;
+  width: min(100%, 390px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  min-height: 0;
+}
+.ritual-receipt-brand {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.ritual-receipt-print-target {
+  visibility: hidden;
+  pointer-events: none;
+}
+.ritual-receipt-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-label);
+  margin-top: 0;
+}
+.ritual-order-date {
+  font-size: var(--font-size-label);
+  color: var(--ritual-paper-muted);
+  display: block;
+  text-align: right;
+  margin-top: 0;
+}
+.ritual-receipt-subtitle,
+.ritual-receipt-complimentary {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  color: var(--ritual-paper-muted);
+}
+.ritual-receipt-meta,
+.ritual-order-date,
+.ritual-receipt-items,
+.ritual-receipt-total {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 12px;
+  line-height: 16px;
+}
+.ritual-receipt-barcode {
+  width: 96px;
+  height: 12px;
+  margin: 0 auto 2px;
+  fill: var(--ritual-paper-ink);
+  display: block;
+}
+.ritual-receipt-items {
+  border-block: 1px dashed var(--ritual-paper-line);
+  padding-block: 4px;
+}
+.ritual-receipt-columns,
+.ritual-receipt-drink {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 30px 48px;
+  align-items: center;
+  column-gap: 4px;
+}
+.ritual-receipt-columns {
+  color: var(--ritual-paper-muted);
+}
+.ritual-receipt-columns > span:not(:first-child),
+.ritual-receipt-drink > span {
+  text-align: right;
+}
+.ritual-receipt-drink {
+  margin: 2px 0 0;
+  min-height: 36px;
+}
+.ritual-receipt-drink > div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.ritual-receipt-drink > div > div {
+  min-width: 0;
+}
+.ritual-receipt-drink strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  overflow-wrap: anywhere;
+}
+.ritual-receipt-drink div span:not(.ritual-cup) {
+  display: block;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--ritual-paper-muted);
+}
+.ritual-receipt-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-weight: 500;
+}
+.ritual-sound-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.ritual-sound-muted::after {
+  content: "";
+  position: absolute;
+  width: 23px;
+  height: 1.5px;
+  background: currentColor;
+  transform: rotate(-45deg);
+  border-radius: 1px;
+}
+.ritual-tear-line {
+  border-top: 1px dashed var(--ritual-paper-line);
+  margin: 20px -4px;
+}
+.ritual-receipt h3 {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+}
+.ritual-time-field {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.ritual-time-field legend {
+  color: var(--ritual-paper-muted);
+  margin-bottom: 4px;
+}
+.ritual-time-presets {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+.ritual-time-presets label {
+  width: 100%;
+  color: var(--ritual-paper-muted);
+}
+.ritual-time-presets input {
+  border-color: var(--ritual-paper-line);
+  background: transparent;
+  color: var(--ritual-paper-ink);
+}
+.ritual-seat-place {
+  text-align: center;
+  min-width: 0;
+}
+.ritual-seat-place > span {
+  display: none;
+  font-size: var(--font-size-label);
+  color: var(--ritual-paper-muted);
+  margin-bottom: 8px;
+}
+.ritual-seat-place strong {
+  font-size: 14px;
+  font-weight: 500;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ritual-seat-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 0;
+  flex: none;
+}
+.ritual-receipt-footnote {
+  display: none;
+}
+.ritual-error {
+  color: var(--color-danger);
+  font-size: 12px;
+}
+.ritual-experience button:focus-visible,
+.ritual-experience input:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+.ritual-seating {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  background: #e7dcc2;
+}
+.ritual-scent {
+  position: absolute;
+  inset: -30%;
+  background:
+    radial-gradient(ellipse at 35% 60%, #f7edda, transparent 55%),
+    radial-gradient(ellipse at 70% 30%, #e9e2cbcc, transparent 60%);
+  transform: rotate(-15deg);
+}
+.ritual-seating > .motion,
+.ritual-seating > div:last-child {
+  position: relative;
+}
+.ritual-seating-iced {
+  background: #cbded4;
+}
+.ritual-steam path {
+  animation: ritual-wisp 2.5s ease-in-out infinite;
+}
+.ritual-aroma path {
+  opacity: 0.4;
+  animation: ritual-wisp 3.6s ease-in-out infinite;
+}
+@keyframes ritual-wisp {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: translateY(3px);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(-4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ritual-steam path,
+  .ritual-aroma path {
+    animation: none;
+    opacity: 0.45;
+  }
+}
+.ritual-experience[data-ritual-stage="menu"] .ritual-screen {
+  min-height: 0;
+}
+.ritual-seating-copy {
+  text-align: center;
+  color: #514d41;
+  font-size: 13px;
+  margin-top: 10px;
+}
+.ritual-menu-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 44px;
+  flex-shrink: 0;
+  font-size: var(--font-size-label);
+  color: var(--color-text-secondary);
+}
+.ritual-menu-page button {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-pill);
+}
+.ritual-menu-page button:disabled {
+  opacity: 0.25;
+}
+.ritual-show-receipt .ritual-pos {
+  visibility: hidden;
+  pointer-events: none;
+}
+.ritual-receipt-summary {
+  display: grid;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.ritual-receipt-content {
+  display: grid;
+  gap: 10px;
+  min-height: 0;
+}
+.ritual-receipt-actions {
+  display: grid;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.ritual-focus-presets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.ritual-focus-presets .ritual-custom-time-open {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  line-height: 20px;
+}
+.ritual-custom-time-open small {
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  line-height: 14px;
+}
+/* Portal position follows the visible viewport above a mobile keyboard. */
+.settings-dialog.ritual-custom-dialog {
+  left: calc(var(--rain-room-viewport-left, 0px) + var(--rain-room-viewport-width, 100vw) / 2);
+  width: min(460px, calc(var(--rain-room-viewport-width, 100vw) - 24px));
+  top: auto;
+  bottom: calc(
+    100% -
+    var(--rain-room-viewport-top, 0px) -
+    var(--rain-room-viewport-height, 100dvh) +
+    16px
+  );
+  transform: translateX(-50%);
+  max-height: calc(var(--rain-room-viewport-height, 100dvh) - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.ritual-custom-dialog .custom-time {
+  color: var(--color-text-secondary);
+}
+.ritual-custom-dialog .ritual-error {
+  color: var(--color-danger);
+}
+@media (max-width: 700px) {
+  .ritual-receipt {
+    padding: 12px 16px;
+    gap: 6px;
+  }
+  .ritual-receipt-summary {
+    gap: 2px;
+  }
+  .ritual-receipt-drink > div > .ritual-cup {
+    display: none;
+  }
+  .ritual-receipt-content {
+    gap: 8px;
+  }
+  .ritual-receipt-actions {
+    gap: 6px;
+  }
+  .ritual-screen-heading {
+    padding: 4px 8px;
+  }
+}
+@media (max-height: 620px) and (orientation: portrait) {
+  .ritual-receipt {
+    gap: 4px;
+  }
+  .ritual-receipt-content {
+    gap: 6px;
+  }
+  .ritual-receipt-actions {
+    gap: 4px;
+  }
+  .ritual-receipt-drink {
+    min-height: 34px;
+  }
+  .ritual-receipt h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+@media (max-height: 480px) and (orientation: landscape) {
+  .ritual-counter-stage {
+    width: min(100%, 760px);
+  }
+  .ritual-pos {
+    width: min(100%, 660px);
+    height: calc(100% - 72px);
+  }
+  .ritual-device-bezel {
+    padding: 10px 10px 0;
+    height: calc(100% - 36px);
+  }
+  .ritual-device-bottom {
+    height: 12px;
+    min-height: 12px;
+  }
+  .ritual-printer {
+    --receipt-slot-exit: 17px;
+    height: 28px;
+    min-height: 28px;
+  }
+  .ritual-device-foot {
+    height: 8px;
+  }
+  .ritual-printer-slot {
+    top: 9px;
+  }
+  .ritual-printer-light {
+    top: 11px;
+  }
+  .ritual-screen-heading {
+    min-height: 44px;
+    padding: 0 8px;
+  }
+  .ritual-top-actions button {
+    height: 44px;
+  }
+  .ritual-menu {
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    padding: 4px 8px;
+  }
+  .ritual-menu-page {
+    position: absolute;
+    right: 120px;
+    top: 10px;
+    gap: 2px;
+  }
+  .ritual-menu-page button {
+    width: 44px;
+    height: 44px;
+  }
+  .ritual-order-draft {
+    padding: 4px 8px;
+  }
+  .ritual-order-draft .primary {
+    min-height: 48px;
+    padding: 10px 20px;
+  }
+  .ritual-checkout {
+    display: grid;
+    grid-template-columns: 120px 1fr 160px;
+    grid-template-rows: 44px 1fr 1fr;
+    gap: 4px 12px;
+    padding: 4px 12px 8px;
+  }
+  .ritual-back {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .ritual-checkout > .ritual-cup {
+    grid-column: 1;
+    grid-row: 2 / 4;
+    width: 110px;
+    height: 110px;
+    align-self: center;
+  }
+  .ritual-checkout h2 {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+    font-size: 24px;
+  }
+  .ritual-temperature-label {
+    grid-column: 2;
+    grid-row: 3;
+    align-self: start;
+  }
+  .ritual-bill {
+    grid-column: 3;
+    grid-row: 1;
+    margin: 0;
+    padding: 8px 0;
+  }
+  .ritual-checkout > .ritual-primary {
+    grid-column: 3;
+    grid-row: 2 / 4;
+    min-height: 48px;
+    padding: 10px;
+  }
+  .ritual-print-confirm {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .ritual-print-confirm > .ritual-cup {
+    width: 80px;
+    height: 80px;
+  }
+  .ritual-receipt {
+    width: min(100%, 720px);
+    max-width: 720px;
+    display: grid;
+    grid-template-columns: minmax(180px, 0.85fr) minmax(280px, 1.3fr);
+    grid-template-rows: 1fr auto;
+    gap: 8px 20px;
+    padding: 12px 20px;
+  }
+  .ritual-receipt-summary {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    gap: 2px;
+  }
+  .ritual-receipt-content {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+    gap: 6px;
+  }
+  .ritual-receipt-actions {
+    grid-column: 1;
+    grid-row: 2;
+    gap: 6px;
+  }
+  .ritual-receipt h3 {
+    font-size: 18px;
+  }
+  .ritual-receipt .primary {
+    min-height: 48px;
+    padding: 10px 12px;
+  }
+}
+
+@media (min-width: 701px) {
+  .settings-dialog.ritual-custom-dialog {
+    top: calc(var(--rain-room-viewport-top, 0px) + var(--rain-room-viewport-height, 100dvh) / 2);
+    bottom: auto;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.ritual-current-time {
+  margin-left: 8px;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+}
+.ritual-checkout h2:focus,
+.ritual-receipt:focus {
+  outline: none;
+}
+
+/* Loading errors must not consume browser-default paragraph margins on the paper. */
+.ritual-receipt .ritual-error {
+  color: #a44130; /* Dark thermal-paper warning ink. */
+  margin: 0;
+  line-height: 16px;
+}
+@media (max-height: 480px) and (orientation: landscape) {
+  .ritual-receipt.ritual-receipt-has-error {
+    row-gap: 4px;
+  }
+  .ritual-receipt-has-error .ritual-receipt-summary {
+    gap: 1px;
+  }
+  .ritual-receipt-has-error .ritual-receipt-barcode {
+    height: 8px;
+  }
+}
+
+/* Paper uses its own ink for keyboard contrast, while preserving shared control geometry. */
+.ritual-receipt button:focus-visible {
+  outline-color: var(--ritual-paper-ink);
+}

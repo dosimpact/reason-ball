@@ -1,0 +1,61 @@
+/* Existing sheet/header/close and HeaderActions classes own all visual tokens. */
+.ritual-settings-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.ritual-settings-title > button {
+  flex-shrink: 0;
+}
+.ritual-settings-title h2 {
+  outline: none;
+}
+.ritual-return-confirm {
+  display: grid;
+  gap: 8px;
+  padding-top: var(--space-page);
+}
+.ritual-settings-focus-presets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+/* Keep detail-sheet actions above a mobile keyboard, matching the receipt editor. */
+.settings-dialog.ritual-settings-dialog {
+  left: calc(var(--rain-room-viewport-left, 0px) + var(--rain-room-viewport-width, 100vw) / 2);
+  width: min(460px, calc(var(--rain-room-viewport-width, 100vw) - 24px));
+  top: auto;
+  bottom: calc(
+    100% -
+    var(--rain-room-viewport-top, 0px) -
+    var(--rain-room-viewport-height, 100dvh) +
+    16px
+  );
+  max-height: calc(var(--rain-room-viewport-height, 100dvh) - 32px);
+  transform: translateX(-50%);
+  overscroll-behavior: contain;
+}
+@media (min-width: 701px) {
+  .settings-dialog.ritual-settings-dialog {
+    top: calc(var(--rain-room-viewport-top, 0px) + var(--rain-room-viewport-height, 100dvh) / 2);
+    bottom: auto;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.ritual-settings-menu {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.ritual-settings-menu .header-setting-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  min-height: 56px;
+  text-align: left;
+}
+.ritual-settings-menu svg {
+  flex-shrink: 0;
+}

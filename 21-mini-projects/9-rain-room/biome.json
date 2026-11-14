@@ -1,0 +1,48 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.6.6/schema.json",
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**/*.{js,jsx,ts,tsx,mjs,cjs,json,jsonc,css}",
+      "!**/node_modules/**",
+      "!**/dist/**",
+      "!**/build/**",
+      "!**/.expo/**",
+      "!**/.turbo/**",
+      "!**/coverage/**",
+      "!**/public/**",
+      "!**/assets/**",
+      "!**/generated/**",
+      "!**/sample/**",
+      "!**/artifacts/**",
+      "!**/aidlc/**",
+      "!**/.codex/**",
+      "!**/.agents/**",
+      "!**/.git/**",
+      "!**/pnpm-lock.yaml"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "linter": {
+    "enabled": false
+  },
+  "assist": {
+    "enabled": false
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "asNeeded"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  }
+}

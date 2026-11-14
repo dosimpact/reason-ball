@@ -1,0 +1,28 @@
+{
+  "name": "rain-room",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@12.4.1",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev --filter=@rain-room/web",
+    "dev:mobile": "pnpm --filter @rain-room/mobile dev",
+    "dev:mobile:tunnel": "pnpm --filter @rain-room/mobile dev:tunnel",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "preview": "pnpm --filter @rain-room/web preview",
+    "test:e2e": "pnpm --filter @rain-room/web test:e2e",
+    "preview:backgrounds": "pnpm --filter @rain-room/web preview:backgrounds",
+    "validate:scenes": "pnpm --filter @rain-room/web validate:scenes",
+    "format": "biome format --write apps package.json biome.json turbo.json",
+    "format:check": "biome format apps package.json biome.json turbo.json"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.6",
+    "turbo": "^2.11.10"
+  }
+}

@@ -1,0 +1,225 @@
+/* This isolated stack is body background < decorative rain < all page controls.
+   Modal dialogs remain in the browser top layer; the fullscreen portal is opaque. */
+.focus-page {
+  position: relative;
+  isolation: isolate;
+}
+.focus-page > header,
+.focus-page > main,
+.focus-page > footer {
+  position: relative;
+  z-index: 1;
+}
+.viewport-rain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  contain: strict;
+}
+.viewport-rain,
+.viewport-rain *,
+.viewport-rain::before,
+.viewport-rain::after {
+  pointer-events: none !important;
+}
+.viewport-rain::before,
+.viewport-rain::after {
+  content: "";
+  position: absolute;
+  inset: -280px 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='220' viewBox='0 0 180 220'%3E%3Cpath d='m29 11-7 31m92 16-9 42m54 51-6 26m-99-34-8 34m46 21-5 22' fill='none' stroke='%23aec9c0' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 180px 220px;
+  opacity: 0.12;
+  animation: viewport-rain-near 1.1s linear infinite;
+}
+.viewport-rain::after {
+  background-size: 240px 280px;
+  opacity: 0.065;
+  animation: viewport-rain-far 1.8s linear infinite;
+}
+.viewport-rain[data-weather="heavy-rain"]::before,
+.viewport-rain[data-weather="heavy-rain"]::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='220'%3E%3Cpath d='m22-7-14 58m57-30-17 69m59-68-15 60m62 19-14 57m-93-46-16 66m65-34-16 65m75-47-15 60' fill='none' stroke='%23bdd3cf' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+.viewport-rain[data-weather="heavy-rain"]::before {
+  animation-duration: 0.85s;
+  opacity: 0.15;
+}
+.viewport-rain[data-weather="heavy-rain"]::after {
+  animation-duration: 1.4s;
+}
+.viewport-rain[data-weather="sleet"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='220'%3E%3Cpath d='m29 11-2 15m92 46-3 19m26 81-2 13' fill='none' stroke='%23aec9c0' stroke-width='1'/%3E%3C/svg%3E");
+  animation-duration: 2s;
+}
+.viewport-rain[data-weather="sleet"]::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='220'%3E%3Cg fill='%23c7d8d3'%3E%3Ccircle cx='22' cy='28' r='1.6'/%3E%3Ccircle cx='105' cy='109' r='1.4'/%3E%3Ccircle cx='53' cy='192' r='1.8'/%3E%3Ccircle cx='156' cy='54' r='1.3'/%3E%3C/g%3E%3C/svg%3E");
+  animation: viewport-snow-far 8s linear infinite;
+  opacity: 0.15;
+}
+.viewport-rain[data-weather="snow"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='220'%3E%3Cg fill='%23c7d8d3'%3E%3Ccircle cx='22' cy='28' r='1.6'/%3E%3Ccircle cx='105' cy='109' r='1.4'/%3E%3Ccircle cx='53' cy='192' r='1.8'/%3E%3Ccircle cx='156' cy='54' r='1.3'/%3E%3C/g%3E%3C/svg%3E");
+  animation: viewport-snow-near 16s linear infinite;
+  opacity: 0.18;
+}
+.viewport-rain[data-weather="snow"]::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='220'%3E%3Cg fill='%23e0e7dd'%3E%3Ccircle cx='42' cy='48' r='3'/%3E%3Ccircle cx='131' cy='158' r='2.6'/%3E%3C/g%3E%3Cpath d='M102 33v10m-5-5h10m-8-3 6 6m0-6-6 6' stroke='%23dae5dd' stroke-width='1'/%3E%3C/svg%3E");
+  animation: viewport-snow-far 12s linear infinite;
+  opacity: 0.2;
+}
+@keyframes viewport-snow-near {
+  0% {
+    transform: translate(0, calc(-1 * var(--weather-travel, 220px)));
+  }
+  50% {
+    transform: translate(14px, calc(-0.5 * var(--weather-travel, 220px)));
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+@keyframes viewport-snow-far {
+  0% {
+    transform: translate(0, calc(-1 * var(--weather-travel, 280px)));
+  }
+  50% {
+    transform: translate(-18px, calc(-0.5 * var(--weather-travel, 280px)));
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+.viewport-rain[data-paused="true"]::before,
+.viewport-rain[data-paused="true"]::after {
+  animation-play-state: paused;
+}
+@keyframes viewport-rain-near {
+  from {
+    transform: translateY(calc(-1 * var(--weather-travel, 220px)));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes viewport-rain-far {
+  from {
+    transform: translateY(calc(-1 * var(--weather-travel, 280px)));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .viewport-rain {
+    display: none;
+  }
+  .viewport-rain::before,
+  .viewport-rain::after {
+    animation: none;
+  }
+}
+
+.viewport-rain[data-weather="rain"]::before,
+.viewport-rain[data-weather="sakura-rain"]::before {
+  background-size: 130px 175px;
+  opacity: 0.15;
+  animation-duration: 1.05s;
+}
+.viewport-rain[data-weather="rain"]::after {
+  background-size: 180px 220px;
+  opacity: 0.09;
+  animation-duration: 1.6s;
+}
+.viewport-rain[data-weather="heavy-rain"]::before {
+  background-size: 130px 165px;
+  opacity: 0.2;
+  animation-duration: 0.75s;
+}
+.viewport-rain[data-weather="heavy-rain"]::after {
+  background-size: 170px 210px;
+  opacity: 0.12;
+  animation-duration: 1.1s;
+}
+.viewport-rain[data-weather="storm"]::before,
+.viewport-rain[data-weather="storm"]::after,
+.viewport-rain[data-weather="thunderstorm"]::before,
+.viewport-rain[data-weather="thunderstorm"]::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='160'%3E%3Cpath d='M18-20-9 80M40 10 13 110M80-8 53 92M110 50 83 150M56 95 29 195' stroke='%23bdd3cf' stroke-width='1.8' fill='none'/%3E%3C/svg%3E");
+  background-size: 110px 160px;
+  opacity: 0.23;
+  animation-duration: 0.5s;
+}
+.viewport-rain[data-weather="storm"]::after,
+.viewport-rain[data-weather="thunderstorm"]::after {
+  background-size: 145px 200px;
+  opacity: 0.14;
+  animation-duration: 0.8s;
+}
+.viewport-rain[data-weather="snow"]::before {
+  background-size: 115px 145px;
+  opacity: 0.23;
+}
+.viewport-rain[data-weather="snow"]::after {
+  background-size: 140px 170px;
+  opacity: 0.28;
+}
+.viewport-rain[data-weather="sleet"]::after {
+  background-size: 130px 160px;
+  opacity: 0.21;
+}
+
+.viewport-rain[data-weather="rain"]::before,
+.viewport-rain[data-weather="sakura-rain"]::before {
+  --weather-travel: 175px;
+}
+.viewport-rain[data-weather="rain"]::after {
+  --weather-travel: 220px;
+}
+.viewport-rain[data-weather="heavy-rain"]::before {
+  --weather-travel: 165px;
+}
+.viewport-rain[data-weather="heavy-rain"]::after {
+  --weather-travel: 210px;
+}
+.viewport-rain[data-weather="storm"]::before,
+.viewport-rain[data-weather="thunderstorm"]::before {
+  --weather-travel: 160px;
+}
+.viewport-rain[data-weather="storm"]::after,
+.viewport-rain[data-weather="thunderstorm"]::after {
+  --weather-travel: 200px;
+}
+.viewport-rain[data-weather="snow"]::before {
+  --weather-travel: 145px;
+}
+.viewport-rain[data-weather="snow"]::after {
+  --weather-travel: 170px;
+}
+.viewport-rain[data-weather="sleet"]::after {
+  --weather-travel: 160px;
+}
+
+/* Room-specific petals remain in the decorative background stack below all controls. */
+.viewport-rain[data-weather="sakura-rain"]::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='350'%3E%3Cpath d='M0 6C-4 3-6-1-3.8-4.7C-2.4-6.5-.8-5.6.2-3.8C1.2-6 3.3-6.1 4.4-4.3C6-1.4 3.1 3.4 0 6Z' fill='%23d9a8b4' transform='translate(48 53) rotate(25)'/%3E%3Cpath d='M0 6C-4 3-6-1-3.8-4.7C-2.4-6.5-.8-5.6.2-3.8C1.2-6 3.3-6.1 4.4-4.3C6-1.4 3.1 3.4 0 6Z' fill='%23e5bdc3' transform='translate(213 226) rotate(-57) scale(.8)'/%3E%3Cpath d='M0 6C-4 3-6-1-3.8-4.7C-2.4-6.5-.8-5.6.2-3.8C1.2-6 3.3-6.1 4.4-4.3C6-1.4 3.1 3.4 0 6Z' fill='%23c993a5' transform='translate(132 319) rotate(132) scale(.65)'/%3E%3C/svg%3E");
+  background-size: 300px 350px;
+  opacity: 0.32;
+  animation: viewport-sakura-petals 22s linear infinite;
+}
+@keyframes viewport-sakura-petals {
+  from {
+    transform: translate(-24px, -350px);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+.viewport-rain[data-weather="sakura-rain"][data-paused="true"]::after {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .viewport-rain[data-weather="sakura-rain"]::after {
+    animation: none;
+  }
+}

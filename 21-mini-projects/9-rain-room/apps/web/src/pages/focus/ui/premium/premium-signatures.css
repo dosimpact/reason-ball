@@ -1,0 +1,193 @@
+.premium-signatures {
+  pointer-events: none;
+}
+.premium-signatures [class^="signature-"] {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation-duration: var(--signature-duration, 12s) !important;
+  animation-delay: var(--signature-delay, 0s) !important;
+}
+.signature-spin {
+  animation: signature-turn 24s linear infinite;
+}
+.signature-swing {
+  transform-origin: top center !important;
+  animation: signature-rock 4.8s ease-in-out infinite alternate;
+}
+.signature-needle {
+  animation: signature-dial 9s ease-in-out infinite alternate;
+}
+.signature-page {
+  transform-origin: left center !important;
+  animation: signature-page 12s ease-in-out infinite;
+}
+.signature-travel {
+  animation: signature-travel 27s ease-in-out infinite alternate;
+}
+.signature-current {
+  animation: signature-current 5s ease-in-out infinite alternate;
+}
+.signature-sweep {
+  animation: signature-sweep 16s ease-in-out infinite alternate;
+}
+.signature-drift {
+  animation: signature-drift 13s ease-in-out infinite alternate;
+}
+.signature-wing {
+  animation: signature-wing 3s ease-in-out infinite alternate;
+}
+.signature-sway {
+  transform-origin: bottom center !important;
+  animation: signature-rock 7s ease-in-out infinite alternate;
+}
+.signature-fall {
+  animation: signature-fall 4s ease-in infinite;
+}
+.signature-stamp {
+  animation: signature-stamp 7s ease-in-out infinite;
+}
+.signature-capsule {
+  animation: signature-capsule var(--signature-duration, 14s) ease-in-out infinite alternate;
+}
+@keyframes signature-capsule {
+  from {
+    transform: translateY(-22px);
+  }
+  to {
+    transform: translateY(22px);
+  }
+}
+.signature-breathe {
+  animation: signature-breathe var(--signature-duration, 13s) ease-in-out infinite alternate;
+}
+@keyframes signature-breathe {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.035);
+  }
+}
+@keyframes signature-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes signature-rock {
+  from {
+    transform: rotate(-6deg);
+  }
+  to {
+    transform: rotate(6deg);
+  }
+}
+@keyframes signature-dial {
+  from {
+    transform: rotate(-18deg);
+  }
+  to {
+    transform: rotate(24deg);
+  }
+}
+@keyframes signature-page {
+  0%,
+  65%,
+  100% {
+    transform: skewY(0deg) scaleX(1);
+  }
+  78% {
+    transform: skewY(-12deg) scaleX(0.16);
+  }
+  88% {
+    transform: skewY(5deg) scaleX(0.7);
+  }
+}
+@keyframes signature-travel {
+  from {
+    transform: translateX(-24px);
+  }
+  to {
+    transform: translateX(30px);
+  }
+}
+@keyframes signature-current {
+  from {
+    transform: translateX(-6px) scaleX(0.92);
+  }
+  to {
+    transform: translateX(6px) scaleX(1.05);
+  }
+}
+@keyframes signature-sweep {
+  from {
+    transform: rotate(-12deg);
+  }
+  to {
+    transform: rotate(14deg);
+  }
+}
+@keyframes signature-drift {
+  from {
+    transform: translate(-8px, 3px);
+  }
+  to {
+    transform: translate(12px, -7px);
+  }
+}
+@keyframes signature-wing {
+  from {
+    transform: scaleY(0.7);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes signature-fall {
+  0%,
+  20% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  90%,
+  100% {
+    transform: translateY(35px);
+    opacity: 0;
+  }
+}
+@keyframes signature-stamp {
+  0%,
+  65%,
+  100% {
+    transform: translateY(0);
+  }
+  75%,
+  83% {
+    transform: translateY(18px);
+  }
+}
+.signature-keypress {
+  animation: signature-keypress 11s ease-in-out infinite;
+}
+@keyframes signature-keypress {
+  0%,
+  65%,
+  100% {
+    transform: translateY(0);
+  }
+  76%,
+  84% {
+    transform: translateY(2px);
+  }
+}
+.premium-artwork[data-paused="true"] .premium-signatures *,
+.premium-artwork[data-static="true"] .premium-signatures * {
+  animation-play-state: paused !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .premium-signatures * {
+    animation: none !important;
+  }
+}

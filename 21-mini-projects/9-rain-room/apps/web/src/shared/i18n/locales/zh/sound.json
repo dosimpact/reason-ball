@@ -1,0 +1,83 @@
+{
+  "music": {
+    "label": "音乐",
+    "volume": "音乐音量",
+    "adjustVolume": "调整音乐音量",
+    "mainVolume": "主界面音乐音量",
+    "playPlaylist": "播放歌单"
+  },
+  "ambient": {
+    "description": "选择喜欢的声音，混合播放。",
+    "eyebrow": "专属空间",
+    "selection": "已选 {{count}} 项 · {{state}}",
+    "playing": "播放中",
+    "paused": "已暂停",
+    "pauseLabel": "暂停环境音",
+    "playLabel": "播放环境音",
+    "pause": "暂停",
+    "play": "播放",
+    "volume": "音量",
+    "soundVolume": "{{name}}音量",
+    "credits": "音源出处"
+  },
+  "playback": {
+    "group": "主界面播放模式",
+    "fullscreenGroup": "全屏播放模式",
+    "repeat-one": {
+      "name": "单曲循环",
+      "description": "持续循环播放当前曲目。"
+    },
+    "shuffle": {
+      "name": "随机播放",
+      "description": "随机播放歌单中的曲目，全部播放完毕后会以新顺序继续播放。"
+    },
+    "sequential": {
+      "name": "顺序播放",
+      "description": "按歌单顺序播放，最后一首结束后返回第一首。"
+    },
+    "next": "下一首",
+    "fullscreenNext": "全屏下一首",
+    "nextDescription": "切换到下一首。当前如已暂停，将保持暂停状态。",
+    "cycle": "当前播放模式：{{current}}。点击切换为{{next}}"
+  },
+  "fullscreen": {
+    "label": "{{name}}全屏",
+    "exit": "退出全屏",
+    "player": "全屏音乐播放器",
+    "focus": "专注",
+    "break": "休息",
+    "running": "进行中",
+    "paused": "已暂停",
+    "complete": "已完成",
+    "idle": "准备就绪",
+    "session": "{{phase}} · {{status}}",
+    "collapse": "收起播放器",
+    "pauseMusic": "暂停全屏音乐",
+    "playMusic": "播放全屏音乐",
+    "playing": "播放中",
+    "focusMusic": "专注音乐",
+    "volume": "全屏音乐音量",
+    "openPlayer": "打开播放器"
+  },
+  "errors": {
+    "musicLoad": "无法加载音乐，请重新播放。",
+    "musicPlay": "无法播放音乐，请再次点击播放按钮。",
+    "ambientSelect": "请先选择至少一种环境音。",
+    "ambientPlay": "无法播放环境音，请再次点击播放按钮，并确认浏览器支持 Web Audio。",
+    "ambientLoad": "无法加载{{name}}，请检查网络连接，然后关闭并重新开启此声音。",
+    "ambientUnavailable": "无法加载环境音，请检查网络连接后重新播放。"
+  },
+  "library": {
+    "label": "专注音乐",
+    "categories": "音乐分类",
+    "heading": "歌单",
+    "trackCount": "{{count}} 首",
+    "trackList": "歌单曲目列表",
+    "selectFirst": "{{title}} · 选为首曲",
+    "firstCurrent": "已选为首曲 · 当前曲目",
+    "firstSelected": "已选为首曲",
+    "current": "当前曲目",
+    "next": "下一首",
+    "firstBadge": "首曲"
+  }
+}

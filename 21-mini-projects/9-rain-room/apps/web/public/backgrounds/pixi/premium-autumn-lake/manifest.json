@@ -1,0 +1,1868 @@
+{
+  "version": 1,
+  "animalLifeVersion": 1,
+  "animalPolicy": {
+    "staticBodiesRemoved": true,
+    "supportsPreserved": true,
+    "actorIds": [
+      "premium-autumn-lake:actor-1"
+    ],
+    "proof": "bodyless static textures; live pose proof generated separately"
+  },
+  "id": "premium-autumn-lake",
+  "width": 800,
+  "height": 820,
+  "weather": "rain",
+  "weatherMask": "/backgrounds/pixi/premium-autumn-lake/weather-mask.png",
+  "weatherMaskHigh": "/backgrounds/pixi/premium-autumn-lake/weather-mask-high.png",
+  "resolutionHigh": 3,
+  "humanRasterPolicy": {
+    "version": 1,
+    "selector": "[data-character],[data-character-id],[data-pose],[data-head-view],[data-premium-character],[data-premium-person],[data-person-view]",
+    "qualityResolution": 3,
+    "scope": "complete human ancestry; no native face, limb, clothing or held prop fragments"
+  },
+  "layers": [
+    {
+      "id": "rear",
+      "sourceRole": "structural",
+      "src": "/backgrounds/pixi/premium-autumn-lake/rear-base.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/rear-high.png",
+      "resolutionHigh": 3,
+      "x": 0,
+      "y": 0,
+      "width": 800,
+      "height": 820
+    },
+    {
+      "id": "weather",
+      "kind": "weather"
+    },
+    {
+      "id": "v0-0",
+      "src": "/backgrounds/pixi/premium-autumn-lake/3f5486263fcb7d826e54.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-1ca83b36604876d6316f.png",
+      "resolutionHigh": 3,
+      "x": 442,
+      "y": 16,
+      "width": 356,
+      "height": 378,
+      "sourceTag": "ellipse",
+      "sourceRole": "soft-effect",
+      "sourceClasses": [
+        "premium-light-breathe"
+      ],
+      "motions": [
+        {
+          "id": "motion-398",
+          "kind": "premium-light",
+          "cssName": "premium-light",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "className": "premium-light-breathe",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 1,
+              "alpha": 0.72
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "pivotX": 620,
+          "pivotY": 205
+        }
+      ],
+      "costGuard": {
+        "originalGroup": "2e6f3b2979-1",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/3f5486263fcb7d826e54.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-1ca83b36604876d6316f.png",
+        "originalWidth": 356,
+        "originalHeight": 378,
+        "originalArea": 134568,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 134568,
+        "nativeParts": 0
+      },
+      "motion": {
+        "id": "motion-398",
+        "kind": "premium-light",
+        "cssName": "premium-light",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "className": "premium-light-breathe",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 1,
+            "alpha": 0.72
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "pivotX": 620,
+        "pivotY": 205
+      }
+    },
+    {
+      "id": "v0-1",
+      "src": "/backgrounds/pixi/premium-autumn-lake/66ad12e26f7a236f261b.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-9f8ed5b4f9e9c20d1b7a.png",
+      "resolutionHigh": 3,
+      "x": 221,
+      "y": 277,
+      "width": 23,
+      "height": 25,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-399",
+          "kind": "autumn-leaf-fall",
+          "cssName": "autumn-leaf-fall",
+          "ancestorMatrix": [
+            0.6108002035108405,
+            -0.22231309316168468,
+            0.22231309316168468,
+            0.6108002035108405,
+            233,
+            290
+          ],
+          "className": "autumn-leaf-fall",
+          "duration": 18,
+          "delay": -4,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": -26.226215360873283,
+              "y": -49.25026018048123,
+              "rotation": -0.20943951023931953,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0
+            },
+            {
+              "offset": 0.15,
+              "x": -8.78248878525413,
+              "y": -27.93063534431119,
+              "rotation": 0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.68
+            },
+            {
+              "offset": 0.5,
+              "x": 5.227722505402345,
+              "y": 25.76588669940373,
+              "rotation": 1.4660765716752369,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.8
+            },
+            {
+              "offset": 0.85,
+              "x": 38.50733135000498,
+              "y": 77.29093046600568,
+              "rotation": 2.722713633111154,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.5
+            },
+            {
+              "offset": 1,
+              "x": 50.00922990770321,
+              "y": 99.38977273360919,
+              "rotation": 3.3161255787892263,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0
+            }
+          ],
+          "easing": "linear",
+          "alternate": false,
+          "baseAlpha": 1,
+          "pivotX": 232.5,
+          "pivotY": 289.5
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-autumn-lake/clip-1b9fc317470a1c99190d.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-autumn-lake/clip-high-36c096b5eecb78912cb4.png",
+      "costGuard": {
+        "originalGroup": "494326f5f5-0",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/66ad12e26f7a236f261b.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-9f8ed5b4f9e9c20d1b7a.png",
+        "originalWidth": 23,
+        "originalHeight": 25,
+        "originalArea": 575,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 575,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-autumn-lake/clip-1b9fc317470a1c99190d.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-autumn-lake/clip-high-36c096b5eecb78912cb4.png"
+      },
+      "motion": {
+        "id": "motion-399",
+        "kind": "autumn-leaf-fall",
+        "cssName": "autumn-leaf-fall",
+        "ancestorMatrix": [
+          0.6108002035108405,
+          -0.22231309316168468,
+          0.22231309316168468,
+          0.6108002035108405,
+          233,
+          290
+        ],
+        "className": "autumn-leaf-fall",
+        "duration": 18,
+        "delay": -4,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": -26.226215360873283,
+            "y": -49.25026018048123,
+            "rotation": -0.20943951023931953,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0
+          },
+          {
+            "offset": 0.15,
+            "x": -8.78248878525413,
+            "y": -27.93063534431119,
+            "rotation": 0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.68
+          },
+          {
+            "offset": 0.5,
+            "x": 5.227722505402345,
+            "y": 25.76588669940373,
+            "rotation": 1.4660765716752369,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.8
+          },
+          {
+            "offset": 0.85,
+            "x": 38.50733135000498,
+            "y": 77.29093046600568,
+            "rotation": 2.722713633111154,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.5
+          },
+          {
+            "offset": 1,
+            "x": 50.00922990770321,
+            "y": 99.38977273360919,
+            "rotation": 3.3161255787892263,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0
+          }
+        ],
+        "easing": "linear",
+        "alternate": false,
+        "baseAlpha": 1,
+        "pivotX": 232.5,
+        "pivotY": 289.5
+      }
+    },
+    {
+      "id": "v0-2",
+      "src": "/backgrounds/pixi/premium-autumn-lake/f5836728024a81b62b8d.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-eef2732af59b65ec31f5.png",
+      "resolutionHigh": 3,
+      "x": 572,
+      "y": 320,
+      "width": 21,
+      "height": 23,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-400",
+          "kind": "autumn-leaf-fall",
+          "cssName": "autumn-leaf-fall",
+          "ancestorMatrix": [
+            0.561910827962723,
+            0.26202332227923364,
+            -0.26202332227923364,
+            0.561910827962723,
+            581,
+            332
+          ],
+          "className": "autumn-leaf-fall",
+          "duration": 22,
+          "delay": -12,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": 15.529052458182184,
+              "y": -50.906700244182254,
+              "rotation": -0.20943951023931953,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0
+            },
+            {
+              "offset": 0.15,
+              "x": 12.91487115849096,
+              "y": -24.761940613764065,
+              "rotation": 0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.68
+            },
+            {
+              "offset": 0.5,
+              "x": -13.852397858945682,
+              "y": 20.904293184833517,
+              "rotation": 1.4660765716752369,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.8
+            },
+            {
+              "offset": 0.85,
+              "x": -26.158416121417996,
+              "y": 78.10257912526794,
+              "rotation": 2.722713633111154,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.5
+            },
+            {
+              "offset": 1,
+              "x": -33.30574822821526,
+              "y": 100.76530719924757,
+              "rotation": 3.3161255787892263,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0
+            }
+          ],
+          "easing": "linear",
+          "alternate": false,
+          "baseAlpha": 1,
+          "pivotX": 582.5,
+          "pivotY": 331.5
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-autumn-lake/clip-1b9fc317470a1c99190d.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-autumn-lake/clip-high-36c096b5eecb78912cb4.png",
+      "costGuard": {
+        "originalGroup": "494326f5f5-1",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/f5836728024a81b62b8d.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-eef2732af59b65ec31f5.png",
+        "originalWidth": 21,
+        "originalHeight": 23,
+        "originalArea": 483,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 483,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-autumn-lake/clip-1b9fc317470a1c99190d.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-autumn-lake/clip-high-36c096b5eecb78912cb4.png"
+      },
+      "motion": {
+        "id": "motion-400",
+        "kind": "autumn-leaf-fall",
+        "cssName": "autumn-leaf-fall",
+        "ancestorMatrix": [
+          0.561910827962723,
+          0.26202332227923364,
+          -0.26202332227923364,
+          0.561910827962723,
+          581,
+          332
+        ],
+        "className": "autumn-leaf-fall",
+        "duration": 22,
+        "delay": -12,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": 15.529052458182184,
+            "y": -50.906700244182254,
+            "rotation": -0.20943951023931953,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0
+          },
+          {
+            "offset": 0.15,
+            "x": 12.91487115849096,
+            "y": -24.761940613764065,
+            "rotation": 0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.68
+          },
+          {
+            "offset": 0.5,
+            "x": -13.852397858945682,
+            "y": 20.904293184833517,
+            "rotation": 1.4660765716752369,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.8
+          },
+          {
+            "offset": 0.85,
+            "x": -26.158416121417996,
+            "y": 78.10257912526794,
+            "rotation": 2.722713633111154,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.5
+          },
+          {
+            "offset": 1,
+            "x": -33.30574822821526,
+            "y": 100.76530719924757,
+            "rotation": 3.3161255787892263,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0
+          }
+        ],
+        "easing": "linear",
+        "alternate": false,
+        "baseAlpha": 1,
+        "pivotX": 582.5,
+        "pivotY": 331.5
+      }
+    },
+    {
+      "id": "v0-3",
+      "src": "/backgrounds/pixi/premium-autumn-lake/15c2817e6e95af78115b.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-09762cb44e2d0cec34c0.png",
+      "resolutionHigh": 3,
+      "x": 346,
+      "y": 399,
+      "width": 18,
+      "height": 19,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-401",
+          "kind": "autumn-leaf-fall",
+          "cssName": "autumn-leaf-fall",
+          "ancestorMatrix": [
+            0.4727077214458598,
+            -0.08335112528012656,
+            0.08335112528012656,
+            0.4727077214458598,
+            355,
+            409
+          ],
+          "className": "autumn-leaf-fall",
+          "duration": 25,
+          "delay": -17,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": -12.757338306161076,
+              "y": -39.17994281953656,
+              "rotation": -0.20943951023931953,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0
+            },
+            {
+              "offset": 0.15,
+              "x": -2.805385194713976,
+              "y": -21.438549715623946,
+              "rotation": 0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.68
+            },
+            {
+              "offset": 0.5,
+              "x": 0.4977986825299032,
+              "y": 19.408415609515153,
+              "rotation": 1.4660765716752369,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.8
+            },
+            {
+              "offset": 0.85,
+              "x": 18.092964358664602,
+              "y": 61.1471523516516,
+              "rotation": 2.722713633111154,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.5
+            },
+            {
+              "offset": 1,
+              "x": 23.62384572653871,
+              "y": 78.69329014019364,
+              "rotation": 3.3161255787892263,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0
+            }
+          ],
+          "easing": "linear",
+          "alternate": false,
+          "baseAlpha": 1,
+          "pivotX": 355,
+          "pivotY": 408.5
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-autumn-lake/clip-1b9fc317470a1c99190d.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-autumn-lake/clip-high-36c096b5eecb78912cb4.png",
+      "costGuard": {
+        "originalGroup": "494326f5f5-2",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/15c2817e6e95af78115b.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-09762cb44e2d0cec34c0.png",
+        "originalWidth": 18,
+        "originalHeight": 19,
+        "originalArea": 342,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 342,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-autumn-lake/clip-1b9fc317470a1c99190d.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-autumn-lake/clip-high-36c096b5eecb78912cb4.png"
+      },
+      "motion": {
+        "id": "motion-401",
+        "kind": "autumn-leaf-fall",
+        "cssName": "autumn-leaf-fall",
+        "ancestorMatrix": [
+          0.4727077214458598,
+          -0.08335112528012656,
+          0.08335112528012656,
+          0.4727077214458598,
+          355,
+          409
+        ],
+        "className": "autumn-leaf-fall",
+        "duration": 25,
+        "delay": -17,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": -12.757338306161076,
+            "y": -39.17994281953656,
+            "rotation": -0.20943951023931953,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0
+          },
+          {
+            "offset": 0.15,
+            "x": -2.805385194713976,
+            "y": -21.438549715623946,
+            "rotation": 0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.68
+          },
+          {
+            "offset": 0.5,
+            "x": 0.4977986825299032,
+            "y": 19.408415609515153,
+            "rotation": 1.4660765716752369,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.8
+          },
+          {
+            "offset": 0.85,
+            "x": 18.092964358664602,
+            "y": 61.1471523516516,
+            "rotation": 2.722713633111154,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.5
+          },
+          {
+            "offset": 1,
+            "x": 23.62384572653871,
+            "y": 78.69329014019364,
+            "rotation": 3.3161255787892263,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0
+          }
+        ],
+        "easing": "linear",
+        "alternate": false,
+        "baseAlpha": 1,
+        "pivotX": 355,
+        "pivotY": 408.5
+      }
+    },
+    {
+      "id": "v0-4",
+      "src": "/backgrounds/pixi/premium-autumn-lake/913a87cae086e42651b0.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-26d2263c5d8f4e8e1e89.png",
+      "resolutionHigh": 3,
+      "x": 309,
+      "y": 447,
+      "width": 114,
+      "height": 44,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-402",
+          "kind": "signature-travel",
+          "cssName": "signature-travel",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            375,
+            465
+          ],
+          "className": "signature-travel",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": -24,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 30,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "autumn-lake-boat",
+          "pivotX": 366,
+          "pivotY": 469
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-autumn-lake/clip-40cbea6a90e3083dae67.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-autumn-lake/clip-high-5918747b93321ac19a83.png",
+      "costGuard": {
+        "originalGroup": "494326f5f5-4",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/913a87cae086e42651b0.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-26d2263c5d8f4e8e1e89.png",
+        "originalWidth": 114,
+        "originalHeight": 44,
+        "originalArea": 5016,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 5016,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-autumn-lake/clip-40cbea6a90e3083dae67.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-autumn-lake/clip-high-5918747b93321ac19a83.png"
+      },
+      "motion": {
+        "id": "motion-402",
+        "kind": "signature-travel",
+        "cssName": "signature-travel",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          375,
+          465
+        ],
+        "className": "signature-travel",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": -24,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 30,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "autumn-lake-boat",
+        "pivotX": 366,
+        "pivotY": 469
+      }
+    },
+    {
+      "id": "v0-5",
+      "src": "/backgrounds/pixi/premium-autumn-lake/0c7bf3322bb808c80996.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-336206d33fb961e4d997.png",
+      "resolutionHigh": 3,
+      "x": 638,
+      "y": 481,
+      "width": 4,
+      "height": 62,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "494326f5f5-5",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/0c7bf3322bb808c80996.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-336206d33fb961e4d997.png",
+        "originalWidth": 4,
+        "originalHeight": 62,
+        "originalArea": 248,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 248,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-6",
+      "src": "/backgrounds/pixi/premium-autumn-lake/bb6dce9c2fbc695d91ea.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-8ce01b17dbdb8d86fe43.png",
+      "resolutionHigh": 3,
+      "x": 605,
+      "y": 462,
+      "width": 35,
+      "height": 66,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-403",
+          "kind": "signature-rock",
+          "cssName": "signature-rock",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            640,
+            505
+          ],
+          "className": "signature-sway",
+          "duration": 13,
+          "delay": -2.7,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": 0,
+              "y": 0,
+              "rotation": -0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "autumn-lake-reed",
+          "pivotX": 622.5,
+          "pivotY": 528
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-autumn-lake/clip-2a001b26a4cd3b401d5d.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-autumn-lake/clip-high-cd5d11af9cf0be176c23.png",
+      "costGuard": {
+        "originalGroup": "494326f5f5-6",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/bb6dce9c2fbc695d91ea.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-8ce01b17dbdb8d86fe43.png",
+        "originalWidth": 35,
+        "originalHeight": 66,
+        "originalArea": 2310,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 2310,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-autumn-lake/clip-2a001b26a4cd3b401d5d.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-autumn-lake/clip-high-cd5d11af9cf0be176c23.png"
+      },
+      "motion": {
+        "id": "motion-403",
+        "kind": "signature-rock",
+        "cssName": "signature-rock",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          640,
+          505
+        ],
+        "className": "signature-sway",
+        "duration": 13,
+        "delay": -2.7,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": 0,
+            "y": 0,
+            "rotation": -0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "autumn-lake-reed",
+        "pivotX": 622.5,
+        "pivotY": 528
+      }
+    },
+    {
+      "id": "v0-7",
+      "src": "/backgrounds/pixi/premium-autumn-lake/2b0b854b99c2ec081314.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-defff0fa57b7caf2c924.png",
+      "resolutionHigh": 3,
+      "x": 140,
+      "y": 297,
+      "width": 70,
+      "height": 63,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-404",
+          "kind": "signature-drift",
+          "cssName": "signature-drift",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            175,
+            330
+          ],
+          "className": "signature-drift",
+          "duration": 18,
+          "delay": -5.4,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": -8,
+              "y": 3,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 12,
+              "y": -7,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "autumn-lake-leaf",
+          "pivotX": 175,
+          "pivotY": 328.5
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-autumn-lake/clip-9fc678dcb49d50c100ef.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-autumn-lake/clip-high-4972406e46b2e311efc2.png",
+      "costGuard": {
+        "originalGroup": "494326f5f5-7",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/2b0b854b99c2ec081314.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-defff0fa57b7caf2c924.png",
+        "originalWidth": 70,
+        "originalHeight": 63,
+        "originalArea": 4410,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 4410,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-autumn-lake/clip-9fc678dcb49d50c100ef.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-autumn-lake/clip-high-4972406e46b2e311efc2.png"
+      },
+      "motion": {
+        "id": "motion-404",
+        "kind": "signature-drift",
+        "cssName": "signature-drift",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          175,
+          330
+        ],
+        "className": "signature-drift",
+        "duration": 18,
+        "delay": -5.4,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": -8,
+            "y": 3,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 12,
+            "y": -7,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "autumn-lake-leaf",
+        "pivotX": 175,
+        "pivotY": 328.5
+      }
+    },
+    {
+      "id": "v0-8",
+      "src": "/backgrounds/pixi/premium-autumn-lake/3c400690a08e510e6417.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-b49132fdcf332dc42b40.png",
+      "resolutionHigh": 3,
+      "x": 155,
+      "y": 453,
+      "width": 510,
+      "height": 367,
+      "sourceTag": "g",
+      "sourceRole": "character",
+      "rasterOnlyReason": "human-subtree",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "494326f5f5-8",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/3c400690a08e510e6417.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-b49132fdcf332dc42b40.png",
+        "originalWidth": 510,
+        "originalHeight": 367,
+        "originalArea": 187170,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 187170,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-9",
+      "src": "/backgrounds/pixi/premium-autumn-lake/e43edfe6b9832f73c5e6.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-59d27575547a115f8faa.png",
+      "resolutionHigh": 3,
+      "x": 416,
+      "y": 593,
+      "width": 27,
+      "height": 38,
+      "sourceTag": "path",
+      "sourceRole": "soft-effect",
+      "sourceClasses": [
+        "premium-steam"
+      ],
+      "motions": [
+        {
+          "id": "motion-405",
+          "kind": "premium-steam",
+          "cssName": "premium-steam",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            430,
+            650
+          ],
+          "className": "premium-steam",
+          "duration": 5.5,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0.5,
+              "x": 0,
+              "y": -7,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.14
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": false,
+          "baseAlpha": 0.32,
+          "pivotX": 429.5,
+          "pivotY": 631
+        }
+      ],
+      "vectorFallbackReason": "normalization-diff:0.000363",
+      "costGuard": {
+        "originalGroup": "494326f5f5-9",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/e43edfe6b9832f73c5e6.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-59d27575547a115f8faa.png",
+        "originalWidth": 27,
+        "originalHeight": 38,
+        "originalArea": 1026,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 1026,
+        "nativeParts": 0
+      },
+      "motion": {
+        "id": "motion-405",
+        "kind": "premium-steam",
+        "cssName": "premium-steam",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          430,
+          650
+        ],
+        "className": "premium-steam",
+        "duration": 5.5,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0.5,
+            "x": 0,
+            "y": -7,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.14
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": false,
+        "baseAlpha": 0.32,
+        "pivotX": 429.5,
+        "pivotY": 631
+      }
+    },
+    {
+      "id": "v0-10",
+      "src": "/backgrounds/pixi/premium-autumn-lake/82a5978fb761461e340f.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-3488ed29407e932e3873.png",
+      "resolutionHigh": 3,
+      "x": 47,
+      "y": 682,
+      "width": 56,
+      "height": 62,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M-28 -18 L28 -18 L20 44 L-20 44 Z\" fill=\"#8c7452\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              75,
+              700
+            ],
+            "primitiveCount": 1
+          }
+        ],
+        "primitiveCount": 1,
+        "nativeInstructions": 1,
+        "sourceBounds": {
+          "x": 47,
+          "y": 682,
+          "width": 56,
+          "height": 62
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "494326f5f5-10",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/729648e29a3b43812e0d.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-9b8a63f9c3e8e7188462.png",
+        "originalWidth": 176,
+        "originalHeight": 241,
+        "originalArea": 42416,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 21158,
+        "nativeParts": 5
+      }
+    },
+    {
+      "id": "v0-11",
+      "src": "/backgrounds/pixi/premium-autumn-lake/267d1d43c64e38e76cbb.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-6d2c0687c1e039497858.png",
+      "resolutionHigh": 3,
+      "x": 4,
+      "y": 540,
+      "width": 142,
+      "height": 149,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "494326f5f5-10",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/729648e29a3b43812e0d.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-9b8a63f9c3e8e7188462.png",
+        "originalWidth": 176,
+        "originalHeight": 241,
+        "originalArea": 42416,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 21158,
+        "nativeParts": 5
+      }
+    },
+    {
+      "id": "v0-12",
+      "src": "/backgrounds/pixi/premium-autumn-lake/de175af704ce04c86973.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-a49a499a321727f6cfba.png",
+      "resolutionHigh": 3,
+      "x": 26,
+      "y": 551,
+      "width": 154,
+      "height": 230,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"-9\" r=\"10\" fill=\"#b69a8d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cx=\"9\" r=\"10\" fill=\"#b69a8d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cy=\"-9\" r=\"10\" fill=\"#b69a8d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cy=\"9\" r=\"10\" fill=\"#b69a8d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle r=\"5\" fill=\"#d0b684\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              45,
+              570
+            ],
+            "primitiveCount": 5
+          },
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"-9\" r=\"10\" fill=\"#b69a8d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cx=\"9\" r=\"10\" fill=\"#b69a8d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cy=\"-9\" r=\"10\" fill=\"#b69a8d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cy=\"9\" r=\"10\" fill=\"#b69a8d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle r=\"5\" fill=\"#d0b684\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              75,
+              600
+            ],
+            "primitiveCount": 5
+          },
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"-9\" r=\"10\" fill=\"#b69a8d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cx=\"9\" r=\"10\" fill=\"#b69a8d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cy=\"-9\" r=\"10\" fill=\"#b69a8d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cy=\"9\" r=\"10\" fill=\"#b69a8d\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle r=\"5\" fill=\"#d0b684\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              110,
+              570
+            ],
+            "primitiveCount": 5
+          },
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><ellipse cy=\"12\" rx=\"65\" ry=\"14\" fill=\"#44563e\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              115,
+              755
+            ],
+            "primitiveCount": 1
+          }
+        ],
+        "primitiveCount": 16,
+        "nativeInstructions": 16,
+        "sourceBounds": {
+          "x": 26,
+          "y": 551,
+          "width": 154,
+          "height": 230
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "494326f5f5-10",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/729648e29a3b43812e0d.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-9b8a63f9c3e8e7188462.png",
+        "originalWidth": 176,
+        "originalHeight": 241,
+        "originalArea": 42416,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 21158,
+        "nativeParts": 5
+      }
+    },
+    {
+      "id": "v0-13",
+      "kind": "animal",
+      "animalId": "premium-autumn-lake:actor-1"
+    },
+    {
+      "id": "v0-14",
+      "src": "/backgrounds/pixi/premium-autumn-lake/8cffc4f84c89818ce878.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-0ebe3975e000826c1708.png",
+      "resolutionHigh": 3,
+      "x": 60,
+      "y": 0,
+      "width": 679,
+      "height": 820,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "494326f5f5-12",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/8cffc4f84c89818ce878.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-0ebe3975e000826c1708.png",
+        "originalWidth": 679,
+        "originalHeight": 820,
+        "originalArea": 556780,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 556780,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-15",
+      "src": "/backgrounds/pixi/premium-autumn-lake/326e4e4289414ac8406f.png",
+      "srcHigh": "/backgrounds/pixi/premium-autumn-lake/high-924825721d7a7deadacf.png",
+      "resolutionHigh": 3,
+      "x": 87,
+      "y": 155,
+      "width": 16,
+      "height": 39,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [
+        "signature-swing"
+      ],
+      "motions": [
+        {
+          "id": "motion-406",
+          "kind": "signature-rock",
+          "cssName": "signature-rock",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            95,
+            160
+          ],
+          "className": "signature-swing",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": 0,
+              "y": 0,
+              "rotation": -0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "autumn-lake-clock",
+          "pivotX": 95,
+          "pivotY": 155
+        }
+      ],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 -5 L0 26\" fill=\"#000000\" stroke=\"#c5a776\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cy=\"26\" r=\"8\" fill=\"#c5a776\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              95,
+              160
+            ],
+            "primitiveCount": 2
+          }
+        ],
+        "primitiveCount": 2,
+        "nativeInstructions": 3,
+        "sourceBounds": {
+          "x": 87,
+          "y": 155,
+          "width": 16,
+          "height": 39
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "494326f5f5-13",
+        "decision": "whole-native",
+        "originalSrc": "/backgrounds/pixi/premium-autumn-lake/326e4e4289414ac8406f.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-autumn-lake/high-924825721d7a7deadacf.png",
+        "originalWidth": 16,
+        "originalHeight": 39,
+        "originalArea": 624,
+        "retainedRasterCount": 0,
+        "retainedRasterArea": 0,
+        "nativeParts": 1
+      },
+      "motion": {
+        "id": "motion-406",
+        "kind": "signature-rock",
+        "cssName": "signature-rock",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          95,
+          160
+        ],
+        "className": "signature-swing",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": 0,
+            "y": 0,
+            "rotation": -0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "autumn-lake-clock",
+        "pivotX": 95,
+        "pivotY": 155
+      }
+    }
+  ],
+  "provenance": {
+    "method": "Build-time bodyless React SVG/Sharp decomposition; live animals in ordered native slots",
+    "source": "authoring Cafe/PremiumScene",
+    "cssKeyframes": true,
+    "highResolutionSource": "original authoring SVG rasterized at 216 DPI, never enlarged from PNG",
+    "sourceDigest": "5c7ca82da872de064c14d1c3cfca3b8641222cc7101e0c5c55c93fecd8ec3466",
+    "sourceHashes": [
+      {
+        "path": "scripts/export-pixi-scenes.mjs",
+        "sha256": "cce24c18d6e635a612a959fc8d97d3f851eeaf67f3f0804a9336cf33b62a17f3"
+      },
+      {
+        "path": "scripts/pixi-animal-slots.mjs",
+        "sha256": "9bb84df02f536a81b1f8d18d4d403f01b9e65d81005d4bcdbf08af2cf348a204"
+      },
+      {
+        "path": "scripts/pixi-export-assets.mjs",
+        "sha256": "d420a92c1a9022c218f91d8ef4612834f98382fbfb8c4a32899a5312ddc40a7e"
+      },
+      {
+        "path": "scripts/pixi-vector-geometry.mjs",
+        "sha256": "be71a70f9cc5ee08df773822749e8bc9e0c4f7772f26c2e92c0636cc992c5a92"
+      },
+      {
+        "path": "src/pages/focus/lib/sceneEffectCycle.ts",
+        "sha256": "dcda423ecaed94108977149eab22dee726799d41d2075d8fab8c03b42842c73a"
+      },
+      {
+        "path": "src/pages/focus/lib/sceneTime.ts",
+        "sha256": "cad76a40f6c70d279306eadfbd11659cb4ae60254ab5e40a78a241ddb1a92c0b"
+      },
+      {
+        "path": "src/pages/focus/model/animalHabitats.ts",
+        "sha256": "92163ddce7670e57105d2331b27874dc26998c3b8177b6fe780f4cdf670721a6"
+      },
+      {
+        "path": "src/pages/focus/model/animalSpecies.ts",
+        "sha256": "b1664faeee27972cddff72dce8f41be17fe618b30138bfe1a5f25b674600a8f8"
+      },
+      {
+        "path": "src/pages/focus/model/animalSpecies.ts",
+        "sha256": "b1664faeee27972cddff72dce8f41be17fe618b30138bfe1a5f25b674600a8f8"
+      },
+      {
+        "path": "src/pages/focus/model/backgrounds.ts",
+        "sha256": "aa5522f3d96c7c3f2c8fe7b4a80067bef653e0c1bd42e782a1d7cf036cd780f9"
+      },
+      {
+        "path": "src/pages/focus/model/neonSigns.ts",
+        "sha256": "6d184d7ec7a74cb17d710ee9a7be172c67589e6b63c58aff0c5c5f32c3f03265"
+      },
+      {
+        "path": "src/pages/focus/model/premiumCast.ts",
+        "sha256": "5ce83484e6aac22c28465ffa9b323011ff599a4a68cd312a751e931a8c2a24cc"
+      },
+      {
+        "path": "src/pages/focus/model/premiumExperience.ts",
+        "sha256": "c69e9d0e81d152f7b9c1ee648ceab68b72664edf3b6099e6c176128d2639b640"
+      },
+      {
+        "path": "src/pages/focus/model/premiumSpaces.ts",
+        "sha256": "08e7600d4b06133c49a9c8801e85df579e48725139178f6d244fc870b53e3722"
+      },
+      {
+        "path": "src/pages/focus/model/sakuraPetals.ts",
+        "sha256": "4507fc1a89ab1732824218d328423c52d26e1028fc089792ffae81d7101a3151"
+      },
+      {
+        "path": "src/pages/focus/model/sceneAnimals.ts",
+        "sha256": "70e57324db99f5928688af7d794241909b3a01d89a1fa7b8d05eaae7a8b1d1cf"
+      },
+      {
+        "path": "src/pages/focus/model/sceneArchitecture.ts",
+        "sha256": "c9acf3dd253f7fde4fc4fb2afc11d72a6efeb6f911579f8c8fb35de9214ecc62"
+      },
+      {
+        "path": "src/pages/focus/model/sceneAutumn.ts",
+        "sha256": "f3961219ab5bfe519de5c347c13ac14f9d95e6d524a24ee5f0ccc782bbf99354"
+      },
+      {
+        "path": "src/pages/focus/model/sceneCast.ts",
+        "sha256": "277b47d7ef4f0254d18ed54bb57a94c111aee70a748f8d58cdbde82f91b4e3be"
+      },
+      {
+        "path": "src/pages/focus/model/sceneDetails.ts",
+        "sha256": "1231d4449d808be1d5c1aed01f5fa5b7ee8898b0114da6ccbc4eb7ec0893297d"
+      },
+      {
+        "path": "src/pages/focus/model/sceneEffects.ts",
+        "sha256": "5762a3e4fe39466bdd6ef10856f846f1308879aed3168f7ce94aa307978e3336"
+      },
+      {
+        "path": "src/pages/focus/model/sceneInterior.ts",
+        "sha256": "430d66d9abc3f7ac92acc00c1ef8c96c25d1f873c277358f6af2ed54a176ffb5"
+      },
+      {
+        "path": "src/pages/focus/model/scenePlants.ts",
+        "sha256": "e8f428446dbefb179eabbc00dbb3030cf981dcb9494fbca0a914931626d39d7b"
+      },
+      {
+        "path": "src/pages/focus/model/sceneWeather.ts",
+        "sha256": "3f712859413c6431388d7317ceba3d0a71af85f7b867c7d1d2853c2af08d239d"
+      },
+      {
+        "path": "src/pages/focus/model/thunderstorm.ts",
+        "sha256": "cd72ad96f69be1d0526808b7a506883339b5ab255f948eca80f950ecd452cd1d"
+      },
+      {
+        "path": "src/pages/focus/ui/AutumnScenery.tsx",
+        "sha256": "d057de93a3c8799da7ce41f51d311b60ed747799fba1e7ec02fd62d6ae495705"
+      },
+      {
+        "path": "src/pages/focus/ui/backgrounds.css",
+        "sha256": "35d273c6e3c016a06c3217879bc4b636fe73a0fee656d25ce4c6d67251659e4e"
+      },
+      {
+        "path": "src/pages/focus/ui/Cafe.tsx",
+        "sha256": "15f75b36611f816e8ae3f635ea3800e443b45108635a07d682606daa035631d8"
+      },
+      {
+        "path": "src/pages/focus/ui/LegacyOutdoorFixtures.tsx",
+        "sha256": "df773122841276c8e6789af11f989e9627bb70610ab902bb4d39dbd505382a59"
+      },
+      {
+        "path": "src/pages/focus/ui/NeonCityArt.tsx",
+        "sha256": "1fb5d3f98121b3ad808257ea61e7f9930c729b81f0a873c94147340c2892f63d"
+      },
+      {
+        "path": "src/pages/focus/ui/NeonFacadeLights.tsx",
+        "sha256": "28f141679ae5004663e74c8c25c4446fa5acf109da965132a4590fd487e37b22"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/CinemaFilm.tsx",
+        "sha256": "7e5b975c58a6f04947940d19143ecf32551531896a94e1fba0809e7994e895a3"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premium-signatures.css",
+        "sha256": "81ba95beeb28f2809329a6ae3501437164b4f9762e3b56f7a7fb9a2fe2dc61e7"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premium.css",
+        "sha256": "106215e1a3cd162aeac9b52465953ba33d46140d553a7e8d1061463d6cc56bfc"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumArchitecture.tsx",
+        "sha256": "86b5af6f4c4325f387ffae0f075ba0b975fe49e4d7e3e14ef92d35f9c1340db0"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumAtmosphere.tsx",
+        "sha256": "61aca5e6aa0d070a1cb6f399b6d7f36d958bf9fad24262143023fd32997bc6a6"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumAtmosphere.tsx",
+        "sha256": "61aca5e6aa0d070a1cb6f399b6d7f36d958bf9fad24262143023fd32997bc6a6"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumCharacter.tsx",
+        "sha256": "2db855ceca5754abaf1a709166d4c91cc81f59425dda8d3a1864dd6cfb0a5d66"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumFixtures.tsx",
+        "sha256": "5faa3563dd699ffaa3848c64455362e3cdfe19cd8a73a8bd594014b6fdec1f0e"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premiumGeometry.ts",
+        "sha256": "70ffccfa826b63c86043fdedbf6e085c7f4abc109eb105e0ecbaa5b60a7f6ae4"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumHeroes.tsx",
+        "sha256": "9d7182045b8f1015eca3c05c46ab987794b1b97f7f674d47c39833de076a55e2"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumInterior.tsx",
+        "sha256": "489284e5c51232bcd11273f20f55e4b6b581a5d7ec15d9f1152ba9b8c8fe5d37"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumObjects.tsx",
+        "sha256": "9489c16982f3a25d0d3faf283438b419b11d621dce26bb3d31c5ff32f8471e3d"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumScene.tsx",
+        "sha256": "64467d7455d104b16ff53ecfc2b7445c0c652b166709c0693f6bcc00fbe3cd3b"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumScene.tsx",
+        "sha256": "64467d7455d104b16ff53ecfc2b7445c0c652b166709c0693f6bcc00fbe3cd3b"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumSignatureDetails.tsx",
+        "sha256": "bbb9216a34fffd938a9bd7ca127af1fdc8a01f6959079d0e1a08ca361e30c3fa"
+      },
+      {
+        "path": "src/pages/focus/ui/RainOverlay.tsx",
+        "sha256": "8d4fc403218fed94666171eb68a4546416a43dbd90547b845b7bc902b7912b01"
+      },
+      {
+        "path": "src/pages/focus/ui/RainOverlay.tsx",
+        "sha256": "8d4fc403218fed94666171eb68a4546416a43dbd90547b845b7bc902b7912b01"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomFurnishings.tsx",
+        "sha256": "33cf9f4a214e365a372117c954ebde36846a8f97c86f33b18e0274610693a9a4"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomLighting.tsx",
+        "sha256": "22e29e36ae6cbc517a66fc4d0f8cca9d93546732e3a25da566e3169dbee9ee79"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomWallTexture.tsx",
+        "sha256": "59cc984b2f6e5ad496dcc4dc64c66bc4c79c0844b78ed78c2e8c018d33660832"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomWindow.tsx",
+        "sha256": "e4268594944caafc217f87fc250149344437c55ec68bcf29038a8ea25211f040"
+      },
+      {
+        "path": "src/pages/focus/ui/scene-effects.css",
+        "sha256": "49b91c04946138222d2215e334acad98c9a56c4d9e07f12136b75a96f15a259c"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneAtmosphere.tsx",
+        "sha256": "dc1445b3e812f7c9a96cfb630c04a40450900a3c290e2817e7447147d242a790"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneAtmosphere.tsx",
+        "sha256": "dc1445b3e812f7c9a96cfb630c04a40450900a3c290e2817e7447147d242a790"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneCaption.tsx",
+        "sha256": "ec6d1cdb0d8198676f0510f544254a7c06f1ddc0547616b816dd9ed0344538e9"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneCompanions.tsx",
+        "sha256": "847fc93209b8729b434b11849e9fa552b528e629454de1ee0459ce724e4802b2"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneDetails.tsx",
+        "sha256": "cdf50b1cff06573129dd38646188e8650ea834295da2b2236dfbf2cd7dfc73d6"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneLayer.tsx",
+        "sha256": "f4363e6d7d2049654d7f80ca55032266ffca066413889e2dffb18320141a87ea"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneOutdoorLife.tsx",
+        "sha256": "24ce6c78be438502d6b9cbddfd60a8a9858f725412b07ab13daf510b7a05055d"
+      },
+      {
+        "path": "src/pages/focus/ui/ScenePets.tsx",
+        "sha256": "4d8014045089a98ee4fca5a769f6fece72c8b97a6c49d2313aa817ffd5082abd"
+      },
+      {
+        "path": "src/pages/focus/ui/ScenePlants.tsx",
+        "sha256": "dc3d9871b65c2df495f9e15107f5127a4761b37d15f223a652207f5a44b45603"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneTable.tsx",
+        "sha256": "ed0922378a8e45b384070ba478ec12418dfaffe8f412b56bb9b062d3d9844a37"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWeatherDrawing.tsx",
+        "sha256": "565a350c95299ff5f996d1a0828b08b6bef82314cc5093e96deaf03c77848c5c"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWildlife.tsx",
+        "sha256": "82e4df15b2f069dbec95d1dd09b397896cb924fa6811785b1f0f5aa05e5de855"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWindow.tsx",
+        "sha256": "5cfdfc7c5c9ccf54502d66e35fd61f6fc50a5c0c13b8e86f97f84c6421da5720"
+      },
+      {
+        "path": "src/pages/focus/ui/SongInspiredArt.tsx",
+        "sha256": "da3f2ab3eeec24f87b5592fcbb1f4fcea184986f988b456783fb19bc72b380fb"
+      },
+      {
+        "path": "src/pages/focus/ui/SpecialCafeScenes.tsx",
+        "sha256": "eebc3d72d826f213a2fe195991a8adb5539dfb860fdad8579939191843160bc3"
+      },
+      {
+        "path": "src/pages/focus/ui/weather.css",
+        "sha256": "876af059984a83428327e34d1a41200ce430c7c4130cf9d1515bc9d2aa3fd6da"
+      }
+    ]
+  },
+  "proof": {
+    "variants": [
+      {
+        "coffeeCount": 0,
+        "meanAbsoluteError": 0.06787842987804878,
+        "maxChannelDifference": 3,
+        "channelFractionAbove2": 7.621951219512196e-7,
+        "vectorComparison": {
+          "meanAbsoluteError": 0.06787842987804878,
+          "maxChannelDifference": 3,
+          "channelFractionAbove2": 7.621951219512196e-7
+        }
+      }
+    ],
+    "vectorCoverage": [
+      {
+        "originalRunBaseline": {
+          "uniquePNGCount": 19,
+          "logicalArea": 4871968,
+          "decoded1xBytes": 19487872,
+          "decoded3xBytes": 175390848
+        },
+        "guardedHybrid": {
+          "uniquePNGCount": 18,
+          "logicalArea": 4850086,
+          "decoded1xBytes": 19400344,
+          "decoded3xBytes": 174603096
+        },
+        "coffeeCount": 0,
+        "nativeLayers": 3,
+        "nativePrimitives": 19,
+        "nativeParts": 6,
+        "textureDecodedBytesBefore": 57945672,
+        "textureDecodedBytesAfter": 56523096,
+        "compressedHighTextureBytesAvoided": 12973
+      }
+    ],
+    "staticBodiesRemoved": true,
+    "liveAnimalsExcludedFromStaticProof": true
+  }
+}

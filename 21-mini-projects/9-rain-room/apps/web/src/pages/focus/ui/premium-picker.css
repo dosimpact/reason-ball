@@ -1,0 +1,24 @@
+.background-card[data-rarity="epic"] {
+  --rarity-color: #b99ae8;
+  --rarity-check-text: #20152f;
+}
+.background-card[data-rarity="legendary"] {
+  --rarity-color: #efae65;
+  --rarity-check-text: #35210e;
+}
+.background-card[data-rarity] .background-preview,
+.background-card[data-rarity][aria-pressed="true"] .background-preview {
+  border-color: var(--rarity-color);
+}
+.background-card[data-rarity][aria-pressed="true"] .background-preview {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--rarity-color) 28%, transparent);
+}
+.background-card[data-rarity] .background-selected {
+  background: var(--rarity-color);
+  color: var(--rarity-check-text);
+}
+
+/* Category pills have no outer hit-area wrapper; keep the control itself touch-safe. */
+.background-picker .background-categories > button {
+  min-height: var(--control-size);
+}

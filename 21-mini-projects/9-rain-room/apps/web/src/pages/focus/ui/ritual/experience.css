@@ -1,0 +1,14 @@
+/* The café visit is a viewport, not a scrolling document. Dialogs manage their
+   own bounded content while the POS and receipt remain inside this surface. */
+.rain-room-experience {
+  position: fixed;
+  top: var(--rain-room-viewport-top, 0px);
+  left: var(--rain-room-viewport-left, 0px);
+  right: auto;
+  bottom: auto;
+  width: var(--rain-room-viewport-width, 100vw);
+  height: var(--rain-room-viewport-height, 100dvh);
+  min-height: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+}

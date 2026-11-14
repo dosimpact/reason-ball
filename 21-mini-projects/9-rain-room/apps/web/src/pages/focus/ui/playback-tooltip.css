@@ -1,0 +1,29 @@
+.playback-tooltip {
+  z-index: 11000;
+  max-width: min(260px, calc(100vw - 32px));
+  line-height: 1.6;
+  pointer-events: none;
+  animation: playback-hint-in 140ms ease-out;
+}
+.playback-tooltip * {
+  pointer-events: none;
+}
+.playback-controls button {
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+@keyframes playback-hint-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .playback-tooltip {
+    animation: none;
+  }
+}

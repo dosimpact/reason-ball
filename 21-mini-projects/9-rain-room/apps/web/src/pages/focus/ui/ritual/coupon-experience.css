@@ -1,0 +1,367 @@
+.coupon-experience {
+  container-type: size;
+  container-name: coupon-experience;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: max(12px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+    max(12px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  background: var(--color-background);
+}
+.completion-coupon {
+  width: min(100%, 390px);
+  padding: 24px;
+  border: 1px solid #d8ceaa;
+  border-radius: var(--radius-card);
+  background: #eee8da;
+  color: #353b32;
+  box-shadow: 0 16px 48px #0006;
+  display: grid;
+  gap: 12px;
+  animation: completion-card-arrive 550ms ease-out both;
+}
+.completion-coupon-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.completion-coupon h1 {
+  font-size: 22px;
+  line-height: 1.3;
+  font-weight: 500;
+  margin: 0;
+  outline: none;
+}
+.completion-focus,
+.completion-result {
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+}
+.completion-stamps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+.completion-stamp {
+  width: 100%;
+  max-width: 48px;
+  aspect-ratio: 1;
+  justify-self: center;
+  border: 1px dashed #a5aa97;
+  border-radius: 50%;
+  color: #a5aa97;
+  display: grid;
+  place-items: center;
+}
+.completion-stamp svg {
+  width: 70%;
+  height: 70%;
+}
+.completion-stamp-filled {
+  border: 2px solid #78866f;
+  color: #78866f;
+  transform: rotate(-8deg);
+}
+.completion-coupon[data-settled="false"][data-stamped="false"]
+  .completion-stamp[data-new-stamp="true"] {
+  opacity: 0;
+}
+.completion-coupon[data-settled="true"][data-stamped="false"]
+  .completion-stamp-filled[data-new-stamp="true"] {
+  animation: completion-ink 700ms ease-out both;
+}
+.completion-coupon-totals {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 18px;
+  flex-wrap: wrap;
+}
+.completion-coupon-totals strong {
+  font-weight: 500;
+}
+.completion-progress {
+  width: 100%;
+  height: 5px;
+  accent-color: #78866f;
+}
+.completion-actions {
+  display: grid;
+  gap: 8px;
+}
+.completion-actions .primary {
+  width: 100%;
+  min-height: var(--button-height);
+}
+.completion-return,
+.completion-retry {
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: var(--radius-control);
+}
+.completion-return {
+  color: #58604f;
+}
+.completion-pending {
+  min-height: 120px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+}
+.completion-pending p {
+  margin: 0;
+}
+.completion-retry {
+  border: 1px solid #78866f;
+  margin-top: 8px;
+}
+.completion-rest {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+.completion-rest span {
+  font-size: 12px;
+}
+.completion-rest time {
+  font-size: 32px;
+  line-height: 1.1;
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+}
+.completion-departure {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: var(--color-background);
+  pointer-events: auto;
+  animation: completion-leave 650ms ease both;
+}
+@keyframes completion-card-arrive {
+  from {
+    opacity: 0;
+    transform: translateX(36px) rotate(3deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0);
+  }
+}
+@keyframes completion-ink {
+  0% {
+    opacity: 0;
+    transform: scale(1.8) rotate(-8deg);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(0.93) rotate(-8deg);
+    box-shadow: 0 0 18px #b6bd8a66;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-8deg);
+  }
+}
+@keyframes completion-leave {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@supports not (container-type: size) {
+  @media (max-height: 620px) {
+    .coupon-experience {
+      gap: 8px;
+    }
+    .completion-coupon {
+      padding: 16px;
+      gap: 8px;
+    }
+    .completion-stamp {
+      max-width: 40px;
+    }
+  }
+}
+@supports not (container-type: size) {
+  @media (max-height: 480px) and (orientation: landscape) {
+    .coupon-experience {
+      gap: 8px;
+    }
+    .coupon-experience > .brand {
+      display: none;
+    }
+    .completion-coupon {
+      width: min(100%, 640px);
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 20px;
+      padding: 12px 18px;
+    }
+    .completion-coupon-heading,
+    .completion-focus,
+    .completion-result,
+    .completion-stamps {
+      grid-column: 1;
+    }
+    .completion-coupon-totals {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      align-self: center;
+    }
+    .completion-progress {
+      grid-column: 2;
+      grid-row: 3;
+    }
+    .completion-actions {
+      grid-column: 2;
+      grid-row: 4 / 7;
+      align-self: center;
+    }
+    .completion-rest {
+      grid-column: 2;
+      grid-row: 3 / 5;
+    }
+    .coupon-experience[data-phase="rest"] .completion-actions {
+      grid-row: 5 / 7;
+    }
+    .completion-pending {
+      grid-column: 1;
+      grid-row: 2 / 6;
+      min-height: 100px;
+    }
+  }
+}
+.completion-departure[data-reduced-motion="true"] {
+  animation-duration: 100ms;
+}
+.coupon-experience[data-reduced-motion="true"] .completion-coupon,
+.coupon-experience[data-reduced-motion="true"] .completion-stamp {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .completion-coupon,
+  .completion-stamp {
+    animation: none !important;
+  }
+  .completion-departure {
+    animation-duration: 100ms;
+  }
+}
+
+/* Rest has its own live countdown; the focus-progress row is redundant here. */
+.coupon-experience[data-phase="rest"] .completion-progress {
+  display: none;
+}
+@supports not (container-type: size) {
+  @media (max-height: 560px) and (orientation: portrait) {
+    .coupon-experience > .brand {
+      display: none;
+    }
+    .completion-coupon {
+      padding: 8px;
+      gap: 4px;
+    }
+    .completion-stamps {
+      gap: 8px;
+    }
+    .completion-stamp {
+      max-width: 32px;
+    }
+    .completion-coupon-heading > .ritual-cup {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+@container coupon-experience (max-height: 620px) {
+  .completion-coupon {
+    padding: 16px;
+    gap: 8px;
+  }
+  .completion-stamp {
+    max-width: 40px;
+  }
+}
+
+@container coupon-experience (max-height: 480px) and (min-aspect-ratio: 1 / 1) {
+  .coupon-experience > .brand {
+    display: none;
+  }
+  .completion-coupon {
+    width: min(100%, 640px);
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 20px;
+    padding: 12px 18px;
+  }
+  .completion-coupon-heading,
+  .completion-focus,
+  .completion-result,
+  .completion-stamps {
+    grid-column: 1;
+  }
+  .completion-coupon-totals {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+  }
+  .completion-progress {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  .completion-actions {
+    grid-column: 2;
+    grid-row: 4 / 7;
+    align-self: center;
+  }
+  .completion-rest {
+    grid-column: 2;
+    grid-row: 3 / 5;
+  }
+  .coupon-experience[data-phase="rest"] .completion-actions {
+    grid-row: 5 / 7;
+  }
+  .completion-pending {
+    grid-column: 1;
+    grid-row: 2 / 6;
+    min-height: 100px;
+  }
+}
+
+@container coupon-experience (max-height: 560px) and (max-aspect-ratio: 1 / 1) {
+  .coupon-experience > .brand {
+    display: none;
+  }
+  .completion-coupon {
+    padding: 8px;
+    gap: 4px;
+  }
+  .completion-stamps {
+    gap: 8px;
+  }
+  .completion-stamp {
+    max-width: 32px;
+  }
+  .completion-coupon-heading > .ritual-cup {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Muted sage is coupon ink; focus must remain visible on the ivory stock. */
+.completion-coupon button:focus-visible {
+  outline: 2px solid #353b32;
+  outline-offset: 3px;
+}

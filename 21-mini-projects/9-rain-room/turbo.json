@@ -1,0 +1,33 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "outputs": []
+    },
+    "typecheck": {
+      "outputs": []
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": [],
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["^build", "lint", "typecheck"],
+      "outputs": ["dist/**"]
+    }
+  },
+  "globalEnv": [
+    "EXPO_PUBLIC_*",
+    "APP_VARIANT",
+    "VITE_*",
+    "APP_ENV",
+    "EXPO_OWNER",
+    "EXPO_PROJECT_ID"
+  ],
+  "globalPassThroughEnv": ["EXPO_NO_TELEMETRY", "EXPO_HOME", "CI"]
+}

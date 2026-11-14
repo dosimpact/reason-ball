@@ -1,0 +1,118 @@
+/* Bottom sticky stays in the timer column flow; the mixer follows beneath it. */
+.focus-section > .now-playing {
+  position: sticky;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 80px;
+  min-height: 80px;
+  margin: 16px 0 0;
+  padding: 14px 20px;
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-card);
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(24px) saturate(120%);
+  -webkit-backdrop-filter: blur(24px) saturate(120%);
+  overflow: visible;
+  box-shadow:
+    0 18px 46px #0008,
+    0 2px 10px #0005,
+    inset 0 1px 0 #ffffff12;
+  animation: player-glass-enter 320ms ease-out;
+}
+.focus-section > .now-playing[hidden] {
+  display: none;
+}
+.focus-section > .now-playing > .track-info {
+  flex: 1;
+  min-width: 0;
+}
+.focus-section > .now-playing .track-info strong {
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.focus-section > .now-playing > .music-toggle {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  background: var(--color-action-accent);
+  color: var(--color-action-on-accent);
+}
+.focus-section > .now-playing > .equalizer {
+  margin-left: 0;
+}
+.focus-section > .now-playing > .sound-volume-control {
+  margin-left: 0;
+}
+@media (max-width: 360px) {
+  .focus-section > .now-playing {
+    gap: 9px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+/* Four compact controls sit in normal flow above the single-row sticky player. */
+.playback-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+.playback-controls[hidden] {
+  display: none;
+}
+.playback-controls button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  padding: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-secondary, #aaa);
+}
+.playback-controls .playback-mode[aria-pressed="true"] {
+  background: var(--color-action-accent);
+  color: var(--color-action-on-accent);
+}
+.playback-controls button:focus-visible {
+  outline: 2px solid var(--color-text, #fff);
+  outline-offset: 2px;
+}
+.focus-section > .playback-controls {
+  width: fit-content;
+  max-width: 100%;
+  margin: 18px 0 16px auto;
+}
+.focus-section > .now-playing {
+  margin-top: 0;
+  flex-wrap: nowrap;
+}
+@media (max-width: 360px) {
+  .now-playing .equalizer {
+    display: none;
+  }
+}
+
+@keyframes player-glass-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .focus-section > .now-playing {
+    animation: none;
+  }
+}

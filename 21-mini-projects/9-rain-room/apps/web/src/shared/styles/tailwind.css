@@ -1,0 +1,62 @@
+/* Preserve the existing reset: deliberately omit Tailwind Preflight. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+/* Bound utility scanning to the web source tree; no monorepo assets or native code. */
+@source "../../";
+
+@theme inline {
+  /* shadcn's non-colliding semantic names share the established palette. */
+  --color-foreground: var(--color-text);
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-text);
+  --color-popover: var(--color-surface);
+  --color-popover-foreground: var(--color-text);
+  --color-primary: var(--color-action);
+  --color-primary-foreground: var(--color-action-text);
+  --color-secondary: var(--color-surface-elevated);
+  --color-secondary-foreground: var(--color-text);
+  --color-muted: var(--color-surface-elevated);
+  --color-muted-foreground: var(--color-text-secondary);
+  --color-accent: var(--color-surface-elevated);
+  --color-accent-foreground: var(--color-text);
+  --color-destructive: var(--color-danger);
+  --color-destructive-foreground: var(--color-action-text);
+  --color-input: var(--color-border);
+  --color-ring: var(--color-focus-ring);
+
+  --color-app-danger: var(--color-danger);
+  --color-app-ring: var(--color-focus-ring);
+  --color-app-bg: var(--color-background);
+  --color-app-surface: var(--color-surface);
+  --color-app-raised: var(--color-surface-elevated);
+  --color-app-primary: var(--color-text);
+  --color-app-secondary: var(--color-text-secondary);
+  --color-app-muted: var(--color-text-muted);
+  --color-app-border: var(--color-border);
+  --color-app-action: var(--color-action);
+  --color-app-on-action: var(--color-action-text);
+  --color-app-accent: var(--color-action-accent);
+  --color-app-on-accent: var(--color-action-on-accent);
+  --color-app-accent-hover: var(--color-action-accent-hover);
+  --color-app-status: var(--color-status);
+  --color-app-status-bg: var(--color-status-background);
+  --color-app-status-border: var(--color-status-border);
+  --font-app-sans: var(--font-sans);
+  --radius-app-card: var(--radius-card);
+  --radius-app-control: var(--radius-control);
+  --radius-app-pill: var(--radius-pill);
+  --spacing-app-page: var(--space-page);
+  --spacing-app-card: var(--space-card);
+  --spacing-app-control: var(--control-size);
+  --spacing-app-button: var(--button-height);
+}
+
+/* These names already exist as application tokens: utilities avoid redefining
+   --color-background/--color-border through circular semantic aliases. */
+@utility bg-background {
+  background-color: var(--color-background);
+}
+@utility border-border {
+  border-color: var(--color-border);
+}

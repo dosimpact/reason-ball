@@ -1,0 +1,49 @@
+@reference "../../../shared/styles/tailwind.css";
+/* Keep the flyout above the main scene/player stacking context. */
+.focus-page > .focus-header {
+  z-index: 30;
+}
+/* Unlayered @apply intentionally wins the retained button reset without !important. */
+.settings-gear {
+  @apply rounded-app-pill bg-app-raised text-app-primary p-0;
+}
+.settings-gear > svg {
+  transition: transform 180ms ease;
+}
+.settings-gear[aria-expanded="true"] > svg {
+  transform: rotate(35deg);
+}
+.header-settings-panel {
+  @apply rounded-app-card border border-solid border-app-border bg-app-surface text-app-primary shadow-2xl;
+  max-width: calc(100vw - 40px);
+  width: 196px;
+}
+.header-settings-panel[hidden] {
+  display: none;
+}
+.header-setting-action {
+  @apply min-h-16 min-w-0 rounded-app-control bg-transparent text-app-secondary p-2;
+  animation: header-action-enter 220ms ease-out both;
+}
+.header-setting-action:hover,
+.header-setting-action:focus-visible {
+  @apply bg-app-raised text-app-primary;
+}
+@keyframes header-action-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .header-setting-action {
+    animation: none;
+  }
+  .settings-gear > svg {
+    transition: none;
+  }
+}

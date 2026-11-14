@@ -1,0 +1,1169 @@
+{
+  "version": 1,
+  "animalLifeVersion": 1,
+  "animalPolicy": {
+    "staticBodiesRemoved": true,
+    "supportsPreserved": true,
+    "actorIds": [
+      "premium-moon-base:actor-1"
+    ],
+    "proof": "bodyless static textures; live pose proof generated separately"
+  },
+  "id": "premium-moon-base",
+  "width": 800,
+  "height": 820,
+  "weather": "sleet",
+  "weatherMask": "/backgrounds/pixi/premium-moon-base/weather-mask.png",
+  "weatherMaskHigh": "/backgrounds/pixi/premium-moon-base/weather-mask-high.png",
+  "resolutionHigh": 3,
+  "humanRasterPolicy": {
+    "version": 1,
+    "selector": "[data-character],[data-character-id],[data-pose],[data-head-view],[data-premium-character],[data-premium-person],[data-person-view]",
+    "qualityResolution": 3,
+    "scope": "complete human ancestry; no native face, limb, clothing or held prop fragments"
+  },
+  "layers": [
+    {
+      "id": "rear",
+      "sourceRole": "structural",
+      "src": "/backgrounds/pixi/premium-moon-base/rear-base.png",
+      "srcHigh": "/backgrounds/pixi/premium-moon-base/rear-high.png",
+      "resolutionHigh": 3,
+      "x": 0,
+      "y": 0,
+      "width": 800,
+      "height": 820
+    },
+    {
+      "id": "weather",
+      "kind": "weather"
+    },
+    {
+      "id": "v0-0",
+      "src": "/backgrounds/pixi/premium-moon-base/a248e541ff3909343201.png",
+      "srcHigh": "/backgrounds/pixi/premium-moon-base/high-3e4ba57bb7141f5144e0.png",
+      "resolutionHigh": 3,
+      "x": 0,
+      "y": 0,
+      "width": 323,
+      "height": 374,
+      "sourceTag": "ellipse",
+      "sourceRole": "soft-effect",
+      "sourceClasses": [
+        "premium-light-breathe"
+      ],
+      "motions": [
+        {
+          "id": "motion-575",
+          "kind": "premium-light",
+          "cssName": "premium-light",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "className": "premium-light-breathe",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 1,
+              "alpha": 0.72
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "pivotX": 161.5,
+          "pivotY": 187
+        }
+      ],
+      "costGuard": {
+        "originalGroup": "4511f98c3f-1",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-moon-base/a248e541ff3909343201.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-moon-base/high-3e4ba57bb7141f5144e0.png",
+        "originalWidth": 323,
+        "originalHeight": 374,
+        "originalArea": 120802,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 120802,
+        "nativeParts": 0
+      },
+      "motion": {
+        "id": "motion-575",
+        "kind": "premium-light",
+        "cssName": "premium-light",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "className": "premium-light-breathe",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 1,
+            "alpha": 0.72
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "pivotX": 161.5,
+        "pivotY": 187
+      }
+    },
+    {
+      "id": "v0-1",
+      "src": "/backgrounds/pixi/premium-moon-base/819e755877a7084614e6.png",
+      "srcHigh": "/backgrounds/pixi/premium-moon-base/high-ff01802ec7b677ee9bc9.png",
+      "resolutionHigh": 3,
+      "x": 472,
+      "y": 0,
+      "width": 328,
+      "height": 374,
+      "sourceTag": "ellipse",
+      "sourceRole": "soft-effect",
+      "sourceClasses": [
+        "premium-light-breathe"
+      ],
+      "motions": [
+        {
+          "id": "motion-576",
+          "kind": "premium-light",
+          "cssName": "premium-light",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "className": "premium-light-breathe",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 1,
+              "alpha": 0.72
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "pivotX": 636,
+          "pivotY": 187
+        }
+      ],
+      "costGuard": {
+        "originalGroup": "4511f98c3f-2",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-moon-base/819e755877a7084614e6.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-moon-base/high-ff01802ec7b677ee9bc9.png",
+        "originalWidth": 328,
+        "originalHeight": 374,
+        "originalArea": 122672,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 122672,
+        "nativeParts": 0
+      },
+      "motion": {
+        "id": "motion-576",
+        "kind": "premium-light",
+        "cssName": "premium-light",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "className": "premium-light-breathe",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 1,
+            "alpha": 0.72
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "pivotX": 636,
+        "pivotY": 187
+      }
+    },
+    {
+      "id": "v0-2",
+      "src": "/backgrounds/pixi/premium-moon-base/ce9f417c408c27146c9f.png",
+      "srcHigh": "/backgrounds/pixi/premium-moon-base/high-946f5663cd8e6b8bc8bd.png",
+      "resolutionHigh": 3,
+      "x": 506,
+      "y": 252,
+      "width": 48,
+      "height": 47,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "bc79aeb25f-0",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-moon-base/ce9f417c408c27146c9f.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-moon-base/high-946f5663cd8e6b8bc8bd.png",
+        "originalWidth": 48,
+        "originalHeight": 47,
+        "originalArea": 2256,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 2256,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-3",
+      "src": "/backgrounds/pixi/premium-moon-base/11aa3de1d6b078c73ab5.png",
+      "srcHigh": "/backgrounds/pixi/premium-moon-base/high-7527a3fb6115a697d287.png",
+      "resolutionHigh": 3,
+      "x": 498,
+      "y": 221,
+      "width": 64,
+      "height": 36,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-577",
+          "kind": "signature-dial",
+          "cssName": "signature-dial",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            530,
+            260
+          ],
+          "className": "signature-needle",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": 0,
+              "y": 0,
+              "rotation": -0.3141592653589793,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 0.41887902047863906,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "moon-base-satellite",
+          "pivotX": 530,
+          "pivotY": 239
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-moon-base/clip-8f1e4b2642d0ce33ca67.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-moon-base/clip-high-4d80fe37cf6386613314.png",
+      "costGuard": {
+        "originalGroup": "bc79aeb25f-1",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-moon-base/11aa3de1d6b078c73ab5.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-moon-base/high-7527a3fb6115a697d287.png",
+        "originalWidth": 64,
+        "originalHeight": 36,
+        "originalArea": 2304,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 2304,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-moon-base/clip-8f1e4b2642d0ce33ca67.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-moon-base/clip-high-4d80fe37cf6386613314.png"
+      },
+      "motion": {
+        "id": "motion-577",
+        "kind": "signature-dial",
+        "cssName": "signature-dial",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          530,
+          260
+        ],
+        "className": "signature-needle",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": 0,
+            "y": 0,
+            "rotation": -0.3141592653589793,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 0.41887902047863906,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "moon-base-satellite",
+        "pivotX": 530,
+        "pivotY": 239
+      }
+    },
+    {
+      "id": "v0-4",
+      "src": "/backgrounds/pixi/premium-moon-base/7119165ae4f671a3d1e6.png",
+      "srcHigh": "/backgrounds/pixi/premium-moon-base/high-9e90442706592ac90563.png",
+      "resolutionHigh": 3,
+      "x": 464,
+      "y": 236,
+      "width": 132,
+      "height": 34,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "bc79aeb25f-2",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-moon-base/7119165ae4f671a3d1e6.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-moon-base/high-9e90442706592ac90563.png",
+        "originalWidth": 132,
+        "originalHeight": 34,
+        "originalArea": 4488,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 4488,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-5",
+      "src": "/backgrounds/pixi/premium-moon-base/ec5a4c3cf4893c59fba3.png",
+      "srcHigh": "/backgrounds/pixi/premium-moon-base/high-1b3bc932cf6ef1a14238.png",
+      "resolutionHigh": 3,
+      "x": 327,
+      "y": 442,
+      "width": 96,
+      "height": 50,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-578",
+          "kind": "signature-travel",
+          "cssName": "signature-travel",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            375,
+            460
+          ],
+          "className": "signature-travel",
+          "duration": 13,
+          "delay": -2.7,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": -24,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 30,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "moon-base-rover",
+          "pivotX": 375,
+          "pivotY": 467
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-moon-base/clip-fd410e5e36537d4117fe.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-moon-base/clip-high-e75189dfcc8e6b6b8773.png",
+      "costGuard": {
+        "originalGroup": "bc79aeb25f-3",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-moon-base/ec5a4c3cf4893c59fba3.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-moon-base/high-1b3bc932cf6ef1a14238.png",
+        "originalWidth": 96,
+        "originalHeight": 50,
+        "originalArea": 4800,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 4800,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-moon-base/clip-fd410e5e36537d4117fe.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-moon-base/clip-high-e75189dfcc8e6b6b8773.png"
+      },
+      "motion": {
+        "id": "motion-578",
+        "kind": "signature-travel",
+        "cssName": "signature-travel",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          375,
+          460
+        ],
+        "className": "signature-travel",
+        "duration": 13,
+        "delay": -2.7,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": -24,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 30,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "moon-base-rover",
+        "pivotX": 375,
+        "pivotY": 467
+      }
+    },
+    {
+      "id": "v0-6",
+      "src": "/backgrounds/pixi/premium-moon-base/ce9f417c408c27146c9f.png",
+      "srcHigh": "/backgrounds/pixi/premium-moon-base/high-946f5663cd8e6b8bc8bd.png",
+      "resolutionHigh": 3,
+      "x": 181,
+      "y": 392,
+      "width": 48,
+      "height": 47,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "bc79aeb25f-4",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-moon-base/ce9f417c408c27146c9f.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-moon-base/high-946f5663cd8e6b8bc8bd.png",
+        "originalWidth": 48,
+        "originalHeight": 47,
+        "originalArea": 2256,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 2256,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-7",
+      "src": "/backgrounds/pixi/premium-moon-base/11aa3de1d6b078c73ab5.png",
+      "srcHigh": "/backgrounds/pixi/premium-moon-base/high-7527a3fb6115a697d287.png",
+      "resolutionHigh": 3,
+      "x": 173,
+      "y": 361,
+      "width": 64,
+      "height": 36,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-579",
+          "kind": "signature-dial",
+          "cssName": "signature-dial",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            205,
+            400
+          ],
+          "className": "signature-needle",
+          "duration": 18,
+          "delay": -5.4,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": 0,
+              "y": 0,
+              "rotation": -0.3141592653589793,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 0.41887902047863906,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "moon-base-antenna",
+          "pivotX": 205,
+          "pivotY": 379
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-moon-base/clip-8f1e4b2642d0ce33ca67.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-moon-base/clip-high-4d80fe37cf6386613314.png",
+      "costGuard": {
+        "originalGroup": "bc79aeb25f-5",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-moon-base/11aa3de1d6b078c73ab5.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-moon-base/high-7527a3fb6115a697d287.png",
+        "originalWidth": 64,
+        "originalHeight": 36,
+        "originalArea": 2304,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 2304,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-moon-base/clip-8f1e4b2642d0ce33ca67.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-moon-base/clip-high-4d80fe37cf6386613314.png"
+      },
+      "motion": {
+        "id": "motion-579",
+        "kind": "signature-dial",
+        "cssName": "signature-dial",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          205,
+          400
+        ],
+        "className": "signature-needle",
+        "duration": 18,
+        "delay": -5.4,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": 0,
+            "y": 0,
+            "rotation": -0.3141592653589793,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 0.41887902047863906,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "moon-base-antenna",
+        "pivotX": 205,
+        "pivotY": 379
+      }
+    },
+    {
+      "id": "v0-8",
+      "src": "/backgrounds/pixi/premium-moon-base/6078cbb571fecbcec2e5.png",
+      "srcHigh": "/backgrounds/pixi/premium-moon-base/high-0eed4b9c990f020acb9f.png",
+      "resolutionHigh": 3,
+      "x": 11,
+      "y": 71,
+      "width": 778,
+      "height": 746,
+      "sourceTag": "path",
+      "sourceRole": "character",
+      "rasterOnlyReason": "human-subtree",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "bc79aeb25f-6",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-moon-base/6078cbb571fecbcec2e5.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-moon-base/high-0eed4b9c990f020acb9f.png",
+        "originalWidth": 778,
+        "originalHeight": 746,
+        "originalArea": 580388,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 580388,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-9",
+      "kind": "animal",
+      "animalId": "premium-moon-base:actor-1"
+    },
+    {
+      "id": "v0-10",
+      "src": "/backgrounds/pixi/premium-moon-base/b60278451b58605ef524.png",
+      "srcHigh": "/backgrounds/pixi/premium-moon-base/high-a1f621e9874f73c38d34.png",
+      "resolutionHigh": 3,
+      "x": 26,
+      "y": 0,
+      "width": 743,
+      "height": 654,
+      "sourceTag": "ellipse",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "bc79aeb25f-8",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-moon-base/b60278451b58605ef524.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-moon-base/high-a1f621e9874f73c38d34.png",
+        "originalWidth": 743,
+        "originalHeight": 654,
+        "originalArea": 485922,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 485922,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-11",
+      "src": "/backgrounds/pixi/premium-moon-base/1a0c99b1a6b566a07b53.png",
+      "srcHigh": "/backgrounds/pixi/premium-moon-base/high-92fc23c4a09af5530d02.png",
+      "resolutionHigh": 3,
+      "x": 692,
+      "y": 588,
+      "width": 6,
+      "height": 23,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [
+        "signature-needle"
+      ],
+      "motions": [
+        {
+          "id": "motion-580",
+          "kind": "signature-dial",
+          "cssName": "signature-dial",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            695,
+            605
+          ],
+          "className": "signature-needle",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": 0,
+              "y": 0,
+              "rotation": -0.3141592653589793,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 0.41887902047863906,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "moon-base-gauge",
+          "pivotX": 695,
+          "pivotY": 599.5
+        }
+      ],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M-3 6 L0 -17 L3 6 Z\" fill=\"#9c604e\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle r=\"3\" fill=\"#34464b\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              695,
+              605
+            ],
+            "primitiveCount": 2
+          }
+        ],
+        "primitiveCount": 2,
+        "nativeInstructions": 2,
+        "sourceBounds": {
+          "x": 692,
+          "y": 588,
+          "width": 6,
+          "height": 23
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "bc79aeb25f-9",
+        "decision": "whole-native",
+        "originalSrc": "/backgrounds/pixi/premium-moon-base/1a0c99b1a6b566a07b53.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-moon-base/high-92fc23c4a09af5530d02.png",
+        "originalWidth": 6,
+        "originalHeight": 23,
+        "originalArea": 138,
+        "retainedRasterCount": 0,
+        "retainedRasterArea": 0,
+        "nativeParts": 1
+      },
+      "motion": {
+        "id": "motion-580",
+        "kind": "signature-dial",
+        "cssName": "signature-dial",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          695,
+          605
+        ],
+        "className": "signature-needle",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": 0,
+            "y": 0,
+            "rotation": -0.3141592653589793,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 0.41887902047863906,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "moon-base-gauge",
+        "pivotX": 695,
+        "pivotY": 599.5
+      }
+    }
+  ],
+  "provenance": {
+    "method": "Build-time bodyless React SVG/Sharp decomposition; live animals in ordered native slots",
+    "source": "authoring Cafe/PremiumScene",
+    "cssKeyframes": true,
+    "highResolutionSource": "original authoring SVG rasterized at 216 DPI, never enlarged from PNG",
+    "sourceDigest": "5c7ca82da872de064c14d1c3cfca3b8641222cc7101e0c5c55c93fecd8ec3466",
+    "sourceHashes": [
+      {
+        "path": "scripts/export-pixi-scenes.mjs",
+        "sha256": "cce24c18d6e635a612a959fc8d97d3f851eeaf67f3f0804a9336cf33b62a17f3"
+      },
+      {
+        "path": "scripts/pixi-animal-slots.mjs",
+        "sha256": "9bb84df02f536a81b1f8d18d4d403f01b9e65d81005d4bcdbf08af2cf348a204"
+      },
+      {
+        "path": "scripts/pixi-export-assets.mjs",
+        "sha256": "d420a92c1a9022c218f91d8ef4612834f98382fbfb8c4a32899a5312ddc40a7e"
+      },
+      {
+        "path": "scripts/pixi-vector-geometry.mjs",
+        "sha256": "be71a70f9cc5ee08df773822749e8bc9e0c4f7772f26c2e92c0636cc992c5a92"
+      },
+      {
+        "path": "src/pages/focus/lib/sceneEffectCycle.ts",
+        "sha256": "dcda423ecaed94108977149eab22dee726799d41d2075d8fab8c03b42842c73a"
+      },
+      {
+        "path": "src/pages/focus/lib/sceneTime.ts",
+        "sha256": "cad76a40f6c70d279306eadfbd11659cb4ae60254ab5e40a78a241ddb1a92c0b"
+      },
+      {
+        "path": "src/pages/focus/model/animalHabitats.ts",
+        "sha256": "92163ddce7670e57105d2331b27874dc26998c3b8177b6fe780f4cdf670721a6"
+      },
+      {
+        "path": "src/pages/focus/model/animalSpecies.ts",
+        "sha256": "b1664faeee27972cddff72dce8f41be17fe618b30138bfe1a5f25b674600a8f8"
+      },
+      {
+        "path": "src/pages/focus/model/animalSpecies.ts",
+        "sha256": "b1664faeee27972cddff72dce8f41be17fe618b30138bfe1a5f25b674600a8f8"
+      },
+      {
+        "path": "src/pages/focus/model/backgrounds.ts",
+        "sha256": "aa5522f3d96c7c3f2c8fe7b4a80067bef653e0c1bd42e782a1d7cf036cd780f9"
+      },
+      {
+        "path": "src/pages/focus/model/neonSigns.ts",
+        "sha256": "6d184d7ec7a74cb17d710ee9a7be172c67589e6b63c58aff0c5c5f32c3f03265"
+      },
+      {
+        "path": "src/pages/focus/model/premiumCast.ts",
+        "sha256": "5ce83484e6aac22c28465ffa9b323011ff599a4a68cd312a751e931a8c2a24cc"
+      },
+      {
+        "path": "src/pages/focus/model/premiumExperience.ts",
+        "sha256": "c69e9d0e81d152f7b9c1ee648ceab68b72664edf3b6099e6c176128d2639b640"
+      },
+      {
+        "path": "src/pages/focus/model/premiumSpaces.ts",
+        "sha256": "08e7600d4b06133c49a9c8801e85df579e48725139178f6d244fc870b53e3722"
+      },
+      {
+        "path": "src/pages/focus/model/sakuraPetals.ts",
+        "sha256": "4507fc1a89ab1732824218d328423c52d26e1028fc089792ffae81d7101a3151"
+      },
+      {
+        "path": "src/pages/focus/model/sceneAnimals.ts",
+        "sha256": "70e57324db99f5928688af7d794241909b3a01d89a1fa7b8d05eaae7a8b1d1cf"
+      },
+      {
+        "path": "src/pages/focus/model/sceneArchitecture.ts",
+        "sha256": "c9acf3dd253f7fde4fc4fb2afc11d72a6efeb6f911579f8c8fb35de9214ecc62"
+      },
+      {
+        "path": "src/pages/focus/model/sceneAutumn.ts",
+        "sha256": "f3961219ab5bfe519de5c347c13ac14f9d95e6d524a24ee5f0ccc782bbf99354"
+      },
+      {
+        "path": "src/pages/focus/model/sceneCast.ts",
+        "sha256": "277b47d7ef4f0254d18ed54bb57a94c111aee70a748f8d58cdbde82f91b4e3be"
+      },
+      {
+        "path": "src/pages/focus/model/sceneDetails.ts",
+        "sha256": "1231d4449d808be1d5c1aed01f5fa5b7ee8898b0114da6ccbc4eb7ec0893297d"
+      },
+      {
+        "path": "src/pages/focus/model/sceneEffects.ts",
+        "sha256": "5762a3e4fe39466bdd6ef10856f846f1308879aed3168f7ce94aa307978e3336"
+      },
+      {
+        "path": "src/pages/focus/model/sceneInterior.ts",
+        "sha256": "430d66d9abc3f7ac92acc00c1ef8c96c25d1f873c277358f6af2ed54a176ffb5"
+      },
+      {
+        "path": "src/pages/focus/model/scenePlants.ts",
+        "sha256": "e8f428446dbefb179eabbc00dbb3030cf981dcb9494fbca0a914931626d39d7b"
+      },
+      {
+        "path": "src/pages/focus/model/sceneWeather.ts",
+        "sha256": "3f712859413c6431388d7317ceba3d0a71af85f7b867c7d1d2853c2af08d239d"
+      },
+      {
+        "path": "src/pages/focus/model/thunderstorm.ts",
+        "sha256": "cd72ad96f69be1d0526808b7a506883339b5ab255f948eca80f950ecd452cd1d"
+      },
+      {
+        "path": "src/pages/focus/ui/AutumnScenery.tsx",
+        "sha256": "d057de93a3c8799da7ce41f51d311b60ed747799fba1e7ec02fd62d6ae495705"
+      },
+      {
+        "path": "src/pages/focus/ui/backgrounds.css",
+        "sha256": "35d273c6e3c016a06c3217879bc4b636fe73a0fee656d25ce4c6d67251659e4e"
+      },
+      {
+        "path": "src/pages/focus/ui/Cafe.tsx",
+        "sha256": "15f75b36611f816e8ae3f635ea3800e443b45108635a07d682606daa035631d8"
+      },
+      {
+        "path": "src/pages/focus/ui/LegacyOutdoorFixtures.tsx",
+        "sha256": "df773122841276c8e6789af11f989e9627bb70610ab902bb4d39dbd505382a59"
+      },
+      {
+        "path": "src/pages/focus/ui/NeonCityArt.tsx",
+        "sha256": "1fb5d3f98121b3ad808257ea61e7f9930c729b81f0a873c94147340c2892f63d"
+      },
+      {
+        "path": "src/pages/focus/ui/NeonFacadeLights.tsx",
+        "sha256": "28f141679ae5004663e74c8c25c4446fa5acf109da965132a4590fd487e37b22"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/CinemaFilm.tsx",
+        "sha256": "7e5b975c58a6f04947940d19143ecf32551531896a94e1fba0809e7994e895a3"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premium-signatures.css",
+        "sha256": "81ba95beeb28f2809329a6ae3501437164b4f9762e3b56f7a7fb9a2fe2dc61e7"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premium.css",
+        "sha256": "106215e1a3cd162aeac9b52465953ba33d46140d553a7e8d1061463d6cc56bfc"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumArchitecture.tsx",
+        "sha256": "86b5af6f4c4325f387ffae0f075ba0b975fe49e4d7e3e14ef92d35f9c1340db0"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumAtmosphere.tsx",
+        "sha256": "61aca5e6aa0d070a1cb6f399b6d7f36d958bf9fad24262143023fd32997bc6a6"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumAtmosphere.tsx",
+        "sha256": "61aca5e6aa0d070a1cb6f399b6d7f36d958bf9fad24262143023fd32997bc6a6"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumCharacter.tsx",
+        "sha256": "2db855ceca5754abaf1a709166d4c91cc81f59425dda8d3a1864dd6cfb0a5d66"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumFixtures.tsx",
+        "sha256": "5faa3563dd699ffaa3848c64455362e3cdfe19cd8a73a8bd594014b6fdec1f0e"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premiumGeometry.ts",
+        "sha256": "70ffccfa826b63c86043fdedbf6e085c7f4abc109eb105e0ecbaa5b60a7f6ae4"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumHeroes.tsx",
+        "sha256": "9d7182045b8f1015eca3c05c46ab987794b1b97f7f674d47c39833de076a55e2"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumInterior.tsx",
+        "sha256": "489284e5c51232bcd11273f20f55e4b6b581a5d7ec15d9f1152ba9b8c8fe5d37"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumObjects.tsx",
+        "sha256": "9489c16982f3a25d0d3faf283438b419b11d621dce26bb3d31c5ff32f8471e3d"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumScene.tsx",
+        "sha256": "64467d7455d104b16ff53ecfc2b7445c0c652b166709c0693f6bcc00fbe3cd3b"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumScene.tsx",
+        "sha256": "64467d7455d104b16ff53ecfc2b7445c0c652b166709c0693f6bcc00fbe3cd3b"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumSignatureDetails.tsx",
+        "sha256": "bbb9216a34fffd938a9bd7ca127af1fdc8a01f6959079d0e1a08ca361e30c3fa"
+      },
+      {
+        "path": "src/pages/focus/ui/RainOverlay.tsx",
+        "sha256": "8d4fc403218fed94666171eb68a4546416a43dbd90547b845b7bc902b7912b01"
+      },
+      {
+        "path": "src/pages/focus/ui/RainOverlay.tsx",
+        "sha256": "8d4fc403218fed94666171eb68a4546416a43dbd90547b845b7bc902b7912b01"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomFurnishings.tsx",
+        "sha256": "33cf9f4a214e365a372117c954ebde36846a8f97c86f33b18e0274610693a9a4"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomLighting.tsx",
+        "sha256": "22e29e36ae6cbc517a66fc4d0f8cca9d93546732e3a25da566e3169dbee9ee79"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomWallTexture.tsx",
+        "sha256": "59cc984b2f6e5ad496dcc4dc64c66bc4c79c0844b78ed78c2e8c018d33660832"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomWindow.tsx",
+        "sha256": "e4268594944caafc217f87fc250149344437c55ec68bcf29038a8ea25211f040"
+      },
+      {
+        "path": "src/pages/focus/ui/scene-effects.css",
+        "sha256": "49b91c04946138222d2215e334acad98c9a56c4d9e07f12136b75a96f15a259c"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneAtmosphere.tsx",
+        "sha256": "dc1445b3e812f7c9a96cfb630c04a40450900a3c290e2817e7447147d242a790"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneAtmosphere.tsx",
+        "sha256": "dc1445b3e812f7c9a96cfb630c04a40450900a3c290e2817e7447147d242a790"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneCaption.tsx",
+        "sha256": "ec6d1cdb0d8198676f0510f544254a7c06f1ddc0547616b816dd9ed0344538e9"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneCompanions.tsx",
+        "sha256": "847fc93209b8729b434b11849e9fa552b528e629454de1ee0459ce724e4802b2"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneDetails.tsx",
+        "sha256": "cdf50b1cff06573129dd38646188e8650ea834295da2b2236dfbf2cd7dfc73d6"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneLayer.tsx",
+        "sha256": "f4363e6d7d2049654d7f80ca55032266ffca066413889e2dffb18320141a87ea"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneOutdoorLife.tsx",
+        "sha256": "24ce6c78be438502d6b9cbddfd60a8a9858f725412b07ab13daf510b7a05055d"
+      },
+      {
+        "path": "src/pages/focus/ui/ScenePets.tsx",
+        "sha256": "4d8014045089a98ee4fca5a769f6fece72c8b97a6c49d2313aa817ffd5082abd"
+      },
+      {
+        "path": "src/pages/focus/ui/ScenePlants.tsx",
+        "sha256": "dc3d9871b65c2df495f9e15107f5127a4761b37d15f223a652207f5a44b45603"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneTable.tsx",
+        "sha256": "ed0922378a8e45b384070ba478ec12418dfaffe8f412b56bb9b062d3d9844a37"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWeatherDrawing.tsx",
+        "sha256": "565a350c95299ff5f996d1a0828b08b6bef82314cc5093e96deaf03c77848c5c"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWildlife.tsx",
+        "sha256": "82e4df15b2f069dbec95d1dd09b397896cb924fa6811785b1f0f5aa05e5de855"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWindow.tsx",
+        "sha256": "5cfdfc7c5c9ccf54502d66e35fd61f6fc50a5c0c13b8e86f97f84c6421da5720"
+      },
+      {
+        "path": "src/pages/focus/ui/SongInspiredArt.tsx",
+        "sha256": "da3f2ab3eeec24f87b5592fcbb1f4fcea184986f988b456783fb19bc72b380fb"
+      },
+      {
+        "path": "src/pages/focus/ui/SpecialCafeScenes.tsx",
+        "sha256": "eebc3d72d826f213a2fe195991a8adb5539dfb860fdad8579939191843160bc3"
+      },
+      {
+        "path": "src/pages/focus/ui/weather.css",
+        "sha256": "876af059984a83428327e34d1a41200ce430c7c4130cf9d1515bc9d2aa3fd6da"
+      }
+    ]
+  },
+  "proof": {
+    "variants": [
+      {
+        "coffeeCount": 0,
+        "meanAbsoluteError": 0.12163795731707316,
+        "maxChannelDifference": 3,
+        "channelFractionAbove2": 0.0000019054878048780488,
+        "vectorComparison": {
+          "meanAbsoluteError": 0.12163795731707316,
+          "maxChannelDifference": 3,
+          "channelFractionAbove2": 0.0000019054878048780488
+        }
+      }
+    ],
+    "vectorCoverage": [
+      {
+        "originalRunBaseline": {
+          "uniquePNGCount": 13,
+          "logicalArea": 3947770,
+          "decoded1xBytes": 15791080,
+          "decoded3xBytes": 142119720
+        },
+        "guardedHybrid": {
+          "uniquePNGCount": 12,
+          "logicalArea": 3947632,
+          "decoded1xBytes": 15790528,
+          "decoded3xBytes": 142114752
+        },
+        "coffeeCount": 0,
+        "nativeLayers": 1,
+        "nativePrimitives": 2,
+        "nativeParts": 1,
+        "textureDecodedBytesBefore": 71271720,
+        "textureDecodedBytesAfter": 71266752,
+        "compressedHighTextureBytesAvoided": 798
+      }
+    ],
+    "staticBodiesRemoved": true,
+    "liveAnimalsExcludedFromStaticProof": true
+  }
+}

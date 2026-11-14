@@ -1,0 +1,115 @@
+.gallery-main {
+  display: block;
+  max-width: 960px;
+  width: 100%;
+  margin: auto;
+  padding-top: 32px;
+}
+.gallery-intro {
+  max-width: 680px;
+  margin-bottom: 44px;
+}
+.gallery-intro .ticket-label {
+  margin: 0 0 16px;
+}
+.gallery-note {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  margin: 16px 0 0;
+}
+.gallery-section {
+  margin-bottom: 40px;
+}
+.gallery-section h2 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+.gallery-back {
+  font-size: 13px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-secondary);
+}
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 12px;
+}
+.swatch {
+  min-width: 0;
+}
+.swatch-color {
+  height: 80px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  margin-bottom: 12px;
+}
+.swatch strong {
+  font-size: 13px;
+  display: block;
+  font-weight: 500;
+}
+.swatch code {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  line-height: 1.8;
+  display: block;
+  color: var(--color-text-secondary);
+  overflow-wrap: anywhere;
+  margin-top: 5px;
+}
+.type-specimen .ticket-label {
+  margin: 0 0 20px;
+}
+.type-specimen .timer {
+  font-size: 80px;
+  text-align: left;
+  margin-bottom: 0;
+}
+.type-body {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 16px 0;
+  color: var(--color-text);
+}
+.type-specimen .ticket-subtitle {
+  font-size: 13px;
+}
+.gallery-components {
+  display: grid;
+  gap: 16px;
+}
+.gallery-components .volume {
+  margin-bottom: 0;
+}
+.gallery-section .sheet-description {
+  margin-bottom: 24px;
+}
+.gallery-section .primary {
+  min-width: 0;
+}
+.gallery-section .surface-card {
+  overflow: hidden;
+}
+@media (min-width: 701px) {
+  .palette-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .gallery-components {
+    grid-template-columns: 1fr 1fr;
+  }
+  .gallery-main {
+    padding-top: 40px;
+  }
+  .gallery-intro h1 {
+    font-size: 28px;
+  }
+  .swatch code {
+    font-size: 11px;
+  }
+}

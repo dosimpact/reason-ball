@@ -1,0 +1,101 @@
+.pixi-scene {
+  position: relative;
+  overflow: hidden;
+  background: #18201d;
+}
+.pixi-canvas-host {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.pixi-canvas-host canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.pixi-render-error {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 50px;
+  z-index: 2;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  background: #101814d9;
+  border: 1px solid #ffffff25;
+  border-radius: 12px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #e1e3d8;
+}
+.pixi-render-error button {
+  min-height: 44px;
+  padding: 0 10px;
+  flex-shrink: 0;
+  border: 1px solid #ffffff30;
+  border-radius: 10px;
+  color: #e1e3d8;
+}
+.scene-fullscreen > .pixi-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  border: 0;
+  border-radius: 0;
+}
+.scene-thumbnail img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pixi-scene:not([data-render-status="ready"]) > .pixi-canvas-host {
+  visibility: hidden;
+}
+.pixi-scene[data-render-status="ready"] > .pixi-canvas-host {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Actual authored world and core share the exact native camera transform while loading/error. */
+.pixi-world-fallback {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+.pixi-world-projection {
+  position: absolute;
+  width: 800px;
+  height: 820px;
+  transform-origin: 0 0;
+}
+.pixi-world-underlay,
+.pixi-world-joinery {
+  position: absolute;
+}
+.pixi-world-underlay > svg,
+.pixi-world-joinery > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.pixi-world-core {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 800px;
+  height: 820px;
+  max-width: none;
+  max-height: none;
+}
+.pixi-scene > .pixi-canvas-host {
+  z-index: 1;
+}

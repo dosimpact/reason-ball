@@ -1,0 +1,1482 @@
+{
+  "version": 1,
+  "animalLifeVersion": 1,
+  "animalPolicy": {
+    "staticBodiesRemoved": true,
+    "supportsPreserved": true,
+    "actorIds": [
+      "premium-wizard-library:actor-1"
+    ],
+    "proof": "bodyless static textures; live pose proof generated separately"
+  },
+  "id": "premium-wizard-library",
+  "width": 800,
+  "height": 820,
+  "weather": "snow",
+  "weatherMask": "/backgrounds/pixi/premium-wizard-library/weather-mask.png",
+  "weatherMaskHigh": "/backgrounds/pixi/premium-wizard-library/weather-mask-high.png",
+  "resolutionHigh": 3,
+  "humanRasterPolicy": {
+    "version": 1,
+    "selector": "[data-character],[data-character-id],[data-pose],[data-head-view],[data-premium-character],[data-premium-person],[data-person-view]",
+    "qualityResolution": 3,
+    "scope": "complete human ancestry; no native face, limb, clothing or held prop fragments"
+  },
+  "layers": [
+    {
+      "id": "rear",
+      "sourceRole": "structural",
+      "src": "/backgrounds/pixi/premium-wizard-library/rear-base.png",
+      "srcHigh": "/backgrounds/pixi/premium-wizard-library/rear-high.png",
+      "resolutionHigh": 3,
+      "x": 0,
+      "y": 0,
+      "width": 800,
+      "height": 820
+    },
+    {
+      "id": "weather",
+      "kind": "weather"
+    },
+    {
+      "id": "v0-0",
+      "src": "/backgrounds/pixi/premium-wizard-library/3f5486263fcb7d826e54.png",
+      "srcHigh": "/backgrounds/pixi/premium-wizard-library/high-8c3d869cafc6864c7b06.png",
+      "resolutionHigh": 3,
+      "x": 222,
+      "y": 46,
+      "width": 356,
+      "height": 378,
+      "sourceTag": "ellipse",
+      "sourceRole": "soft-effect",
+      "sourceClasses": [
+        "premium-light-breathe"
+      ],
+      "motions": [
+        {
+          "id": "motion-450",
+          "kind": "premium-light",
+          "cssName": "premium-light",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "className": "premium-light-breathe",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 1,
+              "alpha": 0.72
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "pivotX": 400,
+          "pivotY": 235
+        }
+      ],
+      "costGuard": {
+        "originalGroup": "e8ebcf4470-1",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-wizard-library/3f5486263fcb7d826e54.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-wizard-library/high-8c3d869cafc6864c7b06.png",
+        "originalWidth": 356,
+        "originalHeight": 378,
+        "originalArea": 134568,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 134568,
+        "nativeParts": 0
+      },
+      "motion": {
+        "id": "motion-450",
+        "kind": "premium-light",
+        "cssName": "premium-light",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "className": "premium-light-breathe",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 1,
+            "alpha": 0.72
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "pivotX": 400,
+        "pivotY": 235
+      }
+    },
+    {
+      "id": "v0-1",
+      "src": "/backgrounds/pixi/premium-wizard-library/baa9d17408240f65e69b.png",
+      "srcHigh": "/backgrounds/pixi/premium-wizard-library/high-d8d2fd6bb385becde617.png",
+      "resolutionHigh": 3,
+      "x": 148,
+      "y": 218,
+      "width": 558,
+      "height": 254,
+      "sourceTag": "g",
+      "sourceRole": "soft-effect",
+      "sourceClasses": [
+        "premium-motes"
+      ],
+      "motions": [
+        {
+          "id": "motion-451",
+          "kind": "premium-motes",
+          "cssName": "premium-motes",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "className": "premium-motes",
+          "duration": 7,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 1,
+              "alpha": 0.65
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 0.4,
+          "pivotX": 427,
+          "pivotY": 345
+        }
+      ],
+      "costGuard": {
+        "originalGroup": "e8ebcf4470-2",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-wizard-library/baa9d17408240f65e69b.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-wizard-library/high-d8d2fd6bb385becde617.png",
+        "originalWidth": 558,
+        "originalHeight": 254,
+        "originalArea": 141732,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 141732,
+        "nativeParts": 0
+      },
+      "motion": {
+        "id": "motion-451",
+        "kind": "premium-motes",
+        "cssName": "premium-motes",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "className": "premium-motes",
+        "duration": 7,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 1,
+            "alpha": 0.65
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 0.4,
+        "pivotX": 427,
+        "pivotY": 345
+      }
+    },
+    {
+      "id": "v0-2",
+      "src": "/backgrounds/pixi/premium-wizard-library/8ef81b4de98744ee67c3.png",
+      "srcHigh": "/backgrounds/pixi/premium-wizard-library/high-ab3fa2d6ee1bfc5a993b.png",
+      "resolutionHigh": 3,
+      "x": 589,
+      "y": 74,
+      "width": 2,
+      "height": 141,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "e396c69a22-0",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-wizard-library/8ef81b4de98744ee67c3.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-wizard-library/high-ab3fa2d6ee1bfc5a993b.png",
+        "originalWidth": 2,
+        "originalHeight": 141,
+        "originalArea": 282,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 282,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-3",
+      "src": "/backgrounds/pixi/premium-wizard-library/8d95998e4e165c3d2ce0.png",
+      "srcHigh": "/backgrounds/pixi/premium-wizard-library/high-c1de08717eb859198f21.png",
+      "resolutionHigh": 3,
+      "x": 554,
+      "y": 214,
+      "width": 72,
+      "height": 70,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-452",
+          "kind": "signature-turn",
+          "cssName": "signature-turn",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            590,
+            250
+          ],
+          "className": "signature-spin",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 6.283185307179586,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "linear",
+          "alternate": false,
+          "baseAlpha": 1,
+          "sourceMotionId": "wizard-library-star",
+          "pivotX": 590,
+          "pivotY": 249
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-wizard-library/clip-d8987a15d1c067e238f4.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-wizard-library/clip-high-5821289ec7b1c776aeb0.png",
+      "costGuard": {
+        "originalGroup": "e396c69a22-1",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-wizard-library/8d95998e4e165c3d2ce0.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-wizard-library/high-c1de08717eb859198f21.png",
+        "originalWidth": 72,
+        "originalHeight": 70,
+        "originalArea": 5040,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 5040,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-wizard-library/clip-d8987a15d1c067e238f4.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-wizard-library/clip-high-5821289ec7b1c776aeb0.png"
+      },
+      "motion": {
+        "id": "motion-452",
+        "kind": "signature-turn",
+        "cssName": "signature-turn",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          590,
+          250
+        ],
+        "className": "signature-spin",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 6.283185307179586,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "linear",
+        "alternate": false,
+        "baseAlpha": 1,
+        "sourceMotionId": "wizard-library-star",
+        "pivotX": 590,
+        "pivotY": 249
+      }
+    },
+    {
+      "id": "v0-4",
+      "src": "/backgrounds/pixi/premium-wizard-library/d677703882728a1bf081.png",
+      "srcHigh": "/backgrounds/pixi/premium-wizard-library/high-935db1b2be1a542a3557.png",
+      "resolutionHigh": 3,
+      "x": 8,
+      "y": 175,
+      "width": 787,
+      "height": 645,
+      "sourceTag": "g",
+      "sourceRole": "character",
+      "rasterOnlyReason": "human-subtree",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "e396c69a22-2",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-wizard-library/d677703882728a1bf081.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-wizard-library/high-935db1b2be1a542a3557.png",
+        "originalWidth": 787,
+        "originalHeight": 645,
+        "originalArea": 507615,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 507615,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-5",
+      "kind": "animal",
+      "animalId": "premium-wizard-library:actor-1"
+    },
+    {
+      "id": "v0-6",
+      "src": "/backgrounds/pixi/premium-wizard-library/9a457c42cd069919259a.png",
+      "srcHigh": "/backgrounds/pixi/premium-wizard-library/high-c6544b000e80db7f135a.png",
+      "resolutionHigh": 3,
+      "x": 148,
+      "y": 0,
+      "width": 642,
+      "height": 776,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "e396c69a22-4",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-wizard-library/9a457c42cd069919259a.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-wizard-library/high-c6544b000e80db7f135a.png",
+        "originalWidth": 642,
+        "originalHeight": 776,
+        "originalArea": 498192,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 498192,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-7",
+      "src": "/backgrounds/pixi/premium-wizard-library/ac5a1d0f75dc8b6475b2.png",
+      "srcHigh": "/backgrounds/pixi/premium-wizard-library/high-da0ad943df4b37a91be8.png",
+      "resolutionHigh": 3,
+      "x": 185,
+      "y": 314,
+      "width": 31,
+      "height": 50,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-453",
+          "kind": "signature-page",
+          "cssName": "signature-page",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            185,
+            340
+          ],
+          "className": "signature-page",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": 0,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 0.65,
+              "x": 0,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 0.78,
+              "x": 0,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 0.16,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": -0.20943951023931953
+            },
+            {
+              "offset": 0.88,
+              "x": 0,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 0.7,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0.08726646259971647
+            },
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": false,
+          "baseAlpha": 1,
+          "sourceMotionId": "wizard-library-book",
+          "pivotX": 185,
+          "pivotY": 339
+        }
+      ],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 -17 Q21 -31 31 -21 L31 13 Q12 6 0 24 Z\" fill=\"#dbceb0\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              185,
+              340
+            ],
+            "primitiveCount": 1
+          }
+        ],
+        "primitiveCount": 1,
+        "nativeInstructions": 1,
+        "sourceBounds": {
+          "x": 185,
+          "y": 314,
+          "width": 31,
+          "height": 50
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "e396c69a22-5",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-wizard-library/9c3751d4f4aeb55535ed.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-wizard-library/high-bc3a9863fe821dc08027.png",
+        "originalWidth": 31,
+        "originalHeight": 50,
+        "originalArea": 1550,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 480,
+        "nativeParts": 1
+      },
+      "motion": {
+        "id": "motion-453",
+        "kind": "signature-page",
+        "cssName": "signature-page",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          185,
+          340
+        ],
+        "className": "signature-page",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 0.65,
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 0.78,
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 0.16,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": -0.20943951023931953
+          },
+          {
+            "offset": 0.88,
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 0.7,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0.08726646259971647
+          },
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": false,
+        "baseAlpha": 1,
+        "sourceMotionId": "wizard-library-book",
+        "pivotX": 185,
+        "pivotY": 339
+      }
+    },
+    {
+      "id": "v0-8",
+      "src": "/backgrounds/pixi/premium-wizard-library/5eec156f4601c9b3e126.png",
+      "srcHigh": "/backgrounds/pixi/premium-wizard-library/high-7696829c86aa08268468.png",
+      "resolutionHigh": 3,
+      "x": 190,
+      "y": 321,
+      "width": 20,
+      "height": 24,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-453",
+          "kind": "signature-page",
+          "cssName": "signature-page",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            185,
+            340
+          ],
+          "className": "signature-page",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": 0,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 0.65,
+              "x": 0,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 0.78,
+              "x": 0,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 0.16,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": -0.20943951023931953
+            },
+            {
+              "offset": 0.88,
+              "x": 0,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 0.7,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0.08726646259971647
+            },
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": false,
+          "baseAlpha": 1,
+          "sourceMotionId": "wizard-library-book",
+          "pivotX": 185,
+          "pivotY": 339
+        }
+      ],
+      "costGuard": {
+        "originalGroup": "e396c69a22-5",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-wizard-library/9c3751d4f4aeb55535ed.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-wizard-library/high-bc3a9863fe821dc08027.png",
+        "originalWidth": 31,
+        "originalHeight": 50,
+        "originalArea": 1550,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 480,
+        "nativeParts": 1
+      },
+      "motion": {
+        "id": "motion-453",
+        "kind": "signature-page",
+        "cssName": "signature-page",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          185,
+          340
+        ],
+        "className": "signature-page",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 0.65,
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 0.78,
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 0.16,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": -0.20943951023931953
+          },
+          {
+            "offset": 0.88,
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 0.7,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0.08726646259971647
+          },
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": false,
+        "baseAlpha": 1,
+        "sourceMotionId": "wizard-library-book",
+        "pivotX": 185,
+        "pivotY": 339
+      }
+    },
+    {
+      "id": "v0-9",
+      "src": "/backgrounds/pixi/premium-wizard-library/b2ea98a1f16314162623.png",
+      "srcHigh": "/backgrounds/pixi/premium-wizard-library/high-a532321af944d2fdc419.png",
+      "resolutionHigh": 3,
+      "x": 620,
+      "y": 407,
+      "width": 60,
+      "height": 26,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M-30 31 L30 31 M-21 29 L0 10 L21 29\" fill=\"none\" stroke=\"#c5a776\" stroke-width=\"4\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              650,
+              400
+            ],
+            "primitiveCount": 1
+          }
+        ],
+        "primitiveCount": 1,
+        "nativeInstructions": 1,
+        "sourceBounds": {
+          "x": 620,
+          "y": 407,
+          "width": 60,
+          "height": 26
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "e396c69a22-6",
+        "decision": "whole-native",
+        "originalSrc": "/backgrounds/pixi/premium-wizard-library/b2ea98a1f16314162623.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-wizard-library/high-a532321af944d2fdc419.png",
+        "originalWidth": 60,
+        "originalHeight": 26,
+        "originalArea": 1560,
+        "retainedRasterCount": 0,
+        "retainedRasterArea": 0,
+        "nativeParts": 1
+      }
+    },
+    {
+      "id": "v0-10",
+      "src": "/backgrounds/pixi/premium-wizard-library/6416a9cefd8bad0085d1.png",
+      "srcHigh": "/backgrounds/pixi/premium-wizard-library/high-b015ccb45e3f25b7a59d.png",
+      "resolutionHigh": 3,
+      "x": 614,
+      "y": 364,
+      "width": 74,
+      "height": 72,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [
+        "signature-spin"
+      ],
+      "motions": [
+        {
+          "id": "motion-454",
+          "kind": "signature-turn",
+          "cssName": "signature-turn",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            650,
+            400
+          ],
+          "className": "signature-spin",
+          "duration": 13,
+          "delay": -2.7,
+          "keyframes": [
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 6.283185307179586,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "linear",
+          "alternate": false,
+          "baseAlpha": 1,
+          "sourceMotionId": "wizard-library-orrery",
+          "pivotX": 651,
+          "pivotY": 400
+        }
+      ],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><ellipse rx=\"35\" ry=\"15\" fill=\"none\" stroke=\"#c5a776\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><ellipse rx=\"15\" ry=\"35\" fill=\"none\" stroke=\"#859b9b\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle r=\"10\" fill=\"#bf9864\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cx=\"31\" cy=\"7\" r=\"7\" fill=\"#9baead\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              650,
+              400
+            ],
+            "primitiveCount": 4
+          }
+        ],
+        "primitiveCount": 4,
+        "nativeInstructions": 4,
+        "sourceBounds": {
+          "x": 614,
+          "y": 364,
+          "width": 74,
+          "height": 72
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "e396c69a22-7",
+        "decision": "whole-native",
+        "originalSrc": "/backgrounds/pixi/premium-wizard-library/6416a9cefd8bad0085d1.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-wizard-library/high-b015ccb45e3f25b7a59d.png",
+        "originalWidth": 74,
+        "originalHeight": 72,
+        "originalArea": 5328,
+        "retainedRasterCount": 0,
+        "retainedRasterArea": 0,
+        "nativeParts": 1
+      },
+      "motion": {
+        "id": "motion-454",
+        "kind": "signature-turn",
+        "cssName": "signature-turn",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          650,
+          400
+        ],
+        "className": "signature-spin",
+        "duration": 13,
+        "delay": -2.7,
+        "keyframes": [
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 6.283185307179586,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "linear",
+        "alternate": false,
+        "baseAlpha": 1,
+        "sourceMotionId": "wizard-library-orrery",
+        "pivotX": 651,
+        "pivotY": 400
+      }
+    },
+    {
+      "id": "v0-11",
+      "src": "/backgrounds/pixi/premium-wizard-library/ff747dddc4fe02ce1b9a.png",
+      "srcHigh": "/backgrounds/pixi/premium-wizard-library/high-18149f6873e1752011e3.png",
+      "resolutionHigh": 3,
+      "x": 467,
+      "y": 669,
+      "width": 32,
+      "height": 20,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M-17 13 L13 13 L13 31 L-17 31 Z\" fill=\"#435c58\" stroke=\"#c5a776\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              485,
+              657
+            ],
+            "primitiveCount": 1
+          }
+        ],
+        "primitiveCount": 1,
+        "nativeInstructions": 2,
+        "sourceBounds": {
+          "x": 467,
+          "y": 669,
+          "width": 32,
+          "height": 20
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "e396c69a22-8",
+        "decision": "whole-native",
+        "originalSrc": "/backgrounds/pixi/premium-wizard-library/ff747dddc4fe02ce1b9a.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-wizard-library/high-18149f6873e1752011e3.png",
+        "originalWidth": 32,
+        "originalHeight": 20,
+        "originalArea": 640,
+        "retainedRasterCount": 0,
+        "retainedRasterArea": 0,
+        "nativeParts": 1
+      }
+    },
+    {
+      "id": "v0-12",
+      "src": "/backgrounds/pixi/premium-wizard-library/113efc3b2223742e2fc2.png",
+      "srcHigh": "/backgrounds/pixi/premium-wizard-library/high-06a5282d64e9a1107e20.png",
+      "resolutionHigh": 3,
+      "x": 482,
+      "y": 617,
+      "width": 34,
+      "height": 58,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [
+        "signature-sway"
+      ],
+      "motions": [
+        {
+          "id": "motion-455",
+          "kind": "signature-rock",
+          "cssName": "signature-rock",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            485,
+            657
+          ],
+          "className": "signature-sway",
+          "duration": 18,
+          "delay": -5.4,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": 0,
+              "y": 0,
+              "rotation": -0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "wizard-library-feather",
+          "pivotX": 499,
+          "pivotY": 675
+        }
+      ],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M-2 17 L16 -38 Q40 -45 25 -10 L-2 17\" fill=\"#c0b89c\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M-2 17 L24 -31\" fill=\"#000000\" stroke=\"#807c64\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              485,
+              657
+            ],
+            "primitiveCount": 2
+          }
+        ],
+        "primitiveCount": 2,
+        "nativeInstructions": 3,
+        "sourceBounds": {
+          "x": 482,
+          "y": 617,
+          "width": 34,
+          "height": 58
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "e396c69a22-9",
+        "decision": "whole-native",
+        "originalSrc": "/backgrounds/pixi/premium-wizard-library/113efc3b2223742e2fc2.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-wizard-library/high-06a5282d64e9a1107e20.png",
+        "originalWidth": 34,
+        "originalHeight": 58,
+        "originalArea": 1972,
+        "retainedRasterCount": 0,
+        "retainedRasterArea": 0,
+        "nativeParts": 1
+      },
+      "motion": {
+        "id": "motion-455",
+        "kind": "signature-rock",
+        "cssName": "signature-rock",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          485,
+          657
+        ],
+        "className": "signature-sway",
+        "duration": 18,
+        "delay": -5.4,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": 0,
+            "y": 0,
+            "rotation": -0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "wizard-library-feather",
+        "pivotX": 499,
+        "pivotY": 675
+      }
+    }
+  ],
+  "provenance": {
+    "method": "Build-time bodyless React SVG/Sharp decomposition; live animals in ordered native slots",
+    "source": "authoring Cafe/PremiumScene",
+    "cssKeyframes": true,
+    "highResolutionSource": "original authoring SVG rasterized at 216 DPI, never enlarged from PNG",
+    "sourceDigest": "5c7ca82da872de064c14d1c3cfca3b8641222cc7101e0c5c55c93fecd8ec3466",
+    "sourceHashes": [
+      {
+        "path": "scripts/export-pixi-scenes.mjs",
+        "sha256": "cce24c18d6e635a612a959fc8d97d3f851eeaf67f3f0804a9336cf33b62a17f3"
+      },
+      {
+        "path": "scripts/pixi-animal-slots.mjs",
+        "sha256": "9bb84df02f536a81b1f8d18d4d403f01b9e65d81005d4bcdbf08af2cf348a204"
+      },
+      {
+        "path": "scripts/pixi-export-assets.mjs",
+        "sha256": "d420a92c1a9022c218f91d8ef4612834f98382fbfb8c4a32899a5312ddc40a7e"
+      },
+      {
+        "path": "scripts/pixi-vector-geometry.mjs",
+        "sha256": "be71a70f9cc5ee08df773822749e8bc9e0c4f7772f26c2e92c0636cc992c5a92"
+      },
+      {
+        "path": "src/pages/focus/lib/sceneEffectCycle.ts",
+        "sha256": "dcda423ecaed94108977149eab22dee726799d41d2075d8fab8c03b42842c73a"
+      },
+      {
+        "path": "src/pages/focus/lib/sceneTime.ts",
+        "sha256": "cad76a40f6c70d279306eadfbd11659cb4ae60254ab5e40a78a241ddb1a92c0b"
+      },
+      {
+        "path": "src/pages/focus/model/animalHabitats.ts",
+        "sha256": "92163ddce7670e57105d2331b27874dc26998c3b8177b6fe780f4cdf670721a6"
+      },
+      {
+        "path": "src/pages/focus/model/animalSpecies.ts",
+        "sha256": "b1664faeee27972cddff72dce8f41be17fe618b30138bfe1a5f25b674600a8f8"
+      },
+      {
+        "path": "src/pages/focus/model/animalSpecies.ts",
+        "sha256": "b1664faeee27972cddff72dce8f41be17fe618b30138bfe1a5f25b674600a8f8"
+      },
+      {
+        "path": "src/pages/focus/model/backgrounds.ts",
+        "sha256": "aa5522f3d96c7c3f2c8fe7b4a80067bef653e0c1bd42e782a1d7cf036cd780f9"
+      },
+      {
+        "path": "src/pages/focus/model/neonSigns.ts",
+        "sha256": "6d184d7ec7a74cb17d710ee9a7be172c67589e6b63c58aff0c5c5f32c3f03265"
+      },
+      {
+        "path": "src/pages/focus/model/premiumCast.ts",
+        "sha256": "5ce83484e6aac22c28465ffa9b323011ff599a4a68cd312a751e931a8c2a24cc"
+      },
+      {
+        "path": "src/pages/focus/model/premiumExperience.ts",
+        "sha256": "c69e9d0e81d152f7b9c1ee648ceab68b72664edf3b6099e6c176128d2639b640"
+      },
+      {
+        "path": "src/pages/focus/model/premiumSpaces.ts",
+        "sha256": "08e7600d4b06133c49a9c8801e85df579e48725139178f6d244fc870b53e3722"
+      },
+      {
+        "path": "src/pages/focus/model/sakuraPetals.ts",
+        "sha256": "4507fc1a89ab1732824218d328423c52d26e1028fc089792ffae81d7101a3151"
+      },
+      {
+        "path": "src/pages/focus/model/sceneAnimals.ts",
+        "sha256": "70e57324db99f5928688af7d794241909b3a01d89a1fa7b8d05eaae7a8b1d1cf"
+      },
+      {
+        "path": "src/pages/focus/model/sceneArchitecture.ts",
+        "sha256": "c9acf3dd253f7fde4fc4fb2afc11d72a6efeb6f911579f8c8fb35de9214ecc62"
+      },
+      {
+        "path": "src/pages/focus/model/sceneAutumn.ts",
+        "sha256": "f3961219ab5bfe519de5c347c13ac14f9d95e6d524a24ee5f0ccc782bbf99354"
+      },
+      {
+        "path": "src/pages/focus/model/sceneCast.ts",
+        "sha256": "277b47d7ef4f0254d18ed54bb57a94c111aee70a748f8d58cdbde82f91b4e3be"
+      },
+      {
+        "path": "src/pages/focus/model/sceneDetails.ts",
+        "sha256": "1231d4449d808be1d5c1aed01f5fa5b7ee8898b0114da6ccbc4eb7ec0893297d"
+      },
+      {
+        "path": "src/pages/focus/model/sceneEffects.ts",
+        "sha256": "5762a3e4fe39466bdd6ef10856f846f1308879aed3168f7ce94aa307978e3336"
+      },
+      {
+        "path": "src/pages/focus/model/sceneInterior.ts",
+        "sha256": "430d66d9abc3f7ac92acc00c1ef8c96c25d1f873c277358f6af2ed54a176ffb5"
+      },
+      {
+        "path": "src/pages/focus/model/scenePlants.ts",
+        "sha256": "e8f428446dbefb179eabbc00dbb3030cf981dcb9494fbca0a914931626d39d7b"
+      },
+      {
+        "path": "src/pages/focus/model/sceneWeather.ts",
+        "sha256": "3f712859413c6431388d7317ceba3d0a71af85f7b867c7d1d2853c2af08d239d"
+      },
+      {
+        "path": "src/pages/focus/model/thunderstorm.ts",
+        "sha256": "cd72ad96f69be1d0526808b7a506883339b5ab255f948eca80f950ecd452cd1d"
+      },
+      {
+        "path": "src/pages/focus/ui/AutumnScenery.tsx",
+        "sha256": "d057de93a3c8799da7ce41f51d311b60ed747799fba1e7ec02fd62d6ae495705"
+      },
+      {
+        "path": "src/pages/focus/ui/backgrounds.css",
+        "sha256": "35d273c6e3c016a06c3217879bc4b636fe73a0fee656d25ce4c6d67251659e4e"
+      },
+      {
+        "path": "src/pages/focus/ui/Cafe.tsx",
+        "sha256": "15f75b36611f816e8ae3f635ea3800e443b45108635a07d682606daa035631d8"
+      },
+      {
+        "path": "src/pages/focus/ui/LegacyOutdoorFixtures.tsx",
+        "sha256": "df773122841276c8e6789af11f989e9627bb70610ab902bb4d39dbd505382a59"
+      },
+      {
+        "path": "src/pages/focus/ui/NeonCityArt.tsx",
+        "sha256": "1fb5d3f98121b3ad808257ea61e7f9930c729b81f0a873c94147340c2892f63d"
+      },
+      {
+        "path": "src/pages/focus/ui/NeonFacadeLights.tsx",
+        "sha256": "28f141679ae5004663e74c8c25c4446fa5acf109da965132a4590fd487e37b22"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/CinemaFilm.tsx",
+        "sha256": "7e5b975c58a6f04947940d19143ecf32551531896a94e1fba0809e7994e895a3"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premium-signatures.css",
+        "sha256": "81ba95beeb28f2809329a6ae3501437164b4f9762e3b56f7a7fb9a2fe2dc61e7"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premium.css",
+        "sha256": "106215e1a3cd162aeac9b52465953ba33d46140d553a7e8d1061463d6cc56bfc"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumArchitecture.tsx",
+        "sha256": "86b5af6f4c4325f387ffae0f075ba0b975fe49e4d7e3e14ef92d35f9c1340db0"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumAtmosphere.tsx",
+        "sha256": "61aca5e6aa0d070a1cb6f399b6d7f36d958bf9fad24262143023fd32997bc6a6"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumAtmosphere.tsx",
+        "sha256": "61aca5e6aa0d070a1cb6f399b6d7f36d958bf9fad24262143023fd32997bc6a6"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumCharacter.tsx",
+        "sha256": "2db855ceca5754abaf1a709166d4c91cc81f59425dda8d3a1864dd6cfb0a5d66"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumFixtures.tsx",
+        "sha256": "5faa3563dd699ffaa3848c64455362e3cdfe19cd8a73a8bd594014b6fdec1f0e"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premiumGeometry.ts",
+        "sha256": "70ffccfa826b63c86043fdedbf6e085c7f4abc109eb105e0ecbaa5b60a7f6ae4"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumHeroes.tsx",
+        "sha256": "9d7182045b8f1015eca3c05c46ab987794b1b97f7f674d47c39833de076a55e2"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumInterior.tsx",
+        "sha256": "489284e5c51232bcd11273f20f55e4b6b581a5d7ec15d9f1152ba9b8c8fe5d37"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumObjects.tsx",
+        "sha256": "9489c16982f3a25d0d3faf283438b419b11d621dce26bb3d31c5ff32f8471e3d"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumScene.tsx",
+        "sha256": "64467d7455d104b16ff53ecfc2b7445c0c652b166709c0693f6bcc00fbe3cd3b"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumScene.tsx",
+        "sha256": "64467d7455d104b16ff53ecfc2b7445c0c652b166709c0693f6bcc00fbe3cd3b"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumSignatureDetails.tsx",
+        "sha256": "bbb9216a34fffd938a9bd7ca127af1fdc8a01f6959079d0e1a08ca361e30c3fa"
+      },
+      {
+        "path": "src/pages/focus/ui/RainOverlay.tsx",
+        "sha256": "8d4fc403218fed94666171eb68a4546416a43dbd90547b845b7bc902b7912b01"
+      },
+      {
+        "path": "src/pages/focus/ui/RainOverlay.tsx",
+        "sha256": "8d4fc403218fed94666171eb68a4546416a43dbd90547b845b7bc902b7912b01"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomFurnishings.tsx",
+        "sha256": "33cf9f4a214e365a372117c954ebde36846a8f97c86f33b18e0274610693a9a4"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomLighting.tsx",
+        "sha256": "22e29e36ae6cbc517a66fc4d0f8cca9d93546732e3a25da566e3169dbee9ee79"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomWallTexture.tsx",
+        "sha256": "59cc984b2f6e5ad496dcc4dc64c66bc4c79c0844b78ed78c2e8c018d33660832"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomWindow.tsx",
+        "sha256": "e4268594944caafc217f87fc250149344437c55ec68bcf29038a8ea25211f040"
+      },
+      {
+        "path": "src/pages/focus/ui/scene-effects.css",
+        "sha256": "49b91c04946138222d2215e334acad98c9a56c4d9e07f12136b75a96f15a259c"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneAtmosphere.tsx",
+        "sha256": "dc1445b3e812f7c9a96cfb630c04a40450900a3c290e2817e7447147d242a790"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneAtmosphere.tsx",
+        "sha256": "dc1445b3e812f7c9a96cfb630c04a40450900a3c290e2817e7447147d242a790"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneCaption.tsx",
+        "sha256": "ec6d1cdb0d8198676f0510f544254a7c06f1ddc0547616b816dd9ed0344538e9"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneCompanions.tsx",
+        "sha256": "847fc93209b8729b434b11849e9fa552b528e629454de1ee0459ce724e4802b2"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneDetails.tsx",
+        "sha256": "cdf50b1cff06573129dd38646188e8650ea834295da2b2236dfbf2cd7dfc73d6"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneLayer.tsx",
+        "sha256": "f4363e6d7d2049654d7f80ca55032266ffca066413889e2dffb18320141a87ea"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneOutdoorLife.tsx",
+        "sha256": "24ce6c78be438502d6b9cbddfd60a8a9858f725412b07ab13daf510b7a05055d"
+      },
+      {
+        "path": "src/pages/focus/ui/ScenePets.tsx",
+        "sha256": "4d8014045089a98ee4fca5a769f6fece72c8b97a6c49d2313aa817ffd5082abd"
+      },
+      {
+        "path": "src/pages/focus/ui/ScenePlants.tsx",
+        "sha256": "dc3d9871b65c2df495f9e15107f5127a4761b37d15f223a652207f5a44b45603"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneTable.tsx",
+        "sha256": "ed0922378a8e45b384070ba478ec12418dfaffe8f412b56bb9b062d3d9844a37"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWeatherDrawing.tsx",
+        "sha256": "565a350c95299ff5f996d1a0828b08b6bef82314cc5093e96deaf03c77848c5c"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWildlife.tsx",
+        "sha256": "82e4df15b2f069dbec95d1dd09b397896cb924fa6811785b1f0f5aa05e5de855"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWindow.tsx",
+        "sha256": "5cfdfc7c5c9ccf54502d66e35fd61f6fc50a5c0c13b8e86f97f84c6421da5720"
+      },
+      {
+        "path": "src/pages/focus/ui/SongInspiredArt.tsx",
+        "sha256": "da3f2ab3eeec24f87b5592fcbb1f4fcea184986f988b456783fb19bc72b380fb"
+      },
+      {
+        "path": "src/pages/focus/ui/SpecialCafeScenes.tsx",
+        "sha256": "eebc3d72d826f213a2fe195991a8adb5539dfb860fdad8579939191843160bc3"
+      },
+      {
+        "path": "src/pages/focus/ui/weather.css",
+        "sha256": "876af059984a83428327e34d1a41200ce430c7c4130cf9d1515bc9d2aa3fd6da"
+      }
+    ]
+  },
+  "proof": {
+    "variants": [
+      {
+        "coffeeCount": 0,
+        "meanAbsoluteError": 0.06624733231707317,
+        "maxChannelDifference": 4,
+        "channelFractionAbove2": 0.0000015243902439024391,
+        "vectorComparison": {
+          "meanAbsoluteError": 0.06624733231707317,
+          "maxChannelDifference": 4,
+          "channelFractionAbove2": 0.0000015243902439024391
+        }
+      }
+    ],
+    "vectorCoverage": [
+      {
+        "originalRunBaseline": {
+          "uniquePNGCount": 14,
+          "logicalArea": 3266479,
+          "decoded1xBytes": 13065916,
+          "decoded3xBytes": 117593244
+        },
+        "guardedHybrid": {
+          "uniquePNGCount": 10,
+          "logicalArea": 3255909,
+          "decoded1xBytes": 13023636,
+          "decoded3xBytes": 117212724
+        },
+        "coffeeCount": 0,
+        "nativeLayers": 5,
+        "nativePrimitives": 9,
+        "nativeParts": 5,
+        "textureDecodedBytesBefore": 70378524,
+        "textureDecodedBytesAfter": 69980724,
+        "compressedHighTextureBytesAvoided": 15367
+      }
+    ],
+    "staticBodiesRemoved": true,
+    "liveAnimalsExcludedFromStaticProof": true
+  }
+}

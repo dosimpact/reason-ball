@@ -1,0 +1,2194 @@
+{
+  "version": 1,
+  "animalLifeVersion": 1,
+  "animalPolicy": {
+    "staticBodiesRemoved": true,
+    "supportsPreserved": true,
+    "actorIds": [
+      "premium-rooftop-cinema:actor-1"
+    ],
+    "proof": "bodyless static textures; live pose proof generated separately"
+  },
+  "id": "premium-rooftop-cinema",
+  "width": 800,
+  "height": 820,
+  "weather": "heavy-rain",
+  "weatherMask": "/backgrounds/pixi/premium-rooftop-cinema/weather-mask.png",
+  "weatherMaskHigh": "/backgrounds/pixi/premium-rooftop-cinema/weather-mask-high.png",
+  "resolutionHigh": 3,
+  "humanRasterPolicy": {
+    "version": 1,
+    "selector": "[data-character],[data-character-id],[data-pose],[data-head-view],[data-premium-character],[data-premium-person],[data-person-view]",
+    "qualityResolution": 3,
+    "scope": "complete human ancestry; no native face, limb, clothing or held prop fragments"
+  },
+  "layers": [
+    {
+      "id": "rear",
+      "sourceRole": "structural",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/rear-base.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/rear-high.png",
+      "resolutionHigh": 3,
+      "x": 0,
+      "y": 0,
+      "width": 800,
+      "height": 820
+    },
+    {
+      "id": "weather",
+      "kind": "weather"
+    },
+    {
+      "id": "v0-0",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/39298ff1ad954d4a04d1.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-e26824a4f5988cf7d5df.png",
+      "resolutionHigh": 3,
+      "x": 0,
+      "y": 31,
+      "width": 323,
+      "height": 378,
+      "sourceTag": "ellipse",
+      "sourceRole": "soft-effect",
+      "sourceClasses": [
+        "premium-light-breathe"
+      ],
+      "motions": [
+        {
+          "id": "motion-515",
+          "kind": "premium-light",
+          "cssName": "premium-light",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "className": "premium-light-breathe",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 1,
+              "alpha": 0.72
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "pivotX": 161.5,
+          "pivotY": 220
+        }
+      ],
+      "costGuard": {
+        "originalGroup": "4b7c00fc1f-1",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/39298ff1ad954d4a04d1.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-e26824a4f5988cf7d5df.png",
+        "originalWidth": 323,
+        "originalHeight": 378,
+        "originalArea": 122094,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 122094,
+        "nativeParts": 0
+      },
+      "motion": {
+        "id": "motion-515",
+        "kind": "premium-light",
+        "cssName": "premium-light",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "className": "premium-light-breathe",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 1,
+            "alpha": 0.72
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "pivotX": 161.5,
+        "pivotY": 220
+      }
+    },
+    {
+      "id": "v0-1",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/7761325ead0c8775a6f2.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-702a857dff4268b69227.png",
+      "resolutionHigh": 3,
+      "x": 487,
+      "y": 31,
+      "width": 313,
+      "height": 378,
+      "sourceTag": "ellipse",
+      "sourceRole": "soft-effect",
+      "sourceClasses": [
+        "premium-light-breathe"
+      ],
+      "motions": [
+        {
+          "id": "motion-516",
+          "kind": "premium-light",
+          "cssName": "premium-light",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "className": "premium-light-breathe",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 1,
+              "alpha": 0.72
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "pivotX": 643.5,
+          "pivotY": 220
+        }
+      ],
+      "costGuard": {
+        "originalGroup": "4b7c00fc1f-2",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/7761325ead0c8775a6f2.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-702a857dff4268b69227.png",
+        "originalWidth": 313,
+        "originalHeight": 378,
+        "originalArea": 118314,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 118314,
+        "nativeParts": 0
+      },
+      "motion": {
+        "id": "motion-516",
+        "kind": "premium-light",
+        "cssName": "premium-light",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "className": "premium-light-breathe",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 1,
+            "alpha": 0.72
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "pivotX": 643.5,
+        "pivotY": 220
+      }
+    },
+    {
+      "id": "v0-2",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/646a3281cc2fdfd8885e.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-f9c15c4c1d4fbfce36c5.png",
+      "resolutionHigh": 3,
+      "x": 249,
+      "y": 399,
+      "width": 102,
+      "height": 27,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [
+        "signature-current"
+      ],
+      "motions": [
+        {
+          "id": "motion-517",
+          "kind": "signature-current",
+          "cssName": "signature-current",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            250,
+            425
+          ],
+          "className": "signature-current",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": -6,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 0.92,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 6,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1.05,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 0.65,
+          "sourceMotionId": "rooftop-cinema-beam",
+          "pivotX": 300,
+          "pivotY": 412.5
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-rooftop-cinema/clip-69833ad71b0affd4a908.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-rooftop-cinema/clip-high-00a9cdd025fd6112d3fd.png",
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-1",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/646a3281cc2fdfd8885e.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-f9c15c4c1d4fbfce36c5.png",
+        "originalWidth": 102,
+        "originalHeight": 27,
+        "originalArea": 2754,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 2754,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-rooftop-cinema/clip-69833ad71b0affd4a908.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-rooftop-cinema/clip-high-00a9cdd025fd6112d3fd.png"
+      },
+      "motion": {
+        "id": "motion-517",
+        "kind": "signature-current",
+        "cssName": "signature-current",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          250,
+          425
+        ],
+        "className": "signature-current",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": -6,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 0.92,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 6,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1.05,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 0.65,
+        "sourceMotionId": "rooftop-cinema-beam",
+        "pivotX": 300,
+        "pivotY": 412.5
+      }
+    },
+    {
+      "id": "v0-3",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/9f14624a2141dd0cbcbf.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-1ca027ed742219ce0f07.png",
+      "resolutionHigh": 3,
+      "x": 629,
+      "y": 165,
+      "width": 2,
+      "height": 32,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-2",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/9f14624a2141dd0cbcbf.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-1ca027ed742219ce0f07.png",
+        "originalWidth": 2,
+        "originalHeight": 32,
+        "originalArea": 64,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 64,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-4",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/ca4e3b3b0f8d4fec9dab.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-014977d11a1608e35b43.png",
+      "resolutionHigh": 3,
+      "x": 621,
+      "y": 196,
+      "width": 49,
+      "height": 49,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-518",
+          "kind": "signature-rock",
+          "cssName": "signature-rock",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            630,
+            210
+          ],
+          "className": "signature-swing",
+          "duration": 13,
+          "delay": -2.7,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": 0,
+              "y": 0,
+              "rotation": -0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 0.10471975511965977,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "rooftop-cinema-flag",
+          "pivotX": 645.5,
+          "pivotY": 196
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-rooftop-cinema/clip-69833ad71b0affd4a908.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-rooftop-cinema/clip-high-00a9cdd025fd6112d3fd.png",
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-3",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/ca4e3b3b0f8d4fec9dab.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-014977d11a1608e35b43.png",
+        "originalWidth": 49,
+        "originalHeight": 49,
+        "originalArea": 2401,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 2401,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-rooftop-cinema/clip-69833ad71b0affd4a908.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-rooftop-cinema/clip-high-00a9cdd025fd6112d3fd.png"
+      },
+      "motion": {
+        "id": "motion-518",
+        "kind": "signature-rock",
+        "cssName": "signature-rock",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          630,
+          210
+        ],
+        "className": "signature-swing",
+        "duration": 13,
+        "delay": -2.7,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": 0,
+            "y": 0,
+            "rotation": -0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 0.10471975511965977,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "rooftop-cinema-flag",
+        "pivotX": 645.5,
+        "pivotY": 196
+      }
+    },
+    {
+      "id": "v0-5",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/ce82b2dd7184f04ed509.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-1941c745c3dbf630203e.png",
+      "resolutionHigh": 3,
+      "x": 0,
+      "y": 50,
+      "width": 800,
+      "height": 112,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-4",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/fed88f03ca613f102fd3.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-4806dd01d29fc975b9bd.png",
+        "originalWidth": 800,
+        "originalHeight": 606,
+        "originalArea": 484800,
+        "retainedRasterCount": 2,
+        "retainedRasterArea": 196520,
+        "nativeParts": 1
+      }
+    },
+    {
+      "id": "v0-6",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/6415d45232f5cc414480.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-9d388e40582ce203862d.png",
+      "resolutionHigh": 3,
+      "x": 460,
+      "y": 250,
+      "width": 280,
+      "height": 210,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M465 255 L735 255 L735 455 L465 455 Z\" fill=\"#c2c4a8\" stroke=\"#9aab93\" stroke-width=\"10\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "primitiveCount": 1
+          }
+        ],
+        "primitiveCount": 1,
+        "nativeInstructions": 2,
+        "sourceBounds": {
+          "x": 460,
+          "y": 250,
+          "width": 280,
+          "height": 210
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-4",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/fed88f03ca613f102fd3.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-4806dd01d29fc975b9bd.png",
+        "originalWidth": 800,
+        "originalHeight": 606,
+        "originalArea": 484800,
+        "retainedRasterCount": 2,
+        "retainedRasterArea": 196520,
+        "nativeParts": 1
+      }
+    },
+    {
+      "id": "v0-7",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/1b8d0c7d660f3daee825.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-1a99ed1a66ec9c23a50e.png",
+      "resolutionHigh": 3,
+      "x": 465,
+      "y": 260,
+      "width": 270,
+      "height": 396,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-4",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/fed88f03ca613f102fd3.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-4806dd01d29fc975b9bd.png",
+        "originalWidth": 800,
+        "originalHeight": 606,
+        "originalArea": 484800,
+        "retainedRasterCount": 2,
+        "retainedRasterArea": 196520,
+        "nativeParts": 1
+      }
+    },
+    {
+      "id": "v0-8",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/d53a9aa713d61b4bcc49.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-ea059e06394a504b4ebe.png",
+      "resolutionHigh": 3,
+      "x": 478,
+      "y": 283,
+      "width": 224,
+      "height": 38,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-519",
+          "kind": "cinema-film-cloud",
+          "cssName": "cinema-film-cloud",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "className": "cinema-film-cloud",
+          "duration": 22,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": -8,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 0.5,
+              "x": 12,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": -8,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": false,
+          "baseAlpha": 1,
+          "pivotX": 590,
+          "pivotY": 302
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-rooftop-cinema/clip-2a6cbf921c0d2f1dddfd.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-rooftop-cinema/clip-high-96fbe91498721f060a32.png",
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-5",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/d53a9aa713d61b4bcc49.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-ea059e06394a504b4ebe.png",
+        "originalWidth": 224,
+        "originalHeight": 38,
+        "originalArea": 8512,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 8512,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-rooftop-cinema/clip-2a6cbf921c0d2f1dddfd.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-rooftop-cinema/clip-high-96fbe91498721f060a32.png"
+      },
+      "motion": {
+        "id": "motion-519",
+        "kind": "cinema-film-cloud",
+        "cssName": "cinema-film-cloud",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "className": "cinema-film-cloud",
+        "duration": 22,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": -8,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 0.5,
+            "x": 12,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": -8,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": false,
+        "baseAlpha": 1,
+        "pivotX": 590,
+        "pivotY": 302
+      }
+    },
+    {
+      "id": "v0-9",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/080de78fbab63c00a33b.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-93ddb75e1ed0e05cff46.png",
+      "resolutionHigh": 3,
+      "x": 470,
+      "y": 305,
+      "width": 260,
+      "height": 145,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-6",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/080de78fbab63c00a33b.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-93ddb75e1ed0e05cff46.png",
+        "originalWidth": 260,
+        "originalHeight": 145,
+        "originalArea": 37700,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 37700,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-10",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/b93bf8e24e8c7529e01c.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-ef5fb81e6b4f3000b528.png",
+      "resolutionHigh": 3,
+      "x": 587,
+      "y": 405,
+      "width": 35,
+      "height": 39,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-520",
+          "kind": "cinema-film-water",
+          "cssName": "cinema-film-water",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "className": "cinema-film-water",
+          "duration": 5.5,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": -3,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.35
+            },
+            {
+              "offset": 0.5,
+              "x": 3,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.65
+            },
+            {
+              "offset": 1,
+              "x": -3,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.35
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": false,
+          "baseAlpha": 0.5,
+          "pivotX": 604.5,
+          "pivotY": 424.5
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-rooftop-cinema/clip-2a6cbf921c0d2f1dddfd.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-rooftop-cinema/clip-high-96fbe91498721f060a32.png",
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-7",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/b93bf8e24e8c7529e01c.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-ef5fb81e6b4f3000b528.png",
+        "originalWidth": 35,
+        "originalHeight": 39,
+        "originalArea": 1365,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 1365,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-rooftop-cinema/clip-2a6cbf921c0d2f1dddfd.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-rooftop-cinema/clip-high-96fbe91498721f060a32.png"
+      },
+      "motion": {
+        "id": "motion-520",
+        "kind": "cinema-film-water",
+        "cssName": "cinema-film-water",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "className": "cinema-film-water",
+        "duration": 5.5,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": -3,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.35
+          },
+          {
+            "offset": 0.5,
+            "x": 3,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.65
+          },
+          {
+            "offset": 1,
+            "x": -3,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.35
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": false,
+        "baseAlpha": 0.5,
+        "pivotX": 604.5,
+        "pivotY": 424.5
+      }
+    },
+    {
+      "id": "v0-11",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/11cd838842a39762f49a.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-a6615d821f38380142c4.png",
+      "resolutionHigh": 3,
+      "x": 470,
+      "y": 384,
+      "width": 260,
+      "height": 46,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-8",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/11cd838842a39762f49a.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-a6615d821f38380142c4.png",
+        "originalWidth": 260,
+        "originalHeight": 46,
+        "originalArea": 11960,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 11960,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-12",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/80078d1ad273c3c1e939.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-b424086c8dae77ee7a00.png",
+      "resolutionHigh": 3,
+      "x": 319,
+      "y": 365,
+      "width": 88,
+      "height": 21,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-521",
+          "kind": "cinema-film-train",
+          "cssName": "cinema-film-train",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "className": "cinema-film-train",
+          "duration": 22,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": 0,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 440,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "linear",
+          "alternate": false,
+          "baseAlpha": 1,
+          "pivotX": 363,
+          "pivotY": 375.5
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-rooftop-cinema/clip-2a6cbf921c0d2f1dddfd.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-rooftop-cinema/clip-high-96fbe91498721f060a32.png",
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-9",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/80078d1ad273c3c1e939.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-b424086c8dae77ee7a00.png",
+        "originalWidth": 88,
+        "originalHeight": 21,
+        "originalArea": 1848,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 1848,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-rooftop-cinema/clip-2a6cbf921c0d2f1dddfd.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-rooftop-cinema/clip-high-96fbe91498721f060a32.png"
+      },
+      "motion": {
+        "id": "motion-521",
+        "kind": "cinema-film-train",
+        "cssName": "cinema-film-train",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "className": "cinema-film-train",
+        "duration": 22,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 440,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "linear",
+        "alternate": false,
+        "baseAlpha": 1,
+        "pivotX": 363,
+        "pivotY": 375.5
+      }
+    },
+    {
+      "id": "v0-13",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/67dd37c86aff5fdc9822.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-bd810a667128cb78e71b.png",
+      "resolutionHigh": 3,
+      "x": 470,
+      "y": 409,
+      "width": 260,
+      "height": 41,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-10",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/67dd37c86aff5fdc9822.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-bd810a667128cb78e71b.png",
+        "originalWidth": 260,
+        "originalHeight": 41,
+        "originalArea": 10660,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 10660,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-14",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/acf92b53f7e2ccb3762a.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-2ba0d5a99c60399c2913.png",
+      "resolutionHigh": 3,
+      "x": 470,
+      "y": 260,
+      "width": 260,
+      "height": 190,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-522",
+          "kind": "cinema-film-shimmer",
+          "cssName": "cinema-film-shimmer",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "className": "cinema-film-shimmer",
+          "duration": 11,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0,
+              "alpha": 0.025
+            },
+            {
+              "offset": 0.5,
+              "alpha": 0.055
+            },
+            {
+              "offset": 1,
+              "alpha": 0.025
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": false,
+          "baseAlpha": 0.035,
+          "pivotX": 600,
+          "pivotY": 355
+        }
+      ],
+      "clipMask": "/backgrounds/pixi/premium-rooftop-cinema/clip-2a6cbf921c0d2f1dddfd.png",
+      "clipMaskHigh": "/backgrounds/pixi/premium-rooftop-cinema/clip-high-96fbe91498721f060a32.png",
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-11",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/acf92b53f7e2ccb3762a.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-2ba0d5a99c60399c2913.png",
+        "originalWidth": 260,
+        "originalHeight": 190,
+        "originalArea": 49400,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 49400,
+        "nativeParts": 0,
+        "originalClipMask": "/backgrounds/pixi/premium-rooftop-cinema/clip-2a6cbf921c0d2f1dddfd.png",
+        "originalClipMaskHigh": "/backgrounds/pixi/premium-rooftop-cinema/clip-high-96fbe91498721f060a32.png"
+      },
+      "motion": {
+        "id": "motion-522",
+        "kind": "cinema-film-shimmer",
+        "cssName": "cinema-film-shimmer",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "className": "cinema-film-shimmer",
+        "duration": 11,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0,
+            "alpha": 0.025
+          },
+          {
+            "offset": 0.5,
+            "alpha": 0.055
+          },
+          {
+            "offset": 1,
+            "alpha": 0.025
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": false,
+        "baseAlpha": 0.035,
+        "pivotX": 600,
+        "pivotY": 355
+      }
+    },
+    {
+      "id": "v0-15",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/87acb206eed1f28f1150.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-b6938d0ab38c9bde6bd1.png",
+      "resolutionHigh": 3,
+      "x": 80,
+      "y": 260,
+      "width": 650,
+      "height": 539,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-12",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/87acb206eed1f28f1150.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-b6938d0ab38c9bde6bd1.png",
+        "originalWidth": 650,
+        "originalHeight": 539,
+        "originalArea": 350350,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 350350,
+        "nativeParts": 0
+      }
+    },
+    {
+      "id": "v0-16",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/e43edfe6b9832f73c5e6.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-59d27575547a115f8faa.png",
+      "resolutionHigh": 3,
+      "x": 366,
+      "y": 600,
+      "width": 27,
+      "height": 38,
+      "sourceTag": "path",
+      "sourceRole": "soft-effect",
+      "sourceClasses": [
+        "premium-steam"
+      ],
+      "motions": [
+        {
+          "id": "motion-523",
+          "kind": "premium-steam",
+          "cssName": "premium-steam",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            380,
+            657
+          ],
+          "className": "premium-steam",
+          "duration": 5.5,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 0.5,
+              "x": 0,
+              "y": -7,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0,
+              "alpha": 0.14
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": false,
+          "baseAlpha": 0.32,
+          "pivotX": 379.5,
+          "pivotY": 638
+        }
+      ],
+      "vectorFallbackReason": "normalization-diff:0.000363",
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-13",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/e43edfe6b9832f73c5e6.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-59d27575547a115f8faa.png",
+        "originalWidth": 27,
+        "originalHeight": 38,
+        "originalArea": 1026,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 1026,
+        "nativeParts": 0
+      },
+      "motion": {
+        "id": "motion-523",
+        "kind": "premium-steam",
+        "cssName": "premium-steam",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          380,
+          657
+        ],
+        "className": "premium-steam",
+        "duration": 5.5,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 0.5,
+            "x": 0,
+            "y": -7,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "alpha": 0.14
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": false,
+        "baseAlpha": 0.32,
+        "pivotX": 379.5,
+        "pivotY": 638
+      }
+    },
+    {
+      "id": "v0-17",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/4384c30608b6180ea73c.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-0803694321b3e89b0ab2.png",
+      "resolutionHigh": 3,
+      "x": 610,
+      "y": 758,
+      "width": 130,
+      "height": 28,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><ellipse cy=\"12\" rx=\"65\" ry=\"14\" fill=\"#44563e\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              675,
+              760
+            ],
+            "primitiveCount": 1
+          }
+        ],
+        "primitiveCount": 1,
+        "nativeInstructions": 1,
+        "sourceBounds": {
+          "x": 610,
+          "y": 758,
+          "width": 130,
+          "height": 28
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-14",
+        "decision": "whole-native",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/4384c30608b6180ea73c.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-0803694321b3e89b0ab2.png",
+        "originalWidth": 130,
+        "originalHeight": 28,
+        "originalArea": 3640,
+        "retainedRasterCount": 0,
+        "retainedRasterArea": 0,
+        "nativeParts": 1
+      }
+    },
+    {
+      "id": "v0-18",
+      "kind": "animal",
+      "animalId": "premium-rooftop-cinema:actor-1"
+    },
+    {
+      "id": "v0-19",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/2379de9267c339457e97.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-4353d090cb1299e40e91.png",
+      "resolutionHigh": 3,
+      "x": 26,
+      "y": 103,
+      "width": 238,
+      "height": 188,
+      "sourceTag": "ellipse",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-16",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/03021dbde7fd777dc651.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-7af28113fc7f8fa410b7.png",
+        "originalWidth": 758,
+        "originalHeight": 471,
+        "originalArea": 357018,
+        "retainedRasterCount": 2,
+        "retainedRasterArea": 89488,
+        "nativeParts": 3
+      }
+    },
+    {
+      "id": "v0-20",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/d1ecc1efeea43320b4f9.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-d09fbcdbf3f6c0fc4495.png",
+      "resolutionHigh": 3,
+      "x": 49,
+      "y": 143,
+      "width": 192,
+      "height": 72,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M50 145 Q145 225 240 145\" fill=\"none\" stroke=\"#849079\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M70 160 L70 175\" fill=\"#000000\" stroke=\"#8c967e\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><ellipse cx=\"70\" cy=\"177\" rx=\"9\" ry=\"13\" fill=\"#e3d1a1\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M107 172.33333333333334 L107 187.33333333333334\" fill=\"#000000\" stroke=\"#8c967e\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><ellipse cx=\"107\" cy=\"189.33333333333334\" rx=\"9\" ry=\"13\" fill=\"#e3d1a1\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M145 185 L145 200\" fill=\"#000000\" stroke=\"#8c967e\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><ellipse cx=\"145\" cy=\"202\" rx=\"9\" ry=\"13\" fill=\"#e3d1a1\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M183 172.33333333333334 L183 187.33333333333334\" fill=\"#000000\" stroke=\"#8c967e\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><ellipse cx=\"183\" cy=\"189.33333333333334\" rx=\"9\" ry=\"13\" fill=\"#e3d1a1\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M220 160 L220 175\" fill=\"#000000\" stroke=\"#8c967e\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><ellipse cx=\"220\" cy=\"177\" rx=\"9\" ry=\"13\" fill=\"#e3d1a1\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cx=\"145\" cy=\"188\" r=\"5\" fill=\"#fff1c8\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"0.88\" stroke-opacity=\"0.88\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "primitiveCount": 12
+          }
+        ],
+        "primitiveCount": 12,
+        "nativeInstructions": 17,
+        "sourceBounds": {
+          "x": 49,
+          "y": 143,
+          "width": 192,
+          "height": 72
+        },
+        "proof": {
+          "meanAbsoluteError": 0.000037347560975609755,
+          "localMeanAbsoluteError": 0.0017722800925925927,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-16",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/03021dbde7fd777dc651.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-7af28113fc7f8fa410b7.png",
+        "originalWidth": 758,
+        "originalHeight": 471,
+        "originalArea": 357018,
+        "retainedRasterCount": 2,
+        "retainedRasterArea": 89488,
+        "nativeParts": 3
+      }
+    },
+    {
+      "id": "v0-21",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/2379de9267c339457e97.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-929b7cf72fbd42e1e97b.png",
+      "resolutionHigh": 3,
+      "x": 546,
+      "y": 103,
+      "width": 238,
+      "height": 188,
+      "sourceTag": "ellipse",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-16",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/03021dbde7fd777dc651.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-7af28113fc7f8fa410b7.png",
+        "originalWidth": 758,
+        "originalHeight": 471,
+        "originalArea": 357018,
+        "retainedRasterCount": 2,
+        "retainedRasterArea": 89488,
+        "nativeParts": 3
+      }
+    },
+    {
+      "id": "v0-22",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/9ddb4e596766d023540c.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-dba4a2fe74c23469c6f8.png",
+      "resolutionHigh": 3,
+      "x": 110,
+      "y": 143,
+      "width": 651,
+      "height": 431,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M570 145 Q665 225 760 145\" fill=\"none\" stroke=\"#849079\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M590 160 L590 175\" fill=\"#000000\" stroke=\"#8c967e\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><ellipse cx=\"590\" cy=\"177\" rx=\"9\" ry=\"13\" fill=\"#e3d1a1\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M627 172.33333333333334 L627 187.33333333333334\" fill=\"#000000\" stroke=\"#8c967e\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><ellipse cx=\"627\" cy=\"189.33333333333334\" rx=\"9\" ry=\"13\" fill=\"#e3d1a1\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M665 185 L665 200\" fill=\"#000000\" stroke=\"#8c967e\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><ellipse cx=\"665\" cy=\"202\" rx=\"9\" ry=\"13\" fill=\"#e3d1a1\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M703 172.33333333333334 L703 187.33333333333334\" fill=\"#000000\" stroke=\"#8c967e\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><ellipse cx=\"703\" cy=\"189.33333333333334\" rx=\"9\" ry=\"13\" fill=\"#e3d1a1\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><path d=\"M740 160 L740 175\" fill=\"#000000\" stroke=\"#8c967e\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><ellipse cx=\"740\" cy=\"177\" rx=\"9\" ry=\"13\" fill=\"#e3d1a1\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cx=\"665\" cy=\"188\" r=\"5\" fill=\"#fff1c8\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"0.88\" stroke-opacity=\"0.88\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "primitiveCount": 12
+          },
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M-29 34 L29 34 L29 43 L-29 43 Z\" fill=\"#655b49\" stroke=\"#c5a776\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              140,
+              530
+            ],
+            "primitiveCount": 1
+          }
+        ],
+        "primitiveCount": 13,
+        "nativeInstructions": 19,
+        "sourceBounds": {
+          "x": 110,
+          "y": 143,
+          "width": 651,
+          "height": 431
+        },
+        "proof": {
+          "meanAbsoluteError": 0.000037347560975609755,
+          "localMeanAbsoluteError": 0.00008731881346206621,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-16",
+        "decision": "cost-saving-split",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/03021dbde7fd777dc651.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-7af28113fc7f8fa410b7.png",
+        "originalWidth": 758,
+        "originalHeight": 471,
+        "originalArea": 357018,
+        "retainedRasterCount": 2,
+        "retainedRasterArea": 89488,
+        "nativeParts": 3
+      }
+    },
+    {
+      "id": "v0-23",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/697215f7d14de8202038.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-fc553f3da7bed0f164c8.png",
+      "resolutionHigh": 3,
+      "x": 104,
+      "y": 494,
+      "width": 72,
+      "height": 72,
+      "sourceTag": "g",
+      "sourceRole": "structural",
+      "sourceClasses": [
+        "signature-spin"
+      ],
+      "motions": [
+        {
+          "id": "motion-524",
+          "kind": "signature-turn",
+          "cssName": "signature-turn",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            140,
+            530
+          ],
+          "className": "signature-spin",
+          "duration": 8,
+          "delay": 0,
+          "keyframes": [
+            {
+              "offset": 1,
+              "x": 0,
+              "y": 0,
+              "rotation": 6.283185307179586,
+              "scaleX": 1,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "linear",
+          "alternate": false,
+          "baseAlpha": 1,
+          "sourceMotionId": "rooftop-cinema-reel",
+          "pivotX": 140,
+          "pivotY": 530
+        }
+      ],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><circle r=\"34\" fill=\"#8f9a8b\" stroke=\"#c3b68d\" stroke-width=\"3\" fill-opacity=\"1\" stroke-opacity=\"1\"/><circle cy=\"-20\" r=\"8\" fill=\"#334b48\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              140,
+              530
+            ],
+            "primitiveCount": 2
+          },
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><circle cy=\"-20\" r=\"8\" fill=\"#334b48\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              0.30901699437494745,
+              0.9510565162951535,
+              -0.9510565162951535,
+              0.30901699437494745,
+              140,
+              530
+            ],
+            "primitiveCount": 1
+          },
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><circle cy=\"-20\" r=\"8\" fill=\"#334b48\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              -0.8090169943749473,
+              0.5877852522924732,
+              -0.5877852522924732,
+              -0.8090169943749473,
+              140,
+              530
+            ],
+            "primitiveCount": 1
+          },
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><circle cy=\"-20\" r=\"8\" fill=\"#334b48\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              -0.8090169943749475,
+              -0.587785252292473,
+              0.587785252292473,
+              -0.8090169943749475,
+              140,
+              530
+            ],
+            "primitiveCount": 1
+          },
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><circle cy=\"-20\" r=\"8\" fill=\"#334b48\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              0.30901699437494723,
+              -0.9510565162951536,
+              0.9510565162951536,
+              0.30901699437494723,
+              140,
+              530
+            ],
+            "primitiveCount": 1
+          },
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><circle r=\"5\" fill=\"#d2bc8c\" stroke=\"none\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              140,
+              530
+            ],
+            "primitiveCount": 1
+          }
+        ],
+        "primitiveCount": 7,
+        "nativeInstructions": 8,
+        "sourceBounds": {
+          "x": 104,
+          "y": 494,
+          "width": 72,
+          "height": 72
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-17",
+        "decision": "whole-native",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/697215f7d14de8202038.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-fc553f3da7bed0f164c8.png",
+        "originalWidth": 72,
+        "originalHeight": 72,
+        "originalArea": 5184,
+        "retainedRasterCount": 0,
+        "retainedRasterArea": 0,
+        "nativeParts": 6
+      },
+      "motion": {
+        "id": "motion-524",
+        "kind": "signature-turn",
+        "cssName": "signature-turn",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          140,
+          530
+        ],
+        "className": "signature-spin",
+        "duration": 8,
+        "delay": 0,
+        "keyframes": [
+          {
+            "offset": 1,
+            "x": 0,
+            "y": 0,
+            "rotation": 6.283185307179586,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "linear",
+        "alternate": false,
+        "baseAlpha": 1,
+        "sourceMotionId": "rooftop-cinema-reel",
+        "pivotX": 140,
+        "pivotY": 530
+      }
+    },
+    {
+      "id": "v0-24",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/508a57299d9252a8a963.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-05f12aa5fef91fc4af1e.png",
+      "resolutionHigh": 3,
+      "x": 116,
+      "y": 524,
+      "width": 28,
+      "height": 92,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "vector": {
+        "version": 1,
+        "parts": [
+          {
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M-13 -45 L13 -45 L13 45 L-13 45 Z\" fill=\"#4c5751\" stroke=\"#bca77f\" stroke-width=\"1\" fill-opacity=\"1\" stroke-opacity=\"1\"/></svg>",
+            "matrix": [
+              1,
+              0,
+              0,
+              1,
+              130,
+              570
+            ],
+            "primitiveCount": 1
+          }
+        ],
+        "primitiveCount": 1,
+        "nativeInstructions": 2,
+        "sourceBounds": {
+          "x": 116,
+          "y": 524,
+          "width": 28,
+          "height": 92
+        },
+        "proof": {
+          "meanAbsoluteError": 0,
+          "localMeanAbsoluteError": 0,
+          "channelFractionAbove2": 0
+        },
+        "parserPolicy": "flat-explicit-leaves-native-matrix-miter4"
+      },
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-18",
+        "decision": "whole-native",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/508a57299d9252a8a963.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-05f12aa5fef91fc4af1e.png",
+        "originalWidth": 28,
+        "originalHeight": 92,
+        "originalArea": 2576,
+        "retainedRasterCount": 0,
+        "retainedRasterArea": 0,
+        "nativeParts": 1
+      }
+    },
+    {
+      "id": "v0-25",
+      "src": "/backgrounds/pixi/premium-rooftop-cinema/0293cf568fdf764313fa.png",
+      "srcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-3508b318ecbb6736f2ca.png",
+      "resolutionHigh": 3,
+      "x": 118,
+      "y": 529,
+      "width": 24,
+      "height": 82,
+      "sourceTag": "path",
+      "sourceRole": "structural",
+      "sourceClasses": [],
+      "motions": [
+        {
+          "id": "motion-525",
+          "kind": "signature-current",
+          "cssName": "signature-current",
+          "ancestorMatrix": [
+            1,
+            0,
+            0,
+            1,
+            130,
+            570
+          ],
+          "className": "signature-current",
+          "duration": 13,
+          "delay": -2.7,
+          "keyframes": [
+            {
+              "offset": 0,
+              "x": -6,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 0.92,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            },
+            {
+              "offset": 1,
+              "x": 6,
+              "y": 0,
+              "rotation": 0,
+              "scaleX": 1.05,
+              "scaleY": 1,
+              "skewX": 0,
+              "skewY": 0
+            }
+          ],
+          "easing": "ease-in-out",
+          "alternate": true,
+          "baseAlpha": 1,
+          "sourceMotionId": "rooftop-cinema-film",
+          "pivotX": 130,
+          "pivotY": 570
+        }
+      ],
+      "costGuard": {
+        "originalGroup": "3ccd36ab9e-19",
+        "decision": "original-composite",
+        "originalSrc": "/backgrounds/pixi/premium-rooftop-cinema/0293cf568fdf764313fa.png",
+        "originalSrcHigh": "/backgrounds/pixi/premium-rooftop-cinema/high-3508b318ecbb6736f2ca.png",
+        "originalWidth": 24,
+        "originalHeight": 82,
+        "originalArea": 1968,
+        "retainedRasterCount": 1,
+        "retainedRasterArea": 1968,
+        "nativeParts": 0
+      },
+      "motion": {
+        "id": "motion-525",
+        "kind": "signature-current",
+        "cssName": "signature-current",
+        "ancestorMatrix": [
+          1,
+          0,
+          0,
+          1,
+          130,
+          570
+        ],
+        "className": "signature-current",
+        "duration": 13,
+        "delay": -2.7,
+        "keyframes": [
+          {
+            "offset": 0,
+            "x": -6,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 0.92,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          },
+          {
+            "offset": 1,
+            "x": 6,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1.05,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0
+          }
+        ],
+        "easing": "ease-in-out",
+        "alternate": true,
+        "baseAlpha": 1,
+        "sourceMotionId": "rooftop-cinema-film",
+        "pivotX": 130,
+        "pivotY": 570
+      }
+    }
+  ],
+  "provenance": {
+    "method": "Build-time bodyless React SVG/Sharp decomposition; live animals in ordered native slots",
+    "source": "authoring Cafe/PremiumScene",
+    "cssKeyframes": true,
+    "highResolutionSource": "original authoring SVG rasterized at 216 DPI, never enlarged from PNG",
+    "sourceDigest": "5c7ca82da872de064c14d1c3cfca3b8641222cc7101e0c5c55c93fecd8ec3466",
+    "sourceHashes": [
+      {
+        "path": "scripts/export-pixi-scenes.mjs",
+        "sha256": "cce24c18d6e635a612a959fc8d97d3f851eeaf67f3f0804a9336cf33b62a17f3"
+      },
+      {
+        "path": "scripts/pixi-animal-slots.mjs",
+        "sha256": "9bb84df02f536a81b1f8d18d4d403f01b9e65d81005d4bcdbf08af2cf348a204"
+      },
+      {
+        "path": "scripts/pixi-export-assets.mjs",
+        "sha256": "d420a92c1a9022c218f91d8ef4612834f98382fbfb8c4a32899a5312ddc40a7e"
+      },
+      {
+        "path": "scripts/pixi-vector-geometry.mjs",
+        "sha256": "be71a70f9cc5ee08df773822749e8bc9e0c4f7772f26c2e92c0636cc992c5a92"
+      },
+      {
+        "path": "src/pages/focus/lib/sceneEffectCycle.ts",
+        "sha256": "dcda423ecaed94108977149eab22dee726799d41d2075d8fab8c03b42842c73a"
+      },
+      {
+        "path": "src/pages/focus/lib/sceneTime.ts",
+        "sha256": "cad76a40f6c70d279306eadfbd11659cb4ae60254ab5e40a78a241ddb1a92c0b"
+      },
+      {
+        "path": "src/pages/focus/model/animalHabitats.ts",
+        "sha256": "92163ddce7670e57105d2331b27874dc26998c3b8177b6fe780f4cdf670721a6"
+      },
+      {
+        "path": "src/pages/focus/model/animalSpecies.ts",
+        "sha256": "b1664faeee27972cddff72dce8f41be17fe618b30138bfe1a5f25b674600a8f8"
+      },
+      {
+        "path": "src/pages/focus/model/animalSpecies.ts",
+        "sha256": "b1664faeee27972cddff72dce8f41be17fe618b30138bfe1a5f25b674600a8f8"
+      },
+      {
+        "path": "src/pages/focus/model/backgrounds.ts",
+        "sha256": "aa5522f3d96c7c3f2c8fe7b4a80067bef653e0c1bd42e782a1d7cf036cd780f9"
+      },
+      {
+        "path": "src/pages/focus/model/neonSigns.ts",
+        "sha256": "6d184d7ec7a74cb17d710ee9a7be172c67589e6b63c58aff0c5c5f32c3f03265"
+      },
+      {
+        "path": "src/pages/focus/model/premiumCast.ts",
+        "sha256": "5ce83484e6aac22c28465ffa9b323011ff599a4a68cd312a751e931a8c2a24cc"
+      },
+      {
+        "path": "src/pages/focus/model/premiumExperience.ts",
+        "sha256": "c69e9d0e81d152f7b9c1ee648ceab68b72664edf3b6099e6c176128d2639b640"
+      },
+      {
+        "path": "src/pages/focus/model/premiumSpaces.ts",
+        "sha256": "08e7600d4b06133c49a9c8801e85df579e48725139178f6d244fc870b53e3722"
+      },
+      {
+        "path": "src/pages/focus/model/sakuraPetals.ts",
+        "sha256": "4507fc1a89ab1732824218d328423c52d26e1028fc089792ffae81d7101a3151"
+      },
+      {
+        "path": "src/pages/focus/model/sceneAnimals.ts",
+        "sha256": "70e57324db99f5928688af7d794241909b3a01d89a1fa7b8d05eaae7a8b1d1cf"
+      },
+      {
+        "path": "src/pages/focus/model/sceneArchitecture.ts",
+        "sha256": "c9acf3dd253f7fde4fc4fb2afc11d72a6efeb6f911579f8c8fb35de9214ecc62"
+      },
+      {
+        "path": "src/pages/focus/model/sceneAutumn.ts",
+        "sha256": "f3961219ab5bfe519de5c347c13ac14f9d95e6d524a24ee5f0ccc782bbf99354"
+      },
+      {
+        "path": "src/pages/focus/model/sceneCast.ts",
+        "sha256": "277b47d7ef4f0254d18ed54bb57a94c111aee70a748f8d58cdbde82f91b4e3be"
+      },
+      {
+        "path": "src/pages/focus/model/sceneDetails.ts",
+        "sha256": "1231d4449d808be1d5c1aed01f5fa5b7ee8898b0114da6ccbc4eb7ec0893297d"
+      },
+      {
+        "path": "src/pages/focus/model/sceneEffects.ts",
+        "sha256": "5762a3e4fe39466bdd6ef10856f846f1308879aed3168f7ce94aa307978e3336"
+      },
+      {
+        "path": "src/pages/focus/model/sceneInterior.ts",
+        "sha256": "430d66d9abc3f7ac92acc00c1ef8c96c25d1f873c277358f6af2ed54a176ffb5"
+      },
+      {
+        "path": "src/pages/focus/model/scenePlants.ts",
+        "sha256": "e8f428446dbefb179eabbc00dbb3030cf981dcb9494fbca0a914931626d39d7b"
+      },
+      {
+        "path": "src/pages/focus/model/sceneWeather.ts",
+        "sha256": "3f712859413c6431388d7317ceba3d0a71af85f7b867c7d1d2853c2af08d239d"
+      },
+      {
+        "path": "src/pages/focus/model/thunderstorm.ts",
+        "sha256": "cd72ad96f69be1d0526808b7a506883339b5ab255f948eca80f950ecd452cd1d"
+      },
+      {
+        "path": "src/pages/focus/ui/AutumnScenery.tsx",
+        "sha256": "d057de93a3c8799da7ce41f51d311b60ed747799fba1e7ec02fd62d6ae495705"
+      },
+      {
+        "path": "src/pages/focus/ui/backgrounds.css",
+        "sha256": "35d273c6e3c016a06c3217879bc4b636fe73a0fee656d25ce4c6d67251659e4e"
+      },
+      {
+        "path": "src/pages/focus/ui/Cafe.tsx",
+        "sha256": "15f75b36611f816e8ae3f635ea3800e443b45108635a07d682606daa035631d8"
+      },
+      {
+        "path": "src/pages/focus/ui/LegacyOutdoorFixtures.tsx",
+        "sha256": "df773122841276c8e6789af11f989e9627bb70610ab902bb4d39dbd505382a59"
+      },
+      {
+        "path": "src/pages/focus/ui/NeonCityArt.tsx",
+        "sha256": "1fb5d3f98121b3ad808257ea61e7f9930c729b81f0a873c94147340c2892f63d"
+      },
+      {
+        "path": "src/pages/focus/ui/NeonFacadeLights.tsx",
+        "sha256": "28f141679ae5004663e74c8c25c4446fa5acf109da965132a4590fd487e37b22"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/CinemaFilm.tsx",
+        "sha256": "7e5b975c58a6f04947940d19143ecf32551531896a94e1fba0809e7994e895a3"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premium-signatures.css",
+        "sha256": "81ba95beeb28f2809329a6ae3501437164b4f9762e3b56f7a7fb9a2fe2dc61e7"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premium.css",
+        "sha256": "106215e1a3cd162aeac9b52465953ba33d46140d553a7e8d1061463d6cc56bfc"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumArchitecture.tsx",
+        "sha256": "86b5af6f4c4325f387ffae0f075ba0b975fe49e4d7e3e14ef92d35f9c1340db0"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumAtmosphere.tsx",
+        "sha256": "61aca5e6aa0d070a1cb6f399b6d7f36d958bf9fad24262143023fd32997bc6a6"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumAtmosphere.tsx",
+        "sha256": "61aca5e6aa0d070a1cb6f399b6d7f36d958bf9fad24262143023fd32997bc6a6"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumCharacter.tsx",
+        "sha256": "2db855ceca5754abaf1a709166d4c91cc81f59425dda8d3a1864dd6cfb0a5d66"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumFixtures.tsx",
+        "sha256": "5faa3563dd699ffaa3848c64455362e3cdfe19cd8a73a8bd594014b6fdec1f0e"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/premiumGeometry.ts",
+        "sha256": "70ffccfa826b63c86043fdedbf6e085c7f4abc109eb105e0ecbaa5b60a7f6ae4"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumHeroes.tsx",
+        "sha256": "9d7182045b8f1015eca3c05c46ab987794b1b97f7f674d47c39833de076a55e2"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumInterior.tsx",
+        "sha256": "489284e5c51232bcd11273f20f55e4b6b581a5d7ec15d9f1152ba9b8c8fe5d37"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumObjects.tsx",
+        "sha256": "9489c16982f3a25d0d3faf283438b419b11d621dce26bb3d31c5ff32f8471e3d"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumScene.tsx",
+        "sha256": "64467d7455d104b16ff53ecfc2b7445c0c652b166709c0693f6bcc00fbe3cd3b"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumScene.tsx",
+        "sha256": "64467d7455d104b16ff53ecfc2b7445c0c652b166709c0693f6bcc00fbe3cd3b"
+      },
+      {
+        "path": "src/pages/focus/ui/premium/PremiumSignatureDetails.tsx",
+        "sha256": "bbb9216a34fffd938a9bd7ca127af1fdc8a01f6959079d0e1a08ca361e30c3fa"
+      },
+      {
+        "path": "src/pages/focus/ui/RainOverlay.tsx",
+        "sha256": "8d4fc403218fed94666171eb68a4546416a43dbd90547b845b7bc902b7912b01"
+      },
+      {
+        "path": "src/pages/focus/ui/RainOverlay.tsx",
+        "sha256": "8d4fc403218fed94666171eb68a4546416a43dbd90547b845b7bc902b7912b01"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomFurnishings.tsx",
+        "sha256": "33cf9f4a214e365a372117c954ebde36846a8f97c86f33b18e0274610693a9a4"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomLighting.tsx",
+        "sha256": "22e29e36ae6cbc517a66fc4d0f8cca9d93546732e3a25da566e3169dbee9ee79"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomWallTexture.tsx",
+        "sha256": "59cc984b2f6e5ad496dcc4dc64c66bc4c79c0844b78ed78c2e8c018d33660832"
+      },
+      {
+        "path": "src/pages/focus/ui/RoomWindow.tsx",
+        "sha256": "e4268594944caafc217f87fc250149344437c55ec68bcf29038a8ea25211f040"
+      },
+      {
+        "path": "src/pages/focus/ui/scene-effects.css",
+        "sha256": "49b91c04946138222d2215e334acad98c9a56c4d9e07f12136b75a96f15a259c"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneAtmosphere.tsx",
+        "sha256": "dc1445b3e812f7c9a96cfb630c04a40450900a3c290e2817e7447147d242a790"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneAtmosphere.tsx",
+        "sha256": "dc1445b3e812f7c9a96cfb630c04a40450900a3c290e2817e7447147d242a790"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneCaption.tsx",
+        "sha256": "ec6d1cdb0d8198676f0510f544254a7c06f1ddc0547616b816dd9ed0344538e9"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneCompanions.tsx",
+        "sha256": "847fc93209b8729b434b11849e9fa552b528e629454de1ee0459ce724e4802b2"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneDetails.tsx",
+        "sha256": "cdf50b1cff06573129dd38646188e8650ea834295da2b2236dfbf2cd7dfc73d6"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneLayer.tsx",
+        "sha256": "f4363e6d7d2049654d7f80ca55032266ffca066413889e2dffb18320141a87ea"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneOutdoorLife.tsx",
+        "sha256": "24ce6c78be438502d6b9cbddfd60a8a9858f725412b07ab13daf510b7a05055d"
+      },
+      {
+        "path": "src/pages/focus/ui/ScenePets.tsx",
+        "sha256": "4d8014045089a98ee4fca5a769f6fece72c8b97a6c49d2313aa817ffd5082abd"
+      },
+      {
+        "path": "src/pages/focus/ui/ScenePlants.tsx",
+        "sha256": "dc3d9871b65c2df495f9e15107f5127a4761b37d15f223a652207f5a44b45603"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneTable.tsx",
+        "sha256": "ed0922378a8e45b384070ba478ec12418dfaffe8f412b56bb9b062d3d9844a37"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWeatherDrawing.tsx",
+        "sha256": "565a350c95299ff5f996d1a0828b08b6bef82314cc5093e96deaf03c77848c5c"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWildlife.tsx",
+        "sha256": "82e4df15b2f069dbec95d1dd09b397896cb924fa6811785b1f0f5aa05e5de855"
+      },
+      {
+        "path": "src/pages/focus/ui/SceneWindow.tsx",
+        "sha256": "5cfdfc7c5c9ccf54502d66e35fd61f6fc50a5c0c13b8e86f97f84c6421da5720"
+      },
+      {
+        "path": "src/pages/focus/ui/SongInspiredArt.tsx",
+        "sha256": "da3f2ab3eeec24f87b5592fcbb1f4fcea184986f988b456783fb19bc72b380fb"
+      },
+      {
+        "path": "src/pages/focus/ui/SpecialCafeScenes.tsx",
+        "sha256": "eebc3d72d826f213a2fe195991a8adb5539dfb860fdad8579939191843160bc3"
+      },
+      {
+        "path": "src/pages/focus/ui/weather.css",
+        "sha256": "876af059984a83428327e34d1a41200ce430c7c4130cf9d1515bc9d2aa3fd6da"
+      }
+    ]
+  },
+  "proof": {
+    "variants": [
+      {
+        "coffeeCount": 0,
+        "meanAbsoluteError": 0.1492545731707317,
+        "maxChannelDifference": 2,
+        "channelFractionAbove2": 0,
+        "vectorComparison": {
+          "meanAbsoluteError": 0.14932164634146342,
+          "maxChannelDifference": 3,
+          "channelFractionAbove2": 0.0000022865853658536584
+        }
+      }
+    ],
+    "vectorCoverage": [
+      {
+        "originalRunBaseline": {
+          "uniquePNGCount": 24,
+          "logicalArea": 4197634,
+          "decoded1xBytes": 16790536,
+          "decoded3xBytes": 151114824
+        },
+        "guardedHybrid": {
+          "uniquePNGCount": 23,
+          "logicalArea": 3630424,
+          "decoded1xBytes": 14521696,
+          "decoded3xBytes": 130695264
+        },
+        "coffeeCount": 0,
+        "nativeLayers": 6,
+        "nativePrimitives": 35,
+        "nativeParts": 12,
+        "textureDecodedBytesBefore": 72973044,
+        "textureDecodedBytesAfter": 59847264,
+        "compressedHighTextureBytesAvoided": 58982
+      }
+    ],
+    "staticBodiesRemoved": true,
+    "liveAnimalsExcludedFromStaticProof": true
+  }
+}
