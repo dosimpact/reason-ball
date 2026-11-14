@@ -137,3 +137,14 @@ LangGraph dev 2982, Host 2983, Template Remote 2984, Todo Remote 2985를 설정�
 - 루트 `pnpm dev`는 기존과 같이 Host/BFF/FastAPI만 실행한다. LangGraph dev와 두 Remote는 각 패키지에서 별도로 실행한다.
 
 실행 연결 설정과 검증: [포트 프로필 변경 기록](../../flow/2026-11-14-application-port-profile.md).
+
+## LOCAL-NGINX-001: 외부 도메인 연결 기록
+
+사용자 제공 Nginx 설정 화면은 Host/BFF/FastAPI를 각각
+`reason-web.flin-ai.com`/`reason-bff.flin-ai.com`/`reason-langgraph-fast.flin-ai.com`에서
+호스트의 2983/2980/2981로 전달한다. LangGraph dev 도메인
+`reason-dev-langgraph.flin-ai.com`의 전달 대상은 화면상 `dodonet.iptime.org:2982`다.
+Grafana/Neo4j Browser는 호스트의 2974/2970으로 전달한다.
+이 기록은 제공된 설정의 정리이며 실제 외부 연결 검증 결과가 아니다.
+화면의 PostgreSQL HTTP 대상 5433은 현재 DB TCP 포트 2972와 다르며 DB 접속 주소로 취급하지 않는다.
+상세 연결표는 사용자 요청으로 정리한 [로컬 서버 설정](../../human-docs/server설정.local.md)을 참조한다.
