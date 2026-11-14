@@ -141,6 +141,7 @@ The technical subdirectories follow package ownership; the other stock directori
 Flow documents remain in a single dated, append-only history. New records must identify the affected business domain or `tech-shared`, name the package when applicable, and link the exact stock documents they update. Historical records using the scope label `shared` remain unchanged.
 
 | Document | Change |
+| [`flow/2026-11-14-chat-native-tool-timeline.md`](flow/2026-11-14-chat-native-tool-timeline.md) | SDK 기본 도구 타임라인, 안전한 기록 복원, 중복 상태 띠 제거와 실제 TA 검증 |
 | [`flow/2026-11-14-chat-layout-all-graphs.md`](flow/2026-11-14-chat-layout-all-graphs.md) | /chat 통합 헤더, 전체 LangGraph discovery와 schema별 입력·결과, 실제 브라우저 검증 |
 | [`flow/2026-10-22-sec-activity-timeline.md`](flow/2026-10-22-sec-activity-timeline.md) | Behind the scenes 실시간 실행 타임라인 |
 | [`flow/2026-10-22-sec-follow-ups.md`](flow/2026-10-22-sec-follow-ups.md) | LangGraph 공통 after-answer LLM 추천 질문 |

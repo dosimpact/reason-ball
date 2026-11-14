@@ -70,13 +70,15 @@ SEC 채팅이 공유하는 renderer·카탈로그·채팅 프레임은 유지한
 
 공유 카탈로그 `QueryPanel(children, refreshAction)`은 Query의 편집 가능한 조건과 결과를 같은 반응형 패널에 묶는다. `refreshAction`은 `Action([@Run(queryStatement)])`를 전달하며 해당 Query를 직접 invalidate한다. 접근 가능한 `데이터 새로고침` 아이콘은 loading/streaming 중 disabled, pending 상태와 회전 표시를 제공한다. reduced-motion에서는 회전을 생략한다. loading hook은 같은 Renderer 안의 Query 전체에 적용되므로 복수 Query가 있으면 다른 패널도 조회 중 비활성화될 수 있다. 현재 금융 출력은 Query 하나다. 재조회는 `onMessage`나 모델 provider를 호출하지 않는다. 생성 프롬프트·schema는 기존 `sec-ui:generate`로 동기화한다.
 
-## CHAT-ACTIVITY-001: /chat Behind the scenes
+## CHAT-ACTIVITY-002: /chat SDK 기본 도구 타임라인
 
-`/chat`은 설치 OpenUI SDK의 `BehindTheScenes`를 사용해 assistant 답변별 도구 실행 현황을 접고 펼친다. LangGraph values snapshot에서 마지막 human/user 메시지 이후 tool_calls와 tool 결과 id를 짝지어 도구 이름·실행 중/완료/오류/중단됨 상태만 표시한다. 인자·결과 본문·비공개 추론은 복사하지 않는다. 도구 없는 turn에는 패널을 만들지 않는다.
+`/chat`은 SDK Thread의 기본 `ToolCallTimeline`을 사용한다. LangGraph의 마지막 user 이후 도구 호출·결과를 id로 짝지어 assistant별 안전한 SDK toolCalls와 role=tool 메시지로 투영한다. 도구 이름과 실행 상태만 전달하고 인자는 `{}`, 결과·오류는 일반 완료/실패/중단 안내로 제한한다. 인자·원문 결과·중간 설명·비공개 추론은 복사하지 않는다. 호출 id를 assistant id로 구분하고 turn 안에서 중복을 제거한다.
 
-실행 완료·실패·취소 시 남은 running 상태를 종료 상태로 바꾸고 새 대화·graph 변경에서 활동을 초기화한다. 기존 분석 본문·OpenUI Query 차트와 공통 AgentInterface Composer는 유지한다. 다른 채팅 화면의 실행 프로토콜은 변경하지 않는다. 중첩 Deep Agent의 values가 상위 node 완료 시에만 전달되면 완료된 실행 이력부터 나타날 수 있으며 별도 subgraph token/tool 스트림은 추가하지 않는다.
+SDK가 타임라인을 답변 본문 위에 배치하며 도구 없는 turn에는 표시하지 않는다. 기본 접힘과 사용자의 펼침 상태는 SDK가 관리한다. 공개 `components.ToolCallTimeline` 슬롯은 해당 인스턴스의 pending id를 native executing 상태로 전달하고 동일 SDK 컴포넌트를 렌더링한다. private store 수정이나 CSS 순서 변경은 사용하지 않는다. 별도 ChatActivity와 정상 idle/running 상태 띠는 제거하되 오류와 schema 경고는 유지한다.
 
-[변경·검증 기록](../../../flow/2026-11-14-chat-behind-the-scenes.md)
+chat 요청은 기존 한 번의 runs.stream에서 configured 모드를 보존하고 values를 보장한다. TA의 values-only 경로에 token streaming을 강제하지 않으며 기존 messages-tuple 경로에는 values를 함께 받는다. JSON graph 실행 계약은 유지한다. 기록 복원은 user별 마지막 답변과 안전한 도구 현황을 복원하고 남은 pending은 중단 상태로 종료한다. 새 대화·graph 전환은 이전 활동을 분리하며 기존 OutputView/Query는 유지한다. 중첩 graph가 상위 완료 시점에만 values를 보내면 완료 이력이 묶여 나타날 수 있다. 별도 subgraph 실시간 전송은 추가하지 않는다.
+
+[변경·검증 기록](../../../flow/2026-11-14-chat-native-tool-timeline.md)
 
 ## OPENUI-CATALOG-CHART-001: TradingView 차트 카탈로그
 
@@ -93,7 +95,7 @@ FinancialChart 또는 TradingView로 검색해 캔들·거래량·SMA/RSI/MACD, 
 전환·새 대화·취소 후 오래된 응답이 현재 메시지를 덮어쓰지 않도록 요청을 구분한다.
 
 복원 시 user/assistant 텍스트를 표시하고 tool 호출·도구 결과·추론 block은 제외한다.
-checkpoint가 보유한 최신 presentation만 마지막 assistant에 복원하며 과거 turn별 차트·도구 실행 패널은 복구하지 않는다.
+checkpoint가 보유한 최신 presentation만 마지막 assistant에 복원하며 과거 turn별 차트는 복구하지 않는다. 보유된 tool call/result에서는 turn별 안전한 기본 도구 타임라인을 복원한다.
 새 대화는 현재 화면을 비울 뿐 서버 thread를 삭제하지 않는다.
 기능 추가 이전에 source/graph_id가 없었던 thread는 목록에서 자동 분류하지 않는다.
 서버 재시작 후 보존 여부는 기존 PostgreSQL/checkpointer 설정을 따르며, 메모리 실행에서는 서버 종료 시 사라진다.

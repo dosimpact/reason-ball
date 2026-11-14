@@ -8,6 +8,7 @@ const ids = ['main_graph', 'simple_llm', 'technical_analysis_graph', 'price_agen
 const chat = new Set(['starter_graph','simple_llm','technical_analysis_agent','sec_deep_agent']);
 const calls = [];
 const states = new Map();
+const threads = [];
 let sequence = 0;
 const json = (response, body, status=200) => { response.writeHead(status, {'Content-Type':'application/json'}); response.end(JSON.stringify(body)); };
 const schema = id => chat.has(id) ? {type:'object',properties:{messages:{type:'array'}},required:['messages']} : {type:'object',properties: id === 'price_agent' ? {query:{type:'string'},interval:{type:'string'},count:{type:'integer'}} : id === 'simple_push_ui_message' ? {messages:{type:'array'},turn_id:{type:'string'}} : {input:{type:'object'}},required:id === 'price_agent' ? ['query'] : id === 'simple_push_ui_message' ? ['turn_id'] : []};
@@ -19,14 +20,25 @@ const server=createServer(async(request,response)=>{
  const match=/^\/assistants\/([^/]+)\/schemas$/.exec(url.pathname);
  if(match?.[1] === 'schema_error_fixture')return json(response,{message:'Fixture schema unavailable'},400);
  if(match)return json(response,{graph_id:match[1],input_schema:schema(match[1]),output_schema:{type:'object'},state_schema:{type:'object'}});
- if(url.pathname==='/threads/search')return json(response,[]);
- if(url.pathname==='/threads'&&request.method==='POST')return json(response,{thread_id:`fixture-thread-${++sequence}`,metadata:input.metadata||{},status:'idle',created_at:'2026-11-14T00:00:00Z',updated_at:'2026-11-14T00:00:00Z'});
+ if(url.pathname==='/threads/search')return json(response,threads.filter(thread => Object.entries(input.metadata||{}).every(([key,value])=>thread.metadata[key]===value)).slice(-(input.limit||50)).reverse());
+ if(url.pathname==='/threads'&&request.method==='POST'){ const thread={thread_id:`fixture-thread-${++sequence}`,metadata:input.metadata||{},status:'idle',created_at:'2026-11-14T00:00:00Z',updated_at:'2026-11-14T00:00:00Z'}; threads.push(thread); return json(response,thread); }
  if(request.method === 'GET' && /^\/threads\/[^/]+\/runs\/[^/]+$/.test(url.pathname))return json(response,{status:'success'});
  const state=/^\/threads\/([^/]+)\/state$/.exec(url.pathname);if(state)return json(response,{values:states.get(state[1])||{messages:[]},next:[],tasks:[]});
  const run=/^\/threads\/([^/]+)\/runs\/stream$/.exec(url.pathname);
  if(run){response.writeHead(200,{'Content-Type':'text/event-stream'}); const event=(name,data)=>response.write(`event: ${name}\ndata: ${JSON.stringify(data)}\n\n`);event('metadata',{run_id:`fixture-run-${sequence}`});
   if(input.input?.delay) await delay(2000);
   if(input.input?.fail){event('error',{message:'Fixture graph execution failed'});return response.end();}
+  const prompt=input.input?.messages?.at(-1)?.content||'';
+  if(chat.has(input.assistant_id)&&prompt.includes('tools-')){
+   const previous=states.get(run[1])?.messages||[];
+   const callId=`safe-tool-${sequence}-${previous.length}`;
+   const messages=[...previous,...(input.input.messages||[]),{id:`call-${callId}`,type:'ai',content:'',tool_calls:[{id:callId,name:'get_price_ohlcv',args:{private:'SECRET_ARGUMENT'},type:'tool_call'}]}];
+   event('values',{messages});
+   if(prompt.includes('running')||prompt.includes('interrupt'))await delay(3000);
+   messages.push({id:`result-${callId}`,type:'tool',tool_call_id:callId,name:'get_price_ohlcv',status:prompt.includes('error')?'error':'success',content:'SECRET_TOOL_RESULT'});
+   messages.push({id:`answer-${callId}`,type:'ai',content:'Safe fixture assistant answer'});
+   states.set(run[1],{messages});event('values',{messages});return response.end();
+  }
   const values=chat.has(input.assistant_id)?{messages:[...(input.input?.messages||[]),{id:'fixture-answer',type:'ai',content:`Fixture reply for ${input.assistant_id}`}]}:{graph:input.assistant_id,input:input.input,result:'Fixture structured output'};
   states.set(run[1],values);event('values',values);event('end',{});return response.end();
  }

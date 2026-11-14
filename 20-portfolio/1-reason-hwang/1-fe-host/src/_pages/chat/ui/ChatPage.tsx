@@ -5,7 +5,7 @@ import { GraphTestInput } from "./GraphTestInput";
 import { SidebarTrigger } from "@/shared/ui/sidebar";
 import { Button } from "@/shared/ui/button";
 import { ChatHistory } from "./ChatHistory";
-import { ChatActivity } from "./ChatActivity";
+import { projectNativeToolMessages } from "../model/nativeToolMessages";
 import { GraphSelector } from "./GraphSelector";
 import { AgentConversation, ChatNotice, ConversationText } from "@/shared/ui/agent-conversation";
 import { OutputView } from "@/shared/ui/intelligent-ui";
@@ -25,10 +25,11 @@ export function ChatPage() {
     { displayText: "기업 찾기", prompt: "저장된 SEC 기업에서 AAPL을 찾아줘." },
     { displayText: "공시 찾기", prompt: "AAPL의 저장된 최근 10-K 공시 목록을 보여줘." },
   ] : [{ displayText: "대화 시작", prompt: "안녕하세요. 어떤 도움을 줄 수 있나요?" }];
+  const nativeProjection = projectNativeToolMessages(messages);
   const conversationMessages = jsonMode ? graphResult === undefined ? [] : [{ id: "graph-test-result", role: "assistant" as const, content: "실행 결과", view: <GraphTestResult result={graphResult} /> }] : messages.map((message, index) => ({
     id: message.id, role: message.role === "user" ? "user" as const : "assistant" as const,
     content: message.content,
-    view: <div><ChatActivity activities={message.activities} streaming={message.status === "streaming"} />{message.content && <ConversationText text={message.content} />}{message.program && <OutputView program={message.program} active={!busy && index === messages.length - 1} />}</div>,
+    view: <div>{message.content && <ConversationText text={message.content} />}{message.program && <OutputView program={message.program} active={!busy && index === messages.length - 1} />}</div>,
   }));
   return <AgentConversation key={`${graphId}:${conversationVersion}`} title="에이전트" resetLabel={jsonMode ? "새 실행" : "새 대화"}
     welcomeTitle={jsonMode ? `${selected?.name ?? graphId} 테스트` : "무엇을 도와드릴까요?"}
@@ -39,7 +40,8 @@ export function ChatPage() {
       <GraphSelector graphs={graphs} value={graphId} onChange={selectGraph} disabled={busy} />
       {<ChatHistory label={jsonMode ? "실행 기록" : "대화 기록"} items={history} loading={historyLoading} error={historyError} disabled={busy} selectedId={threadId} onRefresh={refreshHistory} onSelect={openThread} />}
     </div>}
-    status={(error || discoveryNotice || busy) ? <ChatNotice tone={error || discoveryNotice ? "error" : "status"}>{error ?? discoveryNotice ?? (status === "loading_history" ? "대화를 불러오는 중…" : "에이전트가 실행 중입니다…")}{discoveryNotice && <Button variant="link" onClick={() => void reloadGraphs()}>목록 다시 불러오기</Button>}</ChatNotice> : undefined}
+    status={(error || discoveryNotice) ? <ChatNotice tone={error || discoveryNotice ? "error" : "status"}>{error ?? discoveryNotice ?? ""}{discoveryNotice && <Button variant="link" onClick={() => void reloadGraphs()}>목록 다시 불러오기</Button>}</ChatNotice> : undefined}
     composer={jsonMode ? <GraphTestInput key={graphId} description={selected?.description} schema={selected?.inputSchema} example={selected?.exampleInput} busy={busy} onRun={runGraph} onCancel={cancelRun} /> : undefined}
+    nativeMessages={jsonMode ? undefined : nativeProjection.messages} executingToolCallIds={jsonMode ? undefined : nativeProjection.executingToolCallIds}
     busy={busy} messages={conversationMessages} onSend={sendMessage} onCancel={cancelRun} onReset={resetThread} />;
 }

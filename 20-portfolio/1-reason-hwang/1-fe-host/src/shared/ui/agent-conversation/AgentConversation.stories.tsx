@@ -1,6 +1,7 @@
+import type { Message } from "@openuidev/react-ui";
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { expect, userEvent, within } from "storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { SidebarProvider, SidebarTrigger } from "@/shared/ui/sidebar";
 import { AgentConversation, ConversationText, type ConversationMessage } from ".";
 
@@ -67,4 +68,43 @@ export const PopulatedCompactHeader: Story = { render: () => <SidebarProvider><A
   const headerBottom = Math.max(...headers.map(element => element.getBoundingClientRect().bottom));
   const firstMessage = canvas.getByText("상단 메뉴 아래에서 대화가 시작되어야 합니다.");
   await expect(firstMessage.getBoundingClientRect().top).toBeGreaterThanOrEqual(headerBottom);
+} };
+
+function NativeToolsExample({ error = false }: { error?: boolean }) {
+  const [messages, setMessages] = useState<ConversationMessage[]>([]);
+  const [nativeMessages, setNativeMessages] = useState<Message[]>([]);
+  const [executing, setExecuting] = useState(new Set<string>());
+  return <AgentConversation title="네이티브 도구" messages={messages} nativeMessages={nativeMessages} executingToolCallIds={executing} onSend={async text => {
+    const user: Message = { id: "native-user", role: "user", content: text };
+    const answer: Message = { id: "native-answer", role: "assistant", content: "", toolCalls: [{ id: "native-tool", type: "function", function: { name: "get_price_ohlcv", arguments: "{}" } }] };
+    setMessages([{ id: "native-user", role: "user", content: text }, { id: "native-answer", role: "assistant", content: "" }]);
+    setNativeMessages([user, answer]); setExecuting(new Set(["native-tool"]));
+    await new Promise(resolve => setTimeout(resolve, 700));
+    setMessages([{ id: "native-user", role: "user", content: text }, { id: "native-answer", role: "assistant", content: "분석 본문", view: <p>검증된 최종 분석 본문</p> }]);
+    setNativeMessages([user, { ...answer, content: "분석 본문" }, { id: "native-result", role: "tool", toolCallId: "native-tool", content: error ? "" : "완료", ...(error ? { error: "도구 실행에 실패했습니다." } : {}) }]);
+    setExecuting(new Set());
+  }} />;
+}
+export const NativeTimelineBeforeAnswer: Story = { render: () => <NativeToolsExample />, play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(await canvas.findByRole("textbox"), "도구 확인{Enter}");
+  await waitFor(() => expect(Array.from(canvasElement.querySelectorAll<HTMLElement>(".openui-behind-the-scenes")).filter(element => element.getBoundingClientRect().height > 0)).toHaveLength(1));
+  await waitFor(() => expect(canvasElement.querySelector(".openui-behind-the-scenes:has(.openui-tool-call) button.openui-behind-the-scenes__toggle")).not.toBeNull());
+  const pendingToggle = canvasElement.querySelector<HTMLButtonElement>(".openui-behind-the-scenes:has(.openui-tool-call) button.openui-behind-the-scenes__toggle")!;
+  await userEvent.click(pendingToggle);
+  const answer = await canvas.findByText("검증된 최종 분석 본문");
+  await expect(canvas.getByRole("button", { name: /Behind the scenes/ })).toHaveAttribute("aria-expanded", "true");
+  const tray = canvasElement.querySelector(".openui-behind-the-scenes");
+  await expect(tray).not.toBeNull();
+  await expect(!!(tray!.compareDocumentPosition(answer) & Node.DOCUMENT_POSITION_FOLLOWING)).toBe(true);
+  await expect(canvas.queryByTestId("chat-tool-activity")).not.toBeInTheDocument();
+  await waitFor(() => expect(canvasElement.querySelector(".openui-tool-call")).not.toBeNull());
+  await expect(canvasElement.textContent).not.toContain("secret");
+} };
+export const NativeTimelineError: Story = { render: () => <NativeToolsExample error />, play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(await canvas.findByRole("textbox"), "오류 확인{Enter}");
+  await canvas.findByText("검증된 최종 분석 본문");
+  await userEvent.click(canvas.getByRole("button", { name: /Behind the scenes/ }));
+  await waitFor(() => expect(canvasElement.querySelector(".openui-tool-call")).not.toBeNull());
 } };

@@ -34,14 +34,14 @@ export function streamChatRun(params: {
   messages: LangGraphChatInputMessage[];
   signal?: AbortSignal;
 }): AsyncIterable<LangGraphStreamEvent> {
-  const stream = params.client.runs.stream<StreamMode>(
+  const stream = params.client.runs.stream<StreamMode[]>(
     params.threadId,
     params.config.assistantId,
     {
       input: {
         messages: params.messages,
       },
-      streamMode: params.config.streamMode,
+      streamMode: params.config.streamMode === "values" ? ["values"] : ["messages-tuple", "values"],
       signal: params.signal,
     },
   );

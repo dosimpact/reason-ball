@@ -4,11 +4,14 @@ import {
   AgentInterface,
   type AgentInterfaceProps,
   type ChatLLM,
+  type Message,
+  ToolCallTimeline,
+  type ToolActivity,
   useThread,
   useThreadList,
 } from "@openuidev/react-ui";
 import { History, MessageSquarePlus, Square } from "lucide-react";
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ComponentProps, type ReactNode } from "react";
 import { useHostTheme } from "@/shared/lib/theme";
 import { OutputView } from "@/shared/ui/intelligent-ui";
 import "@openuidev/react-ui/styles/index.css";
@@ -145,19 +148,23 @@ export function AgentChatFrame({ title, description, welcomeTitle, starters, too
   </section>;
 }
 
-function SyncMessages({ messages }: { messages: ConversationMessage[] }) {
+function SyncMessages({ messages, nativeMessages }: { messages: ConversationMessage[]; nativeMessages?: Message[] }) {
   const setMessages = useThread(state => state.setMessages);
   useEffect(() => {
-    setMessages(messages.map(({ id, role, content }) => ({ id, role, content })));
-  }, [messages, setMessages]);
+    setMessages(nativeMessages ?? messages.map(({ id, role, content }) => ({ id, role, content })));
+  }, [messages, nativeMessages, setMessages]);
   return null;
 }
 
 /** Domain controllers keep validated results; the shared frame owns all chrome. */
-export function AgentConversation({ messages, onSend, children, ...presentation }: ConversationPresentation & {
+export function AgentConversation({ messages, nativeMessages, executingToolCallIds, onSend, children, ...presentation }: ConversationPresentation & {
   messages: ConversationMessage[];
+  nativeMessages?: Message[];
+  executingToolCallIds?: Set<string>;
   onSend: (text: string) => Promise<void>;
 }) {
+  const executingIds = useRef(executingToolCallIds);
+  executingIds.current = executingToolCallIds;
   const latest = useRef({ onSend, onCancel: presentation.onCancel, messages });
   latest.current = { onSend, onCancel: presentation.onCancel, messages };
   const llm = useMemo<ChatLLM>(() => ({
@@ -176,13 +183,20 @@ export function AgentConversation({ messages, onSend, children, ...presentation 
     streamProtocol: { async *parse() { /* Domain adapters already consume the stream. */ } },
   }), []);
   const components = useMemo(() => ({
+    ToolCallTimeline: (props: ComponentProps<typeof ToolCallTimeline>) => {
+      const activities: ToolActivity[] = props.activities.map(activity => activity.status === "streaming" && executingIds.current?.has(activity.toolCall.id)
+        ? { ...activity, status: "executing" } : activity);
+      const byId = new Map(activities.map(activity => [activity.id, activity]));
+      const steps = props.steps?.filter(step => step.type === "activity").map(step => ({ ...step, activity: byId.get(step.activity.id) ?? step.activity }));
+      return <ToolCallTimeline {...props} activities={activities} steps={steps} forceDefault />;
+    },
     AssistantMessage: ({ message }: { message: { id: string; content?: string } }) => <div className="agent-conversation__answer">
       {latest.current.messages.find(item => item.id === message.id)?.view ?? <ConversationText text={message.content ?? ""} />}
     </div>,
   }), []);
 
   return <AgentChatFrame {...presentation} llm={llm} components={components}>
-    <SyncMessages messages={messages} />
+    <SyncMessages messages={messages} nativeMessages={nativeMessages} />
     {children}
   </AgentChatFrame>;
 }

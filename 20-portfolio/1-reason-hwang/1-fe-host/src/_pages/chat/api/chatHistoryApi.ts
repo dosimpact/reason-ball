@@ -1,5 +1,6 @@
 import type { Client } from "@langchain/langgraph-sdk";
 
+import { extractToolActivity } from "../model/toolActivity";
 import type { ChatMessage } from "../model/chatTypes";
 
 export type ChatHistoryItem = {
@@ -56,21 +57,33 @@ export function normalizeThreadMessages(state: unknown): ChatMessage[] {
   const createdAt = textValue(state.created_at) || "1970-01-01T00:00:00.000Z";
   const finalAssistantIndex = sourceMessages.findLastIndex((message: unknown) =>
     isRecord(message) && visibleRole(message) === "assistant" && !hasToolCalls(message));
-  sourceMessages.forEach((message: unknown, index: number) => {
-    if (!isRecord(message)) return;
-    const role = visibleRole(message);
-    if (!role || (role === "assistant" && hasToolCalls(message))) return;
-    const content = messageText(message.content);
-    const program = index === finalAssistantIndex ? textValue(presentation.program) : "";
-    if (!content.trim() && !program.trim()) return;
-    messages.push({
-      id: textValue(message.id) || `history-${role}-${index}`,
-      role,
-      content,
-      createdAt: textValue(message.created_at) || textValue(message.createdAt) || createdAt,
-      status: "complete",
-    });
-  });
+  const boundaries = sourceMessages.flatMap((message: unknown, index: number) => isRecord(message) && visibleRole(message) === "user" ? [index] : []);
+  for (const [turn, start] of boundaries.entries()) {
+    const end = boundaries[turn + 1] ?? sourceMessages.length;
+    const question = sourceMessages[start];
+    const push = (message: Record<string, unknown>, index: number, role: "user" | "assistant", activities?: ChatMessage["activities"]) => {
+      const content = messageText(message.content);
+      const program = index === finalAssistantIndex ? textValue(presentation.program) : "";
+      if (!content.trim() && !program.trim() && !activities?.length) return;
+      messages.push({ id: textValue(message.id) || `history-${role}-${index}`, role, content,
+        createdAt: textValue(message.created_at) || textValue(message.createdAt) || createdAt, status: "complete",
+        ...(activities?.length ? { activities } : {}),
+      });
+    };
+    push(question, start, "user");
+    const turnMessages = sourceMessages.slice(start, end);
+    const activities = extractToolActivity(turnMessages).map(activity => activity.status === "running" ? { ...activity, status: "interrupted" as const } : activity);
+    let finalIndex = -1;
+    for (let index = end - 1; index > start; index--) {
+      const message = sourceMessages[index];
+      if (isRecord(message) && visibleRole(message) === "assistant" && !hasToolCalls(message)) { finalIndex = index; break; }
+    }
+    if (finalIndex >= 0) push(sourceMessages[finalIndex], finalIndex, "assistant", activities);
+    else if (activities.length) {
+      const ownerIndex = sourceMessages.findLastIndex((message: unknown, index: number) => index > start && index < end && isRecord(message) && visibleRole(message) === "assistant" && hasToolCalls(message));
+      if (ownerIndex >= 0) push({ ...sourceMessages[ownerIndex], content: "" }, ownerIndex, "assistant", activities);
+    }
+  }
   // A snapshot contains only the latest presentation, never one per historic turn.
   const latest = messages.at(-1);
   if (latest?.role === "assistant" && typeof presentation.program === "string" && presentation.program.trim()) {
