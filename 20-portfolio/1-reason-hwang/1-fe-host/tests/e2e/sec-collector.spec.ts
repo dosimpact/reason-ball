@@ -50,3 +50,39 @@ test('confirmed bulk uses fixture only and completes split SSE', async ({ page }
   await expect(history.locator('li').first()).toContainText('완료');
   await expect(history.locator('li').first()).toContainText('completed');
 });
+
+test('API Testing sends invalid schema unchanged and renders raw HTML as text', async ({ page, request }) => {
+  await page.getByRole('tab', { name: 'API Testing', exact: true }).click();
+  await page.getByRole('combobox', { name: 'API 프리셋' }).selectOption('selected-sync');
+  await page.getByRole('textbox', { name: 'JSON Body' }).fill('{"tickers":["AAPL"],"years":"invalid","downloadDocuments":false}');
+  await page.getByRole('button', { name: 'Send 요청 보내기' }).click();
+  await expect(page.getByText('HTTP 400 Bad Request', { exact: true })).toBeVisible();
+  const calls = await request.get('/api/remote-proxy/__calls').then(response => response.json());
+  expect(calls.filter((call: { path: string }) => call.path === '/api/sec/company-filing-sync-jobs').at(-1).body.years).toBe('invalid');
+  await page.getByRole('textbox', { name: 'JSON Body' }).fill('{invalid-json');
+  await expect(page.getByRole('button', { name: 'Send 요청 보내기' })).toBeDisabled();
+  await page.getByRole('combobox', { name: 'API 프리셋' }).selectOption('content');
+  await page.getByRole('textbox', { name: '경로 CIK' }).fill('0000320193');
+  await page.getByRole('textbox', { name: '경로 접수번호' }).fill('0000320193-26-000100');
+  await page.getByRole('button', { name: 'Send 요청 보내기' }).click();
+  await expect(page.getByText('HTTP 200 OK', { exact: true })).toBeVisible();
+  await expect(page.getByRole('tabpanel', { name: 'API Testing' })).toContainText('<script>window.__secRawExecuted=true</script>');
+  expect(await page.evaluate(() => '__secRawExecuted' in window)).toBe(false);
+});
+
+test('API Testing stream persists across tabs and shares execution lock', async ({ page }) => {
+  await page.getByRole('tab', { name: 'API Testing', exact: true }).click();
+  await page.getByRole('combobox', { name: 'API 프리셋' }).selectOption('selected-sync');
+  await page.getByRole('textbox', { name: 'JSON Body' }).fill('{"tickers":["SLOW"],"years":1,"downloadDocuments":false}');
+  await page.getByRole('button', { name: 'Send 요청 보내기' }).click();
+  await expect(page.getByText(/started/).first()).toBeVisible();
+  await page.getByRole('tab', { name: '수집 관리', exact: true }).click();
+  await expect(page.getByRole('button', { name: '기업 디렉터리 동기화' })).toBeDisabled();
+  await page.getByRole('tab', { name: 'API Testing', exact: true }).click();
+  await expect(page.getByText(/started/).first()).toBeVisible();
+  await page.getByRole('button', { name: '요청 연결 중단', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Send 요청 보내기' })).toBeEnabled();
+  await expect(page.getByRole('tabpanel', { name: 'API Testing' })).toContainText('HTTP 200 OK');
+  await page.getByRole('tab', { name: '수집 관리', exact: true }).click();
+  await expect(page.getByRole('button', { name: '기업 디렉터리 동기화' })).toBeEnabled();
+});

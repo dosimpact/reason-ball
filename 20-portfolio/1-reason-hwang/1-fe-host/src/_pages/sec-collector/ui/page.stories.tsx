@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { expect, fn, userEvent, waitFor, within } from "storybook/test";
+import { expect, fireEvent, fn, userEvent, waitFor, within } from "storybook/test";
+import type { ApiTestExecutor } from "./ApiTesting";
 import SecCollectorPage from "./page";
 import { collectorServices, type CollectorServices } from "./useSecCollector";
 import type { Company, Filing } from "../model/types";
@@ -70,4 +71,63 @@ export const ScopeAndFilterReset: Story = { play: async ({ canvasElement }) => {
   await waitFor(() => expect(canvas.getByLabelText("CIK", { exact: true })).toHaveValue(""));
   await expect(canvas.getByLabelText("양식", { exact: true })).toHaveValue("");
   await expect(canvas.getByLabelText("다운로드 상태")).toHaveValue("");
+} };
+
+const apiExecutor = fn<ApiTestExecutor>(async (request, onEvent, signal) => {
+  const isSse = request.url.includes("filing-sync-jobs");
+  if (isSse) onEvent?.({ type: "started", data: { startedAt: "2026-11-14" } });
+  await new Promise(resolve => setTimeout(resolve, 700));
+  const invalid = request.url.includes("page=-1") || request.body?.includes('"years":"bad"');
+  const bodyText = request.url.endsWith("/content") ? '<script>window.unsafe=true</script><h1>raw document</h1>' : invalid ? '{"message":"서버 입력 검증 오류"}' : '{"ok":true}';
+  const events = isSse && !signal?.aborted ? [{ type: "completed", data: { ok: true } }] : [];
+  events.forEach(event => onEvent?.(event));
+  return { request, status: signal?.aborted ? null : invalid ? 400 : 200, statusText: invalid ? "Bad Request" : "OK", durationMs: 700, headers: { "content-type": request.url.endsWith("/content") ? "text/html" : isSse ? "text/event-stream" : "application/json" }, bodyText, events, outcome: signal?.aborted ? "aborted" : invalid ? "http-error" : "success" };
+});
+export const ApiRequestAndServerError: Story = { args: { apiExecutor }, play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByRole("tab", { name: "API Testing" }));
+  fireEvent.change(canvas.getByLabelText("page", { exact: true }), { target: { value: "-1" } });
+  await userEvent.click(canvas.getByRole("button", { name: "Send 요청 보내기" }));
+  await waitFor(() => expect(canvas.getByText("HTTP 400 Bad Request")).toBeVisible());
+  await expect(canvas.getByTestId("api-response-body")).toHaveTextContent("서버 입력 검증 오류");
+  await userEvent.selectOptions(canvas.getByLabelText("API 프리셋"), "selected-sync");
+  fireEvent.change(canvas.getByLabelText("JSON Body"), { target: { value: '{"years":"bad"}' } });
+  await expect(canvas.getByRole("button", { name: "Send 요청 보내기" })).toBeEnabled();
+} };
+export const ApiTabLockAndPersistence: Story = { args: { apiExecutor }, play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByRole("tab", { name: "API Testing" }));
+  await userEvent.click(canvas.getByRole("button", { name: "Send 요청 보내기" }));
+  await userEvent.click(canvas.getByRole("tab", { name: "수집 관리" }));
+  await expect(canvas.getByRole("button", { name: "기업 디렉터리 동기화" })).toBeDisabled();
+  await userEvent.click(canvas.getByRole("tab", { name: "API Testing" }));
+  await waitFor(() => expect(canvas.getByText("HTTP 200 OK")).toBeVisible());
+  await userEvent.click(canvas.getByRole("tab", { name: "수집 관리" }));
+  await userEvent.click(canvas.getByRole("tab", { name: "API Testing" }));
+  await expect(canvas.getByText("HTTP 200 OK")).toBeVisible();
+} };
+export const ApiBulkGuardAndRawText: Story = { args: { apiExecutor }, play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByRole("tab", { name: "API Testing" }));
+  await userEvent.selectOptions(canvas.getByLabelText("API 프리셋"), "all-sync");
+  await expect(canvas.getByRole("button", { name: "Send 요청 보내기" })).toBeDisabled();
+  await userEvent.click(canvas.getByRole("checkbox", { name: "전체 기업 수집 요청임을 확인했습니다." }));
+  await expect(canvas.getByRole("button", { name: "Send 요청 보내기" })).toBeEnabled();
+  await userEvent.selectOptions(canvas.getByLabelText("API 프리셋"), "content");
+  await userEvent.type(canvas.getByLabelText("경로 CIK"), "0000320193");
+  await userEvent.type(canvas.getByLabelText("경로 접수번호"), "0000320193-26-000001");
+  await userEvent.click(canvas.getByRole("button", { name: "Send 요청 보내기" }));
+  await waitFor(() => expect(canvas.getByTestId("api-response-body")).toHaveTextContent("<script>window.unsafe=true</script>"));
+  await expect(canvas.queryByRole("heading", { name: "raw document" })).not.toBeInTheDocument();
+} };
+
+export const ApiStreamConnectionAbort: Story = { args: { apiExecutor }, play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByRole("tab", { name: "API Testing" }));
+  await userEvent.selectOptions(canvas.getByLabelText("API 프리셋"), "selected-sync");
+  await userEvent.click(canvas.getByRole("button", { name: "Send 요청 보내기" }));
+  await expect(canvas.getByText("started", { exact: true })).toBeVisible();
+  await userEvent.click(canvas.getByRole("button", { name: "요청 연결 중단" }));
+  await waitFor(() => expect(canvas.getByRole("button", { name: "Send 요청 보내기" })).toBeEnabled());
+  await expect(canvas.getByText("요청 연결 중단", { exact: true })).toBeVisible();
 } };

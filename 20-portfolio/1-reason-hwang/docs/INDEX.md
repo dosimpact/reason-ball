@@ -229,3 +229,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [Chat Behind the scenes](flow/2026-11-14-chat-behind-the-scenes.md): CHAT-ACTIVITY-001, 도구 실행 이름·상태 표시.
 
 - [SEC Collector 운영 화면](stock/us-corporate-filings/collector-dashboard.md): 기업·공시 조회, 수집 실행·세션 기록. [구현 및 검증](flow/2026-11-14-sec-collector-dashboard.md).
+
+- [SEC Collector API Testing](flow/2026-11-14-sec-api-testing-tab.md): SEC-COLLECTOR-002, 기존6API의 수동 request/response 검사 탭.

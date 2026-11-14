@@ -23,3 +23,13 @@ POST streaming fetch로 started/progress/completed/error를 읽는다. HTTP200�
 루트 `app/sec-collector`는 FSD `_pages/sec-collector` 화면을 연결한다. api/model/ui 경계를 유지하며 기존 Host `/api/remote-proxy/api/sec/*`가 `REMOTE_BFF_URL`의 BFF로 전달한다. 새 서버 endpoint·DB 모델을 만들지 않는다.
 
 필수 View Storybook·MCP 사용자 검증과 HTTP fixture의 SSE 경계 회귀를 수행한다. 실제 SEC 검증은 단일 기업·짧은 기간으로 제한하며 전체기업20년 실행은 fixture/격리 환경에서 검증한다. 현재 건수·실행 증거는 [flow](../../flow/2026-11-14-sec-collector-dashboard.md)에 둔다.
+
+## SEC-COLLECTOR-002: API Testing
+
+`수집 관리`와 `API Testing` 탭은 같은 화면 안에서 상태를 유지한다. Testing은 기존6개 API preset의 method/path를 고정하고 query/path 값과 raw JSON body만 편집한다. 브라우저는 기존 same-origin proxy의 allowlist 경로만 호출하며 임의 origin·URL·method·header는 받지 않는다. JSON 문법 오류는 전송 전 표시하지만 유효한 JSON의 업무 schema 오류는 서버 검증을 위해 그대로 전송한다. API·탭 선택만으로 호출하지 않는다.
+
+Send 후 실제 전송 요청 snapshot과 HTTP status/statusText·응답headers·경과시간·raw response text/JSON·SSE events를 표시한다. HTTP 오류, 네트워크 오류, HTTP200의 SSEerror·partial·terminal없는 EOF·요청 연결 중단을 구분한다. SSE예상 endpoint가200 JSON/empty를 반환해도 성공으로 표시하지 않는다. 원문 HTML은 pre 텍스트로만 표시하며 실행하지 않는다. 표시본문은1Mi문자, SSE이벤트는1000개로 제한하고 잘림을 표시한다. copy는 편집중 draft가 아닌 실제 보낸 request/response를 사용한다.
+
+운영 수집과 Testing은 실행 lock을 공유한다. 탭 전환이 진행중 연결을 끊거나 결과·기록을 초기화하지 않는다. 중단 버튼은 브라우저 fetch만 중단하며 서버 작업 취소/rollback을 보장하지 않는다. 전체기업 preset은 별도확인 후 실행하고 body 변경 시 확인을 해제한다. 기본수집body는20년/원문포함이며 실제대량실행은 사용자가명시적으로 수행한다.
+
+[API Testing 구현·검증](../../flow/2026-11-14-sec-api-testing-tab.md)

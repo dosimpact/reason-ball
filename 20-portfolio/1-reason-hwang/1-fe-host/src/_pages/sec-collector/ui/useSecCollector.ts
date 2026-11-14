@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { ExecutionLock } from "./useExecutionLock";
 import * as api from "../api/secCollectorApi";
 import { buildCollectionInput } from "../model/collectionInput";
 import { streamCollection } from "../api/collectionStream";
@@ -12,7 +13,7 @@ type Trace = { method: string; url: string; status: number; durationMs: number }
 export type SessionRun = { id: string; kind: string; startedAt: string; status: "active" | "completed" | "partial" | "error" | "disconnected"; events: { type: string; data: Record<string, unknown> }[]; result?: unknown; message?: string };
 const messageOf = (error: unknown) => error instanceof Error ? error.message : "요청에 실패했습니다.";
 
-export function useSecCollector(services: CollectorServices) {
+export function useSecCollector(services: CollectorServices, execution?: ExecutionLock) {
   const [overview, setOverview] = useState<Overview>();
   const [companies, setCompanies] = useState<ListResponse<Company>>();
   const [filings, setFilings] = useState<ListResponse<Filing>>();
@@ -56,6 +57,7 @@ export function useSecCollector(services: CollectorServices) {
   async function execute(kind: "directory" | "selected" | "all", input: CollectionInput = {}) {
     if (active.current) return;
     input = kind === "directory" ? {} : buildCollectionInput(kind, input);
+    if (execution && !execution.acquire("collection")) return;
     const controller = new AbortController(); active.current = controller;
     const id = crypto.randomUUID();
     const path = `/api/sec/${kind === "directory" ? "company-sync-jobs" : kind === "selected" ? "company-filing-sync-jobs" : "all-company-filing-sync-jobs"}`;
@@ -75,11 +77,11 @@ export function useSecCollector(services: CollectorServices) {
         if (mounted.current) setInspection({ method: "POST", path, args: input, response: outcome });
       }
     } catch (error) { update({ status: "error", message: messageOf(error) }); }
-    finally { if (active.current === controller) active.current = null; if (mounted.current) refresh(); }
+    finally { if (active.current === controller) active.current = null; execution?.release("collection"); if (mounted.current) refresh(); }
   }
   async function copyInspection() {
     try { await navigator.clipboard.writeText(JSON.stringify({ request: inspection, http: traces, reads: { overview, companies: { filters: companyFilters, response: companies }, filings: { filters: filingFilters, response: filings } }, errors }, null, 2)); setCopied(true); }
     catch { setCopied(false); setError("copy", new Error("클립보드에 복사할 수 없습니다.")); }
   }
-  return { overview, companies, filings, companyFilters, filingFilters, setCompanyFilters, setFilingFilters, selected, setSelected, detail, setDetail, errors, loading, runs, inspection, traces, copied, refresh, execute, copyInspection, busy: runs.some(run => run.status === "active") };
+  return { overview, companies, filings, companyFilters, filingFilters, setCompanyFilters, setFilingFilters, selected, setSelected, detail, setDetail, errors, loading, runs, inspection, traces, copied, refresh, execute, copyInspection, busy: !!execution?.owner || runs.some(run => run.status === "active") };
 }

@@ -28,6 +28,9 @@ const server = createServer(async (request, response) => {
   calls.push({ method: request.method, path: url.pathname, query: Object.fromEntries(url.searchParams), body: body ? JSON.parse(body) : null });
   if (url.pathname === '/__calls') return json(response, calls);
   if (url.pathname === '/api/sec/companies') {
+    if (url.searchParams.get('q') === 'SLOW') await delay(5000);
+    if (url.searchParams.get('q') === 'TEXTERROR') { response.writeHead(502, { 'Content-Type': 'text/plain', 'X-Fixture': 'plain-error' }); return response.end('Fixture non-JSON upstream error'); }
+    if (url.searchParams.has('page') && Number(url.searchParams.get('page')) < 1) return json(response, { statusCode: 400, message: ['page must be positive'], error: 'Bad Request' }, 400);
     const q = (url.searchParams.get('q') || url.searchParams.get('ticker') || '').toLowerCase();
     if (q === 'error') return json(response, { message: 'Fixture company failure' }, 503);
     return json(response, pageOf(companies.filter(company => `${company.name} ${company.ticker}`.toLowerCase().includes(q)), url.searchParams));
@@ -35,7 +38,7 @@ const server = createServer(async (request, response) => {
   if (url.pathname.endsWith('/content')) {
     if (url.pathname.includes('000102') || url.pathname.includes('000103')) return json(response, { message: 'Document unavailable' }, 409);
     response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': "sandbox; default-src 'none'", 'X-Content-Type-Options': 'nosniff' });
-    return response.end('<!doctype html><h1>Fixture annual filing</h1><p>Stored original document.</p>');
+    return response.end('<!doctype html><h1>Fixture annual filing</h1><p>Stored original document.</p><script>window.__secRawExecuted=true</script>');
   }
   if (url.pathname === '/api/sec/filings') {
     const items = filings.filter(filing => ['cik','ticker','status','formType','parserStatus'].every(key => !url.searchParams.has(key) || filing[key] === url.searchParams.get(key)));
@@ -44,6 +47,9 @@ const server = createServer(async (request, response) => {
   if (url.pathname === '/api/sec/company-sync-jobs') return json(response, { job: 'company-sync', syncedCount: 2, requestedAt: new Date().toISOString(), correlationId: 'fixture-sync' }, 201);
   if (url.pathname.endsWith('company-filing-sync-jobs')) {
     const input = JSON.parse(body || '{}');
+    if (!input || typeof input !== 'object' || Array.isArray(input)) return json(response, { statusCode: 400, message: 'Request body must be an object', error: 'Bad Request' }, 400);
+    if (typeof input.years === 'string' || Number(input.years ?? 20) < 1 || Number(input.years ?? 20) > 30) return json(response, { statusCode: 400, message: 'years must be an integer between 1 and 30.', error: 'Bad Request' }, 400);
+    if (url.pathname === '/api/sec/company-filing-sync-jobs' && !input.ciks?.length && !input.tickers?.length) return json(response, { statusCode: 400, message: 'Specify ciks or tickers.', error: 'Bad Request' }, 400);
     response.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache' });
     let closed = false;
     response.on('close', () => { closed = true; });
@@ -56,7 +62,7 @@ const server = createServer(async (request, response) => {
     await event('started', { startedAt: new Date().toISOString() });
     await delay(500);
     if ((input.tickers || []).includes('ERROR')) { await event('error', { message: 'Fixture upstream failure', statusCode: 502 }); return response.end(); }
-    await event('progress', { phase: 'metadata', filingsSynced: 4, tickerOnly: true, totalCompanies: 2 });
+    await event('progress', { phase: 'metadata', message: '메타데이터 수집', filingsSynced: 4, tickerOnly: true, totalCompanies: 2 });
     response.write(': heartbeat\n\n');
     await delay((input.tickers || []).includes('SLOW') ? 5000 : 500);
     if ((input.tickers || []).includes('INCOMPLETE')) return response.end();
