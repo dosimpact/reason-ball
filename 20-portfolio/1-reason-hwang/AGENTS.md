@@ -14,6 +14,7 @@ Phase - 변경 전 설계 수립
 - 문서는 **공용 → 구체** 순서로 읽으세요. [tech-shared 지도](docs/stock/tech-shared/INDEX.md)를 따라 공통 비즈니스·기술 결정은 `docs/stock/tech-shared/`의 상위 문서에서, 패키지별 기술 내용은 그 아래 `1-fe-host/`, `2-bff-apps/`, `3-langgraph-fast/`, `infra/<package>/`에서 확인하세요.
 - 특정 비즈니스 기능을 변경할 때는 해당 `docs/stock/<domain-feature-name>/`도 함께 읽으세요. 도메인 업무 규칙과 패키지 기술 문서의 소유 범위를 구분하세요.
 - 편집하기 전에 `git status`를 확인하세요. 사용자가 생성했거나 관련 없는 변경 사항을 보존하고, 작업 범위를 요청된 내용에 맞게 제한하세요.
+- 프로젝트 내 모든 `human-docs/` 디렉터리와 그 하위 파일·디렉터리는 절대 변경하지 마세요. 파일·디렉터리의 생성, 수정, 삭제, 이동 및 이름 변경을 모두 금지합니다.
 - `.env`, OAuth 토큰, 런타임 데이터, 데이터베이스 볼륨, 빌드 출력물, 캐시 또는 가상 환경을 절대 커밋하지 마세요. `infra/2-codex-oauth-proxy/.config/chatgpt_auth.json`에는 자격 증명이 포함되어 있습니다.
 
 

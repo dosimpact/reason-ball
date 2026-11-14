@@ -190,3 +190,16 @@ docker compose up -d --build
 curl http://127.0.0.1:18741/health
 docker compose ps
 ```
+
+## OAUTH-RELOAD-001: 실행 중 재로그인 반영
+
+`TokenManager`는 토큰 및 account ID 조회 시 lock 안에서 인증 파일을 다시 읽는다.
+호스트의 `pnpm oauth --force`로 파일이 교체되면 다음 인증 조회부터 적용되며,
+컨테이너 재시작은 필요 없다. 파일 감시 데몬이나 서버 자동 재시작은 사용하지 않는다.
+인증 파일 누락·파싱 실패·필수 토큰 누락은 이전 캐시를 사용하지 않고 실패한다.
+refresh HTTP 응답을 기다리는 동안 파일 내용이 바뀌면 새 파일을 우선 사용한다.
+마지막 파일 확인과 저장 사이의 다른 프로세스 쓰기까지 원자적으로 잠그지는 않는다.
+이 기능을 처음 배포할 때는 `docker compose up -d --build`로 새 코드를 적용한다.
+
+검증: `pnpm test:unit`, `PYTHONPATH=. uv run python api-test/check-auth-reload.py`.
+후자는 Bruno CLI가 필요하며 임시 인증 파일과 소유한 HTTP 서버만 사용한다.
