@@ -5,7 +5,7 @@
   "scripts": {
     "bruno": "open -a Bruno bruno-api-tests",
     "dev": "uv run python -m uvicorn server.server:app --env-file .env --reload",
-    "dev:langgraph": "uv run langgraph dev --no-browser",
+    "dev:langgraph": "uv run --env-file .env sh -c 'exec langgraph dev --no-browser --port \"${LANGGRAPH_PORT:-2025}\" \"$@\"' --",
     "start": "uv run python -m uvicorn server.server:app --env-file .env",
     "build": "uv build",
     "test": "uv run pytest",

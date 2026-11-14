@@ -24,4 +24,8 @@
 `3-langgraph-fast/.env`와 `.env.example`은 `SERVER_PORT=8000`을 선언한다.
 현재 `dev`/`start`의 Uvicorn CLI는 이 변수를 포트 옵션에 연결하지 않으므로,
 변수 값 변경만으로 수신 포트가 바뀌지 않는다. 실제 포트 지정은 `--port`를 사용한다.
-`dev:langgraph`의 `--port`는 별도 설정이다.
+`dev:langgraph`는 `uv run --env-file .env`로 환경 변수를 로드한 뒤
+`LANGGRAPH_PORT`를 `langgraph dev --port`에 전달한다. `.env`와 `.env.example`의
+기본값은 `LANGGRAPH_PORT=2025`이며, 미설정 시에도 2025를 사용한다.
+셸에서 전달한 환경 변수가 `.env`보다 우선하고, 명시적인 CLI `--port`가 최종 우선한다.
+`langgraph.json`은 변경하지 않는다.
