@@ -35,6 +35,25 @@ function Results({ result, stage }: { result: ResultPage | null; stage: Stage })
     {result.items.map((item, index) => <details className="rounded border p-3" key={String(item.id ?? index)}>
       <summary className="cursor-pointer font-medium">{resultTitle(item, index, stage)}</summary>
       {stage === 1 && typeof item.displayHtml === "string" && <iframe title={`Item 미리보기 ${item.itemCode ?? index + 1}`} sandbox="" referrerPolicy="no-referrer" className="mt-3 h-96 w-full rounded border bg-white" srcDoc={`<!doctype html><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:"><style>body{font-family:system-ui;padding:16px;overflow-wrap:anywhere}table{border-collapse:collapse;max-width:100%}td,th{border:1px solid #ddd;padding:4px}</style>${item.displayHtml}`} />}
+      {stage === 3 && <div className="my-3 space-y-2 text-sm">
+        <p className="font-medium">분류: {String(item.analysisCategory ?? "분류 정보 없음")}</p>
+        <p>선정 정책 판정: {String(item.selectionReason ?? "—")}</p>
+        {typeof item.importanceProbability === "number" && <p>중요도 확률: {(item.importanceProbability * 100).toFixed(1)}%</p>}
+        {typeof item.categoryConfidence === "number" && <p>분류 신뢰도: {(item.categoryConfidence * 100).toFixed(1)}%</p>}
+        {item.categoryProbabilities != null && <details><summary>분류별 확률</summary><JsonDetail value={item.categoryProbabilities} /></details>}
+        <p className="text-xs text-muted-foreground">선정 정책: {String(item.selectionPolicyVersion ?? "—")}</p>
+        {Array.isArray(item.evidence) && item.evidence.map((value, evidenceIndex) => {
+          const evidence = value as Record<string, unknown>;
+          return <blockquote key={String(evidence.id ?? evidenceIndex)} className="space-y-1 border-l-2 pl-3">
+            <p className="text-xs text-muted-foreground">원문 fact: {String(evidence.sourceFactId ?? item.sourceFactId ?? "—")}</p>
+            {Boolean(evidence.tableHeader) && <p>{String(evidence.tableHeader)}</p>}
+            {Boolean(evidence.precedingText) && <p>{String(evidence.precedingText)}</p>}
+            <p className="whitespace-pre-wrap">{String(evidence.text ?? "")}</p>
+            {Boolean(evidence.continuationText) && <p className="whitespace-pre-wrap">{String(evidence.continuationText)}</p>}
+            {evidence.truncated === true && <p className="text-xs">근거 일부가 길이 제한으로 생략되었습니다.</p>}
+          </blockquote>;
+        })}
+      </div>}
       {typeof item.text === "string" && <pre className="my-3 max-h-72 overflow-auto whitespace-pre-wrap text-sm">{item.text}</pre>}
       <details><summary className="cursor-pointer text-sm">구조화 데이터</summary><JsonDetail value={item} /></details>
     </details>)}
@@ -48,7 +67,7 @@ export function ModelingView(props: ModelingViewProps) {
   const [evidenceResult, setEvidenceResult] = useState<unknown>();
   useEffect(() => { setSearchResult(undefined); setEvidenceResult(undefined); }, [props.selected?.cik, props.selected?.accessionNo]);
   return <main className="mx-auto max-w-7xl space-y-6 p-5 md:p-8">
-    <header className="flex flex-wrap items-center justify-between gap-4"><div><h1 className="text-2xl font-semibold">SEC 모델링 관리</h1><p className="mt-1 text-sm text-muted-foreground">문서 구조 → 본문 검색·근거 · 독립 XBRL 분석</p></div><button className={button} onClick={props.refresh} disabled={props.loading}>새로고침</button></header>
+    <header className="flex flex-wrap items-center justify-between gap-4"><div><h1 className="text-2xl font-semibold">SEC 모델링 관리</h1><p className="mt-1 text-sm text-muted-foreground">문서 구조 → 본문 검색·근거 · 독립 SEC 도메인 지식 선별</p></div><button className={button} onClick={props.refresh} disabled={props.loading}>새로고침</button></header>
     {props.error && <div role="alert" className="rounded border border-red-400 p-4 text-red-600">{props.error}</div>}
     <section aria-label="모델링 공시 목록" className={panel}>
       <h2 className="font-semibold">공시별 진행 상태</h2><form className="flex flex-wrap items-center gap-2" onSubmit={event => { event.preventDefault(); props.applyFilter(filterInput); }}><label className="text-sm">CIK 필터 <input aria-label="CIK 필터" className="rounded border bg-background p-2" inputMode="numeric" pattern="[0-9]{1,10}" maxLength={10} value={filterInput} onChange={event => setFilterInput(event.target.value)} placeholder="예: 1834584" /></label><button className={button} disabled={props.loading}>공시 필터 적용</button><button type="button" className={button} onClick={() => { setFilterInput(""); props.applyFilter(""); }}>전체 공시</button></form>
@@ -60,9 +79,9 @@ export function ModelingView(props: ModelingViewProps) {
     </section>
     {props.selected && <>
       <section className={panel} aria-label="공시 모델링 제어"><h2 className="font-semibold">{props.selected.ticker} · {props.selected.accessionNo}</h2>
-        <label className="flex items-center gap-3 text-sm">지식 추출 모델<select className="rounded border bg-background p-2" value={model} onChange={event => setModel(event.target.value as ExtractionModel)}><option value="gpt-5.6-sol">sol</option><option value="gpt-5.6-luna">luna</option></select></label>
-        <div className="flex flex-wrap gap-2">{stages.map(stage => <button key={stage} className={button} disabled={props.busy || !canStart(props.selected!, stage)} onClick={() => props.start(stage, model)}>모델링 {stage} 실행</button>)}</div>
-        <p className="text-xs text-muted-foreground">모델링 2는 모델링 1의 공개된 결과가 필요합니다. 모델링 3은 원본 XBRL을 독립적으로 처리합니다. 재실행 실패 시 기존 성공 결과를 유지합니다.</p>
+        <label className="flex items-center gap-3 text-sm">모델링 1·2 추출 모델<select className="rounded border bg-background p-2" value={model} onChange={event => setModel(event.target.value as ExtractionModel)}><option value="gpt-5.6-sol">sol</option><option value="gpt-5.6-luna">luna</option></select></label>
+        <div className="flex flex-wrap gap-2">{stages.map(stage => <button key={stage} className={button} disabled={props.busy || !canStart(props.selected!, stage)} onClick={() => props.start(stage, stage === 3 ? "gpt-6-luna" : model)}>모델링 {stage} 실행</button>)}</div>
+        <p className="text-xs text-muted-foreground">모델링 2는 모델링 1의 공개된 결과가 필요합니다. 모델링 3은 모든 CIK의 10-K·10-Q 원본에서 중요한 XBRL 사실을 OpenAI Decisions API의 gpt-6-luna로 선별합니다. 표시되는 선정 사유는 확률과 임계값에 따른 정책 판정입니다. 재실행 실패 시 기존 성공 결과를 유지합니다.</p>
       </section>
       <section className={panel} aria-label="모델링 결과"><h2 className="font-semibold">가공 결과</h2><div className="flex flex-wrap gap-2">{stages.map(stage => <button className={button} aria-pressed={stage === props.stage} key={stage} onClick={() => props.changeStage(stage)}>{stageNames[stage]}</button>)}</div><Results result={props.result} stage={props.stage} /><div className="flex items-center gap-3"><button className={button} disabled={props.page === 1} onClick={() => props.setPage(props.page - 1)}>이전 결과</button><span>{props.page} 페이지</span><button className={button} disabled={!props.result || props.result.items.length < 20 || (props.result.total !== undefined && props.page * 20 >= props.result.total)} onClick={() => props.setPage(props.page + 1)}>다음 결과</button></div></section>
       <section className={panel} aria-label="실행 이력"><h2 className="font-semibold">실행 이력</h2>{!props.runs.length && <p>실행 기록이 없습니다. 기존 결과를 성공 실행으로 간주하지 않습니다.</p>}{props.runs.map(run => <button className={`${button} mr-2`} key={run.id} onClick={() => props.inspectRun(run)}>모델링 {run.stage} · {run.status} · {run.createdAt}</button>)}</section>

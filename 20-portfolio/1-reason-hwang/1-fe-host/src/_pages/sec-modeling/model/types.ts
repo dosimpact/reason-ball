@@ -1,5 +1,5 @@
 export type Stage = 1 | 2 | 3;
-export type ExtractionModel = "gpt-5.6-sol" | "gpt-5.6-luna";
+export type ExtractionModel = "gpt-5.6-sol" | "gpt-5.6-luna" | "gpt-6-luna";
 export interface ModelingRun {
   id: string; runId: string; cik: string; accessionNo: string; stage: Stage;
   status: string; error?: unknown; createdAt: string; finishedAt?: string;
@@ -20,6 +20,7 @@ export function filingPath(filing: Pick<ModelingFiling, "cik" | "accessionNo">) 
   return `filings/${encodeURIComponent(filing.cik)}/${encodeURIComponent(filing.accessionNo)}`;
 }
 export function canStart(filing: ModelingFiling, stage: Stage) {
+  if (!(stage === 3 ? ["10-K", "10-Q"] : ["10-K", "10-K/A"]).includes(filing.formType)) return false;
   if (isActive(filing.stages[String(stage)]?.latestRun?.status)) return false;
   return stage === 2 ? Boolean(filing.stages["1"]?.generationId) && filing.stages["1"]?.readiness !== "stale" : filing.hasSource;
 }

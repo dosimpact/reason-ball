@@ -26,7 +26,11 @@
     "test:sec-modeling": "uv run pytest tests/test_sec_modeling.py tests/test_sec_evidence_chain.py tests/test_sec_edgar_transforms.py tests/test_document_structure.py tests/test_sec_structural_chunking.py tests/test_sec_modeling_tools.py tests/test_sec_retrieval_validation.py tests/test_sec_fact_unit_filter.py",
     "test:sec-modeling:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 20-sec-modeling",
     "validate:sec-retrieval": "uv run --env-file .env python scripts/validate_sec_retrieval.py",
-    "validate:sec-model2": "uv run --env-file .env python scripts/validate_sec_model2_live.py"
+    "validate:sec-model2": "uv run --env-file .env python scripts/validate_sec_model2_live.py",
+    "model3:sample": "uv run --env-file .env python scripts/model3_three_samples.py",
+    "model3:reset": "uv run --env-file .env python scripts/reset_sec_model3.py",
+    "test:model3:samples": "uv run pytest tests/test_model3_three_samples.py",
+    "test:model3:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 21-sec-model3-samples --env local"
   },
   "devDependencies": {
     "@usebruno/cli": "^2.13.0"

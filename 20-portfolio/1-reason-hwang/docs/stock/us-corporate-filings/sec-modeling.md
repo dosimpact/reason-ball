@@ -8,7 +8,11 @@
 
 ## 목적과 범위
 
-AAPL·CPNG·NVDA 3개 10-K를 문서 구조, 본문 지식, XBRL 재무 사실로 처리한다.
+모델링 1·2는 기존 10-K 범위를 유지한다. 모델링 3은 모든 CIK의 정확한 `10-K`·`10-Q`를 지원하며
+`10-K/A`, `10-Q/A`, `20-F`, `6-K`, `8-K`는 모델링 3 대상에서 제외한다.
+미국·해외 상장 보통주 기업은 도메인 목표이며, 3,714/1,020개 수치를 고정 allowlist나 처리 상한으로 쓰지 않는다.
+외국 기업도 해당 양식을 제출한 경우 처리할 수 있다. 모든 외국 기업이 10-K·10-Q를 제출한다는 가정은 하지 않는다.
+실제 실행·검증은 AAPL·CPNG·NVDA 세 회사 샘플에 한정하며 전체 기업 일괄 수집·처리를 시작하지 않는다.
 수집 화면 `/sec-collector`와 모델링 관리 화면 `/sec-modeling`을 분리한다.
 첫 검증 범위를 모든 회사·양식으로 일반화하지 않는다.
 
@@ -63,40 +67,91 @@ Statement·Fact에서 Chunk와 Item까지 근거를 역추적할 수 있어야 �
 서로 다른 모델의 벡터를 같은 인덱스에 혼합하지 않는다. Toolkit 패키지를 고정 버전으로 설치하고
 ignored reference checkout에 런타임을 의존시키지 않는다. Neo4j vector adapter는 별도로 구현한다.
 
-## SEC-MODELING-103: XBRL 사실
+## SEC-MODELING-103: 선별형 XBRL 사실 (v2)
 
-Arelle로 원본 Inline XBRL과 참조 taxonomy를 해석한다. 모델링 2의 LLM 출력은 입력이 아니다.
-필수 taxonomy를 해석하지 못한 결과를 성공으로 게시하지 않는다.
+결정: SEC-MODELING-103-V2. Arelle 원본 파싱 → 정적 DROP → 원문 근거 연결 → 후보 배치 →
+규칙·OpenAI Decisions 중요도 선별 및 단일 분류 → 결과 검증 → 게시. 모델링 1·2 결과에 의존하지 않으므로
+10-Q도 원본만으로 실행한다. 필수 taxonomy 해석 실패는 성공으로 게시하지 않는다.
+
+### 정적 사전 제외
+
+`3-langgraph-fast/src/domains/sec_modeling/model3_policy.json`을 버전 관리한다. 정책 변경 후 worker를 재시작하여 적용한다.
+`^https?://fasb\.org/us-gaap/[0-9]{4}$` namespace의 Concept는 회사·차원·기간과 무관하게 무조건 DROP한다.
+접두사 문자열이 아니라 namespace URI로 판단한다. 다른 표준 taxonomy와 기업 확장 Concept는
+후보로 통과하며 자동으로 중요한 것으로 간주하지 않는다. 제품·지역별 매출이나 고객 집중도도
+us-gaap이면 제외되는 정책상 손실을 수용한다. 원본과 모델링 1은 삭제하거나 변경하지 않는다.
+
+### 선별 및 근거
+
+OpenAI Decisions API `POST https://api.openai.com/v1/decisions`, `gpt-6-luna`를 직접 호출한다.
+OAuth proxy·Chat Completions·Responses API로 대체하거나 자동 fallback하지 않는다.
+`SEC_DECISIONS_API_KEY`가 있으면 사용하고, 없으면 공용 OpenAI API 키인 `OPENAI_API_KEY`를 사용한다.
+기존 `OPENAI_BASE_URL`은 OAuth proxy일 수 있으므로 Decisions의 base URL로 사용하지 않는다.
+
+후보별 predicate 질문으로 중요도 확률, choice 질문으로 단일 분류와 각 선택지 확률을 받는다.
+초기 정책은 importanceProbability >= 0.7 및 categoryConfidence >= 0.6을 모두 만족할 때 선정한다.
+이 임계값은 검증된 정확도 보장이 아닌 조정 가능한 초기값이다. `OTHER`도 동일한 중요도 기준을 적용한다.
+거절 응답·불충분한 근거는 선정하지 않는다. 응답의 질문 ID·개수·중복·분류 enum·확률 범위를 검증한다.
+값·단위·기간은 Arelle 결과를 그대로 저장한다. 표 행·헤더, 인접 본문과 Inline XBRL continuation을
+길이 제한 안에서 추출하고, 잘린 근거에는 truncated를 표시한다. sourceFactId가 없으면 파서가 생성한
+위치 기반 sourceXPath로 연결한다. 원문은 신뢰하지 않는 입력이며 그 안의 지시를 따르지 않는다.
+
+Decisions는 자유 설명문을 생성하지 않는다. selectionReason은 모델이 작성한 설명이 아니라 반환 확률,
+선택 분류와 임계값을 사용한 결정적 정책 판정문이다. 근거 ID도 모델이 생성하지 않고 원문 연결기의 ID를 사용한다.
+importanceProbability, categoryConfidence, categoryProbabilities와 selectionProvider/Model을 저장한다.
+잘못된 의미 해석을 기계 검증만으로 보증하지는 않는다.
+
+후보는 메모리에서 처리하며 미선정 Fact를 그래프에 저장하지 않는다. 정책·프롬프트 hash를 기록한다.
+배치 사이 취소와 generation 게시·fencing 경계를 유지하고 workUnitId 및 제공자 usage를 진행 이벤트로 전달한다.
+로컬 결정 캐시는 정책/프롬프트/제공자/모델/후보 내용으로 구분하고 이전 OAuth 결과를 재사용하지 않는다.
+API 응답의 확률과 분류를 캐시에서도 재검증한다. 캐시·키는 커밋하지 않는다.
+
+공식 명세: [Decisions 가이드](https://developers.openai.com/api/docs/guides/decisions),
+[Create a decision](https://developers.openai.com/api/reference/resources/decisions/methods/create).
+요금은 호출 횟수 고정 가격이 아니라 입력 토큰·캐시에 따라 달라진다. 출력 토큰은 과금하지 않는다.
+
+### 그래프 스키마
 
 ```text
-Filing -HAS_XBRL_FACT-> XbrlFact
-  XbrlFact -OF_CONCEPT-> Concept
-  XbrlFact -IN_CONTEXT-> Context -FOR_ENTITY-> Company
-  XbrlFact -IN_UNIT-> Unit
-  Context -HAS_DIMENSION_VALUE-> DimensionValue
-  DimensionValue -OF_DIMENSION-> Dimension
-  DimensionValue -HAS_MEMBER-> Member
+Company -FILED-> Filing -HAS_XBRL_FACT-> XbrlFact -OF_CONCEPT-> Concept
 ```
 
-| 노드 | 핵심 의미·속성 |
-| --- | --- |
-| XbrlFact | 보고된 값·출현 근거, rawValue, normalizedValue, valueType, decimals, scale, isNil, parserVersion |
-| Concept | namespaceUri + localName, label, dataType, periodType, balance |
-| Context | 기업 식별자·기간·차원 조합, sourceContextIds, startDate/endDate 또는 instantDate |
-| Dimension | namespaceUri + localName, label, explicit/typed 구분 |
-| Member | explicit dimension의 namespaceUri + localName, label |
-| DimensionValue | dimension별 explicit member 또는 정규화한 typedValue |
-| Unit | 분자·분모 measure QName을 보존하는 canonicalExpression |
+- Company·Filing 재사용. 추가 도메인 노드는 XbrlFact·Concept 2종이다.
+- XbrlFact: decimal 문자열 값, rawValue, valueType, decimals/scale/sign/format/isNil,
+  기업 식별자, 기간 종류·날짜, sourceContextIds, dimensionsJson, unitJson, evidenceJson,
+  sourceFactId/sourceXPath, duplicateGroup/conflict, parserVersion/taxonomyHash, filingId/generationId,
+  analysisCategory, importanceProbability, categoryConfidence, categoryProbabilitiesJson, selectionReason,
+  selectionPolicyVersion/Hash, selectionPromptHash, selectionProvider/Model.
+- Concept: namespaceUri, localName, label, dataType, periodType, balance, taxonomyHash, generationId.
+  namespace·taxonomy 차이를 무시해 기업 간 Concept를 병합하지 않는다.
+- Context·Dimension·DimensionValue·Member·Unit 노드는 생성하지 않는다. 그 정보는 Fact 속성에 보존한다.
+- XbrlFact에 SecRecord 라벨도 붙여 같은 물리 노드를 조회용으로 재사용한다. 별도 Fact 복제 노드는 만들지 않는다.
+  공시별 조회에 SecRecord.generationId 인덱스를 사용한다. API는 기존 context/dimensions/unit 객체 형태를 유지한다. source evidence는 가공된 텍스트이며 원본 HTML 복사가 아니다.
 
-`c-7`은 특정 문서의 context ID이며 고정된 정보 카테고리가 아니다. `xbrldi`는 차원 XML
-네임스페이스 접두사다. 보고서마다 실제 namespace·context 내용을 해석해야 한다.
-수치는 float로 변환하지 않고 정밀도를 유지하는 decimal 문자열로 보존한다. format·scale·sign·nil,
-기간·복합 단위·explicit/typed dimension을 함께 처리한다. 비수치 사실도 수치 0으로 바꾸지 않는다.
-반복 출현과 충돌 값을 구분하고, 정정공시·비교 수치를 개념·기간만으로 덮어쓰지 않는다.
-서로 다른 회사의 확장 Concept도 이름만으로 합치지 않는다. 정확한 근거가 있을 때만 Item과 연결한다.
-현재 `conflict`는 같은 개념·맥락·차원·단위 그룹에서 정규화한 값이 다르다는 표시다.
-decimals에 따른 반올림 허용 구간까지 판정한 회계 오류 확정값은 아니며, 서로 다른 원래 값과
-정밀도를 보존해 후속 검토할 수 있게 한다.
+### 단일 분류
+
+`analysisCategory`는 다음 enum 하나이며 배열이나 `isBusinessKpi`는 사용하지 않는다.
+
+| 값 | 범위 |
+| --- | --- |
+| OPERATING_PERFORMANCE | 기업 KPI·고객·판매량·제품/사업부/지역별 실적·수익성·운영 효율 |
+| INVESTMENT_AND_RESTRUCTURING | 설비/지분 투자·인수·매각·사업 진출/철수 |
+| DEPENDENCIES_AND_COMMITMENTS | 거래처/지역 집중·구매 약정·리스·공급자 금융 |
+| CAPITAL_AND_SHAREHOLDER_RIGHTS | 일반 차입·발행·배당·자사주·의결권·희석 |
+| LEGAL_REGULATORY_AND_INCIDENTS | 소송·규제·세무 분쟁·사이버 사고·보상 |
+| OTHER | 나머지 중요한 사실; 근거 부족을 대신하지 않음 |
+
+직접 측정한 대상을 기준으로 한다. 인수 대금은 투자, 인수 자금 차입은 자본 구조다.
+신사업 매출은 운영 성과, 투자액은 투자다. 소송 보상은 지급 의무여도 법률·규제·사고다.
+자사주 매입 승인은 자본 정책이며 미래 지급 의무로 바꾸지 않는다. 각 분류의 중요도는 별도 판단한다.
+
+### 초기화와 지원 경계
+
+`uv run --env-file .env python scripts/reset_sec_model3.py`는 삭제 대상만 계산하고 `--apply`로 실행한다.
+생성된 모델링 3 도메인·조회·게시 노드만 대상으로 하며 실행 중인 작업이 있으면 중단한다.
+Company/Filing/Item/SecVector는 보호하고, PostgreSQL 원본·실행 이력은 보존한다.
+관리 화면은 그래프 게시 상태를 현재 결과의 기준으로 사용하여 과거 SUCCEEDED 이력을 현재 결과로 오인하지 않는다.
+2026-11-15 사용자 지시로 기존 모델링 3 데이터 삭제 후 재구축한다. 실제 삭제·샘플 검증 결과는 flow에 기록한다.
 
 ## SEC-MODELING-104: 실행 상태와 결과 게시
 
@@ -110,7 +165,7 @@ Neo4j 결과는 generation별 staging으로 생성한 뒤 검증을 통과한 ge
 인용 재현을 위해 조회할 수 있고 `isActive`로 현재 활성 여부를 함께 반환한다. staging 근거는 공개하지 않는다. 실패·취소로 기존 성공 결과가 사라지지 않아야 한다.
 모델링 1 변경 시 이전 입력을 사용한 모델링 2를 stale로 표시한다. 모델링 3은 원본에 독립적으로
 의존한다. 그래프 게시 후 BFF 상태 반영 전에 중단되면 게시 기록으로 복구한다.
-기존 PoC 그래프는 보존하며 새 namespace와 버전으로 격리한다. 과거 실행 이력을 만들어 넣지 않는다.
+모델링 1·2 및 공유 그래프는 보존한다. 모델링 3의 기존 생성 데이터는 SEC-MODELING-103-V2 초기화 대상이다. 과거 실행 이력을 만들어 넣지 않는다.
 
 ## SEC-MODELING-105: API와 Admin
 
@@ -123,7 +178,7 @@ Item HTML/text, lexical 근거, 정형 사실과 검색 시험을 제공한다. 
 | FastAPI 공개 인터페이스 | 책임 |
 | --- | --- |
 | POST /api/sec-analysis/search | query, filingIds, itemCodes, topK를 받아 근거 반환 |
-| POST /api/sec-analysis/facts/query | 공시·Concept·기간·차원·단위로 정형 사실 조회 |
+| POST /api/sec-analysis/facts/query | 공시·Concept·기간·차원·단위·analysisCategory로 선별 사실 조회 |
 | GET /api/sec-analysis/evidence/{evidenceId} | 검색 근거와 해당 Item 조회 |
 
 검색은 회사·공시 필터를 강제하고 활성 결과만 조회한다. Chunk·Statement 검색 순위를 결합하고
@@ -159,3 +214,29 @@ Bruno API E2E, Storybook, lint/typecheck/단위 테스트를 해당 변경 범�
 모델링 2의 최종 BFF 실행은 AAPL·CPNG에서 성공했다. NVDA 모델링 2 처리와
 세 공시 전체 검색 30문항 검증은 완료하지 않았다. 검색 API의 일반 정확도 또는 모든 SEC 양식 지원을 보장하지 않는다.
 이미 게시된 성공 결과와 재시도용 캐시는 보존한다. 검증 재개는 별도 요청 시 진행한다.
+
+## 2026-11-15 모델링 3 재설계 작업
+
+모델링 3의 현재 계약은 SEC-MODELING-103-V2를 따른다. 이전 전체 XBRL 저장·7종 노드 설명은 폐기한다.
+사용자 요청에 따라 구현 우선, AAPL·CPNG·NVDA 세 샘플에 한정한 검증을 진행하고 브라우저 검증은 하지 않는다.
+10-Q 지원 코드와 실제 10-K 샘플 실행 결과를 구분하며, 전 시장 규모 성능 검증은 수행하지 않는다.
+[재설계·초기화 기록](../../flow/2026-11-15-sec-model3-selected-facts.md).
+
+### 모델링 3 운영 명령
+
+- `pnpm -C 3-langgraph-fast model3:sample`: 세 로컬 샘플의 입력 manifest만 확인.
+- `pnpm -C 3-langgraph-fast model3:sample --execute`: AAPL·CPNG·NVDA 10-K를 실제 파싱·선별·게시.
+- `pnpm -C 3-langgraph-fast test:model3:samples`: 세 회사 로컬 fixture 기반 계약 점검. fixture가 없으면 명시적으로 SKIP.
+- `pnpm -C 3-langgraph-fast model3:reset`: 삭제 대상 dry run. `--apply`는 모델링 3 데이터 삭제.
+- `pnpm -C 3-langgraph-fast test:model3:api --env-var baseUrl=http://127.0.0.1:<port>`:
+  게시된 세 샘플을 읽기 전용으로 검증한다. 실행 프로세스에 `SEC_MODELING_KEY`가 설정되어야 한다.
+- 실제10-Q 샘플 실행 시 `model3:sample --form 10-Q --metadata <JSON경로> --execute` 사용.
+  metadata는 ticker별 정확한 accessionNo/sourceUrl/filingDate를 지정하며 추측한 accession은 사용하지 않는다.
+
+### 현재 샘플 결과 (Decisions 정책 v3)
+
+세 실제10-K를 직접 Decisions API로 처리했다. AAPL8Fact/6Concept, CPNG16Fact/11Concept,
+NVDA5Fact/5Concept이다. 초기화 및 중간 정책 결과 정리 후 모델링3 도메인은 총29Fact+22Concept이다.
+기간·단위·차원·원문 값 보존과 동일 물리 Fact/조회 노드, 알려진 분류 경계 사례를 확인했다.
+현재 임계값의 전체 의미 정확도, 모든10-Q 실처리, 전체 상장기업 규모 성능을 검증했다는 뜻은 아니다.
+세 샘플의 실제 실행·API 검증과 자원 정리 증거는 위 flow 링크에서 확인한다.

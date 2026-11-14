@@ -33,9 +33,9 @@ export class SecModelingStore {
       to_char(f.filing_date,'YYYY-MM-DD') AS "filingDate", to_char(f.report_date,'YYYY-MM-DD') AS "reportDate", f.checksum AS "sourceHash",
       c.name AS "companyName", c.ticker, f.document_content IS NOT NULL AS "hasSource",
       count(*) OVER() AS total FROM filings f LEFT JOIN companies c USING(cik)
-      WHERE f.form_type IN ('10-K','10-K/A') AND ($3::text IS NULL OR f.cik=$3)
+      WHERE f.form_type IN ('10-K','10-K/A','10-Q') AND ($3::text IS NULL OR f.cik=$3)
       ORDER BY f.filing_date DESC NULLS LAST,f.cik,f.accession_no LIMIT $1 OFFSET $2`, [limit, offset, cik || null]);
-    const total = items.length ? Number(items[0].total) : Number((await this.db.query(`SELECT count(*) AS total FROM filings WHERE form_type IN ('10-K','10-K/A') AND ($1::text IS NULL OR cik=$1)`, [cik || null]))[0].total);
+    const total = items.length ? Number(items[0].total) : Number((await this.db.query(`SELECT count(*) AS total FROM filings WHERE form_type IN ('10-K','10-K/A','10-Q') AND ($1::text IS NULL OR cik=$1)`, [cik || null]))[0].total);
     return { items: items.map(({ total, ...item }: any) => item), total };
   }
   async create(filing: any, stage: number, config: any, input: string | null, retryOf?: string): Promise<ModelingRun> {

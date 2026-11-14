@@ -91,6 +91,8 @@ def facts(request, store):
             rows.extend(store.records(active["id"], "XbrlFact"))
 
     def matches(f):
+        if request.analysisCategory and f.get("analysisCategory") != request.analysisCategory:
+            return False
         if request.conceptQName and f["conceptQName"] != request.conceptQName:
             return False
         if request.period and any(
@@ -120,6 +122,22 @@ def evidence(evidence_id, store):
     )
     if rows:
         return {**json.loads(rows[0]["data"]), "isActive": rows[0]["isActive"]}
+    if evidence_id.endswith(":evidence"):
+        rows = store.query(
+            "MATCH (r:SecRecord {id:$id}) MATCH (g:SecGeneration {id:r.generationId}) RETURN r.data AS data, EXISTS { MATCH (:SecPublication)-[:ACTIVE]->(g) } AS isActive",
+            id=evidence_id.removesuffix(":evidence"),
+        )
+        if rows:
+            fact = json.loads(rows[0]["data"])
+            for source in fact.get("evidence", []):
+                if source.get("id") == evidence_id and evidence_id in fact.get("evidenceIds", []):
+                    return {
+                        **source,
+                        "factId": fact["id"],
+                        "filingId": fact["filingId"],
+                        "generationId": fact["generationId"],
+                        "isActive": rows[0]["isActive"],
+                    }
     rows = store.query(
         "MATCH (v:SecVector {id:$id}) MATCH (g:SecGeneration {id:v.generationId}) RETURN v{.id,.kind,.text,.filingId,.generationId,.metadata,.toolkitId,.chunkId} AS v, EXISTS { MATCH (:SecPublication)-[:ACTIVE]->(g) } AS isActive",
         id=evidence_id,

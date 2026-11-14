@@ -62,13 +62,16 @@ class GraphStore:
                 f"CREATE CONSTRAINT {label.lower()}_id IF NOT EXISTS FOR (n:{label}) REQUIRE n.id IS UNIQUE"
             )
         self.query(
+            "CREATE INDEX sec_record_generation IF NOT EXISTS FOR (n:SecRecord) ON (n.generationId)"
+        )
+        self.query(
             "CREATE INDEX sec_embedding_cache IF NOT EXISTS FOR (n:SecVector) ON (n.embeddingCacheKey)"
         )
         self.query(
             "CREATE VECTOR INDEX sec_evidence_embedding IF NOT EXISTS FOR (n:SecVector) ON n.embedding OPTIONS {indexConfig: {`vector.dimensions`: 1536, `vector.similarity_function`: 'cosine'}}"
         )
 
-        for name in ("sec_evidence_embedding", "sec_embedding_cache"):
+        for name in ("sec_evidence_embedding", "sec_embedding_cache", "sec_record_generation"):
             self.query("CALL db.awaitIndex($name, 30)", name=name)
         self.validate_indexes()
 

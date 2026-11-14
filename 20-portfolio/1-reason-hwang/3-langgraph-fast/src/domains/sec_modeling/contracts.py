@@ -15,7 +15,7 @@ class ModelingRequest(BaseModel):
     sourceHash: str | None = None
     metadata: dict[str, Any] = Field(default_factory=dict)
     inputGenerationId: str | None = None
-    extractionModel: Literal["gpt-5.6-sol", "gpt-5.6-luna"] = "gpt-5.6-sol"
+    extractionModel: Literal["gpt-5.6-sol", "gpt-5.6-luna", "gpt-6-luna"] = "gpt-5.6-sol"
 
     @property
     def filing_id(self):
@@ -29,7 +29,20 @@ class SearchRequest(BaseModel):
     topK: int = Field(default=10, ge=1, le=50)
 
 
+AnalysisCategory = Literal[
+    "OPERATING_PERFORMANCE",
+    "INVESTMENT_AND_RESTRUCTURING",
+    "DEPENDENCIES_AND_COMMITMENTS",
+    "CAPITAL_AND_SHAREHOLDER_RIGHTS",
+    "LEGAL_REGULATORY_AND_INCIDENTS",
+    "OTHER",
+]
+
+
 class FactsRequest(BaseModel):
+    analysisCategory: AnalysisCategory | None = Field(
+        default=None, description="Filter selected facts by their single analysis category."
+    )
     filingIds: list[str] = Field(min_length=1, max_length=50)
     conceptQName: str | None = Field(
         default=None,

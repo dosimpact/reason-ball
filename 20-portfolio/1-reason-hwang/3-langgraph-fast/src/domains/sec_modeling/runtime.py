@@ -1,6 +1,7 @@
 import asyncio
 import hashlib
 import json
+import logging
 import threading
 
 from domains.sec_modeling.store import GraphStore, RunAlreadyExecuting
@@ -25,6 +26,12 @@ async def execute(stage, request, queue):
         )
 
     try:
+        if stage == 3:
+            request.extractionModel = "gpt-6-luna"
+        elif request.extractionModel not in {"gpt-5.6-sol", "gpt-5.6-luna"}:
+            raise ValueError(
+                "Models 1 and 2 require sol or luna extraction through the OAuth proxy"
+            )
         store.initialize()
         existing = store.run_state(request.runId)
         if (
@@ -50,11 +57,15 @@ async def execute(stage, request, queue):
             if request.sourceHash and request.sourceHash != actual:
                 raise ValueError("sourceHash mismatch")
             request.sourceHash = actual
+        from domains.sec_modeling.model3_selection import POLICY_HASH, PROMPT_HASH
+
+        model3_policy_hash = POLICY_HASH + PROMPT_HASH
         config_hash = hashlib.sha256(
             json.dumps(
                 {
                     "stage": stage,
-                    "version": "sec-modeling/2",
+                    "version": "sec-modeling/3" if stage == 3 else "sec-modeling/2",
+                    "selectionPolicy": model3_policy_hash if stage == 3 else None,
                     "chunkerVersion": "sec-chunker/2",
                     "model": request.extractionModel,
                     "embedding": "text-embedding-3-small/1536",
@@ -87,7 +98,16 @@ async def execute(stage, request, queue):
                     )
                 from domains.sec_modeling.model3 import build_xbrl
 
-                return build_xbrl(request, generation, store)
+                return build_xbrl(
+                    request,
+                    generation,
+                    store,
+                    progress,
+                    lambda: (
+                        flag.is_set()
+                        or store.run_state(request.runId)["status"] == "CANCELLED"
+                    ),
+                )
 
         counts = await asyncio.to_thread(work)
         if flag.is_set():
@@ -104,9 +124,14 @@ async def execute(stage, request, queue):
     except Exception as error:  # noqa: BLE001 - worker boundary persists all terminal failures
         status = "CANCELLED" if isinstance(error, InterruptedError) else "FAILED"
         if not isinstance(error, RunAlreadyExecuting):
-            store.finish_failed(
-                request.runId, request.executionToken, status, type(error).__name__
-            )
+            try:
+                store.finish_failed(
+                    request.runId, request.executionToken, status, type(error).__name__
+                )
+            except Exception:  # noqa: BLE001 - still terminate stream if persistence is unavailable
+                logging.getLogger(__name__).warning(
+                    "Could not persist modeling failure; reconciliation required"
+                )
         # Do not forward provider errors (may include endpoints, headers, credentials).
         message = (
             str(error)

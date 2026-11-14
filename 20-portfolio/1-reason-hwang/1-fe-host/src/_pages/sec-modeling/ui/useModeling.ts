@@ -100,7 +100,7 @@ export function useModeling() {
     inspectRun: (value: ModelingRun) => { resetRun(); setRun(value); setInspection(value => value + 1); },
     start: (value: Stage, extractionModel: ExtractionModel) => action(async signal => {
       if (!selected) return;
-      const data = await modelingRequest<{ runId: string; status: string }>(`${filingPath(selected)}/model-${value}/runs`, signal, { extractionModel });
+      const data = await modelingRequest<{ runId: string; status: string }>(`${filingPath(selected)}/model-${value}/runs`, signal, { extractionModel: value === 3 ? "gpt-6-luna" : extractionModel });
       setRun({ ...data, id: data.runId, cik: selected.cik, accessionNo: selected.accessionNo, stage: value, createdAt: new Date().toISOString() }); refresh();
     }),
     mutateRun: (operation: "retry" | "cancel") => action(async signal => {
