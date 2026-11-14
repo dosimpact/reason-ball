@@ -3,8 +3,9 @@
 import { History } from "lucide-react";
 import type { ChatHistoryItem } from "../api/chatHistoryApi";
 
-export function ChatHistory({ items, loading, error, disabled, selectedId, onRefresh, onSelect }: {
+export function ChatHistory({ items, loading, error, disabled, selectedId, onRefresh, onSelect, label = "대화 기록" }: {
   items: ChatHistoryItem[];
+  label?: string;
   loading: boolean;
   error: string | null;
   disabled: boolean;
@@ -12,11 +13,11 @@ export function ChatHistory({ items, loading, error, disabled, selectedId, onRef
   onRefresh: () => Promise<void>;
   onSelect: (threadId: string) => Promise<void>;
 }) {
-  return <details className="relative" onToggle={event => { if (event.currentTarget.open) void onRefresh(); }}>
+  return <details className="agent-conversation__graph-history" onToggle={event => { if (event.currentTarget.open) void onRefresh(); }}>
     <summary className="flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm">
-      <History size={15} aria-hidden="true" />History · 대화 기록
+      <History size={15} aria-hidden="true" />{label}
     </summary>
-    <div className="absolute right-0 z-30 mt-2 max-h-80 w-80 max-w-[85vw] overflow-auto rounded-lg border bg-background p-3 shadow-lg">
+    <div className="agent-conversation__graph-history-panel">
       <div className="mb-2 flex items-center justify-between gap-3 text-sm"><span>선택한 에이전트 · 최근 50개</span>
         <button type="button" className="underline disabled:opacity-50" disabled={loading || disabled} onClick={() => void onRefresh()}>새로고침</button>
       </div>

@@ -22,7 +22,7 @@ primary graph 소유 경로는 `3-langgraph-fast/src/graph/primary_graphs/techni
 
 공통 `build_output_graph`의 선택적 `program_builder` 주입을 사용한다. 기술적 분석은 결정적 OpenUI 프로그램을 생성한 후 기존 Host parser/catalog validator로 검증한다. 다른 호출자의 기본 LLM UI 생성 경로는 유지한다. 이 방식은 모델이 차트 수치를 재작성하지 않게 한다.
 
-최종 values의 `presentation = {id, program}`을 Host가 현재 assistant message ID에 연결한다. `/chat`은 공통 `AgentConversation`의 OpenUI AgentInterface·Composer·메시지 목록을 사용하며, AssistantMessage 확장 렌더러가 분석 본문과 검증된 `OutputView` 차트를 표시한다. 그래프 선택과 LangGraph SDK 전송은 기존 ChatProvider가 유지한다. values는 snapshot으로 교체하며 delta처럼 누적하지 않는다. 그래프 선택 목록은 채팅 계약이 확인된 starter_graph, simple_llm, technical_analysis_agent와 환경변수로 지정된 기본 assistant다. 모든 등록 서브그래프를 채팅 대상으로 노출하지 않는다.
+최종 values의 `presentation = {id, program}`을 Host가 현재 assistant message ID에 연결한다. `/chat`은 공통 `AgentConversation`의 OpenUI AgentInterface·Composer·메시지 목록을 사용하며, AssistantMessage 확장 렌더러가 분석 본문과 검증된 `OutputView` 차트를 표시한다. 그래프 선택과 LangGraph SDK 전송은 기존 ChatProvider가 유지한다. values는 snapshot으로 교체하며 delta처럼 누적하지 않는다. 그래프 선택 목록은 runtime assistant 검색을 페이지별로 조회해 모든 등록 graph를 표시한다. 채팅과 구조화 JSON 입력 모드를 구분하며 서브그래프도 JSON 입력과 원본 결과로 테스트할 수 있다. 기술적 분석 에이전트는 채팅 모드를 유지한다.
 
 ## 실행과 검증
 

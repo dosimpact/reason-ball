@@ -130,5 +130,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
 /** Mobile navigation remains reachable without reserving an application header. */
 export function MobileSidebarTrigger() {
+  const pathname = usePathname();
+  if (pathname === "/chat") return null;
   return <SidebarTrigger className="fixed bottom-24 left-4 z-40 size-10 rounded-full border bg-background shadow-md md:hidden" />;
 }

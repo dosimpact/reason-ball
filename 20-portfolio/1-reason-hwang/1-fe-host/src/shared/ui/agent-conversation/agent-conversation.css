@@ -71,3 +71,45 @@
   .agent-conversation .openui-agent-welcome-screen { padding: 20px 16px; min-height: 0; overflow-y: auto; justify-content: flex-start; }
   .agent-conversation .openui-agent-conversation-starter--card { grid-template-columns: 1fr; }
 }
+
+/* Compact domain header keeps navigation, graph selection and actions together. */
+.agent-conversation__header-start { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.agent-conversation--compact { border: 0; border-radius: 0; min-height: 0; height: 100dvh; }
+.agent-conversation--compact .openui-agent-thread-container { margin: 0; outline: 0; border-radius: 0; }
+.agent-conversation--compact .openui-agent-thread-header { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; min-height: 68px; padding: 12px 20px; gap: 20px; background: var(--background); }
+.agent-conversation--compact .openui-agent-thread-header__center { min-width: 0; justify-content: flex-start; }
+.agent-conversation--compact .openui-agent-thread-chat-panel:has(.openui-agent-thread-header) { --openui-agent-floating-top: 0px; }
+.agent-conversation--compact .openui-agent-thread-messages { max-width: 1100px; }
+.agent-conversation--compact .agent-conversation__prose { max-width: 760px; }
+.agent-conversation--compact .openui-agent-composer-slot { padding-bottom: env(safe-area-inset-bottom, 0px); background: linear-gradient(transparent, var(--background) 20%); }
+.agent-conversation--compact .openui-agent-welcome-screen { padding-top: 28px; }
+.agent-conversation__header-controls { display: flex; align-items: center; gap: 10px; min-width: 0; width: 100%; }
+.agent-conversation__graph-selector { min-width: 0; flex: 1; max-width: 400px; }
+.agent-conversation__graph-history { position: relative; flex-shrink: 0; font-size: 13px; }
+.agent-conversation__graph-history-panel { position: absolute; right: 0; top: calc(100% + 8px); z-index: 30; width: 320px; max-width: calc(100vw - 32px); max-height: min(320px, 55dvh); overflow: auto; padding: 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--background); box-shadow: 0 12px 32px #0002; }
+.agent-conversation__graph-composer { width: min(100%, 880px); margin-inline: auto; padding: 12px 20px 16px; }
+.agent-conversation__graph-composer textarea { width: 100%; max-height: 28dvh; min-height: 110px; resize: vertical; border: 1px solid var(--border); border-radius: 10px; padding: 12px; background: var(--background); color: var(--foreground); font: 12px/1.5 var(--iui-mono, monospace); }
+.agent-conversation__graph-result { overflow: auto; max-height: 60dvh; margin-top: 12px; padding: 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; }
+@media (max-width: 767px) {
+  .agent-conversation--compact .openui-agent-mobile-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; padding: 10px 12px; gap: 8px 12px; min-height: 0; }
+  .agent-conversation--compact .agent-conversation__mobile-controls { grid-column: 1 / -1; min-width: 0; }
+  .agent-conversation--compact .agent-conversation__header-controls { gap: 8px; }
+  .agent-conversation--compact .agent-conversation__graph-selector { max-width: none; }
+  .agent-conversation--compact .agent-conversation__graph-history summary { padding: 8px; font-size: 12px; }
+  .agent-conversation--compact .openui-agent-welcome-screen { padding-top: 24px; }
+  .agent-conversation--compact .agent-conversation__status { padding: 8px 12px; }
+  .agent-conversation__graph-composer { padding: 8px 12px 12px; }
+}
+@media (max-width: 767px) { .agent-conversation--compact .openui-agent-thread-header { display: none; } }
+.agent-conversation--compact .openui-agent-welcome-screen__desktop-composer { display: none; }
+.agent-conversation--compact .openui-agent-container:not(.openui-agent-container--mobile) .openui-agent-thread-container:has(.openui-agent-welcome-screen--with-composer) .openui-agent-thread-composer { display: block; }
+.agent-conversation--compact .openui-agent-welcome-screen--with-composer { display: flex; flex-direction: column; gap: 24px; }
+/* The SDK floats its header only after an answer exists. Keep the compact
+   header in flow in both states so its measured height always precedes scroll. */
+.agent-conversation--compact .openui-agent-container .openui-agent-thread-container .openui-agent-thread-chat-panel:not(:has(.openui-agent-welcome-screen)) > .openui-agent-thread-header { position: relative; background: var(--background); flex-shrink: 0; }
+.agent-conversation--compact .openui-agent-container:not(.openui-agent-container--mobile) .openui-agent-thread-container .openui-agent-thread-chat-panel:not(:has(.openui-agent-welcome-screen)):has(> .openui-agent-thread-header) { --openui-agent-floating-top: 0px; }
+.agent-conversation--compact .openui-agent-mobile-header { flex-shrink: 0; }
+.agent-conversation--compact .openui-agent-thread-container,
+.agent-conversation--compact .openui-agent-thread-wrapper,
+.agent-conversation--compact .openui-agent-thread-chat-panel,
+.agent-conversation--compact .openui-agent-thread-scroll-container { min-height: 0; }

@@ -1,0 +1,36 @@
+import { createServer } from 'node:http';
+import { URL } from 'node:url';
+import process from 'node:process';
+import { setTimeout as delay } from 'node:timers/promises';
+
+// No model, market, SEC or database calls. All registered graph contracts are visible.
+const ids = ['main_graph', 'simple_llm', 'technical_analysis_graph', 'price_agent', 'starter_graph', 'tenk_subgraph', 'simple_push_ui_message', 'sec_deep_agent', 'technical_analysis_agent', 'unknown_fixture_graph', 'schema_error_fixture'];
+const chat = new Set(['starter_graph','simple_llm','technical_analysis_agent','sec_deep_agent']);
+const calls = [];
+const states = new Map();
+let sequence = 0;
+const json = (response, body, status=200) => { response.writeHead(status, {'Content-Type':'application/json'}); response.end(JSON.stringify(body)); };
+const schema = id => chat.has(id) ? {type:'object',properties:{messages:{type:'array'}},required:['messages']} : {type:'object',properties: id === 'price_agent' ? {query:{type:'string'},interval:{type:'string'},count:{type:'integer'}} : id === 'simple_push_ui_message' ? {messages:{type:'array'},turn_id:{type:'string'}} : {input:{type:'object'}},required:id === 'price_agent' ? ['query'] : id === 'simple_push_ui_message' ? ['turn_id'] : []};
+const server=createServer(async(request,response)=>{
+ const url=new URL(request.url,'http://fixture'); let text=''; for await(const chunk of request) text+=chunk;
+ const input=text?JSON.parse(text):{}; calls.push({method:request.method,path:url.pathname,body:input});
+ if(url.pathname==='/__calls')return json(response,calls);
+ if(url.pathname==='/assistants/search')return json(response,ids.slice(input.offset||0,(input.offset||0)+(input.limit||100)).map(id=>({assistant_id:id,graph_id:id,name:id,metadata:{},created_at:'2026-11-14T00:00:00Z',updated_at:'2026-11-14T00:00:00Z',config:{}})));
+ const match=/^\/assistants\/([^/]+)\/schemas$/.exec(url.pathname);
+ if(match?.[1] === 'schema_error_fixture')return json(response,{message:'Fixture schema unavailable'},400);
+ if(match)return json(response,{graph_id:match[1],input_schema:schema(match[1]),output_schema:{type:'object'},state_schema:{type:'object'}});
+ if(url.pathname==='/threads/search')return json(response,[]);
+ if(url.pathname==='/threads'&&request.method==='POST')return json(response,{thread_id:`fixture-thread-${++sequence}`,metadata:input.metadata||{},status:'idle',created_at:'2026-11-14T00:00:00Z',updated_at:'2026-11-14T00:00:00Z'});
+ if(request.method === 'GET' && /^\/threads\/[^/]+\/runs\/[^/]+$/.test(url.pathname))return json(response,{status:'success'});
+ const state=/^\/threads\/([^/]+)\/state$/.exec(url.pathname);if(state)return json(response,{values:states.get(state[1])||{messages:[]},next:[],tasks:[]});
+ const run=/^\/threads\/([^/]+)\/runs\/stream$/.exec(url.pathname);
+ if(run){response.writeHead(200,{'Content-Type':'text/event-stream'}); const event=(name,data)=>response.write(`event: ${name}\ndata: ${JSON.stringify(data)}\n\n`);event('metadata',{run_id:`fixture-run-${sequence}`});
+  if(input.input?.delay) await delay(2000);
+  if(input.input?.fail){event('error',{message:'Fixture graph execution failed'});return response.end();}
+  const values=chat.has(input.assistant_id)?{messages:[...(input.input?.messages||[]),{id:'fixture-answer',type:'ai',content:`Fixture reply for ${input.assistant_id}`}]}:{graph:input.assistant_id,input:input.input,result:'Fixture structured output'};
+  states.set(run[1],values);event('values',values);event('end',{});return response.end();
+ }
+ return json(response,{message:'Fixture route missing'},404);
+});
+server.listen(Number(process.env.FIXTURE_PORT||3984),'127.0.0.1',()=>process.stdout.write(`Graph fixture ready ${server.address().port}\n`));
+for(const signal of ['SIGINT','SIGTERM'])process.on(signal,()=>server.close(()=>process.exit(0)));

@@ -16,6 +16,7 @@ import {
   createChatThread,
   streamChatRun,
 } from "@/_pages/chat/api/chatRunApi";
+import { discoverGraphs, graphOption, runGraphInput, type GraphOption } from "../../api/chatGraphApi";
 import { listChatHistory, loadChatHistory, type ChatHistoryItem } from "../../api/chatHistoryApi";
 import { createLangGraphClient } from "@/_pages/chat/api/langgraphClient";
 import type {
@@ -48,7 +49,12 @@ type ChatContextValue = {
   resetThread: () => void;
   cancelRun: () => void;
   graphId: string;
-  graphs: { id: string; name: string }[];
+  graphs: GraphOption[];
+  graphDiscoveryLoading: boolean;
+  graphDiscoveryError: string | null;
+  reloadGraphs: () => void;
+  graphResult: unknown;
+  runGraph: (input: Record<string, unknown>) => Promise<void>;
   selectGraph: (id: string) => void;
 };
 
@@ -63,18 +69,15 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const [conversationVersion, setConversationVersion] = useState(0);
   const historyRequestRef = useRef<AbortController | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
+  const operationBusy = useRef(false);
   const configResult = useMemo(() => getLangGraphConfig(), []);
   const [graphId, setGraphId] = useState(configResult.config?.assistantId ?? "starter_graph");
-  const graphs = useMemo(() => {
-    const items = [
-      { id: "starter_graph", name: "기본 채팅" },
-      { id: "simple_llm", name: "일반 에이전트" },
-      { id: "technical_analysis_agent", name: "기술적 분석 에이전트 · RSI / SMA / MACD" },
-    ];
-    const configured = configResult.config?.assistantId;
-    if (configured && !items.some(item => item.id === configured)) items.unshift({ id: configured, name: configured });
-    return items;
-  }, [configResult.config]);
+  const [graphs, setGraphs] = useState<GraphOption[]>([graphOption(configResult.config?.assistantId ?? "starter_graph")]);
+  const [graphDiscoveryLoading, setGraphDiscoveryLoading] = useState(false);
+  const [graphDiscoveryError, setGraphDiscoveryError] = useState<string | null>(null);
+  const [graphRevision, setGraphRevision] = useState(0);
+  const [graphResult, setGraphResult] = useState<unknown>();
+  const reloadGraphs = useCallback(() => setGraphRevision(value => value + 1), []);
   useEffect(() => () => abortControllerRef.current?.abort(), []);
   const client = useMemo(() => {
     if (!configResult.config) {
@@ -83,6 +86,17 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
     return createLangGraphClient(configResult.config);
   }, [configResult.config]);
+
+  useEffect(() => {
+    if (!client) return;
+    const controller = new AbortController();
+    setGraphDiscoveryLoading(true); setGraphDiscoveryError(null);
+    discoverGraphs(client, controller.signal).then(items => {
+      if (!controller.signal.aborted) { setGraphs(items); if (items.length) setGraphId(current => items.some(item => item.id === current) ? current : items[0].id); if (!items.length) setGraphDiscoveryError("등록된 에이전트가 없습니다."); }
+    }).catch(() => { if (!controller.signal.aborted) setGraphDiscoveryError("에이전트 목록을 불러오지 못했습니다. 실행 서버 연결을 확인하고 다시 조회하세요."); })
+      .finally(() => { if (!controller.signal.aborted) setGraphDiscoveryLoading(false); });
+    return () => controller.abort();
+  }, [client, graphRevision]);
 
   stateRef.current = state;
 
@@ -118,26 +132,29 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     abortControllerRef.current = controller;
     dispatch({ type: "historyLoading" });
     try {
-      const messages = await loadChatHistory(client, threadId, controller.signal);
+      const jsonMode = graphs.find(graph => graph.id === graphId)?.mode === "json";
+      const snapshot = jsonMode ? await client.threads.getState(threadId, undefined, { signal: controller.signal }) : undefined;
+      const messages = jsonMode ? [] : await loadChatHistory(client, threadId, controller.signal);
       if (abortControllerRef.current !== controller) return;
       if (controller.signal.aborted) {
         dispatch({ type: "historyLoadFailed", error: null });
         return;
       }
+      setGraphResult(snapshot?.values);
       dispatch({ type: "historyLoaded", threadId, messages });
       setConversationVersion(version => version + 1);
     } catch {
       if (abortControllerRef.current !== controller) return;
       dispatch({ type: "historyLoadFailed", error: controller.signal.aborted ? null : "대화 기록을 열지 못했습니다. 새로고침 후 다시 시도해 주세요." });
     }
-  }, [client, graphId, history]);
+  }, [client, graphId, graphs, history]);
 
   const sendMessage = useCallback(
     async (content: string) => {
       const trimmedContent = content.trim();
 
       if (
-        !trimmedContent ||
+        operationBusy.current || !trimmedContent || graphs.find(graph => graph.id === graphId)?.mode === "json" ||
         stateRef.current.status === "creating_thread" ||
         stateRef.current.status === "streaming" ||
         stateRef.current.status === "loading_history"
@@ -153,6 +170,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         return;
       }
 
+      operationBusy.current = true;
       abortControllerRef.current?.abort();
       const requestController = new AbortController();
       abortControllerRef.current = requestController;
@@ -231,22 +249,45 @@ export function ChatProvider({ children }: { children: ReactNode }) {
           type: "streamFailed",
           error: getErrorMessage(error), messageId: assistantMessageId,
         });
-      }
+      } finally { operationBusy.current = false; }
     },
-    [client, configResult.config, configResult.error, graphId, refreshHistory],
+    [client, configResult.config, configResult.error, graphId, graphs, refreshHistory],
   );
+
+  const runGraph = useCallback(async (input: Record<string, unknown>) => {
+    if (!client || operationBusy.current || ["creating_thread", "streaming", "loading_history"].includes(stateRef.current.status)) return;
+    if (!input || typeof input !== "object" || Array.isArray(input)) { dispatch({ type: "streamFailed", error: "JSON 객체를 입력하세요." }); return; }
+    operationBusy.current = true;
+    const controller = new AbortController();
+    abortControllerRef.current?.abort(); abortControllerRef.current = controller;
+    const current = () => abortControllerRef.current === controller && !controller.signal.aborted;
+    setGraphResult(undefined);
+    dispatch({ type: "graphRunStarted" });
+    try {
+      await runGraphInput({ client, graphId, input, signal: controller.signal,
+        onThread: id => { if (current()) dispatch({ type: "threadCreated", threadId: id }); },
+        onValues: values => { if (current()) setGraphResult(values); },
+      });
+      if (current()) { dispatch({ type: "assistantMessageCompleted" }); void refreshHistory(); }
+    } catch (error) {
+      if (abortControllerRef.current !== controller) return;
+      if (controller.signal.aborted) dispatch({ type: "assistantMessageCompleted" });
+      else dispatch({ type: "streamFailed", error: getErrorMessage(error) });
+    } finally { operationBusy.current = false; }
+  }, [client, graphId, refreshHistory]);
 
   const resetThread = useCallback(() => {
     abortControllerRef.current?.abort();
     abortControllerRef.current = null;
     setConversationVersion(version => version + 1);
+    setGraphResult(undefined);
     dispatch({
       type: "threadReset",
     });
   }, []);
 
   const selectGraph = useCallback((id: string) => {
-    if (["streaming", "creating_thread", "loading_history"].includes(stateRef.current.status)) return;
+    if (operationBusy.current || ["streaming", "creating_thread", "loading_history"].includes(stateRef.current.status)) return;
     if (!graphs.some(graph => graph.id === id)) return;
     resetThread();
     setGraphId(id);
@@ -260,9 +301,9 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       error: configResult.error ?? state.error,
       sendMessage,
       cancelRun: () => abortControllerRef.current?.abort(),
-      resetThread, graphId, graphs, selectGraph,
+      resetThread, graphId, graphs, selectGraph, graphDiscoveryLoading, graphDiscoveryError, reloadGraphs, graphResult, runGraph,
     }),
-    [configResult.error, resetThread, sendMessage, state.error, state.messages, state.status, state.threadId, graphId, graphs, selectGraph, conversationVersion, history, historyLoading, historyError, refreshHistory, openThread],
+    [configResult.error, resetThread, sendMessage, state.error, state.messages, state.status, state.threadId, graphId, graphs, selectGraph, conversationVersion, history, historyLoading, historyError, refreshHistory, openThread, graphDiscoveryLoading, graphDiscoveryError, reloadGraphs, graphResult, runGraph],
   );
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;

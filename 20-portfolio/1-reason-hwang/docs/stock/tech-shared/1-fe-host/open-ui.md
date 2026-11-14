@@ -86,7 +86,7 @@ FinancialChart 또는 TradingView로 검색해 캔들·거래량·SMA/RSI/MACD, 
 
 ## CHAT-HISTORY-001: /chat 대화 기록
 
-`/chat`의 History · 대화 기록은 LangGraph SDK의 thread search와 최신 state 조회에 연결한다.
+`/chat`의 대화 기록(JSON 모드에서는 실행 기록)은 LangGraph SDK의 thread search와 최신 state 조회에 연결한다.
 새 thread metadata에 `source=host-chat`, `graph_id`, 첫 질문의 앞 80자를 제목으로 기록한다.
 선택한 그래프의 최신 50개 대화를 갱신 시각 내림차순으로 표시하고 저장된 대화를 열어 같은 thread에서 이어 쓴다.
 목록 조회 오류와 메시지 복원 오류는 재시도할 수 있으며, 실행·복원 중에는 대화/그래프 전환을 막는다.
@@ -99,3 +99,17 @@ checkpoint가 보유한 최신 presentation만 마지막 assistant에 복원하�
 서버 재시작 후 보존 여부는 기존 PostgreSQL/checkpointer 설정을 따르며, 메모리 실행에서는 서버 종료 시 사라진다.
 
 [변경·검증 기록](../../../flow/2026-11-14-chat-history.md)
+
+## CHAT-LAYOUT-002: /chat 통합 헤더
+
+`/chat`은 제목·그래프 선택·대화 기록·새 대화를 하나의 compact header에 배치한다. idle Ready띠와 반복 설명을 제거하고 agent별 한글 welcome을 표시한다. 빈 대화도 composer는 하단에 유지한다. 모바일은 header의 메뉴 열기 버튼을 사용하고 기존 전역floating trigger 중복을 숨긴다. compact header는 `/chat`에서만 사용한다. populated 대화에서도 header를 정상 문서 흐름에 두어 실제 높이만큼 공간을 확보한다. SECchat·PushUI는 기존 header와 composer를 유지하며 공통 컴포넌트 회귀 검증 대상으로 포함한다.
+
+## CHAT-GRAPHS-001: 등록 graph discovery와 입력 모드
+
+기존 LangGraph SDK assistants search를100개씩 offset pagination하고 graph_id별 중복을 제거한다. 각 assistant의 input_schema를 조회하고 모든 graph를 표시한다. schema실패도 graph를 숨기지 않고 오류를 안내한다. 새로운알수없는graph도 기본JSON모드로 노출하므로 고정목록이 등록범위를 제한하지 않는다.
+
+starter_graph·simple_llm·technical_analysis_agent·sec_deep_agent는 기존 messages채팅을 사용한다. main_graph·price_agent·technical_analysis_graph·tenk_subgraph·simple_push_ui_message 및 미분류graph는 JSON객체·입력schema·편집가능예시와 원본values 결과를 제공한다. Push예시는 turn_id를 포함한다. 내부계산필드까지UI필수입력으로강제하지않고 서버가실제계약을검증한다.
+
+JSON실행은 새thread를 만들고 입력을변형없이runs.stream(values)로전달한다. 문법오류·배열/null은 전송하지않으며 streamerror·values없는종료를성공으로표시하지않는다. metadata의 run_id로 기존 runs.get을 조회해 status가 success인 경우에만 완료 처리한다. 결과는 100,000자까지 미리 보고 생략을 명시하며 전체 결과 복사는 원본 전체 JSON을 복사한다. 그래프/대화전환과 새실행은 이전요청을구분해늦은결과가섞이지않게한다. 실제시장·SEC·DB변경여부는 선택graph에따르며 자동실행하지않는다. SDK fetch 경계에서 취소 오류를 표준 AbortError로 정규화하여 이미 취소된 요청의 retry가 다음 실행을 막지 않게 한다. 일반 네트워크 retry 정책은 유지한다.
+
+[변경·검증](../../../flow/2026-11-14-chat-layout-all-graphs.md)

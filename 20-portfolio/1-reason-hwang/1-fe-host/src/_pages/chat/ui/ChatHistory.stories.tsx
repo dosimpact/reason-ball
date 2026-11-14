@@ -9,7 +9,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const SavedConversation: Story = { play: async ({ canvasElement, args }) => {
   const canvas = within(canvasElement);
-  await userEvent.click(canvas.getByText("History · 대화 기록"));
+  await userEvent.click(canvas.getByText("대화 기록"));
   await expect(args.onRefresh).toHaveBeenCalled();
   const saved = canvas.getByRole("button", { name: /이전 질문/ });
   await expect(saved).toHaveAttribute("aria-current", "true");
@@ -18,12 +18,12 @@ export const SavedConversation: Story = { play: async ({ canvasElement, args }) 
 } };
 export const Loading: Story = { args: { loading: true }, play: async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  await userEvent.click(canvas.getByText("History · 대화 기록"));
+  await userEvent.click(canvas.getByText("대화 기록"));
   await expect(canvas.getByRole("status")).toBeVisible();
   await expect(canvas.getByRole("button", { name: /이전 질문/ })).toBeDisabled();
 } };
 export const Failed: Story = { args: { items: [], error: "기록 조회 실패" }, play: async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  await userEvent.click(canvas.getByText("History · 대화 기록"));
+  await userEvent.click(canvas.getByText("대화 기록"));
   await expect(canvas.getByRole("alert")).toHaveTextContent("기록 조회 실패");
 } };
