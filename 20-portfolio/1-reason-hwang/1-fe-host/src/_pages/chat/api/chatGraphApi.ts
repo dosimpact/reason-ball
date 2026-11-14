@@ -1,8 +1,8 @@
 import type { Client } from "@langchain/langgraph-sdk";
 
 export type GraphOption = { id: string; name: string; mode: "chat" | "json"; inputSchema?: Record<string, unknown>; exampleInput?: Record<string, unknown>; schemaError?: string; description?: string };
-const names: Record<string, string> = { starter_graph: "기본 채팅", simple_llm: "일반 에이전트", technical_analysis_agent: "기술적 분석", sec_deep_agent: "SEC Research", main_graph: "Main Graph", price_agent: "가격 조회", technical_analysis_graph: "기술적 분석 서브그래프", tenk_subgraph: "10-K 검색", simple_push_ui_message: "Push UI 예제" };
-const chat = new Set(["starter_graph", "simple_llm", "technical_analysis_agent", "sec_deep_agent"]);
+const names: Record<string, string> = { starter_graph: "기본 채팅", simple_llm: "일반 에이전트", technical_analysis_agent: "기술적 분석", sec_deep_agent: "SEC Research", sec_modeling_agent: "SEC 모델링 테스트", main_graph: "Main Graph", price_agent: "가격 조회", technical_analysis_graph: "기술적 분석 서브그래프", tenk_subgraph: "10-K 검색", simple_push_ui_message: "Push UI 예제" };
+const chat = new Set(["starter_graph", "simple_llm", "technical_analysis_agent", "sec_deep_agent", "sec_modeling_agent"]);
 const examples: Record<string, Record<string, unknown>> = {
  main_graph: { message: "안녕하세요", provider: "openai" },
  price_agent: { query: "AAPL 최근 완료된 일봉 2개를 조회해 주세요", interval: "1d", count: 2 },

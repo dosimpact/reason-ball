@@ -1,0 +1,18 @@
+meta {
+  name: Reject invalid CIK in exact modeling status
+  type: http
+  seq: 4
+}
+get {
+  url: {{bffBaseUrl}}/api/sec/modeling/filings/not-a-cik/0000320193-26-000026/status
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 400
+}
+tests {
+  test("invalid identity is rejected before proxying", function() {
+    expect(res.getBody().statusCode).to.equal(400);
+  });
+}

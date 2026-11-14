@@ -85,7 +85,7 @@ class SecBffClient:
         try:
             async with httpx.AsyncClient(base_url=self.base_url, transport=self.transport, timeout=httpx.Timeout(900, connect=10), follow_redirects=False) as client:  # noqa: SIM117
                 async with client.stream(method, '/api/sec/' + path, params=params, json=body) as response:
-                    if response.status_code not in (200, 201):
+                    if response.status_code not in (200, 201, 202):
                         raise SecReadError(f"SEC BFF request failed ({response.status_code})")
                     if stream:
                         event, completed = "", None

@@ -36,6 +36,11 @@ export class SecModelingController {
   @Post('runs/:runId/retry')
   @HttpCode(202)
   retry(@Param('runId', new ParseUUIDPipe()) id: string) { return this.modeling.retry(id); }
+  @Get('filings/:cik/:accessionNo/status')
+  status(@Param('cik') cik: string, @Param('accessionNo') accession: string) {
+    [cik, accession] = filingIdentity(cik, accession);
+    return this.modeling.client.request(`/internal/sec-modeling/filings/${cik}/${accession}/status`);
+  }
   @Get('filings/:cik/:accessionNo/results/:stage')
   results(@Param('cik') cik: string, @Param('accessionNo') accession: string, @Param('stage') stage: string,
     @Query('limit') limit?: string, @Query('offset') offset?: string) {

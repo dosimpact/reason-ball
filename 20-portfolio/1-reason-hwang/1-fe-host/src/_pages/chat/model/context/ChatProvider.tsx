@@ -215,7 +215,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         });
 
         await consumeStream({
-          config: { ...configResult.config, assistantId: graphId, streamMode: graphId === "technical_analysis_agent" ? "values" : configResult.config.streamMode },
+          config: { ...configResult.config, assistantId: graphId, streamMode: ["technical_analysis_agent", "sec_modeling_agent"].includes(graphId) ? "values" : configResult.config.streamMode },
           client,
           threadId,
           content: trimmedContent,
