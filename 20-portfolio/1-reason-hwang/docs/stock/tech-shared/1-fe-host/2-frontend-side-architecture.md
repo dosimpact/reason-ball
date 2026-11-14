@@ -278,7 +278,7 @@ OpenUI 카탈로그는 `src/shared/ui/intelligent-ui`, 생성 프롬프트는 `s
 
 ## FE-THEME-001: 공통 라이트·다크 모드
 
-호스트 헤더의 토글은 `shared/lib/theme`의 단일 상태를 사용한다. 선택은 `reason-hwang-theme` localStorage에 저장하며, 저장된 선택이 없으면 OS 테마를 따른다. 초기 head 스크립트가 페인트 전 테마를 적용하고 Provider는 OS·다른 탭의 저장 변경을 구독한다. 저장소를 사용할 수 없을 때도 현재 페이지에서 토글할 수 있다.
+사이드바 footer의 테마 토글은 `shared/lib/theme`의 단일 상태를 사용한다. 데스크톱 사이드바 접기 토글도 같은 footer에 둔다. 선택은 `reason-hwang-theme` localStorage에 저장하며, 저장된 선택이 없으면 OS 테마를 따른다. 초기 head 스크립트가 페인트 전 테마를 적용하고 Provider는 OS·다른 탭의 저장 변경을 구독한다. 저장소를 사용할 수 없을 때도 현재 페이지에서 토글할 수 있다.
 
 같은 mode를 HTML `.dark`, `data-theme`, `data-openui-theme`, CSS `color-scheme` 및 관리자 OpenUI `AgentInterface.theme`에 적용한다. Tailwind `dark:` 변형은 `.dark` 클래스 기준이다. 공유 Intelligent UI 카탈로그의 배경·글자·보조 텍스트는 호스트 CSS 변수를 사용하므로 독립 Renderer인 `/sec-chat`에서도 같은 색상 모드를 따른다. 기능별 컴포넌트의 상태·차트 색상은 기존 카탈로그 테마를 유지한다. 독립 Remote 앱의 자체 스타일 전체를 자동 변환하는 기능은 아니다.
 
@@ -302,3 +302,14 @@ Host 사이드바는 Overview(Home), Remote Apps(Template·Todo), AI Chat(LangGr
 ## OPENUI-CHAT-DS-001: 공통 채팅 디자인 시스템
 
 `shared/ui/agent-conversation`의 AgentChatFrame이 SEC API Agent·SEC Intelligent UI·Chat·Generative UI와 Push UI 예제의 화면 프레임, 헤더, Welcome, Composer, 새 대화·기록 액션, 상태·오류, 간격·반응형·테마·스크롤을 소유한다. native AG-UI와 기존 domain controller는 동일한 화면을 사용하며 전송 어댑터만 다르다. 페이지는 toolbar/status/footer와 메시지 renderer 슬롯으로 그래프 선택·공시 근거·추천·차트·revision action을 연결한다. 페이지별 프레임 CSS와 중복 헤더는 만들지 않는다. 상세 계약은 [공통 채팅 설계](open-ui.md#openui-chat-ds-001-공통-채팅-디자인-시스템)를 따른다.
+
+
+## HOST-HEADER-001: Host 공통 헤더 제거
+
+RootLayout은 사이드바·테마 Provider·SidebarInset과 `min-h-svh` 콘텐츠 영역만 조립한다. SidebarInset 위의 Host 공통 `h-14` 헤더와 그 안의 브랜드 설명·토글은 제공하지 않는다. 각 앱 페이지 또는 공통 AgentChatFrame이 필요한 화면 헤더를 소유하므로 Host가 추가 헤더 높이와 콘텐츠 padding을 강제하지 않는다.
+
+- 데스크톱: 테마 토글과 사이드바 접기 토글을 Host 사이드바 footer에서 제공한다.
+- 모바일: `widgets/host-navigation`의 `MobileSidebarTrigger`가 화면 왼쪽 아래에 고정된 내비게이션 열기 버튼을 제공하며 `md:hidden`으로 데스크톱에서는 숨긴다. 모바일 사이드바를 연 뒤 동일한 footer에서 테마를 바꾼다.
+- 채팅: 공통 `agent-conversation`의 높이는 `100svh`다. 삭제한 Host 헤더 높이를 viewport에서 차감하지 않으며 내부 메시지 스크롤과 Composer 배치는 공통 채팅 프레임이 소유한다.
+
+[변경 및 검증 기록](../../../flow/2026-11-14-host-header-removal.md)

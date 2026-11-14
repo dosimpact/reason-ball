@@ -219,3 +219,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [기술적 분석 실제 브라우저·PNG 검증](flow/2026-11-14-technical-analysis-browser-validation.md): TA-001~005, 12개 시나리오와 원본 PNG 보고.
 
 - [공통 채팅 디자인 시스템](flow/2026-11-14-shared-chat-design-system.md): OPENUI-CHAT-DS-001, 네 채팅 계열의 프레임·입력·응답 UI 통합.
+
+- [Host 공통 상단 헤더 제거](flow/2026-11-14-host-header-removal.md): HOST-HEADER-001, 앱 헤더 소유권·전체 높이·사이드바 제어 위치.

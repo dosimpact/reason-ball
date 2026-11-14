@@ -40,3 +40,12 @@ AssistantMessage 확장 렌더러는 화면별 검증 결과를 표시한다. SE
 컨트롤러별 상태 소유권은 유지한다. 생성 UI의 최신 revision 제한, SEC의 근거·추천 질문·기업 확인·공시 준비, 기술적 분석의 검증된 차트, 관리자 채팅의 도구 타임라인과 대화 기록은 공통 프레임의 확장이다. 외부 action 실행 중 busy guard와 중단 연결도 공통 계층을 따른다.
 
 [변경 및 검증 기록](../../../flow/2026-11-14-shared-chat-design-system.md)
+
+
+## HOST-HEADER-001: 앱 헤더와 전체 높이
+
+Host RootLayout은 공통 상단 헤더를 표시하지 않는다. AgentChatFrame의 제목·도구 모음·대화 액션이 채팅 화면의 헤더이며, 다른 앱은 필요한 헤더를 각 페이지에서 제공한다. Root 콘텐츠는 `min-h-svh`, 공통 채팅 프레임은 `100svh`를 사용한다. 이전 Host `h-14` 헤더를 위한 높이 차감이나 중복 여백을 추가하지 않는다.
+
+호스트 테마 토글과 데스크톱 사이드바 접기 버튼은 사이드바 footer에 있다. 모바일은 Host 내비게이션 위젯의 왼쪽 아래 고정 버튼으로 사이드바를 연다. 이 내비게이션 버튼은 페이지별 채팅 헤더가 소유하지 않으며 모든 앱에서 유지된다. 테마 상태는 기존 HostThemeProvider를 공유한다.
+
+[Host 레이아웃 계약](2-frontend-side-architecture.md#host-header-001-host-공통-헤더-제거) · [변경 및 검증](../../../flow/2026-11-14-host-header-removal.md)

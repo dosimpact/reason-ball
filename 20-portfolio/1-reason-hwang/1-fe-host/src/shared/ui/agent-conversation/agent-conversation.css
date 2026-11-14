@@ -3,7 +3,7 @@
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  height: calc(100svh - 112px);
+  height: 100svh;
   min-height: 480px;
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@
 .agent-chat-notice--error { color: var(--destructive); border: 1px solid color-mix(in srgb, var(--destructive) 25%, transparent); background: color-mix(in srgb, var(--destructive) 5%, var(--background)); }
 .agent-chat-notice--status { background: transparent; padding: 0; }
 @media (max-width: 640px) {
-  .agent-conversation { height: calc(100svh - 96px); min-height: 420px; border-radius: 12px; }
+  .agent-conversation { height: 100svh; min-height: 420px; border-radius: 12px; }
   .agent-conversation .openui-agent-mobile-header { align-items: flex-start; padding: 12px; gap: 10px; }
   .agent-conversation__description { font-size: 12px; }
   .agent-conversation__actions { gap: 4px; font-size: 12px; }

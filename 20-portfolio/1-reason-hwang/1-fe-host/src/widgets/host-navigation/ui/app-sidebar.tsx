@@ -2,6 +2,7 @@
 
 import { Boxes, CheckSquare, Home, LayoutTemplate, MessagesSquare } from "lucide-react";
 import Link from "next/link";
+import { ThemeToggle } from "@/shared/ui/theme-toggle";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 
@@ -17,6 +18,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  SidebarTrigger,
 } from "@/shared/ui/sidebar";
 
 const navGroups = [
@@ -107,6 +109,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
 
       <SidebarFooter>
+        <div className="flex items-center justify-between gap-2 group-data-[collapsible=icon]:flex-col">
+          <SidebarTrigger />
+          <ThemeToggle />
+        </div>
         <SidebarGroup className="py-0">
           <SidebarGroupContent className="rounded-md border border-sidebar-border bg-sidebar-accent/40 px-3 py-2 text-xs text-sidebar-foreground/75 group-data-[collapsible=icon]:hidden">
             Remote entries are loaded through the BFF proxy.
@@ -116,4 +122,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarRail />
     </Sidebar>
   );
+}
+
+/** Mobile navigation remains reachable without reserving an application header. */
+export function MobileSidebarTrigger() {
+  return <SidebarTrigger className="fixed bottom-24 left-4 z-40 size-10 rounded-full border bg-background shadow-md md:hidden" />;
 }
