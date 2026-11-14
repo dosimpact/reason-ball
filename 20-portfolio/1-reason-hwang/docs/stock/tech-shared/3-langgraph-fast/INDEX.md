@@ -18,3 +18,10 @@
 - [SEC Intelligent UI](sec-intelligent-ui.md): A2UI 의존 없는 SEC 질의/근거/AG-UI 구현.
 
 - [기술적 분석 Deep Agent](../../technical-analysis/system-design.md): Yahoo 일봉·주봉 도구, TA-Lib 시그널, 공통 OpenUI 출력 및 LangGraph runtime 등록.
+
+## LG-ENV-PORT-001: 서버 포트 환경 변수
+
+`3-langgraph-fast/.env`와 `.env.example`은 `SERVER_PORT=8000`을 선언한다.
+현재 `dev`/`start`의 Uvicorn CLI는 이 변수를 포트 옵션에 연결하지 않으므로,
+변수 값 변경만으로 수신 포트가 바뀌지 않는다. 실제 포트 지정은 `--port`를 사용한다.
+`dev:langgraph`의 `--port`는 별도 설정이다.
