@@ -17,6 +17,7 @@ export const Groups: Story = { args: { collapsible: "none" }, play: async ({ can
     await expect(canvas.getByText(label, { exact: true })).toBeVisible();
   }
   await expect(canvas.getByRole("link", { name: "Todo" })).toHaveAttribute("href", "/remotes/todo");
-  await expect(canvas.getByRole("link", { name: "Component Catalog" })).toHaveAttribute("data-active");
+  await expect(canvas.getByRole("link", { name: "OpenUI Lang Catalog" })).toHaveAttribute("data-active");
+  await expect(canvas.getByRole("link", { name: "OpenUI Lang Catalog" })).toHaveAttribute("href", "/open-ui/catalog");
   await expect(canvas.getByRole("link", { name: "UI Demos" })).not.toHaveAttribute("data-active");
 } };

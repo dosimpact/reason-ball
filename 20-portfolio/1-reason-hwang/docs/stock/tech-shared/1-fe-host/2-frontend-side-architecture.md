@@ -295,7 +295,7 @@ Host의 FastAPI 프록시는 2981, `REMOTE_BFF_URL`은 BFF 2980이다.
 
 ## HOST-NAV-001: 사이드바 그룹
 
-Host 사이드바는 Overview(Home), Remote Apps(Template·Todo), AI Chat(LangGraph Chat·SEC API Agent·SEC Research Chat·Push UI Chat), Generative UI(UI Demos·Component Catalog)로 구성한다. 카탈로그와 Push UI 예제도 직접 진입할 수 있다. URL은 기존 경로를 유지한다. 경로 구간이 일치하는 항목 중 가장 구체적인 경로 하나만 활성화하여 카탈로그에서 UI Demos가 동시에 선택되지 않게 한다. 접힌 상태의 아이콘·툴팁과 모바일 Sidebar 동작은 공통 Sidebar를 따른다.
+Host 사이드바는 Overview(Home), Remote Apps(Template·Todo), AI Chat(LangGraph Chat·SEC API Agent·SEC Research Chat·Push UI Chat), Generative UI(UI Demos·OpenUI Lang Catalog)로 구성한다. 카탈로그와 Push UI 예제도 직접 진입할 수 있다. URL은 기존 경로를 유지한다. 경로 구간이 일치하는 항목 중 가장 구체적인 경로 하나만 활성화하여 카탈로그에서 UI Demos가 동시에 선택되지 않게 한다. 접힌 상태의 아이콘·툴팁과 모바일 Sidebar 동작은 공통 Sidebar를 따른다.
 
 [변경 및 검증](../../../flow/2026-11-14-host-navigation-groups.md)
 

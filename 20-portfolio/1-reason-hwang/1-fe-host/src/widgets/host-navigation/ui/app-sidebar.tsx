@@ -46,7 +46,7 @@ const navGroups = [
     title: "Generative UI",
     items: [
       { title: "UI Demos", href: "/open-ui", icon: Boxes },
-      { title: "Component Catalog", href: "/open-ui/catalog", icon: LayoutTemplate },
+      { title: "OpenUI Lang Catalog", href: "/open-ui/catalog", icon: LayoutTemplate },
     ],
   },
 ];
