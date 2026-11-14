@@ -316,3 +316,7 @@ RootLayout은 사이드바·테마 Provider·SidebarInset과 `min-h-svh` 콘텐�
 [변경 및 검증 기록](../../../flow/2026-11-14-host-header-removal.md)
 
 Host CLI·Turbopack 실행 변경과 검증은 [HOST-DEV-CLI-001 기록](../../../flow/2026-11-14-next-turbopack-cli.md)을 따른다.
+
+## SEC-COLLECTOR-001: SEC 운영 화면
+
+`app/sec-collector`는 FSD `_pages/sec-collector`의 운영 대시보드를 연결한다. Slice api/model/ui가 기존 BFF API를 `/api/remote-proxy/api/sec/*`로 소비하며 서버 proxy 계약을 바꾸지 않는다. 사이드바 Operations 그룹에 `SEC 수집 관리`를 제공한다. 상세 상태·수집 경계는 [도메인 설계](../../us-corporate-filings/collector-dashboard.md)에 둔다.

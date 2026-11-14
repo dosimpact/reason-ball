@@ -21,6 +21,8 @@
     "test:sec-api-agent:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/_pages/sec-api-agent/ui/*.stories.tsx",
     "test:generative-ui": "vitest run --project generative-ui",
     "test:generative-ui:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/_pages/generative-ui/ui/*.stories.tsx",
+    "test:sec-collector": "node --import tsx --test tests/sec-collector/*.test.ts",
+    "test:sec-collector:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/_pages/sec-collector/ui/*.stories.tsx",
     "test:chat": "node --import tsx --test tests/chat/*.test.ts",
     "test:chat:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/_pages/chat/ui/GraphSelector.stories.tsx src/_pages/chat/ui/ChatMessageList.stories.tsx",
     "test:generative-ui:live": "playwright test --config playwright.openui.config.ts"

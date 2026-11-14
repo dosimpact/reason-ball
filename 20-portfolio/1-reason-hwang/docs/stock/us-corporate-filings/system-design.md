@@ -210,3 +210,7 @@ GET /companies와 GET /filings의 기본값은 DB companies.ticker가 NULL·빈 
 SEC ZIP은 `sec-cache/submissions.zip`, 백필 실행 기록은 `runs/`에 저장한다.
 `LOG_DIR`는 별도 설정이다. HTTP 정적 파일 공개 디렉터리를 뜻하지 않는다.
 기존 `DATA_DIR`는 사용하지 않으므로 배포 환경에서도 새 이름으로 변경해야 한다.
+
+## SEC-COLLECTOR-001: Host 운영 대시보드
+
+Host `/sec-collector`가 기존6개 API를 generic same-origin BFF proxy로 호출한다. BFF API·DB schema·수집 정책은 유지하며 별도 job/status API를 만들지 않는다. 업무·기술 계약은 [운영 화면 설계](collector-dashboard.md)를 따른다.

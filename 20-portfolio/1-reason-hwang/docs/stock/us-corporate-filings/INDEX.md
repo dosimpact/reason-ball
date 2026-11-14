@@ -37,3 +37,5 @@ Detailed supporting references currently include:
 - `infra/1-infra-graph-rag/docs/`
 
 - [SEC Intelligent UI 채팅](intelligent-ui.md): 최신 10-K 기반 LangGraph/AG-UI/OpenUI 경로와 검증 기준.
+
+- [SEC Collector 운영 화면](collector-dashboard.md): SEC-COLLECTOR-001, 기업·공시 조회와 명시적 API 수집 실행.

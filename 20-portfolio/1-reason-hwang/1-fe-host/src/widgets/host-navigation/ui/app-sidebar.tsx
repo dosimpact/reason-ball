@@ -34,6 +34,10 @@ const navGroups = [
     ],
   },
   {
+    title: "Operations",
+    items: [{ title: "SEC 수집 관리", href: "/sec-collector", icon: Boxes }],
+  },
+  {
     title: "AI Chat",
     items: [
       { title: "LangGraph Chat", href: "/chat", icon: MessagesSquare },
