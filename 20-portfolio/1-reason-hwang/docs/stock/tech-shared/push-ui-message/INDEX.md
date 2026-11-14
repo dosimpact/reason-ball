@@ -2,7 +2,7 @@
 
 ## PUSH-UI-001: 턴별 진행 부가정보
 
-`/examples/push-ui-message`는 기존 chat/A2UI와 분리된 일시적 학습 예제다. 사용자와 LLM이 대화하며 LLM이 선택한 도구 호출과 답변 준비 상태를 각 assistant 메시지에 누적 표시한다. 비공개 chain of thought를 생성하거나 노출하지 않는다.
+`/examples/push-ui-message`는 기존 chat/OpenUI와 분리된 일시적 학습 예제다. 사용자와 LLM이 대화하며 LLM이 선택한 도구 호출과 답변 준비 상태를 각 assistant 메시지에 누적 표시한다. 비공개 chain of thought를 생성하거나 노출하지 않는다.
 
 - Backend: `graph/primary_graphs/simple_push_ui_message`; model → tools → model 반복. `ui_message_reducer`와 `push_ui_message(message=AIMessage(id=turn_id))` 사용.
 - 각 단계는 고유 UI ID를 가진다. 시작 이벤트는 append, 완료/실패 이벤트는 동일 ID와 merge=True로 갱신한다. 서로 다른 턴의 항목은 섞이지 않는다.
@@ -31,6 +31,6 @@ pnpm --filter @reason-hwang/fe-host test:push-ui:views
 pnpm --filter @reason-hwang/langgraph-fast-api test:push-ui:api --env-var baseUrl=http://127.0.0.1:8000
 ```
 
-Python 단위 검사는 패키지 안에서 `uv run python -m pytest tests/test_push_ui_message_example.py -q`를 사용한다. 모델 factory는 기존 A2UI 모델 설정·OAuth 호환 처리를 재사용한다. 진행 이벤트만 실행 중 전송하며 최종 답변은 완료 시 전송한다.
+Python 단위 검사는 패키지 안에서 `uv run python -m pytest tests/test_push_ui_message_example.py -q`를 사용한다. 모델 factory는 기존 OpenUI 모델 설정·OAuth 호환 처리를 재사용한다. 진행 이벤트만 실행 중 전송하며 최종 답변은 완료 시 전송한다.
 
 현재 상태: 구현 및 격리 테스트 통과. 2026-10-02 앱 재시작 후 실제 브라우저에서 도구 호출, 두 턴의 진행정보 분리 및 최종 답변을 확인했다. API Bruno·Storybook 검증은 실행 환경 제한으로 미완료다. 후속 증거는 [앱 재시작 기록](../../../flow/2026-10-02-dev-port-restart.md)에 있다.

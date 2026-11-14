@@ -2,7 +2,7 @@
 
 ## SEC-IUI-001 목표와 계약
 
-자유로운 대화에서 식별한 기업의 최신 SEC 10-K 원문을 기존 BFF 수집 API로 다운로드하고, Python LangGraph 에이전트에 질문한다. 프런트는 `1-fe-host`, 에이전트는 `3-langgraph-fast`가 소유한다. **A2UI는 사용하지 않는다.** AG-UI SSE의 텍스트 메시지로 OpenUI 프로그램을 전달하고 6-3 Intelligent UI 카탈로그로 렌더링한다. 기존 A2UI 기능은 이 기능의 의존성이 아니다.
+자유로운 대화에서 식별한 기업의 최신 SEC 10-K 원문을 기존 BFF 수집 API로 다운로드하고, Python LangGraph 에이전트에 질문한다. 프런트는 `1-fe-host`, 에이전트는 `3-langgraph-fast`가 소유한다. AG-UI SSE의 텍스트 메시지로 OpenUI 프로그램을 전달하고 6-3 Intelligent UI 카탈로그로 렌더링한다. 업무 근거 조회와 화면 출력은 별도로 구성한다.
 
 ## SEC-IUI-002 근거와 대화
 

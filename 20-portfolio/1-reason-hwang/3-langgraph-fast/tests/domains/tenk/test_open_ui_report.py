@@ -1,6 +1,6 @@
 import pytest
 
-from domains.tenk.a2ui_report import ReportError, prepare_report_source, validate_report
+from domains.tenk.open_ui_report import ReportError, prepare_report_source, validate_report
 
 DOCUMENT = "<h1>ITEM 1. BUSINESS</h1><p>The company provides cloud services to enterprise customers.</p><h1>ITEM 1A. RISKS</h1><p>Service interruptions may adversely affect customer retention.</p>"
 

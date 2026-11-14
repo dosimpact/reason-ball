@@ -9,7 +9,7 @@ async function send(page: Page, message: string) {
 }
 
 test('Fixed preserves flight, meal and seat actions', async ({ page }) => {
-  await page.goto('/a2ui/fixed');
+  await page.goto('/open-ui/fixed');
   await send(page, '인천에서 도쿄 가는 가상 항공편을 보여줘');
   await expect(page.locator('article').last()).toContainText('ICN → NRT');
   await page.getByRole('button', { name: '항공편 선택', exact: true }).click();
@@ -30,7 +30,7 @@ test('Fixed preserves flight, meal and seat actions', async ({ page }) => {
 });
 
 test('Dynamic renders real generated UI and recomputes sales', async ({ page }) => {
-  await page.goto('/a2ui/dynamic');
+  await page.goto('/open-ui/dynamic');
   const panel = await send(page, '지역별 매출을 표와 막대 차트로 비교해줘. 금액은 USD로 표시해줘.');
   await expect(panel).toContainText('조회 매출 $680,000 · 거래처 6개');
   await expect(panel.getByRole('table').first()).toBeVisible();
@@ -42,7 +42,7 @@ test('Dynamic renders real generated UI and recomputes sales', async ({ page }) 
 });
 
 test('SEC stored filing selection, citations and reset', async ({ page }) => {
-  await page.goto('/a2ui/sec');
+  await page.goto('/open-ui/sec');
   let panel = await send(page, 'AAPL');
   await panel.getByRole('button', { name: '공시 조회', exact: true }).click();
   panel = page.locator('article').last();
@@ -64,7 +64,7 @@ test('SEC stored filing selection, citations and reset', async ({ page }) => {
 });
 
 test('Catalog search, state, edit and reset', async ({ page }) => {
-  await page.goto('/a2ui/catalog');
+  await page.goto('/open-ui/catalog');
   await page.getByRole('searchbox', { name: '항목 검색' }).fill('Select');
   await page.getByRole('link', { name: '◇ Select 2', exact: true }).click();
   await page.getByRole('combobox', { name: '도시', exact: true }).selectOption('부산');
@@ -77,7 +77,7 @@ test('Catalog search, state, edit and reset', async ({ page }) => {
 });
 
 test('Cancel and new conversation discard in-flight output', async ({ page }) => {
-  await page.goto('/a2ui/dynamic');
+  await page.goto('/open-ui/dynamic');
   await page.getByRole('textbox', { name: '질문', exact: true }).fill('지역별 매출을 표와 차트로 비교해줘');
   await page.getByRole('button', { name: '보내기', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('진행 중');

@@ -264,7 +264,7 @@ Remote 앱이 늘어나도 Host는 BFF 설정과 라우팅만 추가해 확장�
 | 위치 | 책임 |
 | --- | --- |
 | `src/_app` | 루트 레이아웃·스타일·서버 API 조립 |
-| `src/_pages` | home, chat, sec-chat, sec-api-agent, a2ui-demo, examples-push-ui-message, index-dcf-visualizer, remotes 화면 슬라이스 |
+| `src/_pages` | home, chat, sec-chat, sec-api-agent, generative-ui, examples-push-ui-message, index-dcf-visualizer, remotes 화면 슬라이스 |
 | `src/widgets` | host-navigation, remote-app 독립 화면 블록 |
 | `src/shared` | ui, lib, config 공용 세그먼트 |
 

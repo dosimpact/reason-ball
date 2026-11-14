@@ -1,7 +1,7 @@
 # SEC Intelligent UI LangGraph
 
 - 구현: `domains/sec_chat/`(BFF 조회/동기화·Item 근거·인용 검증·OpenUI 프로그램), `graph/primary_graphs/sec_intelligent_ui/`(의도→근거→답변 StateGraph), `server/sec_chat/`(HTTP/AG-UI).
-- A2UI graph·model·renderer를 import하지 않는다. UI 중립 `domains.tenk.sec_client`의 읽기 API와 텍스트 정규화만 재사용한다.
+- 공통 OpenUI 출력 서브그래프를 사용한다. UI 중립 `domains.tenk.sec_client`의 읽기 API와 텍스트 정규화만 재사용한다.
 - POST `/api/sec-chat/prepare`: 10자리 CIK, refresh 기본 true. 기존 BFF의 선택 기업 백필 SSE completed를 확인한 후 최신 10-K와 본문을 선택한다. 실패한 최신 원문 대신 과거 문서로 바꾸지 않는다. refresh=false는 checkedAt=null로 최신성 미확인을 표시한다.
 - GET `/companies?q=`, POST `/chat`(threadId/message), DELETE `/threads/{id}`. 공시 원문·대화 이력은 서버 메모리에 소유한다. 동시 같은 대화는 409, 없는 세션은 404. 세션 상한 30개, 준비 요청 시 2시간 미사용 세션 정리.
 - 반복되는 페이지 Item 머리글은 같은 Item 구간에 합친다. 목차 등 중복 구간은 가장 긴 구간을 선택한다. Item 3이 재무제표 주석을 참조하면 Item 8도 근거에 포함한다.

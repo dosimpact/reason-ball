@@ -8,14 +8,14 @@
 | --- | --- |
 | [LangGraph DB Saver](3-langgraph-db-saver.md) | PostgreSQL application metadata, checkpoint saver, 전용 schema와 복구 정책 |
 | [Graph DB](4-graph-db.md) | Neo4j 연결, schema 초기화, 10-K graph model, 쓰기·검색·운영 계약 |
-| [A2UI](a2ui.md) | 생성 UI, 사용자 action, 모델 설정과 검증 |
+| [OpenUI](open-ui.md) | 생성 UI, 사용자 action, 모델 설정과 검증 |
 
 두 저장소는 목적과 생명주기가 다르다.
 
 - PostgreSQL `langgraph` schema: Assistant, thread, run과 실행 checkpoint.
 - Neo4j `neo4j` database: 공시 문서에서 추출한 연결형 지식과 근거 검색 데이터.
 
-- [SEC Intelligent UI](sec-intelligent-ui.md): A2UI 의존 없는 SEC 질의/근거/AG-UI 구현.
+- [SEC Intelligent UI](sec-intelligent-ui.md): OpenUI 의존 없는 SEC 질의/근거/AG-UI 구현.
 
 - [기술적 분석 Deep Agent](../../technical-analysis/system-design.md): Yahoo 일봉·주봉 도구, TA-Lib 시그널, 공통 OpenUI 출력 및 LangGraph runtime 등록.
 

@@ -1,4 +1,4 @@
-"""질문 해석 → Item 근거 선택 → 인용 검증 → OpenUI 응답. A2UI 의존 없음."""
+"""질문 해석 → Item 근거 선택 → 인용 검증 → OpenUI 응답."""
 from __future__ import annotations
 
 import json

@@ -10,7 +10,7 @@ const examples = { dynamic: "전체 매출 현황을 보여줘 · 담당자별 �
 
 export function GenerativeDemo({ mode }: { mode: Mode }) {
   const [session, setSession] = useState(0);
-  return <main className="mx-auto max-w-5xl p-6"><header className="mb-6 flex flex-wrap items-center justify-between gap-4"><div><Link href="/a2ui" className="text-sm underline">Generative UI</Link><h1 className="mt-2 text-2xl font-semibold">{titles[mode]}</h1></div><button className="rounded border px-4 py-2" onClick={() => setSession(value => value + 1)}>새 대화</button></header><Session key={`${mode}-${session}`} mode={mode} /></main>;
+  return <main className="mx-auto max-w-5xl p-6"><header className="mb-6 flex flex-wrap items-center justify-between gap-4"><div><Link href="/open-ui" className="text-sm underline">Generative UI</Link><h1 className="mt-2 text-2xl font-semibold">{titles[mode]}</h1></div><button className="rounded border px-4 py-2" onClick={() => setSession(value => value + 1)}>새 대화</button></header><Session key={`${mode}-${session}`} mode={mode} /></main>;
 }
 
 function Session({ mode }: { mode: Mode }) {

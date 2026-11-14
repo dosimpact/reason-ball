@@ -3,8 +3,8 @@ from copy import deepcopy
 from datetime import UTC, datetime
 from typing import Any
 
-from domains.tenk.a2ui_report import generate_report, prepare_report_source
-from domains.tenk.a2ui_report_plan import default_report_plan, plan_report
+from domains.tenk.open_ui_report import generate_report, prepare_report_source
+from domains.tenk.open_ui_report_plan import default_report_plan, plan_report
 from domains.tenk.sec_client import SecClient
 from graph.provider.ui_model import ModelSettings
 from .contracts import ActionError

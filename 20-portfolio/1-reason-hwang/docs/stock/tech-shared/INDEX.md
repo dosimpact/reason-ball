@@ -50,7 +50,7 @@ tech-shared/
 | `1-fe-host` | [Frontend architecture](1-fe-host/2-frontend-side-architecture.md) | Host·Remote·BFF 프런트 전달 구조. 관련 BFF도 같은 문서를 참조 |
 | `1-fe-host` | [OpenUI 사용 사례·코드 안내](1-fe-host/sec-intelligent-ui.md#openui-doc-001-사용-사례와-코드-안내) | SEC Chat의 Renderer와 관리자 AgentInterface 비교, 코드 경로와 생성물 동기화 |
 | `1-fe-host` | [Storybook](1-fe-host/storybook.md) | UI 예제, 구성, 검증 |
-| `1-fe-host` | [Generative UI Host](1-fe-host/a2ui.md) | 공유 카탈로그, OpenUI 렌더링과 검증 |
+| `1-fe-host` | [Generative UI Host](1-fe-host/open-ui.md) | 공유 카탈로그, OpenUI 렌더링과 검증 |
 | `2-bff-apps` | [BFF 문서 지도](2-bff-apps/INDEX.md) | 디렉터리 정책·SSE·API·Swagger 안내 |
 | `3-langgraph-fast` | [문서 지도](3-langgraph-fast/INDEX.md) | PostgreSQL saver와 Neo4j Graph DB 설계·운영 |
 | `infra/1-infra-graph-rag` | [Infra setup](infra/1-infra-graph-rag/1-infra-l1-setup.md) | Graph RAG 데이터베이스와 관측 환경 |
@@ -66,7 +66,7 @@ tech-shared/
 - 기존 flow는 당시 경로와 본문을 보존한다. 이전 경로와 현재 경로는 [이동 기록](../../flow/2026-09-20-tech-shared-document-relocation.md)에서 대응시킨다.
 - 구현과 원문이 다르면 현재 공용/도메인 설계와 코드를 확인한다. 원문을 수정해야 하는 후속 작업은 별도 변경으로 기록한다.
 
-- [Generative UI 통합 설계](a2ui-system/INDEX.md): OpenUI 최종 출력 서브그래프, Dynamic·Fixed·Catalog·SEC 및 사용자 action.
+- [Generative UI 통합 설계](open-ui-system/INDEX.md): OpenUI 최종 출력 서브그래프, Dynamic·Fixed·Catalog·SEC 및 사용자 action.
 
 - [Push UI message 예제](push-ui-message/INDEX.md): 독립 채팅 예제와 메시지별 진행 이벤트.
 

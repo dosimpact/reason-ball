@@ -7,7 +7,7 @@ from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import HumanMessage, SystemMessage
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
 
-from .a2ui_report import ReportError
+from .open_ui_report import ReportError
 
 SectionName = Literal["summary", "business", "financials", "risks"]
 SECTION_TITLES = {"summary": "핵심 요약", "business": "사업 분석", "financials": "재무 분석", "risks": "위험 요인"}

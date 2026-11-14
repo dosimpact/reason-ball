@@ -182,6 +182,6 @@ GET /companies와 GET /filings의 기본값은 DB companies.ticker가 NULL·빈 
 
 ## SEC-IUI-001: 최신 10-K Intelligent UI 질의
 
-`/sec-chat` Host → same-origin SEC 채팅 proxy → FastAPI LangGraph → 기존 BFF 수집/원문 API를 사용한다. 최신성 확인과 저장 문서 열기를 구분하며 Item 1·1A·3·7·8 근거를 사용한다. 새 경로는 A2UI를 사용하지 않는다. 모델이 선택한 원문 구절 ID를 서버가 실제 인용문으로 복원하고, AG-UI로 전달한 OpenUI 프로그램을 Intelligent UI 카탈로그로 검증·렌더링한다.
+`/sec-chat` Host → same-origin SEC 채팅 proxy → FastAPI LangGraph → 기존 BFF 수집/원문 API를 사용한다. 최신성 확인과 저장 문서 열기를 구분하며 Item 1·1A·3·7·8 근거를 사용한다. 모델이 선택한 원문 구절 ID를 서버가 실제 인용문으로 복원하고, AG-UI로 전달한 OpenUI 프로그램을 Intelligent UI 카탈로그로 검증·렌더링한다.
 
 현재 완료 상태와 인수 기준은 [도메인 기능 설계](intelligent-ui.md), 패키지 계약은 [Host](../tech-shared/1-fe-host/sec-intelligent-ui.md)와 [LangGraph](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md)에 둔다.

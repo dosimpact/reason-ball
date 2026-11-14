@@ -28,7 +28,7 @@ SEC 대화 화면은 `/sec-chat`과 `/sec-api-agent`다. 두 화면은 [Generati
 pnpm -C 1-fe-host sec-ui:generate
 ```
 
-의존성은 [Host package.json](../../../../1-fe-host/package.json)에 선언되어 있다. `@openuidev/lang-core`·`react-lang`은 `1.0.1`, `react-ui`는 `^0.18.1`, 개발용 CLI는 `0.6.0`이며 실제 설치 해석은 이 워크스페이스의 lockfile을 따른다. 카탈로그 복사 출처와 현재 실행 방식은 아래 절을, 백엔드 상세는 [LangGraph 설계](../3-langgraph-fast/sec-intelligent-ui.md)를 따른다. 기존 A2UI 데모 경로도 같은 OpenUI 카탈로그로 전환했다.
+의존성은 [Host package.json](../../../../1-fe-host/package.json)에 선언되어 있다. `@openuidev/lang-core`·`react-lang`은 `1.0.1`, `react-ui`는 `^0.18.1`, 개발용 CLI는 `0.6.0`이며 실제 설치 해석은 이 워크스페이스의 lockfile을 따른다. 카탈로그 복사 출처와 현재 실행 방식은 아래 절을, 백엔드 상세는 [LangGraph 설계](../3-langgraph-fast/sec-intelligent-ui.md)를 따른다. 기존 OpenUI 데모 경로도 같은 OpenUI 카탈로그로 전환했다.
 
 이 절은 코드 대조 결과다. 과거 실행 검증은 [2026-10-22 관리자 구현 기록](../../../flow/2026-10-22-fsd-sec-api-agent.md)에 있으며, 이번 문서 보완에서 브라우저·모델 실행을 재검증한 것은 아니다.
 

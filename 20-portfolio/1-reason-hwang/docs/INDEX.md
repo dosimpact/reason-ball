@@ -114,7 +114,7 @@ The technical subdirectories follow package ownership; the other stock directori
 | --- | --- |
 | [`stock/us-corporate-filings/INDEX.md`](stock/us-corporate-filings/INDEX.md) | Domain boundary, owning components, current capabilities, and documentation routing |
 | [`stock/us-corporate-filings/system-design.md`](stock/us-corporate-filings/system-design.md) | Implemented PostgreSQL filing content, migration, constraints, and verification |
-| [`stock/us-corporate-filings/intelligent-ui.md`](stock/us-corporate-filings/intelligent-ui.md) | SEC 10-K conversational analysis with OpenUI and AG-UI; no A2UI |
+| [`stock/us-corporate-filings/intelligent-ui.md`](stock/us-corporate-filings/intelligent-ui.md) | SEC 10-K conversational analysis with OpenUI and AG-UI |
 
 ### Technical Analysis
 
@@ -188,7 +188,7 @@ Detailed implementation notes are grouped by their technical owners:
 
 If a supporting document conflicts with code or a stock document, verify the implementation first and reconcile the appropriate domain stock document. Preserved imported notes may contain historical routes or paths. Use the [relocation map and reading rules](stock/tech-shared/INDEX.md) to resolve them; the move itself does not certify that every historical detail matches current code.
 
-- [Generative UI 통합 설계](stock/tech-shared/a2ui-system/INDEX.md): OpenUI 최종 출력 서브그래프, Dynamic·Fixed·Catalog·SEC 및 사용자 action.
+- [Generative UI 통합 설계](stock/tech-shared/open-ui-system/INDEX.md): OpenUI 최종 출력 서브그래프, Dynamic·Fixed·Catalog·SEC 및 사용자 action.
 
 - [Push UI message 예제](stock/tech-shared/push-ui-message/INDEX.md): 턴별 진행 부가정보와 독립 채팅 UI.
 
@@ -207,3 +207,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [2026-10-22 호스트 테마 통합](flow/2026-10-22-host-theme.md): FE-THEME-001, 공통 토글·OpenUI 동기화.
 
 - [2026-10-25 OpenUI 문서 보완](flow/2026-10-25-openui-documentation.md): OPENUI-DOC-001, 두 화면 비교·코드 탐색·생성물 동기화 안내.
+
+- [2026-11-14 OpenUI 명칭 통일](flow/2026-11-14-open-ui-naming.md): OPEN-UI-NAME-001, 화면·환경변수·Python 모듈·현재 문서 경로 및 검증.

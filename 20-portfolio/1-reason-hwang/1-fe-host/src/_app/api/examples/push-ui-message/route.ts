@@ -4,7 +4,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
-  const origin = (process.env.A2UI_LANGGRAPH_URL ?? "http://127.0.0.1:8000").replace(/\/$/, "");
+  const origin = (process.env.OPEN_UI_LANGGRAPH_URL ?? "http://127.0.0.1:8000").replace(/\/$/, "");
   try {
     const upstream = await fetch(`${origin}/examples/push-ui-message/stream`, {
       method: "POST", headers: { "Content-Type": "application/json" },

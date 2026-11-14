@@ -34,7 +34,7 @@ SEC Chat에 대한 마스터 문서 입니다. 주요 개념, 기능, 도메인�
 | **관찰 가능한 실행 기록** | 사용자가 어떤 작업이 실행되고 어디에서 실패했는지 확인하도록 한다. | Behind the scenes는 노드·SEC 도구의 실제 상태를 표시한다. 모델의 비공개 사고 과정이나 Deep Agent 내부 도구 전체를 보여주는 기능은 아니다. |
 | **After-answer 노드** | 답변 후 공통 후처리를 별도 단계로 수행한다. | 기존 `/sec-chat`의 `after_answer`가 추가 LLM 호출로 추천 질문 3개를 만든다. 전역 hook이나 모든 그래프의 공통 middleware는 아니며, `/sec-api-agent`에는 동일한 추천 질문 노드가 연결되어 있지 않다. |
 
-현재 관리자 채팅은 도구 상태를 실행 중 전달하고, 답변 DSL은 생성·검증이 끝난 후 전송한다. SSE를 사용한다는 사실이 답변의 토큰 단위 실시간 생성을 의미하지는 않는다. SEC 두 화면의 UI 표현에는 OpenUI를 사용하며 A2UI를 사용하지 않는다.
+현재 관리자 채팅은 도구 상태를 실행 중 전달하고, 답변 DSL은 생성·검증이 끝난 후 전송한다. SSE를 사용한다는 사실이 답변의 토큰 단위 실시간 생성을 의미하지는 않는다. SEC 두 화면의 UI 표현에는 OpenUI Lang을 사용한다.
 
 [UI 생성·검증](../../3-langgraph-fast/src/domains/sec_chat/presentation.py) · [관리자 AG-UI 연결](../../3-langgraph-fast/src/server/sec_deep_agent/router.py) · [추천 질문 노드](../../3-langgraph-fast/src/graph/primary_graphs/sec_intelligent_ui/conversation.py)
 

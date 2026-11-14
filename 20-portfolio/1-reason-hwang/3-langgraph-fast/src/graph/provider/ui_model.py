@@ -34,18 +34,18 @@ class ModelSettings:
 
     @classmethod
     def from_env(cls) -> ModelSettings:
-        provider = os.getenv("OPENUI_MODEL_PROVIDER", os.getenv("A2UI_MODEL_PROVIDER", "oauth-proxy"))
+        provider = os.getenv("OPENUI_MODEL_PROVIDER", os.getenv("OPEN_UI_MODEL_PROVIDER", "oauth-proxy"))
         if provider not in {"oauth-proxy", "api-key"}:
             raise ValueError("OPENUI_MODEL_PROVIDER must be oauth-proxy or api-key")
-        model = os.getenv("OPENUI_MODEL", os.getenv("A2UI_MODEL", os.getenv("OPENAI_MODEL", ""))).strip()
+        model = os.getenv("OPENUI_MODEL", os.getenv("OPEN_UI_MODEL", os.getenv("OPENAI_MODEL", ""))).strip()
         if not model:
             raise ValueError("Set OPENUI_MODEL (or OPENAI_MODEL)")
         if provider == "oauth-proxy":
-            base_url = os.getenv("OPENUI_MODEL_BASE_URL", os.getenv("A2UI_MODEL_BASE_URL", os.getenv("OPENAI_BASE_URL", "http://127.0.0.1:2890/v1")))
-            api_key = os.getenv("OPENUI_MODEL_API_KEY", os.getenv("A2UI_MODEL_API_KEY", "chatgpt-oauth-placeholder"))
+            base_url = os.getenv("OPENUI_MODEL_BASE_URL", os.getenv("OPEN_UI_MODEL_BASE_URL", os.getenv("OPENAI_BASE_URL", "http://127.0.0.1:2890/v1")))
+            api_key = os.getenv("OPENUI_MODEL_API_KEY", os.getenv("OPEN_UI_MODEL_API_KEY", "chatgpt-oauth-placeholder"))
         else:
-            base_url = os.getenv("OPENUI_MODEL_BASE_URL", os.getenv("A2UI_MODEL_BASE_URL", "https://api.openai.com/v1"))
-            api_key = os.getenv("OPENUI_MODEL_API_KEY", os.getenv("A2UI_MODEL_API_KEY", os.getenv("OPENAI_API_KEY", "")))
+            base_url = os.getenv("OPENUI_MODEL_BASE_URL", os.getenv("OPEN_UI_MODEL_BASE_URL", "https://api.openai.com/v1"))
+            api_key = os.getenv("OPENUI_MODEL_API_KEY", os.getenv("OPEN_UI_MODEL_API_KEY", os.getenv("OPENAI_API_KEY", "")))
             if not api_key or "placeholder" in api_key:
                 raise ValueError("Set OPENUI_MODEL_API_KEY for api-key mode")
         return cls(provider, model, base_url.rstrip("/"), api_key)

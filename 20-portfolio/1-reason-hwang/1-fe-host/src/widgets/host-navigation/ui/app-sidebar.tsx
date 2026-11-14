@@ -44,7 +44,7 @@ const navItems = [
   },
   {
     title: "Generative UI",
-    href: "/a2ui",
+    href: "/open-ui",
     icon: Boxes,
   },
 ];
