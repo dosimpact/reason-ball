@@ -134,6 +134,17 @@ def test_failure_clears_previous_report_and_prices():
     result = call(fetch, {"ticker": "FAIL"}, report_state())
     assert result["prices"] == []
     assert result["analysis_result"] is None
+    assert result["messages"][0].status == "error"
+
+
+def test_tool_status_reflects_success_and_missing_price_error():
+    fetch, analyze = build_tools(fetcher=fixture_fetcher)
+    state = call(fetch, {"ticker": "TEST"}, {})
+    assert state["messages"][0].status == "success"
+    result = call(analyze, {}, state)
+    assert result["messages"][0].status == "success"
+    missing = call(analyze, {}, {})
+    assert missing["messages"][0].status == "error"
 
 
 def test_settings_change_fetches_more_history_and_retains_weekly():

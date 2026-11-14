@@ -1,5 +1,6 @@
 "use client";
 
+import { ChatActivity } from "./ChatActivity";
 import { GraphSelector } from "./GraphSelector";
 import { AgentConversation, ChatNotice, ConversationText } from "@/shared/ui/agent-conversation";
 import { OutputView } from "@/shared/ui/intelligent-ui";
@@ -15,6 +16,6 @@ export function ChatPage() {
     busy={busy} messages={messages.map((message, index) => ({
       id: message.id, role: message.role === "user" ? "user" as const : "assistant" as const,
       content: message.content,
-      view: <div>{message.content && <ConversationText text={message.content} />}{message.program && <OutputView program={message.program} active={!busy && index === messages.length - 1} />}</div>,
+      view: <div><ChatActivity activities={message.activities} streaming={message.status === "streaming"} />{message.content && <ConversationText text={message.content} />}{message.program && <OutputView program={message.program} active={!busy && index === messages.length - 1} />}</div>,
     }))} onSend={sendMessage} onCancel={cancelRun} onReset={resetThread} />;
 }

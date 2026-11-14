@@ -225,3 +225,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [OpenUI Query 금융 차트](flow/2026-11-14-openui-query-financial-charts.md): TA-QUERY-001, 모델 없는 Yahoo·TA-Lib 조회와 Lightweight Charts.
 
 - [OpenUI Query 수동 새로고침](flow/2026-11-14-openui-query-manual-refresh.md): TA-QUERY-002, 편집 가능한 조건·refresh icon·native Query 재조회.
+
+- [Chat Behind the scenes](flow/2026-11-14-chat-behind-the-scenes.md): CHAT-ACTIVITY-001, 도구 실행 이름·상태 표시.

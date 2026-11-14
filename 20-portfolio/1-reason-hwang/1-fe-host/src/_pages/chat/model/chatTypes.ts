@@ -1,3 +1,5 @@
+import type { ChatToolActivity } from "./toolActivity";
+
 export type ChatRole = "user" | "assistant" | "system";
 
 export type ChatMessageStatus = "complete" | "streaming" | "error";
@@ -7,6 +9,7 @@ export type ChatMessage = {
   role: ChatRole;
   content: string;
   program?: string;
+  activities?: ChatToolActivity[];
   presentationId?: string;
   createdAt: string;
   status: ChatMessageStatus;

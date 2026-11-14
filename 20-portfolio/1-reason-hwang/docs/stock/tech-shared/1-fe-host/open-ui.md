@@ -69,3 +69,11 @@ SEC 채팅이 공유하는 renderer·카탈로그·채팅 프레임은 유지한
 ## TA-QUERY-002: QueryPanel
 
 공유 카탈로그 `QueryPanel(children, refreshAction)`은 Query의 편집 가능한 조건과 결과를 같은 반응형 패널에 묶는다. `refreshAction`은 `Action([@Run(queryStatement)])`를 전달하며 해당 Query를 직접 invalidate한다. 접근 가능한 `데이터 새로고침` 아이콘은 loading/streaming 중 disabled, pending 상태와 회전 표시를 제공한다. reduced-motion에서는 회전을 생략한다. loading hook은 같은 Renderer 안의 Query 전체에 적용되므로 복수 Query가 있으면 다른 패널도 조회 중 비활성화될 수 있다. 현재 금융 출력은 Query 하나다. 재조회는 `onMessage`나 모델 provider를 호출하지 않는다. 생성 프롬프트·schema는 기존 `sec-ui:generate`로 동기화한다.
+
+## CHAT-ACTIVITY-001: /chat Behind the scenes
+
+`/chat`은 설치 OpenUI SDK의 `BehindTheScenes`를 사용해 assistant 답변별 도구 실행 현황을 접고 펼친다. LangGraph values snapshot에서 마지막 human/user 메시지 이후 tool_calls와 tool 결과 id를 짝지어 도구 이름·실행 중/완료/오류/중단됨 상태만 표시한다. 인자·결과 본문·비공개 추론은 복사하지 않는다. 도구 없는 turn에는 패널을 만들지 않는다.
+
+실행 완료·실패·취소 시 남은 running 상태를 종료 상태로 바꾸고 새 대화·graph 변경에서 활동을 초기화한다. 기존 분석 본문·OpenUI Query 차트와 공통 AgentInterface Composer는 유지한다. 다른 채팅 화면의 실행 프로토콜은 변경하지 않는다. 중첩 Deep Agent의 values가 상위 node 완료 시에만 전달되면 완료된 실행 이력부터 나타날 수 있으며 별도 subgraph token/tool 스트림은 추가하지 않는다.
+
+[변경·검증 기록](../../../flow/2026-11-14-chat-behind-the-scenes.md)

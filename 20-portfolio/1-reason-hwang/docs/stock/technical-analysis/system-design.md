@@ -72,3 +72,7 @@ Bruno는 실제 Yahoo·모델·Host validator 연결이 필요하다. 테스트�
 결정적 프로그램은 ticker/interval/count controls와 FinancialChart를 `QueryPanel([...], Action([@Run(chart)]))`에 함께 배치한다. native OpenUI `@Run`이 `chart` Query statement의 cache를 invalidate하므로 동일 인자로도 새 HTTP 조회가 발생한다. QueryPanel은 SDK query loading·streaming 상태를 사용해 접근 가능한 refresh 버튼과 pending 상태를 표시하며, 모델 action으로 전송하지 않는다. polling·state 격리·unmount 정리 정책은 TA-QUERY-001과 같다.
 
 [변경·검증 기록](../../flow/2026-11-14-openui-query-manual-refresh.md)
+
+## CHAT-ACTIVITY-001: 도구 실행 현황
+
+Host `/chat`은 기존 values snapshot의 이번 turn tool_calls/tool 메시지를 연결해 `get_price_ohlcv`, `analyze_ohlcv_with_talib` 등의 실제 실행 이름과 상태를 OpenUI BehindTheScenes로 표시한다. 원본 도구 인자·결과·중간 AI 설명을 추가 노출하지 않는다. 조회 API와 Query의 모델 없는 갱신 경계는 유지한다. [Host 계약](../tech-shared/1-fe-host/open-ui.md#chat-activity-001-chat-behind-the-scenes)을 따른다.

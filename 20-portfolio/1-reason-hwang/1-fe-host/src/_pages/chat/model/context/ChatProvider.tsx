@@ -21,6 +21,7 @@ import type {
   ChatMessage,
   ChatStatus,
 } from "@/_pages/chat/model/chatTypes";
+import { extractToolActivity, type ChatToolActivity } from "../toolActivity";
 import { toChatStreamEvent } from "@/_pages/chat/model/langgraphEventAdapter";
 import {
   chatReducer,
@@ -93,7 +94,9 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       }
 
       abortControllerRef.current?.abort();
-      abortControllerRef.current = new AbortController();
+      const requestController = new AbortController();
+      abortControllerRef.current = requestController;
+      const isCurrentRequest = () => abortControllerRef.current === requestController;
 
       const now = new Date().toISOString();
       dispatch({
@@ -107,10 +110,12 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         },
       });
 
+      let assistantMessageId: string | undefined;
       try {
         const threadId =
           stateRef.current.threadId ?? (await createChatThread(client));
 
+        if (!isCurrentRequest()) return;
         if (!stateRef.current.threadId) {
           dispatch({
             type: "threadCreated",
@@ -118,7 +123,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
           });
         }
 
-        const assistantMessageId = createMessageId("assistant");
+        assistantMessageId = createMessageId("assistant");
+        const currentMessageId = assistantMessageId;
         dispatch({
           type: "assistantMessageStarted",
           message: {
@@ -135,12 +141,14 @@ export function ChatProvider({ children }: { children: ReactNode }) {
           client,
           threadId,
           content: trimmedContent,
-          signal: abortControllerRef.current.signal,
-          onSnapshot: (content, presentation) => {
-            dispatch({ type: "assistantSnapshotReceived", messageId: assistantMessageId, content,
-              program: presentation?.program, presentationId: presentation?.id });
+          signal: requestController.signal,
+          onSnapshot: (content, presentation, activities) => {
+            if (!isCurrentRequest()) return;
+            dispatch({ type: "assistantSnapshotReceived", messageId: currentMessageId, content,
+              program: presentation?.program, presentationId: presentation?.id, activities });
           },
           onDelta: (delta) => {
+            if (!isCurrentRequest()) return;
             dispatch({
               type: "assistantMessageDeltaReceived",
               content: delta,
@@ -148,18 +156,19 @@ export function ChatProvider({ children }: { children: ReactNode }) {
           },
         });
 
-        dispatch({
-          type: "assistantMessageCompleted",
+        if (isCurrentRequest()) dispatch({
+          type: "assistantMessageCompleted", messageId: currentMessageId,
         });
       } catch (error) {
+        if (!isCurrentRequest()) return;
         if (error instanceof DOMException && error.name === "AbortError") {
-          dispatch({ type: "assistantMessageCompleted" });
+          dispatch({ type: "assistantMessageCompleted", messageId: assistantMessageId });
           return;
         }
 
         dispatch({
           type: "streamFailed",
-          error: getErrorMessage(error),
+          error: getErrorMessage(error), messageId: assistantMessageId,
         });
       }
     },
@@ -213,7 +222,7 @@ async function consumeStream(params: {
   content: string;
   signal?: AbortSignal;
   onDelta: (content: string) => void;
-  onSnapshot: (content: string, presentation?: { id: string; program: string }) => void;
+  onSnapshot: (content: string, presentation?: { id: string; program: string }, activities?: ChatToolActivity[]) => void;
 }) {
   const stream = streamChatRun({
     client: params.client,
@@ -236,7 +245,7 @@ async function consumeStream(params: {
       // Only the current turn's final assistant prose, never tool calls or prior turn output.
       const last = messages.at(-1);
       const content = last && (last.type === "ai" || last.role === "assistant") && !last.tool_calls?.length && typeof last.content === "string" ? last.content : "";
-      params.onSnapshot(content, data.presentation ?? undefined);
+      params.onSnapshot(content, data.presentation ?? undefined, extractToolActivity(messages));
       continue;
     }
 

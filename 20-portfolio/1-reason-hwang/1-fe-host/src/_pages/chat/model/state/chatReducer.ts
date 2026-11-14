@@ -1,7 +1,7 @@
 import type { ChatMessage, ChatThreadState } from "@/_pages/chat/model/chatTypes";
 
 export type ChatAction =
-  | { type: "assistantSnapshotReceived"; messageId: string; content: string; program?: string; presentationId?: string }
+  | { type: "assistantSnapshotReceived"; messageId: string; content: string; program?: string; presentationId?: string; activities?: ChatMessage["activities"] }
   | {
       type: "threadCreated";
       threadId: string;
@@ -20,9 +20,11 @@ export type ChatAction =
     }
   | {
       type: "assistantMessageCompleted";
+      messageId?: string;
     }
   | {
       type: "streamFailed";
+      messageId?: string;
       error: string;
     }
   | {
@@ -40,10 +42,11 @@ export function chatReducer(
   state: ChatThreadState,
   action: ChatAction,
 ): ChatThreadState {
+  if ((action.type === "assistantMessageCompleted" || action.type === "streamFailed") && action.messageId && state.messages.findLast(message => message.role === "assistant")?.id !== action.messageId) return state;
   switch (action.type) {
     case "assistantSnapshotReceived":
       return { ...state, messages: state.messages.map(message => message.id === action.messageId
-        ? { ...message, content: action.content, program: action.program, presentationId: action.presentationId }
+        ? { ...message, content: action.content, program: action.program, presentationId: action.presentationId, activities: action.activities }
         : message) };
 
     case "threadCreated":
@@ -86,6 +89,7 @@ export function chatReducer(
         messages: updateLastAssistantMessage(state.messages, (message) => ({
           ...message,
           status: message.status === "error" ? "error" : "complete",
+          activities: message.activities?.map(activity => activity.status === "running" ? { ...activity, status: "interrupted" } : activity),
         })),
         status: "idle",
         error: null,
@@ -98,6 +102,7 @@ export function chatReducer(
           ...message,
           content: message.content || action.error,
           status: "error",
+          activities: message.activities?.map(activity => activity.status === "running" ? { ...activity, status: "error" } : activity),
         })),
         status: "error",
         error: action.error,

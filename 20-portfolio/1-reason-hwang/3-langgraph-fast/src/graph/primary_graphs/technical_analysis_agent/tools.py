@@ -34,6 +34,7 @@ def _reply(name, call_id, payload, **update):
                 ToolMessage(
                     name=name,
                     tool_call_id=call_id,
+                    status="error" if "error" in payload else "success",
                     content=json.dumps(payload, ensure_ascii=False, allow_nan=False),
                 )
             ],
