@@ -5,7 +5,6 @@
   "packageManager": "pnpm@10.33.4",
   "scripts": {
     "build": "turbo run build",
-    "dev": "node scripts/dev.mjs",
     "start": "turbo run start --filter=reason-hwang-fe-host --filter=@reason-hwang/bff-apps",
     "test": "turbo run test",
     "test:e2e": "turbo run test:e2e --filter=reason-hwang-fe-host",

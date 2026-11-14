@@ -33,7 +33,6 @@ Decision and validation: [2026-10-02 boundary reconciliation](../../flow/2026-10
 | Command | Purpose |
 | --- | --- |
 | `pnpm install` | Install JavaScript workspace dependencies |
-| `pnpm dev` | Stop verified existing app listeners, then run five application dev tasks through Turbo |
 | `pnpm test:dev` | Validate scoped development-port cleanup and collision handling |
 | `pnpm build` | Build packages that define a build task |
 | `pnpm start` | Start the production host and BFF |
@@ -48,27 +47,13 @@ Decision and validation: [2026-10-02 boundary reconciliation](../../flow/2026-10
 
 ## DEV-START-001: App restart before development startup
 
-`pnpm dev` runs `scripts/dev.mjs`. On macOS/Linux with `lsof`, the launcher checks
-2800 (host), 2801 (BFF), 2802 (template), 2803 (todo), and 8000 (FastAPI) before
-starting Turbo. All occupied ports must belong to the matching package directory
-in this exact checkout and a recognized Node/Python development runtime. Unknown
-owners and other checkouts cause an explicit error before any termination.
+The root `dev` script has been removed. Start development tasks with the relevant
+package's committed scripts, for example `pnpm -C 1-fe-host dev`.
+`scripts/dev.mjs` and the port-cleanup helpers remain in the repository, but are
+not invoked through a root `pnpm dev` command. `pnpm test:dev` remains available
+for their existing tests.
 
-Verified listeners and their package-local runtime supervisors receive SIGTERM;
-shells and the current invocation's ancestors are excluded. Identity is checked
-again before signaling, and startup waits up to ten seconds for the captured
-processes and ports to clear. There is no automatic SIGKILL. Permission denial,
-identity changes, or a watcher that keeps a port occupied stop startup with a
-message instead of launching duplicate servers. Run this command in the user's
-terminal when an agent sandbox cannot signal existing processes or open ports.
-
-Turbo starts only the five application dev tasks; infrastructure packages are
-explicitly excluded. Docker databases, observability services, and the OAuth
-proxy remain running. Nondefault ports such as 2820/18083 are outside this
-restart scope. Application port changes must update APP_PORTS in
-`scripts/dev-ports.mjs` together with the package configuration.
-
-Validation and scope: [restart flow](../../flow/2026-10-02-dev-port-restart.md).
+Decision: [root dev removal](../../flow/2026-11-14-remove-root-dev-script.md).
 
 Python packages use `uv`. Run `uv sync` in `3-langgraph-fast` or `infra/2-codex-oauth-proxy` when installing their Python dependencies.
 
@@ -118,3 +103,20 @@ Codebase Memory MCP 0.11.0 is installed locally and registered as `reason-hwang-
 The seven child packages have separate named indexes; the orchestration root is not separately indexed. BFF's index also includes its nested remotes. Each indexed root owns a `.cbmignore` excluding environment files, credential configuration and generated data. Nested `.cbmignore` files are not inherited, so changing an indexing root requires reviewing its own exclusions. Use `persistence=false` to retain indexes in the local cache without repository snapshots. `.codebase-memory/` is also Git-ignored as a safeguard.
 
 Index this workspace only, not the parent repository. Use architecture, symbol, and call-path queries to locate relevant code, then verify findings against current source with file reads and `rg`. An empty result is not proof that an implementation does not exist. Generated indexes and artifacts are local derived data, separate from application PostgreSQL persistence; exclude them from Git. Code graphs replace neither canonical stock documents nor execution-based validation.
+
+## LOCAL-ENV-001: Mac Studio 로컬 연결 설정
+
+애플리케이션은 호스트 프로세스로 실행하며 DB 연결은 Docker 내부 서비스명이 아닌
+`127.0.0.1`의 공개 포트를 사용한다. 현재 Mac Studio 프로필은 PostgreSQL `2972`,
+Neo4j Browser `2970`/Bolt `2971`, OAuth proxy `2890`, Loki `2973`, Grafana `2974`다.
+BFF와 FastAPI의 DB 계정·비밀번호·DB명은 인프라 `.env`와 일치시킨다.
+비밀값은 문서에 기록하지 않는다. 실제 데이터의 인증은 TCP/Bolt 연결로 확인한다.
+
+Host의 `/api/langgraph` 프록시는 프로젝트 FastAPI `http://127.0.0.1:8000`을 사용한다.
+`2024`는 별도 LangGraph 개발 서버를 명시적으로 사용할 때만 지정한다.
+`LANGGRAPH_STANDARD_OPENAPI`는 이 checkout의
+`.apb-workspace/docs/01-plan/langgraph-standard.json`을 가리켜야 한다.
+
+Host/BFF 기본 포트 `2800`/`2801`은 현재 다른 Docker 서비스가 점유하고 있다.
+이 프로필 동기화는 기존 서비스나 애플리케이션 기본 포트를 변경하지 않는다.
+앱 기동 전 포트 충돌 해소 또는 별도 포트 계약 변경이 필요하다.
