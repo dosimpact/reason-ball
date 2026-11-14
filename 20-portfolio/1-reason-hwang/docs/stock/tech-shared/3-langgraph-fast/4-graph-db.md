@@ -12,8 +12,8 @@ Neo4j 컨테이너·볼륨·exporter provisioning은
 ### SEC-MODEL1-001: 세 보고서 문서 구조 PoC
 
 `domains.tenk.document_structure`와 `scripts/tenk_model1_sample.py`는 독립 실행 가능한 모델링 1 PoC 경로다. LLM을 호출하지 않는다.
-현재 지원·검증 대상은 사용자 제공 AAPL `aapl-20260926.htm`, CPNG `cpng-20251231.htm`,
-NVDA `nvda-20260125.htm` 세 10-K 파일이다. 표지·목차·Item 전 본문 및 마지막 SIGNATURES 이후는
+현재 지원·검증 대상은 사용자 제공 AAPL `aapl-20260926-10k.htm`, CPNG `cpng-20251231-10k.htm`,
+NVDA `nvda-20260125-10k.htm` 세 10-K 파일이다. 표지·목차·Item 전 본문 및 마지막 SIGNATURES 이후는
 Item에 포함하지 않고 제외한 텍스트 길이를 summary에 기록한다. 외부 이미지도 복제하지 않는다.
 
 ```text
@@ -86,6 +86,29 @@ Toolkit lexical tenant는 generation과 연결한다. 이전 PoC 노드를 삭�
 Neo4j 5.26의 내장 벡터 인덱스를 사용한다. 임베딩은 애플리케이션에서 생성하므로 GenAI plugin,
 Qdrant, pgvector를 추가하지 않는다. Chunk와 Statement 두 종류를 검색하고 근거를 결합한다.
 외부 모델 호출 실패를 빈 추출 성공으로 처리하지 않는다.
+
+## SEC-MODELING-102-V3: 모델링 2 정책 버전 경계
+
+명제 보존·제한된 Entity/Fact·8개 허용 Topic과 청크당 최대 2개 Topic의 최종 배정은
+[도메인 계약](../../us-corporate-filings/sec-modeling.md#sec-modeling-102-v3-명제관계-밀도와-최종-topic-배정)을 따른다.
+OAuth 추출 모델과 직접 Decisions `gpt-6-luna`의 역할을 분리한다. 추출 캐시와 Topic 배정 캐시는
+각 정책·프롬프트·제공자·모델 및 입력 내용으로 구분하며 이전 추출 정책 결과를 섞지 않는다.
+`runtime.py`의 모델링 2 config hash는 이 정책·프롬프트·모델 구성과 별도의 build 정책 hash를 포함한다.
+Toolkit이 Source 범위에서 동일 Statement를 병합해도 `model2_support`는 저장된 명제 배정과 기존
+Toolkit ID를 대조하여 모든 Chunk 출현에 대한 근거 연결을 검증·보완한다. 노드·벡터는 복제하지 않는다.
+추출 프롬프트의 정책 표시는 본문 뒤가 아닌 지시 prefix에 둔다. 이전 동일 의미 프롬프트 캐시는
+`LegacyValidatedPromptCache`가 정확한 이전 key로만 찾고 현재 검증을 통과한 출력에 한해 재사용한다.
+자기 정책 표시가 Fact 없는 가짜 명제로 나온 경우만 제외할 수 있으며 정책 표시로 Fact를 만들었거나
+실제 내용이 누락되면 재추출한다. 추출 캐시 hash, 검증 runtime hash, build hash를 분리해 검증·근거 연결
+보완만으로 모든 LLM 결과를 무조건 재추출하지 않는다.
+Decisions sidecar는 전체 Toolkit Chunk ID의 hash로 구분하고 파일 안의 Chunk ID도 대조해 동일
+Item의 동일 본문 반복 출현을 섞지 않는다. 기존 게시 generation의 유지보수는 실행 당시 config hash를
+덮어쓰지 않고 별도 이력으로 기록한다. 근거 메타데이터 복구 시 원래 추출 이력을 재현할 수 없는 경우
+그 한계와 recoveryReason을 명시하며, 원문에 확인되는 진술의 비파괴적 합집합과 새 Decisions 배정을
+유지보수 근거로 저장할 수 있다. 이를 원래 개별 추출 응답의 복원으로 표현하지 않는다.
+최종 Topic 배정 또는 검증 실패 시 publish에 도달하지 않으므로 기존 활성 publication은 유지한다.
+공개 요청 필드 추가와 Neo4j schema 변경 없이 generation staging·게시·취소 경계를 유지한다.
+실행 증거와 남은 검증은 [정책 변경 기록](../../../flow/2026-11-15-sec-model2-v3-policy.md)에 둔다.
 
 ## 검증 상태
 

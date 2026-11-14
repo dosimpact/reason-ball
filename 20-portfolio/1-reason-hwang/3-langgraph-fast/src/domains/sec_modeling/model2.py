@@ -1,12 +1,21 @@
 """Pinned toolkit extraction/build with SEC structural chunks and isolated tenants."""
 
 import hashlib
+import json
 import os
 import time
 from pathlib import Path
 
 from domains.sec_modeling.chunking import chunk_html
 from domains.sec_modeling.embedding import embedding_credentials
+from domains.sec_modeling.model2_policy import (
+    ENTITY_CLASSES,
+    PROPOSITIONS_PROMPT,
+    TOPICS,
+    TOPICS_PROMPT,
+    extraction_policy_hash,
+    runtime_policy_hash,
+)
 
 
 def build_lexical(request, generation, store, progress, cancelled):
@@ -56,6 +65,7 @@ def build_lexical(request, generation, store, progress, cancelled):
     GraphRAGConfig.embed_model = OpenAIEmbedding(
         model="text-embedding-3-small", api_key=key, api_base=base, dimensions=1536
     )
+    GraphRAGConfig.chunk_external_properties = {"itemId": "itemId"}
     GraphRAGConfig.enable_cache = True
     GraphRAGConfig.extraction_num_workers = 1
     GraphRAGConfig.extraction_batch_size = 32
@@ -63,15 +73,23 @@ def build_lexical(request, generation, store, progress, cancelled):
     GraphRAGConfig.build_num_workers = 1
     GraphRAGConfig.build_batch_size = 16
     GraphRAGConfig.build_batch_write_size = 128
-    from graphrag_toolkit.lexical_graph.indexing.prompts import (
-        EXTRACT_PROPOSITIONS_PROMPT,
-        EXTRACT_TOPICS_PROMPT,
-    )
+    from domains.sec_modeling.model2_cache import LegacyValidatedPromptCache
+    from domains.sec_modeling.model2_topics import DecisionsTopicReclassifier
 
-    limits = "\nSEC extraction priority: Preserve negation, uncertainty, dates, units, and exact numbers. Select at most 20 material, independently understandable statements per chunk; do not split each modifier into another statement or repeat entity classification statements. All original chunk text is separately retained. Do not invent facts.\n"
     extraction = ExtractionConfig(
-        extract_propositions_prompt_template=EXTRACT_PROPOSITIONS_PROMPT + limits,
-        extract_topics_prompt_template=EXTRACT_TOPICS_PROMPT + limits,
+        extraction_llm=LegacyValidatedPromptCache(
+            llm=GraphRAGConfig.extraction_llm, enable_cache=True
+        ),
+        preferred_entity_classifications=list(ENTITY_CLASSES),
+        preferred_topics=list(TOPICS),
+        extract_propositions_prompt_template="Policy: "
+        + extraction_policy_hash()
+        + "\n"
+        + PROPOSITIONS_PROMPT,
+        extract_topics_prompt_template="Policy: "
+        + extraction_policy_hash()
+        + "\n"
+        + TOPICS_PROMPT,
     )
     tenant = TenantId(hashlib.sha256(generation.encode()).hexdigest()[:24])
     s = get_settings()
@@ -96,6 +114,12 @@ def build_lexical(request, generation, store, progress, cancelled):
         indexing_config=IndexingConfig(chunking=None, extraction=extraction),
         extraction_dir=str(Path(".tmp/sec-modeling") / generation),
     )
+    evidence_dir = Path(".tmp/sec-modeling") / generation / "topic-decisions"
+    index.extraction_components.append(
+        DecisionsTopicReclassifier(
+            evidence_dir=str(evidence_dir), tenant_id_value=tenant.value
+        )
+    )
     counts = {}
     items = store.records(request.inputGenerationId, "Item")
     expected_chunks = sum(len(chunk_html(item["displayHtml"])) for item in items)
@@ -109,6 +133,7 @@ def build_lexical(request, generation, store, progress, cancelled):
                 "itemCode": item["itemCode"],
                 "inputGenerationId": request.inputGenerationId,
                 "contentHash": item["contentHash"],
+                "extractionPolicyHash": runtime_policy_hash(),
             }
             doc = Document(text=item["text"], metadata=metadata, id_=item["id"])
             nodes = [
@@ -142,6 +167,13 @@ def build_lexical(request, generation, store, progress, cancelled):
         store.query(
             f"MATCH (s:{source_label}) MATCH (i:Item {{id:s.itemId}}) MERGE (i)-[:HAS_SOURCE]->(s)"
         )
+        from domains.sec_modeling.model2_support import reconcile_statement_support
+
+        support = reconcile_statement_support(store, generation, evidence_dir)
+        progress(
+            status="RUNNING",
+            message=f"Verified {support['verifiedSupportEdges']} statement-to-chunk supports; restored {support['createdSupportEdges']} duplicate occurrences",
+        )
         records = []
         for kind in ("Source", "Chunk", "Topic", "Statement", "Fact", "Entity"):
             label = tenant.format_label(f"__{kind}__")
@@ -149,6 +181,13 @@ def build_lexical(request, generation, store, progress, cancelled):
             counts[kind] = len(rows)
             for row in rows:
                 props = row["props"]
+                if kind == "Chunk":
+                    content_hash = hashlib.sha256(props["chunkId"].encode()).hexdigest()
+                    evidence_path = evidence_dir / (content_hash + ".json")
+                    if not evidence_path.is_file():
+                        raise ValueError("Missing Chunk topic Decisions evidence")
+                    props["topicDecisions"] = json.loads(evidence_path.read_text())
+                    props["extractionPolicyHash"] = runtime_policy_hash()
                 rid = (
                     props.get(kind.lower() + "Id")
                     or hashlib.sha256(str(sorted(props.items())).encode()).hexdigest()
@@ -162,7 +201,7 @@ def build_lexical(request, generation, store, progress, cancelled):
                         "generationId": generation,
                     }
                 )
-        if any(counts[k] == 0 for k in counts):
+        if any(counts[k] == 0 for k in ("Source", "Chunk", "Topic", "Statement")):
             raise ValueError(f"Lexical graph incomplete: {counts}")
         if counts["Source"] != len(items) or counts["Chunk"] != expected_chunks:
             raise ValueError(

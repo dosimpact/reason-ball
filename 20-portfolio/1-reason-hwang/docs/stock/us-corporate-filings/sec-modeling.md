@@ -57,11 +57,57 @@ Statement·Fact에서 Chunk와 Item까지 근거를 역추적할 수 있어야 �
    최대 80토큰이다. Item 경계를 넘지 않고 표 헤더·단위·설명이 분리되지 않도록 한다.
 2. OAuth proxy의 추출 모델로 Topic·Statement·Fact·Entity를 추출한다. 기본 sol,
    명시적 선택 luna이며 실패했다고 다른 모델로 자동 변경하지 않는다.
-3. 청크마다 중요 진술 최대 20개를 추출하며 전체 Chunk 본문은 보존한다. 모든 명제의 완전 열거를 보장하지 않는다.
+3. 청크의 중요한 설명·위험 메커니즘·성과 동인을 독립적으로 이해 가능한 진술로 묶고 전체 Chunk 본문은 보존한다.
+   고정 개수 목표는 강제하지 않으며 모든 명제의 완전 열거를 보장하지 않는다.
    구조화 출력·참조 ID·근거·부정·가능성 표현을 검증한다. 미래 위험을 발생한 사실로 바꾸지 않는다.
 4. Chunk·Statement를 `text-embedding-3-small`, 1536차원으로 임베딩한다.
 5. Neo4j cosine 벡터 인덱스와 그래프 관계를 함께 조회한다. Chunk·Statement를
    하나의 1,536차원 물리 인덱스에 kind로 구분해 저장하고 두 검색 순위를 결합한다.
+
+### SEC-MODELING-102-V3: 명제·관계 밀도와 최종 Topic 배정
+
+모델링 2는 기존 공개 요청 필드를 유지한다. OAuth proxy의 선택된 sol/luna 모델로 일관된 설명·위험
+메커니즘·성과 동인을 보통 1–3문장의 독립적인 중요한 명제로 묶는다. 고정 개수 목표는 강제하지 않는다.
+날짜·수치·조건·부정·불확실성을 유지하며,
+수식어마다 명제를 분할하거나 동일 의미를 반복하지 않는다. 전체 원문은 Chunk에 별도로 보존한다.
+Topic/Fact 추출은 공급된 명제 각각을 정확히 한 번 보존하며 명제를 축약·분할하지 않는다.
+Toolkit 파서의 내부 콜론 제거와 모델이 정확한 문장 조각으로 나눈 경우에는 원래 명제로 복구한다.
+각 조각이 유일한 원명제에 대응하고 겹치지 않는 구간들이 원문 전체를 덮는지 확인하며, 공백·문장 마침표
+외의 누락은 허용하지 않는다. 원래 명제 문자열을 복원하고 조각의 Fact/상세를 합친 뒤 다시 검증한다.
+복구할 수 없는 누락은 한 번의 추출 재시도 후에도 검증하지 못하면 실패로 끝낸다.
+
+Entity는 명명된 기업·사업부·제품·서비스·프로그램·기관·지역을 중심으로 제한한다. 중요한 명시적
+의존 관계에 꼭 필요한 구체적 자원·위험 메커니즘도 허용한다. 일반 고객·공급자·경쟁자 집단,
+지표·채널·부차적 결과를 모두 노드로 승격하지 않는다. Fact는 핵심 사업·의존·위험 관계를 선택하고
+분류용 Fact·중복 역관계·목록의 모든 조합을 만들지 않는다. 적절한 상대 Entity가 없는 중요한
+특성·지표는 간결한 속성 Fact로 보존할 수 있다. Entity/Fact 최소 개수는 강제하지 않으며,
+Fact가 없는 명제도 Statement로 남긴다. 이는 관계 그래프의 선별 정책이며 원문 정보 삭제가 아니다.
+
+허용 Topic은 다음 8개다: `Business Model and Products`, `Competition and Growth`,
+`Supply Chain and Operations`, `Product Quality and Security`, `Regulation and Legal`,
+`Workforce and Intellectual Property`, `Financial Performance and Metrics`, `Macroeconomic Exposure`.
+최종 Topic은 자유 생성 결과를 그대로 사용하지 않고 직접 OpenAI Decisions API `gpt-6-luna`의
+Statement별 8지선다 확률로 다시 배정한다. 한 청크에서 최대 2개 Topic만 선택한다.
+각 단일·쌍 후보에 대해 Statement별 후보 내 최대 확률을 더하고 가장 큰 합을 선택한다.
+동률은 더 적은 Topic 수, 정책 목록 순서로 결정한다. 각 Statement는 선택된 Topic 중 최대 확률의
+하나에 배정하며 동률은 목록 순서로 결정한다. Topic ID는 Toolkit의 Source 범위를 유지한다.
+
+Decisions는 `SEC_DECISIONS_API_KEY` 또는 `OPENAI_API_KEY`를 사용하고 OAuth proxy로 fallback하지 않는다.
+질문 ID·개수·중복·선택지·확률을 검증하며 거절·잘못된 응답·호출 실패는 빈 성공 결과로 게시하지 않는다.
+추출과 최종 배정의 정책·프롬프트·모델은 캐시와 게시 config hash에 반영한다. 이전 정책 캐시는 재사용하지
+않으며 활성 결과는 성공한 새 generation의 검증·게시 전까지 보존한다. 기본 API 필드·6종 그래프·근거 및
+Chunk/Statement 임베딩 계약은 유지한다. 같은 Source의 동일 Statement가 여러 Chunk에 나타나면
+노드 ID는 공유하면서 모든 출현 Chunk로 근거 연결을 검증·보완한다. 이 build 정책은 추출 캐시와
+별도로 버전 관리한다. 기존 게시 결과 유지보수는 실행 당시 config hash를 바꾸지 않고 별도 기록한다.
+이번 변경의 API 검증과 브라우저 제외 근거는
+[작업 기록](../../flow/2026-11-15-sec-model2-v3-policy.md)에 남긴다. 의미 정확도·검색 품질 검증 완료를 뜻하지 않는다.
+2026-11-15 요청 범위의 v3 구현·검증을 완료했다. 실제 AAPL 23 Source/163 Chunk/643 Statement와
+CPNG 23 Source/516 Chunk/1,264 Statement를 게시했으며 모든 Chunk/Statement 벡터가 1536차원이다.
+원래 12개 샘플 본문 보존과 실제 그래프/메타데이터의 명제·Topic·근거 연결을 확인했다.
+CPNG 반복 본문 두 Chunk는 기존 추출 응답을 개별적으로 재현하지 못해 원문에 확인되는 기존 진술의
+합집합과 새 Decisions를 명시적인 recoveryReason으로 유지보수했다. 이를 원래 추출 이력 복원으로
+해석하지 않는다. 실험의 수식 범위·관계 정밀도 한계와 원문 전체 의미 무손실·검색 일반 정확도 미검증은
+위 작업 기록의 한계 절을 따른다. 브라우저는 사용자 명시 범위에서 제외했다.
 
 임베딩 API는 OAuth proxy와 별도로 연결한다. 임베딩 모델·차원·입력 생성 규칙 버전을 기록하며
 서로 다른 모델의 벡터를 같은 인덱스에 혼합하지 않는다. Toolkit 패키지를 고정 버전으로 설치하고

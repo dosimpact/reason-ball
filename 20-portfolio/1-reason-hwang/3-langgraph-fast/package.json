@@ -33,7 +33,9 @@
     "test:model3:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 21-sec-model3-samples --env local",
     "test:sec-modeling-agent": "uv run pytest tests/test_sec_modeling_agent.py",
     "validate:sec-modeling-agent": "uv run --env-file .env python scripts/validate_sec_modeling_agent.py",
-    "test:sec-modeling-agent:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 22-sec-modeling-agent --env-var bffBaseUrl=http://127.0.0.1:2980"
+    "test:sec-modeling-agent:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 22-sec-modeling-agent --env-var bffBaseUrl=http://127.0.0.1:2980",
+    "validate:model2:http": "uv run --env-file .env python scripts/validate_sec_model2_http.py",
+    "test:model2:http:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 22-sec-model2-http --env local"
   },
   "devDependencies": {
     "@usebruno/cli": "^2.13.0"

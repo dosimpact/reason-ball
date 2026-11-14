@@ -60,12 +60,28 @@ async def execute(stage, request, queue):
         from domains.sec_modeling.model3_selection import POLICY_HASH, PROMPT_HASH
 
         model3_policy_hash = POLICY_HASH + PROMPT_HASH
+        model2_policy_hash = None
+        model2_build_policy_hash = None
+        if stage == 2:
+            from domains.sec_modeling.model2_policy import runtime_policy_hash
+            from domains.sec_modeling.model2_support import BUILD_POLICY_HASH
+
+            model2_policy_hash = runtime_policy_hash()
+            model2_build_policy_hash = BUILD_POLICY_HASH
         config_hash = hashlib.sha256(
             json.dumps(
                 {
                     "stage": stage,
-                    "version": "sec-modeling/3" if stage == 3 else "sec-modeling/2",
+                    "version": "sec-modeling/3" if stage in (2, 3) else "sec-modeling/2",
                     "selectionPolicy": model3_policy_hash if stage == 3 else None,
+                    **(
+                        {
+                            "lexicalPolicy": model2_policy_hash,
+                            "lexicalBuildPolicy": model2_build_policy_hash,
+                        }
+                        if stage == 2
+                        else {}
+                    ),
                     "chunkerVersion": "sec-chunker/2",
                     "model": request.extractionModel,
                     "embedding": "text-embedding-3-small/1536",

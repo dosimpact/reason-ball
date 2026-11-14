@@ -12,7 +12,7 @@ def decisions_api_key():
     key = os.getenv("SEC_DECISIONS_API_KEY") or os.getenv("OPENAI_API_KEY", "")
     if not key.startswith("sk-"):
         raise ValueError(
-            "Model 3 requires SEC_DECISIONS_API_KEY or OPENAI_API_KEY with an OpenAI API key"
+            "SEC modeling requires SEC_DECISIONS_API_KEY or OPENAI_API_KEY with an OpenAI API key"
         )
     return key
 
