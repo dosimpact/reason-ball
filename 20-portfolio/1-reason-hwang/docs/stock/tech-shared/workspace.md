@@ -35,10 +35,10 @@ Decision and validation: [2026-10-02 boundary reconciliation](../../flow/2026-10
 | `pnpm install` | Install JavaScript workspace dependencies |
 | `pnpm test:dev` | Validate scoped development-port cleanup and collision handling |
 | `pnpm build` | Build packages that define a build task |
-| `pnpm start` | Start the host, BFF, and LangGraph FastAPI together |
-| `pnpm start:fe-host` | Start only the frontend host |
-| `pnpm start:bff-apps` | Start only the BFF |
-| `pnpm start:langgraph-fast-api` | Start only LangGraph FastAPI |
+| `pnpm dev` | Run the host, BFF, and LangGraph FastAPI development servers together |
+| `pnpm dev:fe-host` | Run development mode for the frontend host |
+| `pnpm dev:bff-apps` | Run development mode for the BFF |
+| `pnpm dev:langgraph-fast-api` | Run development mode for LangGraph FastAPI |
 | `pnpm test` | Run package tests after dependency builds |
 | `pnpm test:e2e` | Run the host Playwright suite |
 | `pnpm lint` | Run package lint tasks |
@@ -50,13 +50,15 @@ Decision and validation: [2026-10-02 boundary reconciliation](../../flow/2026-10
 
 ## DEV-START-001: App restart before development startup
 
-The root `dev` script has been removed. Start development tasks with the relevant
-package's committed scripts, for example `pnpm -C 1-fe-host dev`.
-`scripts/dev.mjs` and the port-cleanup helpers remain in the repository, but are
-not invoked through a root `pnpm dev` command. `pnpm test:dev` remains available
-for their existing tests.
+Root `pnpm dev` invokes the three application packages through Turbo using their
+existing `dev` scripts. Individual commands are `dev:fe-host`, `dev:bff-apps`, and
+`dev:langgraph-fast-api`. Development mode does not require a production build.
+Infrastructure and remote Vite packages are outside this command's scope.
+The root does not expose `start` commands; package-level production `start`
+scripts remain available and require their normal prerequisites.
+`scripts/dev.mjs` is not invoked; existing port listeners are not automatically stopped.
 
-Decision: [root dev removal](../../flow/2026-11-14-remove-root-dev-script.md).
+Decision: [development commands](../../flow/2026-11-14-service-dev-commands.md).
 
 Python packages use `uv`. Run `uv sync` in `3-langgraph-fast` or `infra/2-codex-oauth-proxy` when installing their Python dependencies.
 
