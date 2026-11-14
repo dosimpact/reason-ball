@@ -62,16 +62,16 @@ Decision: [development commands](../../flow/2026-11-14-service-dev-commands.md).
 
 Python packages use `uv`. Run `uv sync` in `3-langgraph-fast` or `infra/2-codex-oauth-proxy` when installing their Python dependencies.
 
-## Default endpoints
+## Configured application endpoints and infrastructure defaults
 
 | Service | Endpoint |
 | --- | --- |
-| Frontend host | `http://127.0.0.1:2800` |
-| BFF and remote provider | `http://localhost:2801` |
-| template remote dev server | `http://localhost:2802` |
-| todo remote dev server | `http://localhost:2803` |
-| FastAPI/LangGraph | `http://127.0.0.1:8000` |
-| LangGraph development runtime | `http://127.0.0.1:2024` |
+| Frontend host | `http://127.0.0.1:2983` |
+| BFF and remote provider | `http://127.0.0.1:2980` |
+| template remote dev server | `http://127.0.0.1:2984` |
+| todo remote dev server | `http://127.0.0.1:2985` |
+| FastAPI/LangGraph | `http://127.0.0.1:2981` |
+| LangGraph development runtime | `http://127.0.0.1:2982` |
 | OAuth proxy | `http://127.0.0.1:18741` |
 | Neo4j Browser/Bolt | `http://localhost:7474`, `localhost:7687` |
 | PostgreSQL | `localhost:55432` by default |
@@ -117,11 +117,23 @@ Neo4j Browser `2970`/Bolt `2971`, OAuth proxy `2890`, Loki `2973`, Grafana `2974
 BFF와 FastAPI의 DB 계정·비밀번호·DB명은 인프라 `.env`와 일치시킨다.
 비밀값은 문서에 기록하지 않는다. 실제 데이터의 인증은 TCP/Bolt 연결로 확인한다.
 
-Host의 `/api/langgraph` 프록시는 프로젝트 FastAPI `http://127.0.0.1:8000`을 사용한다.
-`2024`는 별도 LangGraph 개발 서버를 명시적으로 사용할 때만 지정한다.
+Host의 `/api/langgraph` 프록시는 프로젝트 FastAPI `http://127.0.0.1:2981`을 사용한다.
+`2982`는 별도 LangGraph 개발 서버를 명시적으로 사용할 때만 지정한다.
 `LANGGRAPH_STANDARD_OPENAPI`는 이 checkout의
 `.apb-workspace/docs/01-plan/langgraph-standard.json`을 가리켜야 한다.
 
-Host/BFF 기본 포트 `2800`/`2801`은 현재 다른 Docker 서비스가 점유하고 있다.
-이 프로필 동기화는 기존 서비스나 애플리케이션 기본 포트를 변경하지 않는다.
-앱 기동 전 포트 충돌 해소 또는 별도 포트 계약 변경이 필요하다.
+## LOCAL-PORTS-002: 애플리케이션 포트 프로필
+
+각 패키지의 로컬 `.env`와 `.env.example`은 BFF 2980, FastAPI 2981,
+LangGraph dev 2982, Host 2983, Template Remote 2984, Todo Remote 2985를 설정한다.
+기존 Docker 서비스의 2800/2801 포트를 변경하거나 종료하지 않는다.
+
+- FastAPI: `SERVER_PORT`, LangGraph dev: `LANGGRAPH_PORT`를 uv가 로드한 뒤 CLI `--port`에 전달한다.
+- Host: Node가 `.env`, `.env.local`을 로드한 뒤 Next CLI가 `PORT`를 읽는다.
+- BFF: 기존 dotenv 설정의 `PORT`를 사용한다. `REMOTE_TEMPLATE_URL`/`REMOTE_TODO_URL`은 개발 Remote 주소다.
+- Vite Remote: `loadEnv`의 `PORT`와 `REMOTE_BFF_URL`을 사용한다. 개발·preview 포트는 동일하고 `strictPort`를 유지한다.
+- Host의 FastAPI 프록시 4종과 `REMOTE_BFF_URL`, FastAPI의 SEC BFF·UI validator 주소도 새 포트로 연결한다.
+- 실행 중인 프로세스에는 소급 적용되지 않으므로 해당 서비스의 `pnpm dev`를 재실행한다.
+- 루트 `pnpm dev`는 기존과 같이 Host/BFF/FastAPI만 실행한다. LangGraph dev와 두 Remote는 각 패키지에서 별도로 실행한다.
+
+실행 연결 설정과 검증: [포트 프로필 변경 기록](../../flow/2026-11-14-application-port-profile.md).

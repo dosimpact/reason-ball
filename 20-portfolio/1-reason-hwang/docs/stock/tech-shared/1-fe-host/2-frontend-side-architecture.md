@@ -127,19 +127,19 @@ Remote 등록 예시는 다음과 같다.
 
 ```text
 name: template
-devServer: http://localhost:2802
+devServer: http://localhost:2984
 staticPath: remotes/template/dist
 
 name: todo
-devServer: http://localhost:2803
+devServer: http://localhost:2985
 staticPath: remotes/todo/dist
 ```
 
 BFF가 제공하는 Remote 엔드포인트는 다음과 같다.
 
 ```text
-http://localhost:2801/remotes/template/remoteEntry.js
-http://localhost:2801/remotes/todo/remoteEntry.js
+http://localhost:2980/remotes/template/remoteEntry.js
+http://localhost:2980/remotes/todo/remoteEntry.js
 ```
 
 ## 7. 개발 환경 흐름
@@ -150,18 +150,18 @@ http://localhost:2801/remotes/todo/remoteEntry.js
 
 | 앱 | 포트 |
 | --- | --- |
-| Host Next.js | `2800` |
-| BFF NestJS | `2801` |
-| template Remote | `2802` |
-| todo Remote | `2803` |
+| Host Next.js | `2983` |
+| BFF NestJS | `2980` |
+| template Remote | `2984` |
+| todo Remote | `2985` |
 
 개발 환경의 로딩 흐름은 다음과 같다.
 
 ```text
 Host
-  -> http://localhost:2801/remotes/template/remoteEntry.js
+  -> http://localhost:2980/remotes/template/remoteEntry.js
   -> BFF
-  -> http://localhost:2802/remoteEntry.js
+  -> http://localhost:2984/remoteEntry.js
 ```
 
 브라우저의 Host 코드는 항상 Next.js same-origin proxy를 바라본다. Next.js가 BFF로 전달하고, BFF가 실제 Remote dev server로 요청을 넘긴다.
@@ -183,7 +183,7 @@ BFF는 이 파일들을 정적 파일로 제공한다.
 
 ```text
 Host
-  -> http://localhost:2801/remotes/template/remoteEntry.js
+  -> http://localhost:2980/remotes/template/remoteEntry.js
   -> BFF
   -> remotes/template/dist/remoteEntry.js
 ```
@@ -279,3 +279,12 @@ OpenUI 카탈로그는 `src/shared/ui/intelligent-ui`, 생성 프롬프트는 `s
 호스트 헤더의 토글은 `shared/lib/theme`의 단일 상태를 사용한다. 선택은 `reason-hwang-theme` localStorage에 저장하며, 저장된 선택이 없으면 OS 테마를 따른다. 초기 head 스크립트가 페인트 전 테마를 적용하고 Provider는 OS·다른 탭의 저장 변경을 구독한다. 저장소를 사용할 수 없을 때도 현재 페이지에서 토글할 수 있다.
 
 같은 mode를 HTML `.dark`, `data-theme`, `data-openui-theme`, CSS `color-scheme` 및 관리자 OpenUI `AgentInterface.theme`에 적용한다. Tailwind `dark:` 변형은 `.dark` 클래스 기준이다. 공유 Intelligent UI 카탈로그의 배경·글자·보조 텍스트는 호스트 CSS 변수를 사용하므로 독립 Renderer인 `/sec-chat`에서도 같은 색상 모드를 따른다. 기능별 컴포넌트의 상태·차트 색상은 기존 카탈로그 테마를 유지한다. 독립 Remote 앱의 자체 스타일 전체를 자동 변환하는 기능은 아니다.
+
+## LOCAL-PORTS-002: Host·Remote 환경 설정
+
+Host `dev`/`start`는 Node의 환경 파일 옵션으로 `.env`, `.env.local`을 순서대로 읽는다.
+Next CLI는 `PORT=2983`을 사용하고 셸 환경 변수가 우선한다.
+Host의 FastAPI 프록시는 2981, `REMOTE_BFF_URL`은 BFF 2980이다.
+각 Vite Remote는 자기 패키지의 `.env`에서 `PORT`(Template 2984/Todo 2985)와
+`REMOTE_BFF_URL`을 읽어 개발·preview 포트와 BFF 경유 asset origin을 설정한다.
+전체 계약은 [Workspace](../workspace.md#local-ports-002-애플리케이션-포트-프로필)를 따른다.

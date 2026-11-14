@@ -21,11 +21,10 @@
 
 ## LG-ENV-PORT-001: 서버 포트 환경 변수
 
-`3-langgraph-fast/.env`와 `.env.example`은 `SERVER_PORT=8000`을 선언한다.
-현재 `dev`/`start`의 Uvicorn CLI는 이 변수를 포트 옵션에 연결하지 않으므로,
-변수 값 변경만으로 수신 포트가 바뀌지 않는다. 실제 포트 지정은 `--port`를 사용한다.
-`dev:langgraph`는 `uv run --env-file .env`로 환경 변수를 로드한 뒤
-`LANGGRAPH_PORT`를 `langgraph dev --port`에 전달한다. `.env`와 `.env.example`의
-기본값은 `LANGGRAPH_PORT=2025`이며, 미설정 시에도 2025를 사용한다.
-셸에서 전달한 환경 변수가 `.env`보다 우선하고, 명시적인 CLI `--port`가 최종 우선한다.
-`langgraph.json`은 변경하지 않는다.
+`3-langgraph-fast/.env`와 `.env.example`은 `SERVER_PORT=2981`, `LANGGRAPH_PORT=2982`를 선언한다.
+`dev`/`start`는 uv가 로드한 `SERVER_PORT`를 Uvicorn CLI `--port`에 전달한다.
+`dev:langgraph`는 동일한 방식으로 `LANGGRAPH_PORT`를 LangGraph CLI `--port`에 전달한다.
+미설정 기본값도 각각 2981/2982다. 셸 환경 변수가 `.env`보다 우선하고,
+추가 CLI `--port`가 최종 우선한다. `langgraph.json`은 변경하지 않는다.
+SEC BFF 주소는 2980, UI validator 주소는 Host의 2983을 사용한다.
+공용 포트 계약은 [LOCAL-PORTS-002](../workspace.md#local-ports-002-애플리케이션-포트-프로필)를 따른다.

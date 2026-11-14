@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "bruno": "open -a Bruno bruno-api-tests",
-    "dev": "uv run python -m uvicorn server.server:app --env-file .env --reload",
-    "dev:langgraph": "uv run --env-file .env sh -c 'exec langgraph dev --no-browser --port \"${LANGGRAPH_PORT:-2025}\" \"$@\"' --",
-    "start": "uv run python -m uvicorn server.server:app --env-file .env",
+    "dev": "uv run --env-file .env sh -c 'exec python -m uvicorn server.server:app --env-file .env --port \"${SERVER_PORT:-2981}\" --reload \"$@\"' --",
+    "dev:langgraph": "uv run --env-file .env sh -c 'exec langgraph dev --no-browser --port \"${LANGGRAPH_PORT:-2982}\" \"$@\"' --",
+    "start": "uv run --env-file .env sh -c 'exec python -m uvicorn server.server:app --env-file .env --port \"${SERVER_PORT:-2981}\" \"$@\"' --",
     "build": "uv build",
     "test": "uv run pytest",
     "test:api": "pnpm exec bru run bruno-api-tests --env local",

@@ -13,13 +13,13 @@ Reason Hwang is a local-first portfolio platform combining a Next.js user interf
 ```text
 Browser
   |
-  +-- Next.js host :2800
-  |     +-- /api/remote-proxy/* --> NestJS BFF :2801 --> remote dev server or dist
-  |     +-- /api/langgraph/* ----> FastAPI/LangGraph :8000
+  +-- Next.js host :2983
+  |     +-- /api/remote-proxy/* --> NestJS BFF :2980 --> remote dev server or dist
+  |     +-- /api/langgraph/* ----> FastAPI/LangGraph :2981
   |
-  +-- NestJS SEC API :2801/api/sec/* --> SEC EDGAR + PostgreSQL
+  +-- NestJS SEC API :2980/api/sec/* --> SEC EDGAR + PostgreSQL
   |
-  +-- FastAPI/LangGraph :8000
+  +-- FastAPI/LangGraph :2981
         +-- PostgreSQL (application state and LangGraph checkpoints)
         +-- Neo4j (10-K/Graph RAG data)
         +-- model provider or local OAuth proxy :18741
@@ -100,7 +100,7 @@ boundary.
 
 Do not bypass startup or migration safeguards selected by `ENV_PROFILE`.
 
-The separate `langgraph dev` process on port 2024 is for graph development and Studio; it does not replace the FastAPI implementation on port 8000.
+The separate `langgraph dev` process on port 2982 is for graph development and Studio; it does not replace the FastAPI implementation on port 2981.
 
 ## Data and infrastructure
 

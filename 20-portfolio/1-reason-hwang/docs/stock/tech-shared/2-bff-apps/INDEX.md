@@ -15,3 +15,10 @@
 백필은 POST SSE로 진행 상황을 보낸다. 별도 작업 Entity/상태 GET은 없다. 메타데이터를 먼저 적재하고 downloadDocuments=false면 원문 단계를 생략한다. 공시 조회는 원본·수정본을 독립 문서로 연결하며 자동 병합하지 않는다.
 
 검증은 Node 회귀, 실제 Nest/PostgreSQL Bruno, Swagger MCP로 수행한다. 상세 절차는 [검증 정책](../../../validation/INDEX.md)을 따른다. 현재 수집 건수·PID·시점별 검증 결과는 stock 대신 dated flow에 기록한다.
+
+## LOCAL-PORTS-002: 개발 포트 연결
+
+로컬 `.env`와 `.env.example`은 `PORT=2980`,
+`REMOTE_TEMPLATE_URL=http://127.0.0.1:2984`, `REMOTE_TODO_URL=http://127.0.0.1:2985`를 선언한다.
+Remote 등록 설정은 dotenv 로드 후 이 주소를 읽는다.
+전체 계약은 [Workspace](../workspace.md#local-ports-002-애플리케이션-포트-프로필)를 따른다.

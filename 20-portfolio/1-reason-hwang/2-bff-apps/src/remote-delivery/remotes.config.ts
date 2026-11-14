@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 export type RemoteConfig = {
   name: string;
   devServer: string;
@@ -7,12 +9,12 @@ export type RemoteConfig = {
 export const remotes = [
   {
     name: 'template',
-    devServer: 'http://localhost:2802',
+    devServer: process.env.REMOTE_TEMPLATE_URL ?? 'http://127.0.0.1:2984',
     staticPath: 'remotes/template/dist',
   },
   {
     name: 'todo',
-    devServer: 'http://localhost:2803',
+    devServer: process.env.REMOTE_TODO_URL ?? 'http://127.0.0.1:2985',
     staticPath: 'remotes/todo/dist',
   },
 ] satisfies RemoteConfig[];
