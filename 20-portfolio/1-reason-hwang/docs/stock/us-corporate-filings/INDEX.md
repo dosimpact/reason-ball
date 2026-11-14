@@ -7,7 +7,7 @@ This domain owns the lifecycle of US corporate disclosure documents, including 1
 ## Owning components
 
 - `2-bff-apps`: SEC EDGAR collection and query APIs under `/api/sec/*`, TypeORM persistence, SSE progress, internal retries, and remote delivery used by the host.
-- `3-langgraph-fast`: 10-K parsing, retrieval, Graph RAG workflows, and project endpoints under `/api/tenk/*`.
+- `3-langgraph-fast`: 10-K parsing, retrieval, Graph RAG workflows, and model execution under `/internal/sec-modeling/*` and evidence/fact endpoints under `/api/sec-analysis/*`.
 - `infra/1-infra-graph-rag`: PostgreSQL and Neo4j persistence plus shared observability dependencies.
 - `1-fe-host`: user-facing routes and interactions that consume filing-domain APIs or analysis results.
 
@@ -32,6 +32,7 @@ Detailed supporting references currently include:
 - [`open-ui-system.md`](open-ui-system.md): SEC 전용 Generative UI 데모 제거 범위와 유지하는 SEC 업무 화면.
 
 - [`system-design.md`](system-design.md): implemented database-backed filing content, constraints, migration, commands, and validation boundaries.
+- [`sec-modeling.md`](sec-modeling.md): SEC-MODELING-001, 승인된 모델링 1/2/3·작업 관리·Admin·검색 계약과 구현 인수 기준. 구현 완료, 사용자 요청으로 추가 통합 검증 보류.
 - `2-bff-apps/src/us-corporate-filings/.docs/api-spec.md`
 - `3-langgraph-fast/README.md`
 - `infra/1-infra-graph-rag/docs/`

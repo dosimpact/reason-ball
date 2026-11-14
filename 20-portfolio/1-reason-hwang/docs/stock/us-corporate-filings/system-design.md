@@ -17,11 +17,10 @@ Item을 표시하거나 후속 청킹할 때 PostgreSQL을 다시 조회하지 �
 `sourceHash`는 공시 수준의 추적 정보이며 원문 조회 의존성이 아니다. `sourceLocator`는 필수
 속성이 아니다. 원본 추출 규칙을 바꾸거나 XBRL을 재파싱할 때만 명시적으로 원본을 다시 받는다.
 
-현재 실행 범위는 사용자가 지정한 AAPL·CPNG·NVDA 3개 로컬 10-K 파일의 모델링 1 PoC다.
-PostgreSQL 자동 반입, 모든 SEC 양식 지원, 모델링 2의 청킹·임베딩, 모델링 3의 XBRL 구조화는
-이 PoC에 포함하지 않는다. 모델링 1 출력은 기존 mock 기반 `ParserPipeline`과 별도 경로다.
-CLI·그래프 ID·제약·검증은 [Graph DB 문서](../tech-shared/3-langgraph-fast/4-graph-db.md)의
-모델링 1 계약을 따른다. [합의 기록](../../flow/2026-11-14-sec-model1-three-filings-plan.md).
+기존 모델링 1 PoC의 실제 3개 보고서 검증은 완료되어 있다. 현재 승인 범위는 이를
+BFF 작업 관리·모델링 2/3·Admin·검색으로 확장해 구현했다. 사용자 요청으로 추가 통합 검증은 보류한다.
+현재 계약과 인수 기준은 [SEC 모델링](sec-modeling.md)에 통합한다. 기존 mock ParserPipeline은
+제거하고 새 generation 기반 결과를 사용한다. 기존 Neo4j 데이터와 PoC 실행기는 보존한다.
 
 ```text
 SEC EDGAR -> NestJS bounded HTTP download -> UTF-8 검증 및 SHA-256
@@ -121,9 +120,9 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 
 ## BFF-DIR-001: 현재 모듈·API 계약
 
-[디렉터리 정책](../tech-shared/2-bff-apps/directory-policy.md)이 구조의 원본이다. `AppModule`에 업무 모듈 하나를 연결한다. TypeORM 엔티티는 Company/Filing 두 개이고 DTO는 같은 entity 디렉터리에 둔다. 서비스는 CompanyService, FilingService, FilingBackfillService 세 개다. 외부 SEC HTTP·타입·ZIP 처리·명세는 `src/lib/sec/`에 둔다.
+[디렉터리 정책](../tech-shared/2-bff-apps/directory-policy.md)이 구조의 원본이다. `AppModule`에 업무 모듈 하나를 연결한다. TypeORM 엔티티는 Company/Filing 두 개이고 DTO는 같은 entity 디렉터리에 둔다. 수집 서비스는 CompanyService, FilingService, FilingBackfillService 세 개다. 모델링 실행·저장·제어는 SEC-MODELING-001의 별도 서비스가 담당한다. 외부 SEC HTTP·타입·ZIP 처리·명세는 `src/lib/sec/`에 둔다.
 
-명시적 REST API는 6개다. [BFF API 명세](../../../2-bff-apps/src/us-corporate-filings/.docs/api-spec.md)와 Bruno 컬렉션이 같은 계약을 따른다.
+수집 REST API는 6개다. 모델링 제어 API는 SEC-MODELING-001에서 확장한다. [BFF API 명세](../../../2-bff-apps/src/us-corporate-filings/.docs/api-spec.md)와 Bruno 컬렉션이 같은 계약을 따른다.
 
 | API | 동작 |
 | --- | --- |
@@ -137,7 +136,7 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 - 회사 필터 cik/ticker/q와 공시 필터 cik/ticker/since/formType/status/parserStatus를 지원한다. pagination은 page/pageSize/totalItems/totalPages/hasNextPage이며 빈 결과 totalPages=0이다.
 - 백필 기본 기간은 20년(최대 30년), 지원 폼은 10-K/10-Q/8-K와 수정공시다. 메타데이터 단계가 먼저 끝난 후 원문을 다운로드한다. downloadDocuments=false로 원문을 생략할 수 있다.
 - SSE started/progress/completed/error로 진행 상황을 알린다. HTTP 200은 성공을 의미하지 않으며 마지막 이벤트와 failed 건수를 확인한다. 입력 검증 실패는 스트림 전 400이다.
-- 별도 작업 Entity, 메모리 작업 이력, 상태 GET은 없다. 공시 상태는 filings에만 영속 저장한다. 기존 sec_backfill_runs 테이블과 migration은 과거 이력 보존용이며 런타임은 접근하지 않는다.
+- 수집 API에는 별도 작업 Entity, 메모리 작업 이력, 상태 GET이 없다. 수집 상태는 filings에 영속 저장한다. 별도 모델링 실행은 sec_modeling schema의 영속 이력을 사용한다. 기존 sec_backfill_runs 테이블과 migration은 과거 이력 보존용이며 런타임은 접근하지 않는다.
 - 원문 재실행은 failed를 한 번 pending으로 되돌리고 기존 downloaded·parserStatus·checksum·본문을 보존한다. 연결 종료 시 다음 진행 보고에서 중단하고 재호출로 이어간다.
 - 전체 기업 백필 중복 실행 제한은 프로세스 단위다. 다중 프로세스 분산 잠금·영구 실행 복구를 제공하지 않는다.
 - 별도 다운로드/재시도/parser-status/상태 집계/백필 상태 API는 제거했다. 저장소의 FE·LangGraph 호출자 검색에서 소비자가 없음을 확인했다. 기존 원문 소비자는 filings?includeContent=true로 전환한다.
@@ -214,3 +213,12 @@ SEC ZIP은 `sec-cache/submissions.zip`, 백필 실행 기록은 `runs/`에 저�
 ## SEC-COLLECTOR-001: Host 운영 대시보드
 
 Host `/sec-collector`가 기존6개 API를 generic same-origin BFF proxy로 호출한다. BFF API·DB schema·수집 정책은 유지하며 별도 job/status API를 만들지 않는다. 업무·기술 계약은 [운영 화면 설계](collector-dashboard.md)를 따른다.
+
+## SEC-MODELING-001: 분석 작업 제어
+
+`UsCorporateFilingsModule` 안의 별도 modeling controller·service·store·executor가
+`/api/sec/modeling/*`을 소유한다. 기존 수집6개 API의 계약은 유지한다.
+`sec_modeling` schema의 jobs/runs/work_units/events는 분석 작업 전용이며 수집 백필 이력과 구분한다.
+단일 실행기·lease·execution token·재시도·취소·Neo4j 게시 결과 복구를 구현한다.
+원본 HTML은 PostgreSQL에 남고 FastAPI가 가공한 결과만 Neo4j에 저장한다.
+상세 계약·검증 상태는 [SEC 모델링](sec-modeling.md)을 따른다.

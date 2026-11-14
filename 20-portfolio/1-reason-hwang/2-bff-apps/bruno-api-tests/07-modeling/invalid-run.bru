@@ -1,0 +1,18 @@
+meta {
+  name: SEC-MODELING invalid identifier
+  type: http
+  seq: 3
+}
+get {
+  url: {{baseUrl}}/modeling/runs/not-a-uuid
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 400
+}
+tests {
+  test("invalid IDs rejected before SQL", function () {
+    expect(res.getStatus()).to.equal(400);
+  });
+}

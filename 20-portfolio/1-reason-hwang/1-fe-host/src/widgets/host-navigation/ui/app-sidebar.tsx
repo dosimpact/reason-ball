@@ -35,7 +35,7 @@ const navGroups = [
   },
   {
     title: "Operations",
-    items: [{ title: "SEC 수집 관리", href: "/sec-collector", icon: Boxes }],
+    items: [{ title: "SEC 수집 관리", href: "/sec-collector", icon: Boxes }, { title: "SEC 모델링 관리", href: "/sec-modeling", icon: Boxes }],
   },
   {
     title: "AI Chat",

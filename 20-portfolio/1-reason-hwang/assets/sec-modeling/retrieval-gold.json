@@ -1,0 +1,378 @@
+{
+  "version": 1,
+  "description": "User-provided three-report retrieval gold. Match evidence text, not merely Item membership. Queries do not prefilter itemCodes. Equivalent evidence reviewed explicitly.",
+  "topK": 10,
+  "minimumRecall": 0.9,
+  "questions": [
+    {
+      "id": "SEC-GOLD-001",
+      "language": "en",
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accessionNo": "0000320193-26-000026",
+      "query": "What operating system powers Apple iPhone smartphones?",
+      "expectedItemCodes": [
+        "1"
+      ],
+      "evidenceContains": "iPhone® is the Company’s line of smartphones based on its iOS operating system."
+    },
+    {
+      "id": "SEC-GOLD-002",
+      "language": "ko",
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accessionNo": "0000320193-26-000026",
+      "query": "애플 아이폰 스마트폰은 어떤 운영체제를 사용하는가?",
+      "expectedItemCodes": [
+        "1"
+      ],
+      "evidenceContains": "iPhone® is the Company’s line of smartphones based on its iOS operating system."
+    },
+    {
+      "id": "SEC-GOLD-003",
+      "language": "en",
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accessionNo": "0000320193-26-000026",
+      "query": "How could adverse macroeconomic conditions affect consumer spending and demand for Apple products?",
+      "expectedItemCodes": [
+        "1A"
+      ],
+      "evidenceContains": "Adverse macroeconomic conditions, including slow growth or recession"
+    },
+    {
+      "id": "SEC-GOLD-004",
+      "language": "ko",
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accessionNo": "0000320193-26-000026",
+      "query": "경기 악화가 소비 지출과 애플 제품 수요에 미치는 위험은 무엇인가?",
+      "expectedItemCodes": [
+        "1A"
+      ],
+      "evidenceContains": "Adverse macroeconomic conditions, including slow growth or recession"
+    },
+    {
+      "id": "SEC-GOLD-005",
+      "language": "en",
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accessionNo": "0000320193-26-000026",
+      "query": "Who leads Apple cybersecurity risk management and the Information Security team?",
+      "expectedItemCodes": [
+        "1C"
+      ],
+      "evidenceContains": "Head of Corporate Information Security"
+    },
+    {
+      "id": "SEC-GOLD-006",
+      "language": "ko",
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accessionNo": "0000320193-26-000026",
+      "query": "애플의 사이버보안 위험 관리와 정보보안 팀은 누가 이끄는가?",
+      "expectedItemCodes": [
+        "1C"
+      ],
+      "evidenceContains": "Head of Corporate Information Security"
+    },
+    {
+      "id": "SEC-GOLD-007",
+      "language": "en",
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accessionNo": "0000320193-26-000026",
+      "query": "Which key components are experiencing supply constraints and rising costs at Apple?",
+      "expectedItemCodes": [
+        "1",
+        "1A",
+        "7",
+        "8"
+      ],
+      "evidenceContains": "advanced semiconductors, memory and storage"
+    },
+    {
+      "id": "SEC-GOLD-008",
+      "language": "ko",
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accessionNo": "0000320193-26-000026",
+      "query": "애플은 어떤 핵심 부품에서 공급 제약과 비용 상승을 겪고 있는가?",
+      "expectedItemCodes": [
+        "1",
+        "1A",
+        "7",
+        "8"
+      ],
+      "evidenceContains": "advanced semiconductors, memory and storage"
+    },
+    {
+      "id": "SEC-GOLD-009",
+      "language": "en",
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accessionNo": "0000320193-26-000026",
+      "query": "Were Apple disclosure controls effective as of September 26, 2026?",
+      "expectedItemCodes": [
+        "9A"
+      ],
+      "evidenceContains": "were effective as of September 26, 2026"
+    },
+    {
+      "id": "SEC-GOLD-010",
+      "language": "ko",
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accessionNo": "0000320193-26-000026",
+      "query": "2026년 9월 26일 기준 애플의 공시 통제는 효과적이었는가?",
+      "expectedItemCodes": [
+        "9A"
+      ],
+      "evidenceContains": "were effective as of September 26, 2026"
+    },
+    {
+      "id": "SEC-GOLD-011",
+      "language": "en",
+      "ticker": "CPNG",
+      "cik": "0001834584",
+      "accessionNo": "0001834584-26-000024",
+      "query": "What are Coupang two operating segments?",
+      "expectedItemCodes": [
+        "1",
+        "8"
+      ],
+      "evidenceContains": "Product Commerce and Developing Offerings"
+    },
+    {
+      "id": "SEC-GOLD-012",
+      "language": "ko",
+      "ticker": "CPNG",
+      "cik": "0001834584",
+      "accessionNo": "0001834584-26-000024",
+      "query": "쿠팡의 두 사업 부문은 무엇인가?",
+      "expectedItemCodes": [
+        "1",
+        "8"
+      ],
+      "evidenceContains": "Product Commerce and Developing Offerings"
+    },
+    {
+      "id": "SEC-GOLD-013",
+      "language": "en",
+      "ticker": "CPNG",
+      "cik": "0001834584",
+      "accessionNo": "0001834584-26-000024",
+      "query": "What delivery speeds and order cutoffs does Coupang describe for its customers?",
+      "expectedItemCodes": [
+        "1"
+      ],
+      "evidenceContains": "next-day, dawn, and even same-day delivery"
+    },
+    {
+      "id": "SEC-GOLD-014",
+      "language": "ko",
+      "ticker": "CPNG",
+      "cik": "0001834584",
+      "accessionNo": "0001834584-26-000024",
+      "query": "쿠팡이 설명하는 배송 속도와 주문 마감 시간은 어떻게 되는가?",
+      "expectedItemCodes": [
+        "1"
+      ],
+      "evidenceContains": "next-day, dawn, and even same-day delivery"
+    },
+    {
+      "id": "SEC-GOLD-015",
+      "language": "en",
+      "ticker": "CPNG",
+      "cik": "0001834584",
+      "accessionNo": "0001834584-26-000024",
+      "query": "How does Coupang identify vulnerabilities in its cyber risk framework?",
+      "expectedItemCodes": [
+        "1C"
+      ],
+      "evidenceContains": "automated tools and penetration testing"
+    },
+    {
+      "id": "SEC-GOLD-016",
+      "language": "ko",
+      "ticker": "CPNG",
+      "cik": "0001834584",
+      "accessionNo": "0001834584-26-000024",
+      "query": "쿠팡은 사이버 위험 관리 체계에서 취약점을 어떻게 발견하는가?",
+      "expectedItemCodes": [
+        "1C"
+      ],
+      "evidenceContains": "automated tools and penetration testing"
+    },
+    {
+      "id": "SEC-GOLD-017",
+      "language": "en",
+      "ticker": "CPNG",
+      "cik": "0001834584",
+      "accessionNo": "0001834584-26-000024",
+      "query": "How large is the information security team supporting Coupang CISO?",
+      "expectedItemCodes": [
+        "1C"
+      ],
+      "evidenceContains": "comprises over 200 individuals"
+    },
+    {
+      "id": "SEC-GOLD-018",
+      "language": "ko",
+      "ticker": "CPNG",
+      "cik": "0001834584",
+      "accessionNo": "0001834584-26-000024",
+      "query": "쿠팡 CISO를 지원하는 정보보안 팀의 규모는 얼마인가?",
+      "expectedItemCodes": [
+        "1C"
+      ],
+      "evidenceContains": "comprises over 200 individuals"
+    },
+    {
+      "id": "SEC-GOLD-019",
+      "language": "en",
+      "ticker": "CPNG",
+      "cik": "0001834584",
+      "accessionNo": "0001834584-26-000024",
+      "query": "What framework did Coupang use to evaluate internal control over financial reporting in 2025?",
+      "expectedItemCodes": [
+        "9A"
+      ],
+      "evidenceContains": "Internal Control – Integrated Framework (2013)"
+    },
+    {
+      "id": "SEC-GOLD-020",
+      "language": "ko",
+      "ticker": "CPNG",
+      "cik": "0001834584",
+      "accessionNo": "0001834584-26-000024",
+      "query": "쿠팡은 2025년 재무보고 내부통제를 어떤 평가 체계로 검토했는가?",
+      "expectedItemCodes": [
+        "9A"
+      ],
+      "evidenceContains": "Internal Control – Integrated Framework (2013)"
+    },
+    {
+      "id": "SEC-GOLD-021",
+      "language": "en",
+      "ticker": "NVDA",
+      "cik": "0001045810",
+      "accessionNo": "0001045810-26-000021",
+      "query": "What does the NVIDIA CUDA development platform run on?",
+      "expectedItemCodes": [
+        "1"
+      ],
+      "evidenceContains": "NVIDIA CUDA development platform that runs on all NVIDIA GPUs"
+    },
+    {
+      "id": "SEC-GOLD-022",
+      "language": "ko",
+      "ticker": "NVDA",
+      "cik": "0001045810",
+      "accessionNo": "0001045810-26-000021",
+      "query": "엔비디아 CUDA 개발 플랫폼은 어떤 하드웨어에서 실행되는가?",
+      "expectedItemCodes": [
+        "1"
+      ],
+      "evidenceContains": "NVIDIA CUDA development platform that runs on all NVIDIA GPUs"
+    },
+    {
+      "id": "SEC-GOLD-023",
+      "language": "en",
+      "ticker": "NVDA",
+      "cik": "0001045810",
+      "accessionNo": "0001045810-26-000021",
+      "query": "How does dependence on third-party suppliers limit NVIDIA manufacturing control?",
+      "expectedItemCodes": [
+        "1A"
+      ],
+      "evidenceContains": "reduces our control over product quantity and quality"
+    },
+    {
+      "id": "SEC-GOLD-024",
+      "language": "ko",
+      "ticker": "NVDA",
+      "cik": "0001045810",
+      "accessionNo": "0001045810-26-000021",
+      "query": "외부 공급업체 의존은 엔비디아의 제조 통제에 어떤 위험을 주는가?",
+      "expectedItemCodes": [
+        "1A"
+      ],
+      "evidenceContains": "reduces our control over product quantity and quality"
+    },
+    {
+      "id": "SEC-GOLD-025",
+      "language": "en",
+      "ticker": "NVDA",
+      "cik": "0001045810",
+      "accessionNo": "0001045810-26-000021",
+      "query": "Which international information security standard informs NVIDIA security programs?",
+      "expectedItemCodes": [
+        "1C"
+      ],
+      "evidenceContains": "ISO 27001 international standard for information security management"
+    },
+    {
+      "id": "SEC-GOLD-026",
+      "language": "ko",
+      "ticker": "NVDA",
+      "cik": "0001045810",
+      "accessionNo": "0001045810-26-000021",
+      "query": "엔비디아 정보보안 관리 프로그램이 참고하는 국제 표준은 무엇인가?",
+      "expectedItemCodes": [
+        "1C"
+      ],
+      "evidenceContains": "ISO 27001 international standard for information security management"
+    },
+    {
+      "id": "SEC-GOLD-027",
+      "language": "en",
+      "ticker": "NVDA",
+      "cik": "0001045810",
+      "accessionNo": "0001045810-26-000021",
+      "query": "Which architecture represented the majority of NVIDIA Data Center revenue in fiscal 2026?",
+      "expectedItemCodes": [
+        "7"
+      ],
+      "evidenceContains": "Our Blackwell architectures represented the majority of our Data Center revenue."
+    },
+    {
+      "id": "SEC-GOLD-028",
+      "language": "ko",
+      "ticker": "NVDA",
+      "cik": "0001045810",
+      "accessionNo": "0001045810-26-000021",
+      "query": "엔비디아 2026 회계연도 데이터센터 매출의 대부분을 차지한 아키텍처는 무엇인가?",
+      "expectedItemCodes": [
+        "7"
+      ],
+      "evidenceContains": "Our Blackwell architectures represented the majority of our Data Center revenue."
+    },
+    {
+      "id": "SEC-GOLD-029",
+      "language": "en",
+      "ticker": "NVDA",
+      "cik": "0001045810",
+      "accessionNo": "0001045810-26-000021",
+      "query": "Which independent auditor audited NVIDIA internal control over financial reporting?",
+      "expectedItemCodes": [
+        "9A",
+        "15"
+      ],
+      "evidenceContains": "PricewaterhouseCoopers LLP"
+    },
+    {
+      "id": "SEC-GOLD-030",
+      "language": "ko",
+      "ticker": "NVDA",
+      "cik": "0001045810",
+      "accessionNo": "0001045810-26-000021",
+      "query": "엔비디아의 재무보고 내부통제를 감사한 독립 회계법인은 어디인가?",
+      "expectedItemCodes": [
+        "9A",
+        "15"
+      ],
+      "evidenceContains": "PricewaterhouseCoopers LLP"
+    }
+  ]
+}

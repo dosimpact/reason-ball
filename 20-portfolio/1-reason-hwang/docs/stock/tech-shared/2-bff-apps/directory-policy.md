@@ -68,7 +68,7 @@ src/
 | 특정 기업 공시 backfill | `POST /company-filing-sync-jobs` | FilingBackfillService | 지정 기업의 기간 내 공시자료 수집·SSE |
 | 전체 기업 공시 backfill | `POST /all-company-filing-sync-jobs` | FilingBackfillService | 전체 기업의 기간 내 공시자료 일괄 수집·SSE |
 
-업무 API는 위 6개로 정리한다. 기존의 메타데이터 수집 → 다운로드 → 실패 복귀 요청을 사용자가 순서대로 호출하게 하지 않는다.
+수집 업무 API는 위 6개로 정리한다. 모델링 API는 아래 SEC-MODELING-001 확장을 따른다. 기존의 메타데이터 수집 → 다운로드 → 실패 복귀 요청을 사용자가 순서대로 호출하게 하지 않는다.
 
 ### 수집 범위의 의미
 
@@ -128,3 +128,14 @@ POST /all-company-filing-sync-jobs는 실행 시작 시 DB companies에서 ticke
 ## BFF-LOG-001: Winston 로깅
 
 로거 팩토리는 `src/shared/logger.ts`, 설정은 기존 `src/shared/config.service.ts`에 둔다. 별도 업무 모듈을 추가하지 않는다. 환경 선택·transport·보관 정책·사용법의 원본은 [로거 기술 설계](logger.md)다.
+
+## SEC-MODELING-001: 모델링 실행 확장
+
+기존 업무 모듈 하나를 유지하면서 `sec-modeling.controller.ts`와 `service/sec-modeling.*.ts`를
+추가한다. 내부 Python 통신은 `lib/sec-modeling/sec-modeling.client.ts`가 담당한다.
+원문 수집과 별도로 PostgreSQL `sec_modeling` schema에 분석 jobs/runs/work_units/events를
+관리한다. 백필 작업 이력 금지 규칙은 기존 수집 API에 적용하며 새 모델링 실행의 영속 이력을
+금지하지 않는다. 내부 네트워크 호출 중 DB transaction을 유지하지 않는다.
+`SEC_MODELING_URL`, `SEC_MODELING_KEY`, `SEC_MODELING_WORKER_ENABLED`는 중앙 설정에서
+검증하며 서비스 키를 브라우저·응답·로그에 노출하지 않는다.
+[도메인 계약과 검증 상태](../../us-corporate-filings/sec-modeling.md)를 따른다.

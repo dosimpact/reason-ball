@@ -42,6 +42,8 @@ Implemented page routes:
 | `/remotes/todo` | Todo federated remote |
 | `/chat` | LangGraph-backed chat UI |
 | `/index-dcf-visualizer` | Index DCF calculation and visualization |
+| `/sec-collector` | SEC collection operations |
+| `/sec-modeling` | SEC modeling runs, processed results and evidence search |
 
 The host exposes same-origin server routes `/api/remote-proxy/[...path]` and `/api/langgraph/[...path]`. This keeps browser requests behind the host and avoids coupling UI code to local service origins.
 
@@ -67,15 +69,15 @@ Remote definitions must remain consistent between `1-fe-host/src/shared/lib/remo
 `2-bff-apps` is a NestJS application with two responsibilities:
 
 1. Deliver remote assets through `/remotes/:name/*`.
-2. Expose SEC EDGAR collection and query operations under `/api/sec/*`.
+2. Expose SEC EDGAR collection, query and modeling operations under `/api/sec/*`.
 
-The SEC surface has six endpoints: company synchronization/listing, filing retrieval with original/amendment links, direct single-document content, and selected/all-company backfill POST SSE. Metadata is collected before optional documents; retries are internal. There is no separate parser-status/download/retry/job-status API. PostgreSQL access is implemented with TypeORM entities and migrations. Swagger is enabled by default at `/docs/sec`, with JSON and YAML documents below that path; set `SWAGGER_ENABLED=false` to disable it.
+The SEC collection surface has six endpoints: company synchronization/listing, filing retrieval with original/amendment links, direct single-document content, and selected/all-company backfill POST SSE. Metadata is collected before optional documents; retries are internal. The collection surface has no separate parser-status/download/retry/job-status API; modeling run controls live under `/api/sec/modeling/*`. PostgreSQL access is implemented with TypeORM entities and migrations. Swagger is enabled by default at `/docs/sec`, with JSON and YAML documents below that path; set `SWAGGER_ENABLED=false` to disable it.
 
 SEC primary-document bodies are stored with metadata in PostgreSQL; report queries no longer read local filing paths. See the [filing system design](../us-corporate-filings/system-design.md) for migration and content-size limits. Bulk submissions ZIP remains a local, reproducible cache.
 
 ## FastAPI and LangGraph
 
-`3-langgraph-fast` is the primary AI runtime. The FastAPI application exposes a LangGraph-compatible surface for Assistants, Threads, Thread Runs, Stateless Runs, Streaming, Crons, Store, A2A, MCP, and System operations. Project-specific extensions include `/health`, `/health/postgres`, `/graph/run`, and `/api/tenk/*`.
+`3-langgraph-fast` is the primary AI runtime. The FastAPI application exposes a LangGraph-compatible surface for Assistants, Threads, Thread Runs, Stateless Runs, Streaming, Crons, Store, A2A, MCP, and System operations. Project-specific extensions include `/health`, `/health/postgres`, `/graph/run`, and `/api/sec-analysis/*` and `/internal/sec-modeling/*`.
 
 The main graph lives under `3-langgraph-fast/src/graph/primary_graphs/main_graph/`, separating
 top-level application graphs from reusable graphs under `src/graph/subgraph/`. It composes
@@ -89,8 +91,8 @@ graph that owns its state, ReAct node, prompts boundary, MCP boundary, and Open-
 `get_weather` tool. It does not depend on a subgraph implementation.
 
 When PostgreSQL is configured, the application persists assistant, thread, run, cron, store, A2A,
-and LangGraph checkpoint data in the dedicated `langgraph` PostgreSQL schema. The BFF's SEC tables
-remain in `public`, even when both services share the `sec_collector` database. Local profile startup
+and LangGraph checkpoint data in the dedicated `langgraph` PostgreSQL schema. The BFF's collected SEC tables
+remain in `public`, while its modeling execution tables use `sec_modeling`, even when both services share the `sec_collector` database. Local profile startup
 may create the dedicated schema, move existing LangGraph-owned tables from `public`, prepare
 idempotent schema changes, and migrate legacy snapshots. FastAPI startup also prepares the 10-K
 Neo4j uniqueness constraints in the local profile. For both databases, non-local profiles verify
@@ -147,3 +149,15 @@ Host `src` 전체는 FSD 레이어와 Steiger 권장 규칙을 적용한다. Nex
 ## TA-QUERY-001: 모델 없는 금융 데이터 조회
 
 기술적 분석 OpenUI는 기존 Host `/api/langgraph` 프록시로 Python `GET /technical-analysis/chart`를 조회한다. 이 API는 FastAPI와 LangGraph development custom `http.app`에 같은 router를 등록하며 Yahoo·TA-Lib를 재사용한다. 차트 조건 변경·polling은 그래프 run과 모델 provider를 호출하지 않는다. 초기 분석과 해석의 모델 경계는 유지한다. 구체 계약은 [기술적 분석 시스템 설계](../technical-analysis/system-design.md#ta-query-001-조회-api와-차트-runtime), Host provider는 [OpenUI Host](1-fe-host/open-ui.md#ta-query-001-금융-query-provider)를 따른다.
+
+## SEC-MODELING-001: 분석 작업과 검색 경계
+
+Host `/sec-modeling` → same-origin BFF proxy → `/api/sec/modeling/*`이 작업을 제어한다.
+BFF PostgreSQL의 `sec_modeling` schema가 실행 이력을 보존하고 FastAPI가 모델링을 실행한다.
+Neo4j는 원본 전체가 아닌 가공 결과·lexical graph·XBRL 사실·벡터를 저장한다.
+검색·근거 조회 시 BFF 원문 조회 의존성을 만들지 않는다. OAuth 추출 호출과 OpenAI 임베딩
+호출은 별도 provider 설정을 사용한다. Qdrant·pgvector·Redis는 이 경로에 도입하지 않는다.
+[도메인 계약](../us-corporate-filings/sec-modeling.md),
+[Python 구현 경계](3-langgraph-fast/4-graph-db.md),
+[BFF 소유 경계](2-bff-apps/directory-policy.md#sec-modeling-001-모델링-실행-확장)를 따른다.
+통합 검증 진행 중이며 완료 증거는 dated flow에 기록한다.

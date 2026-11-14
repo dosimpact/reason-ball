@@ -9,6 +9,9 @@ dotenv.config();
 export class AppConfigService {
   private readonly settings = readEnvironment(process.env);
 
+  get secModelingUrl() { return this.settings.secModelingUrl; }
+  get secModelingKey() { return this.settings.secModelingKey; }
+  get secModelingWorkerEnabled() { return this.settings.secModelingWorkerEnabled; }
   get appEnv() { return this.settings.appEnv; }
   get logDir() { return this.settings.logDir; }
   get logLevel() { return this.settings.logLevel; }
@@ -62,6 +65,8 @@ export function readEnvironment(env: NodeJS.ProcessEnv, cwd = process.cwd()) {
     }
     return value;
   };
+  const modelingWorker = env.SEC_MODELING_WORKER_ENABLED ?? 'true';
+  if (!['true', 'false'].includes(modelingWorker)) throw new Error('SEC_MODELING_WORKER_ENABLED must be true or false.');
   const swagger = env.SWAGGER_ENABLED ?? 'true';
   if (!['true', 'false'].includes(swagger)) throw new Error('SWAGGER_ENABLED must be true or false.');
   const staticCacheDir = path.resolve(cwd, env.STATIC_CACHE_DIR ?? './data');
@@ -75,6 +80,9 @@ export function readEnvironment(env: NodeJS.ProcessEnv, cwd = process.cwd()) {
   if (!['error', 'warn', 'info', 'http', 'verbose', 'debug', 'silly'].includes(logLevel)) throw new Error('Invalid LOG_LEVEL.');
   return Object.freeze({
     appEnv, logLevel,
+    secModelingUrl: url('SEC_MODELING_URL', 'http://127.0.0.1:2981', ['http:', 'https:']),
+    secModelingKey: env.SEC_MODELING_KEY ?? '',
+    secModelingWorkerEnabled: modelingWorker === 'true',
     logDir: path.resolve(cwd, env.LOG_DIR ?? './data/logs'),
     appHost: env.APP_HOST ?? '0.0.0.0',
     appPort: env.PORT !== undefined ? integer('PORT', 2801, 0, 65535) : integer('APP_PORT', 2801, 0, 65535),

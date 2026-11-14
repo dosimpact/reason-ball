@@ -22,7 +22,11 @@
     "test:technical-analysis": "uv run pytest tests/test_technical_analysis_agent.py tests/graph/subgraph/price_agent tests/infrastructure/technical_analysis tests/graph/shared/cache",
     "test:technical-analysis:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 19-technical-analysis --env local",
     "model1:sample": "uv run --env-file .env python scripts/tenk_model1_sample.py",
-    "test:model1": "uv run pytest tests/test_document_structure.py"
+    "test:model1": "uv run pytest tests/test_document_structure.py",
+    "test:sec-modeling": "uv run pytest tests/test_sec_modeling.py tests/test_sec_evidence_chain.py tests/test_sec_edgar_transforms.py tests/test_document_structure.py tests/test_sec_structural_chunking.py tests/test_sec_modeling_tools.py tests/test_sec_retrieval_validation.py tests/test_sec_fact_unit_filter.py",
+    "test:sec-modeling:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 20-sec-modeling",
+    "validate:sec-retrieval": "uv run --env-file .env python scripts/validate_sec_retrieval.py",
+    "validate:sec-model2": "uv run --env-file .env python scripts/validate_sec_model2_live.py"
   },
   "devDependencies": {
     "@usebruno/cli": "^2.13.0"

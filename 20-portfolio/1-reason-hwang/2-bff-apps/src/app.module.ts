@@ -1,3 +1,4 @@
+import { SecModeling1794614400000 } from './us-corporate-filings/migrations/1794614400000-sec-modeling';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { appConfig, AppConfigService } from './shared/config.service';
@@ -27,6 +28,7 @@ import { FilingDatabaseContent1790000000000 } from './us-corporate-filings/migra
           SecTwentyYearBackfill1787589300000,
           FilingSourceDefault1787589400000,
           FilingDatabaseContent1790000000000,
+          SecModeling1794614400000,
         ],
         migrationsRun: true,
         synchronize: false,

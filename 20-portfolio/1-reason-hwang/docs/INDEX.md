@@ -114,6 +114,7 @@ The technical subdirectories follow package ownership; the other stock directori
 | --- | --- |
 | [`stock/us-corporate-filings/INDEX.md`](stock/us-corporate-filings/INDEX.md) | Domain boundary, owning components, current capabilities, and documentation routing |
 | [`stock/us-corporate-filings/system-design.md`](stock/us-corporate-filings/system-design.md) | Implemented PostgreSQL filing content, migration, constraints, and verification |
+| [`stock/us-corporate-filings/sec-modeling.md`](stock/us-corporate-filings/sec-modeling.md) | SEC 모델링 1/2/3, 작업 관리·Admin·검색의 승인 계약과 인수 기준; 구현 완료, 사용자 요청으로 추가 검증 보류 |
 | [`stock/us-corporate-filings/intelligent-ui.md`](stock/us-corporate-filings/intelligent-ui.md) | SEC 10-K conversational analysis with OpenUI and AG-UI |
 
 ### Technical Analysis
@@ -232,4 +233,8 @@ If a supporting document conflicts with code or a stock document, verify the imp
 
 - [SEC Collector 운영 화면](stock/us-corporate-filings/collector-dashboard.md): 기업·공시 조회, 수집 실행·세션 기록. [구현 및 검증](flow/2026-11-14-sec-collector-dashboard.md).
 
+- [SEC 모델링 구현·통합 검증 중간 기록](flow/2026-11-14-sec-modeling-integration-progress.md): SEC-MODELING-001, 모델링 1/2/3·작업 관리·Admin·검색. 전체 완료 기록은 아니다.
+
 - [SEC Collector API Testing](flow/2026-11-14-sec-api-testing-tab.md): SEC-COLLECTOR-002, 기존6API의 수동 request/response 검사 탭.
+
+- [SEC 모델링 구현 완료·검증 보류](flow/2026-11-14-sec-modeling-implementation-complete.md): SEC-MODELING-001, 구현 범위·기존 실행 결과·사용자 요청에 따른 검증 중단 및 자원 정리.

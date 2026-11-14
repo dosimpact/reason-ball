@@ -74,8 +74,8 @@ Common commands include:
 pnpm --filter @reason-hwang/langgraph-fast-api test
 pnpm --filter @reason-hwang/langgraph-fast-api test:api
 pnpm --filter @reason-hwang/langgraph-fast-api test:technical-analysis
-pnpm --filter @reason-hwang/langgraph-fast-api test:tenk
-pnpm --filter @reason-hwang/langgraph-fast-api test:bruno
+pnpm --filter @reason-hwang/langgraph-fast-api test:model1
+pnpm --filter @reason-hwang/langgraph-fast-api test:sec-modeling
 ```
 
 PostgreSQL and Neo4j integration tests require their documented services and opt-in environment flags. Do not reinterpret a skipped external-service test as a passing integration verification.
@@ -111,3 +111,18 @@ Prometheus targets for cAdvisor, PostgreSQL, Neo4j, exporter self-metrics, and P
 ## Completion evidence
 
 A flow record should list the exact commands executed and their PASS, FAIL, or SKIP result. If a check is skipped, state the missing service, credential, or environment requirement. Documentation-only changes require at least structural/link checks and a diff review; they do not require application builds unless the documentation was derived from uncertain runtime behavior.
+
+## SEC-MODELING-001: 통합 모델링 검증
+
+- BFF `test:modeling:e2e`: 격리 PostgreSQL·실제 HTTP에서 작업 중복, lease, 실패·취소·재시도,
+  게시 결과 복구, terminal run/work unit 정합성을 검증하고 Bruno를 실행한다.
+- Python `test:sec-modeling`: 문서 경계·청킹·XBRL 변환·근거 격리·캐시·검색·단위 필터 검증.
+  `test:sec-modeling:api`는 준비된 실제 서비스의 Bruno 요청이다.
+- Host `test:sec-modeling`, `test:sec-modeling:views`: API/state 단위와 Storybook view 검증.
+- 실제 3개 공시 모델링과 MCP Admin 검증은 fixture 검증과 구분해 flow에 기록한다.
+- `validate:sec-retrieval`은 한국어15·영어15 질문으로 Recall@10≥90%, 공시 혼입0,
+  근거 조회100%를 검사한다. `validate:sec-model2`는 실제 모델 호출·Neo4j 쓰기를 수행하므로
+  명시적으로 실행한다. 중간 subset 결과를 전체30문항 통과로 간주하지 않는다.
+
+[도메인 계약](../us-corporate-filings/sec-modeling.md)의 인수 기준과
+[검증 자원 정리](../../validation/INDEX.md#val-cleanup-001)를 함께 적용한다.

@@ -1,0 +1,23 @@
+meta {
+  name: Published model1 Item preview
+  type: http
+  seq: 5
+}
+get {
+  url: {{baseUrl}}/internal/sec-modeling/filings/0000320193/0000320193-26-000026/results/1?limit=1
+  body: none
+  auth: none
+}
+headers {
+  X-SEC-Modeling-Key: {{modelingKey}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("23 extracted Items and inert HTML", function() {
+    const data=res.getBody(); expect(data.total).to.equal(23);
+    expect(data.items[0].displayHtml).not.to.include('<script');
+    expect(data.items[0].text).to.be.a('string');
+  });
+}

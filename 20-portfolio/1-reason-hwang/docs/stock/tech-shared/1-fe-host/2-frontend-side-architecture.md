@@ -320,3 +320,19 @@ Host CLI·Turbopack 실행 변경과 검증은 [HOST-DEV-CLI-001 기록](../../.
 ## SEC-COLLECTOR-001: SEC 운영 화면
 
 `app/sec-collector`는 FSD `_pages/sec-collector`의 운영 대시보드를 연결한다. Slice api/model/ui가 기존 BFF API를 `/api/remote-proxy/api/sec/*`로 소비하며 서버 proxy 계약을 바꾸지 않는다. 사이드바 Operations 그룹에 `SEC 수집 관리`를 제공한다. 상세 상태·수집 경계는 [도메인 설계](../../us-corporate-filings/collector-dashboard.md)에 둔다.
+
+## SEC-MODELING-001: 모델링 Admin
+
+`app/sec-modeling/page.tsx`는 `_pages/sec-modeling`의 public API를 사용한다.
+`ui/ModelingView`는 표시와 사용자 이벤트, `ui/useModeling`은 실행·조회·polling 상태,
+`api/modelingApi`는 기존 same-origin `/api/remote-proxy/api/sec/modeling` 통신을 담당한다.
+서버 키나 직접 Neo4j 연결은 브라우저에 전달하지 않는다.
+
+CIK 필터·공시 페이지, 세 단계 실행과 sol/luna 선택, 실행 이력·오류·취소·재시도를 제공한다.
+약 2초 polling은 run별 event cursor로 새 이벤트만 받아 중복 제거하며 화면 해제·선택 변경 시
+AbortController로 취소한다. Item은 sandbox iframe HTML와 text, XBRL은 지표·값·단위·기간을
+표시한다. 상세 JSON과 선택 공시 검색도 제공한다. 기존 `/sec-collector`는 수집 업무 화면으로 유지한다.
+
+`pnpm -C 1-fe-host test:sec-modeling`과 `test:sec-modeling:views`가 단위·Storybook 검증 명령이다.
+실제 서비스 연결은 MCP 브라우저로 검증한다. 통합 완료 상태는
+[SEC 모델링 계약](../../us-corporate-filings/sec-modeling.md)과 dated flow를 따른다.

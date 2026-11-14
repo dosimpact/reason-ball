@@ -5,21 +5,27 @@ description = "Minimal FastAPI and LangGraph service starter"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+  "arelle-release==2.47.5",
   "beautifulsoup4>=4.12,<5",
   "deepagents>=0.7.29",
   "fastapi>=0.116.0",
+  "graphrag-lexical-graph==3.21.0",
   "httpx>=0.28.0",
   "jsonschema>=4.23,<5",
   "langchain>=1.2,<2",
   "langchain-openai>=1.0.0",
   "langgraph>=0.6.0",
   "langgraph-checkpoint-postgres>=2.0.0",
+  "llama-index-embeddings-openai>=0.8.0",
+  "llama-index-llms-openai-like>=0.9.0",
+  "lxml>=5,<7",
   "mcp>=1.0.0",
   "neo4j>=5.26.0",
   "openai>=1.93.0",
   "psycopg[binary,pool]>=3.2.0",
   "pydantic>=2.11.0",
   "ta-lib>=0.6.8",
+  "tiktoken>=0.11,<0.12",
   "uvicorn[standard]>=0.35.0",
   "yfinance>=1.0.0",
 ]
@@ -46,3 +52,11 @@ packages = [
 [tool.pytest.ini_options]
 pythonpath = ["src", "."]
 testpaths = ["tests"]
+
+[tool.ruff.lint.per-file-ignores]
+# Preserve official vendored upstream byte-for-byte; project integration is linted normally.
+"src/infrastructure/edgar_transforms/*.py" = ["ALL"]
+
+[tool.pyright]
+# Official third-party source is preserved; its adapter and behavior tests remain checked.
+ignore = ["src/infrastructure/edgar_transforms"]

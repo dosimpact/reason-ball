@@ -48,9 +48,9 @@ when the schema version is missing or outdated.
 ## Neo4j
 
 Neo4j schema preparation follows the same environment-profile policy as PostgreSQL. With
-`ENV_PROFILE=local`, FastAPI startup idempotently creates the nine unique `id` constraints used by
-the 10-K graph. With `ENV_PROFILE=dev`, `staging`, or `production`, startup only verifies those
-constraints and fails without executing DDL when any are missing.
+`ENV_PROFILE=local`, FastAPI startup idempotently prepares ten SEC domain `id` constraints, five modeling
+manifest constraints, the embedding cache index and a native 1536-dimensional cosine vector index. With `ENV_PROFILE=dev`, `staging`, or `production`, startup verifies the constraints and vector index settings without executing DDL.
+Missing, incompatible or offline required indexes fail validation. Existing legacy graph data is retained.
 
 The explicit initializer remains available for preparing a database out of band:
 
@@ -81,7 +81,7 @@ pnpm test:bruno
 ```
 
 The standard surface includes Assistants, Threads, Thread Runs, Stateless Runs, Streaming, Crons,
-Store, A2A, MCP, and System endpoints. Existing `/health`, `/graph/run`, and `/api/tenk/*` routes are
+Store, A2A, MCP, and System endpoints. Existing `/health` and `/graph/run` routes are
 kept as project extensions.
 
 ## Runtime policy
@@ -102,3 +102,16 @@ curl -X POST http://127.0.0.1:8000/graph/run \
 
 Use `provider: "chatgpt-oauth-proxy"` with `OPENAI_BASE_URL` pointing to the
 running OAuth proxy (for example, `http://127.0.0.1:2890/v1`).
+
+## SEC modeling and evidence retrieval
+
+The mock parser and `/api/tenk/*` endpoints have been removed. BFF durable runs invoke
+`/internal/sec-modeling/*`; analysis uses `/api/sec-analysis/search`,
+`/api/sec-analysis/facts/query`, and `/api/sec-analysis/evidence/{id}`.
+All requests use the server-side modeling key; never expose it in browser code.
+The original SEC HTML remains in BFF PostgreSQL. Neo4j contains processed Item HTML/text,
+lexical evidence and XBRL facts. Existing PoC data remains intact.
+
+The accepted contract and validation status are in
+[SEC modeling](../docs/stock/us-corporate-filings/sec-modeling.md).
+Implementation is complete. Further validation is deferred at the user’s request; NVDA model 2 and the full 30-question retrieval evaluation remain incomplete.

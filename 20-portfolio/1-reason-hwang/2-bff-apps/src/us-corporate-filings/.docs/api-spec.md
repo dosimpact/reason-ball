@@ -87,3 +87,40 @@ POST /all-company-filing-sync-jobs는 실행 시작 시 DB companies에서 ticke
 ## SEC-QUERY-TICKER-001: 목록 조회의 기본 범위
 
 GET /companies와 GET /filings의 기본값은 DB companies.ticker가 NULL·빈 문자열·공백이 아닌 회사만 반환하는 것이다. cik/ticker/q 등 기존 필터와 AND로 결합하며 totalItems/totalPages에도 동일 조건을 적용한다. 기본값에서 티커 없는 회사 CIK를 지정하면 빈 목록이다. GET /filings에 한해 명시적 cik와 includeFormerRegistrants=true를 함께 지정하면 법인 재편 등으로 티커가 없는 등록자도 조회할 수 있다(SEC-IUI-002). 회사 데이터나 공시를 삭제하지 않으며 현재 상장 여부를 의미하지 않는다. CIK+accessionNo로 이미 저장된 단일 원문을 조회하는 API는 이 목록 필터와 별개로 유지한다.
+
+## SEC-MODELING-001: 독립 모델링 작업 API
+
+공통 경로 `/api/sec/modeling`. 원문은 PostgreSQL에 보존하고, BFF는 내부 FastAPI에 원문·메타데이터·실행 토큰을 전달한다. 모델링 결과·검색·근거는 Neo4j에서 조회한다. 기존 collector의 `parserStatus`나 SSE 작업과 별도 계약이다.
+
+| 메서드 | 경로 | 응답 / 동작 |
+| --- | --- | --- |
+| GET | `/filings?cik=&limit=20&offset=0` | `{items,total}`. 각 공시의 `stages[1..3]`에 `readiness`, `status`, `latestRun`, 공개 `generationId`를 제공한다. |
+| POST | `/filings/:cik/:accessionNo/model-:stage/runs` | 202 `{runId,status:"QUEUED"}`. stage 1/2/3. body `{extractionModel?:"gpt-5.6-sol"|"gpt-5.6-luna"}`. 기본 sol. |
+| GET | `/runs?cik=&accessionNo=&limit=50&offset=0` | `{items,total}`. 실행 설정, 상태, 입력/출력 세대, 오류, 집계, 시각을 반환한다. |
+| GET | `/runs/:runId` | 실행 상세와 최대 2,000개의 `workUnits`, 전체 개수 `workUnitsTotal`, 잘림 여부 `workUnitsTruncated`. 초기 3개 공시의 전체 작업 단위를 포함한다. |
+| GET | `/runs/:runId/events?cursor=0` | 증가하는 문자열 ID 순서의 `{items,nextCursor}`, 페이지당 최대 100건. |
+| POST | `/runs/:runId/cancel` | 200 실행 상태. 대기 작업은 즉시 CANCELLED, 실행 중 작업은 `cancelRequested=true` 후 내부 취소·게시 결과를 확인한다. |
+| POST | `/runs/:runId/retry` | FAILED/CANCELLED 실행을 새 run으로 생성, 202 `{runId,status}`. 기존 이력 보존. |
+| GET | `/filings/:cik/:accessionNo/results/:stage?limit=50&offset=0` | Python 결과를 전달. `{stage,generationId,items,total,offset,limit}`, 미처리 결과는 빈 items. |
+| POST | `/search` | `{query,filingIds,itemCodes?,topK?}`를 내부 검색 API로 전달. |
+| POST | `/facts/query` | `{filingIds,conceptQName?,period?,dimensions?,unit?,offset?,limit?}`를 재무 사실 검색 API로 전달. |
+| GET | `/evidence/:id` | 검색 결과의 evidence ID를 URL 인코딩해 조회. |
+
+- CIK는 10자리로 정규화하고 accession은 `0000320193-26-000026` 형식이다. filingId는 `filing:{cik}:{accessionNo}`이다.
+- `readiness`: `input_required`, `unprocessed`, `ready`, `stale`. 실행 상태 `QUEUED/RUNNING/SUCCEEDED/FAILED/CANCELLED`와 구분한다. 실패한 새 실행이 이전 공개 결과를 지우지 않는다.
+- 400 잘못된 입력, 404 없는 공시/실행, 409 중복 활성 실행 또는 선행 입력 부족. 모델링 2는 현재 원문 해시와 일치하는 모델링 1 공개 세대가 필요하다.
+- PostgreSQL `sec_modeling.jobs/runs/work_units/events`가 작업 이력 원본이다. 하나의 실행자가 짧은 advisory transaction + 원자적 claim으로 작업을 가져간다. HTTP 대기 동안 DB 트랜잭션을 유지하지 않는다.
+- 실행이 종료되면 미완료 work unit도 같은 트랜잭션에서 종료 상태로 전환하고 `payload.terminalReason`에 사유를 기록한다. 이미 SUCCEEDED/FAILED/CANCELLED/INTERRUPTED인 작업 단위는 보존한다. 대기 실행 취소에도 같은 규칙을 적용한다. 기동 시 이미 종료된 실행에 남아 있던 미완료 작업 단위도 멱등적으로 정합성을 복구한다.
+- lease 90초, heartbeat 15초. 실행 토큰으로 오래된 실행자의 쓰기를 차단한다. 연결 종료/재시작 시 Neo4j 공개 manifest를 확인하고 성공을 복구하거나 이전 실행을 취소한 후 실패 이력을 남긴다.
+- 날짜는 시간대 변환 없이 `YYYY-MM-DD`로 반환한다. 원문과 서비스 키는 목록·이벤트·실행 설정에 포함하지 않는다.
+- 로컬 개발용 API이며 사용자별 권한 체계를 제공하지 않는다. 외부 공개 전에 접근 제어가 필요하다.
+
+### 내부 계약과 설정
+
+`POST /internal/sec-modeling/model-{1|2|3}/runs`는 `X-SEC-Modeling-Key` 헤더와 `{runId,executionToken,cik,accessionNo,sourceHtml?,sourceHash,metadata,inputGenerationId?,extractionModel}`를 받는다. 모델링 1/3만 원문을 전달한다. NDJSON `progress/completed/error` 이벤트를 영속 기록한다. `completed`는 공개 generationId를 포함해야 한다.
+
+- `SEC_MODELING_URL`: 내부 Python 주소, 기본 `http://127.0.0.1:2981`.
+- `SEC_MODELING_KEY`: 두 서비스에 같은 비밀값 설정. 브라우저에 전달하지 않는다. 미설정 BFF는 작업 claim을 시작하지 않는다.
+- `SEC_MODELING_WORKER_ENABLED`: 기본 true. 격리 검증 또는 조회 전용 BFF에서는 false.
+- `pnpm -C 2-bff-apps test:modeling:e2e`: 소유한 임시 PostgreSQL·Nest HTTP와 외부 모델링 fixture로 중복/취소/재시도/lease/복구/날짜/페이지 경계 검증, Bruno 07-modeling 실행, 자원 정리.
+- `pnpm -C 2-bff-apps test:modeling:live`: 명시적 opt-in 실제 AAPL/CPNG/NVDA 모델링 1/3 실행. `SEC_MODELING_BFF_URL` 기본 `http://127.0.0.1:3980/api/sec/modeling`. 새 실행 이력과 공개 세대를 생성하고 기존 데이터는 보존한다. `SEC_MODELING_STAGES=2`는 모델링 2만 검증하며 실제 LLM·임베딩 캐시가 없다면 외부 호출 비용이 발생한다.

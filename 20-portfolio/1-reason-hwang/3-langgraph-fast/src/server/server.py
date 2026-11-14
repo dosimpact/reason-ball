@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from pydantic import BaseModel, Field
 
+from domains.sec_modeling.store import GraphStore as SecModelingGraphStore
 from graph.primary_graphs.main_graph.workflow import run_graph
 from infrastructure.neo4j import prepare_neo4j_schema
 from infrastructure.postgres import PostgresRuntime
@@ -19,18 +20,17 @@ from infrastructure.postgres.store_repository import PostgresStoreRepository
 from infrastructure.postgres.thread_repository import PostgresThreadRepository
 from server.a2a import router as a2a_router
 from server.a2a import set_a2a_task_repository
-from server.generative_ui.router import router as generative_ui_router
 from server.assistants import router as assistants_router
 from server.assistants.repository import InMemoryAssistantRepository
 from server.assistants.router import set_assistant_repository
 from server.crons import router as crons_router
 from server.crons import set_cron_repository
 from server.execution import execution_gate
+from server.generative_ui.router import router as generative_ui_router
 from server.mcp import router as mcp_router
 from server.openapi_contract import load_standard_openapi
 from server.push_ui_message.router import router as push_ui_message_router
-from server.routers.tenk import graph_router as tenk_graph_router
-from server.routers.tenk import router as tenk_router
+from server.routers.sec_modeling import router as sec_modeling_router
 from server.runs import router as runs_router
 from server.runs import runtime as runs_runtime
 from server.sec_chat.router import router as sec_chat_router
@@ -38,8 +38,8 @@ from server.sec_deep_agent.router import router as sec_deep_agent_router
 from server.store import router as store_router
 from server.store import set_store_repository
 from server.streaming import router as streaming_router
-from server.technical_analysis.router import router as technical_analysis_router
 from server.system import router as system_router
+from server.technical_analysis.router import router as technical_analysis_router
 from server.threads import router as threads_router
 from settings import get_settings
 
@@ -61,6 +61,11 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     postgres: PostgresRuntime | None = None
     if settings.env_profile is not None:
         prepare_neo4j_schema(profile=settings.env_profile, settings=settings)
+        modeling_graph = SecModelingGraphStore()
+        try:
+            modeling_graph.initialize()
+        finally:
+            modeling_graph.close()
     if settings.postgres_configured:
         postgres = PostgresRuntime(
             conninfo=settings.postgres_conninfo(),
@@ -119,8 +124,7 @@ app.include_router(store_router)
 app.include_router(a2a_router)
 app.include_router(mcp_router)
 app.include_router(system_router)
-app.include_router(tenk_router)
-app.include_router(tenk_graph_router)
+app.include_router(sec_modeling_router)
 app.include_router(generative_ui_router)
 app.include_router(push_ui_message_router)
 app.include_router(sec_chat_router)

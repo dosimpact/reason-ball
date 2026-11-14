@@ -5,29 +5,23 @@ from typing import Any, cast
 from infrastructure.neo4j.writer import Neo4jWriter
 from settings import AppSettings, get_settings
 
-CONSTRAINT_QUERIES = [
-    "CREATE CONSTRAINT company_id_unique IF NOT EXISTS FOR (n:Company) REQUIRE n.id IS UNIQUE",
-    "CREATE CONSTRAINT filing_id_unique IF NOT EXISTS FOR (n:Filing) REQUIRE n.id IS UNIQUE",
-    "CREATE CONSTRAINT item_id_unique IF NOT EXISTS FOR (n:Item) REQUIRE n.id IS UNIQUE",
-    "CREATE CONSTRAINT section_text_id_unique IF NOT EXISTS FOR (n:SectionText) REQUIRE n.id IS UNIQUE",
-    "CREATE CONSTRAINT statement_id_unique IF NOT EXISTS FOR (n:Statement) REQUIRE n.id IS UNIQUE",
-    "CREATE CONSTRAINT fact_id_unique IF NOT EXISTS FOR (n:Fact) REQUIRE n.id IS UNIQUE",
-    "CREATE CONSTRAINT entity_id_unique IF NOT EXISTS FOR (n:Entity) REQUIRE n.id IS UNIQUE",
-    "CREATE CONSTRAINT metric_id_unique IF NOT EXISTS FOR (n:Metric) REQUIRE n.id IS UNIQUE",
-    "CREATE CONSTRAINT risk_id_unique IF NOT EXISTS FOR (n:Risk) REQUIRE n.id IS UNIQUE",
-]
-
-EXPECTED_CONSTRAINT_NAMES = {
-    "company_id_unique",
-    "filing_id_unique",
-    "item_id_unique",
-    "section_text_id_unique",
-    "statement_id_unique",
-    "fact_id_unique",
-    "entity_id_unique",
-    "metric_id_unique",
-    "risk_id_unique",
+NODE_CONSTRAINTS = {
+    "company_id_unique": "Company",
+    "filing_id_unique": "Filing",
+    "item_id_unique": "Item",
+    "xbrl_fact_id_unique": "XbrlFact",
+    "concept_id_unique": "Concept",
+    "context_id_unique": "Context",
+    "dimension_id_unique": "Dimension",
+    "member_id_unique": "Member",
+    "dimension_value_id_unique": "DimensionValue",
+    "unit_id_unique": "Unit",
 }
+CONSTRAINT_QUERIES = [
+    f"CREATE CONSTRAINT {name} IF NOT EXISTS FOR (n:{label}) REQUIRE n.id IS UNIQUE"
+    for name, label in NODE_CONSTRAINTS.items()
+]
+EXPECTED_CONSTRAINT_NAMES = set(NODE_CONSTRAINTS)
 
 
 def init_neo4j_constraints(
@@ -60,7 +54,9 @@ def prepare_neo4j_schema(
     active_settings = settings or get_settings()
     active_database = database or active_settings.neo4j_database
     if profile == "local":
-        return init_neo4j_constraints(settings=active_settings, database=active_database)
+        return init_neo4j_constraints(
+            settings=active_settings, database=active_database
+        )
 
     with (
         Neo4jWriter(settings=active_settings, database=active_database) as writer,
