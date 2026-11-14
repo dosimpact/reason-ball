@@ -1,0 +1,16 @@
+meta {
+  name: TA-CANVAS-API-07 Chart rejects invalid count without a graph run
+  type: http
+  seq: 11
+}
+get {
+  url: {{baseUrl}}/technical-analysis/chart?ticker=AAPL&interval=1d&count=201
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("Invalid chart conditions return 422", function () { expect(res.getStatus()).to.equal(422); });
+}

@@ -15,3 +15,11 @@ OpenUI Lang 출력과 업무 그래프를 관리한다. 공통 계약은 [OpenUI
 
 `generative_ui`는 `dynamic`/`fixed`만 허용하며 SEC action·BFF client 연결·전용 controls를 포함하지 않는다.
 공유 `SecClient`, `open_ui_report*.py`, 파싱·SEC 도구·`sec_deep_agent` 및 SEC 채팅 출력은 유지한다.
+
+## TA-CANVAS-001: 불변 기술적 분석 동적 캔버스
+
+`technical_analysis_agent`는 개념 설명과 계산 요청을 구분한다. 설명에는 새 보고서·Yahoo 호출이 없다. `canvas_context.reportId`는 선택 보고서의 가격·조건·지표를 복원하며, `canvas_context.request`는 ticker/interval/count/indicators를 검증한 후 두 기존 업무 도구를 순차 실행하는 명시적 재분석이다. 잘못된 context는 도구 실행 전에 `analysis_error`로 종료한다. 새 분석마다 서버 UUID를 만들고 `canvas_reports` graph state에 보고서를 독립 저장한다. 별도 DB·복원 기능은 추가하지 않는다.
+
+custom stream은 `{channel:"canvas",type,reportId,payload}`이며 open → reset → delta → validating → ready 또는 error 순서다. reset은 서버 소유 prefix를 전달하고 delta는 실제 모델 `astream` 토큰이다. 공급자의 빈 스트림 오류(`No generations found in stream` / `No generation chunks were returned`)에 한해 비스트리밍 생성 한 번으로 fallback하며 전체 결과 한 delta를 보낸다. 인위적 토큰 분할은 없다. 모델은 `taLayout` 하나만 작성하고 `taPanel`·`taSignals`를 각각 한 번 참조한다. 가격/거래량/지표 snapshot과 Query/QueryPanel 및 수치 근거는 서버 prefix가 소유한다. 허용 생성자는 배치와 prose뿐이며 재할당·새 Query·숫자 데이터 재정의를 차단한다. 완성 프로그램은 Host parser 검증 후 한 번 수정하고, 실패하면 계산 결과 텍스트로 fallback한다.
+
+TA는 values+custom stream을 사용하고 최종 assistant 메시지는 짧은 보고서 안내만 제공한다. Query는 기존 `technical_analysis_chart`를 사용하며 모델 없이 ticker/주기/봉 수/수동 갱신을 처리한다. 기본 polling은 0이다. 실행 검증은 별도 API 검증 기록을 따른다; 브라우저 검증은 사용자 담당이다.

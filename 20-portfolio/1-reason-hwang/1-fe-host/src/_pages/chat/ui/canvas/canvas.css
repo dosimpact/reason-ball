@@ -1,0 +1,18 @@
+.ta-canvas-workspace{display:grid;grid-template-columns:minmax(0,1fr);width:100%;height:100dvh;min-height:0;overflow:hidden;background:var(--background)}
+.ta-canvas-workspace.ta-canvas-open{grid-template-columns:var(--ta-chat-width,420px) 8px minmax(0,1fr)}
+.ta-canvas-chat{min-width:0;min-height:0;overflow:hidden;position:relative}
+.ta-canvas-chat .agent-conversation{height:100%;min-height:0}
+.ta-canvas-panel{display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;border-left:1px solid var(--border)}
+.ta-canvas-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);font-weight:600}
+.ta-canvas-tabs{display:flex;overflow-x:auto;flex-shrink:0;gap:6px;padding:8px;border-bottom:1px solid var(--border)}
+.ta-canvas-tab{display:flex;align-items:center;flex-shrink:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;font-size:12px}
+.ta-canvas-tab button{padding:8px;background:var(--background);color:var(--foreground)}
+.ta-canvas-tab button[aria-selected=true]{background:var(--muted);font-weight:600}
+.ta-canvas-report{flex:1;min-height:0;overflow:auto}
+.ta-canvas-report-body{padding:16px;min-width:0}
+.ta-canvas-report-notice{padding:12px 16px;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted-foreground);display:grid;gap:6px}
+.ta-canvas-splitter{position:relative;background:var(--background);cursor:col-resize;touch-action:none;outline-offset:-2px;z-index:6}
+.ta-canvas-splitter span{position:absolute;width:3px;height:42px;top:calc(50% - 21px);left:2px;border-radius:3px;background:var(--border)}
+.ta-canvas-splitter:focus-visible{outline:2px solid var(--ring)}
+.ta-is-resizing{user-select:none}.ta-is-resizing iframe{pointer-events:none}
+@media(max-width:899px){.ta-canvas-workspace.ta-canvas-open{grid-template-columns:minmax(0,1fr);grid-template-rows:var(--ta-chat-height,42dvh) 8px minmax(0,1fr)}.ta-canvas-panel{border-left:0;border-top:1px solid var(--border)}.ta-canvas-splitter{cursor:row-resize}.ta-canvas-splitter span{width:42px;height:3px;left:calc(50% - 21px);top:2px}.ta-canvas-heading{padding:8px 12px}.ta-canvas-report-body{padding:12px}}

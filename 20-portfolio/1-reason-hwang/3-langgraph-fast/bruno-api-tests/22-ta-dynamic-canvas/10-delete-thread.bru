@@ -1,0 +1,16 @@
+meta {
+  name: TA-CANVAS-API Cleanup owned validation thread
+  type: http
+  seq: 13
+}
+delete {
+  url: {{baseUrl}}/threads/{{canvasThread}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 204
+}
+tests {
+  test("Owned thread deleted", function () { expect(res.getStatus()).to.equal(204); });
+}

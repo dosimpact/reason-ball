@@ -79,5 +79,15 @@ def build_program(state: dict) -> str:
     nodes.append(
         f"Text({dumps('출처: ' + report['source_url'] + ' · 조회 시각: ' + str(report['fetched_at']))})"
     )
-    statements.append("root = Col([" + ", ".join(nodes) + "], 4)")
+    if state.get("canvas"):
+        panel = nodes[2] if snapshot else 'Text("차트 없음")'
+        signals = nodes[3:-1] if snapshot else nodes[2:-1]
+        statements.extend([
+            "taHeader = Col([" + ", ".join(nodes[:2]) + "], 2)",
+            "taPanel = " + panel,
+            "taSignals = Col([" + ", ".join(signals) + "], 2)",
+            "taFooter = " + nodes[-1],
+        ])
+    else:
+        statements.append("root = Col([" + ", ".join(nodes) + "], 4)")
     return "\n".join(statements)

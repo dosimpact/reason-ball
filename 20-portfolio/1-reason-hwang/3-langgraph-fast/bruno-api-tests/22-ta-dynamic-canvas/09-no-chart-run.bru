@@ -1,0 +1,20 @@
+meta {
+  name: TA-CANVAS-API-07 Chart GET did not create another graph run
+  type: http
+  seq: 12
+}
+get {
+  url: {{baseUrl}}/threads/{{canvasThread}}/runs
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Only explicitly requested chat runs exist after chart GETs", function () {
+    const runs=res.getBody();
+    expect(runs).to.be.an("array");
+    expect(runs).to.have.lengthOf(Number((bru.getVar("canvasExpectedRuns") ?? bru.getEnvVar("canvasExpectedRuns")) || 8));
+  });
+}

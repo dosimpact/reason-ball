@@ -25,6 +25,7 @@ import type {
 } from "@/_pages/chat/model/chatTypes";
 import { extractToolActivity, type ChatToolActivity } from "../toolActivity";
 import { toChatStreamEvent } from "@/_pages/chat/model/langgraphEventAdapter";
+import { initialCanvas, reduceCanvas, parseCanvasEvent, type CanvasContext, type CanvasEvent, type CanvasState } from "../canvas";
 import {
   chatReducer,
   initialChatState,
@@ -45,7 +46,14 @@ type ChatContextValue = {
   openThread: (threadId: string) => Promise<void>;
   status: ChatStatus;
   error: string | null;
-  sendMessage: (content: string) => Promise<void>;
+  sendMessage: (content: string, context?: CanvasContext) => Promise<void>;
+  canvas: CanvasState;
+  selectCanvas: (id: string) => void;
+  closeCanvas: (id: string) => void;
+  collapseCanvas: (value: boolean) => void;
+  saveCanvasState: (id: string, state: Record<string, unknown>) => void;
+  saveCanvasQuery: (id: string, args: Record<string, unknown>) => void;
+  reanalyzeCanvas: (id: string) => Promise<void>;
   resetThread: () => void;
   cancelRun: () => void;
   graphId: string;
@@ -62,6 +70,13 @@ const ChatContext = createContext<ChatContextValue | null>(null);
 
 export function ChatProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(chatReducer, initialChatState);
+  const [canvas, dispatchCanvas] = useReducer(reduceCanvas, initialCanvas);
+  const canvasRef = useRef(canvas); canvasRef.current = canvas;
+  const selectCanvas = useCallback((id: string) => dispatchCanvas({ type: "select", id }), []);
+  const closeCanvas = useCallback((id: string) => dispatchCanvas({ type: "close", id }), []);
+  const collapseCanvas = useCallback((value: boolean) => dispatchCanvas({ type: "collapse", value }), []);
+  const saveCanvasState = useCallback((id: string, state: Record<string, unknown>) => dispatchCanvas({ type: "state", id, state }), []);
+  const saveCanvasQuery = useCallback((id: string, args: Record<string, unknown>) => dispatchCanvas({ type: "query", id, args }), []);
   const stateRef = useRef(state);
   const [history, setHistory] = useState<ChatHistoryItem[]>([]);
   const [historyLoading, setHistoryLoading] = useState(false);
@@ -127,6 +142,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const openThread = useCallback(async (threadId: string) => {
     if (!client || ["creating_thread", "streaming", "loading_history"].includes(stateRef.current.status)) return;
     if (!history.some(item => item.threadId === threadId && item.graphId === graphId && item.status !== "busy")) return;
+    dispatchCanvas({ type: "clear" });
     abortControllerRef.current?.abort();
     const controller = new AbortController();
     abortControllerRef.current = controller;
@@ -150,7 +166,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   }, [client, graphId, graphs, history]);
 
   const sendMessage = useCallback(
-    async (content: string) => {
+    async (content: string, requestedCanvas?: CanvasContext) => {
       const trimmedContent = content.trim();
 
       if (
@@ -219,6 +235,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
           client,
           threadId,
           content: trimmedContent,
+          canvasContext: graphId === "technical_analysis_agent" ? requestedCanvas ?? (canvasRef.current.selectedId ? { reportId: canvasRef.current.selectedId } : {}) : undefined,
+          onCanvas: event => { if (isCurrentRequest()) dispatchCanvas({ type: "event", threadId, runId: currentMessageId, messageId: currentMessageId, event }); },
           signal: requestController.signal,
           onSnapshot: (content, presentation, activities) => {
             if (!isCurrentRequest()) return;
@@ -234,12 +252,14 @@ export function ChatProvider({ children }: { children: ReactNode }) {
           },
         });
 
+        if (isCurrentRequest()) dispatchCanvas({ type: "finish", runId: currentMessageId, error: requestController.signal.aborted ? "보고서 생성이 중단되었습니다." : undefined });
         if (isCurrentRequest()) dispatch({
           type: "assistantMessageCompleted", messageId: currentMessageId,
         });
         if (isCurrentRequest()) void refreshHistory();
       } catch (error) {
         if (!isCurrentRequest()) return;
+        if (assistantMessageId) dispatchCanvas({ type: "finish", runId: assistantMessageId, error: requestController.signal.aborted ? "보고서 생성이 중단되었습니다." : getErrorMessage(error) });
         if (error instanceof DOMException && error.name === "AbortError") {
           dispatch({ type: "assistantMessageCompleted", messageId: assistantMessageId });
           return;
@@ -276,7 +296,16 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     } finally { operationBusy.current = false; }
   }, [client, graphId, refreshHistory]);
 
+  const reanalyzeCanvas = useCallback(async (id: string) => {
+    const report = canvasRef.current.reports.find(item => item.id === id);
+    if (!report?.successfulArgs || report.status !== "ready" || !report.request) return;
+    const args = report.successfulArgs;
+    const names = typeof args.indicators === "string" ? args.indicators.split(",") : [];
+    const indicators = names.length ? names.map(name => name === "RSI" ? { name, timeperiod: Number(args.rsi_period ?? 14) } : name === "SMA" ? { name, timeperiod: Number(args.sma_period ?? 20) } : { name: "MACD", fastperiod: Number(args.macd_fast ?? 12), slowperiod: Number(args.macd_slow ?? 26), signalperiod: Number(args.macd_signal ?? 9) }) : report.request.indicators;
+    await sendMessage("현재 조회에 성공한 조건으로 새 보고서를 분석해 주세요.", { reportId: report.id, request: { ticker: String(args.ticker), interval: args.interval as "1d" | "1wk", count: Number(args.count), indicators } });
+  }, [sendMessage]);
   const resetThread = useCallback(() => {
+    dispatchCanvas({ type: "clear" });
     abortControllerRef.current?.abort();
     abortControllerRef.current = null;
     setConversationVersion(version => version + 1);
@@ -299,11 +328,11 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       threadId: state.threadId, conversationVersion, history, historyLoading, historyError, refreshHistory, openThread,
       status: configResult.error ? "error" : state.status,
       error: configResult.error ?? state.error,
-      sendMessage,
+      sendMessage, canvas, selectCanvas, closeCanvas, collapseCanvas, saveCanvasState, saveCanvasQuery, reanalyzeCanvas,
       cancelRun: () => abortControllerRef.current?.abort(),
       resetThread, graphId, graphs, selectGraph, graphDiscoveryLoading, graphDiscoveryError, reloadGraphs, graphResult, runGraph,
     }),
-    [configResult.error, resetThread, sendMessage, state.error, state.messages, state.status, state.threadId, graphId, graphs, selectGraph, conversationVersion, history, historyLoading, historyError, refreshHistory, openThread, graphDiscoveryLoading, graphDiscoveryError, reloadGraphs, graphResult, runGraph],
+    [canvas, selectCanvas, closeCanvas, collapseCanvas, saveCanvasState, saveCanvasQuery, reanalyzeCanvas, configResult.error, resetThread, sendMessage, state.error, state.messages, state.status, state.threadId, graphId, graphs, selectGraph, conversationVersion, history, historyLoading, historyError, refreshHistory, openThread, graphDiscoveryLoading, graphDiscoveryError, reloadGraphs, graphResult, runGraph],
   );
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
@@ -325,6 +354,8 @@ async function consumeStream(params: {
   threadId: string;
   content: string;
   signal?: AbortSignal;
+  canvasContext?: CanvasContext;
+  onCanvas?: (event: CanvasEvent) => void;
   onDelta: (content: string) => void;
   onSnapshot: (content: string, presentation?: { id: string; program: string }, activities?: ChatToolActivity[]) => void;
 }) {
@@ -339,10 +370,12 @@ async function consumeStream(params: {
       },
     ],
     signal: params.signal,
+    canvasContext: params.canvasContext,
   });
 
   for await (const event of stream) {
     if (params.signal?.aborted) return;
+    if (event.event === "custom") { const canvasEvent = parseCanvasEvent(event.data); if (canvasEvent) params.onCanvas?.(canvasEvent); continue; }
     if (event.event === "values") {
       const data = event.data as { messages?: { type?: string; role?: string; content?: unknown; tool_calls?: unknown[] }[]; presentation?: { id: string; program: string } | null };
       const messages = data.messages ?? [];

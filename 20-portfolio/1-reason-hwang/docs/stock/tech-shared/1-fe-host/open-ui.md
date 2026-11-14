@@ -62,7 +62,7 @@ SEC 채팅이 공유하는 renderer·카탈로그·채팅 프레임은 유지한
 
 `FinancialChart`는 최소 snapshot prop 하나를 받으며 하나의 bars 배열로 Lightweight Charts 캔들·거래량·SMA·RSI·MACD pane을 표시한다. metadata·오류·준비 구간 경고·TradingView attribution을 함께 표시한다. 값이 null이어도 선택한 지표 pane을 유지한다. 크기는 컨테이너에 반응하고 테마는 Host class/data-theme를 따른다.
 
-`/chat`은 최신 assistant 출력에만 `active`를 전달한다. 해당 프로그램의 `$chart_refresh_seconds` 기본0을 사용자가 opt-in할 때30으로 전환한다. 이전 출력과 busy 출력은 polling을 멈춘다. Query key별 캐시가 설정 변경 중의 응답을 격리하며, 출력 교체/unmount는 소유 fetch를 취소하고 SDK timer와 chart observer를 정리한다. 모델 설명은 최초 분석 스냅샷이고 차트 조회는 대화 state를 바꾸지 않는다.
+`/chat` 기술적 분석은 선택되어 펼쳐진 Canvas 탭의 검증 완료 출력에만 `active`를 전달한다. 해당 프로그램의 `$chart_refresh_seconds` 기본0을 사용자가 opt-in할 때30으로 전환한다. 선택되지 않은 탭과 접히거나 닫힌 Canvas는 polling을 멈춘다. Query key별 캐시가 설정 변경 중의 응답을 격리하며, 출력 교체/unmount는 소유 fetch를 취소하고 SDK timer와 chart observer를 정리한다. 모델 설명은 최초 분석 스냅샷이고 차트 조회는 대화 state를 바꾸지 않는다.
 
 계약과 검증은 [도메인 설계](../../technical-analysis/system-design.md#ta-query-001-조회-api와-차트-runtime), [flow](../../../flow/2026-11-14-openui-query-financial-charts.md)를 따른다.
 
@@ -115,3 +115,13 @@ starter_graph·simple_llm·technical_analysis_agent·sec_deep_agent는 기존 me
 JSON실행은 새thread를 만들고 입력을변형없이runs.stream(values)로전달한다. 문법오류·배열/null은 전송하지않으며 streamerror·values없는종료를성공으로표시하지않는다. metadata의 run_id로 기존 runs.get을 조회해 status가 success인 경우에만 완료 처리한다. 결과는 100,000자까지 미리 보고 생략을 명시하며 전체 결과 복사는 원본 전체 JSON을 복사한다. 그래프/대화전환과 새실행은 이전요청을구분해늦은결과가섞이지않게한다. 실제시장·SEC·DB변경여부는 선택graph에따르며 자동실행하지않는다. SDK fetch 경계에서 취소 오류를 표준 AbortError로 정규화하여 이미 취소된 요청의 retry가 다음 실행을 막지 않게 한다. 일반 네트워크 retry 정책은 유지한다.
 
 [변경·검증](../../../flow/2026-11-14-chat-layout-all-graphs.md)
+
+## TA-CANVAS-001: 기술적 분석 Dynamic Canvas
+
+`technical_analysis_agent`는 기존 SDK stream의 custom canvas 이벤트를 받으면 `/chat` 옆 Canvas를 자동으로 연다. 다른 graph와 공통 AgentConversation·기본 도구 타임라인은 유지한다. 서버 UUID별 탭은 티커·주기·생성 순번을 표시한다. 닫기·접기·재열기와 키보드/포인터 splitter를 제공하며 desktop은 좌우, mobile은 상하로 나눈다. 참조 mini-project 패턴을 Host FSD와 테마에 맞게 적용한다.
+
+`open → reset/delta → validating → ready/error`를 thread·실행·report id로 격리한다. repair reset은 버퍼를 교체한다. canonical root가 없으면 공개 SDK autoClose와 `root = Col([taLayout])`를 별도 미리보기 문자열에만 적용한다. 파싱 가능한 부분을 표시하되 실제 버퍼와 최종 프로그램은 변경하지 않는다. 미리보기는 inert이며 Query provider·액션·컨트롤을 비활성화한다. root가 파싱되지 않으면 준비 안내를 유지한다. 서버 검증이 완료된 ready만 조회·조작을 허용한다.
+
+선택한 보이는 탭만 OutputView를 mount한다. 전환·접기·닫기는 조회와 polling을 정리한다. 탭별 입력 상태는 보존하되 polling은 기본 꺼짐으로 복원한다. 조건 변경·수동 새로고침은 FinancialChart/QueryPanel provider로 모델 없이 실행한다. 설명은 생성 당시 스냅샷임을 표시한다. 재분석은 마지막 성공한 조회 조건·지표 설정을 `canvas_context.request`로 보내 새 보고서를 만든다. 일반 후속 질문은 선택한 reportId를 전달한다.
+
+채팅에는 짧은 요약과 보고서 열기를 표시한다. 새 대화·기록 열기·graph 전환은 Canvas를 비운다. Canvas 복원·PDF·공유·시세 인용은 범위 밖이다. 닫은 UUID와 취소 실행의 늦은 이벤트는 무시한다. API 검증은 검증 담당에게 위임하고 브라우저 검증은 사용자가 수행한다.

@@ -10,6 +10,7 @@ import type { LangGraphChatInputMessage } from "@/_pages/chat/model/chatTypes";
 import type { LangGraphConfig } from "@/shared/config";
 
 export type LangGraphStreamEvent =
+  | { event: "custom"; data: unknown }
   | MessagesTupleStreamEvent
   | ValuesStreamEvent<unknown>
   | MetadataStreamEvent
@@ -33,6 +34,7 @@ export function streamChatRun(params: {
   threadId: string;
   messages: LangGraphChatInputMessage[];
   signal?: AbortSignal;
+  canvasContext?: Record<string, unknown>;
 }): AsyncIterable<LangGraphStreamEvent> {
   const stream = params.client.runs.stream<StreamMode[]>(
     params.threadId,
@@ -40,8 +42,9 @@ export function streamChatRun(params: {
     {
       input: {
         messages: params.messages,
+        ...(params.canvasContext ? { canvas_context: params.canvasContext } : {}),
       },
-      streamMode: params.config.streamMode === "values" ? ["values"] : ["messages-tuple", "values"],
+      streamMode: params.config.assistantId === "technical_analysis_agent" ? ["values", "custom"] : params.config.streamMode === "values" ? ["values"] : ["messages-tuple", "values"],
       signal: params.signal,
     },
   );
