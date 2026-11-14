@@ -1,23 +1,22 @@
-# SEC Generative UI 업무 범위
+# SEC OpenUI 화면 범위
 
-요구사항 ID는 SEC-OPEN-UI-*로 통일한다. 현재 구현은 OpenUI Lang이며 업무 처리와 화면 출력을 분리한다.
+## OPENUI-SEC-REMOVE-001: SEC 전용 데모 제거
 
-## 확정 범위
+`/open-ui/sec`(이전 `/a2ui/sec`)의 회사 검색·공시 선택·보고서 생성 데모와
+전용 `generative_ui` SEC mode/action은 제공하지 않는다. 해당 화면의
+`SEC-OPEN-UI-01`~`09` 요구사항은 현재 구현 범위에서 폐기한다.
 
-사용자가 선택한 공시를 근거로 분석·요약 보고서를 생성한다. 보고서 생성은 SEC 원문 수집·다운로드 작업을 뜻하지 않는다. 기존 회사·공시 API와 저장 원문을 사용하고 DB 스키마를 추가하지 않는다.
+현재 SEC 업무 화면은 다음과 같다.
 
-| ID | 사용자 흐름과 완료 증거 |
-| --- | --- |
-| SEC-OPEN-UI-01 | 회사명·티커 검색, 빈 결과, 페이지 이동을 OpenUI 입력/버튼/결과로 제공한다. 실제 BFF 결과와 화면을 비교한다. |
-| SEC-OPEN-UI-02 | 회사를 선택하면 해당 CIK의 공시 목록을 표시한다. form·기간·상태·접수번호와 원본/수정본 관계를 보존한다. 다른 회사의 결과가 섞이지 않는지 검사한다. |
-| SEC-OPEN-UI-03 | 공시 선택 후 요약/분석 생성 action으로 보고서를 만든다. 서버가 CIK와 accessionNo로 원문을 다시 읽는다. 클라이언트의 본문이나 회사명을 신뢰하지 않는다. |
-| SEC-OPEN-UI-04 | 기본 보고서는 핵심 요약·사업·재무·위험을 제공하며, 분석 요청이 있으면 요청한 항목만 표시한다. 선택한 항목에 정보가 없으면 근거 없음으로 표시하고 분석 한계와 근거는 항상 유지한다. 근거 ID와 실제 원문 발췌를 검증하고 표시한다. |
-| SEC-OPEN-UI-05 | 로딩·빈 원문·미다운로드·상위 API 실패·모델 실패·중복 제출·취소 및 재시도를 검증한다. 실패를 성공 보고서로 바꾸지 않는다. |
-| SEC-OPEN-UI-06 | thread별 회사/공시/보고서 선택을 격리한다. 회사 변경 후 이전 공시 action, 다른 thread의 action을 거절한다. |
-| SEC-OPEN-UI-07 | 공유 OpenUI 카탈로그와 생성 명세, Storybook, Bruno HTTP E2E, 순차 MCP 브라우저, 실제 저장 SEC 원문과 실제 모델 보고서 증거를 남긴다. fixture 통과와 실서비스 통과를 구분한다. |
-| SEC-OPEN-UI-08 | 검색·회사·공시·보고서 단계에 필요한 영역만 표시한다. 빈 공시 목록에는 안내와 필터를 제공하고 빈 보고서/선택기를 노출하지 않는다. |
-| SEC-OPEN-UI-09 | 선택 공시에 대한 사용자 요청으로 분석 항목·순서와 카드/표/접이식 표현을 선택한다. 허용된 계획과 인용을 검증하며 선택 문서와 출처는 서버가 유지한다. |
+- `/sec-api-agent`: SEC 도구를 사용하는 대화형 기업·공시 조회, 수집·분석 업무.
+- `/sec-chat`: 기업 확인과 최신 10-K 근거를 사용하는 대화형 분석.
 
-## 기술 문서
+이 변경은 BFF의 SEC 수집·저장·조회 API와 DB, LangGraph의 10-K 파싱·조회,
+공유 원문 클라이언트·보고서 계획·인용 검증, 공통 OpenUI 출력 계층을 제거하지 않는다.
 
-구현·상태·action·근거 검증·제한은 [OpenUI 통합 설계](../tech-shared/openui-migration.md)에 통합했다. [LangGraph 구현](../tech-shared/3-langgraph-fast/open-ui.md)에서 공통 계약과 운영 문서로 이동한다. 기존 [공시 시스템](system-design.md)은 수집·저장 API의 원본이다.
+## 관련 설계
+
+- [SEC Intelligent UI](intelligent-ui.md)
+- [공시 수집·저장 시스템](system-design.md)
+- [OpenUI 공통 계약](../tech-shared/openui-migration.md)
+- [LangGraph 구현](../tech-shared/3-langgraph-fast/open-ui.md)

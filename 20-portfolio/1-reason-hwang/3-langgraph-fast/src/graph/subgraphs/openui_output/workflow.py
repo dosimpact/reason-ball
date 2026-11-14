@@ -74,9 +74,8 @@ def build_output_graph(model, *, validator=None, program_builder=None):
             errors = await (validator or validate_program)(controls)
             if errors:
                 raise ValueError("OpenUI action 화면 검증에 실패했습니다.")
-        # Fixed layouts and SEC navigation are server-authored OpenUI. Only
-        # completed analysis is delegated to the presentation model.
-        needs_analysis = mode not in {"fixed", "sec"} or bool(state["answer"].get("report"))
+        # Fixed layouts are server-authored; other output uses the presentation model.
+        needs_analysis = mode != "fixed"
         program = ""
         if needs_analysis:
             program = await _compose_ui(

@@ -41,26 +41,14 @@ test('Dynamic renders real generated UI and recomputes sales', async ({ page }) 
   await expect(page.getByRole('combobox', { name: '지역', exact: true }).first()).toBeDisabled();
 });
 
-test('SEC stored filing selection, citations and reset', async ({ page }) => {
-  await page.goto('/open-ui/sec');
-  let panel = await send(page, 'AAPL');
-  await panel.getByRole('button', { name: '공시 조회', exact: true }).click();
-  panel = page.locator('article').last();
-  await expect(panel.getByRole('button', { name: '공시 필터 적용', exact: true })).toBeVisible();
-  await panel.getByRole('combobox', { name: '원문 저장 상태', exact: true }).selectOption('downloaded');
-  await panel.getByRole('combobox', { name: '공시 종류', exact: true }).selectOption('10-K');
-  await panel.getByRole('button', { name: '공시 필터 적용', exact: true }).click();
-  await expect(page.getByRole('button', { name: 'Cancel message', exact: true })).toHaveCount(0);
-  panel = page.locator('article').last();
-  await panel.getByRole('button', { name: '공시 선택', exact: true }).click();
-  panel = page.locator('article').last();
-  await panel.getByRole('textbox', { name: '어떤 내용을 분석할까요?', exact: true }).fill('사업의 핵심만 두 항목으로 요약해줘');
-  await panel.getByRole('button', { name: '분석·요약 보고서 생성', exact: true }).click();
-  await expect(page.locator('article').last()).toContainText('SHA-256');
-  await expect(page.locator('article').last()).toContainText('[E1]');
-  await page.locator('article').last().getByRole('button', { name: '공시 다시 선택', exact: true }).click();
-  await expect(page.locator('article').last().getByRole('button', { name: '공시 필터 적용', exact: true })).toBeVisible();
-  await expect(page.locator('article').last()).not.toContainText('SHA-256');
+test('Removed SEC demo is unavailable and absent from the menu', async ({ page }) => {
+  await page.goto('/open-ui');
+  await expect(page.getByRole('link', { name: /SEC 공시 분석/ })).toHaveCount(0);
+  await expect(page.getByRole('link', { name: /매출 분석/ })).toBeVisible();
+  for (const path of ['/a2ui/sec', '/open-ui/sec']) {
+    const response = await page.goto(path);
+    expect(response?.status()).toBe(404);
+  }
 });
 
 test('Catalog search, state, edit and reset', async ({ page }) => {

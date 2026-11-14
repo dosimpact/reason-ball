@@ -2,7 +2,7 @@
 
 ## OPENUI-DOC-001: 사용 사례와 코드 안내
 
-SEC 대화 화면은 `/sec-chat`과 `/sec-api-agent`다. 두 화면은 [Generative UI](../openui-migration.md)의 Dynamic·Fixed·Catalog·SEC와 출력 카탈로그를 공유한다. OpenUI는 모델이 생성한 UI 프로그램을 React 컴포넌트로 표현하고, AG-UI는 답변·도구 실행 이벤트를 전달한다. 두 화면은 공통 AgentChatFrame과 출력 카탈로그를 사용하며 업무 controller와 전송 adapter의 책임이 다르다.
+SEC 대화 화면은 `/sec-chat`과 `/sec-api-agent`다. 두 화면은 [Generative UI](../openui-migration.md)의 Dynamic·Fixed·Catalog와 출력 카탈로그를 공유한다. OpenUI는 모델이 생성한 UI 프로그램을 React 컴포넌트로 표현하고, AG-UI는 답변·도구 실행 이벤트를 전달한다. 두 화면은 공통 AgentChatFrame과 출력 카탈로그를 사용하며 업무 controller와 전송 adapter의 책임이 다르다.
 
 | 구분 | `/sec-chat` | `/sec-api-agent` |
 | --- | --- | --- |

@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { OutputView, type BusinessRequest } from "@/shared/ui/intelligent-ui";
 import { readOutput, type Activity, type UIOutput } from "../api/stream";
 
-type Mode = "dynamic" | "fixed" | "sec";
-const titles = { dynamic: "매출 분석 · Dynamic", fixed: "항공편 선택 · Fixed", sec: "SEC 회사 조회 · 공시 분석" };
-const examples = { dynamic: "전체 매출 현황을 보여줘 · 담당자별 실적을 비교해줘 · 지역별 매출 비중을 보여줘", fixed: "인천에서 도쿄 가는 항공편 · 기내식만 선택할래 · 좌석과 기내식을 선택할래", sec: "회사명·티커로 검색하고 공시를 선택하세요. 공시 선택 후 원하는 분석을 요청할 수 있습니다." };
+type Mode = "dynamic" | "fixed";
+const titles = { dynamic: "매출 분석 · Dynamic", fixed: "항공편 선택 · Fixed" };
+const examples = { dynamic: "전체 매출 현황을 보여줘 · 담당자별 실적을 비교해줘 · 지역별 매출 비중을 보여줘", fixed: "인천에서 도쿄 가는 항공편 · 기내식만 선택할래 · 좌석과 기내식을 선택할래" };
 
 export function GenerativeDemo({ mode }: { mode: Mode }) {
   const [session, setSession] = useState(0);
@@ -46,7 +46,7 @@ function Session({ mode, onReset }: { mode: Mode; onReset: () => void }) {
   function cancel() { controller.current?.abort(); setActivity(null); }
   return <AgentConversation busy={busy} title={titles[mode]} welcomeTitle="어떤 화면을 만들어 볼까요?"
       description={examples[mode]} onReset={onReset}
-      footer={<ChatNotice>{mode === "sec" ? "연결된 서비스에 저장된 공시를 사용합니다." : "가상 데이터 데모이며 실제 매출·운항·예약 정보가 아닙니다."} 대화는 서버 재시작 또는 만료 후 유지되지 않습니다.</ChatNotice>}
+      footer={<ChatNotice>가상 데이터 데모이며 실제 매출·운항·예약 정보가 아닙니다. 대화는 서버 재시작 또는 만료 후 유지되지 않습니다.</ChatNotice>}
       status={<>{activity && <ChatNotice tone="status">{activity.label} · {activity.status === "completed" ? "완료" : activity.status === "failed" ? "실패" : "진행 중"}</ChatNotice>}{error && <ChatNotice tone="error">{error}</ChatNotice>}</>} onSend={question => run(question)} onCancel={cancel} messages={turns.flatMap((turn, index) => [
       { id: `user-${turn.output.revision}`, role: "user" as const, content: turn.question },
       { id: `assistant-${turn.output.revision}`, role: "assistant" as const, content: "", view: <article><fieldset disabled={busy || index !== turns.length - 1} className="min-w-0 space-y-5">

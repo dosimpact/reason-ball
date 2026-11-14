@@ -66,7 +66,7 @@ tech-shared/
 - 기존 flow는 당시 경로와 본문을 보존한다. 이전 경로와 현재 경로는 [이동 기록](../../flow/2026-09-20-tech-shared-document-relocation.md)에서 대응시킨다.
 - 구현과 원문이 다르면 현재 공용/도메인 설계와 코드를 확인한다. 원문을 수정해야 하는 후속 작업은 별도 변경으로 기록한다.
 
-- [Generative UI 통합 설계](open-ui-system/INDEX.md): OpenUI 최종 출력 서브그래프, Dynamic·Fixed·Catalog·SEC 및 사용자 action.
+- [Generative UI 통합 설계](open-ui-system/INDEX.md): OpenUI 최종 출력 서브그래프, Dynamic·Fixed·Catalog 및 사용자 action.
 
 - [Push UI message 예제](push-ui-message/INDEX.md): 독립 채팅 예제와 메시지별 진행 이벤트.
 

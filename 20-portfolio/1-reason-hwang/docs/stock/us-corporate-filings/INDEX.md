@@ -29,7 +29,7 @@ Add business requirements, SEC terminology, filing lifecycle rules, domain API c
 
 Detailed supporting references currently include:
 
-- [`open-ui-system.md`](open-ui-system.md): 회사 조회·공시 선택·선택 공시 기반 분석/요약 보고서 OpenUI 설계 (구현 진행 중).
+- [`open-ui-system.md`](open-ui-system.md): SEC 전용 Generative UI 데모 제거 범위와 유지하는 SEC 업무 화면.
 
 - [`system-design.md`](system-design.md): implemented database-backed filing content, constraints, migration, commands, and validation boundaries.
 - `2-bff-apps/src/us-corporate-filings/.docs/api-spec.md`
