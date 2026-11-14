@@ -1,14 +1,10 @@
 "use client";
 
-import { AgentInterface, agUIAdapter, fetchLLM, useThread, useThreadList } from "@openuidev/react-ui";
-import { useHostTheme } from "@/shared/lib/theme";
+import { agUIAdapter, fetchLLM, useThread, useThreadList } from "@openuidev/react-ui";
+import { AgentChatFrame } from "@/shared/ui/agent-conversation";
 import { useEffect, useState } from "react";
 import { createSessionStorage } from "../model/session-storage";
 import { library, runLibraryAction } from "@/shared/ui/intelligent-ui";
-import "@openuidev/react-ui/styles/index.css";
-import "./sec-api-agent.css";
-import "@/shared/ui/intelligent-ui/components/components.css";
-import "@/shared/ui/intelligent-ui/components/theme.css";
 
 const llm = fetchLLM({ url: "/api/sec-api-agent", streamAdapter: agUIAdapter() });
 const starters = [
@@ -19,17 +15,6 @@ const starters = [
   { displayText: "선택 기업 수집", prompt: "AAPL 최근 1년 공시와 원문을 수집해줘." },
   { displayText: "전체 수집 안내", prompt: "전체 기업 공시 수집 옵션과 범위를 설명해줘. 아직 실행하지 마." },
 ];
-
-function ChatActions() {
-  const newThread = useThreadList((state) => state.switchToNewThread);
-  return <div className="sec-agent-actions">
-    <details className="sec-agent-history">
-      <summary>대화 기록</summary>
-      <div className="sec-agent-history-panel"><AgentInterface.ThreadList /></div>
-    </details>
-    <button type="button" onClick={newThread}>새 대화</button>
-  </div>;
-}
 
 function SaveMessages({ session }: { session: ReturnType<typeof createSessionStorage> }) {
   const messages = useThread((state) => state.messages);
@@ -43,16 +28,11 @@ function SaveMessages({ session }: { session: ReturnType<typeof createSessionSto
 
 export default function SecApiAgentPage() {
   const [session] = useState(createSessionStorage);
-  const { mode } = useHostTheme();
-  return <section aria-label="SEC API Agent" className="sec-api-agent">
-    <AgentInterface theme={{ mode }} llm={llm} storage={session.storage} componentLibrary={library} agentName="SEC API Agent"
-      onAction={(event) => { void runLibraryAction(event); }} starters={starters}>
-      <SaveMessages session={session} />
-      <AgentInterface.Sidebar>{null}</AgentInterface.Sidebar>
-      <AgentInterface.ThreadHeader start={<span className="sec-agent-title">SEC API Agent</span>} showChatTitle={false} showChatActions={false} end={<ChatActions />} />
-      <AgentInterface.MobileHeader><span className="sec-agent-title">SEC API Agent</span><ChatActions /></AgentInterface.MobileHeader>
-      <AgentInterface.Welcome title="SEC 데이터로 무엇을 할까요?" description="기업과 공시를 찾고, 원문을 분석하거나 데이터를 수집하세요." starterVariant="card" />
-      <AgentInterface.Composer placeholder="기업 검색, 공시 분석, 데이터 수집을 요청하세요" />
-    </AgentInterface>
-  </section>;
+  return <AgentChatFrame title="SEC API Agent" llm={llm} storage={session.storage}
+    componentLibrary={library} onAction={event => { void runLibraryAction(event); }}
+    starters={starters} history welcomeTitle="SEC 데이터로 무엇을 할까요?"
+    description="기업과 공시를 찾고, 원문을 분석하거나 데이터를 수집하세요."
+    placeholder="메시지를 입력하세요">
+    <SaveMessages session={session} />
+  </AgentChatFrame>;
 }

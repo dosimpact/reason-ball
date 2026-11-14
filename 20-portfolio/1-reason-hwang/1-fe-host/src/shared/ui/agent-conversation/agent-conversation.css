@@ -1,7 +1,73 @@
-.agent-conversation { width: 100%; max-width: 100%; min-width: 0; height: min(760px, calc(100svh - 160px)); min-height: 420px; }
+.agent-conversation {
+  --agent-chat-content-width: 880px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: calc(100svh - 112px);
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--background);
+}
+.agent-conversation__interface { flex: 1; min-height: 0; min-width: 0; }
 .agent-conversation .openui-agent-container { width: 100%; max-width: 100%; min-width: 0; height: 100%; background: transparent; }
 .agent-conversation .openui-agent-sidebar-container { display: none; }
 .agent-conversation .openui-agent-thread-container { padding: 0; min-width: 0; max-width: 100%; }
-.agent-conversation .openui-agent-thread-chat-panel { min-width: 0; max-width: 100%; }
-.agent-conversation .openui-agent-thread-header, .agent-conversation .openui-agent-mobile-header { gap: 12px; justify-content: space-between; }
-.agent-conversation fieldset { min-width: 0; }
+.agent-conversation .openui-agent-thread-chat-panel { min-width: 0; max-width: 100%; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+.agent-conversation .openui-agent-thread-wrapper { border: 0; border-radius: 0; box-shadow: none; }
+.agent-conversation .openui-agent-thread-header,
+.agent-conversation .openui-agent-mobile-header { padding: 16px 20px; min-height: 72px; gap: 16px; justify-content: space-between; border-bottom: 1px solid var(--border); }
+.agent-conversation__heading { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.agent-conversation__title { margin: 0; font-size: 16px; font-weight: 650; letter-spacing: -.02em; }
+.agent-conversation__description { font-size: 13px; line-height: 1.5; color: var(--muted-foreground); }
+.agent-conversation__actions { display: flex; align-items: center; flex-shrink: 0; gap: 8px; font-size: 13px; }
+.agent-conversation__actions button,
+.agent-conversation__history summary,
+.agent-conversation__cancel { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--background); color: var(--foreground); cursor: pointer; white-space: nowrap; }
+.agent-conversation__actions button:hover,
+.agent-conversation__history summary:hover,
+.agent-conversation__cancel:hover { background: var(--muted); }
+.agent-conversation__actions button:disabled { opacity: .5; cursor: default; }
+.agent-conversation__actions button:focus-visible,
+.agent-conversation__history summary:focus-visible,
+.agent-conversation__cancel:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.agent-conversation__history { position: relative; }
+.agent-conversation__history summary { list-style: none; }
+.agent-conversation__history summary::-webkit-details-marker { display: none; }
+.agent-conversation__history-panel { position: absolute; z-index: 30; right: 0; top: calc(100% + 8px); width: min(320px, 80vw); max-height: 320px; overflow: auto; padding: 10px; border: 1px solid var(--border); border-radius: 12px; background: var(--background); box-shadow: 0 12px 32px #00000014; }
+.agent-conversation__toolbar,
+.agent-conversation__status { flex-shrink: 0; min-width: 0; padding: 12px 20px; border-bottom: 1px solid var(--border); }
+.agent-conversation__status { max-height: min(180px, 24svh); overflow-y: auto; }
+.agent-conversation__toolbar:empty,
+.agent-conversation__status:empty { display: none; }
+.agent-conversation__footer { flex-shrink: 0; padding: 10px 20px; border-top: 1px solid var(--border); font-size: 12px; line-height: 1.6; color: var(--muted-foreground); }
+.agent-conversation__composer-fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.agent-conversation__cancel { margin: 0 20px 12px; }
+.agent-conversation .openui-agent-welcome-screen { max-width: var(--agent-chat-content-width); width: 100%; margin-inline: auto; padding-inline: 24px; }
+.agent-conversation .openui-agent-welcome-screen__title { font-size: clamp(23px, 3vw, 30px); font-weight: 600; letter-spacing: -.03em; }
+.agent-conversation .openui-agent-welcome-screen__description { max-width: 600px; margin-inline: auto; font-size: 14px; line-height: 1.7; }
+.agent-conversation .openui-agent-conversation-starter--card { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; gap: 10px; }
+.agent-conversation .openui-agent-conversation-starter-item-card { width: auto; height: auto; min-width: 0; min-height: 72px; }
+.agent-conversation .openui-agent-conversation-starter-item-card__text { word-break: keep-all; }
+.agent-conversation__answer { width: 100%; min-width: 0; line-height: 1.7; }
+.agent-conversation__prose { overflow-wrap: anywhere; }
+.agent-chat-notice { padding: 10px 12px; border-radius: 8px; font-size: 13px; line-height: 1.6; background: var(--muted); color: var(--muted-foreground); }
+.agent-chat-notice--error { color: var(--destructive); border: 1px solid color-mix(in srgb, var(--destructive) 25%, transparent); background: color-mix(in srgb, var(--destructive) 5%, var(--background)); }
+.agent-chat-notice--status { background: transparent; padding: 0; }
+@media (max-width: 640px) {
+  .agent-conversation { height: calc(100svh - 96px); min-height: 420px; border-radius: 12px; }
+  .agent-conversation .openui-agent-mobile-header { align-items: flex-start; padding: 12px; gap: 10px; }
+  .agent-conversation__description { font-size: 12px; }
+  .agent-conversation__actions { gap: 4px; font-size: 12px; }
+  .agent-conversation__actions button,
+  .agent-conversation__history summary { padding: 7px; }
+  .agent-conversation__actions svg { display: none; }
+  .agent-conversation__toolbar,
+  .agent-conversation__status { padding: 10px 12px; }
+  .agent-conversation__footer { padding: 8px 12px; }
+  .agent-conversation .openui-agent-welcome-screen { padding: 20px 16px; min-height: 0; overflow-y: auto; justify-content: flex-start; }
+  .agent-conversation .openui-agent-conversation-starter--card { grid-template-columns: 1fr; }
+}

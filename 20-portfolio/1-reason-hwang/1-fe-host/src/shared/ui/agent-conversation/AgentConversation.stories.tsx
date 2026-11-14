@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { expect, userEvent, within } from "storybook/test";
-import { AgentConversation, type ConversationMessage } from ".";
+import { AgentConversation, ConversationText, type ConversationMessage } from ".";
 
 function Example() {
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
@@ -14,13 +14,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const SendAndReset: Story = { play: async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const input = await canvas.findByPlaceholderText("메시지를 입력하세요");
+  const input = await canvas.findByRole("textbox");
   await userEvent.type(input, "AAPL 분석{Enter}");
   await expect(await canvas.findByText("검증된 분석 차트")).toBeVisible();
   await expect(canvas.getByText("AAPL 분석")).toBeVisible();
-  await userEvent.type(input, "작성 중 초안");
+  await userEvent.type(canvas.getByRole("textbox"), "작성 중 초안");
   await userEvent.click(canvas.getByRole("button", { name: "새 대화" }));
-  await expect(canvas.getByPlaceholderText("메시지를 입력하세요")).toHaveValue("");
+  await expect(canvas.getByRole("textbox")).toHaveValue("");
   await expect(canvas.queryByText("검증된 분석 차트")).not.toBeInTheDocument();
 } };
 
@@ -30,9 +30,20 @@ function ExternalExample() {
 }
 export const ExternalActionCancel: Story = { render: () => <ExternalExample />, play: async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  const input = await canvas.findByPlaceholderText("메시지를 입력하세요");
+  await canvas.findByRole("textbox");
   await userEvent.click(canvas.getByRole("button", { name: "화면 액션 실행" }));
-  await expect(input).toBeDisabled();
+  await expect(canvas.getByRole("textbox")).toBeDisabled();
   await userEvent.click(canvas.getByRole("button", { name: "답변 중단" }));
-  await expect(input).toBeEnabled();
+  await expect(canvas.getByRole("textbox")).toBeEnabled();
 } };
+
+
+export const MarkdownAnswer: Story = {
+  render: () => <ConversationText text={'## 검증 제목\n\n**강조 문장**과 `code`를 표시합니다.\n\n| 지표 | 값 |\n| --- | --- |\n| RSI | 60.9 |'} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(await canvas.findByRole("heading", { name: "검증 제목" })).toBeVisible();
+    await expect(canvas.getByText("강조 문장")).toBeVisible();
+    await expect(canvas.getByRole("table")).toBeVisible();
+  },
+};

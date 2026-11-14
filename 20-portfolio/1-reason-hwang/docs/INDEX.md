@@ -217,3 +217,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [Host FSD·Steiger 적용 상태 점검](flow/2026-11-14-fsd-steiger-audit.md): FE-FSD-001, 기존 설치·경계·검사와 최소 변경 원칙.
 
 - [기술적 분석 실제 브라우저·PNG 검증](flow/2026-11-14-technical-analysis-browser-validation.md): TA-001~005, 12개 시나리오와 원본 PNG 보고.
+
+- [공통 채팅 디자인 시스템](flow/2026-11-14-shared-chat-design-system.md): OPENUI-CHAT-DS-001, 네 채팅 계열의 프레임·입력·응답 UI 통합.

@@ -1,6 +1,6 @@
 "use client";
 
-import { AgentConversation } from "@/shared/ui/agent-conversation";
+import { AgentConversation, ChatNotice, ConversationText } from "@/shared/ui/agent-conversation";
 import { useEffect, useRef, useState } from "react";
 import { FollowUpQuestions } from "./FollowUpQuestions";
 import type { Evidence } from "./EvidenceView";
@@ -33,10 +33,6 @@ export function SecChat() {
   const [activities, setActivities] = useState<Activity[]>([]);
   const activityLog = useRef<Activity[]>([]);
   const abort = useRef<AbortController | null>(null);
-  const end = useRef<HTMLDivElement>(null);
-  const input = useRef<HTMLTextAreaElement>(null);
-
-  useEffect(() => { end.current?.scrollIntoView({ behavior: "smooth", block: "end" }); }, [messages, busy, choice]);
   useEffect(() => () => { abort.current?.abort(); }, []);
 
   function recordActivity(activity: Activity) {
@@ -101,7 +97,7 @@ export function SecChat() {
       setError(message);
       if (pending) setChoice(pending);
     } finally {
-      abort.current = null; setBusy(""); input.current?.focus();
+      abort.current = null; setBusy("");
     }
   }
 
@@ -114,27 +110,45 @@ export function SecChat() {
       } catch (e) { setError((e as Error).message); return; }
     }
     activityLog.current = []; setActivities([]);
-    setMessages([]); setPrepared(undefined); setCompany(undefined); setChoice(undefined); setError(""); input.current?.focus();
+    setMessages([]); setPrepared(undefined); setCompany(undefined); setChoice(undefined); setError("");
   }
 
-  return <main className="sec-chat agent-chat-page">
-    <header className="sec-chat-header"><h1>리서치 채팅</h1></header>
-    <div className="sec-chat-body">
-
-      <AgentConversation welcomeTitle="무엇이 궁금하세요?" starters={suggestions.map(text => ({ displayText: text, prompt: text }))} busy={!!busy} title="SEC 리서치" onSend={text => send(text)} onCancel={() => abort.current?.abort()} onReset={() => void reset()} messages={messages.map((message, index) => ({ id: String(index), role: message.role, content: message.text, view: <>          {message.role === "assistant" && <ActivityTimeline activities={message.activities ?? []} />}
-          {message.program ? <AnswerView program={message.program} evidence={message.evidence} onMessage={text => { if (index === messages.length - 1) void send(text); }} onError={() => setError("Intelligent UI 렌더링 오류가 발생했습니다.")} /> : message.role === "assistant" ? <AnswerView program={`root = Col([Markdown(${JSON.stringify(message.text)})])`} /> : <p>{message.text}</p>}
-          {message.role === "assistant" && <FollowUpQuestions questions={message.followUps ?? []} disabled={!!busy || index !== messages.length - 1} onSelect={text => void send(text)} />}
-</> }))} />
-      {choice && <div className="sec-choices" aria-label="기업 확인">{choice.companies.map(item => <button key={item.cik} disabled={!!busy} onClick={() => void send(`${item.name} (${item.ticker})`, item)}>{item.ticker} {item.name}</button>)}</div>}
-      {busy && <ActivityTimeline activities={activities} working />}
-      <div role="status" className="sec-status">{busy && <><span className="sec-status-dot" />{busy}</>}</div>
-      {error && <p role="alert" className="sec-error">{error}</p>}
-      <div ref={end} />
-    </div>
-    <div className="sec-compose-dock">
-      {prepared && <details className="sec-selected"><summary>{company?.name} · 10-K · {prepared.filing.filingDate}</summary><p>{prepared.filing.accessionNo}</p><p>{prepared.checkedAt ? `SEC 동기화 확인: ${prepared.checkedAt}` : "저장 문서 기준 — SEC 최신성 미확인"}</p>{prepared.missingItems.length > 0 && <p>추출하지 못한 Item: {prepared.missingItems.join(", ")}</p>}</details>}
-
-      <p className="sec-compose-note">기업 분석은 SEC 10-K 원문을 확인합니다. Enter로 전송 · Shift+Enter로 줄바꿈</p>
-    </div>
-  </main>;
+  return <AgentConversation
+    title="SEC Intelligent UI"
+    description="기업 이야기부터 재무 분석까지, SEC 10-K 원문을 근거로 답변합니다."
+    welcomeTitle="무엇이 궁금하세요?"
+    starters={suggestions.map(text => ({ displayText: text, prompt: text }))}
+    busy={!!busy}
+    onSend={text => send(text)}
+    onCancel={() => abort.current?.abort()}
+    onReset={() => void reset()}
+    toolbar={choice && <div className="sec-choices" aria-label="기업 확인">
+      {choice.companies.map(item => <button key={item.cik} disabled={!!busy} onClick={() => void send(`${item.name} (${item.ticker})`, item)}>{item.ticker} {item.name}</button>)}
+    </div>}
+    status={<>
+      {busy && <><ActivityTimeline activities={activities} working /><ChatNotice tone="status">{busy}</ChatNotice></>}
+      {error && <ChatNotice tone="error">{error}</ChatNotice>}
+    </>}
+    footer={<>
+      {prepared && <details className="sec-selected">
+        <summary>{company?.name} · 10-K · {prepared.filing.filingDate}</summary>
+        <p>{prepared.filing.accessionNo}</p>
+        <p>{prepared.checkedAt ? `SEC 동기화 확인: ${prepared.checkedAt}` : "저장 문서 기준 — SEC 최신성 미확인"}</p>
+        {prepared.missingItems.length > 0 && <p>추출하지 못한 Item: {prepared.missingItems.join(", ")}</p>}
+      </details>}
+      <span>기업 분석은 SEC 10-K 원문을 확인합니다. Enter로 전송 · Shift+Enter로 줄바꿈</span>
+    </>}
+    messages={messages.map((message, index) => ({
+      id: String(index),
+      role: message.role,
+      content: message.text,
+      view: <>
+        <ActivityTimeline activities={message.activities ?? []} />
+        {message.program
+          ? <AnswerView program={message.program} evidence={message.evidence} onMessage={text => { if (index === messages.length - 1) void send(text); }} onError={() => setError("Intelligent UI 렌더링 오류가 발생했습니다.")} />
+          : <div data-testid="intelligent-ui-answer"><ConversationText text={message.text} /></div>}
+        <FollowUpQuestions questions={message.followUps ?? []} disabled={!!busy || index !== messages.length - 1} onSelect={text => void send(text)} />
+      </>,
+    }))}
+  />;
 }

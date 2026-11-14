@@ -14,7 +14,7 @@ test('streams a LangGraph assistant response in chat', async ({ page }) => {
   await page.route('**/api/langgraph/threads/fixture-thread/runs/stream', route => route.fulfill({ contentType: 'text/event-stream', body: 'event: values\ndata: '+JSON.stringify({ messages: [{ type: 'ai', content: 'ok' }] })+'\n\n' }));
   await page.goto('/chat');
 
-  await page.getByPlaceholder('메시지를 입력하세요').fill('Say ok');
+  await page.locator('textarea:visible').first().fill('Say ok');
   await page.getByRole('button', { name: /^(Send|Send message)$/ }).click();
 
   await expect(page.getByText('Say ok')).toBeVisible();

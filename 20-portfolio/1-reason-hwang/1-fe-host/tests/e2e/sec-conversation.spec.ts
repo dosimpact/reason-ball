@@ -54,7 +54,7 @@ test('conversation: failure keeps submitted history and explicit retry succeeds'
   await page.goto('/sec-chat');
   await page.locator('textarea:visible').first().fill('안녕');
   await page.getByRole('button', { name: /^(Send|Send message)$/ }).click();
-  await expect(page.getByRole('alert').filter({ hasText: '일시적인 연결 오류' })).toBeVisible();
+  await expect(page.locator('[data-slot="agent-chat-frame"]').getByRole('alert').filter({ hasText: '일시적인 연결 오류' })).toBeVisible();
   await expect(page.locator('textarea:visible').first()).toHaveValue('');
   await expect(page.locator('.openui-agent-thread-message-user').last()).toHaveText('안녕');
   await page.locator('textarea:visible').first().fill('안녕');
@@ -74,7 +74,7 @@ test('conversation: cancel preserves submitted history without a successful answ
     await page.locator('textarea:visible').first().fill('애플 분석해줘');
     await page.getByRole('button', { name: /^(Send|Send message)$/ }).click();
     await page.getByRole('button', { name: /^(Cancel|Cancel message)$/ }).click();
-    await expect(page.locator('.sec-error')).toContainText('중단했어요');
+    await expect(page.locator('[data-slot="agent-chat-frame"]').getByRole('alert')).toContainText('중단했어요');
     await expect(page.locator('.sec-timeline').last()).toContainText('중단됨');
     await expect(page.locator('textarea:visible').first()).toHaveValue('');
     await expect(page.locator('.openui-agent-thread-message-user').last()).toHaveText('애플 분석해줘');
@@ -103,7 +103,7 @@ test('conversation: live timeline collapses after completion and preserves failu
   await expect(first.locator('li[data-status="completed"]')).toHaveCount(2);
   await page.locator('textarea:visible').first().fill('다음 질문');
   await page.getByRole('button', { name: /^(Send|Send message)$/ }).click();
-  await expect(page.locator('.sec-error')).toContainText('작업에 실패했어요.');
+  await expect(page.locator('[data-slot="agent-chat-frame"]').getByRole('alert')).toContainText('작업에 실패했어요.');
   const last = page.locator('.sec-timeline').last();
   await expect(last).toContainText('일부 작업 실패');
   await last.locator('summary').click();

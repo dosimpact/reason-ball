@@ -2,13 +2,13 @@
 
 ## OPENUI-DOC-001: 사용 사례와 코드 안내
 
-SEC 대화 화면은 `/sec-chat`과 `/sec-api-agent`다. 두 화면은 [Generative UI](../openui-migration.md)의 Dynamic·Fixed·Catalog·SEC와 출력 카탈로그를 공유한다. OpenUI는 모델이 생성한 UI 프로그램을 React 컴포넌트로 표현하고, AG-UI는 답변·도구 실행 이벤트를 전달한다. 두 화면은 같은 카탈로그를 사용하지만 채팅 화면의 소유 범위가 다르다.
+SEC 대화 화면은 `/sec-chat`과 `/sec-api-agent`다. 두 화면은 [Generative UI](../openui-migration.md)의 Dynamic·Fixed·Catalog·SEC와 출력 카탈로그를 공유한다. OpenUI는 모델이 생성한 UI 프로그램을 React 컴포넌트로 표현하고, AG-UI는 답변·도구 실행 이벤트를 전달한다. 두 화면은 공통 AgentChatFrame과 출력 카탈로그를 사용하며 업무 controller와 전송 adapter의 책임이 다르다.
 
 | 구분 | `/sec-chat` | `/sec-api-agent` |
 | --- | --- | --- |
 | 용도 | 기업 확인과 SEC 10-K 근거 기반 대화 | SEC 기업·공시 조회, 원문 리서치와 수집 요청 |
-| 채팅 화면 | `SecChat` controller + 공통 `AgentConversation`의 OpenUI AgentInterface·Composer·메시지 목록 | OpenUI `AgentInterface`, Composer·대화 목록·Behind the scenes |
-| 답변 표시 | `@openuidev/react-lang`의 `Renderer`를 공유 `OutputView`를 통해 `AnswerView`에 배치 | `@openuidev/react-ui`의 `AgentInterface`에 `componentLibrary` 전달 |
+| 채팅 화면 | `SecChat` controller → 공통 `AgentConversation` → `AgentChatFrame` | native `ChatLLM` → 공통 `AgentChatFrame`; 도구 타임라인·대화 기록 확장 |
+| 답변 표시 | `@openuidev/react-lang`의 `Renderer`를 공유 `OutputView`를 통해 `AnswerView`에 배치 | 공통 `AgentChatFrame`에 `componentLibrary` 전달 |
 | 전송 | 공통 ChatLLM adapter → 기존 `SecChat` controller·`stream.ts`로 AG-UI와 SEC CUSTOM 이벤트 처리 | `fetchLLM` + `agUIAdapter()`로 AG-UI 처리 |
 | 근거 표시 | 생성 UI 외부의 `EvidenceView` | 리서치 결과를 UI로 구성; SEC Chat의 별도 근거 영역과 구절 ID 인용 검증을 그대로 제공하지 않음 |
 | 대화 보관 | 페이지 메모리 상태 | `ChatStorage` 구현의 메모리 Map; 대화 전환 시 유지, 새로고침 시 초기화 |
@@ -36,7 +36,7 @@ pnpm -C 1-fe-host sec-ui:generate
 
 - 경로: `/sec-chat` → `src/_pages/sec-chat/ui/SecChat.tsx`.
 - 전송: `/api/sec-chat/[...path]`가 `SEC_CHAT_API_URL`(기본 `http://127.0.0.1:8000`)로 제한된 SEC 경로만 중계한다. 서버 API 키는 브라우저에 전달하지 않는다.
-- 화면: 상시 채팅 입력 → `/resolve`로 일반 답변/기업 확인/분석 분기 → 필요 시 자동 최신 10-K 준비 → 원문 답변. 후보 선택은 대화 안에 표시하며 원래 질문을 유지한다. 회사 변경 시 공시 세션을 교체하고 화면의 기존 메시지는 유지한다. 새 대화로 세션/메시지를 초기화한다. Enter 전송, Shift+Enter 줄바꿈, IME 조합 보호, 진행 표시와 중단/오류 복구를 지원한다. 공시 메타데이터는 입력창 위 접이식 표시다.
+- 화면: 상시 채팅 입력 → `/resolve`로 일반 답변/기업 확인/분석 분기 → 필요 시 자동 최신 10-K 준비 → 원문 답변. 후보 선택은 공통 toolbar에 표시하며 원래 질문을 유지한다. 회사 변경 시 공시 세션을 교체하고 화면의 기존 메시지는 유지한다. 새 대화로 세션/메시지를 초기화한다. Enter 전송, Shift+Enter 줄바꿈, IME 조합 보호, 진행 표시와 중단/오류 복구를 지원한다. 공시 메타데이터는 공통 footer의 접이식 표시다. 화면 제목·Welcome·Composer·새 대화·상태·오류는 공통 디자인 시스템이 소유한다.
 - `stream.ts`는 AG-UI RUN_FINISHED, TEXT_MESSAGE_CONTENT, RUN_ERROR를 처리한다. 현재 카탈로그 `library.toJSONSchema()`로 검증한 OpenUI만 `AnswerView`의 공유 OutputView에 전달한다. 클라이언트는 런타임 카탈로그를 사용하며 서버 검증 API는 같은 카탈로그에서 생성된 spec을 사용한다.
 - `intelligent-ui/`는 6-3의 OpenUI 컴포넌트·함수·스타일 카탈로그를 복사한 소스다. SEC 페이지·전송·근거 프로그램은 새 구현이다. 형제 프로젝트에 런타임 의존하지 않는다. 범용 카탈로그의 지도/이미지 API는 이 페이지의 답변 생성 경로에서 사용하지 않는다.
 - 새 OpenUI는 Zod 4.4.3, 기존 호스트 스키마는 `zod3` 별칭으로 원래 3.25.76을 유지한다. Playwright CLI와 test를 같은 1.64.1로 고정한다.
@@ -60,7 +60,7 @@ SEC_CHAT_API_URL=http://127.0.0.1:8000 pnpm --filter @reason-hwang/fe-host dev
 
 - SEC-IUI-005: `FollowUpQuestions`는 각 assistant 메시지 아래 다음 질문 버튼 3개를 표시한다. `/resolve.followUps`와 SSE CUSTOM `sec.follow-ups`를 메시지별로 보존하며 클릭 시 기존 send 경로를 사용한다. 이전 답변의 추천과 요청 처리 중 추천은 비활성화한다. 추천이 없으면 영역을 생략한다. `readAnswer`는 본문/정상 종료 검증 후 `{program, followUps}`를 반환한다. Storybook은 선택·이전 턴·추천 없음 상태를 검증한다.
 
-- SEC-IUI-006: `ActivityTimeline`은 자체 채팅에 맞춘 접이식 실행 기록이다. OpenUI react-ui의 AgentInterface/ToolCallTimeline을 import하지 않는다. `stream.ts`는 sec.activity를 실시간 전달하고 resolve JSON 또는 SSE를 읽으며 정상 종료를 검사한다. 프록시는 Accept 헤더를 전달한다.
+- SEC-IUI-006: `ActivityTimeline`은 SEC 도메인의 접이식 실행 기록이다. 공통 AgentChatFrame의 status와 AssistantMessage 확장에 배치하며 native 관리자 도구 타임라인과 구분한다. `stream.ts`는 sec.activity를 실시간 전달하고 resolve JSON 또는 SSE를 읽으며 정상 종료를 검사한다. 프록시는 Accept 헤더를 전달한다.
 - 각 턴의 활동 목록은 실행 ID로 갱신하고 assistant 메시지에 스냅샷으로 보존한다. 요청 오류/중단 시 진행 중 항목을 실패/중단으로 마감하고 기록을 남긴다. 공시 준비 등 브라우저가 관측한 HTTP 요청은 kind=request, 서버 노드는 kind=node로 표시한다. 진행 중 열림/완료 후 접힘 및 수동 토글을 지원한다. 새 대화는 활동도 초기화한다.
 
 ## 자유로운 Intelligent UI 구성 (SEC-IUI-007)
@@ -73,10 +73,12 @@ SEC_CHAT_API_URL=http://127.0.0.1:8000 pnpm --filter @reason-hwang/fe-host dev
 
 ## SEC-IUI-008 설명형 답변 서식
 
-설명형 답변은 OpenUI `Markdown(text)` 또는 Title/Text/List/Table 조합으로 구성한다. Markdown과 차트·컨트롤은 같은 Col에 공존한다. program 없는 assistant reply도 JSON 문자열 이스케이프 후 `Col([Markdown(...)])`로 렌더링한다. 사용자 입력은 원문 텍스트를 유지한다. Text에 블록 마크다운이 들어온 경우 기존 MarkdownBlocks 렌더러로 처리한다. 기본 제목·목록·강조·코드·표를 지원하며 전체 CommonMark/GFM 상위 호환을 의미하지 않는다.
+설명형 답변은 OpenUI `Markdown(text)` 또는 Title/Text/List/Table 조합으로 구성한다. Markdown과 차트·컨트롤은 같은 Col에 공존한다. program 없는 assistant reply도 공유 `ConversationText`에서 JSON 문자열 이스케이프 후 `Col([Markdown(...)])`로 렌더링한다. 사용자 입력은 원문 텍스트를 유지한다. Text에 블록 마크다운이 들어온 경우 기존 MarkdownBlocks 렌더러로 처리한다. 기본 제목·목록·강조·코드·표를 지원하며 전체 CommonMark/GFM 상위 호환을 의미하지 않는다.
 
 ## SEC-ADMIN-001 독립 관리자 채팅
 
-`/sec-api-agent`는 OpenUI `AgentInterface`와 공유 `shared/ui/intelligent-ui` 카탈로그를 사용한다. Next 프록시가 Python `/api/sec-deep-agent/chat`의 표준 AG-UI SSE를 전달한다. `TOOL_CALL_START/ARGS/END/RESULT`는 기본 Behind the scenes에, 최종 `TEXT_MESSAGE_CONTENT`는 OpenUI 렌더러에 연결된다. 자세한 기능·문맥 제한·권한 범위는 [SEC stock](../../sec-chat.md#sec-api-관리자-채팅)을 따른다.
+`/sec-api-agent`는 공통 `AgentChatFrame`의 OpenUI `AgentInterface`와 공유 `shared/ui/intelligent-ui` 카탈로그를 사용한다. Next 프록시가 Python `/api/sec-deep-agent/chat`의 표준 AG-UI SSE를 전달한다. `TOOL_CALL_START/ARGS/END/RESULT`는 기본 Behind the scenes에, 최종 `TEXT_MESSAGE_CONTENT`는 OpenUI 렌더러에 연결된다. 자세한 기능·문맥 제한·권한 범위는 [SEC stock](../../sec-chat.md#sec-api-관리자-채팅)을 따른다.
 
 `/sec-chat`의 표준 채팅 UI와 domain renderer 연결은 [OPENUI-AGENT-001](open-ui.md#openui-agent-001-공통-에이전트-인터페이스)을 따른다. SEC 근거와 추천 질문은 AssistantMessage 확장 화면에 남으며 관리자 채팅의 기본 Behind the scenes와 구분한다.
+
+두 SEC 화면의 디자인 소유권은 [OPENUI-CHAT-DS-001](open-ui.md#openui-chat-ds-001-공통-채팅-디자인-시스템)을 따른다. native/controlled 전송 방식 차이가 화면별 프레임·입력창·헤더 스타일 차이를 만들지 않는다.

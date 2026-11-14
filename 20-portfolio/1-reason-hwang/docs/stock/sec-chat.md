@@ -64,7 +64,7 @@ SEC Chat에 대한 마스터 문서 입니다. 주요 개념, 기능, 도메인�
                                   BFF 조회·수집 API
 ```
 
-프런트는 FSD에 따라 `_pages`에 각 화면, `shared/ui/intelligent-ui`에 공용 카탈로그, `_app/api`에 서버 프록시를 둔다. Steiger는 의존 방향과 공개 API 사용을 검사하며 동작 테스트를 대체하지 않는다. [FSD 구조](tech-shared/1-fe-host/2-frontend-side-architecture.md)
+프런트는 FSD에 따라 `_pages`에 각 업무 controller, `shared/ui/agent-conversation`에 공통 채팅 디자인 시스템, `shared/ui/intelligent-ui`에 공용 카탈로그, `_app/api`에 서버 프록시를 둔다. Steiger는 의존 방향과 공개 API 사용을 검사하며 동작 테스트를 대체하지 않는다. [FSD 구조](tech-shared/1-fe-host/2-frontend-side-architecture.md)
 
 카탈로그를 변경하면 독립 workspace 루트에서 `pnpm -C 1-fe-host sec-ui:generate`를 실행한다. 프런트 명세와 Python 프롬프트가 함께 동기화되어야 모델이 생성하는 DSL과 실제 렌더러의 규약이 일치한다. [동기화 스크립트](../../1-fe-host/scripts/sync-sec-ui.mjs)
 
@@ -113,7 +113,7 @@ curl -N http://127.0.0.1:8000/api/sec-deep-agent/research \
 ## SEC API 관리자 채팅
 
 - **목적·기능:** `/sec-api-agent`에서 SEC BFF의 6개 기능을 자유로운 대화로 사용하고 원문 기반 리포트를 만든다. 전체 기업 수집은 명시적으로 요청할 때만 실행한다. 관리자 업무용 화면이며 별도의 인증·권한 체계를 추가한 것은 아니다.
-- **구현:** OpenUI `AgentInterface`의 입력창·대화 목록·시작 질문·도구 타임라인을 사용한다. Next `/api/sec-api-agent` → Python `/api/sec-deep-agent/chat` → 독립 `sec_deep_agent` → 공통 SEC tools → BFF 순서다. 최종 리포트는 공유 카탈로그로 OpenUI DSL을 만들고 파서 검증 후 렌더링한다.
+- **구현:** 공통 `AgentChatFrame`의 OpenUI `AgentInterface`로 입력창·대화 목록·시작 질문·도구 타임라인을 제공한다. Next `/api/sec-api-agent` → Python `/api/sec-deep-agent/chat` → 독립 `sec_deep_agent` → 공통 SEC tools → BFF 순서다. 최종 리포트는 공유 카탈로그로 OpenUI DSL을 만들고 파서 검증 후 렌더링한다.
 - **Behind the scenes:** 실제 SEC 도구의 실행 ID·이름·인자·완료/실패를 AG-UI `TOOL_CALL_*`로 전달한다. 원문 전체나 모델의 내부 사고는 노출하지 않는다. 계획·가상 파일 등 Deep Agent 내부 도구 전체를 추적하는 기능은 아니다.
 - **대화 범위:** 브라우저의 대화 기록을 매 요청에 전달하며 서버 측 체크포인트는 없다. 최근 12개 사용자/응답 메시지(각 최대 4,000자)를 문맥으로 사용한다. 현재 입력은 4,000자까지다. 가상 파일은 실행 간 유지되지 않는다.
 - **사용 사례:** 기업 검색 → 그 기업 공시 목록 → 원문 분석 리포트, 특정 기업의 최근 1년 공시 수집, 전체 수집 옵션 안내 및 명시적 실행 요청.
@@ -121,10 +121,15 @@ curl -N http://127.0.0.1:8000/api/sec-deep-agent/research \
 
 ### 관리자 채팅 레이아웃
 
-호스트 내비게이션을 공통으로 사용하고 OpenUI 내부 사이드바는 표시하지 않는다. 새 대화와 OpenUI 대화 목록은 상단 도구 모음에서 접근한다. 채팅은 호스트 콘텐츠 영역을 사용하며, 초기 화면의 설명·입력창·시작 질문과 응답·Behind the scenes는 OpenUI 컴포넌트로 제공한다. 화면별 CSS는 관리자 페이지에만 적용한다.
+호스트 내비게이션을 공통으로 사용하고 OpenUI 내부 사이드바는 표시하지 않는다. 새 대화와 OpenUI 대화 목록은 상단 도구 모음에서 접근한다. 채팅은 호스트 콘텐츠 영역을 사용하며, 초기 화면의 설명·입력창·시작 질문과 응답·Behind the scenes는 OpenUI 컴포넌트로 제공한다. 채팅 프레임·헤더 액션·입력창·Welcome·반응형·테마 CSS는 공통 `agent-conversation.css`에 둔다. 관리자 페이지는 전송·메모리 보관 helper와 업무 스타터만 연결한다.
 
 대화 기록은 페이지 인스턴스의 메모리에 보관해 새 대화와 기존 대화를 오갈 수 있다. 새로고침·페이지 이탈 후 복원을 위한 영구 저장 기능은 없다.
 
 ### 호스트와 OpenUI 테마
 
-두 SEC 화면은 호스트 헤더의 라이트·다크 토글을 따른다. 관리자 `AgentInterface`에는 호스트 mode를 명시적으로 전달하고, 생성된 답변의 카탈로그 색상은 호스트 CSS 변수와 연결한다. 선택 저장·OS 기본값은 [공통 테마](tech-shared/1-fe-host/2-frontend-side-architecture.md#fe-theme-001-공통-라이트다크-모드)를 따른다.
+두 SEC 화면은 호스트 헤더의 라이트·다크 토글을 따른다. 공통 `AgentChatFrame`이 호스트 mode를 OpenUI에 전달하고, 생성된 답변의 카탈로그 색상은 호스트 CSS 변수와 연결한다. 선택 저장·OS 기본값은 [공통 테마](tech-shared/1-fe-host/2-frontend-side-architecture.md#fe-theme-001-공통-라이트다크-모드)를 따른다.
+
+
+## 공통 채팅 디자인 시스템
+
+SEC API Agent와 SEC Intelligent UI는 [OPENUI-CHAT-DS-001](tech-shared/1-fe-host/open-ui.md#openui-chat-ds-001-공통-채팅-디자인-시스템)의 같은 프레임·Welcome·헤더·Composer·상태·오류 표현을 사용한다. 일반 Chat과 Generative UI도 이 표현 계층을 공유한다. `/sec-api-agent`는 native AG-UI adapter와 메모리 대화 기록, `/sec-chat`은 기존 controller adapter와 기업 확인·준비된 공시 metadata·추천 질문·독립 근거 표시를 연결한다. 일반 설명문은 공통 ConversationText로 Markdown을 렌더링한다. 업무 그래프·도구·인용 검증·서버 세션 계약은 화면 통합과 별개의 책임으로 유지한다.

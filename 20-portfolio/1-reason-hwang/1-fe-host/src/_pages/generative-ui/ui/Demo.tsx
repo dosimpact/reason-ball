@@ -1,6 +1,5 @@
 "use client";
-import { AgentConversation } from "@/shared/ui/agent-conversation";
-import Link from "next/link";
+import { AgentConversation, ChatNotice } from "@/shared/ui/agent-conversation";
 import { useEffect, useRef, useState } from "react";
 import { OutputView, type BusinessRequest } from "@/shared/ui/intelligent-ui";
 import { readOutput, type Activity, type UIOutput } from "../api/stream";
@@ -11,10 +10,10 @@ const examples = { dynamic: "전체 매출 현황을 보여줘 · 담당자별 �
 
 export function GenerativeDemo({ mode }: { mode: Mode }) {
   const [session, setSession] = useState(0);
-  return <main className="mx-auto max-w-5xl p-6"><header className="mb-6 flex flex-wrap items-center justify-between gap-4"><div><Link href="/open-ui" className="text-sm underline">Generative UI</Link><h1 className="mt-2 text-2xl font-semibold">{titles[mode]}</h1></div><button className="rounded border px-4 py-2" onClick={() => setSession(value => value + 1)}>새 대화</button></header><Session key={`${mode}-${session}`} mode={mode} /></main>;
+  return <Session key={`${mode}-${session}`} mode={mode} onReset={() => setSession(value => value + 1)} />;
 }
 
-function Session({ mode }: { mode: Mode }) {
+function Session({ mode, onReset }: { mode: Mode; onReset: () => void }) {
   const thread = useRef("");
   const controller = useRef<AbortController | null>(null);
   const [busy, setBusy] = useState(false);
@@ -45,10 +44,10 @@ function Session({ mode }: { mode: Mode }) {
     }
   }
   function cancel() { controller.current?.abort(); setActivity(null); }
-  return <section>
-    <p className="mb-4 rounded-lg bg-muted p-4 text-sm">{examples[mode]}</p>
-    <p className="mb-4 text-sm text-muted-foreground">{mode === "sec" ? "연결된 서비스에 저장된 공시를 사용합니다." : "가상 데이터 데모이며 실제 매출·운항·예약 정보가 아닙니다."} 대화는 서버 재시작 또는 만료 후 유지되지 않습니다.</p>
-    <AgentConversation busy={busy} title={titles[mode]} onSend={question => run(question)} onCancel={cancel} messages={turns.flatMap((turn, index) => [
+  return <AgentConversation busy={busy} title={titles[mode]} welcomeTitle="어떤 화면을 만들어 볼까요?"
+      description={examples[mode]} onReset={onReset}
+      footer={<ChatNotice>{mode === "sec" ? "연결된 서비스에 저장된 공시를 사용합니다." : "가상 데이터 데모이며 실제 매출·운항·예약 정보가 아닙니다."} 대화는 서버 재시작 또는 만료 후 유지되지 않습니다.</ChatNotice>}
+      status={<>{activity && <ChatNotice tone="status">{activity.label} · {activity.status === "completed" ? "완료" : activity.status === "failed" ? "실패" : "진행 중"}</ChatNotice>}{error && <ChatNotice tone="error">{error}</ChatNotice>}</>} onSend={question => run(question)} onCancel={cancel} messages={turns.flatMap((turn, index) => [
       { id: `user-${turn.output.revision}`, role: "user" as const, content: turn.question },
       { id: `assistant-${turn.output.revision}`, role: "assistant" as const, content: "", view: <article><fieldset disabled={busy || index !== turns.length - 1} className="min-w-0 space-y-5">
         {turn.output.program && <OutputView program={turn.output.program} busy={busy} onMessage={value => void run(value)} onError={() => setError("분석 화면을 표시하지 못했습니다.")} />}
@@ -56,9 +55,5 @@ function Session({ mode }: { mode: Mode }) {
       </fieldset>
       {index !== turns.length - 1 && <p className="mt-3 text-sm text-muted-foreground">이전 결과입니다. 선택은 최신 화면에서 진행하세요.</p>}
     </article> },
-    ])} />
-    {activity && <p role="status" className="my-4">{activity.label} · {activity.status === "completed" ? "완료" : activity.status === "failed" ? "실패" : "진행 중"}</p>}
-    {error && <p role="alert" className="my-4 text-red-700">{error}</p>}
-
-  </section>;
+    ])} />;
 }

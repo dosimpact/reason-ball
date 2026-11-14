@@ -86,7 +86,7 @@ for (const ticker of companies) {
         await expect(checkbox).not.toBeChecked();
         expect((await answer.innerText()).length).toBeLessThan(text.length);
         await checkbox.check();
-        await expect(page.locator(".sec-error")).toHaveCount(0);
+        await expect(page.locator('[data-slot="agent-chat-frame"]').getByRole("alert")).toHaveCount(0);
         if (index === 5 || index === 6) await testInfo.attach(`question-${index + 1}-render`, { body: await answer.screenshot(), contentType: 'image/png' });
       }
       expect(consoleErrors).toEqual([]);

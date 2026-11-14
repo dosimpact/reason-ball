@@ -297,3 +297,8 @@ Host의 FastAPI 프록시는 2981, `REMOTE_BFF_URL`은 BFF 2980이다.
 Host 사이드바는 Overview(Home), Remote Apps(Template·Todo), AI Chat(LangGraph Chat·SEC API Agent·SEC Research Chat·Push UI Chat), Generative UI(UI Demos·Component Catalog)로 구성한다. 카탈로그와 Push UI 예제도 직접 진입할 수 있다. URL은 기존 경로를 유지한다. 경로 구간이 일치하는 항목 중 가장 구체적인 경로 하나만 활성화하여 카탈로그에서 UI Demos가 동시에 선택되지 않게 한다. 접힌 상태의 아이콘·툴팁과 모바일 Sidebar 동작은 공통 Sidebar를 따른다.
 
 [변경 및 검증](../../../flow/2026-11-14-host-navigation-groups.md)
+
+
+## OPENUI-CHAT-DS-001: 공통 채팅 디자인 시스템
+
+`shared/ui/agent-conversation`의 AgentChatFrame이 SEC API Agent·SEC Intelligent UI·Chat·Generative UI와 Push UI 예제의 화면 프레임, 헤더, Welcome, Composer, 새 대화·기록 액션, 상태·오류, 간격·반응형·테마·스크롤을 소유한다. native AG-UI와 기존 domain controller는 동일한 화면을 사용하며 전송 어댑터만 다르다. 페이지는 toolbar/status/footer와 메시지 renderer 슬롯으로 그래프 선택·공시 근거·추천·차트·revision action을 연결한다. 페이지별 프레임 CSS와 중복 헤더는 만들지 않는다. 상세 계약은 [공통 채팅 설계](open-ui.md#openui-chat-ds-001-공통-채팅-디자인-시스템)를 따른다.

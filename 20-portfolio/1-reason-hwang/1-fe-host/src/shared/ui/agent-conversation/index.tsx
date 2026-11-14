@@ -1,62 +1,180 @@
 "use client";
 
-import { AgentInterface, type ChatLLM, useThread } from "@openuidev/react-ui";
+import {
+  AgentInterface,
+  type AgentInterfaceProps,
+  type ChatLLM,
+  useThread,
+  useThreadList,
+} from "@openuidev/react-ui";
+import { History, MessageSquarePlus, Square } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useHostTheme } from "@/shared/lib/theme";
+import { OutputView } from "@/shared/ui/intelligent-ui";
 import "@openuidev/react-ui/styles/index.css";
+import "@/shared/ui/intelligent-ui/components/components.css";
+import "@/shared/ui/intelligent-ui/components/theme.css";
 import "./agent-conversation.css";
 
-export type ConversationMessage = { id: string; role: "user" | "assistant"; content: string; view?: ReactNode };
+export type ConversationMessage = {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  view?: ReactNode;
+};
+
+type ConversationPresentation = {
+  title: string;
+  description?: string;
+  welcomeTitle?: string;
+  starters?: { displayText: string; prompt: string }[];
+  placeholder?: string;
+  toolbar?: ReactNode;
+  status?: ReactNode;
+  footer?: ReactNode;
+  children?: ReactNode;
+  busy?: boolean;
+  onCancel?: () => void;
+  onReset?: () => void | Promise<void>;
+};
+
+export type AgentChatFrameProps = ConversationPresentation & Pick<
+  AgentInterfaceProps,
+  "llm" | "storage" | "componentLibrary" | "onAction" | "components"
+> & { history?: boolean };
+
+/** Shared prose rendering uses the same safe Markdown catalog as rich answers. */
+export function ConversationText({ text }: { text: string }) {
+  return <div className="agent-conversation__prose">
+    <OutputView program={`root = Col([Markdown(${JSON.stringify(text)})])`} />
+  </div>;
+}
+
+export function ChatNotice({ children, tone = "info" }: {
+  children: ReactNode;
+  tone?: "info" | "error" | "status";
+}) {
+  return <div className={`agent-chat-notice agent-chat-notice--${tone}`} role={tone === "error" ? "alert" : tone === "status" ? "status" : undefined}>{children}</div>;
+}
+
+function ConversationActions({ busy, history, onReset, onDidReset }: {
+  busy: boolean;
+  history: boolean;
+  onReset?: () => void | Promise<void>;
+  onDidReset: () => void;
+}) {
+  const running = useThread(state => state.isRunning);
+  const cancelMessage = useThread(state => state.cancelMessage);
+  const switchToNewThread = useThreadList(state => state.switchToNewThread);
+
+  async function reset() {
+    if (busy || running) return;
+    cancelMessage();
+    if (onReset) await onReset();
+    else switchToNewThread();
+    onDidReset();
+  }
+
+  return <div className="agent-conversation__actions">
+    {history && <details className="agent-conversation__history">
+      <summary><History size={15} aria-hidden="true" />대화 기록</summary>
+      <div className="agent-conversation__history-panel"><AgentInterface.ThreadList /></div>
+    </details>}
+    <button type="button" onClick={() => void reset()} disabled={busy || running}>
+      <MessageSquarePlus size={15} aria-hidden="true" />새 대화
+    </button>
+  </div>;
+}
+
+function DomainComposer({ busy, onCancel, placeholder, epoch }: {
+  busy: boolean;
+  onCancel?: () => void;
+  placeholder: string;
+  epoch: number;
+}) {
+  const running = useThread(state => state.isRunning);
+  const externalRun = busy && !running;
+  return <>
+    <fieldset disabled={externalRun} className="agent-conversation__composer-fieldset">
+      <AgentInterface.Composer key={epoch} placeholder={placeholder} />
+    </fieldset>
+    {externalRun && <button className="agent-conversation__cancel" type="button" onClick={onCancel}>
+      <Square size={14} aria-hidden="true" />답변 중단
+    </button>}
+  </>;
+}
+
+/** One shell for native AG-UI transports and domain-controlled conversations. */
+export function AgentChatFrame({ title, description, welcomeTitle, starters, toolbar, status, footer,
+  children, busy = false, onCancel, onReset, placeholder, history = false, ...agentProps }: AgentChatFrameProps) {
+  const [mounted, setMounted] = useState(false);
+  const [epoch, setEpoch] = useState(0);
+  const { mode } = useHostTheme();
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
+  return <section className="agent-conversation" data-slot="agent-chat-frame" aria-label={title}>
+    {toolbar && <div className="agent-conversation__toolbar">{toolbar}</div>}
+    {status && <div className="agent-conversation__status">{status}</div>}
+    <div className="agent-conversation__interface">
+      <AgentInterface {...agentProps} theme={{ mode }} agentName={title} starters={starters} starterVariant="card" scrollVariant="always">
+        <AgentInterface.Sidebar>{null}</AgentInterface.Sidebar>
+        <AgentInterface.ThreadHeader
+          start={<div className="agent-conversation__heading"><h1 className="agent-conversation__title">{title}</h1>{description && <span className="agent-conversation__description">{description}</span>}</div>}
+          showChatTitle={false} showChatActions={false}
+          end={<ConversationActions busy={busy} history={history} onReset={onReset} onDidReset={() => setEpoch(value => value + 1)} />}
+        />
+        <AgentInterface.MobileHeader>
+          <div className="agent-conversation__heading"><h1 className="agent-conversation__title">{title}</h1>{description && <span className="agent-conversation__description">{description}</span>}</div>
+          <ConversationActions busy={busy} history={history} onReset={onReset} onDidReset={() => setEpoch(value => value + 1)} />
+        </AgentInterface.MobileHeader>
+        {!busy && <AgentInterface.Welcome key={epoch} title={welcomeTitle ?? "무엇을 도와드릴까요?"} description={description} starterVariant="card" />}
+        <AgentInterface.Composer><DomainComposer busy={busy} onCancel={onCancel} placeholder={placeholder ?? "메시지를 입력하세요"} epoch={epoch} /></AgentInterface.Composer>
+        {children}
+      </AgentInterface>
+    </div>
+    {footer && <div className="agent-conversation__footer">{footer}</div>}
+  </section>;
+}
 
 function SyncMessages({ messages }: { messages: ConversationMessage[] }) {
   const setMessages = useThread(state => state.setMessages);
-  useEffect(() => { setMessages(messages.map(({ id, role, content }) => ({ id, role, content }))); }, [messages, setMessages]);
+  useEffect(() => {
+    setMessages(messages.map(({ id, role, content }) => ({ id, role, content })));
+  }, [messages, setMessages]);
   return null;
 }
 
-function DomainComposer({ busy, onCancel, placeholder, epoch }: { busy: boolean; onCancel?: () => void; placeholder: string; epoch: number }) {
-  const running = useThread(state => state.isRunning);
-  const externalRun = busy && !running;
-  return <><fieldset disabled={externalRun} className="min-w-0 border-0 p-0"><AgentInterface.Composer key={epoch} placeholder={placeholder} /></fieldset>{externalRun && <button onClick={onCancel}>답변 중단</button>}</>;
-}
-
-/** Domain controllers retain their validated results; OpenUI owns the chat UI. */
-export function AgentConversation({ title, messages, onSend, onCancel, onReset, children, busy = false, welcomeTitle, starters, placeholder = "메시지를 입력하세요" }: {
-  title: string; messages: ConversationMessage[]; onSend: (text: string) => Promise<void>;
-  welcomeTitle?: string; starters?: { displayText: string; prompt: string }[]; busy?: boolean; onCancel?: () => void; onReset?: () => void; children?: ReactNode; placeholder?: string;
+/** Domain controllers keep validated results; the shared frame owns all chrome. */
+export function AgentConversation({ messages, onSend, children, ...presentation }: ConversationPresentation & {
+  messages: ConversationMessage[];
+  onSend: (text: string) => Promise<void>;
 }) {
-  const [epoch, setEpoch] = useState(0);
-  const reset = () => { if (!busy) { onReset?.(); setEpoch(value => value + 1); } };
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  const { mode } = useHostTheme();
-  const latest = useRef({ onSend, onCancel, messages });
-  latest.current = { onSend, onCancel, messages };
+  const latest = useRef({ onSend, onCancel: presentation.onCancel, messages });
+  latest.current = { onSend, onCancel: presentation.onCancel, messages };
   const llm = useMemo<ChatLLM>(() => ({
     async send({ messages: input, signal }) {
       const cancel = () => latest.current.onCancel?.();
+      if (signal.aborted) throw new DOMException("Request cancelled", "AbortError");
       signal.addEventListener("abort", cancel, { once: true });
       try {
         const content = input.at(-1)?.content;
         if (typeof content === "string") await latest.current.onSend(content);
         return new Response(null, { status: 200 });
-      } finally { signal.removeEventListener("abort", cancel); }
+      } finally {
+        signal.removeEventListener("abort", cancel);
+      }
     },
     streamProtocol: { async *parse() { /* Domain adapters already consume the stream. */ } },
   }), []);
   const components = useMemo(() => ({
-    AssistantMessage: ({ message }: { message: { id: string; content?: string } }) => <>{latest.current.messages.find(item => item.id === message.id)?.view ?? message.content}</>,
+    AssistantMessage: ({ message }: { message: { id: string; content?: string } }) => <div className="agent-conversation__answer">
+      {latest.current.messages.find(item => item.id === message.id)?.view ?? <ConversationText text={message.content ?? ""} />}
+    </div>,
   }), []);
-  if (!mounted) return null;
-  return <div className="agent-conversation">
-    <AgentInterface llm={llm} theme={{ mode }} agentName={title} starters={starters} components={components}>
-      <SyncMessages messages={messages} />
-      <AgentInterface.Sidebar>{null}</AgentInterface.Sidebar>
-      <AgentInterface.ThreadHeader showChatTitle={false} showChatActions={false} start={title} end={onReset && <button disabled={busy} onClick={reset}>새 대화</button>} />
-      <AgentInterface.MobileHeader>{title}{onReset && <button disabled={busy} onClick={reset}>새 대화</button>}</AgentInterface.MobileHeader>
-      {welcomeTitle && <AgentInterface.Welcome key={epoch} title={welcomeTitle} />}
-      <AgentInterface.Composer><DomainComposer busy={busy} onCancel={onCancel} placeholder={placeholder} epoch={epoch} /></AgentInterface.Composer>
-      {children}
-    </AgentInterface>
-  </div>;
+
+  return <AgentChatFrame {...presentation} llm={llm} components={components}>
+    <SyncMessages messages={messages} />
+    {children}
+  </AgentChatFrame>;
 }

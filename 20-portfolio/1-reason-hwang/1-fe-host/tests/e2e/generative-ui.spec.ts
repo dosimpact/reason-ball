@@ -1,8 +1,8 @@
 import { test, expect, type Page } from '@playwright/test';
 
 async function send(page: Page, message: string) {
-  await page.getByPlaceholder('메시지를 입력하세요').fill(message);
-  await page.getByPlaceholder('메시지를 입력하세요').press('Enter');
+  await page.locator('textarea:visible').first().fill(message);
+  await page.locator('textarea:visible').first().press('Enter');
   await expect(page.getByRole('button', { name: 'Cancel message', exact: true })).toHaveCount(0);
   await expect(page.locator('section > [role="alert"]')).toHaveCount(0);
   return page.locator('article').last();
@@ -78,14 +78,14 @@ test('Catalog search, state, edit and reset', async ({ page }) => {
 
 test('Cancel and new conversation discard in-flight output', async ({ page }) => {
   await page.goto('/open-ui/dynamic');
-  await page.getByPlaceholder('메시지를 입력하세요').fill('지역별 매출을 표와 차트로 비교해줘');
-  await page.getByPlaceholder('메시지를 입력하세요').press('Enter');
+  await page.locator('textarea:visible').first().fill('지역별 매출을 표와 차트로 비교해줘');
+  await page.locator('textarea:visible').first().press('Enter');
   await expect(page.getByRole('status')).toContainText('진행 중');
   await page.getByRole('button', { name: 'Cancel message', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Cancel message', exact: true })).toHaveCount(0);
   await expect(page.locator('article')).toHaveCount(0);
   await page.getByRole('button', { name: '새 대화', exact: true }).click();
-  await expect(page.getByPlaceholder('메시지를 입력하세요')).toHaveValue('');
+  await expect(page.locator('textarea:visible').first()).toHaveValue('');
   const panel = await send(page, '전체 매출 합계를 짧게 보여줘');
   await expect(panel).toContainText('조회 매출 $680,000 · 거래처 6개');
   await expect(page.locator('article')).toHaveCount(1);
