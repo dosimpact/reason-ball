@@ -284,8 +284,9 @@ OpenUI 카탈로그는 `src/shared/ui/intelligent-ui`, 생성 프롬프트는 `s
 
 ## LOCAL-PORTS-002: Host·Remote 환경 설정
 
-Host `dev`/`start`는 Node의 환경 파일 옵션으로 `.env`, `.env.local`을 순서대로 읽는다.
-Next CLI는 `PORT=2983`을 사용하고 셸 환경 변수가 우선한다.
+Host `dev`는 `next dev --turbopack --hostname 127.0.0.1 --port 2983`, `start`는 `next start --port 2983`을 직접 실행한다.
+Next의 표준 환경변수 로딩을 사용하며 현재 로컬 앱 설정은 `.env`에 둔다. 삭제한 `.env.local`은 재생성하지 않는다. 서버 포트는 스크립트의 CLI 옵션으로 결정하며 `.env`의 `PORT`는 적용되지 않는다. `pnpm dev --port 3280`처럼 명시적으로 덮어쓸 수 있다.
+`next.config.ts`의 Turbopack root와 outputFileTracingRoot는 독립 워크스페이스 `1-reason-hwang`을 가리킨다. 검증 서버는 `NEXT_DIST_DIR`로 출력물을 분리한다.
 Host의 FastAPI 프록시는 2981, `REMOTE_BFF_URL`은 BFF 2980이다.
 각 Vite Remote는 자기 패키지의 `.env`에서 `PORT`(Template 2984/Todo 2985)와
 `REMOTE_BFF_URL`을 읽어 개발·preview 포트와 BFF 경유 asset origin을 설정한다.
@@ -313,3 +314,5 @@ RootLayout은 사이드바·테마 Provider·SidebarInset과 `min-h-svh` 콘텐�
 - 채팅: 공통 `agent-conversation`의 높이는 `100svh`다. 삭제한 Host 헤더 높이를 viewport에서 차감하지 않으며 내부 메시지 스크롤과 Composer 배치는 공통 채팅 프레임이 소유한다.
 
 [변경 및 검증 기록](../../../flow/2026-11-14-host-header-removal.md)
+
+Host CLI·Turbopack 실행 변경과 검증은 [HOST-DEV-CLI-001 기록](../../../flow/2026-11-14-next-turbopack-cli.md)을 따른다.

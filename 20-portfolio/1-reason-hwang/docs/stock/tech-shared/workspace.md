@@ -129,7 +129,7 @@ LangGraph dev 2982, Host 2983, Template Remote 2984, Todo Remote 2985를 설정�
 기존 Docker 서비스의 2800/2801 포트를 변경하거나 종료하지 않는다.
 
 - FastAPI: `SERVER_PORT`, LangGraph dev: `LANGGRAPH_PORT`를 uv가 로드한 뒤 CLI `--port`에 전달한다.
-- Host: Node가 `.env`, `.env.local`을 로드한 뒤 Next CLI가 `PORT`를 읽는다.
+- Host: `next dev --turbopack` / `next start`를 직접 실행한다. 앱 환경변수는 Next가 `.env`에서 자동 로드하며 별도 Node 환경파일 wrapper는 없다. 기본 포트는 스크립트의 `--port 2983`이고 `pnpm dev --port <번호>`로 덮어쓴다. `.env`의 `PORT`는 서버 포트에 적용되지 않는다.
 - BFF: 기존 dotenv 설정의 `PORT`를 사용한다. `REMOTE_TEMPLATE_URL`/`REMOTE_TODO_URL`은 개발 Remote 주소다.
 - Vite Remote: `loadEnv`의 `PORT`와 `REMOTE_BFF_URL`을 사용한다. 개발·preview 포트는 동일하고 `strictPort`를 유지한다.
 - Host의 FastAPI 프록시 4종과 `REMOTE_BFF_URL`, FastAPI의 SEC BFF·UI validator 주소도 새 포트로 연결한다.

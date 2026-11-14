@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node --env-file-if-exists=.env --env-file-if-exists=.env.local node_modules/next/dist/bin/next dev --hostname 127.0.0.1",
+    "dev": "next dev --turbopack --hostname 127.0.0.1 --port 2983",
     "build": "next build --no-lint",
-    "start": "node --env-file-if-exists=.env --env-file-if-exists=.env.local node_modules/next/dist/bin/next start",
+    "start": "next start --port 2983",
     "lint": "eslint . && pnpm lint:fsd",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
