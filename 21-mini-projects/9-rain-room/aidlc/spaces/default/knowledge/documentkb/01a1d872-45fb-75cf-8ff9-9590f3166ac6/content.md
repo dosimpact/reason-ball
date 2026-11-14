@@ -34,7 +34,7 @@ pnpm --filter @rain-room/web exec node scripts/copy-music-assets.mjs --replace-a
 
 ## 실행·검사
 
-저장소 루트에서 실행한다. 웹은 `0.0.0.0:3000`, 기존 외부 접속은 `http://dodonet.iptime.org:13500/`이다.
+저장소 루트에서 실행한다. 웹은 `0.0.0.0:3000`에서 실행하며 로컬 접속 주소는 `http://localhost:3000/`이다. 실제 기기·외부 접속 주소는 Git에서 제외한 `apps/mobile/.env.local`의 `EXPO_PUBLIC_WEB_URL`로 지정한다. 사용자 도메인은 웹 서버 실행 환경의 `__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS`에 정확한 호스트를 지정한다. 공개 문서·코드에는 개인 서버 주소를 넣지 않는다.
 
 ```sh
 pnpm install --frozen-lockfile

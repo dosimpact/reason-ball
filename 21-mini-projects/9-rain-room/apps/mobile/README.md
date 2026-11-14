@@ -11,9 +11,9 @@ pnpm --filter @rain-room/web dev
 pnpm --filter @rain-room/mobile dev
 ```
 
-모바일 명령은 `expo start --dev-client --tunnel --port 8081`입니다. `start`, `tunnel`, `dev:tunnel`도 같습니다. 프로젝트 로컬 `@expo/ngrok`를 사용합니다. Metro 터널은 **자바스크립트 번들**에만 적용됩니다. 웹 화면·음원은 별도의 `EXPO_PUBLIC_WEB_URL`로 기기에서 직접 접속합니다. 기본값 `http://dodonet.iptime.org:13500/`은 React 개발 서버 3000번으로 포워딩되어야 합니다. 13500번을 Metro 포트로 바꾸지 마세요. 환경변수 변경 후 Metro를 재시작합니다.
+모바일 명령은 `expo start --dev-client --tunnel --port 8081`입니다. `start`, `tunnel`, `dev:tunnel`도 같습니다. 프로젝트 로컬 `@expo/ngrok`를 사용합니다. Metro 터널은 **자바스크립트 번들**에만 적용됩니다. 웹 화면·음원은 별도의 `EXPO_PUBLIC_WEB_URL`로 기기에서 직접 접속합니다. 기본값은 `http://localhost:3000/`입니다. 실제 기기에서 localhost는 기기 자신을 가리키므로, 웹 서버의 LAN 주소 또는 별도로 배포한 HTTPS URL을 지정하세요. 웹 서버와 Metro의 포트는 별개입니다. 환경변수 변경 후 Metro를 재시작합니다.
 
-`apps/mobile/.env.example`을 `.env.local`로 복사하면 URL을 바꿀 수 있습니다. `EXPO_PUBLIC_*` 값은 번들에 공개되므로 비밀 값을 넣지 않습니다. iOS ATS와 Android 네트워크 정책은 개발 HTTP 호스트만 예외 처리하며, 설정 변경 후 네이티브 앱을 다시 빌드해야 합니다.
+`apps/mobile/.env.example`을 같은 디렉터리의 `.env.local`로 복사하고 `EXPO_PUBLIC_WEB_URL`을 설정합니다. `.env.local`은 Git에서 제외됩니다. 사용자 도메인으로 Vite에 접속하려면 웹 서버 실행 환경에 `__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS=dev.example.com`처럼 정확한 호스트를 지정합니다. 실제 서버 주소나 사용자 경로가 담긴 `artifacts/`·로컬 세션 파일은 폴더 공유 대상에서 제외합니다. `EXPO_PUBLIC_*` 값은 번들에 공개되므로 비밀 값을 넣지 않습니다. iOS ATS와 Android 네트워크 정책은 개발 HTTP 호스트만 예외 처리하며, 설정 변경 후 네이티브 앱을 다시 빌드해야 합니다.
 
 처음 한 번은 개발 클라이언트를 설치해야 합니다. macOS Xcode/iOS 시뮬레이터 또는 Android SDK/에뮬레이터 준비 후 `pnpm --filter @rain-room/mobile ios` 또는 `android`로 로컬 네이티브 빌드를 실행합니다. `expo-go`는 별도의 선택 사항이며 커스텀 네이티브 네트워크 설정 검증을 대체하지 않습니다.
 

@@ -11,7 +11,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-웹: `http://localhost:3000` / 기존 외부 접속: `http://dodonet.iptime.org:13500/`
+웹: `http://localhost:3000`. 실제 기기·외부 접속 주소는 [모바일 개발 설정](apps/mobile/README.md)에 따라 로컬 환경변수로 지정합니다.
 
 다른 터미널에서 모바일 개발 서버를 실행합니다.
 

@@ -1,4 +1,4 @@
-const DEVELOPMENT_WEB_URL = 'http://dodonet.iptime.org:13500/'
+const DEVELOPMENT_WEB_URL = 'http://localhost:3000/'
 
 /** @param {string | undefined} value @param {boolean} development */
 function resolveWebUrl(value, development) {
