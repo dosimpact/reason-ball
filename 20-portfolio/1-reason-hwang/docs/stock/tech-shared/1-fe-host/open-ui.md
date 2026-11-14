@@ -55,3 +55,13 @@ Host RootLayout은 공통 상단 헤더를 표시하지 않는다. AgentChatFram
 Generative UI 진입 화면은 매출 분석·항공편 선택·카탈로그를 제공한다.
 SEC 전용 데모 경로와 메뉴는 제거했으며 회사·공시 업무는 `/sec-api-agent`와 `/sec-chat`에서 제공한다.
 SEC 채팅이 공유하는 renderer·카탈로그·채팅 프레임은 유지한다.
+
+## TA-QUERY-001: 금융 Query provider
+
+`OutputView`의 OpenUI `Renderer.toolProvider`는 `technical_analysis_chart`만 연결한다. 허용된 ticker/interval/count/indicators/기간 인자를 같은 origin의 기존 `/api/langgraph/technical-analysis/chart`로 GET하고 Zod 계약을 검사한다. 임의 URL 또는 모델 도구 실행을 허용하지 않는다. `Query`는 OpenUI SDK builtin이며 기존 parser validator가 생성된 프로그램을 검사한다. `sec-ui:generate`가 FinancialChart schema와 Query 사용 지침을 Python 프롬프트까지 동기화한다.
+
+`FinancialChart`는 최소 snapshot prop 하나를 받으며 하나의 bars 배열로 Lightweight Charts 캔들·거래량·SMA·RSI·MACD pane을 표시한다. metadata·오류·준비 구간 경고·TradingView attribution을 함께 표시한다. 값이 null이어도 선택한 지표 pane을 유지한다. 크기는 컨테이너에 반응하고 테마는 Host class/data-theme를 따른다.
+
+`/chat`은 최신 assistant 출력에만 `active`를 전달한다. 해당 프로그램의 `$chart_refresh_seconds` 기본0을 사용자가 opt-in할 때30으로 전환한다. 이전 출력과 busy 출력은 polling을 멈춘다. Query key별 캐시가 설정 변경 중의 응답을 격리하며, 출력 교체/unmount는 소유 fetch를 취소하고 SDK timer와 chart observer를 정리한다. 모델 설명은 최초 분석 스냅샷이고 차트 조회는 대화 state를 바꾸지 않는다.
+
+계약과 검증은 [도메인 설계](../../technical-analysis/system-design.md#ta-query-001-조회-api와-차트-runtime), [flow](../../../flow/2026-11-14-openui-query-financial-charts.md)를 따른다.

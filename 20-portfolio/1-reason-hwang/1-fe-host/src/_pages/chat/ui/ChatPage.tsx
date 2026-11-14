@@ -12,9 +12,9 @@ export function ChatPage() {
     description="에이전트를 선택하고 대화하세요. 기술적 분석은 일봉·주봉과 RSI·SMA·MACD를 지원합니다."
     toolbar={<GraphSelector graphs={graphs} value={graphId} onChange={selectGraph} disabled={busy} />}
     status={<ChatNotice tone={error ? "error" : "status"}>{error ?? (busy ? "답변을 준비하고 있어요" : "Ready")}</ChatNotice>}
-    busy={busy} messages={messages.map(message => ({
+    busy={busy} messages={messages.map((message, index) => ({
       id: message.id, role: message.role === "user" ? "user" as const : "assistant" as const,
       content: message.content,
-      view: <div>{message.content && <ConversationText text={message.content} />}{message.program && <OutputView program={message.program} />}</div>,
+      view: <div>{message.content && <ConversationText text={message.content} />}{message.program && <OutputView program={message.program} active={!busy && index === messages.length - 1} />}</div>,
     }))} onSend={sendMessage} onCancel={cancelRun} onReset={resetThread} />;
 }

@@ -1,0 +1,33 @@
+meta {
+  name: TA-QUERY-001 completed daily chart snapshot
+  type: http
+  seq: 1
+}
+get {
+  url: {{baseUrl}}/technical-analysis/chart?ticker=AAPL&interval=1d&count=120
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("TA-QUERY-001 aligned OHLCV and three indicators", function () {
+    const data = res.getBody();
+    expect(data.symbol).to.equal("AAPL");
+    expect(data.auto_adjust).to.equal(true);
+    expect(data.source).to.equal("Yahoo Finance");
+    expect(data.currency).to.equal("USD");
+    expect(data.bars.length).to.equal(120);
+    expect(data.as_of).to.equal(data.bars[119].time);
+    expect(data.fetched_at).to.be.a("string");
+    expect(data.bars[119].sma).to.be.a("number");
+    expect(data.bars[119].rsi).to.be.a("number");
+    expect(data.bars[119].macd - data.bars[119].signal).to.be.closeTo(data.bars[119].histogram, 0.000001);
+    data.bars.forEach((bar, index) => {
+      expect(bar.low).to.be.at.most(bar.high);
+      expect(bar.volume).to.be.at.least(0);
+      if (index) expect(bar.time > data.bars[index - 1].time).to.equal(true);
+    });
+  });
+}

@@ -38,6 +38,7 @@ from server.sec_deep_agent.router import router as sec_deep_agent_router
 from server.store import router as store_router
 from server.store import set_store_repository
 from server.streaming import router as streaming_router
+from server.technical_analysis.router import router as technical_analysis_router
 from server.system import router as system_router
 from server.threads import router as threads_router
 from settings import get_settings
@@ -124,6 +125,7 @@ app.include_router(generative_ui_router)
 app.include_router(push_ui_message_router)
 app.include_router(sec_chat_router)
 app.include_router(sec_deep_agent_router)
+app.include_router(technical_analysis_router)
 
 
 def standard_openapi() -> dict:

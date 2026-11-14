@@ -143,3 +143,7 @@ SEC Chat의 기업/공시 조회는 공통 SEC tool calling으로 실행하며, 
 ## FE-FSD-001 / SEC-ADMIN-001
 
 Host `src` 전체는 FSD 레이어와 Steiger 권장 규칙을 적용한다. Next 라우트 진입점은 루트 `app/`, 구현은 `_app`, `_pages`, `widgets`, `shared`에 둔다. [Host 구조](1-fe-host/2-frontend-side-architecture.md#fe-fsd-001-host의-feature-sliced-design)를 따른다. `/sec-api-agent`는 독립 SEC Deep Agent를 OpenUI `AgentInterface`와 연결한 관리자 업무용 채팅이다. 기존 `/sec-chat`의 인용 검증과 추천 질문 흐름은 유지한다. [SEC 기능 원본](../sec-chat.md#sec-api-관리자-채팅).
+
+## TA-QUERY-001: 모델 없는 금융 데이터 조회
+
+기술적 분석 OpenUI는 기존 Host `/api/langgraph` 프록시로 Python `GET /technical-analysis/chart`를 조회한다. 이 API는 FastAPI와 LangGraph development custom `http.app`에 같은 router를 등록하며 Yahoo·TA-Lib를 재사용한다. 차트 조건 변경·polling은 그래프 run과 모델 provider를 호출하지 않는다. 초기 분석과 해석의 모델 경계는 유지한다. 구체 계약은 [기술적 분석 시스템 설계](../technical-analysis/system-design.md#ta-query-001-조회-api와-차트-runtime), Host provider는 [OpenUI Host](1-fe-host/open-ui.md#ta-query-001-금융-query-provider)를 따른다.

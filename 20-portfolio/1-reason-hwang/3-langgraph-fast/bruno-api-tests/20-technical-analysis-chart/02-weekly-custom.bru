@@ -1,0 +1,25 @@
+meta {
+  name: TA-QUERY-002 selected custom indicator weekly snapshot
+  type: http
+  seq: 2
+}
+get {
+  url: {{baseUrl}}/technical-analysis/chart?ticker=005930.KS&interval=1wk&count=20&indicators=SMA&sma_period=60
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("TA-QUERY-002 KRW weekly selected SMA60", function () {
+    const data = res.getBody();
+    expect(data.currency).to.equal("KRW");
+    expect(data.interval).to.equal("1wk");
+    expect(data.parameters.sma_period).to.equal(60);
+    expect(data.indicators).to.deep.equal(["SMA"]);
+    expect(data.bars.length).to.equal(20);
+    expect(data.bars[19].sma).to.be.a("number");
+    expect(data.bars[19]).not.to.have.property("rsi");
+  });
+}

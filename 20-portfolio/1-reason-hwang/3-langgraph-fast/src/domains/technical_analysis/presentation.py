@@ -10,24 +10,50 @@ def build_program(state: dict) -> str:
     )
     statements = []
     dates = report["dates"]
-    caption = f"{report['symbol']} · {report['interval']} · {dates[0]} ~ {dates[-1]} · {report['currency']} · 수정주가 · 완료 봉"
+    caption = f"분석 시점 스냅샷 · {report['symbol']} · {report['interval']} · {dates[0]} ~ {dates[-1]} · {report['currency']} · 수정주가 · 완료 봉"
     nodes = [f'Title({dumps("기술적 분석")}, "xl")', f"Text({dumps(caption)})"]
-    price_rows = [
-        {"date": day, "close": close}
-        for day, close in zip(dates, report["close"], strict=True)
-    ]
-    price_series = ["close"]
-    for item in report["indicators"]:
-        if item["name"] == "SMA" and item["status"] == "success":
-            label = f"SMA {item['parameters']['timeperiod']}"
-            price_series.append(label)
-            for row, value in zip(price_rows, item["series"]["sma"], strict=True):
-                if value is not None:
-                    row[label] = value
-    statements.append(f"prices = {dumps(price_rows)}")
-    nodes.append(
-        f'Chart("line", prices, "date", {dumps(price_series)}, "currency", {dumps(report["currency"])})'
-    )
+    snapshot = report.get("chart_snapshot")
+    if snapshot:
+        args = {
+            "ticker": report["symbol"],
+            "interval": report["interval"],
+            "count": report["requested_count"],
+            "indicators": ",".join(snapshot["indicators"]),
+            **snapshot["parameters"],
+        }
+        statements.extend(
+            [
+                f"$chart_ticker = {dumps(report['symbol'])}",
+                f"$chart_interval = {dumps(report['interval'])}",
+                f"$chart_count = {dumps(str(report['requested_count']))}",
+            ]
+        )
+        query_args = dumps(args)
+        for key, variable in (
+            ("ticker", "$chart_ticker"),
+            ("interval", "$chart_interval"),
+            ("count", "$chart_count"),
+        ):
+            query_args = query_args.replace(
+                dumps(key) + ":" + dumps(args[key]), dumps(key) + ":" + variable, 1
+            )
+        counts = list(
+            dict.fromkeys([str(report["requested_count"]), "60", "120", "200"])
+        )
+        nodes.extend(
+            [
+                'Input($chart_ticker, "Yahoo 티커", "text")',
+                'Select($chart_interval, [{"value":"1d","label":"일봉"},{"value":"1wk","label":"주봉"}], "주기")',
+                f'Select($chart_count, {dumps(counts)}, "봉 수")',
+                'Text("차트 조회 조건은 모델 호출 없이 변경됩니다. 아래 해석과 근거는 최초 분석 시점 기준입니다.")',
+            ]
+        )
+        statements.append(f"snapshot = {dumps(snapshot)}")
+        statements.append("$chart_refresh_seconds = 0")
+        statements.append(
+            f'chart = Query("technical_analysis_chart", {query_args}, snapshot, $chart_refresh_seconds)'
+        )
+        nodes.append("FinancialChart(chart)")
     for item in report["indicators"]:
         nodes.append(
             f"Title({dumps(item['name'] + ' (' + ' / '.join(str(v) for v in item['parameters'].values()) + ')')})"
@@ -47,27 +73,6 @@ def build_program(state: dict) -> str:
             continue
         if item["name"] == "SMA":
             continue
-        rows = []
-        for index, day in enumerate(dates):
-            row = {"date": day}
-            row.update(
-                {
-                    key: values[index]
-                    for key, values in item["series"].items()
-                    if values[index] is not None
-                }
-            )
-            if item["name"] == "RSI":
-                row.update({"lower": 30, "upper": 70})
-            rows.append(row)
-        keys = (
-            ["rsi", "lower", "upper"] if item["name"] == "RSI" else ["macd", "signal"]
-        )
-        variable = item["name"].lower() + "Data"
-        statements.append(f"{variable} = {dumps(rows)}")
-        nodes.append(f'Chart("line", {variable}, "date", {dumps(keys)})')
-        if item["name"] == "MACD":
-            nodes.append(f'Chart("bar", {variable}, "date", ["histogram"])')
     for warning in report["warnings"]:
         nodes.append(f"Text({dumps(warning)})")
     nodes.append(

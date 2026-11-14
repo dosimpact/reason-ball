@@ -221,3 +221,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [공통 채팅 디자인 시스템](flow/2026-11-14-shared-chat-design-system.md): OPENUI-CHAT-DS-001, 네 채팅 계열의 프레임·입력·응답 UI 통합.
 
 - [Host 공통 상단 헤더 제거](flow/2026-11-14-host-header-removal.md): HOST-HEADER-001, 앱 헤더 소유권·전체 높이·사이드바 제어 위치.
+
+- [OpenUI Query 금융 차트](flow/2026-11-14-openui-query-financial-charts.md): TA-QUERY-001, 모델 없는 Yahoo·TA-Lib 조회와 Lightweight Charts.

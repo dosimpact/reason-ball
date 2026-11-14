@@ -68,7 +68,9 @@ def test_full_series_and_signals_match_talib():
         )
         assert indicator["signal"]["state"] != "판단 불가"
     program = build_program({"answer": report})
-    assert program.count("Chart(") == 4
+    assert "FinancialChart(chart)" in program
+    assert 'Query("technical_analysis_chart"' in program
+    assert "$chart_refresh_seconds = 0" in program
     assert report["dates"][-1] in program
     assert str(report["close"][-1]) in program
 
@@ -159,7 +161,7 @@ async def test_graph_presents_then_clears_stale_result():
     graph.add_edge("business", END)
 
     async def validator(program):
-        assert "Chart(" in program
+        assert "FinancialChart(" in program
         return []
 
     app = build_technical_analysis_agent(agent=graph.compile(), validator=validator)

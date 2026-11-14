@@ -1,0 +1,18 @@
+meta {
+  name: TA-QUERY-003 invalid-indicators
+  type: http
+  seq: 6
+}
+get {
+  url: {{baseUrl}}/technical-analysis/chart?ticker=AAPL&indicators=EMA
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("Reject invalid input before provider lookup", function () {
+    expect(res.getStatus()).to.equal(422);
+  });
+}

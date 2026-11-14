@@ -157,6 +157,10 @@
       "signature": "Chart(type: \"bar\" | \"line\" | \"area\" | \"pie\" | \"donut\" | \"scatter\", data: Record<string, string | number>[], x?: string, series?: string[], format?: \"number\" | \"currency\" | \"percent\", currency?: string, stacked?: boolean, height?: number)",
       "description": "Rows of data; x is the category key (a number key for scatter), series the value keys (default: every number key). percent values are like 45; currency is a code like \"EUR\"."
     },
+    "FinancialChart": {
+      "signature": "FinancialChart(snapshot: {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], indicators?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string})",
+      "description": "Financial OHLCV snapshot from technical_analysis_chart Query. One aligned bars array drives candlesticks, volume, SMA overlay and RSI/MACD panes on a shared time axis. Never invent prices or calculate indicators in the model."
+    },
     "Map": {
       "signature": "Map(markers: MapMarker[], route?: boolean, selected?: $binding<string>, height?: number)",
       "description": "Street map fitted to its markers. route draws the road path in marker order; selected holds the clicked marker's label."
@@ -288,9 +292,14 @@
         "Icon",
         "Table",
         "Chart",
+        "FinancialChart",
         "Map",
         "MapMarker",
         "YouTube"
+      ],
+      "notes": [
+        "- FinancialChart consumes one trusted snapshot. Fetch it with data = Query(\"technical_analysis_chart\", {ticker: $ticker, interval: $interval, count: $count, indicators: \"SMA,RSI,MACD\"}, {bars: [], status: \"loading\"}). The Host runs this allowlisted read tool without an LLM round trip.",
+        "- Query(tool, args, default, seconds) re-runs when reactive args change. Omit seconds or use 0 for historical answers. Explicit live mode may use 30 seconds only for the active latest answer. Price and all indicators must come from the same returned snapshot."
       ]
     },
     {
@@ -686,6 +695,9 @@
       "Chart": {
         "$ref": "#/$defs/Chart"
       },
+      "FinancialChart": {
+        "$ref": "#/$defs/FinancialChart"
+      },
       "Map": {
         "$ref": "#/$defs/Map"
       },
@@ -775,6 +787,7 @@
       "Icon",
       "Table",
       "Chart",
+      "FinancialChart",
       "Map",
       "MapMarker",
       "YouTube",
@@ -2028,6 +2041,159 @@
         ],
         "additionalProperties": false,
         "description": "Rows of data; x is the category key (a number key for scatter), series the value keys (default: every number key). percent values are like 45; currency is a code like \"EUR\"."
+      },
+      "FinancialChart": {
+        "type": "object",
+        "properties": {
+          "snapshot": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string"
+              },
+              "interval": {
+                "type": "string"
+              },
+              "currency": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string"
+              },
+              "source_url": {
+                "type": "string"
+              },
+              "as_of": {
+                "type": "string"
+              },
+              "fetched_at": {
+                "type": "string"
+              },
+              "auto_adjust": {
+                "type": "boolean"
+              },
+              "warnings": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "indicators": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "parameters": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {}
+              },
+              "bars": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "time": {
+                      "type": "string"
+                    },
+                    "open": {
+                      "type": "number"
+                    },
+                    "high": {
+                      "type": "number"
+                    },
+                    "low": {
+                      "type": "number"
+                    },
+                    "close": {
+                      "type": "number"
+                    },
+                    "volume": {
+                      "type": "number"
+                    },
+                    "sma": {
+                      "anyOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "rsi": {
+                      "anyOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "macd": {
+                      "anyOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "signal": {
+                      "anyOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "histogram": {
+                      "anyOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "time",
+                    "open",
+                    "high",
+                    "low",
+                    "close",
+                    "volume"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "error": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "bars"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "snapshot"
+        ],
+        "additionalProperties": false,
+        "description": "Financial OHLCV snapshot from technical_analysis_chart Query. One aligned bars array drives candlesticks, volume, SMA overlay and RSI/MACD panes on a shared time axis. Never invent prices or calculate indicators in the model."
       },
       "Map": {
         "type": "object",

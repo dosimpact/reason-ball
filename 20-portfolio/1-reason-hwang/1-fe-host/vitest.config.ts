@@ -21,7 +21,7 @@ export default defineConfig({
         test: {
           name: 'generative-ui',
           environment: 'node',
-          include: ['src/_pages/generative-ui/**/*.test.ts'],
+          include: ['src/_pages/generative-ui/**/*.test.ts', 'src/shared/ui/intelligent-ui/*.test.ts'],
         },
       },
       {

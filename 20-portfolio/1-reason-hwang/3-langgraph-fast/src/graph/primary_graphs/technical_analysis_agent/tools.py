@@ -11,6 +11,7 @@ from langgraph.prebuilt import InjectedState
 from langgraph.types import Command
 from pydantic import Field
 
+from domains.technical_analysis.chart import build_chart_snapshot
 from domains.technical_analysis.report import (
     AgentIndicator,
     default_indicators,
@@ -191,11 +192,14 @@ def build_tools(*, fetcher=fetch_historical_prices, engine=None):
             "requested_count": count,
             "available_count": len(prices),
             "warmup": warmup,
+            "chart_snapshot": build_chart_snapshot(
+                prices, metadata, settings, count, result
+            ),
         }
         summary = {
             key: value
             for key, value in report.items()
-            if key not in {"close", "dates", "indicators"}
+            if key not in {"close", "dates", "indicators", "chart_snapshot"}
         }
         summary["as_of"] = report["dates"][-1]
         summary["indicators"] = [

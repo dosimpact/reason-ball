@@ -1,0 +1,18 @@
+meta {
+  name: TA-QUERY-003 invalid-macd
+  type: http
+  seq: 4
+}
+get {
+  url: {{baseUrl}}/technical-analysis/chart?ticker=AAPL&macd_fast=26&macd_slow=12
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("Reject invalid input before provider lookup", function () {
+    expect(res.getStatus()).to.equal(422);
+  });
+}

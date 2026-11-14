@@ -1,0 +1,18 @@
+meta {
+  name: TA-QUERY-003 invalid-interval
+  type: http
+  seq: 5
+}
+get {
+  url: {{baseUrl}}/technical-analysis/chart?ticker=AAPL&interval=5m
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("Reject invalid input before provider lookup", function () {
+    expect(res.getStatus()).to.equal(422);
+  });
+}
