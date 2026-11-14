@@ -77,3 +77,9 @@ SEC 채팅이 공유하는 renderer·카탈로그·채팅 프레임은 유지한
 실행 완료·실패·취소 시 남은 running 상태를 종료 상태로 바꾸고 새 대화·graph 변경에서 활동을 초기화한다. 기존 분석 본문·OpenUI Query 차트와 공통 AgentInterface Composer는 유지한다. 다른 채팅 화면의 실행 프로토콜은 변경하지 않는다. 중첩 Deep Agent의 values가 상위 node 완료 시에만 전달되면 완료된 실행 이력부터 나타날 수 있으며 별도 subgraph token/tool 스트림은 추가하지 않는다.
 
 [변경·검증 기록](../../../flow/2026-11-14-chat-behind-the-scenes.md)
+
+## OPENUI-CATALOG-CHART-001: TradingView 차트 카탈로그
+
+`/open-ui/catalog`의 미디어·데이터 그룹에 `FinancialChart` 예제를 제공한다.
+FinancialChart 또는 TradingView로 검색해 캔들·거래량·SMA/RSI/MACD, 가격·거래량 전용, 빈 데이터 예제를 실행하고 코드를 편집·초기화할 수 있다.
+카탈로그 예제는 명시적으로 가상 시세와 표시 확인용 지표 값을 사용하며 모델·서버를 호출하지 않는다. 실제 데이터 조회 계약은 TA-QUERY-001을 따른다.
