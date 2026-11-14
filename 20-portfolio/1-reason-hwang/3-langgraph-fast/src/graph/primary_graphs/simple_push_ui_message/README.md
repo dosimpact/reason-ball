@@ -8,7 +8,7 @@ From the independent workspace root:
 
 ```sh
 pnpm --filter @reason-hwang/langgraph-fast-api dev
-pnpm --filter reason-hwang-fe-host dev
+pnpm --filter @reason-hwang/fe-host dev
 ```
 
 Open `http://127.0.0.1:2800/examples/push-ui-message` and ask `매출 집계 기준을 조사하고 서울 매출을 조회해줘`, then `부산도 조회해서 비교해줘`.

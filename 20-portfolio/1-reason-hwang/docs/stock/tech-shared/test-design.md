@@ -44,7 +44,7 @@ Turbo only runs a task for packages that define the corresponding script. A succ
 - Index DCF calculation logic exposed through the UI.
 - Index DCF visualizer interaction and warning behavior.
 
-Playwright owns its configured host server. Do not reuse or terminate unrelated development servers. Use `pnpm --filter reason-hwang-fe-host test:e2e` for the full suite or the committed focused script for calculation-only checks.
+Playwright owns its configured host server. Do not reuse or terminate unrelated development servers. Use `pnpm --filter @reason-hwang/fe-host test:e2e` for the full suite or the committed focused script for calculation-only checks.
 
 ## BFF validation
 

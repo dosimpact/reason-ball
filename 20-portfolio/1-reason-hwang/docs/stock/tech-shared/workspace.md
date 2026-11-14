@@ -10,7 +10,7 @@ The root package and seven child packages are registered by `pnpm-workspace.yaml
 
 | Path | Package | Runtime |
 | --- | --- | --- |
-| `1-fe-host` | `reason-hwang-fe-host` | Next.js/TypeScript |
+| `1-fe-host` | `@reason-hwang/fe-host` | Next.js/TypeScript |
 | `2-bff-apps` | `@reason-hwang/bff-apps` | NestJS/TypeScript |
 | `2-bff-apps/remotes/template` | `@reason-hwang/remote-template` | Vite React/TypeScript |
 | `2-bff-apps/remotes/todo` | `@reason-hwang/remote-todo` | Vite React/TypeScript |

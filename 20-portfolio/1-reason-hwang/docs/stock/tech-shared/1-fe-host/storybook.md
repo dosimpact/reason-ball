@@ -26,11 +26,11 @@ The host Storybook presents reusable UI components independently of backend serv
 Run from `1-reason-hwang`:
 
 ```sh
-pnpm --filter reason-hwang-fe-host storybook
-pnpm --filter reason-hwang-fe-host build-storybook
-pnpm --filter reason-hwang-fe-host exec vitest run --project storybook
-pnpm --filter reason-hwang-fe-host typecheck
-pnpm --filter reason-hwang-fe-host lint
+pnpm --filter @reason-hwang/fe-host storybook
+pnpm --filter @reason-hwang/fe-host build-storybook
+pnpm --filter @reason-hwang/fe-host exec vitest run --project storybook
+pnpm --filter @reason-hwang/fe-host typecheck
+pnpm --filter @reason-hwang/fe-host lint
 ```
 
 The development default is port 6006. Validation may use a separate owned port. Follow [VAL-VIEW-001](../../../validation/pure-view.md): verify content and interaction in the browser in addition to build and automated story tests.

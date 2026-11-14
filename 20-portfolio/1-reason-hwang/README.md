@@ -55,7 +55,7 @@ pnpm infra:down
 프론트엔드:
 
 ```bash
-pnpm --filter reason-hwang-fe-host dev
+pnpm --filter @reason-hwang/fe-host dev
 ```
 
 BFF:
@@ -104,7 +104,7 @@ pnpm build
 개별 테스트:
 
 ```bash
-pnpm --filter reason-hwang-fe-host test:e2e
+pnpm --filter @reason-hwang/fe-host test:e2e
 pnpm --filter @reason-hwang/bff-apps test
 pnpm --filter @reason-hwang/langgraph-fast-api test
 ```
@@ -112,7 +112,7 @@ pnpm --filter @reason-hwang/langgraph-fast-api test
 정적 검사:
 
 ```bash
-pnpm --filter reason-hwang-fe-host lint
+pnpm --filter @reason-hwang/fe-host lint
 pnpm --filter @reason-hwang/bff-apps lint
 pnpm --filter @reason-hwang/langgraph-fast-api lint
 pnpm --filter @reason-hwang/langgraph-fast-api typecheck
@@ -165,13 +165,13 @@ codex mcp add reason-hwang-storybook --url http://127.0.0.1:6006/mcp
 프로젝트에는 `@storybook/addon-mcp` 의존성과 `1-fe-host/.storybook/main.ts`의 addon 등록이 이미 있습니다. 설치된 addon은 개발 서버의 `/mcp`를 제공합니다.
 
 ```bash
-pnpm --filter reason-hwang-fe-host storybook
+pnpm --filter @reason-hwang/fe-host storybook
 ```
 
 기본 UI는 `http://127.0.0.1:6006`, MCP는 `http://127.0.0.1:6006/mcp`입니다. Storybook 서버를 실행한 상태에서 MCP를 연결합니다. 다른 프로세스가 포트를 쓰면 종료하거나 재사용하지 말고, 소유한 서버를 다른 포트에 띄워 MCP URL도 맞춥니다.
 
 ```bash
-pnpm --filter reason-hwang-fe-host storybook --port 16006 --ci --no-open
+pnpm --filter @reason-hwang/fe-host storybook --port 16006 --ci --no-open
 codex mcp add reason-hwang-storybook --url http://127.0.0.1:16006/mcp
 ```
 

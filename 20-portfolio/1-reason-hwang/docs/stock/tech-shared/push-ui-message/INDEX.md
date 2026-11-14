@@ -25,9 +25,9 @@
 
 ```sh
 pnpm --filter @reason-hwang/langgraph-fast-api dev
-pnpm --filter reason-hwang-fe-host dev
-pnpm --filter reason-hwang-fe-host test:push-ui
-pnpm --filter reason-hwang-fe-host test:push-ui:views
+pnpm --filter @reason-hwang/fe-host dev
+pnpm --filter @reason-hwang/fe-host test:push-ui
+pnpm --filter @reason-hwang/fe-host test:push-ui:views
 pnpm --filter @reason-hwang/langgraph-fast-api test:push-ui:api --env-var baseUrl=http://127.0.0.1:8000
 ```
 
