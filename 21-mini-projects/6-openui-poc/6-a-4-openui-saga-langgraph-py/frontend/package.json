@@ -1,0 +1,69 @@
+{
+  "name": "@reason-ball/openui-saga-langgraph-py",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "generate": "openui generate src/library.ts --out src/generated/system-prompt.txt && openui generate src/library.ts --spec --out src/generated/spec.json",
+    "predev": "pnpm sync:assets && pnpm generate",
+    "dev": "next dev --hostname 127.0.0.1 --port 3048",
+    "prebuild": "pnpm sync:assets && pnpm generate",
+    "build": "next build",
+    "preverify": "pnpm generate",
+    "verify": "next build",
+    "start": "next start --hostname 127.0.0.1 --port 3048",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test:smoke": "node tests/smoke.mjs",
+    "sync:prompt": "node scripts/sync-prompt.mjs",
+    "test:e2e": "playwright test",
+    "generate:history": "node scripts/generate-demo-history.mjs",
+    "sync:assets": "node scripts/sync-saga-assets.mjs",
+    "audit:catalog": "node src/lib/saga-genui/audit-catalog.mjs",
+    "test:gallery": "node tests/gallery-audit.mjs"
+  },
+  "dependencies": {
+    "@emotion/css": "^11.13.5",
+    "@emotion/react": "^11.14.0",
+    "@grafana/data": "13.3.0",
+    "@grafana/ui": "13.3.0",
+    "@openuidev/lang-core": "1.0.1",
+    "@openuidev/langchain": "0.0.3",
+    "@openuidev/react-headless": "0.18.1",
+    "@openuidev/react-lang": "1.0.1",
+    "lucide-react": "^0.575.0",
+    "next": "16.2.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-router-dom-v5-compat": "6.30.6",
+    "uplot": "1.6.32",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@openuidev/cli": "0.6.0",
+    "@playwright/test": "^1.64.1",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^22.15.32",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@openuidev/lang-core",
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ],
+    "overrides": {
+      "postcss@<8.5.10": ">=8.5.10"
+    }
+  },
+  "allowScripts": {
+    "@openuidev/lang-core": true,
+    "sharp": true,
+    "unrs-resolver": true
+  }
+}

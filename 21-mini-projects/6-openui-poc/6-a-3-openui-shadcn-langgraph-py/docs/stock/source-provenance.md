@@ -47,9 +47,9 @@
 | `src/lib/shadcn-genui/components/carousel.tsx` | 원본 동일 |
 | `src/lib/shadcn-genui/components/charts.tsx` | 원본 동일 |
 | `src/lib/shadcn-genui/components/checkbox-group.tsx` | Hook 명명 / Carousel 구독 정리 |
-| `src/lib/shadcn-genui/components/code-block.tsx` | 원본 동일 |
+| `src/lib/shadcn-genui/components/code-block.tsx` | Shiki 지연 하이라이트 및 복사 기능 추가 |
 | `src/lib/shadcn-genui/components/date-picker.tsx` | Hook 명명 / Carousel 구독 정리 |
-| `src/lib/shadcn-genui/components/dialog-block.tsx` | 원본 동일 |
+| `src/lib/shadcn-genui/components/dialog-block.tsx` | controlled state, Escape 닫기와 포커스 복귀 수정 |
 | `src/lib/shadcn-genui/components/drawer-block.tsx` | 원본 동일 |
 | `src/lib/shadcn-genui/components/follow-up-block.tsx` | Hook 명명 / Carousel 구독 정리 |
 | `src/lib/shadcn-genui/components/form-control.tsx` | Hook 명명 / Carousel 구독 정리 |
@@ -72,8 +72,15 @@
 | `src/lib/shadcn-genui/components/textarea.tsx` | Hook 명명 / Carousel 구독 정리 |
 | `src/lib/shadcn-genui/components/typography.tsx` | 원본 동일 |
 | `src/lib/shadcn-genui/helpers.ts` | 원본 동일 |
-| `src/lib/shadcn-genui/index.tsx` | 원본 동일 |
+| `src/lib/shadcn-genui/index.tsx` | shadcn/Magic 확장 등록 및 프롬프트 규칙 보완 |
 | `src/lib/shadcn-genui/rules.ts` | 원본 동일 |
-| `src/lib/shadcn-genui/unions.ts` | 원본 동일 |
+| `src/lib/shadcn-genui/unions.ts` | 확장 콘텐츠 참조 추가 |
 
 원본 OpenAI API route, app-tools.ts, tool-loop.ts, model-prompt.ts, env.ts는 가져오지 않았다. Python graph/streaming/tools는 기반 6-a-1에서 유지했다. graph에는 예제 수치를 sample data로 표시하는 지시를 추가했다. 테스트·프롬프트 동기화 스크립트·stock/flow 문서는 이 통합을 위해 추가했다. 라이선스는 frontend/OPENUI-LICENSE에 보존했다.
+
+
+## 2026-11-10 공식 레지스트리 확장
+
+Magic UI 원본과 라이선스는 `frontend/src/components/magicui/`에, 조회 URL/해시는 같은 디렉터리 `provenance.json`에 보존한다. OpenUI 어댑터는 `frontend/src/lib/shadcn-genui/magic/`에 작성했다. 소스는 import, 타입 호환성, 효과 범위 및 제한된 Shiki 로딩을 위해 수정되므로 원본과 byte-identical하지 않다.
+
+추가 shadcn primitives는 공식 레지스트리에서 가져왔으며 `expanded-shadcn/coverage.json`과 `registry-dependencies.json`에 매핑한다. 어댑터·갤러리·계약 검사는 이 프로젝트에서 추가했다.

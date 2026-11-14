@@ -1,0 +1,7 @@
+# Magic UI public component sources
+
+The 78 public entries listed at https://magicui.design/docs/components were retrieved from the official `/r/<slug>.json` registry on 2026-11-10. Pro blocks and templates are excluded. `provenance.json` records the official slug, docs URL, registry URL, original file paths and registry-response SHA-256. The upstream MIT license is preserved in LICENSE.md.
+
+The TSX files are the actual upstream implementations. Local adaptations provide a shared `cn`, a local scroll-area dependency, contain cursor/particle effects in the generated area, and document narrow React Compiler lint compatibility exceptions at their affected lines. `animations.css` preserves official registry CSS and theme animation variables. `tweet-card.server.tsx` preserves the upstream server implementation; the client OpenUI adapter uses the original `MagicTweet` renderer with typed sample data; explicitly supplied IDs use `react-tweet`'s client component because browser-rendered OpenUI cannot execute an async server component.
+
+OpenUI adapters live in `src/lib/shadcn-genui/magic/`. Each public entry has a `Magic`-prefixed name, a typed serializable schema and standalone Card fixture. Runtime refs, React nodes and callbacks are created inside the adapters. Dynamic imports defer each source module. The shared boundary unmounts offscreen effects, retains supplied content in reduced-motion static mode and labels device failures with `data-magic-error` for browser verification.

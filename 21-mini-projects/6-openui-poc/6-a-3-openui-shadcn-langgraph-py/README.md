@@ -106,3 +106,18 @@ http://127.0.0.1:3046 에서 왼쪽 상단 **Expand sidebar** 또는 **Chat hist
 예제는 이미 생성된 응답이므로 열람에 모델 호출이 필요하지 않다. 새 질문·후속 버튼은 실제 API를 호출한다. 수치·날짜는 예제 데이터다. 새로고침 후 기록과 마지막 선택을 복원하며 기존 사용자 기록을 덮어쓰지 않는다.
 
 명시적으로 예제 소스를 다시 생성하려면 두 서버가 실행된 상태에서 frontend의 `pnpm generate:history`를 사용한다. 이 명령은 모델 비용이 발생하며 기존 브라우저 기록은 자동 교체하지 않는다.
+
+## 전체 컴포넌트 갤러리
+
+`http://127.0.0.1:3046/component-gallery`에서 shadcn/UI와 Magic UI 예제를 검색하고 **Preview**로 선택한다. 선택한 예제만 렌더링하며 모델 호출은 없다. **OpenUI source**에서 생성 언어 소스를 보고, 폼 상태와 액션 결과를 확인한다. 대화에서는 **Magic UI showcase** 스타터로 혼합 화면을 요청할 수 있다.
+
+```bash
+# frontend/에서
+pnpm generate
+pnpm sync:prompt
+pnpm test:catalog:contract # 서버 없이 공식 목록/fixture/프롬프트 계약 검사
+pnpm test:catalog          # 실행 중인 frontend + 설치된 Chrome 필요
+pnpm test:catalog:smoke    # frontend + Python + 실제 모델 API 필요
+```
+
+공식 목록은 shadcn 66개 항목과 Magic UI 공개 78개 항목으로 고정했다. 정의 개수는 보조 타입을 포함하므로 이 항목 수와 다르다. 모든 upstream props/스타일 변형의 일대일 노출을 뜻하지 않으며 지원하는 생성 계약은 갤러리 소스와 생성 spec을 따른다. Pro/템플릿 및 별도 AI Elements는 제외한다. 출처와 검증 상태는 [확장 기록](docs/flow/2026-11-10-full-catalog-onboarding.md), [shadcn 출처](docs/stock/shadcn-provenance.md), [Magic UI 출처](frontend/src/components/magicui/README.md)를 참고한다.

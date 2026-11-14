@@ -71,6 +71,8 @@ import { PaginationBlock } from "./components/pagination-block";
 import { Blockquote, Heading, InlineCode } from "./components/typography";
 
 import { ChatContentChildUnion } from "./unions";
+import { additionalComponents, additionalFixtures } from "./expanded-shadcn";
+import { magicComponents, magicFixtures } from "./magic";
 
 const ChatCardChildUnion = z.union([...ChatContentChildUnion.options, Tabs.ref, Carousel.ref]);
 
@@ -91,6 +93,8 @@ const ChatCard = defineComponent({
 // ── Component Groups ──
 
 export const shadcnComponentGroups: ComponentGroup[] = [
+  { name: "Extended shadcn", components: additionalFixtures.flatMap(fixture => fixture.components) },
+  { name: "Magic UI", components: magicFixtures.flatMap(fixture => fixture.components), notes: ["Use Magic-prefixed components for optional visual effects. Combine with shadcn content and controls inside Card."] },
   {
     name: "Content",
     components: [
@@ -145,7 +149,7 @@ export const shadcnComponentGroups: ComponentGroup[] = [
     notes: [
       "- Define EACH FormControl as its own reference — do NOT inline all controls in one array.",
       "- NEVER nest Form inside Form.",
-      "- Form requires explicit buttons. Always pass a Buttons(...) reference as the third Form argument.",
+      "- Form requires explicit buttons. Always pass a Buttons(...) reference as the second Form argument.",
       "- rules is an optional object: { required: true, email: true, min: 8, maxLength: 100 }",
       "- The renderer shows error messages automatically — do NOT generate error text in the UI",
     ],
@@ -315,7 +319,9 @@ cal = CalendarBlock("range", "2025-06-01", 2)`,
 
 export const shadcnAdditionalRules: string[] = [
   "Every response is a single Card(children) — children stack vertically automatically.",
-  "Card is the only layout container. Do NOT use Stack. Use Tabs to switch between sections, Carousel for horizontal scroll.",
+  "Card is the response root. Inside Card, use registered layout containers, Tabs, Carousel and Magic components to organize content. Never invent unregistered components.",
+  "Magic-prefixed components add visual effects and rich presentation; combine them with shadcn forms, tables and navigation. Keep essential content readable without animation.",
+  "Use only serializable properties. Never generate JavaScript callbacks, DOM refs or arbitrary code as component props.",
   "Use FollowUpBlock at the END of a Card to suggest what the user can do or ask next.",
   "Carousel takes an array of slides, where each slide is an array of content.",
   "IMPORTANT: Every slide in a Carousel must use the same component structure in the same order.",
@@ -350,6 +356,8 @@ export const shadcnChatLibrary = createLibrary({
   root: "Card",
   componentGroups: shadcnComponentGroups,
   components: [
+    ...additionalComponents,
+    ...Object.values(magicComponents),
     // Root
     ChatCard,
     CardHeader,
