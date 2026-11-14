@@ -5,6 +5,7 @@ description = "Minimal FastAPI and LangGraph service starter"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+  "beautifulsoup4>=4.12,<5",
   "deepagents>=0.7.29",
   "fastapi>=0.116.0",
   "httpx>=0.28.0",

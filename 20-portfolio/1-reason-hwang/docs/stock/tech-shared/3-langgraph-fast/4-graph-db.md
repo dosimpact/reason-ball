@@ -9,6 +9,60 @@ Neo4j 컨테이너·볼륨·exporter provisioning은
 
 ## 결론과 책임 경계
 
+### SEC-MODEL1-001: 세 보고서 문서 구조 PoC
+
+`domains.tenk.document_structure`와 `scripts/tenk_model1_sample.py`는 아래의 기존
+`ParserPipeline`과 별도인 모델링 1 경로다. LLM이나 기존 mock extractor를 호출하지 않는다.
+현재 지원·검증 대상은 사용자 제공 AAPL `aapl-20260926.htm`, CPNG `cpng-20251231.htm`,
+NVDA `nvda-20260125.htm` 세 10-K 파일이다. 표지·목차·Item 전 본문 및 마지막 SIGNATURES 이후는
+Item에 포함하지 않고 제외한 텍스트 길이를 summary에 기록한다. 외부 이미지도 복제하지 않는다.
+
+```text
+로컬 HTML + 명시적 공시 metadata
+  → 원문 DEI의 CIK / form / 보고기간 일치 검증
+  → 실제 body Item 제목·순서 확인 (목차 링크와 분리)
+  → Item별 inert HTML 정제 / 표 셀 구분을 유지한 text
+  → Company -FILED-> Filing -HAS_ITEM-> Item
+  → JSON·HTML preview 내보내기 / opt-in Neo4j MERGE
+```
+
+| Label | ID | 속성 |
+| --- | --- | --- |
+| Company | `company:{CIK}` | `cik`, `name`, `ticker` |
+| Filing | `filing:{CIK}:{accessionNo}` | `accessionNo`, `formType`, `filingDate`, `reportDate`, `sourceUrl`, `sourceHash`, `parserVersion`, `model=sec-model1` |
+| Item | `{filingId}:item:{partCode}:{itemCode}` | `partCode`, `itemCode`, `title`, `order`, `displayHtml`, `text`, `contentHash`, `parserVersion` |
+
+- `displayHtml`은 제목·목록·표·병합 셀·허용된 표시 스타일을 유지하고 script·외부 자원·숨김
+  metadata를 제거한다. Inline XBRL은 태그만 벗기고 표시값을 남긴다. `text`는 인라인 숫자를
+  쪼개지 않으며 표 셀을 탭으로 구분한다. 원본 HTML 전체는 Neo4j에 넣지 않는다.
+- 공시 수준 URL·원본 해시는 출처 식별용이다. 필수 `sourceLocator`나 PostgreSQL 읽기 연결은
+  없으며 가공 결과만으로 표시·후속 청킹할 수 있다. 원본 재파싱은 별도 재반입이 필요하다.
+- 샘플 CLI는 세 파일 각각 23개 Item을 검증한 후에만 export/write한다. 경계 중복·역순·없는
+  Item 또는 원문 식별자 불일치는 실패한다. 범용 parser의 `expected_codes`는 선택사항이다.
+  body 직계 블록에서 제목을 찾는 지원 범위이며 모든 SEC 레이아웃을 지원한다고 간주하지 않는다.
+- 기본 명령은 DB에 쓰지 않는다. `--write-neo4j`는 기존 `Neo4jWriter`의 ID 기반 MERGE를 사용한다.
+  삭제·원문 보관·기존 노드 전체 초기화는 하지 않는다. writer의 batch transaction 한계는 동일하다.
+- 기존 `RetrievalService`는 기존 snake_case schema와 SectionText를 대상으로 한다. 새 Item의
+  `displayHtml/text`를 질의하는 앱/API 연동은 이 PoC에서 구현하지 않았다.
+- 모델링 2의 Chunk·임베딩, 모델링 3의 XBRL facts, PostgreSQL 자동 반입은 범위 밖이다.
+
+```sh
+# 독립 workspace root 기준
+pnpm -C 3-langgraph-fast model1:sample
+pnpm -C 3-langgraph-fast test:model1
+pnpm -C 3-langgraph-fast model1:sample --write-neo4j
+```
+
+기본 산출물은 `3-langgraph-fast/.tmp/model1-three-filings/`의 `graph.json`, `summary.json`,
+`index.html`, 회사별 `preview.html` 및 개별 Item HTML이다. 런타임 산출물은 커밋하지 않는다.
+API 또는 제품 View 변경이 아닌 CLI와 정적 preview이며 실제 MCP 브라우저·DB 검증을 수행한다.
+특히 NVDA는 Item 8이 참조 문구이고 재무표는 Item 15에 있으므로 Item 8 표 존재를 일반화하지 않는다.
+
+[계획 flow](../../../flow/2026-11-14-sec-model1-three-filings-plan.md) ·
+[도메인 저장 경계](../../us-corporate-filings/system-design.md#sec-model1-001-분석용-문서-구조의-저장-경계)
+
+### 기존 10-K parser / retrieval 경로
+
 `3-langgraph-fast`는 다음을 소유한다.
 
 - 공시 원문의 section 분할과 구조화 정보 추출

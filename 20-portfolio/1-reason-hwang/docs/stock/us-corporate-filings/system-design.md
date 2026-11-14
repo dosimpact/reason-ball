@@ -6,6 +6,23 @@
 
 ## 구조
 
+### SEC-MODEL1-001: 분석용 문서 구조의 저장 경계
+
+모델링 1의 분석 결과는 Neo4j의 `Company → FILED → Filing → HAS_ITEM → Item`으로
+구성한다. PostgreSQL은 SEC 수집 원본 HTML과 메타데이터를 보존한다. Neo4j에는 원본 HTML
+전체를 복제하지 않고 Item별 정제 `displayHtml`과 `text`를 저장한다. 표시용 제목·문단·표와
+수치는 보존하고 XBRL 메타데이터 및 실행 가능한 HTML 요소를 제거한다.
+
+Item을 표시하거나 후속 청킹할 때 PostgreSQL을 다시 조회하지 않는다. `sourceUrl`과
+`sourceHash`는 공시 수준의 추적 정보이며 원문 조회 의존성이 아니다. `sourceLocator`는 필수
+속성이 아니다. 원본 추출 규칙을 바꾸거나 XBRL을 재파싱할 때만 명시적으로 원본을 다시 받는다.
+
+현재 실행 범위는 사용자가 지정한 AAPL·CPNG·NVDA 3개 로컬 10-K 파일의 모델링 1 PoC다.
+PostgreSQL 자동 반입, 모든 SEC 양식 지원, 모델링 2의 청킹·임베딩, 모델링 3의 XBRL 구조화는
+이 PoC에 포함하지 않는다. 모델링 1 출력은 기존 mock 기반 `ParserPipeline`과 별도 경로다.
+CLI·그래프 ID·제약·검증은 [Graph DB 문서](../tech-shared/3-langgraph-fast/4-graph-db.md)의
+모델링 1 계약을 따른다. [합의 기록](../../flow/2026-11-14-sec-model1-three-filings-plan.md).
+
 ```text
 SEC EDGAR -> NestJS bounded HTTP download -> UTF-8 검증 및 SHA-256
           -> PostgreSQL sec_collector.public.filings (원자적 UPDATE)
