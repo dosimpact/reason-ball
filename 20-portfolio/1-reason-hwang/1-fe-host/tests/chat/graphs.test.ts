@@ -14,7 +14,6 @@ test("discovers every page, deduplicates graphs and keeps unknown/schema failure
  assert.equal(graphs.find(item => item.id === "starter_graph")?.mode, "chat");
  assert.equal(graphs.find(item => item.id === "last_graph")?.mode, "json");
  assert.ok(graphs.find(item => item.id === "last_graph")?.schemaError);
- assert.equal(graphOption("simple_push_ui_message").mode, "json");
  assert.equal(graphOption("technical_analysis_graph").mode, "json");
 });
 test("nonchat input passes unchanged into a fresh isolated thread and returns latest values", async () => {

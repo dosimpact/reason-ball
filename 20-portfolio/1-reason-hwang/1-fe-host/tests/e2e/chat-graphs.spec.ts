@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const ids = ['main_graph', 'simple_llm', 'technical_analysis_graph', 'price_agent', 'starter_graph', 'tenk_subgraph', 'simple_push_ui_message', 'sec_deep_agent', 'technical_analysis_agent', 'unknown_fixture_graph', 'schema_error_fixture'];
+const ids = ['main_graph', 'simple_llm', 'technical_analysis_graph', 'price_agent', 'starter_graph', 'tenk_subgraph', 'sec_deep_agent', 'technical_analysis_agent', 'unknown_fixture_graph', 'schema_error_fixture'];
 const chat = new Set(['starter_graph', 'simple_llm', 'technical_analysis_agent', 'sec_deep_agent']);
 
 test.beforeEach(async ({ request, page }) => {
@@ -12,7 +12,7 @@ test.beforeEach(async ({ request, page }) => {
 
 test('every discovered graph is selectable and executes in its input mode', async ({ page }) => {
   const selector = page.locator('select[aria-label="LangGraph 에이전트"]:visible');
-  await expect(selector.locator('option')).toHaveCount(11);
+  await expect(selector.locator('option')).toHaveCount(10);
   expect((await selector.locator('option').evaluateAll(options => options.map(option => (option as HTMLOptionElement).value))).sort()).toEqual([...ids].sort());
   for (const id of ids) {
     await selector.selectOption(id);

@@ -43,7 +43,6 @@ const navGroups = [
       { title: "LangGraph Chat", href: "/chat", icon: MessagesSquare },
       { title: "SEC API Agent", href: "/sec-api-agent", icon: MessagesSquare },
       { title: "SEC Research Chat", href: "/sec-chat", icon: MessagesSquare },
-      { title: "Push UI Chat", href: "/examples/push-ui-message", icon: MessagesSquare },
     ],
   },
   {

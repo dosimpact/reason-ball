@@ -4,14 +4,14 @@ import process from 'node:process';
 import { setTimeout as delay } from 'node:timers/promises';
 
 // No model, market, SEC or database calls. All registered graph contracts are visible.
-const ids = ['main_graph', 'simple_llm', 'technical_analysis_graph', 'price_agent', 'starter_graph', 'tenk_subgraph', 'simple_push_ui_message', 'sec_deep_agent', 'technical_analysis_agent', 'unknown_fixture_graph', 'schema_error_fixture'];
+const ids = ['main_graph', 'simple_llm', 'technical_analysis_graph', 'price_agent', 'starter_graph', 'tenk_subgraph', 'sec_deep_agent', 'technical_analysis_agent', 'unknown_fixture_graph', 'schema_error_fixture'];
 const chat = new Set(['starter_graph','simple_llm','technical_analysis_agent','sec_deep_agent']);
 const calls = [];
 const states = new Map();
 const threads = [];
 let sequence = 0;
 const json = (response, body, status=200) => { response.writeHead(status, {'Content-Type':'application/json'}); response.end(JSON.stringify(body)); };
-const schema = id => chat.has(id) ? {type:'object',properties:{messages:{type:'array'}},required:['messages']} : {type:'object',properties: id === 'price_agent' ? {query:{type:'string'},interval:{type:'string'},count:{type:'integer'}} : id === 'simple_push_ui_message' ? {messages:{type:'array'},turn_id:{type:'string'}} : {input:{type:'object'}},required:id === 'price_agent' ? ['query'] : id === 'simple_push_ui_message' ? ['turn_id'] : []};
+const schema = id => chat.has(id) ? {type:'object',properties:{messages:{type:'array'}},required:['messages']} : {type:'object',properties: id === 'price_agent' ? {query:{type:'string'},interval:{type:'string'},count:{type:'integer'}} : {input:{type:'object'}},required:id === 'price_agent' ? ['query'] : []};
 const server=createServer(async(request,response)=>{
  const url=new URL(request.url,'http://fixture'); let text=''; for await(const chunk of request) text+=chunk;
  const input=text?JSON.parse(text):{}; calls.push({method:request.method,path:url.pathname,body:input});

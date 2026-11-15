@@ -14,7 +14,6 @@
     "typecheck": "uv run --with pyright pyright",
     "sync": "uv sync",
     "clean": "rm -rf dist build .pytest_cache .ruff_cache .pyright .coverage coverage htmlcov",
-    "test:push-ui:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 16-push-ui-message --env local",
     "test:sec-chat": "uv run pytest tests/test_sec_intelligent_ui.py",
     "test:sec-chat:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 17-sec-intelligent-ui --env local",
     "test:sec-tools": "uv run pytest tests/test_sec_tools.py tests/test_sec_intelligent_ui.py tests/test_sec_admin_chat.py",

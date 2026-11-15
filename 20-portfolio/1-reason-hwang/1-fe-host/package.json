@@ -12,8 +12,6 @@
     "test:e2e:calculation": "playwright test --project=calculation",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test:push-ui": "node --import tsx --test tests/push-ui-message/*.test.ts",
-    "test:push-ui:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/_pages/examples-push-ui-message/ui/TurnView.stories.tsx",
     "test:sec-chat:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/_pages/sec-chat/ui/*.stories.tsx",
     "test:sec-chat:live": "playwright test --project sec-live --workers 2",
     "sec-ui:generate": "openui generate src/shared/ui/intelligent-ui/library.ts --out src/shared/config/openui/system-prompt.txt && node scripts/sync-sec-ui.mjs",
