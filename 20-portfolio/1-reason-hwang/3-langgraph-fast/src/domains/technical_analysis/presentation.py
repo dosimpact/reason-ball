@@ -13,7 +13,24 @@ def build_program(state: dict) -> str:
     caption = f"분석 시점 스냅샷 · {report['symbol']} · {report['interval']} · {dates[0]} ~ {dates[-1]} · {report['currency']} · 수정주가 · 완료 봉"
     nodes = [f'Title({dumps("기술적 분석")}, "xl")', f"Text({dumps(caption)})"]
     snapshot = report.get("chart_snapshot")
-    if snapshot:
+    if snapshot and snapshot.get("schemaVersion") == 2:
+        from domains.technical_analysis.catalog import catalog
+        instances = [{"instanceId":i["instanceId"],"name":i["name"],"parameters":i["parameters"],"showSignal":i.get("showSignal",False)} for i in snapshot["indicators"]]
+        statements.extend([
+            f"$chart_ticker = {dumps(report['symbol'])}",
+            f"$chart_interval = {dumps(report['interval'])}",
+            f"$chart_count = {dumps(str(report['requested_count']))}",
+            f"$chart_instances = {dumps(dumps(instances))}",
+            "$chart_refresh_seconds = 0",
+            f"catalogSnapshot = {dumps(catalog())}",
+            'catalog = Query("technical_analysis_catalog", {}, catalogSnapshot)',
+        ])
+        fallback = {**{k:v for k,v in snapshot.items() if k not in {"bars","indicators"}},"bars":[],"indicators":[]}
+        statements.append(f"snapshot = {dumps(fallback)}")
+        args = '{"ticker":$chart_ticker,"interval":$chart_interval,"count":$chart_count,"schema_version":2,"instances":$chart_instances}'
+        statements.append(f'chart = Query("technical_analysis_chart", {args}, snapshot, $chart_refresh_seconds)')
+        nodes.append('QueryPanel([Input($chart_ticker, "Yahoo 티커", "text"), Select($chart_interval,[{"value":"1d","label":"일봉"},{"value":"1wk","label":"주봉"}],"주기"), Select($chart_count,["60","120","200"],"봉 수"), IndicatorControls($chart_instances,catalog), Text("조회 갱신은 모델 호출 없이 실행됩니다. 아래 해석은 최초 분석 snapshot 기준입니다."), FinancialChart(chart)],Action([@Run(chart)]))')
+    if snapshot and snapshot.get("schemaVersion") != 2:
         args = {
             "ticker": report["symbol"],
             "interval": report["interval"],
@@ -63,7 +80,7 @@ def build_program(state: dict) -> str:
         label = signal["state"] + (" · " + signal["cross"] if "cross" in signal else "")
         nodes.append(f"Text({dumps('기준일 ' + dates[-1] + ' · ' + label)})")
         evidence = [
-            [key, "판단 불가" if value is None else f"{value:.4f}"]
+            [key, "판단 불가" if value is None else f"{value:.4f}" if isinstance(value,(int,float)) else str(value)]
             for key, value in signal.items()
             if key not in {"state", "cross"}
         ]

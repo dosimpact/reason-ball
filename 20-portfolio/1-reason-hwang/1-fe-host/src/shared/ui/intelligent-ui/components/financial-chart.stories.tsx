@@ -34,3 +34,19 @@ export const PendingQuery: Story = { args: { snapshot: null }, play: async ({ ca
   await expect(canvas.getByRole("status")).toHaveTextContent("불러오는 중");
   await expect(canvas.queryByTestId("financial-chart-canvas")).not.toBeInTheDocument();
 } };
+
+const v2: FinancialSnapshot = {
+  ...snapshot, schemaVersion: 2, catalogVersion: "ta20-1", source: "표시 확인용 가상 데이터", origin: { date: bars[0].time, availableHistory: bars.length, policy: "Story fixture only" },
+  indicators: [
+    ...[20, 60].map(period => ({ instanceId: `sma-${period}`, name: "SMA", label: `SMA(${period})`, parameters: { timeperiod: period }, panel: "price" as const, status: "success" as const, signal: { state: "표시 확인용" }, series: [{ key: "sma", label: "SMA", unit: "price", display: "line" as const, values: bars.map((bar, index) => index < period ? null : bar.close - 3) }] })),
+    { instanceId: "psar", name: "PSAR", label: "PSAR", parameters: {}, panel: "price", status: "success", series: [{ key: "sar", label: "SAR", unit: "price", display: "markers", values: bars.map(bar => bar.low - 1) }] },
+    ...Array.from({ length: 5 }, (_, index) => ({ instanceId: `osc-${index}`, name: `OSC${index}`, label: `가상 패널 ${index + 1}`, parameters: {}, panel: "oscillator" as const, status: "success" as const, series: [{ key: "value", label: "value", unit: "ratio", display: index === 0 ? "histogram" as const : "line" as const, values: bars.map((_, i) => i < 10 ? null : Math.sin(i / 5 + index)) }] })),
+    { instanceId: "failed", name: "ERROR", label: "계산 오류 예시", parameters: {}, panel: "oscillator", status: "error", error: "이력 부족 예시", series: [] },
+  ],
+};
+export const MultiInstanceV2: Story = { args: { snapshot: v2 }, play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await expect(canvas.getByRole("region", { name: "지표 요약과 표시 설정" })).toHaveTextContent("SMA(20)");
+  await expect(canvas.getByRole("region", { name: "지표 요약과 표시 설정" })).toHaveTextContent("SMA(60)");
+} };
+export const AllNullV2: Story = { args: { snapshot: { ...v2, indicators: v2.schemaVersion === 2 ? v2.indicators.map(indicator => ({ ...indicator, series: indicator.series.map(series => ({ ...series, values: bars.map(() => null) })) })) : [] } } };

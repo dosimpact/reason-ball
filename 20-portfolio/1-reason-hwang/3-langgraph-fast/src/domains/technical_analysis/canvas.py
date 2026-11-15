@@ -1,4 +1,5 @@
 """Immutable TA evidence with a streamed, parser-validated model layout."""
+from domains.technical_analysis.catalog import instance_id
 import json
 import re
 from typing import Literal
@@ -11,18 +12,7 @@ from domains.technical_analysis.report import AgentIndicator
 from graph.subgraphs.openui_output.workflow import validate_program
 
 
-class CanvasRequest(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    ticker: str = Field(min_length=1, max_length=32, pattern=r"^[A-Za-z0-9.^=\-]+$")
-    interval: Literal["1d", "1wk"] = "1d"
-    count: int = Field(default=120, ge=2, le=200, strict=True)
-    indicators: list[AgentIndicator] | None = Field(default=None, min_length=1, max_length=3)
-
-    @model_validator(mode="after")
-    def distinct(self):
-        if self.indicators and len({i.name for i in self.indicators}) != len(self.indicators):
-            raise ValueError("Duplicate indicators")
-        return self
+from domains.technical_analysis.request import AnalysisRequest as CanvasRequest
 
 
 def request_for(report, indicators):

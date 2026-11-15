@@ -14,7 +14,7 @@ from graph.primary_graphs.technical_analysis_agent.tools import build_tools
 from graph.subgraphs.openui_output.workflow import build_output_graph
 
 SYSTEM = """You are a technical analysis agent. Respond in the user's language, Korean by default.
-Only RSI, SMA, MACD are supported. Default RSI14 SMA20 MACD12/26/9, 120 completed daily bars.
+Supported indicators: SMA EMA MACD PSAR CCI STOCH RSI STOCHRSI WILLIAMS_R AO TSI UO TRIX BBANDS KELTNER DONCHIAN OBV PVT AD CMF. Keep default RSI/SMA/MACD unless the user asks otherwise. For all 20, call analyze_ohlcv_with_talib(all_indicators=True). For multiple settings of one indicator supply the full instance list with distinct instanceId and parameters objects. Default RSI14 SMA20 MACD12/26/9, 120 completed daily bars.
 Use Yahoo ticker symbols (including .KS/.KQ suffixes); ask if the ticker is unclear.
 For a new ticker/interval/count ALWAYS call get_price_ohlcv, then analyze_ohlcv_with_talib.
 Use interval 1d for daily and 1wk for weekly. Never request intraday data.
@@ -38,9 +38,10 @@ def build_technical_analysis_agent(
     kwargs = {"engine": engine}
     if fetcher is not None:
         kwargs["fetcher"] = fetcher
+    business_tools = build_tools(**kwargs)
     business = agent or create_deep_agent(
         model=model,
-        tools=build_tools(**kwargs),
+        tools=business_tools,
         state_schema=TechnicalAgentState,
         system_prompt=SYSTEM,
         name="technical_analysis_business",
@@ -51,6 +52,18 @@ def build_technical_analysis_agent(
 
     async def prepare(state):
         return {"analysis_result": None, "analysis_error": None, "presentation": None}
+
+    async def analyze(state):
+        if state.get("analysis_request") is None:
+            return await business.ainvoke(state)
+        try:
+            from domains.technical_analysis.request import AnalysisRequest
+            from graph.primary_graphs.technical_analysis_agent.tools import execute_analysis_request
+            request = AnalysisRequest.model_validate(state["analysis_request"])
+            result = await execute_analysis_request(state, business_tools, request)
+            return {**result, "analysis_request": None}
+        except ValueError as error:
+            return {"analysis_request": None,"analysis_result": None,"analysis_error": str(error),"messages":[AIMessage(content="분석 요청 오류: "+str(error))]}
 
     async def present(state):
         report = state.get("analysis_result")
@@ -80,7 +93,7 @@ def build_technical_analysis_agent(
 
     graph = StateGraph(TechnicalAgentState)
     graph.add_node("prepare", prepare)
-    graph.add_node("analyze", business)
+    graph.add_node("analyze", analyze)
     graph.add_node("present", present)
     graph.add_edge(START, "prepare")
     graph.add_edge("prepare", "analyze")

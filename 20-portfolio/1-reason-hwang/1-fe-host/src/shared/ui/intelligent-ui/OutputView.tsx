@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { fetchTechnicalAnalysisChart } from "./query-tools";
+import { fetchIndicatorCatalog, fetchTechnicalAnalysisChart } from "./query-tools";
 import { BuiltinActionType, Renderer, type ActionEvent } from "@openuidev/react-lang";
 import { library } from "./library";
 import { BusinessAction, runLibraryAction } from "./actions";
@@ -27,6 +27,11 @@ export function OutputView({ program, busy = false, onMessage, onBusinessAction,
   useEffect(() => () => { controllers.forEach(controller => controller.abort()); controllers.clear(); }, [controllers]);
   useEffect(() => { if (!active) setLive(false); }, [active]);
   const toolProvider = useMemo(() => ({
+    technical_analysis_catalog: async () => {
+      const controller = new AbortController(); controllers.add(controller);
+      try { return await fetchIndicatorCatalog((queryEndpoint ?? "/api/langgraph/technical-analysis/chart").replace(/\/chart$/, "/catalog"), controller.signal); }
+      finally { controllers.delete(controller); }
+    },
     technical_analysis_chart: async (args: Record<string, unknown>) => {
       const controller = new AbortController();
       controllers.add(controller);
@@ -55,5 +60,5 @@ export function OutputView({ program, busy = false, onMessage, onBusinessAction,
       if (url && /^https?:\/\//i.test(url)) window.open(url, "_blank", "noopener,noreferrer");
     } else void runLibraryAction(event);
   }
-  return <div inert={provisional || undefined} style={provisional ? { pointerEvents: "none" } : undefined}>{supportsLive && active && !provisional && <label style={{ display: "block", marginBottom: 8 }}><input type="checkbox" checked={live} onChange={event => setLive(event.target.checked)} /> 30초마다 차트 갱신 (분석 본문 유지)</label>}<Renderer initialState={initialState} onStateUpdate={onStateUpdate} toolProvider={provisional ? undefined : toolProvider} response={response} library={library} isStreaming={busy || provisional} onAction={handleAction} onError={errors => { if (errors.length) onError?.(); }} /></div>;
+  return <div inert={provisional || undefined} style={provisional ? { pointerEvents: "none" } : undefined}>{supportsLive && active && !provisional && <label style={{ display: "block", marginBottom: 8 }}><input type="checkbox" checked={live} onChange={event => setLive(event.target.checked)} /> 30초마다 차트 갱신 (분석 본문 유지)</label>}<Renderer initialState={initialState} onStateUpdate={onStateUpdate} toolProvider={provisional ? undefined : toolProvider} response={response} library={library} isStreaming={busy || provisional} onAction={handleAction} onError={errors => { if (errors.some(error => error.source !== "query" && error.severity !== "warning")) onError?.(); }}><Renderer.QueryLoading><p role="status">조회 중…</p></Renderer.QueryLoading><Renderer.QueryError><div role="alert"><p>데이터 또는 지표 카탈로그 조회에 실패했습니다. 서버 연결을 확인한 뒤 다시 시도하세요.</p><Renderer.Retry className="iui-indicator-button">실패한 조회 다시 시도</Renderer.Retry></div></Renderer.QueryError><Renderer.Content /></Renderer></div>;
 }

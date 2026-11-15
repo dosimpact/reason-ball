@@ -4,6 +4,9 @@ from domains.technical_analysis.report import warmup_count
 
 
 def build_chart_snapshot(prices, metadata, settings, count, result):
+    if any(s.name not in {"SMA","RSI","MACD"} or s.parameters or s.instanceId for s in settings) or len({s.name for s in settings}) != len(settings):
+        from domains.technical_analysis.chart_v2 import build_v2
+        return build_v2(prices,metadata,settings,count,result)
     display = prices[-count:]
     bars = [
         {

@@ -11,7 +11,7 @@ from graph.primary_graphs.technical_analysis_canvas_agent.state import Technical
 from graph.primary_graphs.technical_analysis_agent.tools import build_tools
 
 SYSTEM = """You are a technical analysis agent. Respond in the user's language, Korean by default.
-Only RSI, SMA, MACD are supported. Default RSI14 SMA20 MACD12/26/9, 120 completed daily bars.
+Supported indicators: SMA EMA MACD PSAR CCI STOCH RSI STOCHRSI WILLIAMS_R AO TSI UO TRIX BBANDS KELTNER DONCHIAN OBV PVT AD CMF. Keep default RSI/SMA/MACD unless the user asks otherwise. For all 20, call analyze_ohlcv_with_talib(all_indicators=True). For multiple settings of one indicator supply the full instance list with distinct instanceId and parameters objects. Default RSI14 SMA20 MACD12/26/9, 120 completed daily bars.
 Use Yahoo ticker symbols (including .KS/.KQ suffixes); ask if the ticker is unclear.
 For a new ticker/interval/count ALWAYS call get_price_ohlcv, then analyze_ohlcv_with_talib.
 Use interval 1d for daily and 1wk for weekly. Never request intraday data.
@@ -73,7 +73,7 @@ def build_technical_analysis_canvas_agent(
                 base.update({key: old[key] for key in ("prices", "price_request", "price_metadata", "indicators") if key in old})
             question = str(state["messages"][-1].content)
             decision = await model.ainvoke([
-                SystemMessage(content="Classify the user request. Reply ONLY ANALYSIS if asking to analyze a security, change ticker/period/indicators, or reanalyze. Reply EXPLAIN for definitions, conceptual questions or explanations of existing report without recalculation. Do not analyze mere indicator definitions. Unsupported indicators (anything other than RSI/SMA/MACD) and requests with an unclear security identity should be EXPLAIN: explain limitations or ask a clarification without analysis. Existing security conditions, if any: " + str(base.get("price_request", state.get("price_request")))),
+                SystemMessage(content="Classify the user request. Reply ONLY ANALYSIS if asking to analyze a security, change ticker/period/indicators, or reanalyze. Reply EXPLAIN for definitions, conceptual questions or explanations of existing report without recalculation. Do not analyze mere indicator definitions. Unsupported indicators (outside SMA EMA MACD PSAR CCI STOCH RSI STOCHRSI WILLIAMS_R AO TSI UO TRIX BBANDS KELTNER DONCHIAN OBV PVT AD CMF) and requests with an unclear security identity should be EXPLAIN: explain limitations or ask a clarification without analysis. Existing security conditions, if any: " + str(base.get("price_request", state.get("price_request")))),
                 HumanMessage(content=question),
             ])
             route = "analysis" if str(decision.content).strip().upper() == "ANALYSIS" else "explain"
@@ -86,7 +86,7 @@ def build_technical_analysis_canvas_agent(
         selected = (state.get("canvas_context") or {}).get("reportId")
         report = (state.get("canvas_reports") or {}).get(selected, {})
         response = await model.ainvoke([
-            SystemMessage(content="Explain in Korean without fetching/recalculating data or creating a report. Use only selected report evidence when provided; never invent numeric values. Only RSI/SMA/MACD are supported: explain this limitation for unsupported requests without silently substituting. Ask for a Yahoo ticker if the security is unclear. " + str({"title": report.get("title"), "request": report.get("request"), "asOf": (report.get("analysis") or {}).get("dates", [None])[-1], "signals": report.get("summary")})),
+            SystemMessage(content="Explain in Korean without fetching/recalculating data or creating a report. Use only selected report evidence when provided; never invent numeric values. The supported set is SMA EMA MACD PSAR CCI STOCH RSI STOCHRSI WILLIAMS_R AO TSI UO TRIX BBANDS KELTNER DONCHIAN OBV PVT AD CMF: explain this limitation for unsupported requests without silently substituting. Ask for a Yahoo ticker if the security is unclear. " + str({"title": report.get("title"), "request": report.get("request"), "asOf": (report.get("analysis") or {}).get("dates", [None])[-1], "signals": report.get("summary")})),
             HumanMessage(content=str(state["messages"][-1].content)),
         ])
         return {"messages": [AIMessage(content=response.content)]}
@@ -99,21 +99,8 @@ def build_technical_analysis_canvas_agent(
             if state["canvas_route"] == "structured":
                 from domains.technical_analysis.canvas import CanvasRequest
                 request = CanvasRequest.model_validate(context["request"])
-                working = dict(state)
-                if request.indicators:
-                    working["indicators"] = [i.model_dump() for i in request.indicators]
-                updates = {"messages": []}
-                for tool, args in ((tools[0], {"ticker": request.ticker, "interval": request.interval, "count": request.count}),
-                                   (tools[1], {"indicators": [i.model_dump() for i in request.indicators] if request.indicators else None})):
-                    call_id = str(uuid4())
-                    command = await tool.ainvoke({"name": tool.name, "args": {**args, "state": working}, "id": call_id, "type": "tool_call"})
-                    change = command.update
-                    updates["messages"].append(AIMessage(content="", tool_calls=[{"name": tool.name, "args": args, "id": call_id}]))
-                    updates["messages"].extend(change.get("messages", []))
-                    updates.update({k: v for k, v in change.items() if k != "messages"})
-                    working.update(change)
-                    if change.get("analysis_error"):
-                        break
+                from graph.primary_graphs.technical_analysis_agent.tools import execute_analysis_request
+                updates = await execute_analysis_request(state, tools, request)
                 return {**updates, "canvas_report_id": report_id}
             business_state = dict(state)
             context_id = None

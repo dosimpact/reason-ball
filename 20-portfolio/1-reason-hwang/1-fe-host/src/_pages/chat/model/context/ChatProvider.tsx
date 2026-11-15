@@ -27,6 +27,7 @@ import type {
 } from "@/_pages/chat/model/chatTypes";
 import { extractToolActivity, type ChatToolActivity } from "../toolActivity";
 import { toChatStreamEvent } from "@/_pages/chat/model/langgraphEventAdapter";
+import { analysisRequestFromQuery } from "../analysisRequest";
 import { initialCanvas, reduceCanvas, parseCanvasEvent, type CanvasContext, type CanvasEvent, type CanvasState } from "../canvas";
 import {
   chatReducer,
@@ -58,6 +59,7 @@ type ChatContextValue = {
   saveCanvasState: (id: string, state: Record<string, unknown>) => void;
   saveCanvasQuery: (id: string, args: Record<string, unknown>) => void;
   reanalyzeCanvas: (id: string) => Promise<void>;
+  reanalyzeInline: (args: Record<string, unknown>) => Promise<void>;
   resetThread: () => void;
   cancelRun: () => void;
   graphId: string;
@@ -215,7 +217,7 @@ export function ChatProvider({ children, runtime = developmentChatRuntime }: { c
   }, [client, graphId, graphs, history, refreshHistory, trackRun]);
 
   const sendMessage = useCallback(
-    async (content: string, requestedCanvas?: CanvasContext) => {
+    async (content: string, requestedCanvas?: CanvasContext, analysisRequest?: ReturnType<typeof analysisRequestFromQuery>) => {
       const trimmedContent = content.trim();
 
       if (
@@ -286,6 +288,7 @@ export function ChatProvider({ children, runtime = developmentChatRuntime }: { c
           threadId,
           content: trimmedContent,
           onRun: runId => trackRun(threadId, runId, requestController),
+          analysisRequest: graphId === "technical_analysis_agent" ? analysisRequest ?? null : undefined,
           canvasContext: graphId === "technical_analysis_canvas_agent" ? requestedCanvas ?? (canvasRef.current.selectedId ? { reportId: canvasRef.current.selectedId } : {}) : undefined,
           onCanvas: event => { if (graphId === "technical_analysis_canvas_agent" && isCurrentRequest()) dispatchCanvas({ type: "event", threadId, runId: currentMessageId, messageId: currentMessageId, event }); },
           signal: requestController.signal,
@@ -353,10 +356,15 @@ export function ChatProvider({ children, runtime = developmentChatRuntime }: { c
     if (graphId !== "technical_analysis_canvas_agent") return;
     const report = canvasRef.current.reports.find(item => item.id === id);
     if (!report?.successfulArgs || report.status !== "ready" || !report.request) return;
-    const args = report.successfulArgs;
-    const names = typeof args.indicators === "string" ? args.indicators.split(",") : [];
-    const indicators = names.length ? names.map(name => name === "RSI" ? { name, timeperiod: Number(args.rsi_period ?? 14) } : name === "SMA" ? { name, timeperiod: Number(args.sma_period ?? 20) } : { name: "MACD", fastperiod: Number(args.macd_fast ?? 12), slowperiod: Number(args.macd_slow ?? 26), signalperiod: Number(args.macd_signal ?? 9) }) : report.request.indicators;
-    await sendMessage("현재 조회에 성공한 조건으로 새 보고서를 분석해 주세요.", { reportId: report.id, request: { ticker: String(args.ticker), interval: args.interval as "1d" | "1wk", count: Number(args.count), indicators } });
+    try {
+      const request = analysisRequestFromQuery(report.successfulArgs, report.request.indicators);
+      await sendMessage("현재 조회에 성공한 조건으로 새 보고서를 분석해 주세요.", { reportId: report.id, request });
+    } catch (error) { setCancelError(`재분석 조건을 읽지 못했습니다: ${getErrorMessage(error)}`); }
+  }, [sendMessage, graphId]);
+  const reanalyzeInline = useCallback(async (args: Record<string, unknown>) => {
+    if (graphId !== "technical_analysis_agent") return;
+    try { await sendMessage("현재 조회에 성공한 조건으로 다시 분석해 주세요.", undefined, analysisRequestFromQuery(args)); }
+    catch (error) { setCancelError(`재분석 조건을 읽지 못했습니다: ${getErrorMessage(error)}`); }
   }, [sendMessage, graphId]);
   const resetThread = useCallback(() => {
     dispatchCanvas({ type: "clear" });
@@ -383,11 +391,11 @@ export function ChatProvider({ children, runtime = developmentChatRuntime }: { c
       threadId: state.threadId, conversationVersion, history, historyLoading, historyError, refreshHistory, openThread,
       status: configResult.error ? "error" : state.status,
       error: configResult.error ?? cancelError ?? state.error,
-      sendMessage, canvas, selectCanvas, closeCanvas, collapseCanvas, saveCanvasState, saveCanvasQuery, reanalyzeCanvas,
+      sendMessage, canvas, selectCanvas, closeCanvas, collapseCanvas, saveCanvasState, saveCanvasQuery, reanalyzeCanvas, reanalyzeInline,
       cancelRun: () => { void cancelRun(); },
       resetThread, graphId, graphs, selectGraph, graphDiscoveryLoading, graphDiscoveryError, reloadGraphs, graphResult, runGraph,
     }),
-    [runtime, runNotice, cancelError, cancelRun, canvas, selectCanvas, closeCanvas, collapseCanvas, saveCanvasState, saveCanvasQuery, reanalyzeCanvas, configResult.error, resetThread, sendMessage, state.error, state.messages, state.status, state.threadId, graphId, graphs, selectGraph, conversationVersion, history, historyLoading, historyError, refreshHistory, openThread, graphDiscoveryLoading, graphDiscoveryError, reloadGraphs, graphResult, runGraph],
+    [runtime, runNotice, cancelError, cancelRun, canvas, selectCanvas, closeCanvas, collapseCanvas, saveCanvasState, saveCanvasQuery, reanalyzeCanvas, reanalyzeInline, configResult.error, resetThread, sendMessage, state.error, state.messages, state.status, state.threadId, graphId, graphs, selectGraph, conversationVersion, history, historyLoading, historyError, refreshHistory, openThread, graphDiscoveryLoading, graphDiscoveryError, reloadGraphs, graphResult, runGraph],
   );
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
@@ -410,6 +418,7 @@ async function consumeStream(params: {
   content: string;
   signal?: AbortSignal;
   canvasContext?: CanvasContext;
+  analysisRequest?: ReturnType<typeof analysisRequestFromQuery> | null;
   onCanvas?: (event: CanvasEvent) => void;
   onRun?: (runId: string) => void;
   onDelta: (content: string) => void;
@@ -428,6 +437,7 @@ async function consumeStream(params: {
     ],
     signal: params.signal,
     canvasContext: params.canvasContext,
+    analysisRequest: params.analysisRequest,
     onRunCreated: run => { trackedRunId = run.run_id; params.onRun?.(run.run_id); },
   });
 

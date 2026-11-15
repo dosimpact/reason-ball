@@ -158,8 +158,12 @@
       "description": "Rows of data; x is the category key (a number key for scatter), series the value keys (default: every number key). percent values are like 45; currency is a code like \"EUR\"."
     },
     "FinancialChart": {
-      "signature": "FinancialChart(snapshot: {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], indicators?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string})",
-      "description": "Financial OHLCV snapshot from technical_analysis_chart Query. One aligned bars array drives candlesticks, volume, SMA overlay and RSI/MACD panes on a shared time axis. Never invent prices or calculate indicators in the model."
+      "signature": "FinancialChart(snapshot: {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string, schemaVersion: 2, catalogVersion: string, indicators: {instanceId: string, name: string, label: string, parameters: Record<string, any>, panel: \"price\" | \"oscillator\", status: \"success\" | \"error\", error?: string, errorCode?: string, signal?: {state: string, cross?: string}, warnings?: string[], series: {key: string, label: string, unit: string, display: \"line\" | \"histogram\" | \"markers\", role?: \"upper\" | \"middle\" | \"lower\", bandGroup?: string, values: number[]}[]}[], origin?: {date?: string, availableHistory: number, policy: string}} | {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string, schemaVersion?: 1, indicators?: string[]})",
+      "description": "Trusted financial snapshot v1 or v2. Shared OHLCV time axis with candle/volume, data-driven multi-instance indicator series, band boundaries, PSAR dots and up to four visible oscillator panes. All indicators remain available in summary/detail. Never invent or calculate indicator values in the model."
+    },
+    "IndicatorControls": {
+      "signature": "IndicatorControls(value: $binding<string>, catalog?: {schemaVersion: 2, catalogVersion: string, maxInstances: number, maxVisiblePanels: number, defaultInstances: {name: string, parameters?: Record<string, number>, showSignal?: boolean}[], indicators: {name: string, label: string, defaults: Record<string, number>, parameters: Record<string, {default: number, min: number, max: number, type: \"integer\" | \"number\"}>, supportsSignal: boolean, panel: \"price\" | \"oscillator\", series: {key: string, label: string, unit: string, display: \"line\" | \"histogram\" | \"markers\", role?: \"upper\" | \"middle\" | \"lower\", bandGroup?: string}[]}[]})",
+      "description": "Edit technical indicator instances from the trusted catalog. Bind value to $chart_instances JSON string and pass the catalog Query result. Supports repeated names with independent instanceIds, parameter drafts, optional signal and explicit model-free Apply. Keep inside the chart QueryPanel."
     },
     "QueryPanel": {
       "signature": "QueryPanel(children: Node[], refreshAction: ActionExpression)",
@@ -297,6 +301,7 @@
         "Table",
         "Chart",
         "FinancialChart",
+        "IndicatorControls",
         "QueryPanel",
         "Map",
         "MapMarker",
@@ -304,6 +309,7 @@
       ],
       "notes": [
         "- FinancialChart consumes one trusted snapshot. Fetch it with data = Query(\"technical_analysis_chart\", {ticker: $ticker, interval: $interval, count: $count, indicators: \"SMA,RSI,MACD\"}, {bars: [], status: \"loading\"}). The Host runs this allowlisted read tool without an LLM round trip.",
+        "- For v2 multi-instance indicators use catalog = Query(\"technical_analysis_catalog\", {}, null), IndicatorControls($chart_instances, catalog), and chart = Query(\"technical_analysis_chart\", {ticker: $ticker, interval: $interval, count: $count, schema_version: 2, instances: $chart_instances}, {bars: [], status: \"loading\"}). Use catalog metadata, never invented parameter names or numeric arrays.",
         "- Put Query-backed data components and their editable argument controls inside QueryPanel(children, Action([@Run(queryStatement)])); every Query view must provide its own manual refresh icon and labelled argument fields together.",
         "- Query(tool, args, default, seconds) re-runs when reactive args change. Omit seconds or use 0 for historical answers. Explicit live mode may use 30 seconds only for the active latest answer. Price and all indicators must come from the same returned snapshot."
       ]
@@ -704,6 +710,9 @@
       "FinancialChart": {
         "$ref": "#/$defs/FinancialChart"
       },
+      "IndicatorControls": {
+        "$ref": "#/$defs/IndicatorControls"
+      },
       "QueryPanel": {
         "$ref": "#/$defs/QueryPanel"
       },
@@ -797,6 +806,7 @@
       "Table",
       "Chart",
       "FinancialChart",
+      "IndicatorControls",
       "QueryPanel",
       "Map",
       "MapMarker",
@@ -2056,154 +2066,677 @@
         "type": "object",
         "properties": {
           "snapshot": {
-            "type": "object",
-            "properties": {
-              "symbol": {
-                "type": "string"
-              },
-              "interval": {
-                "type": "string"
-              },
-              "currency": {
-                "type": "string"
-              },
-              "source": {
-                "type": "string"
-              },
-              "source_url": {
-                "type": "string"
-              },
-              "as_of": {
-                "type": "string"
-              },
-              "fetched_at": {
-                "type": "string"
-              },
-              "auto_adjust": {
-                "type": "boolean"
-              },
-              "warnings": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "indicators": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "parameters": {
+            "anyOf": [
+              {
                 "type": "object",
-                "propertyNames": {
-                  "type": "string"
-                },
-                "additionalProperties": {}
-              },
-              "bars": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "time": {
+                "properties": {
+                  "symbol": {
+                    "type": "string"
+                  },
+                  "interval": {
+                    "type": "string"
+                  },
+                  "currency": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "source_url": {
+                    "type": "string"
+                  },
+                  "as_of": {
+                    "type": "string"
+                  },
+                  "fetched_at": {
+                    "type": "string"
+                  },
+                  "auto_adjust": {
+                    "type": "boolean"
+                  },
+                  "warnings": {
+                    "type": "array",
+                    "items": {
                       "type": "string"
-                    },
-                    "open": {
-                      "type": "number"
-                    },
-                    "high": {
-                      "type": "number"
-                    },
-                    "low": {
-                      "type": "number"
-                    },
-                    "close": {
-                      "type": "number"
-                    },
-                    "volume": {
-                      "type": "number"
-                    },
-                    "sma": {
-                      "anyOf": [
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    },
-                    "rsi": {
-                      "anyOf": [
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    },
-                    "macd": {
-                      "anyOf": [
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    },
-                    "signal": {
-                      "anyOf": [
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    },
-                    "histogram": {
-                      "anyOf": [
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
                     }
                   },
-                  "required": [
-                    "time",
-                    "open",
-                    "high",
-                    "low",
-                    "close",
-                    "volume"
-                  ],
-                  "additionalProperties": false
-                }
+                  "parameters": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  },
+                  "bars": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "string"
+                        },
+                        "open": {
+                          "type": "number"
+                        },
+                        "high": {
+                          "type": "number"
+                        },
+                        "low": {
+                          "type": "number"
+                        },
+                        "close": {
+                          "type": "number"
+                        },
+                        "volume": {
+                          "type": "number"
+                        },
+                        "sma": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "rsi": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "macd": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "histogram": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "error": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "schemaVersion": {
+                    "type": "number",
+                    "const": 2
+                  },
+                  "catalogVersion": {
+                    "type": "string"
+                  },
+                  "indicators": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "instanceId": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "parameters": {
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string"
+                          },
+                          "additionalProperties": {}
+                        },
+                        "panel": {
+                          "type": "string",
+                          "enum": [
+                            "price",
+                            "oscillator"
+                          ]
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success",
+                            "error"
+                          ]
+                        },
+                        "error": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "errorCode": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "type": "object",
+                          "properties": {
+                            "state": {
+                              "type": "string"
+                            },
+                            "cross": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "state"
+                          ],
+                          "additionalProperties": {}
+                        },
+                        "warnings": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "series": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "unit": {
+                                "type": "string"
+                              },
+                              "display": {
+                                "type": "string",
+                                "enum": [
+                                  "line",
+                                  "histogram",
+                                  "markers"
+                                ]
+                              },
+                              "role": {
+                                "type": "string",
+                                "enum": [
+                                  "upper",
+                                  "middle",
+                                  "lower"
+                                ]
+                              },
+                              "bandGroup": {
+                                "type": "string"
+                              },
+                              "values": {
+                                "type": "array",
+                                "items": {
+                                  "anyOf": [
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "label",
+                              "unit",
+                              "display",
+                              "values"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "instanceId",
+                        "name",
+                        "label",
+                        "parameters",
+                        "panel",
+                        "status",
+                        "series"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "origin": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "availableHistory": {
+                        "type": "number"
+                      },
+                      "policy": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "date",
+                      "availableHistory",
+                      "policy"
+                    ],
+                    "additionalProperties": {}
+                  }
+                },
+                "required": [
+                  "bars",
+                  "schemaVersion",
+                  "catalogVersion",
+                  "indicators"
+                ],
+                "additionalProperties": false
               },
-              "error": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
+              {
+                "type": "object",
+                "properties": {
+                  "symbol": {
+                    "type": "string"
+                  },
+                  "interval": {
+                    "type": "string"
+                  },
+                  "currency": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "source_url": {
+                    "type": "string"
+                  },
+                  "as_of": {
+                    "type": "string"
+                  },
+                  "fetched_at": {
+                    "type": "string"
+                  },
+                  "auto_adjust": {
+                    "type": "boolean"
+                  },
+                  "warnings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  },
+                  "bars": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "string"
+                        },
+                        "open": {
+                          "type": "number"
+                        },
+                        "high": {
+                          "type": "number"
+                        },
+                        "low": {
+                          "type": "number"
+                        },
+                        "close": {
+                          "type": "number"
+                        },
+                        "volume": {
+                          "type": "number"
+                        },
+                        "sma": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "rsi": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "macd": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "histogram": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "error": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "schemaVersion": {
+                    "type": "number",
+                    "const": 1
+                  },
+                  "indicators": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "bars"
+                ],
+                "additionalProperties": false
               }
-            },
-            "required": [
-              "bars"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
           "snapshot"
         ],
         "additionalProperties": false,
-        "description": "Financial OHLCV snapshot from technical_analysis_chart Query. One aligned bars array drives candlesticks, volume, SMA overlay and RSI/MACD panes on a shared time axis. Never invent prices or calculate indicators in the model."
+        "description": "Trusted financial snapshot v1 or v2. Shared OHLCV time axis with candle/volume, data-driven multi-instance indicator series, band boundaries, PSAR dots and up to four visible oscillator panes. All indicators remain available in summary/detail. Never invent or calculate indicator values in the model."
+      },
+      "IndicatorControls": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "catalog": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "schemaVersion": {
+                    "type": "number",
+                    "const": 2
+                  },
+                  "catalogVersion": {
+                    "type": "string"
+                  },
+                  "maxInstances": {
+                    "type": "number"
+                  },
+                  "maxVisiblePanels": {
+                    "type": "number"
+                  },
+                  "defaultInstances": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "parameters": {
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string"
+                          },
+                          "additionalProperties": {
+                            "type": "number"
+                          }
+                        },
+                        "showSignal": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "indicators": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "defaults": {
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string"
+                          },
+                          "additionalProperties": {
+                            "type": "number"
+                          }
+                        },
+                        "parameters": {
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string"
+                          },
+                          "additionalProperties": {
+                            "type": "object",
+                            "properties": {
+                              "default": {
+                                "type": "number"
+                              },
+                              "min": {
+                                "type": "number"
+                              },
+                              "max": {
+                                "type": "number"
+                              },
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "integer",
+                                  "number"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "default",
+                              "min",
+                              "max",
+                              "type"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "supportsSignal": {
+                          "type": "boolean"
+                        },
+                        "panel": {
+                          "type": "string",
+                          "enum": [
+                            "price",
+                            "oscillator"
+                          ]
+                        },
+                        "series": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "unit": {
+                                "type": "string"
+                              },
+                              "display": {
+                                "type": "string",
+                                "enum": [
+                                  "line",
+                                  "histogram",
+                                  "markers"
+                                ]
+                              },
+                              "role": {
+                                "type": "string",
+                                "enum": [
+                                  "upper",
+                                  "middle",
+                                  "lower"
+                                ]
+                              },
+                              "bandGroup": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "label",
+                              "unit",
+                              "display"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "label",
+                        "defaults",
+                        "parameters",
+                        "supportsSignal",
+                        "panel",
+                        "series"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "schemaVersion",
+                  "catalogVersion",
+                  "maxInstances",
+                  "maxVisiblePanels",
+                  "defaultInstances",
+                  "indicators"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "value",
+          "catalog"
+        ],
+        "additionalProperties": false,
+        "description": "Edit technical indicator instances from the trusted catalog. Bind value to $chart_instances JSON string and pass the catalog Query result. Supports repeated names with independent instanceIds, parameter drafts, optional signal and explicit model-free Apply. Keep inside the chart QueryPanel."
       },
       "QueryPanel": {
         "type": "object",

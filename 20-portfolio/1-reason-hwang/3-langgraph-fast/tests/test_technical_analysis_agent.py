@@ -68,6 +68,8 @@ def test_full_series_and_signals_match_talib():
         )
         assert indicator["signal"]["state"] != "판단 불가"
     program = build_program({"answer": report})
+    assert report["chart_snapshot"]["schemaVersion"] == 2
+    assert "IndicatorControls($chart_instances,catalog)" in program
     assert "FinancialChart(chart)" in program
     assert "QueryPanel([" in program
     assert "Action([@Run(chart)])" in program
@@ -103,7 +105,7 @@ def test_crossing(previous, current, label):
 
 def test_reject_unsupported_and_invalid_parameters():
     with pytest.raises(ValidationError):
-        AgentIndicator(name="EMA")
+        AgentIndicator(name="UNSUPPORTED")
     with pytest.raises(ValidationError):
         AgentIndicator(name="MACD", fastperiod=30, slowperiod=20)
 

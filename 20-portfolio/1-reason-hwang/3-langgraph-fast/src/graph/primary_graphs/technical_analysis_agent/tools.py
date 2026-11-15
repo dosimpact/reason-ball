@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from domains.technical_analysis.catalog import instance_id
+
 import json
 from typing import Annotated, Literal
 
@@ -11,7 +13,7 @@ from langgraph.prebuilt import InjectedState
 from langgraph.types import Command
 from pydantic import Field
 
-from domains.technical_analysis.chart import build_chart_snapshot
+from domains.technical_analysis.chart_v2 import build_v2
 from domains.technical_analysis.report import (
     AgentIndicator,
     default_indicators,
@@ -43,7 +45,11 @@ def _reply(name, call_id, payload, **update):
 
 
 def load_prices(ticker, interval, count, warmup, fetcher):
-    cached = fetcher(ticker, interval, count + warmup + 1, True)
+    if warmup >= 5000 and fetcher is fetch_historical_prices:
+        from graph.subgraph.price_agent.tools.yahoo_finance import fetch_origin_prices
+        cached = fetch_origin_prices(ticker, interval, 5000, True)
+    else:
+        cached = fetcher(ticker, interval, min(5000, count + warmup + 1), True)
     prices = [p for p in cached.prices if not p.is_partial]
     if not prices:
         raise PriceProviderError("empty_data", "완료된 가격 봉이 없습니다.")
@@ -116,8 +122,12 @@ def build_tools(*, fetcher=fetch_historical_prices, engine=None):
         state: Annotated[dict, InjectedState],
         tool_call_id: Annotated[str, InjectedToolCallId],
         indicators: list[AgentIndicator] | None = None,
+        all_indicators: bool = False,
     ) -> Command:
-        """Calculate RSI/SMA/MACD and deterministic signals from stored OHLCV. Omit indicators to retain prior settings or use RSI14/SMA20/MACD12,26,9. Supply the complete desired set to change settings."""
+        """Calculate selected TA20 indicator instances from stored OHLCV. all_indicators=True selects all 20. Distinct instanceId allows multiple settings for one name. Omit indicators to retain prior settings or use RSI14/SMA20/MACD12,26,9. Supply the complete desired set to change settings."""
+        if all_indicators:
+            from domains.technical_analysis.catalog import NAMES
+            indicators = [AgentIndicator(name=n) for n in NAMES]
         settings = (
             indicators
             if indicators is not None
@@ -129,13 +139,13 @@ def build_tools(*, fetcher=fetch_historical_prices, engine=None):
         )
         if (
             not settings
-            or len(settings) > 3
-            or len({s.name for s in settings}) != len(settings)
+            or len(settings) > 40
+            or len({s.instanceId or instance_id(s.name,s.request().parameters) for s in settings}) != len(settings)
         ):
             return _reply(
                 "analyze_ohlcv_with_talib",
                 tool_call_id,
-                {"error": "Choose 1–3 distinct indicators: RSI, SMA, MACD"},
+                {"error": "Choose 1–40 unique indicator instances"},
                 analysis_result=None,
                 analysis_error="지표 설정을 확인하세요.",
             )
@@ -151,7 +161,8 @@ def build_tools(*, fetcher=fetch_historical_prices, engine=None):
             )
         metadata = state["price_metadata"]
         warmup = warmup_count(settings)
-        if len(prices) < request["count"] + warmup:
+        target = 5000 if warmup >= 5000 else request["count"] + warmup
+        if len(prices) < target:
             try:
                 prices, metadata = load_prices(
                     **request, warmup=warmup, fetcher=fetcher
@@ -170,8 +181,9 @@ def build_tools(*, fetcher=fetch_historical_prices, engine=None):
         count = request["count"]
         closes = [float(p.close) for p in prices]
         outcomes = []
-        for outcome in result.indicators:
+        for setting, outcome in zip(settings,result.indicators,strict=True):
             item = outcome.model_dump(mode="json")
+            item["instanceId"] = setting.instanceId or instance_id(setting.name,outcome.parameters)
             item["signal"] = indicator_signal(
                 outcome.name.value, item["series"], closes
             )
@@ -193,7 +205,7 @@ def build_tools(*, fetcher=fetch_historical_prices, engine=None):
             "requested_count": count,
             "available_count": len(prices),
             "warmup": warmup,
-            "chart_snapshot": build_chart_snapshot(
+            "chart_snapshot": build_v2(
                 prices, metadata, settings, count, result
             ),
         }
@@ -219,3 +231,26 @@ def build_tools(*, fetcher=fetch_historical_prices, engine=None):
         )
 
     return [get_price_ohlcv, analyze_ohlcv_with_talib]
+
+
+async def execute_analysis_request(state, tools, request):
+    """Run the same two tools with trusted args, never a second LLM interpretation."""
+    from uuid import uuid4
+    from langchain_core.messages import AIMessage
+    working=dict(state)
+    if request.indicators:
+        working['indicators']=[i.model_dump() for i in request.indicators]
+    updates={'messages':[]}
+    for tool,args in ((tools[0],{'ticker':request.ticker,'interval':request.interval,'count':request.count}),
+                      (tools[1],{'indicators':[i.model_dump() for i in request.indicators] if request.indicators else None})):
+        call_id=str(uuid4())
+        command=await tool.ainvoke({'name':tool.name,'args':{**args,'state':working},'id':call_id,'type':'tool_call'})
+        change=command.update
+        updates['messages'].append(AIMessage(content='',tool_calls=[{'name':tool.name,'args':args,'id':call_id}]))
+        updates['messages'].extend(change.get('messages',[]))
+        updates.update({k:v for k,v in change.items() if k!='messages'})
+        working.update(change)
+        if change.get('analysis_error'):
+            break
+    updates['messages'].append(AIMessage(content=updates.get('analysis_error') or '분석 계산을 완료했습니다.'))
+    return updates

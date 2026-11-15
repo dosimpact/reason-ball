@@ -67,6 +67,15 @@ INDICATOR_REGISTRY: dict[IndicatorName, IndicatorRegistration] = {
 }
 
 
+# Existing eight calculators remain unchanged; TA20 adds fourteen definitions.
+from functools import partial
+from infrastructure.technical_analysis.talib.extended import calculate as calculate_extended
+
+for _name in ("PSAR","CCI","STOCH","STOCHRSI","WILLIAMS_R","AO","TSI","UO","TRIX","KELTNER","DONCHIAN","PVT","AD","CMF"):
+    _category = IndicatorCategory.VOLUME_INDICATORS if _name in {"PVT","AD","CMF"} else IndicatorCategory.OVERLAP_STUDIES if _name in {"PSAR","KELTNER","DONCHIAN"} else IndicatorCategory.MOMENTUM_INDICATORS
+    INDICATOR_REGISTRY[IndicatorName(_name)] = IndicatorRegistration(_category, partial(calculate_extended, _name))
+
+
 def get_indicator_registration(name: IndicatorName) -> IndicatorRegistration:
     try:
         return INDICATOR_REGISTRY[name]

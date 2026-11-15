@@ -1,0 +1,28 @@
+meta {
+  name: TA-INDICATORS-020 All20 real Yahoo outputs
+  type: http
+  seq: 2
+}
+get {
+  url: {{baseUrl}}/technical-analysis/chart?ticker=AAPL&interval=1d&count=120&schema_version=2&indicators=all
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Every requested instance is aligned and explicit", function () {
+    const body=res.getBody();
+    expect(body.schemaVersion).to.equal(2);
+    expect(body.bars).to.have.lengthOf(120);
+    expect(body.indicators).to.have.lengthOf(20);
+    expect(new Set(body.indicators.map(row=>row.instanceId)).size).to.equal(20);
+    for(const indicator of body.indicators) {
+      expect(indicator.status).to.equal("success");
+      for(const series of indicator.series) expect(series.values).to.have.lengthOf(body.bars.length);
+    }
+    expect(body.origin.requestedDate).to.equal("2000-01-01");
+    expect(body.origin.baseline.OBV).to.equal("first-volume");
+  });
+}

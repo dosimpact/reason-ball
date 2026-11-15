@@ -2,10 +2,11 @@
 
 ## 실행 경계
 
-`3-langgraph-fast/langgraph.json`에 기존 `technical_analysis_agent`와 별도 `technical_analysis_canvas_agent`를 등록한다. Host의 기존 `/api/langgraph` 프록시와 LangGraph SDK의 threads/runs API를 사용한다. 실행 서버는 **LangGraph development runtime**이며 FastAPI의 기본 echo executor에 이 그래프를 등록한 것은 아니다. Host의 `LANGGRAPH_INTERNAL_API_URL`은 해당 runtime을 가리켜야 한다.
+`3-langgraph-fast/langgraph.json`에 기존 `technical_analysis_agent`와 별도 `technical_analysis_canvas_agent`를 등록한다. 두 그래프는 LangGraph development runtime과 실제 그래프 builder를 PostgreSQL saver로 컴파일하는 FastAPI 런타임에서 실행한다. `/langgraph-dev-chat`은 `/api/langgraph-runtime` 및 `LANGGRAPH_RUNTIME_API_URL`(기본 2982), `/fastapi-chat`은 `/api/fastapi-langgraph` 및 `FASTAPI_RUNTIME_API_URL`(기본 2981)을 사용한다. 대화·실행·기록·차트 Query는 해당 런타임에 고정하며 서로 fallback하거나 개발 서버 기록을 이관하지 않는다. [공용 런타임 계약](../tech-shared/system-design.md#fastapi-runtime-001-독립-실행-경계)을 따른다.
 
 ```text
-/langgraph-dev-chat → /api/langgraph
+/langgraph-dev-chat → /api/langgraph-runtime → development runtime
+/fastapi-chat → /api/fastapi-langgraph → FastAPI + PostgreSQL checkpoints
   technical_analysis_agent → Deep Agent tools → deterministic inline presentation
   technical_analysis_canvas_agent → route/tools → AI layout → canvas custom events
 ```
@@ -17,7 +18,7 @@
 - `get_price_ohlcv(ticker, interval="1d", count=120)`: 기존 Yahoo 어댑터 및 TTL/single-flight 캐시 재사용. 전체 배열은 Command로 state에 기록하고 모델에는 메타데이터만 반환한다.
 - `analyze_ohlcv_with_talib(indicators=None)`: 주입 state로 계산한다. 설정 생략 시 기존 설정 또는 세 기본 지표를 사용한다. 준비 구간이 모자라면 같은 가격 조건으로 더 긴 이력을 조회한다. 전체 결과는 state, 최신값·시그널은 ToolMessage로 전달한다.
 
-기존 TA-Lib 엔진의 다른 지표는 유지하며 새 도구 스키마만 RSI/SMA/MACD로 제한한다. 시그널과 화면 데이터 구성은 `domains/technical_analysis/report.py`, `presentation.py`의 순수 로직이다. 캐시 키는 ticker·interval·조회 개수·auto_adjust를 구분한다. 가격 어댑터 내부 최대 조회 개수는 5000이다. 표시 개수는 OpenUI validator의 60000자 제한을 고려해 200개로 제한한다. 차트는 하나의 날짜별 bars 배열을 공유한다.
+기존 TA-Lib 엔진 지표를 유지하며 에이전트 도구는 TA-INDICATORS-020의 20종 및 복수 인스턴스를 받는다. 자연어 전체 선택은 `all_indicators=True`, 구조화 재분석은 inline의 `input.analysis_request` 또는 Canvas의 `input.canvas_context.request`를 사용해 설정을 모델이 다시 해석하지 않고 그대로 계산한다. 시그널과 화면 데이터 구성은 `domains/technical_analysis/report.py`, `presentation.py`의 순수 로직이다. 캐시 키는 ticker·interval·조회 개수·auto_adjust를 구분한다. 일반 가격 어댑터의 최대 요청 개수는 5000이다. 누적 지표 전용 경로는 2000-01-01 고정 origin에서 실제 이력을 조회하며 20000행 초과 시 오류를 반환한다. 표시 개수는 OpenUI validator의 60000자 제한을 고려해 200개로 제한한다. 차트는 하나의 날짜별 bars 배열을 공유한다.
 
 ## OpenUI와 Host 계약
 
@@ -56,7 +57,7 @@ Bruno는 실제 Yahoo·모델·Host validator 연결이 필요하다. 테스트�
 
 ## TA-QUERY-001: 조회 API와 차트 runtime
 
-`GET /technical-analysis/chart`는 FastAPI router와 `langgraph.json`의 독립 `http.app` 양쪽에 등록된다. 브라우저는 기존 Host `/api/langgraph/technical-analysis/chart`만 호출한다. 모델·thread·run을 만들지 않는 Yahoo/TA-Lib 읽기 API이며 기존 완료 봉·수정주가·TTL 캐시와 warmup 계산을 재사용한다.
+`GET /technical-analysis/chart`는 FastAPI router와 `langgraph.json`의 독립 `http.app` 양쪽에 등록된다. 브라우저는 선택 런타임의 Host `/api/langgraph-runtime/technical-analysis/chart` 또는 `/api/fastapi-langgraph/technical-analysis/chart`를 호출한다. 모델·thread·run을 만들지 않는 Yahoo/TA-Lib 읽기 API이며 기존 완료 봉·수정주가·TTL 캐시와 warmup 계산을 재사용한다.
 
 요청은 `ticker`, `interval`(1d/1wk), `count`(2~200), 쉼표로 구분한 `indicators`(SMA/RSI/MACD의 중복 없는 선택), `sma_period`, `rsi_period`, `macd_fast`, `macd_slow`, `macd_signal`이다. 기간 범위는 기존 TA-002와 같다. ticker는 필수이며 기본 조회는 일봉120개, SMA20·RSI14·MACD12/26/9다. 잘못된 설정은422, 없는 ticker/빈 데이터는404, 그 외 공급자 실패는503이다. 응답은 `Cache-Control: no-store`를 사용한다.
 
@@ -97,3 +98,13 @@ FE는 thread/assistant/run별 이벤트를 격리한다. prefix만 있으면 준
 기존 TA workflow/state는 inline 구현으로 복원해 canvas 필드를 포함하지 않는다. 신규 Canvas state는 기존 계산 상태를 상속하고 canvas 문맥·보고서 필드만 추가한다. 두 graph는 가격/TA-Lib 도구를 공유하되 기존 graph는 custom canvas 이벤트를 보내지 않고 신규 graph는 inline presentation을 중복 생성하지 않는다. FE의 custom 이벤트·canvas_context·탭·재분석 처리도 신규 ID에만 연결한다. 그래프 전환 때 탭을 비우며 각각 별도 thread를 사용한다.
 
 Canvas API 시나리오 `22-ta-dynamic-canvas`는 신규 ID를 대상으로 하고, `23-ta-agent-split`은 두 ID discovery와 각 출력·상태 격리를 검증한다. [분리 검증 기록](../../flow/2026-11-15-ta-agent-canvas-split.md)을 따른다.
+
+## TA-INDICATORS-020: 버전 카탈로그와 복수 인스턴스
+
+`GET /technical-analysis/catalog`는 `schemaVersion:2`, `catalogVersion`, 지표20종의 기본값·매개변수 범위·series descriptors·`maxInstances:40`·`maxVisiblePanels:4`를 반환한다. v2 차트는 기존 `/technical-analysis/chart`에서 `schema_version=2`와 URL-encoded `instances` JSON 배열(`instanceId?`, `name`, `parameters?`, `showSignal?`)을 받는다. `indicators=all`도 지원한다. URL의 schema_version은 정수로 변환 후 1~2 범위를 검사한다.
+
+v2 응답의 공통 OHLCV `bars`와 `indicators[]`의 인스턴스별 series.values는 같은 날짜·길이를 유지한다. 각 인스턴스는 안정적인 ID, 정규화 parameters, showSignal, panel, status/error/errorCode, signal, series descriptors를 가진다. 동일 지표의 다른 설정은 구분하고 중복 implicit 설정·중복 명시 ID·40개 초과·잘못된 값은422로 거부한다. 원래 schema_version 생략/v1의 SMA/RSI/MACD flat-bar 응답은 호환 유지한다.
+
+누적 origin은 `date`, `availableHistory`, `policy`, `requestedDate`, `baseline`으로 공개한다. OBV는 첫 거래량, PVT는0, AD는 첫 money-flow-volume을 기준으로 계산한다. count는 표시만 자르며 동일 소스 이력의 겹치는 날짜 값이 유지된다. 공급자 이력 수정은 캐시 버전과 origin 정책의 제약으로 명시한다. 지표 수식·EMA seed·lookback·null/분모0·개별 시그널은 [Python 계산 계약](../tech-shared/3-langgraph-fast/ta20.md)을 따른다.
+
+OpenUI는 `technical_analysis_catalog` Query와 `IndicatorControls($chart_instances,catalog)`, reactive 인스턴스 JSON을 사용한다. 서버는 검증된 결과로 최소 DSL을 만들며 초기 fallback에 큰 수치 배열을 삽입하지 않는다. 실제 숫자는 모델 없는 Query로 조회한다. 두 TA 그래프는 같은 계산·설정 계약을 공유하며 inline은 결정적 presentation, Canvas는 UUID별 custom 보고서 표시를 유지한다. 프로토콜·수치·모델 비호출·parser 검증 증거와 사용자에게 맡긴 브라우저 검증 범위는 [당일 기록](../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)에 둔다.

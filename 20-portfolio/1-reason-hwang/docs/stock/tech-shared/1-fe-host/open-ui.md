@@ -141,3 +141,18 @@ SDK stream은 `on_disconnect=continue`를 명시한다. metadata 및 공개 onRu
 실행 중인 history도 열 수 있다. 최신 run과 저장된 state를 1.5초 간격으로 조회하다 terminal 상태에서 멈추며 놓친 토큰을 재생하지 않는다. 저장된 메시지·도구 상태·JSON 결과와 Canvas 보고서를 복원한다. 닫은 탭은 같은 화면의 조회 갱신으로 되살리지 않고, runtime/page 전환과 unmount는 소유 조회를 정리한다. 기존 Canvas 무복원 제한은 이 저장 상태 재개 경로에 한해 대체한다.
 
 검증은 [통합 flow](../../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)에 기록한다. 사용자 승인 범위에 따라 브라우저/Storybook browser 검증은 수행하지 않는다.
+
+
+## TA-INDICATORS-002: 20개 지표와 다중 인스턴스
+
+FinancialChart의 OpenUI prop은 snapshot 하나를 유지한다. schemaVersion 없는 기존 SMA/RSI/MACD 응답은 v1 adapter로 표시하고, v2는 정렬된 OHLCV bars와 instanceId별 indicators/series descriptor를 사용한다. 수치는 서버 응답만 사용한다. 같은 지표의 다른 설정은 독립 id와 label로 구분하며 요청 순서나 이름만으로 합치지 않는다. line·histogram·markers와 bandGroup의 upper/middle/lower 경계선을 공통 렌더러로 그린다. PSAR는 가격 위치의 점으로 표시한다. 서로 다른 oscillator 인스턴스는 별도 축/패널이며 공유 시간축으로 정렬한다.
+
+전체 결과는 최신 표시 봉의 값·단위·서버 signal·오류·준비 부족을 요약하고 details로 설정/근거를 펼친다. null을 0이나 마지막 유효 값으로 덮지 않는다. 서버가 전달한 누적 origin 날짜·사용 이력·정책과 catalogVersion을 표시한다. 최대40개 인스턴스를 유지하고 하위 패널은 최대4개만 보이며 나머지도 요약·상세에서 선택할 수 있다. 가격 overlay와 패널의 표시 선택은 조회나 모델 실행을 만들지 않는다. Canvas는 공개 SDK state field로 탭별 표시 선택과 적용된 Query 인자를 보존한다.
+
+`IndicatorControls($chart_instances, catalog)`는 서버 catalog의 매개변수 범위·기본값·단위를 사용한다. 추가·제거·설정 복제·기본3개·전체20개 구성과 명시적 초안 적용을 제공한다. 같은 이름의 여러 설정을 허용하고 새 client instanceId는 검증 가능한 ui-UUID 형식이다. TSI/TRIX signal은 선택 사항이며 해제 시 signal_period=0을 함께 반영한다. 초안은 적용해야 조회/새로고침에 반영된다.
+
+allowlisted `technical_analysis_catalog`는 해당 runtime의 `/technical-analysis/catalog`, v2 chart는 `/technical-analysis/chart?schema_version=2&instances=<JSON>`를 호출한다. 기존 v1 인자도 유지한다. catalog 실패는 Renderer의 QueryError/Retry로 재시도하고 계산 오류는 지표별로 표시한다. 서버 수치 배열은 DSL에 복사하지 않고 Query가 가져오므로 200봉·다중 지표가 60000자 프로그램 제한을 조용히 우회하지 않는다. 생성 catalog/spec와 Python prompt 사본은 `pnpm -C 1-fe-host sec-ui:generate`로 동기화한다.
+
+두 TA 화면의 재분석은 마지막 성공한 Query 인자만 사용한다. 인라인은 `analysis_request`, Canvas는 `canvas_context.request`로 ticker/interval/count와 인스턴스 전체 설정을 구조화해 전달한다. 단순 조회에는 LLM 실행이 없으며, 인라인 재분석은 새 대화 답변으로, Canvas 재분석은 새 report UUID로 표시한다. 기존 해석의 snapshot 경고는 유지한다.
+
+검증 기록은 [통합 flow](../../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)를 따른다. Story 정의는 추가하되 이번 사용자 승인 범위는 API와 정적 검사이며 Storybook/브라우저 실행은 사용자에게 남긴다.

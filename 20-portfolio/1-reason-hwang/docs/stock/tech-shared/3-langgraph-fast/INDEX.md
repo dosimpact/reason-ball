@@ -6,6 +6,7 @@
 
 | 문서 | 책임 |
 | --- | --- |
+| [TA20 계산·조회](ta20.md) | 20개 지표 공식, 복수 인스턴스, Query v2·구버전 호환과 두 agent |
 | [자체 FastAPI runtime](fastapi-runtime.md) | 같은 graph 실행, SDK stream, 단일 프로세스 Task/취소/queue와 실제 checkpoint |
 | [LangGraph DB Saver](3-langgraph-db-saver.md) | PostgreSQL application metadata, checkpoint saver, 전용 schema와 복구 정책 |
 | [Graph DB](4-graph-db.md) | Neo4j 연결, schema 초기화, 10-K graph model, 쓰기·검색·운영 계약 |

@@ -23,6 +23,20 @@ class IndicatorName(StrEnum):
     ADX = "ADX"
     ATR = "ATR"
     OBV = "OBV"
+    PSAR = "PSAR"
+    CCI = "CCI"
+    STOCH = "STOCH"
+    STOCHRSI = "STOCHRSI"
+    WILLIAMS_R = "WILLIAMS_R"
+    AO = "AO"
+    TSI = "TSI"
+    UO = "UO"
+    TRIX = "TRIX"
+    KELTNER = "KELTNER"
+    DONCHIAN = "DONCHIAN"
+    PVT = "PVT"
+    AD = "AD"
+    CMF = "CMF"
 
 
 NumericParameter = int | float

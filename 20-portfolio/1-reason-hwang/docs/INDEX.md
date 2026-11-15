@@ -245,3 +245,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [SEC Collector API Testing](flow/2026-11-14-sec-api-testing-tab.md): SEC-COLLECTOR-002, 기존6API의 수동 request/response 검사 탭.
 
 - [SEC 모델링 구현 완료·검증 보류](flow/2026-11-14-sec-modeling-implementation-complete.md): SEC-MODELING-001, 구현 범위·기존 실행 결과·사용자 요청에 따른 검증 중단 및 자원 정리.
+
+- [FastAPI 실행 런타임과 TA 지표 확장](flow/2026-11-16-fastapi-runtime-and-ta-indicators.md): FASTAPI-RUNTIME-001, 실제 그래프·PostgreSQL 재시작·API 검증 및 TA-INDICATORS-020 진행 기록.

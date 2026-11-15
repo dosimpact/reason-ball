@@ -1,0 +1,16 @@
+meta {
+  name: TA-INDICATORS-020 Invalid parameters rejected
+  type: http
+  seq: 3
+}
+get {
+  url: {{baseUrl}}/technical-analysis/chart?ticker=AAPL&schema_version=2&instances=%5B%7B%22name%22%3A%22SMA%22%2C%22parameters%22%3A%7B%22timeperiod%22%3A0%7D%7D%5D
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("Invalid period never becomes silently defaulted valid data", function () {expect(res.status).to.equal(422);expect(res.getBody().detail).to.be.ok;});
+}
