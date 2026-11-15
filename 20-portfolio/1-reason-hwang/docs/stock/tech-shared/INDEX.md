@@ -68,8 +68,6 @@ tech-shared/
 
 - [Generative UI 통합 설계](open-ui-system/INDEX.md): OpenUI 최종 출력 서브그래프, Dynamic·Fixed·Catalog 및 사용자 action.
 
-- [Push UI message 예제](push-ui-message/INDEX.md): 독립 채팅 예제와 메시지별 진행 이벤트.
-
 - [SEC Intelligent UI Host](1-fe-host/sec-intelligent-ui.md) / [LangGraph](3-langgraph-fast/sec-intelligent-ui.md): AG-UI 기반 SEC 채팅.
 
 - [OpenUI 통합 마이그레이션](openui-migration.md): 최종 출력 서브그래프와 CopilotKit 제거와 현재 실행 계약.

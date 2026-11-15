@@ -122,14 +122,15 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 
 [디렉터리 정책](../tech-shared/2-bff-apps/directory-policy.md)이 구조의 원본이다. `AppModule`에 업무 모듈 하나를 연결한다. TypeORM 엔티티는 Company/Filing 두 개이고 DTO는 같은 entity 디렉터리에 둔다. 수집 서비스는 CompanyService, FilingService, FilingBackfillService 세 개다. 모델링 실행·저장·제어는 SEC-MODELING-001의 별도 서비스가 담당한다. 외부 SEC HTTP·타입·ZIP 처리·명세는 `src/lib/sec/`에 둔다.
 
-수집 REST API는 6개다. 모델링 제어 API는 SEC-MODELING-001에서 확장한다. [BFF API 명세](../../../2-bff-apps/src/us-corporate-filings/.docs/api-spec.md)와 Bruno 컬렉션이 같은 계약을 따른다.
+수집 REST API는 7개다. 행 단위 원문 다운로드는 저장된 CIK+접수번호 한 건만 처리하며 실패 건은 재시도한다. 모델링 제어 API는 SEC-MODELING-001에서 별도 확장한다. [BFF API 명세](../../../2-bff-apps/src/us-corporate-filings/.docs/api-spec.md)를 현재 API 계약으로 사용한다. Bruno 컬렉션은 각 시나리오에서 명시한 계약만 검증한다.
 
 | API | 동작 |
 | --- | --- |
 | POST /company-sync-jobs | 회사 snapshot 동기화, 201 JSON |
-| GET /companies | 페이지 조회, pageSize 기본 50·최대 100000, limit 호환 |
+| GET /companies | 응답은 pagination과 items만 포함; 페이지 조회, pageSize 기본 50·최대 100000, limit 호환 |
 | GET /filings | 공시 페이지 조회, pageSize 최대 500, includeContent 옵션 |
 | GET /filings/:cik/:accessionNo/content | 저장된 단일 원문 직접 반환 |
+| POST /filings/:cik/:accessionNo/download-jobs | 저장된 특정 공시 원문 다운로드·재시도, 200 SSE |
 | POST /company-filing-sync-jobs | 지정 기업 recent·역사 JSON 수집 후 원문, 200 SSE |
 | POST /all-company-filing-sync-jobs | 티커 보유 회사의 archive 메타데이터 적재 후 원문, 200 SSE |
 
@@ -139,7 +140,7 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 - 수집 API에는 별도 작업 Entity, 메모리 작업 이력, 상태 GET이 없다. 수집 상태는 filings에 영속 저장한다. 별도 모델링 실행은 sec_modeling schema의 영속 이력을 사용한다. 기존 sec_backfill_runs 테이블과 migration은 과거 이력 보존용이며 런타임은 접근하지 않는다.
 - 원문 재실행은 failed를 한 번 pending으로 되돌리고 기존 downloaded·parserStatus·checksum·본문을 보존한다. 연결 종료 시 다음 진행 보고에서 중단하고 재호출로 이어간다.
 - 전체 기업 백필 중복 실행 제한은 프로세스 단위다. 다중 프로세스 분산 잠금·영구 실행 복구를 제공하지 않는다.
-- 별도 다운로드/재시도/parser-status/상태 집계/백필 상태 API는 제거했다. 저장소의 FE·LangGraph 호출자 검색에서 소비자가 없음을 확인했다. 기존 원문 소비자는 filings?includeContent=true로 전환한다.
+- parser-status/상태 집계/백필 상태 API는 제공하지 않는다. 원문 재시도는 회사 범위 backfill을 사용하고, 수집 UI의 단일 공시 요청은 accession별 download-jobs로 처리한다.
 - Config는 생성 시 한 번 검증한 snapshot을 공유한다. PORT > APP_PORT > 2801. 잘못된 숫자·URL·boolean은 부팅 오류다.
 
 ## 검증과 실데이터 실행
@@ -212,13 +213,21 @@ SEC ZIP은 `sec-cache/submissions.zip`, 백필 실행 기록은 `runs/`에 저�
 
 ## SEC-COLLECTOR-001: Host 운영 대시보드
 
-Host `/sec-collector`가 기존6개 API를 generic same-origin BFF proxy로 호출한다. BFF API·DB schema·수집 정책은 유지하며 별도 job/status API를 만들지 않는다. 업무·기술 계약은 [운영 화면 설계](collector-dashboard.md)를 따른다.
+Host `/sec-collector`가 수집 API를 generic same-origin BFF proxy로 호출한다. 공시 행의 수집 실행은 accession 단위 API를 사용하며 일괄 수집은 기존 backfill API를 사용한다. 업무·기술 계약은 [운영 화면 설계](collector-dashboard.md)를 따른다.
 
 ## SEC-MODELING-001: 분석 작업 제어
 
 `UsCorporateFilingsModule` 안의 별도 modeling controller·service·store·executor가
-`/api/sec/modeling/*`을 소유한다. 기존 수집6개 API의 계약은 유지한다.
+`/api/sec/modeling/*`을 소유한다. SEC 수집 API와 업무 데이터 계약은 별도 유지한다.
 `sec_modeling` schema의 jobs/runs/work_units/events는 분석 작업 전용이며 수집 백필 이력과 구분한다.
 단일 실행기·lease·execution token·재시도·취소·Neo4j 게시 결과 복구를 구현한다.
 원본 HTML은 PostgreSQL에 남고 FastAPI가 가공한 결과만 Neo4j에 저장한다.
 상세 계약·검증 상태는 [SEC 모델링](sec-modeling.md)을 따른다.
+
+## SEC-IXBRL-001: 저장 원문 자체 뷰어
+
+수집된 PostgreSQL 원문을 읽어 iXBRL 추출과 원문 viewer를 제공하는 코드를 구현했다. 사용자 요청으로 실행 검증은 수행하지 않았다. 기존 저장 구조·수집 상태·모델링 결과를 변경하지 않는다. BFF의 filing별 ixbrl 및 그 아래 facts/document 조회와 Host `/sec-viewer` 상세 계약·미검증 상태는 [뷰어 설계](ixbrl-viewer.md)에 둔다.
+
+### SEC 수집 현황 집계
+
+GET /overview는 전체 companies·filings 행과 form_type별 원문 보유 건수를 반환한다. 원문 보유는 document_content가 null 또는 빈 문자열이 아닌 경우이며 응답에 원문은 포함하지 않는다. GET /filings의 hasContent는 동일 기준이다.

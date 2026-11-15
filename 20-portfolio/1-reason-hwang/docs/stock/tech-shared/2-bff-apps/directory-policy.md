@@ -5,7 +5,7 @@
 
 ## 1. 기본 원칙
 
-1. 직접 만드는 업무 Nest 모듈은 `UsCorporateFilingsModule` 하나다. `AppModule`에 장착한다.
+1. SEC 업무는 `UsCorporateFilingsModule`, 한국 Open DART 중계는 독립 `OpenDartModule`이 소유하며 `AppModule`에 각각 장착한다. 사용자 명시 요청에 따른 `DART-API-001` 확장으로, 두 모듈은 서비스·repository·외부 client를 공유하거나 상호 의존하지 않는다.
 2. 외부 API 연동은 `src/lib/{provider}/`에 둔다. SEC HTTP·ZIP 처리·외부 응답 타입·명세를 `lib/sec`에 모은다.
 3. 업무 데이터와 API DTO는 `src/us-corporate-filings/entity/`에 둔다.
 4. 서비스는 사용자 업무 기준으로만 나눈다. 읽기·쓰기라는 이유만으로 QueryService/CommandService를 추가하지 않는다.
@@ -21,12 +21,18 @@ src/
 ├── shared/
 │   └── config.service.ts                 # 환경값 로딩·검증·제공
 ├── lib/
+│   ├── dart/
+│   │   └── dart.client.ts                # DART 고정 upstream·외부 타입·JSON/ZIP 중계
 │   └── sec/
 │       ├── sec.client.ts                 # SEC HTTP, 제한·재시도 및 외부 JSON 타입
 │       ├── sec.utils.ts                  # SEC 식별자·URL·원문 변환
 │       ├── sec.archive.ts                # bulk ZIP 읽기·외부 JSON 변환
 │       └── .docs/
 │           └── api-spec.md               # 외부 SEC API 명세
+├── open-dart/
+│   ├── open-dart.module.ts                # SEC와 독립된 DART 업무 모듈
+│   ├── open-dart.controller.ts            # /api/dart 고정 GET 5개
+│   └── open-dart.dto.ts                   # endpoint별 query 검증
 ├── us-corporate-filings/
 │   ├── us-corporate-filings.module.ts     # 업무 provider 등록 한 곳
 │   ├── us-corporate-filings.controller.ts # 아래 업무 API 라우팅
@@ -65,10 +71,11 @@ src/
 | 회사 조회 | `GET /companies?page=1&pageSize=...` | CompanyService | 검색·페이지네이션, 최대 100000, limit 호환 |
 | 기업 공시 조회 | `GET /filings?cik=...&page=1&pageSize=...` | FilingService | 기업별 공시 목록; 선택적으로 원문 포함 |
 | 단일 원문 조회 | `GET /filings/:cik/:accessionNo/content` | FilingService | 저장 원문 직접 반환 |
+| 단일 공시 수집 | `POST /filings/:cik/:accessionNo/download-jobs` | FilingBackfillService | 접수번호로 지정한 공시 하나 다운로드 또는 실패 재시도, SSE |
 | 특정 기업 공시 backfill | `POST /company-filing-sync-jobs` | FilingBackfillService | 지정 기업의 기간 내 공시자료 수집·SSE |
 | 전체 기업 공시 backfill | `POST /all-company-filing-sync-jobs` | FilingBackfillService | 전체 기업의 기간 내 공시자료 일괄 수집·SSE |
 
-수집 업무 API는 위 6개로 정리한다. 모델링 API는 아래 SEC-MODELING-001 확장을 따른다. 기존의 메타데이터 수집 → 다운로드 → 실패 복귀 요청을 사용자가 순서대로 호출하게 하지 않는다.
+수집 업무 API는 위 7개로 정리한다. 모델링 API는 아래 SEC-MODELING-001 확장을 따른다. 메타데이터 수집 → 단일 공시 다운로드 또는 범위 백필의 작업은 SSE로 보고한다.
 
 ### 수집 범위의 의미
 
@@ -139,3 +146,11 @@ POST /all-company-filing-sync-jobs는 실행 시작 시 DB companies에서 ticke
 `SEC_MODELING_URL`, `SEC_MODELING_KEY`, `SEC_MODELING_WORKER_ENABLED`는 중앙 설정에서
 검증하며 서비스 키를 브라우저·응답·로그에 노출하지 않는다.
 [도메인 계약과 검증 상태](../../us-corporate-filings/sec-modeling.md)를 따른다.
+
+## DART-API-001: 독립 Open DART 모듈
+
+`src/open-dart/`의 controller·입력 검증·module이 공개 API를 소유하며 외부 HTTP·크기 제한·ZIP 식별·외부 오류 변환은 `src/lib/dart/dart.client.ts`에 둔다. `src/shared/config.service.ts`의 `API_K_DART` 서버 snapshot을 DI로 사용한다. SEC client·SEC 업무 서비스·DB repository를 사용하지 않는다.
+
+기존 `api/sec` 전역 prefix는 유지한다. `main.ts`는 고정 DART 5개 경로만 prefix 적용에서 제외하고 `@Controller('api/dart')`에 연결한다. 기존 SEC 경로를 바꾸거나 DART를 SEC URL 아래에 묶지 않기 위한 예외다. 동작 계약은 [DART API Testing 시스템 설계](../../dart-api-testing/system-design.md)를 따른다.
+
+이번 구현은 사용자 지시에 따라 테스트·typecheck·lint·build·브라우저·실제 API 호출을 실행하지 않았다. 구현 상태와 검증 완료를 구분한다.

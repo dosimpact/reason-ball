@@ -264,7 +264,7 @@ Remote 앱이 늘어나도 Host는 BFF 설정과 라우팅만 추가해 확장�
 | 위치 | 책임 |
 | --- | --- |
 | `src/_app` | 루트 레이아웃·스타일·서버 API 조립 |
-| `src/_pages` | home, chat, sec-chat, sec-api-agent, generative-ui, examples-push-ui-message, index-dcf-visualizer, remotes 화면 슬라이스 |
+| `src/_pages` | home, chat, sec-chat, sec-api-agent, generative-ui, index-dcf-visualizer, remotes 화면 슬라이스 |
 | `src/widgets` | host-navigation, remote-app 독립 화면 블록 |
 | `src/shared` | ui, lib, config 공용 세그먼트 |
 
@@ -295,14 +295,14 @@ Host의 FastAPI 프록시는 2981, `REMOTE_BFF_URL`은 BFF 2980이다.
 
 ## HOST-NAV-001: 사이드바 그룹
 
-Host 사이드바는 Overview(Home), Remote Apps(Template·Todo), AI Chat(LangGraph Chat·SEC API Agent·SEC Research Chat·Push UI Chat), Generative UI(UI Demos·OpenUI Lang Catalog)로 구성한다. 카탈로그와 Push UI 예제도 직접 진입할 수 있다. URL은 기존 경로를 유지한다. 경로 구간이 일치하는 항목 중 가장 구체적인 경로 하나만 활성화하여 카탈로그에서 UI Demos가 동시에 선택되지 않게 한다. 접힌 상태의 아이콘·툴팁과 모바일 Sidebar 동작은 공통 Sidebar를 따른다.
+Host 사이드바는 Overview(Home), Remote Apps(Template·Todo), AI Chat(LangGraph Chat·SEC API Agent·SEC Research Chat), Generative UI(UI Demos·OpenUI Lang Catalog)로 구성한다. 카탈로그는 직접 진입할 수 있다. URL은 기존 경로를 유지한다. 경로 구간이 일치하는 항목 중 가장 구체적인 경로 하나만 활성화하여 카탈로그에서 UI Demos가 동시에 선택되지 않게 한다. 접힌 상태의 아이콘·툴팁과 모바일 Sidebar 동작은 공통 Sidebar를 따른다.
 
 [변경 및 검증](../../../flow/2026-11-14-host-navigation-groups.md)
 
 
 ## OPENUI-CHAT-DS-001: 공통 채팅 디자인 시스템
 
-`shared/ui/agent-conversation`의 AgentChatFrame이 SEC API Agent·SEC Intelligent UI·Chat·Generative UI와 Push UI 예제의 화면 프레임, 헤더, Welcome, Composer, 새 대화·기록 액션, 상태·오류, 간격·반응형·테마·스크롤을 소유한다. native AG-UI와 기존 domain controller는 동일한 화면을 사용하며 전송 어댑터만 다르다. 페이지는 toolbar/status/footer와 메시지 renderer 슬롯으로 그래프 선택·공시 근거·추천·차트·revision action을 연결한다. 페이지별 프레임 CSS와 중복 헤더는 만들지 않는다. 상세 계약은 [공통 채팅 설계](open-ui.md#openui-chat-ds-001-공통-채팅-디자인-시스템)를 따른다.
+`shared/ui/agent-conversation`의 AgentChatFrame이 SEC API Agent·SEC Intelligent UI·Chat·Generative UI의 화면 프레임, 헤더, Welcome, Composer, 새 대화·기록 액션, 상태·오류, 간격·반응형·테마·스크롤을 소유한다. native AG-UI와 기존 domain controller는 동일한 화면을 사용하며 전송 어댑터만 다르다. 페이지는 toolbar/status/footer와 메시지 renderer 슬롯으로 그래프 선택·공시 근거·추천·차트·revision action을 연결한다. 페이지별 프레임 CSS와 중복 헤더는 만들지 않는다. 상세 계약은 [공통 채팅 설계](open-ui.md#openui-chat-ds-001-공통-채팅-디자인-시스템)를 따른다.
 
 
 ## HOST-HEADER-001: Host 공통 헤더 제거
@@ -319,7 +319,7 @@ Host CLI·Turbopack 실행 변경과 검증은 [HOST-DEV-CLI-001 기록](../../.
 
 ## SEC-COLLECTOR-001: SEC 운영 화면
 
-`app/sec-collector`는 FSD `_pages/sec-collector`의 운영 대시보드를 연결한다. Slice api/model/ui가 기존 BFF API를 `/api/remote-proxy/api/sec/*`로 소비하며 서버 proxy 계약을 바꾸지 않는다. 사이드바 Operations 그룹에 `SEC 수집 관리`를 제공한다. 상세 상태·수집 경계는 [도메인 설계](../../us-corporate-filings/collector-dashboard.md)에 둔다.
+`app/sec-collector`는 FSD `_pages/sec-collector`의 운영 대시보드를 연결한다. 기업 목록은 공시 메인 테이블을 필터링하고, 상세는 행 아래로 확장하며, 개별 수집은 accession별 SSE API를 호출한다. 현재 세션 기록과 요청/응답 검사는 오른쪽 디버깅 drawer에서만 보인다. 사이드바 Operations 그룹의 `SEC 수집 관리`에서 진입한다. 상세 상태·수집 경계는 [도메인 설계](../../us-corporate-filings/collector-dashboard.md)에 둔다.
 
 ## SEC-MODELING-001: 모델링 Admin
 
@@ -336,3 +336,72 @@ AbortController로 취소한다. Item은 sandbox iframe HTML와 text, XBRL은 �
 `pnpm -C 1-fe-host test:sec-modeling`과 `test:sec-modeling:views`가 단위·Storybook 검증 명령이다.
 실제 서비스 연결은 MCP 브라우저로 검증한다. 통합 완료 상태는
 [SEC 모델링 계약](../../us-corporate-filings/sec-modeling.md)과 dated flow를 따른다.
+
+## DART-FE-001: Open DART API Testing
+
+`/dart-collector`는 `app/dart-collector/page.tsx`의 얇은 진입점과
+`src/_pages/dart-collector/{model,api,ui}`로 구성한다. Operations 메뉴에서 진입하며
+기존 `/sec-collector`와 같은 요청 편집·응답 검사 흐름을 제공한다. SEC 페이지나
+기존 same-origin 프록시 구현은 변경하지 않는다.
+
+- `model/dartTesting.ts`: 공식 이름을 유지한 5개 GET 프리셋과 허용 인자, 키가 없는 요청 snapshot.
+- `api/dartTesting.ts`: `/api/remote-proxy/api/dart/*` 고정 경로 호출, HTTP 상태·시간·헤더와 JSON/text 또는 ZIP 수신.
+- `ui/page.tsx`: 프리셋·전송 인자 선택, 수동 Send, 연결 중단, 예정/실제 요청·응답 복사, ZIP 다운로드.
+
+프리셋은 `corpCode.xml`, `list.json`, `document.xml`, `company.json`,
+`fnlttSinglAcntAll.json`이다. 인증키는 BFF의 `API_K_DART`에서만 사용하며
+브라우저 입력·요청 URL·복사 snapshot에 `crtfc_key`를 허용하지 않는다.
+필수·유형 설명은 표시하지만 입력값의 업무 검증은 서버에 맡겨 오류 응답도 확인할 수 있다.
+HTTP 성공과 DART JSON `status`를 별도로 표시하며 `000` 이외의 코드는 업무 오류로 안내한다.
+
+성공 ZIP은 텍스트/XML로 파싱하거나 미리보기하지 않고 파일명·byte 수·명시적 다운로드를 제공한다.
+ZIP은 최대 64 MiB, JSON/text는 앞부분 1 MiB를 보관하며 잘림을 표시한다.
+ZIP 프리셋의 HTTP 200 non-ZIP 응답은 형식 오류로 구분한다.
+다운로드 object URL은 결과 교체·화면 해제 시 해제하고 요청은 중복 전송을 막는다.
+화면 해제 시 소유 요청을 abort하며 이전 요청의 늦은 결과가 현재 상태를 변경하지 않게 한다.
+예정 요청과 마지막 전송 요청·응답은 구분해 보존한다. 자동 호출·재시도, DB 저장,
+원문 뷰어, AI 분석은 포함하지 않는다.
+
+사용자가 검증을 직접 수행하도록 지시했으므로 이 변경의 테스트·typecheck·lint·build·
+브라우저 검증·실제 API 호출은 실행하지 않았다. 구현 상태와 검증 완료 상태를 구분한다.
+도메인 경계와 수동 확인 절차는 [DART 문서 지도](../../dart-api-testing/INDEX.md)를 따른다.
+
+## SEC-VIEWER-001: 수집 공시의 자체 iXBRL 뷰어
+
+`/sec-viewer?cik=<CIK>&accessionNo=<접수번호>`는 독립 FSD 페이지
+`src/_pages/sec-viewer/{api,model,ui}`와 루트 `app/sec-viewer/page.tsx`로 구성한다.
+SEC 수집 관리에서 다운로드 완료된 공시 상세의 `XBRL 보기`로 새 탭에서 진입한다.
+원문·검색/상세는 데스크톱 좌우 패널, 모바일 전환 패널로 제공한다. Arelle 공식 UI를
+삽입하지 않으며 계산 관계·taxonomy 정의 탐색·AI 해석·새 공시 수집은 포함하지 않는다.
+
+기존 same-origin `/api/remote-proxy/api/sec/filings/:cik/:accessionNo/ixbrl`의
+metadata, `/facts`의 페이지당 100개 검색 및 factId 단건 조회, `/document`의 정제 HTML을
+사용한다. 모든 결과는 `sourceHash`와 `extractorVersion`을 맞추며 409 또는 버전 불일치는
+재로딩 안내로 처리한다. 원문 클릭은 현재 fact가 검색 페이지 밖에 있어도 factId로 조회해
+서버의 현재 문서에 속한 결과인지 확인한다. QName·표시/원시/변환 값·기간·단위·차원·
+scale/sign/format/decimals·변환 경고를 표시한다. 숨김 fact나 원문 구간이 없는 값은
+상세만 표시하며 원문 이동은 비활성화한다.
+
+서버가 같은 문서 트리에서 fact와 앵커를 추출하고 HTML을 정제한다. FE는 해당 정제 HTML을
+다시 허용 목록 DOM으로 재구성하며 원본 script/meta/base/form/외부 자원·이벤트 속성·
+임의 id/data 속성을 복사하지 않는다. 생성된 `data-fact-id=ix-fact-N`,
+`id=ix-segment-N-M`과 제한된 표/문단 서식만 남긴다. 이후 별도 CSP nonce를 가진
+고정 bridge 하나를 삽입한다. 기존 DB 원문을 Host DOM에 직접 삽입하지 않는다.
+
+iframe은 `sandbox="allow-scripts"`, `referrerPolicy="no-referrer"`만 사용한다.
+CSP는 외부 통신·이미지·frame/object·base·form을 차단하고 nonce script와 정제된 inline
+style만 허용한다. 원문은 흰색 문서 영역으로 유지하며 Host의 라이트·다크 UI와 분리한다.
+parent는 `event.source === iframe.contentWindow`, opaque origin `null`, 엄격한 message
+key/type/version, 문서 hash와 매 문서별 channelId를 확인한다. `null` origin만으로
+신뢰하지 않는다. frame는 parent source·기대 Host origin·channel/hash를 검증하며,
+parent → opaque frame은 `targetOrigin="*"`로 ID 명령만 전달한다. frame → parent는
+기대 Host origin을 지정한다. 고정 메시지는 init/ready/select/focus/missing이고 임의 HTML,
+URL 또는 실행 코드를 메시지로 받지 않는다. 정제 DOM의 fact ID map으로 다중 구간을
+강조·이동하며 동적 selector 문자열을 조립하지 않는다.
+
+문서 변경·화면 해제 시 fetch를 취소하고 iframe channel/listener를 교체한다. 늦은 선택·검색
+응답은 반영하지 않으며 앵커 누락은 경고한다. 사용자가 검증을 직접 수행하도록 지시했으므로
+이 구현의 테스트·typecheck·lint·build·브라우저·실제 API 호출은 실행하지 않았다.
+도메인 계약은 [SEC iXBRL 뷰어](../../us-corporate-filings/ixbrl-viewer.md)를 따른다.
+
+채팅의 LangGraph SDK 요청은 `/api/langgraph-runtime` 프록시를 통해 LangGraph 실행 서버(`LANGGRAPH_RUNTIME_API_URL`, 기본 `http://127.0.0.1:2982`)로 전달한다. 기존 `/api/langgraph`는 FastAPI 서버를 계속 사용한다. 채팅의 그래프 목록은 실행 서버의 assistant 목록에서 조회한다.

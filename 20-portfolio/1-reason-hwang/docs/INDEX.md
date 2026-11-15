@@ -115,7 +115,12 @@ The technical subdirectories follow package ownership; the other stock directori
 | [`stock/us-corporate-filings/INDEX.md`](stock/us-corporate-filings/INDEX.md) | Domain boundary, owning components, current capabilities, and documentation routing |
 | [`stock/us-corporate-filings/system-design.md`](stock/us-corporate-filings/system-design.md) | Implemented PostgreSQL filing content, migration, constraints, and verification |
 | [`stock/us-corporate-filings/sec-modeling.md`](stock/us-corporate-filings/sec-modeling.md) | SEC 모델링 1/2/3, 작업 관리·Admin·검색의 승인 계약과 인수 기준; 구현 완료, 사용자 요청으로 추가 검증 보류 |
+| [`stock/us-corporate-filings/ixbrl-viewer.md`](stock/us-corporate-filings/ixbrl-viewer.md) | 저장 원문 iXBRL fact 추출·원문 연결 viewer, 구현 작성 완료·실행 미검증 |
 | [`stock/us-corporate-filings/intelligent-ui.md`](stock/us-corporate-filings/intelligent-ui.md) | SEC 10-K conversational analysis with OpenUI and AG-UI |
+
+### DART API Testing
+
+[DART 도메인 문서 지도](stock/dart-api-testing/INDEX.md): 핵심 5개 Open DART API의 독립 BFF 모듈과 수동 요청 화면. 구현 작성 완료, 사용자 요청으로 실행 검증 미실행.
 
 ### Technical Analysis
 
@@ -142,7 +147,10 @@ The technical subdirectories follow package ownership; the other stock directori
 Flow documents remain in a single dated, append-only history. New records must identify the affected business domain or `tech-shared`, name the package when applicable, and link the exact stock documents they update. Historical records using the scope label `shared` remain unchanged.
 
 | Document | Change |
+| [`flow/2026-11-15-ta-agent-canvas-split.md`](flow/2026-11-15-ta-agent-canvas-split.md) | 기존 inline TA와 별도 Canvas TA graph 분리·API 검증 |
 | [`flow/2026-11-15-ta-dynamic-canvas-implementation.md`](flow/2026-11-15-ta-dynamic-canvas-implementation.md) | TA Dynamic Canvas report/event·선택 문맥·재분석 구현과 API 검증, 브라우저 사용자 수행 |
+| [`flow/2026-11-15-sec-ixbrl-viewer-implementation.md`](flow/2026-11-15-sec-ixbrl-viewer-implementation.md) | SEC 자체 iXBRL viewer 구현과 실행 검증 미실행 기록 |
+| [`flow/2026-11-15-dart-api-testing-implementation.md`](flow/2026-11-15-dart-api-testing-implementation.md) | DART 핵심 5개 API와 수동 Testing 화면 구현, 실행 검증 사용자 수행 |
 | [`flow/2026-11-14-chat-native-tool-timeline.md`](flow/2026-11-14-chat-native-tool-timeline.md) | SDK 기본 도구 타임라인, 안전한 기록 복원, 중복 상태 띠 제거와 실제 TA 검증 |
 | [`flow/2026-11-14-chat-layout-all-graphs.md`](flow/2026-11-14-chat-layout-all-graphs.md) | /chat 통합 헤더, 전체 LangGraph discovery와 schema별 입력·결과, 실제 브라우저 검증 |
 | [`flow/2026-10-22-sec-activity-timeline.md`](flow/2026-10-22-sec-activity-timeline.md) | Behind the scenes 실시간 실행 타임라인 |
@@ -194,8 +202,6 @@ If a supporting document conflicts with code or a stock document, verify the imp
 
 - [Generative UI 통합 설계](stock/tech-shared/open-ui-system/INDEX.md): OpenUI 최종 출력 서브그래프, Dynamic·Fixed·Catalog 및 사용자 action.
 
-- [Push UI message 예제](stock/tech-shared/push-ui-message/INDEX.md): 턴별 진행 부가정보와 독립 채팅 UI.
-
 - [2026-10-22 자유 Intelligent UI](flow/2026-10-22-sec-generative-ui.md)
 
 - [2026-10-22 설명형 답변 서식](flow/2026-10-22-sec-prose-rendering.md)
@@ -232,7 +238,7 @@ If a supporting document conflicts with code or a stock document, verify the imp
 
 - [Chat Behind the scenes](flow/2026-11-14-chat-behind-the-scenes.md): CHAT-ACTIVITY-001, 도구 실행 이름·상태 표시.
 
-- [SEC Collector 운영 화면](stock/us-corporate-filings/collector-dashboard.md): 기업·공시 조회, 수집 실행·세션 기록. [구현 및 검증](flow/2026-11-14-sec-collector-dashboard.md).
+- [SEC Collector 운영 화면](stock/us-corporate-filings/collector-dashboard.md): 기업 필터, 공시 기본 테이블, 행 단위 수집·상세, 디버깅 drawer. [구현 및 변경 기록](flow/2026-11-15-sec-collector-redesign.md).
 
 - [SEC 모델링 구현·통합 검증 중간 기록](flow/2026-11-14-sec-modeling-integration-progress.md): SEC-MODELING-001, 모델링 1/2/3·작업 관리·Admin·검색. 전체 완료 기록은 아니다.
 

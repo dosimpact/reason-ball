@@ -40,3 +40,5 @@ Detailed supporting references currently include:
 - [SEC Intelligent UI 채팅](intelligent-ui.md): 최신 10-K 기반 LangGraph/AG-UI/OpenUI 경로와 검증 기준.
 
 - [SEC Collector 운영 화면](collector-dashboard.md): SEC-COLLECTOR-001, 기업·공시 조회와 명시적 API 수집 실행.
+
+- [SEC iXBRL 자체 뷰어](ixbrl-viewer.md): SEC-IXBRL-001, 저장된 원문의 taxonomy-free fact 추출과 원문 위치 연결. 구현 작성 완료·실행 미검증·사용자 직접 검증.
