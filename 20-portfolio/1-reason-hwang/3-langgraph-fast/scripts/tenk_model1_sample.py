@@ -19,7 +19,7 @@ from settings import get_settings
 PACKAGE = Path(__file__).resolve().parents[1]
 SAMPLES = (
     (
-        "aapl-20260926.htm",
+        "aapl-20260926-10k.htm",
         FilingMetadata(
             "0000320193",
             "Apple Inc.",
@@ -31,7 +31,7 @@ SAMPLES = (
         ),
     ),
     (
-        "cpng-20251231.htm",
+        "cpng-20251231-10k.htm",
         FilingMetadata(
             "0001834584",
             "Coupang, Inc.",
@@ -43,7 +43,7 @@ SAMPLES = (
         ),
     ),
     (
-        "nvda-20260125.htm",
+        "nvda-20260125-10k.htm",
         FilingMetadata(
             "0001045810",
             "NVIDIA CORP",
