@@ -23,6 +23,7 @@ export class AppConfigService {
   get postgresUser() { return this.settings.postgresUser; }
   get postgresPassword() { return this.settings.postgresPassword; }
   get postgresDb() { return this.settings.postgresDb; }
+  get dartApiKey() { return this.settings.dartApiKey; }
   get secUserAgent() { return this.settings.secUserAgent; }
   get secRateLimitRps() { return this.settings.secRateLimitRps; }
   get secRetryCount() { return this.settings.secRetryCount; }
@@ -92,6 +93,7 @@ export function readEnvironment(env: NodeJS.ProcessEnv, cwd = process.cwd()) {
     postgresUser: env.POSTGRES_USER ?? 'postgres',
     postgresPassword: env.POSTGRES_PASSWORD ?? 'postgres',
     postgresDb: env.POSTGRES_DB ?? 'sec_collector',
+    dartApiKey: (env.API_K_DART ?? '').trim(),
     secUserAgent: env.SEC_USER_AGENT ?? 'reason-hwang-bff/0.1 (your-email@example.com)',
     secRateLimitRps: positiveNumber('SEC_RATE_LIMIT_RPS', 4),
     secRetryCount: integer('SEC_RETRY_COUNT', 3, 0),
