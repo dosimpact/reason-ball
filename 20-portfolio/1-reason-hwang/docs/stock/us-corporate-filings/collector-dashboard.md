@@ -6,15 +6,13 @@ Host `/sec-collector`는 기존 SEC BFF API를 명시적으로 호출해 기업�
 
 ## 조회와 선택
 
-현황은 서버 pagination.totalItems를 사용하는 전체 회사·공시·pending/downloaded/failed 수와 조회 시각을 표시한다. 현재 페이지 행 수를 전체 수로 간주하지 않는다. 다섯 집계 요청은 같은 DB 트랜잭션 snapshot이 아니며 조회 시각은 마지막 수집 시각이 아닌 화면 조회 완료 시각이다. 목록 기본 범위는 티커 보유 회사이며 현재 상장 여부를 의미하지 않는다.
-
-기업 검색·페이지·선택과 회사별 공시 조회, 공시 필터·페이지·상세를 제공한다. 목록에는 원문을 포함하지 않는다. 원본·수정본은 독립적으로 표시하고 보수적 연결 상태를 유지한다. 원문은 기존 CIK+accessionNo 직접조회 경로를 사용하며 pending/failed의 원문 부재를 다운로드 완료로 표시하지 않는다.
+상단 기업 주소록 동기화는 기업 정보만 갱신한다. 통계는 전체 companies·filings 행을 DB에서 집계하며 ticker가 공백이 아닌 기업, 원문이 null 또는 빈 문자열이 아닌 공시, 모든 formType별 공시 및 원문 보유 건수를 표시한다. 기업 목록은 기존 티커 보유 범위로 조회한다. 기업 선택 작업 바는 선택한 기업을 페이지 간 유지하고 목록 확인·개별 해제·수집 설정 이동을 제공한다. 기업 행을 펼치면 해당 CIK의 공시를 양식·제출일 범위·실제 원문 보유 여부로 서버에서 필터링하며 별도 페이지로 조회한다. 원본과 수정본은 별도 행이며 저장된 원문은 원문 보기와 XBRL 보기로 연다. 수집 실패 시 사유와 재시도를 표시한다.
 
 ## 수집과 실행 기록
 
-기업 목록 동기화, 선택 기업 수집, 전체 기업 수집을 각각 명시적 실행으로 제공한다. 기본 수집 기간은20년이며 원문 다운로드 옵션을 제공한다. 전체 수집은 티커 보유 회사 범위와 실행 규모를 설명하고 자동 시작하지 않는다.
+공시 행의 `원문 수집`은 CIK와 accessionNo를 지정하는 단일 공시 SSE API를 호출한다. 실제 원문 보유 행은 다시 실행하지 않으며 원문이 없는 행은 같은 공시만 수집한다. 일괄 기업 동기화·선택 기업 백필·전체 기업 수집은 `일괄 수집 작업` 안에서 계속 제공한다. 기본 수집 기간은20년이며 원문 다운로드 옵션을 제공한다. 전체 수집은 티커 보유 회사 범위와 실행 규모를 설명하고 자동 시작하지 않는다.
 
-POST streaming fetch로 started/progress/completed/error를 읽는다. HTTP200만으로 성공을 판단하지 않는다. failed>0 완료는 부분 실패, error event는 실패, terminal event 없는 EOF는 연결 중단이다. 같은 화면에서 중복 수집을 실행하지 않는다. 최대20개 실행·실행당100개 이벤트·최근50개 HTTP trace 및 현재 조회 page의 bounded 요청/응답을 표시하며 영구 job 이력·runId·자동 재연결·완전한 resume는 제공하지 않는다. 페이지 이탈로 요청을 중단해도 이미 저장된 DB 데이터는 유지된다.
+POST streaming fetch로 started/progress/completed/error를 읽는다. HTTP200만으로 성공을 판단하지 않는다. failed>0 완료는 부분 실패, error event는 실패, terminal event 없는 EOF는 연결 중단이다. 같은 화면에서 중복 수집을 실행하지 않는다. 최근 일괄 수집의 대상·기간·진행 수치·종료 상태는 기본 화면에 표시한다. 원시 이벤트와 요청/응답 검사는 오른쪽 디버깅 drawer에서 표시한다. 확인한 조건이 변경되면 확인은 무효화하며 다시 준비해야 한다. 기업 조회 중이거나 실패한 경우 이전 기업 행을 선택할 수 없고 통계는 마지막 성공 시각과 갱신 실패를 표시한다. 최대20개 실행·실행당100개 이벤트·최근50개 HTTP trace 및 현재 조회 page의 bounded 요청/응답을 표시하며 영구 job 이력·runId·자동 재연결·완전한 resume는 제공하지 않는다. 페이지 이탈로 요청을 중단해도 이미 저장된 DB 데이터는 유지된다.
 
 조회 재실행은 현재 선택과 필터를 유지한다. 기존 downloaded 원문을 보존하고 실패분을 다시 시도하는 동작은 서버의 백필 정책을 따른다.
 
@@ -26,7 +24,7 @@ POST streaming fetch로 started/progress/completed/error를 읽는다. HTTP200�
 
 ## SEC-COLLECTOR-002: API Testing
 
-`수집 관리`와 `API Testing` 탭은 같은 화면 안에서 상태를 유지한다. Testing은 기존6개 API preset의 method/path를 고정하고 query/path 값과 raw JSON body만 편집한다. 브라우저는 기존 same-origin proxy의 allowlist 경로만 호출하며 임의 origin·URL·method·header는 받지 않는다. JSON 문법 오류는 전송 전 표시하지만 유효한 JSON의 업무 schema 오류는 서버 검증을 위해 그대로 전송한다. API·탭 선택만으로 호출하지 않는다.
+`수집 관리`와 `API Testing` 탭은 같은 화면 안에서 상태를 유지한다. Testing은 기존6개 API preset의 method/path를 고정하고 query/path 값과 raw JSON body만 편집한다. 브라우저는 기존 same-origin proxy의 allowlist 경로만 호출하며 임의 origin·URL·method·header는 받지 않는다. JSON 문법 오류는 전송 전 표시하지만 유효한 JSON의 업무 schema 오류는 서버 검증을 위해 그대로 전송한다. API·탭 선택만으로 호출하지 않는다. 단일 공시 다운로드는 행의 수집 버튼 전용 경로로 실행한다.
 
 Send 후 실제 전송 요청 snapshot과 HTTP status/statusText·응답headers·경과시간·raw response text/JSON·SSE events를 표시한다. HTTP 오류, 네트워크 오류, HTTP200의 SSEerror·partial·terminal없는 EOF·요청 연결 중단을 구분한다. SSE예상 endpoint가200 JSON/empty를 반환해도 성공으로 표시하지 않는다. 원문 HTML은 pre 텍스트로만 표시하며 실행하지 않는다. 표시본문은1Mi문자, SSE이벤트는1000개로 제한하고 잘림을 표시한다. copy는 편집중 draft가 아닌 실제 보낸 request/response를 사용한다.
 

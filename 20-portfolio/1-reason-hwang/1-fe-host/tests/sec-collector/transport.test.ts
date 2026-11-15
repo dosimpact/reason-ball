@@ -23,11 +23,11 @@ test("HTTP200 SSE error and missing terminal never count as success", async () =
     assert.equal((await streamCollection("all", {}, () => {})).status, "disconnected");
   } finally { globalThis.fetch = original; }
 });
-test("request filters use proxy and compact counts not list page lengths", async () => {
+test("overview uses the server aggregate endpoint", async () => {
   const original = globalThis.fetch;
   const urls: string[] = [];
-  globalThis.fetch = async input => { const url = String(input); urls.push(url); return Response.json({ filters: {}, items: [], pagination: { totalItems: url.includes("companies") ? 101 : 202 } }); };
-  try { const overview = await fetchOverview(); assert.equal(overview.companies, 101); assert.equal(overview.totalFilings, 202); assert.equal(urls.length, 5); assert.ok(urls.every(url => url.startsWith("/api/remote-proxy/api/sec/") && url.includes("pageSize=1"))); assert.ok(urls.filter(url => url.includes("filings")).every(url => url.includes("includeContent=false") && url.includes("includeAmendments=false"))); await assert.rejects(fetchFilings({ page: 1, pageSize: 50, includeFormerRegistrants: true })); } finally { globalThis.fetch = original; }
+  globalThis.fetch = async input => { urls.push(String(input)); return Response.json({ companies: 101, tickerCompanies: 99, totalFilings: 202, contentFilings: 42, forms: [], retrievedAt: "2026-11-16T00:00:00Z" }); };
+  try { const overview = await fetchOverview(); assert.equal(overview.companies, 101); assert.equal(overview.totalFilings, 202); assert.deepEqual(urls, ["/api/remote-proxy/api/sec/overview"]); await assert.rejects(fetchFilings({ page: 1, pageSize: 50, includeFormerRegistrants: true })); } finally { globalThis.fetch = original; }
 });
 test("collection inputs normalize targets, dates replace years, state rejects stale lists", () => {
   assert.deepEqual(buildCollectionInput("selected", { tickers: [" aapl "], since: "2020-01-01", years: 20 }), { downloadDocuments: true, refreshArchive: false, tickers: ["AAPL"], since: "2020-01-01" });

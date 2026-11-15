@@ -19,26 +19,6 @@ export class CompanyDto {
   updatedAt!: Date;
 }
 
-export class CompaniesFilterDto {
-  @ApiProperty({ type: Number, example: 1 })
-  page!: number;
-
-  @ApiProperty({ type: Number, example: 20, maximum: MAX_COMPANY_PAGE_SIZE })
-  pageSize!: number;
-
-  @ApiProperty({ type: Number, description: '조회 최대 건수입니다.', example: 20 })
-  limit!: number;
-
-  @ApiPropertyOptional({ type: String, description: '10자리 CIK 필터입니다.', example: '0000320193' })
-  cik?: string;
-
-  @ApiPropertyOptional({ type: String, description: '티커 필터입니다.', example: 'AAPL' })
-  ticker?: string;
-
-  @ApiPropertyOptional({ type: String, description: '회사명 또는 티커 부분 검색어입니다.', example: 'apple' })
-  q?: string;
-}
-
 export class CompanySyncJobResponseDto {
   @ApiProperty({ type: String, enum: ['companies:sync'], example: 'companies:sync' })
   job!: 'companies:sync';
@@ -73,9 +53,6 @@ export class CompaniesPaginationDto {
 export class CompaniesListResponseDto {
   @ApiProperty({ type: () => CompaniesPaginationDto })
   pagination!: CompaniesPaginationDto;
-
-  @ApiProperty({ type: () => CompaniesFilterDto })
-  filters!: CompaniesFilterDto;
 
   @ApiProperty({ type: () => [CompanyDto] })
   items!: CompanyDto[];

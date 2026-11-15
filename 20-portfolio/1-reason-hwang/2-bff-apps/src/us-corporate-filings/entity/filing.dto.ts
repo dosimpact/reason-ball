@@ -65,6 +65,8 @@ export class FilingsQueryPipe implements PipeTransform {
       ticker: readOptionalTicker(query.ticker, 'ticker'),
       status: readOptionalStatus(query.status, 'status'),
       since: readOptionalDate(query.since, 'since'),
+      until: readOptionalDate(query.until, 'until'),
+      hasContent: query.hasContent === undefined || query.hasContent === '' ? undefined : readOptionalBoolean(query.hasContent, 'hasContent', false),
       formType: readOptionalText(query.formType, 'formType')?.toUpperCase(),
       parserStatus: readOptionalTextAllowEmpty(query.parserStatus),
       includeContent: readOptionalBoolean(query.includeContent, 'includeContent', false),

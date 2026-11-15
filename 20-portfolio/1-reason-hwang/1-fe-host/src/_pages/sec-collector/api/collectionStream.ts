@@ -15,10 +15,7 @@ function decodeEvent(frame: string): CollectionEvent | null {
   return { type: type as CollectionEvent["type"], data: value as Record<string, unknown> };
 }
 
-export async function streamCollection(kind: CollectionKind, input: CollectionInput, onEvent: (event: CollectionEvent) => void, signal?: AbortSignal, onTrace?: TraceListener): Promise<CollectionOutcome> {
-  const body = buildCollectionInput(kind, input);
-  const path = kind === "selected" ? "company-filing-sync-jobs" : "all-company-filing-sync-jobs";
-  const response = await requestSec(secApiUrl(path), { method: "POST", body: JSON.stringify(body), headers: { "Content-Type": "application/json", Accept: "text/event-stream" }, signal }, onTrace);
+async function readCollectionStream(response: Response, onEvent: (event: CollectionEvent) => void, signal?: AbortSignal): Promise<CollectionOutcome> {
   if (!response.headers.get("content-type")?.includes("text/event-stream") || !response.body) throw new Error("수집 이벤트 스트림이 없습니다.");
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
@@ -54,4 +51,19 @@ export async function streamCollection(kind: CollectionKind, input: CollectionIn
     await reader.cancel().catch(() => undefined);
     reader.releaseLock();
   }
+}
+
+const streamHeaders = { "Content-Type": "application/json", Accept: "text/event-stream" };
+
+export async function streamCollection(kind: CollectionKind, input: CollectionInput, onEvent: (event: CollectionEvent) => void, signal?: AbortSignal, onTrace?: TraceListener): Promise<CollectionOutcome> {
+  const body = buildCollectionInput(kind, input);
+  const path = kind === "selected" ? "company-filing-sync-jobs" : "all-company-filing-sync-jobs";
+  const response = await requestSec(secApiUrl(path), { method: "POST", body: JSON.stringify(body), headers: streamHeaders, signal }, onTrace);
+  return readCollectionStream(response, onEvent, signal);
+}
+
+export async function streamFilingDownload(cik: string, accessionNo: string, onEvent: (event: CollectionEvent) => void, signal?: AbortSignal, onTrace?: TraceListener): Promise<CollectionOutcome> {
+  const path = `filings/${encodeURIComponent(cik)}/${encodeURIComponent(accessionNo)}/download-jobs`;
+  const response = await requestSec(secApiUrl(path), { method: "POST", headers: streamHeaders, signal }, onTrace);
+  return readCollectionStream(response, onEvent, signal);
 }

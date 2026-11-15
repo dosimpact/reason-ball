@@ -37,8 +37,13 @@ export class UsCorporateFilingsController {
   @ApiQuery({ name: 'q', required: false })
   @ApiOkResponse({ type: CompaniesListResponseDto })
   async listCompanies(@Query(CompaniesQueryPipe) input: CompaniesQueryInput) {
-    return { filters: { ...input, limit: input.pageSize }, ...await this.companies.listCompanies(input) };
+    return this.companies.listCompanies(input);
   }
+
+  @Get('overview')
+  @ApiOperation({ summary: '전체 기업 및 공시 원문 집계' })
+  @ApiOkResponse({ schema: { type: 'object', required: ['companies', 'tickerCompanies', 'totalFilings', 'contentFilings', 'forms', 'retrievedAt'], properties: { companies: { type: 'integer' }, tickerCompanies: { type: 'integer' }, totalFilings: { type: 'integer' }, contentFilings: { type: 'integer' }, forms: { type: 'array', items: { type: 'object', properties: { formType: { type: 'string' }, total: { type: 'integer' }, content: { type: 'integer' } } } }, retrievedAt: { type: 'string', format: 'date-time' } } } })
+  getOverview() { return this.filings.getOverview(); }
 
   @Get('filings')
   @ApiOperation({ summary: '기업 공시 조회', description: '기본값은 ticker가 있는 회사. 특정 CIK와 includeFormerRegistrants=true로 이전 법인 공시 포함 가능. 원문은 includeContent=true로 포함. 원문 합계 최대 64 MiB.' })
@@ -48,6 +53,8 @@ export class UsCorporateFilingsController {
   @ApiQuery({ name: 'cik', required: false })
   @ApiQuery({ name: 'ticker', required: false })
   @ApiQuery({ name: 'since', required: false })
+  @ApiQuery({ name: 'until', required: false })
+  @ApiQuery({ name: 'hasContent', required: false, type: Boolean })
   @ApiQuery({ name: 'formType', required: false })
   @ApiQuery({ name: 'parserStatus', required: false })
   @ApiQuery({ name: 'status', required: false, enum: ['pending', 'downloaded', 'failed'] })
@@ -75,6 +82,17 @@ export class UsCorporateFilingsController {
       'X-Content-Type-Options': 'nosniff',
       'Content-Security-Policy': "sandbox; default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'",
     }).send(document.content);
+  }
+
+  @Post('filings/:cik/:accessionNo/download-jobs')
+  @HttpCode(200)
+  @ApiOperation({ summary: '단일 공시 원문 수집 (SSE)', description: '이미 저장된 공시 메타데이터에서 CIK와 접수번호가 일치하는 원문 하나만 다운로드합니다. 실패 상태는 재시도합니다.' })
+  @ApiProduces('text/event-stream')
+  @ApiOkResponse({ description: 'started → progress → completed 또는 error 이벤트 스트림' })
+  @ApiBadRequestResponse({ description: '잘못된 CIK 또는 접수번호' })
+  @ApiNotFoundResponse({ description: '공시 메타데이터 없음' })
+  downloadSingleFiling(@Param(FilingContentParamsPipe) input: FilingContentParams, @Res() response: Response) {
+    return this.streamBackfill(response, report => this.backfill.downloadFiling(input.cik, input.accessionNo, report));
   }
 
   @Post('company-filing-sync-jobs')

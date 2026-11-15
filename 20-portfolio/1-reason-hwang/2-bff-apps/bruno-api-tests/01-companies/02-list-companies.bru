@@ -19,7 +19,6 @@ params:query {
 
 assert {
   res.status: eq 200
-  res.body.filters.limit: eq {{companyLimit}}
   res.body.pagination.page: eq 1
   res.body.pagination.pageSize: eq {{companyLimit}}
   res.body.pagination.totalItems: isNumber
@@ -29,9 +28,10 @@ assert {
 }
 
 tests {
-  test("returns normalized company filters and an item array", function() {
+  test("returns pagination and items only", function() {
     expect(res.getStatus()).to.equal(200);
     const body = res.getBody();
+    expect(body).to.have.all.keys("pagination", "items");
     expect(body.pagination.totalPages).to.equal(Math.ceil(body.pagination.totalItems / body.pagination.pageSize));
     expect(body.items.length).to.be.at.most(body.pagination.pageSize);
     expect(body.items).to.be.an("array");

@@ -5,8 +5,10 @@ Prefix: `/api/sec`. Swagger: `/docs/sec`.
 | Method | Path | Response |
 | --- | --- | --- |
 | POST | /company-sync-jobs | 201 JSON: syncedCount, requestedAt, correlationId |
-| GET | /companies | 200 JSON: filters, items, pagination |
+| GET | /overview | 200 JSON: 전체 기업·공시 및 양식별 원문 보유 집계 |
+| GET | /companies | 200 JSON: pagination, items |
 | GET | /filings/:cik/:accessionNo/content | 200 raw HTML/XML/text |
+| POST | /filings/:cik/:accessionNo/download-jobs | 200 SSE: download or retry this filing only |
 | GET | /filings | 200 JSON: filters, items, pagination |
 | POST | /company-filing-sync-jobs | 200 SSE: selected company backfill |
 | POST | /all-company-filing-sync-jobs | 200 SSE: bulk backfill |
@@ -18,6 +20,10 @@ Filings: page=1, pageSize=50 (max 500), legacy limit fallback, cik/ticker/since/
 Pagination: page, pageSize, totalItems, totalPages, hasNextPage. Empty result totalPages=0.
 CIKs normalize to 10 digits, tickers uppercase. Invalid page/date/filter returns 400.
 Raw content only with includeContent=true; missing body yields content=null. Page body limit 64 MiB, otherwise 413.
+
+## Single filing download
+
+`POST /filings/:cik/:accessionNo/download-jobs` accepts no body and streams `started`, `progress`, and `completed` or `error`. It requires the filing metadata to already exist, downloads only the matching CIK+accession document, and retries rows in `failed` state. An already-downloaded document is left unchanged and returns a completed event with `skipped: true`.
 
 ## Backfill
 
@@ -55,7 +61,7 @@ curl -N -X POST http://localhost:2801/api/sec/all-company-filing-sync-jobs \
 
 Browser clients use streaming fetch (native EventSource cannot POST). Configure proxy timeouts for long streams and disable buffering.
 
-Old download/retry/status-summary/downloaded-reports/parser-status and all backfill status GET routes return 404. Use filings with includeContent=true and rerun backfill instead. Historical database migrations and legacy execution records are retained but not used by the application.
+Legacy downloaded-reports, parser-status, status-summary and backfill status GET routes return 404. Use filings with includeContent=true for stored content, the accession-specific download-jobs POST for one filing, or the selected/all-company SSE POST for a date range. Historical database migrations and legacy execution records are retained but not used by the application.
 
 ## SEC-AMEND-001: Original plus amendments
 
@@ -124,3 +130,7 @@ GET /companies와 GET /filings의 기본값은 DB companies.ticker가 NULL·빈 
 - `SEC_MODELING_WORKER_ENABLED`: 기본 true. 격리 검증 또는 조회 전용 BFF에서는 false.
 - `pnpm -C 2-bff-apps test:modeling:e2e`: 소유한 임시 PostgreSQL·Nest HTTP와 외부 모델링 fixture로 중복/취소/재시도/lease/복구/날짜/페이지 경계 검증, Bruno 07-modeling 실행, 자원 정리.
 - `pnpm -C 2-bff-apps test:modeling:live`: 명시적 opt-in 실제 AAPL/CPNG/NVDA 모델링 1/3 실행. `SEC_MODELING_BFF_URL` 기본 `http://127.0.0.1:3980/api/sec/modeling`. 새 실행 이력과 공개 세대를 생성하고 기존 데이터는 보존한다. `SEC_MODELING_STAGES=2`는 모델링 2만 검증하며 실제 LLM·임베딩 캐시가 없다면 외부 호출 비용이 발생한다.
+
+GET /filings returns hasContent for each listed filing, based on non-null and nonempty stored document_content. GET /overview counts all company and filing rows, including non-ticker registrants; tickerCompanies counts nonblank tickers and forms groups each actual form_type separately.
+
+GET /filings accepts optional `until` (inclusive filing date) and `hasContent` (true/false). These filters apply before pagination; hasContent uses non-null, nonempty stored document content.

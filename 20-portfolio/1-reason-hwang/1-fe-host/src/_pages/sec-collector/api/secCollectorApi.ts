@@ -1,4 +1,4 @@
-import type { CompaniesFilters, Company, CompanySyncResult, Filing, FilingsFilters, ListResponse, Overview, TraceListener } from "../model/types";
+import type { CompaniesFilters, Company, CompanyListResponse, CompanySyncResult, Filing, FilingsFilters, ListResponse, Overview, TraceListener } from "../model/types";
 
 const base = `${process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/+$/, "") ?? ""}/api/remote-proxy/api/sec`;
 export function secApiUrl(path: string, filters: Record<string, unknown> = {}) {
@@ -17,7 +17,7 @@ export async function requestSec(path: string, init: RequestInit, onTrace?: Trac
   }
   return response;
 }
-export async function fetchCompanies(filters: CompaniesFilters, signal?: AbortSignal, onTrace?: TraceListener): Promise<ListResponse<Company>> {
+export async function fetchCompanies(filters: CompaniesFilters, signal?: AbortSignal, onTrace?: TraceListener): Promise<CompanyListResponse<Company>> {
   return (await requestSec(secApiUrl("companies", filters), { signal }, onTrace)).json();
 }
 export async function fetchFilings(filters: FilingsFilters, signal?: AbortSignal, onTrace?: TraceListener): Promise<ListResponse<Filing>> {
@@ -28,14 +28,7 @@ export async function syncCompanies(signal?: AbortSignal, onTrace?: TraceListene
   return (await requestSec(secApiUrl("company-sync-jobs"), { method: "POST", signal }, onTrace)).json();
 }
 export async function fetchOverview(signal?: AbortSignal, onTrace?: TraceListener): Promise<Overview> {
-  const filters = { page: 1, pageSize: 1 };
-  const [companies, filings, pending, downloaded, failed] = await Promise.all([
-    fetchCompanies(filters, signal, onTrace), fetchFilings(filters, signal, onTrace),
-    fetchFilings({ ...filters, status: "pending" }, signal, onTrace),
-    fetchFilings({ ...filters, status: "downloaded" }, signal, onTrace),
-    fetchFilings({ ...filters, status: "failed" }, signal, onTrace),
-  ]);
-  return { companies: companies.pagination.totalItems, totalFilings: filings.pagination.totalItems, pending: pending.pagination.totalItems, downloaded: downloaded.pagination.totalItems, failed: failed.pagination.totalItems, retrievedAt: new Date().toISOString() };
+  return (await requestSec(secApiUrl("overview"), { signal }, onTrace)).json();
 }
 export function filingContentUrl(cik: string, accessionNo: string) {
   return secApiUrl(`filings/${encodeURIComponent(cik)}/${encodeURIComponent(accessionNo)}/content`);
