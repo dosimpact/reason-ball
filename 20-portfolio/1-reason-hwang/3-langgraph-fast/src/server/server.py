@@ -29,6 +29,7 @@ from server.execution import execution_gate
 from server.generative_ui.router import router as generative_ui_router
 from server.mcp import router as mcp_router
 from server.openapi_contract import load_standard_openapi
+from server.routers.sec_ixbrl import router as sec_ixbrl_router
 from server.routers.sec_modeling import router as sec_modeling_router
 from server.runs import router as runs_router
 from server.runs import runtime as runs_runtime
@@ -124,6 +125,7 @@ app.include_router(a2a_router)
 app.include_router(mcp_router)
 app.include_router(system_router)
 app.include_router(sec_modeling_router)
+app.include_router(sec_ixbrl_router)
 app.include_router(generative_ui_router)
 app.include_router(sec_chat_router)
 app.include_router(sec_deep_agent_router)
