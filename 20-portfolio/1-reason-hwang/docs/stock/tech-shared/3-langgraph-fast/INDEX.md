@@ -32,7 +32,7 @@ SEC BFF 주소는 2980, UI validator 주소는 Host의 2983을 사용한다.
 
 ## CHAT-HISTORY-001: Host 대화 기록 소비
 
-Host `/chat`은 기존 `/threads/search`와 `/threads/{id}/state`를 사용해
+Host `/langgraph-dev-chat`은 기존 `/threads/search`와 `/threads/{id}/state`를 사용해
 `source=host-chat`·`graph_id` metadata를 가진 thread의 목록과 메시지를 복원한다.
 새 서버 endpoint나 DB schema는 추가하지 않는다. 서버 저장/복구 정책은 [DB Saver](3-langgraph-db-saver.md),
 화면 범위와 이전 thread 제한은 [Host](../1-fe-host/open-ui.md#chat-history-001-chat-대화-기록)를 따른다.

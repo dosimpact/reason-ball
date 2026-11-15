@@ -290,7 +290,7 @@ NVDA5Fact/5Concept이다. 초기화 및 중간 정책 결과 정리 후 모델�
 
 ## SEC-AGENT-001: 모델링 테스트 Deep Agent POC
 
-Host `/chat`에서 **SEC 모델링 테스트** (`sec_modeling_agent`)를 선택한다. 기술적 분석 에이전트와
+Host `/langgraph-dev-chat`에서 **SEC 모델링 테스트** (`sec_modeling_agent`)를 선택한다. 기술적 분석 에이전트와
 같은 `deepagents.create_deep_agent`, 공유 `chat_model()`, native `messages` 상태를 사용한다.
 `prepare → inspect_modeling → END`로 실행하며 이전 presentation을 초기화하고 Markdown으로 답한다.
 Host는 이 그래프를 채팅 모드로 분류하고 `values` 스트림을 소비한다. 별도 화면·OpenUI 템플릿은 추가하지 않는다.
@@ -311,7 +311,7 @@ HTTP 202는 접수 성공이며 작업 완료가 아니다. 조회 질문이나 
 모델링 3 결과는 선별된 사실이며 원본 XBRL 전체나 분류의 완전한 정확도를 보장하지 않는다.
 기존 `SEC_CHAT_BFF_URL`, `SEC_CHAT_MODEL`/공유 OpenAI 환경 설정을 재사용한다.
 
-- `pnpm -C 3-langgraph-fast dev:langgraph`: `/chat`용 LangGraph OSS 런타임(기본 2982).
+- `pnpm -C 3-langgraph-fast dev:langgraph`: `/langgraph-dev-chat`용 LangGraph OSS 런타임(기본 2982).
 - `pnpm -C 3-langgraph-fast test:sec-modeling-agent`: 도구·상태 계약 테스트.
 - `pnpm -C 3-langgraph-fast test:sec-modeling-agent:api`: BFF 상태 경로 Bruno 검증.
 - `pnpm -C 3-langgraph-fast validate:sec-modeling-agent`: 별도 포트 32982에서 실제 읽기 전용

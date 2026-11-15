@@ -13,7 +13,7 @@
 
 ## OPENUI-AGENT-001: 공통 에이전트 인터페이스
 
-`shared/ui/agent-conversation/`은 `@openuidev/react-ui`의 `AgentInterface`를 사용하는 공통 채팅 UI다. `/chat`, `/sec-chat`, `/open-ui/dynamic`, `/open-ui/fixed`에서 표준 Composer·메시지 목록·헤더를 사용한다. `/sec-api-agent`는 `fetchLLM`·`agUIAdapter` 전송을 공통 `AgentChatFrame`에 연결한다. 카탈로그와 대화가 아닌 화면은 전환 대상이 아니다.
+`shared/ui/agent-conversation/`은 `@openuidev/react-ui`의 `AgentInterface`를 사용하는 공통 채팅 UI다. `/langgraph-dev-chat`, `/sec-chat`, `/open-ui/dynamic`, `/open-ui/fixed`에서 표준 Composer·메시지 목록·헤더를 사용한다. `/sec-api-agent`는 `fetchLLM`·`agUIAdapter` 전송을 공통 `AgentChatFrame`에 연결한다. 카탈로그와 대화가 아닌 화면은 전환 대상이 아니다.
 
 `ChatLLM.send`는 기존 화면 controller의 전송 함수를 호출하고, 표준 중단 신호는 해당 controller의 AbortController로 연결한다. 기존 SDK/SSE 파서가 전송을 소비하므로 공통 adapter의 parser는 추가 이벤트를 만들지 않는다. `SyncMessages`는 domain controller가 관리하는 메시지를 OpenUI thread에 반영한다. OpenUI 내부 사이드바는 숨기고 호스트 내비게이션을 유지한다. Host 테마를 공유하며 첫 client mount 후 렌더링한다.
 
@@ -26,7 +26,7 @@ AssistantMessage 확장 렌더러는 화면별 검증 결과를 표시한다. SE
 
 ## OPENUI-CHAT-DS-001: 공통 채팅 디자인 시스템
 
-`shared/ui/agent-conversation`은 모든 채팅이 공유하는 표현 계층이다. `/sec-api-agent`, `/sec-chat`, `/chat`, `/open-ui/{dynamic,fixed}`는 동일한 프레임·토큰·반응형 배치·Welcome·메시지 목록·Composer·헤더 액션을 사용한다. 페이지별 CSS로 프레임이나 입력창을 다시 정의하지 않는다. 카탈로그와 비채팅 화면은 이 계약의 대상이 아니다.
+`shared/ui/agent-conversation`은 모든 채팅이 공유하는 표현 계층이다. `/sec-api-agent`, `/sec-chat`, `/langgraph-dev-chat`, `/open-ui/{dynamic,fixed}`는 동일한 프레임·토큰·반응형 배치·Welcome·메시지 목록·Composer·헤더 액션을 사용한다. 페이지별 CSS로 프레임이나 입력창을 다시 정의하지 않는다. 카탈로그와 비채팅 화면은 이 계약의 대상이 아니다.
 
 - `AgentChatFrame`: OpenUI `AgentInterface`를 소유하는 공통 프레임. native `ChatLLM`, 선택적 `storage`, `componentLibrary`, `onAction`을 받는다. SEC API Agent는 기존 AG-UI adapter와 메모리 대화 보관을 이 프레임에 연결한다.
 - `AgentConversation`: 기존 domain controller의 메시지·전송·AbortController를 공통 프레임에 연결하는 adapter. SEC Intelligent UI, 일반 Chat, 기술적 분석, Generative UI는 서버 계약을 바꾸지 않고 이 adapter를 사용한다.
@@ -62,7 +62,7 @@ SEC 채팅이 공유하는 renderer·카탈로그·채팅 프레임은 유지한
 
 `FinancialChart`는 최소 snapshot prop 하나를 받으며 하나의 bars 배열로 Lightweight Charts 캔들·거래량·SMA·RSI·MACD pane을 표시한다. metadata·오류·준비 구간 경고·TradingView attribution을 함께 표시한다. 값이 null이어도 선택한 지표 pane을 유지한다. 크기는 컨테이너에 반응하고 테마는 Host class/data-theme를 따른다.
 
-`/chat`의 기존 `technical_analysis_agent`는 본문과 인라인 차트를 유지하고 최신 완료 출력만 활성화한다. 별도 `technical_analysis_canvas_agent`는 선택되어 펼쳐진 Canvas 탭의 검증 완료 출력에만 `active`를 전달한다. 해당 프로그램의 `$chart_refresh_seconds` 기본0을 사용자가 opt-in할 때30으로 전환한다. 선택되지 않은 탭과 접히거나 닫힌 Canvas는 polling을 멈춘다. Query key별 캐시가 설정 변경 중의 응답을 격리하며, 출력 교체/unmount는 소유 fetch를 취소하고 SDK timer와 chart observer를 정리한다. 모델 설명은 최초 분석 스냅샷이고 차트 조회는 대화 state를 바꾸지 않는다.
+`/langgraph-dev-chat`의 기존 `technical_analysis_agent`는 본문과 인라인 차트를 유지하고 최신 완료 출력만 활성화한다. 별도 `technical_analysis_canvas_agent`는 선택되어 펼쳐진 Canvas 탭의 검증 완료 출력에만 `active`를 전달한다. 해당 프로그램의 `$chart_refresh_seconds` 기본0을 사용자가 opt-in할 때30으로 전환한다. 선택되지 않은 탭과 접히거나 닫힌 Canvas는 polling을 멈춘다. Query key별 캐시가 설정 변경 중의 응답을 격리하며, 출력 교체/unmount는 소유 fetch를 취소하고 SDK timer와 chart observer를 정리한다. 모델 설명은 최초 분석 스냅샷이고 차트 조회는 대화 state를 바꾸지 않는다.
 
 계약과 검증은 [도메인 설계](../../technical-analysis/system-design.md#ta-query-001-조회-api와-차트-runtime), [flow](../../../flow/2026-11-14-openui-query-financial-charts.md)를 따른다.
 
@@ -72,7 +72,7 @@ SEC 채팅이 공유하는 renderer·카탈로그·채팅 프레임은 유지한
 
 ## CHAT-ACTIVITY-002: /chat SDK 기본 도구 타임라인
 
-`/chat`은 SDK Thread의 기본 `ToolCallTimeline`을 사용한다. LangGraph의 마지막 user 이후 도구 호출·결과를 id로 짝지어 assistant별 안전한 SDK toolCalls와 role=tool 메시지로 투영한다. 도구 이름·인자·도구 결과와 실행 상태를 타임라인에 전달한다. 스트림 또는 저장 기록에 포함되지 않은 값은 표시할 수 없다. 중간 assistant 설명과 비공개 추론은 표시하지 않는다. 호출 id를 assistant id로 구분하고 turn 안에서 중복을 제거한다.
+`/langgraph-dev-chat`은 SDK Thread의 기본 `ToolCallTimeline`을 사용한다. LangGraph의 마지막 user 이후 도구 호출·결과를 id로 짝지어 assistant별 안전한 SDK toolCalls와 role=tool 메시지로 투영한다. 도구 이름·인자·도구 결과와 실행 상태를 타임라인에 전달한다. 스트림 또는 저장 기록에 포함되지 않은 값은 표시할 수 없다. 중간 assistant 설명과 비공개 추론은 표시하지 않는다. 호출 id를 assistant id로 구분하고 turn 안에서 중복을 제거한다.
 
 SDK가 타임라인을 답변 본문 위에 배치하며 도구 없는 turn에는 표시하지 않는다. 기본 접힘과 사용자의 펼침 상태는 SDK가 관리한다. 공개 `components.ToolCallTimeline` 슬롯은 해당 인스턴스의 pending id를 native executing 상태로 전달하고 동일 SDK 컴포넌트를 렌더링한다. private store 수정이나 CSS 순서 변경은 사용하지 않는다. 별도 ChatActivity와 정상 idle/running 상태 띠는 제거하되 오류와 schema 경고는 유지한다.
 
@@ -88,7 +88,7 @@ FinancialChart 또는 TradingView로 검색해 캔들·거래량·SMA/RSI/MACD, 
 
 ## CHAT-HISTORY-001: /chat 대화 기록
 
-`/chat`의 대화 기록(JSON 모드에서는 실행 기록)은 LangGraph SDK의 thread search와 최신 state 조회에 연결한다.
+`/langgraph-dev-chat`의 대화 기록(JSON 모드에서는 실행 기록)은 LangGraph SDK의 thread search와 최신 state 조회에 연결한다.
 새 thread metadata에 `source=host-chat`, `graph_id`, 첫 질문의 앞 80자를 제목으로 기록한다.
 선택한 그래프의 최신 50개 대화를 갱신 시각 내림차순으로 표시하고 저장된 대화를 열어 같은 thread에서 이어 쓴다.
 목록 조회 오류와 메시지 복원 오류는 재시도할 수 있으며, 실행·복원 중에는 대화/그래프 전환을 막는다.
@@ -104,7 +104,7 @@ checkpoint가 보유한 최신 presentation만 마지막 assistant에 복원하�
 
 ## CHAT-LAYOUT-002: /chat 통합 헤더
 
-`/chat`은 제목·그래프 선택·대화 기록·새 대화를 하나의 compact header에 배치한다. idle Ready띠와 반복 설명을 제거하고 agent별 한글 welcome을 표시한다. 빈 대화도 composer는 하단에 유지한다. 모바일은 header의 메뉴 열기 버튼을 사용하고 기존 전역floating trigger 중복을 숨긴다. compact header는 `/chat`에서만 사용한다. populated 대화에서도 header를 정상 문서 흐름에 두어 실제 높이만큼 공간을 확보한다. SEC 채팅은 기존 header와 composer를 유지하며 공통 컴포넌트 회귀 검증 대상으로 포함한다.
+`/langgraph-dev-chat`은 제목·그래프 선택·대화 기록·새 대화를 하나의 compact header에 배치한다. idle Ready띠와 반복 설명을 제거하고 agent별 한글 welcome을 표시한다. 빈 대화도 composer는 하단에 유지한다. 모바일은 header의 메뉴 열기 버튼을 사용하고 기존 전역floating trigger 중복을 숨긴다. compact header는 `/langgraph-dev-chat`에서만 사용한다. populated 대화에서도 header를 정상 문서 흐름에 두어 실제 높이만큼 공간을 확보한다. SEC 채팅은 기존 header와 composer를 유지하며 공통 컴포넌트 회귀 검증 대상으로 포함한다.
 
 ## CHAT-GRAPHS-001: 등록 graph discovery와 입력 모드
 
@@ -119,7 +119,7 @@ JSON실행은 새thread를 만들고 입력을변형없이runs.stream(values)로
 
 ## TA-CANVAS-001: 기술적 분석 Dynamic Canvas
 
-`technical_analysis_canvas_agent`는 기존 SDK stream의 custom canvas 이벤트를 받으면 `/chat` 옆 Canvas를 자동으로 연다. 기존 `technical_analysis_agent`는 values 스트림·도구 상태와 인라인 본문/OutputView 차트를 유지한다. 선택 목록은 “기술적 분석 · 인라인”과 “기술적 분석 · Canvas”를 구분하며 graph 전환은 Canvas를 비운다. 다른 graph와 공통 AgentConversation·기본 도구 타임라인은 유지한다. 서버 UUID별 탭은 티커·주기·생성 순번을 표시한다. 닫기·접기·재열기와 키보드/포인터 splitter를 제공하며 desktop은 좌우, mobile은 상하로 나눈다. 참조 mini-project 패턴을 Host FSD와 테마에 맞게 적용한다.
+`technical_analysis_canvas_agent`는 기존 SDK stream의 custom canvas 이벤트를 받으면 `/langgraph-dev-chat` 옆 Canvas를 자동으로 연다. 기존 `technical_analysis_agent`는 values 스트림·도구 상태와 인라인 본문/OutputView 차트를 유지한다. 선택 목록은 “기술적 분석 · 인라인”과 “기술적 분석 · Canvas”를 구분하며 graph 전환은 Canvas를 비운다. 다른 graph와 공통 AgentConversation·기본 도구 타임라인은 유지한다. 서버 UUID별 탭은 티커·주기·생성 순번을 표시한다. 닫기·접기·재열기와 키보드/포인터 splitter를 제공하며 desktop은 좌우, mobile은 상하로 나눈다. 참조 mini-project 패턴을 Host FSD와 테마에 맞게 적용한다.
 
 `open → reset/delta → validating → ready/error`를 thread·실행·report id로 격리한다. repair reset은 버퍼를 교체한다. canonical root가 없으면 공개 SDK autoClose와 `root = Col([taLayout])`를 별도 미리보기 문자열에만 적용한다. 파싱 가능한 부분을 표시하되 실제 버퍼와 최종 프로그램은 변경하지 않는다. 미리보기는 inert이며 Query provider·액션·컨트롤을 비활성화한다. root가 파싱되지 않으면 준비 안내를 유지한다. 서버 검증이 완료된 ready만 조회·조작을 허용한다.
 

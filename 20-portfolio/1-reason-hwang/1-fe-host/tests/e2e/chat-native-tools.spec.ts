@@ -8,7 +8,7 @@ async function send(page: import('@playwright/test').Page, text: string) {
 }
 test.beforeEach(async ({ page, request }) => {
   expect(Array.isArray(await request.get('/api/langgraph/__calls').then(response => response.json()))).toBeTruthy();
-  await page.goto('/chat');
+  await page.goto('/langgraph-dev-chat');
   await page.locator('select[aria-label="LangGraph 에이전트"]:visible').selectOption('starter_graph');
 });
 

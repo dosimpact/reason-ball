@@ -40,7 +40,7 @@ const navGroups = [
   {
     title: "AI Chat",
     items: [
-      { title: "Langgraph dev chat", href: "/chat", icon: MessagesSquare },
+      { title: "Langgraph dev chat", href: "/langgraph-dev-chat", icon: MessagesSquare },
       { title: "SEC API Agent", href: "/sec-api-agent", icon: MessagesSquare },
       { title: "SEC Research Chat", href: "/sec-chat", icon: MessagesSquare },
     ],
@@ -130,6 +130,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 /** Mobile navigation remains reachable without reserving an application header. */
 export function MobileSidebarTrigger() {
   const pathname = usePathname();
-  if (pathname === "/chat") return null;
+  if (pathname === "/langgraph-dev-chat") return null;
   return <SidebarTrigger className="fixed bottom-24 left-4 z-40 size-10 rounded-full border bg-background shadow-md md:hidden" />;
 }

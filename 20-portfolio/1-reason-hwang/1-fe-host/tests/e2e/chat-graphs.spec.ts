@@ -7,7 +7,7 @@ test.beforeEach(async ({ request, page }) => {
   const fixture = await request.get('/api/langgraph/__calls');
   expect(fixture.ok(), 'Run the owned chat-graphs-server.mjs fixture upstream').toBeTruthy();
   expect(Array.isArray(await fixture.json())).toBeTruthy();
-  await page.goto('/chat');
+  await page.goto('/langgraph-dev-chat');
 });
 
 test('every discovered graph is selectable and executes in its input mode', async ({ page }) => {

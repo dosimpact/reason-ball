@@ -40,7 +40,7 @@ Implemented page routes:
 | `/` | Host landing page |
 | `/remotes/template` | Template federated remote |
 | `/remotes/todo` | Todo federated remote |
-| `/chat` | LangGraph-backed chat UI |
+| `/langgraph-dev-chat` | LangGraph-backed chat UI |
 | `/index-dcf-visualizer` | Index DCF calculation and visualization |
 | `/sec-collector` | SEC collection operations |
 | `/sec-modeling` | SEC modeling runs, processed results and evidence search |

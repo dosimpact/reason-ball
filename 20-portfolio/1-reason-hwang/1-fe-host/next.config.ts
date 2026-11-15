@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   reactStrictMode: true,
+  async redirects() { return [{ source: "/chat", destination: "/langgraph-dev-chat", permanent: false }]; },
 };
 
 export default nextConfig;

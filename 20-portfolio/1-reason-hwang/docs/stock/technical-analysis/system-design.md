@@ -5,7 +5,7 @@
 `3-langgraph-fast/langgraph.json`에 기존 `technical_analysis_agent`와 별도 `technical_analysis_canvas_agent`를 등록한다. Host의 기존 `/api/langgraph` 프록시와 LangGraph SDK의 threads/runs API를 사용한다. 실행 서버는 **LangGraph development runtime**이며 FastAPI의 기본 echo executor에 이 그래프를 등록한 것은 아니다. Host의 `LANGGRAPH_INTERNAL_API_URL`은 해당 runtime을 가리켜야 한다.
 
 ```text
-/chat → /api/langgraph
+/langgraph-dev-chat → /api/langgraph
   technical_analysis_agent → Deep Agent tools → deterministic inline presentation
   technical_analysis_canvas_agent → route/tools → AI layout → canvas custom events
 ```
@@ -23,7 +23,7 @@
 
 기존 inline TA는 결정적 OpenUI 프로그램을 기존 Host parser로 검증해 presentation으로 반환한다. 별도 Canvas의 TA-CANVAS-001은 결정적 가격·지표 Query panel/근거 데이터를 보존하고, 별도 모델 composer가 허용된 layout/prose만 구성한 뒤 기존 Host parser/catalog validator로 검증한다. 모델은 가격 배열·Query·지표 수치를 새로 정의하지 않으며 taPanel/taSignals를 각각 한 번 포함한다. 다른 OpenUI 호출자의 기본 생성 경로는 유지한다.
 
-`technical_analysis_canvas_agent`만 custom canvas event와 `canvas_reports` snapshot으로 보고서를 전달한다. 기존 `technical_analysis_agent`와 다른 graph의 `presentation = {id, program}` 경로는 유지한다. `/chat`은 공통 `AgentConversation`의 OpenUI AgentInterface·Composer·메시지 목록을 사용하며, 기존 TA는 inline 본문과 검증된 OutputView를 표시한다. Canvas TA는 canvas에서 검증된 보고서를 표시하고 채팅에는 짧은 안내와 도구 타임라인을 남긴다. 그래프 선택과 LangGraph SDK 전송은 기존 ChatProvider가 유지한다. values는 snapshot으로 교체하며 delta처럼 누적하지 않는다. 그래프 선택 목록은 runtime assistant 검색을 페이지별로 조회해 모든 등록 graph를 표시한다. 채팅과 구조화 JSON 입력 모드를 구분하며 서브그래프도 JSON 입력과 원본 결과로 테스트할 수 있다. 기술적 분석 에이전트는 채팅 모드를 유지한다.
+`technical_analysis_canvas_agent`만 custom canvas event와 `canvas_reports` snapshot으로 보고서를 전달한다. 기존 `technical_analysis_agent`와 다른 graph의 `presentation = {id, program}` 경로는 유지한다. `/langgraph-dev-chat`은 공통 `AgentConversation`의 OpenUI AgentInterface·Composer·메시지 목록을 사용하며, 기존 TA는 inline 본문과 검증된 OutputView를 표시한다. Canvas TA는 canvas에서 검증된 보고서를 표시하고 채팅에는 짧은 안내와 도구 타임라인을 남긴다. 그래프 선택과 LangGraph SDK 전송은 기존 ChatProvider가 유지한다. values는 snapshot으로 교체하며 delta처럼 누적하지 않는다. 그래프 선택 목록은 runtime assistant 검색을 페이지별로 조회해 모든 등록 graph를 표시한다. 채팅과 구조화 JSON 입력 모드를 구분하며 서브그래프도 JSON 입력과 원본 결과로 테스트할 수 있다. 기술적 분석 에이전트는 채팅 모드를 유지한다.
 
 ## 실행과 검증
 
@@ -34,7 +34,7 @@ pnpm -C 3-langgraph-fast dev:langgraph
 pnpm -C 1-fe-host dev
 ```
 
-현재 로컬 포트 프로필은 runtime 2982, Host 2983이다. 모델 설정은 Python 패키지 `.env`의 기존 OpenAI 호환 설정을 사용한다. `LANGGRAPH_INTERNAL_API_URL=http://127.0.0.1:2982`와 `SEC_CHAT_UI_VALIDATOR_URL=http://127.0.0.1:2983/api/sec-ui/validate`를 맞춘다. 사용자 UI는 `http://127.0.0.1:2983/chat`이다. 코드의 fallback 포트와 실제 환경 프로필은 구분한다.
+현재 로컬 포트 프로필은 runtime 2982, Host 2983이다. 모델 설정은 Python 패키지 `.env`의 기존 OpenAI 호환 설정을 사용한다. `LANGGRAPH_INTERNAL_API_URL=http://127.0.0.1:2982`와 `SEC_CHAT_UI_VALIDATOR_URL=http://127.0.0.1:2983/api/sec-ui/validate`를 맞춘다. 사용자 UI는 `http://127.0.0.1:2983/langgraph-dev-chat`이다. 코드의 fallback 포트와 실제 환경 프로필은 구분한다.
 
 ```sh
 pnpm -C 3-langgraph-fast test tests/test_technical_analysis_agent.py tests/graph/subgraph/price_agent tests/infrastructure/technical_analysis tests/graph/shared/cache
@@ -76,7 +76,7 @@ Bruno는 실제 Yahoo·모델·Host validator 연결이 필요하다. 테스트�
 
 ## CHAT-ACTIVITY-001: 도구 실행 현황
 
-Host `/chat`은 기존 values snapshot의 이번 turn tool_calls/tool 메시지를 연결해 `get_price_ohlcv`, `analyze_ohlcv_with_talib` 등의 실제 실행 이름과 상태를 OpenUI BehindTheScenes로 표시한다. 원본 도구 인자·결과·중간 AI 설명을 추가 노출하지 않는다. 조회 API와 Query의 모델 없는 갱신 경계는 유지한다. [Host 계약](../tech-shared/1-fe-host/open-ui.md#chat-activity-001-chat-behind-the-scenes)을 따른다.
+Host `/langgraph-dev-chat`은 기존 values snapshot의 이번 turn tool_calls/tool 메시지를 연결해 `get_price_ohlcv`, `analyze_ohlcv_with_talib` 등의 실제 실행 이름과 상태를 OpenUI BehindTheScenes로 표시한다. 원본 도구 인자·결과·중간 AI 설명을 추가 노출하지 않는다. 조회 API와 Query의 모델 없는 갱신 경계는 유지한다. [Host 계약](../tech-shared/1-fe-host/open-ui.md#chat-activity-001-chat-behind-the-scenes)을 따른다.
 
 ## TA-CANVAS-001: 별도 Canvas 에이전트의 보고서 이벤트와 상태
 

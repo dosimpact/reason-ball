@@ -4,7 +4,7 @@ import { expect, test } from '@playwright/test';
 test('host content starts without a duplicate global header', async ({ page }) => {
   test.setTimeout(90_000);
   for (const [path, title] of [
-    ['/chat', 'Chat'],
+    ['/langgraph-dev-chat', 'Chat'],
     ['/sec-chat', 'SEC Intelligent UI'],
     ['/sec-api-agent', 'SEC API Agent'],
     ['/open-ui/dynamic', '매출 분석 · Dynamic'],
@@ -21,7 +21,7 @@ test('host content starts without a duplicate global header', async ({ page }) =
 test('sidebar retains desktop controls and mobile menu and theme access', async ({ page }) => {
   test.setTimeout(90_000);
   await page.emulateMedia({ colorScheme: 'light' });
-  await page.goto('/chat');
+  await page.goto('/langgraph-dev-chat');
   const footer = page.locator('[data-slot="sidebar-footer"]');
   await expect(footer.getByRole('button', { name: '다크 모드로 전환', exact: true })).toBeVisible();
   await footer.getByRole('button', { name: 'Toggle Sidebar', exact: true }).click();
@@ -43,4 +43,9 @@ test('sidebar retains desktop controls and mobile menu and theme access', async 
   await expect(page.getByRole('button', { name: 'Toggle Sidebar', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Chat', exact: true })).toBeVisible();
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2)).toBe(true);
+});
+
+test('legacy chat address redirects to LangGraph dev chat', async ({ page }) => {
+  await page.goto('/chat?source=bookmark');
+  await expect(page).toHaveURL(/\/langgraph-dev-chat\?source=bookmark$/);
 });

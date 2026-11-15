@@ -23,7 +23,7 @@ test('Chat history restores a thread, continues it, and records new thread metad
     }
     return route.fulfill({ status: 404, json: { detail: 'Unexpected test request' } });
   });
-  await page.goto('/chat');
+  await page.goto('/langgraph-dev-chat');
   await page.getByText('History · 대화 기록', { exact: true }).click();
   await page.getByRole('button', { name: /저장된 대화 검증/ }).click();
   await expect(page.getByText('이전 답변 복원', { exact: true })).toBeVisible();

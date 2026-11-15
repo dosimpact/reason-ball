@@ -2,7 +2,7 @@
 
 ## TA-001 진입과 범위
 
-Host `/chat`에서 기존 기술적 분석(인라인) 또는 기술적 분석 Canvas 에이전트를 선택한다. Yahoo ticker를 입력해 일봉(`1d`) 또는 주봉(`1wk`) OHLCV를 분석한다. 기본은 일봉 최근 완료 봉 120개다. 미국 한정 필터는 없으며 Yahoo가 인식하는 `.KS`, `.KQ` 등의 ticker도 입력할 수 있다. 공급자별 실제 데이터 가용성은 조회 결과로 판단한다.
+Host `/langgraph-dev-chat`에서 기존 기술적 분석(인라인) 또는 기술적 분석 Canvas 에이전트를 선택한다. Yahoo ticker를 입력해 일봉(`1d`) 또는 주봉(`1wk`) OHLCV를 분석한다. 기본은 일봉 최근 완료 봉 120개다. 미국 한정 필터는 없으며 Yahoo가 인식하는 `.KS`, `.KQ` 등의 ticker도 입력할 수 있다. 공급자별 실제 데이터 가용성은 조회 결과로 판단한다.
 
 ## TA-002 계산
 
@@ -38,7 +38,7 @@ Query 차트는 조회 조건 패널에 ticker·주기·봉 수 편집과 새로
 
 ## TA-CANVAS-001 Dynamic Canvas 보고서
 
-`technical_analysis_canvas_agent`의 계산 요청은 서버 UUID별 별도 보고서를 만들고 `/chat` 옆 canvas 탭에서 AI가 구성한 레이아웃과 해석을 표시한다. 여러 분석을 같은 thread에서 비교할 수 있으며 기존 보고서 snapshot을 새 분석으로 덮어쓰지 않는다. 일반 지표 정의·지원 범위 설명은 보고서를 만들지 않는다. 선택 보고서는 후속 설명의 ticker·조건·기준일·signal 근거가 된다.
+`technical_analysis_canvas_agent`의 계산 요청은 서버 UUID별 별도 보고서를 만들고 `/langgraph-dev-chat` 옆 canvas 탭에서 AI가 구성한 레이아웃과 해석을 표시한다. 여러 분석을 같은 thread에서 비교할 수 있으며 기존 보고서 snapshot을 새 분석으로 덮어쓰지 않는다. 일반 지표 정의·지원 범위 설명은 보고서를 만들지 않는다. 선택 보고서는 후속 설명의 ticker·조건·기준일·signal 근거가 된다.
 
 Canvas의 재분석은 선택한 보고서와 마지막 성공 Query의 ticker/일봉·주봉/봉 수 및 지표 설정을 구조화 요청으로 보내 새 보고서를 만든다. 단순 Query 편집·새로고침은 모델 없는 차트 조회이며 본문 해석·기존 보고서를 갱신하지 않는다. 사용자가 다른 보고서를 선택하거나 패널을 닫으면 이전 Query와 polling은 화면 수명에 따라 해제된다.
 

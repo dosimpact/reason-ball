@@ -6,7 +6,7 @@ const program = `root = Col([Markdown(${JSON.stringify(markdown)})])`;
 const sse = (events: unknown[]) => events.map(event => `data: ${JSON.stringify(event)}\n\n`).join('');
 
 async function mockChat(page: Page, path: string) {
-  if (path === '/chat') {
+  if (path === '/langgraph-dev-chat') {
     await page.route('**/api/langgraph/threads', route => route.fulfill({ json: { thread_id: 'shared-design-thread' } }));
     await page.route('**/api/langgraph/threads/shared-design-thread/runs/stream', route => route.fulfill({
       contentType: 'text/event-stream',
@@ -28,7 +28,7 @@ async function mockChat(page: Page, path: string) {
   }
 }
 
-for (const path of ['/chat', '/sec-chat', '/sec-api-agent', '/open-ui/dynamic']) {
+for (const path of ['/langgraph-dev-chat', '/sec-chat', '/sec-api-agent', '/open-ui/dynamic']) {
   test(`shared chat frame: ${path} preserves its response and reset`, async ({ page }) => {
     await mockChat(page, path);
     await page.goto(path);
