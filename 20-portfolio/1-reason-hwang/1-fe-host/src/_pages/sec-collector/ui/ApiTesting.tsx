@@ -21,6 +21,7 @@ export function ApiTesting({ execution, execute = executeTestRequest, onComplete
   const [accessionNo, setAccessionNo] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [result, setResult] = useState<TestResult>();
+  const [sentMetadata, setSentMetadata] = useState<{ label: string; at: string }>();
   const [sent, setSent] = useState<TestRequest>();
   const [events, setEvents] = useState<TestStreamEvent[]>([]);
   const [running, setRunning] = useState(false);
@@ -34,7 +35,7 @@ export function ApiTesting({ execution, execute = executeTestRequest, onComplete
     setEnabled(Object.fromEntries(preset.queryFields.map(field => [field.key, field.enabled ?? false])));
     setBodyText(preset.defaultBody ?? ""); setError("");
   }, [preset]);
-  useEffect(() => setConfirmed(false), [presetId, bodyText, query, cik, accessionNo]);
+  useEffect(() => setConfirmed(false), [presetId, bodyText, query, enabled, cik, accessionNo]);
   const bulk = preset.path.includes("all-company-filing-sync-jobs");
   let preview: TestRequest | undefined;
   let previewError = "";
@@ -44,6 +45,7 @@ export function ApiTesting({ execution, execute = executeTestRequest, onComplete
     if (controller.current || !preview || (bulk && !confirmed) || !execution.acquire("api-testing")) return;
     const abort = new AbortController(); controller.current = abort;
     const request = preview;
+    setSentMetadata({ label: preset.label, at: new Date().toISOString() });
     setSent(request); setResult(undefined); setEvents([]); setRunning(true); setError(""); setCopied("");
     try {
       const response = await execute(request, event => { if (mounted.current) setEvents(previous => [...previous.slice(-999), event]); }, abort.signal);
@@ -51,8 +53,8 @@ export function ApiTesting({ execution, execute = executeTestRequest, onComplete
     } catch (failure) { if (mounted.current) setError(failure instanceof Error ? failure.message : "요청에 실패했습니다."); }
     finally { controller.current = null; execution.release("api-testing"); if (mounted.current) { setRunning(false); if (request.method === "POST") onComplete(); } }
   }
-  async function copy(kind: "request" | "response") {
-    try { await navigator.clipboard.writeText(JSON.stringify(kind === "request" ? sent ?? preview : result, null, 2)); setCopied(kind); }
+  async function copy(kind: "preview" | "request" | "response") {
+    try { await navigator.clipboard.writeText(JSON.stringify(kind === "preview" ? preview : kind === "request" ? sent : result, null, 2)); setCopied(kind); }
     catch { setError("클립보드에 복사할 수 없습니다."); }
   }
   const locked = !!execution.owner;
@@ -67,11 +69,12 @@ export function ApiTesting({ execution, execute = executeTestRequest, onComplete
         {bulk && <div className="rounded-lg border border-destructive/50 p-3"><p className="mb-2 text-sm">현재 DB의 모든 티커 기업을 수집하는 API입니다. 서버의 실제 수집 작업을 시작합니다.</p><label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={confirmed} onChange={event => setConfirmed(event.target.checked)} />전체 기업 수집 요청임을 확인했습니다.</label></div>}
       </fieldset>
       <ErrorNotice text={error || (previewError && !running ? previewError : "")} />
-      <div className="mt-4 flex flex-wrap items-center gap-2"><Button disabled={locked || !preview || (bulk && !confirmed)} onClick={() => void send()}><Send aria-hidden="true" />Send 요청 보내기</Button>{running && <Button variant="outline" onClick={() => controller.current?.abort()}><Square aria-hidden="true" />요청 연결 중단</Button>}<Button variant="outline" disabled={!sent && !preview} onClick={() => void copy("request")}><Copy aria-hidden="true" />{copied === "request" ? "요청 복사됨" : "요청 복사"}</Button>{locked && !running && <span role="status" className="text-sm">수집 관리 탭의 요청이 실행 중입니다.</span>}</div>
+      <div className="mt-4 flex flex-wrap items-center gap-2"><Button disabled={locked || !preview || (bulk && !confirmed)} onClick={() => void send()}><Send aria-hidden="true" />Send 요청 보내기</Button>{running && <Button variant="outline" onClick={() => controller.current?.abort()}><Square aria-hidden="true" />요청 연결 중단</Button>}<Button variant="outline" disabled={!preview} onClick={() => void copy("preview")}><Copy aria-hidden="true" />{copied === "preview" ? "현재 요청 복사됨" : "현재 요청 복사"}</Button><Button variant="outline" disabled={!sent} onClick={() => void copy("request")}><Copy aria-hidden="true" />{copied === "request" ? "마지막 전송 복사됨" : "마지막 전송 요청 복사"}</Button>{locked && !running && <span role="status" className="text-sm">수집 관리 탭의 요청이 실행 중입니다.</span>}</div>
       <p className="mt-3 text-xs text-muted-foreground">요청 연결 중단은 서버 작업의 취소나 롤백을 보장하지 않습니다. 탭을 바꿔도 연결과 결과는 유지됩니다.</p>
       <details className="mt-3"><summary className="cursor-pointer text-sm">전송 예정 요청</summary><pre className="mt-2 max-h-64 overflow-auto whitespace-pre-wrap break-all rounded bg-muted p-3 text-xs">{JSON.stringify(preview ?? { error: previewError }, null, 2)}</pre></details>
     </Section>
     {(sent || result || running) && <Section title="Response" action={<Button variant="outline" disabled={!result} onClick={() => void copy("response")}><Copy aria-hidden="true" />{copied === "response" ? "응답 복사됨" : "응답 복사"}</Button>}>
+      {sent && <div className="mb-3 rounded bg-muted p-3 text-sm"><p>마지막 전송: {sentMetadata?.label ?? "—"} · {sentMetadata?.at ? new Date(sentMetadata.at).toLocaleString() : "—"}</p><p className="break-all">{sent.method} {sent.url}</p><p className="text-xs text-muted-foreground">이 응답은 마지막 전송 요청의 결과입니다. 현재 편집 중인 입력과 다를 수 있습니다.</p></div>}
       {running && <p role="status" className="mb-3 text-sm">응답 수신 중…</p>}
       {result && <div className="mb-3 flex flex-wrap gap-3 text-sm"><strong>HTTP {result.status ?? "—"} {result.statusText}</strong><span>{Math.round(result.durationMs)} ms</span><Badge variant={result.outcome === "success" ? "secondary" : "destructive"}>{outcomeLabel[result.outcome] ?? result.outcome}</Badge><span className="break-all">Content-Type: {result.headers["content-type"] ?? "—"}</span></div>}
       <ErrorNotice text={result?.error} />

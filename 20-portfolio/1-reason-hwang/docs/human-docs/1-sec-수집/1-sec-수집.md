@@ -10,6 +10,9 @@ sec api edgar에서 데이터를 수집 및 동기화 하는 작업을 진행한
 - GET은 로컬 PostgreSQL 조회이며 SEC에 실시간 요청하지 않는다. POST는 SEC 수집·DB 갱신 작업.
 - 테이블 : 기업 정보는 `companies`, 공시 메타데이터·원문은 `filings`에 저장한다.
 
+- › 수집간의 sec upstream api를 호출간격이 있니? : 초당 최대 4회, 요청 시작 사이 최소 250ms 간격
+
+
 ### 1. POST /api/sec/company-sync-jobs — 기업 주소록 동기화
 
 설명: SEC `company_tickers.json`의 CIK·티커·회사명을 받아 `companies`에 CIK 기준으로 추가·갱신한다.

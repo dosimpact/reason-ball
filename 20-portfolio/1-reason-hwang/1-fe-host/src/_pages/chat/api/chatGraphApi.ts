@@ -2,6 +2,18 @@ import type { Client } from "@langchain/langgraph-sdk";
 
 export type GraphOption = { id: string; name: string; mode: "chat" | "json"; inputSchema?: Record<string, unknown>; exampleInput?: Record<string, unknown>; schemaError?: string; description?: string };
 const names: Record<string, string> = { starter_graph: "기본 채팅", simple_llm: "일반 에이전트", technical_analysis_agent: "기술적 분석 · 인라인", technical_analysis_canvas_agent: "기술적 분석 · Canvas", sec_deep_agent: "SEC Research", sec_modeling_agent: "SEC 모델링 테스트", main_graph: "Main Graph", price_agent: "가격 조회", technical_analysis_graph: "기술적 분석 서브그래프", tenk_subgraph: "10-K 검색" };
+const descriptions: Record<string, string> = {
+ starter_graph: "일반 질문에 답하고 날씨 질문에는 날씨 도구를 사용하는 기본 대화 그래프입니다.",
+ simple_llm: "일반 대화와 현재 날씨 도구 호출을 제공하는 간단한 에이전트입니다.",
+ technical_analysis_agent: "주가와 기술 지표를 조회·분석하고 결과를 대화 안에 보여줍니다.",
+ technical_analysis_canvas_agent: "주가와 기술 지표를 분석하고 보고서를 별도의 Canvas에서 살펴볼 수 있습니다.",
+ sec_deep_agent: "저장된 SEC 기업과 공시를 조사하고 도구를 사용해 리서치 보고서를 작성합니다. 수집은 명시적으로 요청한 범위에서만 실행하세요.",
+ sec_modeling_agent: "SEC 공시 모델링 관련 도구를 호출하고 모델링 작업과 검색 결과를 대화로 확인합니다.",
+ main_graph: "메시지와 모델 제공자를 JSON으로 받아 언어 모델을 실행하는 기본 그래프입니다.",
+ price_agent: "종목과 기간을 입력받아 과거 주가 데이터를 조회하는 그래프입니다.",
+ technical_analysis_graph: "가격 배열을 입력받아 기술 지표를 계산합니다. 실제 OHLCV prices 배열이 필요하며 예시의 빈 배열은 입력 검증용입니다.",
+ tenk_subgraph: "저장된 10-K 자료에서 질문과 관련된 내용을 검색하고 답변과 근거를 반환합니다.",
+};
 const chat = new Set(["starter_graph", "simple_llm", "technical_analysis_agent", "technical_analysis_canvas_agent", "sec_deep_agent", "sec_modeling_agent"]);
 const examples: Record<string, Record<string, unknown>> = {
  main_graph: { message: "안녕하세요", provider: "openai" },
@@ -9,7 +21,7 @@ const examples: Record<string, Record<string, unknown>> = {
  technical_analysis_graph: { prices: [], interval: "1d" },
  tenk_subgraph: { query: "Apple의 최근 10-K 위험 요인을 저장된 자료에서 찾아 주세요", selected_filing: null },
 };
-export function graphOption(id: string): GraphOption { return { id, name: names[id] ?? id, mode: chat.has(id) ? "chat" : "json", exampleInput: examples[id] ?? {}, description: id === "technical_analysis_graph" ? "실제 OHLCV prices 배열을 입력하세요. 가격 조회 그래프 결과의 prices를 사용할 수 있습니다. 빈 배열은 입력 검증 오류를 확인하는 예시입니다." : id === "sec_deep_agent" ? "SEC 도구가 포함됩니다. 수집은 명시적으로 요청한 범위에서만 실행하세요." : undefined }; }
+export function graphOption(id: string): GraphOption { return { id, name: names[id] ?? id, mode: chat.has(id) ? "chat" : "json", exampleInput: examples[id] ?? {}, description: descriptions[id] ?? "이 그래프의 설명이 아직 등록되지 않았습니다. 입력 스키마를 확인해 주세요." }; }
 
 export async function discoverGraphs(client: Client, signal?: AbortSignal): Promise<GraphOption[]> {
  const records = new Map<string, string>();

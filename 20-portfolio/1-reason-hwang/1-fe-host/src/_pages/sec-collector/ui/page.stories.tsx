@@ -66,7 +66,7 @@ export const CompanyActionsAndFilters: Story = { play: async ({ canvasElement })
   await expect(canvas.getByRole("button", { name: "Apple Inc. 선택 해제" })).toBeVisible();
   await userEvent.click(canvas.getByRole("button", { name: /^선택 기업 수집$/ }));
   await expect(canvas.getByRole("button", { name: "선택 기업 수집 준비" })).toBeVisible();
-  await userEvent.click(canvas.getAllByRole("button", { name: "공시 펼치기" })[0]);
+  await userEvent.click(canvas.getAllByRole("button", { name: /공시 펼치기$/ })[0]);
   await waitFor(() => expect(canvas.getByRole("link", { name: "원문 보기" })).toBeVisible());
   await expect(canvas.getByRole("link", { name: "XBRL 보기" })).toHaveAttribute("href", "/sec-viewer?cik=0000320193&accessionNo=0000320193-26-000001");
   await userEvent.selectOptions(canvas.getByLabelText("원문 보유"), "false");
@@ -173,3 +173,29 @@ export const ApiStreamConnectionAbort: Story = { args: { apiExecutor }, play: as
   await waitFor(() => expect(canvas.getByRole("button", { name: "Send 요청 보내기" })).toBeEnabled());
   await expect(canvas.getByText("요청 연결 중단", { exact: true })).toBeVisible();
 } };
+
+
+export const CompanyFilingCounts: Story = {
+  args: { services: { ...fixture, fetchCompanies: async filters => ({
+    items: [
+      { ...companies[0], filingCounts: { total: 275, byFormType: [{ formType: "10-K", count: 21 }, { formType: "10-K/A", count: 1 }, { formType: "8-K", count: 253 }] } },
+      { ...companies[1], filingCounts: { total: 0, byFormType: [] } },
+    ],
+    pagination: { page: filters.page, pageSize: filters.pageSize, totalItems: 2, totalPages: 1, hasNextPage: false },
+  }) } },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await waitFor(() => expect(canvas.getByRole("cell", { name: "AAPL 수집 공시 전체" })).toHaveTextContent("275"));
+    const breakdown = canvas.getByRole("cell", { name: "AAPL 양식별 수집" });
+    await expect(breakdown).toHaveTextContent("10-K 21");
+    await expect(breakdown).toHaveTextContent("10-K/A 1");
+    await expect(breakdown).toHaveTextContent("8-K 253");
+    await expect(canvas.getByRole("cell", { name: "MSFT 수집 공시 전체" })).toHaveTextContent("0");
+    await expect(canvas.getByRole("cell", { name: "MSFT 양식별 수집" })).toHaveTextContent("수집 공시 없음");
+    const appleRow = canvas.getByRole("cell", { name: "AAPL 수집 공시 전체" }).closest("tr")!;
+    await userEvent.click(within(appleRow).getByRole("button", { name: /공시 펼치기/ }));
+    await waitFor(() => expect(canvas.getByRole("table", { name: "Apple Inc. 공시" })).toBeVisible());
+    await expect(canvas.getByRole("link", { name: "원문 보기" })).toBeVisible();
+    await expect(canvas.getByRole("cell", { name: "AAPL 수집 공시 전체" })).toHaveTextContent("275");
+  },
+};

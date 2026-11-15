@@ -2,7 +2,26 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { BadRequestException, PipeTransform } from '@nestjs/common';
 import { readCompanyPageNumber, readOptionalCik, readOptionalTicker, readOptionalText } from './request-validation';
 export const MAX_COMPANY_PAGE_SIZE = 100_000;
+export class CompanyFormCountDto {
+  @ApiProperty({ example: '10-K' })
+  formType!: string;
+
+  @ApiProperty({ type: Number, minimum: 0, example: 21 })
+  count!: number;
+}
+
+export class CompanyFilingCountsDto {
+  @ApiProperty({ type: Number, minimum: 0, description: 'CIK 기준 DB에 저장된 전체 공시 메타데이터 수. 원문 수집 완료 건수가 아님.', example: 275 })
+  total!: number;
+
+  @ApiProperty({ type: () => [CompanyFormCountDto], description: '모든 저장 formType별 건수. 수정본은 별도 집계.' })
+  byFormType!: CompanyFormCountDto[];
+}
+
 export class CompanyDto {
+  @ApiProperty({ type: () => CompanyFilingCountsDto })
+  filingCounts!: CompanyFilingCountsDto;
+
   @ApiProperty({ type: String, description: 'SEC 회사 고유 식별자(CIK). 10자리 문자열로 정규화됩니다.', example: '0000320193' })
   cik!: string;
 

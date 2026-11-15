@@ -17,13 +17,13 @@ function CollectorDashboard({ controller: c }: { controller: ReturnType<typeof u
   const fetching = Object.values(c.loading).some(Boolean);
   return <div className="grid min-w-0 gap-5">
     <header className="flex flex-wrap items-center justify-between gap-3"><div><h1 className="text-2xl font-bold">SEC 수집 관리</h1><p className="mt-1 text-sm text-muted-foreground">기업과 저장된 공시를 조회하고 SEC 수집 API를 실행합니다.</p></div><div className="flex gap-2"><Button disabled={c.busy} onClick={() => void c.execute("directory")}>기업 목록 동기화</Button><Button variant="outline" disabled={fetching} onClick={c.refresh}><RefreshCw aria-hidden="true" />새로고침</Button></div></header>
-    <section aria-label="수집 현황" className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">{Object.entries(metricLabels).map(([key, label]) => <div key={key} className="rounded-xl border bg-card p-4"><p className="text-sm text-muted-foreground">{label}</p><p className="mt-2 text-3xl font-semibold">{c.overview ? c.overview[key as keyof typeof metricLabels].toLocaleString() : "—"}</p></div>)}</section>
+    <section aria-label="수집 현황" className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">{Object.entries(metricLabels).map(([key, label]) => <div key={key} className="rounded-xl border bg-card p-4"><p className="text-sm text-muted-foreground">{label}</p><p className="mt-2 text-3xl font-semibold">{c.overview ? c.overview[key as keyof typeof metricLabels].toLocaleString() : "—"}</p></div>)}</section>
     <p className="text-sm text-muted-foreground">기업 목록 동기화는 기업 목록만 갱신합니다. 공시는 수집하지 않습니다.</p>
     {c.runs.find(run => run.kind === "directory") && <p role="status">{(() => { const run = c.runs.find(item => item.kind === "directory")!; return run.status === "active" ? "기업 목록 동기화 중…" : run.status === "completed" ? `동기화 완료: ${Number((run.result as { syncedCount?: number })?.syncedCount ?? 0).toLocaleString()}건 처리` : `동기화 실패: ${run.message ?? "다시 시도하세요."} 버튼으로 재시도할 수 있습니다.`; })()}</p>}
     <p className="text-xs text-muted-foreground">통계 마지막 성공 조회: {c.overview?.retrievedAt ? new Date(c.overview.retrievedAt).toLocaleString() : "없음"}{c.loading.overview ? " · 갱신 중" : c.errors.overview ? " · 갱신 실패 (이전 통계)" : ""}</p>
-    <ErrorNotice text={c.errors.overview} />
-    <CurrentCollection run={c.runs.find(run => run.kind === "selected" || run.kind === "all")} />
-    <section aria-label="공시 양식별 통계" className="rounded-xl border p-4"><h2 className="font-semibold">양식별 공시</h2>{c.overview?.forms.map(form => <p key={form.formType}>{form.formType}: 메타데이터 {form.total.toLocaleString()} / 원문 보유 {form.content.toLocaleString()}</p>)}</section>
+    <ErrorNotice text={c.errors.overview} />{c.errors.overview && <Button variant="outline" onClick={c.refresh}>통계 재시도</Button>}
+    <CurrentCollection run={c.runs[0]} />
+    <details aria-label="공시 양식별 통계" className="rounded-xl border p-4"><summary className="cursor-pointer font-semibold">양식별 공시</summary>{c.overview?.forms.map(form => <p key={form.formType}>{form.formType}: 메타데이터 {form.total.toLocaleString()} / 원문 보유 {form.content.toLocaleString()}</p>)}</details>
     <CompanyList controller={c} />
     <details id="bulk-collection" className="rounded-xl border bg-card p-2"><summary className="cursor-pointer px-3 py-2 text-sm font-semibold">일괄 수집 작업</summary><div className="pt-2"><CollectionControls controller={c} /></div></details>
   </div>;

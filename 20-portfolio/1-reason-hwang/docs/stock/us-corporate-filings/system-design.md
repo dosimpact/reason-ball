@@ -231,3 +231,11 @@ Host `/sec-collector`가 수집 API를 generic same-origin BFF proxy로 호출�
 ### SEC 수집 현황 집계
 
 GET /overview는 전체 companies·filings 행과 form_type별 원문 보유 건수를 반환한다. 원문 보유는 document_content가 null 또는 빈 문자열이 아닌 경우이며 응답에 원문은 포함하지 않는다. GET /filings의 hasContent는 동일 기준이다.
+
+## SEC-COMPANY-COUNTS-001: 기업 목록 공시 집계
+
+`GET /api/sec/companies`의 각 item은 `filingCounts: {total: number, byFormType: {formType: string, count: number}[]}`를 포함한다.
+현재 페이지의 회사 CIK들을 한 번의 grouped query로 집계하며 원문 컬럼은 읽지 않는다.
+전체 저장 기간의 모든 formType을 대상으로 하며 `/A` 수정본은 별도 건수다.
+공시가 없으면 total=0, byFormType=[]다. 페이지 총 기업 수·검색·정렬·페이지 행 수는 변경하지 않는다.
+기업별 count는 페이지네이션된 공시 화면의 현재 필터 결과 수와 별개다. API 필드는 추가이며 기존 요청·LangGraph 클라이언트 계약은 유지한다.

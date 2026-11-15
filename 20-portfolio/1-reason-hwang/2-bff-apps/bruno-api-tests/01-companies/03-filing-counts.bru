@@ -1,0 +1,30 @@
+meta {
+  name: SEC-COMPANY-FILING-COUNTS-001 totals by form
+  type: http
+  seq: 3
+}
+get {
+  url: {{baseUrl}}/companies?page=1&pageSize=10
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+  res.body.items: isArray
+}
+tests {
+  test("per-company totals match all form counts and pagination is unchanged", function() {
+    const body = res.getBody();
+    expect(body.items.length).to.be.at.most(10);
+    expect(body.pagination.pageSize).to.equal(10);
+    for (const company of body.items) {
+      const counts = company.filingCounts;
+      expect(counts.total).to.be.a("number");
+      expect(counts.total).to.be.at.least(0);
+      expect(counts.byFormType).to.be.an("array");
+      expect(counts.byFormType.reduce((sum, row) => sum + row.count, 0)).to.equal(counts.total);
+      expect(new Set(counts.byFormType.map(row => row.formType)).size).to.equal(counts.byFormType.length);
+      expect(company).not.to.have.property("documentContent");
+    }
+  });
+}

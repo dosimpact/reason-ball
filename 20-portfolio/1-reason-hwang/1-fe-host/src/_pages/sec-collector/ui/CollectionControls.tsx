@@ -33,7 +33,6 @@ export function CollectionControls({ controller: c }: { controller: ReturnType<t
     } catch (failure) { setError(failure instanceof Error ? failure.message : "수집 조건을 확인하세요."); }
   }
   return <Section title="수집 실행">
-    <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-lg bg-muted/50 p-3"><div><h3 className="font-medium">기업 목록</h3><p className="text-sm text-muted-foreground">SEC 기업 목록을 먼저 동기화합니다.</p></div><Button disabled={c.busy} onClick={() => void c.execute("directory")}>기업 목록 동기화</Button></div>
     <fieldset disabled={c.busy} onChange={() => { setConfirmation(undefined); setConfirmed(false); }} className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       <Field label="추가 티커"><input className={controlClass} value={tickers} placeholder="AAPL, MSFT" onChange={event => setTickers(event.target.value)} /></Field>
       <Field label="추가 CIK"><input className={controlClass} value={ciks} placeholder="0000320193" onChange={event => setCiks(event.target.value)} /></Field>
@@ -50,6 +49,7 @@ export function CollectionControls({ controller: c }: { controller: ReturnType<t
       <h3 className="font-semibold">{confirmation.kind === "all" ? "전체 기업 수집 확인" : "선택 기업 수집 확인"}</h3>
       <p className="my-2 text-sm">{confirmation.kind === "all" ? "현재 DB의 티커가 있는 모든 기업을 수집합니다. 장시간 실행될 수 있습니다." : "다음 기업과 기간으로 SEC 수집 API를 실행합니다."}</p>
       <dl className="grid gap-2 rounded bg-muted p-3 text-sm"><div><dt className="font-medium">대상</dt><dd>{confirmation.kind === "all" ? "티커가 있는 전체 기업" : [...confirmation.names, ...(confirmation.input.ciks ?? []).filter(cik => !c.selected.some(company => company.cik === cik)), ...(confirmation.input.tickers ?? [])].join(", ")}</dd></div><div><dt className="font-medium">기간</dt><dd>{confirmation.input.since ? `${confirmation.input.since} 이후` : `최근 ${confirmation.input.years}년`}</dd></div><div><dt className="font-medium">공시 원문</dt><dd>{confirmation.input.downloadDocuments ? "서버에 저장" : "저장하지 않음"}</dd></div><div><dt className="font-medium">SEC ZIP</dt><dd>{confirmation.input.refreshArchive ? "새로 받기" : "기존 캐시 사용"}</dd></div></dl>
+      <details className="mt-3"><summary className="cursor-pointer text-sm">전송할 JSON 보기</summary><pre className="mt-2 overflow-auto whitespace-pre-wrap break-all text-xs">{JSON.stringify(confirmation.input, null, 2)}</pre></details>
       <label className="my-3 flex items-center gap-2 text-sm"><input type="checkbox" checked={confirmed} disabled={c.busy} onChange={event => setConfirmed(event.target.checked)} />수집 대상과 기간을 확인했습니다.</label>
       <div className="flex gap-2"><Button disabled={!confirmed || !validConfirmation || c.busy} variant={confirmation.kind === "all" ? "destructive" : "default"} onClick={() => { if (!validConfirmation) return; const task = confirmation; setConfirmation(undefined); void c.execute(task.kind, task.input); }}>수집 시작</Button><Button variant="outline" disabled={c.busy} onClick={() => setConfirmation(undefined)}>돌아가기</Button></div>
     </div>}

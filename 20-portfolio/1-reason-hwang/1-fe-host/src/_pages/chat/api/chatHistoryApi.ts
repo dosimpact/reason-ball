@@ -47,7 +47,7 @@ export async function loadChatHistory(
   return normalizeThreadMessages(state);
 }
 
-/** Rebuild visible conversation only; tool arguments and reasoning stay on the server. */
+/** Restore visible conversation and tool activity, excluding intermediate assistant messages. */
 export function normalizeThreadMessages(state: unknown): ChatMessage[] {
   if (!isRecord(state) || !isRecord(state.values) || !Array.isArray(state.values.messages)) return [];
   const values = state.values;

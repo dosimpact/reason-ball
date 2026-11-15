@@ -295,7 +295,7 @@ Host의 FastAPI 프록시는 2981, `REMOTE_BFF_URL`은 BFF 2980이다.
 
 ## HOST-NAV-001: 사이드바 그룹
 
-Host 사이드바는 Overview(Home), Remote Apps(Template·Todo), AI Chat(LangGraph Chat·SEC API Agent·SEC Research Chat), Generative UI(UI Demos·OpenUI Lang Catalog)로 구성한다. 카탈로그는 직접 진입할 수 있다. URL은 기존 경로를 유지한다. 경로 구간이 일치하는 항목 중 가장 구체적인 경로 하나만 활성화하여 카탈로그에서 UI Demos가 동시에 선택되지 않게 한다. 접힌 상태의 아이콘·툴팁과 모바일 Sidebar 동작은 공통 Sidebar를 따른다.
+Host 사이드바는 Overview(Home), Remote Apps(Template·Todo), AI Chat(Langgraph dev chat·SEC API Agent·SEC Research Chat), Generative UI(UI Demos·OpenUI Lang Catalog)로 구성한다. 카탈로그는 직접 진입할 수 있다. URL은 기존 경로를 유지한다. 경로 구간이 일치하는 항목 중 가장 구체적인 경로 하나만 활성화하여 카탈로그에서 UI Demos가 동시에 선택되지 않게 한다. 접힌 상태의 아이콘·툴팁과 모바일 Sidebar 동작은 공통 Sidebar를 따른다.
 
 [변경 및 검증](../../../flow/2026-11-14-host-navigation-groups.md)
 
@@ -319,7 +319,7 @@ Host CLI·Turbopack 실행 변경과 검증은 [HOST-DEV-CLI-001 기록](../../.
 
 ## SEC-COLLECTOR-001: SEC 운영 화면
 
-`app/sec-collector`는 FSD `_pages/sec-collector`의 운영 대시보드를 연결한다. 기업 목록은 공시 메인 테이블을 필터링하고, 상세는 행 아래로 확장하며, 개별 수집은 accession별 SSE API를 호출한다. 현재 세션 기록과 요청/응답 검사는 오른쪽 디버깅 drawer에서만 보인다. 사이드바 Operations 그룹의 `SEC 수집 관리`에서 진입한다. 상세 상태·수집 경계는 [도메인 설계](../../us-corporate-filings/collector-dashboard.md)에 둔다.
+`app/sec-collector`는 FSD `_pages/sec-collector`의 운영 대시보드를 연결한다. 기업 목록의 선택 바와 확장 행으로 기업별 공시를 탐색하며, 개별 수집은 accession별 SSE API를 호출한다. 최근 수집 상태는 기본 화면에 표시하고 원시 이벤트와 요청/응답 검사는 오른쪽 디버깅 drawer에서 확인한다. 사이드바 Operations 그룹의 `SEC 수집 관리`에서 진입한다. 상세 상태·수집 경계는 [도메인 설계](../../us-corporate-filings/collector-dashboard.md)에 둔다.
 
 ## SEC-MODELING-001: 모델링 Admin
 
@@ -405,3 +405,7 @@ URL 또는 실행 코드를 메시지로 받지 않는다. 정제 DOM의 fact ID
 도메인 계약은 [SEC iXBRL 뷰어](../../us-corporate-filings/ixbrl-viewer.md)를 따른다.
 
 채팅의 LangGraph SDK 요청은 `/api/langgraph-runtime` 프록시를 통해 LangGraph 실행 서버(`LANGGRAPH_RUNTIME_API_URL`, 기본 `http://127.0.0.1:2982`)로 전달한다. 기존 `/api/langgraph`는 FastAPI 서버를 계속 사용한다. 채팅의 그래프 목록은 실행 서버의 assistant 목록에서 조회한다.
+
+### LangGraph 그래프 선택 설명
+
+Chat 그래프 선택기는 등록된 그래프의 역할과 입력 방식을 선택 항목 아래에 표시한다. 미등록 그래프는 설명이 없다는 안내를 표시하며 실제 목록은 실행 서버에서 조회한다.

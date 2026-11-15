@@ -3,11 +3,11 @@ import test from "node:test";
 import { extractToolActivity } from "../../src/_pages/chat/model/toolActivity";
 import { chatReducer, initialChatState } from "../../src/_pages/chat/model/state/chatReducer";
 
-test("maps LangChain tool calls and result status without payloads or prior turns", () => {
+test("maps LangChain tool inputs and results for the current turn", () => {
   const call = { id: "price", name: "get_price_ohlcv", args: { secret: "private args" } };
   const messages = [{ type: "human" }, { type: "ai", tool_calls: [{ id: "old", name: "old_tool" }] }, { type: "human" }, { type: "ai", content: "private reasoning", tool_calls: [call, call] }];
-  assert.deepEqual(extractToolActivity(messages), [{ id: "price", name: "get_price_ohlcv", status: "running" }]);
-  assert.deepEqual(extractToolActivity([...messages, { type: "tool", tool_call_id: "price", content: "private result" }]), [{ id: "price", name: "get_price_ohlcv", status: "complete" }]);
+  assert.deepEqual(extractToolActivity(messages), [{ id: "price", name: "get_price_ohlcv", status: "running", arguments: '{"secret":"private args"}' }]);
+  assert.deepEqual(extractToolActivity([...messages, { type: "tool", tool_call_id: "price", content: "private result" }]), [{ id: "price", name: "get_price_ohlcv", status: "complete", arguments: '{"secret":"private args"}', result: "private result" }]);
 });
 test("supports role snapshots, parallel errors, and malformed messages", () => {
   assert.deepEqual(extractToolActivity([null, { role: "user" }, { role: "assistant", tool_calls: [{ id: "a", name: "fetch" }, { id: "b", name: "analyze" }, { name: "invalid" }] }, { role: "tool", tool_call_id: "a", status: "error" }]), [{ id: "a", name: "fetch", status: "error" }, { id: "b", name: "analyze", status: "running" }]);

@@ -72,7 +72,7 @@ SEC 채팅이 공유하는 renderer·카탈로그·채팅 프레임은 유지한
 
 ## CHAT-ACTIVITY-002: /chat SDK 기본 도구 타임라인
 
-`/chat`은 SDK Thread의 기본 `ToolCallTimeline`을 사용한다. LangGraph의 마지막 user 이후 도구 호출·결과를 id로 짝지어 assistant별 안전한 SDK toolCalls와 role=tool 메시지로 투영한다. 도구 이름과 실행 상태만 전달하고 인자는 `{}`, 결과·오류는 일반 완료/실패/중단 안내로 제한한다. 인자·원문 결과·중간 설명·비공개 추론은 복사하지 않는다. 호출 id를 assistant id로 구분하고 turn 안에서 중복을 제거한다.
+`/chat`은 SDK Thread의 기본 `ToolCallTimeline`을 사용한다. LangGraph의 마지막 user 이후 도구 호출·결과를 id로 짝지어 assistant별 안전한 SDK toolCalls와 role=tool 메시지로 투영한다. 도구 이름·인자·도구 결과와 실행 상태를 타임라인에 전달한다. 스트림 또는 저장 기록에 포함되지 않은 값은 표시할 수 없다. 중간 assistant 설명과 비공개 추론은 표시하지 않는다. 호출 id를 assistant id로 구분하고 turn 안에서 중복을 제거한다.
 
 SDK가 타임라인을 답변 본문 위에 배치하며 도구 없는 turn에는 표시하지 않는다. 기본 접힘과 사용자의 펼침 상태는 SDK가 관리한다. 공개 `components.ToolCallTimeline` 슬롯은 해당 인스턴스의 pending id를 native executing 상태로 전달하고 동일 SDK 컴포넌트를 렌더링한다. private store 수정이나 CSS 순서 변경은 사용하지 않는다. 별도 ChatActivity와 정상 idle/running 상태 띠는 제거하되 오류와 schema 경고는 유지한다.
 

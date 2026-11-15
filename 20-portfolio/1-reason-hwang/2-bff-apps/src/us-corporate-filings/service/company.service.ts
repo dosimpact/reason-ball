@@ -85,11 +85,31 @@ export class CompanyService {
     }
 
     const [items, totalItems] = await query.getManyAndCount();
+    const filingCounts = await this.loadFilingCounts(items.map(item => item.cik));
     const totalPages = Math.ceil(totalItems / pageSize);
     return {
-      items,
+      items: items.map(item => ({ ...item, filingCounts: filingCounts.get(item.cik) ?? { total: 0, byFormType: [] } })),
       pagination: { page, pageSize, totalItems, totalPages, hasNextPage: page < totalPages },
     };
+  }
+
+  private async loadFilingCounts(ciks: string[]) {
+    const counts = new Map<string, { total: number; byFormType: { formType: string; count: number }[] }>();
+    if (!ciks.length) return counts;
+    const rows: { cik: string; formType: string; count: string }[] = await this.companyRepository.manager.query(
+      `SELECT cik, form_type AS "formType", count(*) AS count
+       FROM filings WHERE cik = ANY($1::varchar[])
+       GROUP BY cik, form_type ORDER BY cik, form_type`,
+      [ciks],
+    );
+    for (const row of rows) {
+      const count = Number(row.count);
+      const entry = counts.get(row.cik) ?? { total: 0, byFormType: [] };
+      entry.total += count;
+      entry.byFormType.push({ formType: row.formType, count });
+      counts.set(row.cik, entry);
+    }
+    return counts;
   }
 
   private normalizeLimit(raw: number | undefined): number {

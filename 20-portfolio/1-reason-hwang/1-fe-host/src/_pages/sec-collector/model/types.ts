@@ -1,7 +1,8 @@
 export type Pagination = { page: number; pageSize: number; totalItems: number; totalPages: number; hasNextPage: boolean };
 export type CompanyListResponse<T> = { pagination: Pagination; items: T[] };
 export type ListResponse<T> = CompanyListResponse<T> & { filters: Record<string, unknown> };
-export type Company = { cik: string; ticker: string | null; name: string; sic: number | null; updatedAt: string };
+export type CompanyFilingCounts = { total: number; byFormType: { formType: string; count: number }[] };
+export type Company = { cik: string; ticker: string | null; name: string; sic: number | null; updatedAt: string; filingCounts?: CompanyFilingCounts };
 export type FilingStatus = "pending" | "downloaded" | "failed";
 export type Filing = { cik: string; accessionNo: string; formType: string; hasContent: boolean; filingDate: string | null; reportDate: string | null; status: FilingStatus; parserStatus: string; errorMessage: string | null; retryCount: number; filingUrl: string; updatedAt: string; documentContentType?: string | null; documentDownloadedAt?: string | null; documentSizeBytes?: string | null; original?: Filing | null; amendments?: Filing[]; amendmentLinkStatus?: string };
 export type CompaniesFilters = { page: number; pageSize: number; cik?: string; ticker?: string; q?: string };

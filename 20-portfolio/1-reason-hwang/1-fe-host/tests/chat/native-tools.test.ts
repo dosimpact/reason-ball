@@ -22,7 +22,7 @@ test("native SDK pairs sanitized real statuses above the original assistant with
  assert.deepEqual(activities.map(activity => activity.input), [{}, {}, {}, {}]);
  assert.equal(projection.messages.filter(item => item.role === "assistant").length, 1);
 });
-test("two restored turns retain final answer ids, isolate repeated calls and never expose arguments/results/intermediate prose", () => {
+test("two restored turns retain actual tool inputs and results without exposing intermediate prose", () => {
  const restored = normalizeThreadMessages({ values: { messages: [
   { id: "q1", type: "human", content: "first" },
   { id: "intermediate", type: "ai", content: "SECRET_INTERMEDIATE" },
@@ -40,7 +40,16 @@ test("two restored turns retain final answer ids, isolate repeated calls and nev
  assert.equal(restored[3].activities?.[0].status, "error");
  const projected = projectNativeToolMessages(restored);
  assert.equal(projected.executingToolCallIds.size, 0);
- assert.ok(!JSON.stringify(projected.messages).includes("SECRET"));
+ assert.ok(JSON.stringify(projected.messages).includes("SECRET_ARG"));
+ assert.ok(JSON.stringify(projected.messages).includes("SECRET_RESULT"));
+ assert.ok(JSON.stringify(projected.messages).includes("SECRET_ERROR_RESULT"));
+ assert.ok(!JSON.stringify(projected.messages).includes("SECRET_REASONING"));
+ assert.ok(!JSON.stringify(projected.messages).includes("SECRET_INTERMEDIATE"));
+ const firstAssistant = projected.messages.find(item => item.id === "a1");
+ if (!firstAssistant || firstAssistant.role !== "assistant") throw new Error("expected assistant");
+ const [firstTool] = pairToolActivity(firstAssistant, projected.messages, projected.executingToolCallIds);
+ assert.deepEqual(firstTool.input, { secret: "SECRET_ARG" });
+ assert.equal(firstTool.result, "SECRET_RESULT");
  const calls = projected.messages.filter(item => item.role === "tool").map(item => item.toolCallId);
  assert.notEqual(calls[0], calls[1]);
 });

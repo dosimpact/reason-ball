@@ -7,7 +7,7 @@ export const apiTestPresets: ApiTestPreset[] = [
   { id: "companies", label: "기업 목록", method: "GET", path: "companies", mutating: false, queryFields: [...pagination, ...["cik", "ticker", "q"].map(key => ({ key, type: "string" as const }))] },
   { id: "filings", label: "공시 목록", method: "GET", path: "filings", mutating: false, queryFields: [...pagination, ...["cik", "ticker", "since", "formType", "status", "parserStatus"].map(key => ({ key, type: "string" as const })), ...["includeContent", "includeAmendments", "includeFormerRegistrants"].map(key => ({ key, type: "boolean" as const, defaultValue: "false", enabled: true }))] },
   { id: "content", label: "저장 원문", method: "GET", path: "filings/:cik/:accessionNo/content", mutating: false, queryFields: [], pathParams: ["cik", "accessionNo"] },
-  { id: "company-sync", label: "기업 디렉터리 동기화", method: "POST", path: "company-sync-jobs", mutating: true, queryFields: [] },
+  { id: "company-sync", label: "기업 목록 동기화", method: "POST", path: "company-sync-jobs", mutating: true, queryFields: [] },
   { id: "selected-sync", label: "선택 기업 수집", method: "POST", path: "company-filing-sync-jobs", streaming: true, mutating: true, queryFields: [], defaultBody: JSON.stringify({ tickers: ["AAPL"], years: 20, downloadDocuments: true, refreshArchive: false }, null, 2) },
   { id: "all-sync", label: "전체 기업 수집", method: "POST", path: "all-company-filing-sync-jobs", streaming: true, mutating: true, queryFields: [], defaultBody: JSON.stringify({ years: 20, downloadDocuments: true, refreshArchive: false }, null, 2) },
 ];

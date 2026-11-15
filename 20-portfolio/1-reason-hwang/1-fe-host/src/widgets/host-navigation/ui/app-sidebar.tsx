@@ -40,7 +40,7 @@ const navGroups = [
   {
     title: "AI Chat",
     items: [
-      { title: "LangGraph Chat", href: "/chat", icon: MessagesSquare },
+      { title: "Langgraph dev chat", href: "/chat", icon: MessagesSquare },
       { title: "SEC API Agent", href: "/sec-api-agent", icon: MessagesSquare },
       { title: "SEC Research Chat", href: "/sec-chat", icon: MessagesSquare },
     ],
