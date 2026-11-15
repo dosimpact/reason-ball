@@ -149,3 +149,18 @@ test('SEC conversation history survives reload and restores a selected conversat
   await page.getByRole('button', { name: /저장할 질문/ }).click();
   await expect(page.getByText('저장할 답변입니다.', { exact: true })).toBeVisible();
 });
+
+test('SEC conversation history survives reload and restores a selected conversation', async ({ page }) => {
+  await page.route('**/api/sec-chat/resolve', route => route.fulfill({ json: { action: 'reply', reply: '저장할 답변입니다.' } }));
+  await page.goto('/sec-chat');
+  await page.evaluate(() => localStorage.removeItem('sec-chat-history-v1'));
+  await page.reload();
+  await page.locator('textarea:visible').first().fill('저장할 질문');
+  await page.locator('textarea:visible').first().press('Enter');
+  await expect(page.getByText('저장할 답변입니다.', { exact: true })).toBeVisible();
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('sec-chat-history-v1'))).toContain('저장할 질문');
+  await page.reload();
+  await page.getByText('대화 기록', { exact: true }).first().click();
+  await page.getByRole('button', { name: /저장할 질문/ }).click();
+  await expect(page.getByText('저장할 답변입니다.', { exact: true })).toBeVisible();
+});

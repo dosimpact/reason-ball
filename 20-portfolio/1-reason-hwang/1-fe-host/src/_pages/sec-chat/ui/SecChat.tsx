@@ -2,17 +2,14 @@
 
 import { AgentConversation, ChatNotice, ConversationText } from "@/shared/ui/agent-conversation";
 import { useEffect, useRef, useState } from "react";
+import { History } from "lucide-react";
+import { HISTORY_KEY, parseHistory, saveHistory, type Company, type Prepared, type Message, type Choice, type Conversation } from "../model/history";
 import { FollowUpQuestions } from "./FollowUpQuestions";
-import type { Evidence } from "./EvidenceView";
 import { AnswerView } from "./AnswerView";
 import { readAnswer, readResolution } from "../api/stream";
 import { ActivityTimeline, type Activity } from "./ActivityTimeline";
 import "./sec-chat.css";
 
-type Company = { cik: string; name: string; ticker: string };
-type Prepared = { threadId: string; filing: { accessionNo: string; filingDate: string }; checkedAt: string | null; missingItems: string[] };
-type Message = { role: "user" | "assistant"; text: string; program?: string; evidence?: Evidence; followUps?: string[]; activities?: Activity[] };
-type Choice = { companies: Company[]; question: string; refresh: boolean };
 type Resolution = { followUps?: string[]; program?: string } & ({ action: "reply"; reply: string } | ({ action: "choose"; reply: string } & Choice) | { action: "research"; company: Company | null; question: string; refresh: boolean });
 const suggestions = ["애플은 어떻게 돈을 벌어?", "엔비디아의 주요 사업 리스크를 알려줘", "10-K를 볼 때 무엇부터 읽으면 좋을까?"];
 
@@ -24,6 +21,10 @@ async function jsonRequest<T>(path: string, body: unknown, signal: AbortSignal):
 }
 
 export function SecChat() {
+  const [history, setHistory] = useState<Conversation[]>([]);
+  const [conversationId, setConversationId] = useState("");
+  const [historyReady, setHistoryReady] = useState(false);
+  const [historyError, setHistoryError] = useState("");
   const [company, setCompany] = useState<Company>();
   const [prepared, setPrepared] = useState<Prepared>();
   const [messages, setMessages] = useState<Message[]>([]);
@@ -34,6 +35,31 @@ export function SecChat() {
   const activityLog = useRef<Activity[]>([]);
   const abort = useRef<AbortController | null>(null);
   useEffect(() => () => { abort.current?.abort(); }, []);
+  useEffect(() => {
+    try { setHistory(parseHistory(localStorage.getItem(HISTORY_KEY))); }
+    catch { setHistoryError("대화 기록을 불러올 수 없습니다."); }
+    setConversationId(crypto.randomUUID()); setHistoryReady(true);
+  }, []);
+  useEffect(() => {
+    if (!historyReady || !conversationId || busy || !messages.length) return;
+    setHistory(previous => {
+      const title = messages.find(message => message.role === "user")?.text.trim().slice(0, 80) || "SEC 대화";
+      const record: Conversation = { id: conversationId, title, updatedAt: new Date().toISOString(), messages, company, prepared, choice };
+      const next = [record, ...previous.filter(item => item.id !== conversationId)].slice(0, 50);
+      return next;
+    });
+  }, [historyReady, conversationId, busy, messages, company, prepared, choice]);
+  useEffect(() => {
+    if (!historyReady) return;
+    try { saveHistory(localStorage, history); } catch { setHistoryError("대화 기록을 저장할 수 없습니다. 브라우저 저장 공간을 확인하세요."); }
+  }, [history, historyReady]);
+  function openConversation(record: Conversation) {
+    if (busy) return;
+    activityLog.current = []; setActivities([]); setError("");
+    setConversationId(record.id); setMessages(record.messages); setCompany(record.company); setPrepared(record.prepared); setChoice(record.choice);
+  }
+
+
 
   function recordActivity(activity: Activity) {
     const previous = activityLog.current;
@@ -94,7 +120,8 @@ export function SecChat() {
       const message = controller.signal.aborted ? "답변 생성을 중단했어요. 메시지를 다시 보내 이어갈 수 있어요." : (e as Error).message;
       for (const activity of activityLog.current.filter(item => item.status === "running")) recordActivity({ ...activity, status: controller.signal.aborted ? "cancelled" : "failed" });
       append({ role: "assistant", text: "" });
-      setError(message);
+      if (/세션이 만료/.test(message)) { setPrepared(undefined); setError("분석 세션이 만료되었습니다. 같은 질문을 다시 보내 공시를 다시 준비해 주세요."); }
+      else setError(message);
       if (pending) setChoice(pending);
     } finally {
       abort.current = null; setBusy("");
@@ -103,14 +130,8 @@ export function SecChat() {
 
   async function reset() {
     if (abort.current) return;
-    if (prepared) {
-      try {
-        const response = await fetch(`/api/sec-chat/threads/${prepared.threadId}`, { method: "DELETE" });
-        if (!response.ok) throw new Error("대화를 닫지 못했어요. 잠시 후 다시 시도해 주세요.");
-      } catch (e) { setError((e as Error).message); return; }
-    }
     activityLog.current = []; setActivities([]);
-    setMessages([]); setPrepared(undefined); setCompany(undefined); setChoice(undefined); setError("");
+    setConversationId(crypto.randomUUID()); setMessages([]); setPrepared(undefined); setCompany(undefined); setChoice(undefined); setError("");
   }
 
   return <AgentConversation
@@ -122,6 +143,7 @@ export function SecChat() {
     onSend={text => send(text)}
     onCancel={() => abort.current?.abort()}
     onReset={() => void reset()}
+    headerControls={<details className="agent-conversation__graph-history"><summary className="flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm"><History size={15} aria-hidden="true" />대화 기록</summary><div className="agent-conversation__graph-history-panel"><p className="mb-2 text-xs text-muted-foreground">이 브라우저에 최근 50개 대화를 저장합니다. 서버 분석 세션은 만료될 수 있습니다.</p>{historyError && <p role="alert">{historyError}</p>}{!history.length && <p className="text-sm">저장된 대화가 없습니다.</p>}<ul aria-label="저장된 SEC 대화">{history.map(record => <li key={record.id}><button type="button" disabled={!!busy} aria-current={record.id === conversationId ? "true" : undefined} className="w-full rounded-md px-3 py-2 text-left text-sm hover:bg-muted disabled:opacity-50" onClick={event => { openConversation(record); const details = event.currentTarget.closest("details"); if (details) details.open = false; }}><span className="block truncate">{record.title}</span><time className="text-xs text-muted-foreground" dateTime={record.updatedAt}>{new Date(record.updatedAt).toLocaleString("ko-KR")}</time></button></li>)}</ul></div></details>}
     toolbar={choice && <div className="sec-choices" aria-label="기업 확인">
       {choice.companies.map(item => <button key={item.cik} disabled={!!busy} onClick={() => void send(`${item.name} (${item.ticker})`, item)}>{item.ticker} {item.name}</button>)}
     </div>}
