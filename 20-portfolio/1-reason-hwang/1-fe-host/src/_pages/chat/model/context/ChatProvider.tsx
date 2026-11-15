@@ -231,12 +231,12 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         });
 
         await consumeStream({
-          config: { ...configResult.config, assistantId: graphId, streamMode: ["technical_analysis_agent", "sec_modeling_agent"].includes(graphId) ? "values" : configResult.config.streamMode },
+          config: { ...configResult.config, assistantId: graphId, streamMode: ["technical_analysis_agent", "technical_analysis_canvas_agent", "sec_modeling_agent"].includes(graphId) ? "values" : configResult.config.streamMode },
           client,
           threadId,
           content: trimmedContent,
-          canvasContext: graphId === "technical_analysis_agent" ? requestedCanvas ?? (canvasRef.current.selectedId ? { reportId: canvasRef.current.selectedId } : {}) : undefined,
-          onCanvas: event => { if (isCurrentRequest()) dispatchCanvas({ type: "event", threadId, runId: currentMessageId, messageId: currentMessageId, event }); },
+          canvasContext: graphId === "technical_analysis_canvas_agent" ? requestedCanvas ?? (canvasRef.current.selectedId ? { reportId: canvasRef.current.selectedId } : {}) : undefined,
+          onCanvas: event => { if (graphId === "technical_analysis_canvas_agent" && isCurrentRequest()) dispatchCanvas({ type: "event", threadId, runId: currentMessageId, messageId: currentMessageId, event }); },
           signal: requestController.signal,
           onSnapshot: (content, presentation, activities) => {
             if (!isCurrentRequest()) return;
@@ -297,13 +297,14 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   }, [client, graphId, refreshHistory]);
 
   const reanalyzeCanvas = useCallback(async (id: string) => {
+    if (graphId !== "technical_analysis_canvas_agent") return;
     const report = canvasRef.current.reports.find(item => item.id === id);
     if (!report?.successfulArgs || report.status !== "ready" || !report.request) return;
     const args = report.successfulArgs;
     const names = typeof args.indicators === "string" ? args.indicators.split(",") : [];
     const indicators = names.length ? names.map(name => name === "RSI" ? { name, timeperiod: Number(args.rsi_period ?? 14) } : name === "SMA" ? { name, timeperiod: Number(args.sma_period ?? 20) } : { name: "MACD", fastperiod: Number(args.macd_fast ?? 12), slowperiod: Number(args.macd_slow ?? 26), signalperiod: Number(args.macd_signal ?? 9) }) : report.request.indicators;
     await sendMessage("현재 조회에 성공한 조건으로 새 보고서를 분석해 주세요.", { reportId: report.id, request: { ticker: String(args.ticker), interval: args.interval as "1d" | "1wk", count: Number(args.count), indicators } });
-  }, [sendMessage]);
+  }, [sendMessage, graphId]);
   const resetThread = useCallback(() => {
     dispatchCanvas({ type: "clear" });
     abortControllerRef.current?.abort();

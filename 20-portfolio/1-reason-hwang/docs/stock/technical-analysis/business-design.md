@@ -2,7 +2,7 @@
 
 ## TA-001 진입과 범위
 
-Host `/chat`에서 기술적 분석 에이전트를 선택한다. Yahoo ticker를 입력해 일봉(`1d`) 또는 주봉(`1wk`) OHLCV를 분석한다. 기본은 일봉 최근 완료 봉 120개다. 미국 한정 필터는 없으며 Yahoo가 인식하는 `.KS`, `.KQ` 등의 ticker도 입력할 수 있다. 공급자별 실제 데이터 가용성은 조회 결과로 판단한다.
+Host `/chat`에서 기존 기술적 분석(인라인) 또는 기술적 분석 Canvas 에이전트를 선택한다. Yahoo ticker를 입력해 일봉(`1d`) 또는 주봉(`1wk`) OHLCV를 분석한다. 기본은 일봉 최근 완료 봉 120개다. 미국 한정 필터는 없으며 Yahoo가 인식하는 `.KS`, `.KQ` 등의 ticker도 입력할 수 있다. 공급자별 실제 데이터 가용성은 조회 결과로 판단한다.
 
 ## TA-002 계산
 
@@ -20,7 +20,7 @@ RSI(14), SMA(20), MACD(12/26/9)를 기본 지원한다. 대화로 기간, ticker
 
 ## TA-004 표현과 오류
 
-Lightweight Charts의 캔들·거래량·SMA overlay, RSI(30/70 기준선), MACD/Signal 및 histogram pane을 공통 시간축으로 제공한다. 날짜 범위·통화·수정주가 여부·기준일·조회 시각·Yahoo 출처를 함께 표시한다. 최초 값은 서버의 TA-Lib 스냅샷이며 OpenUI `Query`가 같은 계산 API에서 갱신한다. 공급자 실패 시 기존 분석을 최신 결과로 재출력하지 않는다. UI 검증 실패 시 계산 시그널을 텍스트로 제공한다. TA-CANVAS-001에서는 이 검증된 차트·근거를 canvas 보고서로 구성하고 채팅에는 짧은 안내를 남긴다.
+Lightweight Charts의 캔들·거래량·SMA overlay, RSI(30/70 기준선), MACD/Signal 및 histogram pane을 공통 시간축으로 제공한다. 날짜 범위·통화·수정주가 여부·기준일·조회 시각·Yahoo 출처를 함께 표시한다. 최초 값은 서버의 TA-Lib 스냅샷이며 OpenUI `Query`가 같은 계산 API에서 갱신한다. 공급자 실패 시 기존 분석을 최신 결과로 재출력하지 않는다. UI 검증 실패 시 계산 시그널을 텍스트로 제공한다. 별도 Canvas 에이전트의 TA-CANVAS-001에서는 이 검증된 차트·근거를 canvas 보고서로 구성하고 채팅에는 짧은 안내를 남긴다.
 
 ## TA-005 대화 격리
 
@@ -38,8 +38,12 @@ Query 차트는 조회 조건 패널에 ticker·주기·봉 수 편집과 새로
 
 ## TA-CANVAS-001 Dynamic Canvas 보고서
 
-기술적 분석의 계산 요청은 서버 UUID별 별도 보고서를 만들고 `/chat` 옆 canvas 탭에서 AI가 구성한 레이아웃과 해석을 표시한다. 여러 분석을 같은 thread에서 비교할 수 있으며 기존 보고서 snapshot을 새 분석으로 덮어쓰지 않는다. 일반 지표 정의·지원 범위 설명은 보고서를 만들지 않는다. 선택 보고서는 후속 설명의 ticker·조건·기준일·signal 근거가 된다.
+`technical_analysis_canvas_agent`의 계산 요청은 서버 UUID별 별도 보고서를 만들고 `/chat` 옆 canvas 탭에서 AI가 구성한 레이아웃과 해석을 표시한다. 여러 분석을 같은 thread에서 비교할 수 있으며 기존 보고서 snapshot을 새 분석으로 덮어쓰지 않는다. 일반 지표 정의·지원 범위 설명은 보고서를 만들지 않는다. 선택 보고서는 후속 설명의 ticker·조건·기준일·signal 근거가 된다.
 
 Canvas의 재분석은 선택한 보고서와 마지막 성공 Query의 ticker/일봉·주봉/봉 수 및 지표 설정을 구조화 요청으로 보내 새 보고서를 만든다. 단순 Query 편집·새로고침은 모델 없는 차트 조회이며 본문 해석·기존 보고서를 갱신하지 않는다. 사용자가 다른 보고서를 선택하거나 패널을 닫으면 이전 Query와 polling은 화면 수명에 따라 해제된다.
 
 서버 검증 전 미리보기는 조회·사용자 action을 실행하지 않는다. ready 보고서만 Query와 controls를 활성화한다. 계산/시각화 실패는 error와 fallback 설명을 남기고 성공 ready로 표시하지 않는다. quote, PDF, 공유, canvas 보고서 복원은 제공하지 않는다. 브라우저 검증은 사용자가 직접 수행하며 API 실행 증거와 실제 provider streaming 제약은 [구현 기록](../../flow/2026-11-15-ta-dynamic-canvas-implementation.md)에 둔다.
+
+## TA-CANVAS-002 기존 분석과 Canvas 분석 분리
+
+`technical_analysis_agent`는 기존 inline 본문과 결정적 Query 차트를 유지한다. `technical_analysis_canvas_agent`만 AI 구성 보고서·탭·선택 보고서 문맥·구조화 재분석을 사용한다. 계산 도구와 지원 지표·가격 조건은 공유하지만 표시 프로토콜을 교체하지 않는다. 그래프 전환은 새 대화와 빈 canvas 상태로 시작한다. [분리 API 기록](../../flow/2026-11-15-ta-agent-canvas-split.md)을 따른다.

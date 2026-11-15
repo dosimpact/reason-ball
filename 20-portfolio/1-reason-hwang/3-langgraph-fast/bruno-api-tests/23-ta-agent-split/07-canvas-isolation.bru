@@ -1,0 +1,21 @@
+meta {
+  name: TA-CANVAS-002 canvas snapshot stays isolated
+  type: http
+  seq: 7
+}
+get {
+  url: {{baseUrl}}/threads/{{canvasThread}}/state
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("canvas state contract", function () {
+    const state=res.getBody().values;
+    expect(Object.keys(state.canvas_reports)).to.have.lengthOf(1);
+    expect(state.canvas_reports[bru.getVar("splitReportId")].status).to.equal("ready");
+    expect(state.presentation).not.to.be.ok;
+  });
+}

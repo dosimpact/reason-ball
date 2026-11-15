@@ -9,7 +9,7 @@ post {
   auth: none
 }
 body:json {
-  {"assistant_id": "technical_analysis_agent", "input": {"messages": [{"role": "user", "content": "이 조건으로 재분석해 주세요."}], "canvas_context": {"request": {"ticker": "AAPL", "interval": "1d", "count": 201}}}, "stream_mode": ["values", "custom"]}
+  {"assistant_id": "technical_analysis_canvas_agent", "input": {"messages": [{"role": "user", "content": "이 조건으로 재분석해 주세요."}], "canvas_context": {"request": {"ticker": "AAPL", "interval": "1d", "count": 201}}}, "stream_mode": ["values", "custom"]}
 }
 assert {
   res.status: eq 200

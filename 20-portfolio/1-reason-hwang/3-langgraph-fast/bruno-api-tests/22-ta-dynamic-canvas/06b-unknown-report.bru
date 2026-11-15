@@ -9,7 +9,7 @@ post {
   auth: none
 }
 body:json {
-  {"assistant_id": "technical_analysis_agent", "input": {"messages": [{"role": "user", "content": "선택 보고서를 설명해 주세요."}], "canvas_context": {"reportId": "00000000-0000-4000-8000-000000000000"}}, "stream_mode": ["values", "custom"]}
+  {"assistant_id": "technical_analysis_canvas_agent", "input": {"messages": [{"role": "user", "content": "선택 보고서를 설명해 주세요."}], "canvas_context": {"reportId": "00000000-0000-4000-8000-000000000000"}}, "stream_mode": ["values", "custom"]}
 }
 assert {
   res.status: eq 200

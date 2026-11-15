@@ -1,0 +1,20 @@
+meta {
+  name: TA-CANVAS-002 inline snapshot stays isolated
+  type: http
+  seq: 6
+}
+get {
+  url: {{baseUrl}}/threads/{{inlineThread}}/state
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("inline state contract", function () {
+    const state=res.getBody().values;
+    expect(Object.keys(state.canvas_reports||{})).to.have.lengthOf(0);
+    expect(require("crypto").createHash("sha256").update(state.presentation.program).digest("hex")).to.equal(bru.getVar("inlineProgramHash"));
+  });
+}

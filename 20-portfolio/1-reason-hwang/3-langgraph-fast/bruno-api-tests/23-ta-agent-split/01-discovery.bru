@@ -1,0 +1,23 @@
+meta {
+  name: TA-CANVAS-002 Both inline and Canvas graphs are discoverable
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/assistants/search
+  body: json
+  auth: none
+}
+body:json {
+  {"limit":100,"offset":0}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Both independent registered graph IDs exist", function () {
+    const ids=res.getBody().map(row=>row.graph_id);
+    expect(ids).to.include("technical_analysis_agent");
+    expect(ids).to.include("technical_analysis_canvas_agent");
+  });
+}

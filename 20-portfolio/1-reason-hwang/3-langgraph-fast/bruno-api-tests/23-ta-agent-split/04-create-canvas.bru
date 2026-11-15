@@ -1,0 +1,19 @@
+meta {
+  name: TA-CANVAS-002 Create owned canvas thread
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/threads
+  body: json
+  auth: none
+}
+body:json {
+  {"metadata":{"validation":"ta-agent-split","kind":"canvas"}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Owned canvas thread", function () {bru.setVar("canvasThread",res.getBody().thread_id);expect(res.getBody().thread_id).to.be.a("string");});
+}

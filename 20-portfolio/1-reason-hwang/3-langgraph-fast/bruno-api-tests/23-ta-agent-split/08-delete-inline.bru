@@ -1,0 +1,16 @@
+meta {
+  name: TA-CANVAS-002 Delete owned inline thread
+  type: http
+  seq: 8
+}
+delete {
+  url: {{baseUrl}}/threads/{{inlineThread}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 204
+}
+tests {
+  test("Owned inline thread deleted", function () {expect(res.getStatus()).to.equal(204);});
+}

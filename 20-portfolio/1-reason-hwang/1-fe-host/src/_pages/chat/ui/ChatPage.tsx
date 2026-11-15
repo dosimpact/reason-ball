@@ -16,13 +16,13 @@ import { useChat } from "../model/context/useChat";
 
 export function ChatPage() {
   const { error, messages, resetThread, cancelRun, sendMessage, status, graphId, graphs, selectGraph, history, historyLoading, historyError, refreshHistory, openThread, threadId, conversationVersion, runGraph, graphResult, graphDiscoveryError, reloadGraphs, canvas, selectCanvas, collapseCanvas } = useChat();
-  const taMode = graphId === "technical_analysis_agent";
+  const taMode = graphId === "technical_analysis_canvas_agent";
   const canvasVisible = taMode && canvas.reports.length > 0 && !canvas.collapsed;
   const busy = status === "streaming" || status === "creating_thread" || status === "loading_history";
   const selected = graphs.find(graph => graph.id === graphId);
   const jsonMode = selected?.mode === "json";
   const discoveryNotice = graphDiscoveryError ?? selected?.schemaError;
-  const starters = graphId === "technical_analysis_agent" ? [
+  const starters = ["technical_analysis_agent", "technical_analysis_canvas_agent"].includes(graphId) ? [
     { displayText: "AAPL 일봉 분석", prompt: "AAPL 최근 120개 일봉을 RSI·SMA·MACD로 분석해 줘." },
     { displayText: "MSFT 주봉 분석", prompt: "MSFT 최근 120개 주봉의 추세를 분석해 줘." },
     { displayText: "삼성전자 분석", prompt: "005930.KS 최근 60개 일봉을 분석해 줘." },

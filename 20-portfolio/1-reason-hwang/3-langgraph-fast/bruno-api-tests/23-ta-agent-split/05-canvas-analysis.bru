@@ -1,0 +1,38 @@
+meta {
+  name: TA-CANVAS-002 canvas behavior
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/threads/{{canvasThread}}/runs/stream
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id": "technical_analysis_canvas_agent", "input": {"messages": [{"role": "user", "content": "이 조건으로 새 Canvas 분석 보고서를 만들어 주세요."}], "canvas_context": {"request": {"ticker": "MSFT", "interval": "1d", "count": 60}}}, "stream_mode": ["values", "custom"]}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("canvas output is isolated", function () {
+    const events=res.getBody().split(/\r?\n\r?\n/).flatMap(block=>{
+      const lines=block.split(/\r?\n/);const name=lines.find(line=>line.startsWith("event:"))?.slice(6).trim();
+      try{return [{name,data:JSON.parse(lines.filter(line=>line.startsWith("data:")).map(line=>line.slice(5).trim()).join("\n"))}];}catch{return [];}
+    });
+    expect(events.some(event=>event.name==="error")).to.equal(false);
+    const state=events.filter(event=>event.name==="values").at(-1)?.data;
+    const canvas=events.filter(event=>event.name==="custom" && event.data.channel==="canvas").map(event=>event.data);
+    const ready=canvas.find(event=>event.type==="ready");
+    expect(ready,JSON.stringify(canvas.filter(event=>event.type==="error"))).to.be.an("object");
+    expect(ready.reportId).to.match(/^[0-9a-f-]{36}$/);
+    expect(canvas[0].type).to.equal("open");
+    expect(canvas.findIndex(event=>event.type==="validating")).to.be.lessThan(canvas.findIndex(event=>event.type==="ready"));
+    expect(state.canvas_reports[ready.reportId].status).to.equal("ready");
+    expect(state.canvas_reports[ready.reportId].request.ticker).to.equal("MSFT");
+    expect(state.canvas_reports[ready.reportId].program).to.include("taLayout =");
+    expect(state.presentation).not.to.be.ok;
+    bru.setVar("splitReportId",ready.reportId);
+    console.log("Canvas report",ready.reportId,"deltaCount",canvas.filter(event=>event.type==="delta").length);
+  });
+}

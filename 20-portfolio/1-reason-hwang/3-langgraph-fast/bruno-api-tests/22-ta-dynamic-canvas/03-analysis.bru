@@ -9,7 +9,7 @@ post {
   auth: none
 }
 body:json {
-  {"assistant_id":"technical_analysis_agent","input":{"messages":[{"role":"user","content":"AAPL 최근 완료된 60개 일봉을 RSI14 SMA20 MACD12/26/9로 분석하고 핵심 추세와 한계를 설명해 주세요."}],"canvas_context":null},"stream_mode":["values","custom"]}
+  {"assistant_id":"technical_analysis_canvas_agent","input":{"messages":[{"role":"user","content":"AAPL 최근 완료된 60개 일봉을 RSI14 SMA20 MACD12/26/9로 분석하고 핵심 추세와 한계를 설명해 주세요."}],"canvas_context":null},"stream_mode":["values","custom"]}
 }
 assert {
   res.status: eq 200

@@ -9,7 +9,7 @@ post {
   auth: none
 }
 body:json {
-  {"assistant_id": "technical_analysis_agent", "input": {"messages": [{"role": "user", "content": "새 조건으로 재분석해 주세요."}], "canvas_context": {"reportId": "{{canvasReportA}}", "request": {"ticker": "MSFT", "interval": "1wk", "count": 60, "indicators": [{"name": "RSI", "timeperiod": 7}, {"name": "SMA", "timeperiod": 10}, {"name": "MACD", "fastperiod": 12, "slowperiod": 26, "signalperiod": 9}]}}}, "stream_mode": ["values", "custom"]}
+  {"assistant_id": "technical_analysis_canvas_agent", "input": {"messages": [{"role": "user", "content": "새 조건으로 재분석해 주세요."}], "canvas_context": {"reportId": "{{canvasReportA}}", "request": {"ticker": "MSFT", "interval": "1wk", "count": 60, "indicators": [{"name": "RSI", "timeperiod": 7}, {"name": "SMA", "timeperiod": 10}, {"name": "MACD", "fastperiod": 12, "slowperiod": 26, "signalperiod": 9}]}}}, "stream_mode": ["values", "custom"]}
 }
 assert {
   res.status: eq 200

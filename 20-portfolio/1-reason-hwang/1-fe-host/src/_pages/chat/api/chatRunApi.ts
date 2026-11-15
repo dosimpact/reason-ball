@@ -44,7 +44,7 @@ export function streamChatRun(params: {
         messages: params.messages,
         ...(params.canvasContext ? { canvas_context: params.canvasContext } : {}),
       },
-      streamMode: params.config.assistantId === "technical_analysis_agent" ? ["values", "custom"] : params.config.streamMode === "values" ? ["values"] : ["messages-tuple", "values"],
+      streamMode: params.config.assistantId === "technical_analysis_canvas_agent" ? ["values", "custom"] : params.config.streamMode === "values" ? ["values"] : ["messages-tuple", "values"],
       signal: params.signal,
     },
   );

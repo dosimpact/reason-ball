@@ -2,14 +2,15 @@
 
 ## 실행 경계
 
-`3-langgraph-fast/langgraph.json`에 `technical_analysis_agent`를 등록한다. Host의 기존 `/api/langgraph` 프록시와 LangGraph SDK의 threads/runs API를 사용한다. 실행 서버는 **LangGraph development runtime**이며 FastAPI의 기본 echo executor에 이 그래프를 등록한 것은 아니다. Host의 `LANGGRAPH_INTERNAL_API_URL`은 해당 runtime을 가리켜야 한다.
+`3-langgraph-fast/langgraph.json`에 기존 `technical_analysis_agent`와 별도 `technical_analysis_canvas_agent`를 등록한다. Host의 기존 `/api/langgraph` 프록시와 LangGraph SDK의 threads/runs API를 사용한다. 실행 서버는 **LangGraph development runtime**이며 FastAPI의 기본 echo executor에 이 그래프를 등록한 것은 아니다. Host의 `LANGGRAPH_INTERNAL_API_URL`은 해당 runtime을 가리켜야 한다.
 
 ```text
-/chat → /api/langgraph → technical_analysis_agent
-  prepare → Deep Agent(two business tools) → common OpenUI output subgraph
+/chat → /api/langgraph
+  technical_analysis_agent → Deep Agent tools → deterministic inline presentation
+  technical_analysis_canvas_agent → route/tools → AI layout → canvas custom events
 ```
 
-primary graph 소유 경로는 `3-langgraph-fast/src/graph/primary_graphs/technical_analysis_agent/`이다. 상태는 DeepAgentState를 확장하며 full prices, price_request, price_metadata, indicators, analysis_result, analysis_error, presentation을 가진다. prepare는 매 turn의 결과/표시만 지워 오래된 결과가 새 답변으로 노출되지 않게 한다.
+기존 primary graph 소유 경로는 `3-langgraph-fast/src/graph/primary_graphs/technical_analysis_agent/`, Canvas 전용 경로는 `technical_analysis_canvas_agent/`이다. 상태는 DeepAgentState를 확장하며 full prices, price_request, price_metadata, indicators, analysis_result, analysis_error, presentation을 가진다. prepare는 매 turn의 결과/표시만 지워 오래된 결과가 새 답변으로 노출되지 않게 한다.
 
 ## 도구와 계산
 
@@ -20,9 +21,9 @@ primary graph 소유 경로는 `3-langgraph-fast/src/graph/primary_graphs/techni
 
 ## OpenUI와 Host 계약
 
-TA-CANVAS-001은 결정적 가격·지표 Query panel/근거 데이터를 보존하고, 별도 모델 composer가 허용된 layout/prose만 구성한 뒤 기존 Host parser/catalog validator로 검증한다. 모델은 가격 배열·Query·지표 수치를 새로 정의하지 않으며 taPanel/taSignals를 각각 한 번 포함한다. 다른 OpenUI 호출자의 기본 생성 경로는 유지한다.
+기존 inline TA는 결정적 OpenUI 프로그램을 기존 Host parser로 검증해 presentation으로 반환한다. 별도 Canvas의 TA-CANVAS-001은 결정적 가격·지표 Query panel/근거 데이터를 보존하고, 별도 모델 composer가 허용된 layout/prose만 구성한 뒤 기존 Host parser/catalog validator로 검증한다. 모델은 가격 배열·Query·지표 수치를 새로 정의하지 않으며 taPanel/taSignals를 각각 한 번 포함한다. 다른 OpenUI 호출자의 기본 생성 경로는 유지한다.
 
-기술적 분석은 custom canvas event와 `canvas_reports` snapshot으로 보고서를 전달한다. 기존 다른 graph의 `presentation = {id, program}` 경로는 유지한다. `/chat`은 공통 `AgentConversation`의 OpenUI AgentInterface·Composer·메시지 목록을 사용하며, 기술적 분석은 canvas에서 검증된 `OutputView` 보고서를 표시하고 채팅에는 짧은 안내와 도구 타임라인을 남긴다. 그래프 선택과 LangGraph SDK 전송은 기존 ChatProvider가 유지한다. values는 snapshot으로 교체하며 delta처럼 누적하지 않는다. 그래프 선택 목록은 runtime assistant 검색을 페이지별로 조회해 모든 등록 graph를 표시한다. 채팅과 구조화 JSON 입력 모드를 구분하며 서브그래프도 JSON 입력과 원본 결과로 테스트할 수 있다. 기술적 분석 에이전트는 채팅 모드를 유지한다.
+`technical_analysis_canvas_agent`만 custom canvas event와 `canvas_reports` snapshot으로 보고서를 전달한다. 기존 `technical_analysis_agent`와 다른 graph의 `presentation = {id, program}` 경로는 유지한다. `/chat`은 공통 `AgentConversation`의 OpenUI AgentInterface·Composer·메시지 목록을 사용하며, 기존 TA는 inline 본문과 검증된 OutputView를 표시한다. Canvas TA는 canvas에서 검증된 보고서를 표시하고 채팅에는 짧은 안내와 도구 타임라인을 남긴다. 그래프 선택과 LangGraph SDK 전송은 기존 ChatProvider가 유지한다. values는 snapshot으로 교체하며 delta처럼 누적하지 않는다. 그래프 선택 목록은 runtime assistant 검색을 페이지별로 조회해 모든 등록 graph를 표시한다. 채팅과 구조화 JSON 입력 모드를 구분하며 서브그래프도 JSON 입력과 원본 결과로 테스트할 수 있다. 기술적 분석 에이전트는 채팅 모드를 유지한다.
 
 ## 실행과 검증
 
@@ -77,7 +78,7 @@ Bruno는 실제 Yahoo·모델·Host validator 연결이 필요하다. 테스트�
 
 Host `/chat`은 기존 values snapshot의 이번 turn tool_calls/tool 메시지를 연결해 `get_price_ohlcv`, `analyze_ohlcv_with_talib` 등의 실제 실행 이름과 상태를 OpenUI BehindTheScenes로 표시한다. 원본 도구 인자·결과·중간 AI 설명을 추가 노출하지 않는다. 조회 API와 Query의 모델 없는 갱신 경계는 유지한다. [Host 계약](../tech-shared/1-fe-host/open-ui.md#chat-activity-001-chat-behind-the-scenes)을 따른다.
 
-## TA-CANVAS-001: 보고서 이벤트와 상태
+## TA-CANVAS-001: 별도 Canvas 에이전트의 보고서 이벤트와 상태
 
 입력 `canvas_context`는 선택 `reportId`와 선택적 구조화 `request`를 사용한다. request는 ticker, interval(1d/1wk), strict 정수 count(2~200), 중복 없는 RSI/SMA/MACD 설정 목록이다. 존재하지 않는 reportId·잘못된 조건은 도구 조회 전 analysis_error와 안내로 끝내며 custom open을 보내지 않는다. selected report 설명은 그 report의 title/request/asOf/signals만 근거로 사용한다.
 
@@ -90,3 +91,9 @@ Host `/chat`은 기존 values snapshot의 이번 turn tool_calls/tool 메시지�
 FE는 thread/assistant/run별 이벤트를 격리한다. prefix만 있으면 준비 상태를 표시한다. taLayout draft는 실제 누적 버퍼를 바꾸지 않고 SDK autoClose와 preview 전용 root를 적용한 disposable projection으로 점진 미리보기할 수 있다. canonical root가 아직 없어도 이 provisional preview는 inert·Query provider 없음·action 차단이며 ready에서만 모델 없는 Query를 연결한다. 선택되어 보이는 보고서만 mount하고 close/collapse/전환 시 이전 조회·timer를 해제한다. 재분석은 마지막 성공 Query 조건을 구조화 request로 보내 별도 모델 분석을 수행한다. 기존 chart GET 자체는 thread/run을 만들지 않는다.
 
 [API 실행·제약·정리 기록](../../flow/2026-11-15-ta-dynamic-canvas-implementation.md). 브라우저 동작 검증은 사용자 수행 범위다.
+
+## TA-CANVAS-002: 독립 그래프 계약
+
+기존 TA workflow/state는 inline 구현으로 복원해 canvas 필드를 포함하지 않는다. 신규 Canvas state는 기존 계산 상태를 상속하고 canvas 문맥·보고서 필드만 추가한다. 두 graph는 가격/TA-Lib 도구를 공유하되 기존 graph는 custom canvas 이벤트를 보내지 않고 신규 graph는 inline presentation을 중복 생성하지 않는다. FE의 custom 이벤트·canvas_context·탭·재분석 처리도 신규 ID에만 연결한다. 그래프 전환 때 탭을 비우며 각각 별도 thread를 사용한다.
+
+Canvas API 시나리오 `22-ta-dynamic-canvas`는 신규 ID를 대상으로 하고, `23-ta-agent-split`은 두 ID discovery와 각 출력·상태 격리를 검증한다. [분리 검증 기록](../../flow/2026-11-15-ta-agent-canvas-split.md)을 따른다.
