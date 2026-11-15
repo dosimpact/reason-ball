@@ -38,7 +38,7 @@ sessions: dict[str, Session] = {}
 
 class PrepareRequest(BaseModel):
     cik: str = Field(pattern=r"^\d{10}$")
-    refresh: bool = True
+    refresh: bool = False
 
 
 class ChatRequest(BaseModel):

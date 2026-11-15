@@ -102,7 +102,7 @@ class FilingSourceClient(SecClient):
             raise SecReadError("일부 공시 다운로드에 실패했습니다. 수집 후 다시 시도해 주세요.")
         return datetime.now(UTC).isoformat()
 
-    async def prepare(self, cik: str, *, refresh: bool = True) -> dict:
+    async def prepare(self, cik: str, *, refresh: bool = False) -> dict:
         # filings()가 식별자를 검증한다. 쓰기 요청 전에 먼저 검증한다.
         include_former = cik in PREDECESSORS.values()
         await self.filings(cik, form="10-K", include_former=include_former)

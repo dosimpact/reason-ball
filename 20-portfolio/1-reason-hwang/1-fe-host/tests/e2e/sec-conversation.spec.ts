@@ -28,7 +28,7 @@ test('conversation: company clarification preserves the original question', asyn
   let chatBody: Record<string, unknown> = {};
   await page.route('**/api/sec-chat/resolve', route => route.fulfill({ json: { action: 'choose', reply: '어느 기업을 말씀하셨나요?', companies: [apple], question: '애플의 사업 구조를 요약해줘', refresh: false } }));
   await page.route('**/api/sec-chat/prepare', async route => {
-    expect(route.request().postDataJSON()).toEqual({ cik: apple.cik, refresh: true });
+    expect(route.request().postDataJSON()).toEqual({ cik: apple.cik, refresh: false });
     await route.fulfill({ json: prepared });
   });
   await page.route('**/api/sec-chat/chat', async route => {
@@ -119,4 +119,33 @@ test('conversation: legacy prose reply uses OpenUI markdown', async ({ page }) =
   await expect(page.getByRole('heading', { name: '일회성 수익 찾기' })).toBeVisible();
   await expect(page.getByRole('listitem').filter({ hasText: '매각이익' })).toBeVisible();
   await expect(page.getByTestId('intelligent-ui-answer').locator('strong')).toHaveText('매각이익');
+});
+
+test('conversation: explicit refresh is forwarded when requested', async ({ page }) => {
+  let refresh: boolean | undefined;
+  await page.route('**/api/sec-chat/resolve', route => route.fulfill({ json: { action: 'research', company: apple, question: '최신 공시로 다시 확인', refresh: true } }));
+  await page.route('**/api/sec-chat/prepare', async route => {
+    refresh = route.request().postDataJSON().refresh;
+    await route.fulfill({ status: 409, json: { detail: '수집 요청 확인용 종료' } });
+  });
+  await page.goto('/sec-chat');
+  await page.locator('textarea:visible').first().fill('애플 최신 공시로 다시 수집해서 확인해줘');
+  await page.getByRole('button', { name: /^(Send|Send message)$/ }).click();
+  await expect.poll(() => refresh).toBe(true);
+  await expect(page.getByText('수집 요청 확인용 종료', { exact: true })).toBeVisible();
+});
+
+test('SEC conversation history survives reload and restores a selected conversation', async ({ page }) => {
+  await page.route('**/api/sec-chat/resolve', route => route.fulfill({ json: { action: 'reply', reply: '저장할 답변입니다.' } }));
+  await page.goto('/sec-chat');
+  await page.evaluate(() => localStorage.removeItem('sec-chat-history-v1'));
+  await page.reload();
+  await page.locator('textarea:visible').first().fill('저장할 질문');
+  await page.locator('textarea:visible').first().press('Enter');
+  await expect(page.getByText('저장할 답변입니다.', { exact: true })).toBeVisible();
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('sec-chat-history-v1'))).toContain('저장할 질문');
+  await page.reload();
+  await page.getByText('대화 기록', { exact: true }).first().click();
+  await page.getByRole('button', { name: /저장할 질문/ }).click();
+  await expect(page.getByText('저장할 답변입니다.', { exact: true })).toBeVisible();
 });

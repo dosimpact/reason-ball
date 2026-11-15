@@ -58,8 +58,8 @@ export function SecChat() {
     if (!target) throw new Error("분석할 기업을 알려 주세요.");
     let active = prepared;
     if (!active || target.cik !== company?.cik || refresh) {
-      setBusy(`${target.name}의 최신 10-K를 확인하고 있어요. 다운로드에는 수 분이 걸릴 수 있어요.`);
-      const next = await trackRequest(`${target.name} · 최신 10-K 준비`, () => jsonRequest<Prepared>("prepare", { cik: target.cik, refresh: true }, signal));
+      setBusy(refresh ? `${target.name}의 최신 10-K를 확인하고 있어요. 다운로드에는 수 분이 걸릴 수 있어요.` : `${target.name}의 저장된 10-K를 확인하고 있어요.`);
+      const next = await trackRequest(`${target.name} · ${refresh ? "최신 10-K 준비" : "저장된 10-K 준비"}`, () => jsonRequest<Prepared>("prepare", { cik: target.cik, refresh: refresh === true }, signal));
       setPrepared(next); setCompany(target);
       if (active) void fetch(`/api/sec-chat/threads/${active.threadId}`, { method: "DELETE" }).catch(() => undefined);
       active = next;

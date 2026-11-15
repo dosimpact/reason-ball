@@ -82,3 +82,10 @@ SEC_CHAT_API_URL=http://127.0.0.1:8000 pnpm --filter @reason-hwang/fe-host dev
 `/sec-chat`의 표준 채팅 UI와 domain renderer 연결은 [OPENUI-AGENT-001](open-ui.md#openui-agent-001-공통-에이전트-인터페이스)을 따른다. SEC 근거와 추천 질문은 AssistantMessage 확장 화면에 남으며 관리자 채팅의 기본 Behind the scenes와 구분한다.
 
 두 SEC 화면의 디자인 소유권은 [OPENUI-CHAT-DS-001](open-ui.md#openui-chat-ds-001-공통-채팅-디자인-시스템)을 따른다. native/controlled 전송 방식 차이가 화면별 프레임·입력창·헤더 스타일 차이를 만들지 않는다.
+
+## SEC-REFRESH-DEFAULT-001: 저장 공시 우선
+
+`/sec-chat`의 기본 prepare 흐름은 refresh=false로 저장된 최신10-K를 사용한다.
+resolve의 명시적 refresh=true만 FE에서 그대로 전달하여 수집을 실행한다.
+기본 상태에서는 새 기업 선택도 자동 수집하지 않으며 최신 원문 미보유는 오류로 표시한다.
+읽기 준비 중에는 다운로드 안내 대신 저장된10-K 확인 문구를 표시한다. 서버 PrepareRequest·FilingSourceClient·대화 의도의 생략 기본값도 false다.
