@@ -1,3 +1,5 @@
+> LG-OSS-003 현재 실행 경계: FastAPI는 GraphRegistry가 실제 graph builder를 AsyncPostgresSaver와 compile하고 RunManager가 실행한다. 실제 실행의 state/history/update는 graph API를 사용한다. 아래 수동 snapshot 저장 설명은 기존 호환 Runtime fallback 경로이며 실제 graph checkpoint를 대신하지 않는다. 현재 동작은 [FastAPI runtime](fastapi-runtime.md)을 함께 따른다. public legacy table 이동과 snapshot backfill은 기본 비활성이다.
+
 # LangGraph DB Saver 역기술 기획서
 
 ## 문서 목적

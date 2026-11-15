@@ -3,7 +3,7 @@ import type { ChatMessage, ChatThreadState } from "@/_pages/chat/model/chatTypes
 export type ChatAction =
   | { type: "graphRunStarted" }
   | { type: "historyLoading" }
-  | { type: "historyLoaded"; threadId: string; messages: ChatMessage[] }
+  | { type: "historyLoaded"; threadId: string; messages: ChatMessage[]; running?: boolean; error?: string }
   | { type: "historyLoadFailed"; error: string | null }
   | { type: "assistantSnapshotReceived"; messageId: string; content: string; program?: string; presentationId?: string; activities?: ChatMessage["activities"] }
   | {
@@ -53,7 +53,7 @@ export function chatReducer(
     case "historyLoading":
       return { ...state, status: "loading_history", error: null };
     case "historyLoaded":
-      return { threadId: action.threadId, messages: action.messages, status: "idle", error: null };
+      return { threadId: action.threadId, messages: action.messages, status: action.running ? "streaming" : action.error ? "error" : "idle", error: action.error ?? null };
     case "historyLoadFailed":
       return { ...state, status: action.error ? "error" : "idle", error: action.error };
     case "assistantSnapshotReceived":

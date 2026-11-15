@@ -27,13 +27,13 @@ export function ChatHistory({ items, loading, error, disabled, selectedId, onRef
       <ul className="space-y-1" aria-label="저장된 대화">
         {items.map(item => <li key={item.threadId}>
           <button type="button" className="w-full rounded-md px-3 py-2 text-left text-sm hover:bg-muted disabled:opacity-50"
-            disabled={disabled || loading || item.status === "busy"} aria-current={selectedId === item.threadId ? "true" : undefined}
-            onClick={async event => {
+            disabled={disabled || loading} aria-current={selectedId === item.threadId ? "true" : undefined}
+            onClick={event => {
               const details = event.currentTarget.closest("details");
-              await onSelect(item.threadId);
+              void onSelect(item.threadId);
               if (details) details.open = false;
             }}>
-            <span className="block truncate">{item.title}</span>
+            <span className="block truncate">{item.title}{item.status === "busy" ? " · 실행 중" : ""}</span>
             <time dateTime={item.updatedAt} className="text-xs text-muted-foreground">{new Date(item.updatedAt).toLocaleString("ko-KR")}</time>
           </button>
         </li>)}

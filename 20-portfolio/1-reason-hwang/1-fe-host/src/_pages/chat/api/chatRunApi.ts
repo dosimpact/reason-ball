@@ -35,6 +35,7 @@ export function streamChatRun(params: {
   messages: LangGraphChatInputMessage[];
   signal?: AbortSignal;
   canvasContext?: Record<string, unknown>;
+  onRunCreated?: (run: { run_id: string; thread_id?: string }) => void;
 }): AsyncIterable<LangGraphStreamEvent> {
   const stream = params.client.runs.stream<StreamMode[]>(
     params.threadId,
@@ -45,6 +46,8 @@ export function streamChatRun(params: {
         ...(params.canvasContext ? { canvas_context: params.canvasContext } : {}),
       },
       streamMode: params.config.assistantId === "technical_analysis_canvas_agent" ? ["values", "custom"] : params.config.streamMode === "values" ? ["values"] : ["messages-tuple", "values"],
+      onDisconnect: "continue",
+      onRunCreated: params.onRunCreated,
       signal: params.signal,
     },
   );

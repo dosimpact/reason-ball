@@ -39,15 +39,15 @@ export async function discoverGraphs(client: Client, signal?: AbortSignal): Prom
  }));
 }
 
-export async function runGraphInput(params: { client: Client; graphId: string; input: Record<string, unknown>; signal?: AbortSignal; onThread?: (id: string) => void; onValues?: (values: unknown) => void }): Promise<unknown> {
- const thread = await params.client.threads.create({ graphId: params.graphId, metadata: { source: "host-chat", graph_id: params.graphId, title: `JSON 테스트 · ${params.graphId}` }, signal: params.signal });
+export async function runGraphInput(params: { client: Client; graphId: string; input: Record<string, unknown>; signal?: AbortSignal; runtimeId?: string; onRun?: (threadId: string, runId: string) => void; onThread?: (id: string) => void; onValues?: (values: unknown) => void }): Promise<unknown> {
+ const thread = await params.client.threads.create({ graphId: params.graphId, metadata: { source: "host-chat", runtime: params.runtimeId, graph_id: params.graphId, title: `JSON 테스트 · ${params.graphId}` }, signal: params.signal });
  if (params.signal?.aborted) throw new DOMException("요청 중단", "AbortError");
  params.onThread?.(thread.thread_id);
  let result: unknown;
  let runId: string | undefined;
- for await (const event of params.client.runs.stream(thread.thread_id, params.graphId, { input: params.input, streamMode: "values", signal: params.signal })) {
+ for await (const event of params.client.runs.stream(thread.thread_id, params.graphId, { input: params.input, streamMode: "values", onDisconnect: "continue", onRunCreated: run => params.onRun?.(thread.thread_id, run.run_id), signal: params.signal })) {
   if (params.signal?.aborted) throw new DOMException("요청 중단", "AbortError");
-  if (event.event === "metadata") runId = (event.data as { run_id?: string })?.run_id;
+  if (event.event === "metadata") { runId = (event.data as { run_id?: string })?.run_id; if (runId) params.onRun?.(thread.thread_id, runId); }
   if (event.event === "error") { const data = event.data as { message?: string; error?: string } | null; throw new Error(data?.message ?? data?.error ?? "그래프 실행에 실패했습니다."); }
   if (event.event === "values") { result = event.data; params.onValues?.(result); }
  }

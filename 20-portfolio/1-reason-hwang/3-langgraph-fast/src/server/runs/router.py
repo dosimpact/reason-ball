@@ -56,6 +56,9 @@ async def create_run(thread_id: str, response: Response, payload: dict[str, Any]
 
 @router.post("/threads/{thread_id}/runs/stream")
 async def stream_run(thread_id: str, payload: dict[str, Any] = Body(...)):
+    if runtime.manager is not None:
+        run, _ = await runtime.create_run(thread_id, _run_payload(payload))
+        return StreamingResponse(runtime.manager.stream(run), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
     run, result = await runtime.create_run(thread_id, _run_payload(payload), wait=True)
     return _sse([("metadata", {"run_id": run["run_id"]}), ("values", result), ("end", {})])
 
@@ -86,6 +89,8 @@ async def delete_run(thread_id: str, run_id: str):
 async def join_run(thread_id: str, run_id: str, cancel_on_disconnect: bool = False):
     del cancel_on_disconnect
     run = await runtime.get_run(thread_id, run_id)
+    if runtime.manager is not None:
+        await runtime.manager.join(run_id)
     return runtime.run_results.get(run["run_id"])
 
 
@@ -96,6 +101,8 @@ async def resume_run_stream(
 ):
     del last_event_id, stream_mode, cancel_on_disconnect
     run = await runtime.get_run(thread_id, run_id)
+    if runtime.manager is not None:
+        return StreamingResponse(runtime.manager.stream(run), media_type="text/event-stream")
     return _sse([("metadata", run), ("values", runtime.run_results.get(run_id)), ("end", {})])
 
 
@@ -104,6 +111,8 @@ async def cancel_run(
     thread_id: str, run_id: str, wait: bool = False,
     action: str = Query(default="interrupt", pattern="^(interrupt|rollback)$"),
 ):
+    if runtime.manager is not None and action != "interrupt":
+        raise HTTPException(422, "Rollback cancellation is not supported")
     del wait, action
     run = await runtime.get_run(thread_id, run_id)
     await runtime.cancel(run)
@@ -141,6 +150,9 @@ async def stateless_wait(payload: dict[str, Any] = Body(...)):
 
 @router.post("/runs/stream")
 async def stateless_stream(payload: dict[str, Any] = Body(...)):
+    if runtime.manager is not None:
+        run, _ = await runtime.create_run(None, _run_payload(payload))
+        return StreamingResponse(runtime.manager.stream(run), media_type="text/event-stream")
     run, result = await runtime.create_run(None, _run_payload(payload), wait=True)
     return _sse([("metadata", {"run_id": run["run_id"]}), ("values", result), ("end", {})])
 

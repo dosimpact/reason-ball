@@ -42,7 +42,7 @@ def test_thread_crud_search_count_copy_and_prune() -> None:
     assert client.post(
         "/threads/prune", json={"thread_ids": [copied["thread_id"]], "strategy": "delete"}
     ).json() == {"pruned_count": 1}
-    assert client.delete(f"/threads/{thread_id}").status_code == 200
+    assert client.delete(f"/threads/{thread_id}").status_code == 204
     assert client.get(f"/threads/{thread_id}").status_code == 404
 
 

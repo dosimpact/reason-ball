@@ -60,6 +60,8 @@ async function proxyToLangGraph(request: NextRequest, context: RouteContext) {
     body: hasRequestBody(request.method) ? request.body : undefined,
     duplex: "half",
     redirect: "manual",
+    signal: request.signal,
+    cache: "no-store",
   } as RequestInit & { duplex: "half" });
 
   return new Response(proxyResponse.body, {

@@ -5,7 +5,7 @@ from copy import deepcopy
 from typing import Any
 from uuid import uuid4
 
-from fastapi import APIRouter, Body, Header, Query
+from fastapi import APIRouter, Body, Header, Query, Response, HTTPException
 from fastapi.responses import StreamingResponse
 
 from server.runs.runtime import runtime, utc_now
@@ -86,7 +86,9 @@ async def prune_threads(payload: dict[str, Any] = Body(...)):
 
 @router.get("/{thread_id}/state")
 async def latest_state(thread_id: str, subgraphs: bool = False):
-    del subgraphs
+    if runtime.manager is not None:
+        await runtime.ensure_thread(thread_id)
+        return await runtime.manager.state(thread_id, subgraphs=subgraphs)
     return await runtime.state_from_storage(thread_id)
 
 
@@ -100,7 +102,9 @@ async def update_state(thread_id: str, payload: dict[str, Any] = Body(default_fa
 
 @router.get("/{thread_id}/state/{checkpoint_id}")
 async def state_at_checkpoint(thread_id: str, checkpoint_id: str, subgraphs: bool = False):
-    del subgraphs
+    if runtime.manager is not None:
+        await runtime.ensure_thread(thread_id)
+        return await runtime.manager.state(thread_id, checkpoint_id, subgraphs=subgraphs)
     return await runtime.state_from_storage(thread_id, checkpoint_id)
 
 
@@ -146,9 +150,11 @@ async def get_thread(thread_id: str, include: str | None = None):
     return thread
 
 
-@router.delete("/{thread_id}")
+@router.delete("/{thread_id}", status_code=204, response_class=Response)
 async def delete_thread(thread_id: str):
     await runtime.ensure_thread(thread_id)
+    if runtime.manager is not None and any(r["thread_id"] == thread_id and r["status"] in {"pending", "running"} for r in runtime.runs.values()):
+        raise HTTPException(409, "Cancel active runs before deleting the thread")
     if runtime.run_repository is not None:
         await runtime.run_repository.delete_for_thread(thread_id)
     if runtime.thread_repository is not None:
@@ -159,7 +165,7 @@ async def delete_thread(thread_id: str):
     for run_id in [key for key, run in runtime.runs.items() if run["thread_id"] == thread_id]:
         runtime.runs.pop(run_id, None)
         runtime.run_results.pop(run_id, None)
-    return None
+    return Response(status_code=204)
 
 
 @router.patch("/{thread_id}")

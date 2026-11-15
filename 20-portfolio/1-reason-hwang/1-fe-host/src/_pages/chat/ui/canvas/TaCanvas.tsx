@@ -20,7 +20,7 @@ function previewProgram(program: string): string | null {
   }
 }
 function ReportView({ report }: { report: CanvasReport }) {
-  const { saveCanvasState, saveCanvasQuery, reanalyzeCanvas, status } = useChat();
+  const { runtime, saveCanvasState, saveCanvasQuery, reanalyzeCanvas, status } = useChat();
   const [renderError, setRenderError] = useState(false);
   const onRenderError = useCallback(() => setRenderError(true), []);
   const [initialState] = useState(() => ({ ...report.reactiveState, $chart_refresh_seconds: 0 }));
@@ -30,7 +30,7 @@ function ReportView({ report }: { report: CanvasReport }) {
   const busy = ["streaming", "creating_thread", "loading_history"].includes(status);
   return <><div className="ta-canvas-report-notice"><p>해석은 보고서 생성 시점의 스냅샷입니다. 조회 조건·새로고침은 모델 호출 없이 차트만 바꿉니다.</p><p>기준 {report.asOf ?? "—"}{report.successfulArgs ? ` · 마지막 조회 성공: ${report.successfulArgs.ticker} / ${report.successfulArgs.interval} / ${report.successfulArgs.count}봉` : " · 아직 성공한 차트 조회가 없습니다."}</p><Button variant="outline" disabled={busy || report.status !== "ready" || !report.successfulArgs} onClick={() => void reanalyzeCanvas(report.id)}>성공한 조회 조건으로 재분석</Button></div>
     {renderError && <p role="alert" className="p-4 text-sm text-destructive">검증된 보고서를 화면에 표시하지 못했습니다. 분석 설명과 조회 조건을 확인하세요.</p>}
-    {report.status === "error" ? <div role="alert" className="p-4"><p>{report.error}</p>{report.fallbackText && <p className="mt-2 whitespace-pre-wrap">{report.fallbackText}</p>}</div> : <div className="ta-canvas-report-body"><p role="status" className="mb-3 text-xs text-muted-foreground">{report.status === "ready" ? "검증 완료" : report.status === "validating" ? "프로그램 검증 중… 조회와 액션은 잠겨 있습니다." : "보고서 생성 중… 조회와 액션은 잠겨 있습니다."}</p>{displayProgram ? <OutputView key={report.id} program={displayProgram} active={report.status === "ready"} provisional={report.status !== "ready"} initialState={initialState} onStateUpdate={report.status === "ready" ? onState : undefined} onQuerySuccess={onQuery} onError={report.status === "ready" ? onRenderError : undefined} /> : <p>차트 데이터와 분석 레이아웃을 구성하고 있습니다. 검증된 보고서가 도착하면 조회를 사용할 수 있습니다.</p>}</div>}
+    {report.status === "error" ? <div role="alert" className="p-4"><p>{report.error}</p>{report.fallbackText && <p className="mt-2 whitespace-pre-wrap">{report.fallbackText}</p>}</div> : <div className="ta-canvas-report-body"><p role="status" className="mb-3 text-xs text-muted-foreground">{report.status === "ready" ? "검증 완료" : report.status === "validating" ? "프로그램 검증 중… 조회와 액션은 잠겨 있습니다." : "보고서 생성 중… 조회와 액션은 잠겨 있습니다."}</p>{displayProgram ? <OutputView queryEndpoint={runtime.chartEndpoint} key={report.id} program={displayProgram} active={report.status === "ready"} provisional={report.status !== "ready"} initialState={initialState} onStateUpdate={report.status === "ready" ? onState : undefined} onQuerySuccess={onQuery} onError={report.status === "ready" ? onRenderError : undefined} /> : <p>차트 데이터와 분석 레이아웃을 구성하고 있습니다. 검증된 보고서가 도착하면 조회를 사용할 수 있습니다.</p>}</div>}
   </>;
 }
 export function TaCanvas() {

@@ -409,3 +409,8 @@ URL 또는 실행 코드를 메시지로 받지 않는다. 정제 DOM의 fact ID
 ### LangGraph 그래프 선택 설명
 
 Chat 그래프 선택기는 등록된 그래프의 역할과 입력 방식을 선택 항목 아래에 표시한다. 미등록 그래프는 설명이 없다는 안내를 표시하며 실제 목록은 실행 서버에서 조회한다.
+
+
+### CHAT-RUNTIME-002: 런타임 주입형 채팅
+
+`app/fastapi-chat`는 기존 `_pages/chat` 공개 진입점의 FastAPI 변형을 export한다. 별도 도메인 화면 복제 없이 `model/runtime.ts`의 고정 context로 provider의 SDK URL·history namespace·차트 Query endpoint·헤더를 함께 선택한다. 개발 채팅은 2982, 새 FastAPI 채팅은 2981이며 자동 fallback하지 않는다. runtime별 proxy는 `_app/api`가 소유한다. 실행 취소·저장 상태 재조회는 `api`에, 화면 상태·Canvas 복원은 `model`에 둔다. 상세 계약은 [Host OpenUI](open-ui.md#chat-runtime-002-개발-및-fastapi-채팅-분리)를 따른다.

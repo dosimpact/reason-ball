@@ -4,7 +4,7 @@ import type { LangGraphConfig } from "@/shared/config";
 
 export function createLangGraphClient(config: LangGraphConfig) {
   return new Client({
-    apiUrl: resolveLangGraphApiUrl(config.apiUrl === "/api/langgraph" ? "/api/langgraph-runtime" : config.apiUrl),
+    apiUrl: resolveLangGraphApiUrl(config.apiUrl),
     callerOptions: { fetch: cancellationAwareFetch },
   });
 }

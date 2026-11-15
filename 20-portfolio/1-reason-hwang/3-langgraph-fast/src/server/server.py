@@ -1,3 +1,5 @@
+import os
+
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
@@ -59,7 +61,8 @@ class GraphRunResponse(BaseModel):
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     settings = get_settings()
     postgres: PostgresRuntime | None = None
-    if settings.env_profile is not None:
+    graph_only = os.getenv("FASTAPI_STARTUP_GRAPH_ONLY", "false").lower() in {"1", "true"}
+    if settings.env_profile is not None and not graph_only:
         prepare_neo4j_schema(profile=settings.env_profile, settings=settings)
         modeling_graph = SecModelingGraphStore()
         try:
@@ -73,7 +76,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
             schema=settings.postgres_schema,
         )
         await postgres.open()
-        if settings.env_profile == "local":
+        if settings.env_profile == "local" and not graph_only and os.getenv("FASTAPI_ENABLE_LEGACY_MIGRATION", "false").lower() == "true":
             async with postgres.pool.connection() as connection:
                 cursor = await connection.execute(
                     "SELECT to_regclass('langgraph_fast_resources') AS legacy_table"
@@ -94,10 +97,21 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         set_store_repository(PostgresStoreRepository(postgres.pool))
         set_a2a_task_repository(PostgresA2ATaskRepository(postgres.pool))
         await runs_runtime.hydrate()
+    from server.graph_registry import GraphRegistry
+    from server.run_manager import RunManager
+    from server.assistants.router import configure_graph_registry, _repository
+    registry = GraphRegistry(postgres.checkpointer if postgres else None)
+    configure_graph_registry(registry.schemas())
+    await registry.seed(_repository)
+    runs_runtime.manager = RunManager(runs_runtime, registry)
+    await runs_runtime.manager.recover()
+    app.state.graph_registry = registry
     app.state.postgres = postgres
     try:
         yield
     finally:
+        await runs_runtime.manager.close()
+        runs_runtime.manager = None
         set_assistant_repository(InMemoryAssistantRepository())
         runs_runtime.set_repositories()
         runs_runtime.set_checkpointer()

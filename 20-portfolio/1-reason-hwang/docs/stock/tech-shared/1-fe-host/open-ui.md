@@ -125,4 +125,19 @@ JSON실행은 새thread를 만들고 입력을변형없이runs.stream(values)로
 
 선택한 보이는 탭만 OutputView를 mount한다. 전환·접기·닫기는 조회와 polling을 정리한다. 탭별 입력 상태는 보존하되 polling은 기본 꺼짐으로 복원한다. 조건 변경·수동 새로고침은 FinancialChart/QueryPanel provider로 모델 없이 실행한다. 설명은 생성 당시 스냅샷임을 표시한다. 재분석은 마지막 성공한 조회 조건·지표 설정을 `canvas_context.request`로 보내 새 보고서를 만든다. 일반 후속 질문은 선택한 reportId를 전달한다.
 
-채팅에는 짧은 요약과 보고서 열기를 표시한다. 새 대화·기록 열기·graph 전환은 Canvas를 비운다. Canvas 복원·PDF·공유·시세 인용은 범위 밖이다. 닫은 UUID와 취소 실행의 늦은 이벤트는 무시한다. API 검증은 검증 담당에게 위임하고 브라우저 검증은 사용자가 수행한다.
+채팅에는 짧은 요약과 보고서 열기를 표시한다. 새 대화·graph 전환은 Canvas를 비우고 기록 열기는 해당 runtime의 저장 보고서를 복원한다. PDF·공유·시세 인용은 범위 밖이다. 닫은 UUID와 취소 실행의 늦은 이벤트는 무시한다. API 검증은 검증 담당에게 위임하고 브라우저 검증은 사용자가 수행한다.
+
+
+## CHAT-RUNTIME-002: 개발 및 FastAPI 채팅 분리
+
+`/langgraph-dev-chat`와 기존 `/chat` 별칭은 개발 런타임 2982를 유지하고 `/fastapi-chat`은 자체 FastAPI 2981을 사용한다. 두 화면은 동일한 ChatProvider/ChatPage·기본 도구 타임라인·인라인 차트·Canvas UI를 재사용하며 페이지가 불변 runtime context를 주입한다. 메뉴와 헤더는 런타임을 구분하고 모바일 메뉴는 헤더에서 연다.
+
+개발 화면은 `/api/langgraph-runtime/*` → `LANGGRAPH_RUNTIME_API_URL`(기본2982), FastAPI 화면은 `/api/fastapi-langgraph/*` → `FASTAPI_RUNTIME_API_URL`(기본2981)로 전달한다. 실행·graph discovery/schema·history·state·run 상태·cancel과 FinancialChart Query가 모두 해당 페이지 proxy를 사용한다. client의 숨은 URL 치환과 서버 간 자동 fallback은 없다. 기존 비채팅 OutputView의 기본 chart endpoint는 변경하지 않는다. proxy는 요청 signal을 전달하고 캐시하지 않는다.
+
+각 provider는 독립 thread/messages/graph/Canvas 상태를 소유한다. 새 thread metadata는 `source=host-chat`, `runtime=development|fastapi`, `graph_id`, `title`을 기록한다. FastAPI history는 runtime을 필터링하고 개발 history는 기존 runtime 없는 기록을 허용하되 명시적으로 다른 runtime인 기록을 표시하지 않는다.
+
+SDK stream은 `on_disconnect=continue`를 명시한다. metadata 및 공개 onRunCreated callback에서 run ID를 즉시 추적하고, 명시적 중단은 SDK runs.cancel의 interrupt/wait를 호출하여 실제 서버 중단 확인 뒤 연결을 닫는다. ID 수신 전 중단 요청은 ID가 도착하면 전달한다. 외부 도구의 이미 발생한 부수 효과 rollback은 보장하지 않는다. 정상 EOF만으로 성공 처리하지 않고 run.status=success를 확인한다.
+
+실행 중인 history도 열 수 있다. 최신 run과 저장된 state를 1.5초 간격으로 조회하다 terminal 상태에서 멈추며 놓친 토큰을 재생하지 않는다. 저장된 메시지·도구 상태·JSON 결과와 Canvas 보고서를 복원한다. 닫은 탭은 같은 화면의 조회 갱신으로 되살리지 않고, runtime/page 전환과 unmount는 소유 조회를 정리한다. 기존 Canvas 무복원 제한은 이 저장 상태 재개 경로에 한해 대체한다.
+
+검증은 [통합 flow](../../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)에 기록한다. 사용자 승인 범위에 따라 브라우저/Storybook browser 검증은 수행하지 않는다.

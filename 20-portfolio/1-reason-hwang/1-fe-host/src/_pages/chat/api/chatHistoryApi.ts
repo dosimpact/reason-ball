@@ -15,9 +15,10 @@ export async function listChatHistory(
   client: Client,
   graphId: string,
   signal?: AbortSignal,
+  runtimeId?: string,
 ): Promise<ChatHistoryItem[]> {
   const threads = await client.threads.search({
-    metadata: { source: "host-chat", graph_id: graphId },
+    metadata: { source: "host-chat", graph_id: graphId, ...(runtimeId === "fastapi" ? { runtime: runtimeId } : {}) },
     limit: 50,
     sortBy: "updated_at",
     sortOrder: "desc",
@@ -27,7 +28,7 @@ export async function listChatHistory(
   return threads.flatMap((thread) => {
     if (!isRecord(thread) || typeof thread.thread_id !== "string") return [];
     const metadata = isRecord(thread.metadata) ? thread.metadata : {};
-    if (metadata.source !== "host-chat" || metadata.graph_id !== graphId) return [];
+    if (metadata.source !== "host-chat" || metadata.graph_id !== graphId || (runtimeId && metadata.runtime && metadata.runtime !== runtimeId)) return [];
     return [{
       threadId: thread.thread_id,
       title: textValue(metadata.title).trim() || "제목 없는 대화",
@@ -48,7 +49,7 @@ export async function loadChatHistory(
 }
 
 /** Restore visible conversation and tool activity, excluding intermediate assistant messages. */
-export function normalizeThreadMessages(state: unknown): ChatMessage[] {
+export function normalizeThreadMessages(state: unknown, running = false): ChatMessage[] {
   if (!isRecord(state) || !isRecord(state.values) || !Array.isArray(state.values.messages)) return [];
   const values = state.values;
   const sourceMessages = state.values.messages;
@@ -62,17 +63,17 @@ export function normalizeThreadMessages(state: unknown): ChatMessage[] {
     const end = boundaries[turn + 1] ?? sourceMessages.length;
     const question = sourceMessages[start];
     const push = (message: Record<string, unknown>, index: number, role: "user" | "assistant", activities?: ChatMessage["activities"]) => {
-      const content = messageText(message.content);
+      const content = visibleMessageText(message.content);
       const program = index === finalAssistantIndex ? textValue(presentation.program) : "";
       if (!content.trim() && !program.trim() && !activities?.length) return;
       messages.push({ id: textValue(message.id) || `history-${role}-${index}`, role, content,
-        createdAt: textValue(message.created_at) || textValue(message.createdAt) || createdAt, status: "complete",
+        createdAt: textValue(message.created_at) || textValue(message.createdAt) || createdAt, status: running && role === "assistant" && index === finalAssistantIndex ? "streaming" : "complete",
         ...(activities?.length ? { activities } : {}),
       });
     };
     push(question, start, "user");
     const turnMessages = sourceMessages.slice(start, end);
-    const activities = extractToolActivity(turnMessages).map(activity => activity.status === "running" ? { ...activity, status: "interrupted" as const } : activity);
+    const activities = extractToolActivity(turnMessages).map(activity => activity.status === "running" && !running ? { ...activity, status: "interrupted" as const } : activity);
     let finalIndex = -1;
     for (let index = end - 1; index > start; index--) {
       const message = sourceMessages[index];
@@ -104,7 +105,7 @@ function hasToolCalls(message: Record<string, unknown>): boolean {
   return [message.tool_calls, additional.tool_calls].some((calls) => Array.isArray(calls) && calls.length > 0);
 }
 
-function messageText(content: unknown): string {
+export function visibleMessageText(content: unknown): string {
   if (typeof content === "string") return content;
   if (!Array.isArray(content)) return "";
   return content.map((block) => {

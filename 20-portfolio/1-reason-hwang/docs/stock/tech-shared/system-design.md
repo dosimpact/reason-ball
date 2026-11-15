@@ -40,7 +40,8 @@ Implemented page routes:
 | `/` | Host landing page |
 | `/remotes/template` | Template federated remote |
 | `/remotes/todo` | Todo federated remote |
-| `/langgraph-dev-chat` | LangGraph-backed chat UI |
+| `/langgraph-dev-chat` | LangGraph development runtime chat UI |
+| `/fastapi-chat` | FastAPI graph runtime chat with isolated history |
 | `/index-dcf-visualizer` | Index DCF calculation and visualization |
 | `/sec-collector` | SEC collection operations |
 | `/sec-modeling` | SEC modeling runs, processed results and evidence search |
@@ -76,6 +77,15 @@ The SEC collection surface has seven endpoints: company synchronization/listing,
 SEC primary-document bodies are stored with metadata in PostgreSQL; report queries no longer read local filing paths. See the [filing system design](../us-corporate-filings/system-design.md) for migration and content-size limits. Bulk submissions ZIP remains a local, reproducible cache.
 
 ## FastAPI and LangGraph
+
+### FASTAPI-RUNTIME-001: 독립 실행 경계
+
+`/fastapi-chat`은 `/api/fastapi-langgraph/*`를 통해 `FASTAPI_RUNTIME_API_URL`(기본 2981)을 사용한다. `/langgraph-dev-chat`과 `/chat`의 개발 서버 경로는 `/api/langgraph-runtime/*` 및 `LANGGRAPH_RUNTIME_API_URL`(기본 2982)을 유지한다. 대화·실행·기록·차트 Query를 선택한 런타임에 고정하며 자동 fallback과 기존 개발 서버 기록의 자동 이관을 하지 않는다. FastAPI 기록은 `runtime: fastapi` 메타데이터로 구분한다.
+
+FastAPI의 GraphRegistry는 `langgraph.json`에 등록된 실제 그래프 builder를 동일 PostgreSQL saver로 컴파일한다. 단일 프로세스 RunManager가 비동기 실행 task, 전체 수용량·대기열, 스레드별 직렬 실행을 관리한다. values/messages/custom은 실제 `astream`에서 전달하고 상태·기록은 실제 체크포인트에서 읽는다. 취소는 해당 task를 interrupt하고, 기본 연결 해제는 실행을 계속한다. 재시작 시 미완료 실행 상태를 조정한다. 전체 LangGraph 프로토콜과 멀티워커 조정은 이 단계의 보장 범위가 아니다.
+
+PostgreSQL local 스키마 준비는 기본적으로 public 레거시 테이블을 이동하지 않으며, 레거시 backfill은 명시 opt-in이다. 검증과 결과는 [당일 흐름 기록](../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)을 따른다.
+
 
 `3-langgraph-fast` is the primary AI runtime. The FastAPI application exposes a LangGraph-compatible surface for Assistants, Threads, Thread Runs, Stateless Runs, Streaming, Crons, Store, A2A, MCP, and System operations. Project-specific extensions include `/health`, `/health/postgres`, `/graph/run`, and `/api/sec-analysis/*` and `/internal/sec-modeling/*`.
 

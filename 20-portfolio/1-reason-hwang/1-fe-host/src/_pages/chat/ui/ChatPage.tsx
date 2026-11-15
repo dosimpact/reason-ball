@@ -15,7 +15,7 @@ import { OutputView } from "@/shared/ui/intelligent-ui";
 import { useChat } from "../model/context/useChat";
 
 export function ChatPage() {
-  const { error, messages, resetThread, cancelRun, sendMessage, status, graphId, graphs, selectGraph, history, historyLoading, historyError, refreshHistory, openThread, threadId, conversationVersion, runGraph, graphResult, graphDiscoveryError, reloadGraphs, canvas, selectCanvas, collapseCanvas } = useChat();
+  const { runtime, runNotice, error, messages, resetThread, cancelRun, sendMessage, status, graphId, graphs, selectGraph, history, historyLoading, historyError, refreshHistory, openThread, threadId, conversationVersion, runGraph, graphResult, graphDiscoveryError, reloadGraphs, canvas, selectCanvas, collapseCanvas } = useChat();
   const taMode = graphId === "technical_analysis_canvas_agent";
   const canvasVisible = taMode && canvas.reports.length > 0 && !canvas.collapsed;
   const busy = status === "streaming" || status === "creating_thread" || status === "loading_history";
@@ -34,9 +34,9 @@ export function ChatPage() {
   const conversationMessages = jsonMode ? graphResult === undefined ? [] : [{ id: "graph-test-result", role: "assistant" as const, content: "실행 결과", view: <GraphTestResult result={graphResult} /> }] : messages.map((message, index) => ({
     id: message.id, role: message.role === "user" ? "user" as const : "assistant" as const,
     content: message.content,
-    view: <div>{message.content && <ConversationText text={taMode && message.role === "assistant" && message.content.length > 600 ? `${message.content.slice(0, 600)}…` : message.content} />}{!taMode && message.program && <OutputView program={message.program} active={!busy && index === messages.length - 1} />}{taMode && canvas.reports.filter(report => report.messageId === message.id).map(report => <Button key={report.id} variant="outline" onClick={() => selectCanvas(report.id)}>{report.request?.ticker ?? "분석"} 보고서 열기</Button>)}</div>,
+    view: <div>{message.content && <ConversationText text={taMode && message.role === "assistant" && message.content.length > 600 ? `${message.content.slice(0, 600)}…` : message.content} />}{!taMode && message.program && <OutputView queryEndpoint={runtime.chartEndpoint} program={message.program} active={!busy && index === messages.length - 1} />}{taMode && canvas.reports.filter(report => report.messageId === message.id).map(report => <Button key={report.id} variant="outline" onClick={() => selectCanvas(report.id)}>{report.request?.ticker ?? "분석"} 보고서 열기</Button>)}</div>,
   }));
-  const conversation = <AgentConversation key={`${graphId}:${conversationVersion}`} title="에이전트" resetLabel={jsonMode ? "새 실행" : "새 대화"}
+  const conversation = <AgentConversation key={`${graphId}:${conversationVersion}`} title={runtime.label} resetLabel={jsonMode ? "새 실행" : "새 대화"}
     welcomeTitle={jsonMode ? `${selected?.name ?? graphId} 테스트` : "무엇을 도와드릴까요?"}
     description={jsonMode ? "입력 스키마와 예시를 확인하고 JSON으로 그래프를 실행하세요." : `${selected?.name ?? graphId} 에이전트와 대화하세요.`}
     starters={jsonMode ? undefined : starters}
@@ -46,7 +46,7 @@ export function ChatPage() {
       {taMode && canvas.reports.length > 0 && canvas.collapsed && <Button size="sm" variant="outline" onClick={() => collapseCanvas(false)}>Canvas ({canvas.reports.length})</Button>}
       {<ChatHistory label={jsonMode ? "실행 기록" : "대화 기록"} items={history} loading={historyLoading} error={historyError} disabled={busy} selectedId={threadId} onRefresh={refreshHistory} onSelect={openThread} />}
     </div>}
-    status={(error || discoveryNotice) ? <ChatNotice tone={error || discoveryNotice ? "error" : "status"}>{error ?? discoveryNotice ?? ""}{discoveryNotice && <Button variant="link" onClick={() => void reloadGraphs()}>목록 다시 불러오기</Button>}</ChatNotice> : undefined}
+    status={(error || discoveryNotice || runNotice) ? <ChatNotice tone={error || discoveryNotice ? "error" : "status"}>{error ?? discoveryNotice ?? runNotice ?? ""}{discoveryNotice && <Button variant="link" onClick={() => void reloadGraphs()}>목록 다시 불러오기</Button>}</ChatNotice> : undefined}
     composer={jsonMode ? <GraphTestInput key={graphId} description={selected?.description} schema={selected?.inputSchema} example={selected?.exampleInput} busy={busy} onRun={runGraph} onCancel={cancelRun} /> : undefined}
     nativeMessages={jsonMode ? undefined : nativeProjection.messages} executingToolCallIds={jsonMode ? undefined : nativeProjection.executingToolCallIds}
     busy={busy} messages={conversationMessages} onSend={sendMessage} onCancel={cancelRun} onReset={resetThread} />;

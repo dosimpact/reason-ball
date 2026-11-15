@@ -1,0 +1,34 @@
+meta {
+  name: TA-CANVAS-002 inline behavior
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/threads/{{inlineThread}}/runs/stream
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id": "technical_analysis_agent", "input": {"messages": [{"role": "user", "content": "AAPL 최근 완료된 60개 일봉을 RSI SMA MACD로 짧게 분석해 주세요."}]}, "stream_mode": ["values", "custom"]}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("inline output is isolated", function () {
+    const events=res.getBody().split(/\r?\n\r?\n/).flatMap(block=>{
+      const lines=block.split(/\r?\n/);const name=lines.find(line=>line.startsWith("event:"))?.slice(6).trim();
+      try{return [{name,data:JSON.parse(lines.filter(line=>line.startsWith("data:")).map(line=>line.slice(5).trim()).join("\n"))}];}catch{return [];}
+    });
+    expect(events.some(event=>event.name==="error")).to.equal(false);
+    const state=events.filter(event=>event.name==="values").at(-1)?.data;
+    const canvas=events.filter(event=>event.name==="custom" && event.data.channel==="canvas").map(event=>event.data);
+    expect(canvas).to.have.lengthOf(0);
+    expect(Object.keys(state.canvas_reports||{})).to.have.lengthOf(0);
+    expect(state.presentation.program).to.include('Query("technical_analysis_chart"');
+    expect(state.presentation.program).to.include("FinancialChart(");
+    expect(state.presentation.program).not.to.include("taLayout =");
+    expect(state.analysis_result.symbol).to.equal("AAPL");
+    bru.setVar("inlineProgramHash",require("crypto").createHash("sha256").update(state.presentation.program).digest("hex"));
+  });
+}

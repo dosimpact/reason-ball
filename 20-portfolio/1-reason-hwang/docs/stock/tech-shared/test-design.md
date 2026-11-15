@@ -60,6 +60,11 @@ Bruno environments separate local, development, and staging base URLs. Tests tha
 
 ## FastAPI/LangGraph validation
 
+`FASTAPI-RUNTIME-001`의 실행 계약 검증은 실제 compiled StateGraph + 생산용 GraphRegistry/RunManager + 별도 PostgreSQL 스키마를 사용하는 HTTP/SDK 테스트로 수행한다. 실제 등록 그래프 발견·스키마, 완료 전 values/messages/custom, 도구 ID, 같은 스레드 연속 실행, 취소·연결 해제·오류·수용량 정책을 확인한다. 별도 OS 프로세스로 다시 시작한 뒤 동일 checkpoint·메시지 복원과 다음 실행의 연속성을 확인해야 영속성 검증으로 인정한다. 메모리 saver나 저장소 CRUD 테스트로 대체하지 않는다.
+
+대표 실제 그래프와 결정론적 fixture의 증거를 분리한다. 외부 SEC 수집·DB 전체 초기화는 일반 검증에 포함하지 않는다. 이 작업의 브라우저 검증은 사용자의 명시 지시로 실행하지 않으며, API 성공을 화면 동작 검증으로 표현하지 않는다. 관련 실행·정리 증거는 [작업 기록](../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)에 둔다.
+
+
 `3-langgraph-fast/tests/` uses pytest and covers:
 
 - Domain logic and 10-K parsing/retrieval.

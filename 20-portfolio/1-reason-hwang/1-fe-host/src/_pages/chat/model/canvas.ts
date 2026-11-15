@@ -4,7 +4,7 @@ export type CanvasEvent = { channel: "canvas"; type: "open" | "reset" | "delta" 
 export type CanvasReport = { id: string; threadId: string; runId: string; messageId: string; title: string; ordinal: number; request?: CanvasRequest; program: string; status: "generating" | "validating" | "ready" | "error"; asOf?: string; error?: string; fallbackText?: string; reactiveState?: Record<string, unknown>; successfulArgs?: Record<string, unknown> };
 export type CanvasState = { reports: CanvasReport[]; selectedId: string | null; collapsed: boolean; closedIds: string[]; ordinals: Record<string, number> };
 export const initialCanvas: CanvasState = { reports: [], selectedId: null, collapsed: false, closedIds: [], ordinals: {} };
-export type CanvasAction = { type: "clear" } | { type: "select"; id: string } | { type: "collapse"; value: boolean } | { type: "close"; id: string } | { type: "state"; id: string; state: Record<string, unknown> } | { type: "query"; id: string; args: Record<string, unknown> } | { type: "finish"; runId: string; error?: string } | { type: "event"; threadId: string; runId: string; messageId: string; event: CanvasEvent };
+export type CanvasAction = { type: "restore"; values: unknown; threadId: string; runId: string; messageId: string; running: boolean } | { type: "clear" } | { type: "select"; id: string } | { type: "collapse"; value: boolean } | { type: "close"; id: string } | { type: "state"; id: string; state: Record<string, unknown> } | { type: "query"; id: string; args: Record<string, unknown> } | { type: "finish"; runId: string; error?: string } | { type: "event"; threadId: string; runId: string; messageId: string; event: CanvasEvent };
 export function parseCanvasEvent(value: unknown): CanvasEvent | null {
   if (!value || typeof value !== "object" || Array.isArray(value)) return null;
   const event = value as Record<string, unknown>;
@@ -12,6 +12,33 @@ export function parseCanvasEvent(value: unknown): CanvasEvent | null {
   return event as CanvasEvent;
 }
 export function reduceCanvas(state: CanvasState, action: CanvasAction): CanvasState {
+  if (action.type === "restore") {
+    if (!action.values || typeof action.values !== "object") return state;
+    const saved = (action.values as Record<string, unknown>).canvas_reports;
+    if (!saved || typeof saved !== "object" || Array.isArray(saved)) return state;
+    const reports = [...state.reports]; const ordinals = { ...state.ordinals };
+    for (const [id, value] of Object.entries(saved)) {
+      if (!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(id) || state.closedIds.includes(id) || !value || typeof value !== "object") continue;
+      const source = value as Record<string, unknown>;
+      const existing = reports.find(report => report.id === id);
+      const request = source.request as CanvasRequest | undefined;
+      const labelKey = `${request?.ticker}:${request?.interval}`;
+      const ordinal = existing?.ordinal ?? (ordinals[labelKey] ?? 0) + 1;
+      ordinals[labelKey] = Math.max(ordinals[labelKey] ?? 0, ordinal);
+      const program = typeof source.program === "string" ? source.program : "";
+      const valid = !!program.trim() && program.length <= 60000;
+      const status = source.status === "ready" && valid ? "ready" : source.status === "error" || !action.running ? "error" : "generating";
+      const analysis = source.analysis && typeof source.analysis === "object" ? source.analysis as Record<string, unknown> : {};
+      const dates = Array.isArray(analysis.dates) ? analysis.dates : [];
+      const report: CanvasReport = { ...existing, id, threadId: action.threadId, runId: action.runId, messageId: existing?.messageId ?? action.messageId,
+        title: typeof source.title === "string" ? source.title : "복원된 기술적 분석", ordinal, request, program: valid ? program : "", status,
+        asOf: typeof dates.at(-1) === "string" ? dates.at(-1) : undefined,
+        error: status === "error" ? typeof source.error === "string" ? source.error : "완료된 보고서가 저장되지 않았습니다." : undefined,
+        fallbackText: typeof source.fallbackText === "string" ? source.fallbackText : undefined };
+      const index = reports.findIndex(item => item.id === id); if (index < 0) reports.push(report); else reports[index] = report;
+    }
+    return { ...state, reports, ordinals, selectedId: state.selectedId ?? reports.at(-1)?.id ?? null };
+  }
   if (action.type === "clear") return initialCanvas;
   if (action.type === "collapse") return { ...state, collapsed: action.value };
   if (action.type === "select") return state.reports.some(report => report.id === action.id) ? { ...state, selectedId: action.id, collapsed: false } : state;
