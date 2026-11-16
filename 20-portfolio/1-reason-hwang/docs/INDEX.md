@@ -252,3 +252,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [OpenUI graph prompt 감사](flow/2026-11-16-openui-catalog-prompt-audit.md): 등록 graph 적용 경계, 공통 loader와 Canvas prompt/API 검증.
 
 - [SEC 모델링 관리·API Testing](flow/2026-11-16-sec-modeling-admin-api-testing.md): SEC-MODELING-ADMIN-002 공시 상태 표·전범위 통계·고정 preset·격리 API 검증.
+
+- [SEC 모델링 관리 최종 검증](flow/2026-11-16-sec-modeling-admin-validation-final.md): 선행 구현 커밋 이후 검사 집계·전체 typecheck의 별도 한계·자원 정리 확인.
