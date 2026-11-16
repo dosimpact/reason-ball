@@ -26,11 +26,18 @@ export type ConversationMessage = {
   view?: ReactNode;
 };
 
+export type ConversationStarterGroup = {
+  title: string;
+  description?: string;
+  starters: { displayText: string; prompt: string }[];
+};
+
 type ConversationPresentation = {
   title: string;
   description?: string;
   welcomeTitle?: string;
   starters?: { displayText: string; prompt: string }[];
+  starterGroups?: ConversationStarterGroup[];
   placeholder?: string;
   toolbar?: ReactNode;
   headerControls?: ReactNode;
@@ -113,8 +120,27 @@ function DomainComposer({ busy, onCancel, placeholder, epoch, hideStarters = fal
   </>;
 }
 
+function GroupedStarters({ groups, busy }: { groups: ConversationStarterGroup[]; busy: boolean }) {
+  const running = useThread(state => state.isRunning);
+  const loading = useThread(state => state.isLoadingMessages);
+  const processMessage = useThread(state => state.processMessage);
+  const disabled = busy || running || loading;
+  return <div className="agent-conversation__starter-groups" aria-label="주제별 시작 질문">
+    {groups.map((group, index) => <details key={group.title} className="agent-conversation__starter-group" open={index === 0}>
+      <summary><h3>{group.title}</h3><span className="agent-conversation__starter-count">{group.starters.length}개 질문</span></summary>
+      {group.description && <p className="agent-conversation__starter-description">{group.description}</p>}
+      <div className="agent-conversation__starter-buttons">
+        {group.starters.map(starter => <button key={starter.prompt} type="button" disabled={disabled}
+          onClick={() => { if (!disabled) processMessage({ role: "user", content: starter.prompt }); }}>
+          {starter.displayText}
+        </button>)}
+      </div>
+    </details>)}
+  </div>;
+}
+
 /** One shell for native AG-UI transports and domain-controlled conversations. */
-export function AgentChatFrame({ title, description, welcomeTitle, starters, toolbar, status, footer,
+export function AgentChatFrame({ title, description, welcomeTitle, starters, starterGroups, toolbar, status, footer,
   children, busy = false, onCancel, onReset, placeholder, history = false, headerControls, headerLeading, composer, resetLabel, ...agentProps }: AgentChatFrameProps) {
   const [mounted, setMounted] = useState(false);
   const [epoch, setEpoch] = useState(0);
@@ -126,7 +152,7 @@ export function AgentChatFrame({ title, description, welcomeTitle, starters, too
     {toolbar && <div className="agent-conversation__toolbar">{toolbar}</div>}
     {status && <div className="agent-conversation__status">{status}</div>}
     <div className="agent-conversation__interface">
-      <AgentInterface {...agentProps} theme={{ mode }} agentName={title} starters={starters} starterVariant="card" scrollVariant="always">
+      <AgentInterface {...agentProps} theme={{ mode }} agentName={title} starters={starterGroups?.length ? [] : starters} starterVariant="card" scrollVariant="always">
         <AgentInterface.Sidebar>{null}</AgentInterface.Sidebar>
         <AgentInterface.ThreadHeader
           start={<div className="agent-conversation__header-start">{headerLeading}<div className="agent-conversation__heading"><h1 className="agent-conversation__title">{title}</h1>{!headerControls && description && <span className="agent-conversation__description">{description}</span>}</div></div>}
@@ -139,7 +165,13 @@ export function AgentChatFrame({ title, description, welcomeTitle, starters, too
           <ConversationActions busy={busy} history={history} onReset={onReset} resetLabel={resetLabel} onDidReset={() => setEpoch(value => value + 1)} />
           {headerControls && <div className="agent-conversation__mobile-controls">{headerControls}</div>}
         </AgentInterface.MobileHeader>
-        {!busy && <AgentInterface.Welcome key={epoch} title={welcomeTitle ?? "무엇을 도와드릴까요?"} description={description} starterVariant="card" />}
+        {!busy && (starterGroups?.length ? <AgentInterface.Welcome key={epoch}>
+          <div className="agent-conversation__grouped-heading">
+            <h2>{welcomeTitle ?? "무엇을 도와드릴까요?"}</h2>
+            {description && <p>{description}</p>}
+          </div>
+          <GroupedStarters groups={starterGroups} busy={busy} />
+        </AgentInterface.Welcome> : <AgentInterface.Welcome key={epoch} title={welcomeTitle ?? "무엇을 도와드릴까요?"} description={description} starterVariant="card" />)}
         <AgentInterface.Composer>{composer ?? <DomainComposer busy={busy} onCancel={onCancel} placeholder={placeholder ?? "메시지를 입력하세요"} hideStarters={!!headerControls} epoch={epoch} />}</AgentInterface.Composer>
         {children}
       </AgentInterface>

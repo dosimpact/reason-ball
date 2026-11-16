@@ -108,3 +108,28 @@ export const NativeTimelineError: Story = { render: () => <NativeToolsExample er
   await userEvent.click(canvas.getByRole("button", { name: /Behind the scenes/ }));
   await waitFor(() => expect(canvasElement.querySelector(".openui-tool-call")).not.toBeNull());
 } };
+
+function GroupedStarterExample() {
+  const [messages, setMessages] = useState<ConversationMessage[]>([]);
+  const [busy, setBusy] = useState(false);
+  return <><button onClick={() => setBusy(true)}>외부 실행</button><AgentConversation title="주제별 질문" busy={busy} messages={messages} onReset={() => setMessages([])}
+    starterGroups={[
+      { title: "추세", description: "이동평균의 방향을 비교합니다.", starters: [{ displayText: "이동평균 비교", prompt: "AAPL의 SMA20과 SMA60을 비교해 줘." }] },
+      { title: "모멘텀", starters: [{ displayText: "RSI 비교", prompt: "AAPL의 RSI7과 RSI14를 비교해 줘." }] },
+    ]}
+    onSend={async text => setMessages([{ id: "grouped-user", role: "user", content: text }])} /></>;
+}
+export const GroupedStarters: Story = { render: () => <GroupedStarterExample />, play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await expect(await canvas.findByRole("button", { name: "이동평균 비교" })).toBeVisible();
+  await expect(canvas.queryByRole("button", { name: "RSI 비교" })).not.toBeInTheDocument();
+  await userEvent.click(canvas.getByText("모멘텀", { selector: "h3" }));
+  await userEvent.click(await canvas.findByRole("button", { name: "RSI 비교" }));
+  await expect(await canvas.findByText("AAPL의 RSI7과 RSI14를 비교해 줘.")).toBeVisible();
+  await expect(canvas.queryByRole("button", { name: "이동평균 비교" })).not.toBeInTheDocument();
+  await userEvent.click(canvas.getByRole("button", { name: "새 대화" }));
+  await expect(await canvas.findByRole("button", { name: "이동평균 비교" })).toBeVisible();
+  await userEvent.click(canvas.getByRole("button", { name: "외부 실행" }));
+  await expect(canvas.queryByRole("button", { name: "이동평균 비교" })).not.toBeInTheDocument();
+  await expect(canvas.getByRole("textbox")).toBeDisabled();
+} };
