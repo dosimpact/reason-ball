@@ -32,6 +32,10 @@ async function main() {
     if (req.url === '/qa/metrics') return res.end(JSON.stringify(metrics));
     if (req.url === '/qa/mode') { metrics.mode = body.mode; return res.end(JSON.stringify({ mode: metrics.mode })); }
     assert.equal(req.headers['x-sec-modeling-key'], 'qa-fixture-only');
+    if (req.url === '/internal/sec-modeling/filings/publications') {
+      if (metrics.mode === 'unavailable') { res.statusCode = 503; return res.end('{}'); }
+      return res.end(JSON.stringify({ items: [...publications].map(([accessionNo, stages]) => ({ cik: accessionNo.slice(0,10), accessionNo, stages })) }));
+    }
     if (req.url === '/internal/sec-modeling/filings/status') {
       metrics.bulkCalls.push(body.filings);
       if (metrics.mode === 'unavailable') { res.statusCode = 503; return res.end(JSON.stringify({ detail: 'Fixture modeling unavailable' })); }
@@ -85,6 +89,7 @@ async function main() {
   await run(3, 1, 'QUEUED'); await run(5, 1, 'FAILED');
   publications.set(filings[0].accessionNo, { '1': { generationId: 'published-1', sourceHash: filings[0].hash }, '2': { generationId: 'published-2', sourceHash: filings[0].hash, inputGenerationId: 'published-1' } });
   publications.set(filings[5].accessionNo, { '1': { generationId: 'old-publication', sourceHash: '0'.repeat(64) } });
+  if (process.env.SEC_COMPLETION_FIXTURE === '1') publications.set(filings[1].accessionNo, { '3': { generationId: 'q3', sourceHash: filings[1].hash } });
   writeFileSync('/tmp/sec-modeling-admin-owned.json', JSON.stringify({ pid: process.pid, container: name, artifact, baseUrl: 'http://127.0.0.1:3980/api/sec', fixtureUrl: 'http://127.0.0.1:3986', filings }));
   console.log(JSON.stringify({ ready: true, pid: process.pid, container: name, artifact, ports: [3980, 3986] }));
   if (!stopRequested) await new Promise(resolve => { resolveStop = resolve; });

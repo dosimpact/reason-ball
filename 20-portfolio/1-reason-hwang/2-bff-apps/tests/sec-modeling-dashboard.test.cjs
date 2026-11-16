@@ -84,3 +84,22 @@ test('retry projects existing extraction config without sending historical metad
     assert.equal(seen[4],'old-run');
   }
 });
+
+
+test('completion filter validates and normalizes stages; unavailable publication cannot appear as empty success',async()=>{
+  assert.deepEqual(modelingFilters({completedStages:'3,1,3'}).completedStages,[1,3]);
+  for(const completedStages of ['4','1,,2','1,', ['1','2']]) assert.throws(()=>modelingFilters({completedStages}));
+  const service=new SecModelingService({}, {request:async()=>{throw new Error('offline');}});
+  await assert.rejects(service.filings(20,0,undefined,{completedStages:[1]}),error=>error.status===503);
+  await assert.rejects(service.overview({completedStages:[2]}),error=>error.status===503);
+});
+
+test('completion filter rejects changed publication instead of returning nonmatching rows',async()=>{
+  for(const stages of [{}, {'1':{generationId:'g1',sourceHash:'old'}}]){
+    const store={filings:async()=>({items:[A],total:1}),latestRuns:async()=>[]};
+    const client={request:async(path)=>path.endsWith('/publications')
+      ?{items:[{...A,stages:{'1':{generationId:'g1',sourceHash:'current'}}}]}
+      :{items:[{...A,stages}]}};
+    await assert.rejects(new SecModelingService(store,client).filings(20,0,undefined,{completedStages:[1]}),error=>error.status===503);
+  }
+});

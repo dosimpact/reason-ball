@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING completion invalid
+  type: http
+  seq: 8
+}
+get {
+  url: {{baseUrl}}/modeling/filings?completedStages=1,4
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 400
+}
+tests {
+  test("invalid",function(){const b=res.getBody();expect(res.getStatus()).to.equal(400);});
+}

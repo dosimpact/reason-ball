@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING completion past-end
+  type: http
+  seq: 5
+}
+get {
+  url: {{baseUrl}}/modeling/filings?completedStages=1&offset=1&limit=1
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("past-end",function(){const b=res.getBody();expect(res.getStatus()).to.equal(200);expect(b.total).to.equal(1);expect(b.items).to.have.lengthOf(0);});
+}

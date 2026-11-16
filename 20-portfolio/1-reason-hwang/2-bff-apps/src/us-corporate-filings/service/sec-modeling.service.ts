@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, ServiceUnavailableException } from '@nestjs/common';
 import { SecModelingClient } from '../../lib/sec-modeling/sec-modeling.client';
 import { SecModelingStore, ModelingFilingFilters } from './sec-modeling.store';
 
@@ -24,6 +24,9 @@ export function modelingFilters(query: Record<string, unknown>): ModelingFilingF
     if (typeof value !== 'string') throw new BadRequestException(`Invalid ${key}`);
     return value.trim() || undefined;
   };
+  const completed = text('completedStages');
+  if (completed && !/^[123](,[123])*$/.test(completed)) throw new BadRequestException('completedStages must contain comma-separated 1, 2, or 3');
+  const completedStages = completed ? [...new Set(completed.split(',').map(Number))].sort() : undefined;
   const cik = text('cik');
   const q = text('q');
   const formType = text('formType');
@@ -32,7 +35,7 @@ export function modelingFilters(query: Record<string, unknown>): ModelingFilingF
   if (q && q.length > 100) throw new BadRequestException('q exceeds 100 characters');
   if (formType && !['10-K','10-K/A','10-Q'].includes(formType)) throw new BadRequestException('Unsupported formType');
   if (!['all','collected','missing'].includes(sourceStatus)) throw new BadRequestException('Invalid sourceStatus');
-  return { ...(cik ? { cik: cik.padStart(10,'0') } : {}), ...(q ? { q } : {}), ...(formType ? { formType } : {}), sourceStatus: sourceStatus as ModelingFilingFilters['sourceStatus'] };
+  return { ...(completedStages ? { completedStages } : {}), ...(cik ? { cik: cik.padStart(10,'0') } : {}), ...(q ? { q } : {}), ...(formType ? { formType } : {}), sourceStatus: sourceStatus as ModelingFilingFilters['sourceStatus'] };
 }
 export function pageLimit(value: string | undefined, fallback: number): number {
   const limit = pageNumber(value, fallback, 100);
@@ -63,12 +66,27 @@ export class SecModelingService {
     const run = await this.store.create(filing, stage, { extractionModel: model }, input, retryOf);
     return { runId: run.id, status: run.status };
   }
+  async overview(filters: ModelingFilingFilters): Promise<any> {
+    return this.store.overview(await this.publicationFilters(filters));
+  }
+  private async publicationFilters(filters: ModelingFilingFilters): Promise<ModelingFilingFilters> {
+    if (!filters.completedStages?.length) return filters;
+    try {
+      const response = await this.client.request('/internal/sec-modeling/filings/publications');
+      if (!Array.isArray(response.items) || response.items.some((item: any) =>
+        typeof item.cik !== 'string' || typeof item.accessionNo !== 'string' || !item.stages || typeof item.stages !== 'object' || Array.isArray(item.stages))) throw new Error('Invalid publication summary');
+      return { ...filters, publications: response.items };
+    } catch {
+      throw new ServiceUnavailableException('Current modeling publications unavailable; completion filter cannot be evaluated');
+    }
+  }
   async retry(id: string): Promise<any> {
     const run = await this.store.run(id);
     if (!['FAILED', 'CANCELLED'].includes(run.status)) throw new ConflictException('Only failed or cancelled runs can be retried');
     return this.create(run.cik, run.accessionNo, run.stage, run.config?.extractionModel ? { extractionModel: run.config.extractionModel } : {}, run.id);
   }
   async filings(limit: number, offset: number, cik?: string, filters: ModelingFilingFilters = {}): Promise<any> {
+    filters = await this.publicationFilters(filters);
     const result = await this.store.filings(limit, offset, cik, filters);
     if (!result.items.length) return result;
     const latestRuns = await this.store.latestRuns(result.items);
@@ -103,6 +121,10 @@ export class SecModelingService {
       }
       return { ...filing, stages, serviceError };
     });
+    if (filters.completedStages?.length && result.items.some((filing: any) =>
+      filters.completedStages!.some(stage => filing.stages[stage].readiness !== 'ready'))) {
+      throw new ServiceUnavailableException('Modeling publications changed or became unavailable; retry completion filter');
+    }
     return result;
   }
 }

@@ -1,0 +1,19 @@
+meta {
+  name: mode normal
+  type: http
+  seq: 13
+}
+post {
+  url: {{fixtureUrl}}/qa/mode
+  body: json
+  auth: none
+}
+body:json {
+  {"mode":"normal"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("mode",()=>expect(res.getBody().mode).to.equal("normal"));
+}

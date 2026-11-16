@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { expect, fn, userEvent, within } from "storybook/test";
 import { ModelingView } from "./ModelingView";
-import type { ModelingFiling } from "../model/types";
+import { initialModelingFilters, type ModelingFiling } from "../model/types";
 const filing: ModelingFiling = { cik: "0000320193", accessionNo: "0000320193-26-000001", companyName: "Apple", ticker: "AAPL", formType: "10-K", reportDate: "2026-09-26", filingDate: "2026-10-30", hasSource: true, stages: { "1": { status: "SUCCEEDED", generationId: "generation-1", resultCount: 23 }, "2": { status: "UNPROCESSED" }, "3": { status: "UNPROCESSED" } } };
 const meta = {
   title: "SEC Modeling/Admin", component: ModelingView,
@@ -70,3 +70,19 @@ export const OverviewAndPagination: Story = { args: { selected: null, filingTota
   await expect(canvas.getByRole("button", { name: /AAPL .* 모델링 펼치기/ })).toHaveAttribute("aria-expanded", "false");
 } };
 export const PublicationUnavailable: Story = { args: { filings: [{ ...filing, stages: { "1": { status: "unavailable", readiness: "unavailable", latestRun: { id: "old", runId: "old", cik: filing.cik, accessionNo: filing.accessionNo, stage: 1, status: "SUCCEEDED", createdAt: "2026-11-16" } } } }], overviewError: "통계 연결 실패" } };
+
+
+export const CompletedModelingFilters: Story = { args: { filters: { ...initialModelingFilters, completedStages: "1,3" } }, play: async ({ canvasElement, args }) => {
+  const canvas = within(canvasElement);
+  const group = within(canvas.getByRole("group", { name: "완료된 모델링" }));
+  await expect(group.getByRole("checkbox", { name: "모델링 1 완료" })).toBeChecked();
+  await expect(canvas.getByText(/현재 적용:.*완료된 모델링 모델링 1 \+ 모델링 3 모두/)).toBeVisible();
+  await userEvent.click(group.getByRole("checkbox", { name: "모델링 2 완료" }));
+  await userEvent.click(group.getByRole("checkbox", { name: "모델링 3 완료" }));
+  await expect(args.applyFilters).not.toHaveBeenCalled();
+  await userEvent.click(canvas.getByRole("button", { name: "공시 필터 적용" }));
+  await expect(args.applyFilters).toHaveBeenCalledWith(expect.objectContaining({ completedStages: "1,2" }));
+  await userEvent.click(canvas.getByRole("button", { name: "전체 공시" }));
+  await expect(args.applyFilters).toHaveBeenLastCalledWith(initialModelingFilters);
+  for (const stage of [1, 2, 3]) await expect(group.getByRole("checkbox", { name: `모델링 ${stage} 완료` })).not.toBeChecked();
+} };

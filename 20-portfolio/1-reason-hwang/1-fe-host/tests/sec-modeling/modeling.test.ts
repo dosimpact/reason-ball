@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mergeEvents, canStart, filingPath, isActive, type ModelingFiling } from "../../src/_pages/sec-modeling/model/types";
+import { initialModelingFilters, modelingFilterQuery, mergeEvents, canStart, filingPath, isActive, type ModelingFiling } from "../../src/_pages/sec-modeling/model/types";
 import { modelingRequest } from "../../src/_pages/sec-modeling/api/modelingApi";
 const filing: ModelingFiling = { cik: "0000320193", accessionNo: "0000320193-26-000001", ticker: "AAPL", companyName: "Apple", formType: "10-K", reportDate: "2026-09-26", filingDate: "2026-10-30", hasSource: false, stages: {} };
 test("stage 2 requires collected source and published stage 1, stage 3 requires raw input", () => {
@@ -35,4 +35,15 @@ test("stage actions require collected source and current known model-1 publicati
   assert.equal(canStart({ ...filing, hasSource: true, stages: { "1": { status: "stale", readiness: "stale", generationId: "old" } } }, 2), false);
   assert.equal(canStart({ ...filing, hasSource: true, formType: "10-Q" }, 1), false);
   assert.equal(canStart({ ...filing, hasSource: true, formType: "10-Q" }, 3), true);
+});
+
+
+test("completion filters share the list/overview query and omit empty selection", () => {
+  assert.equal(modelingFilterQuery(initialModelingFilters).has("completedStages"), false);
+  const query = modelingFilterQuery({ ...initialModelingFilters, q: "Apple", completedStages: "1,3" });
+  assert.equal(query.get("completedStages"), "1,3");
+  assert.equal(query.get("q"), "Apple");
+  assert.equal(query.get("sourceStatus"), "all");
+  const legacyFilters = { cik: "", q: "", formType: "", sourceStatus: "all" as const };
+  assert.equal(modelingFilterQuery(legacyFilters).has("completedStages"), false);
 });

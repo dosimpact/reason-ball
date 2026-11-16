@@ -151,6 +151,26 @@ class GraphStore:
         )
         return dict(rows[0]["g"]) if rows else None
 
+    def publication_summaries(self):
+        """Return only active publication metadata for cross-store readiness filtering."""
+        rows = self.query(
+            "MATCH (p:SecPublication)-[:ACTIVE]->(g:SecGeneration) "
+            "RETURN p.id AS publicationId,g.id AS generationId,g.sourceHash AS sourceHash,"
+            "g.inputGenerationId AS inputGenerationId"
+        )
+        result = {}
+        for row in rows:
+            parts = str(row["publicationId"]).split(":")
+            if len(parts) != 4:
+                continue
+            prefix, cik, accession, stage = parts
+            if prefix != "filing" or stage not in ("1", "2", "3"):
+                continue
+            identity = (cik, accession)
+            item = result.setdefault(identity, {"cik": cik, "accessionNo": accession, "stages": {}})
+            item["stages"][stage] = {key: row[key] for key in ("generationId", "sourceHash", "inputGenerationId")}
+        return list(result.values())
+
     def active_many(self, filings):
         """Read page publications in one indexed query; never scan all generations."""
         identities = [f"filing:{f['cik']}:{f['accessionNo']}" for f in filings]

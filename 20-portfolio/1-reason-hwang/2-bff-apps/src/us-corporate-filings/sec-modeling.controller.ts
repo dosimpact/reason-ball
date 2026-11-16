@@ -13,7 +13,7 @@ export class SecModelingController {
   }
   @Get('overview')
   overview(@Query() query: Record<string, string>) {
-    return this.modeling.store.overview(modelingFilters(query));
+    return this.modeling.overview(modelingFilters(query));
   }
   @Post('filings/:cik/:accessionNo/model-:stage/runs')
   @HttpCode(202)

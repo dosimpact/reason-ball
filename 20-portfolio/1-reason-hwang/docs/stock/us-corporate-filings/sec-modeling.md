@@ -333,11 +333,31 @@ SEC-AGENT-001 연결을 포함한다. 보고서의 나머지 처리 수치·검�
 
 ### 목록과 통계의 범위
 
-`GET /api/sec/modeling/filings`는 limit1~100/offset0~1000000과 `cik`, `q`, `formType`, `sourceStatus`를 받는다. q는 최대100자의 회사명·ticker·CIK·접수번호 부분 문자열이며 양식은10-K/10-K/A/10-Q, 원문 조건은all/collected/missing이다. 목록과 `GET /api/sec/modeling/overview`는 같은 필터 조건을 사용한다. 범위 밖 페이지는 빈 items와 전체 total을 유지한다. 기본 지원 양식 밖20-F 등의 공시는 이 관리 범위의 집계에서 제외한다.
+`GET /api/sec/modeling/filings`는 limit1~100/offset0~1000000과 `cik`, `q`, `formType`, `sourceStatus`, `completedStages`를 받는다. q는 최대100자의 회사명·ticker·CIK·접수번호 부분 문자열이며 양식은10-K/10-K/A/10-Q, 원문 조건은all/collected/missing이다. 목록과 `GET /api/sec/modeling/overview`는 같은 필터 조건을 사용한다. 범위 밖 페이지는 빈 items와 전체 total을 유지한다. 기본 지원 양식 밖20-F 등의 공시는 이 관리 범위의 집계에서 제외한다.
 
 overview는 `scope:filtered`, filters, totalFilings, sourceCollected/sourceMissing, 단계별 supported/unsupported, latestRuns(QUEUED/RUNNING/SUCCEEDED/FAILED/CANCELLED/unprocessed), retrievedAt을 반환한다. latestRuns는 지원 공시의 `jobs.latest_run_id` 기준이며 과거 실행을 중복 집계하지 않는다. 전체 filtered 범위의 PostgreSQL 집계이지 현재 페이지 개수나 전역 게시 ready 통계가 아니다. retrievedAt은 조회 시각이며 마지막 모델링 완료 시각이 아니다. 목록과 통계는 별도 요청이므로 원자적 단일 snapshot을 보장하지 않는다.
 
 페이지의 최신 run은 일괄 PG 조회, 게시 상태는 Python의 인증된 `POST /internal/sec-modeling/filings/status`로 한 번에 조회한다. body는 중복 없는 filings(CIK·accessionNo)1~100개다. 응답에 각 identity와 stages를 보존한다. 게시 상태 조회에 실패하거나 일부 identity가 빠지면 목록 행을 삭제하거나 미처리 성공으로 바꾸지 않고 unavailable/serviceError로 표시한다. overview의 PG 실행 이력 집계와 게시 상태 조회 실패는 별개다. 기존 개별 status GET은 유지한다.
+
+### SEC-MODELING-ADMIN-003: 완료된 모델링 필터
+
+공시별 진행 상태의 ‘완료된 모델링’에서 모델링 1·2·3을 각각 선택하고 ‘공시 필터 적용’을 누른다.
+여러 단계는 모두 충족(AND)하며 선택하지 않으면 완료 여부를 제한하지 않는다. ‘전체 공시’는 이 조건도
+초기화한다. 필터 적용 시 첫 페이지로 이동하고 기존 기업·양식·원문 조건과 함께 목록·통계에 반영한다.
+
+`filings`와 `overview`의 `completedStages` query는 쉼표로 구분한 단계(예: `1,3`, `1,2,3`)다.
+완료는 지원 양식·보유 원문에 대해 현재 원문 hash와 일치하는 활성 게시 결과가 있는 상태다.
+모델링 2는 현재 모델링 1의 generation과 원문 hash까지 일치해야 한다. 과거 실행 성공 이력만 있는
+공시나 재처리 필요 결과는 포함하지 않는다. 새 실행이 실패하거나 진행 중이어도 유효한 이전 게시 결과가
+남아 있으면 완료 조건을 충족한다. 결과 건수가 0인 정상 게시도 유효한 게시로 취급한다.
+
+서버는 인증된 내부 API에서 활성 공시별 generation 식별자·원문 hash·입력 generation 요약을 읽고,
+PostgreSQL 목록과 통계의 동일 필터에 적용한 뒤 페이지네이션한다. 페이지 내 행만 거르지 않는다.
+완료 필터에서 게시 조회가 실패하면 503으로 알리고 빈 결과로 대신하지 않는다. 완료 조건이 없으면
+기존 조회 동작을 유지한다. 목록과 통계는 별도 요청이므로 동시 게시 변경에 대한 단일 snapshot은 아니다.
+현재 활성 게시 요약 전체를 요청 단위로 전달하므로 전 시장 규모에서는 별도 성능 평가가 필요하다.
+
+검증·예외와 자원 정리는 [변경 기록](../../flow/2026-11-16-sec-modeling-completion-filter.md)을 따른다.
 
 ### API Testing 계약
 

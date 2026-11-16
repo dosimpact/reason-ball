@@ -31,3 +31,18 @@ def test_bulk_request_rejects_duplicates_invalid_identity_and_unbounded_page():
     for values in ([],[identity,identity],[identity]*101,[{**identity,'cik':'1'}],[{**identity,'accessionNo':'../private'}]):
         with pytest.raises(ValidationError):
             FilingStatusesRequest(filings=values)
+
+
+def test_publication_summaries_expose_only_readiness_metadata_and_skip_invalid_ids():
+    graph = object.__new__(GraphStore)
+    calls = []
+    def query(cypher, **params):
+        calls.append(cypher)
+        return [
+            {"publicationId": "legacy-invalid"},
+            {"publicationId": "filing:0000000001:0000000001-26-000001:2", "generationId": "g2", "sourceHash": "hash", "inputGenerationId": "g1"},
+        ]
+    graph.query = query
+    assert graph.publication_summaries() == [{"cik": "0000000001", "accessionNo": "0000000001-26-000001", "stages": {"2": {"generationId": "g2", "sourceHash": "hash", "inputGenerationId": "g1"}}}]
+    assert len(calls) == 1
+    assert "RETURN p.id" in calls[0]

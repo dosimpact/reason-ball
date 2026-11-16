@@ -16,14 +16,28 @@ export interface ModelingRun {
 }
 
 export interface ModelingFilingFilters {
-  cik?: string; q?: string; formType?: string; sourceStatus?: 'all' | 'collected' | 'missing';
+  cik?: string; q?: string; formType?: string; sourceStatus?: 'all' | 'collected' | 'missing'; completedStages?: number[];
+  publications?: Array<{ cik: string; accessionNo: string; stages: Record<string, any> }>;
 }
 const FILING_FILTER = `f.form_type IN ('10-K','10-K/A','10-Q')
   AND ($1::text IS NULL OR f.cik=$1)
   AND ($2::text IS NULL OR position(lower($2) in lower(coalesce(c.name,'') || ' ' || coalesce(c.ticker,'') || ' ' || f.cik || ' ' || f.accession_no))>0)
   AND ($3::text IS NULL OR f.form_type=$3)
-  AND ($4::text='all' OR ($4='collected' AND f.document_content IS NOT NULL) OR ($4='missing' AND f.document_content IS NULL))`;
-const filingFilterValues = (filters: ModelingFilingFilters) => [filters.cik || null, filters.q || null, filters.formType || null, filters.sourceStatus || 'all'];
+  AND ($4::text='all' OR ($4='collected' AND f.document_content IS NOT NULL) OR ($4='missing' AND f.document_content IS NULL))
+  AND (cardinality($5::int[])=0 OR (f.document_content IS NOT NULL AND EXISTS (
+    SELECT 1 FROM jsonb_array_elements($6::jsonb) publication
+    WHERE publication->>'cik'=f.cik AND publication->>'accessionNo'=f.accession_no
+      AND NOT EXISTS (SELECT 1 FROM unnest($5::int[]) selected(stage) WHERE NOT coalesce(
+        (CASE WHEN stage=3 THEN f.form_type IN ('10-K','10-Q') ELSE f.form_type IN ('10-K','10-K/A') END)
+        AND publication->'stages'->stage::text->>'generationId' IS NOT NULL
+        AND publication->'stages'->stage::text->>'sourceHash'=f.checksum
+        AND (stage<>2 OR (
+          publication->'stages'->'1'->>'generationId' IS NOT NULL
+          AND publication->'stages'->'1'->>'sourceHash'=f.checksum
+          AND publication->'stages'->'2'->>'inputGenerationId'=publication->'stages'->'1'->>'generationId'
+        )), false))
+  )))`;
+const filingFilterValues = (filters: ModelingFilingFilters) => [filters.cik || null, filters.q || null, filters.formType || null, filters.sourceStatus || 'all', filters.completedStages || [], JSON.stringify(filters.publications || [])];
 
 @Injectable()
 export class SecModelingStore {
@@ -45,7 +59,7 @@ export class SecModelingStore {
       c.name AS "companyName", c.ticker, f.document_content IS NOT NULL AS "hasSource",
       count(*) OVER() AS total FROM filings f LEFT JOIN companies c USING(cik)
       WHERE ${FILING_FILTER}
-      ORDER BY f.filing_date DESC NULLS LAST,f.cik,f.accession_no LIMIT $5 OFFSET $6`, [...values, limit, offset]);
+      ORDER BY f.filing_date DESC NULLS LAST,f.cik,f.accession_no LIMIT $7 OFFSET $8`, [...values, limit, offset]);
     const total = items.length ? Number(items[0].total) : Number((await this.db.query(
       `SELECT count(*) AS total FROM filings f LEFT JOIN companies c USING(cik) WHERE ${FILING_FILTER}`, values))[0].total);
     return { items: items.map(({ total, ...item }: any) => item), total, limit, offset };
@@ -80,7 +94,8 @@ export class SecModelingStore {
       (SELECT count(*) FROM filtered WHERE NOT has_source) AS "sourceMissing",
       (SELECT jsonb_object_agg(stage::text,jsonb_build_object('supported',supported,'unsupported',unsupported,
         'latestRuns',jsonb_build_object(${statuses.map(status => `'${status}',"${status}"`).join(',')},'unprocessed',unprocessed))) FROM stage_counts) AS stages`, filingFilterValues(filters));
-    return { scope: 'filtered', filters, totalFilings: Number(row.totalFilings),
+    const { publications, ...publicFilters } = filters;
+    return { scope: 'filtered', filters: publicFilters, totalFilings: Number(row.totalFilings),
       sourceCollected: Number(row.sourceCollected), sourceMissing: Number(row.sourceMissing),
       stages: row.stages, retrievedAt: new Date().toISOString() };
   }

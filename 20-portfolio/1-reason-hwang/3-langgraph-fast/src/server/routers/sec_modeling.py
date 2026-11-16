@@ -88,6 +88,12 @@ class FilingStatusesRequest(BaseModel):
         return self
 
 
+@router.get("/internal/sec-modeling/filings/publications")
+def filing_publications():
+    with store() as graph:
+        return {"items": graph.publication_summaries()}
+
+
 @router.post("/internal/sec-modeling/filings/status")
 def filing_statuses(body: FilingStatusesRequest):
     with store() as graph:

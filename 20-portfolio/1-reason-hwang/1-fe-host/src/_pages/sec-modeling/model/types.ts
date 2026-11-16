@@ -34,8 +34,8 @@ export function mergeEvents(previous: ModelingEvent[], incoming: ModelingEvent[]
   return [...new Map([...previous, ...incoming].map(event => [event.id, event])).values()];
 }
 
-export type ModelingFilters = { cik: string; q: string; formType: string; sourceStatus: "all" | "collected" | "missing" };
-export const initialModelingFilters: ModelingFilters = { cik: "", q: "", formType: "", sourceStatus: "all" };
+export type ModelingFilters = { cik: string; q: string; formType: string; sourceStatus: "all" | "collected" | "missing"; completedStages?: string };
+export const initialModelingFilters: ModelingFilters = { cik: "", q: "", formType: "", sourceStatus: "all", completedStages: "" };
 export type ModelingStageCounts = { supported: number; unsupported: number; latestRuns: { QUEUED: number; RUNNING: number; SUCCEEDED: number; FAILED: number; CANCELLED: number; unprocessed: number } };
 export type ModelingOverview = { scope: "filtered"; filters: Record<string, unknown>; totalFilings: number; sourceCollected: number; sourceMissing: number; stages: Record<string, ModelingStageCounts>; retrievedAt: string };
 export function modelingFilterQuery(filters: ModelingFilters) {
