@@ -183,3 +183,12 @@ InlineAnalysis 안에서 렌더링하고 Canvas는 custom canvas 이벤트의 �
 일반 텍스트 요약·오류 fallback은 별도이므로 모든 메시지가 OpenUI DSL이라는 뜻은 아니다.
 
 [구현·검증 기록](../../../flow/2026-11-16-technical-analysis-dedicated-navigation.md).
+
+### TA-STARTERS-001: 분석 시작 질문
+
+두 기술적 분석 그래프는 각각 12개의 시작 질문을 제공한다. 미국·한국 종목 및 ETF, 일봉·주봉,
+추세·모멘텀·변동성·거래량, RSI/SMA의 복수 기간 비교와 지원 지표 20개 종합 분석을 포함한다.
+질문은 `chat/model/technicalAnalysisStarters.ts`에서 관리하며 인라인은 대화 내 차트,
+Canvas는 별도 보고서 구성으로 요청을 구분한다. 개발 채팅에서 같은 그래프를 선택해도 동일한 질문을 사용한다.
+지원 범위인 일봉·주봉·현재 20개 지표만 제안하며 엘리엇 파동·분봉·통합 매매 점수는 제안하지 않는다.
+[변경·검증](../../../flow/2026-11-16-technical-analysis-starter-questions.md).
