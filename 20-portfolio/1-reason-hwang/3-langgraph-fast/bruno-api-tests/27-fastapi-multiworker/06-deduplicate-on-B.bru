@@ -1,0 +1,19 @@
+meta {
+  name: LG-OSS-MULTI-001 deduplicate-on-B
+  type: http
+  seq: 6
+}
+post {
+  url: {{workerB}}/threads/{{multiThread}}/runs
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id":"qa_read_graph","request_id":"{{multiKey}}","input":{"marker":"{{multiKey}}","delay":0.1},"stream_mode":["values","custom","messages-tuple"],"stream_subgraphs":true}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("deduplicate-on-B",function(){expect(res.getBody().run_id).to.equal(bru.getVar("multiRun"));expect(res.getBody().status).to.equal("success");});
+}

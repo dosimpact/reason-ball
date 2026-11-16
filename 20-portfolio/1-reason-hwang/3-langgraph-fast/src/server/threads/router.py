@@ -1,3 +1,4 @@
+# ruff: noqa: B008
 from __future__ import annotations
 
 import json
@@ -5,7 +6,7 @@ from copy import deepcopy
 from typing import Any
 from uuid import uuid4
 
-from fastapi import APIRouter, Body, Header, Query, Response, HTTPException
+from fastapi import APIRouter, Body, Header, HTTPException, Query, Response
 from fastapi.responses import StreamingResponse
 
 from server.runs.runtime import runtime, utc_now
@@ -57,6 +58,12 @@ async def count_threads(payload: dict[str, Any] = Body(default_factory=dict)) ->
 
 @router.post("/prune")
 async def prune_threads(payload: dict[str, Any] = Body(...)):
+    if getattr(runtime.manager,"durable",False):
+        if payload.get("strategy","delete")!="delete":
+            raise HTTPException(501,"Checkpoint pruning is not supported in PostgreSQL runtime mode")
+        for tid in payload.get("thread_ids",[]):
+            await runtime.manager.delete_thread(tid)
+        return {"pruned_count":len(payload.get("thread_ids",[]))}
     count = 0
     strategy = payload.get("strategy", "delete")
     for thread_id in payload.get("thread_ids", []):
@@ -131,6 +138,8 @@ async def history_post(thread_id: str, payload: dict[str, Any] = Body(default_fa
 
 @router.post("/{thread_id}/copy")
 async def copy_thread(thread_id: str):
+    if getattr(runtime.manager,"durable",False):
+        raise HTTPException(501,"Checkpoint copy is outside the multi-worker runtime contract")
     source = await runtime.ensure_thread(thread_id)
     copy = await runtime.create_thread_persisted({"metadata": deepcopy(source.get("metadata", {}))})
     copy["values"] = deepcopy(source.get("values", {}))
@@ -152,6 +161,9 @@ async def get_thread(thread_id: str, include: str | None = None):
 
 @router.delete("/{thread_id}", status_code=204, response_class=Response)
 async def delete_thread(thread_id: str):
+    if getattr(runtime.manager,"durable",False):
+        await runtime.manager.delete_thread(thread_id)
+        return Response(status_code=204)
     await runtime.ensure_thread(thread_id)
     if runtime.manager is not None and any(r["thread_id"] == thread_id and r["status"] in {"pending", "running"} for r in runtime.runs.values()):
         raise HTTPException(409, "Cancel active runs before deleting the thread")
@@ -170,6 +182,8 @@ async def delete_thread(thread_id: str):
 
 @router.patch("/{thread_id}")
 async def patch_thread(thread_id: str, payload: dict[str, Any] = Body(default_factory=dict)):
+    if getattr(runtime.manager,"durable",False):
+        return await runtime.manager.patch_thread(thread_id,payload)
     thread = await runtime.ensure_thread(thread_id)
     thread["metadata"].update(payload.get("metadata") or {})
     if "ttl" in payload:
@@ -184,6 +198,8 @@ async def join_thread_stream(
     thread_id: str, last_event_id: str | None = Header(default=None, alias="Last-Event-ID"),
     stream_modes: list[str] = Query(default=["run_modes"]),
 ):
+    if getattr(runtime.manager,"durable",False):
+        raise HTTPException(501,"Thread-wide streaming is not supported; use run-specific stream with Last-Event-ID")
     await runtime.ensure_thread(thread_id)
     events = runtime.events.get(thread_id, [])
     if last_event_id and last_event_id not in {"-", "-1"}:
@@ -195,3 +211,14 @@ async def join_thread_stream(
 
     del stream_modes
     return StreamingResponse(generate(), media_type="text/event-stream")
+
+
+@router.post("/{thread_id}/runtime/review")
+async def review_thread(thread_id: str,payload: dict[str, Any] = Body(...)):
+    if not getattr(runtime.manager,"durable",False):
+        raise HTTPException(501,"Runtime review requires PostgreSQL runtime mode")
+    reason=payload.get("reason")
+    if payload.get("acknowledge") is not True or not isinstance(reason,str) or not 1<=len(reason.strip())<=500:
+        raise HTTPException(422,"Explicit acknowledge=true and reason(1..500) are required")
+    await runtime.ensure_thread(thread_id)
+    return await runtime.manager.queue.review(thread_id,reason.strip())

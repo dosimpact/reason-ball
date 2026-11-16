@@ -131,3 +131,11 @@ A flow record should list the exact commands executed and their PASS, FAIL, or S
 
 [도메인 계약](../us-corporate-filings/sec-modeling.md)의 인수 기준과
 [검증 자원 정리](../../validation/INDEX.md#val-cleanup-001)를 함께 적용한다.
+
+## LG-OSS-MULTI-001: 여러 worker 검증
+
+multiworker 인수 기준은 실제 PostgreSQL과 별도 OS 프로세스2개에서 검증한다. 같은 프로세스의 두 manager/task 또는 memory saver로 대체하지 않는다. 실제 앱 초기화와 생산 queue/manager/saver/routes를 사용하고 외부 모델·도구 경계만 고정 fixture로 바꾼다.
+
+필수 범위는 cross-worker 조회/SSE/취소, 전역 cap/FIFO/idempotency/claim 경합, lease·구 owner checkpoint/pending writes 거부, queued 복구와 running 자동 재시도 금지, DB 중단·NOTIFY 보완·cursor gap·terminal 원자성 및 기존 SDK/Canvas 계약이다. 공식 migration CLI의 준비/반복과 worker verify-only startup도 확인한다. 독립 adapter PG, 생산 queue PG, 실제2OS HTTP 결과는 구분해 기록한다.
+
+구체적인 실행 명령·자원 소유·재현 조건은 [패키지 검증 계약](3-langgraph-fast/multiworker-validation.md), 결과와 사용자 브라우저 제외 예외는 [당일 flow](../../flow/2026-11-16-fastapi-postgres-multiworker-implementation.md)를 따른다. 사용자 서비스·공유 DB 장애를 실험하지 않는다.

@@ -10,6 +10,7 @@
     "build": "uv build",
     "test": "uv run pytest",
     "test:api": "pnpm exec bru run bruno-api-tests --env local",
+    "test:multiworker:api": "uv run python scripts/validate_fastapi_multiworker.py",
     "lint": "uv run --with ruff ruff check .",
     "typecheck": "uv run --with pyright pyright",
     "sync": "uv sync",

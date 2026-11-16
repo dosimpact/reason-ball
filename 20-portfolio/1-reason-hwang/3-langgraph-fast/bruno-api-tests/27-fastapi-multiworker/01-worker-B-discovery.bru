@@ -1,0 +1,19 @@
+meta {
+  name: LG-OSS-MULTI-001 worker-B-discovery
+  type: http
+  seq: 1
+}
+post {
+  url: {{workerB}}/assistants/search
+  body: json
+  auth: none
+}
+body:json {
+  {"limit":100}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("worker-B-discovery",function(){const ids=res.getBody().map(x=>x.graph_id);expect(ids).to.include("qa_read_graph");expect(ids).to.include("technical_analysis_canvas_agent");});
+}

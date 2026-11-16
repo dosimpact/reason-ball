@@ -82,7 +82,7 @@ SEC primary-document bodies are stored with metadata in PostgreSQL; report queri
 
 `/fastapi-chat`은 `/api/fastapi-langgraph/*`를 통해 `FASTAPI_RUNTIME_API_URL`(기본 2981)을 사용한다. `/langgraph-dev-chat`과 `/chat`의 개발 서버 경로는 `/api/langgraph-runtime/*` 및 `LANGGRAPH_RUNTIME_API_URL`(기본 2982)을 유지한다. 대화·실행·기록·차트 Query를 선택한 런타임에 고정하며 자동 fallback과 기존 개발 서버 기록의 자동 이관을 하지 않는다. FastAPI 기록은 `runtime: fastapi` 메타데이터로 구분한다.
 
-FastAPI의 GraphRegistry는 `langgraph.json`에 등록된 실제 그래프 builder를 동일 PostgreSQL saver로 컴파일한다. 단일 프로세스 RunManager가 비동기 실행 task, 전체 수용량·대기열, 스레드별 직렬 실행을 관리한다. values/messages/custom은 실제 `astream`에서 전달하고 상태·기록은 실제 체크포인트에서 읽는다. 취소는 해당 task를 interrupt하고, 기본 연결 해제는 실행을 계속한다. 재시작 시 미완료 실행 상태를 조정한다. 전체 LangGraph 프로토콜과 멀티워커 조정은 이 단계의 보장 범위가 아니다.
+FastAPI의 GraphRegistry는 `langgraph.json`의 실제 그래프 builder를 saver와 함께 컴파일한다. 기본 memory mode는 기존 단일 프로세스 경계다. `LANGGRAPH_RUNTIME_MODE=postgres`에서는 LG-OSS-MULTI-001의 DB 접수·전역 용량·thread 순서·owner/lease·fenced checkpoint/pending writes·취소·이벤트를 공통 기준으로 여러 worker가 실행한다. PostgreSQL이나 migration이 준비되지 않으면 memory로 fallback하지 않는다. values/messages/custom과 SDK/OpenUI 계약을 유지하고 기본 연결 해제는 실행을 계속한다. lease를 잃은 running을 자동 재실행하지 않으며 안전한 queued만 이어서 처리한다. 외부 효과가 불명확하면 thread를 검토 필요 상태로 막는다. 전체 LangGraph 프로토콜의 동등성을 주장하지 않으며 DB mode에서 미지원 thread event bus/commands는501이다. [구현 원본](3-langgraph-fast/fastapi-runtime.md)과 [검증 계약](3-langgraph-fast/multiworker-validation.md)을 따른다.
 
 PostgreSQL local 스키마 준비는 기본적으로 public 레거시 테이블을 이동하지 않으며, 레거시 backfill은 명시 opt-in이다. 검증과 결과는 [당일 흐름 기록](../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)을 따른다.
 

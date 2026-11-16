@@ -1,3 +1,4 @@
+# ruff: noqa: B008
 from __future__ import annotations
 
 import json
@@ -11,9 +12,13 @@ from .runtime import runtime
 router = APIRouter(tags=["Thread Runs"])
 
 
-def _run_payload(payload: dict[str, Any]) -> dict[str, Any]:
+def _run_payload(payload: dict[str, Any], request_key: str | None = None) -> dict[str, Any]:
     if not payload.get("assistant_id"):
         raise HTTPException(status_code=422, detail="assistant_id is required")
+    if request_key:
+        if payload.get("request_id") not in (None,request_key):
+            raise HTTPException(409,"Body request_id and Idempotency-Key disagree")
+        payload={**payload,"request_id":request_key}
     return payload
 
 
@@ -42,30 +47,32 @@ async def list_runs(
         if status:
             items = [r for r in items if r["status"] == status]
         items = sorted(items, key=lambda r: r["created_at"], reverse=True)[offset:offset + limit]
+    if getattr(runtime.manager,"durable",False):
+        items=[runtime.manager.public_run(item) for item in items]
     if select:
         return [{key: run[key] for key in select if key in run} for run in items]
     return items
 
 
 @router.post("/threads/{thread_id}/runs")
-async def create_run(thread_id: str, response: Response, payload: dict[str, Any] = Body(...)):
-    run, _ = await runtime.create_run(thread_id, _run_payload(payload))
+async def create_run(thread_id: str, response: Response, payload: dict[str, Any] = Body(...), request_key: str | None = Header(default=None, alias="Idempotency-Key")):
+    run, _ = await runtime.create_run(thread_id, _run_payload(payload, request_key))
     response.headers["Content-Location"] = f"/threads/{thread_id}/runs/{run['run_id']}"
     return run
 
 
 @router.post("/threads/{thread_id}/runs/stream")
-async def stream_run(thread_id: str, payload: dict[str, Any] = Body(...)):
+async def stream_run(thread_id: str, payload: dict[str, Any] = Body(...), request_key: str | None = Header(default=None, alias="Idempotency-Key")):
     if runtime.manager is not None:
-        run, _ = await runtime.create_run(thread_id, _run_payload(payload))
+        run, _ = await runtime.create_run(thread_id, _run_payload(payload, request_key))
         return StreamingResponse(runtime.manager.stream(run), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
-    run, result = await runtime.create_run(thread_id, _run_payload(payload), wait=True)
+    run, result = await runtime.create_run(thread_id, _run_payload(payload, request_key), wait=True)
     return _sse([("metadata", {"run_id": run["run_id"]}), ("values", result), ("end", {})])
 
 
 @router.post("/threads/{thread_id}/runs/wait")
-async def wait_run(thread_id: str, response: Response, payload: dict[str, Any] = Body(...)):
-    run, result = await runtime.create_run(thread_id, _run_payload(payload), wait=True)
+async def wait_run(thread_id: str, response: Response, payload: dict[str, Any] = Body(...), request_key: str | None = Header(default=None, alias="Idempotency-Key")):
+    run, result = await runtime.create_run(thread_id, _run_payload(payload, request_key), wait=True)
     response.headers["Content-Location"] = f"/threads/{thread_id}/runs/{run['run_id']}"
     return result
 
@@ -78,17 +85,22 @@ async def get_run(thread_id: str, run_id: str):
 @router.delete("/threads/{thread_id}/runs/{run_id}")
 async def delete_run(thread_id: str, run_id: str):
     await runtime.get_run(thread_id, run_id)
+    if getattr(runtime.manager,"durable",False):
+        await runtime.manager.delete_run(thread_id,run_id)
+        return
     if runtime.run_repository is not None:
         await runtime.run_repository.delete(run_id)
     runtime.runs.pop(run_id)
     runtime.run_results.pop(run_id, None)
-    return None
+    return
 
 
 @router.get("/threads/{thread_id}/runs/{run_id}/join")
 async def join_run(thread_id: str, run_id: str, cancel_on_disconnect: bool = False):
     del cancel_on_disconnect
     run = await runtime.get_run(thread_id, run_id)
+    if getattr(runtime.manager,"durable",False):
+        return await runtime.manager.join(run_id)
     if runtime.manager is not None:
         await runtime.manager.join(run_id)
     return runtime.run_results.get(run["run_id"])
@@ -99,8 +111,15 @@ async def resume_run_stream(
     thread_id: str, run_id: str, last_event_id: str | None = Header(default=None, alias="Last-Event-ID"),
     stream_mode: str | None = None, cancel_on_disconnect: bool = False,
 ):
-    del last_event_id, stream_mode, cancel_on_disconnect
+    cursor=0
+    if last_event_id:
+        if not last_event_id.isdigit():
+            raise HTTPException(422,"Invalid Last-Event-ID")
+        cursor=int(last_event_id)
+    del stream_mode, cancel_on_disconnect
     run = await runtime.get_run(thread_id, run_id)
+    if getattr(runtime.manager,"durable",False):
+        return StreamingResponse(runtime.manager.stream(run,cursor=cursor),media_type="text/event-stream")
     if runtime.manager is not None:
         return StreamingResponse(runtime.manager.stream(run), media_type="text/event-stream")
     return _sse([("metadata", run), ("values", runtime.run_results.get(run_id)), ("end", {})])
@@ -108,15 +127,18 @@ async def resume_run_stream(
 
 @router.post("/threads/{thread_id}/runs/{run_id}/cancel")
 async def cancel_run(
-    thread_id: str, run_id: str, wait: bool = False,
+    thread_id: str, run_id: str, response: Response, wait: bool = False,
     action: str = Query(default="interrupt", pattern="^(interrupt|rollback)$"),
 ):
     if runtime.manager is not None and action != "interrupt":
         raise HTTPException(422, "Rollback cancellation is not supported")
-    del wait, action
+    del action
     run = await runtime.get_run(thread_id, run_id)
-    await runtime.cancel(run)
-    return run
+    result=await runtime.cancel(run,wait=wait)
+    if getattr(runtime.manager,"durable",False) and result["status"] in {"pending","running"}:
+        response.status_code=202
+        response.headers["Retry-After"]="1"
+    return result or run
 
 
 @router.post("/runs/cancel", status_code=204)

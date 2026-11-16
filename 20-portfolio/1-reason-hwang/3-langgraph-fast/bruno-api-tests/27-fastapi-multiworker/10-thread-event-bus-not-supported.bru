@@ -1,0 +1,19 @@
+meta {
+  name: LG-OSS-MULTI-001 thread-event-bus-not-supported
+  type: http
+  seq: 9
+}
+post {
+  url: {{workerB}}/threads/{{multiThread}}/stream/events
+  body: json
+  auth: none
+}
+body:json {
+  {}
+}
+assert {
+  res.status: eq 501
+}
+tests {
+  test("No fake memory success in PostgreSQL mode",function(){expect(res.status).to.equal(501);});
+}

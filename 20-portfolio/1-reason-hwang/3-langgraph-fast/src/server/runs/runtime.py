@@ -48,7 +48,7 @@ class Runtime:
         self.run_repository: Any = None
         self.checkpointer: Any = None
         self._lock = asyncio.Lock()
-        self.manager = None
+        self.manager: Any = None
 
     def reset(self) -> None:
         self.__init__()
@@ -152,15 +152,19 @@ class Runtime:
             self.runs[run_id] = run
             if result is not None:
                 self.run_results[run_id] = result
-            return run
+            return self.manager.public_run(run) if getattr(self.manager,"durable",False) else run
         return self.require_run(thread_id, run_id)
 
     async def persist_thread(self, thread: dict[str, Any]) -> None:
+        if getattr(self.manager,"durable",False):
+            raise RuntimeError("Durable thread changes require runtime control transaction")
         if self.thread_repository is not None:
             row = await self.thread_repository.upsert(thread)
             self.threads[thread["thread_id"]] = self._thread_row(row)
 
     async def persist_run(self, run: dict[str, Any], result: Any = None) -> None:
+        if getattr(self.manager,"durable",False):
+            raise RuntimeError("Durable run changes require ownership transaction")
         if self.run_repository is not None:
             row = await self.run_repository.upsert(run, result)
             normalized, stored_result = self._run_row(row)
@@ -289,6 +293,8 @@ class Runtime:
         return thread
 
     async def create_thread_persisted(self, payload: dict[str, Any]) -> dict[str, Any]:
+        if getattr(self.manager,"durable",False):
+            return await self.manager.create_thread(payload)
         requested_id = payload.get("thread_id")
         if requested_id and self.thread_repository is not None:
             existing = await self.thread_repository.get(requested_id)
@@ -498,7 +504,7 @@ class Runtime:
             self.run_results[run_id] = deepcopy(output)
             await self.add_state_persisted(run["thread_id"], output, "run")
             run["status"] = "success"
-        except Exception as exc:  # runtime boundary translates graph failures into run state
+        except Exception as exc:  # noqa: BLE001 - runtime boundary translates graph failures into run state
             run["status"] = "error"
             run["metadata"]["error"] = str(exc)
             output = {"error": str(exc)}
@@ -524,8 +530,10 @@ class Runtime:
                 await self.thread_repository.delete(run["thread_id"])
         return output
 
-    async def cancel(self, run: dict[str, Any]) -> None:
+    async def cancel(self, run: dict[str, Any], *, wait: bool = False) -> Any:
         if self.manager is not None:
+            if getattr(self.manager,"durable",False):
+                return await self.manager.cancel(run,wait=wait)
             return await self.manager.cancel(run)
         if run["status"] in {"pending", "running"}:
             run.update(status="interrupted", updated_at=utc_now())

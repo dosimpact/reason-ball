@@ -1,6 +1,6 @@
 # Documentation Map
 
-- [PostgreSQL 기반 여러 worker 설계](flow/2026-11-16-fastapi-postgres-multiworker-design.md): LG-OSS-MULTI-001, 미구현 후속 설계와 단일 worker 현행 경계.
+- [PostgreSQL 기반 여러 worker 설계](flow/2026-11-16-fastapi-postgres-multiworker-design.md): LG-OSS-MULTI-001의 초기 설계 기록. 구현·검증은 아래 후속 기록 참조.
 
 This directory is the canonical documentation entry point for `1-reason-hwang`.
 
@@ -256,3 +256,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [SEC 모델링 관리·API Testing](flow/2026-11-16-sec-modeling-admin-api-testing.md): SEC-MODELING-ADMIN-002 공시 상태 표·전범위 통계·고정 preset·격리 API 검증.
 
 - [SEC 모델링 관리 최종 검증](flow/2026-11-16-sec-modeling-admin-validation-final.md): 선행 구현 커밋 이후 검사 집계·전체 typecheck의 별도 한계·자원 정리 확인.
+
+- [PostgreSQL multiworker 구현·API 검증](flow/2026-11-16-fastapi-postgres-multiworker-implementation.md): LG-OSS-MULTI-001, 실제2OS·격리PG·fencing·장애·SDK/Canvas 검증과 정리.

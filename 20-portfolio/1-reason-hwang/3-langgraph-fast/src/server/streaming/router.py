@@ -1,3 +1,4 @@
+# ruff: noqa: B008
 from __future__ import annotations
 
 import json
@@ -13,6 +14,8 @@ router = APIRouter(prefix="/threads/{thread_id}", tags=["Streaming"])
 
 @router.post("/stream/events")
 async def protocol_events(thread_id: str, payload: dict[str, Any] = Body(...)):
+    if getattr(runtime.manager,"durable",False):
+        raise HTTPException(501,"Legacy protocol streaming is not supported; use runs APIs")
     await runtime.ensure_thread(thread_id)
     channels = payload.get("channels")
     if not isinstance(channels, list) or not channels:
@@ -33,6 +36,8 @@ async def protocol_events(thread_id: str, payload: dict[str, Any] = Body(...)):
 
 @router.post("/commands")
 async def protocol_command(thread_id: str, payload: dict[str, Any] = Body(...)):
+    if getattr(runtime.manager,"durable",False):
+        raise HTTPException(501,"Legacy protocol streaming is not supported; use runs APIs")
     await runtime.ensure_thread(thread_id)
     if "id" not in payload or "method" not in payload:
         raise HTTPException(status_code=400, detail="id and method are required")

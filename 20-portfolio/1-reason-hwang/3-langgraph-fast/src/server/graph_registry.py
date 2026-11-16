@@ -13,6 +13,8 @@ from server.assistants.models import AssistantCreate, GraphSchemaNoId
 
 
 class GraphRegistry:
+    # Unknown/new graphs fail safe: interruption may require manual review.
+    read_only_graphs=frozenset({'main_graph','simple_llm','technical_analysis_graph','price_agent','starter_graph','technical_analysis_agent','technical_analysis_canvas_agent'})
     def __init__(self, checkpointer=None, graphs=None):
         self.checkpointer = checkpointer or InMemorySaver()
         self.graphs = {}
@@ -50,9 +52,21 @@ class GraphRegistry:
                 graph_id=key, name=key, if_exists="do_nothing",
                 metadata={"default_graph": True},
             )
-            result = repository.create(payload)
-            if inspect.isawaitable(result):
-                await result
+            try:
+                result = repository.create(payload)
+                if inspect.isawaitable(result):
+                    await result
+            except Exception as error:
+                from psycopg.errors import UniqueViolation
+                if not isinstance(error, UniqueViolation):
+                    raise
+                # Concurrent worker startup may race on the same deterministic
+                # default ID. Verify the winner rather than fail the second boot.
+                existing = repository.get(payload.assistant_id)
+                if inspect.isawaitable(existing):
+                    existing = await existing
+                if existing.graph_id != key:
+                    raise RuntimeError("Default assistant identity conflict") from error
 
     async def resolve(self, identifier):
         from server.assistants.router import _assistant_or_graph

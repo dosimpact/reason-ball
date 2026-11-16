@@ -1,3 +1,5 @@
+> LG-OSS-MULTI-001: PostgreSQL queue 모드는 worker startup에서 DDL을 하지 않는다. 배포 단계의 runtime_migration과 FencedAsyncPostgresSaver, 동일 connection control transaction, lease/epoch 검증을 사용한다. memory 모드의 과거 초기화·recover와 구분하며 [현재 runtime 운영 계약](fastapi-runtime.md#lg-oss-multi-001-postgresql-여러-worker)을 우선 적용한다.
+
 > LG-OSS-003 현재 실행 경계: FastAPI는 GraphRegistry가 실제 graph builder를 AsyncPostgresSaver와 compile하고 RunManager가 실행한다. 실제 실행의 state/history/update는 graph API를 사용한다. 아래 수동 snapshot 저장 설명은 기존 호환 Runtime fallback 경로이며 실제 graph checkpoint를 대신하지 않는다. 현재 동작은 [FastAPI runtime](fastapi-runtime.md)을 함께 따른다. public legacy table 이동과 snapshot backfill은 기본 비활성이다.
 
 # LangGraph DB Saver 역기술 기획서

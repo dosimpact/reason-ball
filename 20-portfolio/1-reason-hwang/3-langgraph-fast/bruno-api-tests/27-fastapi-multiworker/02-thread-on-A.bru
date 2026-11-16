@@ -1,0 +1,19 @@
+meta {
+  name: LG-OSS-MULTI-001 thread-on-A
+  type: http
+  seq: 2
+}
+post {
+  url: {{workerA}}/threads
+  body: json
+  auth: none
+}
+body:json {
+  {"metadata":{"source":"qa-multi-bruno","graph_id":"qa_read_graph"}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("thread-on-A",function(){bru.setVar("multiThread",res.getBody().thread_id);bru.setVar("multiKey",require("crypto").randomUUID());expect(res.getBody().thread_id).to.be.a("string");});
+}
