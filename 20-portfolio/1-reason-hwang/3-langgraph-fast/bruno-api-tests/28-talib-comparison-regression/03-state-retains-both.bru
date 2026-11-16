@@ -1,0 +1,16 @@
+meta {
+  name: TALIB-COMPARE-001 state-retains-both
+  type: http
+  seq: 3
+}
+get {
+  url: {{baseUrl}}/threads/{{comparisonThread}}/state
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("state-retains-both",function(){expect(res.getBody().values.current_result_ids).to.have.lengthOf(4);expect(res.getBody().values.datasets).to.have.property("AAPL:1d");expect(res.getBody().values.datasets).to.have.property("AAPL:1wk");});
+}

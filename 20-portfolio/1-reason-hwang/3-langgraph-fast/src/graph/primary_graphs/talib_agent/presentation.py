@@ -56,7 +56,15 @@ def build_program(state):
             options.append({"value": key, "label": key})
     if not rows:
         return None
-    sources = [data.get("metadata", {}) for data in state.get("datasets", {}).values()]
+    sources = list(
+        {
+            (
+                data.get("metadata", {}).get("ticker"),
+                data.get("metadata", {}).get("interval"),
+            ): data.get("metadata", {})
+            for data in state.get("datasets", {}).values()
+        }.values()
+    )
     provenance = "; ".join(
         f"{m.get('ticker')} {m.get('interval')} {m.get('currency')} · {m.get('display_from')} ~ {m.get('display_to')} · {m.get('count')}봉 · {m.get('source_url')} · {m.get('fetched_at')} · {m.get('history_policy')}"
         for m in sources

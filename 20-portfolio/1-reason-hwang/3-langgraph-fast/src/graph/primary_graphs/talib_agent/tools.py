@@ -45,6 +45,8 @@ def result_summary(result):
             "status",
             "parameters",
             "lookback",
+            "origin",
+            "inputMetadata",
             "warnings",
             "error",
         )
@@ -92,6 +94,30 @@ def invalidate_results(state, dataset):
     )
 
 
+def invalidate_dataset_names(state, *names):
+    results, requests = state.get("results", {}), state.get("result_requests", {})
+    for name in names:
+        results, requests = invalidate_results(
+            {**state, "results": results, "result_requests": requests}, name
+        )
+    return results, requests
+
+
+def canonical_requests(requests, datasets):
+    normalized = []
+    for request in requests:
+        inputs = {}
+        for key, ref in request.get("inputs", {}).items():
+            if isinstance(ref, dict):
+                meta = datasets.get(ref.get("dataset"), {}).get("metadata", {})
+                canonical = f"{meta.get('ticker')}:{meta.get('interval')}"
+                if canonical in datasets:
+                    ref = {**ref, "dataset": canonical}
+            inputs[key] = ref
+        normalized.append({**request, "inputs": inputs})
+    return normalized
+
+
 def price_dataset(ticker, interval, display_count, fetched_count, fetcher):
     response = fetcher(ticker, interval, fetched_count, True)
     bars = [p for p in response.prices if not p.is_partial]
@@ -133,6 +159,8 @@ def build_tools(*, fetcher=None, engine=None):
         group: str | None = None, search: str | None = None
     ) -> dict:
         """List the installed TA-Lib functions and groups. Discover names before executing unfamiliar functions."""
+        group = group.strip() or None if group is not None else None
+        search = search.strip() or None if search is not None else None
         data = catalog()
         return {
             "version": data["version"],
@@ -164,17 +192,22 @@ def build_tools(*, fetcher=None, engine=None):
         interval: Literal["1d", "1wk"] = "1d",
         count: Annotated[int, Field(ge=2, le=200)] = 120,
     ) -> Command:
-        """Store completed adjusted Yahoo OHLCV as a named dataset. Daily or weekly only. Fetch before a new ticker/interval/count; results depending on a replaced dataset are invalidated. Display count is at most200; at least600 bars are fetched for warmup."""
+        """Store completed adjusted Yahoo OHLCV as a named dataset. Daily or weekly only. Use the returned canonical dataset key (ticker:interval) for every input reference; both intervals can coexist. Fetch before a new ticker/interval/count; results depending on a replaced dataset are invalidated. Display count is at most200; at least600 bars are fetched for warmup."""
         ticker = ticker.strip().upper()
+        dataset_id = f"{ticker}:{interval}"
         try:
             dataset = price_dataset(ticker, interval, count, max(600, count), fetcher)
-            preserved, request_map = invalidate_results(state, ticker)
-            datasets = {**state.get("datasets", {}), ticker: dataset}
+            preserved, request_map = invalidate_dataset_names(state, dataset_id, ticker)
+            datasets = {
+                **state.get("datasets", {}),
+                dataset_id: dataset,
+                ticker: dataset,
+            }
             return reply(
                 "get_price_ohlcv",
                 tool_call_id,
                 {
-                    "dataset": ticker,
+                    "dataset": dataset_id,
                     "bars": len(dataset["dates"]),
                     "from": dataset["dates"][0],
                     "to": dataset["dates"][-1],
@@ -183,7 +216,11 @@ def build_tools(*, fetcher=None, engine=None):
                 datasets=datasets,
                 results=preserved,
                 result_requests=request_map,
-                current_result_ids=[],
+                current_result_ids=[
+                    key
+                    for key in state.get("current_result_ids", [])
+                    if key in preserved
+                ],
                 analysis_error=None,
             )
         except (ValueError, PriceProviderError) as error:
@@ -191,16 +228,21 @@ def build_tools(*, fetcher=None, engine=None):
             datasets = {
                 key: value
                 for key, value in state.get("datasets", {}).items()
-                if key != ticker
+                if key not in {ticker, dataset_id}
             }
+            preserved, request_map = invalidate_dataset_names(state, dataset_id, ticker)
             return reply(
                 "get_price_ohlcv",
                 tool_call_id,
                 {"error": str(error)},
                 datasets=datasets,
-                results=invalidate_results(state, ticker)[0],
-                result_requests=invalidate_results(state, ticker)[1],
-                current_result_ids=[],
+                results=preserved,
+                result_requests=request_map,
+                current_result_ids=[
+                    key
+                    for key in state.get("current_result_ids", [])
+                    if key in preserved
+                ],
                 analysis_error=str(error),
             )
 
@@ -219,6 +261,9 @@ def build_tools(*, fetcher=None, engine=None):
             datasets = dict(state.get("datasets", {}))
             previous = dict(state.get("results", {}))
             request_map = dict(state.get("result_requests", {}))
+            # Resolve the backwards-compatible ticker alias NOW, so a later
+            # weekly fetch cannot change a daily result's dependency identity.
+            requests = canonical_requests(requests, datasets)
             for request in requests:
                 try:
                     required = required_lookback(
@@ -245,8 +290,18 @@ def build_tools(*, fetcher=None, engine=None):
                         and meta.get("fetched_count", 0) < needed
                     ):
                         datasets[name] = price_dataset(
-                            name, meta["interval"], meta["count"], needed, fetcher
+                            meta["ticker"],
+                            meta["interval"],
+                            meta["count"],
+                            needed,
+                            fetcher,
                         )
+                        alias = meta["ticker"]
+                        if (
+                            datasets.get(alias, {}).get("metadata", {}).get("interval")
+                            == meta["interval"]
+                        ):
+                            datasets[alias] = datasets[name]
                         previous, request_map = invalidate_results(
                             {
                                 "datasets": datasets,

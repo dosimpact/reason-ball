@@ -133,3 +133,7 @@ curl -N http://127.0.0.1:8000/api/sec-deep-agent/research \
 ## 공통 채팅 디자인 시스템
 
 SEC API Agent와 SEC Intelligent UI는 [OPENUI-CHAT-DS-001](tech-shared/1-fe-host/open-ui.md#openui-chat-ds-001-공통-채팅-디자인-시스템)의 같은 프레임·Welcome·헤더·Composer·상태·오류 표현을 사용한다. 일반 Chat과 Generative UI도 이 표현 계층을 공유한다. `/sec-api-agent`는 native AG-UI adapter와 메모리 대화 기록, `/sec-chat`은 기존 controller adapter와 기업 확인·준비된 공시 metadata·추천 질문·독립 근거 표시를 연결한다. 일반 설명문은 공통 ConversationText로 Markdown을 렌더링한다. 업무 그래프·도구·인용 검증·서버 세션 계약은 화면 통합과 별개의 책임으로 유지한다.
+
+## SEC-FIN-BASIS-001: 금융 수치 기준 검증 한계
+
+현재 자유형 research와 OpenUI 표현 사이에 원금·장부금액 기준을 결정적으로 대조하는 검산 계층은 없다. 원금 786.78+CP19.97=806.75를 장부금액 781.14+CP19.97=801.11과 혼용한 회귀는 미해결이며 단발성 비재현을 해결로 보지 않는다. 근거 기준·단위·합계를 사용자 확인할 필요가 있다. [조사 기록](../flow/2026-11-16-sec-financial-basis-devtools-regression.md).

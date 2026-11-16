@@ -258,3 +258,6 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [SEC 모델링 관리 최종 검증](flow/2026-11-16-sec-modeling-admin-validation-final.md): 선행 구현 커밋 이후 검사 집계·전체 typecheck의 별도 한계·자원 정리 확인.
 
 - [PostgreSQL multiworker 구현·API 검증](flow/2026-11-16-fastapi-postgres-multiworker-implementation.md): LG-OSS-MULTI-001, 실제2OS·격리PG·fencing·장애·SDK/Canvas 검증과 정리.
+
+- [SEC 금융 기준·개발 도구 회귀 조사](flow/2026-11-16-sec-financial-basis-devtools-regression.md): 금융 기준 혼용 미해결과 SDK 개발 도구 opt-in/API 검증.
+- [TA-Lib 비교 완료](flow/2026-11-16-talib-comparison-completion.md): 일봉·주봉 결과 보존과 보완 호출·HTTP parser 검증.

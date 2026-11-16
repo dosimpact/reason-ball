@@ -204,6 +204,10 @@ def _fetch_historical_prices_uncached(
     rows = list(frame.sort_index().iterrows())
     if fixed_origin and len(rows) > 20000:
         raise PriceProviderError("history_limit", "Fixed-origin history exceeds 20000 bars")
+    # A bounded request must not fail on unrelated older provider history.
+    # Fixed-origin cumulative calculations intentionally validate their full history.
+    if not fixed_origin:
+        rows = rows[-count:]
     for position, (index, row) in enumerate(rows):
         open_price = _decimal_or_none(row.get("Open"))
         high_price = _decimal_or_none(row.get("High"))
@@ -250,7 +254,7 @@ def _fetch_historical_prices_uncached(
         except ValueError as exc:
             raise PriceProviderError(
                 "invalid_provider_data",
-                "Yahoo Finance returned invalid daily price data.",
+                f"Yahoo Finance returned invalid {interval} price data.",
             ) from exc
         records.append(record)
 

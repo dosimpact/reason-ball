@@ -1,0 +1,16 @@
+meta {
+  name: TALIB-COMPARE-001 delete
+  type: http
+  seq: 6
+}
+delete {
+  url: {{baseUrl}}/threads/{{comparisonThread}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 204
+}
+tests {
+  test("delete",function(){expect(res.status).to.equal(204);});
+}

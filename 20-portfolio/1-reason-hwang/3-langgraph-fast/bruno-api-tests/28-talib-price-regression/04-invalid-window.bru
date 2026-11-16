@@ -1,0 +1,16 @@
+meta {
+  name: invalid-window
+  type: http
+  seq: 4
+}
+get {
+  url: {{regressionBaseUrl}}/prices?ticker=BAD.KS
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 502
+}
+tests {
+  test("invalid-window", function () { expect(res.body.detail.code).to.equal('invalid_provider_data'); });
+}

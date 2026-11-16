@@ -1,0 +1,16 @@
+meta {
+  name: weekly-600
+  type: http
+  seq: 3
+}
+get {
+  url: {{regressionBaseUrl}}/prices
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("weekly-600", function () { expect(res.body.count).to.equal(600); expect(Number(res.body.first.close)).to.be.greaterThan(0); });
+}
