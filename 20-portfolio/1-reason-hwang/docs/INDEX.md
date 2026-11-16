@@ -1,5 +1,7 @@
 # Documentation Map
 
+- [TA-Lib 시계열 근거·Query 제한](flow/2026-11-16-ta-series-evidence-and-query-deadline.md): TALIB-EVIDENCE-001 / TA-QUERY-DEADLINE-001, 네이티브 의미·입력 제약·276 Python/60 Host/5 HTTP 검증.
+
 - [PostgreSQL 기반 여러 worker 설계](flow/2026-11-16-fastapi-postgres-multiworker-design.md): LG-OSS-MULTI-001의 초기 설계 기록. 구현·검증은 아래 후속 기록 참조.
 
 This directory is the canonical documentation entry point for `1-reason-hwang`.
@@ -261,3 +263,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 
 - [SEC 금융 기준·개발 도구 회귀 조사](flow/2026-11-16-sec-financial-basis-devtools-regression.md): 금융 기준 혼용 미해결과 SDK 개발 도구 opt-in/API 검증.
 - [TA-Lib 비교 완료](flow/2026-11-16-talib-comparison-completion.md): 일봉·주봉 결과 보존과 보완 호출·HTTP parser 검증.
+
+- [SEC 금융 수치 basis 검산](flow/2026-11-16-sec-financial-verification.md): SEC-FIN-BASIS-002 구조화 원문 근거·Decimal 계산·최종 UI 보호·API 증거.

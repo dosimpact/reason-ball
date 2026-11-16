@@ -2,6 +2,7 @@
 
 import math
 from datetime import date
+from typing import Any, cast
 
 import numpy as np
 import talib
@@ -136,7 +137,7 @@ def _shift(name, output, parameters):
 def _calculate(request, datasets, results):
     name = request.get("function", "").upper()
     descriptor = describe(name)
-    function = abstract.Function(name)
+    function = cast(Any, abstract).Function(name)
     parameters = _parameters(function, request.get("parameters", {}))
     supplied = request.get("inputs", {})
     expected = {item["key"] for item in descriptor["inputs"]}
@@ -191,7 +192,9 @@ def _calculate(request, datasets, results):
     if "Input must be positive" in descriptor["flags"] and any(
         np.any(values[np.isfinite(values)] <= 0) for values in native.values()
     ):
-        raise ValueError("Native function requires positive inputs")
+        raise ValueError(
+            f"{name}: native function requires strictly positive inputs over the entire calculation history; signed or zero-valued inputs cannot be shifted or converted to absolute values to bypass this constraint"
+        )
     raw = function(native)
     outputs = raw if isinstance(raw, list) else [raw]
     normalized = {}
@@ -218,6 +221,7 @@ def _calculate(request, datasets, results):
             "values": serialized,
             "type": "integer" if integer else "number",
             "flags": spec["flags"],
+            **({"semantics": spec["semantics"]} if "semantics" in spec else {}),
             "displayShift": offset,
             "lastBarValue": serialized[-1],
             "lastValidAt": dates[valid[-1]] if valid else None,
@@ -311,6 +315,6 @@ def required_lookback(name, parameters=None):
     """Resolve native preparation using the requested parameters without global changes."""
     name = name.upper()
     describe(name)
-    function = abstract.Function(name)
+    function = cast(Any, abstract).Function(name)
     _parameters(function, parameters or {})
     return function.lookback

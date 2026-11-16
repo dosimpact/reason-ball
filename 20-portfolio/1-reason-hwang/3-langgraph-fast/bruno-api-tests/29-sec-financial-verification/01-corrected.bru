@@ -1,0 +1,19 @@
+meta {
+ name: SEC financial corrected
+ type: http
+ seq: 1
+}
+post {
+ url: {{baseUrl}}/api/sec-deep-agent/research
+ body: json
+ auth: none
+}
+body:json {
+ {"message":"corrected","history":[]}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("corrected",function(){const b=res.getBody(); const v=b.financialVerification; expect(v.calculations[0].value).eq("80675000000"); expect(v.calculations[1].value).eq("1.70"); expect(v.calculations[0].status).eq("corrected"); expect(b.report).not.include("80111000000"); expect(b.report).include("Founded in 1976"); bru.setVar("financialReport",b.report);});
+}

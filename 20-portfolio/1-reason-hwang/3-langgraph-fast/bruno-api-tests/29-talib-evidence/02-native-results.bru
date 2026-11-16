@@ -1,0 +1,19 @@
+meta {
+ name: TALIB-EVIDENCE native results and signed constraint
+ type: http
+ seq: 2
+}
+post {
+ url: {{baseUrl}}/threads/{{evidenceThread}}/runs/wait
+ body: json
+ auth: none
+}
+body:json {
+ {"assistant_id":"talib_agent","input":{"messages":[{"role":"user","content":"SQZMOM OBV AD를 계산하고 signed 입력 ROC 제약도 명시적으로 검증해줘."}]}}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("native outputs preserved, invalid ROC remains explicit",()=>{const b=res.getBody();for(const k of ["sqzmom","obv","ad"])expect(b.results[k].status).to.equal("success");expect(b.results.sqzmom.outputs.squeeze.type).to.equal("integer");expect(b.results.sqzmom.outputs.squeeze.semantics.levels["-1"]).to.include("released");expect(b.results["signed-roc"].status).to.equal("error");expect(b.results["signed-roc"].error).to.include("strictly positive inputs");expect(b.presentation.program).to.be.a("string");});
+}

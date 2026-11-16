@@ -55,3 +55,26 @@ def prices(ticker: str = "000660.KS"):
         raise HTTPException(
             502, {"code": exc.code, "message": exc.safe_message}
         ) from exc
+
+
+@app.get("/evidence")
+def evidence():
+    from domains.technical_analysis.evidence import summarize_snapshot
+    from tests.domains.talib_agent.test_series_evidence import snapshot
+
+    return summarize_snapshot(snapshot())
+
+
+@app.get("/tool-evidence")
+def tool_evidence():
+    import json
+
+    from graph.primary_graphs.technical_analysis_agent.tools import (
+        build_tools as ta_tools,
+    )
+    from tests.test_technical_analysis_agent import call, fixture_fetcher
+
+    fetch, analyze = ta_tools(fetcher=fixture_fetcher)
+    state = call(fetch, {"ticker": "TEST"}, {})
+    state.update(call(analyze, {"indicators": [{"name": "BBANDS"}]}, state))
+    return json.loads(state["messages"][-1].content)

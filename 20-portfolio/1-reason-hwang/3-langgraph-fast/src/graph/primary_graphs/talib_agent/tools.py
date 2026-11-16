@@ -13,6 +13,7 @@ from pydantic import Field
 
 from domains.talib_agent.catalog import catalog
 from domains.talib_agent.engine import execute_batch, required_lookback
+from domains.talib_agent.evidence import summarize_result
 from graph.subgraph.price_agent.tools.yahoo_finance import (
     PriceProviderError,
     fetch_historical_prices,
@@ -35,7 +36,7 @@ def reply(name, call_id, payload, **updates):
     )
 
 
-def result_summary(result):
+def result_summary(result, state=None):
     """Only latest aligned values and semantics enter the model context."""
     return {
         key: result.get(key)
@@ -51,6 +52,7 @@ def result_summary(result):
             "error",
         )
     } | {
+        "seriesEvidence": summarize_result(result, state),
         "outputs": {
             name: {
                 key: value.get(key)
@@ -60,10 +62,11 @@ def result_summary(result):
                     "displayShift",
                     "lastBarValue",
                     "lastValidAt",
+                    "semantics",
                 )
             }
             for name, value in result.get("outputs", {}).items()
-        }
+        },
     }
 
 
@@ -80,7 +83,11 @@ def invalidate_results(state, dataset):
                 for ref in refs
             ):
                 stale.add(identifier)
-            if not request.get("inputs") and dataset in state.get("datasets", {}):
+            if (
+                not request.get("inputs")
+                and request.get("dataset", dataset) == dataset
+                and dataset in state.get("datasets", {})
+            ):
                 stale.add(identifier)
         if stale == previous:
             break
@@ -114,7 +121,30 @@ def canonical_requests(requests, datasets):
                 if canonical in datasets:
                     ref = {**ref, "dataset": canonical}
             inputs[key] = ref
-        normalized.append({**request, "inputs": inputs})
+        preferred = request.get("dataset")
+        if preferred:
+            meta = datasets.get(preferred, {}).get("metadata", {})
+            canonical = f"{meta.get('ticker')}:{meta.get('interval')}"
+            preferred = canonical if canonical in datasets else preferred
+        elif not inputs:
+            # A canonical market dataset and its compatibility alias are ONE
+            # operand, not ambiguous independent inputs.
+            choices = {
+                f"{data['metadata']['ticker']}:{data['metadata']['interval']}"
+                if data.get("metadata", {}).get("ticker")
+                and data.get("metadata", {}).get("interval")
+                else name
+                for name, data in datasets.items()
+            }
+            if len(choices) == 1:
+                preferred = next(iter(choices))
+        normalized.append(
+            {
+                **request,
+                "inputs": inputs,
+                **({"dataset": preferred} if preferred else {}),
+            }
+        )
     return normalized
 
 
@@ -278,7 +308,7 @@ def build_tools(*, fetcher=None, engine=None):
                     if "dataset" in ref and "values" not in ref
                 }
                 if not request.get("inputs") and datasets:
-                    names = {next(iter(datasets))}
+                    names = {request.get("dataset") or next(iter(datasets))}
                 for name in names:
                     dataset = datasets.get(name)
                     if not dataset or not dataset.get("metadata"):
@@ -327,7 +357,12 @@ def build_tools(*, fetcher=None, engine=None):
             return reply(
                 "run_talib_functions",
                 tool_call_id,
-                {"results": [result_summary(r) for r in rows]},
+                {
+                    "results": [
+                        result_summary(r, {"datasets": datasets, "results": results})
+                        for r in rows
+                    ]
+                },
                 datasets=datasets,
                 results=results,
                 result_requests=request_map,

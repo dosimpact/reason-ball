@@ -14,8 +14,10 @@ from langchain_core.messages import AIMessage, HumanMessage
 from pydantic import BaseModel, Field
 
 from domains.sec_chat.conversation import ConversationMessage, ConversationRequest
-from graph.primary_graphs.sec_deep_agent.presentation import build_research_ui_graph
 from domains.sec_tools.agent import artifacts
+from domains.sec_tools.financial_verification import verify_research_answer
+from domains.sec_tools.tools import html_to_text, normalize_text
+from graph.primary_graphs.sec_deep_agent.presentation import build_research_ui_graph
 from graph.primary_graphs.sec_deep_agent.workflow import build_sec_deep_agent
 from graph.primary_graphs.sec_intelligent_ui.workflow import chat_model
 from server.sec_chat.activity_stream import activity_stream
@@ -38,8 +40,20 @@ async def research(body, sink=None):
             for row in record['result']['items']:
                 sources[(row['cik'], row['accessionNo'])] = {key: row.get(key) for key in ('cik', 'accessionNo', 'formType', 'filingDate', 'filingUrl')}
     read = {(row['args']['cik'], row['args']['accessionNo']) for row in calls if row['tool'] == 'get_sec_filing_content'}
-    return {'report': final.text, 'toolCalls': [{'name': row['tool'], 'args': row['args']} for row in calls],
+    source_texts: dict[str, str | list[str]] = {}
+    for row in calls:
+        if row['tool'] == 'get_sec_filing_content' and isinstance(row['result'], str):
+            args = row['args']
+            text = normalize_text(html_to_text(row['result']))
+            query = args.get('query') or ''
+            start = args.get('offset') or max(0, text.lower().find(query.lower()))
+            excerpt = text[start:start + args.get('limit', 12000)]
+            key = f"{args['cik']}:{args['accessionNo']}"
+            existing = source_texts.get(key, [])
+            source_texts[key] = [*(existing if isinstance(existing, list) else [existing]), excerpt]
+    answer = {'report': final.text, 'toolCalls': [{'name': row['tool'], 'args': row['args']} for row in calls],
             'sources': [value for key, value in sources.items() if key in read]}
+    return await verify_research_answer(answer, source_texts, chat_model())
 
 
 @router.post('/research')
@@ -85,8 +99,9 @@ class ChatRequest(BaseModel):
 async def chat(body: ChatRequest):
     """OpenUI's native AG-UI transport, sharing the independent research graph."""
     conversation = [m for m in body.messages if m.role in ('user', 'assistant') and m.content]
+    last_content = conversation[-1].content if conversation else None
     if (not conversation or conversation[-1].role != 'user'
-            or not conversation[-1].content.strip() or len(conversation[-1].content) > 4000):
+            or not last_content or not last_content.strip() or len(last_content) > 4000):
         raise HTTPException(422, 'The last conversational message must be a user message.')
     request = ConversationRequest(message=cast(str, conversation[-1].content),
         history=[ConversationMessage(role=cast(Literal['user', 'assistant'], m.role),
@@ -104,6 +119,7 @@ async def chat(body: ChatRequest):
                     if kind == 'heartbeat':
                         yield ': heartbeat\n\n'
                     elif kind == 'activity':
+                        payload = cast(dict, payload)
                         identity = payload['id']
                         if payload['status'] == 'running':
                             yield event('TOOL_CALL_START', toolCallId=identity, toolCallName=payload['label'].split(' · ')[-1])
@@ -120,6 +136,6 @@ async def chat(body: ChatRequest):
             yield event('RUN_FINISHED', threadId=body.threadId, runId=body.runId)
         except asyncio.CancelledError:
             raise
-        except Exception:
+        except Exception:  # noqa: BLE001 - sanitized SSE boundary
             yield event('RUN_ERROR', code='SEC_ADMIN_FAILED', message='SEC 도구 실행 또는 응답 구성을 완료하지 못했습니다. 다시 시도해 주세요.')
     return StreamingResponse(stream(), media_type='text/event-stream', headers={'Cache-Control': 'no-cache'})

@@ -1,0 +1,15 @@
+meta {
+ name: TALIB-EVIDENCE delete owned thread
+ type: http
+ seq: 4
+}
+delete {
+ url: {{baseUrl}}/threads/{{evidenceThread}}
+ auth: none
+}
+assert {
+ res.status: eq 204
+}
+tests {
+ test("owned thread removed",()=>expect(res.getStatus()).to.equal(204));
+}

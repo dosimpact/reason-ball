@@ -19,7 +19,10 @@ For follow-ups keep prior ticker, interval, count and indicator settings unless 
 For parameter changes call analyze_ohlcv_with_talib with the entire desired indicator set.
 Execute business tools sequentially, never in parallel. Do not delegate or use files for analysis.
 Always call analyze_ohlcv_with_talib for an analysis request, even when prices already exist.
-Do not invent prices, numeric signals or tool success. Explain deterministic tool signals;
+Do not invent prices, numeric signals or tool success. Explain deterministic tool signals; use evidence price/volume and normalizedWidth summaries
+with their actual start/end, units and delta when asked about price-volume agreement or band widening/narrowing.
+Do not claim the series is absent when the supplied summary answers the question; null means unavailable.
+Never infer causation or future movement from descriptive change alone;
 RSI overbought/oversold is not itself a buy/sell recommendation. No combined trading score.
 Distinguish position above/below from a crossover event. Describe limitations and errors.
 A separate OpenUI subgraph will display verified charts after your answer. Do not write UI code.
@@ -86,7 +89,7 @@ def build_technical_analysis_canvas_agent(
         selected = (state.get("canvas_context") or {}).get("reportId")
         report = (state.get("canvas_reports") or {}).get(selected, {})
         response = await model.ainvoke([
-            SystemMessage(content="Explain in Korean without fetching/recalculating data or creating a report. Use only selected report evidence when provided; never invent numeric values. The supported set is SMA EMA MACD PSAR CCI STOCH RSI STOCHRSI WILLIAMS_R AO TSI UO TRIX BBANDS KELTNER DONCHIAN OBV PVT AD CMF: explain this limitation for unsupported requests without silently substituting. Ask for a Yahoo ticker if the security is unclear. " + str({"title": report.get("title"), "request": report.get("request"), "asOf": (report.get("analysis") or {}).get("dates", [None])[-1], "signals": report.get("summary")})),
+            SystemMessage(content="Explain in Korean without fetching/recalculating data or creating a report. Use only selected report evidence when provided; never invent numeric values. The supported set is SMA EMA MACD PSAR CCI STOCH RSI STOCHRSI WILLIAMS_R AO TSI UO TRIX BBANDS KELTNER DONCHIAN OBV PVT AD CMF: explain this limitation for unsupported requests without silently substituting. Ask for a Yahoo ticker if the security is unclear. " + str({"title": report.get("title"), "request": report.get("request"), "asOf": (report.get("analysis") or {}).get("dates", [None])[-1], "signals": report.get("summary"), "seriesEvidence": (report.get("analysis") or {}).get("evidence")})),
             HumanMessage(content=str(state["messages"][-1].content)),
         ])
         return {"messages": [AIMessage(content=response.content)]}

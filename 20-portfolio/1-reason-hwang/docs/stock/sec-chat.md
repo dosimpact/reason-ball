@@ -134,6 +134,10 @@ curl -N http://127.0.0.1:8000/api/sec-deep-agent/research \
 
 SEC API Agent와 SEC Intelligent UI는 [OPENUI-CHAT-DS-001](tech-shared/1-fe-host/open-ui.md#openui-chat-ds-001-공통-채팅-디자인-시스템)의 같은 프레임·Welcome·헤더·Composer·상태·오류 표현을 사용한다. 일반 Chat과 Generative UI도 이 표현 계층을 공유한다. `/sec-api-agent`는 native AG-UI adapter와 메모리 대화 기록, `/sec-chat`은 기존 controller adapter와 기업 확인·준비된 공시 metadata·추천 질문·독립 근거 표시를 연결한다. 일반 설명문은 공통 ConversationText로 Markdown을 렌더링한다. 업무 그래프·도구·인용 검증·서버 세션 계약은 화면 통합과 별개의 책임으로 유지한다.
 
-## SEC-FIN-BASIS-001: 금융 수치 기준 검증 한계
+## SEC-FIN-BASIS-002: 원문 기반 금융 검산
 
-현재 자유형 research와 OpenUI 표현 사이에 원금·장부금액 기준을 결정적으로 대조하는 검산 계층은 없다. 원금 786.78+CP19.97=806.75를 장부금액 781.14+CP19.97=801.11과 혼용한 회귀는 미해결이며 단발성 비재현을 해결로 보지 않는다. 근거 기준·단위·합계를 사용자 확인할 필요가 있다. [조사 기록](../flow/2026-11-16-sec-financial-basis-devtools-regression.md).
+SEC API Agent의 /api/sec-deep-agent/research 및 /chat은 금융 금액·배수 답변에 구조화 facts/calculations 검증을 적용한다. 실제 읽은 원문 excerpt의 인용·수치토큰·통화/scale·명시 basis(principal/carrying/fair_value/cash)·기준일을 대조하고, Decimal이 단위 환산과 합계/차/배수를 계산한다. 합계는 같은 basis, 입력은 같은 통화·기준일을 요구한다. 오류 계산은 정정하고 근거를 확인하지 못한 숫자는 표시하지 않는다.
+
+원래 금융 수치 문단은 검산 결과·검증불가 안내로 대체하고 비금융 설명·확인한 공시 출처를 유지한다. 최종 금융 OpenUI는 서버가 만든 Markdown 프로그램을 기존 parser로 검사하여 2차 모델의 수치 재해석을 방지한다. 비금융 답변은 기존 자유 구성 경로를 따른다. JSON에는 financialVerification 상태·facts·calculations·제약을 추가한다.
+
+이는 인용/산술 검증이며 회계 의미 추출의 완전한 감사가 아니다. 지원 형식 밖의 근거나 불명확한 표는 검증불가로 안내한다. raw LangGraph sec_deep_agent 메시지 경로는 보호 범위가 아니다. 외부 모델 추출 품질·브라우저는 이번 API fixture 검증에 포함하지 않았다. [구현·API 증거](../flow/2026-11-16-sec-financial-verification.md). 이전 SEC-FIN-BASIS-001의 미해결 조사에 대해 이 좁은 API 보호 경계를 추가했다.

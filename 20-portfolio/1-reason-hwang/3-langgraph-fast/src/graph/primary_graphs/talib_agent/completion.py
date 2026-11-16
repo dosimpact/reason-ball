@@ -43,9 +43,11 @@ def result_intervals(identifier, state, seen=None):
         return set()
     seen.add(identifier)
     intervals = set()
-    for ref in (
-        state.get("result_requests", {}).get(identifier, {}).get("inputs", {}).values()
-    ):
+    request = state.get("result_requests", {}).get(identifier, {})
+    references = list(request.get("inputs", {}).values())
+    if request.get("dataset"):
+        references.append({"dataset": request["dataset"]})
+    for ref in references:
         if "dataset" in ref:
             meta = state.get("datasets", {}).get(ref["dataset"], {}).get("metadata", {})
             if meta.get("interval"):

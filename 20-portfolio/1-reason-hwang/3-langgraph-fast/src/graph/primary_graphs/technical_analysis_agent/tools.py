@@ -209,6 +209,8 @@ def build_tools(*, fetcher=fetch_historical_prices, engine=None):
                 prices, metadata, settings, count, result
             ),
         }
+        from domains.technical_analysis.evidence import summarize_snapshot
+        report["evidence"] = summarize_snapshot(report["chart_snapshot"])
         summary = {
             key: value
             for key, value in report.items()

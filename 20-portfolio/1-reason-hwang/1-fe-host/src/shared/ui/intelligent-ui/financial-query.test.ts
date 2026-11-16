@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createParser, createQueryManager } from "@openuidev/lang-core";
 import { OpenuiSystemPromptSpec as spec } from "@/shared/config";
-import { fetchTechnicalAnalysisChart } from "./query-tools";
+import { fetchTechnicalAnalysisChart, fetchIndicatorCatalog, withQueryDeadline } from "./query-tools";
 
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => { vi.unstubAllGlobals(); vi.useRealTimers(); });
 describe("financial Query bridge", () => {
   it("validates Query with reactive args and refresh interval against the generated catalog", () => {
     const parsed = createParser(spec.schema, spec.root).parse('$ticker = "AAPL"\n$chart_refresh_seconds = 0\ndata = Query("technical_analysis_chart", {ticker:$ticker, interval:"1d", count:120}, {bars:[]}, $chart_refresh_seconds)\nroot = Col([QueryPanel([Input($ticker,"티커","text"),FinancialChart(data)],Action([@Run(data)]))])');
@@ -46,11 +46,49 @@ describe("financial Query bridge", () => {
   });
   it("passes cancellation to the network request", async () => {
     const controller = new AbortController();
-    vi.stubGlobal("fetch", vi.fn(async (_url, init) => {
-      expect(init.signal).toBe(controller.signal);
-      throw new DOMException("Aborted", "AbortError");
-    }));
+    const network = vi.fn();
+    vi.stubGlobal("fetch", network);
     controller.abort();
-    await expect(fetchTechnicalAnalysisChart({ ticker: "AAPL" }, controller.signal)).rejects.toThrow("Aborted");
+    await expect(fetchTechnicalAnalysisChart({ ticker: "AAPL" }, controller.signal)).rejects.toMatchObject({ name: "AbortError" });
+    expect(network).not.toHaveBeenCalled();
+  });
+});
+
+
+describe("financial Query deadline", () => {
+  it.each(["chart", "catalog"])("times out stalled %s response bodies and releases timers", async kind => {
+    vi.useFakeTimers();
+    let requestSignal: AbortSignal | undefined;
+    vi.stubGlobal("fetch", vi.fn(async (_url, init) => {
+      requestSignal = init.signal;
+      return { ok: true, json: () => new Promise(() => {}) };
+    }));
+    const pending = kind === "chart" ? fetchTechnicalAnalysisChart({ ticker: "AAPL" }) : fetchIndicatorCatalog("/catalog");
+    const failure = expect(pending).rejects.toThrow("30초");
+    await vi.advanceTimersByTimeAsync(30_000);
+    await failure;
+    expect(requestSignal?.aborted).toBe(true);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+  it("forwards external cancellation during work and removes listeners", async () => {
+    vi.useFakeTimers();
+    const parent = new AbortController();
+    const remove = vi.spyOn(parent.signal, "removeEventListener");
+    let networkSignal: AbortSignal | undefined;
+    const pending = withQueryDeadline(async signal => { networkSignal = signal; return new Promise(() => {}); }, parent.signal);
+    const failure = expect(pending).rejects.toThrow("stopped");
+    parent.abort(new Error("stopped"));
+    await failure;
+    expect(networkSignal?.aborted).toBe(true);
+    expect(remove).toHaveBeenCalledWith("abort", expect.any(Function));
+    expect(vi.getTimerCount()).toBe(0);
+  });
+  it("releases timer/listener after a successful body", async () => {
+    vi.useFakeTimers();
+    const parent = new AbortController();
+    const remove = vi.spyOn(parent.signal, "removeEventListener");
+    await expect(withQueryDeadline(async () => ({ complete: true }), parent.signal)).resolves.toEqual({ complete: true });
+    expect(vi.getTimerCount()).toBe(0);
+    expect(remove).toHaveBeenCalledWith("abort", expect.any(Function));
   });
 });
