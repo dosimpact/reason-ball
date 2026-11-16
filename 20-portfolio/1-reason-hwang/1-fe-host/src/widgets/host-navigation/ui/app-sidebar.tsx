@@ -41,12 +41,17 @@ const navGroups = [
   {
     title: "AI Chat",
     items: [
-      { title: "Langgraph dev chat", href: "/langgraph-dev-chat", icon: MessagesSquare },
       { title: "기술적 분석 · 인라인", href: "/technical-analysis", icon: MessagesSquare },
       { title: "기술적 분석 · Canvas", href: "/technical-analysis/canvas", icon: MessagesSquare },
-      { title: "FastAPI 채팅", href: "/fastapi-chat", icon: MessagesSquare },
       { title: "SEC API Agent", href: "/sec-api-agent", icon: MessagesSquare },
       { title: "SEC Research Chat", href: "/sec-chat", icon: MessagesSquare },
+    ],
+  },
+  {
+    title: "Debugging",
+    items: [
+      { title: "Langgraph dev chat", href: "/langgraph-dev-chat", icon: MessagesSquare },
+      { title: "FastAPI 채팅", href: "/fastapi-chat", icon: MessagesSquare },
     ],
   },
   {

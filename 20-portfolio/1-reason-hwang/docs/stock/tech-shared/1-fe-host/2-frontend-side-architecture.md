@@ -295,7 +295,7 @@ Host의 FastAPI 프록시는 2981, `REMOTE_BFF_URL`은 BFF 2980이다.
 
 ## HOST-NAV-001: 사이드바 그룹
 
-Langgraph dev chat의 주소는 `/langgraph-dev-chat`이며 기존 `/chat`은 새 주소로 리다이렉트한다. Host 사이드바는 Overview(Home), Remote Apps(Template·Todo), AI Chat(Langgraph dev chat·기술적 분석 인라인·기술적 분석 Canvas·FastAPI 채팅·SEC API Agent·SEC Research Chat), Generative UI(UI Demos·OpenUI Lang Catalog)로 구성한다. 카탈로그는 직접 진입할 수 있다. URL은 기존 경로를 유지한다. 경로 구간이 일치하는 항목 중 가장 구체적인 경로 하나만 활성화하여 카탈로그에서 UI Demos가 동시에 선택되지 않게 한다. 접힌 상태의 아이콘·툴팁과 모바일 Sidebar 동작은 공통 Sidebar를 따른다.
+Langgraph dev chat의 주소는 `/langgraph-dev-chat`이며 기존 `/chat`은 새 주소로 리다이렉트한다. Host 사이드바는 Overview(Home), Remote Apps(Template·Todo), AI Chat(기술적 분석 인라인·기술적 분석 Canvas·SEC API Agent·SEC Research Chat), Debugging(Langgraph dev chat·FastAPI 채팅), Generative UI(UI Demos·OpenUI Lang Catalog)로 구성한다. 카탈로그는 직접 진입할 수 있다. URL은 기존 경로를 유지한다. 경로 구간이 일치하는 항목 중 가장 구체적인 경로 하나만 활성화하여 카탈로그에서 UI Demos가 동시에 선택되지 않게 한다. 접힌 상태의 아이콘·툴팁과 모바일 Sidebar 동작은 공통 Sidebar를 따른다.
 
 기술적 분석 전용 경로는 `/technical-analysis`(인라인)와 `/technical-analysis/canvas`(Canvas)다.
 각 화면은 개발 런타임의 `technical_analysis_agent`·`technical_analysis_canvas_agent` 하나로 고정되며 그래프 선택기는 표시하지 않는다.
