@@ -34,7 +34,10 @@
     "validate:sec-modeling-agent": "uv run --env-file .env python scripts/validate_sec_modeling_agent.py",
     "test:sec-modeling-agent:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 22-sec-modeling-agent --env-var bffBaseUrl=http://127.0.0.1:2980",
     "validate:model2:http": "uv run --env-file .env python scripts/validate_sec_model2_http.py",
-    "test:model2:http:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 22-sec-model2-http --env local"
+    "test:model2:http:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 22-sec-model2-http --env local",
+    "test:talib-agent": "uv run pytest tests/domains/talib_agent tests/test_talib_agent_graph.py",
+    "test:talib-agent:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 27-talib-agent --env local",
+    "validate:talib-agent:http": "uv run --env-file .env python scripts/validate_talib_http.py"
   },
   "devDependencies": {
     "@usebruno/cli": "^2.13.0"

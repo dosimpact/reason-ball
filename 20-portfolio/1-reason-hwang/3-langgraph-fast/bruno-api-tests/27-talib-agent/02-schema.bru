@@ -1,0 +1,16 @@
+meta {
+  name: TALIB-CHAT-001 02-schema
+  type: http
+  seq: 2
+}
+get {
+  url: {{baseUrl}}/assistants/talib_agent/schemas
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("02-schema", function() { expect(res.getBody().input_schema.properties).to.have.property("messages"); });
+}

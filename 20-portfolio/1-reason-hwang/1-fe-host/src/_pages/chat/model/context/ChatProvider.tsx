@@ -292,7 +292,7 @@ export function ChatProvider({ children, runtime = developmentChatRuntime, fixed
         });
 
         await consumeStream({
-          config: { ...configResult.config, assistantId: graphId, streamMode: ["technical_analysis_agent", "technical_analysis_canvas_agent", "sec_modeling_agent"].includes(graphId) ? "values" : configResult.config.streamMode },
+          config: { ...configResult.config, assistantId: graphId, streamMode: ["talib_agent", "technical_analysis_agent", "technical_analysis_canvas_agent", "sec_modeling_agent"].includes(graphId) ? "values" : configResult.config.streamMode },
           client,
           threadId,
           content: trimmedContent,

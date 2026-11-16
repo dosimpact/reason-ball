@@ -1,0 +1,23 @@
+meta {
+  name: TALIB-CHAT-001 cancel actual pending task
+  type: http
+  seq: 8
+}
+post {
+  url: {{baseUrl}}/threads/{{emptyTalibThread}}/runs
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id":"talib_agent","input":{"messages":[{"role":"user","content":"slow fixture"}]}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const run=res.getBody();
+  const base=req.getUrl()+"/"+run.run_id;
+  const stopped=await bru.sendRequest({method:"POST",url:base+"/cancel?wait=true&action=interrupt"});
+  const status=await bru.sendRequest({method:"GET",url:base});
+  test("cancel interrupts owned runtime task",function(){expect(stopped.status).to.equal(200);expect(status.data.status).to.equal("interrupted");});
+}

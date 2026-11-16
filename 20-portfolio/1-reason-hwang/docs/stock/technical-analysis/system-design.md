@@ -108,3 +108,50 @@ v2 응답의 공통 OHLCV `bars`와 `indicators[]`의 인스턴스별 series.val
 누적 origin은 `date`, `availableHistory`, `policy`, `requestedDate`, `baseline`으로 공개한다. OBV는 첫 거래량, PVT는0, AD는 첫 money-flow-volume을 기준으로 계산한다. count는 표시만 자르며 동일 소스 이력의 겹치는 날짜 값이 유지된다. 공급자 이력 수정은 캐시 버전과 origin 정책의 제약으로 명시한다. 지표 수식·EMA seed·lookback·null/분모0·개별 시그널은 [Python 계산 계약](../tech-shared/3-langgraph-fast/ta20.md)을 따른다.
 
 OpenUI는 `technical_analysis_catalog` Query와 `IndicatorControls($chart_instances,catalog)`, reactive 인스턴스 JSON을 사용한다. 서버는 검증된 결과로 최소 DSL을 만들며 초기 fallback에 큰 수치 배열을 삽입하지 않는다. 실제 숫자는 모델 없는 Query로 조회한다. 두 TA 그래프는 같은 계산·설정 계약을 공유하며 inline은 결정적 presentation, Canvas는 UUID별 custom 보고서 표시를 유지한다. 프로토콜·수치·모델 비호출·parser 검증 증거와 사용자에게 맡긴 브라우저 검증 범위는 [당일 기록](../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)에 둔다.
+
+## TALIB-AGENT-001: 전체 네이티브 TA-Lib 에이전트
+
+`talib_agent`는 기존 20종 `technical_analysis_agent`·Canvas와 분리된 그래프다. Python wrapper와
+native core를 각각 `0.8.3`으로 고정하고 설치된 네이티브 카탈로그의 **237개** 함수를 실행한다.
+`ALLIGATOR`, `CE`, `GATOR`, `MACDV`, `SHARPE`, `SKEW`, `SORTINO`는 이 버전에 없으므로
+대체 구현을 섞지 않는다. 카탈로그는 실제 함수의 입력 키·기본 필드·파라미터·출력 타입/flags·lookback을
+제공한다. 네이티브 접근은 기존 `infrastructure/technical_analysis/talib/` 아래에 두고
+`domains/talib_agent/` facade를 통해 그래프와 분리한다.
+
+외부 입력은 `MessagesState`의 `messages` 하나다. `TalibState`와 내부 `TalibBusinessState`를
+명시적으로 변환하며 메시지 ID와 `add_messages` 의미를 유지한다. 내부 Deep Agent의 files/todos는
+외부 상태로 반환하지 않는다. 가격·계산 전체 배열은 datasets/results에 저장하고 모델에는 도구의
+최신값·상태·단위/출처·lookback·경고 요약만 제공한다. 모델 프롬프트에 전체 state를 직렬화하지 않는다.
+생산 ChatOpenAI 설정은 `parallel_tool_calls=false`로 복사해 상태 변경 도구를 순차 요청한다.
+
+| 도구 | 계약 |
+| --- | --- |
+| `list_talib_functions(group?, search?)` | 실제 237종의 그룹·이름 검색 |
+| `describe_talib_function(name)` | 정확한 입력·파라미터·출력과 native metadata |
+| `get_price_ohlcv(ticker, interval="1d", count=120)` | 완료된 수정 OHLCV. 일봉/주봉, 표시 최대 200봉, 초기 내부 이력 최소 600봉 |
+| `run_talib_functions(requests)` | 호출당 1–40개 요청, 개별 실패 격리, 명시적 ID/파라미터/입력 참조로 순차 계산 |
+
+입력 참조는 데이터셋 OHLCV 필드, 명시적 상수, 사용자 제공 값/날짜 배열, 이전 결과의 출력이다.
+다중 가격 입력이나 MAVP 기간 배열은 모호하게 추측하지 않는다. 날짜를 교집합으로 정렬하고 보간하지
+않는다. 실제 파라미터의 native lookback에 표시 봉 수를 더해 필요 시 최대 5,000봉까지 추가 조회한다.
+누적 함수의 bounded-window origin은 메타데이터/경고로 남기며 고정 원점 계산이라고 주장하지 않는다.
+다른 티커 추가는 독립 결과를 보존하고, 같은 데이터셋 갱신은 의존 결과와 그 결과를 참조하는 후속
+결과를 무효화한다. 설명만 요청한 후속 턴은 가격/배열을 재사용할 수 있고 새 계산을 강제하지 않는다.
+
+출력은 날짜 정렬 배열과 타입, flags, lookback, warnings, 마지막 봉의 `lastBarValue` 및
+`lastValidAt`을 가진다. 마지막 봉이 null이면 이전 유효값을 현재값으로 바꾸지 않는다. 패턴 정수 코드와
+인덱스 출력은 가격·확률로 해석하지 않는다. DPO/FRACTAL/ICHIMOKU의 displayShift는 표시 의미만
+기록하고 계산 가용 날짜를 이동하지 않아 미래 참조를 방지한다.
+
+각 턴 시작에 current_result_ids/presentation/followUps를 초기화해 이전 차트가 새 답변으로 노출되지
+않게 한다. 계산 결과로 결정적인 inline OpenUI 표와 선택형 출력 상세 차트를 만든다. 전체 결과가
+선택 가능하며 모든 배열은 상태에 남긴다. 표시 프로그램은 60,000자 한도에서 출력 수에 따라 차트
+표시 봉 수를 제한하고 그 한계를 명시한다. null 차트 값은 보간하지 않고 제외하며 정수 출력은 막대로
+표시한다. 티커·통화·표시 기간·파라미터·출처/조회 시각·origin·경고를 함께 보여준다. 실제 Host parser/
+catalog validator를 통과한 프로그램만 presentation으로 반환하고 실패 시 텍스트와 계산 상태를 보존한다.
+후속 질문 3개는 별도 추천 단계에서 생성하며 실패는 기존 답변을 무효화하지 않는다.
+
+`langgraph.json` 등록과 exported builder를 사용하는 FastAPI GraphRegistry 양쪽에서 같은 그래프를
+사용한다. `/talib-chat`는 고정 graph ID를 사용하는 native chat 진입점이다. 기존 TA와 Canvas의
+그래프·도구·화면은 유지한다. 실제 검증과 사용자 요청으로 제외한 브라우저 범위는
+[2026-11-16 구현 기록](../../flow/2026-11-16-talib-agent.md)을 따른다.

@@ -24,7 +24,10 @@ export function ChatPage() {
   const selected = graphs.find(graph => graph.id === graphId);
   const jsonMode = selected?.mode === "json";
   const discoveryNotice = graphDiscoveryError ?? selected?.schemaError;
-  const starters = graphId === "technical_analysis_agent" ? inlineAnalysisStarters
+  const starters = graphId === "talib_agent" ? [
+    { displayText: "AAPL 지표 분석", prompt: "AAPL 최근 120개 일봉의 RSI14와 SMA20을 분석하고 근거를 설명해 줘." },
+    { displayText: "지표 사용법", prompt: "지원하는 TA-Lib 지표와 계산에 필요한 입력을 알려줘." },
+  ] : graphId === "technical_analysis_agent" ? inlineAnalysisStarters
     : taMode ? canvasAnalysisStarters : graphId === "sec_deep_agent" ? [
     { displayText: "기업 찾기", prompt: "저장된 SEC 기업에서 AAPL을 찾아줘." },
     { displayText: "공시 찾기", prompt: "AAPL의 저장된 최근 10-K 공시 목록을 보여줘." },
@@ -41,7 +44,7 @@ export function ChatPage() {
     starters={jsonMode ? undefined : starters}
     headerLeading={<SidebarTrigger className="md:hidden" aria-label="메뉴 열기" />}
     headerControls={<div className="agent-conversation__header-controls">
-      {fixedGraphId ? <p className="text-sm font-medium">{selected?.name ?? (taMode ? "기술적 분석 · Canvas" : "기술적 분석 · 인라인")}</p> : <GraphSelector graphs={graphs} value={graphId} onChange={selectGraph} disabled={busy} />}
+      {fixedGraphId ? <p className="text-sm font-medium">{selected?.name ?? graphId}</p> : <GraphSelector graphs={graphs} value={graphId} onChange={selectGraph} disabled={busy} />}
       {taMode && canvas.reports.length > 0 && canvas.collapsed && <Button size="sm" variant="outline" onClick={() => collapseCanvas(false)}>Canvas ({canvas.reports.length})</Button>}
       {<ChatHistory label={jsonMode ? "실행 기록" : "대화 기록"} items={history} loading={historyLoading} error={historyError} disabled={busy} selectedId={threadId} onRefresh={refreshHistory} onSelect={openThread} />}
     </div>}

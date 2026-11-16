@@ -1,0 +1,16 @@
+meta {
+  name: TALIB-CHAT-001 07-delete
+  type: http
+  seq: 10
+}
+delete {
+  url: {{baseUrl}}/threads/{{talibThread}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 204
+}
+tests {
+  test("07-delete", function() { expect(res.getStatus()).to.equal(204); });
+}

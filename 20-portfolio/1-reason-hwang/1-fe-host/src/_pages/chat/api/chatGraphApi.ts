@@ -1,8 +1,9 @@
 import type { Client } from "@langchain/langgraph-sdk";
 
 export type GraphOption = { id: string; name: string; mode: "chat" | "json"; inputSchema?: Record<string, unknown>; exampleInput?: Record<string, unknown>; schemaError?: string; description?: string };
-const names: Record<string, string> = { starter_graph: "기본 채팅", simple_llm: "일반 에이전트", technical_analysis_agent: "기술적 분석 · 인라인", technical_analysis_canvas_agent: "기술적 분석 · Canvas", sec_deep_agent: "SEC Research", sec_modeling_agent: "SEC 모델링 테스트", main_graph: "Main Graph", price_agent: "가격 조회", technical_analysis_graph: "기술적 분석 서브그래프", tenk_subgraph: "10-K 검색" };
+const names: Record<string, string> = { talib_agent: "TA-Lib 채팅", starter_graph: "기본 채팅", simple_llm: "일반 에이전트", technical_analysis_agent: "기술적 분석 · 인라인", technical_analysis_canvas_agent: "기술적 분석 · Canvas", sec_deep_agent: "SEC Research", sec_modeling_agent: "SEC 모델링 테스트", main_graph: "Main Graph", price_agent: "가격 조회", technical_analysis_graph: "기술적 분석 서브그래프", tenk_subgraph: "10-K 검색" };
 const descriptions: Record<string, string> = {
+ talib_agent: "가격과 TA-Lib 지표를 도구로 조회하고 근거를 대화로 설명합니다.",
  starter_graph: "일반 질문에 답하고 날씨 질문에는 날씨 도구를 사용하는 기본 대화 그래프입니다.",
  simple_llm: "일반 대화와 현재 날씨 도구 호출을 제공하는 간단한 에이전트입니다.",
  technical_analysis_agent: "주가와 기술 지표를 조회·분석하고 결과를 대화 안에 보여줍니다.",
@@ -14,7 +15,7 @@ const descriptions: Record<string, string> = {
  technical_analysis_graph: "가격 배열을 입력받아 기술 지표를 계산합니다. 실제 OHLCV prices 배열이 필요하며 예시의 빈 배열은 입력 검증용입니다.",
  tenk_subgraph: "저장된 10-K 자료에서 질문과 관련된 내용을 검색하고 답변과 근거를 반환합니다.",
 };
-const chat = new Set(["starter_graph", "simple_llm", "technical_analysis_agent", "technical_analysis_canvas_agent", "sec_deep_agent", "sec_modeling_agent"]);
+const chat = new Set(["talib_agent", "starter_graph", "simple_llm", "technical_analysis_agent", "technical_analysis_canvas_agent", "sec_deep_agent", "sec_modeling_agent"]);
 const examples: Record<string, Record<string, unknown>> = {
  main_graph: { message: "안녕하세요", provider: "openai" },
  price_agent: { query: "AAPL 최근 완료된 일봉 2개를 조회해 주세요", interval: "1d", count: 2 },

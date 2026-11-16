@@ -24,3 +24,9 @@ export function TechnicalAnalysisChatRoute() {
 export function TechnicalAnalysisCanvasChatRoute() {
   return <ChatProvider key="technical-canvas" runtime={canvasRuntime} fixedGraphId="technical_analysis_canvas_agent"><ChatPage /></ChatProvider>;
 }
+
+const talibRuntime = { ...fastApiChatRuntime, label: "TA-Lib 채팅" };
+
+export function TalibChatRoute() {
+  return <ChatProvider key="talib-agent" runtime={talibRuntime} fixedGraphId="talib_agent"><ChatPage /></ChatProvider>;
+}

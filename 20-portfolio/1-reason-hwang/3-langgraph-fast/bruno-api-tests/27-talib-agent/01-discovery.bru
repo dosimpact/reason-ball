@@ -1,0 +1,19 @@
+meta {
+  name: TALIB-CHAT-001 01-discovery
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/assistants/search
+  body: json
+  auth: none
+}
+body:json {
+  {"graph_id":"talib_agent","limit":10}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("01-discovery", function() { expect(res.getBody().some(row => row.graph_id === "talib_agent")).to.equal(true); });
+}

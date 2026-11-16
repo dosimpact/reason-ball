@@ -75,3 +75,8 @@ test("four aborted history requests release SDK queue slots for a fresh thread p
   await Promise.all(histories);
  } finally { globalThis.fetch = original; }
 });
+
+test("TA-Lib is a native conversation graph with its own label", () => {
+ assert.equal(graphOption("talib_agent").mode, "chat");
+ assert.equal(graphOption("talib_agent").name, "TA-Lib 채팅");
+});
