@@ -28,4 +28,11 @@ export const Groups: Story = { args: { collapsible: "none" }, play: async ({ can
   await expect(canvas.getByRole("link", { name: "OpenUI Lang Catalog" })).toHaveAttribute("data-active");
   await expect(canvas.getByRole("link", { name: "OpenUI Lang Catalog" })).toHaveAttribute("href", "/open-ui/catalog");
   await expect(canvas.getByRole("link", { name: "UI Demos" })).not.toHaveAttribute("data-active");
+  await expect(canvas.getByRole("link", { name: "OpenUI Gallery" })).toHaveAttribute("href", "/open-ui/gallery");
+} };
+
+export const GalleryActive: Story = { args: { collapsible: "none" }, parameters: { nextjs: { appDirectory: true, navigation: { pathname: "/open-ui/gallery" } } }, play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await expect(canvas.getByRole("link", { name: "OpenUI Gallery" })).toHaveAttribute("data-active");
+  await expect(canvas.getByRole("link", { name: "UI Demos" })).not.toHaveAttribute("data-active");
 } };

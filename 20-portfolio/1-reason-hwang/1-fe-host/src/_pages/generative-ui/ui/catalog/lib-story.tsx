@@ -3,11 +3,12 @@ import { createLibrary, Renderer, type ActionEvent, type OpenUIError } from "@op
 import { runLibraryAction, webUrl, Col, library, listFunctions, numberFunctions, textFunctions, colorFunctions, dateFunctions, dataFunctions } from "@/shared/ui/intelligent-ui";
 import { useCallback, useEffect, useState } from "react";
 import libraryStories from "./stories.json";
+import { financialStories } from "./financial-stories";
 import builtinStories from "./builtins.json";
 import { createBuiltinDemoTools } from "./builtin-tools";
 import "./lib-story.css";
 
-const stories = [...libraryStories, ...builtinStories];
+const stories = [...libraryStories, ...builtinStories, ...financialStories];
 type Story = (typeof stories)[number];
 const colOnlyLibrary = createLibrary({ root: "Col", components: [Col] });
 const categories = ["components", "functions", "actions", "builtins"];
@@ -16,7 +17,7 @@ const componentGroupLabels: Record<string, string> = {
   "Media and data": "미디어·데이터", Play: "학습·피드백", Drawing: "도형·HTML",
 };
 const navigationGroups: Record<string, { label: string; names: string[] }[]> = {
-  components: (library.componentGroups ?? []).map(group => ({ label: componentGroupLabels[group.name] ?? group.name, names: group.components })),
+  components: [...(library.componentGroups ?? []).map(group => ({ label: componentGroupLabels[group.name] ?? group.name, names: group.components })), { label: "금융 차트 쇼케이스", names: financialStories.map(story => story.name) }],
   functions: [
     { label: "목록", names: listFunctions.map(fn => fn.name) },
     { label: "수치 계산", names: numberFunctions.map(fn => fn.name) },
@@ -99,7 +100,7 @@ export function LibStory({ theme }: { theme: "light" | "dark" }) {
     </header>
     <div className="story-layout"><aside className="story-sidebar">
       <p className="story-eyebrow">LIBRARY EXPLORER</p><h1>하나씩, 직접 실행하기</h1>
-      <p className="story-summary">{libraryStories.filter(item => item.category === "components").length}개 컴포넌트 · {libraryStories.filter(item => item.category === "functions").length}개 함수 · {libraryStories.filter(item => item.category === "actions").length}개 액션<br />내장 기능 {builtinStories.length}개 · 모델 호출 없이 직접 실행</p>
+      <p className="story-summary">{libraryStories.filter(item => item.category === "components").length}개 컴포넌트 · 금융 예제 {financialStories.length}개 · {libraryStories.filter(item => item.category === "functions").length}개 함수 · {libraryStories.filter(item => item.category === "actions").length}개 액션<br />내장 기능 {builtinStories.length}개 · 모델 호출 없이 직접 실행</p>
       <label className="story-search">항목 검색<input type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Col, Percent, Copy…" /></label>
       <div className="story-tabs" role="group" aria-label="라이브러리 종류">{categories.map(id => <button key={id} type="button" aria-pressed={category === id} onClick={() => { setCategory(id); setQuery(""); }}>{id === "builtins" ? "builtins · 내장" : id} <small>{stories.filter(story => story.category === id).length}</small></button>)}</div>
       <nav className="story-index" aria-label="라이브러리 항목">{groups.map(group => <section className="story-nav-group" key={group.label} aria-label={group.label}>

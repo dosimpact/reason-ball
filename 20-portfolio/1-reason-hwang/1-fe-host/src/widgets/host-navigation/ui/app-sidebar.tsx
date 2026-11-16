@@ -1,6 +1,6 @@
 "use client";
 
-import { Boxes, CheckSquare, Home, LayoutTemplate, MessagesSquare } from "lucide-react";
+import { Boxes, CheckSquare, Home, Images, LayoutTemplate, MessagesSquare } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "@/shared/ui/theme-toggle";
 import { usePathname } from "next/navigation";
@@ -60,6 +60,7 @@ const navGroups = [
     items: [
       { title: "UI Demos", href: "/open-ui", icon: Boxes },
       { title: "OpenUI Lang Catalog", href: "/open-ui/catalog", icon: LayoutTemplate },
+      { title: "OpenUI Gallery", href: "/open-ui/gallery", icon: Images },
     ],
   },
 ];

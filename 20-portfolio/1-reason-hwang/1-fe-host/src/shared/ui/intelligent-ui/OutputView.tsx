@@ -23,27 +23,20 @@ export function OutputView({ program, busy = false, onMessage, onBusinessAction,
   const callbacks = useRef({ onQuerySuccess }); callbacks.current = { onQuerySuccess };
   const [live, setLive] = useState(false);
   const supportsLive = program.includes("$chart_refresh_seconds = 0");
-  const controllers = useMemo(() => new Set<AbortController>(), [program, queryEndpoint]);
-  useEffect(() => () => { controllers.forEach(controller => controller.abort()); controllers.clear(); }, [controllers]);
+  const requestScope = useMemo(() => ({ active: false }), [program, queryEndpoint]);
+  useEffect(() => { requestScope.active = true; return () => { requestScope.active = false; }; }, [requestScope]);
   useEffect(() => { if (!active) setLive(false); }, [active]);
   const toolProvider = useMemo(() => ({
-    technical_analysis_catalog: async () => {
-      const controller = new AbortController(); controllers.add(controller);
-      try { return await fetchIndicatorCatalog((queryEndpoint ?? "/api/langgraph/technical-analysis/chart").replace(/\/chart$/, "/catalog"), controller.signal); }
-      finally { controllers.delete(controller); }
-    },
+    technical_analysis_catalog: async () => fetchIndicatorCatalog((queryEndpoint ?? "/api/langgraph/technical-analysis/chart").replace(/\/chart$/, "/catalog")),
     technical_analysis_chart: async (args: Record<string, unknown>) => {
-      const controller = new AbortController();
-      controllers.add(controller);
       try {
-        const snapshot = await fetchTechnicalAnalysisChart(args, controller.signal, queryEndpoint);
-        if (!controller.signal.aborted && !snapshot.error && snapshot.bars.length > 0) callbacks.current.onQuerySuccess?.(args);
+        const snapshot = await fetchTechnicalAnalysisChart(args, undefined, queryEndpoint);
+        if (requestScope.active && !snapshot.error && snapshot.bars.length > 0) callbacks.current.onQuerySuccess?.(args);
         return snapshot;
       }
       catch (error) { return { bars: [], error: error instanceof Error ? error.message : "가격 조회에 실패했습니다." }; }
-      finally { controllers.delete(controller); }
     },
-  }), [controllers, queryEndpoint]);
+  }), [requestScope, queryEndpoint]);
   const response = supportsLive ? program.replace("$chart_refresh_seconds = 0", `$chart_refresh_seconds = ${active && live ? 30 : 0}`) : program;
   function handleAction(event: ActionEvent) {
     if (busy || provisional) return;

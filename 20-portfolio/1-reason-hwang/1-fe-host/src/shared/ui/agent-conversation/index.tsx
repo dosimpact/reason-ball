@@ -165,7 +165,7 @@ export function AgentChatFrame({ title, description, welcomeTitle, starters, sta
           <ConversationActions busy={busy} history={history} onReset={onReset} resetLabel={resetLabel} onDidReset={() => setEpoch(value => value + 1)} />
           {headerControls && <div className="agent-conversation__mobile-controls">{headerControls}</div>}
         </AgentInterface.MobileHeader>
-        {!busy && (starterGroups?.length ? <AgentInterface.Welcome key={epoch}>
+        {!busy && (starterGroups?.length ? <AgentInterface.Welcome key={epoch} className="agent-conversation__grouped-welcome">
           <div className="agent-conversation__grouped-heading">
             <h2>{welcomeTitle ?? "무엇을 도와드릴까요?"}</h2>
             {description && <p>{description}</p>}

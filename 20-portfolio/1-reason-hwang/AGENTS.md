@@ -58,3 +58,8 @@ Phase - Commit
 - 특별히 내가 질문이 먼저 물어보지 않는다면, 우선 가능한 작업을 먼저 진행하고 blocking issue, 스펙 질문, 모호한것은 구현 후 질문한다.  
 - 서브에이전트(sol model)를 활용할 수 있으면 병렬로 작업해서 속도를 올려라. 
 - 참고: server설정.local.md (.env로컬 설정현황)
+
+## Open UI Lang 업데이트 규칙 
+- 신규 컴포넌트가 추가되면 아래 페이지들도 업데이트 한다. 
+  - 'LIBRARY EXPLORER'에 컴포넌트 추가
+  - 

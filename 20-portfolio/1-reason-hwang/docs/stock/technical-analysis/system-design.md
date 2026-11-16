@@ -63,7 +63,7 @@ Bruno는 실제 Yahoo·모델·Host validator 연결이 필요하다. 테스트�
 
 응답은 source/symbol/currency/exchange/timezone/interval/auto_adjust/fetched_at/cache_hit/source_url metadata와 `as_of`, `parameters`, `indicators`, `warnings`, `requested_count`, `available_count`, `bars`를 제공한다. 각 bar는 정렬된 `time`(ISO 날짜), open/high/low/close/volume와 선택한 지표의 sma/rsi/macd/signal/histogram이다. 준비 구간 부족값은 null로 유지하며 모든 값은 같은 날짜 행에 정렬한다.
 
-결정적 프로그램은 최초 `snapshot`, reactive ticker/interval/count, 기본0인 `$chart_refresh_seconds` 및 `Query("technical_analysis_chart", args, snapshot, $chart_refresh_seconds)`를 선언하고 `FinancialChart(chart)`로 표시한다. Host provider는 이 이름과 알려진 인자만 허용한다. 응답은 Zod schema로 검사하며 API 실패는 빈 bars와 오류 안내로 표시한다. SDK의 query key별 결과 격리가 늦게 도착한 다른 설정의 값을 차단하고 프로그램 교체·unmount 시 소유 fetch를 취소한다.
+결정적 프로그램은 최초 `snapshot`, reactive ticker/interval/count, 기본0인 `$chart_refresh_seconds` 및 `Query("technical_analysis_chart", args, snapshot, $chart_refresh_seconds)`를 선언하고 `FinancialChart(chart)`로 표시한다. Host provider는 이 이름과 알려진 인자만 허용한다. 응답은 Zod schema로 검사하며 API 실패는 빈 bars와 오류 안내로 표시한다. SDK의 query key별 결과 격리가 늦게 도착한 다른 설정의 값을 차단하고 프로그램 교체·unmount 시 진행 중인 fetch를 취소하지 않으며 이전 출력의 성공 콜백은 무시한다.
 
 최신 메시지만 opt-in30초 polling을 제공한다. 이전 메시지와 실행 중 메시지는 polling을 멈추며 화면 제거 시 SDK timer와 chart/observer를 정리한다. Lightweight Charts는 candles·volume·SMA·RSI·MACD pane을 공유 시간축으로 그리고 null을 whitespace로 유지한다. Host 테마 변경을 관찰하고 컨테이너 폭에 맞춰 크기를 조정한다. TradingView 저작권·링크를 표시한다.
 

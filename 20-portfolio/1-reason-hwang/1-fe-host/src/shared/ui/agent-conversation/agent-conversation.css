@@ -130,3 +130,5 @@
 .agent-conversation__starter-group summary:focus-visible,
 .agent-conversation__starter-buttons button:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
 @media (max-width: 640px) { .agent-conversation__starter-buttons { grid-template-columns: 1fr; } }
+
+.agent-conversation .agent-conversation__grouped-welcome { justify-content: flex-start; min-height: 0; overflow-y: auto; padding-block: 24px; }

@@ -33,3 +33,20 @@ export const TradingViewChart: Story = {
     await expect(canvas.queryByRole("alert")).not.toBeInTheDocument();
   },
 };
+
+export const FinancialShowcases: Story = {
+  beforeEach: () => {
+    const previous = window.location.href;
+    window.history.replaceState(null, "", "#financial-combined");
+    return () => { window.history.replaceState(null, "", previous); };
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole("region", { name: "금융 차트 쇼케이스" });
+    for (const name of ["캔들 · 거래량", "SMA(20) 오버레이", "RSI(14) 패널", "MACD(12,26,9) 패널", "캔들 · 지표 통합"]) {
+      await expect(within(group).getByRole("link", { name: new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")) })).toBeVisible();
+    }
+    await waitFor(() => expect(canvas.getByTestId("financial-chart-canvas").querySelectorAll("canvas").length).toBeGreaterThan(1));
+    await expect(canvas.getByText(/화면 확인용 가상 데이터/)).toBeVisible();
+  },
+};

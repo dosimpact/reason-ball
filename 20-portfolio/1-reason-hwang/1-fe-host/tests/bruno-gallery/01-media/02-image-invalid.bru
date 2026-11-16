@@ -1,0 +1,22 @@
+meta {
+  name: image-invalid
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/image-search?q=x
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("GALLERY-MEDIA-001 image-invalid", function() {
+    expect(res.getStatus()).to.equal(400);
+    expect(res.getBody().error.message).to.equal("q must be 2 to 200 characters");
+  });
+}
