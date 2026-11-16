@@ -39,6 +39,7 @@ import {
 } from "@/shared/config";
 
 type ChatContextValue = {
+  fixedGraphId?: string;
   runtime: ChatRuntime;
   runNotice: string | null;
   messages: ChatMessage[];
@@ -74,7 +75,7 @@ type ChatContextValue = {
 
 const ChatContext = createContext<ChatContextValue | null>(null);
 
-export function ChatProvider({ children, runtime = developmentChatRuntime }: { children: ReactNode; runtime?: ChatRuntime }) {
+export function ChatProvider({ children, runtime = developmentChatRuntime, fixedGraphId }: { children: ReactNode; runtime?: ChatRuntime; fixedGraphId?: string }) {
   const [state, dispatch] = useReducer(chatReducer, initialChatState);
   const [canvas, dispatchCanvas] = useReducer(reduceCanvas, initialCanvas);
   const canvasRef = useRef(canvas); canvasRef.current = canvas;
@@ -100,9 +101,9 @@ export function ChatProvider({ children, runtime = developmentChatRuntime }: { c
     const config = getLangGraphConfig();
     return config.config ? { config: { ...config.config, apiUrl: runtime.apiUrl }, error: null } : config;
   }, [runtime.apiUrl]);
-  const [graphId, setGraphId] = useState(configResult.config?.assistantId ?? "starter_graph");
-  const [graphs, setGraphs] = useState<GraphOption[]>([graphOption(configResult.config?.assistantId ?? "starter_graph")]);
-  const [graphDiscoveryLoading, setGraphDiscoveryLoading] = useState(false);
+  const [graphId, setGraphId] = useState(fixedGraphId ?? configResult.config?.assistantId ?? "starter_graph");
+  const [graphs, setGraphs] = useState<GraphOption[]>([graphOption(fixedGraphId ?? configResult.config?.assistantId ?? "starter_graph")]);
+  const [graphDiscoveryLoading, setGraphDiscoveryLoading] = useState(Boolean(fixedGraphId));
   const [graphDiscoveryError, setGraphDiscoveryError] = useState<string | null>(null);
   const [graphRevision, setGraphRevision] = useState(0);
   const [graphResult, setGraphResult] = useState<unknown>();
@@ -153,11 +154,19 @@ export function ChatProvider({ children, runtime = developmentChatRuntime }: { c
     const controller = new AbortController();
     setGraphDiscoveryLoading(true); setGraphDiscoveryError(null);
     discoverGraphs(client, controller.signal).then(items => {
-      if (!controller.signal.aborted) { setGraphs(items); if (items.length) setGraphId(current => items.some(item => item.id === current) ? current : items[0].id); if (!items.length) setGraphDiscoveryError("등록된 에이전트가 없습니다."); }
+      if (!controller.signal.aborted) {
+        const available = fixedGraphId ? items.filter(item => item.id === fixedGraphId) : items;
+        setGraphs(available);
+        if (fixedGraphId) {
+          setGraphId(fixedGraphId);
+          if (!available.length) setGraphDiscoveryError("이 화면의 기술적 분석 에이전트가 실행 서버에 등록되어 있지 않습니다.");
+        } else if (available.length) setGraphId(current => available.some(item => item.id === current) ? current : available[0].id);
+        else setGraphDiscoveryError("등록된 에이전트가 없습니다.");
+      }
     }).catch(() => { if (!controller.signal.aborted) setGraphDiscoveryError("에이전트 목록을 불러오지 못했습니다. 실행 서버 연결을 확인하고 다시 조회하세요."); })
       .finally(() => { if (!controller.signal.aborted) setGraphDiscoveryLoading(false); });
     return () => controller.abort();
-  }, [client, graphRevision]);
+  }, [client, graphRevision, fixedGraphId]);
 
   stateRef.current = state;
 
@@ -221,7 +230,7 @@ export function ChatProvider({ children, runtime = developmentChatRuntime }: { c
       const trimmedContent = content.trim();
 
       if (
-        operationBusy.current || !trimmedContent || graphs.find(graph => graph.id === graphId)?.mode === "json" ||
+        operationBusy.current || !trimmedContent || (fixedGraphId && (graphDiscoveryLoading || graphDiscoveryError || !graphs.some(graph => graph.id === fixedGraphId))) || graphs.find(graph => graph.id === graphId)?.mode === "json" ||
         stateRef.current.status === "creating_thread" ||
         stateRef.current.status === "streaming" ||
         stateRef.current.status === "loading_history"
@@ -325,7 +334,7 @@ export function ChatProvider({ children, runtime = developmentChatRuntime }: { c
         });
       } finally { operationBusy.current = false; if (abortControllerRef.current === requestController) { activeRunRef.current = null; stopRequested.current = false; setRunNotice(null); } }
     },
-    [client, configResult.config, configResult.error, graphId, graphs, refreshHistory, runtime.id, trackRun],
+    [client, configResult.config, configResult.error, graphId, graphs, refreshHistory, runtime.id, trackRun, fixedGraphId, graphDiscoveryLoading, graphDiscoveryError],
   );
 
   const runGraph = useCallback(async (input: Record<string, unknown>) => {
@@ -379,15 +388,16 @@ export function ChatProvider({ children, runtime = developmentChatRuntime }: { c
   }, []);
 
   const selectGraph = useCallback((id: string) => {
+    if (fixedGraphId && id !== fixedGraphId) return;
     if (operationBusy.current || ["streaming", "creating_thread", "loading_history"].includes(stateRef.current.status)) return;
     if (!graphs.some(graph => graph.id === id)) return;
     resetThread();
     setGraphId(id);
-  }, [graphs, resetThread]);
+  }, [graphs, resetThread, fixedGraphId]);
 
   const value = useMemo(
     () => ({
-      runtime, runNotice, messages: state.messages,
+      fixedGraphId, runtime, runNotice, messages: state.messages,
       threadId: state.threadId, conversationVersion, history, historyLoading, historyError, refreshHistory, openThread,
       status: configResult.error ? "error" : state.status,
       error: configResult.error ?? cancelError ?? state.error,
@@ -395,7 +405,7 @@ export function ChatProvider({ children, runtime = developmentChatRuntime }: { c
       cancelRun: () => { void cancelRun(); },
       resetThread, graphId, graphs, selectGraph, graphDiscoveryLoading, graphDiscoveryError, reloadGraphs, graphResult, runGraph,
     }),
-    [runtime, runNotice, cancelError, cancelRun, canvas, selectCanvas, closeCanvas, collapseCanvas, saveCanvasState, saveCanvasQuery, reanalyzeCanvas, reanalyzeInline, configResult.error, resetThread, sendMessage, state.error, state.messages, state.status, state.threadId, graphId, graphs, selectGraph, conversationVersion, history, historyLoading, historyError, refreshHistory, openThread, graphDiscoveryLoading, graphDiscoveryError, reloadGraphs, graphResult, runGraph],
+    [fixedGraphId, runtime, runNotice, cancelError, cancelRun, canvas, selectCanvas, closeCanvas, collapseCanvas, saveCanvasState, saveCanvasQuery, reanalyzeCanvas, reanalyzeInline, configResult.error, resetThread, sendMessage, state.error, state.messages, state.status, state.threadId, graphId, graphs, selectGraph, conversationVersion, history, historyLoading, historyError, refreshHistory, openThread, graphDiscoveryLoading, graphDiscoveryError, reloadGraphs, graphResult, runGraph],
   );
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;

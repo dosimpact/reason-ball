@@ -16,7 +16,7 @@ import { OutputView } from "@/shared/ui/intelligent-ui";
 import { useChat } from "../model/context/useChat";
 
 export function ChatPage() {
-  const { runtime, runNotice, error, messages, resetThread, cancelRun, sendMessage, status, graphId, graphs, selectGraph, history, historyLoading, historyError, refreshHistory, openThread, threadId, conversationVersion, runGraph, graphResult, graphDiscoveryError, reloadGraphs, canvas, selectCanvas, collapseCanvas } = useChat();
+  const { fixedGraphId, runtime, runNotice, error, messages, resetThread, cancelRun, sendMessage, status, graphId, graphs, selectGraph, history, historyLoading, historyError, refreshHistory, openThread, threadId, conversationVersion, runGraph, graphResult, graphDiscoveryError, reloadGraphs, canvas, selectCanvas, collapseCanvas } = useChat();
   const taMode = graphId === "technical_analysis_canvas_agent";
   const canvasVisible = taMode && canvas.reports.length > 0 && !canvas.collapsed;
   const busy = status === "streaming" || status === "creating_thread" || status === "loading_history";
@@ -43,7 +43,7 @@ export function ChatPage() {
     starters={jsonMode ? undefined : starters}
     headerLeading={<SidebarTrigger className="md:hidden" aria-label="메뉴 열기" />}
     headerControls={<div className="agent-conversation__header-controls">
-      <GraphSelector graphs={graphs} value={graphId} onChange={selectGraph} disabled={busy} />
+      {fixedGraphId ? <p className="text-sm font-medium">{selected?.name ?? (taMode ? "기술적 분석 · Canvas" : "기술적 분석 · 인라인")}</p> : <GraphSelector graphs={graphs} value={graphId} onChange={selectGraph} disabled={busy} />}
       {taMode && canvas.reports.length > 0 && canvas.collapsed && <Button size="sm" variant="outline" onClick={() => collapseCanvas(false)}>Canvas ({canvas.reports.length})</Button>}
       {<ChatHistory label={jsonMode ? "실행 기록" : "대화 기록"} items={history} loading={historyLoading} error={historyError} disabled={busy} selectedId={threadId} onRefresh={refreshHistory} onSelect={openThread} />}
     </div>}

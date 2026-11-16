@@ -19,6 +19,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
   SidebarTrigger,
+  useSidebar,
 } from "@/shared/ui/sidebar";
 
 const navGroups = [
@@ -41,6 +42,8 @@ const navGroups = [
     title: "AI Chat",
     items: [
       { title: "Langgraph dev chat", href: "/langgraph-dev-chat", icon: MessagesSquare },
+      { title: "기술적 분석 · 인라인", href: "/technical-analysis", icon: MessagesSquare },
+      { title: "기술적 분석 · Canvas", href: "/technical-analysis/canvas", icon: MessagesSquare },
       { title: "FastAPI 채팅", href: "/fastapi-chat", icon: MessagesSquare },
       { title: "SEC API Agent", href: "/sec-api-agent", icon: MessagesSquare },
       { title: "SEC Research Chat", href: "/sec-chat", icon: MessagesSquare },
@@ -56,6 +59,7 @@ const navGroups = [
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { isMobile, setOpenMobile } = useSidebar();
   const pathname = usePathname();
   const activeHref = navGroups.flatMap(group => group.items)
     .filter(item => pathname === item.href || (item.href !== "/" && pathname.startsWith(`${item.href}/`)))
@@ -99,7 +103,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarMenuButton
                       isActive={isActive}
                       tooltip={item.title}
-                      render={<Link href={item.href} />}
+                      render={<Link href={item.href} onClick={() => { if (isMobile) setOpenMobile(false); }} />}
                     >
                       <Icon aria-hidden="true" />
                       <span>{item.title}</span>
@@ -131,6 +135,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 /** Mobile navigation remains reachable without reserving an application header. */
 export function MobileSidebarTrigger() {
   const pathname = usePathname();
-  if (["/langgraph-dev-chat", "/chat", "/fastapi-chat"].includes(pathname)) return null;
+  if (["/langgraph-dev-chat", "/chat", "/fastapi-chat", "/technical-analysis", "/technical-analysis/canvas"].includes(pathname)) return null;
   return <SidebarTrigger className="fixed bottom-24 left-4 z-40 size-10 rounded-full border bg-background shadow-md md:hidden" />;
 }

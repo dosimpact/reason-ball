@@ -167,3 +167,19 @@ allowlisted `technical_analysis_catalog`는 해당 runtime의 `/technical-analys
 OpenUI 컴포넌트 catalog와 Renderer의 Query toolProvider는 별도 계약이다. generate는 runtime handler를 등록하지 않는다. 현재 chart/catalog handler 등록이 포함된 최신 JS와 예전 탭의 번들은 다를 수 있으므로 오류에 Available: technical_analysis_chart만 보이면 현재 제공 JS와 열린 탭의 버전을 먼저 확인한다. 지표 catalog API는 20개 지표 정의를 반환하는 단일 조회 도구이며 컴포넌트 개수와 다르다.
 
 [변경·검증 기록](../../../flow/2026-11-16-openui-catalog-prompt-sync.md)
+
+## TA-NAV-001: 기술적 분석 전용 진입과 OpenUI Lang
+
+AI Chat의 인라인 메뉴는 `/technical-analysis` → `technical_analysis_agent`, Canvas 메뉴는
+`/technical-analysis/canvas` → `technical_analysis_canvas_agent`로 연결한다. 두 화면은 개발 런타임의
+동일한 ChatProvider/ChatPage를 재사용하되 `fixedGraphId`로 discovery 결과와 전환·실행을 제한한다.
+대상 미등록 시 다른 에이전트로 fallback하지 않으며 목록 재시도를 제공한다. 실행 중·기록 복원·새 대화와
+runtime/graph별 history 계약은 기존 개발 채팅과 같다.
+
+두 그래프의 시각화는 SEC Intelligent UI와 동일한 공유 `OutputView` 및
+`@openuidev/react-lang` Renderer·카탈로그를 사용한다. 인라인은 `presentation.program`을
+InlineAnalysis 안에서 렌더링하고 Canvas는 custom canvas 이벤트의 검증된 program을 별도 패널에서
+렌더링한다. Canvas 생성 중 미리보기와 최종 ready 검증, 모델 없는 Query 및 재분석 계약은 유지한다.
+일반 텍스트 요약·오류 fallback은 별도이므로 모든 메시지가 OpenUI DSL이라는 뜻은 아니다.
+
+[구현·검증 기록](../../../flow/2026-11-16-technical-analysis-dedicated-navigation.md).
