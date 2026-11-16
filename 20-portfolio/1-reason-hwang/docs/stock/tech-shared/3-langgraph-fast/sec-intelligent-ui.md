@@ -42,3 +42,7 @@
 독립 `graph/primary_graphs/sec_deep_agent/workflow.py`는 `create_deep_agent`를 사용한다. `langgraph.json`의 graph ID는 `sec_deep_agent`다. LangGraph 개발 서버에서는 표준 messages 입력을 받는다. 현재 FastAPI의 고정 표준 호환 graph registry와 별도로 `/api/sec-deep-agent/research`를 제공한다. 이 endpoint는 `{message, history?}` 입력에 `{report, toolCalls, sources}`를 반환하며 SEC Chat threadId는 사용하지 않는다. Accept SSE이면 RUN_STARTED → sec.activity → sec.report → RUN_FINISHED 또는 RUN_ERROR다. 호출당 900초·recursion_limit=80, 기존 lookup/prepare loop는 12/24 step으로 제한한다.
 
 Deep Agent는 계획·가상 파일·기본 위임 도구를 사용할 수 있다. 기본 파일은 실행 상태이며 호스트 파일로 저장되지 않는다. 리포트는 Markdown이며 독립 endpoint에서 OpenUI를 강제로 생성하지 않는다. 기존 SEC Chat은 OpenUI를 유지한다. 독립 리포트의 sources는 메인 그래프가 목록 조회하고 원문을 읽은 공시로 제한한다. 기존 SEC Chat의 구절 ID 기반 인용 검증과 달리 독립 리포트의 모든 인용·계산을 자동으로 검증하는 기능은 아직 없다. 전체 기업 수집은 사용자가 전체 수집을 명시했을 때만 선택하도록 tool 설명과 시스템 지시에 명시했다.
+
+### SEC 채팅 도구 활동
+
+`/resolve`와 SSE로 요청한 `/prepare`는 `sec.activity`에 SEC 도구의 인자·결과 및 상태를 전달한다. `/prepare`는 기본 JSON 응답도 유지한다. 원문 도구는 모델에 제공하는 발췌 결과를 활동으로 전달하며 별도 artifact 전체는 전송하지 않는다.

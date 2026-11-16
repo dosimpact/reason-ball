@@ -4,6 +4,7 @@ SEC 업무는 `UsCorporateFilingsModule`이 소유한다. 한국 Open DART 5개 
 
 | 문서 | 책임 |
 | --- | --- |
+| [모델링 관리 조회](sec-modeling-dashboard.md) | 서버 페이지네이션, 필터 전체 최신 작업 집계와 publication 상태 배치 |
 | [디렉터리 정책](directory-policy.md) | 승인된 src 구조, 단일 모듈, 외부 lib, entity/DTO, API 통합 |
 | [로거](logger.md) | Winston 연결, 환경 선택, 파일 순환·운영·적용 범위 |
 | [Swagger](swagger-module.md) | 문서 URL, 생성 방식과 런타임 검증의 구분 |

@@ -70,9 +70,9 @@ SEC Chat에 대한 마스터 문서 입니다. 주요 개념, 기능, 도메인�
 
 ## Behind the scenes
 
-답변을 만드는 실제 작업 과정을 보여주는 접이식 타임라인이다. 실행 중에는 `Working`, 종료 후에는 `Behind the scenes`로 표시하며 완료·실패·중단을 구분한다. 모델의 내부 사고 과정은 표시하지 않는다.
+답변을 만드는 실제 작업 과정을 보여주는 접이식 타임라인이다. 실행 중에는 현재 사용자 메시지 다음의 임시 답변 영역에 `Working`을 표시하고, 종료 후 같은 턴의 답변 안에 `Behind the scenes`를 표시하며 완료·실패·중단을 구분한다. 모델의 내부 사고 과정은 표시하지 않는다.
 
-- **구현:** LangGraph 노드를 `tracked_node`로 감싸 시작·종료 상태를 수집하고, SSE의 `CUSTOM sec.activity` 이벤트로 전달한다. 프런트는 실행 ID별 상태를 갱신하고 대화 턴별로 보존한다. 공시 준비 같은 HTTP 요청은 별도로 표시한다. 공통 OpenUI AgentInterface의 AssistantMessage 확장 화면에서 기존 ActivityTimeline을 표시한다.
+- **구현:** LangGraph 노드를 `tracked_node`로 감싸 시작·종료 상태를 수집하고, SSE의 `CUSTOM sec.activity` 이벤트로 전달한다. 프런트는 실행 ID별 상태를 갱신하고 대화 턴별로 보존한다. SEC 도구 활동에는 호출 인자와 모델에 전달된 결과를 포함하며 펼쳐 확인할 수 있다. 공시 준비는 SSE를 요청하면 도구 이벤트와 준비 결과를 스트리밍하고 기존 JSON 요청도 지원한다. 공시 준비 같은 HTTP 요청은 별도로 표시한다. 공통 OpenUI AgentInterface의 AssistantMessage 확장 화면에서 기존 ActivityTimeline을 표시한다.
 - **사용 사례:** 공시 다운로드나 답변 생성 중 어느 단계인지 확인하고, 실패·중단된 작업을 파악한다. 답변 후에는 근거 선택·인용 검증·추천 질문 생성이 완료됐는지 확인할 수 있다.
 - **코드:** [노드 상태 수집](../../3-langgraph-fast/src/domains/sec_chat/activity.py), [이벤트 스트리밍](../../3-langgraph-fast/src/server/sec_chat/activity_stream.py), [API 연결](../../3-langgraph-fast/src/server/sec_chat/router.py), [프런트 이벤트 처리](../../1-fe-host/src/_pages/sec-chat/api/stream.ts), [타임라인 UI](../../1-fe-host/src/_pages/sec-chat/ui/ActivityTimeline.tsx).
 

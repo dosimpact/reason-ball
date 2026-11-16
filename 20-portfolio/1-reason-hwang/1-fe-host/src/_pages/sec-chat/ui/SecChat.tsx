@@ -6,19 +6,13 @@ import { History } from "lucide-react";
 import { HISTORY_KEY, parseHistory, saveHistory, type Company, type Prepared, type Message, type Choice, type Conversation } from "../model/history";
 import { FollowUpQuestions } from "./FollowUpQuestions";
 import { AnswerView } from "./AnswerView";
-import { readAnswer, readResolution } from "../api/stream";
+import { readAnswer, readPreparation, readResolution } from "../api/stream";
 import { ActivityTimeline, type Activity } from "./ActivityTimeline";
 import "./sec-chat.css";
 
 type Resolution = { followUps?: string[]; program?: string } & ({ action: "reply"; reply: string } | ({ action: "choose"; reply: string } & Choice) | { action: "research"; company: Company | null; question: string; refresh: boolean });
 const suggestions = ["애플은 어떻게 돈을 벌어?", "엔비디아의 주요 사업 리스크를 알려줘", "10-K를 볼 때 무엇부터 읽으면 좋을까?"];
 
-async function jsonRequest<T>(path: string, body: unknown, signal: AbortSignal): Promise<T> {
-  const response = await fetch(`/api/sec-chat/${path}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal });
-  const result = await response.json();
-  if (!response.ok) throw new Error(typeof result.detail === "string" ? result.detail : "요청에 실패했습니다.");
-  return result;
-}
 
 export function SecChat() {
   const [history, setHistory] = useState<Conversation[]>([]);
@@ -60,7 +54,6 @@ export function SecChat() {
   }
 
 
-
   function recordActivity(activity: Activity) {
     const previous = activityLog.current;
     activityLog.current = previous.some(item => item.id === activity.id) ? previous.map(item => item.id === activity.id ? activity : item) : [...previous, activity];
@@ -85,7 +78,10 @@ export function SecChat() {
     let active = prepared;
     if (!active || target.cik !== company?.cik || refresh) {
       setBusy(refresh ? `${target.name}의 최신 10-K를 확인하고 있어요. 다운로드에는 수 분이 걸릴 수 있어요.` : `${target.name}의 저장된 10-K를 확인하고 있어요.`);
-      const next = await trackRequest(`${target.name} · ${refresh ? "최신 10-K 준비" : "저장된 10-K 준비"}`, () => jsonRequest<Prepared>("prepare", { cik: target.cik, refresh: refresh === true }, signal));
+      const next = await trackRequest(`${target.name} · ${refresh ? "최신 10-K 준비" : "저장된 10-K 준비"}`, async () => {
+        const response = await fetch("/api/sec-chat/prepare", { method: "POST", headers: { "Content-Type": "application/json", Accept: "text/event-stream" }, body: JSON.stringify({ cik: target.cik, refresh: refresh === true }), signal });
+        return readPreparation<Prepared>(response, recordActivity);
+      });
       setPrepared(next); setCompany(target);
       if (active) void fetch(`/api/sec-chat/threads/${active.threadId}`, { method: "DELETE" }).catch(() => undefined);
       active = next;
@@ -148,7 +144,6 @@ export function SecChat() {
       {choice.companies.map(item => <button key={item.cik} disabled={!!busy} onClick={() => void send(`${item.name} (${item.ticker})`, item)}>{item.ticker} {item.name}</button>)}
     </div>}
     status={<>
-      {busy && <><ActivityTimeline activities={activities} working /><ChatNotice tone="status">{busy}</ChatNotice></>}
       {error && <ChatNotice tone="error">{error}</ChatNotice>}
     </>}
     footer={<>
@@ -160,7 +155,7 @@ export function SecChat() {
       </details>}
       <span>기업 분석은 SEC 10-K 원문을 확인합니다. Enter로 전송 · Shift+Enter로 줄바꿈</span>
     </>}
-    messages={messages.map((message, index) => ({
+    messages={[...messages.map((message, index) => ({
       id: String(index),
       role: message.role,
       content: message.text,
@@ -171,6 +166,9 @@ export function SecChat() {
           : <div data-testid="intelligent-ui-answer"><ConversationText text={message.text} /></div>}
         <FollowUpQuestions questions={message.followUps ?? []} disabled={!!busy || index !== messages.length - 1} onSelect={text => void send(text)} />
       </>,
-    }))}
+    })), ...(busy ? [{
+      id: "sec-current-activity", role: "assistant" as const, content: busy,
+      view: <><ActivityTimeline activities={activities} working /><ChatNotice tone="status">{busy}</ChatNotice></>,
+    }] : [])]}
   />;
 }

@@ -1,0 +1,22 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 python-batch-empty
+  type: http
+  seq: 22
+}
+post {
+  url: {{pythonUrl}}/internal/sec-modeling/filings/status
+  body: json
+  auth: none
+}
+headers {
+  X-SEC-Modeling-Key: qa-bulk-only
+}
+body:json {
+  {"filings":[]}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("python-batch-empty",function(){expect(res.status).to.equal(422);});
+}

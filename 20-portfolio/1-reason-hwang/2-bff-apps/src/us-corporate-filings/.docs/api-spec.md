@@ -134,3 +134,14 @@ GET /companies와 GET /filings의 기본값은 DB companies.ticker가 NULL·빈 
 GET /filings returns hasContent for each listed filing, based on non-null and nonempty stored document_content. GET /overview counts all company and filing rows, including non-ticker registrants; tickerCompanies counts nonblank tickers and forms groups each actual form_type separately.
 
 GET /filings accepts optional `until` (inclusive filing date) and `hasContent` (true/false). These filters apply before pagination; hasContent uses non-null, nonempty stored document content.
+
+## SEC-MODELING-UI-002: 모델링 관리 목록·통계
+
+- `GET /api/sec/modeling/filings`: 기존 `items/total`을 유지하고 `limit/offset`을 반환한다. limit은1~100(default20), offset은0~1000000(default0)이다.
+- `GET /api/sec/modeling/overview`: 페이지와 무관한 필터 전체 집계다. `scope=filtered`, `filters`, `totalFilings`, `sourceCollected`, `sourceMissing`, `stages`, `retrievedAt`을 반환한다.
+- 두 GET의 공통 필터는 `cik`, `q`(최대100자 회사명/ticker/CIK/accession 부분 검색), `formType`(10-K/10-K/A/10-Q), `sourceStatus`(all/collected/missing)다.
+- 각 stages[1/2/3] 집계는 supported/unsupported와 latestRuns의 QUEUED/RUNNING/SUCCEEDED/FAILED/CANCELLED/unprocessed다. latestRuns는 지원 공시의 최신 job run만 집계하며, **게시 준비 상태나 현재 페이지 합계가 아니다**.
+- 목록의 실제 publication 준비 상태는 인증된 Python batch로 조회한다. Python 장애/불완전 응답 시 행은 유지하고 unavailable을 명시한다. overview는 PostgreSQL 집계만 사용한다.
+- 기존 create/cancel/retry/results/search/facts/evidence 경로는 유지한다. create body는 `{}` 또는 optional extractionModel만 허용하며 잘못된 JSON schema는400이다. retry는 저장 extractionModel을 재사용한다.
+
+배포 순서·오류·필터 상세는 [BFF 모델링 관리 조회](../../../../docs/stock/tech-shared/2-bff-apps/sec-modeling-dashboard.md)를 따른다. 신규 BFF는 Python batch API가 필요하므로 Python을 먼저 배포하는 순서를 권장한다.

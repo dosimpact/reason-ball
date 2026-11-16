@@ -31,7 +31,7 @@ def artifacts(result, tool=None):
 
 
 async def search_companies(query, model, client=None, activity=None):
-    tools = [tool for tool in build_sec_tools(client, activity) if tool.name == 'search_sec_companies']
+    tools = [tool for tool in build_sec_tools(client, activity, include_tool_details=True) if tool.name == 'search_sec_companies']
     result = await build_tool_graph(model, tools,
         'Look up the requested company using search_sec_companies. You MUST call the tool, never invent results. '
         'Use exact ticker for ticker-like queries, otherwise q. If exact ticker has no results try q. '
@@ -45,7 +45,7 @@ async def search_companies(query, model, client=None, activity=None):
 
 async def prepare_filing(cik, refresh, model, client=None, activity=None):
     allowed = {cik, PREDECESSORS.get(cik, cik)}
-    tools = [tool for tool in build_sec_tools(client, activity, allowed_ciks=allowed, allow_sync=refresh)
+    tools = [tool for tool in build_sec_tools(client, activity, allowed_ciks=allowed, allow_sync=refresh, include_tool_details=True)
              if tool.name in {'list_sec_filings', 'get_sec_filing_content', 'sync_sec_company_filings'}
              and (refresh or tool.name != 'sync_sec_company_filings')]
     instruction = '''Prepare the latest stored 10-K for the exact requested CIK using tools.

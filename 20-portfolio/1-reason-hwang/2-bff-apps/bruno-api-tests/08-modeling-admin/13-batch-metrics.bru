@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 batch-metrics
+  type: http
+  seq: 13
+}
+get {
+  url: {{fixtureUrl}}/qa/metrics
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("batch-metrics",function(){const b=res.getBody();expect(b.individualCalls).to.equal(0);expect(b.bulkCalls).to.have.lengthOf(4);expect(b.bulkCalls.map(x=>x.length)).to.deep.equal([2,2,2,1]);});
+}

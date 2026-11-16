@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 statistics-independent
+  type: http
+  seq: 16
+}
+get {
+  url: {{baseUrl}}/modeling/overview
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("statistics-independent",function(){expect(res.getBody().totalFilings).to.equal(6);expect(res.getBody().stages["1"].latestRuns.SUCCEEDED).to.equal(2);});
+}

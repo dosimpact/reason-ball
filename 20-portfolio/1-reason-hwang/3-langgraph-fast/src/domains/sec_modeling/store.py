@@ -151,6 +151,21 @@ class GraphStore:
         )
         return dict(rows[0]["g"]) if rows else None
 
+    def active_many(self, filings):
+        """Read page publications in one indexed query; never scan all generations."""
+        identities = [f"filing:{f['cik']}:{f['accessionNo']}" for f in filings]
+        publications = [f"{identity}:{stage}" for identity in identities for stage in (1, 2, 3)]
+        rows = self.query(
+            "MATCH (p:SecPublication)-[:ACTIVE]->(g:SecGeneration) WHERE p.id IN $ids RETURN p.id AS publicationId,g",
+            ids=publications,
+        )
+        result = {identity: {} for identity in identities}
+        for row in rows:
+            identity, stage = row["publicationId"].rsplit(":", 1)
+            generation = dict(row["g"])
+            result[identity][stage] = {**generation, "generationId": generation["id"]}
+        return [{**filing, "stages": result[identity]} for filing, identity in zip(filings, identities, strict=True)]
+
     def save_records(self, generation, filing_id, stage, records):
         for offset in range(0, len(records), 100):
             batch = []

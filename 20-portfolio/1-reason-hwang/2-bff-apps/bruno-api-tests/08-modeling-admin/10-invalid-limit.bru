@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 invalid-limit
+  type: http
+  seq: 10
+}
+get {
+  url: {{baseUrl}}/modeling/filings?limit=0
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 400
+}
+tests {
+  test("invalid-limit",function(){expect(res.status).to.equal(400);});
+}

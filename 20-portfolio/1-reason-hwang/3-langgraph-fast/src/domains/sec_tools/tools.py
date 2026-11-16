@@ -123,16 +123,17 @@ def compact(value):
     return value
 
 
-def build_sec_tools(client=None, activity=None, *, allowed_ciks=None, allow_sync=True, include_arguments=False):
+def build_sec_tools(client=None, activity=None, *, allowed_ciks=None, allow_sync=True, include_arguments=False, include_tool_details=False):
     client = client or SecBffClient()
 
     def make(name, description, schema, method, path, *, stream=False, raw=False):
         async def execute(**kwargs):
             identity = uuid4().hex
-            def emit(status):
+            def emit(status, result=None):
                 if activity:
-                    activity({"id": identity, "label": f"SEC 도구 · {name}", "status": status, "kind": "node",
-                              **({"arguments": kwargs} if include_arguments else {})})
+                    activity({"id": identity, "label": f"SEC 도구 · {name}", "status": status, "kind": "tool" if include_tool_details else "node",
+                              **({"arguments": kwargs} if include_arguments or include_tool_details else {}),
+                              **({"result": result} if include_tool_details and result is not None else {})})
             emit("running")
             try:
                 args = schema(**kwargs).model_dump(exclude_none=True)
@@ -161,13 +162,13 @@ def build_sec_tools(client=None, activity=None, *, allowed_ciks=None, allow_sync
                                "note": "Only this excerpt was shown; request further offsets or queries for more evidence."}
                 else:
                     visible = compact(result)
-                emit("completed")
+                emit("completed", visible)
                 return json.dumps(visible, ensure_ascii=False), artifact
             except asyncio.CancelledError:
                 emit("cancelled")
                 raise
-            except Exception:
-                emit("failed")
+            except Exception as error:
+                emit("failed", str(error))
                 raise
         return StructuredTool.from_function(coroutine=execute, name=name, description=description,
                                             args_schema=schema, response_format="content_and_artifact")

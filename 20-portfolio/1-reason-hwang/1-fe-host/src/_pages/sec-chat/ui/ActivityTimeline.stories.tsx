@@ -38,3 +38,14 @@ export const Cancelled: Story = {
   args: { activities: [{ id: "1", label: "답변 생성", kind: "node", status: "cancelled" }] },
   play: async ({ canvasElement }) => { await expect(within(canvasElement).getByText("중단됨")).toBeVisible(); },
 };
+
+export const ToolDetails: Story = {
+  args: { activities: [{ id: "tool", label: "SEC 도구 · list_sec_filings", kind: "tool", status: "completed", arguments: { cik: "0000320193" }, result: { items: ["10-K"] } }] },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByText("Behind the scenes"));
+    await userEvent.click(canvas.getByText("도구 인자와 결과"));
+    await expect(canvas.getByText(/0000320193/)).toBeVisible();
+    await expect(canvas.getByText(/10-K/)).toBeVisible();
+  },
+};

@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 no-matching-results
+  type: http
+  seq: 9
+}
+get {
+  url: {{baseUrl}}/modeling/overview?q=NO_SUCH_FIXTURE
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("no-matching-results",function(){const b=res.getBody();expect(b.totalFilings).to.equal(0);for(const s of Object.values(b.stages))expect(s.supported+s.unsupported).to.equal(0);});
+}

@@ -335,14 +335,15 @@ Host CLI·Turbopack 실행 변경과 검증은 [HOST-DEV-CLI-001 기록](../../.
 `api/modelingApi`는 기존 same-origin `/api/remote-proxy/api/sec/modeling` 통신을 담당한다.
 서버 키나 직접 Neo4j 연결은 브라우저에 전달하지 않는다.
 
-CIK 필터·공시 페이지, 세 단계 실행과 sol/luna 선택, 실행 이력·오류·취소·재시도를 제공한다.
-약 2초 polling은 run별 event cursor로 새 이벤트만 받아 중복 제거하며 화면 해제·선택 변경 시
-AbortController로 취소한다. Item은 sandbox iframe HTML와 text, XBRL은 지표·값·단위·기간을
-표시한다. 상세 JSON과 선택 공시 검색도 제공한다. 기존 `/sec-collector`는 수집 업무 화면으로 유지한다.
+공시별 테이블은 기업·티커·CIK·양식·제출/보고일·접수번호·원문 수집 여부와 단계별 현재 게시 상태/최근 실행 상태를 분리한다. CIK·검색·양식·원문 필터와 서버 total/limit/offset 기준 페이지를 제공한다. 행을 펼치면 해당 공시의 세 단계 실행, 결과·이력·오류·취소·재시도·검색을 같은 위치에서 확인한다. 원문이 없거나 모델링2의 현재 모델링1 게시 결과가 확인되지 않으면 실행 불가 이유를 표시한다. 집계는 동일 필터의 전체 PostgreSQL 범위이며 최근 단계 작업 건수를 현재 게시 완료 공시 수로 표시하지 않는다.
 
-`pnpm -C 1-fe-host test:sec-modeling`과 `test:sec-modeling:views`가 단위·Storybook 검증 명령이다.
-실제 서비스 연결은 MCP 브라우저로 검증한다. 통합 완료 상태는
-[SEC 모델링 계약](../../us-corporate-filings/sec-modeling.md)과 dated flow를 따른다.
+약2초 polling은 run별 event cursor를 유지하고 배경 갱신 시 기존 결과를 불필요하게 비우지 않는다. 화면 해제·선택 변경은 소유 AbortController를 정리하며 늦은 action 응답을 다른 공시/실행에 반영하지 않는다. Item은 sandbox iframe HTML와 text, XBRL은 지표·값·단위·기간을 표시한다. 기존 `/sec-collector`는 별도 수집 업무 화면으로 유지한다.
+
+`모델링 관리`/`API Testing` 탭은 mounted 상태를 유지한다. 15개 고정 preset에서 공개 모델링 API의 query/path와 raw JSON을 편집하며 임의 URL·인증 header는 받지 않는다. 실제 전송 snapshot·HTTP상태/시간·headers·JSON/text·실제 SSE 응답의 event를 확인하고 복사한다. 기존 이벤트 목록 API는 JSON이다. 생성/취소/재시도 요청은 실제 서버 변경을 명시적으로 확인한다. HTTP202는 실행 접수, 응답 대기 중단은 fetch 연결만 종료하며 서버 job 취소가 아니다. 운영 action과 Testing은 shared request lock을 사용하고 탭 전환으로 요청·polling·기록을 초기화하지 않는다.
+
+`shared/api`의 bounded HTTP 검사 transport를 수집 화면과 재사용한다. 각 도메인의 fixed-preset validator를 거쳐 호출하며 1Mi문자/1000events 한도를 표시한다. `shared/lib/hooks`는 페이지 인스턴스별 request lock을 제공한다. 페이지 사이에 전역 실행 상태를 공유하지 않는다.
+
+`pnpm -C 1-fe-host test:sec-modeling`과 `test:sec-modeling:views`가 단위·Storybook 검증 명령이다. `SEC_MODELING_TEST_BASE=http://127.0.0.1:3980 pnpm -C 1-fe-host test:sec-modeling:api`는 명시적으로 소유한 fixture 서버에서만 HTTP executor를 확인하며 주소 guard가 있다. 이번 변경의 브라우저/Storybook 실행은 사용자 지시에 따라 미실행이다. 실제 API/정적 검사와 통합 상태는 [SEC 모델링 계약](../../us-corporate-filings/sec-modeling.md) 및 dated flow를 따른다.
 
 ## DART-FE-001: Open DART API Testing
 

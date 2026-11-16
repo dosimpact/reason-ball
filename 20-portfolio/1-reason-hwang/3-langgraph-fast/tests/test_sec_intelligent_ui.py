@@ -469,3 +469,39 @@ async def test_free_ui_repairs_parser_errors_and_preserves_chart_choice():
 
     with pytest.raises(ValueError, match='검증'):
         await compose_ui('차트로 보여줘', {}, Model(), validator=invalid)
+
+
+def test_prepare_stream_emits_tool_details_and_keeps_json_contract(monkeypatch):
+    import importlib
+    import json
+
+    from fastapi.testclient import TestClient
+
+    from server.server import app
+    sec_router = importlib.import_module("server.sec_chat.router")
+
+    async def fake_prepare(cik, refresh, model, activity=None):
+        if activity:
+            activity({"id": "tool-1", "label": "SEC 도구 · list_sec_filings", "kind": "tool", "status": "running", "arguments": {"cik": cik}})
+            activity({"id": "tool-1", "label": "SEC 도구 · list_sec_filings", "kind": "tool", "status": "completed", "arguments": {"cik": cik}, "result": {"items": []}})
+        return {"filing": {"accessionNo": "example", "filingDate": "2026-01-01"}, "sections": {}}
+
+    monkeypatch.setattr(sec_router, "prepare_filing", fake_prepare)
+    monkeypatch.setattr(sec_router, "chat_model", lambda: None)
+    before = set(sec_router.sessions)
+    try:
+        with TestClient(app) as client:
+            body = {"cik": "0000320193", "refresh": False}
+            json_response = client.post('/api/sec-chat/prepare', json=body)
+            assert json_response.status_code == 200 and json_response.json()['filing']['accessionNo'] == 'example'
+            response = client.post('/api/sec-chat/prepare', json=body, headers={"Accept": "text/event-stream"})
+            assert response.status_code == 200
+            events = [json.loads(line[6:]) for line in response.text.splitlines() if line.startswith('data: ')]
+            activity = [item['value'] for item in events if item.get('name') == 'sec.activity']
+            assert activity[0]['arguments'] == {"cik": "0000320193"}
+            assert activity[1]['result'] == {"items": []}
+            assert any(item.get('name') == 'sec.prepared' for item in events)
+            assert events[-1]['type'] == 'RUN_FINISHED'
+    finally:
+        for key in set(sec_router.sessions) - before:
+            sec_router.sessions.pop(key, None)

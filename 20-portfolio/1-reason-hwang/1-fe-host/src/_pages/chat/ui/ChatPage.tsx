@@ -9,6 +9,7 @@ import { GraphTestInput } from "./GraphTestInput";
 import { SidebarTrigger } from "@/shared/ui/sidebar";
 import { Button } from "@/shared/ui/button";
 import { ChatHistory } from "./ChatHistory";
+import { canvasAnalysisStarters, inlineAnalysisStarters } from "../model/technicalAnalysisStarters";
 import { projectNativeToolMessages } from "../model/nativeToolMessages";
 import { GraphSelector } from "./GraphSelector";
 import { AgentConversation, ChatNotice, ConversationText } from "@/shared/ui/agent-conversation";
@@ -23,11 +24,8 @@ export function ChatPage() {
   const selected = graphs.find(graph => graph.id === graphId);
   const jsonMode = selected?.mode === "json";
   const discoveryNotice = graphDiscoveryError ?? selected?.schemaError;
-  const starters = ["technical_analysis_agent", "technical_analysis_canvas_agent"].includes(graphId) ? [
-    { displayText: "AAPL 일봉 분석", prompt: "AAPL 최근 120개 일봉을 RSI·SMA·MACD로 분석해 줘." },
-    { displayText: "MSFT 주봉 분석", prompt: "MSFT 최근 120개 주봉의 추세를 분석해 줘." },
-    { displayText: "삼성전자 분석", prompt: "005930.KS 최근 60개 일봉을 분석해 줘." },
-  ] : graphId === "sec_deep_agent" ? [
+  const starters = graphId === "technical_analysis_agent" ? inlineAnalysisStarters
+    : taMode ? canvasAnalysisStarters : graphId === "sec_deep_agent" ? [
     { displayText: "기업 찾기", prompt: "저장된 SEC 기업에서 AAPL을 찾아줘." },
     { displayText: "공시 찾기", prompt: "AAPL의 저장된 최근 10-K 공시 목록을 보여줘." },
   ] : [{ displayText: "대화 시작", prompt: "안녕하세요. 어떤 도움을 줄 수 있나요?" }];

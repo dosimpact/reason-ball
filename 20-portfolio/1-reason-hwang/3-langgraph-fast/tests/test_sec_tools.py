@@ -162,3 +162,14 @@ async def test_predecessor_is_only_used_after_empty_requested_filing_list():
     assert source['requestedCik'] == requested
     assert source['filing']['cik'] == predecessor
     assert predecessor in source['issuerNote']
+
+
+@pytest.mark.asyncio
+async def test_sec_chat_tool_events_include_arguments_and_result():
+    events = []
+    model = ToolModel(responses=[call('search_sec_companies', ticker='AAPL'), AIMessage(content='done')])
+    result = await search_companies('AAPL', model, client_with([]), events.append)
+    assert result['items'][0]['ticker'] == 'AAPL'
+    assert [item['status'] for item in events] == ['running', 'completed']
+    assert all(item['kind'] == 'tool' and item['arguments']['ticker'] == 'AAPL' for item in events)
+    assert events[1]['result']['items'][0]['ticker'] == 'AAPL'

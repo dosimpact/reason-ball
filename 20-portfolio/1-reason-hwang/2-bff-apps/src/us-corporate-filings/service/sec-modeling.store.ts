@@ -15,6 +15,16 @@ export interface ModelingRun {
   [key: string]: any;
 }
 
+export interface ModelingFilingFilters {
+  cik?: string; q?: string; formType?: string; sourceStatus?: 'all' | 'collected' | 'missing';
+}
+const FILING_FILTER = `f.form_type IN ('10-K','10-K/A','10-Q')
+  AND ($1::text IS NULL OR f.cik=$1)
+  AND ($2::text IS NULL OR position(lower($2) in lower(coalesce(c.name,'') || ' ' || coalesce(c.ticker,'') || ' ' || f.cik || ' ' || f.accession_no))>0)
+  AND ($3::text IS NULL OR f.form_type=$3)
+  AND ($4::text='all' OR ($4='collected' AND f.document_content IS NOT NULL) OR ($4='missing' AND f.document_content IS NULL))`;
+const filingFilterValues = (filters: ModelingFilingFilters) => [filters.cik || null, filters.q || null, filters.formType || null, filters.sourceStatus || 'all'];
+
 @Injectable()
 export class SecModelingStore {
   constructor(private readonly db: DataSource) {}
@@ -28,15 +38,51 @@ export class SecModelingStore {
     if (!filing) throw new NotFoundException('Filing not found');
     return filing;
   }
-  async filings(limit: number, offset: number, cik?: string): Promise<any> {
+  async filings(limit: number, offset: number, cik?: string, filters: ModelingFilingFilters = {}): Promise<any> {
+    const values = filingFilterValues({ ...filters, cik: cik || filters.cik });
     const items = await this.db.query(`SELECT f.cik, f.accession_no AS "accessionNo", f.form_type AS "formType",
       to_char(f.filing_date,'YYYY-MM-DD') AS "filingDate", to_char(f.report_date,'YYYY-MM-DD') AS "reportDate", f.checksum AS "sourceHash",
       c.name AS "companyName", c.ticker, f.document_content IS NOT NULL AS "hasSource",
       count(*) OVER() AS total FROM filings f LEFT JOIN companies c USING(cik)
-      WHERE f.form_type IN ('10-K','10-K/A','10-Q') AND ($3::text IS NULL OR f.cik=$3)
-      ORDER BY f.filing_date DESC NULLS LAST,f.cik,f.accession_no LIMIT $1 OFFSET $2`, [limit, offset, cik || null]);
-    const total = items.length ? Number(items[0].total) : Number((await this.db.query(`SELECT count(*) AS total FROM filings WHERE form_type IN ('10-K','10-K/A','10-Q') AND ($1::text IS NULL OR cik=$1)`, [cik || null]))[0].total);
-    return { items: items.map(({ total, ...item }: any) => item), total };
+      WHERE ${FILING_FILTER}
+      ORDER BY f.filing_date DESC NULLS LAST,f.cik,f.accession_no LIMIT $5 OFFSET $6`, [...values, limit, offset]);
+    const total = items.length ? Number(items[0].total) : Number((await this.db.query(
+      `SELECT count(*) AS total FROM filings f LEFT JOIN companies c USING(cik) WHERE ${FILING_FILTER}`, values))[0].total);
+    return { items: items.map(({ total, ...item }: any) => item), total, limit, offset };
+  }
+
+  async latestRuns(filings: Array<{ cik: string; accessionNo: string }>): Promise<ModelingRun[]> {
+    if (!filings.length) return [];
+    return this.db.query(`SELECT ${RUN_SELECT} FROM sec_modeling.jobs j
+      JOIN sec_modeling.runs r ON r.id=j.latest_run_id
+      JOIN unnest($1::text[],$2::text[]) AS wanted(cik,accession_no)
+        ON wanted.cik=j.cik AND wanted.accession_no=j.accession_no`,
+      [filings.map(f => f.cik), filings.map(f => f.accessionNo)]);
+  }
+
+  async overview(filters: ModelingFilingFilters): Promise<any> {
+    const supported = `(CASE WHEN s.stage=3 THEN f.form_type IN ('10-K','10-Q') ELSE f.form_type IN ('10-K','10-K/A') END)`;
+    const statuses = ['QUEUED','RUNNING','SUCCEEDED','FAILED','CANCELLED'];
+    const [row] = await this.db.query(`WITH filtered AS (
+      SELECT f.cik,f.accession_no,f.form_type,f.document_content IS NOT NULL AS has_source
+      FROM filings f LEFT JOIN companies c USING(cik) WHERE ${FILING_FILTER}
+    ), stage_counts AS (
+      SELECT s.stage,
+        count(*) FILTER(WHERE ${supported}) AS supported,
+        count(*) FILTER(WHERE NOT ${supported}) AS unsupported,
+        ${statuses.map(status => `count(*) FILTER(WHERE ${supported} AND r.status='${status}') AS "${status}"`).join(',')},
+        count(*) FILTER(WHERE ${supported} AND r.id IS NULL) AS unprocessed
+      FROM generate_series(1,3) s(stage) LEFT JOIN filtered f ON true
+      LEFT JOIN sec_modeling.jobs j ON j.cik=f.cik AND j.accession_no=f.accession_no AND j.stage=s.stage
+      LEFT JOIN sec_modeling.runs r ON r.id=j.latest_run_id GROUP BY s.stage
+    ) SELECT (SELECT count(*) FROM filtered) AS "totalFilings",
+      (SELECT count(*) FROM filtered WHERE has_source) AS "sourceCollected",
+      (SELECT count(*) FROM filtered WHERE NOT has_source) AS "sourceMissing",
+      (SELECT jsonb_object_agg(stage::text,jsonb_build_object('supported',supported,'unsupported',unsupported,
+        'latestRuns',jsonb_build_object(${statuses.map(status => `'${status}',"${status}"`).join(',')},'unprocessed',unprocessed))) FROM stage_counts) AS stages`, filingFilterValues(filters));
+    return { scope: 'filtered', filters, totalFilings: Number(row.totalFilings),
+      sourceCollected: Number(row.sourceCollected), sourceMissing: Number(row.sourceMissing),
+      stages: row.stages, retrievedAt: new Date().toISOString() };
   }
   async create(filing: any, stage: number, config: any, input: string | null, retryOf?: string): Promise<ModelingRun> {
     const id = randomUUID();

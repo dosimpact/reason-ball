@@ -1,6 +1,6 @@
 # SEC 모델링과 검색
 
-상태: 기능 구현 완료. 사용자 요청으로 추가 검증은 제외하고, 남은 실제 데이터 검증은 보류한다.
+상태: 모델링 pipeline의 기존 실데이터 품질 검증 범위는 아래 기록의 한계를 유지한다. SEC-MODELING-ADMIN-002 공시 상태 표·통계·API Testing 확장을 구현하고 API 수준으로 검증했다. 브라우저는 사용자의 명시 지시에 따라 실행하지 않는다.
 전체 인수 기준 통과를 의미하지 않는다. [구현 완료·검증 보류 기록](../../flow/2026-11-14-sec-modeling-implementation-complete.md).
 결정 ID: SEC-MODELING-001. [구현 시작 기록](../../flow/2026-11-14-sec-modeling-implementation-start.md).
 [실제 통합 검증 중간 기록](../../flow/2026-11-14-sec-modeling-integration-progress.md)은
@@ -326,3 +326,27 @@ HTTP 202는 접수 성공이며 작업 완료가 아니다. 조회 질문이나 
 2026-11-16 코드와 이 문서의 현재 계약에 맞춘 설명이다. 모델링 2 v3, 모델링 3 선별 정책 v3와
 SEC-AGENT-001 연결을 포함한다. 보고서의 나머지 처리 수치·검증 결과는 2026-11-14 이력으로 구분하며,
 현재 계약과 후속 검증 범위는 이 문서 및 연결된 flow 기록을 원본으로 삼는다.
+
+## SEC-MODELING-ADMIN-002: 공시 중심 관리와 API Testing
+
+`/sec-modeling`은 모델링 관리/API Testing 탭을 제공한다. 관리 화면의 기본 목록은 공시별 상태의 페이지네이션 표이며 공시를 펼쳐 모델링1/2/3의 현재 상태, 실행·실패·취소·재시도와 게시 결과를 확인한다. 수집 원문이 없는 상태와 미처리, 양식 미지원, stale 게시 결과, 최신 run 오류, 게시 상태 조회 불가를 구분한다. 과거 SUCCEEDED run이 있다고 현재 결과를 ready로 표시하지 않는다.
+
+### 목록과 통계의 범위
+
+`GET /api/sec/modeling/filings`는 limit1~100/offset0~1000000과 `cik`, `q`, `formType`, `sourceStatus`를 받는다. q는 최대100자의 회사명·ticker·CIK·접수번호 부분 문자열이며 양식은10-K/10-K/A/10-Q, 원문 조건은all/collected/missing이다. 목록과 `GET /api/sec/modeling/overview`는 같은 필터 조건을 사용한다. 범위 밖 페이지는 빈 items와 전체 total을 유지한다. 기본 지원 양식 밖20-F 등의 공시는 이 관리 범위의 집계에서 제외한다.
+
+overview는 `scope:filtered`, filters, totalFilings, sourceCollected/sourceMissing, 단계별 supported/unsupported, latestRuns(QUEUED/RUNNING/SUCCEEDED/FAILED/CANCELLED/unprocessed), retrievedAt을 반환한다. latestRuns는 지원 공시의 `jobs.latest_run_id` 기준이며 과거 실행을 중복 집계하지 않는다. 전체 filtered 범위의 PostgreSQL 집계이지 현재 페이지 개수나 전역 게시 ready 통계가 아니다. retrievedAt은 조회 시각이며 마지막 모델링 완료 시각이 아니다. 목록과 통계는 별도 요청이므로 원자적 단일 snapshot을 보장하지 않는다.
+
+페이지의 최신 run은 일괄 PG 조회, 게시 상태는 Python의 인증된 `POST /internal/sec-modeling/filings/status`로 한 번에 조회한다. body는 중복 없는 filings(CIK·accessionNo)1~100개다. 응답에 각 identity와 stages를 보존한다. 게시 상태 조회에 실패하거나 일부 identity가 빠지면 목록 행을 삭제하거나 미처리 성공으로 바꾸지 않고 unavailable/serviceError로 표시한다. overview의 PG 실행 이력 집계와 게시 상태 조회 실패는 별개다. 기존 개별 status GET은 유지한다.
+
+### API Testing 계약
+
+고정된15개 preset은 overview, filings, runs, run 상세, events, 공시 status, 단계 results, 모델링1/2/3 생성, cancel, retry, search, facts/query, evidence다. method와 path 템플릿은 고정하고 경로 값·query·JSON body를 편집한다. preset 선택만으로 호출하지 않으며 same-origin 모델링 proxy 밖 URL과 임의 header를 실행하지 않는다. JSON 문법은 확인하되 `null`·배열·업무상 잘못된 필드는 서버 검증을 위해 원문대로 전달해 HTTP400 응답을 확인할 수 있다.
+
+실행 생성·취소·재시도는 명시적인 확인을 요구한다. 두 탭은 마운트를 유지하고 HTTP 요청 잠금을 공유해 요청 중 중복 전송을 막는다. 탭 전환은 진행 중 연결·현재 전송 snapshot·결과를 지우지 않는다. HTTP202는 접수이며 완료가 아니다. 응답 대기 중단은 fetch 연결 중단이며 서버 job 취소를 보장하지 않는다. 실제 서버 취소는 별도 cancel API다.
+
+응답 검사기는 HTTP status/headers/elapsed/JSON 또는 text와 실제 요청·응답 복사를 제공한다. HTML은 실행하지 않고 text로 취급한다. 현재 모델링 events API는 cursor 기반 JSON 페이지이며 SSE 완료 이벤트를 만들어내지 않는다. 실제 Content-Type이 SSE인 응답에만 공통 stream parser를 적용하고 HTTP 오류·네트워크 오류·stream 종료 오류를 구분한다. 대용량 응답의 표시 제한·truncated 상태를 유지한다. 서비스 키는 BFF 내부에서만 사용하며 브라우저 요청에 넣지 않는다.
+
+### 검증과 남은 범위
+
+[관리 API 검증 기록](../../flow/2026-11-16-sec-modeling-admin-api-testing.md)에 전용 PostgreSQL 컨테이너+실제 Nest SQL, Python 실제 router+storage fixture, Bruno22개 요청 및 API Testing 실제 HTTP2개 요청의 증거를 기록한다. 비용 있는 모델링·외부 SEC 쓰기·운영 DB 변경 없이 검증했다. 브라우저/Storybook 화면 동작은 사용자 요청으로 실행하지 않았으며 API 통과를 모바일·테마·상호작용 검증으로 주장하지 않는다. 기존 실데이터 추출 정확도·검색 품질 한계를 이번 관리 API 결과로 해소했다고 해석하지 않는다.

@@ -90,19 +90,42 @@ async def companies(q: str = ""):
 
 
 @router.post("/prepare")
-async def prepare(body: PrepareRequest):
+async def prepare(body: PrepareRequest, request: Request):
     for key, session in list(sessions.items()):
         if not session.busy and time.monotonic() - session.touched > 7200:
             del sessions[key]
     if len(sessions) >= 30:
         raise HTTPException(429, "열린 공시 세션이 많습니다. 기존 세션을 닫아 주세요.")
+
+    async def prepare_result(sink=None):
+        source = await prepare_filing(body.cik, body.refresh, chat_model(), activity=sink)
+        thread_id = uuid4().hex
+        sessions[thread_id] = Session(source)
+        return {"threadId": thread_id, **{key: value for key, value in source.items() if key != "sections"}, "items": list(source["sections"])}
+
+    if "text/event-stream" in request.headers.get("accept", ""):
+        async def stream_prepare():
+            run_id = uuid4().hex
+            try:
+                yield event("RUN_STARTED", runId=run_id)
+                async with aclosing(activity_stream(prepare_result)) as updates:
+                    async for kind, payload in updates:
+                        if kind == "activity":
+                            yield event("CUSTOM", name="sec.activity", value=payload)
+                        elif kind == "heartbeat":
+                            yield ": heartbeat\n\n"
+                        elif kind == "result":
+                            yield event("CUSTOM", name="sec.prepared", value=payload)
+                yield event("RUN_FINISHED", runId=run_id)
+            except asyncio.CancelledError:
+                raise
+            except Exception:  # noqa: BLE001 - sanitize the streaming boundary
+                yield event("RUN_ERROR", message="SEC 공시 준비에 실패했습니다. 다시 시도해 주세요.", code="SEC_PREPARE_FAILED")
+        return StreamingResponse(stream_prepare(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
     try:
-        source = await prepare_filing(body.cik, body.refresh, chat_model())
+        return await prepare_result()
     except (SecReadError, httpx.HTTPError, ValueError) as error:
         raise HTTPException(502, str(error) if isinstance(error, SecReadError) else "SEC 공시 준비에 실패했습니다.") from error
-    thread_id = uuid4().hex
-    sessions[thread_id] = Session(source)
-    return {"threadId": thread_id, **{key: value for key, value in source.items() if key != "sections"}, "items": list(source["sections"])}
 
 
 @router.delete("/threads/{thread_id}")

@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 combined-filter
+  type: http
+  seq: 7
+}
+get {
+  url: {{baseUrl}}/modeling/filings?q=microsoft&formType=10-K&sourceStatus=missing&limit=1
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("combined-filter",function(){const b=res.getBody();expect(b.total).to.equal(1);expect(b.items).to.have.lengthOf(1);expect(b.items[0].ticker).to.equal("MSFT");expect(b.items[0].hasSource).to.equal(false);});
+}

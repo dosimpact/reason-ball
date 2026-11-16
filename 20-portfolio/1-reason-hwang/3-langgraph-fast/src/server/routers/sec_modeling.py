@@ -5,7 +5,7 @@ from contextlib import contextmanager
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from domains.sec_modeling import runtime, search
 from domains.sec_modeling.contracts import FactsRequest, ModelingRequest, SearchRequest
@@ -69,6 +69,29 @@ def cancel_run(run_id: str, body: CancelRequest):
     except ValueError as error:
         raise HTTPException(409, str(error)) from error
     return {"accepted": True}
+
+
+class FilingStatusIdentity(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    cik: str = Field(pattern=r"^\d{10}$")
+    accessionNo: str = Field(pattern=r"^\d{10}-\d{2}-\d{6}$")
+
+
+class FilingStatusesRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    filings: list[FilingStatusIdentity] = Field(min_length=1, max_length=100)
+
+    @model_validator(mode="after")
+    def distinct(self):
+        if len({(f.cik, f.accessionNo) for f in self.filings}) != len(self.filings):
+            raise ValueError("Duplicate filing identities")
+        return self
+
+
+@router.post("/internal/sec-modeling/filings/status")
+def filing_statuses(body: FilingStatusesRequest):
+    with store() as graph:
+        return {"items": graph.active_many([f.model_dump() for f in body.filings])}
 
 
 @router.get("/internal/sec-modeling/filings/{cik}/{accession}/status")

@@ -114,7 +114,7 @@ The technical subdirectories follow package ownership; the other stock directori
 | --- | --- |
 | [`stock/us-corporate-filings/INDEX.md`](stock/us-corporate-filings/INDEX.md) | Domain boundary, owning components, current capabilities, and documentation routing |
 | [`stock/us-corporate-filings/system-design.md`](stock/us-corporate-filings/system-design.md) | Implemented PostgreSQL filing content, migration, constraints, and verification |
-| [`stock/us-corporate-filings/sec-modeling.md`](stock/us-corporate-filings/sec-modeling.md) | SEC 모델링 1/2/3, 작업 관리·Admin·검색의 승인 계약과 인수 기준; 구현 완료, 사용자 요청으로 추가 검증 보류 |
+| [`stock/us-corporate-filings/sec-modeling.md`](stock/us-corporate-filings/sec-modeling.md) | SEC 모델링 1/2/3과 공시 상태·통계·API Testing의 현재 계약; 관리 API 검증과 기존 실데이터 품질 한계 구분 |
 | [`stock/us-corporate-filings/ixbrl-viewer.md`](stock/us-corporate-filings/ixbrl-viewer.md) | 저장 원문 iXBRL fact 추출·원문 연결 viewer, 구현 작성 완료·실행 미검증 |
 | [`stock/us-corporate-filings/intelligent-ui.md`](stock/us-corporate-filings/intelligent-ui.md) | SEC 10-K conversational analysis with OpenUI and AG-UI |
 
@@ -250,3 +250,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 
 - [OpenUI catalog 생성·동기화 검사](flow/2026-11-16-openui-catalog-prompt-sync.md): 원본/FE txt·spec/Python mirror 일치와 build gate.
 - [OpenUI graph prompt 감사](flow/2026-11-16-openui-catalog-prompt-audit.md): 등록 graph 적용 경계, 공통 loader와 Canvas prompt/API 검증.
+
+- [SEC 모델링 관리·API Testing](flow/2026-11-16-sec-modeling-admin-api-testing.md): SEC-MODELING-ADMIN-002 공시 상태 표·전범위 통계·고정 preset·격리 API 검증.

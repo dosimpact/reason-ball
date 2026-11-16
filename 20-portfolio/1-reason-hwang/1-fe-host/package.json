@@ -27,6 +27,7 @@
     "test:chat:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/_pages/chat/ui/*.stories.tsx src/shared/ui/agent-conversation/AgentConversation.stories.tsx",
     "test:generative-ui:live": "playwright test --config playwright.openui.config.ts",
     "test:sec-modeling": "node --import tsx --test tests/sec-modeling/*.test.ts",
+    "test:sec-modeling:api": "node --import tsx tests/sec-modeling/api-http.ts",
     "test:sec-modeling:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/_pages/sec-modeling/ui/*.stories.tsx"
   },
   "dependencies": {

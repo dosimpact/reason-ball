@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 page-three
+  type: http
+  seq: 4
+}
+get {
+  url: {{baseUrl}}/modeling/filings?limit=2&offset=4
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("page-three",function(){const b=res.getBody();expect(b.total).to.equal(6);expect(b.items).to.have.lengthOf(2);expect(b.items[0].stages["1"].status).to.equal("unprocessed");expect(b.items[1].stages["1"].status).to.equal("stale");expect(b.items[1].stages["2"].status).to.equal("input_required");});
+}

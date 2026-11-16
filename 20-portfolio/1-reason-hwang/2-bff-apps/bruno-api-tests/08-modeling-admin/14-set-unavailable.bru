@@ -1,0 +1,19 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 set-unavailable
+  type: http
+  seq: 14
+}
+post {
+  url: {{fixtureUrl}}/qa/mode
+  body: json
+  auth: none
+}
+body:json {
+  {"mode":"unavailable"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("set-unavailable",function(){expect(res.getBody().mode).to.equal("unavailable");});
+}

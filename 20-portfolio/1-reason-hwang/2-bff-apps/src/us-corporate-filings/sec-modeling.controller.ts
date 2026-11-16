@@ -1,14 +1,19 @@
 import { Body, Controller, Get, HttpCode, Param, ParseUUIDPipe, Post, Query, BadRequestException } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { SecModelingService, filingIdentity, pageNumber, stageNumber } from './service/sec-modeling.service';
+import { SecModelingService, filingIdentity, pageNumber, pageLimit, modelingFilters, stageNumber } from './service/sec-modeling.service';
 
 @ApiTags('SEC Modeling')
 @Controller('modeling')
 export class SecModelingController {
   constructor(private readonly modeling: SecModelingService) {}
   @Get('filings')
-  filings(@Query('limit') limit?: string, @Query('offset') offset?: string, @Query('cik') cik?: string) {
-    return this.modeling.filings(pageNumber(limit, 20, 100), pageNumber(offset, 0, 1000000), cik?.padStart(10, '0'));
+  filings(@Query() query: Record<string, string>) {
+    const filters = modelingFilters(query);
+    return this.modeling.filings(pageLimit(query.limit, 20), pageNumber(query.offset, 0, 1000000), filters.cik, filters);
+  }
+  @Get('overview')
+  overview(@Query() query: Record<string, string>) {
+    return this.modeling.store.overview(modelingFilters(query));
   }
   @Post('filings/:cik/:accessionNo/model-:stage/runs')
   @HttpCode(202)
@@ -17,7 +22,7 @@ export class SecModelingController {
   }
   @Get('runs')
   runs(@Query('limit') limit?: string, @Query('offset') offset?: string, @Query('cik') cik?: string, @Query('accessionNo') accession?: string) {
-    return this.modeling.store.runs(pageNumber(limit, 50, 100), pageNumber(offset, 0, 1000000), cik?.padStart(10, '0'), accession);
+    return this.modeling.store.runs(pageLimit(limit, 50), pageNumber(offset, 0, 1000000), cik?.padStart(10, '0'), accession);
   }
   @Get('runs/:runId')
   async run(@Param('runId', new ParseUUIDPipe()) id: string) {
@@ -45,7 +50,7 @@ export class SecModelingController {
   results(@Param('cik') cik: string, @Param('accessionNo') accession: string, @Param('stage') stage: string,
     @Query('limit') limit?: string, @Query('offset') offset?: string) {
     [cik, accession] = filingIdentity(cik, accession);
-    return this.modeling.client.request(`/internal/sec-modeling/filings/${cik}/${accession}/results/${stageNumber(stage)}?limit=${pageNumber(limit, 50, 100)}&offset=${pageNumber(offset, 0, 1000000)}`);
+    return this.modeling.client.request(`/internal/sec-modeling/filings/${cik}/${accession}/results/${stageNumber(stage)}?limit=${pageLimit(limit, 50)}&offset=${pageNumber(offset, 0, 1000000)}`);
   }
   @Post('search')
   @HttpCode(200)
