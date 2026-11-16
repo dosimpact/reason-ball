@@ -370,3 +370,5 @@ PostgreSQL 목록과 통계의 동일 필터에 적용한 뒤 페이지네이션
 ### 검증과 남은 범위
 
 [관리 API 검증 기록](../../flow/2026-11-16-sec-modeling-admin-api-testing.md)에 전용 PostgreSQL 컨테이너+실제 Nest SQL, Python 실제 router+storage fixture, Bruno22개 요청 및 API Testing 실제 HTTP2개 요청의 증거를 기록한다. 비용 있는 모델링·외부 SEC 쓰기·운영 DB 변경 없이 검증했다. 브라우저/Storybook 화면 동작은 사용자 요청으로 실행하지 않았으며 API 통과를 모바일·테마·상호작용 검증으로 주장하지 않는다. 기존 실데이터 추출 정확도·검색 품질 한계를 이번 관리 API 결과로 해소했다고 해석하지 않는다.
+
+모델링 관리의 실행(1·2·3)·취소·실패 작업 재시도 버튼은 파란색 primary 배경과 primary-foreground 글자를 사용한다. 비활성 상태는 기존 조건과 투명도를 유지한다.
