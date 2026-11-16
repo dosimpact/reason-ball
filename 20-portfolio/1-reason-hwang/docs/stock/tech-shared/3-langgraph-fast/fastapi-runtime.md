@@ -29,3 +29,7 @@ stream 버퍼는 run당 기본8MiB/256events로 제한한다(`LANGGRAPH_STREAM_B
 이번 단계는 신뢰하는 제한된 내부 사용자의 공유 대화용이다. 사용자별 소유권/인증을 새로 구현한 것은 아니며 공개 노출이나 다중 프로세스 운영을 전제로 하지 않는다. 나머지 HTTP scaffold API가 LangGraph dev와 모두 동등하다고 주장하지 않는다.
 
 코드는 `server/graph_registry.py`, `server/run_manager.py`, 기존 assistants/threads/runs 라우트에 있다. API 검증은 별도 소유 FastAPI·validator와 격리 PostgreSQL schema를 사용한다. 실제 graph stream, 취소, disconnect 후 완료, 동일 thread/용량 제한, 프로세스 재시작 복구를 검증하며 브라우저 검증은 사용자 담당이다. 실행 결과는 해당 날짜 flow에 기록한다.
+
+## LG-OSS-MULTI-001: 후속 설계 경계
+
+현재 구현은 여전히 단일 worker다. PostgreSQL 기반 여러 worker의 [설계 제안](../../../human-docs/0.infra/langgraph-oss.md#lg-oss-multi-001-postgresql-기반-여러-worker-설계)을 사용자 지정 문서에 정리했다. Redis 없이 DB 접수·전역 용량·실행 소유권·취소·이벤트 공유를 구성하는 계획이며 코드나 schema에 적용하지 않았다. saver 쓰기 fencing과 실제 다중 프로세스 장애 검증 전에는 worker 수를 늘리지 않는다. [설계 기록](../../../flow/2026-11-16-fastapi-postgres-multiworker-design.md)을 따른다.

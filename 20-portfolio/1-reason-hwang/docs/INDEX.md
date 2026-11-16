@@ -1,5 +1,7 @@
 # Documentation Map
 
+- [PostgreSQL 기반 여러 worker 설계](flow/2026-11-16-fastapi-postgres-multiworker-design.md): LG-OSS-MULTI-001, 미구현 후속 설계와 단일 worker 현행 경계.
+
 This directory is the canonical documentation entry point for `1-reason-hwang`.
 
 ## DOC-INDEX-003: Directory entry filenames

@@ -1,6 +1,6 @@
 # LangGraph OSS API: 개발 런타임과 운영 FastAPI의 실행 방식 맞추기
 
-작성 기준: 2026-11-16. **이 문서는 구현 전 설계다. 아래 목표가 이미 구현되었거나 검증되었다는 뜻은 아니다.**
+작성 기준: 2026-11-16. 본문의 초기 전환 계획은 당시 설계 기록이다. 현재 단일 worker 구현 상태는 [FastAPI runtime stock](../../stock/tech-shared/3-langgraph-fast/fastapi-runtime.md)을 기준으로 읽는다. 문서 마지막의 **PostgreSQL 기반 여러 worker 설계는 아직 구현하지 않은 후속 계획**이다.
 
 ## 왜 이 작업을 하는가
 
@@ -192,3 +192,117 @@ FinancialChart의 Query 조회·수동 갱신은 기존 가격/지표 GET API를
 - 구현 세부 결정이 확정된 UX나 범위를 실질적으로 바꾸는 경우에만 변경 이유와 영향을 올린다. 이미 답변된 사항을 다시 미결정 질문으로 만들지 않는다.
 
 이 문서는 구현 계획이다. 자체 FastAPI의 전체 API 동등성이나 향후 운영 안정성을 미리 보장하지 않으며, 기존 데이터 이전은 이번 범위에 없다.
+
+## LG-OSS-MULTI-001: PostgreSQL 기반 여러 worker 설계
+
+- **상태: 설계 제안, 미구현.** 현재 단일 worker 실행을 바로 변경하지 않는다. 아래 수치는 초기 제안값이며 부하·장애 검증으로 조정한다.
+- 목표: Redis 없이 여러 FastAPI worker에서 graph 실행 요청·조회·취소·SSE를 처리한다. 어느 worker가 HTTP 요청을 받아도 같은 실행 상태를 보게 한다.
+- 기존 `/langgraph-dev-chat`과 개발 데이터는 유지한다. `/fastapi-chat`의 graph ID, 입력, tool 메시지, OpenUI program, Canvas custom event 계약도 유지한다.
+- 현재 `RunManager`의 `tasks`, `locks`, `logs`, `reserved`는 프로세스별 메모리다. `--workers`만 늘리면 실행 제한·대화 잠금·취소·스트림 공유가 깨진다.
+- 현재 startup `recover()`는 pending/running을 일괄 interrupted로 바꾼다. 여러 worker에서는 다른 정상 worker의 작업까지 중단시킬 수 있으므로 반드시 교체한다.
+
+### 1. 역할을 세 부분으로 나눈다
+
+- **HTTP 처리**: 요청 검증, DB에 작업 접수, 상태 조회, SSE 구독을 담당한다. HTTP 연결이 끊겨도 접수된 실행은 계속한다.
+- **실행 처리**: DB에서 작업을 선점한 worker만 실제 graph Task를 만든다. 이 Task 객체와 소켓은 해당 프로세스 메모리에 남는다.
+- **PostgreSQL**: 대기열, 실행 소유권, 전역 용량, 취소 의도, 이벤트, 최종 결과의 공통 기준이다. 기존 saver는 graph checkpoint를 담당한다.
+- 1차 확장은 각 FastAPI worker 안에 dispatcher를 하나씩 두는 방식이다. 이후 HTTP worker와 실행 전용 프로세스를 분리해도 같은 DB 계약을 재사용한다.
+- 요청을 특정 worker로 고정하는 sticky session에 정확성을 의존하지 않는다. 메모리 캐시는 허용하되 실행 가능 여부·상태의 최종 판단은 DB에서 한다.
+
+### 2. 저장해야 할 정보
+
+- 기존 run 저장소를 조사해 필요한 열을 확장한다. 중복된 새 run 원장을 만들지 않는다. 실제 테이블명·DDL은 구현 단계에서 확정한다.
+- **run**: run/thread/graph ID, 접수 순번, 검증된 입력·config·context, 실행할 graph 버전, 내부 상태, 생성·시작·종료 시각, 최종 결과·오류, 취소 요청 시각, owner ID, 실행 세대 번호, lease 만료 시각을 저장한다.
+- 실행 세대 번호는 소유권이 바뀔 때 증가하는 `fencing token`이다. 과거 실행자가 늦게 돌아와 쓰는 것을 차단하는 용도다.
+- **thread 실행 제어**: 현재 실행 run, 소유 세대, 대화 내 접수 순번을 관리한다. 대화당 활성 실행 하나만 허용하는 DB 제약을 둔다. state 수정·thread 삭제도 같은 제어를 따른다.
+- **worker 등록**: 시작마다 새 UUID, 배포/graph 버전, heartbeat, draining 여부를 둔다. PID만으로 식별하지 않는다.
+- **이벤트**: `(run_id, sequence)` 유일 키, 실행 세대, event 종류, namespace, JSON payload, 생성 시각을 저장한다. 순번은 DB 트랜잭션에서 할당한다.
+- **용량 제어**: 실행 namespace별 전역 active/queued 제한과 예약 수를 DB에서 관리한다. 실행 slot 예약과 해제는 run 상태 변경과 같은 트랜잭션에서 처리한다.
+- pending 검색·thread 순번·lease 만료·이벤트 cursor 조회에 필요한 인덱스를 둔다. terminal run 전체를 heartbeat마다 스캔하지 않는다.
+- 요청 중복 방지 키를 제공한다. 같은 키와 같은 payload는 기존 run을 반환하고, 같은 키에 다른 payload는409로 처리한다. 키가 없는 요청까지 중복 판별한다고 보장하지 않는다.
+
+### 3. 접수와 전역 실행 제한
+
+- 현재 기본값인 **실행10개·대기10개를 전체 worker 합계**로 유지하는 안을 시작점으로 삼는다. worker4개라고 실행40개가 되지 않는다.
+- 접수는 짧은 트랜잭션에서 전역 용량 행과 thread 제어 행을 정해진 순서로 잠그고 중복 키·대화 상태·용량을 검사한다.
+- 바로 실행 가능한 요청은 active slot을 예약한다. 같은 thread의 후속 요청이나 slot이 없는 요청은 queued로 접수한다. 예약 상태도 active 용량에 포함한다.
+- 모든 slot과 대기열이 차면429와 Retry-After, 같은 thread의 `reject` 요청은409다. 상태 판단과 삽입 사이 경쟁으로 한도를 넘지 않게 한다.
+- 수락 응답은 DB commit 이후 반환한다. 작업 생성과 큐 등록은 같은 트랜잭션으로 처리해 접수됐지만 실행 대상으로 남지 않는 구멍을 막는다.
+- 내부 queued/reserved/running/cancelling 상태를 기존 공개 pending/running/success/error/interrupted 계약에 매핑한다. 내부 상태를 곧바로 SDK 응답 enum에 추가하지 않는다.
+
+### 4. 선점과 같은 대화 순서 보장
+
+- dispatcher는 짧은 트랜잭션에서 `FOR UPDATE SKIP LOCKED`로 실행 가능한 작업을 선점한다. 잠긴 작업 때문에 다른 thread까지 기다리지 않도록 한다.
+- 단순히 가장 오래된 pending 하나를 고르는 것으로 끝내지 않는다. **같은 thread의 가장 앞선 미처리 요청이며 활성 실행이 없는 작업**만 대상으로 한다.
+- owner·실행 세대·lease·slot·thread 활성 포인터를 원자적으로 갱신한 뒤 commit하고 graph를 실행한다. LLM 호출 동안 DB transaction이나 row lock을 유지하지 않는다.
+- thread별 FIFO를 보장하고 서로 다른 thread 사이에서는 가능한 오래된 작업을 우선한다. SKIP LOCKED 사용을 전체 작업의 엄격한 FIFO 보장으로 설명하지 않는다.
+- 접수·선점·취소·종료·회수는 동일한 잠금 순서를 사용한다. 교착 발생 시 짧은 DB 트랜잭션만 제한적으로 재시도하고 graph 자체를 자동 재실행하지 않는다.
+
+### 5. 소유권과 체크포인트 쓰기 보호
+
+- 초기안은 heartbeat5초·lease30초다. DB 시각을 기준으로 갱신하고, owner와 실행 세대가 일치할 때만 연장한다. 실제 지연을 측정해 조정한다.
+- 상태·이벤트·최종 결과 저장은 `run_id + owner_id + 실행 세대 + 유효 lease` 조건을 확인한다. 변경 행이0개면 소유권을 잃은 실행으로 보고 즉시 중단한다.
+- **run 행만 보호해서는 부족하다.** 현재 `AsyncPostgresSaver`는 run lease를 모르므로 이전 실행자가 checkpoint/pending writes를 계속 쓸 수 있다.
+- saver의 checkpoint·pending-write 쓰기에 소유권 검증을 결합하는 adapter를 설계한다. 검증과 실제 쓰기는 반드시 같은 DB 트랜잭션에서 thread 제어 행을 잠근 채 수행한다. 호출 전에 한 번 검사하는 방식은 경쟁을 막지 못한다.
+- 현재 saver의 연결/트랜잭션 API로 이 원자성을 구현할 수 있는지 먼저 검증한다. 불가능하면 run별 checkpoint namespace를 분리하고 유효 owner만 결과를 게시하는 대안을 별도 설계한다. **checkpoint 보호가 검증되기 전에는 다중 worker를 활성화하지 않는다.**
+- 실행 중인 thread에 대한 state 수정·삭제, transient thread 정리도 같은 제어를 통과해야 한다. 읽기·검색은 다른 worker의 오래된 메모리 snapshot이 아니라 DB/saver 기준으로 처리한다.
+- DB 연결이 끊기거나 lease 갱신을 보장할 수 없으면 새 실행과 쓰기를 중단한다. 인메모리 모드로 자동 fallback하지 않는다.
+
+### 6. 어느 worker에서든 취소한다
+
+- 취소 API는 요청을 받은 worker가 DB에 `cancel_requested_at`을 기록한다. owner가 아닌 worker의 Task 목록에서 찾는 방식은 제거한다.
+- queued/reserved이며 실행 전인 작업은 트랜잭션에서 interrupted로 종료하고 용량을 돌려준다. claim과 cancel이 동시에 와도 한쪽만 유효하게 반영한다.
+- 실행 중인 작업은 소유 worker가 알림 또는 polling으로 취소 요청을 확인하고 실제 Task에 취소를 전달한다.
+- 취소 요청 commit 뒤에 도착한 성공 결과는 success로 바꾸지 못한다. 반대로 이미 terminal인 run에 대한 취소는 결과를 바꾸지 않고 기존 상태를 반환한다.
+- 취소 요청 접수와 실제 종료를 구분한다. 기존 API가 종료 대기를 요구하면 DB 상태를 제한 시간까지 기다리며, 지연 시 계약에 맞는 명시적 응답을 정의한다. 즉시 취소 완료처럼 표시하지 않는다.
+- 외부 LLM/도구의 이미 발생한 비용·쓰기까지 rollback하지 않는다. 특히 동기 thread에서 시작한 작업은 Task 취소만으로 멈추지 않을 수 있다.
+
+### 7. worker 장애와 재시작
+
+- 새 worker는 다른 worker의 정상 running 작업을 건드리지 않는다. 회수기는 lease가 만료된 실행만 잠금·세대 검사 후 정리한다.
+- 아직 실행되지 않은 queued/reserved 작업은 새 dispatcher가 이어서 선점할 수 있다. 실제 실행을 시작한 뒤 owner가 사라진 작업은 interrupted로 남기고 **자동 재실행하지 않는다**.
+- 이는 기존 '실행된 도구를 사용자 요청 없이 반복하지 않는다' 원칙을 유지하면서, DB에 안전하게 접수된 대기 작업은 유실하지 않는 정책이다. 현재 단일 worker의 pending 일괄 interrupted 처리와 달라지는 점이다.
+- lease 만료 시 이전 owner를 무효화한 후 slot을 해제한다. checkpoint 보호 없는 상태에서 같은 thread의 다음 run을 시작하지 않는다.
+- 외부 부작용은 fencing만으로 되돌릴 수 없다. 결과가 불명확한 쓰기 도구가 있으면 thread를 검토 필요 상태로 막고 후속 실행을 보류한다. 도구별 멱등 키·결과 조회 또는 운영자 확인으로 해제한다.
+- 정상 종료는 draining → 신규 claim 중지 → 제한 시간 동안 진행 작업 종료 대기 → 남은 작업 중단·저장 → 연결 정리 순서다.
+- 여러 회수기가 동시에 돌아도 동일 run을 두 번 정리하거나 slot을 두 번 해제하지 않도록 조건부 전이와 트랜잭션으로 보호한다.
+
+### 8. PostgreSQL로 SSE 이벤트를 공유한다
+
+- 실행 worker는 이벤트를 DB에 commit한 다음 전달한다. 다른 HTTP worker는 run의 cursor 이후 이벤트를 읽어 기존 SSE 형식으로 보낸다.
+- `LISTEN/NOTIFY`는 '새 데이터가 있으니 조회하라'는 깨우기 신호로만 사용한다. 알림에 토큰·대화 본문을 넣지 않고 run ID 등 최소 식별자만 전달한다.
+- 알림은 영구 메시지 큐가 아니므로 polling을 항상 보완 경로로 둔다. listener 등록 후 cursor 조회, 알림 누락·재연결 후 재조회로 빠진 구간을 찾는다.
+- 초기 polling 간격은1초, 토큰 이벤트 쓰기는 최대50ms 또는 묶음 크기 기준으로 batch 처리하는 안을 검증한다. 하나의 DB commit에 여러 event를 넣되 event 순서·tool ID·Canvas payload는 그대로 보존한다.
+- `id: sequence`로 중복 전달을 식별한다. 재연결 시 보존된 범위만 이어서 읽을 수 있으며, 이전 합의대로 **모든 유실 토큰의 무제한 replay는 제공하지 않는다**.
+- 활성 run에도 byte/event 상한을 둔다. 초기 보존 기준은 현재8MiB/256events·종료 후60초를 출발점으로 검증한다. 과대 단일 event와 큰 최종 state는 별도 제한·저장 정책을 정해 조용히 잘라내지 않는다.
+- cursor가 삭제된 구간을 가리키면 gap을 명시하고 최신 thread state/최종 결과를 다시 조회하게 한다. Canvas delta가 빠졌다면 버퍼를 이어 붙이지 않고 완료된 presentation을 기준으로 복구한다.
+- terminal 상태·최종 결과·end 이벤트는 같은 DB 트랜잭션에 저장한다. checkpoint 저장 직후 죽은 경우에도 체크포인트가 있다는 이유만으로 run을 성공 처리하지 않는다.
+- HTTP 구독자가0명이어도 실행은 계속한다. polling·구독 연결 자체가 graph 재실행을 만들지 않는다.
+
+### 9. 연결 수와 운영 설정
+
+- FastAPI worker 수, worker별 실행 Task 상한, 전체 실행 slot 수를 별도로 관리한다. worker별 상한을 합쳐도 DB의 전역 제한을 넘을 수 없다.
+- DB 연결 예산은 `worker 수 × (repository pool + saver pool + listener 연결) + 운영 여유`로 계산한다. worker를 늘리면서 각 pool을 기존 크기로 복제하지 않는다.
+- LISTEN 연결은 worker당 전용 세션을 사용한다. transaction pooling 경유 연결을 listener로 재사용하지 않는다. 장시간 열린 DB transaction은 만들지 않는다.
+- graph/코드 버전이 호환되는 worker만 해당 run을 선점한다. 시작 시 migration을 worker마다 실행하지 않고 배포 단계에서 한 번 수행한다.
+- 조회할 지표: active/queued 수, 가장 오래 기다린 시간, lease 만료, heartbeat 지연, 취소 완료 시간, 이벤트 저장 지연·크기, SSE gap, DB pool 대기, 실패율.
+- 제한된 내부 사용자 환경이라는 현재 접근 범위를 유지한다. 이벤트 저장에는 대화가 포함되므로 접근 경계·보존 기간을 metadata와 함께 관리한다.
+
+### 10. 구현 순서와 완료 조건
+
+- 1단계: 단일 worker 상태에서 run 저장소·접수·소유권·취소의 DB 기준 처리를 만든다. 공개 SDK 계약을 회귀 검사한다.
+- 2단계: saver 쓰기 fencing, thread 수정/삭제 보호, lease 만료 처리의 원자성을 실제 PostgreSQL로 증명한다.
+- 3단계: 이벤트 DB 저장·SSE cursor·알림/polling·보존 정리를 추가한다. SDK·인라인 OpenUI·Canvas payload 계약을 검증한다.
+- 4단계: 서로 다른 프로세스2개로 worker A 접수/실행 → worker B 조회·SSE·취소를 검증한다. 같은 프로세스 안 Task2개로 대체하지 않는다.
+- 필수 경쟁 검사: 같은 thread 동시 요청의 직렬화, 다른 thread 병행, 전체10/대기10 제한, 중복 접수 키, cancel/claim/success 경합, 중복 회수.
+- 필수 장애 검사: 실행 worker 강제 종료, DB 연결 단절, lease 만료 뒤 구 owner 복귀·checkpoint 쓰기 거부, listener 단절, 느린 구독자/gap, terminal commit 직전 종료, 정상 worker 실행 중 다른 worker 재시작.
+- 미실행 queued 작업만 이어서 처리되고 이미 시작한 run은 자동 재실행되지 않는지 확인한다. 외부 쓰기 도구는 fixture로 검증하고 실제 사용자 데이터를 변경하지 않는다.
+- 5단계: 운영을 잠시 drain하고 구 단일 worker를 모두 내린 뒤 새 버전을 올린다. 구버전 `recover()`와 신규 worker가 같은 저장소에서 함께 실행되지 않게 한다.
+- 먼저 새 DB 조정 모드의 worker1개로 검증한 뒤2개로 늘린다. worker1개로 되돌릴 때도 새 DB 모드를 유지한다. 구 메모리 런타임으로의 자동 fallback은 금지한다.
+- 검증은 사용자 방침대로 API 수준에서 수행하고 브라우저 검증은 사용자가 담당한다. 코드·migration·서비스 재시작은 이번 문서 작성 범위에 포함하지 않는다.
+
+### 설계 근거와 현재 코드
+
+- [현재 단일 worker runtime](../../stock/tech-shared/3-langgraph-fast/fastapi-runtime.md), [RunManager](../../../3-langgraph-fast/src/server/run_manager.py), [서버 초기화](../../../3-langgraph-fast/src/server/server.py).
+- PostgreSQL의 `SKIP LOCKED`는 작업 큐 소비자의 잠금 경합을 피하는 용도로 사용한다. [공식 SELECT 문서](https://www.postgresql.org/docs/current/sql-select.html#SQL-FOR-UPDATE-SHARE).
+- `NOTIFY`는 commit 이후 전달되며 큰 데이터는 테이블에 두고 키만 전달할 수 있다. 이를 근거로 알림과 영구 이벤트 저장을 분리했다. [공식 NOTIFY 문서](https://www.postgresql.org/docs/current/sql-notify.html).
