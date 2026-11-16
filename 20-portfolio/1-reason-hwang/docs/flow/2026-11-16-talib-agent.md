@@ -50,3 +50,7 @@ OHLCV는 Yahoo의 수정 완료 봉이며 장중 실시간 데이터가 아니�
 영향을 받을 수 있어 메타데이터와 경고로 남긴다. 모든 출력은 상태에 보존하지만 inline 표시량과 DSL
 크기는 제한된다. 정수 패턴은 확률이 아니며 계산 성공이 매매 정확도를 보장하지 않는다. Native parity는
 라이브러리 재현성을 검증하며 투자 성과를 검증하지 않는다. human-docs와 관련 없는 사용자 변경은 유지했다.
+
+## 최종 확인 보완
+
+Host typecheck·변경 범위 ESLint·Steiger는 통과했다. 전체 chat 테스트는 기존 native-tools transport assertion 1건 실패(23/24), 전체 lint는 기존 dartTesting.ts의 no-constant-condition 오류를 보존했다. 이번 변경의 실패와 구분하며 전체 검사 통과로 표현하지 않는다.
