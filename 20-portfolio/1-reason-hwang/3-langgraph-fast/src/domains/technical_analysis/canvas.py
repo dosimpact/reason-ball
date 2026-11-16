@@ -1,18 +1,15 @@
 """Immutable TA evidence with a streamed, parser-validated model layout."""
-from domains.technical_analysis.catalog import instance_id
 import json
 import re
-from typing import Literal
 
 from langchain_core.messages import HumanMessage, SystemMessage
-from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from domains.technical_analysis.presentation import build_program
-from domains.technical_analysis.report import AgentIndicator
+from domains.technical_analysis.request import AnalysisRequest as CanvasRequest
+from graph.subgraphs.openui_output.catalog import load_openui_catalog
 from graph.subgraphs.openui_output.workflow import validate_program
 
-
-from domains.technical_analysis.request import AnalysisRequest as CanvasRequest
+__all__ = ["CanvasRequest", "compose_canvas", "layout_errors", "request_for"]
 
 
 def request_for(report, indicators):
@@ -23,7 +20,7 @@ def request_for(report, indicators):
 def layout_errors(layout):
     # Strings cannot introduce statements or executable constructors.
     code = re.sub(r'"(?:\\.|[^"\\])*"', '""', layout)
-    if not re.fullmatch(r"\s*taLayout\s*=.*", code, re.S):
+    if not re.fullmatch(r"\s*taLayout\s*=.*", code, re.DOTALL):
         return ["Only taLayout = <layout> is allowed"]
     expression = code.split("=", 1)[1]
     if "=" in expression or ";" in expression or "`" in expression:
@@ -43,7 +40,7 @@ async def compose_canvas(model, report, question, emit, validator=None):
     evidence = {"symbol": report["symbol"], "asOf": report["dates"][-1],
                 "indicators": [{"name": i["name"], "parameters": i["parameters"], "signal": i["signal"]} for i in report["indicators"]],
                 "warnings": report["warnings"]}
-    prompts = [SystemMessage(content='Compose one OpenUI assignment: taLayout = Col([Text("interpretation"), taPanel, taSignals], 4). Use only Col/Row/Grid/Text/Title/Markdown and taPanel/taSignals exactly once. No markdown fences, extra assignments, Query, numeric chart data or invented evidence. Adapt layout and Korean prose to the question. Immutable taPanel contains price/volume/SMA/RSI/MACD; taSignals contains verified numeric evidence. Distinguish snapshot analysis from reactive chart refresh. No trading advice.'),
+    prompts = [SystemMessage(content=load_openui_catalog() + '\n\nTA CANVAS SCOPE: The following task-specific rules override the generic catalog requirement to generate a complete program/root or use arbitrary registered components. The server owns the prefix, Query, IndicatorControls, data and final root. You only supply taLayout. Compose one OpenUI assignment: taLayout = Col([Text("interpretation"), taPanel, taSignals], 4). Use only Col/Row/Grid/Text/Title/Markdown and taPanel/taSignals exactly once. No markdown fences, extra assignments, Query, numeric chart data or invented evidence. Adapt layout and Korean prose to the question. Immutable taPanel contains price, volume and the requested TA20 indicator instances with their validated parameters; taSignals contains verified numeric evidence. Distinguish snapshot analysis from reactive chart refresh. No trading advice.'),
                HumanMessage(content=json.dumps({"question": question, "evidence": evidence}, ensure_ascii=False))]
     check = validator or validate_program
     for attempt in range(2):
@@ -65,7 +62,7 @@ async def compose_canvas(model, report, question, emit, validator=None):
             response = await model.ainvoke(prompts)
             layout = response.content
             if not isinstance(layout, str):
-                raise ValueError("Invalid layout response")
+                raise TypeError("Invalid layout response")
             emit("reset", {"program": prefix})
             emit("delta", {"delta": layout})
         suffix = "\nroot = Col([taHeader, taLayout, taFooter], 4)"

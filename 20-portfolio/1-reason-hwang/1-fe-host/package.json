@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack --hostname 127.0.0.1 --port 2983",
-    "build": "next build --no-lint",
+    "build": "pnpm openui:check && next build --no-lint",
     "start": "next start --port 2983",
     "lint": "eslint . && pnpm lint:fsd",
     "typecheck": "tsc --noEmit",
@@ -15,6 +15,8 @@
     "test:sec-chat:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/_pages/sec-chat/ui/*.stories.tsx",
     "test:sec-chat:live": "playwright test --project sec-live --workers 2",
     "sec-ui:generate": "openui generate src/shared/ui/intelligent-ui/library.ts --out src/shared/config/openui/system-prompt.txt && node scripts/sync-sec-ui.mjs",
+    "openui:check": "node scripts/check-openui-sync.mjs",
+    "test:openui-sync": "node --test tests/openui-sync.test.mjs",
     "lint:fsd": "steiger src --fail-on-warnings",
     "test:sec-api-agent:views": "vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/_pages/sec-api-agent/ui/*.stories.tsx",
     "test:generative-ui": "vitest run --project generative-ui",

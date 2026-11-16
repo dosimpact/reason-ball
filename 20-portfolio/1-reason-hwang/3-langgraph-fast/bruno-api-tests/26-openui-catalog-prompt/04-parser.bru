@@ -1,0 +1,19 @@
+meta {
+  name: OPENUI-CATALOG-001 actual Host parser
+  type: http
+  seq: 4
+}
+post {
+  url: {{validatorUrl}}
+  body: json
+  auth: none
+}
+body:json {
+  {"program":{{catalogProgramJson}}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Exact complete program remains valid",function(){expect(res.getBody().valid).to.equal(true);expect(res.getBody().errors).to.deep.equal([]);});
+}

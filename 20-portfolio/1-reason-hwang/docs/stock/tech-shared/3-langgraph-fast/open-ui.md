@@ -30,3 +30,26 @@ custom stream은 `{channel:"canvas",type,reportId,payload}`이며 open → reset
 `technical_analysis_agent`는 기존 인라인 동작을 유지한다. 기존 `TechnicalAgentState`로 Yahoo/TA-Lib 업무 도구를 실행하고 `build_output_graph(program_builder=build_program)`의 결정적 프로그램을 `presentation={id,program}`으로 반환한다. canvas context/custom event/report map은 이 graph의 입력·상태 계약에 없다.
 
 `technical_analysis_canvas_agent`는 별도 `primary_graphs/technical_analysis_canvas_agent` workflow와 `TechnicalCanvasAgentState`를 사용한다. Canvas state는 원래 계산 상태를 상속하며 `canvas_context`, `canvas_reports`, `canvas_route`, `canvas_report_id`만 추가한다. 원래 에이전트의 `build_tools`와 같은 도메인 가격·지표 계산/표시 함수를 공유하므로 계산 구현을 복제하지 않는다. 두 graph를 `langgraph.json`에 각각 등록하며 캔버스용 Host custom stream/보고서 UI는 신규 ID에만 적용한다.
+
+## OPENUI-CATALOG-001: 실제 생성 프롬프트와 최신 카탈로그
+
+`graph/subgraphs/openui_output/catalog.py::load_openui_catalog`는 frontend generator가 동기화하는 `generated/system-prompt.txt`를 매 생성 호출 시 UTF-8로 읽는다. module import 시 본문을 저장하거나 캐시하지 않는다. 따라서 dev의 이미 로드된 graph나 FastAPI registry가 같은 builder를 재사용하더라도 다음 생성은 갱신된 artifact를 읽는다. Python 코드 변경을 배포하는 것과 카탈로그 artifact 내용 갱신은 별개다. 최신 artifact를 배포하지 않은 상태까지 loader가 자동 생성해 주는 것은 아니다. frontend의 `openui:check`가 library→txt/spec/Python mirror의 일치 여부를 확인한다.
+
+| 등록 graph | 실제 출력/프롬프트 경계 | 카탈로그 적용 |
+| --- | --- | --- |
+| main_graph | provider의 일반 텍스트 답변 | OpenUI를 직접 생성하지 않으므로 미주입 |
+| simple_llm | 일반 대화 메시지 | 미주입 |
+| technical_analysis_graph | 주입 OHLCV 계산 도구와 설명 | 미주입 |
+| price_agent | 가격 요청·조회·구조화 결과 | 미주입 |
+| starter_graph | 도구 기반 일반 대화 | 미주입 |
+| tenk_subgraph | RetrievalService의 근거·텍스트 답변 | 미주입 |
+| sec_deep_agent | 원시 연구/Markdown | 업무 프롬프트에는 미주입. 별도 research UI 경로는 공유 composer 사용 |
+| technical_analysis_agent | 서버의 결정적 build_program과 inline presentation | 업무 모델에 불필요한 DSL 지시를 넣지 않으며 생성 프로그램은 parser 검증 |
+| technical_analysis_canvas_agent | 업무/설명과 별도의 taLayout 모델 생성 | 실제 composer에 최신 전체 카탈로그 주입 |
+| sec_modeling_agent | 모델링 도구 실행과 상태/메시지 | 미주입 |
+
+등록 목록 밖의 SEC Intelligent UI, SEC research UI, generative_ui dynamic 경로도 `openui_output._compose_ui`를 통해 같은 loader를 사용한다. Fixed controls처럼 서버가 작성하는 DSL에는 모델 프롬프트 주입이 필요하지 않다. 이름에 open_ui가 포함된 과거 구조화 보고서 계획과 실제 openui-lang 생성도 구분한다.
+
+Canvas는 카탈로그를 먼저 제공하고 마지막에 TA CANVAS SCOPE를 추가하여 일반적인 전체 프로그램/root 생성 지시보다 구체적인 제한을 우선한다. 모델은 Col/Row/Grid/Text/Title/Markdown으로 taLayout 하나만 작성하고 taPanel/taSignals를 한 번씩 참조한다. Query, IndicatorControls, 숫자 snapshot과 최종 root는 서버가 소유한다. 전체 카탈로그를 읽는다고 실행 allowlist가 확장되지 않는다. taPanel 설명도 고정3지표가 아니라 실제 요청한 TA20 인스턴스와 설정을 따른다.
+
+회귀 테스트는 실제 SystemMessage를 캡처해 IndicatorControls, technical_analysis_catalog, Grid 최신 인수 순서와 Canvas 제한을 확인한다. 같은 프로세스·같은 함수에서 artifact를 교체한 다음 두 번째 호출이 새 내용을 읽는지 검증하고, Query·FinancialChart 추가나 snapshot 재할당을 계속 거부한다. API 검증은 소유 FastAPI/PG/Host와 SpyModel·고정 OHLCV를 사용해 외부 모델 비용 없이 실제 Canvas graph와 parser를 통과시킨다. 브라우저 검증은 수행하지 않는다.

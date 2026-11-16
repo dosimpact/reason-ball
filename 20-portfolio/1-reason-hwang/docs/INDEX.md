@@ -247,3 +247,6 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [SEC 모델링 구현 완료·검증 보류](flow/2026-11-14-sec-modeling-implementation-complete.md): SEC-MODELING-001, 구현 범위·기존 실행 결과·사용자 요청에 따른 검증 중단 및 자원 정리.
 
 - [FastAPI 실행 런타임과 TA 지표 확장](flow/2026-11-16-fastapi-runtime-and-ta-indicators.md): FASTAPI-RUNTIME-001, 실제 그래프·PostgreSQL 재시작·API 검증 및 TA-INDICATORS-020 진행 기록.
+
+- [OpenUI catalog 생성·동기화 검사](flow/2026-11-16-openui-catalog-prompt-sync.md): 원본/FE txt·spec/Python mirror 일치와 build gate.
+- [OpenUI graph prompt 감사](flow/2026-11-16-openui-catalog-prompt-audit.md): 등록 graph 적용 경계, 공통 loader와 Canvas prompt/API 검증.

@@ -1,0 +1,16 @@
+meta {
+  name: OPENUI-CATALOG-001 delete owned thread
+  type: http
+  seq: 5
+}
+delete {
+  url: {{baseUrl}}/threads/{{catalogThread}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 204
+}
+tests {
+  test("Owned thread deleted",function(){expect(res.status).to.equal(204);});
+}

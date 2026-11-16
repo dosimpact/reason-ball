@@ -1,0 +1,19 @@
+meta {
+  name: OPENUI-CATALOG-001 owned fixture thread
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/threads
+  body: json
+  auth: none
+}
+body:json {
+  {"metadata":{"source":"qa-catalog-prompt"}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Owned isolated thread",function(){bru.setVar("catalogThread",res.getBody().thread_id);expect(res.getBody().thread_id).to.be.a("string");});
+}

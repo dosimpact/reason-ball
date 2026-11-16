@@ -156,3 +156,14 @@ allowlisted `technical_analysis_catalog`는 해당 runtime의 `/technical-analys
 두 TA 화면의 재분석은 마지막 성공한 Query 인자만 사용한다. 인라인은 `analysis_request`, Canvas는 `canvas_context.request`로 ticker/interval/count와 인스턴스 전체 설정을 구조화해 전달한다. 단순 조회에는 LLM 실행이 없으며, 인라인 재분석은 새 대화 답변으로, Canvas 재분석은 새 report UUID로 표시한다. 기존 해석의 snapshot 경고는 유지한다.
 
 검증 기록은 [통합 flow](../../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)를 따른다. Story 정의는 추가하되 이번 사용자 승인 범위는 API와 정적 검사이며 Storybook/브라우저 실행은 사용자에게 남긴다.
+
+
+## OPENUI-CATALOG-SYNC-001: 생성 원본과 공통 prompt 일치
+
+카탈로그 원본은 `shared/ui/intelligent-ui/library.ts`다. 기존 `pnpm -C 1-fe-host sec-ui:generate`가 FE의 system-prompt.txt/spec.json을 생성하고 공통 Python openui_output/generated/system-prompt.txt로 prompt를 복사한다. 그래프별 사본을 추가하지 않는다. UI를 생성하는 Python 소비자는 같은 파일을 읽고, 일반 텍스트·조회·계산 그래프에 UI 카탈로그를 억지로 주입하지 않는다.
+
+`pnpm -C 1-fe-host openui:check`는 OS 임시 디렉터리에서 현재 원본을 재생성한 뒤 FE txt/spec 및 Python prompt 사본을 바이트 단위로 비교한다. 저장된 파일을 수정하지 않으며 종료 시 임시 디렉터리를 정리한다. 빈 출력이나 불일치는 실패하고 기존 생성 명령을 안내한다. Host build는 이 검사를 먼저 실행하므로 최신 원본과 다른 생성 파일을 배포하지 않는다. 개발 서버의 매 요청에서 generator를 실행하지 않는다. 검사 회귀는 `pnpm -C 1-fe-host test:openui-sync`로 확인한다.
+
+OpenUI 컴포넌트 catalog와 Renderer의 Query toolProvider는 별도 계약이다. generate는 runtime handler를 등록하지 않는다. 현재 chart/catalog handler 등록이 포함된 최신 JS와 예전 탭의 번들은 다를 수 있으므로 오류에 Available: technical_analysis_chart만 보이면 현재 제공 JS와 열린 탭의 버전을 먼저 확인한다. 지표 catalog API는 20개 지표 정의를 반환하는 단일 조회 도구이며 컴포넌트 개수와 다르다.
+
+[변경·검증 기록](../../../flow/2026-11-16-openui-catalog-prompt-sync.md)
