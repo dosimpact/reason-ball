@@ -1,0 +1,19 @@
+meta {
+ name: Exact filing request scope
+ type: http
+ seq: 14
+}
+post {
+ url: {{baseUrl}}/api/sec-chat/chat
+ body: json
+ auth: none
+}
+body:json {
+ {"threadId":"{{researchThread}}","message":"wrong-scope revenue"}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("scoped fallback",function(){const events=res.getBody().split("\n").filter(x=>x.startsWith("data:")).map(x=>JSON.parse(x.slice(5)));expect(events.some(x=>x.type==="RUN_FINISHED")).eq(true);const m=events.find(x=>x.name==="sec.evidence").value.modeling;expect(m.limitations.length).greaterThan(1);expect(m.sources.every(x=>x.filingId===m.filingId)).eq(true);});
+}

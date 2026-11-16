@@ -1,0 +1,15 @@
+meta {
+ name: Rejected scope never reaches BFF
+ type: http
+ seq: 15
+}
+get {
+ url: {{baseUrl}}/qa/trace
+ auth: none
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("no out-of-scope upstream",function(){const calls=res.getBody().events.filter(x=>x.kind==="bff"&&x.mode==="wrong-scope");expect(calls).length(2);expect(calls.some(x=>x.path.endsWith("/search"))).eq(false);expect(calls.filter(x=>x.body).every(x=>x.body.filingIds[0]==="filing:0000320193:0000320193-25-000079")).eq(true);});
+}

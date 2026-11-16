@@ -141,3 +141,15 @@ SEC API Agent의 /api/sec-deep-agent/research 및 /chat은 금융 금액·배수
 원래 금융 수치 문단은 검산 결과·검증불가 안내로 대체하고 비금융 설명·확인한 공시 출처를 유지한다. 최종 금융 OpenUI는 서버가 만든 Markdown 프로그램을 기존 parser로 검사하여 2차 모델의 수치 재해석을 방지한다. 비금융 답변은 기존 자유 구성 경로를 따른다. JSON에는 financialVerification 상태·facts·calculations·제약을 추가한다.
 
 이는 인용/산술 검증이며 회계 의미 추출의 완전한 감사가 아니다. 지원 형식 밖의 근거나 불명확한 표는 검증불가로 안내한다. raw LangGraph sec_deep_agent 메시지 경로는 보호 범위가 아니다. 외부 모델 추출 품질·브라우저는 이번 API fixture 검증에 포함하지 않았다. [구현·API 증거](../flow/2026-11-16-sec-financial-verification.md). 이전 SEC-FIN-BASIS-001의 미해결 조사에 대해 이 좁은 API 보호 경계를 추가했다.
+
+## SEC-CHAT-MODELING-001: ResearchChat 게시 모델링 근거와 전용 AI Chat
+
+기존 `/sec-chat`은 준비한 공시의 원문 Item을 선택한 뒤 `search_sec_evidence`, `query_sec_xbrl_facts`, `get_sec_evidence`를 실제 호출할 수 있다. 이 읽기 전용 보강 단계는 모델이 도구를 선택하는 bounded loop이며 공시 준비나 원문 인용을 대체하지 않는다. 정확한 `filing:CIK10:accessionNo`만 요청하고, 응답 row도 같은 filingId여야 한다. 근거 상세 조회는 이번 search/facts에서 반환된 evidenceId만 허용하며 비활성 결과는 제외한다.
+
+모델링 문맥은 질문·해석된 task·최근 대화로 제한하고, 조회는 최대6모델 턴/8도구/60초로 제한한다. 빈 결과·외부 장애·범위 오류는 모델링 제약을 알리고 원문 Item 근거로 답한다. 모델링 부재를 공시/사실 부재로 해석하지 않는다. 답변의 `modeling_evidence_ids`는 실제 반환된 ID만 허용하고 최종 provenance에는 모델이 선택한 근거만 전달한다. 알 수 없는 선택 ID는 한 번 repair 후에도 잘못되면 실패하며 대화 기록에 저장하지 않는다.
+
+`sec.evidence.modeling`은 filingId/status/toolCalls/sources/limitations를 제공한다. status의 available은 조회 가능한 근거가 있었다는 뜻이며, 모델이 선택하지 않으면 sources는 비어 있을 수 있다. sources는 published-modeling 출처 구분, 공시/세대/근거 ID, 원문 텍스트, 값·기간·단위·선택 사유를 보존한다. 기존 원문 Item 인용을 유지하고 화면에 게시 모델링 선택 근거·empty/unavailable 제약을 별도 표시한다.
+
+AI Chat 메뉴의 `/sec-modeling-chat`은 FastAPI runtime의 `sec_modeling_agent`에 고정한다. 그래프 선택기나 다른 그래프로의 fallback 없이 모델링 상태·결과 조회·근거 검색 스타터를 제공하며 기록은 runtime/graph 범위로 분리한다. 기존 ResearchChat와 별도 화면이며 전용 화면 추가가 `/sec-chat` 모델링 보강을 대신하지 않는다.
+
+검증은 실제 HTTP router·ResearchChat graph·도구 실행 경계를 사용하되 모델/BFF 응답만 고정했다. 실모델·실제 모델링 job·사용자 DB 변경은 없었다. 브라우저·Storybook 실행은 사용자 예외로 생략했고 전용 화면은 HTTP200/SSR 및 정적 계약만 확인했다. [API·회귀·정리 증거](../flow/2026-11-16-sec-chat-modeling-tools.md).

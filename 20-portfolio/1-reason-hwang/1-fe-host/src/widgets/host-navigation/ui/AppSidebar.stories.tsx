@@ -24,6 +24,7 @@ export const Groups: Story = { args: { collapsible: "none" }, play: async ({ can
   await expect(aiChat.queryByRole("link", { name: "Langgraph dev chat" })).not.toBeInTheDocument();
   await expect(aiChat.queryByRole("link", { name: "FastAPI 채팅" })).not.toBeInTheDocument();
   await expect(aiChat.getByRole("link", { name: "기술적 분석 · 인라인" })).toBeVisible();
+  await expect(aiChat.getByRole("link", { name: "SEC Modeling Chat" })).toHaveAttribute("href", "/sec-modeling-chat");
   await expect(canvas.getByRole("link", { name: "Todo" })).toHaveAttribute("href", "/remotes/todo");
   await expect(canvas.getByRole("link", { name: "OpenUI Lang Catalog" })).toHaveAttribute("data-active");
   await expect(canvas.getByRole("link", { name: "OpenUI Lang Catalog" })).toHaveAttribute("href", "/open-ui/catalog");

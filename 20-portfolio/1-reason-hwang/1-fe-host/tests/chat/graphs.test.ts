@@ -80,3 +80,16 @@ test("TA-Lib is a native conversation graph with its own label", () => {
  assert.equal(graphOption("talib_agent").mode, "chat");
  assert.equal(graphOption("talib_agent").name, "TA-Lib 채팅");
 });
+
+
+test("SEC Modeling Chat discovery retains chat input and dedicated identity", async () => {
+ const client = { assistants: {
+  search: async () => [{ graph_id: "sec_modeling_agent", assistant_id: "sec-modeling" }],
+  getSchemas: async () => ({ input_schema: { properties: { messages: { type: "array" } } } }),
+ } } as unknown as Client;
+ const [graph] = await discoverGraphs(client);
+ assert.equal(graph.id, "sec_modeling_agent");
+ assert.equal(graph.name, "SEC Modeling Chat");
+ assert.equal(graph.mode, "chat");
+ assert.ok(graph.inputSchema);
+});

@@ -1,0 +1,19 @@
+meta {
+ name: SEC-CHAT-MODELING-001 actual-parser
+ type: http
+ seq: 12
+}
+post {
+ url: {{validatorUrl}}
+ body: json
+ auth: none
+}
+body:json {
+ {"program":{{researchProgramJson}}}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("actual-parser",function(){expect(res.getBody().valid).eq(true);expect(res.getBody().errors).deep.eq([]);});
+}

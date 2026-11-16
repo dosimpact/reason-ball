@@ -1,7 +1,7 @@
 import type { Client } from "@langchain/langgraph-sdk";
 
 export type GraphOption = { id: string; name: string; mode: "chat" | "json"; inputSchema?: Record<string, unknown>; exampleInput?: Record<string, unknown>; schemaError?: string; description?: string };
-const names: Record<string, string> = { talib_agent: "TA-Lib 채팅", starter_graph: "기본 채팅", simple_llm: "일반 에이전트", technical_analysis_agent: "기술적 분석 · 인라인", technical_analysis_canvas_agent: "기술적 분석 · Canvas", sec_deep_agent: "SEC Research", sec_modeling_agent: "SEC 모델링 테스트", main_graph: "Main Graph", price_agent: "가격 조회", technical_analysis_graph: "기술적 분석 서브그래프", tenk_subgraph: "10-K 검색" };
+const names: Record<string, string> = { talib_agent: "TA-Lib 채팅", starter_graph: "기본 채팅", simple_llm: "일반 에이전트", technical_analysis_agent: "기술적 분석 · 인라인", technical_analysis_canvas_agent: "기술적 분석 · Canvas", sec_deep_agent: "SEC Research", sec_modeling_agent: "SEC Modeling Chat", main_graph: "Main Graph", price_agent: "가격 조회", technical_analysis_graph: "기술적 분석 서브그래프", tenk_subgraph: "10-K 검색" };
 const descriptions: Record<string, string> = {
  talib_agent: "가격과 TA-Lib 지표를 도구로 조회하고 근거를 대화로 설명합니다.",
  starter_graph: "일반 질문에 답하고 날씨 질문에는 날씨 도구를 사용하는 기본 대화 그래프입니다.",

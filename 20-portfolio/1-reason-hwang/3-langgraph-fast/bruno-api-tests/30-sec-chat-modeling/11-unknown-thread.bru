@@ -1,0 +1,19 @@
+meta {
+ name: SEC-CHAT-MODELING-001 unknown-thread
+ type: http
+ seq: 11
+}
+post {
+ url: {{baseUrl}}/api/sec-chat/chat
+ body: json
+ auth: none
+}
+body:json {
+ {"threadId":"ffffffffffffffffffffffffffffffff","message":"normal revenue"}
+}
+assert {
+ res.status: eq 404
+}
+tests {
+ test("unknown-thread",function(){expect(res.getBody().detail).to.be.a("string");});
+}

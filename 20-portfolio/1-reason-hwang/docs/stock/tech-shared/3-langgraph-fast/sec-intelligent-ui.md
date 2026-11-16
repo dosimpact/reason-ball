@@ -18,7 +18,7 @@
 
 - SEC-IUI-004: POST `/resolve`는 message(1~4000자), history(최대 12개 user/assistant 텍스트), 선택적 threadId를 받는다. 기존 세션이 있으면 서버 공시 식별자를 문맥으로 사용하고 만료 세션은 404다. `domains/sec_chat/conversation.py`가 구조화된 모델 의도를 해석하고 BFF 기업 조회로 CIK를 확인한다. 응답 action은 reply, choose, research다. 일반 답변은 기업 공시 사실을 생성하지 않도록 지시하며 분석은 기존 prepare/chat 경로를 사용한다. 복수 기업 요청은 한 기업을 먼저 확인한다. 공백 입력과 잘못된 이력은 422다.
 
-- SEC-IUI-005: 공시 그래프는 `route → retrieve → answer → after_answer → present → END`; 일반 대화 그래프는 `respond → after_answer → present → END`다. research 라우팅만 곧바로 END로 이동한다. 공통 `domains/sec_chat/follow_ups.py`의 `suggest_follow_ups`가 별도 구조화 LLM 호출을 수행한다. 질문 3개, 각 1~160자, 공백/중복/직전 질문 반복을 검증한다. 최근 이력과 답변 입력 길이를 제한하고 취소는 전파한다. 추천 오류/30초 초과는 `followUps=[]`, `followUpsStatus=unavailable`이며 정상 본문을 유지한다.
+- SEC-IUI-005: 공시 그래프는 `route → retrieve → modeling → answer → after_answer → present → END`; 일반 대화 그래프는 `respond → after_answer → present → END`다. research 라우팅만 곧바로 END로 이동한다. 공통 `domains/sec_chat/follow_ups.py`의 `suggest_follow_ups`가 별도 구조화 LLM 호출을 수행한다. 질문 3개, 각 1~160자, 공백/중복/직전 질문 반복을 검증한다. 최근 이력과 답변 입력 길이를 제한하고 취소는 전파한다. 추천 오류/30초 초과는 `followUps=[]`, `followUpsStatus=unavailable`이며 정상 본문을 유지한다.
 - `/resolve`의 표시 응답은 `followUps`/`followUpsStatus`를 포함한다. 공시 SSE는 TEXT_MESSAGE_END 다음 CUSTOM `name=sec.follow-ups`, `value={messageId, questions, status}`를 보낸 후 RUN_FINISHED로 종료한다. 추천은 OpenUI DSL에 섞지 않으며 기존 본문/인용 계약은 유지한다. 현재는 그래프의 추천 생성까지 완료한 후 본문과 추천을 함께 전달하므로 추가 모델 지연이 있다.
 
 - SEC-IUI-006: `tracked_node`는 각 노드의 실제 실행 경계를 CUSTOM `sec.activity` 데이터 `{id,label,status,kind:node}`로 전달한다. status는 running/completed/failed/cancelled/unavailable. 추천만 실패한 경우 unavailable이고 본문 성공은 유지한다. 모델의 중간 텍스트나 도구 호출로 위장하지 않는다.
@@ -46,3 +46,14 @@ Deep Agent는 계획·가상 파일·기본 위임 도구를 사용할 수 있�
 ### SEC 채팅 도구 활동
 
 `/resolve`와 SSE로 요청한 `/prepare`는 `sec.activity`에 SEC 도구의 인자·결과 및 상태를 전달한다. `/prepare`는 기본 JSON 응답도 유지한다. 원문 도구는 모델에 제공하는 발췌 결과를 활동으로 전달하며 별도 artifact 전체는 전송하지 않는다.
+
+
+## SEC-RESEARCH-MODELING-001: 기존 Research Chat의 게시 모델링 조회
+
+`/sec-chat`의 기존 공시 분석 그래프는 원문 Item 선택 뒤 실제 `bind_tools` 루프로 `search_sec_evidence`, `query_sec_xbrl_facts`, `get_sec_evidence`를 사용할 수 있다. 모델이 질문·최근6개 대화(각2000자)·해석된 task를 보고 조회를 선택한다. prepared source의 CIK10/접수번호로 만든 정확한 단일 filingId만 허용하며, 응답 행도 같은 filingId인지 검증한다. evidence 상세는 이번 조회에서 반환된 ID만 접근한다. 수집/모델링 실행 도구는 노출하지 않는다.
+
+조회는 최대6번 모델 라운드/8tool calls/60초, 결과는 최대40개 packet이고 각 응답의20행까지만 선택한다. 모델 입력은 text3000자/metadata필드4000자 상한으로 제한하며 HTML·embedding·원본 전체 배열을 전달하지 않는다. 실제 artifact는 범위 검증 뒤 compact packet으로만 답변 단계에 들어간다. XBRL context·단위·dimension·선택이유는 가능한 원래 구조를 보존하고 잘린 metadata는 표시한다. 빈 결과/장애/잘못된 범위는 원문 Item 답변으로 fallback하며 미모델링을 공시나 사실 부재로 해석하지 않는다. 취소는 전파한다.
+
+기존 `DraftAnswer.findings.evidence_id`와 Item 원문 인용 검증은 그대로다. 추가 `modeling_evidence_ids`는 실제 반환된 scoped packet ID만 선택할 수 있으며 잘못된 ID는 기존 한 번의 답변 repair 후에도 실패하면 거부한다. `sec.evidence` provenance에 별도 `modeling={filingId,status,toolCalls,sources,limitations}`을 추가하고 sources에는 최종 답변에서 선택한 packet만 포함한다. 원문 인용과 게시 모델링 출처는 다른 종류의 근거이며 같은 것으로 표시하지 않는다. 선택된 모델링 자료는 UI composer에도 전달한다. 일반 대화 `/resolve`와 기존 prepare/chat 계약은 유지한다.
+
+DI: `build_graph(..., modeling_client=...)`는 실제 BFF client 경계만 대체할 수 있다. `test_sec_research_modeling.py`의 scoped도구/오류/후속문맥 회귀와 기존 `test_sec_intelligent_ui.py`를 실행한다. 모델이 반환한 요약의 모든 의미적 주장을 자동으로 검증하는 기능은 아니며, 기존 원문 quote 검증과 실제 출처 ID 검증의 범위를 구분한다.

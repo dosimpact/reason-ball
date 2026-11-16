@@ -1,0 +1,19 @@
+meta {
+ name: SEC-CHAT-MODELING-001 cross-source
+ type: http
+ seq: 6
+}
+post {
+ url: {{baseUrl}}/api/sec-chat/chat
+ body: json
+ auth: none
+}
+body:json {
+ {"threadId":"{{researchThread}}","message":"cross-source revenue"}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("cross-source",function(){const events=res.getBody().split("\n").filter(x=>x.startsWith("data:")).map(x=>JSON.parse(x.slice(5)));expect(events.some(x=>x.type==="RUN_FINISHED")).eq(true);expect(events.some(x=>x.type==="RUN_ERROR")).eq(false);const meta=events.find(x=>x.name==="sec.evidence").value;const m=meta.modeling;expect(meta.findings[0].item).eq("8");expect(meta.findings[0].quote).include("Net sales");expect(m.status).eq("unavailable");expect(m.sources).length(0);expect(m.limitations.join(" ")).include("없다는 의미는 아닙니다");});
+}

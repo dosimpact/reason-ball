@@ -63,7 +63,7 @@ test("unfinished historical tool calls cannot become fake success", () => {
 });
 test("token-configured chat adds values metadata once without changing input or adding a model call", () => {
  let count = 0;
- const client = { runs: { stream: (_thread: string, _graph: string, options: unknown) => { count++; assert.deepEqual(options, { input: { messages: [{ role: "user", content: "hello" }] }, streamMode: ["messages-tuple", "values"], signal: undefined }); return []; } } } as unknown as Client;
+ const client = { runs: { stream: (_thread: string, _graph: string, options: unknown) => { count++; assert.deepEqual(options, { input: { messages: [{ role: "user", content: "hello" }] }, streamMode: ["messages-tuple", "values"], onDisconnect: "continue", onRunCreated: undefined, signal: undefined }); return []; } } } as unknown as Client;
  streamChatRun({ client, config: { apiUrl: "/api/langgraph", assistantId: "simple_llm", streamMode: "messages-tuple" }, threadId: "test", messages: [{ role: "user", content: "hello" }] });
  assert.equal(count, 1);
 });

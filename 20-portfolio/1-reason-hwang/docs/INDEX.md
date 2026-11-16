@@ -265,3 +265,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [TA-Lib 비교 완료](flow/2026-11-16-talib-comparison-completion.md): 일봉·주봉 결과 보존과 보완 호출·HTTP parser 검증.
 
 - [SEC 금융 수치 basis 검산](flow/2026-11-16-sec-financial-verification.md): SEC-FIN-BASIS-002 구조화 원문 근거·Decimal 계산·최종 UI 보호·API 증거.
+
+- [SEC ResearchChat 모델링 근거·전용 채팅](flow/2026-11-16-sec-chat-modeling-tools.md): SEC-CHAT-MODELING-001, 실제3tool·출처범위·후속질문·15 HTTP 검증.

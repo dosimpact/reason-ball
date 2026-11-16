@@ -1,0 +1,16 @@
+meta {
+ name: SEC-CHAT-MODELING-001 trace-before-error
+ type: http
+ seq: 8
+}
+get {
+ url: {{baseUrl}}/qa/trace
+ 
+ auth: none
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("trace-before-error",function(){const b=res.getBody();const normal=b.events.filter(x=>x.kind==="bff"&&x.mode==="normal");expect(normal).length(6);expect(normal[0].path).eq("/api/sec/modeling/search");expect(normal[1].path).eq("/api/sec/modeling/facts/query");expect(normal[2].path).eq("/api/sec/modeling/evidence/ev-001");expect(normal[0].body.filingIds).deep.eq(["filing:0000320193:0000320193-25-000079"]);expect(b.events.some(x=>x.kind==="history"&&x.length>=2)).eq(true);expect(b.events.some(x=>x.kind==="tool-context"&&x.historyLength>=2)).eq(true);bru.setVar("beforeHistory",b.sessions[bru.getVar("researchThread")].historyLength);});
+}

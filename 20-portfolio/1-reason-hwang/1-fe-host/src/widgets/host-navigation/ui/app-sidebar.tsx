@@ -46,6 +46,7 @@ const navGroups = [
       { title: "TA-Lib 채팅", href: "/talib-chat", icon: MessagesSquare },
       { title: "SEC API Agent", href: "/sec-api-agent", icon: MessagesSquare },
       { title: "SEC Research Chat", href: "/sec-chat", icon: MessagesSquare },
+      { title: "SEC Modeling Chat", href: "/sec-modeling-chat", icon: MessagesSquare },
     ],
   },
   {
@@ -142,6 +143,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 /** Mobile navigation remains reachable without reserving an application header. */
 export function MobileSidebarTrigger() {
   const pathname = usePathname();
-  if (["/talib-chat", "/langgraph-dev-chat", "/chat", "/fastapi-chat", "/technical-analysis", "/technical-analysis/canvas"].includes(pathname)) return null;
+  if (["/sec-modeling-chat", "/talib-chat", "/langgraph-dev-chat", "/chat", "/fastapi-chat", "/technical-analysis", "/technical-analysis/canvas"].includes(pathname)) return null;
   return <SidebarTrigger className="fixed bottom-24 left-4 z-40 size-10 rounded-full border bg-background shadow-md md:hidden" />;
 }

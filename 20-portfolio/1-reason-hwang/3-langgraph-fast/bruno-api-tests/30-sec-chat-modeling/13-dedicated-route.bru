@@ -1,0 +1,16 @@
+meta {
+ name: SEC-CHAT-MODELING-001 dedicated-route
+ type: http
+ seq: 13
+}
+get {
+ url: {{hostUrl}}/sec-modeling-chat
+ 
+ auth: none
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("dedicated-route",function(){const html=res.getBody();expect(html).include("SEC Modeling Chat");expect(html).not.include("aria-label=\"LangGraph 에이전트\"");});
+}

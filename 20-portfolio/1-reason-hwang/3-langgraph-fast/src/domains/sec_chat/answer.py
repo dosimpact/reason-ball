@@ -28,6 +28,7 @@ class DraftFinding(BaseModel):
 
 
 class DraftAnswer(BaseModel):
+    modeling_evidence_ids: list[str] = Field(default_factory=list, max_length=20)
     title: str = Field(min_length=1, max_length=200)
     findings: list[DraftFinding] = Field(min_length=1, max_length=60)
     limitations: str = Field(max_length=2000)
