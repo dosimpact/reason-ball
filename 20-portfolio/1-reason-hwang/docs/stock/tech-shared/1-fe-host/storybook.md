@@ -58,7 +58,7 @@ The `Installation/Registry smoke check` remains as an installation-level check. 
 
 ## OPENUI-FIN-STORY-002: Lib Story 금융 v2 예제
 
-앱 내부 `/open-ui/catalog`의 OpenUI Lib Story와 개발용 Storybook은 별도 목록이다. Lib Story는 기존 금융 조합 5개에 v2 SMA 다중 설정, BBANDS·PSAR, 준비 구간·부분 오류 예제와 `IndicatorControls`를 추가해 총 9개 금융 예제를 제공한다. 차트 예제는 금융 차트 쇼케이스에, `IndicatorControls`는 라이브러리의 미디어·데이터 그룹에 한 번만 표시한다. 검색은 이름·설명·signature·id를 포함하므로 `financial`로 금융 예제를 찾을 수 있다.
+앱 내부 `/open-ui/catalog`의 OpenUI Lib Story와 개발용 Storybook은 별도 목록이다. Lib Story는 기존 금융 조합 5개에 v2 SMA 다중 설정, BBANDS·PSAR, 준비 구간·부분 오류 예제와 `IndicatorControls`를 추가해 총 9개 금융 예제를 제공한다. 금융 항목은 기본 components와 분리한 `financial · 금융` 탭에 표시한다. 기존 FinancialChart 기본 예제를 포함해 총 10개이며, 탭 내부는 금융 컴포넌트(FinancialChart·IndicatorControls)와 금융 차트 쇼케이스로 묶는다. 기존 hash 링크는 유지하며 해당 금융 탭을 자동으로 연다. 검색은 이름·설명·signature·id를 포함하므로 `financial`로 금융 예제를 찾을 수 있다.
 
 모든 시세·지표 수치는 표시 검증용 가상 값이다. 지표 설정 예제는 SMA만 포함한 축소 가상 catalog를 사용하고 추가·복제·제거·기간 편집·초안 적용을 로컬 상태에서 실행한다. 서버 조회와 지표 계산은 수행하지 않는다. 실제 20개 지표 catalog 및 Query 계약은 [OpenUI 설계](open-ui.md#ta-indicators-002-20개-지표와-다중-인스턴스)를 따른다.
 

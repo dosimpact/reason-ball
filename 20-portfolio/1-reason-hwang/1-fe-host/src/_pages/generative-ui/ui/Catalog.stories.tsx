@@ -42,6 +42,10 @@ export const FinancialShowcases: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    await expect(canvas.getByRole("button", { name: "financial · 금융 10" })).toHaveAttribute("aria-pressed", "true");
+    await userEvent.click(canvas.getByRole("button", { name: /^components / }));
+    await expect(canvas.queryByRole("link", { name: /FinancialChart|IndicatorControls/ })).not.toBeInTheDocument();
+    await userEvent.click(canvas.getByRole("button", { name: "financial · 금융 10" }));
     const group = canvas.getByRole("region", { name: "금융 차트 쇼케이스" });
     for (const name of ["캔들 · 거래량", "SMA(20) 오버레이", "RSI(14) 패널", "MACD(12,26,9) 패널", "캔들 · 지표 통합"]) {
       await expect(within(group).getByRole("link", { name: new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")) })).toBeVisible();

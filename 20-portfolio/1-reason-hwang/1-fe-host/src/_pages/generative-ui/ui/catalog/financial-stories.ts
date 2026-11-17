@@ -25,7 +25,7 @@ const legacyStories = examples.map(({ name, id, indicators, description }) => {
     ...(indicators.includes("SMA") ? { sma } : {}), ...(indicators.includes("RSI") ? { rsi } : {}),
     ...(indicators.includes("MACD") ? { macd, signal, histogram } : {}) }));
   const snapshot = { symbol: "DEMO", interval: "1d", currency: "USD", source: "가상 데이터", indicators, parameters: { sma_period: 20, rsi_period: 14, macd_fast: 12, macd_slow: 26, macd_signal: 9 }, bars: selectedBars };
-  return { id: `financial-${id}`, name, category: "components", signature: "FinancialChart(snapshot)", description,
+  return { id: `financial-${id}`, name, category: "financial", signature: "FinancialChart(snapshot)", description,
     note: "화면 확인용 가상 데이터와 예시 지표값입니다. 실제 시장 데이터나 계산 결과가 아닙니다.",
     examples: [{ title: name, code: `snapshot = ${JSON.stringify(snapshot)};\nroot = Col([FinancialChart(snapshot)]);` }] };
 });
@@ -49,7 +49,7 @@ const v2Stories = [
   { id: "bands-psar", name: "FinancialChart · BBANDS·PSAR", description: "밴드의 상단·중앙·하단 선과 PSAR 가격 마커를 표시합니다.", indicators: [bands, psar] },
   { id: "partial-error", name: "FinancialChart · 준비 구간·부분 오류", description: "전체 null인 준비 구간과 지표별 계산 실패를 가격 차트와 함께 표시합니다.", indicators: [{ ...indicator("SMA", 20), series: [{ ...indicator("SMA", 20).series[0], values: bars.map(() => null) }] }, { instanceId: "rsi-error", name: "RSI", label: "RSI 오류 예시", parameters: { timeperiod: 14 }, panel: "oscillator" as const, status: "error" as const, error: "표시 확인용 계산 오류", series: [] }] },
 ].map(({ id, name, description, indicators }) => ({
-  id: `financial-${id}`, name, category: "components", signature: "FinancialChart(snapshot: schemaVersion 2)", description,
+  id: `financial-${id}`, name, category: "financial", signature: "FinancialChart(snapshot: schemaVersion 2)", description,
   note: "화면 확인용 가상 데이터와 예시 지표값입니다. 실제 시장 데이터나 계산 결과가 아닙니다.",
   examples: [{ title: name, code: `snapshot = ${JSON.stringify({ schemaVersion: 2, catalogVersion: "demo-v2", symbol: "DEMO", currency: "USD", source: "가상 데이터", bars, indicators })};\nroot = Col([FinancialChart(snapshot)]);` }],
 }));
@@ -59,7 +59,7 @@ const demoCatalog: IndicatorCatalog = {
   indicators: [{ name: "SMA", label: "단순 이동평균", defaults: { timeperiod: 20 }, parameters: { timeperiod: { default: 20, min: 2, max: 200, type: "integer" } }, supportsSignal: false, panel: "price", series: [{ key: "sma", label: "SMA", unit: "USD", display: "line" }] }],
 };
 export const financialStories = [...legacyStories, ...v2Stories, {
-  id: "components-indicatorcontrols", name: "IndicatorControls", category: "components", signature: "IndicatorControls($chart_instances, catalog)",
+  id: "components-indicatorcontrols", name: "IndicatorControls", category: "financial", signature: "IndicatorControls($chart_instances, catalog)",
   description: "Financial 지표 설정: 추가·복제·제거·기간 편집과 명시적 초안 적용을 실행합니다.",
   note: "SMA만 포함한 축소 가상 카탈로그입니다. 설정 적용은 로컬 상태만 변경하며 서버 조회나 실제 차트 계산은 실행하지 않습니다.",
   examples: [{ title: "지표 설정 편집", code: `catalog = ${JSON.stringify(demoCatalog)};\nroot = Col([IndicatorControls($chart_instances, catalog)]);` }],
