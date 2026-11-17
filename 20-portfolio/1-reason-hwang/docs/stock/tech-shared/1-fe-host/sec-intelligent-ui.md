@@ -105,3 +105,7 @@ resolve의 명시적 refresh=true만 FE에서 그대로 전달하여 수집을 �
 ## SEC-ACTIVITY-STYLE-001: OpenUI 타임라인 외형
 
 SEC 자체 `ActivityTimeline`은 OpenUI `ToolCallTimeline`의 실제 CSS 클래스와 theme token을 재사용한다. 바깥 카드 테두리를 제거하고 헤더·오른쪽 펼침 화살표·글꼴·색상·도구 결과 code block을 맞춘다. 단계/서비스/도구의 구분과 한국어 상태·작업 수는 유지한다. 자체 Workflow 및 종류별 아이콘을 쓰므로 OpenUI mascot·ticker 애니메이션까지 완전히 같은 컴포넌트는 아니다. 기본 details의 키보드 조작과 focus 표시, reduced-motion을 지원한다. 라이브러리 CSS 변경 시 관련 Storybook을 재검증한다.
+
+## SEC-ACTIVITY-MOBILE-001: 좁은 실행 타임라인
+
+`ActivityTimeline`은 native details의 block 레이아웃을 유지하고 헤더와 작업 행을 grid로 정렬한다. 컨테이너 폭 380px 이하에서는 작업 수와 각 작업 상태를 별도 줄로 표시한다. 긴 도구 이름·인자·결과·URL은 가용 폭 안에서 줄바꿈하며 펼침 화살표는 터치 환경에서도 항상 보인다. OpenUI의 nowrap·flex 기본 스타일은 SEC 범위에서 재정의한다. `SEC/Activity Timeline/MobileLongContent`는 288px 폭에서 실패 상태·긴 도구명·결과·접기 동작을 검증한다.

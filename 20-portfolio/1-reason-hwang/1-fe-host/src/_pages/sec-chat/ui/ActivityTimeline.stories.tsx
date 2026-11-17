@@ -49,3 +49,20 @@ export const ToolDetails: Story = {
     await expect(canvas.getByText(/10-K/)).toBeVisible();
   },
 };
+
+export const MobileLongContent: Story = {
+  decorators: [(Story) => <div style={{ width: "100%", maxWidth: 288 }}><Story /></div>],
+  args: { activities: [{ id: "long-tool", label: "SEC 도구 · retrieve_company_filing_financial_statement_evidence_with_sources", kind: "tool", status: "unavailable", arguments: { accession: "0000320193-2026-000001", query: "장기적인 매출 변화와 사업부별 위험 요인 분석" }, result: { source: `https://www.sec.gov/Archives/${"long-filing-path/".repeat(12)}`, message: "공시 근거를 확인하지 못했습니다." } }] },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByText("Behind the scenes"));
+    await userEvent.click(canvas.getByText("도구 인자와 결과"));
+    await expect(canvas.getByText("생성하지 못함")).toBeVisible();
+    const timeline = canvasElement.querySelector<HTMLElement>(".sec-timeline")!;
+    await expect(timeline.scrollWidth).toBeLessThanOrEqual(timeline.clientWidth + 1);
+    const label = canvasElement.querySelector<HTMLElement>(".openui-tool-call__name")!;
+    await expect(label.scrollWidth).toBeLessThanOrEqual(label.clientWidth + 1);
+    await userEvent.click(canvas.getByText("Behind the scenes"));
+    await expect(canvas.getByText("생성하지 못함")).not.toBeVisible();
+  },
+};

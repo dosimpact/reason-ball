@@ -1,5 +1,7 @@
 # Documentation Map
 
+- [SEC Behind the scenes 모바일 수정](flow/2026-11-18-sec-activity-mobile.md): SEC-ACTIVITY-MOBILE-001, 좁은 타임라인과 긴 도구 상세 줄바꿈·Storybook 검증.
+
 - [미커밋 작업 최종 반영](flow/2026-11-18-finalize-pending-work.md): OpenUI·개발 채팅·SEC 스타일·문서 커밋과 미완료 MCP 검증 해소.
 
 - [OpenUI shadcn 공식 구성 재점검](flow/2026-11-18-openui-shadcn-fidelity.md): OPENUI-SHADCN-003, variant·ToggleGroup·Card·Popover·CodeBlock 정렬과 검증.
