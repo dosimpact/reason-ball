@@ -50,3 +50,38 @@ export const FinancialShowcases: Story = {
     await expect(canvas.getByText(/화면 확인용 가상 데이터/)).toBeVisible();
   },
 };
+
+export const FinancialV2Showcases: Story = {
+  beforeEach: () => {
+    const previous = window.location.href;
+    window.history.replaceState(null, "", "#financial-multi-instance");
+    return () => { window.history.replaceState(null, "", previous); };
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByRole("searchbox", { name: "항목 검색" }), "financial");
+    for (const [id, label] of [
+      ["financial-multi-instance", "SMA(10)"],
+      ["financial-bands-psar", "BBANDS(20)"],
+      ["financial-partial-error", "표시 확인용 계산 오류"],
+    ]) {
+      const link = canvasElement.querySelector<HTMLAnchorElement>(`a[href="#${id}"]`)!;
+      await expect(link).toBeVisible();
+      window.history.replaceState(null, "", `#${id}`);
+      window.dispatchEvent(new HashChangeEvent("hashchange"));
+      await waitFor(() => expect(canvas.getByTestId("financial-chart-canvas").querySelectorAll("canvas").length).toBeGreaterThan(1));
+      await expect(canvas.getAllByText(label, { exact: false })[0]).toBeVisible();
+      if (id === "financial-partial-error") await expect(canvas.getByRole("alert")).toHaveTextContent(label);
+      else await expect(canvas.queryByRole("alert")).not.toBeInTheDocument();
+    }
+    await expect(canvas.getByRole("link", { name: /IndicatorControls/ })).toBeVisible();
+    window.history.replaceState(null, "", "#components-indicatorcontrols");
+    window.dispatchEvent(new HashChangeEvent("hashchange"));
+    await expect(await canvas.findByRole("heading", { name: "IndicatorControls" })).toBeVisible();
+    await userEvent.click(canvas.getByRole("button", { name: "지표 추가" }));
+    await expect(canvas.getByRole("status")).toHaveTextContent("적용하지 않은 초안");
+    await userEvent.click(canvas.getByRole("button", { name: "지표 설정 적용 · 차트 조회" }));
+    await expect(canvas.getByRole("status")).toHaveTextContent("적용된 설정");
+    await expect(canvas.queryByRole("alert")).not.toBeInTheDocument();
+  },
+};

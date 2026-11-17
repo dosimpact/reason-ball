@@ -55,3 +55,11 @@ Expansion evidence: [2026-09-20 rich examples](../../../flow/2026-09-20-storyboo
 See [shadcn UI catalog](ui-catalog.md) for the preinstalled components, dependency requirements, and entries that are composition guides. `UI-STORY-003` adds individual stories for all 42 newly installed components, completing coverage for all 61 standalone files. Data Table, Date Picker, and Typography have composed examples under `src/stories/`. The built index now contains 192 UI cases and 201 total stories. Twenty new interaction stories verify visible state changes; calendar, chart, menu, form, layout, and overlay examples cover representative states. Vitest prebundles catalog dependencies so cold discovery does not reload browser-test iframes.
 
 The `Installation/Registry smoke check` remains as an installation-level check. Evidence: [2026-09-20 catalog stories](../../../flow/2026-09-20-shadcn-catalog-stories.md).
+
+## OPENUI-FIN-STORY-002: Lib Story 금융 v2 예제
+
+앱 내부 `/open-ui/catalog`의 OpenUI Lib Story와 개발용 Storybook은 별도 목록이다. Lib Story는 기존 금융 조합 5개에 v2 SMA 다중 설정, BBANDS·PSAR, 준비 구간·부분 오류 예제와 `IndicatorControls`를 추가해 총 9개 금융 예제를 제공한다. 차트 예제는 금융 차트 쇼케이스에, `IndicatorControls`는 라이브러리의 미디어·데이터 그룹에 한 번만 표시한다. 검색은 이름·설명·signature·id를 포함하므로 `financial`로 금융 예제를 찾을 수 있다.
+
+모든 시세·지표 수치는 표시 검증용 가상 값이다. 지표 설정 예제는 SMA만 포함한 축소 가상 catalog를 사용하고 추가·복제·제거·기간 편집·초안 적용을 로컬 상태에서 실행한다. 서버 조회와 지표 계산은 수행하지 않는다. 실제 20개 지표 catalog 및 Query 계약은 [OpenUI 설계](open-ui.md#ta-indicators-002-20개-지표와-다중-인스턴스)를 따른다.
+
+`Generative UI/Catalog`의 `FinancialV2Showcases` story는 다중 설정·밴드·PSAR·부분 오류 렌더링, 검색에서의 발견, 지표 초안과 적용 상태를 검증한다. [변경·검증 기록](../../../flow/2026-11-17-openui-financial-lib-stories.md).

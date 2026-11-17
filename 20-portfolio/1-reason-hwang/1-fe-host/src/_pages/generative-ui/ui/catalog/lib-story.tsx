@@ -17,7 +17,7 @@ const componentGroupLabels: Record<string, string> = {
   "Media and data": "미디어·데이터", Play: "학습·피드백", Drawing: "도형·HTML",
 };
 const navigationGroups: Record<string, { label: string; names: string[] }[]> = {
-  components: [...(library.componentGroups ?? []).map(group => ({ label: componentGroupLabels[group.name] ?? group.name, names: group.components })), { label: "금융 차트 쇼케이스", names: financialStories.map(story => story.name) }],
+  components: [...(library.componentGroups ?? []).map(group => ({ label: componentGroupLabels[group.name] ?? group.name, names: group.components })), { label: "금융 차트 쇼케이스", names: financialStories.filter(story => story.name !== "IndicatorControls").map(story => story.name) }],
   functions: [
     { label: "목록", names: listFunctions.map(fn => fn.name) },
     { label: "수치 계산", names: numberFunctions.map(fn => fn.name) },
@@ -78,7 +78,7 @@ export function LibStory({ theme }: { theme: "light" | "dark" }) {
     return () => window.removeEventListener("hashchange", sync);
   }, []);
   const selected = stories.find(story => story.id === selectedId) ?? stories[0];
-  const filtered = stories.filter(story => story.category === category && `${story.name} ${story.description}`.toLowerCase().includes(query.toLowerCase()));
+  const filtered = stories.filter(story => story.category === category && `${story.name} ${story.description} ${story.signature} ${story.id}`.toLowerCase().includes(query.toLowerCase()));
   const configuredGroups = navigationGroups[category] ?? [];
   const groupedNames = new Set(configuredGroups.flatMap(group => group.names));
   const groups = [...configuredGroups, { label: "기타", names: filtered.filter(story => !groupedNames.has(story.name)).map(story => story.name) }]
