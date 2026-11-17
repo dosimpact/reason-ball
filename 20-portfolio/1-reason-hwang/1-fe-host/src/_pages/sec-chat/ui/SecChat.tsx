@@ -8,10 +8,10 @@ import { FollowUpQuestions } from "./FollowUpQuestions";
 import { AnswerView } from "./AnswerView";
 import { readAnswer, readPreparation, readResolution } from "../api/stream";
 import { ActivityTimeline, type Activity } from "./ActivityTimeline";
+import { secChatStarterGroups } from "../model/starters";
 import "./sec-chat.css";
 
 type Resolution = { followUps?: string[]; program?: string } & ({ action: "reply"; reply: string } | ({ action: "choose"; reply: string } & Choice) | { action: "research"; company: Company | null; question: string; refresh: boolean } | { action: "collect"; company: Company | null; years: number; since?: string });
-const suggestions = ["애플은 어떻게 돈을 벌어?", "엔비디아의 주요 사업 리스크를 알려줘", "10-K를 볼 때 무엇부터 읽으면 좋을까?", "애플의 최근 1년 10-K·10-Q·8-K 공시를 수집해 줘"];
 
 
 export function SecChat() {
@@ -150,7 +150,7 @@ export function SecChat() {
     title="SEC Intelligent Research Chat"
     description="기업 이야기부터 재무 분석까지, SEC 10-K 원문을 근거로 답변합니다."
     welcomeTitle="무엇이 궁금하세요?"
-    starters={suggestions.map(text => ({ displayText: text, prompt: text }))}
+    starterGroups={secChatStarterGroups}
     busy={!!busy}
     onSend={text => send(text)}
     onCancel={() => abort.current?.abort()}

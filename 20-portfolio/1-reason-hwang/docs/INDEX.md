@@ -275,3 +275,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [SEC 연구 채팅 수집 도구](flow/2026-11-17-sec-chat-collection-tool.md): SEC-COLLECT-CHAT-001, 선택 기업 수집·기간 보존·완료 확인.
 
 - [작업 최종 정리와 커밋](flow/2026-11-17-workspace-finalization.md): 남은 FastAPI 전환·문서 반영과 최신 검증 집계.
+
+- [채팅별 그룹 시작 질문](flow/2026-11-17-grouped-chat-starters.md): CHAT-STARTERS-002, 기능별 질문 확장과 Storybook 검증.

@@ -196,3 +196,11 @@ SDK가 development에서 자동 마운트하는 Inspect/배포 안내는 기본 
 `CanvasItem(id,title,children)`은 shared OpenUI catalog와 Library Explorer에 등록한다. `OutputView`에 `onCanvasAdd`가 있을 때만 `Canvas에 추가` 버튼을 표시한다. 이 콜백은 Canvas 전용 ChatPage에서 연결하고 다른 채팅에서는 children만 표시한다. 추출기는 선택한 children이 참조하는 선언과 Query를 보존하며 다른 요소의 Query는 가져오지 않는다.
 
 `onQueryStatusChange`는 chart의 loading/success/error를 전달한다. 최신 요청만 상태·성공 콜백을 갱신해 오래된 응답이 PDF 버튼을 잘못 활성화하지 않게 한다. 카탈로그 원본·생성 spec·Python prompt 사본은 기존 generate/check 스크립트로 동기화한다. 제품 범위와 저장 제한은 [기술적 분석](../../technical-analysis/system-design.md#ta-canvas-003-선택형-요소와-인용-문맥), 실행 증거는 [flow](../../../flow/2026-11-17-canvas-item-workspace.md)를 따른다.
+
+## CHAT-STARTERS-002: 기능별 시작 질문
+
+AI Chat 메뉴의 기술적 분석 인라인·Canvas, TA-Lib, SEC API Agent, SEC Intelligent Research Chat, SEC Modeling Chat은 공통 `starterGroups`로 주제별 질문을 표시한다. 첫 그룹만 기본으로 펼치며 나머지는 제목·질문 수를 보고 펼친다. 클릭하면 표시 제목에 대응하는 전체 질문을 기존 대화 전송 경로로 전달한다. 대화가 시작되면 시작 질문은 숨기며 실행 중 중복 전송 방지는 기존 공통 프레임을 따른다.
+
+질문 구성은 각 페이지의 model에서 관리한다. 기술적 분석은 추세·모멘텀·변동성·거래량·시장별 예제를 제공하며 Canvas의 설명은 채팅에, 선택 가능한 UI 요소는 CanvasItem으로 요청한다. SEC 질문은 실제 제공된 조회·검색·수집·모델링 도구의 범위 안에서 작성한다. 데이터가 없으면 미수집·미모델링 상태를 구분하고 없는 근거를 만들지 않도록 요청한다. 일반 대화 그래프에도 별도 시작 질문을 제공하고 JSON 입력 그래프는 기존 실행 폼을 유지한다.
+
+이 변경은 질문 데이터와 표시 연결에 한정되며 도구 권한이나 서버 API를 확장하지 않는다. 새 OpenUI 컴포넌트가 없어 Library Explorer/catalog 재생성은 필요하지 않다. [검증 기록](../../../flow/2026-11-17-grouped-chat-starters.md)을 참조한다.
