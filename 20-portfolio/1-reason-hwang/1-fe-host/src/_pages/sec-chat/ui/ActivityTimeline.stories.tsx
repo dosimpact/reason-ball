@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { expect, userEvent, within } from "storybook/test";
+import { AgentConversation } from "@/shared/ui/agent-conversation";
 import { ActivityTimeline } from "./ActivityTimeline";
 import "./sec-chat.css";
 
@@ -58,11 +59,28 @@ export const MobileLongContent: Story = {
     await userEvent.click(canvas.getByText("Behind the scenes"));
     await userEvent.click(canvas.getByText("도구 인자와 결과"));
     await expect(canvas.getByText("생성하지 못함")).toBeVisible();
-    const timeline = canvasElement.querySelector<HTMLElement>(".sec-timeline")!;
+    const timeline = canvasElement.querySelector<HTMLElement>(".sec-trace")!;
     await expect(timeline.scrollWidth).toBeLessThanOrEqual(timeline.clientWidth + 1);
-    const label = canvasElement.querySelector<HTMLElement>(".openui-tool-call__name")!;
+    const label = canvasElement.querySelector<HTMLElement>(".sec-trace__name")!;
     await expect(label.scrollWidth).toBeLessThanOrEqual(label.clientWidth + 1);
     await userEvent.click(canvas.getByText("Behind the scenes"));
     await expect(canvas.getByText("생성하지 못함")).not.toBeVisible();
+  },
+};
+
+export const InResearchChat: Story = {
+  args: MobileLongContent.args,
+  render: args => <div style={{ height: "100dvh", width: "100%" }}><AgentConversation title="SEC Intelligent Research Chat" onSend={async () => {}} messages={[
+    { id: "question", role: "user", content: "Apple의 최근 공시를 분석해 줘" },
+    { id: "answer", role: "assistant", content: "분석 결과", view: <><ActivityTimeline {...args} /><p>공시 근거를 다시 확인해 주세요.</p></> },
+  ]} /></div>,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(await canvas.findByText("Behind the scenes"));
+    await userEvent.click(canvas.getByText("도구 인자와 결과"));
+    await expect(canvas.getByText("생성하지 못함")).toBeVisible();
+    const timeline = canvasElement.querySelector<HTMLElement>(".sec-trace")!;
+    await expect(timeline.clientWidth).toBeGreaterThan(100);
+    await expect(timeline.scrollWidth).toBeLessThanOrEqual(timeline.clientWidth + 1);
   },
 };

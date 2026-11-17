@@ -1,5 +1,7 @@
 # Documentation Map
 
+- [SEC 타임라인 구조 재작성](flow/2026-11-18-sec-activity-rebuild.md): SDK 클래스 의존 제거, 전용 구조·CSS와 실제 채팅 프레임 검증.
+
 - [SEC Behind the scenes 모바일 수정](flow/2026-11-18-sec-activity-mobile.md): SEC-ACTIVITY-MOBILE-001, 좁은 타임라인과 긴 도구 상세 줄바꿈·Storybook 검증.
 
 - [미커밋 작업 최종 반영](flow/2026-11-18-finalize-pending-work.md): OpenUI·개발 채팅·SEC 스타일·문서 커밋과 미완료 MCP 검증 해소.
