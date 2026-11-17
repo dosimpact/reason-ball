@@ -389,8 +389,14 @@
 .iui-query-panel-header, .iui-query-panel-refresh { display: flex; align-items: center; gap: 8px; }
 .iui-query-panel-header { justify-content: space-between; margin-bottom: 12px; }
 .iui-query-panel-refresh { color: var(--iui-muted); font-size: 12px; }
-.iui-query-panel-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 12px; align-items: start; }
-.iui-query-panel-content > :not(.iui-field) { grid-column: 1 / -1; }
+.iui-query-panel-settings { margin-bottom: 12px; border: 1px solid var(--iui-border); border-radius: 8px; }
+.iui-query-panel-settings > summary { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 10px 12px; color: var(--iui-muted); font-size: 13px; }
+.iui-query-panel-settings > summary::before { content: "▸"; }
+.iui-query-panel-settings[open] > summary::before { content: "▾"; }
+.iui-query-panel-settings > summary:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 8px; }
+.iui-query-panel-controls { padding: 4px 12px 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 12px; align-items: start; }
+.iui-query-panel-controls > :not(.iui-field) { grid-column: 1 / -1; }
+.iui-query-panel-data { min-width: 0; display: grid; gap: 12px; }
 .iui-query-panel-spinner { animation: iui-query-panel-spin 1s linear infinite; }
 @keyframes iui-query-panel-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .iui-query-panel-spinner { animation: none; } }
@@ -413,3 +419,16 @@
 .iui-canvas-item { min-width: 0; }
 .iui-canvas-item-selectable { position: relative; padding-top: 32px; overflow: visible; }
 .iui-canvas-item-add { position: absolute; top: -8px; right: -8px; z-index: 1; box-shadow: 0 3px 10px rgb(0 0 0 / .18); }
+
+/* Financial display blocks: the plot leads; optional detail stays quiet. */
+.iui-financial-composite { display: grid; gap: 8px; }
+.iui-financial-chart figcaption { margin-bottom: 8px; font-size: 14px; }
+.iui-financial-chart > div > small { display: block; color: var(--iui-muted); font-size: 10px; margin-top: 6px; }
+.iui-financial-metadata, details.iui-indicator-summary { margin: 0; padding: 10px 12px; border: 1px solid var(--iui-border, color-mix(in srgb, currentColor 14%, transparent)); border-radius: 10px; min-width: 0; }
+.iui-financial-metadata > summary, details.iui-indicator-summary > summary { cursor: pointer; font-size: 12px; font-weight: 500; color: var(--iui-muted); }
+.iui-financial-metadata > summary:focus-visible, details.iui-indicator-summary > summary:focus-visible { outline: 2px solid var(--iui-info); outline-offset: 3px; }
+.iui-financial-metadata dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 16px; font-size: 12px; margin: 12px 0; }
+.iui-financial-metadata dt { color: var(--iui-muted); }
+.iui-financial-metadata dd { margin: 0; overflow-wrap: anywhere; }
+.iui-financial-metadata p { color: var(--iui-muted); font-size: 11px; }
+@media print { .iui-financial-metadata, details.iui-indicator-summary { break-inside: avoid; } }

@@ -3,12 +3,12 @@ import { createLibrary, Renderer, type ActionEvent, type OpenUIError } from "@op
 import { runLibraryAction, webUrl, Col, library, listFunctions, numberFunctions, textFunctions, colorFunctions, dateFunctions, dataFunctions } from "@/shared/ui/intelligent-ui";
 import { useCallback, useEffect, useState } from "react";
 import libraryStories from "./stories.json";
-import { financialStories } from "./financial-stories";
+import { financialStories, financialBlockStories } from "./financial-stories";
 import builtinStories from "./builtins.json";
 import { createBuiltinDemoTools } from "./builtin-tools";
 import "./lib-story.css";
 
-const stories = [...libraryStories.map(story => story.name === "FinancialChart" ? { ...story, category: "financial" } : story), ...builtinStories, ...financialStories];
+const stories = [...libraryStories.map(story => ["FinancialChart", "FinancialChartPlot", "FinancialChartSummary", "FinancialChartMetadata", "QueryPanel"].includes(story.name) ? { ...story, category: "financial" } : story), ...builtinStories, ...financialStories, ...financialBlockStories];
 type Story = (typeof stories)[number];
 const colOnlyLibrary = createLibrary({ root: "Col", components: [Col] });
 const categories = ["components", "financial", "functions", "actions", "builtins"];
@@ -19,7 +19,7 @@ const componentGroupLabels: Record<string, string> = {
 const navigationGroups: Record<string, { label: string; names: string[] }[]> = {
   components: (library.componentGroups ?? []).map(group => ({ label: componentGroupLabels[group.name] ?? group.name, names: group.components })),
   financial: [
-    { label: "금융 컴포넌트", names: ["FinancialChart", "IndicatorControls"] },
+    { label: "금융 컴포넌트", names: ["QueryPanel", "FinancialChart", "FinancialChartPlot", "FinancialChartSummary", "FinancialChartMetadata", "IndicatorControls"] },
     { label: "금융 차트 쇼케이스", names: financialStories.filter(story => story.name !== "IndicatorControls").map(story => story.name) },
   ],
   functions: [

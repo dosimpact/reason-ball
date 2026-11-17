@@ -1,6 +1,8 @@
+import { Renderer } from "@openuidev/react-lang";
+import { library } from "../../library";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { expect, within } from "storybook/test";
-import { FinancialChartView, type FinancialSnapshot } from "./financial-chart";
+import { expect, userEvent, waitFor, within } from "storybook/test";
+import { FinancialChartView, FinancialChartPlotView, FinancialChartSummaryView, FinancialChartMetadataView, type FinancialSnapshot } from "./financial-chart";
 
 const bars = Array.from({ length: 80 }, (_, index) => ({
   time: new Date(Date.UTC(2026, 0, index + 1)).toISOString().slice(0, 10),
@@ -46,7 +48,57 @@ const v2: FinancialSnapshot = {
 };
 export const MultiInstanceV2: Story = { args: { snapshot: v2 }, play: async ({ canvasElement }) => {
   const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByText(`지표 요약 · ${v2.schemaVersion === 2 ? v2.indicators.length : 0}개`));
   await expect(canvas.getByRole("region", { name: "지표 요약과 표시 설정" })).toHaveTextContent("SMA(20)");
   await expect(canvas.getByRole("region", { name: "지표 요약과 표시 설정" })).toHaveTextContent("SMA(60)");
 } };
 export const AllNullV2: Story = { args: { snapshot: { ...v2, indicators: v2.schemaVersion === 2 ? v2.indicators.map(indicator => ({ ...indicator, series: indicator.series.map(series => ({ ...series, values: bars.map(() => null) })) })) : [] } } };
+
+
+export const CollapsedExtras: Story = { args: { snapshot: v2 }, play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const summary = canvas.getByText(`지표 요약 · ${v2.schemaVersion === 2 ? v2.indicators.length : 0}개`).closest("details");
+  const metadata = canvas.getByText("데이터 출처와 분석 기준").closest("details");
+  await expect(summary).not.toHaveAttribute("open");
+  await expect(metadata).not.toHaveAttribute("open");
+  await userEvent.click(canvas.getByText("데이터 출처와 분석 기준"));
+  await expect(canvas.getByText("누적 기준 시작일")).toBeVisible();
+  await expect(canvasElement.querySelector("pre")).toBeNull();
+} };
+
+export const ComposedBlocks: Story = {
+  render: () => <div style={{ display: "grid", gap: 16 }}><FinancialChartMetadataView snapshot={v2} /><FinancialChartPlotView snapshot={v2} /><FinancialChartSummaryView snapshot={v2} /></div>,
+};
+
+export const PanelSelectionLimit: Story = { args: { snapshot: v2 }, play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByText(`지표 요약 · ${v2.schemaVersion === 2 ? v2.indicators.length : 0}개`));
+  const fifth = canvas.getByText(/^가상 패널 5 ·/).closest("details")!;
+  await userEvent.click(within(fifth).getByText(/^가상 패널 5 ·/));
+  const fifthToggle = within(fifth).getByRole("checkbox");
+  await userEvent.click(fifthToggle);
+  await expect(canvas.getByText("하위 패널은 최대 4개까지 표시할 수 있습니다. 다른 지표를 먼저 숨겨 주세요.")).toBeVisible();
+  await expect(fifthToggle).not.toBeChecked();
+  const first = canvas.getByText(/^가상 패널 1 ·/).closest("details")!;
+  await userEvent.click(within(first).getByText(/^가상 패널 1 ·/));
+  await userEvent.click(within(first).getByRole("checkbox"));
+  await userEvent.click(fifthToggle);
+  await expect(fifthToggle).toBeChecked();
+  await expect(within(first).getByRole("checkbox")).not.toBeChecked();
+} };
+
+
+export const SharedVisibilityBlocks: Story = {
+  render: () => <Renderer library={library} response={'root = Col([FinancialChartPlot(snapshot, "shared-financial-visibility"), FinancialChartSummary(snapshot, "shared-financial-visibility"), FinancialChartMetadata(snapshot)], 3)\nsnapshot = ' + JSON.stringify(v2)} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const chart = canvas.getByTestId("financial-chart-canvas");
+    await waitFor(() => expect(chart.querySelector(".tv-lightweight-charts")).toHaveStyle({ height: "940px" }));
+    await userEvent.click(canvas.getByText(`지표 요약 · ${v2.schemaVersion === 2 ? v2.indicators.length : 0}개`));
+    const first = canvas.getByText(/^가상 패널 1 ·/).closest("details")!;
+    await userEvent.click(within(first).getByText(/^가상 패널 1 ·/));
+    await userEvent.click(within(first).getByRole("checkbox"));
+    await expect(within(first).getByRole("checkbox")).not.toBeChecked();
+    await waitFor(() => expect(chart.querySelector(".tv-lightweight-charts")).toHaveStyle({ height: "820px" }));
+  },
+};

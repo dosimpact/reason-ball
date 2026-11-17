@@ -64,3 +64,13 @@ export const financialStories = [...legacyStories, ...v2Stories, {
   note: "SMA만 포함한 축소 가상 카탈로그입니다. 설정 적용은 로컬 상태만 변경하며 서버 조회나 실제 차트 계산은 실행하지 않습니다.",
   examples: [{ title: "지표 설정 편집", code: `catalog = ${JSON.stringify(demoCatalog)};\nroot = Col([IndicatorControls($chart_instances, catalog)]);` }],
 }];
+
+
+export const financialBlockStories = [
+  ...["FinancialChartPlot", "FinancialChartSummary", "FinancialChartMetadata"].map(name => ({
+    id: `components-${name.toLowerCase()}`, name, category: "financial",
+    signature: `${name}(snapshot)`, description: "검증된 금융 snapshot을 사용하는 독립 조립 블록입니다.",
+    note: "가상 데이터 예시입니다.",
+    examples: [{ title: name, code: `snapshot = ${JSON.stringify({ symbol: "DEMO", currency: "USD", source: "가상 데이터", bars, indicators: [] })};\nroot = Col([${name}(snapshot)]);` }],
+  })),
+];

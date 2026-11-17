@@ -214,3 +214,8 @@ TA20은 원시 가격/지표 배열 대신 요청 인자와 요약을 전달하�
 모델 출력은 parser로 구조를 검증하며 Canvas 요소 식별자는 추가로 강제한다. 설명의 모든 의미·숫자나 Query 조건의 일치까지 parser가 검증하는 것은 아니다. 모델에 전달한 검증된 데이터와 생성 UI의 의미 일치는 별도 품질 관리 대상이다. 모델 UI 생성에 추가 호출과 지연이 발생한다. 고정 업무 action controls는 이 전환 대상이 아니다.
 
 [구현·검증 기록](../../flow/2026-11-17-openui-llm-composition.md).
+
+
+## OPENUI-FIN-BLOCKS-001: 간결한 차트 화면
+
+조회 조건은 기본 접힘이며 차트와 새로고침은 계속 표시한다. 사용자는 필요할 때 설정을 열고 바꾼다. 지표 요약과 데이터 출처도 독립 접이식 블록이며 모델이 Plot/Summary/Metadata를 별도 조립할 수 있다. Query·계산·재분석 계약은 유지한다. [구체 UI 계약](../tech-shared/1-fe-host/2-frontend-side-architecture.md#openui-fin-blocks-001-접이식-조회와-금융-블록).

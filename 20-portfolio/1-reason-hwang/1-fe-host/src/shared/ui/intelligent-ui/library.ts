@@ -6,10 +6,10 @@ import { functions } from "./functions";
 import "./components/theme.css";
 import "./components/components.css";
 import "./components/map/map.css";
-import { QueryPanel } from "./components/query-panel";
+import { QueryPanel } from "./components/financial/query-panel";
 import { CanvasItem } from "./components/canvas-item/canvas-item";
 import { IndicatorControls } from "./components/financial/indicator-controls";
-import { FinancialChart } from "./components/financial/financial-chart";
+import { FinancialChart, FinancialChartPlot, FinancialChartSummary, FinancialChartMetadata } from "./components/financial/financial-chart";
 import { Chart } from "./components/chart";
 import { Carousel, Celebration, Code, Flashcard, MathBlock, Popover, Quote, YouTube } from "./components/extra";
 import {
@@ -46,7 +46,7 @@ export const library = createLibrary({
     Col, Row, Box, Grid, Card, Carousel, Popover, Divider, Spacer, CanvasItem,
     Title, Text, Caption, Label, Badge, Link, List, ListItem, Markdown, Quote, Code, MathBlock,
     Button, IconButton, Pressable, Input, TextArea, Select, SegmentedControl, Slider, Checkbox, RadioGroup, DatePicker, Timer, Form,
-    SearchImage, Image, Icon, Table, Chart, FinancialChart, IndicatorControls, QueryPanel, MapView, MapMarker, YouTube,
+    SearchImage, Image, Icon, Table, Chart, FinancialChart, FinancialChartPlot, FinancialChartSummary, FinancialChartMetadata, IndicatorControls, QueryPanel, MapView, MapMarker, YouTube,
     Flashcard, Celebration,
     ...svgComponents, HtmlView,
   ],
@@ -70,10 +70,10 @@ export const library = createLibrary({
         '- Every input either changes something shown on the page, or sits in a Form whose submit Button sends a short first-person @ToAssistant ("Help me choose a bike"); the form values go with it. No dead inputs.',
       ],
     },
-    { name: "Media and data", components: ["SearchImage", "Image", "Icon", "Table", "Chart", "FinancialChart", "IndicatorControls", "QueryPanel", "Map", "MapMarker", "YouTube"], notes: [
+    { name: "Media and data", components: ["SearchImage", "Image", "Icon", "Table", "Chart", "FinancialChart", "FinancialChartPlot", "FinancialChartSummary", "FinancialChartMetadata", "IndicatorControls", "QueryPanel", "Map", "MapMarker", "YouTube"], notes: [
       '- FinancialChart consumes one trusted snapshot. Fetch it with data = Query("technical_analysis_chart", {ticker: $ticker, interval: $interval, count: $count, indicators: "SMA,RSI,MACD"}, {bars: [], status: "loading"}). The Host runs this allowlisted read tool without an LLM round trip.',
       '- For v2 multi-instance indicators use catalog = Query("technical_analysis_catalog", {}, null), IndicatorControls($chart_instances, catalog), and chart = Query("technical_analysis_chart", {ticker: $ticker, interval: $interval, count: $count, schema_version: 2, instances: $chart_instances}, {bars: [], status: "loading"}). Use catalog metadata, never invented parameter names or numeric arrays.',
-      '- Put Query-backed data components and their editable argument controls inside QueryPanel(children, Action([@Run(queryStatement)])); every Query view must provide its own manual refresh icon and labelled argument fields together.',
+      '- Put Query-backed data components and their editable argument controls inside QueryPanel([data components], Action([@Run(queryStatement)]), [editable controls]); every Query view must provide its own manual refresh icon and labelled argument fields together.',
       '- Query(tool, args, default, seconds) re-runs when reactive args change. Omit seconds or use 0 for historical answers. Explicit live mode may use 30 seconds only for the active latest answer. Price and all indicators must come from the same returned snapshot.',
     ] },
     { name: "Play", components: ["Flashcard", "Celebration"] },
@@ -89,6 +89,7 @@ export const promptOptions: PromptOptions = {
   bindings: true,
   examples: [...financialPromptExamples, ...canvasItemPromptExamples],
   additionalRules: [
+    "QueryPanel(dataChildren, refreshAction, controls) shows data continuously and hides controls in a closed disclosure by default. Put Input, Select and IndicatorControls in its third argument; keep FinancialChart or FinancialChartPlot in its first. FinancialChart is a compact composite. Use FinancialChartPlot(snapshot), FinancialChartSummary(snapshot) and FinancialChartMetadata(snapshot) separately when a custom arrangement helps; give Plot and Summary the same unique visibilityKey second argument to link their local display toggles; do not repeat the composite and its blocks for the same data.",
     "Examples illustrate syntax, not required layouts or evidence. Replace sample identifiers, dates, tickers and numbers with supplied data. Choose the components and layout appropriate to the question.",
     "For technical analysis use Query-backed FinancialChart with the supplied request; do not invent OHLCV or indicator arrays. Keep each Query, labelled controls and manual refresh together in QueryPanel. Preserve the requested instance IDs and parameters.",
     "Only in Canvas mode wrap each supplied canvasItems entry with CanvasItem using its exact ID. Use separate reactive variables and Query statements per item so pinned elements remain independent. Do not invent IDs or wrap the complete response as one item.",

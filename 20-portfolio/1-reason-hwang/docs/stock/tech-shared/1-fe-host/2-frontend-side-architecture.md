@@ -445,3 +445,12 @@ AI Chat의 `SEC Modeling Chat`은 `/sec-modeling-chat`에서 공용 ChatProvider
 ## OPENUI-COMPOSE-001: 생성 프롬프트 예시
 
 `intelligent-ui/library.ts`는 `promptOptions`를 내보낸다. 설치된 SDK의 examples는 createLibrary 직접 속성이 아닌 prompt 옵션이다. `openui generate`가 이 export를 자동 인식해 금융·Canvas 그룹의 `prompt-examples.ts`와 additionalRules를 공통 생성 프롬프트에 포함한다. 예시의 ticker·ID·숫자는 실제 근거가 아니며 모델은 서버가 제공한 값으로 대체한다. 런타임 렌더러·Query allowlist는 유지한다. [생성·검증 계약](../3-langgraph-fast/open-ui.md), [변경 기록](../../../flow/2026-11-17-openui-llm-composition.md).
+
+
+## OPENUI-FIN-BLOCKS-001: 접이식 조회와 금융 블록
+
+금융 UI는 components/financial 아래에 둔다. QueryPanel(dataChildren, refreshAction, controls?)은 결과·새로고침을 항상 표시하고 controls를 기본 닫힌 조회 조건에 둔다. 이전 두 인자 프로그램은 SDK 노드의 Input/Select/IndicatorControls 등과 중첩 레이아웃을 분리해 차트를 접지 않는다. disclosure는 native details로 키보드 접근 및 입력 상태를 보존한다.
+
+FinancialChart는 Plot·Summary·Metadata를 조립한 기본 구성이다. 지표 요약과 출처는 접힌 상태이고 오류·로딩·법적 출처는 Plot에 표시한다. 독립 카탈로그 FinancialChartPlot(snapshot, visibilityKey?), FinancialChartSummary(snapshot, visibilityKey?), FinancialChartMetadata(snapshot)로 재배치할 수 있다. Plot/Summary의 동일한 고유 visibilityKey는 표시 설정을 공유하고 다른 키는 격리한다. 최대4개 oscillator 제한을 유지한다. Canvas 엔진·표시 상태·숫자 포맷은 별도 모듈이며 출처 메타데이터는 raw JSON 대신 읽기용 항목으로 제공한다.
+
+카탈로그 예시와 Library Explorer에 독립 블록을 반영하고 generated prompt/spec/Python mirror를 동기화한다. [변경·검증](../../../flow/2026-11-17-financial-ui-blocks.md).
