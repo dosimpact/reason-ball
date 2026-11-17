@@ -18,7 +18,7 @@ import { GraphSelector } from "./GraphSelector";
 import { AgentConversation, ChatNotice, ConversationText } from "@/shared/ui/agent-conversation";
 import { OutputView } from "@/shared/ui/intelligent-ui";
 import { useChat } from "../model/context/useChat";
-import { pinItem, restorePinnedItems, storageKey, type CanvasItemSelection, type PinnedCanvasItem } from "../model/pinnedCanvas";
+import { pinItem, restorePinnedItems, serializePinnedItems, storageKey, type CanvasItemSelection, type PinnedCanvasItem } from "../model/pinnedCanvas";
 
 export function ChatPage() {
   const { fixedGraphId, runtime, runNotice, error, messages, resetThread, cancelRun, sendMessage, status, graphId, graphs, selectGraph, history, historyLoading, historyError, refreshHistory, openThread, threadId, conversationVersion, runGraph, graphResult, graphDiscoveryError, reloadGraphs } = useChat();
@@ -34,7 +34,7 @@ export function ChatPage() {
   }, [threadId, taMode, runtime.id]);
   useEffect(() => {
     if (!threadId || pinned.threadId !== threadId || !taMode) return;
-    try { window.localStorage.setItem(storageKey(runtime.id, threadId), JSON.stringify(pinned.items)); } catch { /* Canvas remains usable when browser storage is full or disabled. */ }
+    try { window.localStorage.setItem(storageKey(runtime.id, threadId), serializePinnedItems(pinned.items)); } catch { /* Canvas remains usable when browser storage is full or disabled. */ }
   }, [threadId, pinned, taMode, runtime.id]);
   const changePinned = (update: (items: PinnedCanvasItem[]) => PinnedCanvasItem[]) => setPinned(previous => {
     const items = update(previous.threadId === threadId ? previous.items : []);

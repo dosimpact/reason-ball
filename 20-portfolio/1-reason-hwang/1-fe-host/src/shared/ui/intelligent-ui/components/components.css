@@ -409,4 +409,7 @@
 .iui-indicator-parameters { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: .7rem; margin-block: .75rem; }
 .iui-indicator-parameters label { display: grid; gap: .25rem; font-size: .82rem; }
 .iui-indicator-toggle { display: flex; align-items: center; gap: .5rem; margin-block: .65rem; }
-.iui-canvas-item-toolbar { display: flex; justify-content: flex-end; margin-bottom: 8px; }
+.iui-canvas-item-frame { min-width: 0; padding: 8px 8px 0 0; }
+.iui-canvas-item { min-width: 0; }
+.iui-canvas-item-selectable { position: relative; padding-top: 32px; overflow: visible; }
+.iui-canvas-item-add { position: absolute; top: -8px; right: -8px; z-index: 1; box-shadow: 0 3px 10px rgb(0 0 0 / .18); }

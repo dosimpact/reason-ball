@@ -29,8 +29,9 @@ async function install(page: Page) {
 }
 
 
-test('TA-CANVAS-003: explicit pin, layout restore, quote context and removal', async ({ page }) => {
+test('TA-CANVAS-004: repeated panels, grid restore, source quote and removal', async ({ page }) => {
   const { calls, reportId } = await install(page);
+  await page.setViewportSize({width:1920,height:1080});
   await page.goto('/technical-analysis/canvas');
   await page.getByRole('button', {name:'AAPL 일봉 분석', exact:true}).click();
   const add = page.getByRole('button', {name:'Canvas에 추가', exact:true});
@@ -39,18 +40,21 @@ test('TA-CANVAS-003: explicit pin, layout restore, quote context and removal', a
   await expect(panel).toHaveCount(0);
   await add.first().click();
   await add.first().click();
-  await expect(panel.locator('article')).toHaveCount(1);
+  await add.first().click();
+  await expect(panel.locator('article')).toHaveCount(3);
+  expect(new Set(await panel.locator('article').evaluateAll(nodes=>nodes.map(node=>node.getAttribute('data-canvas-id')))).size).toBe(3);
   await add.last().click();
   await panel.getByRole('button', {name:'RSI 차트 이동', exact:true}).press('ArrowUp');
   await panel.getByRole('button', {name:'RSI 차트 크기 조절', exact:true}).press('ArrowRight');
-  await expect(panel.locator('article').first()).toContainText('RSI 차트');
-  await expect(panel.locator('article').first()).toHaveCSS('grid-column-start','span 2');
+  await expect(panel.locator('.react-grid-layout')).toBeVisible();
+  const saved = await page.evaluate(()=>JSON.parse(localStorage.getItem('ta-canvas-items-v1:fastapi:canvas-fixture')!));
+  expect(saved.version).toBe(2);
+  expect(saved.items.find((item: {sourceElementId:string})=>item.sourceElementId==='rsi').layout.w).toBe(13);
   await page.reload();
   await page.getByText('대화 기록', {exact:true}).last().click();
   await page.getByRole('button', {name:/Canvas 검증 대화/}).click();
-  await expect(panel.locator('article')).toHaveCount(2);
-  await expect(panel.locator('article').first()).toContainText('RSI 차트');
-  await expect(panel.locator('article').first()).toHaveCSS('grid-column-start','span 2');
+  await expect(panel.locator('article')).toHaveCount(4);
+  expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('ta-canvas-items-v1:fastapi:canvas-fixture')!))).toEqual(saved);
   const quote = panel.getByText('RSI 55 — 중립 구간', {exact:true});
   await quote.evaluate(element => {
     const range = document.createRange(); range.selectNodeContents(element);
@@ -61,12 +65,12 @@ test('TA-CANVAS-003: explicit pin, layout restore, quote context and removal', a
   await expect.poll(() => calls.filter(call => call.path.endsWith('/runs/stream')).length).toBe(2);
   const input = calls.filter(call => call.path.endsWith('/runs/stream')).at(-1)?.body.input as Record<string,unknown>;
   expect(input.canvas_context).toMatchObject({reportId, elementId:'rsi',quote:'RSI 55 — 중립 구간'});
-  await expect(panel.locator('article')).toHaveCount(2);
+  await expect(panel.locator('article')).toHaveCount(4);
   await page.screenshot({path:'test-results/canvas-wrapper-pinned.png',fullPage:true});
   await page.emulateMedia({media:'print'});
   await page.screenshot({path:'test-results/canvas-wrapper-print.png',fullPage:true});
   await page.emulateMedia({media:'screen'});
-  await panel.getByRole('button', {name:'가격 차트 제거', exact:true}).click();
-  await expect(panel.locator('article')).toHaveCount(1);
+  await panel.getByRole('button', {name:'가격 차트 제거', exact:true}).first().click();
+  await expect(panel.locator('article')).toHaveCount(3);
   await expect(page.getByRole('button', {name:'Canvas에 추가',exact:true})).toHaveCount(2);
 });

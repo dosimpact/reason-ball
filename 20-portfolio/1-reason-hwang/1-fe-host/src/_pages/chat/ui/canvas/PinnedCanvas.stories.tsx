@@ -9,8 +9,9 @@ const exampleItem = {
   program: 'root = Col([Text("AAPL 가격 차트")])',
   messageId: "message-1",
   reportId: "report-1",
-  columns: 1 as const,
-  height: 380,
+  sourceElementId: "report-1:price",
+  layout: { x: 0, y: 0, w: 12, h: 10 },
+  pinned: false,
   addedAt: "2026-11-17T00:00:00Z",
 };
 
@@ -23,7 +24,7 @@ type Story = StoryObj<typeof meta>;
 export const ManagePinnedItem: Story = { play: async ({ canvasElement, args }) => {
   const canvas = within(canvasElement);
   await expect(canvas.getByRole("region", { name: "기술적 분석 Canvas" })).toBeVisible();
-  await expect(canvasElement.querySelector(".ta-canvas-item")).toHaveStyle({ height: "380px" });
+  await expect(await canvas.findByRole("button", { name: "AAPL 가격 제거" })).toBeVisible();
   await expect(canvas.getByRole("button", { name: "PDF 저장 / 인쇄" })).toBeEnabled();
   await userEvent.click(canvas.getByRole("button", { name: "AAPL 가격 제거" }));
   await expect(args.onChange).toHaveBeenCalledOnce();

@@ -88,7 +88,7 @@ Canvas 전용 그래프는 계산 후 `presentation={id, program}`을 반환한�
 
 각 요소에는 별도 reactive 변수와 Query가 있다. 가격 전용 v2 chart는 명시적 `instances=[]`를 허용하고 지표 요소는 해당 인스턴스를 조회한다. 기존 v1 및 생략 시 기본 지표 계약은 유지한다. 요소별 조회는 독립되므로 많은 지표를 선택하면 초기 HTTP 조회 수도 늘어난다.
 
-Host `OutputView.onCanvasAdd`는 wrapper의 children과 참조하는 선언만 추출해 standalone program 및 현재 reactive state를 넘긴다. Canvas 전용 ChatPage만 이 콜백을 연결한다. `PinnedCanvas`는 요소별 Renderer를 mount하고, localStorage의 `ta-canvas-items-v1:<runtime>:<thread>` 키에 구성·배치·상태를 보존한다. 같은 요소 ID는 중복 추가하지 않는다. 기존 보고서 custom 이벤트를 받더라도 그것만으로 새 Canvas를 열지 않는다.
+Host `OutputView.onCanvasAdd`는 wrapper의 children과 참조하는 선언만 추출해 standalone program 및 현재 reactive state를 넘긴다. Canvas 전용 ChatPage만 이 콜백을 연결한다. `PinnedCanvas`는 요소별 Renderer를 mount하고, localStorage의 `ta-canvas-items-v1:<runtime>:<thread>` 키에 구성·배치·상태를 보존한다. 같은 원본 요소도 클릭할 때마다 UUID가 다른 패널로 추가한다. sourceElementId에 원본 요소 ID를 보존하며 패널별 초기/반응 상태를 독립 복사한다. 기존 보고서 custom 이벤트를 받더라도 그것만으로 새 Canvas를 열지 않는다.
 
 `canvas_reports[reportId]`에는 계산 결과·조건·program과 허용된 요소 ID를 보존한다. 입력 `canvas_context`는 `reportId`, `elementId`, `quote`, 선택적 구조화 `request`를 받는다. 서버는 현재 thread의 보고서 및 요소 소속을 검증하고, 인용 텍스트는 명령이 아닌 사용자 질문 문맥으로 취급한다. 설명 요청은 새 보고서 없이 채팅으로 답한다. 차트 조건을 바꾼 뒤 질문하더라도 근거는 원래 저장된 분석이며 UI에 이 차이를 명시한다.
 
@@ -182,3 +182,23 @@ price_agent의 요청 추출은 과거 assistant tool call과 뒤따르는 ToolM
 ## PRICE-MESSAGES-001: 가격 에이전트 입력
 
 price_agent의 사용자 요청 입력은 messages로 통일하며 query 필드는 제거했다. run_price_agent 문자열 helper는 HumanMessage를 생성한다. 응답 언어는 messages의 최신 HumanMessage.text를 기준으로 선택한다. 빈 messages는 invalid_request다. Host graph 입력 예제와 실제 graph 검증 스크립트도 messages 형식을 사용한다.
+
+
+## TA-CANVAS-004: Grafana 방식 그리드와 반복 추가
+
+`CanvasItem`은 OpenUI children wrapper이고 React `CanvasItemFrame`이 공통 추가 버튼을 제공한다.
+primary 버튼은 우측 상단 경계 밖으로 8px 돌출되며 여백으로 내용 겹침·잘림을 방지한다.
+DSL의 id/title/children 계약은 유지한다. Canvas 안에서는 추가 콜백을 전달하지 않는다.
+
+패널 instance id와 원본 sourceElementId를 구분한다. 반복 추가는 독립 조회·상태·배치·삭제를 지원하고
+인용 질문의 elementId는 원본 sourceElementId를 보낸다. 기존 storage key에서 v1 배열을 읽어
+`{version:2,items}`로 이관하며 columns/height를 x/y/w/h로 변환한다.
+
+6-b-4-grafana-grid-system과 같은 react-grid-layout 24열·행28px·간격12px·noCompactor를 적용한다.
+헤더 이동, 우측 하단 resize, 키보드 이동/크기 조절, 위치 고정, Esc 취소를 지원한다.
+충돌은 고정 패널과 이동 대상 우선으로 배치한 뒤 겹친 패널을 아래로 이동한다.
+Canvas 너비600px 미만은 단일열 projection으로 표시하고 저장된 desktop layout을 덮어쓰지 않는다.
+이동/resize 종료 시 저장하며 초기 렌더링·단순 너비 변경은 좌표를 저장하지 않는다.
+참조의 그리드 규칙을 이식하며 기존 대화별 localStorage와 인용·PDF 기능을 유지한다.
+참조 앱의 탭·서버 저장·명령 API 전체를 도입한 것은 아니다.
+[검증 기록](../../flow/2026-11-17-canvas-grafana-grid.md).
