@@ -8,7 +8,8 @@ export const RegionQuery: Story = {
   args: { onBusinessAction: fn(), onError: fn(), program: 'root = Col([Select($region, [{value: "all", label: "전체"}, {value: "seoul", label: "서울"}], "지역"), Button("매출 조회", @BusinessAction("search_sales", {region: $region}))]); $region = "all";' },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    await userEvent.selectOptions(await canvas.findByRole("combobox", { name: "지역" }), "seoul");
+    await userEvent.click(await canvas.findByRole("combobox", { name: "지역" }));
+    await userEvent.click(await within(canvasElement.ownerDocument.body).findByRole("option", { name: "서울" }));
     await userEvent.click(canvas.getByRole("button", { name: "매출 조회" }));
     await expect(args.onBusinessAction).toHaveBeenCalledWith({ name: "search_sales", context: { region: "seoul" } });
     await expect(args.onError).not.toHaveBeenCalled();

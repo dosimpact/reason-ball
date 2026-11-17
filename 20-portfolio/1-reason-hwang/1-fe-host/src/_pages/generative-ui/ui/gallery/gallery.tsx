@@ -71,7 +71,7 @@ export function Gallery({ theme }: { theme: "light" | "dark" }) {
   }, []);
 
   return (
-    <div className="gallery" data-theme={theme}>
+    <div className={`gallery${theme === "dark" ? " dark" : ""}`} data-theme={theme} data-openui-theme={theme}>
       <header className="gallery-top">
         <div>
           <a href="/open-ui" className="gallery-name">OpenUI</a>

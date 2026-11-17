@@ -5,7 +5,7 @@
   "scripts": {
     "bruno": "open -a Bruno bruno-api-tests",
     "dev": "uv run --env-file .env sh -c 'exec python -m uvicorn server.server:app --env-file .env --port \"${SERVER_PORT:-2981}\" --reload \"$@\"' --",
-    "dev:langgraph": "uv run --env-file .env sh -c 'exec langgraph dev --no-browser --port \"${LANGGRAPH_PORT:-2982}\" \"$@\"' --",
+    "dev:langgraph": "uv run --env-file .env sh -c 'exec langgraph dev --no-browser --tunnel --port \"${LANGGRAPH_PORT:-2982}\" \"$@\"' --",
     "start": "uv run --env-file .env sh -c 'exec python -m uvicorn server.server:app --env-file .env --port \"${SERVER_PORT:-2981}\" \"$@\"' --",
     "build": "uv build",
     "test": "uv run pytest",

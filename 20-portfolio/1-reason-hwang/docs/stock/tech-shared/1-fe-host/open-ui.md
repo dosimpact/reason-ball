@@ -204,3 +204,7 @@ AI Chat 메뉴의 기술적 분석 인라인·Canvas, TA-Lib, SEC API Agent, SEC
 질문 구성은 각 페이지의 model에서 관리한다. 기술적 분석은 추세·모멘텀·변동성·거래량·시장별 예제를 제공하며 Canvas의 설명은 채팅에, 선택 가능한 UI 요소는 CanvasItem으로 요청한다. SEC 질문은 실제 제공된 조회·검색·수집·모델링 도구의 범위 안에서 작성한다. 데이터가 없으면 미수집·미모델링 상태를 구분하고 없는 근거를 만들지 않도록 요청한다. 일반 대화 그래프에도 별도 시작 질문을 제공하고 JSON 입력 그래프는 기존 실행 폼을 유지한다.
 
 이 변경은 질문 데이터와 표시 연결에 한정되며 도구 권한이나 서버 API를 확장하지 않는다. 새 OpenUI 컴포넌트가 없어 Library Explorer/catalog 재생성은 필요하지 않다. [검증 기록](../../../flow/2026-11-17-grouped-chat-starters.md)을 참조한다.
+
+## CHAT-GRAPH-MODE-002: 개발 그래프 이름과 메시지 입력
+
+LangGraph 개발 채팅의 GraphSelector는 graph ID를 그대로 표시하며 번역명·JSON 접미사를 붙이지 않는다. 전용 채팅 제목과 FastAPI 목록 표시명은 유지한다. price_agent와 technical_analysis_graph는 messages 기반 chat 모드를 사용한다. technical_analysis_graph는 OHLCV prices가 thread state에 필요함을 안내하며 데이터가 없으면 기존 검증 응답을 채팅으로 표시한다. main_graph/tenk_subgraph는 JSON 입력 모드를 유지한다.

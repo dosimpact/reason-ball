@@ -2,11 +2,11 @@
 
 Decision: `UI-CATALOG-001`. Scope: tech-shared / 1-fe-host.
 
-The host preinstalls all standalone components in the current shadcn Base UI registry under `src/shared/ui/`. `components.json` retains `base-mira`, neutral CSS variables, Phosphor icons, and the existing aliases. Installations use the package-local shadcn CLI and skip existing files unless an intentional update is requested.
+The host installs reusable components from the shadcn Base UI registry under `src/shared/ui/`. `components.json` retains `base-mira`, neutral CSS variables, Phosphor icons, and the existing aliases. Installations use the package-local shadcn CLI and skip existing files unless an intentional update is requested.
 
 ## Inventory
 
-61 component files are present: 19 existing components preserved, 42 added by `pnpm exec shadcn add --all --yes`. The CLI also lists a `form` registry entry with no generated standalone file; the requested Field component is installed.
+62 component files are present: the initial 61 (19 existing + 42 installed) and the official CodeBlock added on 2026-11-18. The CLI also lists a `form` registry entry with no generated standalone file; the requested Field component is installed.
 
 `accordion`, `alert`, `alert-dialog`, `aspect-ratio`, `attachment`, `avatar`, `badge`, `breadcrumb`, `bubble`, `button`, `button-group`, `calendar`, `card`, `carousel`, `chart`, `checkbox`, `collapsible`, `combobox`, `command`, `context-menu`, `dialog`, `direction`, `drawer`, `dropdown-menu`, `empty`, `field`, `hover-card`, `input`, `input-group`, `input-otp`, `item`, `kbd`, `label`, `marker`, `menubar`, `message`, `message-scroller`, `native-select`, `navigation-menu`, `pagination`, `popover`, `progress`, `questionnaire`, `radio-group`, `resizable`, `scroll-area`, `select`, `separator`, `sheet`, `sidebar`, `skeleton`, `slider`, `spinner`, `switch`, `table`, `tabs`, `textarea`, `toast`, `toggle`, `toggle-group`, `tooltip`.
 
@@ -35,3 +35,8 @@ Story-local state and fixed fixtures require no backend. Toast uses a per-story 
 Run the commands in [Storybook design](storybook.md). Installation evidence: [2026-09-20 catalog installation](../../../flow/2026-09-20-shadcn-catalog-install.md).
 
 Story expansion evidence: [2026-09-20 catalog stories](../../../flow/2026-09-20-shadcn-catalog-stories.md).
+
+
+## UI-CATALOG-002: CodeBlock
+
+`pnpm -C 1-fe-host exec shadcn add code-block --yes` installs the official base-mira CodeBlock, optional highlighter hook/helper, and locked `shiki` dependency. The existing Button was explicitly preserved when the CLI prompted for overwrite. `UI/Code Block` exercises plain numbered code and diff/wrap composition. OpenUI Code uses the official header/title/actions/copy/content components without enabling optional syntax highlighting. [Audit and validation](../../../flow/2026-11-18-openui-shadcn-fidelity.md).

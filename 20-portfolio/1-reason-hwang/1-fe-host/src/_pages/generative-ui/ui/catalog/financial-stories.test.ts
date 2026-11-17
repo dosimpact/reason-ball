@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { createParser } from "@openuidev/lang-core";
 import { OpenuiSystemPromptSpec as spec } from "@/shared/config";
-import { financialSnapshotSchema } from "@/shared/ui/intelligent-ui/components/financial/financial-schema";
-import { chartIndicators } from "@/shared/ui/intelligent-ui/components/financial/financial-indicators";
+import { financialSnapshotSchema } from "@/shared/ui/intelligent-ui-data";
+import { chartIndicators } from "@/shared/ui/intelligent-ui-data";
 import { financialStories } from "./financial-stories";
 
 describe("financial chart showcases", () => {

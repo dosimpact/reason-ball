@@ -102,7 +102,7 @@ export function LibStory({ theme }: { theme: "light" | "dark" }) {
     }
     setNotice(`이벤트: ${event.type} · ${event.humanFriendlyMessage || ""} · 맥락 ${JSON.stringify(event.params?.context ?? null)} · 폼 ${JSON.stringify(event.formState ?? {})} (모델 호출 없음)`);
   }, []);
-  return <div className="lib-story" data-theme={theme} data-openui-theme={theme}>
+  return <div className={`lib-story${theme === "dark" ? " dark" : ""}`} data-theme={theme} data-openui-theme={theme}>
     <header className="story-top"><a href={"/open-ui/catalog"}>OpenUI <strong>Lib Story</strong></a>
       <nav aria-label="페이지와 테마"><a href={"/open-ui"}>Generative UI ↗</a><a href={`?theme=${theme === "light" ? "dark" : "light"}#${selected.id}`}>{theme === "light" ? "Dark" : "Light"}</a></nav>
     </header>

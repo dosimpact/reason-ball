@@ -1,5 +1,11 @@
 # Documentation Map
 
+- [미커밋 작업 최종 반영](flow/2026-11-18-finalize-pending-work.md): OpenUI·개발 채팅·SEC 스타일·문서 커밋과 미완료 MCP 검증 해소.
+
+- [OpenUI shadcn 공식 구성 재점검](flow/2026-11-18-openui-shadcn-fidelity.md): OPENUI-SHADCN-003, variant·ToggleGroup·Card·Popover·CodeBlock 정렬과 검증.
+
+- [OpenUI 기본 요소 shadcn 전환](stock/tech-shared/1-fe-host/openui-shadcn-primitives.md): OPENUI-SHADCN-001, 기존 DSL 어댑터·검증·프롬프트 동기화·서비스 재시작.
+
 - [일반 금융 시리즈 차트](stock/tech-shared/1-fe-host/financial-series-chart.md): OPENUI-FIN-SERIES-001, 구성형 차트 5종·좌우 축·마커·가격선과 금융 탐색 분류.
 
 - [OpenUI Lib Story 금융 v2 예제](flow/2026-11-17-openui-financial-lib-stories.md): OPENUI-FIN-STORY-002, 지표 설정·다중 설정·밴드·PSAR·오류 예제와 Storybook 검증.

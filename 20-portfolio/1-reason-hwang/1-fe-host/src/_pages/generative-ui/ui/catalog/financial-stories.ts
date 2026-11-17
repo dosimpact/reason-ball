@@ -1,4 +1,4 @@
-import type { IndicatorCatalog, IndicatorInstance } from "@/shared/ui/intelligent-ui/components/financial/financial-schema";
+import type { IndicatorCatalog, IndicatorInstance } from "@/shared/ui/intelligent-ui-data";
 
 /** Synthetic data for UI demonstration; indicator values are not investment data. */
 const bars = Array.from({ length: 50 }, (_, index) => {

@@ -17,3 +17,20 @@ export const SelectAgent: Story = { play: async ({ canvasElement, args }) => {
 export const Running: Story = { args: { disabled: true }, play: async ({ canvasElement }) => {
   await expect(within(canvasElement).getByRole("combobox")).toBeDisabled();
 } };
+
+export const DevelopmentGraphIds: Story = {
+  args: { showGraphIds: true, graphs: [
+    { id: "price_agent", name: "가격 조회", mode: "chat" },
+    { id: "technical_analysis_graph", name: "기술적 분석 서브그래프", mode: "chat" },
+    { id: "main_graph", name: "Main Graph", mode: "json" },
+    { id: "starter_graph", name: "기본 채팅", mode: "chat" },
+    { id: "simple_llm", name: "일반 에이전트", mode: "chat" },
+  ], value: "price_agent" },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    for (const graph of args.graphs) await expect(canvas.getByRole("option", { name: graph.id })).toHaveTextContent(graph.id);
+    await expect(canvas.queryByRole("option", { name: /JSON 테스트/ })).not.toBeInTheDocument();
+    await userEvent.selectOptions(canvas.getByRole("combobox"), "technical_analysis_graph");
+    await expect(args.onChange).toHaveBeenCalledWith("technical_analysis_graph");
+  },
+};

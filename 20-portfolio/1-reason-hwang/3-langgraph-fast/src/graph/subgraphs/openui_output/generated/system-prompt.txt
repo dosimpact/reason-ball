@@ -45,7 +45,7 @@ Title(text: string, size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl", color?: Co
 Text(text: string | Node[], size?: "xs" | "sm" | "md" | "lg", color?: Color, weight?: "normal" | "medium" | "semibold", italic?: boolean, lineThrough?: boolean, tabularNums?: boolean, maxLines?: number) — Paragraph; supports **bold**, *italic*, `code` and [links](https://…). text may be a list mixing strings and inline components: [Icon("clock", "sm"), " 25 min · ", Badge("Easy")].
 Caption(text: string, color?: Color) — Small secondary text.
 Label(text: string) — Field or group label.
-Badge(text: string, color?: "neutral" | "info" | "success" | "warning" | "danger" | "purple" | "pink", icon?: string) — Pill tag; icon is an optional leading lucide name.
+Badge(text: string, color?: "neutral" | "info" | "success" | "warning" | "danger" | "purple" | "pink", icon?: string, variant?: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link") — Pill tag; icon is an optional leading lucide name. variant uses canonical shadcn variants; color is an optional semantic extension.
 Link(text: string, url: string) — Opens an http(s) URL in a new tab.
 List(items: (string | ListItem)[], marker?: "bullet" | "number" | "none", timeline?: boolean) — timeline joins the markers with a line.
 ListItem(title: string, description?: string, marker?: string, children?: Node[]) — marker replaces the bullet or number, e.g. a time or an emoji.
@@ -55,17 +55,17 @@ Code(code: string, language?: string) — Code block with a copy button.
 Math(tex: string, inline?: boolean) — LaTeX formula, e.g. Math("E = mc^2"); inline true to sit in a Text list.
 
 ### Inputs
-Button(label: string, action?: ActionExpression, variant?: "solid" | "outline" | "soft" | "ghost", color?: "primary" | "danger" | "success", size?: "sm" | "md" | "lg", icon?: string, disabled?: boolean, block?: boolean) — icon is a lucide name.
-IconButton(icon: string, action?: ActionExpression, label?: string, variant?: "outline" | "ghost" | "solid") — Round icon-only button; label is read aloud.
+Button(label: string, action?: ActionExpression, variant?: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link" | "solid" | "soft", color?: "primary" | "danger" | "success", size?: "default" | "xs" | "sm" | "md" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg", icon?: string, disabled?: boolean, block?: boolean) — icon is a lucide name.
+IconButton(icon: string, action?: ActionExpression, label?: string, variant?: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link" | "solid" | "soft", size?: "icon" | "icon-xs" | "icon-sm" | "icon-lg") — shadcn icon-size button; label is read aloud.
 Pressable(children: Node[], action?: ActionExpression, selected?: boolean, padding?: number, background?: Color, radius?: Radius) — Makes any content clickable, such as a tile or a swatch.
 Input(value: $binding<string | number>, label?: string, type?: "text" | "number", placeholder?: string) — Text or number field; a number field stores numbers.
 TextArea(value: $binding<string>, label?: string, placeholder?: string, rows?: number)
-Select(value: $binding<string>, options: (string | {value: string, label: string})[], label?: string, placeholder?: string) — Dropdown, for long option lists.
+Select(value: $binding<string>, options: (string | {value: string, label: string})[], label?: string, placeholder?: string) — shadcn Base UI popup select. Options may be strings or value/label pairs; the bound value is always the option value.
 SegmentedControl(value: $binding<string>, options: (string | {value: string, label: string})[], block?: boolean) — 2 to 4 short choices in a row.
 Slider(value: $binding<number>, min: number, max: number, step?: number, label?: string, unit?: string, marks?: {value: number, label: string}[]) — Shows label and value; unit like "%" or "$" formats the value.
 Checkbox(checked: $binding<boolean>, label: string, lineThrough?: boolean) — lineThrough strikes the label when checked, for to-do lists.
 RadioGroup(value: $binding<string>, options: (string | {value: string, label: string, description?: string})[], label?: string, variant?: "list" | "pills" | "cards") — pills for short choices; cards for choices that need a description line.
-DatePicker(value: $binding<string>, label?: string, min?: string, max?: string) — Dates are "YYYY-MM-DD".
+DatePicker(value: $binding<string>, label?: string, min?: string, max?: string) — shadcn Calendar + Popover date picker. Bound value and inclusive min/max are "YYYY-MM-DD" strings; clearing sets an empty string.
 Timer(seconds: $binding<number>, label?: string) — Countdown with start, pause and reset. It counts the bound seconds down to 0, so other statements can react, e.g. $left == 0.
 Form(children: Node[]) — Groups fields; their values go with any @ToAssistant inside.
 - An input's first argument is its value, usually a $variable that other statements read.
@@ -383,6 +383,7 @@ Before finishing, walk your output and verify:
 4. Every $binding appears in at least one component or expression.
 5. Every visible filter $binding appears in at least one Query args object.
 
+- Basic controls and data surfaces use the Host shadcn UI primitives. Keep the existing OpenUI names and arguments: Button and IconButton support canonical shadcn variants default/secondary/destructive/outline/ghost/link; solid/soft and size md remain backward-compatible aliases. Badge accepts an optional fourth canonical variant argument, which takes precedence over semantic color. SegmentedControl uses a single-selection ToggleGroup and keeps a nonempty selected value. Card composes CardContent, Popover uses the shadcn trigger composition, and Code uses CodeBlock. Do not emit shadcn React imports, JSX, raw class names, or invent new OpenUI components. Continue using reactive fields, actions and Form bindings as declared in this catalog.
 - QueryPanel(dataChildren, refreshAction, controls) shows data continuously and hides controls in a closed disclosure by default. Put Input, Select and IndicatorControls in its third argument; keep FinancialChart or FinancialChartPlot in its first. FinancialChart is a compact composite. Use FinancialChartPlot(snapshot), FinancialChartSummary(snapshot) and FinancialChartMetadata(snapshot) separately when a custom arrangement helps; give Plot and Summary the same unique visibilityKey second argument to link their local display toggles; do not repeat the composite and its blocks for the same data.
 - Examples illustrate syntax, not required layouts or evidence. Replace sample identifiers, dates, tickers and numbers with supplied data. Choose the components and layout appropriate to the question.
 - For technical analysis use Query-backed FinancialChart with the supplied request; do not invent OHLCV or indicator arrays. Keep each Query, labelled controls and manual refresh together in QueryPanel. Preserve the requested instance IDs and parameters.

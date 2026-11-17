@@ -9,8 +9,19 @@ import {
   useStateField,
   useTriggerAction,
 } from "@openuidev/react-lang";
-import { useEffect, useId, useRef, useState, type KeyboardEvent, type MouseEvent, type ReactNode } from "react";
+import { cloneElement, isValidElement, useEffect, useId, useRef, useState, type KeyboardEvent, type MouseEvent, type ReactNode, type ReactElement } from "react";
 import { z } from "zod/v4";
+import { Button as ShadcnButton } from "@/shared/ui/button";
+import { ToggleGroup, ToggleGroupItem } from "@/shared/ui/toggle-group";
+import { Field as ShadcnField, FieldLabel, FieldSet, FieldLegend } from "@/shared/ui/field";
+import { Label as ShadcnLabel } from "@/shared/ui/label";
+import { Input as ShadcnInput } from "@/shared/ui/input";
+import { Textarea as ShadcnTextarea } from "@/shared/ui/textarea";
+import { Select as ShadcnSelect, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select";
+import { Checkbox as ShadcnCheckbox } from "@/shared/ui/checkbox";
+import { RadioGroup as ShadcnRadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
+import { Slider as ShadcnSlider } from "@/shared/ui/slider";
+import { OpenUIDatePickerView } from "./date-picker/date-picker-view";
 import { Glyph } from "./glyph";
 import { bg, children, color, onColor, cx, option, radius, radiusSchema, space, textOf, toOption, type Option } from "./style";
 
@@ -38,12 +49,13 @@ const numberText = (value: unknown) => {
 };
 
 function Field({ label, children: content }: { label?: string; children: ReactNode }) {
+  const id = useId();
   if (!label) return <>{content}</>;
   return (
-    <label className="iui-field">
-      <span className="iui-label">{label}</span>
-      {content}
-    </label>
+    <ShadcnField>
+      <FieldLabel htmlFor={id}>{label}</FieldLabel>
+      {isValidElement(content) ? cloneElement(content as ReactElement<{ id?: string }>, { id }) : content}
+    </ShadcnField>
   );
 }
 
@@ -53,9 +65,9 @@ export const Button = defineComponent({
   props: z.object({
     label: z.string(),
     action: action().optional(),
-    variant: z.enum(["solid", "outline", "soft", "ghost"]).optional(),
+    variant: z.enum(["default", "secondary", "destructive", "outline", "ghost", "link", "solid", "soft"]).optional(),
     color: z.enum(["primary", "danger", "success"]).optional(),
-    size: z.enum(["sm", "md", "lg"]).optional(),
+    size: z.enum(["default", "xs", "sm", "md", "lg", "icon", "icon-xs", "icon-sm", "icon-lg"]).optional(),
     icon: z.string().optional(),
     disabled: z.boolean().optional(),
     block: z.boolean().optional(),
@@ -65,22 +77,24 @@ export const Button = defineComponent({
     const run = useRunAction();
     const streaming = useIsStreaming();
     const label = String(props.label ?? "");
+    const variant = props.variant === "soft" ? "secondary" : props.variant === "solid" ? "default" : props.variant ?? "default";
+    const textVariant = variant === "outline" || variant === "ghost" || variant === "link";
     return (
-      <button
+      <ShadcnButton
         type="button"
+        variant={variant}
+        size={props.size === "md" ? "default" : props.size ?? "default"}
         className={cx(
-          "iui-button",
-          `iui-button-${props.variant ?? "solid"}`,
-          props.color && props.color !== "primary" && `iui-button-${props.color}`,
-          `iui-button-${props.size ?? "md"}`,
-          props.block && "iui-block",
+          props.block && "w-full",
+          props.color === "danger" && variant !== "destructive" && (textVariant ? "text-destructive hover:bg-destructive/10" : variant === "secondary" ? "bg-destructive/10 text-destructive hover:bg-destructive/20" : "bg-destructive text-white hover:bg-destructive/80"),
+          props.color === "success" && variant !== "destructive" && (textVariant ? "text-emerald-700 hover:bg-emerald-500/10 dark:text-emerald-400" : variant === "secondary" ? "bg-emerald-500/10 text-emerald-700 hover:bg-emerald-500/20 dark:text-emerald-400" : "bg-emerald-700 text-white hover:bg-emerald-700/80"),
         )}
         disabled={!!props.disabled || streaming}
         onClick={() => run(label, props.action, true)}
       >
         {props.icon ? <Glyph name={props.icon} size={props.size === "sm" ? 14 : 16} /> : null}
         {label}
-      </button>
+      </ShadcnButton>
     );
   },
 });
@@ -91,24 +105,26 @@ export const IconButton = defineComponent({
     icon: z.string(),
     action: action().optional(),
     label: z.string().optional(),
-    variant: z.enum(["outline", "ghost", "solid"]).optional(),
+    variant: z.enum(["default", "secondary", "destructive", "outline", "ghost", "link", "solid", "soft"]).optional(),
+    size: z.enum(["icon", "icon-xs", "icon-sm", "icon-lg"]).optional(),
   }),
-  description: "Round icon-only button; label is read aloud.",
+  description: "shadcn icon-size button; label is read aloud.",
   component: ({ props }) => {
     const run = useRunAction();
     const streaming = useIsStreaming();
     const label = props.label || String(props.icon ?? "");
     return (
-      <button
+      <ShadcnButton
         type="button"
-        className={cx("iui-icon-button", `iui-icon-button-${props.variant ?? "outline"}`)}
+        size={props.size ?? "icon"}
+        variant={props.variant === "solid" ? "default" : props.variant === "soft" ? "secondary" : props.variant ?? "outline"}
         aria-label={label}
         title={props.label || undefined}
         disabled={streaming}
         onClick={() => run(label, props.action, false)}
       >
         <Glyph name={props.icon} size={16} />
-      </button>
+      </ShadcnButton>
     );
   },
 });
@@ -177,8 +193,7 @@ export const Input = defineComponent({
     const shown = draft ?? (numeric ? (typeof field.value === "number" ? String(field.value) : String(field.value ?? "")) : String(field.value ?? ""));
     return (
       <Field label={props.label}>
-        <input
-          className="iui-input"
+        <ShadcnInput
           type="text"
           inputMode={numeric ? "decimal" : undefined}
           value={shown}
@@ -212,8 +227,7 @@ export const TextArea = defineComponent({
     const field = useStateField(useFieldName(props.label, statementId), props.value);
     return (
       <Field label={props.label}>
-        <textarea
-          className="iui-input iui-textarea"
+        <ShadcnTextarea
           rows={Math.min(20, Math.max(2, Math.round(props.rows ?? 3)))}
           value={String(field.value ?? "")}
           placeholder={props.placeholder}
@@ -236,26 +250,35 @@ export const Select = defineComponent({
     label: z.string().optional(),
     placeholder: z.string().optional(),
   }),
-  description: "Dropdown, for long option lists.",
-  component: ({ props, statementId }) => {
+  description: "shadcn Base UI popup select. Options may be strings or value/label pairs; the bound value is always the option value.",
+  component: function SelectView({ props, statementId }) {
     const field = useStateField(useFieldName(props.label, statementId), props.value);
     const choices = optionList(props.options);
     const value = field.value == null ? "" : String(field.value);
+    const id = useId();
+    const trigger = useRef<HTMLButtonElement>(null);
+    const [theme, setTheme] = useState<string>();
     return (
-      <Field label={props.label}>
-        <select className="iui-input iui-select" value={value} aria-label={props.label ? undefined : props.placeholder} onChange={(event) => field.setValue(event.target.value)}>
-          {(props.placeholder || !choices.some((o) => o.value === value)) && (
-            <option value="" disabled>
-              {props.placeholder ?? "Choose…"}
-            </option>
-          )}
-          {choices.map((o, i) => (
-            <option key={`${o.value}-${i}`} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </select>
-      </Field>
+      <ShadcnField>
+        {props.label && <ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel>}
+        <ShadcnSelect
+          items={choices}
+          value={choices.some(choice => choice.value === value) ? value : null}
+          onValueChange={next => field.setValue(next ?? "")}
+          onOpenChange={open => {
+            if (!open) return;
+            const container = trigger.current?.closest("[data-openui-theme], [data-theme]");
+            setTheme(container?.getAttribute("data-openui-theme") ?? container?.getAttribute("data-theme") ?? undefined);
+          }}
+        >
+          <SelectTrigger ref={trigger} id={id} className="w-full" aria-label={props.label || props.placeholder || "Choose…"}>
+            <SelectValue placeholder={props.placeholder ?? "Choose…"} />
+          </SelectTrigger>
+          <SelectContent data-theme={theme} className={theme === "dark" ? "dark" : undefined}>
+            {choices.map((choice, index) => <SelectItem key={`${choice.value}-${index}`} value={choice.value}>{choice.label}</SelectItem>)}
+          </SelectContent>
+        </ShadcnSelect>
+      </ShadcnField>
     );
   },
 });
@@ -268,20 +291,18 @@ export const SegmentedControl = defineComponent({
     const field = useStateField(useFieldName(undefined, statementId), props.value);
     const value = field.value == null ? "" : String(field.value);
     return (
-      <div className={cx("iui-segmented", props.block && "iui-block")} role="radiogroup">
+      <ToggleGroup
+        value={value ? [value] : []}
+        onValueChange={(next) => { if (next.length) field.setValue(String(next[0])); }}
+        variant="outline"
+        spacing={0}
+        className={cx(props.block && "w-full [&>button]:flex-1")}
+        aria-label="Choices"
+      >
         {optionList(props.options).map((o, i) => (
-          <button
-            key={`${o.value}-${i}`}
-            type="button"
-            role="radio"
-            aria-checked={o.value === value}
-            className={cx(o.value === value && "is-selected")}
-            onClick={() => field.setValue(o.value)}
-          >
-            {o.label}
-          </button>
+          <ToggleGroupItem key={`${o.value}-${i}`} value={o.value}>{o.label}</ToggleGroupItem>
         ))}
-      </div>
+      </ToggleGroup>
     );
   },
 });
@@ -311,24 +332,21 @@ export const Slider = defineComponent({
     const marks = (props.marks ?? []).filter((m) => m && Number.isFinite(m.value) && m.value >= min && m.value <= max);
     const id = useId();
     return (
-      <div className="iui-slider">
+      <ShadcnField>
         {(props.label || props.unit) && (
-          <div className="iui-slider-head">
-            <label htmlFor={id}>{props.label}</label>
+          <div className="flex items-center justify-between gap-2">
+            <ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel>
             <output htmlFor={id}>{readout}</output>
           </div>
         )}
-        <input
+        <ShadcnSlider
           id={id}
-          className="iui-range"
-          type="range"
           min={min}
           max={max}
           step={step}
-          value={value}
-          aria-label={props.label ? undefined : "Value"}
-          aria-valuetext={readout}
-          onChange={(event) => field.setValue(Number(event.target.value))}
+          value={[value]}
+          thumbProps={{ "aria-label": props.label || "Value", "aria-valuetext": readout }}
+          onValueChange={(next) => field.setValue(Array.isArray(next) ? next[0] : next)}
         />
         {marks.length > 0 && (
           <div className="iui-slider-marks" aria-hidden>
@@ -342,7 +360,7 @@ export const Slider = defineComponent({
             })}
           </div>
         )}
-      </div>
+      </ShadcnField>
     );
   },
 });
@@ -355,10 +373,10 @@ export const Checkbox = defineComponent({
     const field = useStateField(useFieldName(props.label, statementId), props.checked);
     const checked = field.value === true;
     return (
-      <label className={cx("iui-check", checked && props.lineThrough && "is-done")}>
-        <input type="checkbox" checked={checked} onChange={(event) => field.setValue(event.target.checked)} />
-        <span>{String(props.label ?? "")}</span>
-      </label>
+      <FieldLabel className="cursor-pointer">
+        <ShadcnCheckbox checked={checked} onCheckedChange={(next) => field.setValue(next)} />
+        <span className={cx(checked && props.lineThrough && "text-muted-foreground line-through")}>{String(props.label ?? "")}</span>
+      </FieldLabel>
     );
   },
 });
@@ -383,25 +401,23 @@ export const RadioGroup = defineComponent({
     const value = field.value == null ? "" : String(field.value);
     const variant = props.variant ?? "list";
     return (
-      <fieldset className={cx("iui-radio-group", `iui-radio-${variant}`)}>
-        {props.label ? <legend className="iui-label">{props.label}</legend> : null}
-        <div>
+      <FieldSet>
+        {props.label ? <FieldLegend variant="label">{props.label}</FieldLegend> : null}
+        <ShadcnRadioGroup name={name} value={value} onValueChange={(next) => field.setValue(String(next))} className={cx(variant === "pills" ? "flex flex-wrap gap-2" : "grid gap-2")} aria-label={props.label || "Choices"}>
           {choiceList(props.options).map((o, i) => (
-            <label key={`${o.value}-${i}`} className={cx(variant === "list" ? "iui-check" : "iui-choice", o.value === value && "is-selected")}>
-              <input type="radio" name={name} checked={o.value === value} onChange={() => field.setValue(o.value)} />
-              <span className="iui-choice-text">
+            <label key={`${o.value}-${i}`} className={cx("flex cursor-pointer items-start gap-2 text-sm", variant !== "list" && "rounded-md border border-input px-3 py-2 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring", variant !== "list" && o.value === value && "border-primary bg-primary/10", variant === "pills" && "rounded-full")}>
+              <RadioGroupItem value={o.value} className="mt-0.5" />
+              <span className="flex flex-col gap-0.5">
                 <span>{o.label}</span>
-                {o.description ? <span className="iui-choice-description">{o.description}</span> : null}
+                {o.description ? <span className="text-xs text-muted-foreground">{o.description}</span> : null}
               </span>
             </label>
           ))}
-        </div>
-      </fieldset>
+        </ShadcnRadioGroup>
+      </FieldSet>
     );
   },
 });
-
-const DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 export const DatePicker = defineComponent({
   name: "DatePicker",
@@ -411,23 +427,10 @@ export const DatePicker = defineComponent({
     min: z.string().optional(),
     max: z.string().optional(),
   }),
-  description: 'Dates are "YYYY-MM-DD".',
+  description: 'shadcn Calendar + Popover date picker. Bound value and inclusive min/max are "YYYY-MM-DD" strings; clearing sets an empty string.',
   component: ({ props, statementId }) => {
     const field = useStateField(useFieldName(props.label, statementId), props.value);
-    const value = typeof field.value === "string" && DATE.test(field.value) ? field.value : "";
-    return (
-      <Field label={props.label}>
-        <input
-          className="iui-input iui-date"
-          type="date"
-          value={value}
-          min={props.min && DATE.test(props.min) ? props.min : undefined}
-          max={props.max && DATE.test(props.max) ? props.max : undefined}
-          aria-label={props.label ? undefined : "Date"}
-          onChange={(event) => field.setValue(event.target.value)}
-        />
-      </Field>
-    );
+    return <OpenUIDatePickerView value={String(field.value ?? "")} label={props.label} min={props.min} max={props.max} onChange={value => field.setValue(value)} />;
   },
 });
 
@@ -486,14 +489,14 @@ export const Timer = defineComponent({
           <span className="iui-timer-time">{clock(left)}</span>
         </div>
         <div className="iui-timer-actions">
-          <button type="button" className="iui-button iui-button-solid iui-button-sm" disabled={streaming || left === 0} onClick={toggle}>
+          <ShadcnButton type="button" size="sm" disabled={streaming || left === 0} onClick={toggle}>
             <Glyph name={running ? "pause" : "play"} size={14} />
             {running ? "Pause" : startedAt === null || left === 0 ? "Start" : "Resume"}
-          </button>
-          <button type="button" className="iui-button iui-button-ghost iui-button-sm" disabled={streaming || startedAt === null} onClick={reset}>
+          </ShadcnButton>
+          <ShadcnButton type="button" variant="ghost" size="sm" disabled={streaming || startedAt === null} onClick={reset}>
             <Glyph name="rotate-ccw" size={14} />
             Reset
-          </button>
+          </ShadcnButton>
         </div>
       </div>
     );

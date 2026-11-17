@@ -10,3 +10,5 @@ export { textFunctions } from "./functions/text";
 export { colorFunctions } from "./functions/colors";
 export { dateFunctions } from "./functions/dates";
 export { dataFunctions } from "./functions/data";
+
+export { CanvasItem, CanvasItemFrame } from "./components/canvas-item/canvas-item";

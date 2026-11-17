@@ -14,7 +14,7 @@ test("discovers every page, deduplicates graphs and keeps unknown/schema failure
  assert.equal(graphs.find(item => item.id === "starter_graph")?.mode, "chat");
  assert.equal(graphs.find(item => item.id === "last_graph")?.mode, "json");
  assert.ok(graphs.find(item => item.id === "last_graph")?.schemaError);
- assert.equal(graphOption("technical_analysis_graph").mode, "json");
+ assert.equal(graphOption("technical_analysis_graph").mode, "chat");
 });
 test("nonchat input passes unchanged into a fresh isolated thread and returns latest values", async () => {
  const inputs: unknown[] = []; let threads = 0;
@@ -92,4 +92,9 @@ test("SEC Modeling Chat discovery retains chat input and dedicated identity", as
  assert.equal(graph.name, "SEC Modeling Chat");
  assert.equal(graph.mode, "chat");
  assert.ok(graph.inputSchema);
+});
+
+test("message-based price graphs use chat while structured graphs retain JSON", () => {
+ for (const id of ["price_agent", "technical_analysis_graph"]) assert.equal(graphOption(id).mode, "chat");
+ for (const id of ["main_graph", "tenk_subgraph"]) assert.equal(graphOption(id).mode, "json");
 });

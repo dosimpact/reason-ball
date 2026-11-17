@@ -255,8 +255,8 @@
     "id": "components-badge",
     "name": "Badge",
     "category": "components",
-    "signature": "Badge(text: string, color?: \"neutral\" | \"info\" | \"success\" | \"warning\" | \"danger\" | \"purple\" | \"pink\", icon?: string)",
-    "description": "Pill tag; icon is an optional leading lucide name.",
+    "signature": "Badge(text: string, color?: \"neutral\" | \"info\" | \"success\" | \"warning\" | \"danger\" | \"purple\" | \"pink\", icon?: string, variant?: \"default\" | \"secondary\" | \"destructive\" | \"outline\" | \"ghost\" | \"link\")",
+    "description": "Pill tag; icon is an optional leading lucide name. variant uses canonical shadcn variants; color is an optional semantic extension.",
     "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
     "examples": [
       {
@@ -266,6 +266,10 @@
       {
         "title": "기본 사용 2",
         "code": "root = Col([Badge(\"검토 필요\", \"warning\")])"
+      },
+      {
+        "title": "shadcn 공식 variants",
+        "code": "root = Col([Row([Badge(\"default\", null, null, \"default\"), Badge(\"secondary\", null, null, \"secondary\"), Badge(\"destructive\", null, null, \"destructive\"), Badge(\"outline\", null, null, \"outline\"), Badge(\"ghost\", null, null, \"ghost\"), Badge(\"link\", null, null, \"link\")], 2, null, null, true)])"
       }
     ]
   },
@@ -399,7 +403,7 @@
     "id": "components-button",
     "name": "Button",
     "category": "components",
-    "signature": "Button(label: string, action?: ActionExpression, variant?: \"solid\" | \"outline\" | \"soft\" | \"ghost\", color?: \"primary\" | \"danger\" | \"success\", size?: \"sm\" | \"md\" | \"lg\", icon?: string, disabled?: boolean, block?: boolean)",
+    "signature": "Button(label: string, action?: ActionExpression, variant?: \"default\" | \"secondary\" | \"destructive\" | \"outline\" | \"ghost\" | \"link\" | \"solid\" | \"soft\", color?: \"primary\" | \"danger\" | \"success\", size?: \"default\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\", icon?: string, disabled?: boolean, block?: boolean)",
     "description": "icon is a lucide name.",
     "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
     "examples": [
@@ -410,6 +414,10 @@
       {
         "title": "버튼 스타일",
         "code": "root = Col([Button(\"외곽선\", @Set($clicked, true), \"outline\"), Button(\"비활성\", null, \"soft\", null, null, null, true), Text(\"클릭: \" + $clicked)])\n$clicked = false"
+      },
+      {
+        "title": "shadcn 공식 variants",
+        "code": "root = Col([Row([Button(\"default\", null, \"default\"), Button(\"secondary\", null, \"secondary\"), Button(\"destructive\", null, \"destructive\"), Button(\"outline\", null, \"outline\"), Button(\"ghost\", null, \"ghost\"), Button(\"link\", null, \"link\")], 2, null, null, true)])"
       }
     ]
   },
@@ -417,8 +425,8 @@
     "id": "components-iconbutton",
     "name": "IconButton",
     "category": "components",
-    "signature": "IconButton(icon: string, action?: ActionExpression, label?: string, variant?: \"outline\" | \"ghost\" | \"solid\")",
-    "description": "Round icon-only button; label is read aloud.",
+    "signature": "IconButton(icon: string, action?: ActionExpression, label?: string, variant?: \"default\" | \"secondary\" | \"destructive\" | \"outline\" | \"ghost\" | \"link\" | \"solid\" | \"soft\", size?: \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\")",
+    "description": "shadcn icon-size button; label is read aloud.",
     "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
     "examples": [
       {
@@ -490,7 +498,7 @@
     "name": "Select",
     "category": "components",
     "signature": "Select(value: $binding<string>, options: (string | {value: string, label: string})[], label?: string, placeholder?: string)",
-    "description": "Dropdown, for long option lists.",
+    "description": "shadcn Base UI popup select. Options may be strings or value/label pairs; the bound value is always the option value.",
     "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
     "examples": [
       {
@@ -580,7 +588,7 @@
     "name": "DatePicker",
     "category": "components",
     "signature": "DatePicker(value: $binding<string>, label?: string, min?: string, max?: string)",
-    "description": "Dates are \"YYYY-MM-DD\".",
+    "description": "shadcn Calendar + Popover date picker. Bound value and inclusive min/max are \"YYYY-MM-DD\" strings; clearing sets an empty string.",
     "note": "대상 항목을 중심으로 구성하며 표시·상태 확인에 필요한 보조 컴포넌트를 함께 사용합니다.",
     "examples": [
       {

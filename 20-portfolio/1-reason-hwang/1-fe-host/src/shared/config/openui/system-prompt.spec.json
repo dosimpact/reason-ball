@@ -58,8 +58,8 @@
       "description": "Field or group label."
     },
     "Badge": {
-      "signature": "Badge(text: string, color?: \"neutral\" | \"info\" | \"success\" | \"warning\" | \"danger\" | \"purple\" | \"pink\", icon?: string)",
-      "description": "Pill tag; icon is an optional leading lucide name."
+      "signature": "Badge(text: string, color?: \"neutral\" | \"info\" | \"success\" | \"warning\" | \"danger\" | \"purple\" | \"pink\", icon?: string, variant?: \"default\" | \"secondary\" | \"destructive\" | \"outline\" | \"ghost\" | \"link\")",
+      "description": "Pill tag; icon is an optional leading lucide name. variant uses canonical shadcn variants; color is an optional semantic extension."
     },
     "Link": {
       "signature": "Link(text: string, url: string)",
@@ -90,12 +90,12 @@
       "description": "LaTeX formula, e.g. Math(\"E = mc^2\"); inline true to sit in a Text list."
     },
     "Button": {
-      "signature": "Button(label: string, action?: ActionExpression, variant?: \"solid\" | \"outline\" | \"soft\" | \"ghost\", color?: \"primary\" | \"danger\" | \"success\", size?: \"sm\" | \"md\" | \"lg\", icon?: string, disabled?: boolean, block?: boolean)",
+      "signature": "Button(label: string, action?: ActionExpression, variant?: \"default\" | \"secondary\" | \"destructive\" | \"outline\" | \"ghost\" | \"link\" | \"solid\" | \"soft\", color?: \"primary\" | \"danger\" | \"success\", size?: \"default\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\", icon?: string, disabled?: boolean, block?: boolean)",
       "description": "icon is a lucide name."
     },
     "IconButton": {
-      "signature": "IconButton(icon: string, action?: ActionExpression, label?: string, variant?: \"outline\" | \"ghost\" | \"solid\")",
-      "description": "Round icon-only button; label is read aloud."
+      "signature": "IconButton(icon: string, action?: ActionExpression, label?: string, variant?: \"default\" | \"secondary\" | \"destructive\" | \"outline\" | \"ghost\" | \"link\" | \"solid\" | \"soft\", size?: \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\")",
+      "description": "shadcn icon-size button; label is read aloud."
     },
     "Pressable": {
       "signature": "Pressable(children: Node[], action?: ActionExpression, selected?: boolean, padding?: number, background?: Color, radius?: Radius)",
@@ -111,7 +111,7 @@
     },
     "Select": {
       "signature": "Select(value: $binding<string>, options: (string | {value: string, label: string})[], label?: string, placeholder?: string)",
-      "description": "Dropdown, for long option lists."
+      "description": "shadcn Base UI popup select. Options may be strings or value/label pairs; the bound value is always the option value."
     },
     "SegmentedControl": {
       "signature": "SegmentedControl(value: $binding<string>, options: (string | {value: string, label: string})[], block?: boolean)",
@@ -131,7 +131,7 @@
     },
     "DatePicker": {
       "signature": "DatePicker(value: $binding<string>, label?: string, min?: string, max?: string)",
-      "description": "Dates are \"YYYY-MM-DD\"."
+      "description": "shadcn Calendar + Popover date picker. Bound value and inclusive min/max are \"YYYY-MM-DD\" strings; clearing sets an empty string."
     },
     "Timer": {
       "signature": "Timer(seconds: $binding<number>, label?: string)",
@@ -1295,13 +1295,24 @@
           },
           "icon": {
             "type": "string"
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "default",
+              "secondary",
+              "destructive",
+              "outline",
+              "ghost",
+              "link"
+            ]
           }
         },
         "required": [
           "text"
         ],
         "additionalProperties": false,
-        "description": "Pill tag; icon is an optional leading lucide name."
+        "description": "Pill tag; icon is an optional leading lucide name. variant uses canonical shadcn variants; color is an optional semantic extension."
       },
       "Link": {
         "type": "object",
@@ -1450,10 +1461,14 @@
           "variant": {
             "type": "string",
             "enum": [
-              "solid",
+              "default",
+              "secondary",
+              "destructive",
               "outline",
-              "soft",
-              "ghost"
+              "ghost",
+              "link",
+              "solid",
+              "soft"
             ]
           },
           "color": {
@@ -1467,9 +1482,15 @@
           "size": {
             "type": "string",
             "enum": [
+              "default",
+              "xs",
               "sm",
               "md",
-              "lg"
+              "lg",
+              "icon",
+              "icon-xs",
+              "icon-sm",
+              "icon-lg"
             ]
           },
           "icon": {
@@ -1559,9 +1580,23 @@
           "variant": {
             "type": "string",
             "enum": [
+              "default",
+              "secondary",
+              "destructive",
               "outline",
               "ghost",
-              "solid"
+              "link",
+              "solid",
+              "soft"
+            ]
+          },
+          "size": {
+            "type": "string",
+            "enum": [
+              "icon",
+              "icon-xs",
+              "icon-sm",
+              "icon-lg"
             ]
           }
         },
@@ -1569,7 +1604,7 @@
           "icon"
         ],
         "additionalProperties": false,
-        "description": "Round icon-only button; label is read aloud."
+        "description": "shadcn icon-size button; label is read aloud."
       },
       "Pressable": {
         "type": "object",
@@ -1712,7 +1747,7 @@
           "options"
         ],
         "additionalProperties": false,
-        "description": "Dropdown, for long option lists."
+        "description": "shadcn Base UI popup select. Options may be strings or value/label pairs; the bound value is always the option value."
       },
       "SegmentedControl": {
         "type": "object",
@@ -1900,7 +1935,7 @@
           "value"
         ],
         "additionalProperties": false,
-        "description": "Dates are \"YYYY-MM-DD\"."
+        "description": "shadcn Calendar + Popover date picker. Bound value and inclusive min/max are \"YYYY-MM-DD\" strings; clearing sets an empty string."
       },
       "Timer": {
         "type": "object",

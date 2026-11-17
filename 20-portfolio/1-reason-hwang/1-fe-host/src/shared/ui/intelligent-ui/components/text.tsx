@@ -1,5 +1,7 @@
 "use client";
 
+import { Badge as ShadcnBadge } from "@/shared/ui/badge";
+import { Label as ShadcnLabel } from "@/shared/ui/label";
 import { defineComponent } from "@openuidev/react-lang";
 import { ArrowUpRight } from "lucide-react";
 import { Fragment } from "react";
@@ -88,7 +90,7 @@ export const Label = defineComponent({
   name: "Label",
   props: z.object({ text: z.string() }),
   description: "Field or group label.",
-  component: ({ props }) => <span className="iui-label">{str(props.text)}</span>,
+  component: ({ props }) => <ShadcnLabel className="inline-flex">{str(props.text)}</ShadcnLabel>,
 });
 
 export const Badge = defineComponent({
@@ -97,13 +99,21 @@ export const Badge = defineComponent({
     text: z.string(),
     color: z.enum(["neutral", "info", "success", "warning", "danger", "purple", "pink"]).optional(),
     icon: z.string().optional(),
+    variant: z.enum(["default", "secondary", "destructive", "outline", "ghost", "link"]).optional(),
   }),
-  description: "Pill tag; icon is an optional leading lucide name.",
+  description: "Pill tag; icon is an optional leading lucide name. variant uses canonical shadcn variants; color is an optional semantic extension.",
   component: ({ props }) => (
-    <span className={`iui-badge iui-badge-${props.color ?? "neutral"}`}>
-      {props.icon ? <Glyph name={props.icon} size={14} /> : null}
+    <ShadcnBadge
+      variant={props.variant ?? (props.color === "danger" ? "destructive" : props.color ? "secondary" : "default")}
+      className="max-w-full self-start align-middle"
+      style={!props.variant && props.color && props.color !== "neutral" && props.color !== "danger" ? {
+        background: `var(--iui-${props.color === "info" ? "info" : `badge-${props.color}`}-soft)`,
+        color: `var(--iui-${props.color === "info" ? "info" : `badge-${props.color}`})`,
+      } : undefined}
+    >
+      {props.icon ? <span data-icon="inline-start" className="inline-flex [&>svg]:size-2.5"><Glyph name={props.icon} size={10} /></span> : null}
       {str(props.text)}
-    </span>
+    </ShadcnBadge>
   ),
 });
 

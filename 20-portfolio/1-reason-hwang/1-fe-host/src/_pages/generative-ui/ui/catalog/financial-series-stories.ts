@@ -1,4 +1,4 @@
-import { financialSeriesFixtures } from "@/shared/ui/intelligent-ui/components/financial/series-chart/fixtures";
+import { financialSeriesFixtures } from "@/shared/ui/intelligent-ui-data";
 
 /** Rendering fixtures only; generated financial answers must use supplied trusted data. */
 const examples = [

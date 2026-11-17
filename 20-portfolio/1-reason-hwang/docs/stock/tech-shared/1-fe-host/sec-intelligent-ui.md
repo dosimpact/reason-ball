@@ -101,3 +101,7 @@ resolve의 명시적 refresh=true만 FE에서 그대로 전달하여 수집을 �
 진행 중 임시 assistant의 SDK content는 실제 busy 문자열을 JSON 이스케이프한 OpenUI Markdown 프로그램이다. 설치 SDK가 실행 중인 custom AssistantMessage를 Lang syntax가 있을 때만 표시하므로, 이를 통해 기존 ActivityTimeline과 ChatNotice가 대기 중에도 답변 위치에 표시된다. 저장 메시지·사용자 입력·서버 답변 계약에는 이 임시 프로그램을 저장하지 않는다.
 
 검증: `tests/sec-chat/failure-reply.test.ts`, `tests/e2e/sec-conversation.spec.ts`와 실제 모델/MCP의 실패 주입 시나리오. [실행 기록](../../../flow/2026-11-17-sec-failure-replies.md).
+
+## SEC-ACTIVITY-STYLE-001: OpenUI 타임라인 외형
+
+SEC 자체 `ActivityTimeline`은 OpenUI `ToolCallTimeline`의 실제 CSS 클래스와 theme token을 재사용한다. 바깥 카드 테두리를 제거하고 헤더·오른쪽 펼침 화살표·글꼴·색상·도구 결과 code block을 맞춘다. 단계/서비스/도구의 구분과 한국어 상태·작업 수는 유지한다. 자체 Workflow 및 종류별 아이콘을 쓰므로 OpenUI mascot·ticker 애니메이션까지 완전히 같은 컴포넌트는 아니다. 기본 details의 키보드 조작과 focus 표시, reduced-motion을 지원한다. 라이브러리 CSS 변경 시 관련 Storybook을 재검증한다.

@@ -68,11 +68,11 @@ export function ChatPage() {
     starterGroups={jsonMode ? undefined : starterGroups}
     headerLeading={<SidebarTrigger className="md:hidden" aria-label="메뉴 열기" />}
     headerControls={<div className="agent-conversation__header-controls">
-      {fixedGraphId ? ["talib_agent", "sec_modeling_agent"].includes(graphId) ? null : <p className="text-sm font-medium">{selected?.name ?? graphId}</p> : <GraphSelector graphs={graphs} value={graphId} onChange={selectGraph} disabled={busy} />}
+      {fixedGraphId ? ["talib_agent", "sec_modeling_agent"].includes(graphId) ? null : <p className="text-sm font-medium">{selected?.name ?? graphId}</p> : <GraphSelector showGraphIds={runtime.id === "development"} graphs={graphs} value={graphId} onChange={selectGraph} disabled={busy} />}
       {taMode && pinnedItems.length > 0 && canvasCollapsed && <Button size="sm" variant="outline" onClick={() => setCanvasCollapsed(false)}>Canvas ({pinnedItems.length})</Button>}
       {<ChatHistory label={jsonMode ? "실행 기록" : "대화 기록"} items={history} loading={historyLoading} error={historyError} disabled={busy} selectedId={threadId} onRefresh={refreshHistory} onSelect={openThread} />}
     </div>}
-    status={(error || discoveryNotice || runNotice) ? <ChatNotice tone={error || discoveryNotice ? "error" : "status"}>{error ?? discoveryNotice ?? runNotice ?? ""}{discoveryNotice && <Button variant="link" onClick={() => void reloadGraphs()}>목록 다시 불러오기</Button>}</ChatNotice> : undefined}
+    status={(error || discoveryNotice || runNotice || graphId === "technical_analysis_graph") ? <ChatNotice tone={error || discoveryNotice ? "error" : "status"}>{error ?? discoveryNotice ?? runNotice ?? selected?.description ?? ""}{discoveryNotice && <Button variant="link" onClick={() => void reloadGraphs()}>목록 다시 불러오기</Button>}</ChatNotice> : undefined}
     composer={jsonMode ? <GraphTestInput key={graphId} description={selected?.description} schema={selected?.inputSchema} example={selected?.exampleInput} busy={busy} onRun={runGraph} onCancel={cancelRun} /> : undefined}
     nativeMessages={jsonMode ? undefined : nativeProjection.messages} executingToolCallIds={jsonMode ? undefined : nativeProjection.executingToolCallIds}
     busy={busy} messages={conversationMessages} onSend={sendMessage} onCancel={cancelRun} onReset={resetThread} />;

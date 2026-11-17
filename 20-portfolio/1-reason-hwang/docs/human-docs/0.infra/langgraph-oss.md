@@ -1,4 +1,386 @@
-# LangGraph OSS API: 개발 런타임과 운영 FastAPI의 실행 방식 맞추기
+# LangGraph OSS API: 개발 런타임과 운영 FastAPI
+
+## PostgreSQL
+
+현재 코드의 DDL 기준 명세다. 실제 운영 DB를 조회한 결과는 아니다. 테이블은 설정된 PostgreSQL schema/search_path 안에 생성된다. `
+- jsonb`는 구조화된 설정·상태, `timestamptz`는 시간대 있는 시각이다.
+
+### 기본 관리 테이블
+
+아래 SQL은 [기본 migration](../../../3-langgraph-fast/src/infrastructure/postgres/migrations.py)의 테이블 정의다. PK는 기본키, REFERENCES는 외래키이며 CASCADE는 부모 삭제 시 함께 삭제한다.
+
+```sql
+CREATE TABLE IF NOT EXISTS schema_migrations (
+    version integer PRIMARY KEY,
+    name text NOT NULL,
+    checksum text NOT NULL,
+    applied_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS assistants (
+    assistant_id uuid PRIMARY KEY,
+    latest_version integer NOT NULL CHECK (latest_version > 0),
+    graph_id text NOT NULL,
+    config jsonb NOT NULL DEFAULT '{}'::jsonb,
+    context jsonb NOT NULL DEFAULT '{}'::jsonb,
+    metadata jsonb NOT NULL DEFAULT '{}'::jsonb,
+    name text NOT NULL DEFAULT 'Untitled',
+    description text,
+    created_at timestamptz NOT NULL,
+    updated_at timestamptz NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS assistant_versions (
+    assistant_id uuid NOT NULL REFERENCES assistants(assistant_id) ON DELETE CASCADE,
+    version integer NOT NULL CHECK (version > 0),
+    graph_id text NOT NULL,
+    config jsonb NOT NULL DEFAULT '{}'::jsonb,
+    context jsonb NOT NULL DEFAULT '{}'::jsonb,
+    metadata jsonb NOT NULL DEFAULT '{}'::jsonb,
+    name text NOT NULL DEFAULT 'Untitled',
+    description text,
+    created_at timestamptz NOT NULL,
+    updated_at timestamptz NOT NULL,
+    PRIMARY KEY (assistant_id, version)
+);
+
+CREATE TABLE IF NOT EXISTS threads (
+    thread_id uuid PRIMARY KEY,
+    created_at timestamptz NOT NULL,
+    updated_at timestamptz NOT NULL,
+    state_updated_at timestamptz NOT NULL,
+    metadata jsonb NOT NULL DEFAULT '{}'::jsonb,
+    config jsonb NOT NULL DEFAULT '{}'::jsonb,
+    values jsonb NOT NULL DEFAULT '{}'::jsonb,
+    interrupts jsonb NOT NULL DEFAULT '{}'::jsonb,
+    status text NOT NULL,
+    ttl jsonb
+);
+
+CREATE TABLE IF NOT EXISTS runs (
+    run_id uuid PRIMARY KEY,
+    thread_id uuid REFERENCES threads(thread_id) ON DELETE CASCADE,
+    assistant_id text NOT NULL,
+    created_at timestamptz NOT NULL,
+    updated_at timestamptz NOT NULL,
+    status text NOT NULL,
+    metadata jsonb NOT NULL DEFAULT '{}'::jsonb,
+    kwargs jsonb NOT NULL DEFAULT '{}'::jsonb,
+    multitask_strategy text,
+    result jsonb
+);
+
+CREATE TABLE IF NOT EXISTS crons (
+    cron_id uuid PRIMARY KEY,
+    assistant_id text NOT NULL,
+    thread_id uuid,
+    schedule text NOT NULL,
+    timezone text,
+    enabled boolean NOT NULL DEFAULT true,
+    payload jsonb NOT NULL DEFAULT '{}'::jsonb,
+    next_run_date timestamptz,
+    end_time timestamptz,
+    metadata jsonb NOT NULL DEFAULT '{}'::jsonb,
+    created_at timestamptz NOT NULL,
+    updated_at timestamptz NOT NULL,
+    user_id text
+);
+
+CREATE TABLE IF NOT EXISTS store_items (
+    namespace text[] NOT NULL,
+    key text NOT NULL,
+    value jsonb NOT NULL,
+    index_config jsonb,
+    ttl_minutes double precision,
+    expires_at timestamptz,
+    created_at timestamptz NOT NULL,
+    updated_at timestamptz NOT NULL,
+    PRIMARY KEY (namespace, key)
+);
+
+CREATE TABLE IF NOT EXISTS a2a_tasks (
+    task_id text PRIMARY KEY,
+    assistant_id text NOT NULL,
+    context_id text NOT NULL,
+    status text NOT NULL,
+    payload jsonb NOT NULL,
+    created_at timestamptz NOT NULL,
+    updated_at timestamptz NOT NULL
+);
+```
+
+### 여러 worker 실행 조정
+
+별도 run 원장을 만들지 않고 기존 `runs`에 아래 열을 추가한다. `runtime_threads`는 thread별 실행 소유권, `runtime_capacity`는 namespace별 전역 한도, `runtime_workers`는 살아 있는 worker와 버전, `runtime_events`는 run별 SSE 이벤트를 담당한다.
+
+```sql
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS runtime_namespace text;
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS internal_status text;
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS graph_id text;
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS graph_version text;
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS queue_seq bigserial;
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS owner_id uuid;
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS execution_epoch bigint NOT NULL DEFAULT 0;
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS lease_until timestamptz;
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS cancel_requested_at timestamptz;
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS request_key text;
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS request_hash text;
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS side_effect_risk boolean NOT NULL DEFAULT false;
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS event_seq bigint NOT NULL DEFAULT 0;
+ALTER TABLE runs ADD COLUMN IF NOT EXISTS event_bytes bigint NOT NULL DEFAULT 0;
+CREATE TABLE IF NOT EXISTS runtime_capacity(namespace text PRIMARY KEY,max_active integer NOT NULL CHECK(max_active>0),max_queued integer NOT NULL CHECK(max_queued>=0));
+CREATE TABLE IF NOT EXISTS runtime_threads(thread_id uuid PRIMARY KEY REFERENCES threads(thread_id) ON DELETE CASCADE,active_run_id uuid,epoch bigint NOT NULL DEFAULT 0,blocked_reason text);
+CREATE TABLE IF NOT EXISTS runtime_workers(worker_id uuid PRIMARY KEY,namespace text NOT NULL,graph_version text NOT NULL,heartbeat_at timestamptz NOT NULL DEFAULT clock_timestamp(),draining boolean NOT NULL DEFAULT false);
+CREATE TABLE IF NOT EXISTS runtime_events(run_id uuid NOT NULL REFERENCES runs(run_id) ON DELETE CASCADE,sequence bigint NOT NULL,execution_epoch bigint NOT NULL,event text NOT NULL,namespace text[] NOT NULL DEFAULT '{}',payload jsonb NOT NULL,size_bytes integer NOT NULL,created_at timestamptz NOT NULL DEFAULT clock_timestamp(),PRIMARY KEY(run_id,sequence));
+CREATE UNIQUE INDEX IF NOT EXISTS runtime_request_key ON runs(runtime_namespace,request_key) WHERE request_key IS NOT NULL;
+CREATE UNIQUE INDEX IF NOT EXISTS runtime_one_active_thread ON runs(thread_id) WHERE internal_status IN ('reserved','running','cancelling');
+CREATE INDEX IF NOT EXISTS runtime_pending ON runs(runtime_namespace,graph_version,queue_seq) WHERE internal_status IN ('queued','reserved');
+CREATE INDEX IF NOT EXISTS runtime_thread_fifo ON runs(thread_id,queue_seq) WHERE internal_status IN ('queued','reserved','running','cancelling');
+CREATE INDEX IF NOT EXISTS runtime_leases ON runs(runtime_namespace,lease_until) WHERE internal_status IN ('running','cancelling');
+CREATE INDEX IF NOT EXISTS runtime_terminal ON runs(runtime_namespace,updated_at) WHERE internal_status='terminal';
+```
+
+`internal_status`는 queued/reserved/running/cancelling/terminal을 관리한다. `execution_epoch`는 오래된 실행자의 쓰기를 막는 세대 번호이며 `lease_until`은 소유권 만료 시각이다. `request_key`와 `request_hash`는 요청 중복 접수 판별에 사용한다. `active_run_id`는 코드가 조정하는 포인터이며 위 DDL상 runs 외래키는 아니다.
+
+### LangGraph checkpoint 테이블
+
+관리 metadata와 실제 graph 상태 저장은 구분한다. saver가 관리하는 테이블은 다음과 같다. 상세 열·키 정의는 설치된 `langgraph-checkpoint-postgres` migration을 따른다.
+
+| 테이블 | 역할 |
+| --- | --- |
+| checkpoint_migrations | saver schema migration 버전 |
+| checkpoints | thread·checkpoint namespace·checkpoint ID별 checkpoint와 metadata |
+| checkpoint_blobs | channel·version별 직렬화 상태 데이터 |
+| checkpoint_writes | 실행 Task의 중간 write·channel·순서 |
+
+`threads.values`는 조회용 projection이며 checkpoint 전체를 대신하지 않는다. FencedAsyncPostgresSaver가 checkpoint·pending writes의 소유권을 같은 transaction에서 검사한다. schema 준비는 배포 migration에서 수행하고 postgres worker startup은 검증만 한다.
+
+## API Spec list
+
+자체 FastAPI의 graph runtime 관련 등록 라우트다. 기본 주소는 `http://127.0.0.1:2981`이며 Host 프록시 `/api/fastapi-langgraph`와 구분한다. 요청·응답 필드의 전체 명세는 서버 `/openapi.json`과 `/docs`에서 확인한다. 아래 목록에 있다는 사실만으로 LangGraph dev와의 완전한 동등성이나 multiworker 안전성을 의미하지 않는다.
+
+### assistants
+
+| Method | Path |
+| --- | --- |
+| POST | `/assistants` |
+| POST | `/assistants/search` |
+| POST | `/assistants/count` |
+| GET | `/assistants/{assistant_id}` |
+| DELETE | `/assistants/{assistant_id}` |
+| PATCH | `/assistants/{assistant_id}` |
+| GET | `/assistants/{assistant_id}/graph` |
+| GET | `/assistants/{assistant_id}/subgraphs` |
+| GET | `/assistants/{assistant_id}/subgraphs/{namespace}` |
+| GET | `/assistants/{assistant_id}/schemas` |
+| POST | `/assistants/{assistant_id}/versions` |
+| POST | `/assistants/{assistant_id}/latest` |
+
+### threads
+
+| Method | Path |
+| --- | --- |
+| POST | `/threads` |
+| POST | `/threads/search` |
+| POST | `/threads/count` |
+| POST | `/threads/prune` |
+| GET | `/threads/{thread_id}/state` |
+| POST | `/threads/{thread_id}/state` |
+| GET | `/threads/{thread_id}/state/{checkpoint_id}` |
+| POST | `/threads/{thread_id}/state/checkpoint` |
+| GET | `/threads/{thread_id}/history` |
+| POST | `/threads/{thread_id}/history` |
+| POST | `/threads/{thread_id}/copy` |
+| GET | `/threads/{thread_id}` |
+| DELETE | `/threads/{thread_id}` |
+| PATCH | `/threads/{thread_id}` |
+| GET | `/threads/{thread_id}/stream` |
+| POST | `/threads/{thread_id}/runtime/review` |
+
+### runs
+
+| Method | Path |
+| --- | --- |
+| GET | `/threads/{thread_id}/runs` |
+| POST | `/threads/{thread_id}/runs` |
+| POST | `/threads/{thread_id}/runs/stream` |
+| POST | `/threads/{thread_id}/runs/wait` |
+| GET | `/threads/{thread_id}/runs/{run_id}` |
+| DELETE | `/threads/{thread_id}/runs/{run_id}` |
+| GET | `/threads/{thread_id}/runs/{run_id}/join` |
+| GET | `/threads/{thread_id}/runs/{run_id}/stream` |
+| POST | `/threads/{thread_id}/runs/{run_id}/cancel` |
+| POST | `/runs/cancel` |
+| POST | `/runs` |
+| POST | `/runs/wait` |
+| POST | `/runs/stream` |
+| POST | `/runs/batch` |
+
+### streaming
+
+| Method | Path |
+| --- | --- |
+| POST | `/threads/{thread_id}/stream/events` |
+| POST | `/threads/{thread_id}/commands` |
+
+### crons
+
+| Method | Path |
+| --- | --- |
+| POST | `/threads/{thread_id}/runs/crons` |
+| POST | `/runs/crons` |
+| POST | `/runs/crons/search` |
+| POST | `/runs/crons/count` |
+| GET | `/runs/crons/{cron_id}` |
+| PATCH | `/runs/crons/{cron_id}` |
+| DELETE | `/runs/crons/{cron_id}` |
+
+### store
+
+| Method | Path |
+| --- | --- |
+| PUT | `/store/items` |
+| DELETE | `/store/items` |
+| GET | `/store/items` |
+| POST | `/store/items/search` |
+| POST | `/store/namespaces` |
+
+### a2a
+
+| Method | Path |
+| --- | --- |
+| POST | `/a2a/{assistant_id}` |
+
+### mcp
+
+| Method | Path |
+| --- | --- |
+| POST | `/mcp/` |
+| GET | `/mcp/` |
+| DELETE | `/mcp/` |
+
+### system
+
+| Method | Path |
+| --- | --- |
+| GET | `/info` |
+| GET | `/metrics` |
+| GET | `/docs` |
+| GET | `/ok` |
+
+### 상태 확인과 업무 API
+
+- `GET /health`: 서버 기본 상태.
+- `GET /health/postgres`: PostgreSQL 상태(공개 OpenAPI에서 숨김).
+- `GET /health/runtime`: 실행 모드·전역 용량·worker/lease/버전 상태(공개 OpenAPI에서 숨김).
+- `POST /graph/run`: 별도 graph 실행 진입점. SDK threads/runs와 동일 계약으로 취급하지 않는다.
+- SEC 모델링·iXBRL·SEC Chat·Generative UI·기술적 분석은 별도 업무 router다. 이 목록의 범위는 graph runtime이며 각 업무 API는 해당 도메인 stock과 OpenAPI를 따른다.
+
+주요 오류: 입력/미지원 전략422, 충돌409, 용량 초과429, DB authority 장애503, postgres 모드의 미지원 경로501. 취소 완료 대기 중에는202/Retry-After가 반환될 수 있다. HTTP200으로 SSE가 시작됐어도 error 이벤트와 최종 run 상태를 확인해야 한다.
+
+## Langgraph dev와 다른 차이점
+
+비교 기준은 이 프로젝트에서 사용하는 개발 런타임 경로와 자체 FastAPI 구현이다. LangGraph 제품 전체의 버전별 기능 비교가 아니다.
+
+| 항목 | 개발 런타임 | 자체 FastAPI |
+| --- | --- | --- |
+| 실행/접속 | `langgraph dev`, 기본2982·`/langgraph-dev-chat` | Uvicorn, 기본2981·`/fastapi-chat` 및 전용 TA/TA-Lib/모델링 채팅 |
+| graph 코드 | 등록된 export 실행 | 같은 builder·업무 node/tool을 GraphRegistry가 saver 주입 후 compile |
+| API 책임 | 개발 런타임이 제공 | 프로젝트가 SDK 호환 라우트·상태 전이·오류 처리를 직접 관리 |
+| 저장 | 개발 런타임의 저장 공간 | PostgreSQL metadata repository와 실제 graph saver; 개발 데이터 자동 이관 없음 |
+| 여러 worker | 개발 서버를 운영 분산 실행의 기준으로 삼지 않음 | 명시적 postgres 모드에서 DB queue·lease·fencing·전역 한도 제공 |
+| 스트리밍 | SDK 전송 사용 | 실제 astream 이벤트를 SDK 형식으로 변환; DB 보존 범위 내 재연결 지원 |
+| 기능 범위 | 개발 도구가 노출하는 기능 | 채팅에 필요한 assistants/threads/runs 중심, 나머지 경로는 제한 확인 필요 |
+
+자체 FastAPI의 명시적 제한:
+
+- memory 모드는 단일 프로세스용이다. saver가 PostgreSQL이어도 다중 실행 조정은 postgres 모드가 필요하다.
+- postgres 모드에서 thread-wide stream, protocol commands/events, checkpoint copy·비삭제 prune은501이다. run별 stream/state/history를 사용한다.
+- rollback 취소·일부 multitask 전략·resume command는 지원하지 않는다. queued만 재개하며 이미 실행된 run은 장애 후 자동 재실행하지 않는다.
+- crons/store/A2A/MCP는 라우트·저장 테이블 존재와 완전한 실행 동등성을 구분한다. graph runtime의 multiworker 검증 범위에 모두 포함된 것이 아니다.
+- 별도 process-local SEC Chat/Generative UI session API는 postgres 모드에서 제한되며 별도 단일 worker 배치가 필요하다.
+- 사용자별 인증·소유권 격리를 추가한 구현은 아니다. 현재 범위는 신뢰하는 제한된 내부 사용자의 공유 대화다.
+- 모든 토큰의 영구 replay, 외부 도구의 exactly-once 효과·rollback은 보장하지 않는다.
+
+현재 구현·검증의 원본은 [FastAPI runtime stock](../../stock/tech-shared/3-langgraph-fast/fastapi-runtime.md)과 [multiworker 검증 기록](../../flow/2026-11-16-fastapi-postgres-multiworker-implementation.md)이다.
+
+## worker는 무엇인가
+
+각 프로세스에 FastAPI·GraphRegistry·dispatcher가 있고, HTTP 처리와 graph 실행을 함께 담당한다. 현재 HTTP 서버와 별도의 전용 실행 worker 서비스로 분리한 구조는 아니다. 프로세스 안의 비동기 Task가 실제 graph 실행 하나를 담당한다.
+- *Uvicorn은 파이썬(Python) 환경을 위한 초고속 ASGI(Asynchronous Server Gateway Interface) 웹 서버 (파이썬의 async/await 문법을 웹 서버 레벨에서 본격적으로 지원)
+- worker는 Uvicorn이 실행하는 **별도 Python OS 프로세스**다.
+
+```text
+Host → FastAPI worker A 또는 B
+            │ 요청 접수·조회·취소·SSE
+            ▼
+       공통 PostgreSQL
+       ├─ 실행 대기열·전역 용량·owner/epoch/lease
+       ├─ 취소 의도·이벤트·최종 결과
+       └─ LangGraph checkpoint·pending writes
+            ▲
+       각 worker의 dispatcher가 claim
+            └─ 소유 worker의 Task → 같은 graph·업무 도구 실행
+```
+
+A에서 접수한 작업을 B에서 조회·취소·스트림 구독할 수 있다. sticky session에 의존하지 않는다. 외부 도구 호출 중 DB 행 잠금을 계속 잡고 있지는 않는다.
+
+## memory와 postgres 모드
+
+| 항목 | memory | postgres |
+| --- | --- | --- |
+| 설정 | `LANGGRAPH_RUNTIME_MODE=memory` | `LANGGRAPH_RUNTIME_MODE=postgres` |
+| 실행 소유권·대기열 | 프로세스 메모리 | 공통 PostgreSQL |
+| worker 수 | 단일 worker | 여러 worker 지원 |
+| checkpoint | 설정에 따라 PostgreSQL 또는 메모리 | PostgreSQL·소유권 보호 |
+| 재시작 | 기존 pending/running 정리 | 정상 다른 worker 보존·만료 lease 회수 |
+
+**PostgreSQL saver만 연결하고 `--workers`를 늘리는 것으로는 충분하지 않다.** 실행 조정도 postgres 모드여야 한다. DB 미설정·migration 누락·전역 용량 설정 불일치는 startup 실패이며 DB 장애 시 memory로 자동 전환하지 않는다.
+
+## 여러 worker의 실행 규칙
+
+- 기본 전역 한도는 active 10·queued 10이다. worker마다 각각10개가 아니다. `LANGGRAPH_WORKER_MAX_ACTIVE`는 해당 프로세스의 로컬 Task 한도다. 실제 검증은 전역2/2 설정으로 수행했으며 기본값 부하 시험과 구분한다.
+- 같은 thread는 enqueue FIFO로 한 번에 하나만 실행한다. reject는409, 전역 용량 초과는429/Retry-After다. 다른 thread 사이 완전한 FIFO는 보장하지 않는다.
+- owner/epoch/lease와 heartbeat로 소유권을 확인한다. 오래된 owner는 checkpoint와 pending writes를 쓸 수 없도록 같은 DB transaction에서 fencing한다.
+- 어느 worker에서든 취소 의도를 저장하고 실행 owner가 실제 Task를 취소한다. 외부 작업의 부작용 rollback은 보장하지 않는다.
+- 장애 후 미실행 queued는 다시 claim할 수 있지만 이미 실행한 running은 interrupted로 정리하고 자동 재실행하지 않는다. 외부 쓰기 가능성이 있는 실패·중단은 thread review 후 후속 작업을 허용한다.
+- `Idempotency-Key` 또는 body `request_id`로 같은 요청의 중복 접수를 방지한다. 같은 키에 다른 요청은409다. 외부 도구의 exactly-once 효과까지 보장하는 것은 아니다.
+- 실행 버전을 접수 시 고정한다. 호환 worker가 없는 queued는 보류하며 다른 버전으로 임의 실행하지 않는다.
+
+## SSE와 연결 수
+
+이벤트는 DB에 저장하고 어느 worker에서든 cursor 이후를 읽는다. PostgreSQL LISTEN/NOTIFY는 알림이며 polling이 누락을 보완한다. terminal 상태·최종 결과·end는 한 transaction으로 확정한다.
+
+기본 이벤트 보존은8MiB/256개·종료 후60초다. 보존 범위의 Last-Event-ID 재연결을 지원하며 유실 구간은 gap error로 알린다. 모든 토큰을 영구 재생하지는 않는다. HTTP 연결 종료 후에도 graph 실행은 계속되고 저장 state/result를 조회할 수 있다.
+
+worker별 기본 pool 최대8 + LISTEN 전용1 연결이 필요하다. DB 연결 예산은 `worker 수 × (pool max + 1) + 배포·운영 여유`로 잡는다. SSE 구독자마다 DB 연결을 계속 점유하는 구조는 아니다.
+
+## 실행·배포와 지원 범위
+
+배포 전에 기존 memory worker를 drain하고 migration을 별도로 한 번 수행한다. worker startup은 schema 검증만 하며 DDL을 수행하지 않는다. 아래는 `3-langgraph-fast` 디렉터리 기준이며 이번 문서 갱신으로 운영 설정을 변경하지 않는다.
+
+```sh
+uv run --env-file .env python -m infrastructure.postgres.runtime_migration
+# 새 DB에서 baseline/saver까지 준비할 때만 --bootstrap-base 사용
+LANGGRAPH_RUNTIME_MODE=postgres pnpm run start --workers 2
+```
+
+`GET /health/runtime`에서 전역 active/queued, worker heartbeat, lease와 실행 버전·blockedVersions를 확인한다. DB 오류는503으로 표시한다.
+
+다중 worker 지원 범위는 assistants/threads/runs graph runtime과 run별 SSE다. 별도 process-local session을 사용하는 SEC Intelligent Research Chat·Generative UI API까지 자동으로 안전해지는 것은 아니다. postgres 모드의 미지원 경로는501이며 별도 단일 worker 서비스가 필요하다.
+
+Host의 `/fastapi-chat`, `/technical-analysis`, `/technical-analysis/canvas`, `/talib-chat`, `/sec-modeling-chat`은 FastAPI 경로를 사용한다. `/langgraph-dev-chat`은 개발 런타임을 유지한다. 실행·차트 Query·기록을 런타임별로 구분하며 자동 fallback하지 않는다. Canvas는 현재 사용자가 CanvasItem 요소를 선택해 추가하는 방식이다.
+
+## 최신 구현과 검증 근거
+
+- [최신 실행 설계·설정·제한](../../stock/tech-shared/3-langgraph-fast/fastapi-runtime.md#lg-oss-multi-001-postgresql-여러-worker)
+- [여러 worker 구현·검증](../../flow/2026-11-16-fastapi-postgres-multiworker-implementation.md): 실제2 OS 프로세스 API/SDK13묶음·Bruno11건, 장애·취소·fencing·DB 복구 검증. 운영 전환·외부 모델 품질 검증과 구분한다.
+- [선택형 Canvas 구현](../../flow/2026-11-17-canvas-item-workspace.md)
+
+---
+
+# 초기 설계 기록 (최신 상태는 위 설명 참조)
+
 
 ## 왜 이 작업을 하는가
 
