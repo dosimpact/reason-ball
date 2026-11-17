@@ -28,16 +28,16 @@ OpenUI Lang 출력과 업무 그래프를 관리한다. 공통 계약은 [OpenUI
 
 `technical_analysis_canvas_agent`는 개념 설명과 계산 요청을 구분한다. 설명에는 새 보고서·Yahoo 호출이 없다. `canvas_context.reportId`는 선택 보고서의 가격·조건·지표를 복원하며, `canvas_context.request`는 ticker/interval/count/indicators를 검증한 후 두 기존 업무 도구를 순차 실행하는 명시적 재분석이다. 잘못된 context는 도구 실행 전에 `analysis_error`로 종료한다. 새 분석마다 서버 UUID를 만들고 `canvas_reports` graph state에 보고서를 독립 저장한다. 별도 DB·복원 기능은 추가하지 않는다.
 
-custom stream은 `{channel:"canvas",type,reportId,payload}`이며 open → reset → delta → validating → ready 또는 error 순서다. reset은 서버 소유 prefix를 전달하고 delta는 실제 모델 `astream` 토큰이다. 공급자의 빈 스트림 오류(`No generations found in stream` / `No generation chunks were returned`)에 한해 비스트리밍 생성 한 번으로 fallback하며 전체 결과 한 delta를 보낸다. 인위적 토큰 분할은 없다. 모델은 `taLayout` 하나만 작성하고 `taPanel`·`taSignals`를 각각 한 번 참조한다. 가격/거래량/지표 snapshot과 Query/QueryPanel 및 수치 근거는 서버 prefix가 소유한다. 허용 생성자는 배치와 prose뿐이며 재할당·새 Query·숫자 데이터 재정의를 차단한다. 완성 프로그램은 Host parser 검증 후 한 번 수정하고, 실패하면 계산 결과 텍스트로 fallback한다.
+현재 Canvas는 values의 `presentation={id,program}`과 `canvas_reports`에 검증된 완성 프로그램을 게시한다. 모델의 내부 토큰 스트림을 사용자 Canvas에 게시하지 않는다. 공통 composer가 전체 프로그램을 생성하며 서버 UUID를 포함한 요소 ID 집합을 추가 검증한다. 실패 시 계산 결과 텍스트와 저장 근거를 보존한다.
 
-`technical_analysis_canvas_agent`는 values+custom stream을 사용하고 최종 assistant 메시지는 짧은 보고서 안내만 제공한다. 기존 `technical_analysis_agent`는 values 기반 인라인 presentation을 유지한다. Query는 기존 `technical_analysis_chart`를 사용하며 모델 없이 ticker/주기/봉 수/수동 갱신을 처리한다. 기본 polling은 0이다. 실행 검증은 별도 API 검증 기록을 따른다; 브라우저 검증은 사용자 담당이다.
+가격·지표 차트는 기존 `technical_analysis_chart` Query로 조회하며 ticker/주기/봉 수/수동 갱신은 모델 없이 처리한다. 기본 polling은 0이다. 분석 설명은 채팅에, 선택 가능한 CanvasItem은 같은 답변에 표시하고 사용자가 추가한다.
 
 
 ### TA-CANVAS-002: 기존 인라인 TA와 독립 graph 분리
 
-`technical_analysis_agent`는 기존 인라인 동작을 유지한다. 기존 `TechnicalAgentState`로 Yahoo/TA-Lib 업무 도구를 실행하고 `build_output_graph(program_builder=build_program)`의 결정적 프로그램을 `presentation={id,program}`으로 반환한다. canvas context/custom event/report map은 이 graph의 입력·상태 계약에 없다.
+`technical_analysis_agent`는 기존 인라인 동작을 유지한다. 기존 `TechnicalAgentState`로 Yahoo/TA-Lib 업무 도구를 실행하고 `build_output_graph`의 LLM 생성·검증 프로그램을 `presentation={id,program}`으로 반환한다. canvas context/custom event/report map은 이 graph의 입력·상태 계약에 없다.
 
-`technical_analysis_canvas_agent`는 별도 `primary_graphs/technical_analysis_canvas_agent` workflow와 `TechnicalCanvasAgentState`를 사용한다. Canvas state는 원래 계산 상태를 상속하며 `canvas_context`, `canvas_reports`, `canvas_route`, `canvas_report_id`만 추가한다. 원래 에이전트의 `build_tools`와 같은 도메인 가격·지표 계산/표시 함수를 공유하므로 계산 구현을 복제하지 않는다. 두 graph를 `langgraph.json`에 각각 등록하며 캔버스용 Host custom stream/보고서 UI는 신규 ID에만 적용한다.
+`technical_analysis_canvas_agent`는 별도 `primary_graphs/technical_analysis_canvas_agent` workflow와 `TechnicalCanvasAgentState`를 사용한다. Canvas state는 원래 계산 상태를 상속하며 `canvas_context`, `canvas_reports`, `canvas_route`, `canvas_report_id`만 추가한다. 원래 에이전트의 `build_tools`와 같은 도메인 가격·지표 계산/표시 함수를 공유하므로 계산 구현을 복제하지 않는다. 두 graph를 `langgraph.json`에 각각 등록하며 캔버스용 선택 요소/보고서 UI는 Canvas graph에만 적용한다.
 
 ## OPENUI-CATALOG-001: 실제 생성 프롬프트와 최신 카탈로그
 
@@ -52,15 +52,16 @@ custom stream은 `{channel:"canvas",type,reportId,payload}`이며 open → reset
 | starter_graph | 도구 기반 일반 대화 | 미주입 |
 | tenk_subgraph | RetrievalService의 근거·텍스트 답변 | 미주입 |
 | sec_deep_agent | 원시 연구/Markdown | 업무 프롬프트에는 미주입. 별도 research UI 경로는 공유 composer 사용 |
-| technical_analysis_agent | 서버의 결정적 build_program과 inline presentation | 업무 모델에 불필요한 DSL 지시를 넣지 않으며 생성 프로그램은 parser 검증 |
-| technical_analysis_canvas_agent | 업무/설명과 별도의 taLayout 모델 생성 | 실제 composer에 최신 전체 카탈로그 주입 |
+| technical_analysis_agent | compact 결과 → 공통 LLM composer → inline presentation | 최신 카탈로그·예시와 표시 context 제공, parser 검증 |
+| technical_analysis_canvas_agent | compact 결과 → 공통 LLM composer → CanvasItem presentation | 최신 카탈로그·예시 제공, parser와 서버 요소 ID 검증 |
+| talib_agent | bounded 계산 결과 → 공통 LLM composer | 최신 카탈로그·예시 제공, parser 검증 |
 | sec_modeling_agent | 모델링 도구 실행과 상태/메시지 | 미주입 |
 
 등록 목록 밖의 SEC Intelligent UI, SEC research UI, generative_ui dynamic 경로도 `openui_output._compose_ui`를 통해 같은 loader를 사용한다. Fixed controls처럼 서버가 작성하는 DSL에는 모델 프롬프트 주입이 필요하지 않다. 이름에 open_ui가 포함된 과거 구조화 보고서 계획과 실제 openui-lang 생성도 구분한다.
 
-Canvas는 카탈로그를 먼저 제공하고 마지막에 TA CANVAS SCOPE를 추가하여 일반적인 전체 프로그램/root 생성 지시보다 구체적인 제한을 우선한다. 모델은 Col/Row/Grid/Text/Title/Markdown으로 taLayout 하나만 작성하고 taPanel/taSignals를 한 번씩 참조한다. Query, IndicatorControls, 숫자 snapshot과 최종 root는 서버가 소유한다. 전체 카탈로그를 읽는다고 실행 allowlist가 확장되지 않는다. taPanel 설명도 고정3지표가 아니라 실제 요청한 TA20 인스턴스와 설정을 따른다.
+세 분석 그래프의 전체 UI 생성은 `build_output_graph`의 공통 경로를 사용한다. `presentation_context`는 서버가 만든 요청 조건·데이터 범위·Canvas 요소 ID를 전달한다. `program_builder` 우회와 이전 Canvas taLayout 전용 composer는 제거했다. 모델은 공통 카탈로그의 전체 컴포넌트를 조합하되 실행 Query allowlist와 출력 검증은 유지한다. Fixed 업무 controls는 서버 작성 DSL을 유지한다.
 
-회귀 테스트는 실제 SystemMessage를 캡처해 IndicatorControls, technical_analysis_catalog, Grid 최신 인수 순서와 Canvas 제한을 확인한다. 같은 프로세스·같은 함수에서 artifact를 교체한 다음 두 번째 호출이 새 내용을 읽는지 검증하고, Query·FinancialChart 추가나 snapshot 재할당을 계속 거부한다. API 검증은 소유 FastAPI/PG/Host와 SpyModel·고정 OHLCV를 사용해 외부 모델 비용 없이 실제 Canvas graph와 parser를 통과시킨다. 브라우저 검증은 수행하지 않는다.
+카탈로그는 `library.ts`가 내보내는 `promptOptions`의 examples/additionalRules까지 CLI로 생성한다. 카탈로그 교체 시 다음 호출에서 다시 읽으며, FE/Python artifact 일치는 openui:check로 검사한다. 생성 실패 시 TA·Canvas·TA-Lib은 계산 상태와 텍스트를 보존하며 취소는 전파한다. [현재 표시 계약](../../technical-analysis/system-design.md#openui-compose-001-공통-카탈로그-기반-생성), [검증 기록](../../../flow/2026-11-17-openui-llm-composition.md).
 
 ## SEC-STARTERS-001: 호스트 원문 인용 보호
 

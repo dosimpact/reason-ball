@@ -440,3 +440,8 @@ AI Chat의 `SEC Modeling Chat`은 `/sec-modeling-chat`에서 공용 ChatProvider
 - 기존 공개 `index.ts` export와 OpenUI 컴포넌트 이름·인자 계약은 유지한다. 테스트 탐색은 하위 폴더까지 포함한다.
 
 [이동과 검증 기록](../../../flow/2026-11-17-openui-component-folders.md).
+
+
+## OPENUI-COMPOSE-001: 생성 프롬프트 예시
+
+`intelligent-ui/library.ts`는 `promptOptions`를 내보낸다. 설치된 SDK의 examples는 createLibrary 직접 속성이 아닌 prompt 옵션이다. `openui generate`가 이 export를 자동 인식해 금융·Canvas 그룹의 `prompt-examples.ts`와 additionalRules를 공통 생성 프롬프트에 포함한다. 예시의 ticker·ID·숫자는 실제 근거가 아니며 모델은 서버가 제공한 값으로 대체한다. 런타임 렌더러·Query allowlist는 유지한다. [생성·검증 계약](../3-langgraph-fast/open-ui.md), [변경 기록](../../../flow/2026-11-17-openui-llm-composition.md).

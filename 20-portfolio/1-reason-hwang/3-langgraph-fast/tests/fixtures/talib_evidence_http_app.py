@@ -19,6 +19,7 @@ from server.run_manager import RunManager
 from server.runs import router as runs_router
 from server.runs import runtime
 from server.threads import router as threads_router
+from tests.fixtures.openui_composition_model import CompositionModel
 
 SUMMARIES = []
 
@@ -92,7 +93,10 @@ async def lifespan(app):
     repository = InMemoryAssistantRepository()
     set_assistant_repository(repository)
     graph = build_talib_agent(
-        agent=EvidenceAgent(), validator=validate, followups=follows
+        model=CompositionModel(),
+        agent=EvidenceAgent(),
+        validator=validate,
+        followups=follows,
     ).builder.compile(checkpointer=InMemorySaver())
     registry = GraphRegistry(graphs={"talib_agent": graph})
     configure_graph_registry(registry.schemas())

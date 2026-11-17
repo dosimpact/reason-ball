@@ -18,6 +18,7 @@ from server.runs import router as runs_router
 from server.runs import runtime
 from server.streaming import router as streaming_router
 from server.threads import router as threads_router
+from tests.fixtures.openui_composition_model import CompositionModel
 
 
 def prices(ticker, interval, count, adjusted):
@@ -120,10 +121,15 @@ async def lifespan(app):
     repository = InMemoryAssistantRepository()
     set_assistant_repository(repository)
     exported = build_talib_agent(
-        agent=ScriptedAgent(), fetcher=prices, followups=fixed_followups
+        model=CompositionModel(),
+        agent=ScriptedAgent(),
+        fetcher=prices,
+        followups=fixed_followups,
     )
     graph = exported.builder.compile(checkpointer=InMemorySaver())
-    registry = GraphRegistry(graphs={"talib_agent": graph, "fixture_other_graph": graph})
+    registry = GraphRegistry(
+        graphs={"talib_agent": graph, "fixture_other_graph": graph}
+    )
     configure_graph_registry(registry.schemas())
     await registry.seed(repository)
     runtime.manager = RunManager(runtime, registry)

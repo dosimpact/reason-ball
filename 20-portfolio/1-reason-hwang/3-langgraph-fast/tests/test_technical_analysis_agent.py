@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -8,7 +9,7 @@ from langchain_core.messages import AIMessage, HumanMessage
 from langgraph.graph import END, START, StateGraph
 from pydantic import ValidationError
 
-from domains.technical_analysis.presentation import build_program
+from domains.technical_analysis.presentation import presentation_input
 from domains.technical_analysis.report import AgentIndicator, crossing, indicator_signal
 from graph.primary_graphs.technical_analysis_agent.state import TechnicalAgentState
 from graph.primary_graphs.technical_analysis_agent.tools import build_tools
@@ -67,20 +68,12 @@ def test_full_series_and_signals_match_talib():
             indicator["series"][key], expected[indicator["name"]][-120:]
         )
         assert indicator["signal"]["state"] != "판단 불가"
-    program = build_program({"answer": report})
+    presentation = presentation_input(state)
     assert report["chart_snapshot"]["schemaVersion"] == 2
-    assert "IndicatorControls($chart_instances,catalog)" in program
-    assert "FinancialChart(chart)" in program
-    assert "QueryPanel([" in program
-    assert "Action([@Run(chart)])" in program
-    assert 'Input($chart_ticker, "Yahoo 티커", "text")' in program
-    assert '"ticker":$chart_ticker' in program
-    assert '"interval":$chart_interval' in program
-    assert '"count":$chart_count' in program
-    assert 'Query("technical_analysis_chart"' in program
-    assert "$chart_refresh_seconds = 0" in program
-    assert report["dates"][-1] in program
-    assert str(report["close"][-1]) in program
+    assert presentation["presentation_context"]["chartQuery"]["ticker"] == "TEST"
+    assert presentation["presentation_context"]["chartFallback"]["bars"] == []
+    assert "series" not in presentation["answer"]["indicators"][0]
+
 
 
 @pytest.mark.parametrize(
@@ -183,7 +176,7 @@ async def test_graph_presents_then_clears_stale_result():
         assert "FinancialChart(" in program
         return []
 
-    app = build_technical_analysis_agent(agent=graph.compile(), validator=validator)
+    app = build_technical_analysis_agent(model=PresentationModel(), agent=graph.compile(), validator=validator)
     state = await app.ainvoke({"messages": [HumanMessage(content="analyze")]})
     assert state["presentation"]["id"]
     state["messages"].append(HumanMessage(content="hello"))
@@ -196,7 +189,7 @@ def test_maximum_display_fits_openui_validator_limit():
     fetch, analyze = build_tools(fetcher=fixture_fetcher)
     state = call(fetch, {"ticker": "TEST", "count": 200}, {})
     state.update(call(analyze, {}, state))
-    program = build_program({"answer": state["analysis_result"]})
+    program = json.dumps(presentation_input(state), ensure_ascii=False, allow_nan=False)
     assert len(state["analysis_result"]["dates"]) == 200
     assert len(program) <= 60000
 
@@ -214,7 +207,7 @@ def test_missing_history_stays_null_and_warns():
     assert report["warnings"]
     assert len(report["dates"]) == 5
     assert all(item["signal"]["state"] == "판단 불가" for item in report["indicators"])
-    assert "NaN" not in build_program({"answer": report})
+    assert "NaN" not in json.dumps(presentation_input(state), allow_nan=False)
 
 
 @pytest.mark.asyncio
@@ -230,8 +223,59 @@ async def test_invalid_openui_has_text_fallback():
     async def reject(program):
         return ["invalid"]
 
-    app = build_technical_analysis_agent(agent=graph.compile(), validator=reject)
+    app = build_technical_analysis_agent(model=PresentationModel(), agent=graph.compile(), validator=reject)
     state = await app.ainvoke({"messages": [HumanMessage(content="analyze")]})
     assert state["presentation"] is None
     assert "시각화 생성에 실패" in state["messages"][-1].content
     assert state["analysis_result"]["dates"][-1] in state["messages"][-1].content
+
+
+class PresentationModel:
+    def __init__(self, error=None):
+        self.messages = []
+        self.error = error
+
+    def with_structured_output(self, schema):
+        return self
+
+    async def ainvoke(self, messages):
+        self.messages.append(list(messages))
+        if self.error:
+            raise self.error
+        return {"program": 'root = Col([FinancialChart(chart)], 3)\nchart = Query("technical_analysis_chart", {}, {"bars":[],"indicators":[]})'}
+
+
+@pytest.mark.asyncio
+async def test_model_receives_actual_question_explanation_and_compact_data():
+    async def business(state):
+        return {**report_state(), "messages": [AIMessage(content="RSI 근거 설명")]}
+    graph = StateGraph(TechnicalAgentState)
+    graph.add_node("business", business)
+    graph.add_edge(START, "business")
+    graph.add_edge("business", END)
+    async def validator(program):
+        return []
+    model = PresentationModel()
+    app = build_technical_analysis_agent(model=model, agent=graph.compile(), validator=validator)
+    result = await app.ainvoke({"messages": [HumanMessage(content="TEST RSI 차트 설명해줘")]})
+    assert result["presentation"]
+    payload = json.loads(model.messages[0][1].content)
+    assert payload["question"] == "TEST RSI 차트 설명해줘"
+    assert payload["answer"]["explanation"] == "RSI 근거 설명"
+    assert payload["presentationContext"]["chartFallback"]["bars"] == []
+    assert "series" not in payload["answer"]["indicators"][0]
+
+
+@pytest.mark.asyncio
+async def test_provider_failure_preserves_analysis_and_falls_back():
+    async def business(state):
+        return report_state()
+    graph = StateGraph(TechnicalAgentState)
+    graph.add_node("business", business)
+    graph.add_edge(START, "business")
+    graph.add_edge("business", END)
+    app = build_technical_analysis_agent(model=PresentationModel(RuntimeError("offline")), agent=graph.compile())
+    result = await app.ainvoke({"messages": [HumanMessage(content="TEST 분석")]})
+    assert result["analysis_result"]
+    assert result["presentation"] is None
+    assert "시각화 생성에 실패" in result["messages"][-1].content

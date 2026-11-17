@@ -9,7 +9,7 @@ from graph.primary_graphs.talib_agent.completion import (
 )
 from graph.primary_graphs.talib_agent.tools import build_tools
 from graph.primary_graphs.talib_agent.workflow import build_talib_agent
-from tests.test_talib_agent_graph import call, fetcher
+from tests.test_talib_agent_graph import PresentationModel, call, fetcher
 
 
 async def no_validation_errors(program):
@@ -65,7 +65,10 @@ class ComparisonAgent:
 async def test_partial_daily_answer_continues_once_and_keeps_both_intervals():
     agent = ComparisonAgent()
     graph = build_talib_agent(
-        agent=agent, validator=no_validation_errors, followups=no_followups
+        model=PresentationModel(),
+        agent=agent,
+        validator=no_validation_errors,
+        followups=no_followups,
     )
     result = await graph.ainvoke(
         {
@@ -116,7 +119,10 @@ async def test_incomplete_comparison_is_bounded_and_explicit_not_a_success_claim
 
     agent = Agent()
     result = await build_talib_agent(
-        agent=agent, validator=no_validation_errors, followups=no_followups
+        model=PresentationModel(),
+        agent=agent,
+        validator=no_validation_errors,
+        followups=no_followups,
     ).ainvoke({"messages": [HumanMessage(content="AAPL daily and weekly RSI 비교")]})
     assert agent.calls == 2
     assert "완료되지 않았습니다" in result["messages"][-1].content

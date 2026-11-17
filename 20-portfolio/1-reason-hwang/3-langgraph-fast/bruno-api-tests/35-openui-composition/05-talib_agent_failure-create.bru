@@ -1,0 +1,21 @@
+meta {
+  name: OPENUI-COMPOSE-001 talib_agent_failure-create
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/threads
+  body: json
+  auth: none
+}
+body:json {
+  {}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("composition contract", () => {
+  bru.setVar("compositionThread",res.getBody().thread_id);
+  });
+}

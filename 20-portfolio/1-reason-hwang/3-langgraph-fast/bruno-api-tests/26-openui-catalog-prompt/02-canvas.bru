@@ -15,14 +15,12 @@ assert {
   res.status: eq 200
 }
 tests {
-  test("Ready event and parser-validated scoped output",function(){
+  test("Model-generated Canvas items and parser-validated output",function(){
     const events=res.getBody().split(/\r?\n\r?\n/).flatMap(block=>{const lines=block.split(/\r?\n/);const name=lines.find(l=>l.startsWith("event:"))?.slice(6).trim();try{return[{name,data:JSON.parse(lines.filter(l=>l.startsWith("data:")).map(l=>l.slice(5).trim()).join("\n"))}];}catch{return[];}});
     expect(events.some(e=>e.name==="error")).to.equal(false);
-    const custom=events.filter(e=>e.name==="custom"&&e.data.channel==="canvas").map(e=>e.data);
-    const ready=custom.find(e=>e.type==="ready");expect(ready).to.be.an("object");
-    const state=events.filter(e=>e.name==="values").at(-1).data;const report=state.canvas_reports[ready.reportId];expect(report.status).to.equal("ready");
-    expect(report.program).to.include('IndicatorControls(');expect(report.program).to.include('taLayout = Grid(');expect(report.program).to.include('technical_analysis_catalog');
-    expect(custom.findIndex(e=>e.type==="validating")).to.be.lessThan(custom.findIndex(e=>e.type==="ready"));
+    const state=events.filter(e=>e.name==="values").at(-1).data;const report=state.canvas_reports[state.canvas_report_id];expect(report.status).to.equal("ready");
+    expect(report.program).to.include('CanvasItem(');expect(report.program).to.include('FinancialChart(');expect(report.program).to.include('technical_analysis_chart');
+    expect(Object.keys(report.elements)).to.have.lengthOf(4);
     bru.setVar("catalogProgramJson",JSON.stringify(report.program));
   });
 }

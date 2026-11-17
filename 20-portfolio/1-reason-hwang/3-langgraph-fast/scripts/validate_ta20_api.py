@@ -123,27 +123,6 @@ def main():
         evidence.append(
             "all20 aligned finite outputs + independent SMA/AO/BBANDS/Donchian/CMF/AD/PVT/OBV arithmetic"
         )
-        from domains.technical_analysis.presentation import build_program
-
-        answer = {
-            **large,
-            "dates": [bar["time"] for bar in large["bars"]],
-            "chart_snapshot": large,
-        }
-        program = build_program({"answer": answer})
-        assert (
-            "IndicatorControls(" in program and "technical_analysis_catalog" in program
-        )
-        assert len(program) <= 60000
-        validation = client.post(
-            "http://127.0.0.1:3183/api/sec-ui/validate", json={"program": program}
-        )
-        validation.raise_for_status()
-        assert validation.json()["valid"], validation.json()
-        Path("/tmp/ta20-generated-program.txt").write_text(program)
-        evidence.append(
-            "actual20-output deterministic OpenUI program accepted by Host parser;IndicatorControls/catalogQuery;<=60000chars"
-        )
         small = get(count=60, indicators="all")
         assert small["origin"] == large["origin"]
         assert small["bars"] == large["bars"][-60:]

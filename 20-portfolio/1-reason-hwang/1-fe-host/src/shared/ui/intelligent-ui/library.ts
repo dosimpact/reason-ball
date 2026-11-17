@@ -1,4 +1,6 @@
-import { createLibrary } from "@openuidev/react-lang";
+import { createLibrary, type PromptOptions } from "@openuidev/react-lang";
+import { financialPromptExamples } from "./components/financial/prompt-examples";
+import { canvasItemPromptExamples } from "./components/canvas-item/prompt-examples";
 import { actions } from "./actions";
 import { functions } from "./functions";
 import "./components/theme.css";
@@ -80,3 +82,16 @@ export const library = createLibrary({
 });
 
 // SEC answers use server-validated findings; this exact catalog also validates the response.
+
+/** openui generate discovers this export and passes it to library.prompt(). */
+export const promptOptions: PromptOptions = {
+  toolCalls: true,
+  bindings: true,
+  examples: [...financialPromptExamples, ...canvasItemPromptExamples],
+  additionalRules: [
+    "Examples illustrate syntax, not required layouts or evidence. Replace sample identifiers, dates, tickers and numbers with supplied data. Choose the components and layout appropriate to the question.",
+    "For technical analysis use Query-backed FinancialChart with the supplied request; do not invent OHLCV or indicator arrays. Keep each Query, labelled controls and manual refresh together in QueryPanel. Preserve the requested instance IDs and parameters.",
+    "Only in Canvas mode wrap each supplied canvasItems entry with CanvasItem using its exact ID. Use separate reactive variables and Query statements per item so pinned elements remain independent. Do not invent IDs or wrap the complete response as one item.",
+    "For TA-Lib use supplied bounded output points, dates, nulls, units, errors and warnings. Pattern codes are not probabilities. A UI example never supplies real market evidence.",
+  ],
+};

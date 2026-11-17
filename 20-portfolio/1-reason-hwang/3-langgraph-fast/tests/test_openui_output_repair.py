@@ -126,3 +126,24 @@ async def test_stage_logging_never_contains_payloads(caplog):
     assert 'validator failure' in caplog.text
     assert 'error_count=1' in caplog.text
     assert 'private-' not in caplog.text
+
+
+@pytest.mark.asyncio
+async def test_output_graph_forwards_trusted_context_through_repair():
+    import json
+
+    from graph.subgraphs.openui_output.workflow import build_output_graph
+
+    model = Model([GeneratedUI(program=PROGRAM), GeneratedUI(program=PROGRAM)])
+    validator = AsyncMock(side_effect=[["Missing server-owned CanvasItem ID"], []])
+    context = {"kind": "technical_analysis", "canvasItems": [{"id": "report:chart"}]}
+    result = await build_output_graph(model, validator=validator).ainvoke({
+        "question": "주봉 비교", "answer": {"symbol": "AAPL"},
+        "presentation_context": context, "host_evidence": False,
+    })
+    assert result["program"] == PROGRAM
+    assert model.calls == 2
+    for messages in model.messages:
+        assert json.loads(messages[1].content)["presentationContext"] == context
+        assert "server-supplied presentationContext" in messages[0].content
+    assert "Missing server-owned CanvasItem ID" in model.messages[1][-1].content

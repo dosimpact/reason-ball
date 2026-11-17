@@ -1,12 +1,12 @@
 """API fixture for the real Canvas graph's OpenUI model-input boundary."""
 
+import json
 from contextlib import asynccontextmanager
 
 from fastapi_parity_app import app, validation_lifespan
 from langchain_core.language_models.fake_chat_models import FakeMessagesListChatModel
-from langchain_core.messages import AIMessageChunk
 
-from domains.technical_analysis.canvas import layout_errors
+from domains.technical_analysis.presentation import canvas_item_errors
 from graph.primary_graphs.technical_analysis_canvas_agent.workflow import (
     build_technical_analysis_canvas_agent,
 )
@@ -21,11 +21,19 @@ class CatalogSpy(FakeMessagesListChatModel):
     def bind_tools(self, *args, **kwargs):
         return self
 
-    async def astream(self, messages, config=None, **kwargs):
+    def with_structured_output(self, schema):
+        return self
+
+    async def ainvoke(self, messages, config=None, **kwargs):
         CAPTURED.append(messages)
-        yield AIMessageChunk(
-            content='taLayout = Grid([taPanel, Markdown("검증된 지표 설명"), taSignals], 2, 320, 4)'
-        )
+        context = json.loads(messages[1].content)["presentationContext"]
+        nodes, statements = [], []
+        for index, item in enumerate(context["canvasItems"]):
+            query = f"chart{index}"
+            args = {**context["chartQuery"], "instances": json.dumps(item["instances"])}
+            statements.append(query + ' = Query("technical_analysis_chart", ' + json.dumps(args) + ', ' + json.dumps(context["chartFallback"]) + ')')
+            nodes.append('CanvasItem(' + json.dumps(item["id"]) + ', ' + json.dumps(item["title"]) + ', [FinancialChart(' + query + ')])')
+        return {"program": "root = Col([" + ",".join(nodes) + "], 4)\n" + "\n".join(statements)}
 
 
 @asynccontextmanager
@@ -55,22 +63,11 @@ async def capture_status():
         "latestCatalogExactPrefix": all(p.startswith(catalog) for p in prompts),
         "IndicatorControls": all("IndicatorControls(" in p for p in prompts),
         "catalogQuery": all("technical_analysis_catalog" in p for p in prompts),
-        "scopeAfterCatalog": all(
-            p.index("TA CANVAS SCOPE") >= len(catalog) for p in prompts
-        ),
-        "serverOwnsRootQuery": all(
-            "server owns the prefix, Query, IndicatorControls, data and final root" in p
-            for p in prompts
-        ),
-        "allowedScope": all(
-            "Use only Col/Row/Grid/Text/Title/Markdown" in p for p in prompts
-        ),
-        "invalidQueryBlocked": bool(
-            layout_errors('taLayout = Col([taPanel, Query("x",{}), taSignals], 4)')
-        ),
-        "extraAssignmentBlocked": bool(
-            layout_errors("taLayout = Col([taPanel, taSignals], 4)\nsnapshot = {}")
-        ),
+        "serverContextConstraints": all("Follow the server-supplied presentationContext constraints" in p for p in prompts),
+        "modelOwnsCompleteProgram": all("complete OpenUI program" in p for p in prompts),
+        "allowedScope": all("presentationContext" in p for p in prompts),
+        "invalidQueryBlocked": bool(canvas_item_errors('root = CanvasItem("foreign", "", [])', {"saved:chart"})),
+        "extraAssignmentBlocked": bool(canvas_item_errors('root = CanvasItem("saved:chart", "", [])\nother = CanvasItem("saved:chart", "", [])', {"saved:chart"})),
     }
 
 

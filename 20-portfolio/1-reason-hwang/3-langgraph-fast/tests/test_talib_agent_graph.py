@@ -18,6 +18,24 @@ from graph.primary_graphs.talib_agent.workflow import (
 from graph.shared.value_objects import PriceData
 
 
+class PresentationModel:
+    def __init__(self, error=None):
+        self.calls = []
+        self.error = error
+
+    def with_structured_output(self, schema):
+        return self
+
+    async def ainvoke(self, messages):
+        self.calls.append(messages)
+        if self.error:
+            raise self.error
+        payload = json.loads(messages[-1].content)
+        context = payload["presentationContext"]
+        identifiers = [r["id"] for r in context["results"]]
+        return {"program": "root = Text(" + json.dumps(", ".join(identifiers)) + ")"}
+
+
 def fetcher(ticker, interval, count, adjusted):
     return SimpleNamespace(
         prices=[
@@ -156,7 +174,7 @@ async def test_messages_only_public_input_and_private_agent_adapter_multi_turn()
             }
 
     async def validator(program):
-        assert "Select(" in program and "details[$selected]" in program
+        assert program.startswith("root = Text(")
         return []
 
     async def follows(*args):
@@ -165,7 +183,10 @@ async def test_messages_only_public_input_and_private_agent_adapter_multi_turn()
             "followUpsStatus": "ready",
         }
 
-    graph = build_talib_agent(agent=Agent(), validator=validator, followups=follows)
+    model = PresentationModel()
+    graph = build_talib_agent(
+        model=model, agent=Agent(), validator=validator, followups=follows
+    )
     assert set(graph.get_input_jsonschema()["properties"]) == {"messages"}
     persisted = graph.builder.compile(checkpointer=InMemorySaver())
     config = {"configurable": {"thread_id": "owned-talib"}}
@@ -173,6 +194,10 @@ async def test_messages_only_public_input_and_private_agent_adapter_multi_turn()
         {"messages": [HumanMessage(id="h1", content="calculate")]}, config
     )
     assert first["presentation"] and first["followUpsStatus"] == "ready"
+    assert len(model.calls) == 1
+    evidence = json.loads(model.calls[0][-1].content)["presentationContext"]
+    assert evidence["results"][0]["id"] == "rsi"
+    assert len(evidence["results"][0]["outputs"]["real"]["points"]) <= 120
     assert len(first["datasets"]["AAPL"]["dates"]) == 600
     second = await persisted.ainvoke(
         {"messages": [HumanMessage(id="h2", content="explain")]}, config
@@ -232,7 +257,7 @@ async def test_validation_failure_does_not_publish_unvalidated_program():
         return {"followUps": [], "followUpsStatus": "unavailable"}
 
     result = await build_talib_agent(
-        agent=Agent(), validator=validator, followups=follows
+        model=PresentationModel(), agent=Agent(), validator=validator, followups=follows
     ).ainvoke({"messages": [HumanMessage(content="go")]})
     assert result["presentation"] is None
     assert "검증" in result["messages"][-1].content
@@ -269,7 +294,7 @@ async def test_oversized_presentation_falls_back_without_discarding_results(
     def oversized(state):
         raise ValueError("too large")
 
-    monkeypatch.setattr(workflow, "build_program", oversized)
+    monkeypatch.setattr(workflow, "build_presentation_context", oversized)
 
     class Agent:
         async def ainvoke(self, state):
@@ -317,3 +342,60 @@ async def test_warmup_provider_failure_is_a_tool_error_not_failed_graph():
         result["messages"][-1].status == "error" and result["current_result_ids"] == []
     )
     assert result["analysis_error"] == "Unavailable"
+
+
+def test_presentation_context_selects_current_results_and_preserves_gaps():
+    from graph.primary_graphs.talib_agent.presentation import build_presentation_context
+
+    result = {
+        "id": "current",
+        "function": "SMA",
+        "status": "success",
+        "dates": [str(i) for i in range(600)],
+        "inputMetadata": {
+            "price": {"source_url": "https://example.test/prices", "currency": "USD"}
+        },
+        "outputs": {"real": {"values": [1] * 599 + [None], "lastBarValue": None}},
+    }
+    state = {
+        "results": {"current": result, "stale": {"id": "stale"}},
+        "current_result_ids": ["current"],
+    }
+    context = build_presentation_context(state)
+    assert [row["id"] for row in context["results"]] == ["current"]
+    displayed = context["results"][0]
+    assert displayed["inputMetadata"] == result["inputMetadata"]
+    assert len(displayed["outputs"]["real"]["points"]) == 120
+    assert displayed["outputs"]["real"]["points"][-1] == {"date": "599", "value": None}
+    assert len(result["outputs"]["real"]["values"]) == 600
+
+
+@pytest.mark.asyncio
+async def test_presentation_provider_failure_keeps_results_and_followups():
+    class Agent:
+        async def ainvoke(self, state):
+            return {
+                "messages": [AIMessage(content="Verified answer")],
+                "results": {
+                    "r": {
+                        "id": "r",
+                        "function": "ADD",
+                        "status": "success",
+                        "outputs": {},
+                    }
+                },
+                "current_result_ids": ["r"],
+            }
+
+    async def follows(*args):
+        return {"followUps": ["다른 기간"], "followUpsStatus": "ready"}
+
+    model = PresentationModel(error=RuntimeError("provider unavailable"))
+    result = await build_talib_agent(
+        model=model, agent=Agent(), followups=follows
+    ).ainvoke({"messages": [HumanMessage(content="calculate")]})
+    assert len(model.calls) == 1
+    assert result["presentation"] is None
+    assert result["results"]["r"]["status"] == "success"
+    assert any(m.content == "Verified answer" for m in result["messages"])
+    assert result["followUpsStatus"] == "ready"

@@ -1,0 +1,21 @@
+meta {
+  name: OPENUI-COMPOSE-001 technical_analysis_canvas_agent_failure-create
+  type: http
+  seq: 19
+}
+post {
+  url: {{baseUrl}}/threads
+  body: json
+  auth: none
+}
+body:json {
+  {}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("composition contract", () => {
+  bru.setVar("compositionThread",res.getBody().thread_id);
+  });
+}

@@ -8,8 +8,8 @@
 /langgraph-dev-chat → /api/langgraph-runtime → development runtime
 /fastapi-chat, /technical-analysis, /technical-analysis/canvas
   → /api/fastapi-langgraph → FastAPI + PostgreSQL checkpoints
-  technical_analysis_agent → Deep Agent tools → deterministic inline presentation
-  technical_analysis_canvas_agent → route/tools → deterministic CanvasItem presentation → explicit user pin
+  technical_analysis_agent → Deep Agent tools → shared OpenUI LLM composition → validated inline presentation
+  technical_analysis_canvas_agent → route/tools → shared OpenUI LLM composition → validated CanvasItem presentation → explicit user pin
 ```
 
 기존 primary graph 소유 경로는 `3-langgraph-fast/src/graph/primary_graphs/technical_analysis_agent/`, Canvas 전용 경로는 `technical_analysis_canvas_agent/`이다. 상태는 DeepAgentState를 확장하며 full prices, price_request, price_metadata, indicators, analysis_result, analysis_error, presentation을 가진다. prepare는 매 turn의 결과/표시만 지워 오래된 결과가 새 답변으로 노출되지 않게 한다.
@@ -23,9 +23,9 @@
 
 ## OpenUI와 Host 계약
 
-기존 inline TA는 결정적 OpenUI 프로그램을 기존 Host parser로 검증해 presentation으로 반환한다. 별도 Canvas의 TA-CANVAS-001은 결정적 가격·지표 Query panel/근거 데이터를 보존하고, 별도 모델 composer가 허용된 layout/prose만 구성한 뒤 기존 Host parser/catalog validator로 검증한다. 모델은 가격 배열·Query·지표 수치를 새로 정의하지 않으며 taPanel/taSignals를 각각 한 번 포함한다. 다른 OpenUI 호출자의 기본 생성 경로는 유지한다.
+세 그래프(technical_analysis_agent, technical_analysis_canvas_agent, talib_agent)는 공통 `build_output_graph`로 UI를 생성한다. `library.ts`의 componentGroups와 `promptOptions.examples`를 기존 CLI로 생성한 동일 카탈로그를 사용한다. Python presentation 어댑터는 최신 질문·설명과 검증된 결과·표시 제약만 전달하며 DSL 배치를 만들지 않는다. 모델이 전체 프로그램을 생성하고 Host parser와 Canvas ID 검사를 통과해야 게시한다. 형식·DSL 오류는 전체 두 번의 호출 안에서 수정하며 공급자 오류는 계산 상태·텍스트를 보존하는 실패 안내로 처리한다.
 
-`technical_analysis_canvas_agent`만 custom canvas event와 `canvas_reports` snapshot으로 보고서를 전달한다. 기존 `technical_analysis_agent`와 다른 graph의 `presentation = {id, program}` 경로는 유지한다. `/langgraph-dev-chat`은 공통 `AgentConversation`의 OpenUI AgentInterface·Composer·메시지 목록을 사용하며, 기존 TA는 inline 본문과 검증된 OutputView를 표시한다. Canvas TA는 canvas에서 검증된 보고서를 표시하고 채팅에는 짧은 안내와 도구 타임라인을 남긴다. 그래프 선택과 LangGraph SDK 전송은 기존 ChatProvider가 유지한다. values는 snapshot으로 교체하며 delta처럼 누적하지 않는다. 그래프 선택 목록은 runtime assistant 검색을 페이지별로 조회해 모든 등록 graph를 표시한다. 채팅과 구조화 JSON 입력 모드를 구분하며 서브그래프도 JSON 입력과 원본 결과로 테스트할 수 있다. 기술적 분석 에이전트는 채팅 모드를 유지한다.
+`technical_analysis_canvas_agent`는 `presentation`과 `canvas_reports` snapshot으로 보고서를 전달한다. 기존 `technical_analysis_agent`와 다른 graph의 `presentation = {id, program}` 경로는 유지한다. `/langgraph-dev-chat`은 공통 `AgentConversation`의 OpenUI AgentInterface·Composer·메시지 목록을 사용하며, 기존 TA는 inline 본문과 검증된 OutputView를 표시한다. Canvas TA는 채팅에 설명과 검증된 선택형 요소를 표시하며 사용자가 선택한 요소를 Canvas에 추가한다. 그래프 선택과 LangGraph SDK 전송은 기존 ChatProvider가 유지한다. values는 snapshot으로 교체하며 delta처럼 누적하지 않는다. 그래프 선택 목록은 runtime assistant 검색을 페이지별로 조회해 모든 등록 graph를 표시한다. 채팅과 구조화 JSON 입력 모드를 구분하며 서브그래프도 JSON 입력과 원본 결과로 테스트할 수 있다. 기술적 분석 에이전트는 채팅 모드를 유지한다.
 
 ## 실행과 검증
 
@@ -66,7 +66,7 @@ Bruno는 실제 Yahoo·모델·Host validator 연결이 필요하다. 테스트�
 
 응답은 source/symbol/currency/exchange/timezone/interval/auto_adjust/fetched_at/cache_hit/source_url metadata와 `as_of`, `parameters`, `indicators`, `warnings`, `requested_count`, `available_count`, `bars`를 제공한다. 각 bar는 정렬된 `time`(ISO 날짜), open/high/low/close/volume와 선택한 지표의 sma/rsi/macd/signal/histogram이다. 준비 구간 부족값은 null로 유지하며 모든 값은 같은 날짜 행에 정렬한다.
 
-결정적 프로그램은 최초 `snapshot`, reactive ticker/interval/count, 기본0인 `$chart_refresh_seconds` 및 `Query("technical_analysis_chart", args, snapshot, $chart_refresh_seconds)`를 선언하고 `FinancialChart(chart)`로 표시한다. Host provider는 이 이름과 알려진 인자만 허용한다. 응답은 Zod schema로 검사하며 API 실패는 빈 bars와 오류 안내로 표시한다. SDK의 query key별 결과 격리가 늦게 도착한 다른 설정의 값을 차단하고 프로그램 교체·unmount 시 진행 중인 fetch를 취소하지 않으며 이전 출력의 성공 콜백은 무시한다.
+모델은 제공된 요청 인자로 Query-backed FinancialChart를 구성한다. 초기 fallback은 빈 bars/indicators이며 실제 수치는 Query가 조회한다. reactive ticker/interval/count/instances와 기본0인 refresh를 사용하도록 카탈로그와 표시 제약으로 안내한다. Host provider는 이 이름과 알려진 인자만 허용한다. 응답은 Zod schema로 검사하며 API 실패는 빈 bars와 오류 안내로 표시한다. SDK의 query key별 결과 격리가 늦게 도착한 다른 설정의 값을 차단하고 프로그램 교체·unmount 시 진행 중인 fetch를 취소하지 않으며 이전 출력의 성공 콜백은 무시한다.
 
 최신 메시지만 opt-in30초 polling을 제공한다. 이전 메시지와 실행 중 메시지는 polling을 멈추며 화면 제거 시 SDK timer와 chart/observer를 정리한다. Lightweight Charts는 candles·volume·SMA·RSI·MACD pane을 공유 시간축으로 그리고 null을 whitespace로 유지한다. Host 테마 변경을 관찰하고 컨테이너 폭에 맞춰 크기를 조정한다. TradingView 저작권·링크를 표시한다.
 
@@ -74,7 +74,7 @@ Bruno는 실제 Yahoo·모델·Host validator 연결이 필요하다. 테스트�
 
 ## TA-QUERY-002: Query 수동 재실행
 
-결정적 프로그램은 ticker/interval/count controls와 FinancialChart를 `QueryPanel([...], Action([@Run(chart)]))`에 함께 배치한다. native OpenUI `@Run`이 `chart` Query statement의 cache를 invalidate하므로 동일 인자로도 새 HTTP 조회가 발생한다. QueryPanel은 SDK query loading·streaming 상태를 사용해 접근 가능한 refresh 버튼과 pending 상태를 표시하며, 모델 action으로 전송하지 않는다. polling·state 격리·unmount 정리 정책은 TA-QUERY-001과 같다.
+공통 카탈로그 예시와 표시 제약은 ticker/interval/count controls와 FinancialChart를 `QueryPanel([...], Action([@Run(chart)]))`에 함께 배치하도록 안내한다. native OpenUI `@Run`이 `chart` Query statement의 cache를 invalidate하므로 동일 인자로도 새 HTTP 조회가 발생한다. QueryPanel은 SDK query loading·streaming 상태를 사용해 접근 가능한 refresh 버튼과 pending 상태를 표시하며, 모델 action으로 전송하지 않는다. polling·state 격리·unmount 정리 정책은 TA-QUERY-001과 같다.
 
 [변경·검증 기록](../../flow/2026-11-14-openui-query-manual-refresh.md)
 
@@ -84,7 +84,7 @@ Host `/langgraph-dev-chat`은 기존 values snapshot의 이번 turn tool_calls/t
 
 ## TA-CANVAS-003: 선택형 요소와 인용 문맥
 
-Canvas 전용 그래프는 계산 후 `presentation={id, program}`을 반환한다. id는 저장된 보고서 UUID다. OpenUI는 `CanvasItem(id,title,children)`으로 가격 및 지표 인스턴스별 QueryPanel·FinancialChart를 각각 감싼다. 요소 ID는 보고서 UUID를 포함한다. 모델은 계산 결과를 설명하고 UI 프로그램은 검증된 결과에서 결정적으로 구성한다. 모델이 보고서 전체를 Canvas에 스트리밍하던 기존 경로는 사용하지 않는다.
+Canvas 전용 그래프는 계산 후 `presentation={id, program}`을 반환한다. id는 저장된 보고서 UUID다. OpenUI는 `CanvasItem(id,title,children)`으로 가격 및 지표 인스턴스별 QueryPanel·FinancialChart를 각각 감싼다. 요소 ID는 보고서 UUID를 포함한다. 모델은 계산 결과를 설명하고 공유 카탈로그를 이용해 전체 UI 프로그램을 구성한다. 서버는 필요한 CanvasItem ID 집합을 제공하고 누락·중복·다른 ID를 거부한다. 모델이 보고서 전체를 Canvas에 스트리밍하던 기존 경로는 사용하지 않는다.
 
 각 요소에는 별도 reactive 변수와 Query가 있다. 가격 전용 v2 chart는 명시적 `instances=[]`를 허용하고 지표 요소는 해당 인스턴스를 조회한다. 기존 v1 및 생략 시 기본 지표 계약은 유지한다. 요소별 조회는 독립되므로 많은 지표를 선택하면 초기 HTTP 조회 수도 늘어난다.
 
@@ -106,7 +106,7 @@ v2 응답의 공통 OHLCV `bars`와 `indicators[]`의 인스턴스별 series.val
 
 누적 origin은 `date`, `availableHistory`, `policy`, `requestedDate`, `baseline`으로 공개한다. OBV는 첫 거래량, PVT는0, AD는 첫 money-flow-volume을 기준으로 계산한다. count는 표시만 자르며 동일 소스 이력의 겹치는 날짜 값이 유지된다. 공급자 이력 수정은 캐시 버전과 origin 정책의 제약으로 명시한다. 지표 수식·EMA seed·lookback·null/분모0·개별 시그널은 [Python 계산 계약](../tech-shared/3-langgraph-fast/ta20.md)을 따른다.
 
-OpenUI는 `technical_analysis_catalog` Query와 `IndicatorControls($chart_instances,catalog)`, reactive 인스턴스 JSON을 사용한다. 서버는 검증된 결과로 최소 DSL을 만들며 초기 fallback에 큰 수치 배열을 삽입하지 않는다. 실제 숫자는 모델 없는 Query로 조회한다. 두 TA 그래프는 같은 계산·설정 계약을 공유하며 inline은 결정적 presentation, Canvas는 UUID별 저장 근거와 선택형 요소 표시를 사용한다. 프로토콜·수치·모델 비호출·parser 검증 증거와 사용자에게 맡긴 브라우저 검증 범위는 [당일 기록](../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)에 둔다.
+OpenUI는 `technical_analysis_catalog` Query와 `IndicatorControls($chart_instances,catalog)`, reactive 인스턴스 JSON을 사용한다. 서버는 검증된 결과에서 compact 표시 입력을 만들며 모델이 DSL을 생성한다. 초기 fallback에 큰 수치 배열을 삽입하지 않는다. 실제 숫자는 모델 없는 Query로 조회한다. 두 TA 그래프는 같은 계산·설정 계약을 공유하며 inline은 LLM 생성 presentation, Canvas는 UUID별 저장 근거와 선택형 요소 표시를 사용한다. 프로토콜·수치·모델 비호출·parser 검증 증거와 사용자에게 맡긴 브라우저 검증 범위는 [당일 기록](../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)에 둔다.
 
 ## TALIB-AGENT-001: 전체 네이티브 TA-Lib 에이전트
 
@@ -143,10 +143,9 @@ native core를 각각 `0.8.3`으로 고정하고 설치된 네이티브 카탈�
 기록하고 계산 가용 날짜를 이동하지 않아 미래 참조를 방지한다.
 
 각 턴 시작에 current_result_ids/presentation/followUps를 초기화해 이전 차트가 새 답변으로 노출되지
-않게 한다. 계산 결과로 결정적인 inline OpenUI 표와 선택형 출력 상세 차트를 만든다. 전체 결과가
+않게 한다. 계산 결과의 bounded context를 공통 LLM composer에 전달하여 적절한 표·차트·컨트롤을 구성한다. 전체 결과가
 선택 가능하며 모든 배열은 상태에 남긴다. 표시 프로그램은 60,000자 한도에서 출력 수에 따라 차트
-표시 봉 수를 제한하고 그 한계를 명시한다. null 차트 값은 보간하지 않고 제외하며 정수 출력은 막대로
-표시한다. 티커·통화·표시 기간·파라미터·출처/조회 시각·origin·경고를 함께 보여준다. 실제 Host parser/
+표시 봉 수를 제한하고 그 한계를 명시한다. 입력 context의 null·날짜를 보존하며 결측을 보간하지 않고 정수 출력의 코드 의미를 유지하도록 안내한다. 티커·통화·표시 기간·파라미터·출처/조회 시각·origin·경고를 함께 보여준다. 실제 Host parser/
 catalog validator를 통과한 프로그램만 presentation으로 반환하고 실패 시 텍스트와 계산 상태를 보존한다.
 후속 질문 3개는 별도 추천 단계에서 생성하며 실패는 기존 답변을 무효화하지 않는다.
 
@@ -206,3 +205,12 @@ Canvas 너비600px 미만은 단일열 projection으로 표시하고 저장된 d
 ## PRICE-RESPONSE-LLM-001: 가격 답변 생성
 
 format_response는 async LLM 노드다. 최신 사용자 요청과 구조화한 조회 결과(종목·통화·주기·조회 시각·날짜별 가격·장중 여부·오류 코드)를 도구가 연결되지 않은 모델에 전달하고 반환 메시지를 messages와 response에 반영한다. 고정 Markdown 포맷과 언어별 오류 문구 조립은 제거했다. close 기준·가격 창작 금지·장중 표시·오류 설명을 prompt로 지시한다. 오류가 있으면 과거 prices를 전달하지 않는다. 정상 요청은 추출1회+답변1회 모델 호출이며 답변 모델 실패는 실행 오류로 전파된다.
+
+
+## OPENUI-COMPOSE-001: 공통 카탈로그 기반 생성
+
+TA20은 원시 가격/지표 배열 대신 요청 인자와 요약을 전달하고 FinancialChart의 실제 수치는 기존 Query API가 제공한다. TA-Lib은 현재 결과의 출력당 최대120점, 출력 수에 따른 400점 목표와 JSON 60000자 상한의 context를 전달하며 전체 배열은 state에 보존한다. 카탈로그 예시는 구문·조합 안내이고 고정 레이아웃이 아니다.
+
+모델 출력은 parser로 구조를 검증하며 Canvas 요소 식별자는 추가로 강제한다. 설명의 모든 의미·숫자나 Query 조건의 일치까지 parser가 검증하는 것은 아니다. 모델에 전달한 검증된 데이터와 생성 UI의 의미 일치는 별도 품질 관리 대상이다. 모델 UI 생성에 추가 호출과 지연이 발생한다. 고정 업무 action controls는 이 전환 대상이 아니다.
+
+[구현·검증 기록](../../flow/2026-11-17-openui-llm-composition.md).

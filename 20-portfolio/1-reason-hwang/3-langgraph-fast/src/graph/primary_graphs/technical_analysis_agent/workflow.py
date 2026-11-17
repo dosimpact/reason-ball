@@ -1,17 +1,19 @@
 """Deep Agent business tools → shared OpenUI presentation subgraph."""
 
+import logging
 from uuid import uuid4
 
-import httpx
 from deepagents import create_deep_agent
 from langchain_core.messages import AIMessage
 from langgraph.graph import END, START, StateGraph
 
-from domains.technical_analysis.presentation import build_program
+from domains.technical_analysis.presentation import presentation_input
 from graph.primary_graphs.sec_intelligent_ui.workflow import chat_model
 from graph.primary_graphs.technical_analysis_agent.state import TechnicalAgentState
 from graph.primary_graphs.technical_analysis_agent.tools import build_tools
 from graph.subgraphs.openui_output.workflow import build_output_graph
+
+logger = logging.getLogger(__name__)
 
 SYSTEM = """You are a technical analysis agent. Respond in the user's language, Korean by default.
 Supported indicators: SMA EMA MACD PSAR CCI STOCH RSI STOCHRSI WILLIAMS_R AO TSI UO TRIX BBANDS KELTNER DONCHIAN OBV PVT AD CMF. Keep default RSI/SMA/MACD unless the user asks otherwise. For all 20, call analyze_ohlcv_with_talib(all_indicators=True). For multiple settings of one indicator supply the full instance list with distinct instanceId and parameters objects. Default RSI14 SMA20 MACD12/26/9, 120 completed daily bars.
@@ -50,7 +52,7 @@ def build_technical_analysis_agent(
         name="technical_analysis_business",
     )
     output = build_output_graph(
-        model, validator=validator, program_builder=build_program
+        model, validator=validator
     )
 
     async def prepare(state):
@@ -61,7 +63,9 @@ def build_technical_analysis_agent(
             return await business.ainvoke(state)
         try:
             from domains.technical_analysis.request import AnalysisRequest
-            from graph.primary_graphs.technical_analysis_agent.tools import execute_analysis_request
+            from graph.primary_graphs.technical_analysis_agent.tools import (
+                execute_analysis_request,
+            )
             request = AnalysisRequest.model_validate(state["analysis_request"])
             result = await execute_analysis_request(state, business_tools, request)
             return {**result, "analysis_request": None}
@@ -74,14 +78,11 @@ def build_technical_analysis_agent(
             return {"presentation": None}
         try:
             result = await output.ainvoke(
-                {
-                    "question": "technical analysis",
-                    "answer": report,
-                    "host_evidence": False,
-                }
+                presentation_input(state)
             )
             return {"presentation": {"id": str(uuid4()), "program": result["program"]}}
-        except (ValueError, httpx.HTTPError):
+        except Exception:
+            logger.exception("Technical analysis presentation failed")
             summary = "\n".join(
                 f"{item['name']}: {item['signal']}" for item in report["indicators"]
             )

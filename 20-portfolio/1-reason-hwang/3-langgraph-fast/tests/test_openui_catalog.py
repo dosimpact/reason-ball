@@ -1,11 +1,13 @@
 """Capture the actual model boundary, including catalog refresh without re-import."""
 from copy import deepcopy
 from pathlib import Path
-from types import SimpleNamespace
 
 import pytest
 
-from domains.technical_analysis.canvas import compose_canvas, layout_errors
+from domains.technical_analysis.presentation import (
+    canvas_item_errors,
+    presentation_input,
+)
 from graph.subgraphs.openui_output import catalog
 from graph.subgraphs.openui_output.workflow import GeneratedUI, _compose_ui
 from tests.test_technical_analysis_agent import report_state
@@ -23,9 +25,6 @@ class ComposerSpy:
         self.calls.append(deepcopy(messages))
         return GeneratedUI(program='root = Col([Text("검증")], 4)')
 
-    async def astream(self, messages, **kwargs):
-        self.calls.append(deepcopy(messages))
-        yield SimpleNamespace(content='taLayout = Grid([taPanel, Markdown("설명"), taSignals], 2, 320, 4)')
 
 
 async def valid(_program):
@@ -49,11 +48,11 @@ async def test_actual_model_prompt_contains_catalog_and_rereads_updates(tmp_path
     path=tmp_path/'system-prompt.txt'
     monkeypatch.setattr(catalog,'CATALOG_PATH',path)
     spy=ComposerSpy()
-    report=report_state()['analysis_result'] if canvas else None
+    presentation = presentation_input(report_state(), 'saved-1') if canvas else None
     for revision in ('REVISION_A','REVISION_B'):
         path.write_text(original+'\n'+revision,encoding='utf-8')
         if canvas:
-            await compose_canvas(spy,report,'선택 지표 설명',lambda *_:None,valid)
+            await _compose_ui('선택 지표 설명', presentation['answer'], spy, validator=valid, presentation_context=presentation['presentation_context'])
         else:
             await _compose_ui('설명',{},spy,validator=valid)
     first,last=[messages[0].content for messages in spy.calls]
@@ -63,15 +62,12 @@ async def test_actual_model_prompt_contains_catalog_and_rereads_updates(tmp_path
         assert 'IndicatorControls(' in prompt and 'technical_analysis_catalog' in prompt
         assert 'Grid(children: Node[], columns?: number, minChildWidth?: number, gap?: number)' in prompt
     if canvas:
-        assert 'TA CANVAS SCOPE' in last
-        assert 'server owns the prefix, Query, IndicatorControls, data and final root' in last
-        assert 'Use only Col/Row/Grid/Text/Title/Markdown' in last
-        assert 'requested TA20 indicator instances' in last
-        assert 'price/volume/SMA/RSI/MACD' not in last
+        import json
+        payload = json.loads(spy.calls[-1][1].content)
+        assert payload["presentationContext"]["canvasItems"][0]["id"] == "saved-1:chart"
+        assert "taLayout" not in last
 
 
-def test_catalog_does_not_expand_canvas_execution_permissions():
-    assert layout_errors('taLayout = Col([taPanel, taSignals], 4)')==[]
-    assert layout_errors('taLayout = Col([taPanel, Query("x",{}), taSignals], 4)')
-    assert layout_errors('taLayout = Col([taPanel, taSignals], 4)\nsnapshot = {}')
-    assert layout_errors('taLayout = Col([taPanel, FinancialChart({}), taSignals], 4)')
+def test_catalog_does_not_expand_canvas_identity_permissions():
+    assert canvas_item_errors('root = CanvasItem("saved:chart", "Price", [])', {"saved:chart"}) == []
+    assert canvas_item_errors('root = CanvasItem("foreign", "Price", [])', {"saved:chart"})

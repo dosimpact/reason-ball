@@ -1,15 +1,20 @@
 """TA report canvas using the original agent's shared calculation tools."""
 
-from uuid import uuid4
 import json
+import logging
+from uuid import uuid4
 
 from deepagents import create_deep_agent
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langgraph.graph import END, START, StateGraph
 
 from graph.primary_graphs.sec_intelligent_ui.workflow import chat_model
-from graph.primary_graphs.technical_analysis_canvas_agent.state import TechnicalCanvasAgentState
 from graph.primary_graphs.technical_analysis_agent.tools import build_tools
+from graph.primary_graphs.technical_analysis_canvas_agent.state import (
+    TechnicalCanvasAgentState,
+)
+
+logger = logging.getLogger(__name__)
 
 SYSTEM = """You are a technical analysis agent. Respond in the user's language, Korean by default.
 Supported indicators: SMA EMA MACD PSAR CCI STOCH RSI STOCHRSI WILLIAMS_R AO TSI UO TRIX BBANDS KELTNER DONCHIAN OBV PVT AD CMF. Keep default RSI/SMA/MACD unless the user asks otherwise. For all 20, call analyze_ohlcv_with_talib(all_indicators=True). For multiple settings of one indicator supply the full instance list with distinct instanceId and parameters objects. Default RSI14 SMA20 MACD12/26/9, 120 completed daily bars.
@@ -47,6 +52,15 @@ def build_technical_analysis_canvas_agent(
         name="technical_analysis_business",
     )
     tools = build_tools(**kwargs)
+
+    from domains.technical_analysis.presentation import (
+        canvas_item_errors,
+        presentation_input,
+    )
+    from graph.subgraphs.openui_output.workflow import (
+        build_output_graph,
+        validate_program,
+    )
 
     async def prepare(state):
         from domains.technical_analysis.canvas import CanvasRequest
@@ -112,7 +126,9 @@ def build_technical_analysis_canvas_agent(
             if state["canvas_route"] == "structured":
                 from domains.technical_analysis.canvas import CanvasRequest
                 request = CanvasRequest.model_validate(context["request"])
-                from graph.primary_graphs.technical_analysis_agent.tools import execute_analysis_request
+                from graph.primary_graphs.technical_analysis_agent.tools import (
+                    execute_analysis_request,
+                )
                 updates = await execute_analysis_request(state, tools, request)
                 return {**updates, "canvas_report_id": report_id}
             business_state = dict(state)
@@ -137,13 +153,12 @@ def build_technical_analysis_canvas_agent(
             ]
             return {**result, "canvas_report_id": report_id}
         except Exception as error:
+            logger.exception("Canvas analysis failed")
             return {"canvas_report_id": report_id, "analysis_result": None,
                     "analysis_error": str(error)}
 
     async def present(state):
         from domains.technical_analysis.canvas import request_for
-        from domains.technical_analysis.presentation import build_program
-        from graph.subgraphs.openui_output.workflow import validate_program
         report_id = state.get("canvas_report_id")
         report = state.get("analysis_result")
         reports = dict(state.get("canvas_reports") or {})
@@ -158,10 +173,14 @@ def build_technical_analysis_canvas_agent(
                  "analysis": report, "snapshot": report.get("chart_snapshot"), "summary": summary,
                  **{key: state.get(key) for key in ("prices", "price_request", "price_metadata", "indicators")}}
         try:
-            program = build_program({"answer": report, "canvas_item_report_id": report_id})
-            errors = await (validator or validate_program)(program)
-            if errors:
-                raise ValueError("Canvas presentation validation failed: " + str(errors)[:1000])
+            presentation = presentation_input(state, report_id)
+            required_ids = {item["id"] for item in presentation["presentation_context"]["canvasItems"]}
+
+            async def check(program):
+                return [*await (validator or validate_program)(program), *canvas_item_errors(program, required_ids)]
+
+            result = await build_output_graph(model, validator=check).ainvoke(presentation)
+            program = result["program"]
             elements = {report_id + ":chart": {"type": "chart", "title": report["symbol"] + " · 가격 차트", "request": request, "asOf": report["dates"][-1]}}
             for index, indicator in enumerate(report["indicators"]):
                 elements[report_id + ":indicator:" + str(index)] = {"type": "indicator", "title": report["symbol"] + " · " + indicator["name"] + " 차트", "request": request, "asOf": report["dates"][-1], "name": indicator["name"], "parameters": indicator["parameters"], "signal": indicator["signal"]}
@@ -172,6 +191,7 @@ def build_technical_analysis_canvas_agent(
             messages = [] if has_answer else [AIMessage(content=title + " 분석 기준일 " + report["dates"][-1] + ". " + summary)]
             return {"canvas_reports": reports, "messages": messages, "presentation": {"id": report_id, "program": program}}
         except Exception as error:
+            logger.exception("Canvas presentation failed")
             fallback = "시각화 생성 실패. 분석 기준일 " + report["dates"][-1] + "\n" + summary
             reports[report_id] = {**saved, "status": "error", "error": str(error)}
             return {"canvas_reports": reports, "messages": [AIMessage(content=fallback)]}

@@ -12,5 +12,5 @@ assert {
   res.status: eq 200
 }
 tests {
-  test("Latest full catalog precedes restrictive per-call scope",function(){const b=res.getBody();expect(b.calls).to.equal(1);for(const [key,value] of Object.entries(b)){if(key!=="calls")expect(value,key).to.equal(true);}});
+  test("Latest full catalog and trusted per-call presentation context",function(){const b=res.getBody();expect(b.calls).to.equal(1);for(const [key,value] of Object.entries(b)){if(key!=="calls")expect(value,key).to.equal(true);}});
 }
