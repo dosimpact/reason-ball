@@ -15,6 +15,6 @@ tests {
   test("Only explicitly requested chat runs exist after chart GETs", function () {
     const runs=res.getBody();
     expect(runs).to.be.an("array");
-    expect(runs).to.have.lengthOf(Number((bru.getVar("canvasExpectedRuns") ?? bru.getEnvVar("canvasExpectedRuns")) || 8));
+    expect(runs).to.have.lengthOf(Number((bru.getVar("canvasExpectedRuns") ?? bru.getEnvVar("canvasExpectedRuns")) || 9));
   });
 }

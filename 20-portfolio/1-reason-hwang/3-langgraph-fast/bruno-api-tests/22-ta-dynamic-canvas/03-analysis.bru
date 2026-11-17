@@ -15,37 +15,31 @@ assert {
   res.status: eq 200
 }
 tests {
-  test("Real Yahoo TA canvas lifecycle and immutable evidence", function () {
+  test("Real Yahoo TA returns chat explanation and independently pinnable charts", function () {
     const events = res.getBody().split(/\r?\n\r?\n/).flatMap(block => {
       const name=block.split(/\r?\n/).find(line=>line.startsWith("event:"))?.slice(6).trim();
       const data=block.split(/\r?\n/).filter(line=>line.startsWith("data:")).map(line=>line.slice(5).trim()).join("\n");
       try { return [{name,data:JSON.parse(data)}]; } catch { return []; }
     });
-    const canvas=events.filter(event=>event.name==="custom" && event.data.channel==="canvas").map(event=>event.data);
     const state=events.filter(event=>event.name==="values").at(-1)?.data;
     expect(events.some(event=>event.name==="error")).to.equal(false);
-    const ready=canvas.find(event=>event.type==="ready");
-    expect(ready, JSON.stringify(canvas.filter(event=>event.type==="error"))).to.be.an("object");
-    expect(ready.reportId).to.match(/^[0-9a-f-]{36}$/);
-    const one=canvas.filter(event=>event.reportId===ready.reportId);
-    const types=one.map(event=>event.type);
-    expect(types[0]).to.equal("open");
-    expect(types.indexOf("reset")).to.be.greaterThan(types.indexOf("open"));
-    expect(types.indexOf("delta")).to.be.greaterThan(types.indexOf("reset"));
-    expect(types.lastIndexOf("validating")).to.be.greaterThan(types.indexOf("delta"));
-    expect(types.lastIndexOf("ready")).to.be.greaterThan(types.lastIndexOf("validating"));
-    expect(one.filter(event=>event.type==="delta").length).to.be.greaterThan(0);
-    const report=state.canvas_reports[ready.reportId];
+    const reportId=state.presentation?.id;
+    expect(reportId).to.match(/^[0-9a-f-]{36}$/);
+    const report=state.canvas_reports[reportId];
     expect(report.status).to.equal("ready");
     expect(report.analysis.symbol).to.equal("AAPL");
     expect(report.analysis.dates).to.have.lengthOf(60);
-    expect(report.program).to.equal(ready.payload.program);
+    expect(report.program).to.equal(state.presentation.program);
     expect(report.program).to.include('Query("technical_analysis_chart"');
-    expect(report.program).to.include("taLayout =");
+    expect(report.program).to.include("CanvasItem(");
+    expect(Object.keys(report.elements)).to.have.lengthOf(4);
+    expect(report.program.match(/CanvasItem\(/g)).to.have.lengthOf(4);
+    const answer=state.messages.filter(message=>message.type==="ai" && message.content).at(-1)?.content;
+    expect(answer).to.include("AAPL");
     if ((bru.getVar("canvasFailedReport") ?? bru.getEnvVar("canvasFailedReport"))) expect(state.canvas_reports[(bru.getVar("canvasFailedReport") ?? bru.getEnvVar("canvasFailedReport"))].status).to.equal("error");
-    bru.setVar("canvasReportA",ready.reportId);
+    bru.setVar("canvasReportA",reportId);
     bru.setVar("canvasProgramHashA",require("crypto").createHash("sha256").update(report.program).digest("hex"));
     bru.setVar("canvasCount",Object.keys(state.canvas_reports).length);
-    console.log("Canvas first report",ready.reportId,"deltaCount",one.filter(event=>event.type==="delta").length,"types",types.join(","));
+    console.log("Canvas first report",reportId,"elements",Object.keys(report.elements).length);
   });
 }

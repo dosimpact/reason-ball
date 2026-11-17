@@ -5,6 +5,7 @@ import "./components/theme.css";
 import "./components/components.css";
 import "./components/map/map.css";
 import { QueryPanel } from "./components/query-panel";
+import { CanvasItem } from "./components/canvas-item";
 import { IndicatorControls } from "./components/indicator-controls";
 import { FinancialChart } from "./components/financial-chart";
 import { Chart } from "./components/chart";
@@ -40,7 +41,7 @@ import { Badge, Caption, Label, Link, List, ListItem, Markdown, Text, Title } fr
 export const library = createLibrary({
   root: "Col",
   components: [
-    Col, Row, Box, Grid, Card, Carousel, Popover, Divider, Spacer,
+    Col, Row, Box, Grid, Card, Carousel, Popover, Divider, Spacer, CanvasItem,
     Title, Text, Caption, Label, Badge, Link, List, ListItem, Markdown, Quote, Code, MathBlock,
     Button, IconButton, Pressable, Input, TextArea, Select, SegmentedControl, Slider, Checkbox, RadioGroup, DatePicker, Timer, Form,
     SearchImage, Image, Icon, Table, Chart, FinancialChart, IndicatorControls, QueryPanel, MapView, MapMarker, YouTube,
@@ -52,7 +53,7 @@ export const library = createLibrary({
   componentGroups: [
     {
       name: "Layout",
-      components: ["Col", "Row", "Box", "Grid", "Card", "Carousel", "Popover", "Divider", "Spacer"],
+      components: ["Col", "Row", "Box", "Grid", "Card", "Carousel", "Popover", "Divider", "Spacer", "CanvasItem"],
       notes: [
         '- gap and padding count 4px steps. Length is px or a CSS length like "50%". Radius is "sm", "md", "lg", "xl", "full" or px.',
         '- Color is "ink", "muted", "faint", "surface", "info", "success", "warning", "danger", "purple", "pink", "chart1" to "chart6", or a CSS color. As a background, status colors are soft tints.',

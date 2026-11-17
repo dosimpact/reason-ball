@@ -22,17 +22,13 @@ tests {
     });
     expect(events.some(event=>event.name==="error")).to.equal(false);
     const state=events.filter(event=>event.name==="values").at(-1)?.data;
-    const canvas=events.filter(event=>event.name==="custom" && event.data.channel==="canvas").map(event=>event.data);
-    const ready=canvas.find(event=>event.type==="ready");
-    expect(ready,JSON.stringify(canvas.filter(event=>event.type==="error"))).to.be.an("object");
-    expect(ready.reportId).to.match(/^[0-9a-f-]{36}$/);
-    expect(canvas[0].type).to.equal("open");
-    expect(canvas.findIndex(event=>event.type==="validating")).to.be.lessThan(canvas.findIndex(event=>event.type==="ready"));
-    expect(state.canvas_reports[ready.reportId].status).to.equal("ready");
-    expect(state.canvas_reports[ready.reportId].request.ticker).to.equal("MSFT");
-    expect(state.canvas_reports[ready.reportId].program).to.include("taLayout =");
-    expect(state.presentation).not.to.be.ok;
-    bru.setVar("splitReportId",ready.reportId);
-    console.log("Canvas report",ready.reportId,"deltaCount",canvas.filter(event=>event.type==="delta").length);
+    const reportId=state.presentation?.id;
+    expect(reportId).to.match(/^[0-9a-f-]{36}$/);
+    expect(state.canvas_reports[reportId].status).to.equal("ready");
+    expect(state.canvas_reports[reportId].request.ticker).to.equal("MSFT");
+    expect(state.presentation.program).to.include("CanvasItem(");
+    expect(state.presentation.program).to.equal(state.canvas_reports[reportId].program);
+    expect(Object.keys(state.canvas_reports[reportId].elements).length).to.be.greaterThan(1);
+    bru.setVar("splitReportId",reportId);
   });
 }

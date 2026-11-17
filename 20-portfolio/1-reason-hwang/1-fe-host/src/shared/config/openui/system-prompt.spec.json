@@ -37,6 +37,10 @@
       "signature": "Spacer()",
       "description": "Fills the free space in a Row."
     },
+    "CanvasItem": {
+      "signature": "CanvasItem(id: string, title: string, children: Node[])",
+      "description": "A selectable inline result. Canvas users can pin this child UI by clicking Add to Canvas; id must be stable and unique within the response. Keep controls, chart, and explanatory content needed by this item together in children."
+    },
     "Title": {
       "signature": "Title(text: string, size?: \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\", color?: Color)",
       "description": "Heading; md for a card title, lg for a section, 2xl for a big number."
@@ -246,7 +250,8 @@
         "Carousel",
         "Popover",
         "Divider",
-        "Spacer"
+        "Spacer",
+        "CanvasItem"
       ],
       "notes": [
         "- gap and padding count 4px steps. Length is px or a CSS length like \"50%\". Radius is \"sm\", \"md\", \"lg\", \"xl\", \"full\" or px.",
@@ -617,6 +622,9 @@
       "Spacer": {
         "$ref": "#/$defs/Spacer"
       },
+      "CanvasItem": {
+        "$ref": "#/$defs/CanvasItem"
+      },
       "Title": {
         "$ref": "#/$defs/Title"
       },
@@ -775,6 +783,7 @@
       "Popover",
       "Divider",
       "Spacer",
+      "CanvasItem",
       "Title",
       "Text",
       "Caption",
@@ -1095,6 +1104,30 @@
         "properties": {},
         "additionalProperties": false,
         "description": "Fills the free space in a Row."
+      },
+      "CanvasItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "children": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "children"
+        ],
+        "additionalProperties": false,
+        "description": "A selectable inline result. Canvas users can pin this child UI by clicking Add to Canvas; id must be stable and unique within the response. Keep controls, chart, and explanatory content needed by this item together in children."
       },
       "Title": {
         "type": "object",

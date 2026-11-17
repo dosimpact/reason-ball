@@ -41,8 +41,8 @@ def chart(
         from domains.technical_analysis.chart_v2 import build_v2
         try:
             raw = json.loads(instances) if instances is not None else [{"name":n} for n in (NAMES if indicators.lower()=="all" else indicators.upper().split(","))]
-            if not isinstance(raw,list) or not 1<=len(raw)<=40:
-                raise ValueError("Choose 1–40 instances")
+            if not isinstance(raw,list) or not 0<=len(raw)<=40 or (not raw and instances is None):
+                raise ValueError("Choose 0–40 instances; an empty explicit list requests prices only")
             settings=[AgentIndicator.model_validate(item) for item in raw]
             ids=[s.instanceId or instance_id(s.name,s.request().parameters) for s in settings]
             if len(set(ids))!=len(ids):

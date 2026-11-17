@@ -22,5 +22,5 @@ export const inlineAnalysisStarters: Starter[] = questions.map(question => ({
 
 export const canvasAnalysisStarters: Starter[] = questions.map(question => ({
   ...question,
-  prompt: `${question.prompt} 별도 Canvas 보고서로 차트와 지표별 해석을 구성해 줘.`,
+  prompt: `${question.prompt} 해석은 채팅에 쓰고, 차트와 표는 각각 Canvas에 추가할 수 있게 보여줘.`,
 }));

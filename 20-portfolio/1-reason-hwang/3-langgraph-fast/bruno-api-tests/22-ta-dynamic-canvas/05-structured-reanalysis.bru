@@ -21,14 +21,12 @@ tests {
       const data=block.split(/\r?\n/).filter(line=>line.startsWith("data:")).map(line=>line.slice(5).trim()).join("\n");
       try { return [{name,data:JSON.parse(data)}]; } catch { return []; }
     });
-    const canvas=events.filter(event=>event.name==="custom" && event.data.channel==="canvas").map(event=>event.data);
     const state=events.filter(event=>event.name==="values").at(-1)?.data;
     expect(events.some(event=>event.name==="error")).to.equal(false);
-    const ready=canvas.find(event=>event.type==="ready");
-    expect(ready, JSON.stringify(canvas.filter(event=>event.type==="error"))).to.be.an("object");
-    expect(ready.reportId).not.to.equal((bru.getVar("canvasReportA") ?? bru.getEnvVar("canvasReportA")));
+    const reportId=state.presentation?.id;
+    expect(reportId).not.to.equal((bru.getVar("canvasReportA") ?? bru.getEnvVar("canvasReportA")));
     expect(Object.keys(state.canvas_reports)).to.have.lengthOf(Number((bru.getVar("canvasCount") ?? bru.getEnvVar("canvasCount"))) + 1);
-    const report=state.canvas_reports[ready.reportId];
+    const report=state.canvas_reports[reportId];
     expect(report.analysis.symbol).to.equal("MSFT");
     expect(report.request.interval).to.equal("1wk");
     expect(report.request.count).to.equal(60);
@@ -36,8 +34,10 @@ tests {
     expect(report.request.indicators.find(i=>i.name==="SMA").timeperiod).to.equal(10);
     expect(require("crypto").createHash("sha256").update(state.canvas_reports[(bru.getVar("canvasReportA") ?? bru.getEnvVar("canvasReportA"))].program).digest("hex")).to.equal((bru.getVar("canvasProgramHashA") ?? bru.getEnvVar("canvasProgramHashA")));
     expect(report.status).to.equal("ready");
-    bru.setVar("canvasReportB",ready.reportId);
+    expect(report.program).to.equal(state.presentation.program);
+    expect(Object.keys(report.elements)).to.have.lengthOf(4);
+    bru.setVar("canvasReportB",reportId);
     bru.setVar("canvasCount",Object.keys(state.canvas_reports).length);
-    console.log("Second report",ready.reportId,"deltas",canvas.filter(event=>event.type==="delta").length);
+    console.log("Second report",reportId,"elements",Object.keys(report.elements).length);
   });
 }

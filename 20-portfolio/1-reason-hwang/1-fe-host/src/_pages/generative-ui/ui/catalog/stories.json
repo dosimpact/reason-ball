@@ -1,5 +1,19 @@
 [
   {
+    "id": "components-canvasitem",
+    "name": "CanvasItem",
+    "category": "components",
+    "signature": "CanvasItem(id: string, title: string, children: Node[])",
+    "description": "채팅 안의 결과를 선택적으로 Canvas에 추가할 수 있는 래퍼입니다.",
+    "note": "카탈로그에서는 Canvas 연결이 없어 추가 버튼이 숨겨집니다. 채팅 Canvas에서만 추가 동작이 활성화됩니다.",
+    "examples": [
+      {
+        "title": "독립적인 결과 두 개",
+        "code": "root = Col([CanvasItem(\"demo:summary\", \"요약\", [Card([Text(\"실적 요약\")])]), CanvasItem(\"demo:chart\", \"차트\", [Card([Text(\"차트 자리\")])])])"
+      }
+    ]
+  },
+  {
     "id": "components-col",
     "name": "Col",
     "category": "components",

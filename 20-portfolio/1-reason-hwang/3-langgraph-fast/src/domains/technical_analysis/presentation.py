@@ -8,6 +8,8 @@ def build_program(state: dict) -> str:
     dumps = lambda value: json.dumps(
         value, ensure_ascii=False, allow_nan=False, separators=(",", ":")
     )
+    if state.get("canvas_item_report_id"):
+        return _build_canvas_item_program(report, state["canvas_item_report_id"], dumps)
     statements = []
     dates = report["dates"]
     caption = f"분석 시점 스냅샷 · {report['symbol']} · {report['interval']} · {dates[0]} ~ {dates[-1]} · {report['currency']} · 수정주가 · 완료 봉"
@@ -99,12 +101,56 @@ def build_program(state: dict) -> str:
     if state.get("canvas"):
         panel = nodes[2] if snapshot else 'Text("차트 없음")'
         signals = nodes[3:-1] if snapshot else nodes[2:-1]
-        statements.extend([
-            "taHeader = Col([" + ", ".join(nodes[:2]) + "], 2)",
-            "taPanel = " + panel,
-            "taSignals = Col([" + ", ".join(signals) + "], 2)",
-            "taFooter = " + nodes[-1],
-        ])
+        statements.extend(["taHeader = Col([" + ", ".join(nodes[:2]) + "], 2)", "taPanel = " + panel, "taSignals = Col([" + ", ".join(signals) + "], 2)", "taFooter = " + nodes[-1]])
     else:
         statements.append("root = Col([" + ", ".join(nodes) + "], 4)")
+    return "\n".join(statements)
+
+
+def _build_canvas_item_program(report: dict, report_id: str, dumps) -> str:
+    """Give each pinned chart its own query bindings and indicator subset."""
+    snapshot = report.get("chart_snapshot") or {}
+    chart_fallback = {**{key: value for key, value in snapshot.items() if key not in {"bars", "indicators"}}, "bars": [], "indicators": []}
+    statements = []
+    wrappers = []
+    if report["indicators"]:
+        from domains.technical_analysis.catalog import catalog
+
+        statements.extend([
+            f"catalogSnapshot = {dumps(catalog())}",
+            'catalog = Query("technical_analysis_catalog", {}, catalogSnapshot)',
+        ])
+    chart_items = [("chart", "가격", [])]
+    for index, indicator in enumerate(report["indicators"]):
+        matching = next((item for item in snapshot.get("indicators", []) if item.get("instanceId") == indicator.get("instanceId")), None)
+        if matching is None:
+            matching = next((item for item in snapshot.get("indicators", []) if item.get("name") == indicator["name"]), None)
+        instance = {key: matching[key] for key in ("instanceId", "name", "parameters") if key in matching} if matching else {"name": indicator["name"], "parameters": indicator["parameters"]}
+        chart_items.append(("indicator:" + str(index), indicator["name"], [instance]))
+    for index, (item_id, label, instances) in enumerate(chart_items):
+        prefix = f"$item{index}_"
+        query = f"item{index}Chart"
+        statements.extend([
+            f"{prefix}ticker = {dumps(report['symbol'])}",
+            f"{prefix}interval = {dumps(report['interval'])}",
+            f"{prefix}count = {dumps(str(report['requested_count']))}",
+            f"{prefix}instances = {dumps(dumps(instances))}",
+            f"{prefix}refresh = 0",
+            f'{query} = Query("technical_analysis_chart", {{"ticker":{prefix}ticker,"interval":{prefix}interval,"count":{prefix}count,"schema_version":2,"instances":{prefix}instances}}, {dumps(chart_fallback)}, {prefix}refresh)',
+        ])
+        controls = [
+            f'Input({prefix}ticker, "Yahoo 티커", "text")',
+            f'Select({prefix}interval, [{{"value":"1d","label":"일봉"}},{{"value":"1wk","label":"주봉"}}], "주기")',
+            f'Select({prefix}count, {dumps(list(dict.fromkeys([str(report["requested_count"]), "60", "120", "200"])))}, "봉 수")',
+            f'FinancialChart({query})',
+        ]
+        if index:
+            controls.insert(-1, f"IndicatorControls({prefix}instances, catalog)")
+            signal = report["indicators"][index - 1]["signal"]
+            signal_text = "분석 기준일 " + report["dates"][-1] + " · " + str(signal.get("state", "판단 불가"))
+            controls.append(f"Text({dumps(signal_text)})")
+        panel = "QueryPanel([" + ", ".join(controls) + f"], Action([@Run({query})]))"
+        title = report["symbol"] + " · " + label + " 차트"
+        wrappers.append(f"CanvasItem({dumps(report_id + ':' + item_id)}, {dumps(title)}, [{panel}])")
+    statements.append("root = Col([" + ", ".join(wrappers) + "], 4)")
     return "\n".join(statements)

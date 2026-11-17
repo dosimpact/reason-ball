@@ -16,13 +16,11 @@ async function installRuntime(page: Page, missing = false) {
     if (path.endsWith('/threads')) return route.fulfill({ json: { thread_id: 'fixture-thread', metadata: body.metadata } });
     if (path.endsWith('/runs/fixture-run')) return route.fulfill({ json: { run_id: 'fixture-run', status: 'success' } });
     if (path.endsWith('/runs/stream')) {
-      const program = 'root = Text("OpenUI 파동 분석 테스트")';
+      const program = body.assistant_id === canvas.id
+        ? 'root = Col([CanvasItem("navigation:chart", "분석 차트", [Text("OpenUI 파동 분석 테스트")])])'
+        : 'root = Text("OpenUI 파동 분석 테스트")';
       const events: [string, unknown][] = [['metadata', { run_id: 'fixture-run' }]];
-      if (body.assistant_id === canvas.id) {
-        events.push(['custom', { channel: 'canvas', type: 'open', reportId, payload: { title: 'AAPL 보고서' } }]);
-        events.push(['custom', { channel: 'canvas', type: 'ready', reportId, payload: { title: 'AAPL 보고서', program, request: { ticker: 'AAPL', interval: '1d', count: 120, indicators: [] } } }]);
-      }
-      events.push(['values', { messages: [{ id: 'answer', type: 'ai', content: '분석 완료' }], presentation: body.assistant_id === inline.id ? { id: reportId, program } : null }]);
+      events.push(['values', { messages: [{ id: 'answer', type: 'ai', content: '분석 완료' }], presentation: { id: reportId, program } }]);
       return route.fulfill({ contentType: 'text/event-stream', body: events.map(([event, data]) => `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`).join('') });
     }
     return route.fulfill({ status: 404, json: { detail: `Unexpected fixture path: ${path}` } });
@@ -45,7 +43,11 @@ for (const target of [inline, canvas]) {
     expect(runs).toHaveLength(1);
     expect(runs[0].body.assistant_id).toBe(target.id);
     expect(calls.filter(call => call.path.endsWith('/threads/search')).every(call => (call.body.metadata as { graph_id: string }).graph_id === target.id)).toBe(true);
-    if (target === canvas) await expect(page.getByRole('region', { name: '기술적 분석 Canvas' })).toBeVisible();
+    if (target === canvas) {
+      await expect(page.getByRole('region', { name: '기술적 분석 Canvas' })).toHaveCount(0);
+      await page.getByRole('button', { name: 'Canvas에 추가', exact: true }).click();
+      await expect(page.getByRole('region', { name: '기술적 분석 Canvas' })).toBeVisible();
+    }
     await page.reload();
     await expect(page.getByRole('heading', { name: target.label, exact: true })).toBeVisible();
     await expect(page.getByRole('combobox', { name: 'LangGraph 에이전트' })).toHaveCount(0);
@@ -82,5 +84,6 @@ test('TA-NAV-001: developer chat retains graph selection and mobile dedicated na
   await expect(page.getByRole('dialog', { name: 'Sidebar', exact: true })).toHaveCount(0);
   await page.getByRole('textbox', { name: '메시지를 입력하세요', exact: true }).fill('AAPL 일봉 분석');
   await page.getByRole('textbox', { name: '메시지를 입력하세요', exact: true }).press('Enter');
+  await page.getByRole('button', { name: 'Canvas에 추가', exact: true }).click();
   await expect(page.getByRole('region', { name: '기술적 분석 Canvas' })).toBeVisible();
 });

@@ -16,6 +16,6 @@ tests {
     const state=res.getBody().values;
     expect(Object.keys(state.canvas_reports)).to.have.lengthOf(1);
     expect(state.canvas_reports[bru.getVar("splitReportId")].status).to.equal("ready");
-    expect(state.presentation).not.to.be.ok;
+    expect(state.presentation.id).to.equal(bru.getVar("splitReportId"));
   });
 }

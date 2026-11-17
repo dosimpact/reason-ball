@@ -118,16 +118,9 @@ JSON실행은 새thread를 만들고 입력을변형없이runs.stream(values)로
 [변경·검증](../../../flow/2026-11-14-chat-layout-all-graphs.md)
 
 
-## TA-CANVAS-001: 기술적 분석 Dynamic Canvas
+## TA-CANVAS-001: 기존 보고서 Canvas 전환
 
-`technical_analysis_canvas_agent`는 기존 SDK stream의 custom canvas 이벤트를 받으면 `/langgraph-dev-chat` 옆 Canvas를 자동으로 연다. 기존 `technical_analysis_agent`는 values 스트림·도구 상태와 인라인 본문/OutputView 차트를 유지한다. 선택 목록은 “기술적 분석 · 인라인”과 “기술적 분석 · Canvas”를 구분하며 graph 전환은 Canvas를 비운다. 다른 graph와 공통 AgentConversation·기본 도구 타임라인은 유지한다. 서버 UUID별 탭은 티커·주기·생성 순번을 표시한다. 닫기·접기·재열기와 키보드/포인터 splitter를 제공하며 desktop은 좌우, mobile은 상하로 나눈다. 참조 mini-project 패턴을 Host FSD와 테마에 맞게 적용한다.
-
-`open → reset/delta → validating → ready/error`를 thread·실행·report id로 격리한다. repair reset은 버퍼를 교체한다. canonical root가 없으면 공개 SDK autoClose와 `root = Col([taLayout])`를 별도 미리보기 문자열에만 적용한다. 파싱 가능한 부분을 표시하되 실제 버퍼와 최종 프로그램은 변경하지 않는다. 미리보기는 inert이며 Query provider·액션·컨트롤을 비활성화한다. root가 파싱되지 않으면 준비 안내를 유지한다. 서버 검증이 완료된 ready만 조회·조작을 허용한다.
-
-선택한 보이는 탭만 OutputView를 mount한다. 전환·접기·닫기는 조회와 polling을 정리한다. 탭별 입력 상태는 보존하되 polling은 기본 꺼짐으로 복원한다. 조건 변경·수동 새로고침은 FinancialChart/QueryPanel provider로 모델 없이 실행한다. 설명은 생성 당시 스냅샷임을 표시한다. 재분석은 마지막 성공한 조회 조건·지표 설정을 `canvas_context.request`로 보내 새 보고서를 만든다. 일반 후속 질문은 선택한 reportId를 전달한다.
-
-채팅에는 짧은 요약과 보고서 열기를 표시한다. 새 대화·graph 전환은 Canvas를 비우고 기록 열기는 해당 runtime의 저장 보고서를 복원한다. PDF·공유·시세 인용은 범위 밖이다. 닫은 UUID와 취소 실행의 늦은 이벤트는 무시한다. API 검증은 검증 담당에게 위임하고 브라우저 검증은 사용자가 수행한다.
-
+기존 custom canvas 이벤트 기반 자동 보고서 탭은 TA-CANVAS-003의 선택형 요소 Canvas로 대체했다. 서버 보고서는 대화 근거로 보존하고, 화면은 사용자가 추가한 CanvasItem만 표시한다. 아래 TA-CANVAS-003과 [도메인 시스템 설계](../../technical-analysis/system-design.md)를 현재 계약으로 따른다.
 
 ## CHAT-RUNTIME-002: 개발 및 FastAPI 채팅 분리
 
@@ -179,8 +172,7 @@ runtime/graph별 history 계약은 기존 개발 채팅과 같다.
 
 두 그래프의 시각화는 SEC Intelligent UI와 동일한 공유 `OutputView` 및
 `@openuidev/react-lang` Renderer·카탈로그를 사용한다. 인라인은 `presentation.program`을
-InlineAnalysis 안에서 렌더링하고 Canvas는 custom canvas 이벤트의 검증된 program을 별도 패널에서
-렌더링한다. Canvas 생성 중 미리보기와 최종 ready 검증, 모델 없는 Query 및 재분석 계약은 유지한다.
+InlineAnalysis 안에서 렌더링하고 Canvas는 채팅의 검증된 program에서 사용자가 선택한 CanvasItem만 별도 패널에 추가한다. Canvas 프로그램은 검증 후 채팅에 표시하며 모델 없는 Query를 유지한다.
 일반 텍스트 요약·오류 fallback은 별도이므로 모든 메시지가 OpenUI DSL이라는 뜻은 아니다.
 
 [구현·검증 기록](../../../flow/2026-11-16-technical-analysis-dedicated-navigation.md).
@@ -190,6 +182,13 @@ InlineAnalysis 안에서 렌더링하고 Canvas는 custom canvas 이벤트의 �
 두 기술적 분석 그래프는 각각 12개의 시작 질문을 제공한다. 미국·한국 종목 및 ETF, 일봉·주봉,
 추세·모멘텀·변동성·거래량, RSI/SMA의 복수 기간 비교와 지원 지표 20개 종합 분석을 포함한다.
 질문은 `chat/model/technicalAnalysisStarters.ts`에서 관리하며 인라인은 대화 내 차트,
-Canvas는 별도 보고서 구성으로 요청을 구분한다. 개발 채팅에서 같은 그래프를 선택해도 동일한 질문을 사용한다.
+Canvas는 채팅 해석과 개별 추가 가능한 차트·표를 요청한다. 개발 채팅에서 같은 그래프를 선택해도 동일한 질문을 사용한다.
 지원 범위인 일봉·주봉·현재 20개 지표만 제안하며 엘리엇 파동·분봉·통합 매매 점수는 제안하지 않는다.
 [변경·검증](../../../flow/2026-11-16-technical-analysis-starter-questions.md).
+
+
+## TA-CANVAS-003: CanvasItem과 Library Explorer
+
+`CanvasItem(id,title,children)`은 shared OpenUI catalog와 Library Explorer에 등록한다. `OutputView`에 `onCanvasAdd`가 있을 때만 `Canvas에 추가` 버튼을 표시한다. 이 콜백은 Canvas 전용 ChatPage에서 연결하고 다른 채팅에서는 children만 표시한다. 추출기는 선택한 children이 참조하는 선언과 Query를 보존하며 다른 요소의 Query는 가져오지 않는다.
+
+`onQueryStatusChange`는 chart의 loading/success/error를 전달한다. 최신 요청만 상태·성공 콜백을 갱신해 오래된 응답이 PDF 버튼을 잘못 활성화하지 않게 한다. 카탈로그 원본·생성 spec·Python prompt 사본은 기존 generate/check 스크립트로 동기화한다. 제품 범위와 저장 제한은 [기술적 분석](../../technical-analysis/system-design.md#ta-canvas-003-선택형-요소와-인용-문맥), 실행 증거는 [flow](../../../flow/2026-11-17-canvas-item-workspace.md)를 따른다.

@@ -1,5 +1,5 @@
 export type CanvasRequest = { ticker: string; interval: "1d" | "1wk"; count: number; indicators?: unknown[] };
-export type CanvasContext = { reportId?: string; request?: CanvasRequest };
+export type CanvasContext = { reportId?: string; elementId?: string; quote?: string; request?: CanvasRequest };
 export type CanvasEvent = { channel: "canvas"; type: "open" | "reset" | "delta" | "validating" | "ready" | "error"; reportId: string; payload: Record<string, unknown> };
 export type CanvasReport = { id: string; threadId: string; runId: string; messageId: string; title: string; ordinal: number; request?: CanvasRequest; program: string; status: "generating" | "validating" | "ready" | "error"; asOf?: string; error?: string; fallbackText?: string; reactiveState?: Record<string, unknown>; successfulArgs?: Record<string, unknown> };
 export type CanvasState = { reports: CanvasReport[]; selectedId: string | null; collapsed: boolean; closedIds: string[]; ordinals: Record<string, number> };

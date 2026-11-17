@@ -27,6 +27,7 @@ Carousel(children: Node[], itemWidth?: number, gap?: number) — Horizontal row 
 Popover(trigger: string | Node[], content: string | Node[]) — Shows content in a small panel when the trigger is clicked: a definition, a source, details behind an Icon("info", "sm").
 Divider()
 Spacer() — Fills the free space in a Row.
+CanvasItem(id: string, title: string, children: Node[]) — A selectable inline result. Canvas users can pin this child UI by clicking Add to Canvas; id must be stable and unique within the response. Keep controls, chart, and explanatory content needed by this item together in children.
 - gap and padding count 4px steps. Length is px or a CSS length like "50%". Radius is "sm", "md", "lg", "xl", "full" or px.
 - Color is "ink", "muted", "faint", "surface", "info", "success", "warning", "danger", "purple", "pink", "chart1" to "chart6", or a CSS color. As a background, status colors are soft tints.
 

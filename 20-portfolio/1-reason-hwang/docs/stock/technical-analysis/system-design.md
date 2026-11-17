@@ -8,7 +8,7 @@
 /langgraph-dev-chat → /api/langgraph-runtime → development runtime
 /fastapi-chat → /api/fastapi-langgraph → FastAPI + PostgreSQL checkpoints
   technical_analysis_agent → Deep Agent tools → deterministic inline presentation
-  technical_analysis_canvas_agent → route/tools → AI layout → canvas custom events
+  technical_analysis_canvas_agent → route/tools → deterministic CanvasItem presentation → explicit user pin
 ```
 
 기존 primary graph 소유 경로는 `3-langgraph-fast/src/graph/primary_graphs/technical_analysis_agent/`, Canvas 전용 경로는 `technical_analysis_canvas_agent/`이다. 상태는 DeepAgentState를 확장하며 full prices, price_request, price_metadata, indicators, analysis_result, analysis_error, presentation을 가진다. prepare는 매 turn의 결과/표시만 지워 오래된 결과가 새 답변으로 노출되지 않게 한다.
@@ -79,25 +79,21 @@ Bruno는 실제 Yahoo·모델·Host validator 연결이 필요하다. 테스트�
 
 Host `/langgraph-dev-chat`은 기존 values snapshot의 이번 turn tool_calls/tool 메시지를 연결해 `get_price_ohlcv`, `analyze_ohlcv_with_talib` 등의 실제 실행 이름과 상태를 OpenUI BehindTheScenes로 표시한다. 원본 도구 인자·결과·중간 AI 설명을 추가 노출하지 않는다. 조회 API와 Query의 모델 없는 갱신 경계는 유지한다. [Host 계약](../tech-shared/1-fe-host/open-ui.md#chat-activity-001-chat-behind-the-scenes)을 따른다.
 
-## TA-CANVAS-001: 별도 Canvas 에이전트의 보고서 이벤트와 상태
+## TA-CANVAS-003: 선택형 요소와 인용 문맥
 
-입력 `canvas_context`는 선택 `reportId`와 선택적 구조화 `request`를 사용한다. request는 ticker, interval(1d/1wk), strict 정수 count(2~200), 중복 없는 RSI/SMA/MACD 설정 목록이다. 존재하지 않는 reportId·잘못된 조건은 도구 조회 전 analysis_error와 안내로 끝내며 custom open을 보내지 않는다. selected report 설명은 그 report의 title/request/asOf/signals만 근거로 사용한다.
+Canvas 전용 그래프는 계산 후 `presentation={id, program}`을 반환한다. id는 저장된 보고서 UUID다. OpenUI는 `CanvasItem(id,title,children)`으로 가격 및 지표 인스턴스별 QueryPanel·FinancialChart를 각각 감싼다. 요소 ID는 보고서 UUID를 포함한다. 모델은 계산 결과를 설명하고 UI 프로그램은 검증된 결과에서 결정적으로 구성한다. 모델이 보고서 전체를 Canvas에 스트리밍하던 기존 경로는 사용하지 않는다.
 
-분석마다 서버 UUID를 만들고 `channel:"canvas"`, `type`, `reportId`, `payload` custom event를 보낸다. 이벤트는 open→reset.program→delta.delta→validating→ready.program 또는 error.message/fallbackText다. 모델 layout은 실제 astream chunk마다 delta를 보낸다. parser는 전방 참조를 허용하지 않으므로 prefix에 root를 두지 않고 taLayout 뒤 마지막 root assignment를 서버 delta로 붙인다. 서버는 전체 프로그램을 검증하고 실패하면 한 번만 repair한다.
+각 요소에는 별도 reactive 변수와 Query가 있다. 가격 전용 v2 chart는 명시적 `instances=[]`를 허용하고 지표 요소는 해당 인스턴스를 조회한다. 기존 v1 및 생략 시 기본 지표 계약은 유지한다. 요소별 조회는 독립되므로 많은 지표를 선택하면 초기 HTTP 조회 수도 늘어난다.
 
-현재 provider가 빈 stream 오류를 내면 한 번의 ainvoke와 전체 layout delta로 fallback한다. 이것은 token 단위 점진 생성이 아니다. 마지막 서버 root delta를 모델 delta로 세지 않는다. 실제 API 검증에서는 이 fallback이 관찰되었으며 현재 환경의 정상 token streaming은 확인되지 않았다.
+Host `OutputView.onCanvasAdd`는 wrapper의 children과 참조하는 선언만 추출해 standalone program 및 현재 reactive state를 넘긴다. Canvas 전용 ChatPage만 이 콜백을 연결한다. `PinnedCanvas`는 요소별 Renderer를 mount하고, localStorage의 `ta-canvas-items-v1:<runtime>:<thread>` 키에 구성·배치·상태를 보존한다. 같은 요소 ID는 중복 추가하지 않는다. 기존 보고서 custom 이벤트를 받더라도 그것만으로 새 Canvas를 열지 않는다.
 
-`canvas_reports[UUID]`는 reportId/title/request/analysis/snapshot/summary/prices/price_request/price_metadata/indicators/program/status를 보존한다. ready는 검증된 프로그램, error는 오류와 가능한 계산 snapshot을 가진다. 신규 분석은 기존 보고서와 별도 id다. Deep Agent의 도구 없는 장문 최종 분석은 채팅에 중복 출력하지 않으며 native 도구 호출·결과와 기존 메시지는 보존한다.
+`canvas_reports[reportId]`에는 계산 결과·조건·program과 허용된 요소 ID를 보존한다. 입력 `canvas_context`는 `reportId`, `elementId`, `quote`, 선택적 구조화 `request`를 받는다. 서버는 현재 thread의 보고서 및 요소 소속을 검증하고, 인용 텍스트는 명령이 아닌 사용자 질문 문맥으로 취급한다. 설명 요청은 새 보고서 없이 채팅으로 답한다. 차트 조건을 바꾼 뒤 질문하더라도 근거는 원래 저장된 분석이며 UI에 이 차이를 명시한다.
 
-FE는 thread/assistant/run별 이벤트를 격리한다. prefix만 있으면 준비 상태를 표시한다. taLayout draft는 실제 누적 버퍼를 바꾸지 않고 SDK autoClose와 preview 전용 root를 적용한 disposable projection으로 점진 미리보기할 수 있다. canonical root가 아직 없어도 이 provisional preview는 inert·Query provider 없음·action 차단이며 ready에서만 모델 없는 Query를 연결한다. 선택되어 보이는 보고서만 mount하고 close/collapse/전환 시 이전 조회·timer를 해제한다. 재분석은 마지막 성공 Query 조건을 구조화 request로 보내 별도 모델 분석을 수행한다. 기존 chart GET 자체는 thread/run을 만들지 않는다.
-
-[API 실행·제약·정리 기록](../../flow/2026-11-15-ta-dynamic-canvas-implementation.md). 브라우저 동작 검증은 사용자 수행 범위다.
+PDF는 프런트엔드 인쇄 스타일로 전체 요소를 펼친다. chart Query의 최신 요청 상태가 성공이어야 버튼을 활성화하며 오래된 요청 완료가 이 상태를 덮어쓰지 않는다. 새로고침은 데이터를 다시 조회하므로 로컬 저장을 과거 가격의 불변 스냅샷으로 해석하지 않는다. 공유 발행 API는 이번 범위에 없다.
 
 ## TA-CANVAS-002: 독립 그래프 계약
 
-기존 TA workflow/state는 inline 구현으로 복원해 canvas 필드를 포함하지 않는다. 신규 Canvas state는 기존 계산 상태를 상속하고 canvas 문맥·보고서 필드만 추가한다. 두 graph는 가격/TA-Lib 도구를 공유하되 기존 graph는 custom canvas 이벤트를 보내지 않고 신규 graph는 inline presentation을 중복 생성하지 않는다. FE의 custom 이벤트·canvas_context·탭·재분석 처리도 신규 ID에만 연결한다. 그래프 전환 때 탭을 비우며 각각 별도 thread를 사용한다.
-
-Canvas API 시나리오 `22-ta-dynamic-canvas`는 신규 ID를 대상으로 하고, `23-ta-agent-split`은 두 ID discovery와 각 출력·상태 격리를 검증한다. [분리 검증 기록](../../flow/2026-11-15-ta-agent-canvas-split.md)을 따른다.
+기존 inline·TA-Lib·SEC 그래프 출력은 유지한다. Canvas 전용 그래프와 화면에만 선택형 추가를 연결한다. 서버 보고서는 대화 근거, 로컬 pinned 요소는 사용자의 화면 구성으로 구분한다. 이전 TA-CANVAS-001의 자동 보고서 탭 계약은 TA-CANVAS-003으로 대체한다. [변경·검증 기록](../../flow/2026-11-17-canvas-item-workspace.md)을 따른다.
 
 ## TA-INDICATORS-020: 버전 카탈로그와 복수 인스턴스
 
@@ -107,7 +103,7 @@ v2 응답의 공통 OHLCV `bars`와 `indicators[]`의 인스턴스별 series.val
 
 누적 origin은 `date`, `availableHistory`, `policy`, `requestedDate`, `baseline`으로 공개한다. OBV는 첫 거래량, PVT는0, AD는 첫 money-flow-volume을 기준으로 계산한다. count는 표시만 자르며 동일 소스 이력의 겹치는 날짜 값이 유지된다. 공급자 이력 수정은 캐시 버전과 origin 정책의 제약으로 명시한다. 지표 수식·EMA seed·lookback·null/분모0·개별 시그널은 [Python 계산 계약](../tech-shared/3-langgraph-fast/ta20.md)을 따른다.
 
-OpenUI는 `technical_analysis_catalog` Query와 `IndicatorControls($chart_instances,catalog)`, reactive 인스턴스 JSON을 사용한다. 서버는 검증된 결과로 최소 DSL을 만들며 초기 fallback에 큰 수치 배열을 삽입하지 않는다. 실제 숫자는 모델 없는 Query로 조회한다. 두 TA 그래프는 같은 계산·설정 계약을 공유하며 inline은 결정적 presentation, Canvas는 UUID별 custom 보고서 표시를 유지한다. 프로토콜·수치·모델 비호출·parser 검증 증거와 사용자에게 맡긴 브라우저 검증 범위는 [당일 기록](../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)에 둔다.
+OpenUI는 `technical_analysis_catalog` Query와 `IndicatorControls($chart_instances,catalog)`, reactive 인스턴스 JSON을 사용한다. 서버는 검증된 결과로 최소 DSL을 만들며 초기 fallback에 큰 수치 배열을 삽입하지 않는다. 실제 숫자는 모델 없는 Query로 조회한다. 두 TA 그래프는 같은 계산·설정 계약을 공유하며 inline은 결정적 presentation, Canvas는 UUID별 저장 근거와 선택형 요소 표시를 사용한다. 프로토콜·수치·모델 비호출·parser 검증 증거와 사용자에게 맡긴 브라우저 검증 범위는 [당일 기록](../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)에 둔다.
 
 ## TALIB-AGENT-001: 전체 네이티브 TA-Lib 에이전트
 

@@ -140,9 +140,9 @@ async def test_scripted_model_all20_tool_route_through_each_agent(canvas):
         AIMessage(content='',tool_calls=[{'name':'get_price_ohlcv','args':{'ticker':'TEST','count':60},'id':'prices'}]),
         AIMessage(content='',tool_calls=[{'name':'analyze_ohlcv_with_talib','args':{'all_indicators':True},'id':'all20'}]),
         AIMessage(content='전체20개 계산 완료'),
-    ]+([AIMessage(content='taLayout = Col([Text("검증된 전체 지표"),taPanel,taSignals],4)')] if canvas else [])
+    ]
     async def validator(program):
-        assert 'IndicatorControls(' in program
+        assert ('CanvasItem(' in program) if canvas else ('IndicatorControls(' in program)
         assert 'schema_version' in program
         return []
     model=ToolModel(responses=responses)
@@ -152,6 +152,10 @@ async def test_scripted_model_all20_tool_route_through_each_agent(canvas):
     assert len(result['analysis_result']['indicators'])==20
     assert {i['name'] for i in result['analysis_result']['indicators']}==set(NAMES)
     if canvas:
-        assert next(iter(result['canvas_reports'].values()))['status']=='ready'
+        saved = next(iter(result['canvas_reports'].values()))
+        assert saved['status']=='ready'
+        assert result['presentation']['id'] == saved['reportId']
+        assert len(saved['elements']) == 21
+        assert '전체20개 계산 완료' in str(result['messages'][-1].content)
     else:
         assert result['presentation']['program']

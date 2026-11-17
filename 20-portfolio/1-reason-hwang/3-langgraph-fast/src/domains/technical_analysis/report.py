@@ -74,6 +74,8 @@ def default_indicators() -> list[AgentIndicator]:
 
 
 def warmup_count(indicators: list[AgentIndicator]) -> int:
+    if not indicators:
+        return 250
     return 5000 if any(i.name in {"OBV","PVT","AD"} for i in indicators) else min(4500,max(250, 5 * max(item.lookback() for item in indicators)))
 
 

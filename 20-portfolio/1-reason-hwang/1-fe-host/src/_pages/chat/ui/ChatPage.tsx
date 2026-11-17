@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { InlineAnalysis } from "./InlineAnalysis";
-import { TaCanvas } from "./canvas/TaCanvas";
+import { PinnedCanvas } from "./canvas/PinnedCanvas";
 import { CanvasSplitter } from "./canvas/CanvasSplitter";
 import "./canvas/canvas.css";
 import { GraphTestResult } from "./GraphTestResult";
@@ -16,11 +17,34 @@ import { GraphSelector } from "./GraphSelector";
 import { AgentConversation, ChatNotice, ConversationText } from "@/shared/ui/agent-conversation";
 import { OutputView } from "@/shared/ui/intelligent-ui";
 import { useChat } from "../model/context/useChat";
+import { pinItem, restorePinnedItems, storageKey, type CanvasItemSelection, type PinnedCanvasItem } from "../model/pinnedCanvas";
 
 export function ChatPage() {
-  const { fixedGraphId, runtime, runNotice, error, messages, resetThread, cancelRun, sendMessage, status, graphId, graphs, selectGraph, history, historyLoading, historyError, refreshHistory, openThread, threadId, conversationVersion, runGraph, graphResult, graphDiscoveryError, reloadGraphs, canvas, selectCanvas, collapseCanvas } = useChat();
+  const { fixedGraphId, runtime, runNotice, error, messages, resetThread, cancelRun, sendMessage, status, graphId, graphs, selectGraph, history, historyLoading, historyError, refreshHistory, openThread, threadId, conversationVersion, runGraph, graphResult, graphDiscoveryError, reloadGraphs } = useChat();
   const taMode = graphId === "technical_analysis_canvas_agent";
-  const canvasVisible = taMode && canvas.reports.length > 0 && !canvas.collapsed;
+  const [pinned, setPinned] = useState<{ threadId: string | null; items: PinnedCanvasItem[] }>({ threadId: null, items: [] });
+  const [canvasCollapsed, setCanvasCollapsed] = useState(false);
+  const pinnedItems = pinned.threadId === threadId ? pinned.items : [];
+  useEffect(() => {
+    if (!threadId || !taMode) return;
+    let items: PinnedCanvasItem[] = [];
+    try { items = restorePinnedItems(window.localStorage.getItem(storageKey(runtime.id, threadId))); } catch { /* Browser storage may be disabled. */ }
+    setPinned({ threadId, items });
+  }, [threadId, taMode, runtime.id]);
+  useEffect(() => {
+    if (!threadId || pinned.threadId !== threadId || !taMode) return;
+    try { window.localStorage.setItem(storageKey(runtime.id, threadId), JSON.stringify(pinned.items)); } catch { /* Canvas remains usable when browser storage is full or disabled. */ }
+  }, [threadId, pinned, taMode, runtime.id]);
+  const changePinned = (update: (items: PinnedCanvasItem[]) => PinnedCanvasItem[]) => setPinned(previous => {
+    const items = update(previous.threadId === threadId ? previous.items : []);
+    return previous.threadId === threadId && items === previous.items ? previous : { threadId, items };
+  });
+  const addPinned = (selection: CanvasItemSelection, messageId: string, reportId?: string) => {
+    if (!threadId) return;
+    setPinned(previous => ({ threadId, items: pinItem(previous.threadId === threadId ? previous.items : [], selection, messageId, reportId) }));
+    setCanvasCollapsed(false);
+  };
+  const canvasVisible = taMode && pinnedItems.length > 0 && !canvasCollapsed;
   const busy = status === "streaming" || status === "creating_thread" || status === "loading_history";
   const selected = graphs.find(graph => graph.id === graphId);
   const jsonMode = selected?.mode === "json";
@@ -38,7 +62,7 @@ export function ChatPage() {
   const conversationMessages = jsonMode ? graphResult === undefined ? [] : [{ id: "graph-test-result", role: "assistant" as const, content: "실행 결과", view: <GraphTestResult result={graphResult} /> }] : messages.map((message, index) => ({
     id: message.id, role: message.role === "user" ? "user" as const : "assistant" as const,
     content: message.content,
-    view: <div>{message.content && <ConversationText text={taMode && message.role === "assistant" && message.content.length > 600 ? `${message.content.slice(0, 600)}…` : message.content} />}{!taMode && message.program && (graphId === "technical_analysis_agent" ? <InlineAnalysis program={message.program} active={!busy && index === messages.length - 1} /> : <OutputView queryEndpoint={runtime.chartEndpoint} program={message.program} active={!busy && index === messages.length - 1} />)}{taMode && canvas.reports.filter(report => report.messageId === message.id).map(report => <Button key={report.id} variant="outline" onClick={() => selectCanvas(report.id)}>{report.request?.ticker ?? "분석"} 보고서 열기</Button>)}</div>,
+    view: <div>{message.content && <ConversationText text={message.content} />}{message.program && (graphId === "technical_analysis_agent" ? <InlineAnalysis program={message.program} active={!busy && index === messages.length - 1} /> : <OutputView queryEndpoint={runtime.chartEndpoint} program={message.program} active={!busy && index === messages.length - 1} onCanvasAdd={taMode ? selection => addPinned(selection, message.id, message.presentationId) : undefined} />)}</div>,
   }));
   const conversation = <AgentConversation key={`${graphId}:${conversationVersion}`} title={runtime.label} resetLabel={jsonMode ? "새 실행" : "새 대화"}
     welcomeTitle={graphId === "talib_agent" ? "어떤 분석부터 해볼까요?" : jsonMode ? `${selected?.name ?? graphId} 테스트` : "무엇을 도와드릴까요?"}
@@ -48,7 +72,7 @@ export function ChatPage() {
     headerLeading={<SidebarTrigger className="md:hidden" aria-label="메뉴 열기" />}
     headerControls={<div className="agent-conversation__header-controls">
       {fixedGraphId ? ["talib_agent", "sec_modeling_agent"].includes(graphId) ? null : <p className="text-sm font-medium">{selected?.name ?? graphId}</p> : <GraphSelector graphs={graphs} value={graphId} onChange={selectGraph} disabled={busy} />}
-      {taMode && canvas.reports.length > 0 && canvas.collapsed && <Button size="sm" variant="outline" onClick={() => collapseCanvas(false)}>Canvas ({canvas.reports.length})</Button>}
+      {taMode && pinnedItems.length > 0 && canvasCollapsed && <Button size="sm" variant="outline" onClick={() => setCanvasCollapsed(false)}>Canvas ({pinnedItems.length})</Button>}
       {<ChatHistory label={jsonMode ? "실행 기록" : "대화 기록"} items={history} loading={historyLoading} error={historyError} disabled={busy} selectedId={threadId} onRefresh={refreshHistory} onSelect={openThread} />}
     </div>}
     status={(error || discoveryNotice || runNotice) ? <ChatNotice tone={error || discoveryNotice ? "error" : "status"}>{error ?? discoveryNotice ?? runNotice ?? ""}{discoveryNotice && <Button variant="link" onClick={() => void reloadGraphs()}>목록 다시 불러오기</Button>}</ChatNotice> : undefined}
@@ -56,5 +80,5 @@ export function ChatPage() {
     nativeMessages={jsonMode ? undefined : nativeProjection.messages} executingToolCallIds={jsonMode ? undefined : nativeProjection.executingToolCallIds}
     busy={busy} messages={conversationMessages} onSend={sendMessage} onCancel={cancelRun} onReset={resetThread} />;
   if (!taMode) return conversation;
-  return <div className={`ta-canvas-workspace${canvasVisible ? " ta-canvas-open" : ""}`}><div className="ta-canvas-chat">{conversation}</div>{canvasVisible && <><CanvasSplitter /><TaCanvas /></>}</div>;
+  return <div className={`ta-canvas-workspace${canvasVisible ? " ta-canvas-open" : ""}`}><div className="ta-canvas-chat">{conversation}</div>{canvasVisible && <><CanvasSplitter /><PinnedCanvas items={pinnedItems} queryEndpoint={runtime.chartEndpoint} busy={busy} onChange={changePinned} onClose={() => setCanvasCollapsed(true)} onAsk={(question, context) => void sendMessage(question, context)} /></>}</div>;
 }
