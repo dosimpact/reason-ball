@@ -4,7 +4,7 @@ import type { Evidence } from "../ui/EvidenceView";
 export type Company = { cik: string; name: string; ticker: string };
 export type Prepared = { threadId: string; filing: { accessionNo: string; filingDate: string }; checkedAt: string | null; missingItems: string[] };
 export type Message = { role: "user" | "assistant"; text: string; program?: string; evidence?: Evidence; followUps?: string[]; activities?: Activity[] };
-export type Choice = { companies: Company[]; question: string; refresh: boolean };
+export type Choice = { companies: Company[]; question: string; refresh: boolean; pendingAction?: "research" | "collect"; years?: number; since?: string };
 export type Conversation = { id: string; title: string; updatedAt: string; messages: Message[]; company?: Company; prepared?: Prepared; choice?: Choice };
 export const HISTORY_KEY = "sec-chat-history-v1";
 export function parseHistory(value: string | null): Conversation[] {

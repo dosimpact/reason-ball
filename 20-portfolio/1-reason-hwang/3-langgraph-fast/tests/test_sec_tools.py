@@ -5,10 +5,13 @@ import httpx
 import pytest
 from langchain_core.language_models.fake_chat_models import FakeMessagesListChatModel
 from langchain_core.messages import AIMessage, HumanMessage
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
 
 from domains.sec_tools.agent import (
     artifacts,
     build_tool_graph,
+    collect_company_filings,
     prepare_filing,
     search_companies,
 )
@@ -89,6 +92,71 @@ async def test_search_uses_real_tool_and_rejects_model_only_claims():
     assert len(log) == 1
     with pytest.raises(SecReadError):
         await search_companies('AAPL', ToolModel(responses=[AIMessage(content='invented')]), client_with([]))
+
+
+@pytest.mark.asyncio
+async def test_collection_calls_only_selected_company_sync_and_checks_completed_event():
+    log = []
+    model = ToolModel(responses=[call('sync_sec_company_filings', ciks=[FILING['cik']], years=3), AIMessage(content='done')])
+    result = await collect_company_filings(FILING['cik'], 3, None, model, client_with(log))
+    assert result['cik'] == FILING['cik']
+    assert result['filingsSynced'] == 1 and result['downloaded'] == 1
+    assert len(log) == 1 and log[0].method == 'POST'
+    assert log[0].url.path == '/api/sec/company-filing-sync-jobs'
+    assert log[0].read().decode() == f'{{"years":3,"downloadDocuments":true,"refreshArchive":false,"ciks":["{FILING["cik"]}"],"tickers":[]}}'
+
+
+@pytest.mark.asyncio
+async def test_collection_rejects_wrong_arguments_and_model_only_claims_before_post():
+    log = []
+    wrong = ToolModel(responses=[call('sync_sec_company_filings', ciks=[FILING['cik']], years=20), AIMessage(content='done')])
+    with pytest.raises(SecReadError):
+        await collect_company_filings(FILING['cik'], 3, None, wrong, client_with(log))
+    with pytest.raises(SecReadError):
+        await collect_company_filings(FILING['cik'], 3, None, ToolModel(responses=[AIMessage(content='downloaded')]), client_with(log))
+    assert not log
+
+
+@pytest.mark.asyncio
+async def test_collection_calls_selected_sync_only_once_even_if_model_repeats():
+    log = []
+    sync = call('sync_sec_company_filings', ciks=[FILING['cik']], years=2)
+    repeated = AIMessage(content='', tool_calls=[{'name': 'sync_sec_company_filings', 'args': {'ciks': [FILING['cik']], 'years': 2},
+                                                  'id': 'second-sync', 'type': 'tool_call'}])
+    model = ToolModel(responses=[sync, repeated, AIMessage(content='done')])
+    with pytest.raises(SecReadError):
+        await collect_company_filings(FILING['cik'], 2, None, model, client_with(log))
+    assert len(log) == 1
+
+
+def test_collect_api_sse_uses_selected_bff_post_and_does_not_report_failure_as_success(monkeypatch):
+    from domains.sec_tools import tools as sec_tools
+    from server.sec_chat import router as sec_router
+
+    captured = []
+    stream = 'event: completed\ndata: {"companiesProcessed":1,"filingsSynced":4,"downloaded":3,"failed":0}\n\n'
+
+    def respond(request):
+        captured.append(request)
+        return httpx.Response(200, text=stream, headers={'content-type': 'text/event-stream'})
+
+    def init(self, base_url=None, transport=None):
+        self.base_url = 'http://sec-bff.test'
+        self.transport = httpx.MockTransport(respond)
+
+    monkeypatch.setattr(sec_tools.SecBffClient, '__init__', init)
+    monkeypatch.setattr(sec_router, 'chat_model', lambda: ToolModel(responses=[call('sync_sec_company_filings', ciks=[FILING['cik']], years=2), AIMessage(content='done')]))
+    app = FastAPI()
+    app.include_router(sec_router.router)
+    with TestClient(app) as client:
+        assert client.post('/api/sec-chat/collect', json={'cik': FILING['cik'], 'years': 2, 'since': '2026-99-99'}).status_code == 422
+        response = client.post('/api/sec-chat/collect', json={'cik': FILING['cik'], 'years': 2}, headers={'Accept': 'text/event-stream'})
+        assert response.status_code == 200
+        assert 'RUN_FINISHED' in response.text and '메타데이터 4건' in response.text
+        assert len(captured) == 1 and captured[0].url.path == '/api/sec/company-filing-sync-jobs'
+        stream = 'event: completed\ndata: {"companiesProcessed":1,"filingsSynced":4,"downloaded":2,"failed":1}\n\n'
+        response = client.post('/api/sec-chat/collect', json={'cik': FILING['cik'], 'years': 2}, headers={'Accept': 'text/event-stream'})
+        assert 'RUN_ERROR' in response.text and 'RUN_FINISHED' not in response.text
 
 
 @pytest.mark.asyncio

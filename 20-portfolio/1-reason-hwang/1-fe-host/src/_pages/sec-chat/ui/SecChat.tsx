@@ -10,8 +10,8 @@ import { readAnswer, readPreparation, readResolution } from "../api/stream";
 import { ActivityTimeline, type Activity } from "./ActivityTimeline";
 import "./sec-chat.css";
 
-type Resolution = { followUps?: string[]; program?: string } & ({ action: "reply"; reply: string } | ({ action: "choose"; reply: string } & Choice) | { action: "research"; company: Company | null; question: string; refresh: boolean });
-const suggestions = ["애플은 어떻게 돈을 벌어?", "엔비디아의 주요 사업 리스크를 알려줘", "10-K를 볼 때 무엇부터 읽으면 좋을까?"];
+type Resolution = { followUps?: string[]; program?: string } & ({ action: "reply"; reply: string } | ({ action: "choose"; reply: string } & Choice) | { action: "research"; company: Company | null; question: string; refresh: boolean } | { action: "collect"; company: Company | null; years: number; since?: string });
+const suggestions = ["애플은 어떻게 돈을 벌어?", "엔비디아의 주요 사업 리스크를 알려줘", "10-K를 볼 때 무엇부터 읽으면 좋을까?", "애플의 최근 1년 10-K·10-Q·8-K 공시를 수집해 줘"];
 
 
 export function SecChat() {
@@ -92,6 +92,20 @@ export function SecChat() {
     append({ role: "assistant", text: `${target.name}의 10-K 원문에 근거한 답변: ${text}`, program, followUps, evidence });
   }
 
+  async function collect(selected: Company | null, years: number, since: string | undefined, signal: AbortSignal) {
+    const target = selected ?? company;
+    if (!target) throw new Error("수집할 기업을 알려 주세요.");
+    setBusy(`${target.name}의 10-K·10-Q·8-K 공시를 수집하고 있어요. 수 분이 걸릴 수 있습니다.`);
+    const result = await trackRequest(`${target.name} · 공시 수집`, async () => {
+      const response = await fetch("/api/sec-chat/collect", {
+        method: "POST", headers: { "Content-Type": "application/json", Accept: "text/event-stream" },
+        body: JSON.stringify({ cik: target.cik, years, ...(since ? { since } : {}) }), signal,
+      });
+      return readResolution<{ reply: string }>(response, recordActivity);
+    });
+    append({ role: "assistant", text: result.reply });
+  }
+
   async function send(text: string, selected?: Company) {
     if (!text.trim() || abort.current) return;
     const pending = choice;
@@ -101,7 +115,8 @@ export function SecChat() {
     append({ role: "user", text });
     try {
       if (selected && pending) {
-        await research(selected, pending.question, pending.refresh, controller.signal);
+        if (pending.pendingAction === "collect") await collect(selected, pending.years ?? 2, pending.since, controller.signal);
+        else await research(selected, pending.question, pending.refresh, controller.signal);
       } else {
         const result = await trackRequest("대화 요청", async () => {
           const response = await fetch("/api/sec-chat/resolve", { method: "POST", headers: { "Content-Type": "application/json", Accept: "text/event-stream" }, body: JSON.stringify({ message: text, threadId: prepared?.threadId, history: messages.slice(-12).map(({ role, text }) => ({ role, text: text.slice(0, 4000) })) }), signal: controller.signal });
@@ -110,7 +125,8 @@ export function SecChat() {
         if (result.action === "reply") append({ role: "assistant", text: result.reply, program: result.program, followUps: result.followUps });
         else if (result.action === "choose") {
           append({ role: "assistant", text: result.reply, program: result.program, followUps: result.followUps }); setChoice(result);
-        } else await research(result.company, result.question, result.refresh, controller.signal);
+        } else if (result.action === "collect") await collect(result.company, result.years, result.since, controller.signal);
+        else await research(result.company, result.question, result.refresh, controller.signal);
       }
     } catch (e) {
       const message = controller.signal.aborted ? "답변 생성을 중단했어요. 메시지를 다시 보내 이어갈 수 있어요." : (e as Error).message;

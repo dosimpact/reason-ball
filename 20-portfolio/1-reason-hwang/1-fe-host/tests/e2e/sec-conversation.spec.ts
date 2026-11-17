@@ -171,3 +171,34 @@ test('SEC conversation history survives reload and restores a selected conversat
   await page.getByRole('button', { name: /저장할 질문/ }).click();
   await expect(page.getByText('저장할 답변입니다.', { exact: true })).toBeVisible();
 });
+
+// SEC-COLLECT-CHAT-001: collection must not fall through to 10-K preparation.
+test('conversation: selected company collection preserves scope and exposes failure', async ({ page }) => {
+  let collectBody: Record<string, unknown> = {};
+  let failed = false;
+  let preparedCalls = 0;
+  await page.route('**/api/sec-chat/prepare', route => { preparedCalls++; return route.fulfill({ status: 500 }); });
+  await page.route('**/api/sec-chat/resolve', route => route.fulfill({ json: {
+    action: 'choose', reply: '수집할 기업을 선택해 주세요.', companies: [apple], question: '최근 1년 공시 수집', refresh: false,
+    pendingAction: 'collect', years: 1, since: '2026-01-01',
+  } }));
+  await page.route('**/api/sec-chat/collect', async route => {
+    collectBody = route.request().postDataJSON();
+    await route.fulfill(failed ? { status: 502, json: { detail: '공시 수집 실패' } } : { json: { reply: '공시 수집 완료: 원문 3건, 실패 0건.' } });
+  });
+  await page.goto('/sec-chat');
+  const input = page.getByRole('textbox', { name: '메시지를 입력하세요' });
+  await input.fill('애플의 최근 1년 공시를 수집해 줘');
+  await input.press('Enter');
+  await page.getByRole('button', { name: 'AAPL Apple Inc.', exact: true }).click();
+  await expect(page.getByText('공시 수집 완료: 원문 3건, 실패 0건.', { exact: true })).toBeVisible();
+  expect(collectBody).toEqual({ cik: apple.cik, years: 1, since: '2026-01-01' });
+  expect(preparedCalls).toBe(0);
+  failed = true;
+  await input.fill('다시 공시를 수집해 줘');
+  await input.press('Enter');
+  await page.getByRole('button', { name: 'AAPL Apple Inc.', exact: true }).click();
+  await expect(page.getByRole('alert').filter({ hasText: '공시 수집 실패' })).toBeVisible();
+  await expect(page.getByText('공시 수집 완료: 원문 3건, 실패 0건.', { exact: true })).toHaveCount(1);
+  expect(preparedCalls).toBe(0);
+});

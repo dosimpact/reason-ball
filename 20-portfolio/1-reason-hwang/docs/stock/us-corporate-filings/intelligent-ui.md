@@ -61,3 +61,13 @@ Item 1 소제목 추출 → 소제목별 요약을 연속 대화로 지원하고
 공시 준비는 기업 검색·목록·원문 조회를 사용하고, 명시적 최신 확인(`refresh=true`)에는 선택 기업의 공시 동기화·다운로드 도구를 허용한다. 따라서 전체 경로가 완전히 읽기 전용인 것은 아니다.
 모델링 근거 단계는 `search_sec_evidence`, `query_sec_xbrl_facts`, `get_sec_evidence`만 사용한다. 모델링1·2·3 실행이나 별도 리포트 저장·발행 생성 API는 이 도구 목록에 없다. 분석 답변과 OpenUI는 조회한 근거로 그래프가 생성한다.
 [이름 변경·도구 확인 기록](../../flow/2026-11-17-sec-research-chat-name.md).
+
+
+## SEC-COLLECT-CHAT-001 선택 기업 공시 수집
+
+명시적인 공시 수집·다운로드 요청은 `collect`로 라우팅한다. 기업을 검색해 식별하고 여러 후보라면 사용자가 선택한다. 선택 후에도 수집 의도와 years/since를 유지하며 기존 10-K 준비·분석으로 전환하지 않는다.
+
+Host는 `/api/sec-chat/collect`를 통해 `sync_sec_company_filings` 도구를 호출하고, 도구는 기존 BFF `POST /api/sec/company-filing-sync-jobs`에 선택 CIK·기간·downloadDocuments=true를 전달한다. 기본 기간은2년, 사용자가 지정한 years(1~30) 또는 since를 사용한다. 기간 내10-K·10-Q·8-K 및 각 정정 공시를 함께 수집한다. 현재 BFF는 formType 수집 필터를 받지 않으므로 특정 유형만 수집했다고 안내하지 않는다.
+
+이 실행의 도구 목록은 선택 기업 수집1종이며 전체 기업 수집은 노출하지 않는다. 완료는 실제 SSE completed와 기업 수·실패 수를 검증한 뒤 확정하고, 응답의 메타데이터 동기화·다운로드 건수를 표시한다. 오류·미완료는 성공으로 출력하지 않는다. 수집은 분석 답변 생성·모델링1/2/3 실행과 별개이며 기존 분석 세션을 덮어쓰지 않는다.
+[구현·검증 기록](../../flow/2026-11-17-sec-chat-collection-tool.md).

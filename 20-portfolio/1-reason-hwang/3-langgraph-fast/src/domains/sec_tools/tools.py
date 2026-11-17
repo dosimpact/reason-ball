@@ -123,11 +123,13 @@ def compact(value):
     return value
 
 
-def build_sec_tools(client=None, activity=None, *, allowed_ciks=None, allow_sync=True, include_arguments=False, include_tool_details=False):
+def build_sec_tools(client=None, activity=None, *, allowed_ciks=None, allow_sync=True, required_sync_args=None, include_arguments=False, include_tool_details=False):
     client = client or SecBffClient()
+    collection_sync_started = False
 
     def make(name, description, schema, method, path, *, stream=False, raw=False):
         async def execute(**kwargs):
+            nonlocal collection_sync_started
             identity = uuid4().hex
             def emit(status, result=None):
                 if activity:
@@ -143,6 +145,12 @@ def build_sec_tools(client=None, activity=None, *, allowed_ciks=None, allow_sync
                         raise SecReadError("Tool request outside the selected company scope")
                 if method == 'POST' and not allow_sync:
                     raise SecReadError("Synchronization is disabled for this request")
+                if name == 'sync_sec_company_filings' and required_sync_args is not None and args != required_sync_args:
+                    raise SecReadError("Synchronization arguments differ from the confirmed request")
+                if name == 'sync_sec_company_filings' and required_sync_args is not None:
+                    if collection_sync_started:
+                        raise SecReadError("Synchronization already started for this request")
+                    collection_sync_started = True
                 actual_path = path
                 if raw:
                     actual_path = f"filings/{args['cik']}/{args['accessionNo']}/content"

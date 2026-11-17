@@ -6,15 +6,16 @@ import json
 import time
 from contextlib import aclosing
 from dataclasses import dataclass, field
+from datetime import date
 from uuid import uuid4
 
 import httpx
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from domains.sec_chat.conversation import ConversationRequest
-from domains.sec_tools.agent import prepare_filing, search_companies
+from domains.sec_tools.agent import collect_company_filings, prepare_filing, search_companies
 from domains.tenk.sec_client import SecReadError
 from graph.primary_graphs.sec_intelligent_ui.conversation import (
     build_conversation_graph,
@@ -39,6 +40,19 @@ sessions: dict[str, Session] = {}
 class PrepareRequest(BaseModel):
     cik: str = Field(pattern=r"^\d{10}$")
     refresh: bool = False
+
+
+class CollectRequest(BaseModel):
+    cik: str = Field(pattern=r"^\d{10}$")
+    years: int = Field(default=2, ge=1, le=30)
+    since: str | None = Field(default=None, pattern=r"^\d{4}-\d{2}-\d{2}$")
+
+    @field_validator("since")
+    @classmethod
+    def valid_since(cls, value: str | None) -> str | None:
+        if value is not None:
+            date.fromisoformat(value)
+        return value
 
 
 class ChatRequest(BaseModel):
@@ -87,6 +101,41 @@ async def companies(q: str = ""):
         return await search_companies(q, chat_model())
     except SecReadError as error:
         raise HTTPException(502, str(error)) from error
+
+
+@router.post("/collect")
+async def collect(body: CollectRequest, request: Request):
+    async def collect_result(sink=None):
+        completed = await collect_company_filings(body.cik, body.years, body.since, chat_model(), activity=sink)
+        period = f"{body.since}부터" if body.since else f"최근 {body.years}년"
+        reply = (f"CIK {body.cik}의 {period} SEC 공시 수집을 완료했습니다. "
+                 f"메타데이터 {completed['filingsSynced']}건을 동기화하고 원문 {completed['downloaded']}건을 다운로드했습니다. "
+                 "수집 API는 10-K·10-Q·8-K와 각 수정본을 함께 대상으로 하며, 서식별 완료 건수는 제공하지 않습니다.")
+        return {"action": "reply", "reply": reply, "collection": completed}
+
+    if "text/event-stream" in request.headers.get("accept", ""):
+        async def stream_collection():
+            run_id = uuid4().hex
+            try:
+                yield event("RUN_STARTED", runId=run_id)
+                async with aclosing(activity_stream(collect_result)) as updates:
+                    async for kind, payload in updates:
+                        if kind == "activity":
+                            yield event("CUSTOM", name="sec.activity", value=payload)
+                        elif kind == "heartbeat":
+                            yield ": heartbeat\n\n"
+                        elif kind == "result" and payload is not None:
+                            yield event("CUSTOM", name="sec.resolution", value=payload)
+                yield event("RUN_FINISHED", runId=run_id)
+            except asyncio.CancelledError:
+                raise
+            except Exception:  # noqa: BLE001 - sanitized streaming boundary
+                yield event("RUN_ERROR", message="SEC 공시 수집에 실패했습니다. 다시 시도해 주세요.", code="SEC_COLLECT_FAILED")
+        return StreamingResponse(stream_collection(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+    try:
+        return await collect_result()
+    except (SecReadError, httpx.HTTPError, ValueError) as error:
+        raise HTTPException(502, "SEC 공시 수집에 실패했습니다. 다시 시도해 주세요.") from error
 
 
 @router.post("/prepare")

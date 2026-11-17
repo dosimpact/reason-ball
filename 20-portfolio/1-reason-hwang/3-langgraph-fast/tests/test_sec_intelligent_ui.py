@@ -292,6 +292,39 @@ async def test_conversation_resolution_uses_verified_companies_and_clarifies(mon
     assert (await resolve_conversation(body, None, model, client))["action"] == "reply"
 
 
+@pytest.mark.asyncio
+async def test_collection_resolution_keeps_selected_scope_and_choice_intent(monkeypatch):
+    from domains.sec_chat.conversation import ConversationIntent, ConversationRequest, resolve_conversation
+
+    async def search(query, model, client, activity):
+        assert query == 'Apple'
+        return {'items': client.rows}
+
+    monkeypatch.setattr('domains.sec_chat.conversation.search_companies', search)
+
+    class Model:
+        def with_structured_output(self, schema):
+            return self
+
+        async def ainvoke(self, messages):
+            return ConversationIntent(action='collect', company_queries=self.queries, question='', reply='', years=3)
+
+    class Client:
+        rows = [{'cik': FILING['cik'], 'ticker': 'AAPL', 'name': 'Apple'}]
+
+    model, client = Model(), Client()
+    model.queries = ['Apple']
+    body = ConversationRequest(message='애플 최근 3년 10-K, 10-Q, 8-K를 수집해줘')
+    result = await resolve_conversation(body, None, model, client)
+    assert result == {'action': 'collect', 'company': client.rows[0], 'years': 3, 'since': None}
+    client.rows = [*client.rows, {'cik': '0000000001', 'ticker': 'OTHER', 'name': 'Other Apple'}]
+    result = await resolve_conversation(body, None, model, client)
+    assert result['action'] == 'choose' and result['pendingAction'] == 'collect' and result['years'] == 3
+    model.queries = []
+    result = await resolve_conversation(body, {'filing': FILING}, model, client)
+    assert result == {'action': 'collect', 'company': None, 'years': 3, 'since': None}
+
+
 def test_conversation_api_validates_message_history_and_session():
     app = FastAPI()
     app.include_router(router)

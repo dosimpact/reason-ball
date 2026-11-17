@@ -1,0 +1,24 @@
+meta {
+  name: SEC-COLLECT-001 selected company completes
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/collect
+  body: json
+  auth: none
+}
+body:json {
+  {"cik":"0000320193","years":2}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Reports verified selected-company counts", function () {
+    expect(res.getBody().collection.cik).to.equal("0000320193");
+    expect(res.getBody().collection.filingsSynced).to.equal(4);
+    expect(res.getBody().collection.downloaded).to.equal(3);
+    expect(res.getBody().reply).to.include("10-K·10-Q·8-K");
+  });
+}
