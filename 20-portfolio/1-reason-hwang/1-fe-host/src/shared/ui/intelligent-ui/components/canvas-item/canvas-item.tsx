@@ -3,7 +3,7 @@
 import { createContext, useContext, type ReactNode } from "react";
 import { defineComponent } from "@openuidev/react-lang";
 import { z } from "zod/v4";
-import { children } from "./style";
+import { children } from "../style";
 
 export type CanvasAddHandler = (id: string) => void;
 export const CanvasAddContext = createContext<CanvasAddHandler | null>(null);

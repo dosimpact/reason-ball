@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { extractCanvasItems } from "./canvas-item";
+import { extractCanvasItems } from "./extract-canvas-items";
 
 describe("CanvasItem extraction", () => {
   it("retains only transitive Query and reactive dependencies for the selected child", () => {

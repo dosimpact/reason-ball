@@ -5,9 +5,9 @@ import "./components/theme.css";
 import "./components/components.css";
 import "./components/map/map.css";
 import { QueryPanel } from "./components/query-panel";
-import { CanvasItem } from "./components/canvas-item";
-import { IndicatorControls } from "./components/indicator-controls";
-import { FinancialChart } from "./components/financial-chart";
+import { CanvasItem } from "./components/canvas-item/canvas-item";
+import { IndicatorControls } from "./components/financial/indicator-controls";
+import { FinancialChart } from "./components/financial/financial-chart";
 import { Chart } from "./components/chart";
 import { Carousel, Celebration, Code, Flashcard, MathBlock, Popover, Quote, YouTube } from "./components/extra";
 import {

@@ -1,7 +1,7 @@
 export { library } from "./library";
 export { runLibraryAction } from "./actions";
 export { OutputView, type BusinessRequest } from "./OutputView";
-export { extractCanvasItems, type CanvasItemSelection } from "./canvas-item";
+export { extractCanvasItems, type CanvasItemSelection } from "./components/canvas-item/extract-canvas-items";
 export { webUrl } from "./components/style";
 export { Col } from "./components/layout";
 export { listFunctions } from "./functions/lists";

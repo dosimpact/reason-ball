@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createParser, createQueryManager } from "@openuidev/lang-core";
 import { OpenuiSystemPromptSpec as spec } from "@/shared/config";
-import { fetchTechnicalAnalysisChart, fetchIndicatorCatalog, withQueryDeadline } from "./query-tools";
+import { fetchTechnicalAnalysisChart, fetchIndicatorCatalog, withQueryDeadline } from "../../query-tools";
 
 afterEach(() => { vi.unstubAllGlobals(); vi.useRealTimers(); });
 describe("financial Query bridge", () => {

@@ -4,8 +4,8 @@ import { fetchIndicatorCatalog, fetchTechnicalAnalysisChart } from "./query-tool
 import { BuiltinActionType, Renderer, type ActionEvent } from "@openuidev/react-lang";
 import { library } from "./library";
 import { BusinessAction, runLibraryAction } from "./actions";
-import { CanvasAddContext } from "./components/canvas-item";
-import { extractCanvasItems, type CanvasItemSelection } from "./canvas-item";
+import { CanvasAddContext } from "./components/canvas-item/canvas-item";
+import { extractCanvasItems, type CanvasItemSelection } from "./components/canvas-item/extract-canvas-items";
 
 export type BusinessRequest = { name: string; context: Record<string, unknown> };
 

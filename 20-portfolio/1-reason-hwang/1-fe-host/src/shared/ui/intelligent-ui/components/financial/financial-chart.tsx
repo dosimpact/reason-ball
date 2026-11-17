@@ -4,9 +4,9 @@ import { defineComponent, useStateField } from "@openuidev/react-lang";
 import { CandlestickSeries, ColorType, HistogramSeries, LineSeries, createChart } from "lightweight-charts";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { z } from "zod/v4";
-import { chartIndicators } from "../financial-indicators";
-import { financialSnapshotSchema, type FinancialSnapshot } from "../financial-schema";
-export type { FinancialSnapshot } from "../financial-schema";
+import { chartIndicators } from "./financial-indicators";
+import { financialSnapshotSchema, type FinancialSnapshot } from "./financial-schema";
+export type { FinancialSnapshot } from "./financial-schema";
 
 const loadingSnapshot: FinancialSnapshot = { bars: [], status: "loading" };
 const colors = ["#e79b19", "#8b5cf6", "#3b82f6", "#e0528b", "#16a085", "#d35400", "#78909c"];

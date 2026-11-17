@@ -2,7 +2,7 @@
 import { defineComponent, reactive, useIsStreaming, useStateField } from "@openuidev/react-lang";
 import { useEffect, useId, useState } from "react";
 import { z } from "zod/v4";
-import { indicatorCatalogSchema, type IndicatorCatalog } from "../financial-schema";
+import { indicatorCatalogSchema, type IndicatorCatalog } from "./financial-schema";
 
 type InstanceDraft = { instanceId?: string; name: string; parameters?: Record<string, number | string>; showSignal?: boolean };
 const parseInstances = (value: unknown): InstanceDraft[] => {

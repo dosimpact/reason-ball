@@ -1,5 +1,5 @@
 import { withBase } from "./base-path";
-import { financialSnapshotSchema, indicatorCatalogSchema } from "./financial-schema";
+import { financialSnapshotSchema, indicatorCatalogSchema } from "./components/financial/financial-schema";
 
 const allowedArguments = new Set(["ticker", "interval", "count", "indicators", "sma_period", "rsi_period", "macd_fast", "macd_slow", "macd_signal", "schema_version", "instances"]);
 

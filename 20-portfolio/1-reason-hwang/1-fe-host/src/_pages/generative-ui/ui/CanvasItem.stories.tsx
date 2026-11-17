@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { useState } from "react";
-import { CanvasItemFrame } from "@/shared/ui/intelligent-ui/components/canvas-item";
+import { CanvasItemFrame } from "@/shared/ui/intelligent-ui/components/canvas-item/canvas-item";
 import { OutputView, type CanvasItemSelection } from "@/shared/ui/intelligent-ui";
 
 function CanvasItemExample() {

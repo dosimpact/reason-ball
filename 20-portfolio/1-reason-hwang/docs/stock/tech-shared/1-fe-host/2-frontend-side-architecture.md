@@ -428,3 +428,15 @@ Chat 그래프 선택기는 등록된 그래프의 역할과 입력 방식을 �
 AI Chat의 `SEC Modeling Chat`은 `/sec-modeling-chat`에서 공용 ChatProvider/ChatPage를 재사용한다. 별도 route 모듈이 `fastApiChatRuntime`과 `fixedGraphId="sec_modeling_agent"`를 전달하므로 선택기를 표시하지 않고2981 FastAPI의 graph discovery·실행·이력·도구 상태를 사용한다. graph 누락 시 기존 명시 오류·재조회 동작을 유지하며 개발 runtime이나 다른 graph로 대체하지 않는다. 모바일 메뉴 트리거도 전용 채팅 헤더를 사용한다.
 
 `/sec-chat`의 원문 Item 인용과 게시 모델링 근거는 분리한다. `sec.evidence.modeling`의 선택된 sources만 QName·값·원문 값·기간·단위·공시/근거 ID·근거 텍스트로 표시한다. `empty`·`unavailable`은 공시 부재와 구분하고 limitations를 함께 표시한다. 단위 JSON은 구조화된 읽기용 표기로 바꾸며 raw JSON·실행 HTML을 표시하지 않는다. 회귀 Story 정의는 추가하되 이번 작업은 사용자 지시에 따라 브라우저·Storybook 실행을 생략한다.
+
+
+## OPENUI-FOLDERS-001: 컴포넌트별 관련 파일 배치
+
+`src/shared/ui/intelligent-ui/components/map/`의 기존 관례처럼 관련 구현·스키마·보조 함수·테스트·스토리를 컴포넌트 그룹 아래에 함께 둔다.
+
+- `components/financial/`: FinancialChart, IndicatorControls, 금융 스키마, 지표 변환, 관련 테스트와 스토리.
+- `components/canvas-item/`: CanvasItem 렌더링, `extract-canvas-items.ts` 추출 유틸과 테스트.
+- `library.ts`, `OutputView.tsx`, `actions.ts`, `query-tools.ts` 등 여러 컴포넌트를 연결하는 공통 진입·실행 코드는 intelligent-ui 루트에 유지한다.
+- 기존 공개 `index.ts` export와 OpenUI 컴포넌트 이름·인자 계약은 유지한다. 테스트 탐색은 하위 폴더까지 포함한다.
+
+[이동과 검증 기록](../../../flow/2026-11-17-openui-component-folders.md).
