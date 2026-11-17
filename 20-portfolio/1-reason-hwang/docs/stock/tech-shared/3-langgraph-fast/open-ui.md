@@ -9,6 +9,14 @@ OpenUI Lang 출력과 업무 그래프를 관리한다. 공통 계약은 [OpenUI
 - `graph/provider/ui_model.py`: 공통 모델 설정과 OAuth Responses 호환. OPENUI_* 우선, OPEN_UI_* 보조 설정을 지원한다.
 - SEC Intelligent UI는 공통 compose 진입점을 통해 최종 출력 그래프를 사용한다. 추천 질문은 present 전에 생성한다. 관리자 채팅은 `sec_deep_agent/presentation.py`의 research → openui_output 그래프를 사용한다. 원시 `/research` API는 Markdown 계약을 유지한다.
 
+## SEC-UI-REPAIR-001: 구조화 응답과 프로그램 검증
+
+공통 composer의 모델 응답은 `GeneratedUI` JSON 객체이며 `program` 문자열 안에 완전한 OpenUI 프로그램을 담는다. 프롬프트도 같은 envelope를 명시한다. 구조화 응답 파싱·Pydantic 스키마 오류(빈 응답·잘못된 형태 포함)와 Host DSL parser 오류는 전체 두 번의 모델 호출 안에서 한 번 수정할 수 있다. 형식이 올바른 프로그램만 실제 Host validator로 보내며 두 번째 실패는 오류로 종료한다. 고정 UI로 대체하거나 실패한 결과를 성공으로 표시하지 않는다.
+
+공급자·네트워크 오류와 validator 연결 오류는 형식 수정으로 재시도하지 않는다. 취소는 그대로 전파한다. 서버 진단 로그는 compose/schema/DSL/validator 단계, 시도 횟수, 예외 클래스 또는 오류 개수만 남긴다. 프롬프트·모델 원문·프로그램·parser 오류 본문은 기록하지 않는다. 이 단계 로그로 과거 실패 원인까지 소급 확정할 수는 없다.
+
+회귀 테스트는 `tests/test_openui_output_repair.py`, HTTP 검증은 `bruno-api-tests/31-sec-ui-repair/`와 전용 fixture를 사용한다. [변경·검증 기록](../../../flow/2026-11-17-sec-ui-structured-repair.md).
+
 `pnpm -C 3-langgraph-fast test`와 `test:generative-ui:api`를 사용한다. 후자는 전용 Bruno 환경의 FastAPI 8010·Host 2810에 연결한다. 기본 개발 환경에서는 환경 파일 또는 Bruno `--env-var baseUrl=...`로 대상 주소를 명시한다. UI validator는 서버 환경변수에 맞는 주소로 실행되어 있어야 한다. Dynamic·Fixed 검증에는 SEC BFF가 필요하지 않다.
 
 ## OPENUI-SEC-REMOVE-001: SEC mode 제거

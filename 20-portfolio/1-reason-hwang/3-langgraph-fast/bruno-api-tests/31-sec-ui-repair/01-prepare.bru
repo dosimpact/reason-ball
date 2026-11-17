@@ -1,0 +1,22 @@
+meta {
+  name: SEC-UI-REPAIR-001 prepare fixture
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/prepare
+  body: json
+  auth: none
+}
+body:json {
+  {"cik":"0000320193","refresh":false}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("prepare isolated source", function () {
+    expect(res.getBody().items).to.include("8");
+    bru.setVar("uiRepairThread", res.getBody().threadId);
+  });
+}
