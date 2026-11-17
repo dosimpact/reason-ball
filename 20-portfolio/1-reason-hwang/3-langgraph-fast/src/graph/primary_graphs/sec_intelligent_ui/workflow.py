@@ -2,13 +2,11 @@
 from __future__ import annotations
 
 import json
-import os
 from typing import Literal, NotRequired, TypedDict, cast
 
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_openai import ChatOpenAI
 from langgraph.graph import END, START, StateGraph
-from pydantic import BaseModel, Field, SecretStr
+from pydantic import BaseModel, Field
 
 from domains.sec_chat.activity import tracked_node
 from domains.sec_chat.answer import (
@@ -20,6 +18,7 @@ from domains.sec_chat.answer import (
 )
 from domains.sec_chat.follow_ups import suggest_follow_ups
 from domains.sec_chat.presentation import compose_ui, evidence_metadata
+from graph.provider.chat_model import chat_model
 
 
 class Intent(BaseModel):
@@ -39,15 +38,6 @@ class ChatState(TypedDict):
     modeling: NotRequired[dict]
     followUps: NotRequired[list[str]]
     followUpsStatus: NotRequired[str]
-
-
-def chat_model():
-    return ChatOpenAI(
-        model=os.getenv("SEC_CHAT_MODEL", os.getenv("OPENAI_MODEL", "gpt-4.1-mini")),
-        base_url=os.getenv("SEC_CHAT_MODEL_BASE_URL", os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")),
-        api_key=SecretStr(os.getenv("SEC_CHAT_API_KEY", os.getenv("OPENAI_API_KEY", "chatgpt-oauth-placeholder"))),
-        timeout=180, max_retries=1,
-    )
 
 
 def _filing_context(source: dict) -> dict:

@@ -6,6 +6,7 @@
 
 | 문서 | 책임 |
 | --- | --- |
+| [공통 채팅 LLM provider](chat-llm-provider.md) | 단일 환경 flag로 OAuth proxy/OpenAI 전환 |
 | [모델링 상태 배치](sec-modeling-status.md) | 인증된 활성 publication 읽기 batch와 BFF 페이지 상태 |
 | [TA20 계산·조회](ta20.md) | 20개 지표 공식, 복수 인스턴스, Query v2·구버전 호환과 두 agent |
 | [자체 FastAPI runtime](fastapi-runtime.md) | 같은 graph 실행, memory 단일 worker / PostgreSQL 여러 worker, SDK stream·lease·fencing·queue와 실제 checkpoint |

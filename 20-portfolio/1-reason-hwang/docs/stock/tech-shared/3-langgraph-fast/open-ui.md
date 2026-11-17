@@ -65,3 +65,7 @@ Canvas는 카탈로그를 먼저 제공하고 마지막에 TA CANVAS SCOPE를 �
 ## SEC-STARTERS-001: 호스트 원문 인용 보호
 
 호스트 근거 패널이 있고 SEC findings가 있는 경우 composer는 Quote 구성요소와 Markdown 인용을 생성하지 않도록 지시한다. 실제 프로그램에서는 문자열 리터럴을 제외한 Quote 생성자를 추가 검사하며 기존 전체2회 생성 예산 안에서 수정한다. 정확한 원문 인용은 호스트가 표시한다. 일반 개념 답변과 host_evidence=false 경로의 Quote 사용은 유지한다. 이 검사는 요약의 모든 의미나 Markdown 내용의 자동 사실 검증이 아니다. 서버 소유 filingContext의 제출일·접수번호를 정확히 표시하고 내부 필드명은 화면에 노출하지 않도록 지시한다. 표의 총계에는 제품·서비스 등 실제 집계 범위를 보존하며 게시 모델링의 빈 조회를 자료 자체의 절대 부재로 바꾸지 않는다. [검증 기록](../../../flow/2026-11-17-sec-starters-regression.md).
+
+## CHAT-LLM-001: 현재 모델 설정
+
+OpenUI 출력의 provider·모델·주소·키는 [공통 채팅 LLM 설정](chat-llm-provider.md)의 `CHAT_LLM_*`을 따른다. 이전 OPENUI_MODEL/OPEN_UI_MODEL override는 공통 선택을 변경하지 않는다. OAuth 출력의 Responses 호환 방식은 유지한다.

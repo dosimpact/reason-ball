@@ -6,7 +6,7 @@ def get_provider(name: str):
     normalized = name.strip().lower()
     if normalized == "openai":
         return OpenAIProvider()
-    if normalized in {"chatgpt-oauth-proxy", "proxy"}:
+    if normalized in {"chatgpt-oauth-proxy", "oauth-proxy", "proxy"}:
         return ChatGptOauthProxyProvider()
     raise ValueError(f"Unsupported provider: {name}")
 

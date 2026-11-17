@@ -42,7 +42,11 @@ def execution_version():
             digest.update(path.read_bytes())
     for name in ("langgraph.json", "uv.lock"):
         digest.update((root / name).read_bytes())
-    for name in ("OPENAI_MODEL", "SEC_CHAT_MODEL", "OPEN_UI_MODEL", "OPENUI_MODEL"):
+    for name in (
+        "OPENAI_MODEL", "OPENAI_BASE_URL", "CHAT_LLM_PROVIDER",
+        "CHAT_LLM_OAUTH_MODEL", "CHAT_LLM_OAUTH_BASE_URL",
+        "CHAT_LLM_OPENAI_MODEL", "CHAT_LLM_OPENAI_BASE_URL",
+    ):
         digest.update((name + "=" + os.getenv(name, "")).encode())
     return digest.hexdigest()
 

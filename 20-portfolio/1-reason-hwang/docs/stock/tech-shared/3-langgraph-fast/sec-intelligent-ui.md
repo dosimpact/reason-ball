@@ -12,7 +12,7 @@
 - 모델 입력 최대 약 180,000자. 초과하면 Item별 균등·질문 관련 발췌를 사용하며 처리 범위를 표시한다. 모델 JSON의 Item 코드는 열거형이다. 원문을 최대 700자 구절 ID로 제공하고 모델은 evidence_id를 선택한다. 서버가 선택한 같은 Item의 구절을 인용문으로 복원하고 입력 근거와 원문 양쪽에서 검사한다. 모델이 인용문을 다시 쓰지 않는다. 실패 시 한 번 수정 요청 후 오류로 종료한다. 인용문 검증은 요약의 모든 의미·숫자에 대한 자동 사실 검증이 아니다.
 - 모델이 근거에 기반한 답변을 만든 뒤 `present` 노드가 공통 `graph/subgraphs/openui_output`을 호출해 실제 전체 컴포넌트 카탈로그로 자유 OpenUI DSL을 생성한다. 차트·표·반응형 컨트롤을 요청에 맞게 구성하며 파서 오류는 한 번 수정한다. 출처·원문 인용·범위·한계는 별도 `sec.evidence`로 전달하여 호스트가 항상 표시한다.
 - 근거 ID의 Item이 답변 Item과 다르면 그대로 거부한다. 재생성 시 이전 draft와 잘못된 ID·요청 Item·실제 근거 Item을 함께 전달한다. 예를 들어 Item 8 답변에 `7:16`을 선택했다면 이를 Item 8 근거로 조용히 인정하지 않는다. 한 번의 수정에도 검증되지 않으면 RUN_ERROR로 종료한다.
-- 환경: SEC_CHAT_BFF_URL, SEC_CHAT_MODEL, SEC_CHAT_MODEL_BASE_URL, SEC_CHAT_API_KEY. 모델 미지정 값은 OPENAI_*을 따른다. LangGraph 서버는 기존 실행 명령을 유지한다.
+- 환경: SEC_CHAT_BFF_URL 및 [공통 채팅 LLM 설정](chat-llm-provider.md)의 CHAT_LLM_*을 사용한다. 이전 SEC_CHAT 모델 override는 사용하지 않는다. LangGraph 서버는 기존 실행 명령을 유지한다.
 - AG-UI: RUN_STARTED → heartbeat → TEXT_MESSAGE_START/CONTENT/END → RUN_FINISHED. 검증 실패는 RUN_ERROR, 취소는 모델 task 취소와 세션 잠금 해제. 정상 답변만 이력에 추가한다.
 - 검증: `test:sec-chat`, `test:sec-chat:api`. 최종 기준은 [SEC 설계](../../us-corporate-filings/intelligent-ui.md).
 
