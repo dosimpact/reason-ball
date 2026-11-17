@@ -3,10 +3,10 @@ import asyncio
 
 import httpx
 import pytest
-from langchain_core.language_models.fake_chat_models import FakeMessagesListChatModel
-from langchain_core.messages import AIMessage, HumanMessage
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
+from langchain_core.language_models.fake_chat_models import FakeMessagesListChatModel
+from langchain_core.messages import AIMessage, HumanMessage
 
 from domains.sec_tools.agent import (
     artifacts,
@@ -107,26 +107,30 @@ async def test_collection_calls_only_selected_company_sync_and_checks_completed_
 
 
 @pytest.mark.asyncio
-async def test_collection_rejects_wrong_arguments_and_model_only_claims_before_post():
-    log = []
-    wrong = ToolModel(responses=[call('sync_sec_company_filings', ciks=[FILING['cik']], years=20), AIMessage(content='done')])
-    with pytest.raises(SecReadError):
-        await collect_company_filings(FILING['cik'], 3, None, wrong, client_with(log))
-    with pytest.raises(SecReadError):
-        await collect_company_filings(FILING['cik'], 3, None, ToolModel(responses=[AIMessage(content='downloaded')]), client_with(log))
-    assert not log
+async def test_collection_ignores_wrong_arguments_and_model_only_claims():
+    from unittest.mock import Mock
+    for responses in ([call('sync_sec_company_filings', ciks=['0000000001'], years=20)], [AIMessage(content='downloaded')], []):
+        log = []
+        model = Mock(wraps=ToolModel(responses=responses))
+        result = await collect_company_filings(FILING['cik'], 3, None, model, client_with(log))
+        assert result['failed'] == 0
+        assert len(log) == 1
+        import json
+        assert json.loads(log[0].content)['ciks'] == [FILING['cik']]
+        assert json.loads(log[0].content)['years'] == 3
+        assert model.mock_calls == []
 
 
 @pytest.mark.asyncio
 async def test_collection_calls_selected_sync_only_once_even_if_model_repeats():
+    from unittest.mock import Mock
     log = []
     sync = call('sync_sec_company_filings', ciks=[FILING['cik']], years=2)
-    repeated = AIMessage(content='', tool_calls=[{'name': 'sync_sec_company_filings', 'args': {'ciks': [FILING['cik']], 'years': 2},
-                                                  'id': 'second-sync', 'type': 'tool_call'}])
-    model = ToolModel(responses=[sync, repeated, AIMessage(content='done')])
-    with pytest.raises(SecReadError):
-        await collect_company_filings(FILING['cik'], 2, None, model, client_with(log))
+    model = Mock(wraps=ToolModel(responses=[sync, sync, AIMessage(content='done')]))
+    result = await collect_company_filings(FILING['cik'], 2, None, model, client_with(log))
+    assert result['companiesProcessed'] == 1
     assert len(log) == 1
+    assert model.mock_calls == []
 
 
 def test_collect_api_sse_uses_selected_bff_post_and_does_not_report_failure_as_success(monkeypatch):

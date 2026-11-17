@@ -60,6 +60,16 @@ Deep Agent는 계획·가상 파일·기본 위임 도구를 사용할 수 있�
 
 검증: `tests/test_sec_prepare.py`, `bruno-api-tests/32-sec-prepare/`. [변경·실제 사이트 검증 기록](../../../flow/2026-11-17-sec-prepare-deterministic.md).
 
+## SEC-COLLECT-002 확정 수집 요청의 단일 도구 실행
+
+`domains/sec_tools/collection.py::collect_company_filings`는 선택 CIK·years·since가 확정된 뒤 기존 `sync_sec_company_filings` StructuredTool을 ToolCall로 직접 한 번 실행한다. `agent.collect_company_filings` import 경로와 model 인자는 호환용으로 유지하되 모델은 사용하지 않는다. HTTP `/collect`도 모델을 초기화하지 않는다. 기업 검색/수집 의도 해석은 기존 resolve 모델을 사용한다.
+
+SelectedSyncInput으로 `ciks=[CIK]`, tickers=[], 요청 years/since, downloadDocuments=true, refreshArchive=false를 검증한다. 도구의 allowed_ciks/required_sync_args로 같은 범위만 외부 POST한다. ToolMessage artifact의 이름·인자가 일치해야 하며 실제 tool activity를 그대로 전달한다. 작업 POST를 자동 재시도하지 않고 다른 endpoint나 전체 기업 수집을 호출하지 않는다.
+
+완료에는 실제 SSE completed, nonnegative integer counters(불리언 제외), companiesProcessed=1, failed=0, checkedAt이 모두 필요하다. 새 다운로드0건은 그 자체로 실패가 아니다. 결과 없이 종료된 stream·upstream error·부분 실패·비정상 counters는 거부한다. 취소/연결 오류는 전파하며 정상 완료로 바꾸지 않는다. JSON/SSE 양쪽에 안전한 SecReadError 설명을 전달하고 서버 로그에는 예외 클래스와 SSE run ID만 기록한다. 실패 후 대화형 설명 계약은 아래 SEC-FAILURE-REPLY-001을 유지한다.
+
+검증: `tests/test_sec_collection.py`, `tests/test_sec_tools.py`, `bruno-api-tests/34-sec-collection/` 및 [실제 사이트 기록](../../../flow/2026-11-17-sec-collection-deterministic.md). 수집은 기존 분석 세션을 만들거나 덮어쓰지 않는다.
+
 ## SEC-FAILURE-REPLY-001 별도 실패 설명 API
 
 `POST /api/sec-chat/failure-reply`는 `domains/sec_chat/failure_reply.py`의 별도 plain 모델 응답을 사용한다. 입력은 question 역할의 `message`(공백 제거 후1~4000자), `stage`(resolve/prepare/chat/collect), 선택적 `company`(CIK10/name/ticker), `reason`(filing_not_ready/filing_not_found/session_expired/connection_failed/invalid_response/unknown, 기본 unknown)다. 추가 필드는 거부하며 원시 오류나 history는 받지 않는다. 출력은 `{reply,source:"model"|"fallback"}`다.

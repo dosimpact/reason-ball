@@ -1,5 +1,7 @@
 # Documentation Map
 
+- [SEC 확정 수집 요청 안정화](flow/2026-11-17-sec-collection-deterministic.md): SEC-COLLECT-002, 모델 없는 단일 수집 도구 실행·완료 검증·실제 NVIDIA 수집.
+
 - [SEC 실패 상황의 대화형 응답](flow/2026-11-17-sec-failure-replies.md): SEC-FAILURE-REPLY-001, 실패 상태 보존·LLM 설명·기본 안내·취소·API/브라우저 검증.
 
 - [SEC 저장된10-K 준비 안정화](flow/2026-11-17-sec-prepare-deterministic.md): SEC-PREPARE-001, 확정 기업의 모델 없는 실제 도구 실행·최신 공시 보호·반복/API/브라우저 검증.

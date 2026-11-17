@@ -122,7 +122,7 @@ async def companies(q: str = ""):
 @router.post("/collect")
 async def collect(body: CollectRequest, request: Request):
     async def collect_result(sink=None):
-        completed = await collect_company_filings(body.cik, body.years, body.since, chat_model(), activity=sink)
+        completed = await collect_company_filings(body.cik, body.years, body.since, None, activity=sink)
         period = f"{body.since}부터" if body.since else f"최근 {body.years}년"
         reply = (f"CIK {body.cik}의 {period} SEC 공시 수집을 완료했습니다. "
                  f"메타데이터 {completed['filingsSynced']}건을 동기화하고 원문 {completed['downloaded']}건을 다운로드했습니다. "
@@ -145,13 +145,16 @@ async def collect(body: CollectRequest, request: Request):
                 yield event("RUN_FINISHED", runId=run_id)
             except asyncio.CancelledError:
                 raise
-            except Exception:  # noqa: BLE001 - sanitized streaming boundary
-                yield event("RUN_ERROR", message="SEC 공시 수집에 실패했습니다. 다시 시도해 주세요.", code="SEC_COLLECT_FAILED")
+            except Exception as error:  # noqa: BLE001 - sanitized streaming boundary
+                logger.warning("SEC collect failed run_id=%s exception=%s", run_id, type(error).__name__)
+                message = str(error) if isinstance(error, SecReadError) else "SEC 공시 수집에 실패했습니다. 다시 시도해 주세요."
+                yield event("RUN_ERROR", message=message, code="SEC_COLLECT_FAILED")
         return StreamingResponse(stream_collection(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
     try:
         return await collect_result()
     except (SecReadError, httpx.HTTPError, ValueError) as error:
-        raise HTTPException(502, "SEC 공시 수집에 실패했습니다. 다시 시도해 주세요.") from error
+        logger.warning("SEC collect failed exception=%s", type(error).__name__)
+        raise HTTPException(502, str(error) if isinstance(error, SecReadError) else "SEC 공시 수집에 실패했습니다. 다시 시도해 주세요.") from error
 
 
 @router.post("/prepare")

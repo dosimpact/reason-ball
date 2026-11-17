@@ -83,5 +83,7 @@ LLM에는 원시 예외·공급자 응답·내부 URL·프롬프트·공시 본�
 
 Host는 `/api/sec-chat/collect`를 통해 `sync_sec_company_filings` 도구를 호출하고, 도구는 기존 BFF `POST /api/sec/company-filing-sync-jobs`에 선택 CIK·기간·downloadDocuments=true를 전달한다. 기본 기간은2년, 사용자가 지정한 years(1~30) 또는 since를 사용한다. 기간 내10-K·10-Q·8-K 및 각 정정 공시를 함께 수집한다. 현재 BFF는 formType 수집 필터를 받지 않으므로 특정 유형만 수집했다고 안내하지 않는다.
 
+`SEC-COLLECT-002`: 기업·기간이 확정된 수집 요청은 추가 모델 호출 없이 서버가 실제 수집 도구를 한 번 실행한다. 모델이 수집을 생략하거나 확인된 인자를 바꾸거나 반복 POST하게 두지 않는다. 완료는 SSE와 검증된 결과로만 판단한다. 새 다운로드0건·실패0건도 유효한 완료일 수 있으며 메타데이터 동기화 건수와 구분해 표시한다. BFF 장애·부분 실패·완료 전 연결 종료는 수집 실패로 유지하고 기존 실패 설명 응답을 제공한다. [Python 실행 계약](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md#sec-collect-002-확정-수집-요청의-단일-도구-실행), [실제 NVIDIA 검증](../../flow/2026-11-17-sec-collection-deterministic.md).
+
 이 실행의 도구 목록은 선택 기업 수집1종이며 전체 기업 수집은 노출하지 않는다. 완료는 실제 SSE completed와 기업 수·실패 수를 검증한 뒤 확정하고, 응답의 메타데이터 동기화·다운로드 건수를 표시한다. 오류·미완료는 성공으로 출력하지 않는다. 수집은 분석 답변 생성·모델링1/2/3 실행과 별개이며 기존 분석 세션을 덮어쓰지 않는다.
 [구현·검증 기록](../../flow/2026-11-17-sec-chat-collection-tool.md).

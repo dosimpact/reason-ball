@@ -1,0 +1,24 @@
+meta {
+  name: SEC-COLLECT-002 confirmed-json
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/collect
+  body: json
+  auth: none
+}
+body:json {
+  {"cik":"0001045810","years":2}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("confirmed-json", function () {
+    const b = res.getBody();
+    expect(b.action).to.equal("reply");
+    expect(b.collection).to.include({cik:"0001045810",years:2,companiesProcessed:1,filingsSynced:4,downloaded:3,failed:0});
+    expect(b.reply).to.include("수집을 완료");
+  });
+}
