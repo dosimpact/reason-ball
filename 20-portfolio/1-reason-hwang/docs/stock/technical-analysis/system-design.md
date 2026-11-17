@@ -181,7 +181,7 @@ price_agent의 요청 추출은 과거 assistant tool call과 뒤따르는 ToolM
 
 ## PRICE-MESSAGES-001: 가격 에이전트 입력
 
-price_agent의 사용자 요청 입력은 messages로 통일하며 query 필드는 제거했다. run_price_agent 문자열 helper는 HumanMessage를 생성한다. 응답 언어는 messages의 최신 HumanMessage.text를 기준으로 선택한다. 빈 messages는 invalid_request다. Host graph 입력 예제와 실제 graph 검증 스크립트도 messages 형식을 사용한다.
+price_agent의 사용자 요청 입력은 messages로 통일하며 query 필드는 제거했다. run_price_agent 문자열 helper는 HumanMessage를 생성한다. 응답 작성 모델은 messages의 최신 HumanMessage와 조회 결과를 받아 사용자 언어로 답변한다. 빈 messages는 invalid_request다. Host graph 입력 예제와 실제 graph 검증 스크립트도 messages 형식을 사용한다.
 
 
 ## TA-CANVAS-004: Grafana 방식 그리드와 반복 추가
@@ -202,3 +202,7 @@ Canvas 너비600px 미만은 단일열 projection으로 표시하고 저장된 d
 참조의 그리드 규칙을 이식하며 기존 대화별 localStorage와 인용·PDF 기능을 유지한다.
 참조 앱의 탭·서버 저장·명령 API 전체를 도입한 것은 아니다.
 [검증 기록](../../flow/2026-11-17-canvas-grafana-grid.md).
+
+## PRICE-RESPONSE-LLM-001: 가격 답변 생성
+
+format_response는 async LLM 노드다. 최신 사용자 요청과 구조화한 조회 결과(종목·통화·주기·조회 시각·날짜별 가격·장중 여부·오류 코드)를 도구가 연결되지 않은 모델에 전달하고 반환 메시지를 messages와 response에 반영한다. 고정 Markdown 포맷과 언어별 오류 문구 조립은 제거했다. close 기준·가격 창작 금지·장중 표시·오류 설명을 prompt로 지시한다. 오류가 있으면 과거 prices를 전달하지 않는다. 정상 요청은 추출1회+답변1회 모델 호출이며 답변 모델 실패는 실행 오류로 전파된다.
