@@ -1,7 +1,5 @@
 # LangGraph OSS API: 개발 런타임과 운영 FastAPI의 실행 방식 맞추기
 
-작성 기준: 2026-11-16. 본문의 초기 전환 계획은 당시 설계 기록이다. 현재 단일 worker 구현 상태는 [FastAPI runtime stock](../../stock/tech-shared/3-langgraph-fast/fastapi-runtime.md)을 기준으로 읽는다. 문서 마지막의 **PostgreSQL 기반 여러 worker 설계는 아직 구현하지 않은 후속 계획**이다.
-
 ## 왜 이 작업을 하는가
 
 현재 기존 채팅 진입점은 LangGraph 개발 런타임(`langgraph dev`, 2982)을 이용해 실제 에이전트를 실행한다. 이 개발용 채팅은 `/langgraph-dev-chat`에서 유지한다. 별도로 운영 가능한 자체 FastAPI 서버(2981)도 있지만, 같은 모양의 API가 있다는 이유만으로 두 서버가 같은 일을 하는 것은 아니다.
