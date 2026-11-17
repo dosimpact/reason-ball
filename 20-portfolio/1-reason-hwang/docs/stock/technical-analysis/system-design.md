@@ -174,3 +174,7 @@ catalog validator를 통과한 프로그램만 presentation으로 반환하고 �
 TA-Lib SQZMOM squeeze의 정수 상태는 고정 v0.8.3 C 소스의 strict 채널 비교를 따른다(-1 해제,0 겹침·접촉,1 wide,2 normal,3 narrow 압축). 별도 momentum과 혼동하지 않는다. 네이티브 양수 입력 제약은 유지하며 부호 있는 누적 OBV·AD에 요청하지 않은 백분율 ROC를 추가하지 않는다. 명시적 유효 함수 호출은 허용한다. 최근 최대120 계산 봉의 출력·가격·거래량 요약은 공통 `summarize_series`를 사용하고, 날짜·절대 변화·유효 개수와 백분율 제한을 함께 전달한다. canonical 데이터와 ticker 별칭은 같은 operand로 해석한다.
 
 Host chart/catalog Query는 헤더·JSON 본문을 포함한30초 제한과 외부 abort 전파를 적용한다. 완료·실패·취소 후 타이머/listener를 정리한다. Canvas graph는 현재 소스에 등록되어 있으며 provisional/ready의 SDK Query 차단 경계는 유지한다. 과거 프로세스 등록·브라우저 로딩 완료 여부는 소스 검사만으로 단정하지 않는다. [변경과 검증 기록](../../flow/2026-11-16-ta-series-evidence-and-query-deadline.md).
+
+## PRICE-HISTORY-001: 불완전한 가격 도구 이력
+
+price_agent의 요청 추출은 과거 assistant tool call과 뒤따르는 ToolMessage의 ID를 대조한다. 결과 없는 호출과 고아 tool 결과는 모델 입력에서 제외하며 원래 대화 기록은 수정하지 않는다. 정상 호출·결과 쌍은 유지한다. 새 요청 추출 시 과거 error_code/error_message를 초기화하여 이전 실패가 새 도구 실행을 차단하지 않게 한다.
