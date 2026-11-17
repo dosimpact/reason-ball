@@ -161,6 +161,10 @@
       "signature": "Chart(type: \"bar\" | \"line\" | \"area\" | \"pie\" | \"donut\" | \"scatter\", data: Record<string, string | number>[], x?: string, series?: string[], format?: \"number\" | \"currency\" | \"percent\", currency?: string, stacked?: boolean, height?: number)",
       "description": "Rows of data; x is the category key (a number key for scatter), series the value keys (default: every number key). percent values are like 45; currency is a code like \"EUR\"."
     },
+    "FinancialSeriesChart": {
+      "signature": "FinancialSeriesChart(config: {title?: string, height?: number, series: {id: string, title?: string, type: \"candlestick\" | \"line\" | \"area\" | \"baseline\" | \"histogram\", priceScaleId?: \"left\" | \"right\", color?: string, baseValue?: number, data: ({time: string, open: number, high: number, low: number, close: number} | {time: string, value: number} | {time: string})[], markers?: {time: string, position: \"aboveBar\" | \"belowBar\" | \"inBar\", shape: \"circle\" | \"square\" | \"arrowUp\" | \"arrowDown\", color: string, text?: string}[], priceLines?: {price: number, color: string, title?: string, lineStyle?: \"solid\" | \"dashed\" | \"dotted\"}[]}[]})",
+      "description": "Generic time-series chart without ticker requirements. Config contains series (candlestick OHLC, line, area, baseline, histogram), ISO dates with whitespace, left/right scales, optional markers and priceLines. Accepts indicator-only series and arbitrary units in titles; never calculates indicators or requests data."
+    },
     "FinancialChart": {
       "signature": "FinancialChart(snapshot: {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string, schemaVersion: 2, catalogVersion: string, indicators: {instanceId: string, name: string, label: string, parameters: Record<string, any>, panel: \"price\" | \"oscillator\", status: \"success\" | \"error\", error?: string, errorCode?: string, signal?: {state: string, cross?: string}, warnings?: string[], series: {key: string, label: string, unit: string, display: \"line\" | \"histogram\" | \"markers\", role?: \"upper\" | \"middle\" | \"lower\", bandGroup?: string, values: number[]}[]}[], origin?: {date?: string, availableHistory: number, policy: string}} | {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string, schemaVersion?: 1, indicators?: string[]})",
       "description": "Verified financial plot with collapsed indicator summary and data provenance. Indicator controls preserve local visibility and up to four oscillator panes. Use FinancialChartPlot, FinancialChartSummary and FinancialChartMetadata for custom composition."
@@ -317,6 +321,7 @@
         "Icon",
         "Table",
         "Chart",
+        "FinancialSeriesChart",
         "FinancialChart",
         "FinancialChartPlot",
         "FinancialChartSummary",
@@ -328,6 +333,7 @@
         "YouTube"
       ],
       "notes": [
+        "- FinancialSeriesChart(config) renders supplied time series without a market-data request: series[].type is candlestick, line, area, baseline or histogram. Candlestick needs OHLC; other types only need time/value and can show indicators without price bars. Compose multiple series; priceScaleId left/right gives independent scales, not a sixth series type. Attach markers and priceLines to each series. Use actual supplied values, units, events and thresholds; never invent market data or buy/sell signals. Keep trusted TA snapshots in FinancialChart/FinancialChartPlot rather than copying large arrays into DSL.",
         "- FinancialChart consumes one trusted snapshot. Fetch it with data = Query(\"technical_analysis_chart\", {ticker: $ticker, interval: $interval, count: $count, indicators: \"SMA,RSI,MACD\"}, {bars: [], status: \"loading\"}). The Host runs this allowlisted read tool without an LLM round trip.",
         "- For v2 multi-instance indicators use catalog = Query(\"technical_analysis_catalog\", {}, null), IndicatorControls($chart_instances, catalog), and chart = Query(\"technical_analysis_chart\", {ticker: $ticker, interval: $interval, count: $count, schema_version: 2, instances: $chart_instances}, {bars: [], status: \"loading\"}). Use catalog metadata, never invented parameter names or numeric arrays.",
         "- Put Query-backed data components and their editable argument controls inside QueryPanel([data components], Action([@Run(queryStatement)]), [editable controls]); every Query view must provide its own manual refresh icon and labelled argument fields together.",
@@ -730,6 +736,9 @@
       "Chart": {
         "$ref": "#/$defs/Chart"
       },
+      "FinancialSeriesChart": {
+        "$ref": "#/$defs/FinancialSeriesChart"
+      },
       "FinancialChart": {
         "$ref": "#/$defs/FinancialChart"
       },
@@ -838,6 +847,7 @@
       "Icon",
       "Table",
       "Chart",
+      "FinancialSeriesChart",
       "FinancialChart",
       "FinancialChartPlot",
       "FinancialChartSummary",
@@ -2121,6 +2131,215 @@
         ],
         "additionalProperties": false,
         "description": "Rows of data; x is the category key (a number key for scatter), series the value keys (default: every number key). percent values are like 45; currency is a code like \"EUR\"."
+      },
+      "FinancialSeriesChart": {
+        "type": "object",
+        "properties": {
+          "config": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "height": {
+                "type": "integer",
+                "minimum": 160,
+                "maximum": 1200
+              },
+              "series": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "candlestick",
+                        "line",
+                        "area",
+                        "baseline",
+                        "histogram"
+                      ]
+                    },
+                    "priceScaleId": {
+                      "type": "string",
+                      "enum": [
+                        "left",
+                        "right"
+                      ]
+                    },
+                    "color": {
+                      "type": "string"
+                    },
+                    "baseValue": {
+                      "type": "number"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "string",
+                                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                              },
+                              "open": {
+                                "type": "number"
+                              },
+                              "high": {
+                                "type": "number"
+                              },
+                              "low": {
+                                "type": "number"
+                              },
+                              "close": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "open",
+                              "high",
+                              "low",
+                              "close"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "string",
+                                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                              },
+                              "value": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "value"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "string",
+                                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                              }
+                            },
+                            "required": [
+                              "time"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    },
+                    "markers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "time": {
+                            "type": "string",
+                            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                          },
+                          "position": {
+                            "type": "string",
+                            "enum": [
+                              "aboveBar",
+                              "belowBar",
+                              "inBar"
+                            ]
+                          },
+                          "shape": {
+                            "type": "string",
+                            "enum": [
+                              "circle",
+                              "square",
+                              "arrowUp",
+                              "arrowDown"
+                            ]
+                          },
+                          "color": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "time",
+                          "position",
+                          "shape",
+                          "color"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "priceLines": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "price": {
+                            "type": "number"
+                          },
+                          "color": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "lineStyle": {
+                            "type": "string",
+                            "enum": [
+                              "solid",
+                              "dashed",
+                              "dotted"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "price",
+                          "color"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "type",
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "series"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "config"
+        ],
+        "additionalProperties": false,
+        "description": "Generic time-series chart without ticker requirements. Config contains series (candlestick OHLC, line, area, baseline, histogram), ISO dates with whitespace, left/right scales, optional markers and priceLines. Accepts indicator-only series and arbitrary units in titles; never calculates indicators or requests data."
       },
       "FinancialChart": {
         "type": "object",

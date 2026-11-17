@@ -1,5 +1,7 @@
 # Documentation Map
 
+- [일반 금융 시리즈 차트](stock/tech-shared/1-fe-host/financial-series-chart.md): OPENUI-FIN-SERIES-001, 구성형 차트 5종·좌우 축·마커·가격선과 금융 탐색 분류.
+
 - [OpenUI Lib Story 금융 v2 예제](flow/2026-11-17-openui-financial-lib-stories.md): OPENUI-FIN-STORY-002, 지표 설정·다중 설정·밴드·PSAR·오류 예제와 Storybook 검증.
 
 - [SEC 대표 질문 전수 회귀](flow/2026-11-17-sec-starters-regression.md): SEC-STARTERS-001, 24개 질문·검색·공시 메타데이터·기능 안내·인용 보호.

@@ -4,11 +4,12 @@ import { runLibraryAction, webUrl, Col, library, listFunctions, numberFunctions,
 import { useCallback, useEffect, useState } from "react";
 import libraryStories from "./stories.json";
 import { financialStories, financialBlockStories } from "./financial-stories";
+import { financialSeriesStories } from "./financial-series-stories";
 import builtinStories from "./builtins.json";
 import { createBuiltinDemoTools } from "./builtin-tools";
 import "./lib-story.css";
 
-const stories = [...libraryStories.map(story => ["FinancialChart", "FinancialChartPlot", "FinancialChartSummary", "FinancialChartMetadata", "QueryPanel"].includes(story.name) ? { ...story, category: "financial" } : story), ...builtinStories, ...financialStories, ...financialBlockStories];
+const stories = [...libraryStories.map(story => ["FinancialChart", "FinancialChartPlot", "FinancialChartSummary", "FinancialChartMetadata", "QueryPanel"].includes(story.name) ? { ...story, category: "financial" } : story), ...builtinStories, ...financialStories, ...financialBlockStories, ...financialSeriesStories];
 type Story = (typeof stories)[number];
 const colOnlyLibrary = createLibrary({ root: "Col", components: [Col] });
 const categories = ["components", "financial", "functions", "actions", "builtins"];
@@ -19,7 +20,10 @@ const componentGroupLabels: Record<string, string> = {
 const navigationGroups: Record<string, { label: string; names: string[] }[]> = {
   components: (library.componentGroups ?? []).map(group => ({ label: componentGroupLabels[group.name] ?? group.name, names: group.components })),
   financial: [
-    { label: "금융 컴포넌트", names: ["QueryPanel", "FinancialChart", "FinancialChartPlot", "FinancialChartSummary", "FinancialChartMetadata", "IndicatorControls"] },
+    { label: "기본 차트 유형", names: financialSeriesStories.filter(story => story.group === "types").map(story => story.name) },
+    { label: "축·마커·기준선", names: financialSeriesStories.filter(story => story.group === "options").map(story => story.name) },
+    { label: "시리즈 조합", names: financialSeriesStories.filter(story => story.group === "compositions").map(story => story.name) },
+    { label: "금융 컴포넌트", names: ["FinancialSeriesChart", "QueryPanel", "FinancialChart", "FinancialChartPlot", "FinancialChartSummary", "FinancialChartMetadata", "IndicatorControls"] },
     { label: "금융 차트 쇼케이스", names: financialStories.filter(story => story.name !== "IndicatorControls").map(story => story.name) },
   ],
   functions: [

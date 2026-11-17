@@ -42,10 +42,10 @@ export const FinancialShowcases: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("button", { name: "financial · 금융 10" })).toHaveAttribute("aria-pressed", "true");
+    await expect(canvas.getByRole("button", { name: /^financial · 금융 \d+$/ })).toHaveAttribute("aria-pressed", "true");
     await userEvent.click(canvas.getByRole("button", { name: /^components / }));
     await expect(canvas.queryByRole("link", { name: /FinancialChart|IndicatorControls/ })).not.toBeInTheDocument();
-    await userEvent.click(canvas.getByRole("button", { name: "financial · 금융 10" }));
+    await userEvent.click(canvas.getByRole("button", { name: /^financial · 금융 \d+$/ }));
     const group = canvas.getByRole("region", { name: "금융 차트 쇼케이스" });
     for (const name of ["캔들 · 거래량", "SMA(20) 오버레이", "RSI(14) 패널", "MACD(12,26,9) 패널", "캔들 · 지표 통합"]) {
       await expect(within(group).getByRole("link", { name: new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")) })).toBeVisible();
@@ -87,5 +87,28 @@ export const FinancialV2Showcases: Story = {
     await userEvent.click(canvas.getByRole("button", { name: "지표 설정 적용 · 차트 조회" }));
     await expect(canvas.getByRole("status")).toHaveTextContent("적용된 설정");
     await expect(canvas.queryByRole("alert")).not.toBeInTheDocument();
+  },
+};
+
+export const GeneralFinancialTypes: Story = {
+  beforeEach: () => {
+    const previous = window.location.href;
+    window.history.replaceState(null, "", "#financial-series-line");
+    return () => { window.history.replaceState(null, "", previous); };
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const types = within(canvas.getByRole("region", { name: "기본 차트 유형" }));
+    for (const name of ["Candlestick", "Line", "Area", "Baseline", "Histogram"]) {
+      await expect(types.getByRole("link", { name: new RegExp(`^◇ ${name}`) })).toBeVisible();
+    }
+    await expect(canvas.getByRole("region", { name: "축·마커·기준선" })).toBeVisible();
+    for (const id of ["candlestick", "line", "area", "baseline", "histogram", "twoscales", "annotations", "indicatoronly"]) {
+      window.history.replaceState(null, "", `#financial-series-${id}`);
+      window.dispatchEvent(new HashChangeEvent("hashchange"));
+      await waitFor(() => expect(canvasElement.querySelector("main")).toHaveAttribute("id", `financial-series-${id}`));
+      await waitFor(() => expect(canvas.getByTestId("financial-series-chart-canvas").querySelectorAll("canvas").length).toBeGreaterThan(0));
+      await expect(canvas.queryByRole("alert")).not.toBeInTheDocument();
+    }
   },
 };

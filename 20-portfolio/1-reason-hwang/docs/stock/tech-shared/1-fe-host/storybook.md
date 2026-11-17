@@ -63,3 +63,7 @@ The `Installation/Registry smoke check` remains as an installation-level check. 
 모든 시세·지표 수치는 표시 검증용 가상 값이다. 지표 설정 예제는 SMA만 포함한 축소 가상 catalog를 사용하고 추가·복제·제거·기간 편집·초안 적용을 로컬 상태에서 실행한다. 서버 조회와 지표 계산은 수행하지 않는다. 실제 20개 지표 catalog 및 Query 계약은 [OpenUI 설계](open-ui.md#ta-indicators-002-20개-지표와-다중-인스턴스)를 따른다.
 
 `Generative UI/Catalog`의 `FinancialV2Showcases` story는 다중 설정·밴드·PSAR·부분 오류 렌더링, 검색에서의 발견, 지표 초안과 적용 상태를 검증한다. [변경·검증 기록](../../../flow/2026-11-17-openui-financial-lib-stories.md).
+
+## OPENUI-FIN-SERIES-001: 일반 시리즈 차트
+
+[일반 금융 시리즈 차트](financial-series-chart.md)는 기존 snapshot 중심 UI와 함께 사용하는 구성형 컴포넌트다. `OpenUI/FinancialSeriesChart`에서 5개 기본 유형, 좌우 축, 마커·가격선, 가격 없는 지표, 오류·빈 상태·테마를 실행한다. 앱 Lib Story 금융 탭도 기본 차트 유형 / 축·마커·기준선 / 시리즈 조합으로 나누며 범용 컴포넌트 항목과 예제를 제공한다.
