@@ -101,7 +101,8 @@ async def resolve(body: ConversationRequest, request: Request):
                 yield event("RUN_FINISHED", runId=run_id)
             except asyncio.CancelledError:
                 raise
-            except Exception:  # noqa: BLE001 - sanitized streaming boundary
+            except Exception as error:  # noqa: BLE001 - sanitized streaming boundary
+                logger.warning("SEC resolve failed run_id=%s exception=%s", run_id, type(error).__name__)
                 yield event("RUN_ERROR", message="메시지를 처리하지 못했습니다. 다시 시도해 주세요.", code="SEC_RESOLVE_FAILED")
         return StreamingResponse(stream_resolution(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
     try:
@@ -249,7 +250,8 @@ async def chat(body: ChatRequest):
             yield event("RUN_FINISHED", threadId=body.threadId, runId=run_id)
         except asyncio.CancelledError:
             raise
-        except Exception:  # noqa: BLE001 - sanitize provider errors at the SSE transport boundary
+        except Exception as error:  # noqa: BLE001 - sanitize provider errors at the SSE transport boundary
+            logger.warning("SEC chat failed run_id=%s exception=%s", run_id, type(error).__name__)
             yield event("RUN_ERROR", message="근거가 검증된 답변을 생성하지 못했습니다. 모델 연결 또는 원문을 확인하고 다시 시도해 주세요.", code="SEC_CHAT_FAILED")
         finally:
             session.busy = False

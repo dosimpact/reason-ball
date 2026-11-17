@@ -1,0 +1,27 @@
+meta {
+  name: SEC-STARTERS-001 actual model contexts and lookup parameters
+  type: http
+  seq: 5
+}
+get {
+  url: {{baseUrl}}/qa/trace
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("bounded context reaches both boundaries; lookup and no writes", function () {
+    const b = res.getBody();
+    expect(b.requests.every(r => r.method === "GET")).to.equal(true);
+    const searches = b.requests.filter(r => r.path.endsWith("/companies"));
+    expect(searches.map(r => r.params.pageSize)).to.deep.equal(["100", "100"]);
+    expect(b.contexts.map(c => c.boundary)).to.deep.equal(["answer", "ui"]);
+    for (const c of b.contexts) {
+      expect(c.context.filing.filingDate).to.equal("2026-01-29");
+      expect(c.context.filing.accessionNo).to.equal("0001326801-26-000001");
+      expect(c.context.checkedAt).to.equal(null);
+    }
+  });
+}

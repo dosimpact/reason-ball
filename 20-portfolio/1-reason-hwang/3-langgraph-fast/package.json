@@ -38,6 +38,7 @@
     "test:model2:http:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 22-sec-model2-http --env local",
     "test:talib-agent": "uv run pytest tests/domains/talib_agent tests/test_talib_agent_graph.py",
     "test:talib-agent:api": "cd bruno-api-tests && ../node_modules/.bin/bru run 27-talib-agent --env local",
+    "validate:sec-starters": "uv run python scripts/validate_sec_starters.py",
     "validate:talib-agent:http": "uv run --env-file .env python scripts/validate_talib_http.py"
   },
   "devDependencies": {

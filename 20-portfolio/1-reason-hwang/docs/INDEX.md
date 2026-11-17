@@ -1,5 +1,7 @@
 # Documentation Map
 
+- [SEC 대표 질문 전수 회귀](flow/2026-11-17-sec-starters-regression.md): SEC-STARTERS-001, 24개 질문·검색·공시 메타데이터·기능 안내·인용 보호.
+
 - [SEC 확정 수집 요청 안정화](flow/2026-11-17-sec-collection-deterministic.md): SEC-COLLECT-002, 모델 없는 단일 수집 도구 실행·완료 검증·실제 NVIDIA 수집.
 
 - [SEC 실패 상황의 대화형 응답](flow/2026-11-17-sec-failure-replies.md): SEC-FAILURE-REPLY-001, 실패 상태 보존·LLM 설명·기본 안내·취소·API/브라우저 검증.

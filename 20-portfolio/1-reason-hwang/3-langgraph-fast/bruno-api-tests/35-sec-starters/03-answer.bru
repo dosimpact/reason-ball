@@ -1,0 +1,26 @@
+meta {
+  name: SEC-STARTERS-001 answer and UI preserve server metadata
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/chat
+  body: json
+  auth: none
+}
+body:json {
+  {"threadId":"{{starterThread}}","message":"제출일과 접수번호 알려줘"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("real output graph and parser deliver exact date and identifier", function () {
+    const body = res.getBody();
+    expect(body).to.include("RUN_FINISHED");
+    expect(body).not.to.include("RUN_ERROR");
+    expect(body).to.include("2026-01-29");
+    expect(body).to.include("0001326801-26-000001");
+    expect(body).to.include("SEC 최신성 미확인");
+  });
+}

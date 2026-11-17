@@ -1,0 +1,584 @@
+{
+  "baseUrl": "https://reason-web.flin-ai.com",
+  "sourceHash": "72aca2bd2a7bf1b277bfa54550450af79885e9090768f879ff5d6bdd90512d7a",
+  "latestPassed": 24,
+  "latestFailed": 0,
+  "executions": 35,
+  "historicalFailures": [
+    {
+      "index": 10,
+      "errors": [
+        "ValueError: Expected ticker absent or ambiguous in company choices"
+      ]
+    },
+    {
+      "index": 13,
+      "errors": [
+        "Cleanup failed: ReadTimeout: "
+      ]
+    },
+    {
+      "index": 12,
+      "errors": [
+        "ValueError: /api/sec-chat/chat: 근거가 검증된 답변을 생성하지 못했습니다. 모델 연결 또는 원문을 확인하고 다시 시도해 주세요."
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "index": 0,
+      "label": "10-K 읽는 순서",
+      "status": "PASS",
+      "elapsed": 37.387,
+      "filing": null,
+      "programValid": true,
+      "programSha256": null,
+      "modelingStatus": null,
+      "collection": null,
+      "cleanup": [],
+      "warnings": []
+    },
+    {
+      "index": 1,
+      "label": "애플 사업 한눈에",
+      "status": "PASS",
+      "elapsed": 98.452,
+      "filing": {
+        "cik": "0000320193",
+        "accessionNo": "0000320193-26-000026",
+        "filingDate": "2026-11-03",
+        "reportDate": "2026-09-26",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "d67ad84883f63639f853a3b6ffbe29e4520a6e007aaadee6466773eab0337cc7",
+      "modelingStatus": "available",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "4395ed7843474cd8876d1c303abb7098",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 2,
+      "label": "공시 출처 확인",
+      "status": "PASS",
+      "elapsed": 56.464,
+      "filing": {
+        "cik": "0000320193",
+        "accessionNo": "0000320193-26-000026",
+        "filingDate": "2026-11-03",
+        "reportDate": "2026-09-26",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "63e69e584979c8f3cb796eb1cc9808342f4a965ba71c8065b6332df2a3739433",
+      "modelingStatus": "available",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "4b04446b0df64eb38aaac4ff1aa88fa5",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 3,
+      "label": "질문 방법 알아보기",
+      "status": "PASS",
+      "elapsed": 49.027,
+      "filing": null,
+      "programValid": true,
+      "programSha256": null,
+      "modelingStatus": null,
+      "collection": null,
+      "cleanup": [],
+      "warnings": []
+    },
+    {
+      "index": 4,
+      "label": "애플 매출원",
+      "status": "PASS",
+      "elapsed": 147.657,
+      "filing": {
+        "cik": "0000320193",
+        "accessionNo": "0000320193-26-000026",
+        "filingDate": "2026-11-03",
+        "reportDate": "2026-09-26",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "66b92f7f03feac402e70f57cb3614b951b0a4b38380c060d2ca7e7f2a1c13262",
+      "modelingStatus": "unavailable",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "eeb9d5bd20164f1aa68b75b5068614f0",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 5,
+      "label": "엔비디아 사업",
+      "status": "PASS",
+      "elapsed": 147.647,
+      "filing": {
+        "cik": "0001045810",
+        "accessionNo": "0001045810-26-000021",
+        "filingDate": "2026-02-25",
+        "reportDate": "2026-01-25",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "5794672293c532ee27d0e95074b74eb03c3be80fc1cfb3772a0d4fc04e186df9",
+      "modelingStatus": "unavailable",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "cb5508f2559543f0926cf1fe305d83c0",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 6,
+      "label": "사업 부문 찾기",
+      "status": "PASS",
+      "elapsed": 71.863,
+      "filing": {
+        "cik": "0000789019",
+        "accessionNo": "0001193125-26-323660",
+        "filingDate": "2026-07-29",
+        "reportDate": "2026-06-30",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "fe125e0976b73287770e70bf76e1c747b903d57d73981cf4c48b2446fbf3e2c5",
+      "modelingStatus": "empty",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "993f95023cbd44098e24fbf99cb476c8",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 7,
+      "label": "Item 1 소제목",
+      "status": "PASS",
+      "elapsed": 113.257,
+      "filing": {
+        "cik": "0001018724",
+        "accessionNo": "0001018724-26-000004",
+        "filingDate": "2026-02-06",
+        "reportDate": "2025-12-31",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "263f10004c2c42f78a3fac72430ae4d6d19f9ebf6732f217ac7b38f7dff7ba99",
+      "modelingStatus": "unavailable",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "fd03fa2ffb3a48cfac21489ea42a8bf3",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 8,
+      "label": "엔비디아 주요 위험",
+      "status": "PASS",
+      "elapsed": 116.113,
+      "filing": {
+        "cik": "0001045810",
+        "accessionNo": "0001045810-26-000021",
+        "filingDate": "2026-02-25",
+        "reportDate": "2026-01-25",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "6c7794e6a748687e5ec2f1974ba869c3a9d4ac419575c606fc55d0d076527ef1",
+      "modelingStatus": "empty",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "ed9d35e95a5a4ba9b9212902246d1c6a",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 9,
+      "label": "애플 공급망 위험",
+      "status": "PASS",
+      "elapsed": 172.888,
+      "filing": {
+        "cik": "0000320193",
+        "accessionNo": "0000320193-26-000026",
+        "filingDate": "2026-11-03",
+        "reportDate": "2026-09-26",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "2cc6645f8e5f23e426dfbf8d6d720ada9480f585c60235b205499ce1d8112cdf",
+      "modelingStatus": "available",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "cf4c448518ef4c20989d3c2a5ee5fb79",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 10,
+      "label": "소송 공시 확인",
+      "status": "PASS",
+      "elapsed": 176.61,
+      "filing": {
+        "cik": "0001326801",
+        "accessionNo": "0001628280-26-003942",
+        "filingDate": "2026-01-29",
+        "reportDate": "2025-12-31",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "b2ff6c993f1969be845da1f2ccdaa669680b0bdc042e8604d2126e12afeaac2f",
+      "modelingStatus": "empty",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "871ed8fab69b4d0c9adc36fe44997528",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 11,
+      "label": "위험과 실제 사건 구분",
+      "status": "PASS",
+      "elapsed": 141.621,
+      "filing": {
+        "cik": "0001318605",
+        "accessionNo": "0001628280-26-003952",
+        "filingDate": "2026-01-29",
+        "reportDate": "2025-12-31",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "34ad8ffed157da4600c13fa3264c2a28d481c035b32f95413bbe937b74bce2b5",
+      "modelingStatus": "empty",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "caae20bee6064cd4af597892c8814762",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 12,
+      "label": "애플 실적 요약",
+      "status": "PASS",
+      "elapsed": 144.363,
+      "filing": {
+        "cik": "0000320193",
+        "accessionNo": "0000320193-26-000026",
+        "filingDate": "2026-11-03",
+        "reportDate": "2026-09-26",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "cbaa92a6f85894a22fd4c1c33aee6c8e1a46b943ed82b7a921513823c54f99c9",
+      "modelingStatus": "available",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "72f264d5fb8e46bf95a876998e0759af",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 13,
+      "label": "마이크로소프트 현금흐름",
+      "status": "PASS",
+      "elapsed": 86.707,
+      "filing": {
+        "cik": "0000789019",
+        "accessionNo": "0001193125-26-323660",
+        "filingDate": "2026-07-29",
+        "reportDate": "2026-06-30",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "41ce44fc96cf4cd57607a3605bf08c394c22446a16b86b45ad98a8c8c8e9446b",
+      "modelingStatus": "empty",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "f0adf8e25f68418eb6cf9e8bbb66207d",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 14,
+      "label": "아마존 영업이익",
+      "status": "PASS",
+      "elapsed": 100.33,
+      "filing": {
+        "cik": "0001018724",
+        "accessionNo": "0001018724-26-000004",
+        "filingDate": "2026-02-06",
+        "reportDate": "2025-12-31",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "0067e2d2e9aec99f30bf9d2e72d714bc8e6f1be2e4a89de6b6bc51d0cb09e79d",
+      "modelingStatus": "unavailable",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "960f1842aef94b66a075ce16d369d433",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 15,
+      "label": "재무제표와 해설 연결",
+      "status": "PASS",
+      "elapsed": 177.219,
+      "filing": {
+        "cik": "0000320193",
+        "accessionNo": "0000320193-26-000026",
+        "filingDate": "2026-11-03",
+        "reportDate": "2026-09-26",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "aae2d92328119b2540e557ff9a54dba227f7487d2f6e4c2c9d46345e625138d4",
+      "modelingStatus": "available",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "26e25b75df574ae7913736a7a930117f",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 16,
+      "label": "애플 게시 근거 찾기",
+      "status": "PASS",
+      "elapsed": 113.963,
+      "filing": {
+        "cik": "0000320193",
+        "accessionNo": "0000320193-26-000026",
+        "filingDate": "2026-11-03",
+        "reportDate": "2026-09-26",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "cdb2d232f70d2cce8197fd8be0de564b196d80a75c0af50111d7f4d958f5cb0b",
+      "modelingStatus": "available",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "a3a64ac75ebc4800aaff76e5ea16dfd9",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 17,
+      "label": "XBRL 매출 수치",
+      "status": "PASS",
+      "elapsed": 83.844,
+      "filing": {
+        "cik": "0000789019",
+        "accessionNo": "0001193125-26-323660",
+        "filingDate": "2026-07-29",
+        "reportDate": "2026-06-30",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "afbec7f1b03fc041c5950eb5ad57a57e9d70a5348fa175fa9a31634170b3ab41",
+      "modelingStatus": "empty",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "83937e6e3385431f9392a477e6beb8d7",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 18,
+      "label": "XBRL 순이익 수치",
+      "status": "PASS",
+      "elapsed": 82.773,
+      "filing": {
+        "cik": "0001045810",
+        "accessionNo": "0001045810-26-000021",
+        "filingDate": "2026-02-25",
+        "reportDate": "2026-01-25",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "1969c3fde527161223dc6b54ca1277deee7434e53628772e920d114e970db096",
+      "modelingStatus": "available",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "ea5f29774c314f33930fbfd31010e5cc",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 19,
+      "label": "근거 부재 설명",
+      "status": "PASS",
+      "elapsed": 112.579,
+      "filing": {
+        "cik": "0001018724",
+        "accessionNo": "0001018724-26-000004",
+        "filingDate": "2026-02-06",
+        "reportDate": "2025-12-31",
+        "formType": "10-K",
+        "primaryDocument": null
+      },
+      "programValid": true,
+      "programSha256": "9425bd8835655894805db546fe8bfaef1f04aa6d21b071e64ee61a056626d01d",
+      "modelingStatus": "empty",
+      "collection": null,
+      "cleanup": [
+        {
+          "threadId": "6d99beb8ce4f42969173f533396249c0",
+          "status": "deleted"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "index": 20,
+      "label": "애플 최근 1년 수집",
+      "status": "PASS",
+      "elapsed": 7.078,
+      "filing": null,
+      "programValid": null,
+      "programSha256": null,
+      "modelingStatus": null,
+      "collection": {
+        "cik": "0000320193",
+        "years": 1,
+        "since": null,
+        "companiesProcessed": 1,
+        "filingsSynced": 14,
+        "downloaded": 0,
+        "failed": 0,
+        "checkedAt": "2026-11-17T11:04:51.391663+00:00"
+      },
+      "cleanup": [],
+      "warnings": []
+    },
+    {
+      "index": 21,
+      "label": "엔비디아 최근 2년 수집",
+      "status": "PASS",
+      "elapsed": 5.019,
+      "filing": null,
+      "programValid": null,
+      "programSha256": null,
+      "modelingStatus": null,
+      "collection": {
+        "cik": "0001045810",
+        "years": 2,
+        "since": null,
+        "companiesProcessed": 1,
+        "filingsSynced": 31,
+        "downloaded": 0,
+        "failed": 0,
+        "checkedAt": "2026-11-17T11:04:56.412152+00:00"
+      },
+      "cleanup": [],
+      "warnings": []
+    },
+    {
+      "index": 22,
+      "label": "날짜부터 수집",
+      "status": "PASS",
+      "elapsed": 4.238,
+      "filing": null,
+      "programValid": null,
+      "programSha256": null,
+      "modelingStatus": null,
+      "collection": {
+        "cik": "0000789019",
+        "years": 2,
+        "since": "2025-01-01",
+        "companiesProcessed": 1,
+        "filingsSynced": 26,
+        "downloaded": 0,
+        "failed": 0,
+        "checkedAt": "2026-11-17T11:05:00.652379+00:00"
+      },
+      "cleanup": [],
+      "warnings": []
+    },
+    {
+      "index": 23,
+      "label": "수집 범위 먼저 설명",
+      "status": "PASS",
+      "elapsed": 25.664,
+      "filing": null,
+      "programValid": true,
+      "programSha256": null,
+      "modelingStatus": null,
+      "collection": null,
+      "cleanup": [],
+      "warnings": []
+    }
+  ]
+}

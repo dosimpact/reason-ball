@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import re
 from typing import TypedDict
 
 import httpx
@@ -19,6 +20,12 @@ logger = logging.getLogger(__name__)
 
 class GeneratedUI(BaseModel):
     program: str = Field(min_length=1, max_length=60000)
+
+
+def _host_quote_errors(program: str) -> list[str]:
+    # Ignore quoted string contents; enforce the constructor policy, not a second DSL parser.
+    tokens = re.sub(r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*' ''', "", program, flags=re.VERBOSE | re.DOTALL)
+    return ["Do not generate Quote components: the host renders verified original quotations. Use ordinary prose."] if re.search(r"\bQuote\s*\(", tokens) else []
 
 
 async def validate_program(program: str) -> list[str]:
@@ -40,6 +47,9 @@ Use reactive variables with controls for real interactions (filtering, switching
         messages[0].content = str(messages[0].content).replace(
             "For SEC answers, the host independently shows verified citations, filing identity, coverage and limitations below your UI; do not manufacture quotes, provenance or an evidence toggle.",
             "Include the supplied source links, filing identity, quotations and limitations in your UI. There is no separate host evidence panel. Never manufacture provenance or claim independently verified quotations.")
+    has_host_quotes = host_evidence and bool(answer.get("findings"))
+    if has_host_quotes:
+        messages[0].content = str(messages[0].content) + """\nSEC HOST EVIDENCE: Do not generate Quote components or Markdown blockquotes. The host already renders exact, validated Item quotations in its evidence panel. Present your own paraphrases only as prose, never as original quotations. Use answer.filingContext for requested filing identity and dates; display supplied filingDate and accessionNo exactly. checkedAt=null means SEC freshness was not rechecked. Do not infer filingDate from reportDate or an audit date. Explain metadata with readable business labels; never expose internal field names such as filingContext or checkedAt, or literal null, to the user. Preserve the aggregation scope in table labels: a total including products and services must be labelled total net sales or product-and-service sales, never product-only sales. Published modeling means same-filing extracted evidence and XBRL facts, not forecast/DCF models. Empty or unavailable modeling lookup means no result was returned this time; never label it as absolute absence of published evidence."""
     check = validator or validate_program
     for attempt in range(2):
         try:
@@ -59,6 +69,8 @@ Use reactive variables with controls for real interactions (filtering, switching
         except Exception as error:
             logger.warning("OpenUI validator failure exception=%s", type(error).__name__)
             raise
+        if has_host_quotes:
+            errors = [*errors, *_host_quote_errors(generated.program)]
         if not errors:
             return generated.program
         logger.warning("OpenUI DSL failure attempt=%d error_count=%d", attempt + 1, len(errors))

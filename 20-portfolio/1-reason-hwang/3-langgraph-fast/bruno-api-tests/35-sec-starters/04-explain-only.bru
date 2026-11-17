@@ -1,0 +1,22 @@
+meta {
+  name: SEC-STARTERS-001 explanation only
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/resolve
+  body: json
+  auth: none
+}
+body:json {
+  {"message":"수집 범위만 설명해줘. 지금은 실행하지 마."}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("explanatory reply does not become collection", function () {
+    expect(res.getBody().action).to.equal("reply");
+    expect(res.getBody().reply).to.include("실행하지 않았습니다");
+  });
+}

@@ -85,13 +85,15 @@ async def test_scope_and_no_sync_are_enforced_before_http():
 
 
 @pytest.mark.asyncio
-async def test_search_uses_real_tool_and_rejects_model_only_claims():
-    log = []
-    model = ToolModel(responses=[call('search_sec_companies', ticker='AAPL'), AIMessage(content='Apple')])
-    assert (await search_companies('AAPL', model, client_with(log)))['items'][0]['cik'] == FILING['cik']
-    assert len(log) == 1
-    with pytest.raises(SecReadError):
-        await search_companies('AAPL', ToolModel(responses=[AIMessage(content='invented')]), client_with([]))
+async def test_search_uses_real_tool_and_ignores_model_only_claims():
+    from unittest.mock import Mock
+    for responses in [[AIMessage(content='invented')], []]:
+        log = []
+        model = Mock(wraps=ToolModel(responses=responses))
+        assert (await search_companies('AAPL', model, client_with(log)))['items'][0]['cik'] == FILING['cik']
+        assert len(log) == 1
+        assert log[0].url.params['ticker'] == 'AAPL'
+        assert model.mock_calls == []
 
 
 @pytest.mark.asyncio

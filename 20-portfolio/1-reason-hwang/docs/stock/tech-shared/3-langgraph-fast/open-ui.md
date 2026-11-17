@@ -61,3 +61,7 @@ custom stream은 `{channel:"canvas",type,reportId,payload}`이며 open → reset
 Canvas는 카탈로그를 먼저 제공하고 마지막에 TA CANVAS SCOPE를 추가하여 일반적인 전체 프로그램/root 생성 지시보다 구체적인 제한을 우선한다. 모델은 Col/Row/Grid/Text/Title/Markdown으로 taLayout 하나만 작성하고 taPanel/taSignals를 한 번씩 참조한다. Query, IndicatorControls, 숫자 snapshot과 최종 root는 서버가 소유한다. 전체 카탈로그를 읽는다고 실행 allowlist가 확장되지 않는다. taPanel 설명도 고정3지표가 아니라 실제 요청한 TA20 인스턴스와 설정을 따른다.
 
 회귀 테스트는 실제 SystemMessage를 캡처해 IndicatorControls, technical_analysis_catalog, Grid 최신 인수 순서와 Canvas 제한을 확인한다. 같은 프로세스·같은 함수에서 artifact를 교체한 다음 두 번째 호출이 새 내용을 읽는지 검증하고, Query·FinancialChart 추가나 snapshot 재할당을 계속 거부한다. API 검증은 소유 FastAPI/PG/Host와 SpyModel·고정 OHLCV를 사용해 외부 모델 비용 없이 실제 Canvas graph와 parser를 통과시킨다. 브라우저 검증은 수행하지 않는다.
+
+## SEC-STARTERS-001: 호스트 원문 인용 보호
+
+호스트 근거 패널이 있고 SEC findings가 있는 경우 composer는 Quote 구성요소와 Markdown 인용을 생성하지 않도록 지시한다. 실제 프로그램에서는 문자열 리터럴을 제외한 Quote 생성자를 추가 검사하며 기존 전체2회 생성 예산 안에서 수정한다. 정확한 원문 인용은 호스트가 표시한다. 일반 개념 답변과 host_evidence=false 경로의 Quote 사용은 유지한다. 이 검사는 요약의 모든 의미나 Markdown 내용의 자동 사실 검증이 아니다. 서버 소유 filingContext의 제출일·접수번호를 정확히 표시하고 내부 필드명은 화면에 노출하지 않도록 지시한다. 표의 총계에는 제품·서비스 등 실제 집계 범위를 보존하며 게시 모델링의 빈 조회를 자료 자체의 절대 부재로 바꾸지 않는다. [검증 기록](../../../flow/2026-11-17-sec-starters-regression.md).

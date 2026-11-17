@@ -64,7 +64,7 @@ LLM에는 원시 예외·공급자 응답·내부 URL·프롬프트·공시 본�
 
 ## SEC-DEEP-001~003 자율 조사와 도구 호출
 
-별도 `sec_deep_agent`는 BFF SEC 6개 API를 tool로 사용해 기업·공시·원문을 조사하고 Markdown 리포트를 작성한다. 기존 `/sec-chat`의 기업 검색은 모델 tool calling을 사용하고, 기업이 확정된 뒤의 공시 준비는 SEC-PREPARE-001에 따라 서버가 동일한 실제 도구를 순서대로 실행한다. 두 경로는 공통 도구를 사용하며, 기존 채팅의 원문 인용 검증·Intelligent UI·추천 질문 계약은 유지한다. 독립 Deep Agent의 응답은 보고서·실제 도구 호출 목록·읽은 공시 출처로 구성된다. [Python 구현과 한계](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md#sec-deep-001003-공통-sec-tools와-독립-deep-agent)를 참조한다.
+별도 `sec_deep_agent`는 BFF SEC 6개 API를 tool로 사용해 기업·공시·원문을 조사하고 Markdown 리포트를 작성한다. 기존 `/sec-chat`의 기업 검색은 확정 검색어로 실제 도구를 직접 실행하고, 기업이 확정된 뒤의 공시 준비는 SEC-PREPARE-001에 따라 서버가 동일한 실제 도구를 순서대로 실행한다. 두 경로는 공통 도구를 사용하며, 기존 채팅의 원문 인용 검증·Intelligent UI·추천 질문 계약은 유지한다. 독립 Deep Agent의 응답은 보고서·실제 도구 호출 목록·읽은 공시 출처로 구성된다. [Python 구현과 한계](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md#sec-deep-001003-공통-sec-tools와-독립-deep-agent)를 참조한다.
 
 `SEC-PREPARE-001`: 저장된10-K 준비에는 모델의 도구 선택이나 추가 모델 호출이 필요하지 않다. 최신 공시의 목록·다운로드 상태·원문을 순서대로 확인하며, 실패하면 분석 세션을 만들지 않고 준비 오류를 표시한다. 명시적 최신 확인 시에만 동기화하고 최신 미다운로드 공시를 과거 공시로 바꾸지 않는다. [공용 도구 실행 계약](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md#sec-prepare-001-확정-기업의-결정적-10-k-준비), [검증 기록](../../flow/2026-11-17-sec-prepare-deterministic.md).
 
@@ -87,3 +87,9 @@ Host는 `/api/sec-chat/collect`를 통해 `sync_sec_company_filings` 도구를 �
 
 이 실행의 도구 목록은 선택 기업 수집1종이며 전체 기업 수집은 노출하지 않는다. 완료는 실제 SSE completed와 기업 수·실패 수를 검증한 뒤 확정하고, 응답의 메타데이터 동기화·다운로드 건수를 표시한다. 오류·미완료는 성공으로 출력하지 않는다. 수집은 분석 답변 생성·모델링1/2/3 실행과 별개이며 기존 분석 세션을 덮어쓰지 않는다.
 [구현·검증 기록](../../flow/2026-11-17-sec-chat-collection-tool.md).
+
+## SEC-STARTERS-001 대표 질문과 안내 정확성
+
+`/sec-chat`의6개 주제·24개 시작 질문을 회귀 검증 대상으로 유지한다. 기업은 실제 검색 결과의 CIK로 확인하고, 저장 공시의 제출일·접수번호·원문 링크를 답변에 보존한다. 최신 저장본 분석과 SEC 최신성 확인은 구분한다. 게시 모델링은 동일 공시의 추출 근거와 XBRL 조회이며 저장된 DCF/WACC 엔진이 아니다. 수집 범위 설명만 요청한 경우 실제 수집을 실행하지 않는다.
+
+검증된 원문 인용은 호스트의 근거 패널에서 표시한다. 생성 UI가 요약을 원문 인용처럼 다시 작성하지 않도록 Quote 구성요소를 제한한다. 인용 일치·출처 범위·문법 검증과 모든 요약의 의미적 정확성은 구분한다. [기술 계약](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md#sec-starters-001-대표-질문의-검색메타데이터기능-경계), [검증 기록](../../flow/2026-11-17-sec-starters-regression.md).

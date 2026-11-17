@@ -1,0 +1,24 @@
+meta {
+  name: SEC-STARTERS-001 Meta company survives broad matches
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/resolve
+  body: json
+  auth: none
+}
+body:json {
+  {"message":"메타 공시 제출일과 접수번호 알려줘"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("authoritative Meta CIK returned despite changed ticker", function () {
+    const b = res.getBody();
+    expect(b.action).to.equal("research");
+    expect(b.company.cik).to.equal("0001326801");
+    expect(b.company.ticker).to.equal("METAM");
+  });
+}
