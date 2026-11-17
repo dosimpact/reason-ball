@@ -11,7 +11,7 @@ async def main():
     c = get_client(url="http://127.0.0.1:3981")
     e = json.loads(Path("/tmp/fastapi-parity-cases.json").read_text())
     for gid, payload in [
-        ("price_agent", {"query": "AAPL 최근 5개 일봉", "interval": "1d", "count": 5}),
+        ("price_agent", {"messages": [{"role": "user", "content": "AAPL 최근 5개 일봉"}]}),
         (
             "sec_deep_agent",
             {

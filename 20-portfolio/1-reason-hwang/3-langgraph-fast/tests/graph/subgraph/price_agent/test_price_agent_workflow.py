@@ -76,7 +76,6 @@ async def test_price_agent_graph_calls_llm_once_and_reuses_cache(monkeypatch) ->
     monkeypatch.setattr(yahoo_finance.yf, "Ticker", FakeTicker)
     yahoo_finance.clear_price_cache()
     initial: PriceAgentState = {
-        "query": "쿠팡의 최근 10일 가격을 알려줘",
         "messages": [HumanMessage(content="쿠팡의 최근 10일 가격을 알려줘")],
         "prices": [],
     }

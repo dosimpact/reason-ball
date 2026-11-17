@@ -13,7 +13,6 @@ from graph.shared.value_objects import PriceData
 
 class PriceAgentState(TypedDict, total=False):
     messages: Annotated[list[BaseMessage], add_messages]
-    query: str
     symbol: str
     interval: str
     count: int

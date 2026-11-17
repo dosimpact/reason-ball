@@ -18,7 +18,7 @@ const descriptions: Record<string, string> = {
 const chat = new Set(["talib_agent", "starter_graph", "simple_llm", "technical_analysis_agent", "technical_analysis_canvas_agent", "sec_deep_agent", "sec_modeling_agent"]);
 const examples: Record<string, Record<string, unknown>> = {
  main_graph: { message: "안녕하세요", provider: "openai" },
- price_agent: { query: "AAPL 최근 완료된 일봉 2개를 조회해 주세요", interval: "1d", count: 2 },
+ price_agent: { messages: [{ role: "user", content: "AAPL 최근 완료된 일봉 2개를 조회해 주세요" }] },
  technical_analysis_graph: { prices: [], interval: "1d" },
  tenk_subgraph: { query: "Apple의 최근 10-K 위험 요인을 저장된 자료에서 찾아 주세요", selected_filing: null },
 };

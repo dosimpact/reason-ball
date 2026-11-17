@@ -178,3 +178,7 @@ Host chart/catalog Query는 헤더·JSON 본문을 포함한30초 제한과 외�
 ## PRICE-HISTORY-001: 불완전한 가격 도구 이력
 
 price_agent의 요청 추출은 과거 assistant tool call과 뒤따르는 ToolMessage의 ID를 대조한다. 결과 없는 호출과 고아 tool 결과는 모델 입력에서 제외하며 원래 대화 기록은 수정하지 않는다. 정상 호출·결과 쌍은 유지한다. 새 요청 추출 시 과거 error_code/error_message를 초기화하여 이전 실패가 새 도구 실행을 차단하지 않게 한다.
+
+## PRICE-MESSAGES-001: 가격 에이전트 입력
+
+price_agent의 사용자 요청 입력은 messages로 통일하며 query 필드는 제거했다. run_price_agent 문자열 helper는 HumanMessage를 생성한다. 응답 언어는 messages의 최신 HumanMessage.text를 기준으로 선택한다. 빈 messages는 invalid_request다. Host graph 입력 예제와 실제 graph 검증 스크립트도 messages 형식을 사용한다.

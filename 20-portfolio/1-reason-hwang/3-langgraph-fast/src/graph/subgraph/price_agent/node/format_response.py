@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from decimal import Decimal
 
-from langchain_core.messages import AIMessage
+from langchain_core.messages import AIMessage, HumanMessage
 
 from graph.shared.value_objects import PriceData
 from graph.subgraph.price_agent.state import PriceAgentState
@@ -54,8 +54,11 @@ def _error_response(state: PriceAgentState, korean: bool) -> str:
 
 
 def format_response(state: PriceAgentState) -> PriceAgentState:
-    query = state.get("query", "")
-    korean = bool(KOREAN_RE.search(query))
+    latest_user = next(
+        (message for message in reversed(state.get("messages", [])) if isinstance(message, HumanMessage)),
+        None,
+    )
+    korean = bool(KOREAN_RE.search(latest_user.text if latest_user else ""))
     prices = sorted(state.get("prices", []), key=lambda price: price.trading_date)
     if state.get("error_code") or not prices:
         response = _error_response(state, korean)

@@ -37,7 +37,7 @@ async def test_extract_request_calls_model_once_and_emits_tool_call(monkeypatch)
     monkeypatch.setattr(extract_node, "_request_model", model)
 
     result = await extract_node.extract_request(
-        {"query": "쿠팡 최근 10일", "messages": [HumanMessage(content="쿠팡 최근 10일")]}
+        {"messages": [HumanMessage(content="쿠팡 최근 10일")]}
     )
 
     assert model.calls == 1
@@ -51,7 +51,7 @@ async def test_extract_request_marks_missing_tool_call(monkeypatch) -> None:
     monkeypatch.setattr(extract_node, "_request_model", model)
 
     result = await extract_node.extract_request(
-        {"query": "그 회사 가격", "messages": [HumanMessage(content="그 회사 가격")]}
+        {"messages": [HumanMessage(content="그 회사 가격")]}
     )
 
     assert result["error_code"] == "tool_call_missing"
@@ -89,3 +89,12 @@ async def test_extract_keeps_complete_tool_pairs(monkeypatch):
     ]})
     assert model.messages[2].tool_calls[0]["id"] == "paired"
     assert model.messages[3].tool_call_id == "paired"
+
+
+@pytest.mark.asyncio
+async def test_empty_messages_rejected_without_model_call(monkeypatch):
+    model = FakeModel(AIMessage(content="unused"))
+    monkeypatch.setattr(extract_node, "_request_model", model)
+    result = await extract_node.extract_request({"messages": []})
+    assert result["error_code"] == "invalid_request"
+    assert model.calls == 0

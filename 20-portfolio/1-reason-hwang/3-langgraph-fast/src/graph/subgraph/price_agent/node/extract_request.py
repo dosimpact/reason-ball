@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
+from langchain_core.messages import AIMessage, SystemMessage, ToolMessage
 
 from graph.provider import ChatGptOauthProxyProvider
 from graph.subgraph.price_agent.prompts import TICKER_EXTRACTION_PROMPT
@@ -20,9 +20,6 @@ _request_model = build_request_model()
 
 async def extract_request(state: PriceAgentState) -> PriceAgentState:
     messages = list(state.get("messages", []))
-    query = state.get("query", "").strip()
-    if not messages and query:
-        messages = [HumanMessage(content=query)]
     if not messages:
         return {
             "error_code": "invalid_request",

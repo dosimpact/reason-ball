@@ -2,6 +2,7 @@
 
 from datetime import date
 from decimal import Decimal
+from langchain_core.messages import HumanMessage
 
 from graph.shared.value_objects import PriceData
 from graph.subgraph.price_agent.node.format_response import format_response
@@ -27,7 +28,7 @@ def make_price(day: int, close: str, adjusted: str, *, partial: bool = False) ->
 def test_formatter_uses_close_not_adjusted_close() -> None:
     result = format_response(
         {
-            "query": "쿠팡 최근 가격",
+            "messages": [HumanMessage(content="쿠팡 최근 가격")],
             "symbol": "CPNG",
             "currency": "USD",
             "prices": [make_price(27, "10", "100"), make_price(28, "12", "101", partial=True)],
@@ -44,8 +45,21 @@ def test_formatter_uses_close_not_adjusted_close() -> None:
 
 def test_formatter_returns_safe_error_markdown() -> None:
     result = format_response(
-        {"query": "없는 종목", "prices": [], "error_code": "symbol_not_found"}
+        {"messages": [HumanMessage(content="없는 종목")], "prices": [], "error_code": "symbol_not_found"}
     )
 
     assert "찾지 못했습니다" in result["response"]
     assert len(result["messages"]) == 1
+
+
+def test_formatter_uses_latest_user_message_language():
+    result = format_response({
+        "messages": [HumanMessage(content="쿠팡 가격"), HumanMessage(content="AAPL price")],
+        "prices": [], "error_code": "symbol_not_found",
+    })
+    assert "No price data" in result["response"]
+
+
+def test_price_schema_has_no_query_field():
+    from graph.subgraph.price_agent.workflow import price_agent_graph
+    assert "query" not in price_agent_graph.get_input_jsonschema()["properties"]
