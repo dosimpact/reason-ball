@@ -1,0 +1,22 @@
+meta {
+  name: SEC-FAILURE-REPLY-001 invalid-stage
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/failure-reply
+  body: json
+  auth: none
+}
+body:json {
+  {"message":"질문","stage":"tools"}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("invalid-stage", function () {
+    const b = res.getBody();
+    expect(b.detail).to.be.an("array");
+  });
+}

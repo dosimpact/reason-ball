@@ -1,5 +1,7 @@
 # Documentation Map
 
+- [SEC 실패 상황의 대화형 응답](flow/2026-11-17-sec-failure-replies.md): SEC-FAILURE-REPLY-001, 실패 상태 보존·LLM 설명·기본 안내·취소·API/브라우저 검증.
+
 - [SEC 저장된10-K 준비 안정화](flow/2026-11-17-sec-prepare-deterministic.md): SEC-PREPARE-001, 확정 기업의 모델 없는 실제 도구 실행·최신 공시 보호·반복/API/브라우저 검증.
 
 - [SEC UI 구조화 응답 수정·검증](flow/2026-11-17-sec-ui-structured-repair.md): SEC-UI-REPAIR-001, 카탈로그 상태 확인·구조화 응답 repair·실제 사이트 검증.

@@ -1,0 +1,22 @@
+meta {
+  name: SEC-FAILURE-REPLY-001 raw-errors-forbidden
+  type: http
+  seq: 7
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/failure-reply
+  body: json
+  auth: none
+}
+body:json {
+  {"message":"질문","stage":"prepare","errorMessage":"raw provider payload"}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("raw-errors-forbidden", function () {
+    const b = res.getBody();
+    expect(b.detail).to.be.an("array");
+  });
+}

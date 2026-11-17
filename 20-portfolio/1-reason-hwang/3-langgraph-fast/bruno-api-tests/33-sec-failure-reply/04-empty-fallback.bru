@@ -1,0 +1,24 @@
+meta {
+  name: SEC-FAILURE-REPLY-001 empty-fallback
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/failure-reply
+  body: json
+  auth: none
+}
+body:json {
+  {"message":"empty-reply","stage":"collect"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("empty-fallback", function () {
+    const b = res.getBody();
+    expect(b.source).to.equal("fallback");
+    expect(b.reply).to.include("수집");
+    expect(b.reply.length).to.be.greaterThan(0);
+  });
+}

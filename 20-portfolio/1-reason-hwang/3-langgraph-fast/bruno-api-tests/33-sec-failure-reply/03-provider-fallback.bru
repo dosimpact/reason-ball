@@ -1,0 +1,24 @@
+meta {
+  name: SEC-FAILURE-REPLY-001 provider-fallback
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/failure-reply
+  body: json
+  auth: none
+}
+body:json {
+  {"message":"provider-fail","stage":"prepare","reason":"filing_not_ready"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("provider-fallback", function () {
+    const b = res.getBody();
+    expect(b.source).to.equal("fallback");
+    expect(b.reply).to.include("다운로드");
+    expect(JSON.stringify(b)).not.to.include("private");
+  });
+}

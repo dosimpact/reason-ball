@@ -8,6 +8,7 @@ import { FollowUpQuestions } from "./FollowUpQuestions";
 import { AnswerView } from "./AnswerView";
 import { readAnswer, readPreparation, readResolution } from "../api/stream";
 import { ActivityTimeline, type Activity } from "./ActivityTimeline";
+import { failureReason, requestFailureReply, type FailureContext } from "../api/failure-reply";
 import { secChatStarterGroups } from "../model/starters";
 import "./sec-chat.css";
 
@@ -72,8 +73,9 @@ export function SecChat() {
 
   function append(message: Message) { setMessages(previous => [...previous, message.role === "assistant" ? { ...message, activities: activityLog.current } : message]); }
 
-  async function research(selected: Company | null, text: string, refresh: boolean, signal: AbortSignal) {
+  async function research(selected: Company | null, text: string, refresh: boolean, signal: AbortSignal, context: FailureContext) {
     const target = selected ?? company;
+    context.stage = "prepare"; context.company = target;
     if (!target) throw new Error("분석할 기업을 알려 주세요.");
     let active = prepared;
     if (!active || target.cik !== company?.cik || refresh) {
@@ -86,14 +88,16 @@ export function SecChat() {
       if (active) void fetch(`/api/sec-chat/threads/${active.threadId}`, { method: "DELETE" }).catch(() => undefined);
       active = next;
     }
+    context.stage = "chat";
     setBusy(`${target.name}의 원문 근거를 읽고 있어요`);
     const response = await fetch("/api/sec-chat/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ threadId: active.threadId, message: text }), signal });
     const { program, followUps, evidence } = await readAnswer(response, recordActivity);
     append({ role: "assistant", text: `${target.name}의 10-K 원문에 근거한 답변: ${text}`, program, followUps, evidence });
   }
 
-  async function collect(selected: Company | null, years: number, since: string | undefined, signal: AbortSignal) {
+  async function collect(selected: Company | null, years: number, since: string | undefined, signal: AbortSignal, context: FailureContext) {
     const target = selected ?? company;
+    context.stage = "collect"; context.company = target;
     if (!target) throw new Error("수집할 기업을 알려 주세요.");
     setBusy(`${target.name}의 10-K·10-Q·8-K 공시를 수집하고 있어요. 수 분이 걸릴 수 있습니다.`);
     const result = await trackRequest(`${target.name} · 공시 수집`, async () => {
@@ -109,14 +113,15 @@ export function SecChat() {
   async function send(text: string, selected?: Company) {
     if (!text.trim() || abort.current) return;
     const pending = choice;
+    const context: FailureContext = { stage: "resolve" };
     const controller = new AbortController(); abort.current = controller;
     activityLog.current = []; setActivities([]);
     setBusy("메시지를 읽고 있어요"); setError(""); setChoice(undefined);
     append({ role: "user", text });
     try {
       if (selected && pending) {
-        if (pending.pendingAction === "collect") await collect(selected, pending.years ?? 2, pending.since, controller.signal);
-        else await research(selected, pending.question, pending.refresh, controller.signal);
+        if (pending.pendingAction === "collect") await collect(selected, pending.years ?? 2, pending.since, controller.signal, context);
+        else await research(selected, pending.question, pending.refresh, controller.signal, context);
       } else {
         const result = await trackRequest("대화 요청", async () => {
           const response = await fetch("/api/sec-chat/resolve", { method: "POST", headers: { "Content-Type": "application/json", Accept: "text/event-stream" }, body: JSON.stringify({ message: text, threadId: prepared?.threadId, history: messages.slice(-12).map(({ role, text }) => ({ role, text: text.slice(0, 4000) })) }), signal: controller.signal });
@@ -125,16 +130,31 @@ export function SecChat() {
         if (result.action === "reply") append({ role: "assistant", text: result.reply, program: result.program, followUps: result.followUps });
         else if (result.action === "choose") {
           append({ role: "assistant", text: result.reply, program: result.program, followUps: result.followUps }); setChoice(result);
-        } else if (result.action === "collect") await collect(result.company, result.years, result.since, controller.signal);
-        else await research(result.company, result.question, result.refresh, controller.signal);
+        } else if (result.action === "collect") await collect(result.company, result.years, result.since, controller.signal, context);
+        else await research(result.company, result.question, result.refresh, controller.signal, context);
       }
     } catch (e) {
+      context.reason = failureReason(e);
       const message = controller.signal.aborted ? "답변 생성을 중단했어요. 메시지를 다시 보내 이어갈 수 있어요." : (e as Error).message;
       for (const activity of activityLog.current.filter(item => item.status === "running")) recordActivity({ ...activity, status: controller.signal.aborted ? "cancelled" : "failed" });
-      append({ role: "assistant", text: "" });
       if (/세션이 만료/.test(message)) { setPrepared(undefined); setError("분석 세션이 만료되었습니다. 같은 질문을 다시 보내 공시를 다시 준비해 주세요."); }
       else setError(message);
       if (pending) setChoice(pending);
+      const cancellation = "답변 생성을 중단했어요. 메시지를 다시 보내 이어갈 수 있어요.";
+      if (controller.signal.aborted) append({ role: "assistant", text: cancellation });
+      else {
+        const recovery: Activity = { id: crypto.randomUUID(), label: "실패 상황 답변 생성", kind: "request", status: "running" };
+        recordActivity(recovery); setBusy("실패 상황에 대한 답변을 준비하고 있어요");
+        try {
+          const result = await requestFailureReply(selected && pending ? pending.question : text, context, controller.signal);
+          controller.signal.throwIfAborted();
+          recordActivity({ ...recovery, status: result.source === "model" ? "completed" : "unavailable" });
+          append({ role: "assistant", text: result.reply });
+        } catch {
+          recordActivity({ ...recovery, status: "cancelled" });
+          setError(cancellation); append({ role: "assistant", text: cancellation });
+        }
+      }
     } finally {
       abort.current = null; setBusy("");
     }
@@ -183,7 +203,8 @@ export function SecChat() {
         <FollowUpQuestions questions={message.followUps ?? []} disabled={!!busy || index !== messages.length - 1} onSelect={text => void send(text)} />
       </>,
     })), ...(busy ? [{
-      id: "sec-current-activity", role: "assistant" as const, content: busy,
+      // The SDK renders a live custom assistant view only after OpenUI syntax is present.
+      id: "sec-current-activity", role: "assistant" as const, content: `root = Col([Markdown(${JSON.stringify(busy)})])`,
       view: <><ActivityTimeline activities={activities} working /><ChatNotice tone="status">{busy}</ChatNotice></>,
     }] : [])]}
   />;

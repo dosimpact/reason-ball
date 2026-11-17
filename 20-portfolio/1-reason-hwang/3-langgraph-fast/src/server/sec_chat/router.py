@@ -16,6 +16,11 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field, field_validator
 
 from domains.sec_chat.conversation import ConversationRequest
+from domains.sec_chat.failure_reply import (
+    FailureReply,
+    FailureReplyRequest,
+    build_failure_reply,
+)
 from domains.sec_tools.agent import (
     collect_company_filings,
     prepare_filing,
@@ -64,6 +69,11 @@ class CollectRequest(BaseModel):
 class ChatRequest(BaseModel):
     threadId: str = Field(pattern=r"^[a-f0-9]{32}$")
     message: str = Field(min_length=1, max_length=4000)
+
+
+@router.post("/failure-reply", response_model=FailureReply)
+async def failure_reply(body: FailureReplyRequest):
+    return await build_failure_reply(body)
 
 
 @router.post("/resolve")

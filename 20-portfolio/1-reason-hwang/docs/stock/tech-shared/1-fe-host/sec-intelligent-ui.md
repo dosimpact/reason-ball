@@ -89,3 +89,15 @@ SEC_CHAT_API_URL=http://127.0.0.1:8000 pnpm --filter @reason-hwang/fe-host dev
 resolve의 명시적 refresh=true만 FE에서 그대로 전달하여 수집을 실행한다.
 기본 상태에서는 새 기업 선택도 자동 수집하지 않으며 최신 원문 미보유는 오류로 표시한다.
 읽기 준비 중에는 다운로드 안내 대신 저장된10-K 확인 문구를 표시한다. 서버 PrepareRequest·FilingSourceClient·대화 의도의 생략 기본값도 false다.
+
+## SEC-FAILURE-REPLY-001 실패 후에도 assistant 답변 표시
+
+`SecChat`은 resolve/prepare/chat/collect 실패 단계와 선택 기업을 유지한다. `api/failure-reply.ts`는 알려진 서버/클라이언트 오류 문구를 제한된 reason으로 변환하고 `/api/sec-chat/failure-reply`에 원래 질문·단계·reason·기업만 보낸다. Next 프록시는 이 경로를 allowlist에 포함한다. 원시 오류 메시지·예외·공급자 payload·history를 새 모델 입력에 넣지 않는다.
+
+기존 실패 activity·ChatNotice·선택 후보·세션 만료 처리는 유지한다. 설명 생성 중 busy와 취소를 지원하고 `실패 상황 답변 생성` request activity를 추가한다. source=model은 completed, 모델/HTTP/형식/20초 client timeout으로 기본 안내를 사용하면 unavailable로 표시한다. 원래 실패를 완료로 바꾸지 않는다. 생성된 설명은 일반 assistant text로 저장하고 기존 ConversationText로 표시하므로 실패한 LLM OpenUI 구성을 다시 요청하지 않는다. 근거·program·추천 질문은 붙이지 않는다.
+
+기존 작업이 중단됐으면 설명을 요청하지 않고 중단 문장을 표시한다. 설명 생성 중 취소도 전파하고 늦은 답변을 표시하지 않는다. 설명 endpoint 자체의 실패에는 재귀 호출 없이 단계별 기본 안내가 있어 빈 assistant 턴이 생기지 않는다.
+
+진행 중 임시 assistant의 SDK content는 실제 busy 문자열을 JSON 이스케이프한 OpenUI Markdown 프로그램이다. 설치 SDK가 실행 중인 custom AssistantMessage를 Lang syntax가 있을 때만 표시하므로, 이를 통해 기존 ActivityTimeline과 ChatNotice가 대기 중에도 답변 위치에 표시된다. 저장 메시지·사용자 입력·서버 답변 계약에는 이 임시 프로그램을 저장하지 않는다.
+
+검증: `tests/sec-chat/failure-reply.test.ts`, `tests/e2e/sec-conversation.spec.ts`와 실제 모델/MCP의 실패 주입 시나리오. [실행 기록](../../../flow/2026-11-17-sec-failure-replies.md).

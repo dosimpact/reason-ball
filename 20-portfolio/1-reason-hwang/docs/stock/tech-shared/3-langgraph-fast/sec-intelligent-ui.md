@@ -60,6 +60,16 @@ Deep Agent는 계획·가상 파일·기본 위임 도구를 사용할 수 있�
 
 검증: `tests/test_sec_prepare.py`, `bruno-api-tests/32-sec-prepare/`. [변경·실제 사이트 검증 기록](../../../flow/2026-11-17-sec-prepare-deterministic.md).
 
+## SEC-FAILURE-REPLY-001 별도 실패 설명 API
+
+`POST /api/sec-chat/failure-reply`는 `domains/sec_chat/failure_reply.py`의 별도 plain 모델 응답을 사용한다. 입력은 question 역할의 `message`(공백 제거 후1~4000자), `stage`(resolve/prepare/chat/collect), 선택적 `company`(CIK10/name/ticker), `reason`(filing_not_ready/filing_not_found/session_expired/connection_failed/invalid_response/unknown, 기본 unknown)다. 추가 필드는 거부하며 원시 오류나 history는 받지 않는다. 출력은 `{reply,source:"model"|"fallback"}`다.
+
+기존 chat_model을 지연 생성하고 tool·업무 graph·OpenUI composer·validator·추천 질문 없이 `ainvoke`를 한 번 수행한다. 모델 생성/호출/빈 응답/2500자 초과/15초 timeout은 단계·오류 범주별 기본 안내로 처리한다. 정상 text 또는 text block만 답변으로 사용한다. CancelledError는 전파하며 서버 로그는 예외 클래스만 기록한다. 별도 실패 설명은 세션 생성·업무 이력·원문·수집 상태를 변경하지 않는다.
+
+프롬프트는 단계의 의미와 알려진 관찰 범주만 설명하도록 제한한다. prepare는 저장 SEC10-K의 검색·원문 준비이며 SEC에 제출하는 기능이 아니다. 질문·기업은 비신뢰 데이터이고, 더 깊은 장애 원인·기업 사실·분석 수치·수집 성공은 생성하지 않도록 지시한다. 이 설명은 검증된 연구 결과를 대신하지 않는다. 기존 실패 endpoint의 상태/오류 종료와 새 설명 endpoint의 성공 응답은 별개다.
+
+검증: `tests/test_sec_failure_reply.py`, `bruno-api-tests/33-sec-failure-reply/`, 전용 HTTP fixture. [실행 기록](../../../flow/2026-11-17-sec-failure-replies.md).
+
 
 ## SEC-RESEARCH-MODELING-001: 기존 Research Chat의 게시 모델링 조회
 

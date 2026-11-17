@@ -52,6 +52,16 @@ Item 1 소제목 추출 → 소제목별 요약을 연속 대화로 지원하고
 
 카탈로그 변경 후 `pnpm -C 1-fe-host sec-ui:generate`로 프런트 명세와 Python 프롬프트를 함께 갱신한다. Python의 `SEC_CHAT_UI_VALIDATOR_URL` 기본값은 `http://127.0.0.1:2800/api/sec-ui/validate`다. 배포 환경에서는 Python에서 접근 가능한 프런트 주소를 지정해야 한다.
 
+## SEC-FAILURE-REPLY-001 실패 상황의 대화형 응답
+
+대화 해석·공시 준비·분석/UI·수집 요청이 실패해도 빈 assistant 메시지로 끝내지 않는다. 원래 작업의 실패 상태와 오류 안내는 유지하고, 별도 LLM이 원래 질문·실패 단계·알려진 오류 범주·선택 기업을 바탕으로 완료하지 못한 범위와 다음 행동을 짧게 설명한다. 실패 설명은 검증된 분석 답변·공시 조회 성공·수집 성공을 뜻하지 않으며 원문 근거·분석 수치·추천 질문을 붙이지 않는다.
+
+LLM에는 원시 예외·공급자 응답·내부 URL·프롬프트·공시 본문을 전달하지 않는다. 알려진 오류 범주로는 원문 미준비, 저장 공시 없음, 세션 만료, 연결 실패, 답변 형식 오류가 있으며 원인 미상은 추정하지 않는다. 저장된 공시를 찾지 못한 것과 SEC에 공시가 없는 것은 구분한다. 실패 설명은 공시 제출 기능이 아니라 분석용 원문 준비·조회 상태를 설명한다.
+
+설명 생성도 실패하거나 제한 시간을 넘기면 기본 안내문을 표시한다. 타임라인에는 원래 실패와 설명 생성의 완료/불가를 각각 남긴다. 사용자가 중단하면 새 설명 호출을 시작하지 않고 읽을 수 있는 중단 안내를 남기며, 설명 중 중단해도 늦은 답변을 표시하지 않는다. 정상 대화와 명시적 재시도는 기존 경로를 사용한다.
+
+상세: [Python 실패 응답](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md#sec-failure-reply-001-별도-실패-설명-api), [Host 처리](../tech-shared/1-fe-host/sec-intelligent-ui.md#sec-failure-reply-001-실패-후에도-assistant-답변-표시), [검증 기록](../../flow/2026-11-17-sec-failure-replies.md).
+
 ## SEC-DEEP-001~003 자율 조사와 도구 호출
 
 별도 `sec_deep_agent`는 BFF SEC 6개 API를 tool로 사용해 기업·공시·원문을 조사하고 Markdown 리포트를 작성한다. 기존 `/sec-chat`의 기업 검색은 모델 tool calling을 사용하고, 기업이 확정된 뒤의 공시 준비는 SEC-PREPARE-001에 따라 서버가 동일한 실제 도구를 순서대로 실행한다. 두 경로는 공통 도구를 사용하며, 기존 채팅의 원문 인용 검증·Intelligent UI·추천 질문 계약은 유지한다. 독립 Deep Agent의 응답은 보고서·실제 도구 호출 목록·읽은 공시 출처로 구성된다. [Python 구현과 한계](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md#sec-deep-001003-공통-sec-tools와-독립-deep-agent)를 참조한다.

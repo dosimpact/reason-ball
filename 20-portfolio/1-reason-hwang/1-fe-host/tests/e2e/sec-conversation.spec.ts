@@ -4,6 +4,80 @@ import { test, expect } from '@playwright/test';
 const apple = { cik: '0000320193', ticker: 'AAPL', name: 'Apple Inc.' };
 const prepared = { threadId: 'a'.repeat(32), filing: { accessionNo: 'fixture-filing', filingDate: '2025-10-31' }, checkedAt: 'fixture', missingItems: [] };
 
+// Failure-path tests stay deterministic; actual failure-model integration is verified with MCP.
+test.beforeEach(async ({ page }) => {
+  await page.route('**/api/sec-chat/failure-reply', route => route.fulfill({ json: { reply: '요청을 완료하지 못했어요. 다시 시도해 주세요.', source: 'fallback' } }));
+});
+
+for (const stage of ['resolve', 'prepare', 'chat', 'collect'] as const) {
+  test(`failure reply: ${stage} gets an assistant answer and keeps failure activity`, async ({ page }) => {
+    let recoveryBody: Record<string, unknown> | undefined;
+    let chatCalls = 0;
+    const question = '애플 실패 흐름을 확인해줘';
+    const reply = `${stage} 작업을 완료하지 못했습니다. 질문을 다시 보내 주세요.`;
+    const failure = (message: string) => [{ type: 'CUSTOM', name: 'sec.activity', value: { id: 'failed-node', label: '실패한 작업', kind: 'node', status: 'failed' } }, { type: 'RUN_ERROR', message }].map(e => `data: ${JSON.stringify(e)}\n\n`).join('');
+    await page.route('**/api/sec-chat/resolve', route => stage === 'resolve'
+      ? route.fulfill({ status: 502, json: { detail: '일시적인 연결 오류' } })
+      : route.fulfill({ json: stage === 'collect' ? { action: 'collect', company: apple, years: 2 } : { action: 'research', company: apple, question, refresh: false } }));
+    await page.route('**/api/sec-chat/prepare', route => stage === 'prepare'
+      ? route.fulfill({ contentType: 'text/event-stream', body: failure('최신 10-K 원문 다운로드가 완료되지 않았습니다.') })
+      : route.fulfill({ json: prepared }));
+    await page.route('**/api/sec-chat/chat', route => { chatCalls++; return route.fulfill({ contentType: 'text/event-stream', body: failure('Intelligent UI 답변 형식 검증에 실패했습니다.') }); });
+    await page.route('**/api/sec-chat/collect', route => route.fulfill({ contentType: 'text/event-stream', body: failure('공시 수집에 실패했습니다.') }));
+    await page.route('**/api/sec-chat/failure-reply', route => {
+      recoveryBody = route.request().postDataJSON();
+      return route.fulfill({ json: { reply, source: 'model' } });
+    });
+    await page.goto('/sec-chat');
+    await page.getByRole('textbox', { name: '메시지를 입력하세요' }).fill(question);
+    await page.getByRole('textbox', { name: '메시지를 입력하세요' }).press('Enter');
+    await expect(page.getByTestId('intelligent-ui-answer').last()).toContainText(reply);
+    expect(recoveryBody).toEqual({ message: question, stage, reason: ({ resolve: 'connection_failed', prepare: 'filing_not_ready', chat: 'invalid_response', collect: 'unknown' })[stage], ...(stage === 'resolve' ? {} : { company: apple }) });
+    expect(chatCalls).toEqual(stage === 'chat' ? 1 : 0);
+    const timeline = page.locator('.sec-timeline').last();
+    await expect(timeline).toContainText('일부 작업 실패');
+    expect(await timeline.locator('li[data-status="failed"]').count()).toBeGreaterThan(0);
+    await expect(timeline.locator('li[data-status="completed"]').filter({ hasText: '실패 상황 답변 생성' })).toHaveCount(1);
+    await expect(page.getByRole('complementary', { name: '검증된 원문 근거' })).toHaveCount(0);
+    await expect(page.getByRole('navigation', { name: '다음 추천 질문' })).toHaveCount(0);
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('sec-chat-history-v1'))).toContain(reply);
+  });
+}
+
+test('failure reply: unavailable recovery still shows a nonempty assistant answer', async ({ page }) => {
+  let recoveryCalls = 0;
+  await page.route('**/api/sec-chat/resolve', route => route.fulfill({ status: 502, json: { detail: '연결 오류' } }));
+  await page.route('**/api/sec-chat/failure-reply', route => { recoveryCalls++; return route.fulfill({ status: 502 }); });
+  await page.goto('/sec-chat');
+  await page.getByRole('textbox', { name: '메시지를 입력하세요' }).fill('실패 테스트');
+  await page.getByRole('textbox', { name: '메시지를 입력하세요' }).press('Enter');
+  await expect(page.getByTestId('intelligent-ui-answer').last()).toContainText('요청을 해석하는 중 문제가 생겨');
+  await expect(page.locator('.sec-timeline').last().locator('li[data-status="unavailable"]').filter({ hasText: '실패 상황 답변 생성' })).toHaveCount(1);
+  expect(recoveryCalls).toEqual(1);
+});
+
+test('failure reply: cancellation during recovery suppresses late model output', async ({ page }) => {
+  let release!: () => void;
+  let recoveryCalls = 0;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  await page.route('**/api/sec-chat/resolve', route => route.fulfill({ status: 502, json: { detail: '연결 오류' } }));
+  await page.route('**/api/sec-chat/failure-reply', async route => {
+    recoveryCalls++; await gate;
+    await route.fulfill({ json: { reply: '취소 뒤 늦게 도착한 설명', source: 'model' } }).catch(() => undefined);
+  });
+  try {
+    await page.goto('/sec-chat');
+    await page.getByRole('textbox', { name: '메시지를 입력하세요' }).fill('실패 테스트');
+    await page.getByRole('textbox', { name: '메시지를 입력하세요' }).press('Enter');
+    await expect.poll(() => recoveryCalls).toEqual(1);
+    await page.getByRole('button', { name: /^(Cancel|Cancel message)$/ }).click();
+    await expect(page.getByTestId('intelligent-ui-answer').last()).toContainText('답변 생성을 중단했어요');
+    await expect(page.locator('.sec-timeline').last().locator('li[data-status="cancelled"]').filter({ hasText: '실패 상황 답변 생성' })).toHaveCount(1);
+    release();
+    await expect(page.getByText('취소 뒤 늦게 도착한 설명', { exact: true })).toHaveCount(0);
+  } finally { release(); }
+});
+
 test('conversation: starts with a composer, handles ordinary replies and resets', async ({ page }) => {
   await page.route('**/api/sec-chat/resolve', route => route.fulfill({ json: { action: 'reply', reply: '안녕하세요. 편하게 질문해 주세요.', followUps: ['10-K를 설명해줘', '애플의 사업은?', '위험요인을 읽는 법은?'] } }));
   await page.goto('/sec-chat');
@@ -167,7 +241,7 @@ test('SEC conversation history survives reload and restores a selected conversat
   await expect(page.getByText('저장할 답변입니다.', { exact: true })).toBeVisible();
   await expect.poll(() => page.evaluate(() => localStorage.getItem('sec-chat-history-v1'))).toContain('저장할 질문');
   await page.reload();
-  await page.getByText('대화 기록', { exact: true }).first().click();
+  await page.locator('summary:visible').filter({ hasText: '대화 기록' }).click();
   await page.getByRole('button', { name: /저장할 질문/ }).click();
   await expect(page.getByText('저장할 답변입니다.', { exact: true })).toBeVisible();
 });
