@@ -298,7 +298,7 @@ Host의 FastAPI 프록시는 2981, `REMOTE_BFF_URL`은 BFF 2980이다.
 Langgraph dev chat의 주소는 `/langgraph-dev-chat`이며 기존 `/chat`은 새 주소로 리다이렉트한다. Host 사이드바는 Overview(Home), Remote Apps(Template·Todo), AI Chat(기술적 분석 인라인·기술적 분석 Canvas·SEC API Agent·SEC Research Chat), Debugging(Langgraph dev chat·FastAPI 채팅), Generative UI(UI Demos·OpenUI Lang Catalog·OpenUI Gallery)로 구성한다. 카탈로그는 직접 진입할 수 있다. URL은 기존 경로를 유지한다. 경로 구간이 일치하는 항목 중 가장 구체적인 경로 하나만 활성화하여 카탈로그에서 UI Demos가 동시에 선택되지 않게 한다. 접힌 상태의 아이콘·툴팁과 모바일 Sidebar 동작은 공통 Sidebar를 따른다.
 
 기술적 분석 전용 경로는 `/technical-analysis`(인라인)와 `/technical-analysis/canvas`(Canvas)다.
-각 화면은 개발 런타임의 `technical_analysis_agent`·`technical_analysis_canvas_agent` 하나로 고정되며 그래프 선택기는 표시하지 않는다.
+각 화면은 FastAPI 런타임의 `technical_analysis_agent`·`technical_analysis_canvas_agent` 하나로 고정되며 그래프 선택기는 표시하지 않는다. 대화·기록·실행 상태·취소와 차트/카탈로그 Query는 `/api/fastapi-langgraph`를 사용한다. 기존 개발 런타임 기록은 자동 이관하지 않는다.
 대상 그래프가 미등록이면 오류·목록 재시도를 제공하고 다른 그래프로 대체 실행하지 않는다.
 기존 `/langgraph-dev-chat`의 전체 그래프 선택 기능과 runtime·graph별 기록은 유지한다.
 모바일은 채팅 헤더의 메뉴 열기를 사용하며 메뉴 링크 선택 후 Sidebar를 닫는다.
@@ -412,7 +412,7 @@ URL 또는 실행 코드를 메시지로 받지 않는다. 정제 DOM의 fact ID
 이 구현의 테스트·typecheck·lint·build·브라우저·실제 API 호출은 실행하지 않았다.
 도메인 계약은 [SEC iXBRL 뷰어](../../us-corporate-filings/ixbrl-viewer.md)를 따른다.
 
-채팅의 LangGraph SDK 요청은 `/api/langgraph-runtime` 프록시를 통해 LangGraph 실행 서버(`LANGGRAPH_RUNTIME_API_URL`, 기본 `http://127.0.0.1:2982`)로 전달한다. 기존 `/api/langgraph`는 FastAPI 서버를 계속 사용한다. 채팅의 그래프 목록은 실행 서버의 assistant 목록에서 조회한다.
+개발 채팅의 LangGraph SDK 요청은 `/api/langgraph-runtime` 프록시를 통해 LangGraph 실행 서버(`LANGGRAPH_RUNTIME_API_URL`, 기본 `http://127.0.0.1:2982`)로 전달한다. 기존 `/api/langgraph`는 FastAPI 서버를 계속 사용한다. 채팅의 그래프 목록은 실행 서버의 assistant 목록에서 조회한다.
 
 ### LangGraph 그래프 선택 설명
 
@@ -421,4 +421,10 @@ Chat 그래프 선택기는 등록된 그래프의 역할과 입력 방식을 �
 
 ### CHAT-RUNTIME-002: 런타임 주입형 채팅
 
-`app/fastapi-chat`는 기존 `_pages/chat` 공개 진입점의 FastAPI 변형을 export한다. 별도 도메인 화면 복제 없이 `model/runtime.ts`의 고정 context로 provider의 SDK URL·history namespace·차트 Query endpoint·헤더를 함께 선택한다. 개발 채팅은 2982, 새 FastAPI 채팅은 2981이며 자동 fallback하지 않는다. runtime별 proxy는 `_app/api`가 소유한다. 실행 취소·저장 상태 재조회는 `api`에, 화면 상태·Canvas 복원은 `model`에 둔다. 상세 계약은 [Host OpenUI](open-ui.md#chat-runtime-002-개발-및-fastapi-채팅-분리)를 따른다.
+`app/fastapi-chat`는 기존 `_pages/chat` 공개 진입점의 FastAPI 변형을 export한다. 별도 도메인 화면 복제 없이 `model/runtime.ts`의 고정 context로 provider의 SDK URL·history namespace·차트 Query endpoint·헤더를 함께 선택한다. 개발 채팅은 2982, FastAPI 채팅과 두 기술적 분석 전용 화면은 2981이며 자동 fallback하지 않는다. runtime별 proxy는 `_app/api`가 소유한다. 실행 취소·저장 상태 재조회는 `api`에, 화면 상태·Canvas 복원은 `model`에 둔다. 상세 계약은 [Host OpenUI](open-ui.md#chat-runtime-002-개발-및-fastapi-채팅-분리)를 따른다.
+
+### SEC-MODELING-CHAT-001: 전용 채팅과 선택된 모델링 근거
+
+AI Chat의 `SEC Modeling Chat`은 `/sec-modeling-chat`에서 공용 ChatProvider/ChatPage를 재사용한다. 별도 route 모듈이 `fastApiChatRuntime`과 `fixedGraphId="sec_modeling_agent"`를 전달하므로 선택기를 표시하지 않고2981 FastAPI의 graph discovery·실행·이력·도구 상태를 사용한다. graph 누락 시 기존 명시 오류·재조회 동작을 유지하며 개발 runtime이나 다른 graph로 대체하지 않는다. 모바일 메뉴 트리거도 전용 채팅 헤더를 사용한다.
+
+`/sec-chat`의 원문 Item 인용과 게시 모델링 근거는 분리한다. `sec.evidence.modeling`의 선택된 sources만 QName·값·원문 값·기간·단위·공시/근거 ID·근거 텍스트로 표시한다. `empty`·`unavailable`은 공시 부재와 구분하고 limitations를 함께 표시한다. 단위 JSON은 구조화된 읽기용 표기로 바꾸며 raw JSON·실행 HTML을 표시하지 않는다. 회귀 Story 정의는 추가하되 이번 작업은 사용자 지시에 따라 브라우저·Storybook 실행을 생략한다.

@@ -124,7 +124,7 @@ JSON실행은 새thread를 만들고 입력을변형없이runs.stream(values)로
 
 ## CHAT-RUNTIME-002: 개발 및 FastAPI 채팅 분리
 
-`/langgraph-dev-chat`와 기존 `/chat` 별칭은 개발 런타임 2982를 유지하고 `/fastapi-chat`은 자체 FastAPI 2981을 사용한다. 두 화면은 동일한 ChatProvider/ChatPage·기본 도구 타임라인·인라인 차트·Canvas UI를 재사용하며 페이지가 불변 runtime context를 주입한다. 메뉴와 헤더는 런타임을 구분하고 모바일 메뉴는 헤더에서 연다.
+`/langgraph-dev-chat`와 기존 `/chat` 별칭은 개발 런타임 2982를 유지하고 `/fastapi-chat`과 `/technical-analysis`·`/technical-analysis/canvas`는 자체 FastAPI 2981을 사용한다. 이 화면들은 동일한 ChatProvider/ChatPage·기본 도구 타임라인·인라인 차트·Canvas UI를 재사용하며 페이지가 불변 runtime context를 주입한다. 메뉴와 헤더는 런타임을 구분하고 모바일 메뉴는 헤더에서 연다.
 
 개발 화면은 `/api/langgraph-runtime/*` → `LANGGRAPH_RUNTIME_API_URL`(기본2982), FastAPI 화면은 `/api/fastapi-langgraph/*` → `FASTAPI_RUNTIME_API_URL`(기본2981)로 전달한다. 실행·graph discovery/schema·history·state·run 상태·cancel과 FinancialChart Query가 모두 해당 페이지 proxy를 사용한다. client의 숨은 URL 치환과 서버 간 자동 fallback은 없다. 기존 비채팅 OutputView의 기본 chart endpoint는 변경하지 않는다. proxy는 요청 signal을 전달하고 캐시하지 않는다.
 
@@ -165,10 +165,10 @@ OpenUI 컴포넌트 catalog와 Renderer의 Query toolProvider는 별도 계약�
 ## TA-NAV-001: 기술적 분석 전용 진입과 OpenUI Lang
 
 AI Chat의 인라인 메뉴는 `/technical-analysis` → `technical_analysis_agent`, Canvas 메뉴는
-`/technical-analysis/canvas` → `technical_analysis_canvas_agent`로 연결한다. 두 화면은 개발 런타임의
+`/technical-analysis/canvas` → `technical_analysis_canvas_agent`로 연결한다. 두 화면은 FastAPI 런타임의
 동일한 ChatProvider/ChatPage를 재사용하되 `fixedGraphId`로 discovery 결과와 전환·실행을 제한한다.
 대상 미등록 시 다른 에이전트로 fallback하지 않으며 목록 재시도를 제공한다. 실행 중·기록 복원·새 대화와
-runtime/graph별 history 계약은 기존 개발 채팅과 같다.
+runtime/graph별 history 계약은 CHAT-RUNTIME-002를 따른다. 전용 화면의 새 thread는 `runtime=fastapi`로 생성하며 기존 개발 기록은 `/langgraph-dev-chat`에서 확인한다. 자동 기록 이관이나 개발 런타임 fallback은 하지 않는다.
 
 두 그래프의 시각화는 SEC Intelligent UI와 동일한 공유 `OutputView` 및
 `@openuidev/react-lang` Renderer·카탈로그를 사용한다. 인라인은 `presentation.program`을
@@ -185,6 +185,10 @@ InlineAnalysis 안에서 렌더링하고 Canvas는 채팅의 검증된 program�
 Canvas는 채팅 해석과 개별 추가 가능한 차트·표를 요청한다. 개발 채팅에서 같은 그래프를 선택해도 동일한 질문을 사용한다.
 지원 범위인 일봉·주봉·현재 20개 지표만 제안하며 엘리엇 파동·분봉·통합 매매 점수는 제안하지 않는다.
 [변경·검증](../../../flow/2026-11-16-technical-analysis-starter-questions.md).
+
+### OPENUI-DEVTOOLS-001: 선택적 개발 진단 도구
+
+SDK가 development에서 자동 마운트하는 Inspect/배포 안내는 기본 비활성이다. OPENUI_DEVTOOLS=true를 설정하고 Host를 재시작하면 원래 도구를 활성화한다. Next Turbopack/webpack 공개 alias가 선택적 @openuidev/devtools만 no-op adapter로 교체하며 업무 응답·native renderer/parser는 보존한다. 실제 컴파일과 모듈 포함은 검증했고 브라우저 시각 검증은 생략했다. [회귀 기록](../../../flow/2026-11-16-sec-financial-basis-devtools-regression.md).
 
 
 ## TA-CANVAS-003: CanvasItem과 Library Explorer

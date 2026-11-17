@@ -2,11 +2,12 @@
 
 ## 실행 경계
 
-`3-langgraph-fast/langgraph.json`에 기존 `technical_analysis_agent`와 별도 `technical_analysis_canvas_agent`를 등록한다. 두 그래프는 LangGraph development runtime과 실제 그래프 builder를 PostgreSQL saver로 컴파일하는 FastAPI 런타임에서 실행한다. `/langgraph-dev-chat`은 `/api/langgraph-runtime` 및 `LANGGRAPH_RUNTIME_API_URL`(기본 2982), `/fastapi-chat`은 `/api/fastapi-langgraph` 및 `FASTAPI_RUNTIME_API_URL`(기본 2981)을 사용한다. 대화·실행·기록·차트 Query는 해당 런타임에 고정하며 서로 fallback하거나 개발 서버 기록을 이관하지 않는다. [공용 런타임 계약](../tech-shared/system-design.md#fastapi-runtime-001-독립-실행-경계)을 따른다.
+`3-langgraph-fast/langgraph.json`에 기존 `technical_analysis_agent`와 별도 `technical_analysis_canvas_agent`를 등록한다. 두 그래프는 LangGraph development runtime과 실제 그래프 builder를 PostgreSQL saver로 컴파일하는 FastAPI 런타임에서 실행한다. `/langgraph-dev-chat`은 `/api/langgraph-runtime` 및 `LANGGRAPH_RUNTIME_API_URL`(기본 2982), `/fastapi-chat`은 `/api/fastapi-langgraph` 및 `FASTAPI_RUNTIME_API_URL`(기본 2981)을 사용한다. 전용 `/technical-analysis`와 `/technical-analysis/canvas`도 FastAPI 런타임을 사용하며 각각 기존 graph ID로 고정한다. 대화·실행·기록·차트/카탈로그 Query는 해당 런타임에 고정하며 서로 fallback하거나 개발 서버 기록을 이관하지 않는다. [공용 런타임 계약](../tech-shared/system-design.md#fastapi-runtime-001-독립-실행-경계)을 따른다.
 
 ```text
 /langgraph-dev-chat → /api/langgraph-runtime → development runtime
-/fastapi-chat → /api/fastapi-langgraph → FastAPI + PostgreSQL checkpoints
+/fastapi-chat, /technical-analysis, /technical-analysis/canvas
+  → /api/fastapi-langgraph → FastAPI + PostgreSQL checkpoints
   technical_analysis_agent → Deep Agent tools → deterministic inline presentation
   technical_analysis_canvas_agent → route/tools → deterministic CanvasItem presentation → explicit user pin
 ```
@@ -31,11 +32,13 @@
 프로젝트 루트에서 별도 터미널로 실행한다.
 
 ```sh
-pnpm -C 3-langgraph-fast dev:langgraph
+pnpm -C 3-langgraph-fast dev
 pnpm -C 1-fe-host dev
+# 개발 그래프 탐색이 필요할 때 별도로 실행:
+# pnpm -C 3-langgraph-fast dev:langgraph
 ```
 
-현재 로컬 포트 프로필은 runtime 2982, Host 2983이다. 모델 설정은 Python 패키지 `.env`의 기존 OpenAI 호환 설정을 사용한다. `LANGGRAPH_INTERNAL_API_URL=http://127.0.0.1:2982`와 `SEC_CHAT_UI_VALIDATOR_URL=http://127.0.0.1:2983/api/sec-ui/validate`를 맞춘다. 사용자 UI는 `http://127.0.0.1:2983/langgraph-dev-chat`이다. 코드의 fallback 포트와 실제 환경 프로필은 구분한다.
+기술적 분석 전용 화면의 기본 포트는 FastAPI 2981, Host 2983이며 개발 채팅은 별도 runtime 2982다. 모델 설정은 Python 패키지 `.env`의 기존 OpenAI 호환 설정을 사용한다. Host의 `FASTAPI_RUNTIME_API_URL`은 FastAPI 주소(기본 `http://127.0.0.1:2981`)를 사용하며 `SEC_CHAT_UI_VALIDATOR_URL=http://127.0.0.1:2983/api/sec-ui/validate`로 Host validator를 연결한다. 전용 UI는 `http://127.0.0.1:2983/technical-analysis`와 `/technical-analysis/canvas`이며 개발 그래프 탐색 UI는 `/langgraph-dev-chat`이다. 코드의 fallback 포트와 실제 환경 프로필은 구분한다.
 
 ```sh
 pnpm -C 3-langgraph-fast test tests/test_technical_analysis_agent.py tests/graph/subgraph/price_agent tests/infrastructure/technical_analysis tests/graph/shared/cache
@@ -43,7 +46,7 @@ pnpm -C 1-fe-host typecheck
 pnpm -C 1-fe-host lint
 pnpm -C 1-fe-host exec vitest run --project storybook --maxWorkers=1 --no-file-parallelism src/_pages/chat/ui/GraphSelector.stories.tsx src/_pages/chat/ui/ChatMessageList.stories.tsx
 # from 3-langgraph-fast/bruno-api-tests:
-../node_modules/.bin/bru run 19-technical-analysis --env local --env-var baseUrl=http://127.0.0.1:2982
+../node_modules/.bin/bru run 19-technical-analysis --env local --env-var baseUrl=http://127.0.0.1:2981
 ```
 
 Bruno는 실제 Yahoo·모델·Host validator 연결이 필요하다. 테스트용 thread/assistant를 생성하고 삭제한다. 필수 검증과 정리 원칙은 [검증 지도](../../validation/INDEX.md), 실행 증거는 [flow](../../flow/2026-11-08-technical-analysis-agent.md)에 기록한다.
@@ -53,7 +56,7 @@ Bruno는 실제 Yahoo·모델·Host validator 연결이 필요하다. 테스트�
 
 실제 Yahoo·모델·TA-Lib·OpenUI 경로에서 AAPL 일봉/주봉, RSI7·SMA60 후속 변경, 삼성전자 KRW, 200봉, 잘못된 티커 안내, EMA·5분봉 범위 제한, 그래프 변경 시 격리와 모바일 390px 차트를 확인했다. [검증 기록](../../flow/2026-11-14-technical-analysis-browser-validation.md)에서 PNG 보고서와 결과에 연결한다.
 
-관찰된 제한: 로컬 FE 환경이 runtime 대신 2981을 가리키면 분석이 실행되지 않는다. 분석 본문은 공통 ConversationText의 Markdown 렌더러를 사용하며, OpenUI 차트는 기존 검증 결과를 표시한다. 이전 Markdown 원문 노출은 OPENUI-CHAT-DS-001에서 수정했다. 잘못된 지표 기간 요청은 경고 후 기본 설정으로 계산할 수 있어, 사용자 설정 확인 UX는 후속 개선 대상이다. 이번 검증에서는 코드·환경파일을 수정하지 않았다.
+당시 개발 런타임 검증에서 로컬 FE가 개발 runtime 대신 2981을 가리키면 분석이 실행되지 않았다. 현재 두 전용 화면은 실제 graph 실행을 지원하는 FastAPI 2981을 사용하므로 이 과거 관찰을 현재 포트 제한으로 적용하지 않는다. 분석 본문은 공통 ConversationText의 Markdown 렌더러를 사용하며, OpenUI 차트는 기존 검증 결과를 표시한다. 이전 Markdown 원문 노출은 OPENUI-CHAT-DS-001에서 수정했다. 잘못된 지표 기간 요청은 경고 후 기본 설정으로 계산할 수 있어, 사용자 설정 확인 UX는 후속 개선 대상이다. 이번 검증에서는 코드·환경파일을 수정하지 않았다.
 
 ## TA-QUERY-001: 조회 API와 차트 runtime
 
@@ -158,3 +161,16 @@ catalog validator를 통과한 프로그램만 presentation으로 반환하고 �
 한국 주식·기간 비교의 8개 그룹과 32개 시작 질문을 제공한다. 첫 그룹을 기본으로 펼치고 나머지는
 접어서 탐색한다. 질문을 누르면 표시 제목과 별도로 저장된 실제 프롬프트를 전송하며 실행 중에는
 중복 전송을 막는다. 대화가 시작되면 시작 질문을 숨긴다. 전용 페이지의 중복 graph 제목은 표시하지 않는다.
+
+### TALIB-COMPARE-001: 일봉·주봉 비교 완료와 데이터 보존
+
+- TA-Lib 가격 데이터는 `ticker:interval` 키로 보존하고, 기존 ticker 키는 최신 조회의 호환 별칭으로 유지한다. 계산 요청의 별칭 참조는 실행 시 canonical 키로 고정하므로 다른 주기 조회가 앞선 결과를 지우지 않는다. 같은 주기를 새로 조회하면 그 주기에 의존하는 결과와 연쇄 계산만 무효화한다.
+- 현재 사용자 요청이 일봉·주봉과 계산/비교를 명시한 경우에만 두 주기 및 명시한 네이티브 함수의 실행 결과를 확인한다. 일부가 누락되면 업무 에이전트를 최대 한 번 더 호출한다. 실제 가격 조회 실패는 자동 반복하지 않으며, 여전히 누락되면 미계산 항목을 명시한다. 일반 자연어 작업 계획기나 무제한 재시도는 추가하지 않는다.
+- 모델에 전체 계산 이력의 `origin`·입력 metadata를 전달한다. lookback은 전체 계산 이력에 적용되며 최근 표시 구간의 시작에서 다시 초기화되지 않는다. 현재 UI는 출력 선택형 단일 line/bar 시리즈이며, 캔들·중첩·다중 패널을 제공한다고 설명하지 않는다.
+- 회귀와 검증 상태: [TA-Lib 비교 완료 수정 기록](../../flow/2026-11-16-talib-comparison-completion.md).
+
+### TALIB-EVIDENCE-001 / TA-QUERY-DEADLINE-001: 네이티브 의미·근거·조회 제한
+
+TA-Lib SQZMOM squeeze의 정수 상태는 고정 v0.8.3 C 소스의 strict 채널 비교를 따른다(-1 해제,0 겹침·접촉,1 wide,2 normal,3 narrow 압축). 별도 momentum과 혼동하지 않는다. 네이티브 양수 입력 제약은 유지하며 부호 있는 누적 OBV·AD에 요청하지 않은 백분율 ROC를 추가하지 않는다. 명시적 유효 함수 호출은 허용한다. 최근 최대120 계산 봉의 출력·가격·거래량 요약은 공통 `summarize_series`를 사용하고, 날짜·절대 변화·유효 개수와 백분율 제한을 함께 전달한다. canonical 데이터와 ticker 별칭은 같은 operand로 해석한다.
+
+Host chart/catalog Query는 헤더·JSON 본문을 포함한30초 제한과 외부 abort 전파를 적용한다. 완료·실패·취소 후 타이머/listener를 정리한다. Canvas graph는 현재 소스에 등록되어 있으며 provisional/ready의 SDK Query 차단 경계는 유지한다. 과거 프로세스 등록·브라우저 로딩 완료 여부는 소스 검사만으로 단정하지 않는다. [변경과 검증 기록](../../flow/2026-11-16-ta-series-evidence-and-query-deadline.md).

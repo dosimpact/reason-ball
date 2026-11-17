@@ -16,4 +16,6 @@
 - [전체 네이티브 TA-Lib 에이전트](system-design.md#talib-agent-001-전체-네이티브-ta-lib-에이전트): TALIB-AGENT-001, 별도 MessagesState 그래프·237종 카탈로그·자유 입력·선택형 inline 결과.
 - [2026-11-16 구현 및 검증](../../flow/2026-11-16-talib-agent.md): native parity, 다중 턴·HTTP·실제 모델/Yahoo 검증과 브라우저 제외 범위.
 
+- [기술적 분석 전용 화면 FastAPI 전환](../../flow/2026-11-16-technical-analysis-fastapi-migration.md): TA-FASTAPI-001, runtime 연결·기록 경계·검증 결과와 사용자 확인 항목.
+
 - [선택형 Canvas](../../flow/2026-11-17-canvas-item-workspace.md): TA-CANVAS-003, wrapper 추가·요소 배치·인용·PDF와 검증.

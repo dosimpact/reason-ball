@@ -1,4 +1,4 @@
-import { developmentChatRuntime, fastApiChatRuntime } from "../model/runtime";
+import { fastApiChatRuntime } from "../model/runtime";
 import { ChatProvider } from "@/_pages/chat/model/context/ChatProvider";
 import { ChatPage } from "@/_pages/chat/ui/ChatPage";
 
@@ -14,8 +14,8 @@ export function FastApiChatRoute() {
   return <ChatProvider key="fastapi" runtime={fastApiChatRuntime}><ChatPage /></ChatProvider>;
 }
 
-const inlineRuntime = { ...developmentChatRuntime, label: "기술적 분석 · 인라인" };
-const canvasRuntime = { ...developmentChatRuntime, label: "기술적 분석 · Canvas" };
+const inlineRuntime = { ...fastApiChatRuntime, label: "기술적 분석 · 인라인" };
+const canvasRuntime = { ...fastApiChatRuntime, label: "기술적 분석 · Canvas" };
 
 export function TechnicalAnalysisChatRoute() {
   return <ChatProvider key="technical-inline" runtime={inlineRuntime} fixedGraphId="technical_analysis_agent"><ChatPage /></ChatProvider>;
