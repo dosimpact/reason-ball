@@ -131,7 +131,7 @@ export function SecChat() {
   }
 
   return <AgentConversation
-    title="SEC Intelligent UI"
+    title="SEC Intelligent Research Chat"
     description="기업 이야기부터 재무 분석까지, SEC 10-K 원문을 근거로 답변합니다."
     welcomeTitle="무엇이 궁금하세요?"
     starters={suggestions.map(text => ({ displayText: text, prompt: text }))}

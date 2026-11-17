@@ -269,3 +269,5 @@ If a supporting document conflicts with code or a stock document, verify the imp
 - [SEC ResearchChat 모델링 근거·전용 채팅](flow/2026-11-16-sec-chat-modeling-tools.md): SEC-CHAT-MODELING-001, 실제3tool·출처범위·후속질문·15 HTTP 검증.
 
 - [선택형 Canvas 구현](flow/2026-11-17-canvas-item-workspace.md): TA-CANVAS-003, CanvasItem·Library Explorer·요소별 배치 및 검증.
+
+- [SEC 연구 채팅 이름 변경](flow/2026-11-17-sec-research-chat-name.md): SEC-RESEARCH-NAME-001, 화면·메뉴명과 도구 범위 확인.

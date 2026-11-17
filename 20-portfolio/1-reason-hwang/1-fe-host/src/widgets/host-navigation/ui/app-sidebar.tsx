@@ -45,7 +45,7 @@ const navGroups = [
       { title: "기술적 분석 · Canvas", href: "/technical-analysis/canvas", icon: MessagesSquare },
       { title: "TA-Lib 채팅", href: "/talib-chat", icon: MessagesSquare },
       { title: "SEC API Agent", href: "/sec-api-agent", icon: MessagesSquare },
-      { title: "SEC Research Chat", href: "/sec-chat", icon: MessagesSquare },
+      { title: "SEC Intelligent Research Chat", href: "/sec-chat", icon: MessagesSquare },
       { title: "SEC Modeling Chat", href: "/sec-modeling-chat", icon: MessagesSquare },
     ],
   },

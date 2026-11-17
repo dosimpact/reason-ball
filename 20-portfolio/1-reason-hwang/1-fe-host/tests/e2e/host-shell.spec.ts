@@ -5,7 +5,7 @@ test('host content starts without a duplicate global header', async ({ page }) =
   test.setTimeout(90_000);
   for (const [path, title] of [
     ['/langgraph-dev-chat', 'Chat'],
-    ['/sec-chat', 'SEC Intelligent UI'],
+    ['/sec-chat', 'SEC Intelligent Research Chat'],
     ['/sec-api-agent', 'SEC API Agent'],
     ['/open-ui/dynamic', '매출 분석 · Dynamic'],
   ]) {

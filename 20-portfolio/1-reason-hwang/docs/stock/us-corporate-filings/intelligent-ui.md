@@ -1,4 +1,4 @@
-# SEC Intelligent UI 채팅
+# SEC Intelligent Research Chat
 
 ## SEC-IUI-001 목표와 계약
 
@@ -53,3 +53,11 @@ Item 1 소제목 추출 → 소제목별 요약을 연속 대화로 지원하고
 ## SEC-DEEP-001~003 자율 조사와 도구 호출
 
 별도 `sec_deep_agent`는 BFF SEC 6개 API를 tool로 사용해 기업·공시·원문을 조사하고 Markdown 리포트를 작성한다. 기존 `/sec-chat`도 기업 검색과 공시 준비를 모델 tool calling으로 수행한다. 두 경로는 공통 도구를 사용하며, 기존 채팅의 원문 인용 검증·Intelligent UI·추천 질문 계약은 유지한다. 독립 Deep Agent의 응답은 보고서·실제 도구 호출 목록·읽은 공시 출처로 구성된다. [Python 구현과 한계](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md#sec-deep-001003-공통-sec-tools와-독립-deep-agent)를 참조한다.
+
+
+## SEC-RESEARCH-NAME-001 표시 이름과 도구 범위
+
+`/sec-chat`의 화면 제목과 메뉴명은 **SEC Intelligent Research Chat**이다. 경로와 내부 식별자는 유지한다.
+공시 준비는 기업 검색·목록·원문 조회를 사용하고, 명시적 최신 확인(`refresh=true`)에는 선택 기업의 공시 동기화·다운로드 도구를 허용한다. 따라서 전체 경로가 완전히 읽기 전용인 것은 아니다.
+모델링 근거 단계는 `search_sec_evidence`, `query_sec_xbrl_facts`, `get_sec_evidence`만 사용한다. 모델링1·2·3 실행이나 별도 리포트 저장·발행 생성 API는 이 도구 목록에 없다. 분석 답변과 OpenUI는 조회한 근거로 그래프가 생성한다.
+[이름 변경·도구 확인 기록](../../flow/2026-11-17-sec-research-chat-name.md).
