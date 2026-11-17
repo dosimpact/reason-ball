@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import time
 from contextlib import aclosing
 from dataclasses import dataclass, field
@@ -15,7 +16,11 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field, field_validator
 
 from domains.sec_chat.conversation import ConversationRequest
-from domains.sec_tools.agent import collect_company_filings, prepare_filing, search_companies
+from domains.sec_tools.agent import (
+    collect_company_filings,
+    prepare_filing,
+    search_companies,
+)
 from domains.tenk.sec_client import SecReadError
 from graph.primary_graphs.sec_intelligent_ui.conversation import (
     build_conversation_graph,
@@ -24,6 +29,7 @@ from graph.primary_graphs.sec_intelligent_ui.workflow import build_graph, chat_m
 from server.sec_chat.activity_stream import activity_stream
 
 router = APIRouter(prefix="/api/sec-chat", tags=["SEC Intelligent UI"])
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -147,7 +153,7 @@ async def prepare(body: PrepareRequest, request: Request):
         raise HTTPException(429, "열린 공시 세션이 많습니다. 기존 세션을 닫아 주세요.")
 
     async def prepare_result(sink=None):
-        source = await prepare_filing(body.cik, body.refresh, chat_model(), activity=sink)
+        source = await prepare_filing(body.cik, body.refresh, None, activity=sink)
         thread_id = uuid4().hex
         sessions[thread_id] = Session(source)
         return {"threadId": thread_id, **{key: value for key, value in source.items() if key != "sections"}, "items": list(source["sections"])}
@@ -168,12 +174,15 @@ async def prepare(body: PrepareRequest, request: Request):
                 yield event("RUN_FINISHED", runId=run_id)
             except asyncio.CancelledError:
                 raise
-            except Exception:  # noqa: BLE001 - sanitize the streaming boundary
-                yield event("RUN_ERROR", message="SEC 공시 준비에 실패했습니다. 다시 시도해 주세요.", code="SEC_PREPARE_FAILED")
+            except Exception as error:  # noqa: BLE001 - sanitize the streaming boundary
+                logger.warning("SEC prepare failed run_id=%s exception=%s", run_id, type(error).__name__)
+                message = str(error) if isinstance(error, SecReadError) else "SEC 공시 준비에 실패했습니다. 다시 시도해 주세요."
+                yield event("RUN_ERROR", message=message, code="SEC_PREPARE_FAILED")
         return StreamingResponse(stream_prepare(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
     try:
         return await prepare_result()
     except (SecReadError, httpx.HTTPError, ValueError) as error:
+        logger.warning("SEC prepare failed exception=%s", type(error).__name__)
         raise HTTPException(502, str(error) if isinstance(error, SecReadError) else "SEC 공시 준비에 실패했습니다.") from error
 
 

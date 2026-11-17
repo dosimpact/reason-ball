@@ -37,15 +37,28 @@
 
 공통 구현은 `domains/sec_tools/tools.py`다. `search_sec_companies`, `list_sec_filings`, `get_sec_filing_content`, `sync_sec_companies`, `sync_sec_company_filings`, `sync_all_sec_company_filings`가 BFF 6개 API와 대응한다. 입력은 Pydantic으로 검증하고 BFF 주소는 서버 환경변수에서만 읽는다. 원문은 모델에 발췌와 offset/query 검색을 제공하고 전체 응답은 ToolMessage artifact로 보존한다. SSE 수집은 completed와 failed=0을 확인하며 연결 종료·오류를 성공으로 취급하지 않는다.
 
-기존 대화의 기업 검색과 `/prepare`는 `domains/sec_tools/agent.py`의 `bind_tools` + ToolNode 루프로 실행한다. 검색 결과·공시 식별자·본문은 실제 tool artifact에서 가져온다. 기존 HTTP GET `/companies`도 검색 tool loop를 사용한다. `/prepare`는 `toolCalls` 이름 목록을 추가 반환한다. refresh=false는 동기화 tool 자체를 노출하지 않으며, 대상 CIK 범위를 실행 시 검증한다. 프런트의 resolve→prepare→chat 연결과 최종 분석 그래프는 유지한다.
+기업 검색은 `domains/sec_tools/agent.py`의 `bind_tools` + ToolNode 루프로 실행하며 HTTP GET `/companies`도 이 검색 경로를 사용한다. 확정 CIK의 `/prepare`는 아래 SEC-PREPARE-001에 따라 모델 호출 없이 기존 도구를 순서대로 실행한다. 검색 결과·공시 식별자·본문은 실제 tool artifact에서 가져온다. `/prepare`는 `toolCalls` 이름 목록을 추가 반환한다. 대상 CIK 범위와 refresh 정책을 실행 시 검증하며, 프런트의 resolve→prepare→chat 연결과 최종 분석 그래프는 유지한다.
 
-독립 `graph/primary_graphs/sec_deep_agent/workflow.py`는 `create_deep_agent`를 사용한다. `langgraph.json`의 graph ID는 `sec_deep_agent`다. LangGraph 개발 서버에서는 표준 messages 입력을 받는다. 현재 FastAPI의 고정 표준 호환 graph registry와 별도로 `/api/sec-deep-agent/research`를 제공한다. 이 endpoint는 `{message, history?}` 입력에 `{report, toolCalls, sources}`를 반환하며 SEC Chat threadId는 사용하지 않는다. Accept SSE이면 RUN_STARTED → sec.activity → sec.report → RUN_FINISHED 또는 RUN_ERROR다. 호출당 900초·recursion_limit=80, 기존 lookup/prepare loop는 12/24 step으로 제한한다.
+독립 `graph/primary_graphs/sec_deep_agent/workflow.py`는 `create_deep_agent`를 사용한다. `langgraph.json`의 graph ID는 `sec_deep_agent`다. LangGraph 개발 서버에서는 표준 messages 입력을 받는다. 현재 FastAPI의 고정 표준 호환 graph registry와 별도로 `/api/sec-deep-agent/research`를 제공한다. 이 endpoint는 `{message, history?}` 입력에 `{report, toolCalls, sources}`를 반환하며 SEC Chat threadId는 사용하지 않는다. Accept SSE이면 RUN_STARTED → sec.activity → sec.report → RUN_FINISHED 또는 RUN_ERROR다. 호출당 900초·recursion_limit=80, 기업 lookup loop는12 step으로 제한한다. prepare에는 모델 loop가 없다.
 
 Deep Agent는 계획·가상 파일·기본 위임 도구를 사용할 수 있다. 기본 파일은 실행 상태이며 호스트 파일로 저장되지 않는다. 리포트는 Markdown이며 독립 endpoint에서 OpenUI를 강제로 생성하지 않는다. 기존 SEC Chat은 OpenUI를 유지한다. 독립 리포트의 sources는 메인 그래프가 목록 조회하고 원문을 읽은 공시로 제한한다. 기존 SEC Chat의 구절 ID 기반 인용 검증과 달리 독립 리포트의 모든 인용·계산을 자동으로 검증하는 기능은 아직 없다. 전체 기업 수집은 사용자가 전체 수집을 명시했을 때만 선택하도록 tool 설명과 시스템 지시에 명시했다.
 
 ### SEC 채팅 도구 활동
 
 `/resolve`와 SSE로 요청한 `/prepare`는 `sec.activity`에 SEC 도구의 인자·결과 및 상태를 전달한다. `/prepare`는 기본 JSON 응답도 유지한다. 원문 도구는 모델에 제공하는 발췌 결과를 활동으로 전달하며 별도 artifact 전체는 전송하지 않는다.
+
+## SEC-PREPARE-001: 확정 기업의 결정적 10-K 준비
+
+`domains/sec_tools/preparation.py::prepare_filing`은 기존 공개 진입점 `agent.prepare_filing`으로도 접근한다. 호환용 model 인자는 사용하지 않으며 HTTP prepare는 모델 객체도 생성하지 않는다. 기존 StructuredTool을 ToolCall 형태로 직접 호출해 실제 `sec.activity`와 전체 artifact를 유지한다.
+
+- `refresh=false`: `list_sec_filings` → 최신10-K 선택·다운로드 상태 확인 → `get_sec_filing_content` → 전체 원문 Item 파싱. 모델의 도구 선택·종료 판단에 의존하지 않는다.
+- 목록 조건은 CIK·formType10-K·page1·pageSize10·includeContent=false·includeAmendments=false다. status/since/parserStatus/ticker 필터로 최신 공시를 숨기지 않는다. 최신은 filingDate,accessionNo 순으로 선택한다. 잘못된 목록 형태·타 기업/타 양식·식별자 오류는 거부한다.
+- 최신 공시가 pending/failed이면 과거 다운로드 공시로 대체하거나 원문을 읽지 않는다. `refresh=true`일 때만 대상 CIK·years2·downloadDocuments=true로 동기화를 먼저 실행하고 완료 counter·checkedAt을 확인한다.
+- 요청 기업 목록이 비어 있을 때만 명시적 PREDECESSORS로 이동한다. 이전 법인도 동일한 목록·최신·상태 확인을 거치며 refresh이면 이전 법인 동기화가 해당 목록보다 먼저다. 알려진 이전 법인의 목록에는 includeFormerRegistrants=true를 전달한다.
+- 전체 원문 artifact를 파싱하며 활동 화면용 발췌로 분석 근거를 잘라내지 않는다. checkedAt=null(저장본)과 동기화 완료 시각을 구분한다. 모든 준비가 끝난 뒤에만 세션을 생성한다.
+- SSE의 SecReadError는 JSON과 동일한 공시 준비 오류 내용을 표시한다. 기타 예외는 공통 오류로 처리한다. 단계 로그는 도구명·예외 클래스, transport 로그는 run ID·예외 클래스만 남긴다. 취소와 실패는 성공으로 바꾸지 않는다.
+
+검증: `tests/test_sec_prepare.py`, `bruno-api-tests/32-sec-prepare/`. [변경·실제 사이트 검증 기록](../../../flow/2026-11-17-sec-prepare-deterministic.md).
 
 
 ## SEC-RESEARCH-MODELING-001: 기존 Research Chat의 게시 모델링 조회

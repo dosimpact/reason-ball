@@ -1,0 +1,27 @@
+meta {
+  name: SEC-PREPARE-001 bff-outage
+  type: http
+  seq: 7
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/prepare
+  body: json
+  auth: none
+}
+headers {
+  Accept: text/event-stream
+}
+body:json {
+  {"cik":"0000000004","refresh":false}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("bff-outage", function () {
+    const body = res.getBody();
+    expect(body).to.include("SEC_PREPARE_FAILED");
+    expect(body).not.to.include("RUN_FINISHED");
+    expect(body).not.to.include("sec.prepared");
+  });
+}

@@ -54,7 +54,9 @@ Item 1 소제목 추출 → 소제목별 요약을 연속 대화로 지원하고
 
 ## SEC-DEEP-001~003 자율 조사와 도구 호출
 
-별도 `sec_deep_agent`는 BFF SEC 6개 API를 tool로 사용해 기업·공시·원문을 조사하고 Markdown 리포트를 작성한다. 기존 `/sec-chat`도 기업 검색과 공시 준비를 모델 tool calling으로 수행한다. 두 경로는 공통 도구를 사용하며, 기존 채팅의 원문 인용 검증·Intelligent UI·추천 질문 계약은 유지한다. 독립 Deep Agent의 응답은 보고서·실제 도구 호출 목록·읽은 공시 출처로 구성된다. [Python 구현과 한계](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md#sec-deep-001003-공통-sec-tools와-독립-deep-agent)를 참조한다.
+별도 `sec_deep_agent`는 BFF SEC 6개 API를 tool로 사용해 기업·공시·원문을 조사하고 Markdown 리포트를 작성한다. 기존 `/sec-chat`의 기업 검색은 모델 tool calling을 사용하고, 기업이 확정된 뒤의 공시 준비는 SEC-PREPARE-001에 따라 서버가 동일한 실제 도구를 순서대로 실행한다. 두 경로는 공통 도구를 사용하며, 기존 채팅의 원문 인용 검증·Intelligent UI·추천 질문 계약은 유지한다. 독립 Deep Agent의 응답은 보고서·실제 도구 호출 목록·읽은 공시 출처로 구성된다. [Python 구현과 한계](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md#sec-deep-001003-공통-sec-tools와-독립-deep-agent)를 참조한다.
+
+`SEC-PREPARE-001`: 저장된10-K 준비에는 모델의 도구 선택이나 추가 모델 호출이 필요하지 않다. 최신 공시의 목록·다운로드 상태·원문을 순서대로 확인하며, 실패하면 분석 세션을 만들지 않고 준비 오류를 표시한다. 명시적 최신 확인 시에만 동기화하고 최신 미다운로드 공시를 과거 공시로 바꾸지 않는다. [공용 도구 실행 계약](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md#sec-prepare-001-확정-기업의-결정적-10-k-준비), [검증 기록](../../flow/2026-11-17-sec-prepare-deterministic.md).
 
 
 ## SEC-RESEARCH-NAME-001 표시 이름과 도구 범위

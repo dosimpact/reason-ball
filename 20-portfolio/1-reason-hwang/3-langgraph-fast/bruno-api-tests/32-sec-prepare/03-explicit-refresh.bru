@@ -1,0 +1,24 @@
+meta {
+  name: SEC-PREPARE-001 explicit-refresh
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/prepare
+  body: json
+  auth: none
+}
+body:json {
+  {"cik":"0000000001","refresh":true}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("explicit-refresh", function () {
+    const b = res.getBody();
+    expect(b.checkedAt).to.be.a("string");
+    expect(b.toolCalls).to.deep.equal(["sync_sec_company_filings", "list_sec_filings", "get_sec_filing_content"]);
+    bru.setVar("prepareRefresh", b.threadId);
+  });
+}

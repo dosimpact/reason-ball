@@ -1,0 +1,18 @@
+meta {
+  name: SEC-PREPARE-001 cleanup prepareJson
+  type: http
+  seq: 10
+}
+delete {
+  url: {{baseUrl}}/api/sec-chat/threads/{{prepareJson}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("delete owned session", function () {
+    expect(res.getBody().deleted).to.equal(true);
+  });
+}

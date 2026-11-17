@@ -1,0 +1,27 @@
+meta {
+  name: SEC-PREPARE-001 invalid-listing
+  type: http
+  seq: 8
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/prepare
+  body: json
+  auth: none
+}
+headers {
+  Accept: text/event-stream
+}
+body:json {
+  {"cik":"0000000005","refresh":false}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("invalid-listing", function () {
+    const body = res.getBody();
+    expect(body).to.include("SEC_PREPARE_FAILED");
+    expect(body).not.to.include("RUN_FINISHED");
+    expect(body).not.to.include("sec.prepared");
+  });
+}

@@ -1,5 +1,7 @@
 # Documentation Map
 
+- [SEC 저장된10-K 준비 안정화](flow/2026-11-17-sec-prepare-deterministic.md): SEC-PREPARE-001, 확정 기업의 모델 없는 실제 도구 실행·최신 공시 보호·반복/API/브라우저 검증.
+
 - [SEC UI 구조화 응답 수정·검증](flow/2026-11-17-sec-ui-structured-repair.md): SEC-UI-REPAIR-001, 카탈로그 상태 확인·구조화 응답 repair·실제 사이트 검증.
 
 - [TA-Lib 시계열 근거·Query 제한](flow/2026-11-16-ta-series-evidence-and-query-deadline.md): TALIB-EVIDENCE-001 / TA-QUERY-DEADLINE-001, 네이티브 의미·입력 제약·276 Python/60 Host/5 HTTP 검증.

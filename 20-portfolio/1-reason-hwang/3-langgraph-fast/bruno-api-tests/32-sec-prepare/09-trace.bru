@@ -1,0 +1,32 @@
+meta {
+  name: SEC-PREPARE-001 exact request scope
+  type: http
+  seq: 9
+}
+get {
+  url: {{baseUrl}}/qa/trace
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("prepare uses exact requests and never reads older pending source", function () {
+    const b = res.getBody();
+    expect(b.sessionCount).to.equal(3);
+    expect(b.requests.filter(r => r.method === "POST")).to.have.lengthOf(1);
+    expect(b.requests.some(r => r.path.includes("/filings/0000000002/") && r.path.endsWith("/content"))).to.equal(false);
+    const lists = b.requests.filter(r => r.path.endsWith("/filings"));
+    expect(lists.length).to.be.greaterThan(0);
+    for (const r of lists) {
+      expect(r.params.formType).to.equal("10-K");
+      expect(r.params.page).to.equal("1");
+      expect(r.params.includeAmendments).to.equal("false");
+      expect(r.params).not.to.have.property("status");
+      expect(r.params).not.to.have.property("since");
+      expect(r.params).not.to.have.property("parserStatus");
+    }
+    expect(b.requests.filter(r => r.path.includes("/0000000002/") && r.path.endsWith("/content"))).to.have.lengthOf(0);
+  });
+}

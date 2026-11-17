@@ -1,0 +1,28 @@
+meta {
+  name: SEC-PREPARE-001 pending-stream
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/prepare
+  body: json
+  auth: none
+}
+headers {
+  Accept: text/event-stream
+}
+body:json {
+  {"cik":"0000000002","refresh":false}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("pending-stream", function () {
+    const body = res.getBody();
+    expect(body).to.include("RUN_ERROR");
+    expect(body).to.include("최신");
+    expect(body).not.to.include("RUN_FINISHED");
+    expect(body).not.to.include("sec.prepared");
+  });
+}
