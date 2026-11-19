@@ -1,4 +1,7 @@
 import { createServer } from 'node:http';
+import { URL } from 'node:url';
+import { Buffer } from 'node:buffer';
+import process from 'node:process';
 import { readFileSync } from 'node:fs';
 import { createParser } from '@openuidev/lang-core';
 const spec = JSON.parse(readFileSync(new URL('../../src/shared/config/openui/system-prompt.spec.json', import.meta.url)));

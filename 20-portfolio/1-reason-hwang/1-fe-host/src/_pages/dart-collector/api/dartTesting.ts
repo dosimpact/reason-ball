@@ -20,7 +20,7 @@ export async function executeDartRequest(request: DartRequest, signal?: AbortSig
     reader = response.body.getReader(); signal?.addEventListener("abort", cancel, { once: true });
     const chunks: ArrayBuffer[] = []; let total = 0;
     const limit = zip ? maxZip : maxText;
-    while (true) {
+    for (;;) {
       if (signal?.aborted) throw new DOMException("요청 연결을 중단했습니다.", "AbortError");
       const { done, value } = await reader.read();
       if (done) break;

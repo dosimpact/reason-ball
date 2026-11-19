@@ -109,3 +109,7 @@ resolve의 명시적 refresh=true만 FE에서 그대로 전달하여 수집을 �
 ## SEC-ACTIVITY-MOBILE-001: 좁은 실행 타임라인
 
 헤더는 아이콘·줄바꿈 가능한 제목/요약·항상 보이는 화살표로 구성한다. 목록은 고정 폭 아이콘과 `minmax(0, 1fr)` 본문 두 열로 구성하며 상태를 별도 열로 밀어내지 않는다. 컨테이너 크기 제한이나 SDK의 flex/nowrap 규칙에 의존하지 않는다. `SEC/Activity Timeline/MobileLongContent`는 288px 긴 payload를, `InResearchChat`은 실제 공유 AgentConversation 프레임 안의 렌더링을 검증한다. [구조 재작성 기록](../../../flow/2026-11-18-sec-activity-rebuild.md).
+
+## SEC-NAV-ABORT-001: 화면 이탈 시 자동 취소 제거
+
+SecChat unmount cleanup에서 실행하던 `abort.current?.abort()`를 제거했다. 앱 내 화면 이동 자체는 SEC fetch를 명시적으로 취소하지 않는다. 사용자가 누르는 답변 중단과 실패 안내 요청의 timeout은 유지한다. 브라우저 종료·네트워크 단절 후 서버 작업 지속이나 결과 복원은 보장하지 않으며 별도 서버 실행/재접속 설계가 필요하다. MCP 브라우저 실행 검증은 [flow](../../../flow/2026-11-18-sec-navigation-abort.md)에 기록한 환경 문제로 미완료다.

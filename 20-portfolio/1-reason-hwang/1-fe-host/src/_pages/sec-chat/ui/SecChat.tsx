@@ -29,7 +29,6 @@ export function SecChat() {
   const [activities, setActivities] = useState<Activity[]>([]);
   const activityLog = useRef<Activity[]>([]);
   const abort = useRef<AbortController | null>(null);
-  useEffect(() => () => { abort.current?.abort(); }, []);
   useEffect(() => {
     try { setHistory(parseHistory(localStorage.getItem(HISTORY_KEY))); }
     catch { setHistoryError("대화 기록을 불러올 수 없습니다."); }
