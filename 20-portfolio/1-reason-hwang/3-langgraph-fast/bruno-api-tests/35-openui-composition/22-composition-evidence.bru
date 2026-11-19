@@ -1,0 +1,17 @@
+meta {
+  name: OPENUI-COMPOSE-001 composition-evidence
+  type: http
+  seq: 22
+}
+get {
+  url: {{baseUrl}}/qa/composition
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("composition contract", () => {
+  const b=res.getBody();for(const [id,m] of Object.entries(b)){expect(m.calls,id).to.be.at.least(1);expect(m.contexts[0].kind).to.be.a("string");}expect(b.talib_agent.contexts[0].results[0].id).to.equal("rsi");expect(b.technical_analysis_agent.contexts[0].chartFallback.bars).to.deep.equal([]);expect(b.technical_analysis_canvas_agent.contexts[0].canvasItems).to.have.lengthOf(2);
+  });
+}

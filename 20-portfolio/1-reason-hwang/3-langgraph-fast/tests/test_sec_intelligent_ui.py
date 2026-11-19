@@ -292,6 +292,39 @@ async def test_conversation_resolution_uses_verified_companies_and_clarifies(mon
     assert (await resolve_conversation(body, None, model, client))["action"] == "reply"
 
 
+@pytest.mark.asyncio
+async def test_collection_resolution_keeps_selected_scope_and_choice_intent(monkeypatch):
+    from domains.sec_chat.conversation import ConversationIntent, ConversationRequest, resolve_conversation
+
+    async def search(query, model, client, activity):
+        assert query == 'Apple'
+        return {'items': client.rows}
+
+    monkeypatch.setattr('domains.sec_chat.conversation.search_companies', search)
+
+    class Model:
+        def with_structured_output(self, schema):
+            return self
+
+        async def ainvoke(self, messages):
+            return ConversationIntent(action='collect', company_queries=self.queries, question='', reply='', years=3)
+
+    class Client:
+        rows = [{'cik': FILING['cik'], 'ticker': 'AAPL', 'name': 'Apple'}]
+
+    model, client = Model(), Client()
+    model.queries = ['Apple']
+    body = ConversationRequest(message='애플 최근 3년 10-K, 10-Q, 8-K를 수집해줘')
+    result = await resolve_conversation(body, None, model, client)
+    assert result == {'action': 'collect', 'company': client.rows[0], 'years': 3, 'since': None}
+    client.rows = [*client.rows, {'cik': '0000000001', 'ticker': 'OTHER', 'name': 'Other Apple'}]
+    result = await resolve_conversation(body, None, model, client)
+    assert result['action'] == 'choose' and result['pendingAction'] == 'collect' and result['years'] == 3
+    model.queries = []
+    result = await resolve_conversation(body, {'filing': FILING}, model, client)
+    assert result == {'action': 'collect', 'company': None, 'years': 3, 'since': None}
+
+
 def test_conversation_api_validates_message_history_and_session():
     app = FastAPI()
     app.include_router(router)
@@ -469,3 +502,39 @@ async def test_free_ui_repairs_parser_errors_and_preserves_chart_choice():
 
     with pytest.raises(ValueError, match='검증'):
         await compose_ui('차트로 보여줘', {}, Model(), validator=invalid)
+
+
+def test_prepare_stream_emits_tool_details_and_keeps_json_contract(monkeypatch):
+    import importlib
+    import json
+
+    from fastapi.testclient import TestClient
+
+    from server.server import app
+    sec_router = importlib.import_module("server.sec_chat.router")
+
+    async def fake_prepare(cik, refresh, model, activity=None):
+        if activity:
+            activity({"id": "tool-1", "label": "SEC 도구 · list_sec_filings", "kind": "tool", "status": "running", "arguments": {"cik": cik}})
+            activity({"id": "tool-1", "label": "SEC 도구 · list_sec_filings", "kind": "tool", "status": "completed", "arguments": {"cik": cik}, "result": {"items": []}})
+        return {"filing": {"accessionNo": "example", "filingDate": "2026-01-01"}, "sections": {}}
+
+    monkeypatch.setattr(sec_router, "prepare_filing", fake_prepare)
+    monkeypatch.setattr(sec_router, "chat_model", lambda: None)
+    before = set(sec_router.sessions)
+    try:
+        with TestClient(app) as client:
+            body = {"cik": "0000320193", "refresh": False}
+            json_response = client.post('/api/sec-chat/prepare', json=body)
+            assert json_response.status_code == 200 and json_response.json()['filing']['accessionNo'] == 'example'
+            response = client.post('/api/sec-chat/prepare', json=body, headers={"Accept": "text/event-stream"})
+            assert response.status_code == 200
+            events = [json.loads(line[6:]) for line in response.text.splitlines() if line.startswith('data: ')]
+            activity = [item['value'] for item in events if item.get('name') == 'sec.activity']
+            assert activity[0]['arguments'] == {"cik": "0000320193"}
+            assert activity[1]['result'] == {"items": []}
+            assert any(item.get('name') == 'sec.prepared' for item in events)
+            assert events[-1]['type'] == 'RUN_FINISHED'
+    finally:
+        for key in set(sec_router.sessions) - before:
+            sec_router.sessions.pop(key, None)

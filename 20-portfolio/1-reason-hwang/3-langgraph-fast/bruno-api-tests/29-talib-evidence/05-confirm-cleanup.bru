@@ -1,0 +1,15 @@
+meta {
+ name: TALIB-EVIDENCE confirm cleanup
+ type: http
+ seq: 5
+}
+get {
+ url: {{baseUrl}}/threads/{{evidenceThread}}
+ auth: none
+}
+assert {
+ res.status: eq 404
+}
+tests {
+ test("owned thread absent",()=>expect(res.getStatus()).to.equal(404));
+}

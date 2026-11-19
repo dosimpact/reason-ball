@@ -1,10 +1,32 @@
+import { fastApiChatRuntime } from "../model/runtime";
 import { ChatProvider } from "@/_pages/chat/model/context/ChatProvider";
 import { ChatPage } from "@/_pages/chat/ui/ChatPage";
 
 export default function LangGraphChatRoute() {
   return (
-    <ChatProvider>
+    <ChatProvider key="development">
       <ChatPage />
     </ChatProvider>
   );
+}
+
+export function FastApiChatRoute() {
+  return <ChatProvider key="fastapi" runtime={fastApiChatRuntime}><ChatPage /></ChatProvider>;
+}
+
+const inlineRuntime = { ...fastApiChatRuntime, label: "기술적 분석 · 인라인" };
+const canvasRuntime = { ...fastApiChatRuntime, label: "기술적 분석 · Canvas" };
+
+export function TechnicalAnalysisChatRoute() {
+  return <ChatProvider key="technical-inline" runtime={inlineRuntime} fixedGraphId="technical_analysis_agent"><ChatPage /></ChatProvider>;
+}
+
+export function TechnicalAnalysisCanvasChatRoute() {
+  return <ChatProvider key="technical-canvas" runtime={canvasRuntime} fixedGraphId="technical_analysis_canvas_agent"><ChatPage /></ChatProvider>;
+}
+
+const talibRuntime = { ...fastApiChatRuntime, label: "TA-Lib 채팅" };
+
+export function TalibChatRoute() {
+  return <ChatProvider key="talib-agent" runtime={talibRuntime} fixedGraphId="talib_agent"><ChatPage /></ChatProvider>;
 }

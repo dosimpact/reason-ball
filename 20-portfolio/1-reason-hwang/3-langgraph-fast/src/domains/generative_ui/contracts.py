@@ -5,7 +5,7 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-Mode = Literal["dynamic", "fixed", "sec"]
+Mode = Literal["dynamic", "fixed"]
 
 
 class ActionError(ValueError):
@@ -43,11 +43,4 @@ def text_field(context: dict, key: str, limit: int = 120) -> str:
     value = context.get(key)
     if not isinstance(value, str) or len(value) > limit:
         raise ActionError(f"잘못된 입력: {key}")
-    return value
-
-
-def page_field(context: dict) -> int:
-    value = context.get("page")
-    if type(value) is not int or value < 1:
-        raise ActionError("페이지는 1 이상의 정수여야 합니다.")
     return value

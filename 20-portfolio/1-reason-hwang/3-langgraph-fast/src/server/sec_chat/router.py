@@ -3,18 +3,29 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import time
 from contextlib import aclosing
 from dataclasses import dataclass, field
+from datetime import date
 from uuid import uuid4
 
 import httpx
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from domains.sec_chat.conversation import ConversationRequest
-from domains.sec_tools.agent import prepare_filing, search_companies
+from domains.sec_chat.failure_reply import (
+    FailureReply,
+    FailureReplyRequest,
+    build_failure_reply,
+)
+from domains.sec_tools.agent import (
+    collect_company_filings,
+    prepare_filing,
+    search_companies,
+)
 from domains.tenk.sec_client import SecReadError
 from graph.primary_graphs.sec_intelligent_ui.conversation import (
     build_conversation_graph,
@@ -23,6 +34,7 @@ from graph.primary_graphs.sec_intelligent_ui.workflow import build_graph, chat_m
 from server.sec_chat.activity_stream import activity_stream
 
 router = APIRouter(prefix="/api/sec-chat", tags=["SEC Intelligent UI"])
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -38,12 +50,30 @@ sessions: dict[str, Session] = {}
 
 class PrepareRequest(BaseModel):
     cik: str = Field(pattern=r"^\d{10}$")
-    refresh: bool = True
+    refresh: bool = False
+
+
+class CollectRequest(BaseModel):
+    cik: str = Field(pattern=r"^\d{10}$")
+    years: int = Field(default=2, ge=1, le=30)
+    since: str | None = Field(default=None, pattern=r"^\d{4}-\d{2}-\d{2}$")
+
+    @field_validator("since")
+    @classmethod
+    def valid_since(cls, value: str | None) -> str | None:
+        if value is not None:
+            date.fromisoformat(value)
+        return value
 
 
 class ChatRequest(BaseModel):
     threadId: str = Field(pattern=r"^[a-f0-9]{32}$")
     message: str = Field(min_length=1, max_length=4000)
+
+
+@router.post("/failure-reply", response_model=FailureReply)
+async def failure_reply(body: FailureReplyRequest):
+    return await build_failure_reply(body)
 
 
 @router.post("/resolve")
@@ -71,7 +101,8 @@ async def resolve(body: ConversationRequest, request: Request):
                 yield event("RUN_FINISHED", runId=run_id)
             except asyncio.CancelledError:
                 raise
-            except Exception:  # noqa: BLE001 - sanitized streaming boundary
+            except Exception as error:  # noqa: BLE001 - sanitized streaming boundary
+                logger.warning("SEC resolve failed run_id=%s exception=%s", run_id, type(error).__name__)
                 yield event("RUN_ERROR", message="메시지를 처리하지 못했습니다. 다시 시도해 주세요.", code="SEC_RESOLVE_FAILED")
         return StreamingResponse(stream_resolution(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
     try:
@@ -89,20 +120,84 @@ async def companies(q: str = ""):
         raise HTTPException(502, str(error)) from error
 
 
+@router.post("/collect")
+async def collect(body: CollectRequest, request: Request):
+    async def collect_result(sink=None):
+        completed = await collect_company_filings(body.cik, body.years, body.since, None, activity=sink)
+        period = f"{body.since}부터" if body.since else f"최근 {body.years}년"
+        reply = (f"CIK {body.cik}의 {period} SEC 공시 수집을 완료했습니다. "
+                 f"메타데이터 {completed['filingsSynced']}건을 동기화하고 원문 {completed['downloaded']}건을 다운로드했습니다. "
+                 "수집 API는 10-K·10-Q·8-K와 각 수정본을 함께 대상으로 하며, 서식별 완료 건수는 제공하지 않습니다.")
+        return {"action": "reply", "reply": reply, "collection": completed}
+
+    if "text/event-stream" in request.headers.get("accept", ""):
+        async def stream_collection():
+            run_id = uuid4().hex
+            try:
+                yield event("RUN_STARTED", runId=run_id)
+                async with aclosing(activity_stream(collect_result)) as updates:
+                    async for kind, payload in updates:
+                        if kind == "activity":
+                            yield event("CUSTOM", name="sec.activity", value=payload)
+                        elif kind == "heartbeat":
+                            yield ": heartbeat\n\n"
+                        elif kind == "result" and payload is not None:
+                            yield event("CUSTOM", name="sec.resolution", value=payload)
+                yield event("RUN_FINISHED", runId=run_id)
+            except asyncio.CancelledError:
+                raise
+            except Exception as error:  # noqa: BLE001 - sanitized streaming boundary
+                logger.warning("SEC collect failed run_id=%s exception=%s", run_id, type(error).__name__)
+                message = str(error) if isinstance(error, SecReadError) else "SEC 공시 수집에 실패했습니다. 다시 시도해 주세요."
+                yield event("RUN_ERROR", message=message, code="SEC_COLLECT_FAILED")
+        return StreamingResponse(stream_collection(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+    try:
+        return await collect_result()
+    except (SecReadError, httpx.HTTPError, ValueError) as error:
+        logger.warning("SEC collect failed exception=%s", type(error).__name__)
+        raise HTTPException(502, str(error) if isinstance(error, SecReadError) else "SEC 공시 수집에 실패했습니다. 다시 시도해 주세요.") from error
+
+
 @router.post("/prepare")
-async def prepare(body: PrepareRequest):
+async def prepare(body: PrepareRequest, request: Request):
     for key, session in list(sessions.items()):
         if not session.busy and time.monotonic() - session.touched > 7200:
             del sessions[key]
     if len(sessions) >= 30:
         raise HTTPException(429, "열린 공시 세션이 많습니다. 기존 세션을 닫아 주세요.")
+
+    async def prepare_result(sink=None):
+        source = await prepare_filing(body.cik, body.refresh, None, activity=sink)
+        thread_id = uuid4().hex
+        sessions[thread_id] = Session(source)
+        return {"threadId": thread_id, **{key: value for key, value in source.items() if key != "sections"}, "items": list(source["sections"])}
+
+    if "text/event-stream" in request.headers.get("accept", ""):
+        async def stream_prepare():
+            run_id = uuid4().hex
+            try:
+                yield event("RUN_STARTED", runId=run_id)
+                async with aclosing(activity_stream(prepare_result)) as updates:
+                    async for kind, payload in updates:
+                        if kind == "activity":
+                            yield event("CUSTOM", name="sec.activity", value=payload)
+                        elif kind == "heartbeat":
+                            yield ": heartbeat\n\n"
+                        elif kind == "result":
+                            yield event("CUSTOM", name="sec.prepared", value=payload)
+                yield event("RUN_FINISHED", runId=run_id)
+            except asyncio.CancelledError:
+                raise
+            except Exception as error:  # noqa: BLE001 - sanitize the streaming boundary
+                logger.warning("SEC prepare failed run_id=%s exception=%s", run_id, type(error).__name__)
+                message = str(error) if isinstance(error, SecReadError) else "SEC 공시 준비에 실패했습니다. 다시 시도해 주세요."
+                yield event("RUN_ERROR", message=message, code="SEC_PREPARE_FAILED")
+        return StreamingResponse(stream_prepare(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
     try:
-        source = await prepare_filing(body.cik, body.refresh, chat_model())
+        return await prepare_result()
     except (SecReadError, httpx.HTTPError, ValueError) as error:
+        logger.warning("SEC prepare failed exception=%s", type(error).__name__)
         raise HTTPException(502, str(error) if isinstance(error, SecReadError) else "SEC 공시 준비에 실패했습니다.") from error
-    thread_id = uuid4().hex
-    sessions[thread_id] = Session(source)
-    return {"threadId": thread_id, **{key: value for key, value in source.items() if key != "sections"}, "items": list(source["sections"])}
 
 
 @router.delete("/threads/{thread_id}")
@@ -155,7 +250,8 @@ async def chat(body: ChatRequest):
             yield event("RUN_FINISHED", threadId=body.threadId, runId=run_id)
         except asyncio.CancelledError:
             raise
-        except Exception:  # noqa: BLE001 - sanitize provider errors at the SSE transport boundary
+        except Exception as error:  # noqa: BLE001 - sanitize provider errors at the SSE transport boundary
+            logger.warning("SEC chat failed run_id=%s exception=%s", run_id, type(error).__name__)
             yield event("RUN_ERROR", message="근거가 검증된 답변을 생성하지 못했습니다. 모델 연결 또는 원문을 확인하고 다시 시도해 주세요.", code="SEC_CHAT_FAILED")
         finally:
             session.busy = False

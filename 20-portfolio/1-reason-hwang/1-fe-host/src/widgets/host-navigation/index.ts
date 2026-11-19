@@ -1,1 +1,1 @@
-export { AppSidebar } from "./ui/app-sidebar";
+export { AppSidebar, MobileSidebarTrigger } from "./ui/app-sidebar";

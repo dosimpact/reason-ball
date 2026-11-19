@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 past-end
+  type: http
+  seq: 5
+}
+get {
+  url: {{baseUrl}}/modeling/filings?limit=2&offset=100
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("past-end",function(){expect(res.getBody().total).to.equal(6);expect(res.getBody().items).to.deep.equal([]);});
+}

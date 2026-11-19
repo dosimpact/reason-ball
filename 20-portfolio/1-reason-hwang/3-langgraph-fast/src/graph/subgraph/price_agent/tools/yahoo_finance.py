@@ -63,6 +63,7 @@ def clear_price_cache() -> None:
     """Clear the process-local cache, primarily for deterministic tests."""
 
     _price_cache.clear()
+    _origin_cache.clear()
 
 
 def _decimal_or_none(value: object) -> Decimal | None:
@@ -158,6 +159,7 @@ def _fetch_historical_prices_uncached(
     interval: str,
     count: int,
     auto_adjust: bool,
+    *, fixed_origin: bool = False,
 ) -> tuple[PriceData, ...]:
     normalized_symbol = symbol.strip().upper()
     if normalized_symbol in {"", "UNKNOWN"}:
@@ -173,7 +175,7 @@ def _fetch_historical_prices_uncached(
     try:
         ticker = yf.Ticker(normalized_symbol)
         frame = ticker.history(
-            period=_history_period(count, interval),
+            **({"start": "2000-01-01"} if fixed_origin else {"period": _history_period(count, interval)}),
             interval=interval,
             auto_adjust=auto_adjust,
             actions=False,
@@ -200,6 +202,12 @@ def _fetch_historical_prices_uncached(
     fetched_at = datetime.now(UTC)
     records: list[PriceData] = []
     rows = list(frame.sort_index().iterrows())
+    if fixed_origin and len(rows) > 20000:
+        raise PriceProviderError("history_limit", "Fixed-origin history exceeds 20000 bars")
+    # A bounded request must not fail on unrelated older provider history.
+    # Fixed-origin cumulative calculations intentionally validate their full history.
+    if not fixed_origin:
+        rows = rows[-count:]
     for position, (index, row) in enumerate(rows):
         open_price = _decimal_or_none(row.get("Open"))
         high_price = _decimal_or_none(row.get("High"))
@@ -246,7 +254,7 @@ def _fetch_historical_prices_uncached(
         except ValueError as exc:
             raise PriceProviderError(
                 "invalid_provider_data",
-                "Yahoo Finance returned invalid daily price data.",
+                f"Yahoo Finance returned invalid {interval} price data.",
             ) from exc
         records.append(record)
 
@@ -255,13 +263,25 @@ def _fetch_historical_prices_uncached(
             "empty_data",
             f"Yahoo Finance returned no usable daily prices for {normalized_symbol}.",
         )
-    return tuple(records[-count:])
+    return tuple(records if fixed_origin else records[-count:])
 
 
 fetch_historical_prices = cached_price_data(
     cache=_price_cache,
     ttl_seconds=PRICE_CACHE_TTL_SECONDS,
 )(_fetch_historical_prices_uncached)
+
+
+# Stable, declared calendar origin for cumulative TA. IPOs start at first available
+# bar on/after this date; historical provider corrections remain identifiable.
+def _fetch_origin_uncached(symbol, interval, count, auto_adjust):
+    return _fetch_historical_prices_uncached(symbol, interval, count, auto_adjust, fixed_origin=True)
+
+_origin_cache = InMemoryPriceCache(maxsize=16)
+fetch_origin_prices = cached_price_data(
+    cache=_origin_cache, ttl_seconds=PRICE_CACHE_TTL_SECONDS,
+    provider="yahoo-finance-origin-2000-v1",
+)(_fetch_origin_uncached)
 
 
 def _artifact_content(artifact: PriceToolArtifact) -> str:

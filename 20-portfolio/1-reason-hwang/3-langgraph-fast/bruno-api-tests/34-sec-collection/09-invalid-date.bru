@@ -1,0 +1,21 @@
+meta {
+  name: SEC-COLLECT-002 invalid-date
+  type: http
+  seq: 9
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/collect
+  body: json
+  auth: none
+}
+body:json {
+  {"cik":"0001045810","years":2,"since":"2026-99-99"}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("invalid-date", function () {
+    expect(res.getBody().detail).to.be.an("array");
+  });
+}

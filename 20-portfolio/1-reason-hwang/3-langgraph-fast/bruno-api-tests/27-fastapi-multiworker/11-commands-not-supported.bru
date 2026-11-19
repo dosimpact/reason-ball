@@ -1,0 +1,19 @@
+meta {
+  name: LG-OSS-MULTI-001 commands-not-supported
+  type: http
+  seq: 10
+}
+post {
+  url: {{workerB}}/threads/{{multiThread}}/commands
+  body: json
+  auth: none
+}
+body:json {
+  {}
+}
+assert {
+  res.status: eq 501
+}
+tests {
+  test("No fake memory success in PostgreSQL mode",function(){expect(res.status).to.equal(501);});
+}

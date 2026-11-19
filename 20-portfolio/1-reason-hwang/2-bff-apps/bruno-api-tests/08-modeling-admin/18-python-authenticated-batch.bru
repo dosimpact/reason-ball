@@ -1,0 +1,22 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 python-authenticated-batch
+  type: http
+  seq: 18
+}
+post {
+  url: {{pythonUrl}}/internal/sec-modeling/filings/status
+  body: json
+  auth: none
+}
+headers {
+  X-SEC-Modeling-Key: qa-bulk-only
+}
+body:json {
+  {"filings": [{"cik": "0000320193", "accessionNo": "0000320193-26-000001"}, {"cik": "0000789019", "accessionNo": "0000789019-26-000002"}]}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("python-authenticated-batch",function(){const b=res.getBody();expect(b.items).to.have.lengthOf(2);expect(b.items[0].stages["1"].generationId).to.equal("fixture-generation");expect(b.items[1].stages).to.deep.equal({});});
+}

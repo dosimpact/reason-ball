@@ -1,0 +1,20 @@
+{
+  "version": "sec-model3-selection/3",
+  "dropNamespacePatterns": [
+    "^https?://fasb\\.org/us-gaap/[0-9]{4}$"
+  ],
+  "batchSize": 12,
+  "maxBatchCharacters": 60000,
+  "categories": {
+    "OPERATING_PERFORMANCE": "사업 KPI와 운영 성과: 실제 영업의 활성 고객·가입자·거래액·판매량, 제품·사업부·지역별 매출액·실적, 수익성·운영 효율. 사고 피해 계정 수와 주요 거래처·지역 집중도는 해당하지 않는다",
+    "INVESTMENT_AND_RESTRUCTURING": "투자와 사업 재편: 설비·지분 투자, 인수·매각, 사업 진출·철수",
+    "DEPENDENCIES_AND_COMMITMENTS": "거래 의존과 계약 의무: 고객·공급업체·지역 집중도, 특정 지역이 차지하는 지배적 매출 비율, 중요한 매출채권을 가진 소수 고객의 수·비중 등 거래 상대방 집중·신용 위험, 구매 약정, 리스, 공급자 금융. 고객 수라는 단위라도 집중 위험을 측정하면 이 분류다",
+    "CAPITAL_AND_SHAREHOLDER_RIGHTS": "자본 구조와 주주 권리: 일반 차입, 주식 발행, 배당·자사주 매입, 의결권·희석",
+    "LEGAL_REGULATORY_AND_INCIDENTS": "법률·규제와 사고: 소송, 규제 조치, 세무 분쟁, 실제 사이버 사고·유출·무단 접근의 피해 계정·고객 수와 정량적 영향·보상. 피해 계정 수는 영업 고객 KPI가 아니다. 정기적 사이버 관리 역할·감독 설명만으로 중요 사실이 되지 않는다",
+    "OTHER": "위 다섯 범주 외의 중요한 기업 고유 사실. 근거 부족·일반 상용구·정기적인 사이버 관리 역할과 위원회 감독 설명을 이 분류로 선택하지 않는다"
+  },
+  "provider": "openai-decisions",
+  "model": "gpt-6-luna",
+  "importanceThreshold": 0.7,
+  "categoryConfidenceThreshold": 0.6
+}

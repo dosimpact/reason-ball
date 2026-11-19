@@ -1,0 +1,22 @@
+meta {
+  name: wiki-invalid
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/wiki
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("GALLERY-MEDIA-001 wiki-invalid", function() {
+    expect(res.getStatus()).to.equal(400);
+    expect(res.getBody().error.message).to.equal("title is required");
+  });
+}

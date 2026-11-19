@@ -1,0 +1,16 @@
+meta {
+  name: LG-OSS-MULTI-001 delete-on-B
+  type: http
+  seq: 12
+}
+delete {
+  url: {{workerB}}/threads/{{multiThread}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 204
+}
+tests {
+  test("delete-on-B",function(){expect(res.status).to.equal(204);});
+}

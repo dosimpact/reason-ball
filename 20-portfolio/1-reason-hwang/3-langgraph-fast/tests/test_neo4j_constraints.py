@@ -40,24 +40,30 @@ class FakeWriter(AbstractContextManager):
         return None
 
 
-def test_local_profile_runs_idempotent_constraint_initialization(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_local_profile_runs_idempotent_constraint_initialization(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     initialized: list[tuple[Any, str | None]] = []
     settings = SimpleNamespace(neo4j_database="neo4j")
     monkeypatch.setattr(constraints, "get_settings", lambda: settings)
     monkeypatch.setattr(
         constraints,
         "init_neo4j_constraints",
-        lambda settings, database: initialized.append((settings, database))
-        or {"status": "ok", "constraints": 9, "database": database},
+        lambda settings, database: (
+            initialized.append((settings, database))
+            or {"status": "ok", "constraints": 10, "database": database}
+        ),
     )
 
     result = constraints.prepare_neo4j_schema(profile="local")
 
     assert initialized == [(settings, "neo4j")]
-    assert result["constraints"] == 9
+    assert result["constraints"] == 10
 
 
-def test_non_local_profile_only_verifies_constraints(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_non_local_profile_only_verifies_constraints(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     FakeWriter.names = constraints.EXPECTED_CONSTRAINT_NAMES
     monkeypatch.setattr(constraints, "Neo4jWriter", FakeWriter)
     monkeypatch.setattr(
@@ -66,19 +72,23 @@ def test_non_local_profile_only_verifies_constraints(monkeypatch: pytest.MonkeyP
 
     result = constraints.prepare_neo4j_schema(profile="production")
 
-    assert result["constraints"] == 9
+    assert result["constraints"] == 10
     assert FakeWriter.last_session is not None
-    assert FakeWriter.last_session.queries == ["SHOW CONSTRAINTS YIELD name RETURN name"]
+    assert FakeWriter.last_session.queries == [
+        "SHOW CONSTRAINTS YIELD name RETURN name"
+    ]
 
 
-def test_non_local_profile_fails_when_constraint_is_missing(monkeypatch: pytest.MonkeyPatch) -> None:
-    FakeWriter.names = constraints.EXPECTED_CONSTRAINT_NAMES - {"risk_id_unique"}
+def test_non_local_profile_fails_when_constraint_is_missing(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    FakeWriter.names = constraints.EXPECTED_CONSTRAINT_NAMES - {"xbrl_fact_id_unique"}
     monkeypatch.setattr(constraints, "Neo4jWriter", FakeWriter)
     monkeypatch.setattr(
         constraints, "get_settings", lambda: SimpleNamespace(neo4j_database="neo4j")
     )
 
-    with pytest.raises(RuntimeError, match="risk_id_unique"):
+    with pytest.raises(RuntimeError, match="xbrl_fact_id_unique"):
         constraints.prepare_neo4j_schema(profile="staging")
 
 

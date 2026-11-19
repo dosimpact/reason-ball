@@ -42,6 +42,13 @@ class TokenManager:
             )
         return load_auth()
 
+    def _reload_auth(self) -> None:
+        """Read external re-login changes before using cached credentials."""
+        data = self._load_from_disk()
+        if not data.get("access_token") or not data.get("refresh_token"):
+            raise ChatGPTAuthExpiredError("Incomplete auth file. Re-login required.")
+        self._auth_data = data
+
     def _save_to_disk(self, auth_data: dict) -> None:
         """Save auth data atomically with restricted permissions."""
         save_auth(auth_data)
@@ -91,6 +98,12 @@ class TokenManager:
                     )
                 tokens = await resp.json()
 
+        # A re-login may have completed while the refresh HTTP call was pending.
+        latest = self._load_from_disk()
+        if latest != auth_data:
+            return latest
+
+        auth_data = dict(auth_data)
         expires_in = tokens.get("expires_in", 3600)
         auth_data["access_token"] = tokens["access_token"]
         auth_data["expires_at"] = int(time.time()) + expires_in
@@ -108,8 +121,7 @@ class TokenManager:
         Returns the access_token string.
         """
         async with self._lock:
-            if self._auth_data is None:
-                self._auth_data = self._load_from_disk()
+            self._reload_auth()
 
             if self._is_expired(self._auth_data):
                 self._auth_data = await self._refresh_token(self._auth_data)
@@ -119,6 +131,5 @@ class TokenManager:
     async def get_account_id(self) -> str:
         """Get the account ID."""
         async with self._lock:
-            if self._auth_data is None:
-                self._auth_data = self._load_from_disk()
+            self._reload_auth()
             return self._auth_data.get("account_id", "")

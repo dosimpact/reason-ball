@@ -1,0 +1,15 @@
+meta {
+ name: TALIB-EVIDENCE bounded prompt evidence
+ type: http
+ seq: 3
+}
+get {
+ url: {{baseUrl}}/qa/evidence
+ auth: none
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("native enum and descriptive market evidence reach model without arrays",()=>{const b=res.getBody();const s=b.sqzmom.outputs.find(x=>x.name==="squeeze");expect(s.type).to.equal("integer");expect(Object.keys(s.semantics.levels)).to.have.length(5);const rs=b.summaries[0].results;const obv=rs.find(x=>x.id==="obv");expect(obv.seriesEvidence.market[0].price.delta).to.be.a("number");expect(obv.seriesEvidence.market[0].volume.delta).to.be.a("number");expect(obv.seriesEvidence.outputs.real.changePercent).to.equal(null);expect(obv.seriesEvidence.outputs.real.validCount).to.equal(60);expect(JSON.stringify(b.summaries)).not.to.include('"values":');const sq=rs.find(x=>x.id==="sqzmom");expect(sq.seriesEvidence.outputs.squeeze.latestStateMeaning).to.be.a("string");});
+}

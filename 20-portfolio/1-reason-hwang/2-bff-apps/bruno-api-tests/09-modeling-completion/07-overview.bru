@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING completion overview
+  type: http
+  seq: 7
+}
+get {
+  url: {{baseUrl}}/modeling/overview?completedStages=2,1
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("overview",function(){const b=res.getBody();expect(res.getStatus()).to.equal(200);expect(b.totalFilings).to.equal(1);expect(b.filters.completedStages).to.deep.equal([1,2]);expect(b.filters).not.to.have.property("publications");});
+}

@@ -110,6 +110,26 @@ export class FilingBackfillService {
     return { companiesProcessed: companies.length, filingsSynced, ...documents };
   }
 
+  async downloadFiling(cik: string, accessionNo: string, report: ReportProgress) {
+    const identity = { cik, accessionNo };
+    let filing = await this.filingRepository.createQueryBuilder('filing').addSelect('filing.documentContent').where(identity).getOne();
+    if (!filing) throw new NotFoundException('Filing not found; sync its company metadata first.');
+    if (filing.documentContent) {
+      report({ phase: 'documents', skipped: true, cik, accessionNo, status: filing.status });
+      return { accessionNo, downloaded: 0, failed: 0, skipped: true };
+    }
+    await this.filingRepository.createQueryBuilder().update(Filing).set({ status: 'pending', errorMessage: null })
+      .where('cik = :cik AND accession_no = :accessionNo', identity)
+      .andWhere("(document_content IS NULL OR document_content = '')").execute();
+    filing = await this.filingRepository.findOneByOrFail(identity);
+    report({ phase: 'documents', downloaded: 0, failed: 0, cik, accessionNo });
+    const status = await this.downloadSingleFiling(filing);
+    const downloaded = status === 'downloaded' ? 1 : 0;
+    const failed = status === 'failed' ? 1 : 0;
+    report({ phase: 'documents', downloaded, failed, cik, accessionNo });
+    return { accessionNo, downloaded, failed };
+  }
+
   private async downloadDocuments(since: string, report: ReportProgress, ciks?: string[]) {
     // Reset failures once per invocation. HTTP retry is bounded in the SEC client.
     const reset = this.filingRepository.createQueryBuilder().update(Filing)
@@ -141,13 +161,13 @@ export class FilingBackfillService {
     try {
       const document = await this.secClient.downloadDocument(filing.filingUrl);
       // Network IO is complete before the atomic write. A late worker cannot overwrite success.
-      await this.filingRepository.update({ ...identity, status: 'pending' }, {
+      await this.filingRepository.createQueryBuilder().update(Filing).set({
         ...document,
         documentDownloadedAt: new Date(),
         status: 'downloaded',
         filePath: null,
         errorMessage: null,
-      });
+      }).where('cik = :cik AND accession_no = :accessionNo AND status = :status', { ...identity, status: 'pending' }).andWhere("(document_content IS NULL OR document_content = '')").execute();
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       await this.filingRepository.createQueryBuilder()

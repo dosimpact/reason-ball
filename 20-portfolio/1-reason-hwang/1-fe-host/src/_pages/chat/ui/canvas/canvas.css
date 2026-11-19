@@ -1,0 +1,52 @@
+.ta-canvas-workspace{display:grid;grid-template-columns:minmax(0,1fr);width:100%;height:100dvh;min-height:0;overflow:hidden;background:var(--background)}
+.ta-canvas-workspace.ta-canvas-open{grid-template-columns:var(--ta-chat-width,420px) 8px minmax(0,1fr)}
+.ta-canvas-chat{min-width:0;min-height:0;overflow:hidden;position:relative}
+.ta-canvas-chat .agent-conversation{height:100%;min-height:0}
+.ta-canvas-panel{display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;border-left:1px solid var(--border)}
+.ta-canvas-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);font-weight:600}
+.ta-canvas-splitter{position:relative;background:var(--background);cursor:col-resize;touch-action:none;outline-offset:-2px;z-index:6}
+.ta-canvas-splitter span{position:absolute;width:3px;height:42px;top:calc(50% - 21px);left:2px;border-radius:3px;background:var(--border)}
+.ta-canvas-splitter:focus-visible{outline:2px solid var(--ring)}
+.ta-is-resizing{user-select:none}.ta-is-resizing iframe{pointer-events:none}
+@media(max-width:899px){.ta-canvas-workspace.ta-canvas-open{grid-template-columns:minmax(0,1fr);grid-template-rows:var(--ta-chat-height,42dvh) 8px minmax(0,1fr)}.ta-canvas-panel{border-left:0;border-top:1px solid var(--border)}.ta-canvas-splitter{cursor:row-resize}.ta-canvas-splitter span{width:42px;height:3px;left:calc(50% - 21px);top:2px}.ta-canvas-heading{padding:8px 12px}}
+.ta-canvas-controls{display:flex;align-items:center;gap:8px}
+/* The SDK switches by panel width, which can be narrow on a desktop viewport. */
+.ta-canvas-chat .agent-conversation--compact .openui-agent-container--mobile .openui-agent-thread-header{display:none}
+.ta-canvas-grid-scroll{flex:1;min-height:0;overflow:auto;padding:16px}
+.ta-canvas-grid{position:relative;min-width:0;min-height:160px}
+.ta-canvas-item{position:relative;min-width:0;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--border);border-radius:12px;background:var(--background);box-shadow:0 1px 4px rgb(0 0 0 / .08)}
+.ta-canvas-item-heading{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--border)}
+.ta-canvas-item-heading strong{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.ta-canvas-drag{cursor:grab;touch-action:none;padding:4px 6px;color:var(--muted-foreground);user-select:none}
+.ta-canvas-drag:active{cursor:grabbing}
+.ta-canvas-item-meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;padding:6px 12px;font-size:11px;color:var(--muted-foreground);border-bottom:1px solid var(--border)}
+.ta-canvas-item-content{flex:1;min-height:0;overflow:auto;padding:12px}
+.ta-canvas-keyboard-resize{position:absolute;right:0;bottom:0;width:24px;height:24px;cursor:nwse-resize;touch-action:none;background:linear-gradient(135deg,transparent 54%,var(--border) 55%,var(--border) 65%,transparent 66%)}
+.ta-canvas-keyboard-resize:focus-visible{outline:2px solid var(--ring)}
+.ta-canvas-quote{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;background:var(--muted);font-size:12px}.ta-canvas-quote span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ta-canvas-print-status{padding:7px 16px;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted-foreground)}
+
+@media print{
+  @page{margin:12mm}
+  body:has(.ta-canvas-panel),body:has(.ta-canvas-panel) [data-slot="sidebar-wrapper"],body:has(.ta-canvas-panel) [data-slot="sidebar-inset"],body:has(.ta-canvas-panel) [data-slot="sidebar-inset"]>div{display:block!important;width:100%!important;min-width:0!important;min-height:0!important;height:auto!important;max-height:none!important;margin:0!important;padding:0!important;overflow:visible!important}
+  body:has(.ta-canvas-panel) [data-slot="sidebar-wrapper"]>:not([data-slot="sidebar-inset"]),body:has(.ta-canvas-panel) nextjs-portal,body:has(.ta-canvas-panel) .ta-canvas-chat,body:has(.ta-canvas-panel) .ta-canvas-splitter{display:none!important}
+  body:has(.ta-canvas-panel) .ta-canvas-workspace,body:has(.ta-canvas-panel) .ta-canvas-panel,body:has(.ta-canvas-panel) .ta-canvas-grid-scroll{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important}
+  body:has(.ta-canvas-panel) .ta-canvas-workspace{grid-template-columns:none!important;grid-template-rows:none!important}
+  body:has(.ta-canvas-panel) .ta-canvas-panel{position:static!important;border:0}
+  body:has(.ta-canvas-panel) .ta-canvas-heading{padding:0 0 12px}
+  body:has(.ta-canvas-panel) .ta-canvas-grid-scroll{padding:0}
+  body:has(.ta-canvas-panel) .ta-canvas-controls,body:has(.ta-canvas-panel) .ta-canvas-drag,body:has(.ta-canvas-panel) .ta-canvas-keyboard-resize,body:has(.ta-canvas-panel) .react-resizable-handle,body:has(.ta-canvas-panel) .ta-canvas-quote,body:has(.ta-canvas-panel) .ta-canvas-print-status{display:none!important}
+  body:has(.ta-canvas-panel) .ta-canvas-grid,body:has(.ta-canvas-panel) .react-grid-layout{display:block;height:auto!important}
+  body:has(.ta-canvas-panel) .ta-canvas-item{position:static!important;transform:none!important;width:100%!important;display:block;min-height:0!important;height:auto!important;break-inside:auto;margin:0 0 18px;box-shadow:none;overflow:visible}
+  body:has(.ta-canvas-panel) .ta-canvas-item-content{overflow:visible}
+  body:has(.ta-canvas-panel) .ta-canvas-item-content .iui-query-panel:not(:has(.iui-financial-chart,.iui-chart)),body:has(.ta-canvas-panel) .ta-canvas-item-content .iui-indicator-controls{display:none!important}
+  body:has(.ta-canvas-panel) .ta-canvas-item-content .iui-indicator-summary{break-inside:avoid}
+  body:has(.ta-canvas-panel) .ta-canvas-item-heading button{display:none}
+  body:has(.ta-canvas-panel) .ta-canvas-item-meta{color:#444}
+}
+
+.ta-canvas-drag:disabled{cursor:default;opacity:.45}
+.ta-canvas-keyboard-resize{right:28px;bottom:3px;width:auto;height:20px;font-size:10px;padding:0 4px;background:var(--background);color:var(--muted-foreground);border:1px solid var(--border);border-radius:4px}
+.ta-canvas-keyboard-resize:disabled{display:none}
+.ta-canvas-item.react-grid-placeholder{background:var(--muted);opacity:.6}
+.ta-canvas-item>.react-resizable-handle{z-index:3}

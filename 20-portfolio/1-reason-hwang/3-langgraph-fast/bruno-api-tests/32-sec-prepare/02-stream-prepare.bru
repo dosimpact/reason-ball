@@ -1,0 +1,33 @@
+meta {
+  name: SEC-PREPARE-001 stream-prepare
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/prepare
+  body: json
+  auth: none
+}
+headers {
+  Accept: text/event-stream
+}
+body:json {
+  {"cik":"0000000001","refresh":false}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("stream-prepare", function () {
+    const body = res.getBody();
+    const events = body.split("\n").filter(l => l.startsWith("data: ")).map(l => JSON.parse(l.slice(6)));
+    expect(body).to.include("RUN_FINISHED");
+    expect(body).not.to.include("RUN_ERROR");
+    const prepared = events.find(e => e.name === "sec.prepared").value;
+    expect(prepared.toolCalls).to.deep.equal(["list_sec_filings", "get_sec_filing_content"]);
+    const activity = events.filter(e => e.name === "sec.activity").map(e => e.value);
+    expect(activity.map(e => e.status)).to.deep.equal(["running", "completed", "running", "completed"]);
+    expect(activity.every(e => e.kind === "tool")).to.equal(true);
+    bru.setVar("prepareSse", prepared.threadId);
+  });
+}

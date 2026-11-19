@@ -1,0 +1,19 @@
+meta {
+  name: LG-OSS-MULTI-001 run-on-A
+  type: http
+  seq: 3
+}
+post {
+  url: {{workerA}}/threads/{{multiThread}}/runs
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id":"qa_read_graph","request_id":"{{multiKey}}","input":{"marker":"{{multiKey}}","delay":0.1},"stream_mode":["values","custom","messages-tuple"],"stream_subgraphs":true}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("run-on-A",function(){bru.setVar("multiRun",res.getBody().run_id);expect(["pending","running"]).to.include(res.getBody().status);});
+}

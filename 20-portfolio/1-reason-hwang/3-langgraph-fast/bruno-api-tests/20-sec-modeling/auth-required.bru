@@ -1,0 +1,19 @@
+meta {
+  name: SEC analysis requires service key
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/sec-analysis/search
+  body: json
+  auth: none
+}
+body:json {
+  {"query":"revenue", "filingIds":["filing:0000320193:0000320193-26-000026"]}
+}
+assert {
+  res.status: eq 401
+}
+tests {
+  test("service key required", function() { expect(res.getStatus()).to.equal(401); });
+}

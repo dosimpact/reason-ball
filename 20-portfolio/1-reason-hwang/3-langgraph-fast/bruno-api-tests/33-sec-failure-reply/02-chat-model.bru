@@ -1,0 +1,23 @@
+meta {
+  name: SEC-FAILURE-REPLY-001 chat-model
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/failure-reply
+  body: json
+  auth: none
+}
+body:json {
+  {"message":"사업 요약","stage":"chat","reason":"invalid_response"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("chat-model", function () {
+    const b = res.getBody();
+    expect(b.source).to.equal("model");
+    expect(b.reply).to.include("chat 작업");
+  });
+}

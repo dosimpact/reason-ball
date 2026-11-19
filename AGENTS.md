@@ -82,3 +82,14 @@ ALWAYS include at the end of each response:
 `21-mini-projects/6-openui-poc/6-7-copilot-kit-intelligent-ui` is an independent upstream pnpm workspace excluded from the parent workspace. Run its committed scripts from that directory; its pnpm and uv lockfiles are authoritative. See its `README.local.md` for setup and credential handling.
 
 `21-mini-projects/8-oauth-oidc-lab` is an independent pnpm workspace excluded from the parent workspace. Run install, build, test, and Docker Compose scripts from that directory; its own lockfile is authoritative.
+
+
+---
+
+## 공통 원칙 
+- playwright 검증 후 크롬을 잘 닫아야 한다. 안그러면 메모리 이슈 발생  
+- 특별히 내가 질문이 먼저 물어보지 않는다면, 우선 가능한 작업을 먼저 진행하고 blocking issue, 스펙 질문, 모호한것은 구현 후 질문한다.  
+
+### 서비스 올리는 법  
+
+시작가이드.md 참고

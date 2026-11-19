@@ -1,0 +1,23 @@
+meta {
+  name: SEC-FAILURE-REPLY-001 prepare-model
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/failure-reply
+  body: json
+  auth: none
+}
+body:json {
+  {"message":"Nvida 보고서 뭐있어","stage":"prepare","reason":"filing_not_ready","company":{"cik":"0001045810","name":"NVIDIA CORP","ticker":"NVDA"}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("prepare-model", function () {
+    const b = res.getBody();
+    expect(b.source).to.equal("model");
+    expect(b.reply).to.include("prepare 작업");
+  });
+}

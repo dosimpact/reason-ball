@@ -1,0 +1,16 @@
+meta {
+ name: SEC-CHAT-MODELING-001 failed-turn-not-saved
+ type: http
+ seq: 10
+}
+get {
+ url: {{baseUrl}}/qa/trace
+ 
+ auth: none
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("failed-turn-not-saved",function(){const s=res.getBody().sessions[bru.getVar("researchThread")];expect(s.historyLength).eq(bru.getVar("beforeHistory"));expect(s.busy).eq(false);});
+}

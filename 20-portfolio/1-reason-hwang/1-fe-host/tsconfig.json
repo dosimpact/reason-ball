@@ -32,10 +32,17 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    ".next-chat-activity-validation/types/**/*.ts",
+    ".next-native-tools-validation/types/**/*.ts",
+    ".next-openui-build/types/**/*.ts",
     ".next-openui-migration/types/**/*.ts",
+    ".next-sec-api-testing-validation/types/**/*.ts",
+    ".next-sec-collector-validation/types/**/*.ts",
+    ".next-ta-canvas-validation/types/**/*.ts",
+    ".next-ta-refresh-validation/types/**/*.ts",
+    ".next-ta-split-validation/types/**/*.ts",
     ".next/types/**/*.ts",
-    "next-env.d.ts",
-    ".next-openui-build/types/**/*.ts"
+    "next-env.d.ts"
   ],
   "exclude": [
     "node_modules"

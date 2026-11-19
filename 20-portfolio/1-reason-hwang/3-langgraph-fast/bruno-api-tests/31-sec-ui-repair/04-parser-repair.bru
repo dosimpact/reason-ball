@@ -1,0 +1,28 @@
+meta {
+  name: SEC-UI-REPAIR-001 parser-repair
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/chat
+  body: json
+  auth: none
+}
+body:json {
+  {"threadId":"{{uiRepairThread}}","message":"parser-repair Item 8 요약"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("parser-repair has correct terminal event and UI activity", function () {
+    const body = res.getBody();
+    const events = body.split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+    expect(body).not.to.include("RUN_ERROR");
+    expect(body).to.include("RUN_FINISHED");
+    const present = events.filter(e => e.name === "sec.activity" && e.value.label === "Intelligent UI 구성 및 검증");
+    expect(present.map(e => e.value.status)).to.deep.equal(["running", "completed"]);
+    expect(body).to.include("검증된 SEC 원문 답변");
+    expect(body).to.include("sec.evidence");
+  });
+}

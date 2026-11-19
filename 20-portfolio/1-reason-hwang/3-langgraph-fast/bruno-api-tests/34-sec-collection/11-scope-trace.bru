@@ -1,0 +1,30 @@
+meta {
+  name: SEC-COLLECT-002 exactly one scoped POST per confirmed request
+  type: http
+  seq: 11
+}
+get {
+  url: {{baseUrl}}/qa/trace
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("one selected-company write, no extra endpoint, no sessions", function () {
+    const b = res.getBody();
+    expect(b.sessionCount).to.equal(0);
+    expect(b.requests).to.have.lengthOf(8);
+    for (const r of b.requests) {
+      expect(r.method).to.equal("POST");
+      expect(r.path).to.equal("/api/sec/company-filing-sync-jobs");
+      expect(r.body.ciks).to.deep.equal(["0001045810"]);
+      expect(r.body.tickers).to.deep.equal([]);
+      expect(r.body.downloadDocuments).to.equal(true);
+      expect(r.body.refreshArchive).to.equal(false);
+    }
+    expect(b.requests[1].body.since).to.equal("2025-01-01");
+    expect(b.requests[0].body).not.to.have.property("since");
+  });
+}

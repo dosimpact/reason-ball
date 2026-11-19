@@ -14,7 +14,7 @@ _run_slots = asyncio.Semaphore(max(1, int(os.getenv("MAX_CONCURRENT_RUNS", "10")
 
 TOOLS = [
     Tool(name="main_graph", description="Run the main conversational graph", inputSchema={"type": "object", "properties": {"message": {"type": "string"}, "provider": {"type": "string"}}, "required": ["message"]}).model_dump(by_alias=True, exclude_none=True),
-    Tool(name="tenk_subgraph", description="Query the 10-K retrieval graph", inputSchema={"type": "object", "properties": {"query": {"type": "string"}}, "required": ["query"]}).model_dump(by_alias=True, exclude_none=True),
+    Tool(name="tenk_subgraph", description="Search published SEC modeling evidence for an exact filing", inputSchema={"type": "object", "properties": {"query": {"type": "string"}, "selected_filing": {"type": "object", "properties": {"cik": {"type": "string"}, "accessionNo": {"type": "string"}}, "required": ["cik", "accessionNo"]}}, "required": ["query", "selected_filing"]}).model_dump(by_alias=True, exclude_none=True),
     Tool(name="starter_graph", description="Run the starter tool-using graph", inputSchema={"type": "object", "properties": {"message": {"type": "string"}}, "required": ["message"]}).model_dump(by_alias=True, exclude_none=True),
 ]
 
@@ -36,7 +36,10 @@ async def _call_tool(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
 
             result = await run_tenk_graph(arguments.get("query", ""), arguments.get("selected_filing"))
         elif name == "starter_graph":
-            from graph.subgraph.starter_graph.workflow import get_last_ai_message, run_starter_graph
+            from graph.subgraph.starter_graph.workflow import (
+                get_last_ai_message,
+                run_starter_graph,
+            )
 
             result = {"response": get_last_ai_message(await run_starter_graph(arguments.get("message", "")))}
         else:
@@ -76,7 +79,7 @@ async def post_mcp(request: Request, accept: str | None = Header(default=None)) 
             result = await _call_tool(params.get("name", ""), params.get("arguments") or {})
         except KeyError:
             return JSONResponse(content=_rpc(request_id, error={"code": -32602, "message": "Unknown tool"}))
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - JSON-RPC boundary converts tool failures to protocol errors
             return JSONResponse(content=_rpc(request_id, error={"code": -32603, "message": str(exc)}))
     else:
         return JSONResponse(content=_rpc(request_id, error={"code": -32601, "message": "Method not found"}))

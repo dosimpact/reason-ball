@@ -9,6 +9,9 @@ dotenv.config();
 export class AppConfigService {
   private readonly settings = readEnvironment(process.env);
 
+  get secModelingUrl() { return this.settings.secModelingUrl; }
+  get secModelingKey() { return this.settings.secModelingKey; }
+  get secModelingWorkerEnabled() { return this.settings.secModelingWorkerEnabled; }
   get appEnv() { return this.settings.appEnv; }
   get logDir() { return this.settings.logDir; }
   get logLevel() { return this.settings.logLevel; }
@@ -20,13 +23,14 @@ export class AppConfigService {
   get postgresUser() { return this.settings.postgresUser; }
   get postgresPassword() { return this.settings.postgresPassword; }
   get postgresDb() { return this.settings.postgresDb; }
+  get dartApiKey() { return this.settings.dartApiKey; }
   get secUserAgent() { return this.settings.secUserAgent; }
   get secRateLimitRps() { return this.settings.secRateLimitRps; }
   get secRetryCount() { return this.settings.secRetryCount; }
   get secDocumentMaxBytes() { return this.settings.secDocumentMaxBytes; }
   get secBulkSubmissionsUrl() { return this.settings.secBulkSubmissionsUrl; }
   get secBackfillBatchSize() { return this.settings.secBackfillBatchSize; }
-  get dataDir() { return this.settings.dataDir; }
+  get staticCacheDir() { return this.settings.staticCacheDir; }
   get secBulkArchivePath() { return this.settings.secBulkArchivePath; }
   get swaggerEnabled() { return this.settings.swaggerEnabled; }
 }
@@ -62,9 +66,11 @@ export function readEnvironment(env: NodeJS.ProcessEnv, cwd = process.cwd()) {
     }
     return value;
   };
+  const modelingWorker = env.SEC_MODELING_WORKER_ENABLED ?? 'true';
+  if (!['true', 'false'].includes(modelingWorker)) throw new Error('SEC_MODELING_WORKER_ENABLED must be true or false.');
   const swagger = env.SWAGGER_ENABLED ?? 'true';
   if (!['true', 'false'].includes(swagger)) throw new Error('SWAGGER_ENABLED must be true or false.');
-  const dataDir = path.resolve(cwd, env.DATA_DIR ?? './data');
+  const staticCacheDir = path.resolve(cwd, env.STATIC_CACHE_DIR ?? './data');
   const rawEnv = env.APP_ENV ?? env.NODE_ENV ?? 'local';
   const environments: Record<string, 'local' | 'stage' | 'prod'> = {
     local: 'local', development: 'local', test: 'local', stage: 'stage', staging: 'stage', prod: 'prod', production: 'prod',
@@ -75,6 +81,9 @@ export function readEnvironment(env: NodeJS.ProcessEnv, cwd = process.cwd()) {
   if (!['error', 'warn', 'info', 'http', 'verbose', 'debug', 'silly'].includes(logLevel)) throw new Error('Invalid LOG_LEVEL.');
   return Object.freeze({
     appEnv, logLevel,
+    secModelingUrl: url('SEC_MODELING_URL', 'http://127.0.0.1:2981', ['http:', 'https:']),
+    secModelingKey: env.SEC_MODELING_KEY ?? '',
+    secModelingWorkerEnabled: modelingWorker === 'true',
     logDir: path.resolve(cwd, env.LOG_DIR ?? './data/logs'),
     appHost: env.APP_HOST ?? '0.0.0.0',
     appPort: env.PORT !== undefined ? integer('PORT', 2801, 0, 65535) : integer('APP_PORT', 2801, 0, 65535),
@@ -84,14 +93,15 @@ export function readEnvironment(env: NodeJS.ProcessEnv, cwd = process.cwd()) {
     postgresUser: env.POSTGRES_USER ?? 'postgres',
     postgresPassword: env.POSTGRES_PASSWORD ?? 'postgres',
     postgresDb: env.POSTGRES_DB ?? 'sec_collector',
+    dartApiKey: (env.API_K_DART ?? '').trim(),
     secUserAgent: env.SEC_USER_AGENT ?? 'reason-hwang-bff/0.1 (your-email@example.com)',
     secRateLimitRps: positiveNumber('SEC_RATE_LIMIT_RPS', 4),
     secRetryCount: integer('SEC_RETRY_COUNT', 3, 0),
     secDocumentMaxBytes: integer('SEC_DOCUMENT_MAX_BYTES', 32 * 1024 * 1024, 1),
     secBulkSubmissionsUrl: url('SEC_BULK_SUBMISSIONS_URL', 'https://www.sec.gov/Archives/edgar/daily-index/bulkdata/submissions.zip', ['http:', 'https:']),
     secBackfillBatchSize: integer('SEC_BACKFILL_BATCH_SIZE', 500, 1),
-    dataDir,
-    secBulkArchivePath: path.resolve(dataDir, 'sec-cache', 'submissions.zip'),
+    staticCacheDir,
+    secBulkArchivePath: path.resolve(staticCacheDir, 'sec-cache', 'submissions.zip'),
     swaggerEnabled: swagger === 'true',
   });
 }

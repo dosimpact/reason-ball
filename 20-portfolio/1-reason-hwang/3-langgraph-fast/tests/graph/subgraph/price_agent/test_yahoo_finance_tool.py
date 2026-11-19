@@ -81,8 +81,12 @@ def test_tool_returns_typed_artifact_and_cache_hit(monkeypatch) -> None:
     monkeypatch.setattr(yahoo_finance.yf, "Ticker", FakeTicker)
     yahoo_finance.clear_price_cache()
 
-    first_content, first_artifact = yahoo_finance._get_historical_prices("CPNG", "1d", 10)
-    second_content, second_artifact = yahoo_finance._get_historical_prices("CPNG", "1d", 10)
+    first_content, first_artifact = yahoo_finance._get_historical_prices(
+        "CPNG", "1d", 10
+    )
+    second_content, second_artifact = yahoo_finance._get_historical_prices(
+        "CPNG", "1d", 10
+    )
 
     assert '"symbol": "CPNG"' in first_content
     assert len(first_artifact.prices) == 10
@@ -151,3 +155,56 @@ def test_invalid_provider_schema_returns_structured_error(monkeypatch) -> None:
     assert artifact.error_code == "invalid_provider_data"
     assert artifact.prices == ()
     assert "invalid_provider_data" in content
+
+
+def test_bounded_history_ignores_invalid_rows_outside_requested_window(monkeypatch):
+    class OldInvalidTicker(FakeTicker):
+        def history(self, **kwargs):
+            return self.frame
+
+        def __init__(self, symbol):
+            super().__init__(symbol)
+            self.frame.iloc[0, self.frame.columns.get_loc("Close")] = -1
+
+    monkeypatch.setattr(yahoo_finance.yf, "Ticker", OldInvalidTicker)
+    prices = yahoo_finance._fetch_historical_prices_uncached(
+        "000660.KS", "1wk", 10, True
+    )
+    assert len(prices) == 10
+    assert all(price.close >= 0 for price in prices)
+
+
+def test_invalid_row_inside_requested_window_still_fails(monkeypatch):
+    import pytest
+
+    class RecentInvalidTicker(FakeTicker):
+        def history(self, **kwargs):
+            return self.frame
+
+        def __init__(self, symbol):
+            super().__init__(symbol)
+            self.frame.iloc[-1, self.frame.columns.get_loc("Close")] = -1
+
+    monkeypatch.setattr(yahoo_finance.yf, "Ticker", RecentInvalidTicker)
+    with pytest.raises(
+        yahoo_finance.PriceProviderError, match="invalid 1wk price data"
+    ):
+        yahoo_finance._fetch_historical_prices_uncached("000660.KS", "1wk", 10, True)
+
+
+def test_fixed_origin_still_validates_older_history(monkeypatch):
+    import pytest
+
+    class OldInvalidTicker(FakeTicker):
+        def history(self, **kwargs):
+            return self.frame
+
+        def __init__(self, symbol):
+            super().__init__(symbol)
+            self.frame.iloc[0, self.frame.columns.get_loc("Close")] = -1
+
+    monkeypatch.setattr(yahoo_finance.yf, "Ticker", OldInvalidTicker)
+    with pytest.raises(yahoo_finance.PriceProviderError):
+        yahoo_finance._fetch_historical_prices_uncached(
+            "000660.KS", "1wk", 10, True, fixed_origin=True
+        )

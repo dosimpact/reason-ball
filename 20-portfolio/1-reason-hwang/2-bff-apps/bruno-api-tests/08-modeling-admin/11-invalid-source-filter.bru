@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 invalid-source-filter
+  type: http
+  seq: 11
+}
+get {
+  url: {{baseUrl}}/modeling/overview?sourceStatus=unsafe
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 400
+}
+tests {
+  test("invalid-source-filter",function(){expect(res.status).to.equal(400);});
+}

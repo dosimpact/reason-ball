@@ -69,14 +69,21 @@ class FakeTicker:
 
 
 @pytest.mark.asyncio
-async def test_price_agent_graph_calls_llm_once_and_reuses_cache(monkeypatch) -> None:
+async def test_price_agent_graph_calls_extraction_and_response_models_and_reuses_cache(monkeypatch) -> None:
+    response_node = importlib.import_module("graph.subgraph.price_agent.node.format_response")
+    class ResponseModel:
+        calls = 0
+        async def ainvoke(self, messages):
+            self.calls += 1
+            return AIMessage(content="가격 답변")
+    response_model = ResponseModel()
+    monkeypatch.setattr(response_node, "_response_model", response_model)
     model = FakeModel()
     FakeTicker.calls = 0
     monkeypatch.setattr(extract_node, "_request_model", model)
     monkeypatch.setattr(yahoo_finance.yf, "Ticker", FakeTicker)
     yahoo_finance.clear_price_cache()
     initial: PriceAgentState = {
-        "query": "쿠팡의 최근 10일 가격을 알려줘",
         "messages": [HumanMessage(content="쿠팡의 최근 10일 가격을 알려줘")],
         "prices": [],
     }
@@ -89,5 +96,5 @@ async def test_price_agent_graph_calls_llm_once_and_reuses_cache(monkeypatch) ->
     assert first["cache_hit"] is False
     assert second["cache_hit"] is True
     assert len(first["prices"]) == 10
-    assert "최신 종가" in first["response"]
-    assert "+90.00%" in first["response"]
+    assert response_model.calls == 2
+    assert first["response"] == "가격 답변"

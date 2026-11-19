@@ -1,0 +1,19 @@
+meta {
+  name: publication summary 401
+  type: http
+  seq: 15
+}
+get {
+  url: {{pythonUrl}}/internal/sec-modeling/filings/publications
+  body: none
+  auth: none
+}
+headers {
+  X-SEC-Modeling-Key: wrong-fixture-key
+}
+assert {
+  res.status: eq 401
+}
+tests {
+  test("publication summary",()=>{expect(res.getStatus()).to.equal(401);});
+}

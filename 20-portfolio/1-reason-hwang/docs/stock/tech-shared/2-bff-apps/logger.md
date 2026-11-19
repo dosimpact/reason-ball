@@ -39,7 +39,7 @@ Nest bootstrap / new Logger(Service.name)
 | LOG_DIR | ./data/logs | 파일 출력 경로. 실행 cwd 기준 절대경로로 변환 |
 | LOG_LEVEL | 환경별 위 표 | Winston 로그 레벨 |
 
-허용 레벨은 `error`, `warn`, `info`, `http`, `verbose`, `debug`, `silly`다. 환경이나 레벨이 잘못되면 설정 생성 단계에서 실패한다. 설정 변경 후에는 프로세스를 재시작해야 한다. `LOG_DIR` 기본값은 `DATA_DIR`와 독립적이므로 DATA_DIR을 변경해도 자동으로 이동하지 않는다.
+허용 레벨은 `error`, `warn`, `info`, `http`, `verbose`, `debug`, `silly`다. 환경이나 레벨이 잘못되면 설정 생성 단계에서 실패한다. 설정 변경 후에는 프로세스를 재시작해야 한다. `LOG_DIR` 기본값은 `STATIC_CACHE_DIR`와 독립적이므로 STATIC_CACHE_DIR을 변경해도 자동으로 이동하지 않는다.
 
 ## 출력과 보관
 
@@ -98,14 +98,14 @@ tail -f data/logs/stage/application.log
 
 - Nest 부팅·라우팅·기존 서비스 Logger 호출에 적용된다.
 - 모든 HTTP 요청의 경로·상태 코드·응답 시간을 기록하는 접근 로그는 아직 없다.
-- 백필 SSE progress를 로거가 자동으로 기록하지 않는다. 자동 수집 스크립트의 `DATA_DIR/runs/*.sse`는 별도 실행 기록이다.
+- 백필 SSE progress를 로거가 자동으로 기록하지 않는다. 자동 수집 스크립트의 `STATIC_CACHE_DIR/runs/*.sse`는 별도 실행 기록이다.
 - `console.log/error`를 전역으로 가로채지 않는다. 자동 수집 스크립트의 진행 출력은 stage·prod에서도 콘솔에 남을 수 있다.
 - 셸이 콘솔 출력을 dev-server.log로 리다이렉션한 것은 Winston File transport와 별개다.
 - 파일의 Loki 전송, 요청 ID 자동 연결, 다중 프로세스 파일 잠금, 로그 쓰기 실패 시 대체 출력은 추가 구현되지 않았다.
 
 ## 검증과 참고
 
-실제 Nest application context에서 Logger 호출을 발생시켜 local 콘솔 전용 출력, stage·prod JSON 파일 생성, context 보존과 error 분리를 확인했다. 환경 별칭·우선순위·잘못된 설정 거부 및 기존 테스트도 검증했다. 실행 증거는 [Winston 구현 기록](../../../flow/2026-09-20-bff-winston-logger.md)을 참조한다.
+실제 Nest application context에서 Logger 호출을 발생시켜 local 콘솔 전용 출력, stage·prod JSON 파일 생성, context 보존과 error 분리를 확인했다. 환경 별칭·우선순위·잘못된 설정 거부 및 기존 테스트도 검증했다.
 
 - [디렉터리 정책](directory-policy.md)
 - [Nest 공식 로거 문서](https://docs.nestjs.com/techniques/logger)

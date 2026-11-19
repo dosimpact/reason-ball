@@ -1,0 +1,69 @@
+meta {
+  name: NVDA selected fact category and source evidence
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/sec-analysis/facts/query
+  body: json
+  auth: none
+}
+headers {
+  X-SEC-Modeling-Key: {{modelingKey}}
+}
+script:pre-request {
+  bru.setVar("modelingKey", bru.getProcessEnv("SEC_MODELING_KEY"));
+}
+body:json {
+  {"filingIds":["filing:0001045810:0001045810-26-000021"],"limit":1}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("selected fact preserves classification and nested shapes", function() {
+    const data = res.getBody();
+    expect(data.total).to.be.greaterThan(0);
+    const fact = data.items[0];
+    expect(fact.filingId).to.equal("filing:0001045810:0001045810-26-000021");
+    expect(fact.analysisCategory).to.be.oneOf(["OPERATING_PERFORMANCE", "INVESTMENT_AND_RESTRUCTURING", "DEPENDENCIES_AND_COMMITMENTS", "CAPITAL_AND_SHAREHOLDER_RIGHTS", "LEGAL_REGULATORY_AND_INCIDENTS", "OTHER"]);
+    expect(fact.selectionProvider).to.equal("openai-decisions");
+    expect(fact.selectionModel).to.equal("gpt-6-luna");
+    expect(fact.importanceProbability).to.be.a("number").and.within(0, 1);
+    expect(fact.categoryConfidence).to.be.a("number").and.within(0, 1);
+    expect(fact.selectionReason).to.be.a("string").and.not.empty;
+    expect(fact.selectionPolicyVersion).to.equal("sec-model3-selection/3");
+    expect(fact.context).to.be.an("object");
+    expect(fact.dimensions).to.be.an("array");
+    if (fact.unit !== null) {
+      expect(fact.unit).to.be.an("object");
+      expect(fact.unit.numerator).to.be.an("array");
+      expect(fact.unit.denominator).to.be.an("array");
+    }
+    expect(fact.evidenceIds).to.be.an("array").and.not.empty;
+  });
+  {
+    const fact = res.getBody().items[0];
+    const headers = {"X-SEC-Modeling-Key": bru.getProcessEnv("SEC_MODELING_KEY")};
+    const filtered = await bru.sendRequest({method:"POST", url:req.getUrl().split("/api/")[0] + "/api/sec-analysis/facts/query", headers, data:{filingIds:["filing:0001045810:0001045810-26-000021"], analysisCategory:fact.analysisCategory, limit:200}});
+    test("category filter resolves published facts", function() {
+      expect(filtered.status).to.equal(200);
+      expect(filtered.data.total).to.be.greaterThan(0);
+      filtered.data.items.forEach(item => expect(item.analysisCategory).to.equal(fact.analysisCategory));
+    });
+    for (const id of [fact.id, fact.evidenceIds[0]]) {
+      const evidence = await bru.sendRequest({method:"GET", url:req.getUrl().split("/api/")[0] + "/api/sec-analysis/evidence/" + encodeURIComponent(id), headers});
+      test(id === fact.id ? "direct fact evidence resolves" : "embedded source evidence resolves", function() {
+        expect(evidence.status).to.equal(200);
+        expect(evidence.data.id).to.equal(id);
+        expect(evidence.data.filingId).to.equal(fact.filingId);
+        expect(evidence.data.generationId).to.equal(fact.generationId);
+        expect(evidence.data.isActive).to.equal(true);
+        if (id !== fact.id) {
+          expect(evidence.data.factId).to.equal(fact.id);
+          expect(evidence.data.text).to.be.a("string").and.not.empty;
+        }
+      });
+    }
+  }
+}

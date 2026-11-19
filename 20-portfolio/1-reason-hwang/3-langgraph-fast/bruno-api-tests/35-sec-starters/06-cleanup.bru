@@ -1,0 +1,18 @@
+meta {
+  name: SEC-STARTERS-001 cleanup
+  type: http
+  seq: 6
+}
+delete {
+  url: {{baseUrl}}/api/sec-chat/threads/{{starterThread}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("owned session deleted", function () {
+    expect(res.getBody().deleted).to.equal(true);
+  });
+}

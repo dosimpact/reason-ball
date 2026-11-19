@@ -189,11 +189,8 @@ async def get_assistant_subgraphs_by_namespace(
 
 
 @router.get("/assistants/{assistant_id}/schemas", response_model=GraphSchema)
-async def get_assistant_schemas(assistant_id: UUID) -> GraphSchema:
-    try:
-        graph_id = (await _invoke("get", assistant_id)).graph_id
-    except AssistantNotFoundError as exc:
-        raise _not_found("Assistant not found") from exc
+async def get_assistant_schemas(assistant_id: str) -> GraphSchema:
+    graph_id, _ = await _assistant_or_graph(assistant_id)
     schema = _graph_schemas.get(graph_id)
     if schema is None:
         raise _not_found("Graph not found")

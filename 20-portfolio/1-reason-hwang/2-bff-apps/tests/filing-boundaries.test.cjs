@@ -69,6 +69,12 @@ test('configuration validates once with safe errors and documented defaults', ()
   const defaults = readEnvironment({}, '/tmp/test-config');
   assert.equal(defaults.appPort, 2801);
   assert.equal(defaults.secRetryCount, 3);
+  assert.equal(defaults.staticCacheDir, '/tmp/test-config/data');
+  const relativeCache = readEnvironment({ STATIC_CACHE_DIR: './cache' }, '/tmp/test-config');
+  assert.equal(relativeCache.staticCacheDir, '/tmp/test-config/cache');
+  assert.equal(relativeCache.secBulkArchivePath, '/tmp/test-config/cache/sec-cache/submissions.zip');
+  const absoluteCache = readEnvironment({ STATIC_CACHE_DIR: '/tmp/absolute-cache' }, '/tmp/test-config');
+  assert.equal(absoluteCache.staticCacheDir, '/tmp/absolute-cache');
   assert.equal(readEnvironment({ PORT: '0', APP_PORT: '1234' }).appPort, 0);
   assert.equal(readEnvironment({ APP_PORT: '1234' }).appPort, 1234);
   for (const env of [

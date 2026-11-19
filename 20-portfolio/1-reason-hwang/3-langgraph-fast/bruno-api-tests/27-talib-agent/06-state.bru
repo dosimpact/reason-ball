@@ -1,0 +1,16 @@
+meta {
+  name: TALIB-CHAT-001 06-state
+  type: http
+  seq: 6
+}
+get {
+  url: {{baseUrl}}/threads/{{talibThread}}/state
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("06-state", function() { const value=res.getBody().values; expect(value.messages.filter(m=>m.type==="human")).to.have.lengthOf(2); expect(value.messages.filter(m=>m.type==="tool").length).to.be.greaterThan(0); expect(value.presentation.program).to.include("TA-Lib"); expect(value.results).to.have.property("rsi"); expect(value.results).to.have.property("sma"); expect(value.results.sma.status).to.equal("success"); expect(value.results.rsi.status).to.equal("success"); const discovery=value.messages.find(m=>m.type==="tool" && m.name==="list_talib_functions"); expect(JSON.parse(discovery.content).count).to.equal(237); });
+}

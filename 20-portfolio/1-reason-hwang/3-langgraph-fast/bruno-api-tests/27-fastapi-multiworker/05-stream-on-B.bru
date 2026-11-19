@@ -1,0 +1,16 @@
+meta {
+  name: LG-OSS-MULTI-001 stream-on-B
+  type: http
+  seq: 5
+}
+get {
+  url: {{workerB}}/threads/{{multiThread}}/runs/{{multiRun}}/stream
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("stream-on-B",function(){const text=res.getBody();expect(text).to.include("event: metadata");expect(text).to.include("event: values");expect(text).to.include("event: custom|prepare:");expect(text).to.include("event: messages-tuple");expect(text).to.include("event: end");});
+}

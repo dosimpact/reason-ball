@@ -12,5 +12,5 @@ Implementation contract: `../sec.client.ts` owns HTTP and external response type
 
 - `SEC_USER_AGENT` provides the caller contact. Shared client throttles requests (default 4/sec), retries transient errors (`SEC_RETRY_COUNT`, default 3).
 - Request timeout: JSON/documents 60 seconds, large archive 60 minutes. Document maximum defaults to 32 MiB; UTF-8, nonempty and NUL checks precede persistence.
-- Archive is cached in `DATA_DIR/sec-cache/submissions.zip`; refreshArchive replaces it through a temporary file and atomic rename.
+- Archive is cached in `STATIC_CACHE_DIR/sec-cache/submissions.zip`; refreshArchive replaces it through a temporary file and atomic rename.
 - Scope: 10-K, 10-Q, 8-K and amendments, filtered by filing date. Bulk metadata is read before optional document downloads.

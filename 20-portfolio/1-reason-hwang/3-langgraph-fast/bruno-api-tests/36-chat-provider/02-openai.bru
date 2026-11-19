@@ -1,0 +1,24 @@
+meta {
+  name: CHAT-PROVIDER-001 openai
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/validate/openai
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("provider selection and actual wire", function () {
+    const b = res.getBody();
+    expect(b.provider).to.equal("openai");
+    expect(b.model).to.equal("openai-fixture-model");
+    expect(b.reply).to.equal("local-provider-ok");
+    expect(b.baseUrl).to.equal(bru.getEnvVar("baseUrl") + "/v1");
+    expect(b.wire).to.deep.equal([{path: "/v1/chat/completions", model: "openai-fixture-model", message: "provider-validation"}]);
+    expect(JSON.stringify(b)).not.to.include("fixture-only-token");
+  });
+}

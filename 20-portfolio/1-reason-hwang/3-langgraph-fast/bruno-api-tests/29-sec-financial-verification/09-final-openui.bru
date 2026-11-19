@@ -1,0 +1,19 @@
+meta {
+ name: Verified OpenUI streaming answer
+ type: http
+ seq: 9
+}
+post {
+ url: {{baseUrl}}/api/sec-deep-agent/chat
+ body: json
+ auth: none
+}
+body:json {
+ {"messages":[{"role":"user","content":"corrected"}],"threadId":"fixture","runId":"fixture"}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("server owned verified answer",function(){const text=res.getBody(); expect(text).include("RUN_FINISHED"); expect(text).not.include("RUN_ERROR"); expect(text).include("80675000000"); expect(text).include("1.70"); expect(text).not.include("80111000000"); const lines=text.split("\n").filter(x=>x.startsWith("data:")); const events=lines.map(x=>JSON.parse(x.slice(5))); const p=events.find(x=>x.type==="TEXT_MESSAGE_CONTENT").delta; expect(p).match(/^root = Markdown\(/); bru.setVar("financialProgramJson",JSON.stringify(p));});
+}

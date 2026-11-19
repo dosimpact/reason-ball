@@ -1,0 +1,19 @@
+meta {
+  name: mode unavailable
+  type: http
+  seq: 10
+}
+post {
+  url: {{fixtureUrl}}/qa/mode
+  body: json
+  auth: none
+}
+body:json {
+  {"mode":"unavailable"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("mode",()=>expect(res.getBody().mode).to.equal("unavailable"));
+}

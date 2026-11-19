@@ -1,0 +1,21 @@
+meta {
+  name: SEC-FAILURE-REPLY-001 bounded model and no sessions
+  type: http
+  seq: 10
+}
+get {
+  url: {{baseUrl}}/qa/trace
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("invalid requests do not reach model and replies do not create sessions", function () {
+    const b = res.getBody();
+    expect(b.sessionCount).to.equal(0);
+    expect(b.calls).to.have.lengthOf(4);
+    expect(b.calls.every(c => c.messageCount === 2 && c.sessionCount === 0)).to.equal(true);
+  });
+}

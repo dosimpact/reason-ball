@@ -1,0 +1,20 @@
+meta {
+  name: tool-evidence
+  type: http
+  seq: 6
+}
+get {
+  url: {{regressionBaseUrl}}/tool-evidence
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("actual shared analysis tool evidence", function () {
+    expect(res.body.evidence.price.validCount).to.be.greaterThan(1);
+    expect(res.body.evidence.indicators[0].normalizedWidth.unit).to.equal('percent');
+    expect(JSON.stringify(res.body.evidence)).not.to.include('"values"');
+  });
+}

@@ -1,0 +1,19 @@
+meta {
+ name: SEC financial nonfinancial
+ type: http
+ seq: 8
+}
+post {
+ url: {{baseUrl}}/api/sec-deep-agent/research
+ body: json
+ auth: none
+}
+body:json {
+ {"message":"nonfinancial","history":[]}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("nonfinancial",function(){const b=res.getBody(); expect(b.report).eq("Founded in 1976. There are 100 shares."); expect(b.financialVerification).eq(undefined);});
+}

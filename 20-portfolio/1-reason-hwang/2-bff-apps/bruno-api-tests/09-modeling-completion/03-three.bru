@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING completion three
+  type: http
+  seq: 3
+}
+get {
+  url: {{baseUrl}}/modeling/filings?completedStages=3&limit=1
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("three",function(){const b=res.getBody();expect(res.getStatus()).to.equal(200);expect(b.total).to.equal(1);expect(b.items[0].formType).to.equal("10-Q");});
+}

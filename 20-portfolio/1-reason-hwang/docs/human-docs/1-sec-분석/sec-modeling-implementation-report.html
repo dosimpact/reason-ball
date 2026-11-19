@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEC 보고서 모델링 · 구현 결과 보고서</title>
+<style>
+:root{--bg:#f3f5f7;--paper:#fff;--ink:#142235;--muted:#58687c;--line:#dce3eb;--blue:#235bce;--green:#09684c;--amber:#895100}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif}main{max-width:1180px;margin:auto;padding:48px 32px 72px}header{background:#142235;color:#fff;border-radius:24px;padding:42px;margin-bottom:24px}header p{color:#c8d4e5;max-width:780px}h1{font-size:36px;line-height:1.3;letter-spacing:-1.1px;margin:12px 0 18px}h2{font-size:24px;letter-spacing:-.6px;margin:0 0 18px}h3{font-size:17px;margin:0 0 12px}.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#9bbcff}.meta{display:flex;flex-wrap:wrap;gap:8px}.badge{display:inline-block;border-radius:6px;padding:3px 10px;font-size:12px;font-weight:700;background:#e9efff;color:var(--blue)}.good{background:#e1f3ec;color:var(--green)}.pending{background:#fff0d5;color:var(--amber)}header .badge{background:#2b415e;color:#e5efff}.lead{font-size:18px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card,section{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px}section{margin-top:22px}.card .num{font-size:34px;font-weight:750;line-height:1.4}.card p{margin:6px 0 0;color:var(--muted)}.small,small{font-size:13px;color:var(--muted)}.notice{padding:16px 20px;border-left:4px solid #d89928;background:#fff7e8;margin:20px 0;border-radius:0 10px 10px 0}.info{border-color:var(--blue);background:#edf3ff}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;border-bottom:1px solid var(--line);padding:12px 14px;vertical-align:top}th{background:#f4f7fb;font-weight:650;color:#35475e}tr:last-child td{border-bottom:0}td.num{text-align:right;font-variant-numeric:tabular-nums}ul,ol{padding-left:22px;margin:10px 0}li{margin:7px 0}code{background:#eef2f7;border-radius:4px;padding:2px 5px;font-size:12px;overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#17283d;color:#d7e7fa;padding:20px;border-radius:12px;font:13px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}nav{display:flex;gap:16px;flex-wrap:wrap;padding:4px 0 14px;font-size:13px}.cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}.flow{display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr;align-items:center;gap:8px;margin:20px 0}.flow .box{background:#f3f6fc;padding:18px;border:1px solid #d6e1f2;border-radius:12px;min-height:130px}.arrow{text-align:center;color:var(--blue);font-size:24px}.flow strong{display:block;margin-bottom:6px}.label{color:var(--blue);font-size:12px;font-weight:700}.foot{padding-top:28px;font-size:12px;color:var(--muted)}.statusline{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+@media(max-width:760px){main{padding:18px 14px 40px}header{padding:28px 23px}h1{font-size:29px}.grid,.cols{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.flow .box{min-height:auto}section{padding:22px 18px}th,td{padding:10px;min-width:100px}}
+@media print{body{background:#fff;font-size:11px}main{max-width:none;padding:0}header{padding:26px;border-radius:0;print-color-adjust:exact;-webkit-print-color-adjust:exact}h1{font-size:28px}h2{font-size:19px}section{break-inside:avoid;padding:18px;margin-top:16px}.card{padding:16px}.card .num{font-size:26px}nav{display:none}table{font-size:11px}a{color:inherit}.notice,pre,th{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="eyebrow">Implementation report · SEC-MODELING-001</div>
+<h1>SEC 보고서 모델링<br>구현 결과 보고서</h1>
+<p class="lead">원본 공시 수집 이후, 문서 구조·본문 지식·재무 사실을 Neo4j에 구성하고<br>Admin과 LangGraph에서 실행·검색·근거 확인을 할 수 있도록 구현했습니다.</p>
+<div class="meta"><span class="badge">기능 구현 완료</span><span class="badge">추가 검증 보류</span><span class="badge">실행 기록 2026.11.14 · 구조 갱신 2026.11.16</span><span class="badge">커밋 e9b71ac7</span></div>
+</header>
+<nav aria-label="보고서 목차"><a href="#summary">요약</a><a href="#architecture">구조</a><a href="#models">모델링 1·2·3</a><a href="#admin">관리·검색</a><a href="#results">처리 결과</a><a href="#verification">검증 상태</a><a href="#handoff">인계 사항</a></nav>
+<div class="grid" id="summary">
+<div class="card"><div class="label">구현 범위</div><div class="num">3개 모델링</div><p>문서 구조 · Lexical Graph · XBRL<br>작업 관리, Admin, 검색 API 포함</p></div>
+<div class="card"><div class="label">실제 입력 공시</div><div class="num">3개 10-K</div><p>Apple · Coupang · NVIDIA<br>공시별 Item 23개, 합계 69개</p></div>
+<div class="card"><div class="label">구현 커밋</div><div class="num">100개 파일</div><p>코드 · 스키마 · 문서 · 테스트<br>원격 push는 수행하지 않음</p></div>
+</div>
+<div class="notice"><strong>아래 실행·검증 수치는 2026-11-14 기록입니다. 현재 구조는 01절을 참고하세요.</strong><br>사용자의 “검증은 제외하고 구현만 우선 다해둬” 요청으로 추가 검증을 중단했습니다. NVIDIA 모델링 2의 최종 게시와 전체 검색 30문항 평가는 미완료입니다. 아래 실행 결과는 중단 전에 확인한 기록입니다.</div>
+<section id="architecture" aria-labelledby="architecture-title">
+<h2 id="architecture-title">01. 저장 책임과 실행 구조</h2>
+<div class="statusline"><span class="badge">2026.11.16 설계·코드 기준</span><span class="badge">모델링 2 · v3</span><span class="badge">모델링 3 · 선별 정책 v3</span></div>
+<p>공시 수집, 모델링 실행, 게시 결과 조회를 분리합니다. 실행 관리는 BFF가 맡고, FastAPI가 원문을 가공해 Neo4j에 게시합니다. Host와 모델링 테스트 에이전트는 동일한 BFF API를 사용합니다.</p>
+<div class="flow" aria-label="모델링 실행 경로">
+<div class="box"><strong>Host · Agent</strong><code>/sec-modeling</code> 관리 화면<br><code>sec_modeling_agent</code> 대화 도구<br>실행 요청 · 상태 · 결과 · 검색</div><div class="arrow" aria-hidden="true">→</div>
+<div class="box"><strong>BFF · PostgreSQL</strong>원본 HTML·공시 메타데이터<br>jobs / runs / work_units / events<br>lease · heartbeat · 취소·재시도</div><div class="arrow" aria-hidden="true">→</div>
+<div class="box"><strong>FastAPI · Neo4j</strong>모델링 1·2·3 실행과 검증<br>generation별 staging → 게시<br>가공 근거 · 선별 사실 · 벡터</div>
+</div>
+<div class="table-wrap"><table><caption>저장·실행 책임</caption><thead><tr><th>구성 요소</th><th>현재 책임</th><th>경계</th></tr></thead><tbody>
+<tr><td>BFF PostgreSQL</td><td>수집 원본 <code>filings.document_content</code>와 공시 메타데이터. <code>sec_modeling</code> 스키마에 실행·작업 단위·이벤트 이력 저장.</td><td>모델링 1·3 실행 시 원문을 FastAPI에 전달. 모델링 2는 원문 대신 게시된 Item을 입력으로 사용.</td></tr>
+<tr><td>BFF 실행기</td><td>활성 실행 중복 방지, 작업 claim·lease·heartbeat, 취소·재시도와 중단 복구.</td><td><code>202</code>는 접수 성공. 게시 완료가 아니며 실행 상태를 별도로 확인.</td></tr>
+<tr><td>FastAPI</td><td>HTML 구조 파싱, lexical 추출, XBRL 파싱·선별, 임베딩, 검증·게시.</td><td>서비스 키와 execution token으로 내부 실행 제어. 도구가 원문이나 token을 LLM에 입력하도록 요구하지 않음.</td></tr>
+<tr><td>Neo4j</td><td>가공된 Item HTML·텍스트, lexical graph, 선별 XBRL 사실·Concept, Chunk·Statement 벡터, 활성 generation.</td><td>검색·근거 조회는 PostgreSQL 원문 재조회 없이 동작. 원본 전체 보관소는 PostgreSQL.</td></tr>
+</tbody></table></div>
+<h3 style="margin-top:24px">세 모델링의 입력과 의존 관계</h3>
+<pre aria-label="모델링 단계별 데이터 흐름">PostgreSQL · 원본 HTML / Inline XBRL
+  ├─ 모델링 1 [10-K]
+  │    HTML 구조 파싱 → Company ─FILED→ Filing ─HAS_ITEM→ Item
+  │                                                  │ 게시된 Item
+  │                                                  ▼
+  │  모델링 2 [10-K · v3]
+  │    구조 기반 청킹 → OAuth 추출 → Decisions 최종 Topic 배정
+  │    → Source · Chunk · Topic · Statement · Fact · Entity
+  │    → Chunk / Statement 임베딩 → Neo4j 벡터 검색
+  │
+  └─ 모델링 3 [정확한 10-K / 10-Q · 모델링 1·2와 독립]
+       Arelle 파싱 → US GAAP namespace DROP → 원문 근거 연결
+       → Decisions 중요도·단일 분류 → 검증·선별 게시
+       → Filing ─HAS_XBRL_FACT→ XbrlFact ─OF_CONCEPT→ Concept</pre>
+<div class="cols"><div><h3>모델링 2 · 명제와 Topic</h3><ul>
+<li>Item당 Source 하나. 기본 800토큰, 문장 overlap 최대 80토큰으로 문단·소제목·표 경계를 보존합니다.</li>
+<li><code>graphrag-lexical-graph==3.21.0</code>과 OAuth proxy의 sol 기본·luna 선택으로 중요한 명제와 관계를 추출합니다. 명제 수의 고정 목표는 강제하지 않고 전체 Chunk 본문을 보존합니다.</li>
+<li>최종 Topic은 직접 Decisions API <code>gpt-6-luna</code>의 8개 선택지 확률로 배정합니다. 청크당 최대 2개 Topic, Statement당 하나입니다. 명명된 Entity·중요 관계를 선별하며 Fact 최소 개수를 강제하지 않습니다.</li>
+<li>Chunk·Statement만 <code>text-embedding-3-small</code> 1,536차원으로 임베딩합니다. Neo4j cosine 물리 인덱스 하나에서 kind로 구분하고 두 검색 순위를 결합합니다.</li>
+</ul></div><div><h3>모델링 3 · 선별 XBRL</h3><ul>
+<li>Arelle로 값을 해석하고 <code>http(s)://fasb.org/us-gaap/YYYY</code> namespace의 Concept를 먼저 제외합니다. 접두사 이름으로 판정하지 않습니다.</li>
+<li>남은 후보를 직접 Decisions API <code>gpt-6-luna</code>로 평가합니다. 중요도 확률 ≥ 0.7, 단일 분류 confidence ≥ 0.6을 모두 만족한 사실만 게시합니다. 초기 정책 임계값이며 정확도 보장은 아닙니다.</li>
+<li>분류는 운영 성과, 투자·재편, 거래 의존·의무, 자본·주주 권리, 법률·규제·사고, 기타의 6개입니다. 미선정 후보는 그래프에 저장하지 않습니다.</li>
+<li><code>XbrlFact</code>와 <code>SecRecord</code>는 같은 물리 노드입니다. Context·Unit·차원은 Fact 속성으로 보존하며 별도 도메인 노드를 만들지 않습니다. decimal 값·단위·기간은 파서 결과를 유지합니다.</li>
+</ul></div></div>
+<div class="notice info"><strong>현재 그래프 범위</strong><br>모델링 3의 추가 도메인 노드는 <code>XbrlFact</code>·<code>Concept</code> 2종입니다. 아래 2026-11-14 기록의 Context·Unit·Dimension·Member 노드 구조와 전체 XBRL 저장 방식은 폐기된 이전 설계입니다. US GAAP 제외로 제품·지역별 매출 등 일부 정보가 선별 대상에서 빠질 수 있습니다. 원본과 모델링 1은 유지합니다.</div>
+<h3>게시·캐시·인증 경계</h3>
+<ul><li>generation별 결과를 검증한 뒤 활성화합니다. 실패·취소 시 이전 성공 결과를 유지하고 staging 근거를 공개하지 않습니다. 과거 게시 근거는 <code>isActive</code>와 함께 조회할 수 있습니다.</li>
+<li>execution token으로 오래된 실행기의 갱신·게시를 차단합니다. Neo4j 게시 후 BFF 상태 반영 전 중단되면 게시 기록으로 복구합니다. 모델링 1이 변경되면 이전 Item 기반 모델링 2는 stale입니다.</li>
+<li>정책·프롬프트·모델·입력 hash로 추출·Decisions·임베딩 캐시와 게시 설정을 구분합니다. 정책이 달라진 결과를 그대로 재사용하지 않습니다.</li>
+<li>OAuth 추출, 직접 Decisions, 임베딩 연결을 분리합니다. Decisions는 <code>SEC_DECISIONS_API_KEY</code> 또는 <code>OPENAI_API_KEY</code>를 사용하며 OAuth proxy로 자동 전환하지 않습니다. 서비스 키는 브라우저에 전달하지 않습니다.</li>
+<li>벡터는 Neo4j 내장 인덱스를 사용하며 Qdrant·pgvector·Redis를 추가하지 않습니다.</li></ul>
+<h3>관리 화면·에이전트·조회 API</h3>
+<div class="table-wrap"><table><thead><tr><th>진입점</th><th>연결과 역할</th></tr></thead><tbody>
+<tr><td>Host <code>/sec-modeling</code></td><td>BFF <code>/api/sec/modeling/*</code>로 실행·취소·재시도·상태·결과·검색·근거 조회.</td></tr>
+<tr><td>LangGraph <code>sec_modeling_agent</code></td><td><code>prepare → inspect_modeling → END</code>, Deep Agent·Markdown 응답. 회사·공시 탐색, 게시 상태·결과, 근거 검색, 실행 이력과 실행 관리의 업무 도구 12개가 BFF를 호출. Host의 SEC 모델링 테스트 그래프 선택으로 사용.</td></tr>
+<tr><td>FastAPI 내부 실행</td><td><code>/internal/sec-modeling/model-{stage}/runs</code>와 실행 상태·취소·게시 결과 경로. BFF 실행기가 호출.</td></tr>
+<tr><td>검색·정형 사실·근거</td><td><code>POST /api/sec-analysis/search</code>, <code>POST /api/sec-analysis/facts/query</code>, <code>GET /api/sec-analysis/evidence/{id}</code>. BFF가 프록시하며 Agent가 반환 근거로 답변.</td></tr>
+</tbody></table></div>
+<p class="small">모델링 테스트 Agent는 조회나 빈 결과를 이유로 자동 재처리하지 않도록 지시합니다. 실행·취소·재시도는 명시적 요청에 한정하는 POC 지침이며 별도 승인 엔진은 아닙니다. SEC Intelligent UI의 공시 준비 그래프와는 별개입니다.</p>
+<p class="small">현재 명세: <a href="../../stock/us-corporate-filings/sec-modeling.md">SEC-MODELING-102-V3 · SEC-MODELING-103-V2 · SEC-AGENT-001</a>.
+<a href="../../flow/2026-11-15-sec-model2-v3-policy.md">모델링 2 정책·검증 기록</a> · <a href="../../flow/2026-11-15-sec-model3-selected-facts.md">모델링 3 선별·검증 기록</a> · <a href="../../flow/2026-11-15-sec-modeling-deep-agent.md">테스트 Agent 기록</a>.</p>
+<div class="notice"><strong>설계 갱신과 실행 기록을 구분합니다.</strong><br>이 구조 섹션은 2026-11-16 코드·stock 기준입니다. 02–06절의 모델 설명·노드 수·검증 상태는 2026-11-14 실행 당시 기록이며 현재 정책의 결과가 아닙니다. 후속 정책의 제한된 샘플 검증은 위 기록을 참고하세요. 이번 문서 수정으로 수집·모델링·외부 API 호출을 실행하지 않았습니다.</div>
+</section>
+<section id="models">
+<h2>02. 모델링별 구현 내용</h2>
+<h3>모델링 1 · 공시의 문서 구조</h3>
+<pre>Company ──FILED──▶ Filing ──HAS_ITEM──▶ Item</pre>
+<p>CIK로 기업을, accession number로 공시를 식별합니다. 목차와 본문을 구분해 Item 경계를 찾고 제목·문단·목록·표 구조를 보존한 <code>displayHtml</code>과 검색용 <code>text</code>를 저장합니다.</p>
+<ul><li>본문 XBRL 태그는 벗기고 표시값을 유지합니다.</li><li>스크립트·숨겨진 메타데이터·외부 자원은 제거합니다.</li><li>원본 해시·가공 결과 해시·파서 버전으로 변경을 추적합니다.</li><li>원본 위치 재조회는 필수 의존성이 아닙니다.</li></ul>
+<h3>모델링 2 · 본문 검색과 근거</h3>
+<pre>Item ↔ Source
+        └─ Chunk → Topic · Statement · Fact · Entity
+              └─ Chunk / Statement 임베딩 → Neo4j 벡터 검색</pre>
+<p class="small">6종은 지원하는 개념입니다. 모든 노드를 위 순서의 단일 직렬 관계로 연결한다는 뜻은 아닙니다.</p>
+<ul><li>Item 하나를 Source 하나에 명시적으로 연결합니다.</li><li>문서 순서·소제목·문단 경계를 따르고 표 헤더·단위·설명을 함께 유지합니다. 청킹 기본 목표는 800토큰, 문장 overlap은 최대 80토큰입니다.</li><li>고정 버전 <code>graphrag-lexical-graph==3.21.0</code>을 사용합니다. 추출 모델은 OAuth proxy의 sol 기본, luna 선택 방식입니다.</li><li>청크마다 중요 진술 최대 20개를 추출하도록 요청하고, 전체 Chunk 원문은 별도로 보존합니다.</li><li>Chunk와 Statement를 임베딩하고 두 검색 순위를 결합합니다. Fact와 Entity까지 전부 임베딩하지 않습니다.</li><li>공백·줄바꿈 보존을 보완했으며, 변경되지 않은 입력은 추출·임베딩 캐시를 재사용합니다.</li></ul>
+<h3>모델링 3 · SEC/XBRL 재무 지식</h3>
+<pre>Filing ──HAS_XBRL_FACT──▶ XbrlFact
+                           ├─ OF_CONCEPT ──▶ Concept
+                           ├─ IN_UNIT ────▶ Unit
+                           └─ IN_CONTEXT ─▶ Context ──FOR_ENTITY──▶ Company
+                                                └─ DimensionValue
+                                                     ├─ Dimension
+                                                     └─ Member (explicit 차원)</pre>
+<ul><li><code>arelle-release==2.47.5</code>와 SEC transformation을 사용해 원본 Inline XBRL·taxonomy를 해석합니다.</li><li>지표 namespace, 기간, 단위, explicit/typed 차원, scale·sign·format·nil을 처리합니다.</li><li>원래 표시값과 정규화한 값을 함께 보존하며 수치는 decimal 문자열로 저장합니다.</li><li>중복 출현과 값 차이를 구분합니다. 같은 지표·기간이라는 이유로 덮어쓰지 않습니다.</li></ul>
+<div class="notice info"><strong>쿠팡 실제 예: <code>f-57</code></strong><br>표시값 <strong>26,312</strong> × 10<sup>6</sup> → <strong>26,312,000,000 USD</strong><br>2025년 기간, 상품 분류의 매출 사실입니다. <code>c-7</code>은 해당 문서의 Context 식별자이며 고정된 정보 카테고리가 아닙니다.</div>
+<p class="small">현재 conflict 표시는 동일 지표·맥락·차원·단위에서 정규화한 값이 다름을 뜻합니다. 반올림 허용 구간까지 판단한 회계 오류 확정값은 아닙니다.</p>
+</section>
+<section id="admin">
+<h2>03. 작업 관리 · Admin · 검색</h2>
+<div class="cols"><div><h3>영속 작업 관리</h3><ul><li>PostgreSQL <code>sec_modeling</code> 스키마의 jobs / runs / work_units / events</li><li>중복 활성 실행 방지, 단일 실행기, lease·heartbeat</li><li>execution token으로 오래된 실행기의 갱신·게시 차단</li><li>취소·재시도·실행 이력·게시 후 상태 복구</li><li>실패·취소 시 기존 성공 결과 유지</li></ul></div><div><h3>Admin <code>/sec-modeling</code></h3><ul><li>CIK 필터와 공시별 모델링 상태</li><li>각 단계 실행, 추출 모델 선택, 취소·재시도</li><li>진행 이벤트와 작업 단위 조회</li><li>Item HTML·텍스트, lexical 결과, XBRL 사실 조회</li><li>검색 → 근거 보기 → 연결된 Chunk와 sandbox Item HTML</li></ul></div></div>
+<p>결과는 generation별로 생성한 뒤 검증을 거쳐 게시합니다. 검색·결과 목록은 활성 결과를 사용합니다. 과거에 게시된 evidence ID도 인용 재현을 위해 조회할 수 있고 <code>isActive</code>로 현재 결과 여부를 표시합니다. 처리 중 초안은 공개하지 않습니다.</p>
+<div class="table-wrap"><table><thead><tr><th>인터페이스</th><th>책임</th></tr></thead><tbody>
+<tr><td><code>/api/sec/modeling</code> · BFF</td><td>공시·실행·이벤트·취소·재시도·결과·검색 제어</td></tr>
+<tr><td><code>/internal/sec-modeling/*</code> · FastAPI</td><td>서비스 키와 execution token으로 내부 실행 제어</td></tr>
+<tr><td><code>POST /api/sec-analysis/search</code></td><td>공시 필터를 적용한 Chunk·Statement 검색</td></tr>
+<tr><td><code>POST /api/sec-analysis/facts/query</code></td><td>공시·지표·기간·차원·단위로 XBRL 사실 조회</td></tr>
+<tr><td><code>GET /api/sec-analysis/evidence/{id}</code></td><td>가공 근거·연결 청크·Item HTML 조회</td></tr>
+</tbody></table></div>
+<p>LangGraph에는 <code>search_sec_evidence</code>, <code>query_sec_xbrl_facts</code>, <code>get_sec_evidence</code> 도구를 연결했습니다. 검색 API는 근거를 반환하며 최종 답변 작성은 Agent가 담당합니다. 기존 mock pipeline·extractor·graph mapper·<code>/api/tenk/*</code> 경로는 제거하고 기존 그래프 데이터는 보존했습니다.</p>
+</section>
+<section id="results">
+<h2>04. 실제 보고서 처리 결과</h2>
+<p class="small">2026-11-14 중단 시점 기준. 파일명과 공시 메타데이터는 이번 작업에서 사용한 입력 기준입니다.</p>
+<div class="table-wrap"><table><thead><tr><th>공시</th><th>입력 파일</th><th>모델링 1</th><th>모델링 2</th><th>모델링 3</th></tr></thead><tbody>
+<tr><td><strong>Apple · AAPL</strong></td><td><a href="aapl-20260926-10k.htm">aapl-20260926-10k.htm</a></td><td>23 Item</td><td><span class="badge good">최종 BFF 성공</span></td><td>1,242 XBRL 사실</td></tr>
+<tr><td><strong>Coupang · CPNG</strong></td><td><a href="cpng-20251231-10k.htm">cpng-20251231-10k.htm</a></td><td>23 Item</td><td><span class="badge good">최종 BFF 성공</span></td><td>1,329 XBRL 사실</td></tr>
+<tr><td><strong>NVIDIA · NVDA</strong></td><td><a href="nvda-20260125-10k.htm">nvda-20260125-10k.htm</a></td><td>23 Item</td><td><span class="badge pending">Item 7에서 취소</span></td><td>1,305 XBRL 사실</td></tr>
+</tbody></table></div>
+<h3 style="margin-top:24px">모델링 2 · 최종 게시된 노드 수</h3>
+<div class="table-wrap"><table><thead><tr><th>회사</th><th>Source</th><th>Chunk</th><th>Topic</th><th>Statement</th><th>Fact</th><th>Entity</th><th>성공 작업 단위</th></tr></thead><tbody>
+<tr><td>AAPL</td><td class="num">23</td><td class="num">163</td><td class="num">188</td><td class="num">2,003</td><td class="num">6,074</td><td class="num">1,233</td><td>186 / 186</td></tr>
+<tr><td>CPNG</td><td class="num">23</td><td class="num">516</td><td class="num">515</td><td class="num">4,227</td><td class="num">11,736</td><td class="num">2,331</td><td>539 / 539</td></tr>
+<tr><td>NVDA</td><td colspan="7">최종 게시 미완료. 처리 중 초안 수치를 성공 결과로 집계하지 않음.</td></tr>
+</tbody></table></div>
+<h3 style="margin-top:24px">재실행 캐시 재사용</h3>
+<p>Apple은 163개 청크 중 <strong>151개</strong>, 쿠팡은 516개 중 <strong>497개</strong>에서 기존 진술·주제 추출 응답을 재사용했습니다. 수정된 입력은 Apple 12개에서 24개 응답, 쿠팡 19개에서 38개 응답을 새로 생성했습니다. 실제 prompt hash와 생성 시각으로 확인한 결과이며, 전체 캐시 증가량을 특정 공시의 호출량으로 간주하지 않았습니다.</p>
+</section>
+<section id="verification">
+<h2>05. 기존 검증 결과와 보류 범위</h2>
+<div class="table-wrap"><table><thead><tr><th>항목</th><th>중단 전 확인 결과</th><th>해석</th></tr></thead><tbody>
+<tr><td>SEC Python 전용 테스트</td><td>54 PASS</td><td>외부 toolkit deprecation warning 1건</td></tr>
+<tr><td>Host 단위 / Storybook</td><td>5 PASS / 10 PASS</td><td>상태·API·이벤트 및 화면·근거 열기</td></tr>
+<tr><td>FastAPI Bruno</td><td>5 요청 · 5 테스트 · 5 assertion PASS</td><td>인증·입력 범위·실제 사실·Item 미리보기</td></tr>
+<tr><td>BFF E2E</td><td>PASS</td><td>lifecycle, lease, 취소·재시도·복구, 작업 단위 조회 한도</td></tr>
+<tr><td>실제 MCP 브라우저</td><td>기능 흐름 확인</td><td>실행·취소·재시도·결과·검색·근거 HTML; 기존 favicon 404 제외 기능 오류 0</td></tr>
+<tr><td>AAPL 검색 부분 평가</td><td><strong>Recall@10: 9 / 10</strong></td><td>반환 근거 100건 조회 성공, 다른 공시 혼입 0. 한국어 거시경제 위험 1문항 미적중</td></tr>
+<tr><td>전체 검색 30문항</td><td><span class="badge pending">미실행</span></td><td>AAPL 부분 결과를 전체 성능으로 일반화하지 않음</td></tr>
+<tr><td>CPNG 중단 시 부분 평가</td><td>INTERRUPTED_NOT_VALID</td><td>서비스 종료 중 결과이므로 품질 평가에 사용하지 않음</td></tr>
+<tr><td>전체 Python 정적 검사</td><td>기존 오류 잔존</td><td>동일 도구 HEAD 비교: Ruff 73→67, Pyright 64→64. 변경 범위 검사 통과와 구분</td></tr>
+</tbody></table></div>
+<div class="notice"><strong>보류한 항목</strong><ul><li>NVIDIA 모델링 2 처리 완료·최종 게시 및 BFF 재실행</li><li>세 공시 전체 한국어 15개·영어 15개 검색 평가</li><li>보류 항목의 최종 인수 판정</li></ul>이번 보고서 작성으로 실제 처리나 검증을 재개하지 않았습니다.</div>
+</section>
+<section id="handoff">
+<h2>06. 커밋과 운영 인계</h2>
+<div class="statusline"><span class="badge good">구현 커밋 완료</span><code>e9b71ac7</code><span>Implement SEC modeling pipelines and administration</span></div>
+<p>구현 커밋에는 100개 파일의 코드·문서·테스트 변경이 포함됩니다. 이 HTML은 해당 커밋 이후 요청받아 작성한 보고서입니다. 기존 사용자 변경과 원본 보고서·런타임 산출물은 구현 커밋에 포함하지 않았습니다.</p>
+<div class="cols"><div><h3>정리 완료</h3><ul><li>NVDA 실행을 DB에서 CANCELLED로 저장한 뒤 프로세스 종료</li><li>작업 소유 BFF·FastAPI·Host·브라우저 종료 및 포트 해제 확인</li><li>전용 Host 빌드 출력과 임시 설정 추가분 제거</li><li>기존 성공 그래프·작업 이력·재시도 캐시 보존</li><li>사용자 서버·공유 MCP·원본 파일 유지</li></ul></div><div><h3>운영 시 확인할 설정</h3><ul><li>BFF와 FastAPI의 동일한 <code>SEC_MODELING_KEY</code></li><li>BFF <code>SEC_MODELING_URL</code>과 실행기 설정</li><li>OAuth 추출 URL·키와 임베딩 API URL·키</li><li>Neo4j 연결·제약조건·벡터 인덱스</li><li>Host의 BFF 연결 설정</li></ul></div></div>
+<p class="small">자격 증명 처리: 작업 중 오류 출력에 임베딩 키가 노출된 사실을 알렸으며, 설정 직렬화의 키 노출과 추출 키 fallback을 제거했습니다. 노출된 키 교체를 권고했으며 교체 완료 여부는 확인하지 않았습니다. 이 보고서에는 자격 증명을 포함하지 않습니다.</p>
+<h3>확정 기록과 소스 위치</h3>
+<ul><li><a href="../../stock/us-corporate-filings/sec-modeling.md">현재 SEC 모델링 설계 · 구현 계약</a></li><li><a href="../../flow/2026-11-14-sec-modeling-implementation-complete.md">구현 완료·검증 보류 기록</a></li><li><a href="../../flow/2026-11-14-sec-modeling-integration-progress.md">통합 검증 중간 기록</a></li><li><code>1-fe-host/src/_pages/sec-modeling/</code> · 관리 화면</li><li><code>2-bff-apps/src/us-corporate-filings/</code> · 작업 관리·API·migration</li><li><code>3-langgraph-fast/src/domains/sec_modeling/</code> · 파싱·저장·검색</li><li><code>assets/sec-modeling/retrieval-gold.json</code> · 보류된 전체 검색 평가셋</li></ul>
+</section>
+<footer class="foot">SEC-MODELING-001 · 실행 기록 2026-11-14 / 구조 갱신 2026-11-16 · 외부 CDN·폰트·스크립트 없이 열 수 있는 독립형 HTML<br>인쇄 시 브라우저의 인쇄 기능으로 PDF로 저장할 수 있습니다.</footer>
+</main>
+</body>
+</html>

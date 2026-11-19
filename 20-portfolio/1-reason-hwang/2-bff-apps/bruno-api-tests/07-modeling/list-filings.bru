@@ -1,0 +1,20 @@
+meta {
+  name: SEC-MODELING filings and readiness
+  type: http
+  seq: 1
+}
+get {
+  url: {{baseUrl}}/modeling/filings?limit=10
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("filings have independent stage readiness", function () {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().items).to.be.an('array');
+    if (res.getBody().items.length) expect(res.getBody().items[0].stages).to.have.property('1');
+  });
+}

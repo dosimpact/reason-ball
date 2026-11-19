@@ -1,0 +1,22 @@
+meta {
+  name: content-filters
+  type: http
+  seq: 39
+}
+get {
+  url: {{baseUrl}}/filings?cik=6&formType=10-K%2FA&since=2026-03-01&until=2026-04-01&hasContent=true&pageSize=1&includeAmendments=false
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-FILTER-001 filters before pagination", function() {
+    const body = res.getBody();
+    expect(body.pagination.totalItems).to.equal(2);
+    expect(body.items).to.have.length(1);
+    expect(body.items[0].formType).to.equal("10-K/A");
+    expect(body.items[0].hasContent).to.equal(true);
+  });
+}

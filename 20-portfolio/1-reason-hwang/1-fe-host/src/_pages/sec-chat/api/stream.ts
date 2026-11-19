@@ -8,9 +8,9 @@ type ActivityHandler = (activity: Activity) => void;
 
 function reportActivity(event: StreamEvent, onActivity?: ActivityHandler) {
   if (event.type !== "CUSTOM" || event.name !== "sec.activity" || !event.value) return;
-  const { id, label, status, kind } = event.value;
-  if (typeof id === "string" && typeof label === "string" && ["running", "completed", "failed", "cancelled", "unavailable"].includes(String(status)) && (kind === "node" || kind === "request")) {
-    onActivity?.({ id, label, status: status as Activity["status"], kind });
+  const { id, label, status, kind, arguments: args, result } = event.value;
+  if (typeof id === "string" && typeof label === "string" && ["running", "completed", "failed", "cancelled", "unavailable"].includes(String(status)) && (kind === "node" || kind === "request" || kind === "tool")) {
+    onActivity?.({ id, label, status: status as Activity["status"], kind, ...(args !== undefined ? { arguments: args } : {}), ...(result !== undefined ? { result } : {}) });
   }
 }
 
@@ -58,6 +58,19 @@ export async function readResolution<T>(response: Response, onActivity: Activity
   }
   if (!finished || !result) throw new Error("메시지 처리가 완료되기 전에 연결이 끊겼습니다.");
   if (typeof result.program === "string") validateProgram(result.program);
+  return result as T;
+}
+
+export async function readPreparation<T>(response: Response, onActivity: ActivityHandler): Promise<T> {
+  await checkResponse(response);
+  if (!response.headers.get("content-type")?.includes("text/event-stream")) return response.json();
+  let result: Record<string, unknown> | undefined;
+  let finished = false;
+  for await (const event of readEvents(response, onActivity)) {
+    if (event.type === "CUSTOM" && event.name === "sec.prepared") result = event.value;
+    if (event.type === "RUN_FINISHED") finished = true;
+  }
+  if (!finished || !result) throw new Error("공시 준비가 완료되기 전에 연결이 끊겼습니다.");
   return result as T;
 }
 

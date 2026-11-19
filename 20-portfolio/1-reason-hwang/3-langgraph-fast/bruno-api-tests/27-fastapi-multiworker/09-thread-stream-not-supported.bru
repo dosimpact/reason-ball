@@ -1,0 +1,16 @@
+meta {
+  name: LG-OSS-MULTI-001 thread-stream-not-supported
+  type: http
+  seq: 8
+}
+get {
+  url: {{workerB}}/threads/{{multiThread}}/stream
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 501
+}
+tests {
+  test("No fake memory success in PostgreSQL mode",function(){expect(res.status).to.equal(501);});
+}

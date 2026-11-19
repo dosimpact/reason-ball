@@ -1,0 +1,19 @@
+meta {
+  name: TALIB-CHAT-001 03-create
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/threads
+  body: json
+  auth: none
+}
+body:json {
+  {"metadata":{"source":"talib-api-validation","graph_id":"talib_agent"}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("03-create", function() { bru.setVar("talibThread",res.getBody().thread_id); });
+}

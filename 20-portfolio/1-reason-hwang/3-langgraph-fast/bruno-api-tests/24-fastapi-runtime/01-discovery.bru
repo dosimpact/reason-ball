@@ -1,0 +1,22 @@
+meta {
+  name: FASTAPI-RUNTIME-001 All registered graphs and aliases
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/assistants/search
+  body: json
+  auth: none
+}
+body:json {
+  {"limit":100,"offset":0}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("All ten production graph IDs exist", function () {
+    const ids=res.getBody().map(row=>row.graph_id);
+    for(const id of ["main_graph","simple_llm","technical_analysis_graph","price_agent","starter_graph","tenk_subgraph","sec_deep_agent","sec_modeling_agent","technical_analysis_agent","technical_analysis_canvas_agent"]) expect(ids).to.include(id);
+  });
+}

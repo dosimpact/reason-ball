@@ -1,0 +1,52 @@
+meta {
+  name: SEC-VAL-102 CPNG full model2 publication and evidence
+  type: http
+  seq: 2
+}
+get {
+  url: {{baseUrl}}/internal/sec-modeling/filings/0001834584/0001834584-26-000024/status
+  body: none
+  auth: none
+}
+headers {
+  X-SEC-Modeling-Key: {{modelingKey}}
+}
+script:pre-request {
+  bru.setVar("modelingKey", bru.getProcessEnv("SEC_MODELING_KEY"));
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const status = res.getBody().stages;
+  test("model2 is based on active model1", function() {
+    expect(status["2"].inputGenerationId).to.equal(status["1"].id);
+  });
+  const base = req.getUrl().split("/internal/")[0];
+  const headers = {"X-SEC-Modeling-Key": bru.getProcessEnv("SEC_MODELING_KEY")};
+  const result = await bru.sendRequest({method:"GET", url:base + "/internal/sec-modeling/filings/0001834584/0001834584-26-000024/results/2?limit=1", headers});
+  test("result reads current publication", function() {
+    expect(result.status).to.equal(200);
+    expect(result.data.generationId).to.equal(status["2"].id);
+    expect(result.data.total).to.be.greaterThan(0);
+  });
+  const search = await bru.sendRequest({method:"POST", url:base + "/api/sec-analysis/search", headers, data:{query:"business operations risks",filingIds:["filing:0001834584:0001834584-26-000024"],topK:3}});
+  test("search stays in the requested publication", function() {
+    expect(search.status).to.equal(200);
+    expect(search.data.items).to.be.an("array").and.not.empty;
+    search.data.items.forEach(hit => {
+      expect(hit.filingId).to.equal("filing:0001834584:0001834584-26-000024");
+      expect(hit.generationId).to.equal(status["2"].id);
+    });
+  });
+  for (const hit of search.data.items) {
+    const evidence = await bru.sendRequest({method:"GET",url:base + "/api/sec-analysis/evidence/" + encodeURIComponent(hit.evidenceId),headers});
+    test("evidence resolves exact supporting chunks",function() {
+      expect(evidence.status).to.equal(200);
+      expect(evidence.data.isActive).to.equal(true);
+      expect(evidence.data.generationId).to.equal(status["2"].id);
+      expect(evidence.data.itemId).to.be.a("string").and.not.empty;
+      expect(evidence.data.supportingChunks).to.be.an("array").and.not.empty;
+    });
+  }
+}

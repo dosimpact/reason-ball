@@ -127,19 +127,19 @@ Remote 등록 예시는 다음과 같다.
 
 ```text
 name: template
-devServer: http://localhost:2802
+devServer: http://localhost:2984
 staticPath: remotes/template/dist
 
 name: todo
-devServer: http://localhost:2803
+devServer: http://localhost:2985
 staticPath: remotes/todo/dist
 ```
 
 BFF가 제공하는 Remote 엔드포인트는 다음과 같다.
 
 ```text
-http://localhost:2801/remotes/template/remoteEntry.js
-http://localhost:2801/remotes/todo/remoteEntry.js
+http://localhost:2980/remotes/template/remoteEntry.js
+http://localhost:2980/remotes/todo/remoteEntry.js
 ```
 
 ## 7. 개발 환경 흐름
@@ -150,18 +150,18 @@ http://localhost:2801/remotes/todo/remoteEntry.js
 
 | 앱 | 포트 |
 | --- | --- |
-| Host Next.js | `2800` |
-| BFF NestJS | `2801` |
-| template Remote | `2802` |
-| todo Remote | `2803` |
+| Host Next.js | `2983` |
+| BFF NestJS | `2980` |
+| template Remote | `2984` |
+| todo Remote | `2985` |
 
 개발 환경의 로딩 흐름은 다음과 같다.
 
 ```text
 Host
-  -> http://localhost:2801/remotes/template/remoteEntry.js
+  -> http://localhost:2980/remotes/template/remoteEntry.js
   -> BFF
-  -> http://localhost:2802/remoteEntry.js
+  -> http://localhost:2984/remoteEntry.js
 ```
 
 브라우저의 Host 코드는 항상 Next.js same-origin proxy를 바라본다. Next.js가 BFF로 전달하고, BFF가 실제 Remote dev server로 요청을 넘긴다.
@@ -183,7 +183,7 @@ BFF는 이 파일들을 정적 파일로 제공한다.
 
 ```text
 Host
-  -> http://localhost:2801/remotes/template/remoteEntry.js
+  -> http://localhost:2980/remotes/template/remoteEntry.js
   -> BFF
   -> remotes/template/dist/remoteEntry.js
 ```
@@ -264,9 +264,11 @@ Remote 앱이 늘어나도 Host는 BFF 설정과 라우팅만 추가해 확장�
 | 위치 | 책임 |
 | --- | --- |
 | `src/_app` | 루트 레이아웃·스타일·서버 API 조립 |
-| `src/_pages` | home, chat, sec-chat, sec-api-agent, a2ui-demo, examples-push-ui-message, index-dcf-visualizer, remotes 화면 슬라이스 |
+| `src/_pages` | home, chat, sec-chat, sec-api-agent, generative-ui, index-dcf-visualizer, remotes 화면 슬라이스 |
 | `src/widgets` | host-navigation, remote-app 독립 화면 블록 |
 | `src/shared` | ui, lib, config 공용 세그먼트 |
+
+Steiger와 `@feature-sliced/steiger-plugin`은 Host devDependencies에 이미 설치되어 있고 `lint`가 ESLint 뒤에 `lint:fsd`를 실행한다. 새 코드는 기존 레이어·슬라이스 안에 배치하고, 새 책임이 생길 때만 슬라이스를 추가한다. 파일 이동이 필요하면 `mv`와 import·공개 API·테스트 경로 수정을 우선하며, 함수 분리나 업무 로직 변경은 경계 위반을 해결할 때만 수행한다.
 
 페이지에서만 쓰는 모델·API·UI는 그 페이지 슬라이스에 둔다. 재사용 필요가 없는 entities/features 레이어는 만들지 않는다. 상위 레이어는 하위 레이어만 참조하고 슬라이스 외부에서는 `index.ts` 공개 API를 사용한다. Shared는 슬라이스 없이 세그먼트 단위로 제공한다.
 
@@ -276,6 +278,165 @@ OpenUI 카탈로그는 `src/shared/ui/intelligent-ui`, 생성 프롬프트는 `s
 
 ## FE-THEME-001: 공통 라이트·다크 모드
 
-호스트 헤더의 토글은 `shared/lib/theme`의 단일 상태를 사용한다. 선택은 `reason-hwang-theme` localStorage에 저장하며, 저장된 선택이 없으면 OS 테마를 따른다. 초기 head 스크립트가 페인트 전 테마를 적용하고 Provider는 OS·다른 탭의 저장 변경을 구독한다. 저장소를 사용할 수 없을 때도 현재 페이지에서 토글할 수 있다.
+사이드바 footer의 테마 토글은 `shared/lib/theme`의 단일 상태를 사용한다. 데스크톱 사이드바 접기 토글도 같은 footer에 둔다. 선택은 `reason-hwang-theme` localStorage에 저장하며, 저장된 선택이 없으면 OS 테마를 따른다. 초기 head 스크립트가 페인트 전 테마를 적용하고 Provider는 OS·다른 탭의 저장 변경을 구독한다. 저장소를 사용할 수 없을 때도 현재 페이지에서 토글할 수 있다.
 
 같은 mode를 HTML `.dark`, `data-theme`, `data-openui-theme`, CSS `color-scheme` 및 관리자 OpenUI `AgentInterface.theme`에 적용한다. Tailwind `dark:` 변형은 `.dark` 클래스 기준이다. 공유 Intelligent UI 카탈로그의 배경·글자·보조 텍스트는 호스트 CSS 변수를 사용하므로 독립 Renderer인 `/sec-chat`에서도 같은 색상 모드를 따른다. 기능별 컴포넌트의 상태·차트 색상은 기존 카탈로그 테마를 유지한다. 독립 Remote 앱의 자체 스타일 전체를 자동 변환하는 기능은 아니다.
+
+## LOCAL-PORTS-002: Host·Remote 환경 설정
+
+Host `dev`는 `next dev --turbopack --hostname 127.0.0.1 --port 2983`, `start`는 `next start --port 2983`을 직접 실행한다.
+Next의 표준 환경변수 로딩을 사용하며 현재 로컬 앱 설정은 `.env`에 둔다. 삭제한 `.env.local`은 재생성하지 않는다. 서버 포트는 스크립트의 CLI 옵션으로 결정하며 `.env`의 `PORT`는 적용되지 않는다. `pnpm dev --port 3280`처럼 명시적으로 덮어쓸 수 있다.
+`next.config.ts`의 Turbopack root와 outputFileTracingRoot는 독립 워크스페이스 `1-reason-hwang`을 가리킨다. 검증 서버는 `NEXT_DIST_DIR`로 출력물을 분리한다.
+Host의 FastAPI 프록시는 2981, `REMOTE_BFF_URL`은 BFF 2980이다.
+각 Vite Remote는 자기 패키지의 `.env`에서 `PORT`(Template 2984/Todo 2985)와
+`REMOTE_BFF_URL`을 읽어 개발·preview 포트와 BFF 경유 asset origin을 설정한다.
+전체 계약은 [Workspace](../workspace.md#local-ports-002-애플리케이션-포트-프로필)를 따른다.
+
+## HOST-NAV-001: 사이드바 그룹
+
+개발 채팅의 주소는 `/langgraph-dev-chat`이며 `/chat`은 이 경로로 리다이렉트한다. 사이드바는 Overview(Home), Remote Apps(Template·Todo), Operations(SEC 수집 관리·SEC 모델링 관리·DART API Testing), AI Chat(기술적 분석 인라인·Canvas, TA-Lib, SEC API Agent·Intelligent Research·Modeling), Debugging(Langgraph dev chat·FastAPI 채팅), Generative UI(UI Demos·OpenUI Lang Catalog·OpenUI Gallery)로 구성한다. 현재 URL의 경로 구간과 일치하는 항목 중 가장 구체적인 경로 하나를 활성화한다.
+
+기술적 분석 전용 경로는 `/technical-analysis`(인라인)와 `/technical-analysis/canvas`(Canvas)다.
+각 화면은 FastAPI 런타임의 `technical_analysis_agent`·`technical_analysis_canvas_agent` 하나로 고정되며 그래프 선택기는 표시하지 않는다. 대화·기록·실행 상태·취소와 차트/카탈로그 Query는 `/api/fastapi-langgraph`를 사용한다. 기존 개발 런타임 기록은 자동 이관하지 않는다.
+대상 그래프가 미등록이면 오류·목록 재시도를 제공하고 다른 그래프로 대체 실행하지 않는다.
+기존 `/langgraph-dev-chat`의 전체 그래프 선택 기능과 runtime·graph별 기록은 유지한다.
+모바일은 채팅 헤더의 메뉴 열기를 사용하며 메뉴 링크 선택 후 Sidebar를 닫는다.
+
+## OPENUI-CHAT-DS-001: 공통 채팅 디자인 시스템
+
+`shared/ui/agent-conversation`의 AgentChatFrame이 SEC API Agent·SEC Intelligent UI·Chat·Generative UI의 화면 프레임, 헤더, Welcome, Composer, 새 대화·기록 액션, 상태·오류, 간격·반응형·테마·스크롤을 소유한다. native AG-UI와 기존 domain controller는 동일한 화면을 사용하며 전송 어댑터만 다르다. 페이지는 toolbar/status/footer와 메시지 renderer 슬롯으로 그래프 선택·공시 근거·추천·차트·revision action을 연결한다. 페이지별 프레임 CSS와 중복 헤더는 만들지 않는다. 상세 계약은 [공통 채팅 설계](open-ui.md#openui-chat-ds-001-공통-채팅-디자인-시스템)를 따른다.
+
+## HOST-HEADER-001: Host 공통 헤더 제거
+
+RootLayout은 사이드바·테마 Provider·SidebarInset과 `min-h-svh` 콘텐츠 영역만 조립한다. SidebarInset 위의 Host 공통 `h-14` 헤더와 그 안의 브랜드 설명·토글은 제공하지 않는다. 각 앱 페이지 또는 공통 AgentChatFrame이 필요한 화면 헤더를 소유하므로 Host가 추가 헤더 높이와 콘텐츠 padding을 강제하지 않는다.
+
+- 데스크톱: 테마 토글과 사이드바 접기 토글을 Host 사이드바 footer에서 제공한다.
+- 모바일: 공통 ChatPage는 채팅 헤더의 메뉴 버튼을 사용한다. 다른 화면은 `widgets/host-navigation`의 왼쪽 아래 고정 `MobileSidebarTrigger`를 사용한다. 모바일 사이드바에서도 footer에서 테마를 바꾼다.
+- 채팅: 공통 `agent-conversation`의 높이는 `100svh`다. 삭제한 Host 헤더 높이를 viewport에서 차감하지 않으며 내부 메시지 스크롤과 Composer 배치는 공통 채팅 프레임이 소유한다.
+
+Host 실행 명령과 포트는 [로컬 환경 설정](#local-ports-002-hostremote-환경-설정)을 따른다.
+
+## SEC-COLLECTOR-001: SEC 운영 화면
+
+`app/sec-collector`는 FSD `_pages/sec-collector`의 운영 대시보드를 연결한다. 기업 목록의 선택 바와 확장 행으로 기업별 공시를 탐색하며, 개별 수집은 accession별 SSE API를 호출한다. 최근 수집 상태는 기본 화면에 표시하고 원시 이벤트와 요청/응답 검사는 오른쪽 디버깅 drawer에서 확인한다. 사이드바 Operations 그룹의 `SEC 수집 관리`에서 진입한다. 상세 상태·수집 경계는 [도메인 설계](../../us-corporate-filings/collector-dashboard.md)에 둔다.
+
+## SEC-MODELING-001: 모델링 Admin
+
+`app/sec-modeling/page.tsx`는 `_pages/sec-modeling`의 public API를 사용한다.
+`ui/ModelingView`는 표시와 사용자 이벤트, `ui/useModeling`은 실행·조회·polling 상태,
+`api/modelingApi`는 기존 same-origin `/api/remote-proxy/api/sec/modeling` 통신을 담당한다.
+서버 키나 직접 Neo4j 연결은 브라우저에 전달하지 않는다.
+
+공시별 테이블은 기업·티커·CIK·양식·제출/보고일·접수번호·원문 수집 여부와 단계별 현재 게시 상태/최근 실행 상태를 분리한다. CIK·검색·양식·원문 필터와 서버 total/limit/offset 기준 페이지를 제공한다. 행을 펼치면 해당 공시의 세 단계 실행, 결과·이력·오류·취소·재시도·검색을 같은 위치에서 확인한다. 원문이 없거나 모델링2의 현재 모델링1 게시 결과가 확인되지 않으면 실행 불가 이유를 표시한다. 집계는 동일 필터의 전체 PostgreSQL 범위이며 최근 단계 작업 건수를 현재 게시 완료 공시 수로 표시하지 않는다.
+
+약2초 polling은 run별 event cursor를 유지하고 배경 갱신 시 기존 결과를 불필요하게 비우지 않는다. 화면 해제·선택 변경은 소유 AbortController를 정리하며 늦은 action 응답을 다른 공시/실행에 반영하지 않는다. Item은 sandbox iframe HTML와 text, XBRL은 지표·값·단위·기간을 표시한다. 기존 `/sec-collector`는 별도 수집 업무 화면으로 유지한다.
+
+`모델링 관리`/`API Testing` 탭은 mounted 상태를 유지한다. 15개 고정 preset에서 공개 모델링 API의 query/path와 raw JSON을 편집하며 임의 URL·인증 header는 받지 않는다. 실제 전송 snapshot·HTTP상태/시간·headers·JSON/text·실제 SSE 응답의 event를 확인하고 복사한다. 기존 이벤트 목록 API는 JSON이다. 생성/취소/재시도 요청은 실제 서버 변경을 명시적으로 확인한다. HTTP202는 실행 접수, 응답 대기 중단은 fetch 연결만 종료하며 서버 job 취소가 아니다. 운영 action과 Testing은 shared request lock을 사용하고 탭 전환으로 요청·polling·기록을 초기화하지 않는다.
+
+`shared/api`의 bounded HTTP 검사 transport를 수집 화면과 재사용한다. 각 도메인의 fixed-preset validator를 거쳐 호출하며 1Mi문자/1000events 한도를 표시한다. `shared/lib/hooks`는 페이지 인스턴스별 request lock을 제공한다. 페이지 사이에 전역 실행 상태를 공유하지 않는다.
+
+[모델링 단위 테스트](../../../../1-fe-host/tests/sec-modeling)와 [API Testing Storybook](../../../../1-fe-host/src/_pages/sec-modeling/ui/ModelingApiTesting.stories.tsx)이 각각 요청·응답 파싱과 화면 상태를 다룬다. 실제 API 검증 범위는 [SEC 모델링 계약](../../us-corporate-filings/sec-modeling.md)을 따른다.
+
+## DART-FE-001: Open DART API Testing
+
+`/dart-collector`는 `app/dart-collector/page.tsx`의 얇은 진입점과
+`src/_pages/dart-collector/{model,api,ui}`로 구성한다. Operations 메뉴에서 진입하며
+기존 `/sec-collector`와 같은 요청 편집·응답 검사 흐름을 제공한다. SEC 페이지나
+기존 same-origin 프록시 구현은 변경하지 않는다.
+
+- `model/dartTesting.ts`: 공식 이름을 유지한 5개 GET 프리셋과 허용 인자, 키가 없는 요청 snapshot.
+- `api/dartTesting.ts`: `/api/remote-proxy/api/dart/*` 고정 경로 호출, HTTP 상태·시간·헤더와 JSON/text 또는 ZIP 수신.
+- `ui/page.tsx`: 프리셋·전송 인자 선택, 수동 Send, 연결 중단, 예정/실제 요청·응답 복사, ZIP 다운로드.
+
+프리셋은 `corpCode.xml`, `list.json`, `document.xml`, `company.json`,
+`fnlttSinglAcntAll.json`이다. 인증키는 BFF의 `API_K_DART`에서만 사용하며
+브라우저 입력·요청 URL·복사 snapshot에 `crtfc_key`를 허용하지 않는다.
+필수·유형 설명은 표시하지만 입력값의 업무 검증은 서버에 맡겨 오류 응답도 확인할 수 있다.
+HTTP 성공과 DART JSON `status`를 별도로 표시하며 `000` 이외의 코드는 업무 오류로 안내한다.
+
+성공 ZIP은 텍스트/XML로 파싱하거나 미리보기하지 않고 파일명·byte 수·명시적 다운로드를 제공한다.
+ZIP은 최대 64 MiB, JSON/text는 앞부분 1 MiB를 보관하며 잘림을 표시한다.
+ZIP 프리셋의 HTTP 200 non-ZIP 응답은 형식 오류로 구분한다.
+다운로드 object URL은 결과 교체·화면 해제 시 해제하고 요청은 중복 전송을 막는다.
+화면 해제 시 소유 요청을 abort하며 이전 요청의 늦은 결과가 현재 상태를 변경하지 않게 한다.
+예정 요청과 마지막 전송 요청·응답은 구분해 보존한다. 자동 호출·재시도, DB 저장,
+원문 뷰어, AI 분석은 포함하지 않는다.
+
+사용자가 검증을 직접 수행하도록 지시했으므로 이 변경의 테스트·typecheck·lint·build·
+브라우저 검증·실제 API 호출은 실행하지 않았다. 구현 상태와 검증 완료 상태를 구분한다.
+도메인 경계와 수동 확인 절차는 [DART 문서 지도](../../dart-api-testing/INDEX.md)를 따른다.
+
+## SEC-VIEWER-001: 수집 공시의 자체 iXBRL 뷰어
+
+`/sec-viewer?cik=<CIK>&accessionNo=<접수번호>`는 독립 FSD 페이지
+`src/_pages/sec-viewer/{api,model,ui}`와 루트 `app/sec-viewer/page.tsx`로 구성한다.
+SEC 수집 관리에서 다운로드 완료된 공시 상세의 `XBRL 보기`로 새 탭에서 진입한다.
+원문·검색/상세는 데스크톱 좌우 패널, 모바일 전환 패널로 제공한다. Arelle 공식 UI를
+삽입하지 않으며 계산 관계·taxonomy 정의 탐색·AI 해석·새 공시 수집은 포함하지 않는다.
+
+기존 same-origin `/api/remote-proxy/api/sec/filings/:cik/:accessionNo/ixbrl`의
+metadata, `/facts`의 페이지당 100개 검색 및 factId 단건 조회, `/document`의 정제 HTML을
+사용한다. 모든 결과는 `sourceHash`와 `extractorVersion`을 맞추며 409 또는 버전 불일치는
+재로딩 안내로 처리한다. 원문 클릭은 현재 fact가 검색 페이지 밖에 있어도 factId로 조회해
+서버의 현재 문서에 속한 결과인지 확인한다. QName·표시/원시/변환 값·기간·단위·차원·
+scale/sign/format/decimals·변환 경고를 표시한다. 숨김 fact나 원문 구간이 없는 값은
+상세만 표시하며 원문 이동은 비활성화한다.
+
+서버가 같은 문서 트리에서 fact와 앵커를 추출하고 HTML을 정제한다. FE는 해당 정제 HTML을
+다시 허용 목록 DOM으로 재구성하며 원본 script/meta/base/form/외부 자원·이벤트 속성·
+임의 id/data 속성을 복사하지 않는다. 생성된 `data-fact-id=ix-fact-N`,
+`id=ix-segment-N-M`과 제한된 표/문단 서식만 남긴다. 이후 별도 CSP nonce를 가진
+고정 bridge 하나를 삽입한다. 기존 DB 원문을 Host DOM에 직접 삽입하지 않는다.
+
+iframe은 `sandbox="allow-scripts"`, `referrerPolicy="no-referrer"`만 사용한다.
+CSP는 외부 통신·이미지·frame/object·base·form을 차단하고 nonce script와 정제된 inline
+style만 허용한다. 원문은 흰색 문서 영역으로 유지하며 Host의 라이트·다크 UI와 분리한다.
+parent는 `event.source === iframe.contentWindow`, opaque origin `null`, 엄격한 message
+key/type/version, 문서 hash와 매 문서별 channelId를 확인한다. `null` origin만으로
+신뢰하지 않는다. frame는 parent source·기대 Host origin·channel/hash를 검증하며,
+parent → opaque frame은 `targetOrigin="*"`로 ID 명령만 전달한다. frame → parent는
+기대 Host origin을 지정한다. 고정 메시지는 init/ready/select/focus/missing이고 임의 HTML,
+URL 또는 실행 코드를 메시지로 받지 않는다. 정제 DOM의 fact ID map으로 다중 구간을
+강조·이동하며 동적 selector 문자열을 조립하지 않는다.
+
+문서 변경·화면 해제 시 fetch를 취소하고 iframe channel/listener를 교체한다. 늦은 선택·검색
+응답은 반영하지 않으며 앵커 누락은 경고한다. 사용자가 검증을 직접 수행하도록 지시했으므로
+이 구현의 테스트·typecheck·lint·build·브라우저·실제 API 호출은 실행하지 않았다.
+도메인 계약은 [SEC iXBRL 뷰어](../../us-corporate-filings/ixbrl-viewer.md)를 따른다.
+
+개발 채팅의 LangGraph SDK 요청은 `/api/langgraph-runtime` 프록시를 통해 LangGraph 실행 서버(`LANGGRAPH_RUNTIME_API_URL`, 기본 `http://127.0.0.1:2982`)로 전달한다. 기존 `/api/langgraph`는 FastAPI 서버를 계속 사용한다. 채팅의 그래프 목록은 실행 서버의 assistant 목록에서 조회한다.
+
+### LangGraph 그래프 선택 설명
+
+Chat 그래프 선택기는 등록된 그래프의 역할과 입력 방식을 선택 항목 아래에 표시한다. 미등록 그래프는 설명이 없다는 안내를 표시하며 실제 목록은 실행 서버에서 조회한다.
+
+### CHAT-RUNTIME-002: 런타임 주입형 채팅
+
+`app/fastapi-chat`는 기존 `_pages/chat` 공개 진입점의 FastAPI 변형을 export한다. 별도 도메인 화면 복제 없이 `model/runtime.ts`의 고정 context로 provider의 SDK URL·history namespace·차트 Query endpoint·헤더를 함께 선택한다. 개발 채팅은 2982, FastAPI 채팅과 두 기술적 분석 전용 화면은 2981이며 자동 fallback하지 않는다. runtime별 proxy는 `_app/api`가 소유한다. 실행 취소·저장 상태 재조회는 `api`에, 화면 상태·Canvas 복원은 `model`에 둔다. 상세 계약은 [Host OpenUI](open-ui.md#chat-runtime-002-개발-및-fastapi-채팅-분리)를 따른다.
+
+### SEC-MODELING-CHAT-001: 전용 채팅과 선택된 모델링 근거
+
+AI Chat의 `SEC Modeling Chat`은 `/sec-modeling-chat`에서 공용 ChatProvider/ChatPage를 재사용한다. 별도 route 모듈이 `fastApiChatRuntime`과 `fixedGraphId="sec_modeling_agent"`를 전달하므로 선택기를 표시하지 않고2981 FastAPI의 graph discovery·실행·이력·도구 상태를 사용한다. graph 누락 시 기존 명시 오류·재조회 동작을 유지하며 개발 runtime이나 다른 graph로 대체하지 않는다. 모바일 메뉴 트리거도 전용 채팅 헤더를 사용한다.
+
+`/sec-chat`의 원문 Item 인용과 게시 모델링 근거는 분리한다. `sec.evidence.modeling`의 선택된 sources만 QName·값·원문 값·기간·단위·공시/근거 ID·근거 텍스트로 표시한다. `empty`·`unavailable`은 공시 부재와 구분하고 limitations를 함께 표시한다. 단위 JSON은 구조화된 읽기용 표기로 바꾸며 raw JSON·실행 HTML을 표시하지 않는다. 회귀 Story 정의는 추가하되 모델링 근거 표시의 브라우저·Storybook 실행은 사용자가 별도 수행하도록 지정한 범위다.
+
+## OPENUI-FOLDERS-001: 컴포넌트별 관련 파일 배치
+
+`src/shared/ui/intelligent-ui/components/map/`의 기존 관례처럼 관련 구현·스키마·보조 함수·테스트·스토리를 컴포넌트 그룹 아래에 함께 둔다.
+
+- `components/financial/`: FinancialChart, IndicatorControls, 금융 스키마, 지표 변환, 관련 테스트와 스토리.
+- `components/canvas-item/`: CanvasItem 렌더링, `extract-canvas-items.ts` 추출 유틸과 테스트.
+- `library.ts`, `OutputView.tsx`, `actions.ts`, `query-tools.ts` 등 여러 컴포넌트를 연결하는 공통 진입·실행 코드는 intelligent-ui 루트에 유지한다.
+- 기존 공개 `index.ts` export와 OpenUI 컴포넌트 이름·인자 계약은 유지한다. 테스트 탐색은 하위 폴더까지 포함한다.
+
+## OPENUI-COMPOSE-001: 생성 프롬프트 예시
+
+`intelligent-ui/library.ts`는 `promptOptions`를 내보낸다. 설치된 SDK의 examples는 createLibrary 직접 속성이 아닌 prompt 옵션이다. `openui generate`가 이 export를 자동 인식해 금융·Canvas 그룹의 `prompt-examples.ts`와 additionalRules를 공통 생성 프롬프트에 포함한다. 예시의 ticker·ID·숫자는 실제 근거가 아니며 모델은 서버가 제공한 값으로 대체한다. 런타임 렌더러·Query allowlist는 유지한다. [생성·검증 계약](../3-langgraph-fast/open-ui.md).
+
+## OPENUI-FIN-BLOCKS-001: 접이식 조회와 금융 블록
+
+금융 UI는 components/financial 아래에 둔다. QueryPanel(dataChildren, refreshAction, controls?)은 결과·새로고침을 항상 표시하고 controls를 기본 닫힌 조회 조건에 둔다. 이전 두 인자 프로그램은 SDK 노드의 Input/Select/IndicatorControls 등과 중첩 레이아웃을 분리해 차트를 접지 않는다. disclosure는 native details로 키보드 접근 및 입력 상태를 보존한다.
+
+FinancialChart는 Plot·Summary·Metadata를 조립한 기본 구성이다. 지표 요약과 출처는 접힌 상태이고 오류·로딩·법적 출처는 Plot에 표시한다. 독립 카탈로그 FinancialChartPlot(snapshot, visibilityKey?), FinancialChartSummary(snapshot, visibilityKey?), FinancialChartMetadata(snapshot)로 재배치할 수 있다. Plot/Summary의 동일한 고유 visibilityKey는 표시 설정을 공유하고 다른 키는 격리한다. 최대4개 oscillator 제한을 유지한다. Canvas 엔진·표시 상태·숫자 포맷은 별도 모듈이며 출처 메타데이터는 raw JSON 대신 읽기용 항목으로 제공한다.
+
+카탈로그 예시와 Library Explorer에 독립 블록을 반영하고 generated prompt/spec/Python mirror를 동기화한다.

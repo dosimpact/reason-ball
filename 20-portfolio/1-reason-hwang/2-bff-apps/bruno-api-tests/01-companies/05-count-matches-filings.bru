@@ -1,0 +1,18 @@
+meta {
+  name: SEC-COMPANY-FILING-COUNTS-001 existing filings count agrees
+  type: http
+  seq: 5
+}
+get {
+  url: {{baseUrl}}/filings?ticker={{sampleTicker}}&pageSize=1&includeAmendments=false&includeContent=false
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("company total matches existing filings pagination", function() {
+    expect(res.getBody().pagination.totalItems).to.equal(Number(bru.getVar("companyFilingsCount")));
+  });
+}

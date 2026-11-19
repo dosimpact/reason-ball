@@ -1,0 +1,19 @@
+meta {
+ name: SEC financial date
+ type: http
+ seq: 5
+}
+post {
+ url: {{baseUrl}}/api/sec-deep-agent/research
+ body: json
+ auth: none
+}
+body:json {
+ {"message":"date","history":[]}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("date",function(){const b=res.getBody(); expect(b.financialVerification.facts[0].error).eq("date_not_in_quote");});
+}

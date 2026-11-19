@@ -1,0 +1,19 @@
+meta {
+  name: TA-CANVAS-002 Create owned inline thread
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/threads
+  body: json
+  auth: none
+}
+body:json {
+  {"metadata":{"validation":"fastapi-runtime","kind":"inline"}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Owned inline thread", function () {bru.setVar("inlineThread",res.getBody().thread_id);expect(res.getBody().thread_id).to.be.a("string");});
+}

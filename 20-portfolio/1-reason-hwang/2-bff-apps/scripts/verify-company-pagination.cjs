@@ -28,7 +28,7 @@ async function main() {
   process.env.DATABASE_URL = `postgresql://postgres:fixture@127.0.0.1:${port}/company_test`;
   if (routeSuite) {
     fixtureDir = fs.mkdtempSync(path.join(os.tmpdir(), 'sec-route-fixture-'));
-    process.env.DATA_DIR = fixtureDir;
+    process.env.STATIC_CACHE_DIR = fixtureDir;
     fs.mkdirSync(path.join(fixtureDir, 'sec-cache'));
     // Real ZIP reader, deterministic bulk company + historical document fixture.
     execFileSync('python3', ['-c', `import zipfile,json,sys
@@ -122,6 +122,20 @@ with zipfile.ZipFile(sys.argv[1],'w') as z:
   await app.listen(0, '127.0.0.1');
   const baseUrl = `${await app.getUrl()}/api/sec`;
   console.log(`Owned fixture API: ${baseUrl}`);
+  const openapi = await (await fetch(`${await app.getUrl()}/docs/sec-json`)).json();
+  const companySchema = openapi.components.schemas.CompaniesListResponseDto;
+  if (Object.keys(companySchema.properties).sort().join(',') !== 'items,pagination') throw new Error('Company Swagger response must contain only items and pagination');
+  console.log('PASS company Swagger response schema');
+  const overview = await (await fetch(`${baseUrl}/overview`)).json();
+  if (overview.companies !== (routeSuite ? 15 : 8) || overview.tickerCompanies !== (routeSuite ? 10 : 5)) throw new Error(`Unexpected overview company counts: ${JSON.stringify(overview)}`);
+  if (routeSuite) {
+    if (overview.totalFilings !== 17 || overview.contentFilings !== 15 || overview.forms.find(row => row.formType === '10-K/A')?.total !== 4) throw new Error(`Unexpected overview filing counts: ${JSON.stringify(overview)}`);
+    const page = await (await fetch(`${baseUrl}/filings?cik=6&includeAmendments=false`)).json();
+    if (!page.items.length || page.items.some(row => row.hasContent !== true || 'content' in row)) throw new Error('Filing presence metadata is incorrect');
+  }
+  const plan = await app.get(DataSource).query("EXPLAIN SELECT form_type, count(*), count(*) FILTER (WHERE document_content IS NOT NULL AND document_content <> '') FROM filings GROUP BY form_type");
+  console.log('Overview EXPLAIN:', plan.map(row => row['QUERY PLAN']).join(' | '));
+  console.log('PASS overview counts and content flags');
   if (process.argv.includes('--serve')) {
     console.log('Waiting for browser verification; stop with Ctrl-C.');
     await new Promise(resolve => process.once('SIGINT', resolve));

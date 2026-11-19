@@ -47,3 +47,8 @@ async def test_dynamic_graph_uses_filtered_server_data():
     assert initial['data']['revenue'] == '$680,000'
     result = await graph.ainvoke({**initial, 'action': {'name': 'search_sales', 'revision': 1, 'context': {'region': 'busan'}}})
     assert result['data']['revenue'] == '$320,000' and result['program']
+
+
+def test_removed_sec_mode_cannot_build_graph():
+    with pytest.raises(ValueError, match='Unsupported Generative UI mode'):
+        build_ui_graph('sec', Model(), validator=valid)

@@ -2,10 +2,12 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 from collections.abc import Callable
 from uuid import uuid4
 
 ActivitySink = Callable[[dict], None]
+logger = logging.getLogger(__name__)
 
 
 def tracked_node(label: str, node, sink: ActivitySink | None = None):
@@ -25,7 +27,8 @@ def tracked_node(label: str, node, sink: ActivitySink | None = None):
         except asyncio.CancelledError:
             emit("cancelled")
             raise
-        except Exception:
+        except Exception as error:
+            logger.warning("SEC node failed stage=%s exception=%s", label, type(error).__name__)
             emit("failed")
             raise
 

@@ -1,0 +1,16 @@
+meta {
+  name: whitespace-group
+  type: http
+  seq: 2
+}
+get {
+  url: {{regressionBaseUrl}}/catalog?group=%20%20&search=%20ICHIMOKU%20
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("whitespace-group", function () { expect(res.body.functions.map(x => x.name)).to.deep.equal(['ICHIMOKU']); });
+}

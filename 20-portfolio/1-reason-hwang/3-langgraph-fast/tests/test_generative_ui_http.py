@@ -87,3 +87,15 @@ async def test_capacity_counts_uncommitted_sessions(monkeypatch):
             await module.run('fixed', UIRequest(thread_id='overflow', message='flight'))
         assert error.value.status_code == 429
         assert module.gate.threads == {'fixed:pending'}
+
+
+def test_removed_sec_mode_rejected_before_graph_execution(monkeypatch):
+    def unexpected(mode):
+        raise AssertionError("Removed mode must not construct a graph")
+    monkeypatch.setattr(module, 'create_graph', unexpected)
+    app = FastAPI()
+    app.include_router(module.router)
+    with TestClient(app) as client:
+        response = client.post('/api/generative-ui/sec', json={'thread_id': 'removed', 'message': 'AAPL'})
+    assert response.status_code == 422
+    assert response.json()['detail'][0]['loc'] == ['path', 'mode']

@@ -1,7 +1,11 @@
 import type { ChatMessage, ChatThreadState } from "@/_pages/chat/model/chatTypes";
 
 export type ChatAction =
-  | { type: "assistantSnapshotReceived"; messageId: string; content: string; program?: string; presentationId?: string }
+  | { type: "graphRunStarted" }
+  | { type: "historyLoading" }
+  | { type: "historyLoaded"; threadId: string; messages: ChatMessage[]; running?: boolean; error?: string }
+  | { type: "historyLoadFailed"; error: string | null }
+  | { type: "assistantSnapshotReceived"; messageId: string; content: string; program?: string; presentationId?: string; activities?: ChatMessage["activities"] }
   | {
       type: "threadCreated";
       threadId: string;
@@ -20,9 +24,11 @@ export type ChatAction =
     }
   | {
       type: "assistantMessageCompleted";
+      messageId?: string;
     }
   | {
       type: "streamFailed";
+      messageId?: string;
       error: string;
     }
   | {
@@ -40,10 +46,19 @@ export function chatReducer(
   state: ChatThreadState,
   action: ChatAction,
 ): ChatThreadState {
+  if ((action.type === "assistantMessageCompleted" || action.type === "streamFailed") && action.messageId && state.messages.findLast(message => message.role === "assistant")?.id !== action.messageId) return state;
   switch (action.type) {
+    case "graphRunStarted":
+      return { ...initialChatState, status: "creating_thread" };
+    case "historyLoading":
+      return { ...state, status: "loading_history", error: null };
+    case "historyLoaded":
+      return { threadId: action.threadId, messages: action.messages, status: action.running ? "streaming" : action.error ? "error" : "idle", error: action.error ?? null };
+    case "historyLoadFailed":
+      return { ...state, status: action.error ? "error" : "idle", error: action.error };
     case "assistantSnapshotReceived":
       return { ...state, messages: state.messages.map(message => message.id === action.messageId
-        ? { ...message, content: action.content, program: action.program, presentationId: action.presentationId }
+        ? { ...message, content: action.content, program: action.program, presentationId: action.presentationId, activities: action.activities }
         : message) };
 
     case "threadCreated":
@@ -86,6 +101,7 @@ export function chatReducer(
         messages: updateLastAssistantMessage(state.messages, (message) => ({
           ...message,
           status: message.status === "error" ? "error" : "complete",
+          activities: message.activities?.map(activity => activity.status === "running" ? { ...activity, status: "interrupted" } : activity),
         })),
         status: "idle",
         error: null,
@@ -98,6 +114,7 @@ export function chatReducer(
           ...message,
           content: message.content || action.error,
           status: "error",
+          activities: message.activities?.map(activity => activity.status === "running" ? { ...activity, status: "error" } : activity),
         })),
         status: "error",
         error: action.error,

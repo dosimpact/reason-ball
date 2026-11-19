@@ -1,0 +1,24 @@
+meta {
+  name: SEC-STARTERS-001 prepare source
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/prepare
+  body: json
+  auth: none
+}
+body:json {
+  {"cik":"0001326801","refresh":false}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("known metadata is prepared", function () {
+    const b = res.getBody();
+    expect(b.filing.filingDate).to.equal("2026-01-29");
+    expect(b.checkedAt).to.equal(null);
+    bru.setVar("starterThread", b.threadId);
+  });
+}

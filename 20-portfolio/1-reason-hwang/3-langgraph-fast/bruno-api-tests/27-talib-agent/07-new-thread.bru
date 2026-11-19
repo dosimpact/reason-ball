@@ -1,0 +1,25 @@
+meta {
+  name: TALIB-CHAT-001 independent empty thread
+  type: http
+  seq: 7
+}
+post {
+  url: {{baseUrl}}/threads
+  body: json
+  auth: none
+}
+body:json {
+  {"metadata":{"source":"talib-api-validation","graph_id":"talib_agent"}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  const original=bru.getVar("talibThread");
+  let cross; try { cross=await bru.sendRequest({method:"POST",url:req.getUrl()+"/"+original+"/runs",data:{assistant_id:"fixture_other_graph",input:{messages:[{role:"user",content:"must reject"}]}}}); } catch(error) {cross=error.response;}
+  test("thread cannot switch graphs",function(){expect(cross.status).to.equal(409);});
+
+  bru.setVar("emptyTalibThread",res.getBody().thread_id);
+  const state = await bru.sendRequest({method:"GET", url:req.getUrl()+"/"+res.getBody().thread_id+"/state"});
+  test("new thread has no prior conversation data", function(){expect(state.status).to.equal(200);expect(state.data.values).to.deep.equal({});});
+}

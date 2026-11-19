@@ -7,7 +7,7 @@ This domain owns the lifecycle of US corporate disclosure documents, including 1
 ## Owning components
 
 - `2-bff-apps`: SEC EDGAR collection and query APIs under `/api/sec/*`, TypeORM persistence, SSE progress, internal retries, and remote delivery used by the host.
-- `3-langgraph-fast`: 10-K parsing, retrieval, Graph RAG workflows, and project endpoints under `/api/tenk/*`.
+- `3-langgraph-fast`: 10-K parsing, retrieval, Graph RAG workflows, and model execution under `/internal/sec-modeling/*` and evidence/fact endpoints under `/api/sec-analysis/*`.
 - `infra/1-infra-graph-rag`: PostgreSQL and Neo4j persistence plus shared observability dependencies.
 - `1-fe-host`: user-facing routes and interactions that consume filing-domain APIs or analysis results.
 
@@ -29,11 +29,16 @@ Add business requirements, SEC terminology, filing lifecycle rules, domain API c
 
 Detailed supporting references currently include:
 
-- [`a2ui-system.md`](a2ui-system.md): 회사 조회·공시 선택·선택 공시 기반 분석/요약 보고서 A2UI 설계 (구현 진행 중).
+- [`open-ui-system.md`](open-ui-system.md): SEC 전용 Generative UI 데모 제거 범위와 유지하는 SEC 업무 화면.
 
 - [`system-design.md`](system-design.md): implemented database-backed filing content, constraints, migration, commands, and validation boundaries.
+- [`sec-modeling.md`](sec-modeling.md): SEC-MODELING-001, 승인된 모델링 1/2/3·작업 관리·Admin·검색 계약과 구현 인수 기준. pipeline 실데이터 검증 한계는 유지하며 SEC-MODELING-ADMIN-002 공시 상태 표·통계·API Testing의 API 검증을 추가한다.
 - `2-bff-apps/src/us-corporate-filings/.docs/api-spec.md`
 - `3-langgraph-fast/README.md`
 - `infra/1-infra-graph-rag/docs/`
 
-- [SEC Intelligent UI 채팅](intelligent-ui.md): A2UI를 사용하지 않는 최신 10-K 기반 LangGraph/AG-UI/OpenUI 경로와 검증 기준.
+- [SEC Intelligent UI 채팅](intelligent-ui.md): 최신 10-K 기반 LangGraph/AG-UI/OpenUI 경로와 검증 기준.
+
+- [SEC Collector 운영 화면](collector-dashboard.md): SEC-COLLECTOR-001, 기업·공시 조회와 명시적 API 수집 실행.
+
+- [SEC iXBRL 자체 뷰어](ixbrl-viewer.md): SEC-IXBRL-001, 저장된 원문의 taxonomy-free fact 추출과 원문 위치 연결. 구현 작성 완료·실행 미검증·사용자 직접 검증.

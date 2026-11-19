@@ -1,0 +1,22 @@
+meta {
+  name: images-live
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/image-search?q=Golden%20Gate%20Bridge
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("GALLERY-MEDIA-001 images-live", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().images).to.be.an("array");
+  });
+}

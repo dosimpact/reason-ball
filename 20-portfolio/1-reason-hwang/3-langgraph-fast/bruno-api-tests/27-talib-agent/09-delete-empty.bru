@@ -1,0 +1,16 @@
+meta {
+  name: TALIB-CHAT-001 delete empty thread
+  type: http
+  seq: 9
+}
+delete {
+  url: {{baseUrl}}/threads/{{emptyTalibThread}}
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 204
+}
+tests {
+  test("empty thread removed",function(){expect(res.getStatus()).to.equal(204);});
+}

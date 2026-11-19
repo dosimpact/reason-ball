@@ -85,7 +85,7 @@ class SecBffClient:
         try:
             async with httpx.AsyncClient(base_url=self.base_url, transport=self.transport, timeout=httpx.Timeout(900, connect=10), follow_redirects=False) as client:  # noqa: SIM117
                 async with client.stream(method, '/api/sec/' + path, params=params, json=body) as response:
-                    if response.status_code not in (200, 201):
+                    if response.status_code not in (200, 201, 202):
                         raise SecReadError(f"SEC BFF request failed ({response.status_code})")
                     if stream:
                         event, completed = "", None
@@ -123,16 +123,19 @@ def compact(value):
     return value
 
 
-def build_sec_tools(client=None, activity=None, *, allowed_ciks=None, allow_sync=True, include_arguments=False):
+def build_sec_tools(client=None, activity=None, *, allowed_ciks=None, allow_sync=True, required_sync_args=None, include_arguments=False, include_tool_details=False):
     client = client or SecBffClient()
+    collection_sync_started = False
 
     def make(name, description, schema, method, path, *, stream=False, raw=False):
         async def execute(**kwargs):
+            nonlocal collection_sync_started
             identity = uuid4().hex
-            def emit(status):
+            def emit(status, result=None):
                 if activity:
-                    activity({"id": identity, "label": f"SEC 도구 · {name}", "status": status, "kind": "node",
-                              **({"arguments": kwargs} if include_arguments else {})})
+                    activity({"id": identity, "label": f"SEC 도구 · {name}", "status": status, "kind": "tool" if include_tool_details else "node",
+                              **({"arguments": kwargs} if include_arguments or include_tool_details else {}),
+                              **({"result": result} if include_tool_details and result is not None else {})})
             emit("running")
             try:
                 args = schema(**kwargs).model_dump(exclude_none=True)
@@ -142,6 +145,12 @@ def build_sec_tools(client=None, activity=None, *, allowed_ciks=None, allow_sync
                         raise SecReadError("Tool request outside the selected company scope")
                 if method == 'POST' and not allow_sync:
                     raise SecReadError("Synchronization is disabled for this request")
+                if name == 'sync_sec_company_filings' and required_sync_args is not None and args != required_sync_args:
+                    raise SecReadError("Synchronization arguments differ from the confirmed request")
+                if name == 'sync_sec_company_filings' and required_sync_args is not None:
+                    if collection_sync_started:
+                        raise SecReadError("Synchronization already started for this request")
+                    collection_sync_started = True
                 actual_path = path
                 if raw:
                     actual_path = f"filings/{args['cik']}/{args['accessionNo']}/content"
@@ -161,13 +170,13 @@ def build_sec_tools(client=None, activity=None, *, allowed_ciks=None, allow_sync
                                "note": "Only this excerpt was shown; request further offsets or queries for more evidence."}
                 else:
                     visible = compact(result)
-                emit("completed")
+                emit("completed", visible)
                 return json.dumps(visible, ensure_ascii=False), artifact
             except asyncio.CancelledError:
                 emit("cancelled")
                 raise
-            except Exception:
-                emit("failed")
+            except Exception as error:
+                emit("failed", str(error))
                 raise
         return StructuredTool.from_function(coroutine=execute, name=name, description=description,
                                             args_schema=schema, response_format="content_and_artifact")

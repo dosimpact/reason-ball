@@ -13,13 +13,13 @@ Reason Hwang is a local-first portfolio platform combining a Next.js user interf
 ```text
 Browser
   |
-  +-- Next.js host :2800
-  |     +-- /api/remote-proxy/* --> NestJS BFF :2801 --> remote dev server or dist
-  |     +-- /api/langgraph/* ----> FastAPI/LangGraph :8000
+  +-- Next.js host :2983
+  |     +-- /api/remote-proxy/* --> NestJS BFF :2980 --> remote dev server or dist
+  |     +-- /api/langgraph/* ----> FastAPI/LangGraph :2981
   |
-  +-- NestJS SEC API :2801/api/sec/* --> SEC EDGAR + PostgreSQL
+  +-- NestJS SEC API :2980/api/sec/* --> SEC EDGAR + PostgreSQL
   |
-  +-- FastAPI/LangGraph :8000
+  +-- FastAPI/LangGraph :2981
         +-- PostgreSQL (application state and LangGraph checkpoints)
         +-- Neo4j (10-K/Graph RAG data)
         +-- model provider or local OAuth proxy :18741
@@ -40,8 +40,11 @@ Implemented page routes:
 | `/` | Host landing page |
 | `/remotes/template` | Template federated remote |
 | `/remotes/todo` | Todo federated remote |
-| `/chat` | LangGraph-backed chat UI |
+| `/langgraph-dev-chat` | LangGraph development runtime chat UI |
+| `/fastapi-chat` | FastAPI graph runtime chat with isolated history |
 | `/index-dcf-visualizer` | Index DCF calculation and visualization |
+| `/sec-collector` | SEC collection operations |
+| `/sec-modeling` | SEC modeling runs, processed results and evidence search |
 
 The host exposes same-origin server routes `/api/remote-proxy/[...path]` and `/api/langgraph/[...path]`. This keeps browser requests behind the host and avoids coupling UI code to local service origins.
 
@@ -67,15 +70,24 @@ Remote definitions must remain consistent between `1-fe-host/src/shared/lib/remo
 `2-bff-apps` is a NestJS application with two responsibilities:
 
 1. Deliver remote assets through `/remotes/:name/*`.
-2. Expose SEC EDGAR collection and query operations under `/api/sec/*`.
+2. Expose SEC EDGAR collection, query and modeling operations under `/api/sec/*`.
 
-The SEC surface has six endpoints: company synchronization/listing, filing retrieval with original/amendment links, direct single-document content, and selected/all-company backfill POST SSE. Metadata is collected before optional documents; retries are internal. There is no separate parser-status/download/retry/job-status API. PostgreSQL access is implemented with TypeORM entities and migrations. Swagger is enabled by default at `/docs/sec`, with JSON and YAML documents below that path; set `SWAGGER_ENABLED=false` to disable it.
+The SEC collection surface has seven endpoints: company synchronization/listing, filing retrieval with original/amendment links, direct single-document content, accession-specific download/retry SSE, and selected/all-company backfill POST SSE. The accession-specific operation requires an existing filing record and affects only that CIK+accession pair. Modeling run controls live under `/api/sec/modeling/*`. PostgreSQL access is implemented with TypeORM entities and migrations. Swagger is enabled by default at `/docs/sec`, with JSON and YAML documents below that path; set `SWAGGER_ENABLED=false` to disable it.
 
 SEC primary-document bodies are stored with metadata in PostgreSQL; report queries no longer read local filing paths. See the [filing system design](../us-corporate-filings/system-design.md) for migration and content-size limits. Bulk submissions ZIP remains a local, reproducible cache.
 
 ## FastAPI and LangGraph
 
-`3-langgraph-fast` is the primary AI runtime. The FastAPI application exposes a LangGraph-compatible surface for Assistants, Threads, Thread Runs, Stateless Runs, Streaming, Crons, Store, A2A, MCP, and System operations. Project-specific extensions include `/health`, `/health/postgres`, `/graph/run`, and `/api/tenk/*`.
+### FASTAPI-RUNTIME-001: 독립 실행 경계
+
+`/fastapi-chat`은 `/api/fastapi-langgraph/*`를 통해 `FASTAPI_RUNTIME_API_URL`(기본 2981)을 사용한다. `/langgraph-dev-chat`과 `/chat`의 개발 서버 경로는 `/api/langgraph-runtime/*` 및 `LANGGRAPH_RUNTIME_API_URL`(기본 2982)을 유지한다. 대화·실행·기록·차트 Query를 선택한 런타임에 고정하며 자동 fallback과 기존 개발 서버 기록의 자동 이관을 하지 않는다. FastAPI 기록은 `runtime: fastapi` 메타데이터로 구분한다.
+
+FastAPI의 GraphRegistry는 `langgraph.json`의 실제 그래프 builder를 saver와 함께 컴파일한다. 기본 memory mode는 기존 단일 프로세스 경계다. `LANGGRAPH_RUNTIME_MODE=postgres`에서는 LG-OSS-MULTI-001의 DB 접수·전역 용량·thread 순서·owner/lease·fenced checkpoint/pending writes·취소·이벤트를 공통 기준으로 여러 worker가 실행한다. PostgreSQL이나 migration이 준비되지 않으면 memory로 fallback하지 않는다. values/messages/custom과 SDK/OpenUI 계약을 유지하고 기본 연결 해제는 실행을 계속한다. lease를 잃은 running을 자동 재실행하지 않으며 안전한 queued만 이어서 처리한다. 외부 효과가 불명확하면 thread를 검토 필요 상태로 막는다. 전체 LangGraph 프로토콜의 동등성을 주장하지 않으며 DB mode에서 미지원 thread event bus/commands는501이다. [구현 원본](3-langgraph-fast/fastapi-runtime.md)과 [검증 계약](3-langgraph-fast/multiworker-validation.md)을 따른다.
+
+PostgreSQL local 스키마 준비는 기본적으로 public 레거시 테이블을 이동하지 않으며, 레거시 backfill은 명시 opt-in이다. 검증 범위는 [패키지 검증 계약](3-langgraph-fast/multiworker-validation.md)을 따른다.
+
+
+`3-langgraph-fast` is the primary AI runtime. The FastAPI application exposes a LangGraph-compatible surface for Assistants, Threads, Thread Runs, Stateless Runs, Streaming, Crons, Store, A2A, MCP, and System operations. Project-specific extensions include `/health`, `/health/postgres`, `/graph/run`, and `/api/sec-analysis/*` and `/internal/sec-modeling/*`.
 
 The main graph lives under `3-langgraph-fast/src/graph/primary_graphs/main_graph/`, separating
 top-level application graphs from reusable graphs under `src/graph/subgraph/`. It composes
@@ -89,18 +101,14 @@ graph that owns its state, ReAct node, prompts boundary, MCP boundary, and Open-
 `get_weather` tool. It does not depend on a subgraph implementation.
 
 When PostgreSQL is configured, the application persists assistant, thread, run, cron, store, A2A,
-and LangGraph checkpoint data in the dedicated `langgraph` PostgreSQL schema. The BFF's SEC tables
-remain in `public`, even when both services share the `sec_collector` database. Local profile startup
-may create the dedicated schema, move existing LangGraph-owned tables from `public`, prepare
-idempotent schema changes, and migrate legacy snapshots. FastAPI startup also prepares the 10-K
+and LangGraph checkpoint data in the dedicated `langgraph` PostgreSQL schema. The BFF's collected SEC tables
+remain in `public`, while its modeling execution tables use `sec_modeling`, even when both services share the `sec_collector` database. Local profile startup may prepare the dedicated schema and idempotent changes. Moving legacy public tables and backfilling snapshots require explicit opt-in. FastAPI startup also prepares the 10-K
 Neo4j uniqueness constraints in the local profile. For both databases, non-local profiles verify
-the expected schema without executing DDL and fail fast when it is absent or outdated. The supported
-FastAPI deployment is one Uvicorn worker because distributed run coordination is outside the service
-boundary.
+the expected schema without executing DDL and fail fast when it is absent or outdated. Memory runtime mode supports one Uvicorn worker. PostgreSQL runtime mode supports coordinated workers under the lease/fencing and migration contract described above.
 
 Do not bypass startup or migration safeguards selected by `ENV_PROFILE`.
 
-The separate `langgraph dev` process on port 2024 is for graph development and Studio; it does not replace the FastAPI implementation on port 8000.
+The separate `langgraph dev` process on port 2982 is for graph development and Studio; it does not replace the FastAPI implementation on port 2981.
 
 ## Data and infrastructure
 
@@ -143,3 +151,18 @@ SEC Chat의 기업/공시 조회는 공통 SEC tool calling으로 실행하며, 
 ## FE-FSD-001 / SEC-ADMIN-001
 
 Host `src` 전체는 FSD 레이어와 Steiger 권장 규칙을 적용한다. Next 라우트 진입점은 루트 `app/`, 구현은 `_app`, `_pages`, `widgets`, `shared`에 둔다. [Host 구조](1-fe-host/2-frontend-side-architecture.md#fe-fsd-001-host의-feature-sliced-design)를 따른다. `/sec-api-agent`는 독립 SEC Deep Agent를 OpenUI `AgentInterface`와 연결한 관리자 업무용 채팅이다. 기존 `/sec-chat`의 인용 검증과 추천 질문 흐름은 유지한다. [SEC 기능 원본](../sec-chat.md#sec-api-관리자-채팅).
+
+## TA-QUERY-001: 모델 없는 금융 데이터 조회
+
+전용 기술적 분석 OpenUI는 Host `/api/fastapi-langgraph` 프록시로 Python `GET /technical-analysis/chart`를 조회한다. 이 API는 FastAPI와 LangGraph development custom `http.app`에 같은 router를 등록하며 Yahoo·TA-Lib를 재사용한다. 차트 조건 변경·polling은 그래프 run과 모델 provider를 호출하지 않는다. 초기 분석과 해석의 모델 경계는 유지한다. 구체 계약은 [기술적 분석 시스템 설계](../technical-analysis/system-design.md#ta-query-001-조회-api와-차트-runtime), Host provider는 [OpenUI Host](1-fe-host/open-ui.md#ta-query-001-금융-query-provider)를 따른다.
+
+## SEC-MODELING-001: 분석 작업과 검색 경계
+
+Host `/sec-modeling` → same-origin BFF proxy → `/api/sec/modeling/*`이 작업을 제어한다.
+BFF PostgreSQL의 `sec_modeling` schema가 실행 이력을 보존하고 FastAPI가 모델링을 실행한다.
+Neo4j는 원본 전체가 아닌 가공 결과·lexical graph·XBRL 사실·벡터를 저장한다.
+검색·근거 조회 시 BFF 원문 조회 의존성을 만들지 않는다. 모델링2 추출·임베딩과 모델링3의 직접 Decisions API 호출은 채팅 provider와 별도 설정이다. Qdrant·pgvector·Redis는 이 경로에 도입하지 않는다.
+[도메인 계약](../us-corporate-filings/sec-modeling.md),
+[Python 구현 경계](3-langgraph-fast/4-graph-db.md),
+[BFF 소유 경계](2-bff-apps/directory-policy.md#sec-modeling-001-모델링-실행-확장)를 따른다.
+모델링 작업 제어의 API 검증과 실제 데이터 품질·검색 평가의 미완료 범위는 도메인 계약의 검증 절을 따른다.

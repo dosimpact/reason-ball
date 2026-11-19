@@ -1,0 +1,25 @@
+meta {
+  name: OPENUI-SEC-REMOVE-001 retained fixed route
+  type: http
+  seq: 10
+}
+post {
+  url: {{baseUrl}}/api/generative-ui/fixed
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+}
+body:json {
+  {}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("Retained route validates request body", function() {
+    expect(res.getStatus()).to.equal(422);
+    expect(res.getBody().detail[0].loc[0]).to.equal("body");
+  });
+}

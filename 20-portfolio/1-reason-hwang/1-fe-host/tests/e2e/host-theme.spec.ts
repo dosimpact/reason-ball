@@ -32,8 +32,8 @@ test('one theme controls the host, OpenUI and catalog across reloads', async ({ 
   await page.getByRole('button', { name: '다크 모드로 전환' }).click();
   await expect(page.locator('html')).toHaveClass(/dark/);
   await page.route('**/api/sec-chat/resolve', route => route.fulfill({ json: { action: 'reply', reply: '일반 채팅 테마 확인' } }));
-  await page.getByRole('textbox', { name: '메시지', exact: true }).fill('테마 확인');
-  await page.getByRole('button', { name: '메시지 보내기', exact: true }).click();
+  await page.locator('textarea:visible').first().fill('테마 확인');
+  await page.getByRole('button', { name: /^(Send|Send message)$/ }).click();
   await expect(page.getByTestId('intelligent-ui-answer')).toContainText('일반 채팅 테마 확인');
   expect(await page.getByTestId('intelligent-ui-answer').evaluate(element => getComputedStyle(element).getPropertyValue('--iui-ink'))).toBe(dark.hostInk);
 });

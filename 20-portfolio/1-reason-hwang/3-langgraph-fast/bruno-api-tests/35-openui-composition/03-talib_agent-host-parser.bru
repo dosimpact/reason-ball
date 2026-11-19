@@ -1,0 +1,21 @@
+meta {
+  name: OPENUI-COMPOSE-001 talib_agent-host-parser
+  type: http
+  seq: 3
+}
+post {
+  url: {{validatorUrl}}
+  body: json
+  auth: none
+}
+body:json {
+  {"program":{{compositionProgramJson}}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("composition contract", () => {
+  expect(res.getBody().valid).to.equal(true);expect(res.getBody().errors).to.deep.equal([]);
+  });
+}

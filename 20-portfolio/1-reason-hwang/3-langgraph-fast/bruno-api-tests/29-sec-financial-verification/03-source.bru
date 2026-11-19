@@ -1,0 +1,19 @@
+meta {
+ name: SEC financial source
+ type: http
+ seq: 3
+}
+post {
+ url: {{baseUrl}}/api/sec-deep-agent/research
+ body: json
+ auth: none
+}
+body:json {
+ {"message":"source","history":[]}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("source",function(){const b=res.getBody(); expect(b.financialVerification.facts[0].error).eq("source_quote_not_found");});
+}

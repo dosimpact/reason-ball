@@ -1,0 +1,19 @@
+meta {
+  name: publication summary 200
+  type: http
+  seq: 14
+}
+get {
+  url: {{pythonUrl}}/internal/sec-modeling/filings/publications
+  body: none
+  auth: none
+}
+headers {
+  X-SEC-Modeling-Key: qa-bulk-only
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("publication summary",()=>{expect(res.getStatus()).to.equal(200);expect(res.getBody().items[0].stages["1"].generationId).to.equal("fixture-generation");});
+}

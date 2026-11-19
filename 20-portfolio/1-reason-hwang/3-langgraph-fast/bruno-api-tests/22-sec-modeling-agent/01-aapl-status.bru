@@ -1,0 +1,20 @@
+meta {
+  name: AAPL exact modeling publication status
+  type: http
+  seq: 1
+}
+get {
+  url: {{bffBaseUrl}}/api/sec/modeling/filings/0000320193/0000320193-26-000026/status
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("exact filing has published model 3", function() {
+    const data = res.getBody();
+    expect(data.stages).to.be.an("object");
+    expect(data.stages["3"].generationId).to.be.a("string").and.not.empty;
+  });
+}

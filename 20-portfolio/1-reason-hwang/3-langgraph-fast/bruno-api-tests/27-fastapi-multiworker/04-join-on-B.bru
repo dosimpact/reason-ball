@@ -1,0 +1,16 @@
+meta {
+  name: LG-OSS-MULTI-001 join-on-B
+  type: http
+  seq: 4
+}
+get {
+  url: {{workerB}}/threads/{{multiThread}}/runs/{{multiRun}}/join
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("join-on-B",function(){expect(res.getBody().completed).to.equal(1);expect(res.getBody().messages.some(x=>x.tool_call_id===bru.getVar("multiKey")+"-tool")).to.equal(true);});
+}

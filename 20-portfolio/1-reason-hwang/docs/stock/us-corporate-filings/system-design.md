@@ -6,6 +6,19 @@
 
 ## 구조
 
+### SEC-MODEL1-001: 분석용 문서 구조의 저장 경계
+
+모델링 1의 분석 결과는 Neo4j의 `Company → FILED → Filing → HAS_ITEM → Item`으로
+구성한다. PostgreSQL은 SEC 수집 원본 HTML과 메타데이터를 보존한다. Neo4j에는 원본 HTML
+전체를 복제하지 않고 Item별 정제 `displayHtml`과 `text`를 저장한다. 표시용 제목·문단·표와
+수치는 보존하고 XBRL 메타데이터 및 실행 가능한 HTML 요소를 제거한다.
+
+Item을 표시하거나 후속 청킹할 때 PostgreSQL을 다시 조회하지 않는다. `sourceUrl`과
+`sourceHash`는 공시 수준의 추적 정보이며 원문 조회 의존성이 아니다. `sourceLocator`는 필수
+속성이 아니다. 원본 추출 규칙을 바꾸거나 XBRL을 재파싱할 때만 명시적으로 원본을 다시 받는다.
+
+현재 분석 세대·작업·게시·검색 계약과 검증 범위는 [SEC 모델링](sec-modeling.md)에 둔다.
+
 ```text
 SEC EDGAR -> NestJS bounded HTTP download -> UTF-8 검증 및 SHA-256
           -> PostgreSQL sec_collector.public.filings (원자적 UPDATE)
@@ -99,31 +112,30 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 - PostgreSQL volume 백업/복원 정책은 원문까지 포함해야 한다. 백업 복원 실험, 다중 인스턴스 부하 시험, 비 UTF-8 공시 지원은 이번 검증 범위 밖이다.
 - SQL SHA-256은 PostgreSQL 16 내장 함수 사용: [공식 binary string 함수 문서](https://www.postgresql.org/docs/16/functions-binarystring.html).
 
-검증 증거는 [DB 원문 저장 구현 기록](../../flow/2026-09-20-sec-filing-database-content-implementation.md)에 기록한다.
-
 
 ## BFF-DIR-001: 현재 모듈·API 계약
 
-[디렉터리 정책](../tech-shared/2-bff-apps/directory-policy.md)이 구조의 원본이다. `AppModule`에 업무 모듈 하나를 연결한다. TypeORM 엔티티는 Company/Filing 두 개이고 DTO는 같은 entity 디렉터리에 둔다. 서비스는 CompanyService, FilingService, FilingBackfillService 세 개다. 외부 SEC HTTP·타입·ZIP 처리·명세는 `src/lib/sec/`에 둔다.
+[디렉터리 정책](../tech-shared/2-bff-apps/directory-policy.md)이 구조의 원본이다. `AppModule`에 업무 모듈 하나를 연결한다. TypeORM 엔티티는 Company/Filing 두 개이고 DTO는 같은 entity 디렉터리에 둔다. 수집 서비스는 CompanyService, FilingService, FilingBackfillService 세 개다. 모델링 실행·저장·제어는 SEC-MODELING-001의 별도 서비스가 담당한다. 외부 SEC HTTP·타입·ZIP 처리·명세는 `src/lib/sec/`에 둔다.
 
-명시적 REST API는 6개다. [BFF API 명세](../../../2-bff-apps/src/us-corporate-filings/.docs/api-spec.md)와 Bruno 컬렉션이 같은 계약을 따른다.
+수집 REST API는 7개다. 행 단위 원문 다운로드는 저장된 CIK+접수번호 한 건만 처리하며 실패 건은 재시도한다. 모델링 제어 API는 SEC-MODELING-001에서 별도 확장한다. [BFF API 명세](../../../2-bff-apps/src/us-corporate-filings/.docs/api-spec.md)를 현재 API 계약으로 사용한다. Bruno 컬렉션은 각 시나리오에서 명시한 계약만 검증한다.
 
 | API | 동작 |
 | --- | --- |
 | POST /company-sync-jobs | 회사 snapshot 동기화, 201 JSON |
-| GET /companies | 페이지 조회, pageSize 기본 50·최대 100000, limit 호환 |
+| GET /companies | 응답은 pagination과 items만 포함; 페이지 조회, pageSize 기본 50·최대 100000, limit 호환 |
 | GET /filings | 공시 페이지 조회, pageSize 최대 500, includeContent 옵션 |
 | GET /filings/:cik/:accessionNo/content | 저장된 단일 원문 직접 반환 |
+| POST /filings/:cik/:accessionNo/download-jobs | 저장된 특정 공시 원문 다운로드·재시도, 200 SSE |
 | POST /company-filing-sync-jobs | 지정 기업 recent·역사 JSON 수집 후 원문, 200 SSE |
 | POST /all-company-filing-sync-jobs | 티커 보유 회사의 archive 메타데이터 적재 후 원문, 200 SSE |
 
 - 회사 필터 cik/ticker/q와 공시 필터 cik/ticker/since/formType/status/parserStatus를 지원한다. pagination은 page/pageSize/totalItems/totalPages/hasNextPage이며 빈 결과 totalPages=0이다.
 - 백필 기본 기간은 20년(최대 30년), 지원 폼은 10-K/10-Q/8-K와 수정공시다. 메타데이터 단계가 먼저 끝난 후 원문을 다운로드한다. downloadDocuments=false로 원문을 생략할 수 있다.
 - SSE started/progress/completed/error로 진행 상황을 알린다. HTTP 200은 성공을 의미하지 않으며 마지막 이벤트와 failed 건수를 확인한다. 입력 검증 실패는 스트림 전 400이다.
-- 별도 작업 Entity, 메모리 작업 이력, 상태 GET은 없다. 공시 상태는 filings에만 영속 저장한다. 기존 sec_backfill_runs 테이블과 migration은 과거 이력 보존용이며 런타임은 접근하지 않는다.
+- 수집 API에는 별도 작업 Entity, 메모리 작업 이력, 상태 GET이 없다. 수집 상태는 filings에 영속 저장한다. 별도 모델링 실행은 sec_modeling schema의 영속 이력을 사용한다. 기존 sec_backfill_runs 테이블과 migration은 과거 이력 보존용이며 런타임은 접근하지 않는다.
 - 원문 재실행은 failed를 한 번 pending으로 되돌리고 기존 downloaded·parserStatus·checksum·본문을 보존한다. 연결 종료 시 다음 진행 보고에서 중단하고 재호출로 이어간다.
 - 전체 기업 백필 중복 실행 제한은 프로세스 단위다. 다중 프로세스 분산 잠금·영구 실행 복구를 제공하지 않는다.
-- 별도 다운로드/재시도/parser-status/상태 집계/백필 상태 API는 제거했다. 저장소의 FE·LangGraph 호출자 검색에서 소비자가 없음을 확인했다. 기존 원문 소비자는 filings?includeContent=true로 전환한다.
+- parser-status/상태 집계/백필 상태 API는 제공하지 않는다. 원문 재시도는 회사 범위 backfill을 사용하고, 수집 UI의 단일 공시 요청은 accession별 download-jobs로 처리한다.
 - Config는 생성 시 한 번 검증한 snapshot을 공유한다. PORT > APP_PORT > 2801. 잘못된 숫자·URL·boolean은 부팅 오류다.
 
 ## 검증과 실데이터 실행
@@ -131,9 +143,9 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 - Node 회귀 테스트, TypeScript lint, 격리 PostgreSQL+Nest Bruno: 회사 pagination·티커 범위 28개, 백필/SSE·수정본·단일 원문·티커 범위 52개 시나리오.
 - 추가 HTTP 스트림 검증: started가 작업 완료 전에 도착, metadata-only가 본문 없이 pending 저장, bulk 원문 조회 왕복, 작업 이력 테이블 쓰기 없음.
 - Swagger MCP: 특정 기업 메타데이터→문서→completed, 잘못된 대상 400, 저장 원문 재조회.
-- 실제 실행: `node scripts/run-sec-backfill.cjs 20`은 별도 임시 포트에서 회사 전체 동기화 후 전체 기업 20년 백필을 실행한다. configured DB를 변경하므로 명시적 요청 시만 실행한다. `DATA_DIR/runs`에 SSE 기록을 남긴다.
+- 실제 실행: `node scripts/run-sec-backfill.cjs 20`은 별도 임시 포트에서 회사 전체 동기화 후 전체 기업 20년 백필을 실행한다. configured DB를 변경하므로 명시적 요청 시만 실행한다. `STATIC_CACHE_DIR/runs`에 SSE 기록을 남긴다.
 - 과거 opt-in `test:sec-live`는 단일 Apple 문서 실연동 검증이며 전체 수집 명령과 다르다.
-- 상세 결과와 실제 수집 상태는 [구현·검증 flow](../../flow/2026-09-20-bff-simplification-sse.md)를 참조한다. 코드 검증 통과와 전체 원문 수집 완료를 구분한다.
+- 실제 SEC·DB 확인은 단일 공시 범위로 해석한다. 전체 기업 원문 수집 완료와 장기 처리 성능은 이 검증의 범위 밖이다. [수집 HTTP 시나리오](../../../2-bff-apps/bruno-api-tests/04-backfill-jobs/).
 
 ## SEC-AMEND-001: 원본과 수정본 연결 조회
 
@@ -143,7 +155,7 @@ GET filings의 기본 includeAmendments=true는 각 검색 항목에 original/am
 
 본문 수정 범위를 분석하거나 병합하지 않는다. 부분 수정본이 재무제표를 포함한다고 추정하지 않고 원본·모든 연결 수정본을 독립 문서로 노출한다. 원문 포함 조회는 중첩 반환되는 원문까지 64 MiB에 포함한다. metadata 기반 연결이며 법적 수정 범위의 확정 판정은 아니다.
 
-검증: 부분·전체 수정본 동시 보존, 수정본 검색에서도 필터 밖 원본 표시, 다른 회사/폼 제외, 원본 누락/모호성/기간 없음, 옵션 비활성화, 중첩 원문 byte 예산. [SSE 구현·검증 기록](../../flow/2026-09-20-bff-simplification-sse.md).
+검증: 부분·전체 수정본 동시 보존, 수정본 검색에서도 필터 밖 원본 표시, 다른 회사/폼 제외, 원본 누락/모호성/기간 없음, 옵션 비활성화, 중첩 원문 byte 예산.
 
 - 공개 Bruno 컬렉션도 SSE 성공/실패 검사, 메타데이터-only, 원본·수정본 원문/수정본 필터 요청을 제공한다. `bruno-api-tests/README.md`를 참조한다. 이 공개 요청 6개를 별도 fixture HTTP로 검증했다.
 
@@ -171,7 +183,7 @@ pnpm sec:sync
 
 `scripts/sync-sec.sh`는 패키지 디렉터리로 이동해 빌드한 뒤 기존 `run-sec-backfill.cjs 20`을 실행한다. 회사 동기화 → DB 티커 보유 회사의 최근 20년 공시 메타데이터 → 원문 다운로드 순서다. 별도 API 서버를 켤 필요 없이 자체 임시 포트를 사용한다. `.env`의 DB와 SEC_USER_AGENT 설정이 필요하다.
 
-진행 상황은 터미널과 `DATA_DIR/runs/backfill-*.sse`에 기록한다. 회사 동기화 실패 시 백필을 시작하지 않고, SSE error/완료 이벤트 누락/다운로드 실패 건수가 있으면 비정상 종료한다. `Ctrl-C`로 중단하며 재실행하면 메타데이터를 다시 동기화하고 기존 다운로드 완료 원문은 건너뛴다. 중단 지점부터 ZIP을 그대로 이어 읽는 방식은 아니다. 기존 프로세스와 중복 실행하지 않는다.
+진행 상황은 터미널과 `STATIC_CACHE_DIR/runs/backfill-*.sse`에 기록한다. 회사 동기화 실패 시 백필을 시작하지 않고, SSE error/완료 이벤트 누락/다운로드 실패 건수가 있으면 비정상 종료한다. `Ctrl-C`로 중단하며 재실행하면 메타데이터를 다시 동기화하고 기존 다운로드 완료 원문은 건너뛴다. 중단 지점부터 ZIP을 그대로 이어 읽는 방식은 아니다. 기존 프로세스와 중복 실행하지 않는다.
 
 `pnpm sec:sync --help`는 사용법만 출력하고 빌드·DB 연결·수집을 수행하지 않는다. 원문을 생략하려면 백필 API에 downloadDocuments=false를 명시한다. 이 자동 스크립트는 원문까지 수집한다.
 
@@ -182,6 +194,43 @@ GET /companies와 GET /filings의 기본값은 DB companies.ticker가 NULL·빈 
 
 ## SEC-IUI-001: 최신 10-K Intelligent UI 질의
 
-`/sec-chat` Host → same-origin SEC 채팅 proxy → FastAPI LangGraph → 기존 BFF 수집/원문 API를 사용한다. 최신성 확인과 저장 문서 열기를 구분하며 Item 1·1A·3·7·8 근거를 사용한다. 새 경로는 A2UI를 사용하지 않는다. 모델이 선택한 원문 구절 ID를 서버가 실제 인용문으로 복원하고, AG-UI로 전달한 OpenUI 프로그램을 Intelligent UI 카탈로그로 검증·렌더링한다.
+`/sec-chat` Host → same-origin SEC 채팅 proxy → FastAPI LangGraph → 기존 BFF 수집/원문 API를 사용한다. 최신성 확인과 저장 문서 열기를 구분하며 Item 1·1A·3·7·8 근거를 사용한다. 모델이 선택한 원문 구절 ID를 서버가 실제 인용문으로 복원하고, AG-UI로 전달한 OpenUI 프로그램을 Intelligent UI 카탈로그로 검증·렌더링한다.
 
 현재 완료 상태와 인수 기준은 [도메인 기능 설계](intelligent-ui.md), 패키지 계약은 [Host](../tech-shared/1-fe-host/sec-intelligent-ui.md)와 [LangGraph](../tech-shared/3-langgraph-fast/sec-intelligent-ui.md)에 둔다.
+
+## BFF-CACHE-001: 로컬 캐시 경로 설정
+
+환경 변수 `STATIC_CACHE_DIR`와 설정 getter `staticCacheDir`가 캐시 루트를 지정한다.
+기본값은 `./data`이며 상대경로는 BFF 실행 디렉터리를 기준으로 해석한다.
+SEC ZIP은 `sec-cache/submissions.zip`, 백필 실행 기록은 `runs/`에 저장한다.
+`LOG_DIR`는 별도 설정이다. HTTP 정적 파일 공개 디렉터리를 뜻하지 않는다.
+기존 `DATA_DIR`는 사용하지 않으므로 배포 환경에서도 새 이름으로 변경해야 한다.
+
+## SEC-COLLECTOR-001: Host 운영 대시보드
+
+Host `/sec-collector`가 수집 API를 generic same-origin BFF proxy로 호출한다. 공시 행의 수집 실행은 accession 단위 API를 사용하며 일괄 수집은 기존 backfill API를 사용한다. 업무·기술 계약은 [운영 화면 설계](collector-dashboard.md)를 따른다.
+
+## SEC-MODELING-001: 분석 작업 제어
+
+`UsCorporateFilingsModule` 안의 별도 modeling controller·service·store·executor가
+`/api/sec/modeling/*`을 소유한다. SEC 수집 API와 업무 데이터 계약은 별도 유지한다.
+`sec_modeling` schema의 jobs/runs/work_units/events는 분석 작업 전용이며 수집 백필 이력과 구분한다.
+단일 실행기·lease·execution token·재시도·취소·Neo4j 게시 결과 복구를 구현한다.
+원본 HTML은 PostgreSQL에 남고 FastAPI가 가공한 결과만 Neo4j에 저장한다.
+상세 계약·검증 상태는 [SEC 모델링](sec-modeling.md)을 따른다.
+
+## SEC-IXBRL-001: 저장 원문 자체 뷰어
+
+iXBRL viewer는 수집된 PostgreSQL 원문을 읽고 다운로드 상태와 해시를 확인한다. 실행 검증은 미완료다. BFF의 filing별 ixbrl 및 그 아래 facts/document 조회와 Host `/sec-viewer` 상세 계약·미검증 상태는 [뷰어 설계](ixbrl-viewer.md)에 둔다.
+
+### SEC 수집 현황 집계
+
+GET /overview는 전체 companies·filings 행과 form_type별 원문 보유 건수를 반환한다. 원문 보유는 document_content가 null 또는 빈 문자열이 아닌 경우이며 응답에 원문은 포함하지 않는다. GET /filings의 hasContent는 동일 기준이다.
+
+## SEC-COMPANY-COUNTS-001: 기업 목록 공시 집계
+
+`GET /api/sec/companies`의 각 item은 `filingCounts: {total: number, byFormType: {formType: string, count: number}[]}`를 포함한다.
+현재 페이지의 회사 CIK들을 한 번의 grouped query로 집계하며 원문 컬럼은 읽지 않는다.
+전체 저장 기간의 모든 formType을 대상으로 하며 `/A` 수정본은 별도 건수다.
+공시가 없으면 total=0, byFormType=[]다. 페이지 총 기업 수·검색·정렬·페이지 행 수는 변경하지 않는다.
+기업별 count는 페이지네이션된 공시 화면의 현재 필터 결과 수와 별개다. API 필드는 추가이며 기존 요청·LangGraph 클라이언트 계약은 유지한다.

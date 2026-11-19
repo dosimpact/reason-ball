@@ -1,0 +1,7 @@
+import type { ReactNode } from "react";
+import { Button } from "@/shared/ui/button";
+export const controlClass = "h-9 w-full rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring";
+export function Field({ label, children }: { label: string; children: ReactNode }) { return <label className="grid min-w-0 gap-1 text-sm"><span className="font-medium">{label}</span>{children}</label>; }
+export function Section({ title, children, action }: { title: string; children: ReactNode; action?: ReactNode }) { return <section className="min-w-0 rounded-xl border bg-card p-4 shadow-sm"><div className="mb-4 flex flex-wrap items-center justify-between gap-2"><h2 className="text-lg font-semibold">{title}</h2>{action}</div>{children}</section>; }
+export function PageNav({ page, totalPages, totalItems, busy, onPage }: { page: number; totalPages: number; totalItems: number; busy?: boolean; onPage: (page: number) => void }) { return <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm"><span>총 {totalItems.toLocaleString()}건 · {page} / {Math.max(1, totalPages)} 페이지</span><div className="flex gap-2"><Button variant="outline" disabled={busy || page <= 1} onClick={() => onPage(page - 1)}>이전</Button><Button variant="outline" disabled={busy || page >= totalPages} onClick={() => onPage(page + 1)}>다음</Button></div></div>; }
+export function ErrorNotice({ text }: { text?: string }) { return text ? <p role="alert" className="my-2 text-sm text-destructive">{text}</p> : null; }

@@ -190,6 +190,7 @@ async def prepare_schema(
     *,
     profile: str,
     schema: str | None = None,
+    move_legacy_tables: bool = False,
 ) -> None:
     """Create schema locally or verify it without DDL for non-local profiles."""
 
@@ -197,7 +198,8 @@ async def prepare_schema(
     if profile == "local":
         if schema is not None:
             await connection.execute(f"CREATE SCHEMA IF NOT EXISTS {quoted_schema}")
-            await _move_public_tables(connection, schema)
+            if move_legacy_tables:
+                await _move_public_tables(connection, schema)
             await connection.execute(f"SET search_path TO {quoted_schema}, public")
         for statement in DDL:
             await connection.execute(statement)

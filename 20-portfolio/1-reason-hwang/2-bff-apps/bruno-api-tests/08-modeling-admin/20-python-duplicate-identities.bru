@@ -1,0 +1,22 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 python-duplicate-identities
+  type: http
+  seq: 20
+}
+post {
+  url: {{pythonUrl}}/internal/sec-modeling/filings/status
+  body: json
+  auth: none
+}
+headers {
+  X-SEC-Modeling-Key: qa-bulk-only
+}
+body:json {
+  {"filings": [{"cik": "0000320193", "accessionNo": "0000320193-26-000001"}, {"cik": "0000320193", "accessionNo": "0000320193-26-000001"}]}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("python-duplicate-identities",function(){expect(res.status).to.equal(422);});
+}

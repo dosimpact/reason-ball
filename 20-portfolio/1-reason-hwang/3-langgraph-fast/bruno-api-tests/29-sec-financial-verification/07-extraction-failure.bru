@@ -1,0 +1,19 @@
+meta {
+ name: SEC financial extraction-failure
+ type: http
+ seq: 7
+}
+post {
+ url: {{baseUrl}}/api/sec-deep-agent/research
+ body: json
+ auth: none
+}
+body:json {
+ {"message":"extraction-failure","history":[]}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("extraction-failure",function(){const b=res.getBody(); expect(b.report).include("구조화 추출 실패"); expect(b.report).not.include("80111000000");});
+}

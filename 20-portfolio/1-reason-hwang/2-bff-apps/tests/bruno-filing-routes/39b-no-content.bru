@@ -1,0 +1,20 @@
+meta {
+  name: missing-content-filter
+  type: http
+  seq: 39
+}
+get {
+  url: {{baseUrl}}/filings?cik=11&includeFormerRegistrants=true&hasContent=false&since=2026-01-01&until=2026-12-31&includeAmendments=false
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("SEC-FILTER-002 matches missing content", function() {
+    const body = res.getBody();
+    expect(body.pagination.totalItems).to.equal(2);
+    expect(body.items.every(item => item.hasContent === false)).to.equal(true);
+  });
+}

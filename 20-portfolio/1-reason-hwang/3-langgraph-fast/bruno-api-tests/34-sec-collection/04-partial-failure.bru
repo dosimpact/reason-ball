@@ -1,0 +1,28 @@
+meta {
+  name: SEC-COLLECT-002 partial-failure
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/collect
+  body: json
+  auth: none
+}
+headers {
+  Accept: text/event-stream
+}
+body:json {
+  {"cik":"0001045810","years":4}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("partial-failure", function () {
+    const body = res.getBody();
+    expect(body).to.include("SEC_COLLECT_FAILED");
+    expect(body).not.to.include("RUN_FINISHED");
+    expect(body).not.to.include("sec.resolution");
+    expect(body).not.to.include("private upstream");
+  });
+}

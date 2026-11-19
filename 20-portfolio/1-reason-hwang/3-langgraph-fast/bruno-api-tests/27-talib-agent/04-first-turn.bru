@@ -1,0 +1,19 @@
+meta {
+  name: TALIB-CHAT-001 04-first-turn
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/threads/{{talibThread}}/runs/stream
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id":"talib_agent","input":{"messages":[{"role":"user","content":"AAPL 최근 60개 일봉을 RSI14로 분석해 줘."}]},"stream_mode":["values"]}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("04-first-turn", function() { expect(res.getBody()).to.include("event: values"); expect(res.getBody()).not.to.include("event: error"); });
+}

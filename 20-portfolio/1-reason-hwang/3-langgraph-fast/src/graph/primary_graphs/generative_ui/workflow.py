@@ -8,11 +8,9 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import END, START, StateGraph
 from pydantic import BaseModel, Field
 
-from domains.generative_ui.actions import apply_demo_action, apply_sec_action, fixed_data
+from domains.generative_ui.actions import apply_demo_action, fixed_data
 from domains.generative_ui.contracts import Mode, UIAction
 from domains.generative_ui.data import FLIGHTS, sales_summary
-from domains.generative_ui.sec import execute_action
-from domains.tenk.sec_client import SecClient
 from graph.subgraphs.openui_output.workflow import build_output_graph
 
 
@@ -34,8 +32,9 @@ class UIState(TypedDict, total=False):
     controls: str
 
 
-def build_ui_graph(mode: Mode, model, *, client=None, validator=None):
-    client = client or SecClient()
+def build_ui_graph(mode: Mode, model, *, validator=None):
+    if mode not in {"dynamic", "fixed"}:
+        raise ValueError("Unsupported Generative UI mode")
     output = build_output_graph(model, validator=validator)
 
     async def business(state: UIState):
@@ -44,10 +43,7 @@ def build_ui_graph(mode: Mode, model, *, client=None, validator=None):
         question = state.get('question', '')
         if request:
             action = UIAction.model_validate(request)
-            if mode == 'sec':
-                data = await apply_sec_action(previous, action, state.get('revision', 0), client, model)
-            else:
-                data = apply_demo_action(mode, previous, action, state.get('revision', 0))
+            data = apply_demo_action(mode, previous, action, state.get('revision', 0))
         elif mode == 'dynamic':
             data = sales_summary(previous.get('filters', {}).get('region', 'all'))
         elif mode == 'fixed':
@@ -57,10 +53,6 @@ def build_ui_graph(mode: Mode, model, *, client=None, validator=None):
             ])
             data = fixed_data(intent.flight_id, intent.ui_type) if intent.flight_id else {}
             data['notice'] = intent.notice
-        elif question.strip():
-            name = 'sec_report' if previous.get('filing') else 'sec_search'
-            context = {'request': question.strip()} if name == 'sec_report' else {'query': question.strip(), 'page': 1}
-            data = await execute_action(previous, name, context, client, model)
         else:
             data = previous
         return {'answer': data, 'mode': mode, 'host_evidence': False}

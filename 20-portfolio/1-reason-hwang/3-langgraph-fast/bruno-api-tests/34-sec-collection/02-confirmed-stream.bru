@@ -1,0 +1,32 @@
+meta {
+  name: SEC-COLLECT-002 confirmed-stream
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/collect
+  body: json
+  auth: none
+}
+headers {
+  Accept: text/event-stream
+}
+body:json {
+  {"cik":"0001045810","years":2,"since":"2025-01-01"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("confirmed-stream", function () {
+    const body = res.getBody();
+    const events = body.split("\n").filter(l => l.startsWith("data: ")).map(l => JSON.parse(l.slice(6)));
+    expect(body).to.include("RUN_FINISHED");
+    expect(body).not.to.include("RUN_ERROR");
+    const result = events.find(e => e.name === "sec.resolution").value;
+    expect(result.collection.since).to.equal("2025-01-01");
+    const activity = events.filter(e => e.name === "sec.activity").map(e => e.value);
+    expect(activity.map(a => a.status)).to.deep.equal(["running", "completed"]);
+    expect(activity.every(a => a.label === "SEC 도구 · sync_sec_company_filings" && a.kind === "tool")).to.equal(true);
+  });
+}

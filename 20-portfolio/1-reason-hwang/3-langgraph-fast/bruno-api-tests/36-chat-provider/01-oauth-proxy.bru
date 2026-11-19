@@ -1,0 +1,24 @@
+meta {
+  name: CHAT-PROVIDER-001 oauth-proxy
+  type: http
+  seq: 1
+}
+post {
+  url: {{baseUrl}}/validate/oauth-proxy
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("provider selection and actual wire", function () {
+    const b = res.getBody();
+    expect(b.provider).to.equal("oauth-proxy");
+    expect(b.model).to.equal("oauth-fixture-model");
+    expect(b.reply).to.equal("local-provider-ok");
+    expect(b.baseUrl).to.equal(bru.getEnvVar("baseUrl") + "/v1");
+    expect(b.wire).to.deep.equal([{path: "/v1/chat/completions", model: "oauth-fixture-model", message: "provider-validation"}]);
+    expect(JSON.stringify(b)).not.to.include("fixture-only-token");
+  });
+}

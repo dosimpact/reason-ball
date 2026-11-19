@@ -1,0 +1,19 @@
+meta {
+ name: Actual Host parser
+ type: http
+ seq: 10
+}
+post {
+ url: {{validatorUrl}}
+ body: json
+ auth: none
+}
+body:json {
+ {"program":{{financialProgramJson}}}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("valid native Markdown program",function(){expect(res.getBody().valid).eq(true); expect(res.getBody().errors).deep.eq([]);});
+}

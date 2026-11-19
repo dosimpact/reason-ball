@@ -19,6 +19,7 @@ tests {
     expect(res.getStatus()).to.equal(200);
     expect(res.getBody().pagination).to.deep.equal({"page": 2, "pageSize": 1, "totalItems": 3, "totalPages": 3, "hasNextPage": true});
     expect(res.getBody().items.map(item => item.cik)).to.deep.equal(["0000000002"]);
-    expect(res.getBody().filters.limit).to.equal(1);
+    expect(res.getBody().pagination.pageSize).to.equal(1);
+    expect(res.getBody()).to.have.all.keys("pagination", "items");
   });
 }

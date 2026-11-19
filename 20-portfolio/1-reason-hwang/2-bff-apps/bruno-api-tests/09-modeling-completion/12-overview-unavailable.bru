@@ -1,0 +1,16 @@
+meta {
+  name: completion unavailable overview
+  type: http
+  seq: 12
+}
+get {
+  url: {{baseUrl}}/modeling/overview?completedStages=1
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 503
+}
+tests {
+  test("unavailable",()=>expect(res.getStatus()).to.equal(503));
+}

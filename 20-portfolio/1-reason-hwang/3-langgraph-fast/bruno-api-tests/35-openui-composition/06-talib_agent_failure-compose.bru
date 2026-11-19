@@ -1,0 +1,21 @@
+meta {
+  name: OPENUI-COMPOSE-001 talib_agent_failure-compose
+  type: http
+  seq: 6
+}
+post {
+  url: {{baseUrl}}/threads/{{compositionThread}}/runs/wait
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id": "talib_agent_failure", "input": {"messages": [{"role": "user", "content": "TEST RSI \ubd84\uc11d"}]}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("composition contract", () => {
+  const b=res.getBody();expect(b.results.rsi.status).to.equal("success");expect(b.followUpsStatus).to.equal("ready");expect(b.presentation).to.equal(null);expect(b.messages.length).to.be.greaterThan(1);
+  });
+}

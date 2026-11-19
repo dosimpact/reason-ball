@@ -37,6 +37,10 @@
       "signature": "Spacer()",
       "description": "Fills the free space in a Row."
     },
+    "CanvasItem": {
+      "signature": "CanvasItem(id: string, title: string, children: Node[])",
+      "description": "A selectable inline result. Canvas users can pin this child UI by clicking Add to Canvas; id must be stable and unique within the response. Keep controls, chart, and explanatory content needed by this item together in children."
+    },
     "Title": {
       "signature": "Title(text: string, size?: \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\", color?: Color)",
       "description": "Heading; md for a card title, lg for a section, 2xl for a big number."
@@ -54,8 +58,8 @@
       "description": "Field or group label."
     },
     "Badge": {
-      "signature": "Badge(text: string, color?: \"neutral\" | \"info\" | \"success\" | \"warning\" | \"danger\" | \"purple\" | \"pink\", icon?: string)",
-      "description": "Pill tag; icon is an optional leading lucide name."
+      "signature": "Badge(text: string, color?: \"neutral\" | \"info\" | \"success\" | \"warning\" | \"danger\" | \"purple\" | \"pink\", icon?: string, variant?: \"default\" | \"secondary\" | \"destructive\" | \"outline\" | \"ghost\" | \"link\")",
+      "description": "Pill tag; icon is an optional leading lucide name. variant uses canonical shadcn variants; color is an optional semantic extension."
     },
     "Link": {
       "signature": "Link(text: string, url: string)",
@@ -86,12 +90,12 @@
       "description": "LaTeX formula, e.g. Math(\"E = mc^2\"); inline true to sit in a Text list."
     },
     "Button": {
-      "signature": "Button(label: string, action?: ActionExpression, variant?: \"solid\" | \"outline\" | \"soft\" | \"ghost\", color?: \"primary\" | \"danger\" | \"success\", size?: \"sm\" | \"md\" | \"lg\", icon?: string, disabled?: boolean, block?: boolean)",
+      "signature": "Button(label: string, action?: ActionExpression, variant?: \"default\" | \"secondary\" | \"destructive\" | \"outline\" | \"ghost\" | \"link\" | \"solid\" | \"soft\", color?: \"primary\" | \"danger\" | \"success\", size?: \"default\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\", icon?: string, disabled?: boolean, block?: boolean)",
       "description": "icon is a lucide name."
     },
     "IconButton": {
-      "signature": "IconButton(icon: string, action?: ActionExpression, label?: string, variant?: \"outline\" | \"ghost\" | \"solid\")",
-      "description": "Round icon-only button; label is read aloud."
+      "signature": "IconButton(icon: string, action?: ActionExpression, label?: string, variant?: \"default\" | \"secondary\" | \"destructive\" | \"outline\" | \"ghost\" | \"link\" | \"solid\" | \"soft\", size?: \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\")",
+      "description": "shadcn icon-size button; label is read aloud."
     },
     "Pressable": {
       "signature": "Pressable(children: Node[], action?: ActionExpression, selected?: boolean, padding?: number, background?: Color, radius?: Radius)",
@@ -107,7 +111,7 @@
     },
     "Select": {
       "signature": "Select(value: $binding<string>, options: (string | {value: string, label: string})[], label?: string, placeholder?: string)",
-      "description": "Dropdown, for long option lists."
+      "description": "shadcn Base UI popup select. Options may be strings or value/label pairs; the bound value is always the option value."
     },
     "SegmentedControl": {
       "signature": "SegmentedControl(value: $binding<string>, options: (string | {value: string, label: string})[], block?: boolean)",
@@ -127,7 +131,7 @@
     },
     "DatePicker": {
       "signature": "DatePicker(value: $binding<string>, label?: string, min?: string, max?: string)",
-      "description": "Dates are \"YYYY-MM-DD\"."
+      "description": "shadcn Calendar + Popover date picker. Bound value and inclusive min/max are \"YYYY-MM-DD\" strings; clearing sets an empty string."
     },
     "Timer": {
       "signature": "Timer(seconds: $binding<number>, label?: string)",
@@ -156,6 +160,34 @@
     "Chart": {
       "signature": "Chart(type: \"bar\" | \"line\" | \"area\" | \"pie\" | \"donut\" | \"scatter\", data: Record<string, string | number>[], x?: string, series?: string[], format?: \"number\" | \"currency\" | \"percent\", currency?: string, stacked?: boolean, height?: number)",
       "description": "Rows of data; x is the category key (a number key for scatter), series the value keys (default: every number key). percent values are like 45; currency is a code like \"EUR\"."
+    },
+    "FinancialSeriesChart": {
+      "signature": "FinancialSeriesChart(config: {title?: string, height?: number, series: {id: string, title?: string, type: \"candlestick\" | \"line\" | \"area\" | \"baseline\" | \"histogram\", priceScaleId?: \"left\" | \"right\", color?: string, baseValue?: number, data: ({time: string, open: number, high: number, low: number, close: number} | {time: string, value: number} | {time: string})[], markers?: {time: string, position: \"aboveBar\" | \"belowBar\" | \"inBar\", shape: \"circle\" | \"square\" | \"arrowUp\" | \"arrowDown\", color: string, text?: string}[], priceLines?: {price: number, color: string, title?: string, lineStyle?: \"solid\" | \"dashed\" | \"dotted\"}[]}[]})",
+      "description": "Generic time-series chart without ticker requirements. Config contains series (candlestick OHLC, line, area, baseline, histogram), ISO dates with whitespace, left/right scales, optional markers and priceLines. Accepts indicator-only series and arbitrary units in titles; never calculates indicators or requests data."
+    },
+    "FinancialChart": {
+      "signature": "FinancialChart(snapshot: {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string, schemaVersion: 2, catalogVersion: string, indicators: {instanceId: string, name: string, label: string, parameters: Record<string, any>, panel: \"price\" | \"oscillator\", status: \"success\" | \"error\", error?: string, errorCode?: string, signal?: {state: string, cross?: string}, warnings?: string[], series: {key: string, label: string, unit: string, display: \"line\" | \"histogram\" | \"markers\", role?: \"upper\" | \"middle\" | \"lower\", bandGroup?: string, values: number[]}[]}[], origin?: {date?: string, availableHistory: number, policy: string}} | {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string, schemaVersion?: 1, indicators?: string[]})",
+      "description": "Verified financial plot with collapsed indicator summary and data provenance. Indicator controls preserve local visibility and up to four oscillator panes. Use FinancialChartPlot, FinancialChartSummary and FinancialChartMetadata for custom composition."
+    },
+    "FinancialChartPlot": {
+      "signature": "FinancialChartPlot(snapshot: {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string, schemaVersion: 2, catalogVersion: string, indicators: {instanceId: string, name: string, label: string, parameters: Record<string, any>, panel: \"price\" | \"oscillator\", status: \"success\" | \"error\", error?: string, errorCode?: string, signal?: {state: string, cross?: string}, warnings?: string[], series: {key: string, label: string, unit: string, display: \"line\" | \"histogram\" | \"markers\", role?: \"upper\" | \"middle\" | \"lower\", bandGroup?: string, values: number[]}[]}[], origin?: {date?: string, availableHistory: number, policy: string}} | {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string, schemaVersion?: 1, indicators?: string[]}, visibilityKey?: string)",
+      "description": "Verified price and volume plot with server-computed indicator overlays and up to four oscillator panes. No metadata or indicator summary. Never invent series values."
+    },
+    "FinancialChartSummary": {
+      "signature": "FinancialChartSummary(snapshot: {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string, schemaVersion: 2, catalogVersion: string, indicators: {instanceId: string, name: string, label: string, parameters: Record<string, any>, panel: \"price\" | \"oscillator\", status: \"success\" | \"error\", error?: string, errorCode?: string, signal?: {state: string, cross?: string}, warnings?: string[], series: {key: string, label: string, unit: string, display: \"line\" | \"histogram\" | \"markers\", role?: \"upper\" | \"middle\" | \"lower\", bandGroup?: string, values: number[]}[]}[], origin?: {date?: string, availableHistory: number, policy: string}} | {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string, schemaVersion?: 1, indicators?: string[]}, visibilityKey?: string)",
+      "description": "Collapsed verified indicator summary with latest values, units, settings, signals and errors. Compose separately from FinancialChartPlot when useful."
+    },
+    "FinancialChartMetadata": {
+      "signature": "FinancialChartMetadata(snapshot: {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string, schemaVersion: 2, catalogVersion: string, indicators: {instanceId: string, name: string, label: string, parameters: Record<string, any>, panel: \"price\" | \"oscillator\", status: \"success\" | \"error\", error?: string, errorCode?: string, signal?: {state: string, cross?: string}, warnings?: string[], series: {key: string, label: string, unit: string, display: \"line\" | \"histogram\" | \"markers\", role?: \"upper\" | \"middle\" | \"lower\", bandGroup?: string, values: number[]}[]}[], origin?: {date?: string, availableHistory: number, policy: string}} | {symbol?: string, interval?: string, currency?: string, source?: string, source_url?: string, as_of?: string, fetched_at?: string, auto_adjust?: boolean, warnings?: string[], parameters?: Record<string, any>, bars: {time: string, open: number, high: number, low: number, close: number, volume: number, sma?: number, rsi?: number, macd?: number, signal?: number, histogram?: number}[], error?: string, status?: string, schemaVersion?: 1, indicators?: string[]})",
+      "description": "Collapsed financial data provenance, dates, adjusted-price basis and accumulation policy in readable labels, without raw JSON."
+    },
+    "IndicatorControls": {
+      "signature": "IndicatorControls(value: $binding<string>, catalog?: {schemaVersion: 2, catalogVersion: string, maxInstances: number, maxVisiblePanels: number, defaultInstances: {name: string, parameters?: Record<string, number>, showSignal?: boolean}[], indicators: {name: string, label: string, defaults: Record<string, number>, parameters: Record<string, {default: number, min: number, max: number, type: \"integer\" | \"number\"}>, supportsSignal: boolean, panel: \"price\" | \"oscillator\", series: {key: string, label: string, unit: string, display: \"line\" | \"histogram\" | \"markers\", role?: \"upper\" | \"middle\" | \"lower\", bandGroup?: string}[]}[]})",
+      "description": "Edit technical indicator instances from the trusted catalog. Bind value to $chart_instances JSON string and pass the catalog Query result. Supports repeated names with independent instanceIds, parameter drafts, optional signal and explicit model-free Apply. Keep inside the chart QueryPanel."
+    },
+    "QueryPanel": {
+      "signature": "QueryPanel(children: Node[], refreshAction: ActionExpression, controls?: Node[])",
+      "description": "Financial Query panel with an always-visible data view and refresh button. Pass data components as children and labelled Query argument fields as optional third controls argument; controls start collapsed under 조회 조건. Always pass Action([@Run(queryStatement)]) as refreshAction. Legacy mixed children remain supported; charts stay visible while inputs are collapsed."
     },
     "Map": {
       "signature": "Map(markers: MapMarker[], route?: boolean, selected?: $binding<string>, height?: number)",
@@ -234,7 +266,8 @@
         "Carousel",
         "Popover",
         "Divider",
-        "Spacer"
+        "Spacer",
+        "CanvasItem"
       ],
       "notes": [
         "- gap and padding count 4px steps. Length is px or a CSS length like \"50%\". Radius is \"sm\", \"md\", \"lg\", \"xl\", \"full\" or px.",
@@ -288,9 +321,23 @@
         "Icon",
         "Table",
         "Chart",
+        "FinancialSeriesChart",
+        "FinancialChart",
+        "FinancialChartPlot",
+        "FinancialChartSummary",
+        "FinancialChartMetadata",
+        "IndicatorControls",
+        "QueryPanel",
         "Map",
         "MapMarker",
         "YouTube"
+      ],
+      "notes": [
+        "- FinancialSeriesChart(config) renders supplied time series without a market-data request: series[].type is candlestick, line, area, baseline or histogram. Candlestick needs OHLC; other types only need time/value and can show indicators without price bars. Compose multiple series; priceScaleId left/right gives independent scales, not a sixth series type. Attach markers and priceLines to each series. Use actual supplied values, units, events and thresholds; never invent market data or buy/sell signals. Keep trusted TA snapshots in FinancialChart/FinancialChartPlot rather than copying large arrays into DSL.",
+        "- FinancialChart consumes one trusted snapshot. Fetch it with data = Query(\"technical_analysis_chart\", {ticker: $ticker, interval: $interval, count: $count, indicators: \"SMA,RSI,MACD\"}, {bars: [], status: \"loading\"}). The Host runs this allowlisted read tool without an LLM round trip.",
+        "- For v2 multi-instance indicators use catalog = Query(\"technical_analysis_catalog\", {}, null), IndicatorControls($chart_instances, catalog), and chart = Query(\"technical_analysis_chart\", {ticker: $ticker, interval: $interval, count: $count, schema_version: 2, instances: $chart_instances}, {bars: [], status: \"loading\"}). Use catalog metadata, never invented parameter names or numeric arrays.",
+        "- Put Query-backed data components and their editable argument controls inside QueryPanel([data components], Action([@Run(queryStatement)]), [editable controls]); every Query view must provide its own manual refresh icon and labelled argument fields together.",
+        "- Query(tool, args, default, seconds) re-runs when reactive args change. Omit seconds or use 0 for historical answers. Explicit live mode may use 30 seconds only for the active latest answer. Price and all indicators must come from the same returned snapshot."
       ]
     },
     {
@@ -596,6 +643,9 @@
       "Spacer": {
         "$ref": "#/$defs/Spacer"
       },
+      "CanvasItem": {
+        "$ref": "#/$defs/CanvasItem"
+      },
       "Title": {
         "$ref": "#/$defs/Title"
       },
@@ -686,6 +736,27 @@
       "Chart": {
         "$ref": "#/$defs/Chart"
       },
+      "FinancialSeriesChart": {
+        "$ref": "#/$defs/FinancialSeriesChart"
+      },
+      "FinancialChart": {
+        "$ref": "#/$defs/FinancialChart"
+      },
+      "FinancialChartPlot": {
+        "$ref": "#/$defs/FinancialChartPlot"
+      },
+      "FinancialChartSummary": {
+        "$ref": "#/$defs/FinancialChartSummary"
+      },
+      "FinancialChartMetadata": {
+        "$ref": "#/$defs/FinancialChartMetadata"
+      },
+      "IndicatorControls": {
+        "$ref": "#/$defs/IndicatorControls"
+      },
+      "QueryPanel": {
+        "$ref": "#/$defs/QueryPanel"
+      },
       "Map": {
         "$ref": "#/$defs/Map"
       },
@@ -745,6 +816,7 @@
       "Popover",
       "Divider",
       "Spacer",
+      "CanvasItem",
       "Title",
       "Text",
       "Caption",
@@ -775,6 +847,13 @@
       "Icon",
       "Table",
       "Chart",
+      "FinancialSeriesChart",
+      "FinancialChart",
+      "FinancialChartPlot",
+      "FinancialChartSummary",
+      "FinancialChartMetadata",
+      "IndicatorControls",
+      "QueryPanel",
       "Map",
       "MapMarker",
       "YouTube",
@@ -1063,6 +1142,30 @@
         "additionalProperties": false,
         "description": "Fills the free space in a Row."
       },
+      "CanvasItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "children": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "children"
+        ],
+        "additionalProperties": false,
+        "description": "A selectable inline result. Canvas users can pin this child UI by clicking Add to Canvas; id must be stable and unique within the response. Keep controls, chart, and explanatory content needed by this item together in children."
+      },
       "Title": {
         "type": "object",
         "properties": {
@@ -1192,13 +1295,24 @@
           },
           "icon": {
             "type": "string"
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "default",
+              "secondary",
+              "destructive",
+              "outline",
+              "ghost",
+              "link"
+            ]
           }
         },
         "required": [
           "text"
         ],
         "additionalProperties": false,
-        "description": "Pill tag; icon is an optional leading lucide name."
+        "description": "Pill tag; icon is an optional leading lucide name. variant uses canonical shadcn variants; color is an optional semantic extension."
       },
       "Link": {
         "type": "object",
@@ -1347,10 +1461,14 @@
           "variant": {
             "type": "string",
             "enum": [
-              "solid",
+              "default",
+              "secondary",
+              "destructive",
               "outline",
-              "soft",
-              "ghost"
+              "ghost",
+              "link",
+              "solid",
+              "soft"
             ]
           },
           "color": {
@@ -1364,9 +1482,15 @@
           "size": {
             "type": "string",
             "enum": [
+              "default",
+              "xs",
               "sm",
               "md",
-              "lg"
+              "lg",
+              "icon",
+              "icon-xs",
+              "icon-sm",
+              "icon-lg"
             ]
           },
           "icon": {
@@ -1456,9 +1580,23 @@
           "variant": {
             "type": "string",
             "enum": [
+              "default",
+              "secondary",
+              "destructive",
               "outline",
               "ghost",
-              "solid"
+              "link",
+              "solid",
+              "soft"
+            ]
+          },
+          "size": {
+            "type": "string",
+            "enum": [
+              "icon",
+              "icon-xs",
+              "icon-sm",
+              "icon-lg"
             ]
           }
         },
@@ -1466,7 +1604,7 @@
           "icon"
         ],
         "additionalProperties": false,
-        "description": "Round icon-only button; label is read aloud."
+        "description": "shadcn icon-size button; label is read aloud."
       },
       "Pressable": {
         "type": "object",
@@ -1609,7 +1747,7 @@
           "options"
         ],
         "additionalProperties": false,
-        "description": "Dropdown, for long option lists."
+        "description": "shadcn Base UI popup select. Options may be strings or value/label pairs; the bound value is always the option value."
       },
       "SegmentedControl": {
         "type": "object",
@@ -1797,7 +1935,7 @@
           "value"
         ],
         "additionalProperties": false,
-        "description": "Dates are \"YYYY-MM-DD\"."
+        "description": "shadcn Calendar + Popover date picker. Bound value and inclusive min/max are \"YYYY-MM-DD\" strings; clearing sets an empty string."
       },
       "Timer": {
         "type": "object",
@@ -2028,6 +2166,2362 @@
         ],
         "additionalProperties": false,
         "description": "Rows of data; x is the category key (a number key for scatter), series the value keys (default: every number key). percent values are like 45; currency is a code like \"EUR\"."
+      },
+      "FinancialSeriesChart": {
+        "type": "object",
+        "properties": {
+          "config": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "height": {
+                "type": "integer",
+                "minimum": 160,
+                "maximum": 1200
+              },
+              "series": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "candlestick",
+                        "line",
+                        "area",
+                        "baseline",
+                        "histogram"
+                      ]
+                    },
+                    "priceScaleId": {
+                      "type": "string",
+                      "enum": [
+                        "left",
+                        "right"
+                      ]
+                    },
+                    "color": {
+                      "type": "string"
+                    },
+                    "baseValue": {
+                      "type": "number"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "string",
+                                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                              },
+                              "open": {
+                                "type": "number"
+                              },
+                              "high": {
+                                "type": "number"
+                              },
+                              "low": {
+                                "type": "number"
+                              },
+                              "close": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "open",
+                              "high",
+                              "low",
+                              "close"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "string",
+                                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                              },
+                              "value": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "value"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "string",
+                                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                              }
+                            },
+                            "required": [
+                              "time"
+                            ],
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    },
+                    "markers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "time": {
+                            "type": "string",
+                            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                          },
+                          "position": {
+                            "type": "string",
+                            "enum": [
+                              "aboveBar",
+                              "belowBar",
+                              "inBar"
+                            ]
+                          },
+                          "shape": {
+                            "type": "string",
+                            "enum": [
+                              "circle",
+                              "square",
+                              "arrowUp",
+                              "arrowDown"
+                            ]
+                          },
+                          "color": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "time",
+                          "position",
+                          "shape",
+                          "color"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "priceLines": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "price": {
+                            "type": "number"
+                          },
+                          "color": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "lineStyle": {
+                            "type": "string",
+                            "enum": [
+                              "solid",
+                              "dashed",
+                              "dotted"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "price",
+                          "color"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "type",
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "series"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "config"
+        ],
+        "additionalProperties": false,
+        "description": "Generic time-series chart without ticker requirements. Config contains series (candlestick OHLC, line, area, baseline, histogram), ISO dates with whitespace, left/right scales, optional markers and priceLines. Accepts indicator-only series and arbitrary units in titles; never calculates indicators or requests data."
+      },
+      "FinancialChart": {
+        "type": "object",
+        "properties": {
+          "snapshot": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "symbol": {
+                    "type": "string"
+                  },
+                  "interval": {
+                    "type": "string"
+                  },
+                  "currency": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "source_url": {
+                    "type": "string"
+                  },
+                  "as_of": {
+                    "type": "string"
+                  },
+                  "fetched_at": {
+                    "type": "string"
+                  },
+                  "auto_adjust": {
+                    "type": "boolean"
+                  },
+                  "warnings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  },
+                  "bars": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "string"
+                        },
+                        "open": {
+                          "type": "number"
+                        },
+                        "high": {
+                          "type": "number"
+                        },
+                        "low": {
+                          "type": "number"
+                        },
+                        "close": {
+                          "type": "number"
+                        },
+                        "volume": {
+                          "type": "number"
+                        },
+                        "sma": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "rsi": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "macd": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "histogram": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "error": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "schemaVersion": {
+                    "type": "number",
+                    "const": 2
+                  },
+                  "catalogVersion": {
+                    "type": "string"
+                  },
+                  "indicators": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "instanceId": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "parameters": {
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string"
+                          },
+                          "additionalProperties": {}
+                        },
+                        "panel": {
+                          "type": "string",
+                          "enum": [
+                            "price",
+                            "oscillator"
+                          ]
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success",
+                            "error"
+                          ]
+                        },
+                        "error": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "errorCode": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "type": "object",
+                          "properties": {
+                            "state": {
+                              "type": "string"
+                            },
+                            "cross": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "state"
+                          ],
+                          "additionalProperties": {}
+                        },
+                        "warnings": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "series": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "unit": {
+                                "type": "string"
+                              },
+                              "display": {
+                                "type": "string",
+                                "enum": [
+                                  "line",
+                                  "histogram",
+                                  "markers"
+                                ]
+                              },
+                              "role": {
+                                "type": "string",
+                                "enum": [
+                                  "upper",
+                                  "middle",
+                                  "lower"
+                                ]
+                              },
+                              "bandGroup": {
+                                "type": "string"
+                              },
+                              "values": {
+                                "type": "array",
+                                "items": {
+                                  "anyOf": [
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "label",
+                              "unit",
+                              "display",
+                              "values"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "instanceId",
+                        "name",
+                        "label",
+                        "parameters",
+                        "panel",
+                        "status",
+                        "series"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "origin": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "availableHistory": {
+                        "type": "number"
+                      },
+                      "policy": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "date",
+                      "availableHistory",
+                      "policy"
+                    ],
+                    "additionalProperties": {}
+                  }
+                },
+                "required": [
+                  "bars",
+                  "schemaVersion",
+                  "catalogVersion",
+                  "indicators"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "symbol": {
+                    "type": "string"
+                  },
+                  "interval": {
+                    "type": "string"
+                  },
+                  "currency": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "source_url": {
+                    "type": "string"
+                  },
+                  "as_of": {
+                    "type": "string"
+                  },
+                  "fetched_at": {
+                    "type": "string"
+                  },
+                  "auto_adjust": {
+                    "type": "boolean"
+                  },
+                  "warnings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  },
+                  "bars": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "string"
+                        },
+                        "open": {
+                          "type": "number"
+                        },
+                        "high": {
+                          "type": "number"
+                        },
+                        "low": {
+                          "type": "number"
+                        },
+                        "close": {
+                          "type": "number"
+                        },
+                        "volume": {
+                          "type": "number"
+                        },
+                        "sma": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "rsi": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "macd": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "histogram": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "error": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "schemaVersion": {
+                    "type": "number",
+                    "const": 1
+                  },
+                  "indicators": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "bars"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "snapshot"
+        ],
+        "additionalProperties": false,
+        "description": "Verified financial plot with collapsed indicator summary and data provenance. Indicator controls preserve local visibility and up to four oscillator panes. Use FinancialChartPlot, FinancialChartSummary and FinancialChartMetadata for custom composition."
+      },
+      "FinancialChartPlot": {
+        "type": "object",
+        "properties": {
+          "snapshot": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "symbol": {
+                    "type": "string"
+                  },
+                  "interval": {
+                    "type": "string"
+                  },
+                  "currency": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "source_url": {
+                    "type": "string"
+                  },
+                  "as_of": {
+                    "type": "string"
+                  },
+                  "fetched_at": {
+                    "type": "string"
+                  },
+                  "auto_adjust": {
+                    "type": "boolean"
+                  },
+                  "warnings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  },
+                  "bars": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "string"
+                        },
+                        "open": {
+                          "type": "number"
+                        },
+                        "high": {
+                          "type": "number"
+                        },
+                        "low": {
+                          "type": "number"
+                        },
+                        "close": {
+                          "type": "number"
+                        },
+                        "volume": {
+                          "type": "number"
+                        },
+                        "sma": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "rsi": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "macd": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "histogram": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "error": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "schemaVersion": {
+                    "type": "number",
+                    "const": 2
+                  },
+                  "catalogVersion": {
+                    "type": "string"
+                  },
+                  "indicators": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "instanceId": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "parameters": {
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string"
+                          },
+                          "additionalProperties": {}
+                        },
+                        "panel": {
+                          "type": "string",
+                          "enum": [
+                            "price",
+                            "oscillator"
+                          ]
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success",
+                            "error"
+                          ]
+                        },
+                        "error": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "errorCode": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "type": "object",
+                          "properties": {
+                            "state": {
+                              "type": "string"
+                            },
+                            "cross": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "state"
+                          ],
+                          "additionalProperties": {}
+                        },
+                        "warnings": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "series": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "unit": {
+                                "type": "string"
+                              },
+                              "display": {
+                                "type": "string",
+                                "enum": [
+                                  "line",
+                                  "histogram",
+                                  "markers"
+                                ]
+                              },
+                              "role": {
+                                "type": "string",
+                                "enum": [
+                                  "upper",
+                                  "middle",
+                                  "lower"
+                                ]
+                              },
+                              "bandGroup": {
+                                "type": "string"
+                              },
+                              "values": {
+                                "type": "array",
+                                "items": {
+                                  "anyOf": [
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "label",
+                              "unit",
+                              "display",
+                              "values"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "instanceId",
+                        "name",
+                        "label",
+                        "parameters",
+                        "panel",
+                        "status",
+                        "series"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "origin": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "availableHistory": {
+                        "type": "number"
+                      },
+                      "policy": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "date",
+                      "availableHistory",
+                      "policy"
+                    ],
+                    "additionalProperties": {}
+                  }
+                },
+                "required": [
+                  "bars",
+                  "schemaVersion",
+                  "catalogVersion",
+                  "indicators"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "symbol": {
+                    "type": "string"
+                  },
+                  "interval": {
+                    "type": "string"
+                  },
+                  "currency": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "source_url": {
+                    "type": "string"
+                  },
+                  "as_of": {
+                    "type": "string"
+                  },
+                  "fetched_at": {
+                    "type": "string"
+                  },
+                  "auto_adjust": {
+                    "type": "boolean"
+                  },
+                  "warnings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  },
+                  "bars": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "string"
+                        },
+                        "open": {
+                          "type": "number"
+                        },
+                        "high": {
+                          "type": "number"
+                        },
+                        "low": {
+                          "type": "number"
+                        },
+                        "close": {
+                          "type": "number"
+                        },
+                        "volume": {
+                          "type": "number"
+                        },
+                        "sma": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "rsi": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "macd": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "histogram": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "error": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "schemaVersion": {
+                    "type": "number",
+                    "const": 1
+                  },
+                  "indicators": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "bars"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "visibilityKey": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "snapshot"
+        ],
+        "additionalProperties": false,
+        "description": "Verified price and volume plot with server-computed indicator overlays and up to four oscillator panes. No metadata or indicator summary. Never invent series values."
+      },
+      "FinancialChartSummary": {
+        "type": "object",
+        "properties": {
+          "snapshot": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "symbol": {
+                    "type": "string"
+                  },
+                  "interval": {
+                    "type": "string"
+                  },
+                  "currency": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "source_url": {
+                    "type": "string"
+                  },
+                  "as_of": {
+                    "type": "string"
+                  },
+                  "fetched_at": {
+                    "type": "string"
+                  },
+                  "auto_adjust": {
+                    "type": "boolean"
+                  },
+                  "warnings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  },
+                  "bars": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "string"
+                        },
+                        "open": {
+                          "type": "number"
+                        },
+                        "high": {
+                          "type": "number"
+                        },
+                        "low": {
+                          "type": "number"
+                        },
+                        "close": {
+                          "type": "number"
+                        },
+                        "volume": {
+                          "type": "number"
+                        },
+                        "sma": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "rsi": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "macd": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "histogram": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "error": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "schemaVersion": {
+                    "type": "number",
+                    "const": 2
+                  },
+                  "catalogVersion": {
+                    "type": "string"
+                  },
+                  "indicators": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "instanceId": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "parameters": {
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string"
+                          },
+                          "additionalProperties": {}
+                        },
+                        "panel": {
+                          "type": "string",
+                          "enum": [
+                            "price",
+                            "oscillator"
+                          ]
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success",
+                            "error"
+                          ]
+                        },
+                        "error": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "errorCode": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "type": "object",
+                          "properties": {
+                            "state": {
+                              "type": "string"
+                            },
+                            "cross": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "state"
+                          ],
+                          "additionalProperties": {}
+                        },
+                        "warnings": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "series": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "unit": {
+                                "type": "string"
+                              },
+                              "display": {
+                                "type": "string",
+                                "enum": [
+                                  "line",
+                                  "histogram",
+                                  "markers"
+                                ]
+                              },
+                              "role": {
+                                "type": "string",
+                                "enum": [
+                                  "upper",
+                                  "middle",
+                                  "lower"
+                                ]
+                              },
+                              "bandGroup": {
+                                "type": "string"
+                              },
+                              "values": {
+                                "type": "array",
+                                "items": {
+                                  "anyOf": [
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "label",
+                              "unit",
+                              "display",
+                              "values"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "instanceId",
+                        "name",
+                        "label",
+                        "parameters",
+                        "panel",
+                        "status",
+                        "series"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "origin": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "availableHistory": {
+                        "type": "number"
+                      },
+                      "policy": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "date",
+                      "availableHistory",
+                      "policy"
+                    ],
+                    "additionalProperties": {}
+                  }
+                },
+                "required": [
+                  "bars",
+                  "schemaVersion",
+                  "catalogVersion",
+                  "indicators"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "symbol": {
+                    "type": "string"
+                  },
+                  "interval": {
+                    "type": "string"
+                  },
+                  "currency": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "source_url": {
+                    "type": "string"
+                  },
+                  "as_of": {
+                    "type": "string"
+                  },
+                  "fetched_at": {
+                    "type": "string"
+                  },
+                  "auto_adjust": {
+                    "type": "boolean"
+                  },
+                  "warnings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  },
+                  "bars": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "string"
+                        },
+                        "open": {
+                          "type": "number"
+                        },
+                        "high": {
+                          "type": "number"
+                        },
+                        "low": {
+                          "type": "number"
+                        },
+                        "close": {
+                          "type": "number"
+                        },
+                        "volume": {
+                          "type": "number"
+                        },
+                        "sma": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "rsi": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "macd": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "histogram": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "error": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "schemaVersion": {
+                    "type": "number",
+                    "const": 1
+                  },
+                  "indicators": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "bars"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "visibilityKey": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "snapshot"
+        ],
+        "additionalProperties": false,
+        "description": "Collapsed verified indicator summary with latest values, units, settings, signals and errors. Compose separately from FinancialChartPlot when useful."
+      },
+      "FinancialChartMetadata": {
+        "type": "object",
+        "properties": {
+          "snapshot": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "symbol": {
+                    "type": "string"
+                  },
+                  "interval": {
+                    "type": "string"
+                  },
+                  "currency": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "source_url": {
+                    "type": "string"
+                  },
+                  "as_of": {
+                    "type": "string"
+                  },
+                  "fetched_at": {
+                    "type": "string"
+                  },
+                  "auto_adjust": {
+                    "type": "boolean"
+                  },
+                  "warnings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  },
+                  "bars": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "string"
+                        },
+                        "open": {
+                          "type": "number"
+                        },
+                        "high": {
+                          "type": "number"
+                        },
+                        "low": {
+                          "type": "number"
+                        },
+                        "close": {
+                          "type": "number"
+                        },
+                        "volume": {
+                          "type": "number"
+                        },
+                        "sma": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "rsi": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "macd": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "histogram": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "error": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "schemaVersion": {
+                    "type": "number",
+                    "const": 2
+                  },
+                  "catalogVersion": {
+                    "type": "string"
+                  },
+                  "indicators": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "instanceId": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "parameters": {
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string"
+                          },
+                          "additionalProperties": {}
+                        },
+                        "panel": {
+                          "type": "string",
+                          "enum": [
+                            "price",
+                            "oscillator"
+                          ]
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success",
+                            "error"
+                          ]
+                        },
+                        "error": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "errorCode": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "type": "object",
+                          "properties": {
+                            "state": {
+                              "type": "string"
+                            },
+                            "cross": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "state"
+                          ],
+                          "additionalProperties": {}
+                        },
+                        "warnings": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "series": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "unit": {
+                                "type": "string"
+                              },
+                              "display": {
+                                "type": "string",
+                                "enum": [
+                                  "line",
+                                  "histogram",
+                                  "markers"
+                                ]
+                              },
+                              "role": {
+                                "type": "string",
+                                "enum": [
+                                  "upper",
+                                  "middle",
+                                  "lower"
+                                ]
+                              },
+                              "bandGroup": {
+                                "type": "string"
+                              },
+                              "values": {
+                                "type": "array",
+                                "items": {
+                                  "anyOf": [
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "label",
+                              "unit",
+                              "display",
+                              "values"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "instanceId",
+                        "name",
+                        "label",
+                        "parameters",
+                        "panel",
+                        "status",
+                        "series"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "origin": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "availableHistory": {
+                        "type": "number"
+                      },
+                      "policy": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "date",
+                      "availableHistory",
+                      "policy"
+                    ],
+                    "additionalProperties": {}
+                  }
+                },
+                "required": [
+                  "bars",
+                  "schemaVersion",
+                  "catalogVersion",
+                  "indicators"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "symbol": {
+                    "type": "string"
+                  },
+                  "interval": {
+                    "type": "string"
+                  },
+                  "currency": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "source_url": {
+                    "type": "string"
+                  },
+                  "as_of": {
+                    "type": "string"
+                  },
+                  "fetched_at": {
+                    "type": "string"
+                  },
+                  "auto_adjust": {
+                    "type": "boolean"
+                  },
+                  "warnings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string"
+                    },
+                    "additionalProperties": {}
+                  },
+                  "bars": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "string"
+                        },
+                        "open": {
+                          "type": "number"
+                        },
+                        "high": {
+                          "type": "number"
+                        },
+                        "low": {
+                          "type": "number"
+                        },
+                        "close": {
+                          "type": "number"
+                        },
+                        "volume": {
+                          "type": "number"
+                        },
+                        "sma": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "rsi": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "macd": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "signal": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "histogram": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "error": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "schemaVersion": {
+                    "type": "number",
+                    "const": 1
+                  },
+                  "indicators": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "bars"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "snapshot"
+        ],
+        "additionalProperties": false,
+        "description": "Collapsed financial data provenance, dates, adjusted-price basis and accumulation policy in readable labels, without raw JSON."
+      },
+      "IndicatorControls": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "catalog": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "schemaVersion": {
+                    "type": "number",
+                    "const": 2
+                  },
+                  "catalogVersion": {
+                    "type": "string"
+                  },
+                  "maxInstances": {
+                    "type": "number"
+                  },
+                  "maxVisiblePanels": {
+                    "type": "number"
+                  },
+                  "defaultInstances": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "parameters": {
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string"
+                          },
+                          "additionalProperties": {
+                            "type": "number"
+                          }
+                        },
+                        "showSignal": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "indicators": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "defaults": {
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string"
+                          },
+                          "additionalProperties": {
+                            "type": "number"
+                          }
+                        },
+                        "parameters": {
+                          "type": "object",
+                          "propertyNames": {
+                            "type": "string"
+                          },
+                          "additionalProperties": {
+                            "type": "object",
+                            "properties": {
+                              "default": {
+                                "type": "number"
+                              },
+                              "min": {
+                                "type": "number"
+                              },
+                              "max": {
+                                "type": "number"
+                              },
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "integer",
+                                  "number"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "default",
+                              "min",
+                              "max",
+                              "type"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "supportsSignal": {
+                          "type": "boolean"
+                        },
+                        "panel": {
+                          "type": "string",
+                          "enum": [
+                            "price",
+                            "oscillator"
+                          ]
+                        },
+                        "series": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              },
+                              "unit": {
+                                "type": "string"
+                              },
+                              "display": {
+                                "type": "string",
+                                "enum": [
+                                  "line",
+                                  "histogram",
+                                  "markers"
+                                ]
+                              },
+                              "role": {
+                                "type": "string",
+                                "enum": [
+                                  "upper",
+                                  "middle",
+                                  "lower"
+                                ]
+                              },
+                              "bandGroup": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "label",
+                              "unit",
+                              "display"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "label",
+                        "defaults",
+                        "parameters",
+                        "supportsSignal",
+                        "panel",
+                        "series"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "schemaVersion",
+                  "catalogVersion",
+                  "maxInstances",
+                  "maxVisiblePanels",
+                  "defaultInstances",
+                  "indicators"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "value",
+          "catalog"
+        ],
+        "additionalProperties": false,
+        "description": "Edit technical indicator instances from the trusted catalog. Bind value to $chart_instances JSON string and pass the catalog Query result. Supports repeated names with independent instanceIds, parameter drafts, optional signal and explicit model-free Apply. Keep inside the chart QueryPanel."
+      },
+      "QueryPanel": {
+        "type": "object",
+        "properties": {
+          "children": {
+            "type": "array",
+            "items": {}
+          },
+          "refreshAction": {
+            "$ref": "#/$defs/ActionExpression"
+          },
+          "controls": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "children",
+          "refreshAction"
+        ],
+        "additionalProperties": false,
+        "description": "Financial Query panel with an always-visible data view and refresh button. Pass data components as children and labelled Query argument fields as optional third controls argument; controls start collapsed under 조회 조건. Always pass Action([@Run(queryStatement)]) as refreshAction. Legacy mixed children remain supported; charts stay visible while inputs are collapsed."
       },
       "Map": {
         "type": "object",

@@ -1,0 +1,45 @@
+meta {
+  name: TA-CANVAS-API-02 Real analysis streams a validated report
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/threads/{{canvasThread}}/runs/stream
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id":"technical_analysis_canvas_agent","input":{"messages":[{"role":"user","content":"AAPL 최근 완료된 60개 일봉을 RSI14 SMA20 MACD12/26/9로 분석하고 핵심 추세와 한계를 설명해 주세요."}],"canvas_context":null},"stream_mode":["values","custom"]}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Real Yahoo TA returns chat explanation and independently pinnable charts", function () {
+    const events = res.getBody().split(/\r?\n\r?\n/).flatMap(block => {
+      const name=block.split(/\r?\n/).find(line=>line.startsWith("event:"))?.slice(6).trim();
+      const data=block.split(/\r?\n/).filter(line=>line.startsWith("data:")).map(line=>line.slice(5).trim()).join("\n");
+      try { return [{name,data:JSON.parse(data)}]; } catch { return []; }
+    });
+    const state=events.filter(event=>event.name==="values").at(-1)?.data;
+    expect(events.some(event=>event.name==="error")).to.equal(false);
+    const reportId=state.presentation?.id;
+    expect(reportId).to.match(/^[0-9a-f-]{36}$/);
+    const report=state.canvas_reports[reportId];
+    expect(report.status).to.equal("ready");
+    expect(report.analysis.symbol).to.equal("AAPL");
+    expect(report.analysis.dates).to.have.lengthOf(60);
+    expect(report.program).to.equal(state.presentation.program);
+    expect(report.program).to.include('Query("technical_analysis_chart"');
+    expect(report.program).to.include("CanvasItem(");
+    expect(Object.keys(report.elements)).to.have.lengthOf(4);
+    expect(report.program.match(/CanvasItem\(/g)).to.have.lengthOf(4);
+    const answer=state.messages.filter(message=>message.type==="ai" && message.content).at(-1)?.content;
+    expect(answer).to.include("AAPL");
+    if ((bru.getVar("canvasFailedReport") ?? bru.getEnvVar("canvasFailedReport"))) expect(state.canvas_reports[(bru.getVar("canvasFailedReport") ?? bru.getEnvVar("canvasFailedReport"))].status).to.equal("error");
+    bru.setVar("canvasReportA",reportId);
+    bru.setVar("canvasProgramHashA",require("crypto").createHash("sha256").update(report.program).digest("hex"));
+    bru.setVar("canvasCount",Object.keys(state.canvas_reports).length);
+    console.log("Canvas first report",reportId,"elements",Object.keys(report.elements).length);
+  });
+}

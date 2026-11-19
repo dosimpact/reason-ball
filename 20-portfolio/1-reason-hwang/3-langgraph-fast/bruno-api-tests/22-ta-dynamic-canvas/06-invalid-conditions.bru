@@ -1,0 +1,32 @@
+meta {
+  name: TA-CANVAS-API-06 Invalid structured conditions preserve both reports
+  type: http
+  seq: 8
+}
+post {
+  url: {{baseUrl}}/threads/{{canvasThread}}/runs/stream
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id": "technical_analysis_canvas_agent", "input": {"messages": [{"role": "user", "content": "이 조건으로 재분석해 주세요."}], "canvas_context": {"request": {"ticker": "AAPL", "interval": "1d", "count": 201}}}, "stream_mode": ["values", "custom"]}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("TA-CANVAS-API-06 Invalid structured conditions preserve both reports", function () {
+    const events = res.getBody().split(/\r?\n\r?\n/).flatMap(block => {
+      const name=block.split(/\r?\n/).find(line=>line.startsWith("event:"))?.slice(6).trim();
+      const data=block.split(/\r?\n/).filter(line=>line.startsWith("data:")).map(line=>line.slice(5).trim()).join("\n");
+      try { return [{name,data:JSON.parse(data)}]; } catch { return []; }
+    });
+    const canvas=events.filter(event=>event.name==="custom" && event.data.channel==="canvas").map(event=>event.data);
+    const state=events.filter(event=>event.name==="values").at(-1)?.data;
+    expect(events.some(event=>event.name==="error")).to.equal(false);
+    expect(canvas).to.have.lengthOf(0);
+    expect(state.analysis_error).to.be.a("string");
+    expect(Object.keys(state.canvas_reports)).to.have.lengthOf(Number((bru.getVar("canvasCount") ?? bru.getEnvVar("canvasCount"))));
+    expect(require("crypto").createHash("sha256").update(state.canvas_reports[(bru.getVar("canvasReportA") ?? bru.getEnvVar("canvasReportA"))].program).digest("hex")).to.equal((bru.getVar("canvasProgramHashA") ?? bru.getEnvVar("canvasProgramHashA")));
+  });
+}

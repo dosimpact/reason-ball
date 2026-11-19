@@ -1,0 +1,28 @@
+meta {
+  name: SEC-UI-REPAIR-001 provider-fail
+  type: http
+  seq: 6
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/chat
+  body: json
+  auth: none
+}
+body:json {
+  {"threadId":"{{uiRepairThread}}","message":"provider-fail Item 8 요약"}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("provider-fail has correct terminal event and UI activity", function () {
+    const body = res.getBody();
+    const events = body.split("\n").filter(line => line.startsWith("data: ")).map(line => JSON.parse(line.slice(6)));
+    expect(body).to.include("RUN_ERROR");
+    expect(body).not.to.include("RUN_FINISHED");
+    const present = events.filter(e => e.name === "sec.activity" && e.value.label === "Intelligent UI 구성 및 검증");
+    expect(present.map(e => e.value.status)).to.deep.equal(["running", "failed"]);
+    expect(body).not.to.include("TEXT_MESSAGE_CONTENT");
+    expect(body).not.to.include("fixture malformed");
+  });
+}

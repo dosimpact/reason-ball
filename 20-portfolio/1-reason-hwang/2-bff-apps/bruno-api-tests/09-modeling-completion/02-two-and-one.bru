@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING completion two-and-one
+  type: http
+  seq: 2
+}
+get {
+  url: {{baseUrl}}/modeling/filings?completedStages=2,1,2
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("two-and-one",function(){const b=res.getBody();expect(res.getStatus()).to.equal(200);expect(b.total).to.equal(1);expect(b.items[0].stages["2"].readiness).to.equal("ready");});
+}

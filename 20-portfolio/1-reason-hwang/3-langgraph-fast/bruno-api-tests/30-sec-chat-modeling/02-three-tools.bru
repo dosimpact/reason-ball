@@ -1,0 +1,19 @@
+meta {
+ name: SEC-CHAT-MODELING-001 three-tools
+ type: http
+ seq: 2
+}
+post {
+ url: {{baseUrl}}/api/sec-chat/chat
+ body: json
+ auth: none
+}
+body:json {
+ {"threadId":"{{researchThread}}","message":"normal revenue"}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("three-tools",function(){const events=res.getBody().split("\n").filter(x=>x.startsWith("data:")).map(x=>JSON.parse(x.slice(5)));expect(events.some(x=>x.type==="RUN_FINISHED")).eq(true);expect(events.some(x=>x.type==="RUN_ERROR")).eq(false);const meta=events.find(x=>x.name==="sec.evidence").value;const m=meta.modeling;expect(meta.findings[0].item).eq("8");expect(meta.findings[0].quote).include("Net sales");expect(m.status).eq("available");expect(m.toolCalls).deep.eq(["search_sec_evidence","query_sec_xbrl_facts","get_sec_evidence"]);expect(m.sources.map(x=>x.evidenceId||x.id).sort()).deep.eq(["ev-001","fact-001"]);const fact=m.sources.find(x=>x.id==="fact-001");expect(fact.value).eq("100000000");expect(fact.period.endDate).eq("2025-12-31");expect(fact.unit.numerator).deep.eq(["USD"]);expect(fact.selectionReason).eq("published exact context");expect(m.sources.every(x=>x.filingId===m.filingId&&x.sourceType==="published-modeling")).eq(true);expect(events.find(x=>x.name==="sec.follow-ups").value.questions).length(3);bru.setVar("researchProgramJson",JSON.stringify(events.find(x=>x.type==="TEXT_MESSAGE_CONTENT").delta));});
+}

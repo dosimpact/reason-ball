@@ -1,0 +1,19 @@
+meta {
+  name: TALIB-COMPARE-001 actual-parser
+  type: http
+  seq: 5
+}
+post {
+  url: {{validatorUrl}}
+  body: json
+  auth: none
+}
+body:json {
+  {"program":{{comparisonProgramJson}}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("actual-parser",function(){expect(res.getBody().valid).to.equal(true);expect(res.getBody().errors).to.deep.equal([]);});
+}

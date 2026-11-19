@@ -1,0 +1,43 @@
+meta {
+  name: TA-CANVAS-API-05 Structured conditions create a second independent report
+  type: http
+  seq: 6
+}
+post {
+  url: {{baseUrl}}/threads/{{canvasThread}}/runs/stream
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id": "technical_analysis_canvas_agent", "input": {"messages": [{"role": "user", "content": "새 조건으로 재분석해 주세요."}], "canvas_context": {"reportId": "{{canvasReportA}}", "request": {"ticker": "MSFT", "interval": "1wk", "count": 60, "indicators": [{"name": "RSI", "timeperiod": 7}, {"name": "SMA", "timeperiod": 10}, {"name": "MACD", "fastperiod": 12, "slowperiod": 26, "signalperiod": 9}]}}}, "stream_mode": ["values", "custom"]}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("TA-CANVAS-API-05 Structured conditions create a second independent report", function () {
+    const events = res.getBody().split(/\r?\n\r?\n/).flatMap(block => {
+      const name=block.split(/\r?\n/).find(line=>line.startsWith("event:"))?.slice(6).trim();
+      const data=block.split(/\r?\n/).filter(line=>line.startsWith("data:")).map(line=>line.slice(5).trim()).join("\n");
+      try { return [{name,data:JSON.parse(data)}]; } catch { return []; }
+    });
+    const state=events.filter(event=>event.name==="values").at(-1)?.data;
+    expect(events.some(event=>event.name==="error")).to.equal(false);
+    const reportId=state.presentation?.id;
+    expect(reportId).not.to.equal((bru.getVar("canvasReportA") ?? bru.getEnvVar("canvasReportA")));
+    expect(Object.keys(state.canvas_reports)).to.have.lengthOf(Number((bru.getVar("canvasCount") ?? bru.getEnvVar("canvasCount"))) + 1);
+    const report=state.canvas_reports[reportId];
+    expect(report.analysis.symbol).to.equal("MSFT");
+    expect(report.request.interval).to.equal("1wk");
+    expect(report.request.count).to.equal(60);
+    expect(report.request.indicators.find(i=>i.name==="RSI").timeperiod).to.equal(7);
+    expect(report.request.indicators.find(i=>i.name==="SMA").timeperiod).to.equal(10);
+    expect(require("crypto").createHash("sha256").update(state.canvas_reports[(bru.getVar("canvasReportA") ?? bru.getEnvVar("canvasReportA"))].program).digest("hex")).to.equal((bru.getVar("canvasProgramHashA") ?? bru.getEnvVar("canvasProgramHashA")));
+    expect(report.status).to.equal("ready");
+    expect(report.program).to.equal(state.presentation.program);
+    expect(Object.keys(report.elements)).to.have.lengthOf(4);
+    bru.setVar("canvasReportB",reportId);
+    bru.setVar("canvasCount",Object.keys(state.canvas_reports).length);
+    console.log("Second report",reportId,"elements",Object.keys(report.elements).length);
+  });
+}

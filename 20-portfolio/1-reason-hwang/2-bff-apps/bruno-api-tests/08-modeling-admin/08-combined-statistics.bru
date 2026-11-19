@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 combined-statistics
+  type: http
+  seq: 8
+}
+get {
+  url: {{baseUrl}}/modeling/overview?q=microsoft&formType=10-K&sourceStatus=missing
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("combined-statistics",function(){const b=res.getBody();expect(b.totalFilings).to.equal(1);expect(b.sourceCollected).to.equal(0);expect(b.sourceMissing).to.equal(1);expect(b.stages["1"].latestRuns.SUCCEEDED).to.equal(1);});
+}

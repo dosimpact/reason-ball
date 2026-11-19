@@ -15,13 +15,19 @@ export class FilingService {
       .addSelect('filing.documentContent')
       .where({ cik, accessionNo }).getOne();
     if (!filing) throw new NotFoundException('Filing not found.');
-    if (filing.status !== 'downloaded' || !filing.documentContent) {
+    if (!filing.documentContent) {
       throw new ConflictException('Filing content is not downloaded yet.');
     }
     const mime = filing.documentContentType?.split(';')[0].trim().toLowerCase();
     const contentType = mime && ['text/html', 'application/xhtml+xml', 'application/xml', 'text/xml', 'text/plain'].includes(mime)
       ? mime : 'text/plain';
     return { content: filing.documentContent, contentType: `${contentType}; charset=utf-8` };
+  }
+
+  async getOverview() {
+    const [companies] = await this.filingRepository.query(`SELECT count(*)::int AS total, count(*) FILTER (WHERE NULLIF(BTRIM(ticker), '') IS NOT NULL)::int AS ticker FROM companies`);
+    const forms = await this.filingRepository.query(`SELECT form_type AS "formType", count(*)::int AS total, count(*) FILTER (WHERE document_content IS NOT NULL AND document_content <> '')::int AS content FROM filings GROUP BY form_type ORDER BY form_type`);
+    return { companies: companies.total, tickerCompanies: companies.ticker, totalFilings: forms.reduce((sum: number, row: { total: number }) => sum + row.total, 0), contentFilings: forms.reduce((sum: number, row: { content: number }) => sum + row.content, 0), forms, retrievedAt: new Date().toISOString() };
   }
 
   async listFilings(options: FilingsQueryInput) {
@@ -34,13 +40,16 @@ export class FilingService {
     if (options.status) query.andWhere('filing.status = :status', { status: options.status });
     if (options.formType) query.andWhere('filing.form_type = :formType', { formType: options.formType });
     if (options.since) query.andWhere('filing.filing_date >= :since', { since: options.since });
+    if (options.until) query.andWhere('filing.filing_date <= :until', { until: options.until });
+    if (options.hasContent !== undefined) query.andWhere(options.hasContent ? "filing.document_content IS NOT NULL AND filing.document_content <> ''" : "(filing.document_content IS NULL OR filing.document_content = '')");
     if (options.parserStatus !== undefined) query.andWhere('filing.parser_status = :parserStatus', { parserStatus: options.parserStatus });
     const totalItems = await query.clone().getCount();
     query.orderBy('filing.filing_date', 'DESC', 'NULLS LAST')
       .addOrderBy('filing.updated_at', 'DESC').addOrderBy('filing.accession_no', 'ASC')
       .addOrderBy('filing.cik', 'ASC').offset((page - 1) * pageSize).limit(pageSize);
     // Select metadata first: the byte budget includes every repeated nested body in the response.
-    const rows = await query.getMany();
+    const { entities: rows, raw } = await query.addSelect("filing.document_content IS NOT NULL AND filing.document_content <> ''", 'has_content').getRawAndEntities();
+    const contentById = new Map(rows.map((row, index) => [identity(row), Boolean(raw[index]?.has_content)]));
     const keys = new Map<string, { cik: string; reportDate: string; formType: ReturnType<typeof In> }>();
     for (const row of rows) {
       if (row.reportDate) keys.set(reportKey(row), {
@@ -78,7 +87,7 @@ export class FilingService {
     };
     const items = rows.map((row, index) => {
       const link = links[index];
-      return { ...present(row), ...(link ? {
+      return { ...present(row), hasContent: contentById.get(identity(row)) ?? false, ...(link ? {
         original: link.original ? present(link.original) : null,
         amendments: link.amendments.map(present),
         amendmentLinkStatus: link.status,

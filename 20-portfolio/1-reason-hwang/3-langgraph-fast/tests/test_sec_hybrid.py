@@ -3,8 +3,8 @@ from langchain_core.language_models.fake_chat_models import FakeMessagesListChat
 from langchain_core.messages import AIMessage
 from pydantic import ValidationError
 
-from domains.tenk.a2ui_report import ReportError, generate_report, prepare_report_source
-from domains.tenk.a2ui_report_plan import ReportPlan, plan_report
+from domains.tenk.open_ui_report import ReportError, generate_report, prepare_report_source
+from domains.tenk.open_ui_report_plan import ReportPlan, plan_report
 QUOTE = "The company provides cloud services to enterprise customers."
 
 

@@ -1,0 +1,22 @@
+meta {
+  name: SEC-COLLECT-001 failed documents are not success
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/collect
+  body: json
+  auth: none
+}
+body:json {
+  {"cik":"0000320193","years":3}
+}
+assert {
+  res.status: eq 502
+}
+tests {
+  test("Failed collection has no success reply", function () {
+    expect(res.getBody().detail).to.include("수집에 실패");
+    expect(res.getBody().collection).to.equal(undefined);
+  });
+}

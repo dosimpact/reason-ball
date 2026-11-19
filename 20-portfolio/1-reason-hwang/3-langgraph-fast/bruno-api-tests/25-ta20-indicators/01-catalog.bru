@@ -1,0 +1,23 @@
+meta {
+  name: TA-INDICATORS-020 Versioned catalog
+  type: http
+  seq: 1
+}
+get {
+  url: {{baseUrl}}/technical-analysis/catalog
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Exactly20 unique supported indicators and explicit limits", function () {
+    const body=res.getBody();
+    expect(body.schemaVersion).to.equal(2);
+    expect(new Set(body.indicators.map(row=>row.name)).size).to.equal(20);
+    expect(body.indicators).to.have.lengthOf(20);
+    expect(body.maxInstances).to.equal(40);
+    expect(body.defaultInstances.map(row=>row.name)).to.deep.equal(["SMA","RSI","MACD"]);
+  });
+}

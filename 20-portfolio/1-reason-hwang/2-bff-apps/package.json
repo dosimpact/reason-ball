@@ -14,7 +14,9 @@
     "sec:sync": "bash scripts/sync-sec.sh",
     "sec:import-files": "pnpm build && node scripts/import-filing-files.cjs",
     "test:companies:e2e": "pnpm build && node scripts/verify-company-pagination.cjs",
-    "test:filing-routes:e2e": "pnpm build && node scripts/verify-company-pagination.cjs --filing-routes"
+    "test:filing-routes:e2e": "pnpm build && node scripts/verify-company-pagination.cjs --filing-routes",
+    "test:modeling:e2e": "pnpm build && node scripts/verify-sec-modeling.cjs",
+    "test:modeling:live": "node scripts/verify-sec-modeling-live.cjs"
   },
   "dependencies": {
     "@nestjs/common": "^10.4.15",

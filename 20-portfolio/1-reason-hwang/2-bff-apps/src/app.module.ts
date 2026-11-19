@@ -1,4 +1,6 @@
+import { SecModeling1794614400000 } from './us-corporate-filings/migrations/1794614400000-sec-modeling';
 import { Module } from '@nestjs/common';
+import { OpenDartModule } from './open-dart/open-dart.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { appConfig, AppConfigService } from './shared/config.service';
 import { UsCorporateFilingsModule } from './us-corporate-filings/us-corporate-filings.module';
@@ -27,13 +29,14 @@ import { FilingDatabaseContent1790000000000 } from './us-corporate-filings/migra
           SecTwentyYearBackfill1787589300000,
           FilingSourceDefault1787589400000,
           FilingDatabaseContent1790000000000,
+          SecModeling1794614400000,
         ],
         migrationsRun: true,
         synchronize: false,
         logging: false,
       };
     }
-  }), UsCorporateFilingsModule],
+  }), UsCorporateFilingsModule, OpenDartModule],
   providers: [{ provide: AppConfigService, useValue: appConfig }],
 })
 export class AppModule { }

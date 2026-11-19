@@ -1,113 +1,44 @@
 # Test and Validation Design
 
-> Scope: shared validation layers and workspace-wide test policy. Domain scenarios and acceptance criteria belong in the relevant `docs/stock/<domain-feature-name>/` directory.
+## 변경 유형과 완료 기준
 
-## Mandatory change-based validation
+검증 절차의 원본은 [validation INDEX](../../validation/INDEX.md)다. 서버 API 변경은 Bruno(VAL-API-001), 순수 View 변경은 Storybook(VAL-VIEW-001), 업무 동작 변경은 MCP 사용자 브라우저 검증(VAL-BROWSER-001)을 적용한다. 타입·lint·단위·CLI E2E가 이를 대체하지 않는다. 문서만 변경하면 구조·링크·diff를 확인한다.
 
-The current policy requires all applicable checks: `VAL-API-001` for server API changes (Bruno API E2E), `VAL-VIEW-001` for pure View changes (Storybook), and `VAL-BROWSER-001` for changes containing business logic (user-facing browser behavior through Playwright MCP or Chrome DevTools MCP).
+현재 stock의 검증 절에는 재현 명령, 실제 검증 범위와 미해결 제한을 유지한다. fixture·실모델·실서비스·브라우저 결과를 구별한다. 실행하지 못한 검증을 통과로 표현하지 않는다. 과거 실행 과정과 일시적 PID·포트 목록은 Git 이력에 둔다.
 
-Detailed procedures and completion/evidence rules are canonical in [Validation Principles](../../validation/INDEX.md). Read them before selecting checks. Unit tests, lint, type checks, builds, and CLI E2E alone do not replace the required methods. Missing environments or tools must be reported as incomplete validation; existing opt-in database test policy does not waive required API E2E.
+## 자원과 데이터
 
-## Validation resource lifecycle
+[VAL-CLEANUP-001](../../validation/INDEX.md#val-cleanup-001): 작업이 생성한 서버·브라우저·CDP 연결·임시 데이터만 소유권을 확인해 종료한다. 사용자 브라우저·공유 MCP·DB 볼륨은 보존한다. 정상 종료 뒤 자식 프로세스와 포트를 확인하고 미정리 자원이 있으면 기능 성공과 별도로 보고한다.
 
-`VAL-CLEANUP-001` applies to every execution check: track ownership before starting, clean up on success/failure/interruption, and verify owned processes, child processes, ports, and temporary resources are released. Preserve user browsers and shared MCP servers. Functional PASS does not imply cleanup completion; unresolved cleanup must be reported separately and prevents declaring the whole task complete.
+PostgreSQL·Neo4j 통합 테스트는 문서화된 opt-in과 격리 데이터베이스를 사용한다. 실제 사용자 DB 초기화나 장애 실험은 일반 검증에 포함하지 않는다. 자격 증명과 OAuth 토큰을 로그·문서에 저장하지 않는다.
 
-The canonical procedure is [Validation resource cleanup](../../validation/INDEX.md#val-cleanup-001), with [Playwright MCP and Chrome CDP details](../../validation/business-behavior.md#browser-cleanup). Record cleanup evidence in flow alongside functional results.
+## 커밋된 명령
 
-## Validation tooling
+프로젝트 루트에서 실행한다. 각 package.json이 실제 script 존재 여부의 기준이다.
 
-Installation and connection steps are maintained in the [workspace README](../../../README.md#검증용-mcp-설치-및-연결). The verified setup uses Playwright MCP `0.0.82` and Chrome DevTools MCP `1.9.0` through npx with isolated headless Chrome, plus the existing Storybook MCP addon `10.6.0` at `http://127.0.0.1:6006/mcp`. Bruno CLI `4.1.0` runs API collections without a separate MCP server.
+| 범위 | 명령 / 방법 |
+| --- | --- |
+| Host 타입·규칙 | `pnpm -C 1-fe-host typecheck`, `pnpm -C 1-fe-host lint` (ESLint+Steiger) |
+| Host UI 예제·순수 로직 | `pnpm -C 1-fe-host exec vitest run --project=generative-ui` |
+| Host View | `pnpm -C 1-fe-host exec vitest run --project=storybook <대상 story>` |
+| Host E2E | `pnpm -C 1-fe-host test:e2e <대상 spec>` 및 Playwright MCP |
+| OpenUI 생성물 | `pnpm -C 1-fe-host sec-ui:generate`, `pnpm -C 1-fe-host openui:check` |
+| BFF 단위·API | `pnpm -C 2-bff-apps test`, `test:modeling:e2e`, 커밋된 Bruno collection |
+| Python | `pnpm -C 3-langgraph-fast test`, `test:technical-analysis`, `test:sec-modeling`, `test:talib-agent` |
+| API collection | 각 패키지의 `pnpm bruno` 또는 `pnpm exec bru run ...` |
+| Proxy | `pnpm -C infra/2-codex-oauth-proxy test:unit`, `test:api` |
+| Infra | `pnpm -C infra/1-infra-graph-rag infra:config`, `infra:ps` |
 
-MCP registrations live in the user's Codex configuration, not the repository. Storybook requires an independently started development server; registration alone does not verify connectivity or tests. Installation smoke checks do not count as feature validation.
+구버전 문서의 Host `test:chat`, `test:generative-ui`, `test:sec-modeling:views` 같은 별칭을 script 존재 확인 없이 실행하지 않는다. 현재 Host는 Vitest project와 Playwright runner로 필요한 파일을 선택한다. Bruno environment의 과거 포트를 그대로 사용하지 말고 소유한 서버 주소를 명시적으로 전달한다.
 
-## Validation layers
+## 서버·저장소 검증 범위
 
-Validation is split by failure type. Run the narrowest relevant checks during implementation and the root checks before completing a cross-package change.
+FastAPI는 [runtime 계약](3-langgraph-fast/fastapi-runtime.md)과 [multiworker 검증](3-langgraph-fast/multiworker-validation.md)을 따른다. 실제 그래프/checkpointer와 SDK 메시지·상태 복원을 검증해야 영속성 검증으로 인정한다. DB multiworker는 실제 PostgreSQL 및 독립 OS 프로세스2개를 사용하고 lease·fencing·전역 순서·취소·장애·복구를 확인한다. 메모리 saver·동일 프로세스 task만으로 대신하지 않는다.
 
-| Layer | Root command | Purpose |
-| --- | --- | --- |
-| Lint | `pnpm lint` | ESLint, Ruff, TypeScript-based package lint checks, and Python syntax checks as defined by packages |
-| Type checking | `pnpm typecheck` | TypeScript and Pyright checks where configured |
-| Build | `pnpm build` | Next.js, NestJS, Vite remotes, Python package, and image build tasks that exist |
-| Unit/integration tests | `pnpm test` | Package test suites through Turbo |
-| Browser E2E | `pnpm test:e2e` | Host Playwright tests |
-| Infrastructure health | `pnpm infra:ps` | Compose state and package-specific health checks |
+SEC 모델링은 [도메인 인수 기준](../us-corporate-filings/sec-modeling.md)을 따른다. 작업 제어 HTTP와 실제 공시 품질·검색 성능을 구분한다. subset의 검색 성공이나 세 fixture 공시를 전체 모집단 품질로 확대 해석하지 않는다. 실제 LLM/embedding/Neo4j를 사용하는 검증 스크립트는 비용·쓰기 범위를 확인해 실행한다.
 
-Turbo only runs a task for packages that define the corresponding script. A successful root command therefore means all participating packages passed, not that every package implements that test type.
+## 관측과 도구
 
-## Frontend validation
+MCP 연결은 [README](../../../README.md#검증용-mcp-설치-및-연결)에 안내한다. 도구 등록·설치 smoke는 기능 검증이 아니다. Storybook MCP는 소유한 Storybook 서버가 필요하다. 도구 호스트가 관리하는 공유 브라우저를 이름 기반으로 일괄 종료하지 않는다.
 
-`1-fe-host/tests/e2e/` contains Playwright coverage for:
-
-- Template and Todo remotes on `/remotes/template` and `/remotes/todo`.
-- Chat behavior.
-- Index DCF calculation logic exposed through the UI.
-- Index DCF visualizer interaction and warning behavior.
-
-Playwright owns its configured host server. Do not reuse or terminate unrelated development servers. Use `pnpm --filter reason-hwang-fe-host test:e2e` for the full suite or the committed focused script for calculation-only checks.
-
-## BFF validation
-
-The BFF package uses its committed `test` script for Node tests when present and TypeScript checking through its `lint` script. API workflow coverage is maintained as a Bruno collection under `2-bff-apps/bruno-api-tests/` for:
-
-- Company synchronization and listing.
-- Selected/all-company backfill SSE: metadata first, optional document download and internal retries.
-- Filing pagination, original/amendment linkage, optional content and response byte budget.
-
-`test:companies:e2e` and `test:filing-routes:e2e` own an isolated PostgreSQL container and Nest HTTP port; external SEC alone uses fixtures. The public Bruno collection is separate from deterministic test fixtures. `test:sec-live`, `sec:import-files`, and `scripts/run-sec-backfill.cjs` are explicit data-changing operations.
-
-Bruno environments separate local, development, and staging base URLs. Tests that mutate SEC or database state require an explicitly prepared environment.
-
-## FastAPI/LangGraph validation
-
-`3-langgraph-fast/tests/` uses pytest and covers:
-
-- Domain logic and 10-K parsing/retrieval.
-- Graph workflows, tools, caching, and value objects.
-- Technical-analysis indicator implementations and architecture boundaries.
-- FastAPI contracts, execution limits, threads, runs, persistence, and extensions.
-- PostgreSQL repositories, normalized schema, checkpointer behavior, and migrations.
-
-Common commands include:
-
-```sh
-pnpm --filter reason-hwang-langgraph-fast test
-pnpm --filter reason-hwang-langgraph-fast test:api
-pnpm --filter reason-hwang-langgraph-fast test:technical-analysis
-pnpm --filter reason-hwang-langgraph-fast test:tenk
-pnpm --filter reason-hwang-langgraph-fast test:bruno
-```
-
-PostgreSQL and Neo4j integration tests require their documented services and opt-in environment flags. Do not reinterpret a skipped external-service test as a passing integration verification.
-
-The Bruno collection under `3-langgraph-fast/bruno-api-tests/` exercises health/system endpoints, parsing, Assistants, MCP, Threads, Runs, streaming, Crons, Store, and A2A against a running server.
-
-Open either package's committed collection in the Bruno desktop app from that package directory:
-
-```sh
-pnpm bruno
-```
-
-## OAuth proxy validation
-
-`infra/2-codex-oauth-proxy/tests/` uses Python unittest for translation and proxy behavior through `pnpm test:unit`. API-level Bruno checks run through `pnpm test:api`; the runner validates local OAuth credentials, owns or refreshes the Compose proxy, checks health, and exercises Chat Completions, supported-model listing, and model-alias behavior against the live Codex upstream.
-
-Never expose token contents in test output or commit `.config/chatgpt_auth.json`.
-
-## Infrastructure validation
-
-After `pnpm infra:up`, verify at minimum:
-
-```sh
-pnpm infra:ps
-curl http://localhost:3100/ready
-curl http://localhost:9090/-/ready
-curl http://localhost:9090/api/v1/targets
-curl http://localhost:8080/healthz
-```
-
-Prometheus targets for cAdvisor, PostgreSQL, Neo4j, exporter self-metrics, and Prometheus should be `UP` as applicable. Confirm provisioned Loki and Prometheus data sources in Grafana when changing monitoring configuration.
-
-## Completion evidence
-
-A flow record should list the exact commands executed and their PASS, FAIL, or SKIP result. If a check is skipped, state the missing service, credential, or environment requirement. Documentation-only changes require at least structural/link checks and a diff review; they do not require application builds unless the documentation was derived from uncertain runtime behavior.
+Infra 변경은 Compose config/서비스 상태 후 Loki ready, Prometheus targets, DB exporter, Grafana datasource를 확인한다. 실제 포트는 [workspace](workspace.md)의 로컬 프로필을 따른다. Proxy 인증 재로드 회귀는 `PYTHONPATH=. uv run python api-test/check-auth-reload.py`로 격리 인증 파일과 소유 서버만 사용하며 live 모델·사용자 토큰 검증과 구분한다.

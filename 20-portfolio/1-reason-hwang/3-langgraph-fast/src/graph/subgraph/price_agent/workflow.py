@@ -56,7 +56,6 @@ price_agent_graph = build_price_agent_graph()
 async def run_price_agent(message: str) -> PriceAgentState:
     initial_state: PriceAgentState = {
         "messages": [HumanMessage(content=message)],
-        "query": message,
         "interval": "1d",
         "count": 10,
         "prices": [],

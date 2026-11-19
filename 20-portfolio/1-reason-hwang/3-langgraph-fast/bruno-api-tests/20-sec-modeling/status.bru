@@ -1,0 +1,19 @@
+meta {
+  name: Published SEC document status
+  type: http
+  seq: 2
+}
+get {
+  url: {{baseUrl}}/internal/sec-modeling/filings/0000320193/0000320193-26-000026/status
+  body: none
+  auth: none
+}
+headers {
+  X-SEC-Modeling-Key: {{modelingKey}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("stage one is published", function() { expect(res.getBody().stages['1'].generationId).to.be.a('string'); });
+}

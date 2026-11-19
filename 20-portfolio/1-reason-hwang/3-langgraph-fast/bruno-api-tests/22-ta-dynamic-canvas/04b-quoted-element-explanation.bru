@@ -1,0 +1,30 @@
+meta {
+  name: TA-CANVAS-API-04B Quoted element uses saved evidence
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/threads/{{canvasThread}}/runs/stream
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id":"technical_analysis_canvas_agent","input":{"messages":[{"role":"user","content":"선택한 가격 차트의 종목과 기준일를 설명해 주세요. 재분석은 하지 마세요."}],"canvas_context":{"reportId":"{{canvasReportA}}","elementId":"{{canvasReportA}}:chart","quote":"가격 차트"}},"stream_mode":["values","custom"]}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Quote uses the selected report without a new presentation", function () {
+    const events=res.getBody().split(/\r?\n\r?\n/).flatMap(block=>{
+      const lines=block.split(/\r?\n/);
+      const name=lines.find(line=>line.startsWith("event:"))?.slice(6).trim();
+      try{return [{name,data:JSON.parse(lines.filter(line=>line.startsWith("data:")).map(line=>line.slice(5).trim()).join("\n"))}];}catch{return [];}
+    });
+    expect(events.some(event=>event.name==="error")).to.equal(false);
+    const state=events.filter(event=>event.name==="values").at(-1)?.data;
+    expect(state.presentation).not.to.be.ok;
+    expect(Object.keys(state.canvas_reports)).to.have.lengthOf(Number(bru.getVar("canvasCount")));
+    expect(state.messages.filter(message=>message.type==="ai" && message.content).at(-1)?.content).to.be.a("string").and.not.to.equal("");
+  });
+}

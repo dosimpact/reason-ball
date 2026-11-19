@@ -1,0 +1,19 @@
+meta {
+ name: SEC-CHAT-MODELING-001 reject-unknown-selected-id
+ type: http
+ seq: 9
+}
+post {
+ url: {{baseUrl}}/api/sec-chat/chat
+ body: json
+ auth: none
+}
+body:json {
+ {"threadId":"{{researchThread}}","message":"invalid-id revenue"}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("reject-unknown-selected-id",function(){const events=res.getBody().split("\n").filter(x=>x.startsWith("data:")).map(x=>JSON.parse(x.slice(5)));expect(events.some(x=>x.type==="RUN_ERROR")).eq(true);expect(events.some(x=>x.type==="RUN_FINISHED")).eq(false);expect(events.some(x=>x.type==="TEXT_MESSAGE_CONTENT")).eq(false);});
+}

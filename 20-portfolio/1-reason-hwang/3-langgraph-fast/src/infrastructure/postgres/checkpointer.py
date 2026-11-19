@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from typing import Any
 
@@ -13,6 +14,7 @@ class PostgresRuntime:
     schema: str = "langgraph"
     pool: Any = None
     checkpointer: Any = None
+    initialize_schema: bool = True
 
     async def open(self) -> PostgresRuntime:
         try:
@@ -20,7 +22,9 @@ class PostgresRuntime:
             from psycopg.rows import dict_row
             from psycopg_pool import AsyncConnectionPool
         except ImportError as exc:
-            raise RuntimeError("PostgreSQL runtime dependencies are not installed") from exc
+            raise RuntimeError(
+                "PostgreSQL runtime dependencies are not installed"
+            ) from exc
 
         self.pool = AsyncConnectionPool(
             conninfo=self.conninfo,
@@ -30,17 +34,21 @@ class PostgresRuntime:
                 "row_factory": dict_row,
                 "options": f"-c search_path={self.schema},public",
             },
+            min_size=int(os.getenv("LANGGRAPH_DB_POOL_MIN", "1")),
+            max_size=int(os.getenv("LANGGRAPH_DB_POOL_MAX", "8")),
+            timeout=float(os.getenv("LANGGRAPH_DB_POOL_TIMEOUT", "5")),
             open=False,
         )
         await self.pool.open()
-        async with self.pool.connection() as connection:
-            await prepare_schema(
-                connection,
-                profile=self.profile,
-                schema=self.schema,
-            )
+        if self.initialize_schema:
+            async with self.pool.connection() as connection:
+                await prepare_schema(
+                    connection,
+                    profile=self.profile,
+                    schema=self.schema,
+                )
         self.checkpointer = AsyncPostgresSaver(self.pool)
-        if self.profile == "local":
+        if self.profile == "local" and self.initialize_schema:
             await self.checkpointer.setup()
         return self
 

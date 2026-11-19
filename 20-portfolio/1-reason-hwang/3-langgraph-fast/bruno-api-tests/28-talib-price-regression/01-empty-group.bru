@@ -1,0 +1,16 @@
+meta {
+  name: empty-group
+  type: http
+  seq: 1
+}
+get {
+  url: {{regressionBaseUrl}}/catalog?group=&search=ICHIMOKU
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("empty-group", function () { expect(res.body.functions.map(x => x.name)).to.deep.equal(['ICHIMOKU']); });
+}

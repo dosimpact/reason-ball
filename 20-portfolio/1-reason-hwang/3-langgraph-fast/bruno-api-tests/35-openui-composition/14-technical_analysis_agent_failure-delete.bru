@@ -1,0 +1,17 @@
+meta {
+  name: OPENUI-COMPOSE-001 technical_analysis_agent_failure-delete
+  type: http
+  seq: 14
+}
+delete {
+  url: {{baseUrl}}/threads/{{compositionThread}}
+  auth: none
+}
+assert {
+  res.status: eq 204
+}
+tests {
+  test("composition contract", () => {
+  expect(res.getStatus()).to.equal(204);
+  });
+}

@@ -1,0 +1,21 @@
+meta {
+  name: OPENUI-COMPOSE-001 technical_analysis_canvas_agent-compose
+  type: http
+  seq: 16
+}
+post {
+  url: {{baseUrl}}/threads/{{compositionThread}}/runs/wait
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id": "technical_analysis_canvas_agent", "input": {"messages": [{"role": "user", "content": "TEST RSI \ubd84\uc11d"}], "canvas_context": {"request": {"ticker": "TEST", "interval": "1d", "count": 120, "indicators": [{"name": "RSI", "parameters": {"timeperiod": 14}}]}}}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("composition contract", () => {
+  const b=res.getBody();expect(b.analysis_result.symbol).to.equal("TEST");expect(b.presentation.program).to.be.a("string");bru.setVar("compositionProgramJson",JSON.stringify(b.presentation.program));const saved=b.canvas_reports[b.presentation.id];expect(saved.status).to.equal("ready");expect(Object.keys(saved.elements)).to.have.lengthOf(2);expect(b.presentation.program).to.include(b.presentation.id+":chart");
+  });
+}

@@ -1,0 +1,19 @@
+meta {
+  name: CHAT-PROVIDER-001 invalid-provider
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/validate/invalid-provider
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("configuration rejected", function () {
+    expect(res.getBody().detail).to.include("CHAT_LLM_PROVIDER must be oauth-proxy or openai");
+    expect(JSON.stringify(res.getBody())).not.to.include("fixture-only-token");
+  });
+}

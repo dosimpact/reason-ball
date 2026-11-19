@@ -1,0 +1,21 @@
+meta {
+  name: SEC-COLLECT-002 invalid-range
+  type: http
+  seq: 10
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/collect
+  body: json
+  auth: none
+}
+body:json {
+  {"cik":"0001045810","years":31}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("invalid-range", function () {
+    expect(res.getBody().detail).to.be.an("array");
+  });
+}

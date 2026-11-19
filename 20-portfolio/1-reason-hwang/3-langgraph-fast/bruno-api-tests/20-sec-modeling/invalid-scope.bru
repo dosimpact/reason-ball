@@ -1,0 +1,22 @@
+meta {
+  name: Search rejects missing filing scope
+  type: http
+  seq: 3
+}
+post {
+  url: {{baseUrl}}/api/sec-analysis/search
+  body: json
+  auth: none
+}
+headers {
+  X-SEC-Modeling-Key: {{modelingKey}}
+}
+body:json {
+  {"query":"revenue", "filingIds":[]}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("scope required", function() { expect(res.getStatus()).to.equal(422); });
+}

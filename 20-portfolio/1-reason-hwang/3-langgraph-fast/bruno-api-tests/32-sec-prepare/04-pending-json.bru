@@ -1,0 +1,21 @@
+meta {
+  name: SEC-PREPARE-001 pending-json
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/prepare
+  body: json
+  auth: none
+}
+body:json {
+  {"cik":"0000000002","refresh":false}
+}
+assert {
+  res.status: eq 502
+}
+tests {
+  test("pending-json", function () {
+    expect(res.getBody().detail).to.include("최신");
+  });
+}

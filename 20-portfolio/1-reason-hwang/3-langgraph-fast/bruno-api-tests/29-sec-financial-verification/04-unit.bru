@@ -1,0 +1,19 @@
+meta {
+ name: SEC financial unit
+ type: http
+ seq: 4
+}
+post {
+ url: {{baseUrl}}/api/sec-deep-agent/research
+ body: json
+ auth: none
+}
+body:json {
+ {"message":"unit","history":[]}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("unit",function(){const b=res.getBody(); expect(b.financialVerification.facts[0].error).eq("unit_not_in_quote");});
+}

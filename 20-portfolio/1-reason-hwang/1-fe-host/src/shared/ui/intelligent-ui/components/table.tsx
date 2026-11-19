@@ -1,9 +1,9 @@
 "use client";
 
+import { Table as ShadcnTable, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
 import { defineComponent } from "@openuidev/react-lang";
 import { z } from "zod/v4";
 import { inline } from "./markdown";
-import { cx } from "./style";
 
 const NUMERIC = /^[-+−]?[$€£¥₹]?\s?\d[\d,]*(\.\d+)?\s?(%|[kKmMbB]|bn)?$/;
 const isElement = (value: unknown) => !!value && typeof value === "object" && (value as { type?: unknown }).type === "element";
@@ -26,29 +26,29 @@ export const Table = defineComponent({
     const cell = (value: unknown) =>
       isElement(value) ? renderNode(value) : typeof value === "number" ? value.toLocaleString("en-US", { maximumFractionDigits: 2 }) : inline(String(value ?? ""));
     return (
-      <div className="iui-table-scroll">
-        <table className="iui-table">
-          <thead>
-            <tr>
+      <div className="min-w-0 rounded-lg border">
+        <ShadcnTable>
+          <TableHeader>
+            <TableRow>
               {columns.map((c, i) => (
-                <th key={i} className={cx(numeric[i] && "is-numeric")}>
+                <TableHead key={i} className={numeric[i] ? "text-right tabular-nums" : undefined}>
                   {c}
-                </th>
+                </TableHead>
               ))}
-            </tr>
-          </thead>
-          <tbody>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {rows.map((row, r) => (
-              <tr key={r}>
+              <TableRow key={r}>
                 {columns.map((_, c) => (
-                  <td key={c} className={cx(numeric[c] && "is-numeric")}>
+                  <TableCell key={c} className={numeric[c] ? "text-right tabular-nums" : "whitespace-normal"}>
                     {cell(row[c])}
-                  </td>
+                  </TableCell>
                 ))}
-              </tr>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </ShadcnTable>
       </div>
     );
   },

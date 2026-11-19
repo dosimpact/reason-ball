@@ -1,3 +1,5 @@
+import type { ChatToolActivity } from "./toolActivity";
+
 export type ChatRole = "user" | "assistant" | "system";
 
 export type ChatMessageStatus = "complete" | "streaming" | "error";
@@ -7,12 +9,13 @@ export type ChatMessage = {
   role: ChatRole;
   content: string;
   program?: string;
+  activities?: ChatToolActivity[];
   presentationId?: string;
   createdAt: string;
   status: ChatMessageStatus;
 };
 
-export type ChatStatus = "idle" | "creating_thread" | "streaming" | "error";
+export type ChatStatus = "idle" | "creating_thread" | "streaming" | "loading_history" | "error";
 
 export type ChatThreadState = {
   threadId: string | null;

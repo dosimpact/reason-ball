@@ -1,77 +1,63 @@
-"""Build OpenUI from verified numbers without a model rewriting chart data."""
+"""Trusted, compact presentation inputs; the shared model owns OpenUI layout."""
 
 import json
+import re
+
+from langchain_core.messages import AIMessage, HumanMessage
 
 
-def build_program(state: dict) -> str:
-    report = state["answer"]
-    dumps = lambda value: json.dumps(
-        value, ensure_ascii=False, allow_nan=False, separators=(",", ":")
-    )
-    statements = []
-    dates = report["dates"]
-    caption = f"{report['symbol']} · {report['interval']} · {dates[0]} ~ {dates[-1]} · {report['currency']} · 수정주가 · 완료 봉"
-    nodes = [f'Title({dumps("기술적 분석")}, "xl")', f"Text({dumps(caption)})"]
-    price_rows = [
-        {"date": day, "close": close}
-        for day, close in zip(dates, report["close"], strict=True)
+def presentation_input(state: dict, report_id: str | None = None) -> dict:
+    report = state["analysis_result"]
+    snapshot = report.get("chart_snapshot") or {}
+    instances = [
+        {key: item[key] for key in ("instanceId", "name", "parameters", "showSignal") if key in item}
+        for item in snapshot.get("indicators", [])
+        if isinstance(item, dict)
     ]
-    price_series = ["close"]
-    for item in report["indicators"]:
-        if item["name"] == "SMA" and item["status"] == "success":
-            label = f"SMA {item['parameters']['timeperiod']}"
-            price_series.append(label)
-            for row, value in zip(price_rows, item["series"]["sma"], strict=True):
-                if value is not None:
-                    row[label] = value
-    statements.append(f"prices = {dumps(price_rows)}")
-    nodes.append(
-        f'Chart("line", prices, "date", {dumps(price_series)}, "currency", {dumps(report["currency"])})'
-    )
-    for item in report["indicators"]:
-        nodes.append(
-            f"Title({dumps(item['name'] + ' (' + ' / '.join(str(v) for v in item['parameters'].values()) + ')')})"
-        )
-        signal = item["signal"]
-        label = signal["state"] + (" · " + signal["cross"] if "cross" in signal else "")
-        nodes.append(f"Text({dumps('기준일 ' + dates[-1] + ' · ' + label)})")
-        evidence = [
-            [key, "판단 불가" if value is None else f"{value:.4f}"]
-            for key, value in signal.items()
-            if key not in {"state", "cross"}
+    if not instances:
+        instances = [
+            {"instanceId": item.get("instanceId") or f"indicator-{index}", "name": item["name"], "parameters": item["parameters"]}
+            for index, item in enumerate(report["indicators"])
         ]
-        if evidence:
-            nodes.append(f'Table(["근거", "값"], {dumps(evidence)})')
-        if item["status"] == "error":
-            nodes.append(f"Text({dumps(item['error_message'] or '판단 불가')})")
+    indicators = [{key: item[key] for key in ("instanceId", "name", "parameters", "signal", "status", "error_message") if key in item} for item in report["indicators"]]
+    answer = {key: report.get(key) for key in ("symbol", "interval", "requested_count", "currency", "source_url", "fetched_at", "warnings", "evidence")}
+    answer.update({"period": {"start": report["dates"][0], "end": report["dates"][-1]}, "indicators": indicators})
+    messages = state.get("messages", [])
+    latest = next((index for index in range(len(messages) - 1, -1, -1) if isinstance(messages[index], HumanMessage)), -1)
+    answer["explanation"] = "\n".join(str(message.content) for message in messages[latest + 1:] if isinstance(message, AIMessage) and not message.tool_calls and message.content)
+    context = {
+        "kind": "technical_analysis",
+        "instructions": "Compose this verified analysis freely using catalog components. Display source, period, currency, warnings and grounded explanation. Use Query(technical_analysis_chart) backed FinancialChart for price/indicator charts; never embed or invent OHLCV or indicator series arrays. Use schema_version=2 and the supplied instances JSON. Query fallback must have empty bars and indicators. Provide reactive ticker/interval/count/instances controls and manual @Run query refresh (refresh=0); each CanvasItem needs independent variables/query. Preserve original analysis timestamp when query conditions change. Do not wrap the complete report in a single CanvasItem.",
+        "chartQuery": {"ticker": report["symbol"], "interval": report["interval"], "count": str(report["requested_count"]), "schema_version": 2, "instances": json.dumps(instances, ensure_ascii=False)},
+        "chartFallback": {**{key: value for key, value in snapshot.items() if key not in {"bars", "indicators"}}, "schemaVersion": 2, "bars": [], "indicators": []},
+    }
+    if report_id:
+        context["canvasItems"] = [{"id": report_id + ":chart", "title": report["symbol"] + " · 가격 차트", "instances": []}]
+        for index, item in enumerate(indicators):
+            instance = next((value for value in instances if item.get("instanceId") and value.get("instanceId") == item["instanceId"]), None)
+            if instance is None:
+                instance = instances[index]
+            context["canvasItems"].append({"id": report_id + ":indicator:" + str(index), "title": report["symbol"] + " · " + item["name"] + " 차트", "instances": [instance]})
+        context["instructions"] += " Generate exactly one individually pinnable CanvasItem for each canvasItems entry, using its literal id exactly once and its own indicator subset. No other CanvasItem IDs are allowed."
+    return {"question": str(messages[latest].content) if latest >= 0 else "", "answer": answer, "presentation_context": context, "host_evidence": False}
+
+
+def canvas_item_errors(program: str, required_ids: set[str]) -> list[str]:
+    """Inspect constructor tokens outside strings, so quoted prose cannot spoof IDs."""
+    string = r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*' '''
+    token = re.compile(string + r'|\bCanvasItem\s*\(', re.VERBOSE | re.DOTALL)
+    ids = []
+    for match in token.finditer(program):
+        if not match.group().startswith("CanvasItem"):
             continue
-        if item["name"] == "SMA":
-            continue
-        rows = []
-        for index, day in enumerate(dates):
-            row = {"date": day}
-            row.update(
-                {
-                    key: values[index]
-                    for key, values in item["series"].items()
-                    if values[index] is not None
-                }
-            )
-            if item["name"] == "RSI":
-                row.update({"lower": 30, "upper": 70})
-            rows.append(row)
-        keys = (
-            ["rsi", "lower", "upper"] if item["name"] == "RSI" else ["macd", "signal"]
-        )
-        variable = item["name"].lower() + "Data"
-        statements.append(f"{variable} = {dumps(rows)}")
-        nodes.append(f'Chart("line", {variable}, "date", {dumps(keys)})')
-        if item["name"] == "MACD":
-            nodes.append(f'Chart("bar", {variable}, "date", ["histogram"])')
-    for warning in report["warnings"]:
-        nodes.append(f"Text({dumps(warning)})")
-    nodes.append(
-        f"Text({dumps('출처: ' + report['source_url'] + ' · 조회 시각: ' + str(report['fetched_at']))})"
-    )
-    statements.append("root = Col([" + ", ".join(nodes) + "], 4)")
-    return "\n".join(statements)
+        tail = program[match.end():].lstrip()
+        try:
+            value, end = json.JSONDecoder().raw_decode(tail)
+        except ValueError:
+            return ["CanvasItem must use a literal server-owned ID"]
+        if not isinstance(value, str) or not tail[end:].lstrip().startswith(","):
+            return ["CanvasItem must use a literal server-owned ID"]
+        ids.append(value)
+    if len(ids) != len(required_ids) or set(ids) != required_ids:
+        return ["CanvasItem IDs must match each required server-owned ID exactly once"]
+    return []

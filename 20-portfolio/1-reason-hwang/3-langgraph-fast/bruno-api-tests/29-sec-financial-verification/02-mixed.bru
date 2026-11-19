@@ -1,0 +1,19 @@
+meta {
+ name: SEC financial mixed
+ type: http
+ seq: 2
+}
+post {
+ url: {{baseUrl}}/api/sec-deep-agent/research
+ body: json
+ auth: none
+}
+body:json {
+ {"message":"mixed","history":[]}
+}
+assert {
+ res.status: eq 200
+}
+tests {
+ test("mixed",function(){const b=res.getBody(); expect(b.financialVerification.calculations[0].error).eq("basis_mismatch"); expect(b.report).not.include("80111000000");});
+}

@@ -2,11 +2,9 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from datetime import date
 
-from .contracts import ActionError, UIAction, page_field, require_fields, text_field, validate_action
+from .contracts import ActionError, UIAction, require_fields, text_field, validate_action
 from .data import FLIGHTS, sales_summary
-from .sec import execute_action
 
 MEALS = {"standard": "일반식", "vegetarian": "채식", "kids": "어린이식", "none": "기내식 없음"}
 SEATS = {"12A": "12A · 창가", "12B": "12B · 가운데", "12C": "12C · 통로", "14A": "14A · 창가", "14C": "14C · 통로"}
@@ -22,16 +20,7 @@ def allowed_actions(mode: str, data: dict) -> set[str]:
         if data.get("uiType") in CABIN_FIELDS:
             return set() if data.get("confirmed") else {"confirm_cabin"}
         return set() if data.get("selected") else {"select_flight"}
-    allowed = {"sec_search"}
-    if data.get("companies", {}).get("items") and not data.get("company"):
-        allowed.add("sec_company")
-    if data.get("company"):
-        allowed.update({"sec_filings_page", "sec_filings_filter"})
-        if data.get("filings", {}).get("items"):
-            allowed.add("sec_filing")
-        if data.get("filing", {}).get("status") == "downloaded":
-            allowed.add("sec_report")
-    return allowed
+    return set()
 
 
 def fixed_data(flight_id: str, ui_type: str = "flight") -> dict:
@@ -68,28 +57,3 @@ def apply_demo_action(mode: str, data: dict, action: UIAction, revision: int) ->
     result["confirmed" if fields else "selected"] = True
     result["notice"] = "선택 완료 · 실제 예약 아님"
     return result
-
-
-async def apply_sec_action(data: dict, action: UIAction, revision: int, client, model=None) -> dict:
-    context = validate_action(action, revision, allowed_actions("sec", data))
-    fields = {
-        "sec_search": {"query", "page"}, "sec_company": {"cik"},
-        "sec_filings_page": {"page"}, "sec_filings_filter": {"status", "form", "since"},
-        "sec_filing": {"accession"}, "sec_report": {"request"},
-    }[action.name]
-    require_fields(context, fields)
-    for field in fields - {"page"}:
-        text_field(context, field, 500 if field == "request" else 120)
-    if "page" in fields:
-        page_field(context)
-    if action.name == "sec_filings_filter":
-        if context["status"] not in {"", "downloaded", "pending", "failed"}:
-            raise ActionError("잘못된 원문 상태입니다.")
-        if context["form"] not in {"", "10-K", "10-K/A", "10-Q", "10-Q/A", "8-K", "8-K/A"}:
-            raise ActionError("잘못된 공시 종류입니다.")
-        if context["since"]:
-            try:
-                date.fromisoformat(context["since"])
-            except ValueError as error:
-                raise ActionError("날짜는 YYYY-MM-DD 형식이어야 합니다.") from error
-    return await execute_action(data, action.name, context, client, model)

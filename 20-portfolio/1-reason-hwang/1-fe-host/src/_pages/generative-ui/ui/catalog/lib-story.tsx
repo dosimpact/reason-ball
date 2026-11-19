@@ -3,20 +3,29 @@ import { createLibrary, Renderer, type ActionEvent, type OpenUIError } from "@op
 import { runLibraryAction, webUrl, Col, library, listFunctions, numberFunctions, textFunctions, colorFunctions, dateFunctions, dataFunctions } from "@/shared/ui/intelligent-ui";
 import { useCallback, useEffect, useState } from "react";
 import libraryStories from "./stories.json";
+import { financialStories, financialBlockStories } from "./financial-stories";
+import { financialSeriesStories } from "./financial-series-stories";
 import builtinStories from "./builtins.json";
 import { createBuiltinDemoTools } from "./builtin-tools";
 import "./lib-story.css";
 
-const stories = [...libraryStories, ...builtinStories];
+const stories = [...libraryStories.map(story => ["FinancialChart", "FinancialChartPlot", "FinancialChartSummary", "FinancialChartMetadata", "QueryPanel"].includes(story.name) ? { ...story, category: "financial" } : story), ...builtinStories, ...financialStories, ...financialBlockStories, ...financialSeriesStories];
 type Story = (typeof stories)[number];
 const colOnlyLibrary = createLibrary({ root: "Col", components: [Col] });
-const categories = ["components", "functions", "actions", "builtins"];
+const categories = ["components", "financial", "functions", "actions", "builtins"];
 const componentGroupLabels: Record<string, string> = {
   Layout: "레이아웃", Text: "텍스트·문서", Inputs: "입력·폼",
   "Media and data": "미디어·데이터", Play: "학습·피드백", Drawing: "도형·HTML",
 };
 const navigationGroups: Record<string, { label: string; names: string[] }[]> = {
   components: (library.componentGroups ?? []).map(group => ({ label: componentGroupLabels[group.name] ?? group.name, names: group.components })),
+  financial: [
+    { label: "기본 차트 유형", names: financialSeriesStories.filter(story => story.group === "types").map(story => story.name) },
+    { label: "축·마커·기준선", names: financialSeriesStories.filter(story => story.group === "options").map(story => story.name) },
+    { label: "시리즈 조합", names: financialSeriesStories.filter(story => story.group === "compositions").map(story => story.name) },
+    { label: "금융 컴포넌트", names: ["FinancialSeriesChart", "QueryPanel", "FinancialChart", "FinancialChartPlot", "FinancialChartSummary", "FinancialChartMetadata", "IndicatorControls"] },
+    { label: "금융 차트 쇼케이스", names: financialStories.filter(story => story.name !== "IndicatorControls").map(story => story.name) },
+  ],
   functions: [
     { label: "목록", names: listFunctions.map(fn => fn.name) },
     { label: "수치 계산", names: numberFunctions.map(fn => fn.name) },
@@ -77,7 +86,7 @@ export function LibStory({ theme }: { theme: "light" | "dark" }) {
     return () => window.removeEventListener("hashchange", sync);
   }, []);
   const selected = stories.find(story => story.id === selectedId) ?? stories[0];
-  const filtered = stories.filter(story => story.category === category && `${story.name} ${story.description}`.toLowerCase().includes(query.toLowerCase()));
+  const filtered = stories.filter(story => story.category === category && `${story.name} ${story.description} ${story.signature} ${story.id}`.toLowerCase().includes(query.toLowerCase()));
   const configuredGroups = navigationGroups[category] ?? [];
   const groupedNames = new Set(configuredGroups.flatMap(group => group.names));
   const groups = [...configuredGroups, { label: "기타", names: filtered.filter(story => !groupedNames.has(story.name)).map(story => story.name) }]
@@ -93,15 +102,15 @@ export function LibStory({ theme }: { theme: "light" | "dark" }) {
     }
     setNotice(`이벤트: ${event.type} · ${event.humanFriendlyMessage || ""} · 맥락 ${JSON.stringify(event.params?.context ?? null)} · 폼 ${JSON.stringify(event.formState ?? {})} (모델 호출 없음)`);
   }, []);
-  return <div className="lib-story" data-theme={theme} data-openui-theme={theme}>
-    <header className="story-top"><a href={"/a2ui/catalog"}>OpenUI <strong>Lib Story</strong></a>
-      <nav aria-label="페이지와 테마"><a href={"/a2ui"}>Generative UI ↗</a><a href={`?theme=${theme === "light" ? "dark" : "light"}#${selected.id}`}>{theme === "light" ? "Dark" : "Light"}</a></nav>
+  return <div className={`lib-story${theme === "dark" ? " dark" : ""}`} data-theme={theme} data-openui-theme={theme}>
+    <header className="story-top"><a href={"/open-ui/catalog"}>OpenUI <strong>Lib Story</strong></a>
+      <nav aria-label="페이지와 테마"><a href={"/open-ui"}>Generative UI ↗</a><a href={`?theme=${theme === "light" ? "dark" : "light"}#${selected.id}`}>{theme === "light" ? "Dark" : "Light"}</a></nav>
     </header>
     <div className="story-layout"><aside className="story-sidebar">
       <p className="story-eyebrow">LIBRARY EXPLORER</p><h1>하나씩, 직접 실행하기</h1>
-      <p className="story-summary">{libraryStories.filter(item => item.category === "components").length}개 컴포넌트 · {libraryStories.filter(item => item.category === "functions").length}개 함수 · {libraryStories.filter(item => item.category === "actions").length}개 액션<br />내장 기능 {builtinStories.length}개 · 모델 호출 없이 직접 실행</p>
+      <p className="story-summary">{stories.filter(item => item.category === "components").length}개 컴포넌트 · 금융 예제 {stories.filter(item => item.category === "financial").length}개 · {libraryStories.filter(item => item.category === "functions").length}개 함수 · {libraryStories.filter(item => item.category === "actions").length}개 액션<br />내장 기능 {builtinStories.length}개 · 모델 호출 없이 직접 실행</p>
       <label className="story-search">항목 검색<input type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Col, Percent, Copy…" /></label>
-      <div className="story-tabs" role="group" aria-label="라이브러리 종류">{categories.map(id => <button key={id} type="button" aria-pressed={category === id} onClick={() => { setCategory(id); setQuery(""); }}>{id === "builtins" ? "builtins · 내장" : id} <small>{stories.filter(story => story.category === id).length}</small></button>)}</div>
+      <div className="story-tabs" role="group" aria-label="라이브러리 종류">{categories.map(id => <button key={id} type="button" aria-pressed={category === id} onClick={() => { setCategory(id); setQuery(""); }}>{id === "builtins" ? "builtins · 내장" : id === "financial" ? "financial · 금융" : id} <small>{stories.filter(story => story.category === id).length}</small></button>)}</div>
       <nav className="story-index" aria-label="라이브러리 항목">{groups.map(group => <section className="story-nav-group" key={group.label} aria-label={group.label}>
         <h2 className="story-nav-heading">{group.label} <small>{group.items.length}</small></h2>
         <div className="story-nav-items">{group.items.map(story => <a key={story.id} href={`#${story.id}`} aria-current={selected.id === story.id ? "page" : undefined}>◇ <span>{story.name}</span><small>{story.examples.length}</small></a>)}</div>

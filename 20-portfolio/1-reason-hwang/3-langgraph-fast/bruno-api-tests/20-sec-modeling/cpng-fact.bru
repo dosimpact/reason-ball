@@ -1,0 +1,26 @@
+meta {
+  name: CPNG published XBRL facts
+  type: http
+  seq: 4
+}
+post {
+  url: {{baseUrl}}/api/sec-analysis/facts/query
+  body: json
+  auth: none
+}
+headers {
+  X-SEC-Modeling-Key: {{modelingKey}}
+}
+body:json {
+  {"filingIds":["filing:0001834584:0001834584-26-000024"],"limit":5}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("published facts and provenance", function() {
+    const data=res.getBody(); expect(data.total).to.be.greaterThan(0);
+    expect(data.items[0].generationId).to.be.a('string');
+    expect(data.items[0].context.periodType).to.be.a('string');
+  });
+}

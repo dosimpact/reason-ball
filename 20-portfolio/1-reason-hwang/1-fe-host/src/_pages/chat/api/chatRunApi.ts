@@ -10,6 +10,7 @@ import type { LangGraphChatInputMessage } from "@/_pages/chat/model/chatTypes";
 import type { LangGraphConfig } from "@/shared/config";
 
 export type LangGraphStreamEvent =
+  | { event: "custom"; data: unknown }
   | MessagesTupleStreamEvent
   | ValuesStreamEvent<unknown>
   | MetadataStreamEvent
@@ -21,8 +22,8 @@ export type LangGraphStreamEvent =
       };
     };
 
-export async function createChatThread(client: Client): Promise<string> {
-  const thread = await client.threads.create();
+export async function createChatThread(client: Client, metadata?: Record<string, unknown>): Promise<string> {
+  const thread = await client.threads.create({ metadata, graphId: typeof metadata?.graph_id === "string" ? metadata.graph_id : undefined });
 
   return thread.thread_id;
 }
@@ -33,15 +34,22 @@ export function streamChatRun(params: {
   threadId: string;
   messages: LangGraphChatInputMessage[];
   signal?: AbortSignal;
+  canvasContext?: Record<string, unknown>;
+  analysisRequest?: Record<string, unknown> | null;
+  onRunCreated?: (run: { run_id: string; thread_id?: string }) => void;
 }): AsyncIterable<LangGraphStreamEvent> {
-  const stream = params.client.runs.stream<StreamMode>(
+  const stream = params.client.runs.stream<StreamMode[]>(
     params.threadId,
     params.config.assistantId,
     {
       input: {
         messages: params.messages,
+        ...(params.canvasContext ? { canvas_context: params.canvasContext } : {}),
+        ...(params.analysisRequest !== undefined ? { analysis_request: params.analysisRequest } : {}),
       },
-      streamMode: params.config.streamMode,
+      streamMode: params.config.assistantId === "technical_analysis_canvas_agent" ? ["values", "custom"] : params.config.streamMode === "values" ? ["values"] : ["messages-tuple", "values"],
+      onDisconnect: "continue",
+      onRunCreated: params.onRunCreated,
       signal: params.signal,
     },
   );

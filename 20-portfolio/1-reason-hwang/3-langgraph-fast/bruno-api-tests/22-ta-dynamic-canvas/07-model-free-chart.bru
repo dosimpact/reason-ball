@@ -1,0 +1,25 @@
+meta {
+  name: TA-CANVAS-API-07 Existing Yahoo TA chart HTTP query
+  type: http
+  seq: 10
+}
+get {
+  url: {{baseUrl}}/technical-analysis/chart?ticker=AAPL&interval=1d&count=60&indicators=SMA,RSI,MACD
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("Chart is aligned and has immutable query metadata", function () {
+    const data = res.getBody();
+    expect(data.symbol).to.equal("AAPL");
+    expect(data.source).to.equal("Yahoo Finance");
+    expect(data.bars).to.have.lengthOf(60);
+    expect(data.as_of).to.equal(data.bars.at(-1).time);
+    expect(data.bars.at(-1).rsi).to.be.a("number");
+    expect(data.bars.at(-1).sma).to.be.a("number");
+    data.bars.forEach((bar,index) => { if (index) expect(bar.time > data.bars[index-1].time).to.equal(true); });
+  });
+}

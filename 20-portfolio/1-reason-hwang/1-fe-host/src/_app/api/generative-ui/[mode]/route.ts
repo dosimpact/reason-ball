@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ mode: string }> }) {
   const { mode } = await params;
-  if (!["dynamic", "fixed", "sec"].includes(mode)) return new Response(null, { status: 404 });
+  if (!["dynamic", "fixed"].includes(mode)) return new Response(null, { status: 404 });
   const origin = request.headers.get("origin");
   if (origin) {
     try {

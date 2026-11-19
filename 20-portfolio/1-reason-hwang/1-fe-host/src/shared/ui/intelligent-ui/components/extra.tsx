@@ -1,9 +1,12 @@
 "use client";
 
+import { Button as ShadcnButton } from "@/shared/ui/button";
+import { CodeBlock, CodeBlockActions, CodeBlockContent, CodeBlockCopyButton, CodeBlockHeader, CodeBlockTitle } from "@/shared/ui/code-block";
+import { Popover as ShadcnPopover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { defineComponent, useIsStreaming } from "@openuidev/react-lang";
 import katex from "katex";
 import "katex/dist/katex.min.css";
-import { Check, ChevronLeft, ChevronRight, Copy } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { z } from "zod/v4";
@@ -71,52 +74,30 @@ export const Popover = defineComponent({
   props: z.object({ trigger: slot, content: slot }),
   description: 'Shows content in a small panel when the trigger is clicked: a definition, a source, details behind an Icon("info", "sm").',
   component: function PopoverView({ props, renderNode }) {
-    const [open, setOpen] = useState(false);
-    const [at, setAt] = useState<{ left: number; top: number; up: boolean } | null>(null);
-    const button = useRef<HTMLButtonElement>(null);
-    const panel = useRef<HTMLDivElement>(null);
-    useLayoutEffect(() => {
-      if (!open || !button.current) return;
-      const r = button.current.getBoundingClientRect();
-      const up = r.bottom + 220 > window.innerHeight && r.top > 240;
-      setAt({ left: Math.min(Math.max(12, r.left), window.innerWidth - 292), top: up ? r.top - 8 : r.bottom + 8, up });
-    }, [open]);
-    useEffect(() => {
-      if (!open) return;
-      const close = (event: Event) => {
-        const target = event.target as Node;
-        if (event.type === "keydown" ? (event as KeyboardEvent).key === "Escape" : !panel.current?.contains(target) && !button.current?.contains(target)) setOpen(false);
-      };
-      const onScroll = () => setOpen(false);
-      document.addEventListener("pointerdown", close);
-      document.addEventListener("keydown", close);
-      window.addEventListener("scroll", onScroll, true);
-      return () => {
-        document.removeEventListener("pointerdown", close);
-        document.removeEventListener("keydown", close);
-        window.removeEventListener("scroll", onScroll, true);
-      };
-    }, [open]);
+    const trigger = useRef<HTMLElement>(null);
+    const componentTrigger = typeof props.trigger !== "string";
+    const triggerNode = props.trigger as { typeName?: string };
+    const interactiveTrigger = componentTrigger && ["Button", "IconButton", "Link", "Pressable"].includes(triggerNode?.typeName ?? "");
+    const [theme, setTheme] = useState<string>();
+    const readTheme = () => {
+      const container = trigger.current?.closest("[data-openui-theme], [data-theme]");
+      setTheme(container?.getAttribute("data-openui-theme") ?? container?.getAttribute("data-theme") ?? undefined);
+    };
     return (
-      <>
-        <button ref={button} type="button" className="iui-popover-trigger" aria-expanded={open} onClick={() => setOpen(!open)}>
+      <ShadcnPopover onOpenChange={(nextOpen) => { if (nextOpen) readTheme(); }}>
+        <PopoverTrigger
+          ref={(element) => { trigger.current = element; }}
+          nativeButton={!componentTrigger}
+          role={interactiveTrigger ? "presentation" : undefined}
+          tabIndex={interactiveTrigger ? -1 : undefined}
+          render={componentTrigger ? <span className="inline-flex" /> : <ShadcnButton variant="outline" />}
+        >
           {renderSlot(props.trigger, renderNode)}
-        </button>
-        {open &&
-          at &&
-          createPortal(
-            <div
-              ref={panel}
-              role="dialog"
-              className="iui-popover"
-              style={{ left: at.left, top: at.top, transform: at.up ? "translateY(-100%)" : undefined }}
-              data-theme={button.current?.closest("[data-theme]")?.getAttribute("data-theme") ?? undefined}
-            >
-              {renderSlot(props.content, renderNode)}
-            </div>,
-            document.body,
-          )}
-      </>
+        </PopoverTrigger>
+        <PopoverContent finalFocus={() => trigger.current?.querySelector<HTMLElement>("button, a[href], [tabindex='0']") ?? trigger.current} align="start" sideOffset={8} data-theme={theme} className={cx("max-w-[calc(100vw-24px)]", theme === "dark" && "dark")}>
+          {renderSlot(props.content, renderNode)}
+        </PopoverContent>
+      </ShadcnPopover>
     );
   },
 });
@@ -126,27 +107,18 @@ export const Code = defineComponent({
   name: "Code",
   props: z.object({ code: z.string(), language: z.string().optional() }),
   description: "Code block with a copy button.",
-  component: function CodeView({ props }) {
-    const [copied, setCopied] = useState(false);
+  component: ({ props }) => {
     const code = str(props.code);
-    const copy = () =>
-      void navigator.clipboard?.writeText(code).then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1500);
-      });
     return (
-      <div className="iui-codeblock">
-        <div className="iui-codeblock-head">
-          <span>{str(props.language) || "code"}</span>
-          <button type="button" onClick={copy} aria-label="Copy code">
-            {copied ? <Check size={14} /> : <Copy size={14} />}
-            {copied ? "Copied" : "Copy"}
-          </button>
-        </div>
-        <pre>
-          <code>{code}</code>
-        </pre>
-      </div>
+      <CodeBlock>
+        <CodeBlockHeader>
+          <CodeBlockTitle>{str(props.language) || "code"}</CodeBlockTitle>
+          <CodeBlockActions>
+            <CodeBlockCopyButton value={code} aria-label="Copy code" />
+          </CodeBlockActions>
+        </CodeBlockHeader>
+        <CodeBlockContent>{code}</CodeBlockContent>
+      </CodeBlock>
     );
   },
 });

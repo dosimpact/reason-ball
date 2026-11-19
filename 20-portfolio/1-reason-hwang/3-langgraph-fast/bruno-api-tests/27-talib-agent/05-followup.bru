@@ -1,0 +1,19 @@
+meta {
+  name: TALIB-CHAT-001 05-followup
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/threads/{{talibThread}}/runs/stream
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id":"talib_agent","input":{"messages":[{"role":"user","content":"같은 종목의 SMA20도 분석해 줘."}]},"stream_mode":["values"]}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("05-followup", function() { expect(res.getBody()).to.include("event: values"); expect(res.getBody()).not.to.include("event: error"); });
+}

@@ -2,7 +2,26 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { BadRequestException, PipeTransform } from '@nestjs/common';
 import { readCompanyPageNumber, readOptionalCik, readOptionalTicker, readOptionalText } from './request-validation';
 export const MAX_COMPANY_PAGE_SIZE = 100_000;
+export class CompanyFormCountDto {
+  @ApiProperty({ example: '10-K' })
+  formType!: string;
+
+  @ApiProperty({ type: Number, minimum: 0, example: 21 })
+  count!: number;
+}
+
+export class CompanyFilingCountsDto {
+  @ApiProperty({ type: Number, minimum: 0, description: 'CIK 기준 DB에 저장된 전체 공시 메타데이터 수. 원문 수집 완료 건수가 아님.', example: 275 })
+  total!: number;
+
+  @ApiProperty({ type: () => [CompanyFormCountDto], description: '모든 저장 formType별 건수. 수정본은 별도 집계.' })
+  byFormType!: CompanyFormCountDto[];
+}
+
 export class CompanyDto {
+  @ApiProperty({ type: () => CompanyFilingCountsDto })
+  filingCounts!: CompanyFilingCountsDto;
+
   @ApiProperty({ type: String, description: 'SEC 회사 고유 식별자(CIK). 10자리 문자열로 정규화됩니다.', example: '0000320193' })
   cik!: string;
 
@@ -17,26 +36,6 @@ export class CompanyDto {
 
   @ApiProperty({ type: String, format: 'date-time', description: '레코드 마지막 갱신 시각입니다.', example: '2026-04-15T12:00:00.000Z' })
   updatedAt!: Date;
-}
-
-export class CompaniesFilterDto {
-  @ApiProperty({ type: Number, example: 1 })
-  page!: number;
-
-  @ApiProperty({ type: Number, example: 20, maximum: MAX_COMPANY_PAGE_SIZE })
-  pageSize!: number;
-
-  @ApiProperty({ type: Number, description: '조회 최대 건수입니다.', example: 20 })
-  limit!: number;
-
-  @ApiPropertyOptional({ type: String, description: '10자리 CIK 필터입니다.', example: '0000320193' })
-  cik?: string;
-
-  @ApiPropertyOptional({ type: String, description: '티커 필터입니다.', example: 'AAPL' })
-  ticker?: string;
-
-  @ApiPropertyOptional({ type: String, description: '회사명 또는 티커 부분 검색어입니다.', example: 'apple' })
-  q?: string;
 }
 
 export class CompanySyncJobResponseDto {
@@ -73,9 +72,6 @@ export class CompaniesPaginationDto {
 export class CompaniesListResponseDto {
   @ApiProperty({ type: () => CompaniesPaginationDto })
   pagination!: CompaniesPaginationDto;
-
-  @ApiProperty({ type: () => CompaniesFilterDto })
-  filters!: CompaniesFilterDto;
 
   @ApiProperty({ type: () => [CompanyDto] })
   items!: CompanyDto[];

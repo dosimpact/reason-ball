@@ -1,0 +1,25 @@
+meta {
+  name: OPENUI-SEC-REMOVE-001 reject removed SEC demo
+  type: http
+  seq: 9
+}
+post {
+  url: {{baseUrl}}/api/generative-ui/sec
+  body: json
+  auth: none
+}
+headers {
+  Content-Type: application/json
+}
+body:json {
+  {"thread_id":"removed-sec-demo","message":"AAPL"}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("Removed SEC mode fails path validation", function() {
+    expect(res.getStatus()).to.equal(422);
+    expect(res.getBody().detail[0].loc).to.deep.equal(["path", "mode"]);
+  });
+}

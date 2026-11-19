@@ -1,0 +1,16 @@
+meta {
+  name: SEC-MODELING-ADMIN-002 page-two
+  type: http
+  seq: 3
+}
+get {
+  url: {{baseUrl}}/modeling/filings?limit=2&offset=2
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("page-two",function(){const b=res.getBody();expect(b.total).to.equal(6);expect(b.items).to.have.lengthOf(2);expect(b.items.every(x=>!bru.getVar("firstPageIDs").includes(x.accessionNo))).to.equal(true);expect(b.items[0].stages["1"].latestRun.status).to.equal("SUCCEEDED");expect(b.items[0].stages["1"].status).to.equal("input_required");expect(b.items[1].stages["1"].status).to.equal("QUEUED");expect(b.items[1].stages["3"].status).to.equal("unsupported");});
+}

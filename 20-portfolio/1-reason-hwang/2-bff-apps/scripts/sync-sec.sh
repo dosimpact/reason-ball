@@ -13,7 +13,7 @@ Builds the BFF and runs, in order:
   3. Filing document downloads
 
 Uses the BFF .env database and SEC settings. No running API server is required.
-Progress is printed to the terminal and saved under DATA_DIR/runs/*.sse.
+Progress is printed to the terminal and saved under STATIC_CACHE_DIR/runs/*.sse.
 Existing downloaded documents are preserved. Failed documents are retried.
 Press Ctrl-C to stop. Run again to resume collection from stored filing states.
 HELP

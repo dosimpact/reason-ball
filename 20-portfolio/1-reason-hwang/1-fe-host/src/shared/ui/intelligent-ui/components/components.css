@@ -287,7 +287,7 @@
 .iui-carousel-track { display: flex; gap: 12px; margin-block: -4px; padding-block: 4px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .iui-carousel-track::-webkit-scrollbar { display: none; }
 .iui-carousel-item { flex: none; max-width: 85%; min-width: 0; scroll-snap-align: start; display: flex; flex-direction: column; }
-.iui-carousel-item > .iui-card, .iui-carousel-item > .iui-pressable { height: 100%; }
+.iui-carousel-item > .iui-card, .iui-carousel-item > [data-slot="card"], .iui-carousel-item > .iui-pressable { height: 100%; }
 .iui-carousel-nav { position: absolute; top: 50%; z-index: 2; display: grid; place-items: center; width: 34px; height: 34px; margin-top: -17px; border: 1px solid var(--iui-border); border-radius: 50%; background: var(--iui-canvas); color: var(--iui-ink); box-shadow: 0 1px 3px rgb(0 0 0 / 14%); cursor: pointer; }
 /* Same frosted glass as the map controls, since these sit over photos. */
 .iui-carousel-nav { border-color: transparent; background: var(--iui-glass); backdrop-filter: blur(12px) saturate(1.4); box-shadow: inset 0 0 0 1px var(--iui-glass-ring), 0 2px 12px rgb(0 0 0 / 8%); transition: background-color 120ms ease-out, box-shadow 120ms ease-out, opacity 120ms ease-out; }
@@ -304,8 +304,8 @@
 
 .iui-codeblock { min-width: 0; overflow: hidden; border: 1px solid var(--iui-border); border-radius: var(--iui-radius-lg); background: var(--iui-surface); }
 .iui-codeblock-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px 6px 14px; border-bottom: 1px solid var(--iui-border); color: var(--iui-muted); font-size: 12px; }
-.iui-codeblock-head button { display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px; border: 0; border-radius: 6px; background: none; color: inherit; font: inherit; cursor: pointer; }
-.iui-codeblock-head button:hover { background: var(--iui-hover); color: var(--iui-ink); }
+.iui-codeblock-head button:not([data-slot="button"]) { display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px; border: 0; border-radius: 6px; background: none; color: inherit; font: inherit; cursor: pointer; }
+.iui-codeblock-head button:not([data-slot="button"]):hover { background: var(--iui-hover); color: var(--iui-ink); }
 .iui-codeblock pre { margin: 0; padding: 14px 16px; overflow-x: auto; font: 13px/1.6 var(--iui-mono); }
 
 .iui-quote { display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 14px 16px; border-left: 3px solid var(--iui-ink); border-radius: 0 12px 12px 0; background: var(--iui-surface); }
@@ -383,3 +383,52 @@
 .iui-row:has(> :is(.iui-image, .iui-box:has(> .iui-image:only-child))) { align-items: flex-start !important; gap: var(--iui-space-group-lg) !important; }
 .iui-row > :is(.iui-image, .iui-box:has(> .iui-image:only-child)) { flex: none !important; width: clamp(120px, 33%, 200px) !important; }
 .iui-row > .iui-box:has(> .iui-image:only-child) > .iui-image, .iui-row > .iui-image { aspect-ratio: 4 / 3 !important; height: auto !important; }
+
+/* Query controls stay attached to the view they update. */
+.iui-query-panel { min-width: 0; padding: 16px; border: 1px solid var(--iui-border); border-radius: 12px; }
+.iui-query-panel-header, .iui-query-panel-refresh { display: flex; align-items: center; gap: 8px; }
+.iui-query-panel-header { justify-content: space-between; margin-bottom: 12px; }
+.iui-query-panel-refresh { color: var(--iui-muted); font-size: 12px; }
+.iui-query-panel-settings { margin-bottom: 12px; border: 1px solid var(--iui-border); border-radius: 8px; }
+.iui-query-panel-settings > summary { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 10px 12px; color: var(--iui-muted); font-size: 13px; }
+.iui-query-panel-settings > summary::before { content: "▸"; }
+.iui-query-panel-settings[open] > summary::before { content: "▾"; }
+.iui-query-panel-settings > summary:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 8px; }
+.iui-query-panel-controls { padding: 4px 12px 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 12px; align-items: start; }
+.iui-query-panel-controls > :not(.iui-field) { grid-column: 1 / -1; }
+.iui-query-panel-data { min-width: 0; display: grid; gap: 12px; }
+.iui-query-panel-spinner { animation: iui-query-panel-spin 1s linear infinite; }
+@keyframes iui-query-panel-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .iui-query-panel-spinner { animation: none; } }
+
+.iui-indicator-controls, .iui-indicator-summary { margin-block: 1rem; padding: .9rem; border: 1px solid color-mix(in srgb, currentColor 18%, transparent); border-radius: .75rem; min-width: 0; }
+.iui-indicator-controls p, .iui-indicator-summary p, .iui-indicator-origin { font-size: .82rem; opacity: .85; overflow-wrap: anywhere; }
+.iui-indicator-controls fieldset { border: 0; padding: 0; min-width: 0; }
+.iui-indicator-controls-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-block: .75rem; }
+.iui-indicator-controls-toolbar select { width: auto; max-width: 100%; }
+.iui-indicator-button { border: 1px solid color-mix(in srgb, currentColor 25%, transparent); border-radius: .4rem; padding: .4rem .65rem; font: inherit; font-size: .82rem; background: transparent; cursor: pointer; }
+.iui-indicator-button:disabled { opacity: .45; cursor: not-allowed; }
+.iui-indicator-button:focus-visible, .iui-indicator-summary summary:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.iui-indicator-drafts { display: grid; gap: .4rem; padding-inline-start: 1.5rem; max-height: 24rem; overflow: auto; }
+.iui-indicator-drafts details, .iui-indicator-summary-item { padding: .5rem; border-bottom: 1px solid color-mix(in srgb, currentColor 14%, transparent); overflow-wrap: anywhere; }
+.iui-indicator-drafts summary, .iui-indicator-summary summary { cursor: pointer; }
+.iui-indicator-parameters { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: .7rem; margin-block: .75rem; }
+.iui-indicator-parameters label { display: grid; gap: .25rem; font-size: .82rem; }
+.iui-indicator-toggle { display: flex; align-items: center; gap: .5rem; margin-block: .65rem; }
+.iui-canvas-item-frame { min-width: 0; padding: 8px 8px 0 0; }
+.iui-canvas-item { min-width: 0; }
+.iui-canvas-item-selectable { position: relative; padding-top: 32px; overflow: visible; }
+.iui-canvas-item-add { position: absolute; top: -8px; right: -8px; z-index: 1; box-shadow: 0 3px 10px rgb(0 0 0 / .18); }
+
+/* Financial display blocks: the plot leads; optional detail stays quiet. */
+.iui-financial-composite { display: grid; gap: 8px; }
+.iui-financial-chart figcaption { margin-bottom: 8px; font-size: 14px; }
+.iui-financial-chart > div > small { display: block; color: var(--iui-muted); font-size: 10px; margin-top: 6px; }
+.iui-financial-metadata, details.iui-indicator-summary { margin: 0; padding: 10px 12px; border: 1px solid var(--iui-border, color-mix(in srgb, currentColor 14%, transparent)); border-radius: 10px; min-width: 0; }
+.iui-financial-metadata > summary, details.iui-indicator-summary > summary { cursor: pointer; font-size: 12px; font-weight: 500; color: var(--iui-muted); }
+.iui-financial-metadata > summary:focus-visible, details.iui-indicator-summary > summary:focus-visible { outline: 2px solid var(--iui-info); outline-offset: 3px; }
+.iui-financial-metadata dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 16px; font-size: 12px; margin: 12px 0; }
+.iui-financial-metadata dt { color: var(--iui-muted); }
+.iui-financial-metadata dd { margin: 0; overflow-wrap: anywhere; }
+.iui-financial-metadata p { color: var(--iui-muted); font-size: 11px; }
+@media print { .iui-financial-metadata, details.iui-indicator-summary { break-inside: avoid; } }

@@ -1,0 +1,21 @@
+meta {
+  name: series-evidence
+  type: http
+  seq: 5
+}
+get {
+  url: {{regressionBaseUrl}}/evidence
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("price-volume-width evidence", function () {
+    expect(res.body.price.changePercent).to.be.closeTo(20, 0.00001);
+    expect(res.body.volume.changePercent).to.equal(-40);
+    expect(res.body.indicators[0].normalizedWidth.delta).to.equal(30);
+    expect(JSON.stringify(res.body)).not.to.include('"values"');
+  });
+}

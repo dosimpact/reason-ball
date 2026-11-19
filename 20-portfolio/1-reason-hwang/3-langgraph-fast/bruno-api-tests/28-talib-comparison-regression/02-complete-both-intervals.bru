@@ -1,0 +1,19 @@
+meta {
+  name: TALIB-COMPARE-001 complete-both-intervals
+  type: http
+  seq: 2
+}
+post {
+  url: {{baseUrl}}/threads/{{comparisonThread}}/runs/wait
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id": "talib_agent", "input": {"messages": [{"role": "user", "content": "AAPL 일봉 120개로 RSI14와 SMA20을 먼저 계산한 뒤 주봉 120개로 같은 지표를 계산해 차이를 비교해 줘."}]}}
+}
+assert {
+  res.status: eq 200
+}
+tests {
+  test("complete-both-intervals",function(){const b=res.getBody();expect(new Set(b.current_result_ids)).to.deep.equal(new Set(["1d-RSI","1d-SMA","1wk-RSI","1wk-SMA"]));expect(b.datasets["AAPL:1d"].metadata.interval).to.equal("1d");expect(b.datasets["AAPL:1wk"].metadata.interval).to.equal("1wk");expect(b.result_requests["1d-RSI"].inputs.price.dataset).to.equal("AAPL:1d");expect(b.result_requests["1wk-RSI"].inputs.price.dataset).to.equal("AAPL:1wk");expect(b.result_requests["1d-RSI"].parameters.timeperiod).to.equal(14);expect(b.result_requests["1wk-SMA"].parameters.timeperiod).to.equal(20);expect(b.presentation.program).to.include("1d-RSI");expect(b.presentation.program).to.include("1wk-RSI");expect(b.messages.some(x=>x.type==="system")).to.equal(false);bru.setVar("comparisonProgramJson",JSON.stringify(b.presentation.program));});
+}

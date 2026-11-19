@@ -1,0 +1,19 @@
+meta {
+  name: LG-OSS-MULTI-001 conflicting-key
+  type: http
+  seq: 7
+}
+post {
+  url: {{workerB}}/threads/{{multiThread}}/runs
+  body: json
+  auth: none
+}
+body:json {
+  {"assistant_id":"qa_read_graph","request_id":"{{multiKey}}","input":{"marker":"{{multiKey}}","delay":0.2},"stream_mode":["values","custom","messages-tuple"],"stream_subgraphs":true}
+}
+assert {
+  res.status: eq 409
+}
+tests {
+  test("conflicting-key",function(){expect(res.status).to.equal(409);});
+}

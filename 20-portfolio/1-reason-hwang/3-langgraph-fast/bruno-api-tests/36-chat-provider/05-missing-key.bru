@@ -1,0 +1,19 @@
+meta {
+  name: CHAT-PROVIDER-001 missing-key
+  type: http
+  seq: 5
+}
+post {
+  url: {{baseUrl}}/validate/missing-key
+  body: none
+  auth: none
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("configuration rejected", function () {
+    expect(res.getBody().detail).to.include("Set CHAT_LLM_OPENAI_API_KEY");
+    expect(JSON.stringify(res.getBody())).not.to.include("fixture-only-token");
+  });
+}

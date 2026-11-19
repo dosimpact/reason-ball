@@ -1,0 +1,22 @@
+meta {
+  name: route-invalid
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/street-route?coords=,;1,2
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 400
+}
+
+tests {
+  test("GALLERY-MEDIA-001 route-invalid", function() {
+    expect(res.getStatus()).to.equal(400);
+    expect(res.getBody().error.message).to.include("lng,lat pairs");
+  });
+}

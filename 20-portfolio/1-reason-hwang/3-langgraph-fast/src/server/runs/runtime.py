@@ -48,6 +48,7 @@ class Runtime:
         self.run_repository: Any = None
         self.checkpointer: Any = None
         self._lock = asyncio.Lock()
+        self.manager: Any = None
 
     def reset(self) -> None:
         self.__init__()
@@ -151,15 +152,19 @@ class Runtime:
             self.runs[run_id] = run
             if result is not None:
                 self.run_results[run_id] = result
-            return run
+            return self.manager.public_run(run) if getattr(self.manager,"durable",False) else run
         return self.require_run(thread_id, run_id)
 
     async def persist_thread(self, thread: dict[str, Any]) -> None:
+        if getattr(self.manager,"durable",False):
+            raise RuntimeError("Durable thread changes require runtime control transaction")
         if self.thread_repository is not None:
             row = await self.thread_repository.upsert(thread)
             self.threads[thread["thread_id"]] = self._thread_row(row)
 
     async def persist_run(self, run: dict[str, Any], result: Any = None) -> None:
+        if getattr(self.manager,"durable",False):
+            raise RuntimeError("Durable run changes require ownership transaction")
         if self.run_repository is not None:
             row = await self.run_repository.upsert(run, result)
             normalized, stored_result = self._run_row(row)
@@ -198,6 +203,8 @@ class Runtime:
         self, thread_id: str, checkpoint_id: str | None = None
     ) -> dict[str, Any]:
         await self.ensure_thread(thread_id)
+        if self.manager is not None:
+            return await self.manager.state(thread_id, checkpoint_id)
         if self.checkpointer is None:
             return self.state(thread_id, checkpoint_id)
         configurable: dict[str, Any] = {"thread_id": thread_id, "checkpoint_ns": ""}
@@ -215,6 +222,8 @@ class Runtime:
         metadata: dict[str, Any] | None = None,
     ) -> list[dict[str, Any]]:
         await self.ensure_thread(thread_id)
+        if self.manager is not None:
+            return await self.manager.history(thread_id, limit=limit, before=before, metadata=metadata)
         if self.checkpointer is None:
             states = list(reversed(self.states.get(thread_id, [])))
             if before:
@@ -272,6 +281,8 @@ class Runtime:
             "values": {},
             "interrupts": {},
         }
+        if payload.get("graph_id"):
+            thread["metadata"].setdefault("graph_id", payload["graph_id"])
         if payload.get("ttl"):
             thread["ttl"] = deepcopy(payload["ttl"])
         self.threads[thread_id] = thread
@@ -282,6 +293,8 @@ class Runtime:
         return thread
 
     async def create_thread_persisted(self, payload: dict[str, Any]) -> dict[str, Any]:
+        if getattr(self.manager,"durable",False):
+            return await self.manager.create_thread(payload)
         requested_id = payload.get("thread_id")
         if requested_id and self.thread_repository is not None:
             existing = await self.thread_repository.get(requested_id)
@@ -357,6 +370,8 @@ class Runtime:
     ) -> dict[str, Any]:
         """Update normalized values and persist the exact returned checkpoint ID."""
         await self.ensure_thread(thread_id)
+        if self.manager is not None:
+            return await self.manager.update_state(thread_id, values, as_node, checkpoint)
         state = self.add_state(thread_id, values, as_node)
         if self.checkpointer is not None:
             parent = checkpoint or (
@@ -423,6 +438,8 @@ class Runtime:
     async def create_run(
         self, thread_id: str | None, payload: dict[str, Any], *, wait: bool = False
     ) -> tuple[dict[str, Any], Any]:
+        if self.manager is not None:
+            return await self.manager.create(thread_id, payload, wait=wait)
         if thread_id is None:
             thread = await self.create_thread_persisted({})
             thread_id = thread["thread_id"]
@@ -487,7 +504,7 @@ class Runtime:
             self.run_results[run_id] = deepcopy(output)
             await self.add_state_persisted(run["thread_id"], output, "run")
             run["status"] = "success"
-        except Exception as exc:  # runtime boundary translates graph failures into run state
+        except Exception as exc:  # noqa: BLE001 - runtime boundary translates graph failures into run state
             run["status"] = "error"
             run["metadata"]["error"] = str(exc)
             output = {"error": str(exc)}
@@ -513,7 +530,11 @@ class Runtime:
                 await self.thread_repository.delete(run["thread_id"])
         return output
 
-    async def cancel(self, run: dict[str, Any]) -> None:
+    async def cancel(self, run: dict[str, Any], *, wait: bool = False) -> Any:
+        if self.manager is not None:
+            if getattr(self.manager,"durable",False):
+                return await self.manager.cancel(run,wait=wait)
+            return await self.manager.cancel(run)
         if run["status"] in {"pending", "running"}:
             run.update(status="interrupted", updated_at=utc_now())
             self.active.discard(run["run_id"])

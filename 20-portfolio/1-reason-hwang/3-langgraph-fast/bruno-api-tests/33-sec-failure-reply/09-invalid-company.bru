@@ -1,0 +1,22 @@
+meta {
+  name: SEC-FAILURE-REPLY-001 invalid-company
+  type: http
+  seq: 9
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/failure-reply
+  body: json
+  auth: none
+}
+body:json {
+  {"message":"질문","stage":"prepare","company":{"cik":"invalid","name":"NVIDIA","ticker":"NVDA"}}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("invalid-company", function () {
+    const b = res.getBody();
+    expect(b.detail).to.be.an("array");
+  });
+}

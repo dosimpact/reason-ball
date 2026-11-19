@@ -3,12 +3,15 @@ import asyncio
 
 import httpx
 import pytest
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
 from langchain_core.language_models.fake_chat_models import FakeMessagesListChatModel
 from langchain_core.messages import AIMessage, HumanMessage
 
 from domains.sec_tools.agent import (
     artifacts,
     build_tool_graph,
+    collect_company_filings,
     prepare_filing,
     search_companies,
 )
@@ -82,13 +85,84 @@ async def test_scope_and_no_sync_are_enforced_before_http():
 
 
 @pytest.mark.asyncio
-async def test_search_uses_real_tool_and_rejects_model_only_claims():
+async def test_search_uses_real_tool_and_ignores_model_only_claims():
+    from unittest.mock import Mock
+    for responses in [[AIMessage(content='invented')], []]:
+        log = []
+        model = Mock(wraps=ToolModel(responses=responses))
+        assert (await search_companies('AAPL', model, client_with(log)))['items'][0]['cik'] == FILING['cik']
+        assert len(log) == 1
+        assert log[0].url.params['ticker'] == 'AAPL'
+        assert model.mock_calls == []
+
+
+@pytest.mark.asyncio
+async def test_collection_calls_only_selected_company_sync_and_checks_completed_event():
     log = []
-    model = ToolModel(responses=[call('search_sec_companies', ticker='AAPL'), AIMessage(content='Apple')])
-    assert (await search_companies('AAPL', model, client_with(log)))['items'][0]['cik'] == FILING['cik']
+    model = ToolModel(responses=[call('sync_sec_company_filings', ciks=[FILING['cik']], years=3), AIMessage(content='done')])
+    result = await collect_company_filings(FILING['cik'], 3, None, model, client_with(log))
+    assert result['cik'] == FILING['cik']
+    assert result['filingsSynced'] == 1 and result['downloaded'] == 1
+    assert len(log) == 1 and log[0].method == 'POST'
+    assert log[0].url.path == '/api/sec/company-filing-sync-jobs'
+    assert log[0].read().decode() == f'{{"years":3,"downloadDocuments":true,"refreshArchive":false,"ciks":["{FILING["cik"]}"],"tickers":[]}}'
+
+
+@pytest.mark.asyncio
+async def test_collection_ignores_wrong_arguments_and_model_only_claims():
+    from unittest.mock import Mock
+    for responses in ([call('sync_sec_company_filings', ciks=['0000000001'], years=20)], [AIMessage(content='downloaded')], []):
+        log = []
+        model = Mock(wraps=ToolModel(responses=responses))
+        result = await collect_company_filings(FILING['cik'], 3, None, model, client_with(log))
+        assert result['failed'] == 0
+        assert len(log) == 1
+        import json
+        assert json.loads(log[0].content)['ciks'] == [FILING['cik']]
+        assert json.loads(log[0].content)['years'] == 3
+        assert model.mock_calls == []
+
+
+@pytest.mark.asyncio
+async def test_collection_calls_selected_sync_only_once_even_if_model_repeats():
+    from unittest.mock import Mock
+    log = []
+    sync = call('sync_sec_company_filings', ciks=[FILING['cik']], years=2)
+    model = Mock(wraps=ToolModel(responses=[sync, sync, AIMessage(content='done')]))
+    result = await collect_company_filings(FILING['cik'], 2, None, model, client_with(log))
+    assert result['companiesProcessed'] == 1
     assert len(log) == 1
-    with pytest.raises(SecReadError):
-        await search_companies('AAPL', ToolModel(responses=[AIMessage(content='invented')]), client_with([]))
+    assert model.mock_calls == []
+
+
+def test_collect_api_sse_uses_selected_bff_post_and_does_not_report_failure_as_success(monkeypatch):
+    from domains.sec_tools import tools as sec_tools
+    from server.sec_chat import router as sec_router
+
+    captured = []
+    stream = 'event: completed\ndata: {"companiesProcessed":1,"filingsSynced":4,"downloaded":3,"failed":0}\n\n'
+
+    def respond(request):
+        captured.append(request)
+        return httpx.Response(200, text=stream, headers={'content-type': 'text/event-stream'})
+
+    def init(self, base_url=None, transport=None):
+        self.base_url = 'http://sec-bff.test'
+        self.transport = httpx.MockTransport(respond)
+
+    monkeypatch.setattr(sec_tools.SecBffClient, '__init__', init)
+    monkeypatch.setattr(sec_router, 'chat_model', lambda: ToolModel(responses=[call('sync_sec_company_filings', ciks=[FILING['cik']], years=2), AIMessage(content='done')]))
+    app = FastAPI()
+    app.include_router(sec_router.router)
+    with TestClient(app) as client:
+        assert client.post('/api/sec-chat/collect', json={'cik': FILING['cik'], 'years': 2, 'since': '2026-99-99'}).status_code == 422
+        response = client.post('/api/sec-chat/collect', json={'cik': FILING['cik'], 'years': 2}, headers={'Accept': 'text/event-stream'})
+        assert response.status_code == 200
+        assert 'RUN_FINISHED' in response.text and '메타데이터 4건' in response.text
+        assert len(captured) == 1 and captured[0].url.path == '/api/sec/company-filing-sync-jobs'
+        stream = 'event: completed\ndata: {"companiesProcessed":1,"filingsSynced":4,"downloaded":2,"failed":1}\n\n'
+        response = client.post('/api/sec-chat/collect', json={'cik': FILING['cik'], 'years': 2}, headers={'Accept': 'text/event-stream'})
+        assert 'RUN_ERROR' in response.text and 'RUN_FINISHED' not in response.text
 
 
 @pytest.mark.asyncio
@@ -162,3 +236,14 @@ async def test_predecessor_is_only_used_after_empty_requested_filing_list():
     assert source['requestedCik'] == requested
     assert source['filing']['cik'] == predecessor
     assert predecessor in source['issuerNote']
+
+
+@pytest.mark.asyncio
+async def test_sec_chat_tool_events_include_arguments_and_result():
+    events = []
+    model = ToolModel(responses=[call('search_sec_companies', ticker='AAPL'), AIMessage(content='done')])
+    result = await search_companies('AAPL', model, client_with([]), events.append)
+    assert result['items'][0]['ticker'] == 'AAPL'
+    assert [item['status'] for item in events] == ['running', 'completed']
+    assert all(item['kind'] == 'tool' and item['arguments']['ticker'] == 'AAPL' for item in events)
+    assert events[1]['result']['items'][0]['ticker'] == 'AAPL'

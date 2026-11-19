@@ -5,6 +5,7 @@ import type { Express } from 'express';
 import 'reflect-metadata';
 
 import { createAppLogger } from './shared/logger';
+import { DART_ENDPOINTS } from './lib/dart/dart.client';
 import { AppModule } from './app.module';
 import { createRemotesMiddleware } from './remote-delivery/remotes.middleware';
 import { AppConfigService } from './shared/config.service';
@@ -15,7 +16,7 @@ const SWAGGER_YAML_PATH = 'docs/sec/openapi.yaml';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { logger: createAppLogger() });
-  app.setGlobalPrefix('api/sec');
+  app.setGlobalPrefix('api/sec', { exclude: DART_ENDPOINTS.map(endpoint => `api/dart/${endpoint}`) });
   app.enableCors({
     origin: true,
   });

@@ -11,3 +11,5 @@ class TechnicalAgentState(DeepAgentState):
     analysis_result: NotRequired[dict | None]
     analysis_error: NotRequired[str | None]
     presentation: NotRequired[dict | None]
+
+    analysis_request: NotRequired[dict | None]

@@ -1,0 +1,22 @@
+meta {
+  name: SEC-FAILURE-REPLY-001 blank-question
+  type: http
+  seq: 8
+}
+post {
+  url: {{baseUrl}}/api/sec-chat/failure-reply
+  body: json
+  auth: none
+}
+body:json {
+  {"message":"  ","stage":"resolve"}
+}
+assert {
+  res.status: eq 422
+}
+tests {
+  test("blank-question", function () {
+    const b = res.getBody();
+    expect(b.detail).to.be.an("array");
+  });
+}

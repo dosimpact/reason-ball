@@ -1,5 +1,7 @@
 "use client";
 
+import { Card as ShadcnCard, CardContent } from "@/shared/ui/card";
+import { Separator } from "@/shared/ui/separator";
 import { defineComponent, FormNameContext } from "@openuidev/react-lang";
 import { useId, type CSSProperties } from "react";
 import { z } from "zod/v4";
@@ -129,12 +131,14 @@ export const Card = defineComponent({
   }),
   description: "Panel with a border; soft is a filled panel for summaries.",
   component: ({ props, renderNode }) => (
-    <section
-      className={cx("iui-card", props.variant === "soft" && "iui-card-soft", props.gap == null && "iui-flow")}
-      style={{ padding: space(props.padding), gap: space(props.gap) }}
+    <ShadcnCard
+      className={cx("min-w-0", props.variant === "soft" && "bg-muted/50 ring-0")}
+      style={{ "--card-spacing": space(props.padding) ?? "16px" } as CSSProperties}
     >
-      {renderNode(props.children)}
-    </section>
+      <CardContent className="flex min-w-0 flex-col" style={{ gap: space(props.gap) ?? "var(--iui-space-group, 12px)" }}>
+        {renderNode(props.children)}
+      </CardContent>
+    </ShadcnCard>
   ),
 });
 
@@ -142,7 +146,7 @@ export const Divider = defineComponent({
   name: "Divider",
   props: z.object({}),
   description: "",
-  component: () => <hr className="iui-divider" />,
+  component: () => <Separator className="my-4" />,
 });
 
 export const Spacer = defineComponent({
