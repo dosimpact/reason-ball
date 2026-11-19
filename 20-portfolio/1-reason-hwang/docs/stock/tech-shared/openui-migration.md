@@ -47,39 +47,15 @@ Host 입력/BusinessAction
 
 ## 운영과 검증
 
-기본 실행 포트는 Host 2983, BFF 2980, FastAPI 2981이며 각 패키지 `.env.example`을 따른다. FastAPI는 `OPENUI_MODEL_PROVIDER`, `OPENUI_MODEL`, `OPENUI_MODEL_BASE_URL`, `OPENUI_MODEL_API_KEY`, `OPENUI_SEC_BFF_URL`을 사용한다. 기존 OPEN_UI_* 설정은 전환 호환 fallback이다. 기존 SEC 전용 모델 환경변수는 유지한다. Host는 `GENERATIVE_UI_API_URL` 또는 `SEC_CHAT_API_URL`, validator는 `SEC_CHAT_UI_VALIDATOR_URL`을 사용한다. 자격 증명은 서버에만 둔다.
+기본 앱은 Host2983, BFF2980, FastAPI2981이다. 개발 채팅은 LangGraph dev2982를 사용한다. 공통 채팅·UI 생성 모델은 [CHAT-LLM-001](3-langgraph-fast/chat-llm-provider.md)의 `CHAT_LLM_PROVIDER`로 선택하고 기본값은 oauth-proxy다. 이전 OPENUI/SEC 전용 모델 환경변수가 공통 선택을 덮어쓰지 않는다. Host 프록시·BFF·validator 주소는 각 패키지의 서버 환경에만 둔다.
 
-카탈로그 수정 후 `pnpm -C 1-fe-host sec-ui:generate`를 실행한다. 실제 shared library에서 프런트 spec/prompt와 `graph/subgraphs/openui_output/generated/system-prompt.txt`를 함께 생성한다. 이전 UI 프로토콜의 manifest/hash 계약과 생성 자산은 폐기했다.
+카탈로그 변경 후 `pnpm -C 1-fe-host sec-ui:generate`와 `openui:check`로 FE spec/prompt와 Python mirror를 동기화한다. 새 구성요소는 Library Explorer에 예시를 추가한다. 카탈로그·테스트 실제 명령은 Host package.json과 [Host 계약](1-fe-host/open-ui.md), Python 그래프·형식 repair는 [LangGraph 계약](3-langgraph-fast/open-ui.md)을 따른다.
 
-| 검증 | 명령 또는 도구 |
-| --- | --- |
-| 서버 업무·상태·실패·격리·취소 | `pnpm -C 3-langgraph-fast test` |
-| HTTP/실모델 | `pnpm -C 3-langgraph-fast test:generative-ui:api` (전용 환경 8010/2810, BFF 2811) |
-| SSE 클라이언트 | `pnpm -C 1-fe-host test:generative-ui` |
-| 순수 View | `pnpm -C 1-fe-host test:generative-ui:views`, `test:sec-chat:views` |
-| 실제 UI 회귀 | `OPENUI_LIVE_BASE_URL=http://127.0.0.1:2810 pnpm -C 1-fe-host test:generative-ui:live` |
-| 사용자 흐름 확인 | Playwright MCP, 실제 OAuth 모델·저장 SEC 원문 |
-| 정적 검사·빌드 | Host `lint`, `typecheck`, `build`; Python `build` |
+현재 공유 composer는 LLM이 전체 program을 생성하며 `program_builder` 우회는 제공하지 않는다. technical_analysis_agent/technical_analysis_canvas_agent/talib_agent도 compact 결과와 표시 context를 이 경로에 전달한다. Canvas 서버 요소 ID 검증은 도메인 책임이다. FinancialChart의 실제 배열은 Query API로 조회한다. 금융 근거 검산 결과 등 서버가 표시 내용을 강제해야 하는 경로와 Fixed 업무 controls는 별도 계약을 유지한다.
 
-실행 결과와 정리 상태는 [검증 기록](../../flow/2026-11-08-openui-runtime-validation.md)을 따른다. 이전 UI 프로토콜의 검증 결과는 현재 구현의 검증을 대신하지 않는다. [초기 추출](../../flow/2026-11-08-openui-migration.md), [업무 전환](../../flow/2026-11-08-openui-business-actions.md), [화면 전환](../../flow/2026-11-08-openui-frontend-cutover.md)은 당시 기록이다.
+## 현재 범위
 
-## 기술적 분석 출력 확장
-
-`build_output_graph`는 선택적 `program_builder`를 받아 검증된 계산 결과에서 만든 OpenUI 프로그램을 같은 validator로 검사할 수 있다. 생략 시 기존 LLM composer를 사용한다. 기술적 분석 차트는 이 경로를 사용하며 [도메인 시스템 설계](../technical-analysis/system-design.md)가 데이터·시그널 계약을 소유한다. [검증 기록](../../flow/2026-11-08-technical-analysis-validation.md).
-
-
-## OPEN-UI-NAME-001: 명칭과 경로
-
-- 화면: `/open-ui`, `/open-ui/dynamic`, `/open-ui/fixed`, `/open-ui/catalog`. 이전 화면 URL은 제공하지 않는다.
-- 예제 프록시 설정: `OPEN_UI_LANGGRAPH_URL`. 모델과 BFF는 기존 `OPENUI_*` 설정을 우선하며 `OPEN_UI_MODEL_*`, `OPEN_UI_SEC_BFF_URL`도 읽는다.
-- Python 보고서 모듈: `open_ui_report.py`, `open_ui_report_plan.py`; 관련 테스트와 import도 같은 이름을 사용한다.
-- 현재 문서: `open-ui-system/`, 패키지별 `open-ui.md`, 도메인 `open-ui-system.md`. SEC 전용 Generative UI의 `SEC-OPEN-UI-01`~`09`는 폐기되었으며 현재 SEC 기능은 SEC API Agent와 SEC Intelligent UI 설계를 따른다.
-- 과거 flow와 human-docs는 변경하지 않는다. 과거 경로와 요구사항 번호는 [명칭 변경 기록](../../flow/2026-11-14-open-ui-naming.md)에서 현재 이름으로 연결한다.
-
-## OPENUI-SEC-REMOVE-001: SEC 데모 제거 범위
-
-`/open-ui/sec`(이전 `/a2ui/sec`) 화면과 `generative_ui`의 SEC mode/action,
-전용 탐색 controls는 제공하지 않는다. Dynamic·Fixed·Catalog와 공통 OpenUI 출력 계층은 유지한다.
-SEC API Agent·SEC Intelligent UI, BFF SEC API, 10-K 파싱·조회·공유 보고서·인용 검증은 유지한다.
-
-제거 범위와 검증 결과: [OPENUI-SEC-REMOVE-001 기록](../../flow/2026-11-14-remove-sec-generative-demo.md).
+- `/open-ui`, `/open-ui/dynamic`, `/open-ui/fixed`, `/open-ui/catalog`, `/open-ui/gallery`와 공통 Renderer를 사용한다.
+- SEC 전용 데모 `/open-ui/sec`와 이전 UI 프로토콜의 호환 runtime·registry는 제공하지 않는다. SEC 기능은 [SEC 도메인](../us-corporate-filings/INDEX.md)에 있다.
+- 업무 action 검증과 revision은 서버가, 일반 OpenUI interaction과 Query는 Host가 처리한다. 파서 통과는 원문·금액 의미 전체에 대한 보증이 아니다.
+- 동시 실행·취소·상태 복구는 generative UI 메모리 세션과 SDK graph runtime에서 서로 다르며 각각의 패키지 문서에 명시한다.

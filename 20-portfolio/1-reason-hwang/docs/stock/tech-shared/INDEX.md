@@ -56,18 +56,12 @@ tech-shared/
 | `infra/1-infra-graph-rag` | [Infra setup](infra/1-infra-graph-rag/1-infra-l1-setup.md) | Graph RAG 데이터베이스와 관측 환경 |
 | `infra/2-codex-oauth-proxy` | [OAuth proxy](infra/2-codex-oauth-proxy/1-infra-l2-codex-proxy.md) | OAuth 인증 프록시 구조와 사용법 |
 
-## 원본 보존 및 과거 경로 해석
+## 현재 문서와 과거 이력
 
-기존 `master-docs/`의 5개 Markdown과 이미지 1개는 내용·파일명 변경 없이 위 위치로 이동했다. 디렉터리 재배치는 내용의 최신성 검증이나 기술 결정 변경을 의미하지 않는다. 원문 안의 과거 경로, 명령, 이력 설명도 그대로 보존한다.
+현재 계약은 위 공통·패키지 문서와 도메인 stock을 따른다. 과거 master-docs, stock/shared, 이전 UI 프로토콜 명칭은 Git 이력의 문맥으로만 해석한다. 현재 계약을 확인하려고 역사 문서의 상충하는 설명을 조합하지 않는다.
 
-- 과거 `docs/stock/shared/<file>`은 `docs/stock/tech-shared/<file>`로 해석한다. 단, `storybook.md`는 `tech-shared/1-fe-host/storybook.md`에 있다.
-- 인프라 setup 원문에 남아 있는 `docs/stock/shared/system-design.md`는 현재 [공통 시스템 설계](system-design.md)를 가리킨다.
-- 원문에 들어 있는 실행 명령과 코드 경로는 문서의 새 디렉터리가 아니라 원래 해당 패키지/워크스페이스 기준으로 읽는다.
-- 기존 flow는 당시 경로와 본문을 보존한다. 이전 경로와 현재 경로는 [이동 기록](../../flow/2026-09-20-tech-shared-document-relocation.md)에서 대응시킨다.
-- 구현과 원문이 다르면 현재 공용/도메인 설계와 코드를 확인한다. 원문을 수정해야 하는 후속 작업은 별도 변경으로 기록한다.
+[문서 관리 기준](../../INDEX.md#doc-stock-001-현재-상태-중심-문서)에 따라 현재 제약·검증 범위는 stock에 유지하고 과거 변경 과정은 Git으로 조회한다.
 
-- [Generative UI 통합 설계](open-ui-system/INDEX.md): OpenUI 최종 출력 서브그래프, Dynamic·Fixed·Catalog 및 사용자 action.
-
-- [SEC Intelligent UI Host](1-fe-host/sec-intelligent-ui.md) / [LangGraph](3-langgraph-fast/sec-intelligent-ui.md): AG-UI 기반 SEC 채팅.
-
-- [OpenUI 통합 마이그레이션](openui-migration.md): 최종 출력 서브그래프와 CopilotKit 제거와 현재 실행 계약.
+- [OpenUI 공통 설계](openui-migration.md)
+- [SEC 도메인 지도](../us-corporate-filings/INDEX.md)
+- [기술적 분석 지도](../technical-analysis/INDEX.md)

@@ -31,4 +31,4 @@ system→developer 호환 변환을 유지한다. provider 통합은 API 전송 
 수정 후 FastAPI와 LangGraph 프로세스를 재시작한다. 모델 객체는 그래프를 로드할 때 생성될 수 있다.
 기존 실행 중인 작업에 설정을 즉시 바꾸는 기능은 제공하지 않는다.
 
-구현과 검증: [변경 기록](../../../flow/2026-11-17-chat-llm-provider.md).
+`bruno-api-tests/36-chat-provider/`와 `tests/fixtures/chat_provider_app.py`의 로컬 upstream fixture로 기본값, 두 provider의 SDK 요청 주소·모델·인증 헤더, 잘못된 설정과 키 누락 오류를 확인했다. 외부 모델 호출과 브라우저 검증은 수행 범위에 포함되지 않았다.

@@ -26,9 +26,9 @@ memory 모드 재시작은 기존 pending/running metadata를 interrupted로 정
 
 ## 경계와 검증
 
-이번 단계는 신뢰하는 제한된 내부 사용자의 공유 대화용이다. 사용자별 소유권/인증을 새로 구현한 것은 아니며 공개 노출을 전제로 하지 않는다. memory 모드는 단일 프로세스용이고, 명시적 postgres 모드는 아래 범위에서 여러 프로세스 실행을 지원한다. 나머지 HTTP scaffold API가 LangGraph dev와 모두 동등하다고 주장하지 않는다.
+실행 API의 사용 범위는 신뢰하는 내부 사용자의 공유 대화다. 사용자별 소유권과 인증은 제공하지 않는다. memory 모드는 단일 프로세스용이고, 명시적 postgres 모드는 아래 범위에서 여러 프로세스 실행을 지원한다. 나머지 HTTP scaffold API가 LangGraph dev와 모두 동등하다고 주장하지 않는다.
 
-코드는 `server/graph_registry.py`, `server/run_manager.py`, `server/postgres_run_manager.py`, 기존 assistants/threads/runs 라우트에 있다. API 검증은 별도 소유 FastAPI·validator와 격리 PostgreSQL schema를 사용한다. 실제 graph stream, 취소, disconnect 후 완료, 동일 thread/용량 제한, 프로세스 재시작 복구를 검증하며 브라우저 검증은 사용자 담당이다. 실행 결과는 해당 날짜 flow에 기록한다.
+코드는 `server/graph_registry.py`, `server/run_manager.py`, `server/postgres_run_manager.py`, 기존 assistants/threads/runs 라우트에 있다. API 검증은 별도 소유 FastAPI·validator와 격리 PostgreSQL schema를 사용한다. 실제 graph stream, 취소, disconnect 후 완료, 동일 thread/용량 제한, 프로세스 재시작 복구를 검증하며 브라우저 검증은 사용자 담당이다. [Multiworker 검증 계약](multiworker-validation.md)은 PostgreSQL 모드의 검증과 남은 범위를 설명한다.
 
 ## LG-OSS-MULTI-001: PostgreSQL 여러 worker
 
@@ -47,7 +47,7 @@ uv run --env-file .env python -m infrastructure.postgres.runtime_migration --boo
 LANGGRAPH_RUNTIME_MODE=postgres pnpm run start --workers 2
 ```
 
-worker startup에서는 baseline·saver·queue DDL이나 Neo4j/모델링 schema 초기화를 실행하지 않는다. 현재 migration은 기존 runs 원장을 확장하고 runtime_capacity/runtime_threads/runtime_workers/runtime_events를 추가한다. production `.env` 변경은 이 구현 작업에서 수행하지 않는다. schema namespace와 연결·migrations 정책은 DB saver 문서를 따른다. 기존 capacity row의 limits는 migration 재실행으로 덮어쓰지 않는다. limits 변경은 모든 worker와 queued 작업을 먼저 정리한 뒤 승인된 배포 migration으로 조정하고 같은 설정으로 재기동한다.
+worker startup에서는 baseline·saver·queue DDL이나 Neo4j/모델링 schema 초기화를 실행하지 않는다. 현재 migration은 기존 runs 원장을 확장하고 runtime_capacity/runtime_threads/runtime_workers/runtime_events를 추가한다. schema namespace와 연결·migrations 정책은 DB saver 문서를 따른다. 기존 capacity row의 limits는 migration 재실행으로 덮어쓰지 않는다. limits 변경은 모든 worker와 queued 작업을 먼저 정리한 뒤 승인된 배포 migration으로 조정하고 같은 설정으로 재기동한다.
 
 ### 전역 접수와 순서
 
@@ -93,4 +93,4 @@ GET `/health/runtime`는 namespace, 전역 active/queued/reserved/running/cancel
 
 다중 worker 보장은 `/assistants`, `/threads`, `/runs`의 graph runtime과 run-specific SSE에 한정한다. `/api/generative-ui/*`, `/api/sec-chat/prepare|chat|threads/*` 같은 별도 process-local session API는 DB 모드에서501이고 전용 단일 worker 서비스가 필요하다. legacy thread-wide stream/protocol commands/events, checkpoint copy/비삭제 prune 등 미지원 경로도501로 명시한다. 실제 `/fastapi-chat`은 이 경로를 사용하지 않고 run stream/state/history를 사용한다. 기타 FastAPI 모델링/도구 API까지 모두 동등하거나 다중 worker 안전하다고 주장하지 않는다.
 
-제한된 신뢰 내부 사용자의 공유 대화 환경이며 새 계정별 소유권·인증 시스템은 추가하지 않는다. graceful close는 draining→claim 중지→제한 시간 대기→남은 Task 중단→listener/pool 정리 순서다. DB 오류가 발생한 shutdown도 로컬 Task/연결 정리를 시도한다. 검증은 별도 격리 DB·실제2 OS 프로세스 API/SDK/Bruno·강제 종료·DB 장애·fencing을 포함하며 결과는 날짜 flow가 소유한다. 브라우저와 사용자 서비스는 임의로 실행·재시작하지 않는다.
+제한된 신뢰 내부 사용자의 공유 대화 환경이며 새 계정별 소유권·인증 시스템은 추가하지 않는다. graceful close는 draining→claim 중지→제한 시간 대기→남은 Task 중단→listener/pool 정리 순서다. DB 오류가 발생한 shutdown도 로컬 Task/연결 정리를 시도한다. [Multiworker 검증](multiworker-validation.md)은 격리 DB와 두 OS 프로세스에서 강제 종료·DB 장애·fencing의 인수 기준을 정의한다.

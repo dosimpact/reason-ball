@@ -20,7 +20,7 @@ POST streaming fetch로 started/progress/completed/error를 읽는다. HTTP200�
 
 루트 `app/sec-collector`는 FSD `_pages/sec-collector` 화면을 연결한다. api/model/ui 경계를 유지하며 기존 Host `/api/remote-proxy/api/sec/*`가 `REMOTE_BFF_URL`의 BFF로 전달한다. 새 서버 endpoint·DB 모델을 만들지 않는다.
 
-필수 View Storybook·MCP 사용자 검증과 HTTP fixture의 SSE 경계 회귀를 수행한다. 실제 SEC 검증은 단일 기업·짧은 기간으로 제한하며 전체기업20년 실행은 fixture/격리 환경에서 검증한다. 현재 건수·실행 증거는 [flow](../../flow/2026-11-14-sec-collector-dashboard.md)에 둔다.
+필수 View Storybook·MCP 사용자 검증과 HTTP fixture의 SSE 경계 회귀를 수행한다. 실제 SEC 검증은 단일 기업·짧은 기간으로 제한하며 전체기업20년 실행은 fixture/격리 환경에서 검증한다. 기업 확장·필터의 격리 PostgreSQL/Nest HTTP 54개 시나리오와 대표 선택·확인 무효화 Storybook 2개는 통과했다. 여러 페이지에 걸친 선택과 통합 화면의 사용자 흐름은 실제 앱에서 전체 검증하지 않았다. 전체기업 원문 수집 완료와 운영 부하는 별도 검증 대상이다. [Collector 브라우저 시나리오](../../../1-fe-host/tests/e2e/sec-collector.spec.ts).
 
 ## SEC-COLLECTOR-002: API Testing
 
@@ -30,7 +30,7 @@ Send 후 실제 전송 요청 snapshot과 HTTP status/statusText·응답headers�
 
 운영 수집과 Testing은 실행 lock을 공유한다. 탭 전환이 진행중 연결을 끊거나 결과·기록을 초기화하지 않는다. 중단 버튼은 브라우저 fetch만 중단하며 서버 작업 취소/rollback을 보장하지 않는다. 전체기업 preset은 별도확인 후 실행하고 body 변경 시 확인을 해제한다. 기본수집body는20년/원문포함이며 실제대량실행은 사용자가명시적으로 수행한다.
 
-[API Testing 구현·검증](../../flow/2026-11-14-sec-api-testing-tab.md)
+[API Testing 단위 시나리오](../../../1-fe-host/tests/sec-collector/apiTesting.test.ts).
 
 ## SEC-COMPANY-COUNTS-001: 기업별 공시 메타데이터 집계
 

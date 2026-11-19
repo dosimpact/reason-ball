@@ -10,6 +10,7 @@
 | [모델링 상태 배치](sec-modeling-status.md) | 인증된 활성 publication 읽기 batch와 BFF 페이지 상태 |
 | [TA20 계산·조회](ta20.md) | 20개 지표 공식, 복수 인스턴스, Query v2·구버전 호환과 두 agent |
 | [자체 FastAPI runtime](fastapi-runtime.md) | 같은 graph 실행, memory 단일 worker / PostgreSQL 여러 worker, SDK stream·lease·fencing·queue와 실제 checkpoint |
+| [Multiworker 검증](multiworker-validation.md) | 두 OS 프로세스·전용 PostgreSQL·SDK/HTTP 인수 기준과 재현 |
 | [LangGraph DB Saver](3-langgraph-db-saver.md) | PostgreSQL application metadata, checkpoint saver, 전용 schema와 복구 정책 |
 | [Graph DB](4-graph-db.md) | Neo4j 연결, schema 초기화, 10-K graph model, 쓰기·검색·운영 계약 |
 | [모델링 1 PoC](4-graph-db.md#sec-model1-001-세-보고서-문서-구조-poc) | AAPL·CPNG·NVDA Item 분할, 정제 HTML·텍스트, CLI·preview·Neo4j 적재 |

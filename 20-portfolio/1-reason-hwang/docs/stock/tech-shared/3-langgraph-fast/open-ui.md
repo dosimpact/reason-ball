@@ -15,7 +15,7 @@ OpenUI Lang 출력과 업무 그래프를 관리한다. 공통 계약은 [OpenUI
 
 공급자·네트워크 오류와 validator 연결 오류는 형식 수정으로 재시도하지 않는다. 취소는 그대로 전파한다. 서버 진단 로그는 compose/schema/DSL/validator 단계, 시도 횟수, 예외 클래스 또는 오류 개수만 남긴다. 프롬프트·모델 원문·프로그램·parser 오류 본문은 기록하지 않는다. 이 단계 로그로 과거 실패 원인까지 소급 확정할 수는 없다.
 
-회귀 테스트는 `tests/test_openui_output_repair.py`, HTTP 검증은 `bruno-api-tests/31-sec-ui-repair/`와 전용 fixture를 사용한다. [변경·검증 기록](../../../flow/2026-11-17-sec-ui-structured-repair.md).
+회귀 테스트는 `tests/test_openui_output_repair.py`, HTTP 검증은 `bruno-api-tests/31-sec-ui-repair/`와 전용 fixture를 사용한다.
 
 `pnpm -C 3-langgraph-fast test`와 `test:generative-ui:api`를 사용한다. 후자는 전용 Bruno 환경의 FastAPI 8010·Host 2810에 연결한다. 기본 개발 환경에서는 환경 파일 또는 Bruno `--env-var baseUrl=...`로 대상 주소를 명시한다. UI validator는 서버 환경변수에 맞는 주소로 실행되어 있어야 한다. Dynamic·Fixed 검증에는 SEC BFF가 필요하지 않다.
 
@@ -61,11 +61,11 @@ OpenUI Lang 출력과 업무 그래프를 관리한다. 공통 계약은 [OpenUI
 
 세 분석 그래프의 전체 UI 생성은 `build_output_graph`의 공통 경로를 사용한다. `presentation_context`는 서버가 만든 요청 조건·데이터 범위·Canvas 요소 ID를 전달한다. `program_builder` 우회와 이전 Canvas taLayout 전용 composer는 제거했다. 모델은 공통 카탈로그의 전체 컴포넌트를 조합하되 실행 Query allowlist와 출력 검증은 유지한다. Fixed 업무 controls는 서버 작성 DSL을 유지한다.
 
-카탈로그는 `library.ts`가 내보내는 `promptOptions`의 examples/additionalRules까지 CLI로 생성한다. 카탈로그 교체 시 다음 호출에서 다시 읽으며, FE/Python artifact 일치는 openui:check로 검사한다. 생성 실패 시 TA·Canvas·TA-Lib은 계산 상태와 텍스트를 보존하며 취소는 전파한다. [현재 표시 계약](../../technical-analysis/system-design.md#openui-compose-001-공통-카탈로그-기반-생성), [검증 기록](../../../flow/2026-11-17-openui-llm-composition.md).
+카탈로그는 `library.ts`가 내보내는 `promptOptions`의 examples/additionalRules까지 CLI로 생성한다. 카탈로그 교체 시 다음 호출에서 다시 읽으며, FE/Python artifact 일치는 openui:check로 검사한다. 생성 실패 시 TA·Canvas·TA-Lib은 계산 상태와 텍스트를 보존하며 취소는 전파한다. [현재 표시 계약](../../technical-analysis/system-design.md#openui-compose-001-공통-카탈로그-기반-생성) 및 `bruno-api-tests/35-openui-composition/`.
 
 ## SEC-STARTERS-001: 호스트 원문 인용 보호
 
-호스트 근거 패널이 있고 SEC findings가 있는 경우 composer는 Quote 구성요소와 Markdown 인용을 생성하지 않도록 지시한다. 실제 프로그램에서는 문자열 리터럴을 제외한 Quote 생성자를 추가 검사하며 기존 전체2회 생성 예산 안에서 수정한다. 정확한 원문 인용은 호스트가 표시한다. 일반 개념 답변과 host_evidence=false 경로의 Quote 사용은 유지한다. 이 검사는 요약의 모든 의미나 Markdown 내용의 자동 사실 검증이 아니다. 서버 소유 filingContext의 제출일·접수번호를 정확히 표시하고 내부 필드명은 화면에 노출하지 않도록 지시한다. 표의 총계에는 제품·서비스 등 실제 집계 범위를 보존하며 게시 모델링의 빈 조회를 자료 자체의 절대 부재로 바꾸지 않는다. [검증 기록](../../../flow/2026-11-17-sec-starters-regression.md).
+호스트 근거 패널이 있고 SEC findings가 있는 경우 composer는 Quote 구성요소와 Markdown 인용을 생성하지 않도록 지시한다. 실제 프로그램에서는 문자열 리터럴을 제외한 Quote 생성자를 추가 검사하며 기존 전체2회 생성 예산 안에서 수정한다. 정확한 원문 인용은 호스트가 표시한다. 일반 개념 답변과 host_evidence=false 경로의 Quote 사용은 유지한다. 이 검사는 요약의 모든 의미나 Markdown 내용의 자동 사실 검증이 아니다. 서버 소유 filingContext의 제출일·접수번호를 정확히 표시하고 내부 필드명은 화면에 노출하지 않도록 지시한다. 표의 총계에는 제품·서비스 등 실제 집계 범위를 보존하며 게시 모델링의 빈 조회를 자료 자체의 절대 부재로 바꾸지 않는다. `bruno-api-tests/35-sec-starters/`에서 대표 질문을 회귀 검증한다.
 
 ## CHAT-LLM-001: 현재 모델 설정
 

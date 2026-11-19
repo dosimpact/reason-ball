@@ -17,10 +17,7 @@ Item을 표시하거나 후속 청킹할 때 PostgreSQL을 다시 조회하지 �
 `sourceHash`는 공시 수준의 추적 정보이며 원문 조회 의존성이 아니다. `sourceLocator`는 필수
 속성이 아니다. 원본 추출 규칙을 바꾸거나 XBRL을 재파싱할 때만 명시적으로 원본을 다시 받는다.
 
-기존 모델링 1 PoC의 실제 3개 보고서 검증은 완료되어 있다. 현재 승인 범위는 이를
-BFF 작업 관리·모델링 2/3·Admin·검색으로 확장해 구현했다. 사용자 요청으로 추가 통합 검증은 보류한다.
-현재 계약과 인수 기준은 [SEC 모델링](sec-modeling.md)에 통합한다. 기존 mock ParserPipeline은
-제거하고 새 generation 기반 결과를 사용한다. 기존 Neo4j 데이터와 PoC 실행기는 보존한다.
+현재 분석 세대·작업·게시·검색 계약과 검증 범위는 [SEC 모델링](sec-modeling.md)에 둔다.
 
 ```text
 SEC EDGAR -> NestJS bounded HTTP download -> UTF-8 검증 및 SHA-256
@@ -115,8 +112,6 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 - PostgreSQL volume 백업/복원 정책은 원문까지 포함해야 한다. 백업 복원 실험, 다중 인스턴스 부하 시험, 비 UTF-8 공시 지원은 이번 검증 범위 밖이다.
 - SQL SHA-256은 PostgreSQL 16 내장 함수 사용: [공식 binary string 함수 문서](https://www.postgresql.org/docs/16/functions-binarystring.html).
 
-검증 증거는 [DB 원문 저장 구현 기록](../../flow/2026-09-20-sec-filing-database-content-implementation.md)에 기록한다.
-
 
 ## BFF-DIR-001: 현재 모듈·API 계약
 
@@ -150,7 +145,7 @@ pnpm --filter @reason-hwang/bff-apps sec:import-files
 - Swagger MCP: 특정 기업 메타데이터→문서→completed, 잘못된 대상 400, 저장 원문 재조회.
 - 실제 실행: `node scripts/run-sec-backfill.cjs 20`은 별도 임시 포트에서 회사 전체 동기화 후 전체 기업 20년 백필을 실행한다. configured DB를 변경하므로 명시적 요청 시만 실행한다. `STATIC_CACHE_DIR/runs`에 SSE 기록을 남긴다.
 - 과거 opt-in `test:sec-live`는 단일 Apple 문서 실연동 검증이며 전체 수집 명령과 다르다.
-- 상세 결과와 실제 수집 상태는 [구현·검증 flow](../../flow/2026-09-20-bff-simplification-sse.md)를 참조한다. 코드 검증 통과와 전체 원문 수집 완료를 구분한다.
+- 실제 SEC·DB 확인은 단일 공시 범위로 해석한다. 전체 기업 원문 수집 완료와 장기 처리 성능은 이 검증의 범위 밖이다. [수집 HTTP 시나리오](../../../2-bff-apps/bruno-api-tests/04-backfill-jobs/).
 
 ## SEC-AMEND-001: 원본과 수정본 연결 조회
 
@@ -160,7 +155,7 @@ GET filings의 기본 includeAmendments=true는 각 검색 항목에 original/am
 
 본문 수정 범위를 분석하거나 병합하지 않는다. 부분 수정본이 재무제표를 포함한다고 추정하지 않고 원본·모든 연결 수정본을 독립 문서로 노출한다. 원문 포함 조회는 중첩 반환되는 원문까지 64 MiB에 포함한다. metadata 기반 연결이며 법적 수정 범위의 확정 판정은 아니다.
 
-검증: 부분·전체 수정본 동시 보존, 수정본 검색에서도 필터 밖 원본 표시, 다른 회사/폼 제외, 원본 누락/모호성/기간 없음, 옵션 비활성화, 중첩 원문 byte 예산. [SSE 구현·검증 기록](../../flow/2026-09-20-bff-simplification-sse.md).
+검증: 부분·전체 수정본 동시 보존, 수정본 검색에서도 필터 밖 원본 표시, 다른 회사/폼 제외, 원본 누락/모호성/기간 없음, 옵션 비활성화, 중첩 원문 byte 예산.
 
 - 공개 Bruno 컬렉션도 SSE 성공/실패 검사, 메타데이터-only, 원본·수정본 원문/수정본 필터 요청을 제공한다. `bruno-api-tests/README.md`를 참조한다. 이 공개 요청 6개를 별도 fixture HTTP로 검증했다.
 
@@ -226,7 +221,7 @@ Host `/sec-collector`가 수집 API를 generic same-origin BFF proxy로 호출�
 
 ## SEC-IXBRL-001: 저장 원문 자체 뷰어
 
-수집된 PostgreSQL 원문을 읽어 iXBRL 추출과 원문 viewer를 제공하는 코드를 구현했다. 사용자 요청으로 실행 검증은 수행하지 않았다. 기존 저장 구조·수집 상태·모델링 결과를 변경하지 않는다. BFF의 filing별 ixbrl 및 그 아래 facts/document 조회와 Host `/sec-viewer` 상세 계약·미검증 상태는 [뷰어 설계](ixbrl-viewer.md)에 둔다.
+iXBRL viewer는 수집된 PostgreSQL 원문을 읽고 다운로드 상태와 해시를 확인한다. 실행 검증은 미완료다. BFF의 filing별 ixbrl 및 그 아래 facts/document 조회와 Host `/sec-viewer` 상세 계약·미검증 상태는 [뷰어 설계](ixbrl-viewer.md)에 둔다.
 
 ### SEC 수집 현황 집계
 

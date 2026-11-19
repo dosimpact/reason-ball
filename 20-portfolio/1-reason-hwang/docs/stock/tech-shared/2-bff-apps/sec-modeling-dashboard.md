@@ -29,13 +29,13 @@
 
 Python 장애나 불완전한 batch 응답은 공시 행을 삭제하거나 성공0개로 숨기지 않는다. 행의 serviceError와 지원 stage의 readiness=unavailable을 반환한다. 활성 run이 있으면 status는 해당 활동 상태를 유지하고, 그 외에는 unavailable이다.
 
-## 기존 실행 API
+## 실행 API
 
-create/cancel/retry/results/search/facts/evidence 등 기존 pipeline과 URL은 유지한다. create body는 optional extractionModel만 가진 object이며 null/array/알 수 없는 필드/비문자열 모델은400이다. 모델1/2는gpt-5.6-sol(default) 또는gpt-5.6-luna,모델3은gpt-6-luna(default)만 지원한다. 잘못된 body를 실제 job으로 접수하지 않는다. 모든 stage의 기존 원문 필요 조건을 유지하며 이번 범위에서 모델2 eligibility를 확장하지 않는다.
+create/cancel/retry/results/search/facts/evidence 등 기존 pipeline과 URL은 유지한다. create body는 optional extractionModel만 가진 object이며 null/array/알 수 없는 필드/비문자열 모델은400이다. 모델1/2는gpt-5.6-sol(default) 또는gpt-5.6-luna,모델3은gpt-6-luna(default)만 지원한다. 잘못된 body를 실제 job으로 접수하지 않는다. stage별 실행 가능 조건은 [모델링 도메인 문서](../../us-corporate-filings/sec-modeling.md)를 따른다.
 
 브라우저의 수동 API 시험은 고정 경로를 사용한다. Python 내부 인증키는 SecModelingClient가 서버에서만 주입하며 브라우저 입력·응답·요청 inspector에 노출하지 않는다. 실제 모델링 작업/SEC 수집을 검증 목적으로 사용자 데이터에 실행하지 않는다.
 
-구현은 sec-modeling.controller.ts,service/sec-modeling.service.ts,service/sec-modeling.store.ts가 소유한다. 실 PostgreSQL 격리 fixture와 Node 정책 회귀, Python 내부 batch HTTP를 검증하며 브라우저 검증은 수행하지 않는다. 도메인 UX와 실행 증거는 [모델링 도메인 문서](../../us-corporate-filings/sec-modeling.md) 및 dated flow를 따른다.
+구현은 sec-modeling.controller.ts,service/sec-modeling.service.ts,service/sec-modeling.store.ts가 소유한다. 격리 PostgreSQL로 필터·페이지·전체 통계·최신 run 분리와 잘못된 실행 요청의 비생성을 확인했다. Bruno 22개 요청 및 Host executor HTTP 2건과 Node 정책 회귀가 통과했다. Python 내부 batch 검증은 [활성 publication 배치 조회](../3-langgraph-fast/sec-modeling-status.md)를 참조한다. 브라우저는 사용자 지정 API-only 범위로 미실행이다.
 
 ## 배포와 호환성
 

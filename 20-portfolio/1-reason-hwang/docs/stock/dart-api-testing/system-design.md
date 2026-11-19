@@ -18,7 +18,7 @@ NestJS BFF의 독립 DART 업무 모듈과 Host의 독립 FSD slice를 사용한
 
 ## 응답과 오류 경계
 
-JSON은 DART 원형 `status/message`를 보존하므로 HTTP200만으로 업무 성공을 판단하지 않는다. ZIP은 signature 확인 후 `application/zip` attachment로 전달한다. HTTP200의 오류 XML은 성공 ZIP으로 보내지 않고 BFF502와 `{message, dart:{status,message}}`를 반환한다. 입력 오류400, 서버 키 누락503, 외부 통신·상위 응답 실패502로 구분한다. 외부 요청은30초, JSON8MiB/ZIP64MiB 제한과 redirect 거부를 적용한다. JSON·ZIP 응답은 cache no-store를 사용하며 자동 retry하지 않는다. client는 요청 시작 사이에250ms 간격을 둔다. 이는 서버 인스턴스 안의 시작 간격이며 실제 인증키의 일일 한도를 보장하지 않는다. 브라우저 연결 중단은 이미 시작된 BFF 외부 요청 취소를 보장하지 않는다. 이 수치와 분기는 코드 구현 계약이며 실행으로 확인하지 않았다.
+JSON은 DART 원형 `status/message`를 보존하므로 HTTP200만으로 업무 성공을 판단하지 않는다. ZIP은 signature 확인 후 `application/zip` attachment로 전달한다. HTTP200의 오류 XML은 성공 ZIP으로 보내지 않고 BFF502와 `{message, dart:{status,message}}`를 반환한다. 입력 오류400, 서버 키 누락503, 외부 통신·상위 응답 실패502로 구분한다. 외부 요청은30초, JSON8MiB/ZIP64MiB 제한과 redirect 거부를 적용한다. JSON·ZIP 응답은 cache no-store를 사용하며 자동 retry하지 않는다. client는 요청 시작 사이에250ms 간격을 둔다. 이는 서버 인스턴스 안의 시작 간격이며 실제 인증키의 일일 한도를 보장하지 않는다. 브라우저 연결 중단은 이미 시작된 BFF 외부 요청 취소를 보장하지 않는다.
 
 ## Host 수동 요청 화면
 
@@ -36,8 +36,7 @@ JSON은 DART 원형 `status/message`를 보존하므로 HTTP200만으로 업무 
 4. 고유번호 ZIP으로8자리 회사 코드를 확보하고 기업개황·공시 검색을 요청한다. 검색 결과의14자리 접수번호로 공시 원문을 받고, 회사 코드·사업연도·보고서 코드·`fs_div=CFS/OFS`로 전체 재무제표를 요청한다. HTTP status와 DART status=000/013/인증 오류를 구분하는지 확인한다.
 5. ZIP 기능은 다운로드 파일을 열어 형식을 확인한다. HTTP 200 오류 XML을 성공 ZIP으로 저장하지 않는지 확인한다.
 6. 중복 전송 방지, 중단 후 재요청, 전송 당시 조건·응답 복사, 긴 응답 및 모바일·다크 테마 표시를 확인한다.
-7. 사용자 판단에 따라 패키지의 committed test/typecheck/lint/build 및 API·브라우저 검증을 실행하고 결과를 새 flow에 기록한다. 이 구현에서는 실행하지 않았다.
 
 ## 실행 검증 상태
 
-**미검증.** 사용자 요청에 따라 자동 검사, 서버·브라우저 실행, 실제 DART API 호출을 수행하지 않았다. 구현 중에는 검증 자원을 생성하지 않는다.
+Host typecheck와 lint는 통과했다. DART 업무 경로의 실제 외부 HTTP·ZIP 다운로드 및 사용자 브라우저 검증은 미완료다. [BFF 구현](../../../2-bff-apps/src/open-dart/) · [Host 구현](../../../1-fe-host/src/_pages/dart-collector/).

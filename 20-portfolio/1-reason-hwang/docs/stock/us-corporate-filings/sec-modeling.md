@@ -1,14 +1,10 @@
 # SEC 모델링과 검색
 
-상태: 모델링 pipeline의 기존 실데이터 품질 검증 범위는 아래 기록의 한계를 유지한다. SEC-MODELING-ADMIN-002 공시 상태 표·통계·API Testing 확장을 구현하고 API 수준으로 검증했다. 브라우저는 사용자의 명시 지시에 따라 실행하지 않는다.
-전체 인수 기준 통과를 의미하지 않는다. [구현 완료·검증 보류 기록](../../flow/2026-11-14-sec-modeling-implementation-complete.md).
-결정 ID: SEC-MODELING-001. [구현 시작 기록](../../flow/2026-11-14-sec-modeling-implementation-start.md).
-[실제 통합 검증 중간 기록](../../flow/2026-11-14-sec-modeling-integration-progress.md)은
-모델링 1/3과 Admin에서 확인한 결과 및 남은 검증을 구분한다.
+결정 ID: SEC-MODELING-001. 모델링 1/2/3, PostgreSQL 작업 관리, Neo4j 게시·검색과 관리 화면의 현재 계약이다. 검증 범위는 아래 인수 기준 및 검증 항목을 따른다.
 
 ## 목적과 범위
 
-모델링 1·2는 기존 10-K 범위를 유지한다. 모델링 3은 모든 CIK의 정확한 `10-K`·`10-Q`를 지원하며
+모델링 1·2는 `10-K`와 `10-K/A`를 지원한다. 모델링 3은 모든 CIK의 정확한 `10-K`·`10-Q`를 지원하며
 `10-K/A`, `10-Q/A`, `20-F`, `6-K`, `8-K`는 모델링 3 대상에서 제외한다.
 미국·해외 상장 보통주 기업은 도메인 목표이며, 3,714/1,020개 수치를 고정 allowlist나 처리 상한으로 쓰지 않는다.
 외국 기업도 해당 양식을 제출한 경우 처리할 수 있다. 모든 외국 기업이 10-K·10-Q를 제출한다는 가정은 하지 않는다.
@@ -99,15 +95,7 @@ Decisions는 `SEC_DECISIONS_API_KEY` 또는 `OPENAI_API_KEY`를 사용하고 OAu
 Chunk/Statement 임베딩 계약은 유지한다. 같은 Source의 동일 Statement가 여러 Chunk에 나타나면
 노드 ID는 공유하면서 모든 출현 Chunk로 근거 연결을 검증·보완한다. 이 build 정책은 추출 캐시와
 별도로 버전 관리한다. 기존 게시 결과 유지보수는 실행 당시 config hash를 바꾸지 않고 별도 기록한다.
-이번 변경의 API 검증과 브라우저 제외 근거는
-[작업 기록](../../flow/2026-11-15-sec-model2-v3-policy.md)에 남긴다. 의미 정확도·검색 품질 검증 완료를 뜻하지 않는다.
-2026-11-15 요청 범위의 v3 구현·검증을 완료했다. 실제 AAPL 23 Source/163 Chunk/643 Statement와
-CPNG 23 Source/516 Chunk/1,264 Statement를 게시했으며 모든 Chunk/Statement 벡터가 1536차원이다.
-원래 12개 샘플 본문 보존과 실제 그래프/메타데이터의 명제·Topic·근거 연결을 확인했다.
-CPNG 반복 본문 두 Chunk는 기존 추출 응답을 개별적으로 재현하지 못해 원문에 확인되는 기존 진술의
-합집합과 새 Decisions를 명시적인 recoveryReason으로 유지보수했다. 이를 원래 추출 이력 복원으로
-해석하지 않는다. 실험의 수식 범위·관계 정밀도 한계와 원문 전체 의미 무손실·검색 일반 정확도 미검증은
-위 작업 기록의 한계 절을 따른다. 브라우저는 사용자 명시 범위에서 제외했다.
+모델링 2 v3의 전용 HTTP 시나리오와 AAPL·CPNG 실제 게시 표본에서 6종 노드, 근거 연결 및 1536차원 Chunk·Statement 벡터를 확인했다. CPNG 반복 본문 2개 Chunk에는 원문에 일치하는 기존 진술의 합집합과 새 Decisions가 보완되어 있으며 `recoveryReason`으로 식별한다. 수식 범위·관계 정밀도·원문 의미 보존과 검색 품질의 일반화는 미검증이다. [모델링 2 HTTP 시나리오](../../../3-langgraph-fast/bruno-api-tests/22-sec-model2-http/).
 
 임베딩 API는 OAuth proxy와 별도로 연결한다. 임베딩 모델·차원·입력 생성 규칙 버전을 기록하며
 서로 다른 모델의 벡터를 같은 인덱스에 혼합하지 않는다. Toolkit 패키지를 고정 버전으로 설치하고
@@ -197,7 +185,7 @@ Company -FILED-> Filing -HAS_XBRL_FACT-> XbrlFact -OF_CONCEPT-> Concept
 생성된 모델링 3 도메인·조회·게시 노드만 대상으로 하며 실행 중인 작업이 있으면 중단한다.
 Company/Filing/Item/SecVector는 보호하고, PostgreSQL 원본·실행 이력은 보존한다.
 관리 화면은 그래프 게시 상태를 현재 결과의 기준으로 사용하여 과거 SUCCEEDED 이력을 현재 결과로 오인하지 않는다.
-2026-11-15 사용자 지시로 기존 모델링 3 데이터 삭제 후 재구축한다. 실제 삭제·샘플 검증 결과는 flow에 기록한다.
+모델링 3는 선별 fact 스키마로 재구축하는 계약을 사용한다. 삭제·재처리 실행 여부와 샘플 품질은 현재 게시 상태 및 이 문서의 검증 범위로 확인한다.
 
 ## SEC-MODELING-104: 실행 상태와 결과 게시
 
@@ -253,20 +241,9 @@ Bruno API E2E, Storybook, lint/typecheck/단위 테스트를 해당 변경 범�
 실제 모델 호출·실제 보고서 검증과 fixture 기반 장애 검증을 구분한다. 검증 자원 정리까지
 확인해야 완료이며 미실행 검증을 PASS로 기록하지 않는다.
 
-## 현재 구현 및 검증 범위
+## 현재 검증 범위
 
-모델링 1/2/3, BFF 영속 실행 관리, Admin, Neo4j 벡터·정형 사실·근거 API와 LangGraph 도구를 구현했다.
-2026-11-14 사용자 지시로 추가 검증을 중단했다. 모델링 1/3은 세 공시에서 실행했고,
-모델링 2의 최종 BFF 실행은 AAPL·CPNG에서 성공했다. NVDA 모델링 2 처리와
-세 공시 전체 검색 30문항 검증은 완료하지 않았다. 검색 API의 일반 정확도 또는 모든 SEC 양식 지원을 보장하지 않는다.
-이미 게시된 성공 결과와 재시도용 캐시는 보존한다. 검증 재개는 별도 요청 시 진행한다.
-
-## 2026-11-15 모델링 3 재설계 작업
-
-모델링 3의 현재 계약은 SEC-MODELING-103-V2를 따른다. 이전 전체 XBRL 저장·7종 노드 설명은 폐기한다.
-사용자 요청에 따라 구현 우선, AAPL·CPNG·NVDA 세 샘플에 한정한 검증을 진행하고 브라우저 검증은 하지 않는다.
-10-Q 지원 코드와 실제 10-K 샘플 실행 결과를 구분하며, 전 시장 규모 성능 검증은 수행하지 않는다.
-[재설계·초기화 기록](../../flow/2026-11-15-sec-model3-selected-facts.md).
+모델링 1 문서 구조는 실제 10-K 세 개에서 검증했다. 모델링 2 게시 성공 근거는 AAPL·CPNG에 한정되며 NVDA 게시와 세 공시 전체 검색 골드 질문 30개는 미검증이다. 모델링 3은 AAPL·CPNG·NVDA 실제 10-K로 확인했다. 10-Q 실데이터 처리 및 전 시장 성능은 미검증이다.
 
 ### 모델링 3 운영 명령
 
@@ -279,14 +256,9 @@ Bruno API E2E, Storybook, lint/typecheck/단위 테스트를 해당 변경 범�
 - 실제10-Q 샘플 실행 시 `model3:sample --form 10-Q --metadata <JSON경로> --execute` 사용.
   metadata는 ticker별 정확한 accessionNo/sourceUrl/filingDate를 지정하며 추측한 accession은 사용하지 않는다.
 
-### 현재 샘플 결과 (Decisions 정책 v3)
+### 모델링 3 샘플 검증
 
-세 실제10-K를 직접 Decisions API로 처리했다. AAPL8Fact/6Concept, CPNG16Fact/11Concept,
-NVDA5Fact/5Concept이다. 초기화 및 중간 정책 결과 정리 후 모델링3 도메인은 총29Fact+22Concept이다.
-기간·단위·차원·원문 값 보존과 동일 물리 Fact/조회 노드, 알려진 분류 경계 사례를 확인했다.
-현재 임계값의 전체 의미 정확도, 모든10-Q 실처리, 전체 상장기업 규모 성능을 검증했다는 뜻은 아니다.
-세 샘플의 실제 실행·API 검증과 자원 정리 증거는 위 flow 링크에서 확인한다.
-
+Decisions 정책 v3의 실제 10-K 샘플에서 AAPL 8 Fact/6 Concept, CPNG 16 Fact/11 Concept, NVDA 5 Fact/5 Concept를 확인했다. 기간·단위·차원·원문 값과 조회 근거 연결을 확인했으며 분류 정확도의 전체 범위는 미검증이다. [읽기 전용 샘플 API 시나리오](../../../3-langgraph-fast/bruno-api-tests/21-sec-model3-samples/).
 
 ## SEC-AGENT-001: 모델링 테스트 Deep Agent POC
 
@@ -318,14 +290,7 @@ HTTP 202는 접수 성공이며 작업 완료가 아니다. 조회 질문이나 
   OSS 실행 검증. BFF·FastAPI·DB·LLM 연결이 필요하며 생성한 스레드와 서버를 정리한다.
 - 질문 예: “저장된 AAPL 최신 10-K의 모델링 1·2·3 결과와 근거를 비교해줘. 재실행하지 마.”
 
-실행 증거와 브라우저 검증 제외 범위는 [POC 작업 기록](../../flow/2026-11-15-sec-modeling-deep-agent.md)을 따른다.
-
-## 아키텍처 보고서
-
-[구현 보고서의 구조 섹션](../../human-docs/1-sec-분석/sec-modeling-implementation-report.html#architecture)은
-2026-11-16 코드와 이 문서의 현재 계약에 맞춘 설명이다. 모델링 2 v3, 모델링 3 선별 정책 v3와
-SEC-AGENT-001 연결을 포함한다. 보고서의 나머지 처리 수치·검증 결과는 2026-11-14 이력으로 구분하며,
-현재 계약과 후속 검증 범위는 이 문서 및 연결된 flow 기록을 원본으로 삼는다.
+읽기 전용 OSS 실행과 BFF 상태 조회를 검증했다. 브라우저 상호작용은 미검증이다. [모델링 테스트 시나리오](../../../3-langgraph-fast/bruno-api-tests/22-sec-modeling-agent/).
 
 ## SEC-MODELING-ADMIN-002: 공시 중심 관리와 API Testing
 
@@ -357,7 +322,7 @@ PostgreSQL 목록과 통계의 동일 필터에 적용한 뒤 페이지네이션
 기존 조회 동작을 유지한다. 목록과 통계는 별도 요청이므로 동시 게시 변경에 대한 단일 snapshot은 아니다.
 현재 활성 게시 요약 전체를 요청 단위로 전달하므로 전 시장 규모에서는 별도 성능 평가가 필요하다.
 
-검증·예외와 자원 정리는 [변경 기록](../../flow/2026-11-16-sec-modeling-completion-filter.md)을 따른다.
+완료 조건의 교집합, 페이지 total, 실패 503은 격리 PostgreSQL과 게시 fixture로 검증했다. [완료 필터 HTTP 시나리오](../../../2-bff-apps/bruno-api-tests/09-modeling-completion/).
 
 ### API Testing 계약
 
@@ -369,7 +334,7 @@ PostgreSQL 목록과 통계의 동일 필터에 적용한 뒤 페이지네이션
 
 ### 검증과 남은 범위
 
-[관리 API 검증 기록](../../flow/2026-11-16-sec-modeling-admin-api-testing.md)에 전용 PostgreSQL 컨테이너+실제 Nest SQL, Python 실제 router+storage fixture, Bruno22개 요청 및 API Testing 실제 HTTP2개 요청의 증거를 기록한다. 비용 있는 모델링·외부 SEC 쓰기·운영 DB 변경 없이 검증했다. 브라우저/Storybook 화면 동작은 사용자 요청으로 실행하지 않았으며 API 통과를 모바일·테마·상호작용 검증으로 주장하지 않는다. 기존 실데이터 추출 정확도·검색 품질 한계를 이번 관리 API 결과로 해소했다고 해석하지 않는다.
+관리 API 22개와 Host executor 실제 HTTP 2개 시나리오는 격리 PostgreSQL, Nest SQL, Python router 및 storage fixture에서 통과했다. 완료 필터 API 15개도 격리 HTTP에서 통과했다. 화면 조작·모바일·테마·접근성 및 전체 시장 성능은 미검증이다. [관리 HTTP 시나리오](../../../2-bff-apps/bruno-api-tests/08-modeling-admin/).
 
 모델링 관리의 실행(1·2·3)·취소·실패 작업 재시도 버튼은 파란색 primary 배경과 primary-foreground 글자를 사용한다. 비활성 상태는 기존 조건과 투명도를 유지한다.
 

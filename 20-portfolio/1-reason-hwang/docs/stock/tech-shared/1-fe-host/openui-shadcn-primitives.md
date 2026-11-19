@@ -30,19 +30,14 @@ Box/Row/Col/Grid/Spacer/Form, Pressable, Title/Text/Caption/Markdown/Link/List, 
 
 신규 `OpenUI/ShadcnControls`와 `Generative UI/Shadcn Display` Storybook은 반응형 입력·숫자 draft·폼 이벤트·disabled/streaming·타이머·표 셀·Popover 키보드·로컬 dark 테마를 검증한다. 실제 앱 Catalog에서 같은 컴포넌트 조합을 편집·실행하고 확인한다.
 
-[변경·검증·서비스 재시작 기록](../../../flow/2026-11-17-openui-shadcn-primitives.md). 이번 변경은 사용자 검토를 위해 미커밋 상태로 둔다.
+`OPENUI-SELECT-002`는 실제 Base UI Select의 표시 label과 저장 value, 등록되지 않은 초기값의 placeholder, 로컬 dark 포털을 지원한다. `OPENUI-DATEPICKER-002`는 로컬 날짜 기준으로 변환해 시간대에 따른 날짜 이동을 방지하고 잘못된 달력 날짜를 거부한다.
 
-Select 재확인 및 수정은 [OPENUI-SELECT-002](../../../flow/2026-11-17-openui-base-select.md)를 따른다.
-
-DatePicker 재확인 및 수정은 [OPENUI-DATEPICKER-002](../../../flow/2026-11-18-openui-date-picker.md)를 따른다.
-
+검증은 Select·DatePicker 조작과 폼 binding을 [Controls Storybook](../../../../1-fe-host/src/shared/ui/intelligent-ui/components/controls-migration.stories.tsx) 및 [DatePicker Storybook](../../../../1-fe-host/src/shared/ui/intelligent-ui/components/date-picker/date-picker-view.stories.tsx)에서 다룬다. 실제 Catalog MCP 검증은 390px 화면, dark 포털, Select 값 변경과 키보드 팝업 열기·닫기, DatePicker 선택·해제·범위 경계를 확인했다.
 
 ## OPENUI-SHADCN-003: 공식 구성과 호환 확장
 
 공식 [Button](https://ui.shadcn.com/docs/components/base/button), [Badge](https://ui.shadcn.com/docs/components/base/badge), [ToggleGroup](https://ui.shadcn.com/docs/components/base/toggle-group), [Card](https://ui.shadcn.com/docs/components/base/card), [Popover](https://ui.shadcn.com/docs/components/base/popover), [CodeBlock](https://ui.shadcn.com/docs/components/base/code-block)의 실제 구성과 설치된 base-mira API를 기준으로 한다. 문서 사이트의 테마 색상과 Host의 primary/theme 차이는 허용하며 primitives를 흉내 낸 커스텀 모양으로 대체하지 않는다. Lib Story의 전역 font 규칙은 shadcn data-slot 요소를 덮지 않는다.
 
 예: `Button("삭제", null, "destructive")`, `Badge("상태", null, null, "outline")`, `IconButton("search", null, "검색", "ghost", "icon-sm")`. SegmentedControl의 값 인자는 같지만 표현은 ToggleGroup의 pressed 상태다. Table·Label·Separator·Input·Textarea·Slider 및 단일 날짜 DatePicker는 해당 공식 primitive 조합을 유지한다. Timer는 countdown 업무 동작이 있는 OpenUI 조합이며 공식 shadcn Timer라고 부르지 않는다. Radio의 pills/cards, Slider의 단위/marks, Button의 의미색은 명시적인 DSL 확장이다.
-
-[전수 비교표와 검증·재시작 기록](../../../flow/2026-11-18-openui-shadcn-fidelity.md).
 
 React 렌더러/Canvas 컴포넌트의 공개 진입점은 `shared/ui/intelligent-ui/index.ts`, React 없이 사용할 금융 schema·변환·demo 데이터 진입점은 `shared/ui/intelligent-ui-data.ts`다. Catalog는 내부 구현 경로를 직접 참조하지 않는다.

@@ -1,307 +1,50 @@
 # Documentation Map
 
-- [Canvas A–Z 온보딩 런북](human-docs/3.dynamic-canvas-openui/canvas-system-onboarding-runbook.html): 사용자 실습·아키텍처·OpenUI·저장·운영·장애 대응. 현재 구현의 설명 자료이며 시스템 계약은 stock 참조.
+이 프로젝트의 현재 상태는 `docs/stock/`에서 확인한다. 문서는 공용 결정 → 패키지 기술 → 도메인 규칙 순서로 읽는다. 과거 변경 기록은 Git 이력으로 조회하며 현재 설계를 재구성하기 위해 날짜별 기록을 읽을 필요가 없다.
 
-- [SEC 화면 이탈 자동 취소 제거](flow/2026-11-18-sec-navigation-abort.md): SEC-NAV-ABORT-001, unmount abort 삭제·MCP 검증 미완료.
+## 읽기 순서
 
-- [SEC 타임라인 구조 재작성](flow/2026-11-18-sec-activity-rebuild.md): SDK 클래스 의존 제거, 전용 구조·CSS와 실제 채팅 프레임 검증.
+1. [공통 문서 지도](stock/tech-shared/INDEX.md)와 [설계 원칙](stock/tech-shared/design-principles.md).
+2. 대상 패키지의 기술 문서와 관련 도메인 설계.
+3. [검증 원칙](validation/INDEX.md) 및 문서의 현재 제약·검증 범위.
+4. 불명확한 계약은 해당 구현·테스트와 대조한다.
 
-- [SEC Behind the scenes 모바일 수정](flow/2026-11-18-sec-activity-mobile.md): SEC-ACTIVITY-MOBILE-001, 좁은 타임라인과 긴 도구 상세 줄바꿈·Storybook 검증.
+## 공용·패키지 문서
 
-- [미커밋 작업 최종 반영](flow/2026-11-18-finalize-pending-work.md): OpenUI·개발 채팅·SEC 스타일·문서 커밋과 미완료 MCP 검증 해소.
-
-- [OpenUI shadcn 공식 구성 재점검](flow/2026-11-18-openui-shadcn-fidelity.md): OPENUI-SHADCN-003, variant·ToggleGroup·Card·Popover·CodeBlock 정렬과 검증.
-
-- [OpenUI 기본 요소 shadcn 전환](stock/tech-shared/1-fe-host/openui-shadcn-primitives.md): OPENUI-SHADCN-001, 기존 DSL 어댑터·검증·프롬프트 동기화·서비스 재시작.
-
-- [일반 금융 시리즈 차트](stock/tech-shared/1-fe-host/financial-series-chart.md): OPENUI-FIN-SERIES-001, 구성형 차트 5종·좌우 축·마커·가격선과 금융 탐색 분류.
-
-- [OpenUI Lib Story 금융 v2 예제](flow/2026-11-17-openui-financial-lib-stories.md): OPENUI-FIN-STORY-002, 지표 설정·다중 설정·밴드·PSAR·오류 예제와 Storybook 검증.
-
-- [SEC 대표 질문 전수 회귀](flow/2026-11-17-sec-starters-regression.md): SEC-STARTERS-001, 24개 질문·검색·공시 메타데이터·기능 안내·인용 보호.
-
-- [SEC 확정 수집 요청 안정화](flow/2026-11-17-sec-collection-deterministic.md): SEC-COLLECT-002, 모델 없는 단일 수집 도구 실행·완료 검증·실제 NVIDIA 수집.
-
-- [SEC 실패 상황의 대화형 응답](flow/2026-11-17-sec-failure-replies.md): SEC-FAILURE-REPLY-001, 실패 상태 보존·LLM 설명·기본 안내·취소·API/브라우저 검증.
-
-- [SEC 저장된10-K 준비 안정화](flow/2026-11-17-sec-prepare-deterministic.md): SEC-PREPARE-001, 확정 기업의 모델 없는 실제 도구 실행·최신 공시 보호·반복/API/브라우저 검증.
-
-- [SEC UI 구조화 응답 수정·검증](flow/2026-11-17-sec-ui-structured-repair.md): SEC-UI-REPAIR-001, 카탈로그 상태 확인·구조화 응답 repair·실제 사이트 검증.
-
-- [TA-Lib 시계열 근거·Query 제한](flow/2026-11-16-ta-series-evidence-and-query-deadline.md): TALIB-EVIDENCE-001 / TA-QUERY-DEADLINE-001, 네이티브 의미·입력 제약·276 Python/60 Host/5 HTTP 검증.
-
-- [PostgreSQL 기반 여러 worker 설계](flow/2026-11-16-fastapi-postgres-multiworker-design.md): LG-OSS-MULTI-001의 초기 설계 기록. 구현·검증은 아래 후속 기록 참조.
-
-This directory is the canonical documentation entry point for `1-reason-hwang`.
-
-## DOC-INDEX-003: Directory entry filenames
-
-Use `INDEX.md` for navigation and document-selection guides under this project's `docs/`. Project and application package introductions outside this directory keep `README.md`. Link to an index file explicitly rather than relying on automatic README rendering. Historical flow records retain their original filenames and wording; the [rename record](flow/2026-09-20-document-index-naming.md) maps their old entry paths to the current ones.
-
-## Progressive discovery
-
-Read documents in this order, expanding only into the scope relevant to the task:
-
-```text
-AGENTS.md
-  -> docs/INDEX.md
-       -> stock/tech-shared/INDEX.md
-            -> common decisions at stock/tech-shared/*.md
-            -> package details at stock/tech-shared/<package>/
-       -> stock/<domain-feature-name>/ when domain behavior is affected
-       -> validation/ principles applicable to the change
-       -> flow/ records relevant to that scope or decision
-       -> supporting documents and implementation as needed
-```
-
-1. Start here after reading `AGENTS.md`; use the document tables below to select the task's domain and shared concerns.
-2. Follow the [tech-shared map](stock/tech-shared/INDEX.md) in **공용 → 구체** order: read applicable common decisions at the root, then technical details for the affected package. For code design, implementation, or review, always read and apply [Shared Design Principles](stock/tech-shared/design-principles.md), including `DESIGN-SLAP-001`. For domain work, also follow the domain INDEX and its linked designs.
-3. Read related [flow records](flow/) for decision context, validation evidence, and pending follow-ups. Use the Flow table below, then search by domain, requirement/decision ID, or affected stock path when the table does not cover the task. For example, run `rg -n 'DESIGN-SLAP-001' docs/flow` from the workspace root. Read matching records and follow their relevant links; do not load the entire history by default.
-4. Follow supporting references or inspect code when needed to resolve a specific question. Stock remains the current-state authority; historical flow does not silently override it. Reconcile conflicts against implementation and accepted decisions.
-5. During a material change, append a dated flow record with affected stock links and validation results. Before completion, synchronize accepted current-state changes into stock and update this map when document routing changes.
-
-The shared navigation policy is recorded as `DOC-DISCOVERY-001` in [Workspace Design](stock/tech-shared/workspace.md#doc-discovery-001-documentation-navigation).
-
-## Validation principles
-
-Before implementation validation, read [Validation Principles](validation/INDEX.md) and follow all applicable procedures:
-
-- [Server API E2E](validation/server-api.md): Bruno skill principles and mandatory HTTP-level E2E.
-- [Pure View](validation/pure-view.md): mandatory Storybook testing.
-- [Business behavior](validation/business-behavior.md): mandatory user-facing browser validation with Playwright MCP or Chrome DevTools MCP.
-
-These documents own detailed validation procedures; [shared test design](stock/tech-shared/test-design.md) owns the common policy and package validation map. Run evidence belongs in dated flow records.
-
-## Documentation model
-
-Documentation is managed as two complementary systems:
-
-- `stock/` is the canonical description of the currently accepted product and system state.
-- `flow/` is the append-only history of decisions, changes, migrations, and validation results.
-
-Stock has two complementary ownership axes: business domains and shared/package technical concerns. Business-domain directories describe stable business capabilities that may span applications. `tech-shared/` groups common decisions at its root and concrete technical documents by package below it.
-
-```text
-docs/
-├── stock/
-│   ├── tech-shared/
-│   │   ├── INDEX.md             # 공용 → 구체 문서 지도
-│   │   ├── *.md                 # 공통 비즈니스·기술 결정
-│   │   ├── 1-fe-host/           # 프런트엔드 기술 문서
-│   │   ├── 2-bff-apps/          # BFF 기술 문서
-│   │   ├── 3-langgraph-fast/    # LangGraph 기술 문서
-│   │   └── infra/              # 인프라 패키지별 기술 문서
-│   ├── template/
-│   ├── us-corporate-filings/
-│   └── index-dcf-visualizer/
-├── flow/
-└── validation/
-```
-
-Use lowercase kebab-case for new domain directories: `stock/<domain-feature-name>/`.
-
-### Templates
-
-`stock/template/` is a reserved library for starting concise stock documents. It is not a business domain and its placeholders are not current-state facts.
-
-| Template | Use when |
+| 범위 | 진입점 |
 | --- | --- |
-| [`stock/template/business-design.template.md`](stock/template/business-design.template.md) | Defining value, scope, business rules, policy decisions, and acceptance criteria |
-| [`stock/template/system-design.template.md`](stock/template/system-design.template.md) | Defining runtime boundaries, contracts, data, technical decisions, constraints, and verification |
+| 워크스페이스·명령·포트·기본 서비스 | [Workspace](stock/tech-shared/workspace.md) |
+| 전체 서비스·저장소 경계 | [System design](stock/tech-shared/system-design.md) |
+| 코드 작성 원칙 | [Design principles](stock/tech-shared/design-principles.md) |
+| 검증 범위·증거·자원 정리 | [Test design](stock/tech-shared/test-design.md), [검증 절차](validation/INDEX.md) |
+| 프런트엔드 | [Host architecture](stock/tech-shared/1-fe-host/2-frontend-side-architecture.md) |
+| OpenUI 공통 계약 | [OpenUI](stock/tech-shared/openui-migration.md) |
+| BFF | [BFF INDEX](stock/tech-shared/2-bff-apps/INDEX.md) |
+| FastAPI·LangGraph | [LangGraph INDEX](stock/tech-shared/3-langgraph-fast/INDEX.md) |
+| DB·모니터링 | [Infrastructure](stock/tech-shared/infra/1-infra-graph-rag/1-infra-l1-setup.md) |
+| OAuth proxy | [OAuth proxy](stock/tech-shared/infra/2-codex-oauth-proxy/1-infra-l2-codex-proxy.md) |
 
-Copy only the required template into a domain directory, replace every placeholder, and delete irrelevant rows or sections. Prefer links to existing shared facts over repeating them.
+## 도메인 문서
 
-## Stock documents
-
-### Tech-shared: 공용 결정과 구체 기술 문서
-
-`stock/tech-shared/` follows two scopes: common business/technical decisions live at its root; package-specific technical detail lives below `1-fe-host/`, `2-bff-apps/`, `3-langgraph-fast/`, and `infra/`. Domain-only business requirements remain in their domain directory. See the [tech-shared entry point](stock/tech-shared/INDEX.md) for the full map and preserved reference notes.
-
-The technical subdirectories follow package ownership; the other stock directories continue to follow business domains. Read common decisions first, then the relevant package detail.
-
-#### 공용: 여러 패키지에 적용되는 결정
-
-| Document | Scope |
+| 기능 | 진입점 |
 | --- | --- |
-| [`stock/tech-shared/design-principles.md`](stock/tech-shared/design-principles.md) | Common code design principles, SLAP application criteria, and review guidance |
-| [`stock/tech-shared/workspace.md`](stock/tech-shared/workspace.md) | Workspace ownership, packages, commands, and default endpoints |
-| [`stock/tech-shared/system-design.md`](stock/tech-shared/system-design.md) | Overall runtime topology, shared architecture, persistence, and infrastructure |
-| [`stock/tech-shared/test-design.md`](stock/tech-shared/test-design.md) | Workspace-wide validation layers and common test policy |
+| SEC 수집·모델링·분석 | [US corporate filings INDEX](stock/us-corporate-filings/INDEX.md) |
+| 기술적 분석·Canvas·TA-Lib | [Technical analysis INDEX](stock/technical-analysis/INDEX.md) |
+| DART 수동 API 검사 | [DART INDEX](stock/dart-api-testing/INDEX.md) |
+| Index DCF | [Index DCF INDEX](stock/index-dcf-visualizer/INDEX.md) |
+| 신규 설계 문서 | [Business template](stock/template/business-design.template.md), [System template](stock/template/system-design.template.md) |
 
-#### 구체: 패키지별 구현·운영 기술
+## 문서 관리
 
-| Package | Documents |
-| --- | --- |
-| `1-fe-host` | [Frontend architecture](stock/tech-shared/1-fe-host/2-frontend-side-architecture.md), [OpenUI 사용 사례·코드 안내](stock/tech-shared/1-fe-host/sec-intelligent-ui.md#openui-doc-001-사용-사례와-코드-안내), [Storybook](stock/tech-shared/1-fe-host/storybook.md) |
-| `2-bff-apps` | [BFF map](stock/tech-shared/2-bff-apps/INDEX.md), [Directory policy](stock/tech-shared/2-bff-apps/directory-policy.md), [Swagger/OpenAPI](stock/tech-shared/2-bff-apps/swagger-module.md) |
-| `3-langgraph-fast` | [Package map](stock/tech-shared/3-langgraph-fast/INDEX.md), [DB saver](stock/tech-shared/3-langgraph-fast/3-langgraph-db-saver.md), [Graph DB](stock/tech-shared/3-langgraph-fast/4-graph-db.md) |
-| `infra/1-infra-graph-rag` | [Infrastructure setup](stock/tech-shared/infra/1-infra-graph-rag/1-infra-l1-setup.md) |
-| `infra/2-codex-oauth-proxy` | [OAuth proxy](stock/tech-shared/infra/2-codex-oauth-proxy/1-infra-l2-codex-proxy.md) |
+### DOC-STOCK-001: 현재 상태 중심 문서
 
-### US corporate filings
+현재 구현·계약·운영 명령·제약·미해결 사항은 관련 stock에 직접 동기화한다. 중간 시도·재시작 PID·과거 커밋별 테스트 개수·폐기된 계획을 현재 설계에 누적하지 않는다. 검증 결과는 재현 명령과 실제 범위·남은 제한을 간결하게 유지한다. 변경 이유와 이전 내용은 Git commit/diff에서 확인한다.
 
-[`stock/us-corporate-filings/`](stock/us-corporate-filings/) owns the collection, processing, persistence, retrieval, and analysis of US corporate filings such as 10-K and 10-Q.
+`docs/flow/`의 과거 문서·일시적 증거 파일은 최신 stock 반영 후 정리했다. 스쿼시는 Git commit 하나로 삭제·통합하는 작업이며 브랜치 과거 이력을 rewrite하지 않는다. 이전 문서가 필요하면 현재 정리 커밋의 부모에서 `git show <commit>^:20-portfolio/1-reason-hwang/docs/flow/<파일>`로 읽는다. 보호된 human-docs의 과거 링크는 원문을 유지하므로 Git 이력을 통해 확인한다.
 
-| Document | Scope |
-| --- | --- |
-| [`stock/us-corporate-filings/INDEX.md`](stock/us-corporate-filings/INDEX.md) | Domain boundary, owning components, current capabilities, and documentation routing |
-| [`stock/us-corporate-filings/system-design.md`](stock/us-corporate-filings/system-design.md) | Implemented PostgreSQL filing content, migration, constraints, and verification |
-| [`stock/us-corporate-filings/sec-modeling.md`](stock/us-corporate-filings/sec-modeling.md) | SEC 모델링 1/2/3과 공시 상태·통계·API Testing의 현재 계약; 관리 API 검증과 기존 실데이터 품질 한계 구분 |
-| [`stock/us-corporate-filings/ixbrl-viewer.md`](stock/us-corporate-filings/ixbrl-viewer.md) | 저장 원문 iXBRL fact 추출·원문 연결 viewer, 구현 작성 완료·실행 미검증 |
-| [`stock/us-corporate-filings/intelligent-ui.md`](stock/us-corporate-filings/intelligent-ui.md) | SEC 10-K conversational analysis with OpenUI and AG-UI |
+공통 결정은 `stock/tech-shared/` 상위에, 구현은 패키지 아래에, 업무 규칙은 도메인 아래에 둔다. INDEX는 탐색만 담당하고 상세 계약을 복제하지 않는다. `master-docs/`, `stock/shared/`는 현재 진입점이 아니다. 실제 INDEX 경로로 링크한다. human-docs는 별도 사용자 원문이므로 최신 canonical 계약은 stock에서 확인한다.
 
-### DART API Testing
+## 참고 자료
 
-[DART 도메인 문서 지도](stock/dart-api-testing/INDEX.md): 핵심 5개 Open DART API의 독립 BFF 모듈과 수동 요청 화면. 구현 작성 완료, 사용자 요청으로 실행 검증 미실행.
-
-### Technical Analysis
-
-[기술적 분석 문서 지도](stock/technical-analysis/INDEX.md): Yahoo 일봉·주봉, TA-Lib RSI/SMA/MACD, Deep Agent 및 Host OpenUI 시각화.
-
-### Index DCF Visualizer
-
-[`stock/index-dcf-visualizer/`](stock/index-dcf-visualizer/) owns the assumptions, calculations, presentation, and validation behavior of the Index DCF Visualizer.
-
-| Document | Scope |
-| --- | --- |
-| [`stock/index-dcf-visualizer/INDEX.md`](stock/index-dcf-visualizer/INDEX.md) | Domain boundary, owning components, current capabilities, and documentation routing |
-
-## Stock routing rules
-
-1. Start with the relevant common decisions and package details in `stock/tech-shared/`; also read the target domain's stock before changing its behavior.
-2. Put requirements, terminology, behavior, domain architecture, and domain-specific validation in that domain directory.
-3. Put workspace topology, shared infrastructure, cross-domain contracts, and common engineering or validation rules in `stock/tech-shared/`.
-4. Put implementation and operational detail in `stock/tech-shared/<package>/`. If a change affects common decisions, package details, or domain behavior together, update every affected scope and connect them with links instead of duplicating content.
-5. Add a new `stock/<domain-feature-name>/` directory for a new business capability. Organize package-specific technical details under `stock/tech-shared/<package>/`; do not create a business domain merely for a deployable package.
-
-## Flow documents
-
-Flow documents remain in a single dated, append-only history. New records must identify the affected business domain or `tech-shared`, name the package when applicable, and link the exact stock documents they update. Historical records using the scope label `shared` remain unchanged.
-
-| Document | Change |
-| [`flow/2026-11-15-ta-agent-canvas-split.md`](flow/2026-11-15-ta-agent-canvas-split.md) | 기존 inline TA와 별도 Canvas TA graph 분리·API 검증 |
-| [`flow/2026-11-15-ta-dynamic-canvas-implementation.md`](flow/2026-11-15-ta-dynamic-canvas-implementation.md) | TA Dynamic Canvas report/event·선택 문맥·재분석 구현과 API 검증, 브라우저 사용자 수행 |
-| [`flow/2026-11-15-sec-ixbrl-viewer-implementation.md`](flow/2026-11-15-sec-ixbrl-viewer-implementation.md) | SEC 자체 iXBRL viewer 구현과 실행 검증 미실행 기록 |
-| [`flow/2026-11-15-dart-api-testing-implementation.md`](flow/2026-11-15-dart-api-testing-implementation.md) | DART 핵심 5개 API와 수동 Testing 화면 구현, 실행 검증 사용자 수행 |
-| [`flow/2026-11-14-chat-native-tool-timeline.md`](flow/2026-11-14-chat-native-tool-timeline.md) | SDK 기본 도구 타임라인, 안전한 기록 복원, 중복 상태 띠 제거와 실제 TA 검증 |
-| [`flow/2026-11-14-chat-layout-all-graphs.md`](flow/2026-11-14-chat-layout-all-graphs.md) | /chat 통합 헤더, 전체 LangGraph discovery와 schema별 입력·결과, 실제 브라우저 검증 |
-| [`flow/2026-10-22-sec-activity-timeline.md`](flow/2026-10-22-sec-activity-timeline.md) | Behind the scenes 실시간 실행 타임라인 |
-| [`flow/2026-10-22-sec-follow-ups.md`](flow/2026-10-22-sec-follow-ups.md) | LangGraph 공통 after-answer LLM 추천 질문 |
-| [`flow/2026-10-22-sec-conversation.md`](flow/2026-10-22-sec-conversation.md) | 자유 대화 진입, 기업 확인 및 자동 공시 준비 |
-| --- | --- |
-| [`flow/2026-10-21-sec-intelligent-ui-validation.md`](flow/2026-10-21-sec-intelligent-ui-validation.md) | OpenUI SEC chat, latest filings for 10 companies, 70 successful question scenarios, regression fixes and resource cleanup |
-| [`flow/2026-09-20-workspace-root.md`](flow/2026-09-20-workspace-root.md) | Established this directory as an independent pnpm/Turborepo workspace |
-| [`flow/2026-09-20-documentation-reconciliation.md`](flow/2026-09-20-documentation-reconciliation.md) | Reconciled root guidance and canonical documentation with the implementation |
-| [`flow/2026-09-20-oauth-proxy-image-cleanup.md`](flow/2026-09-20-oauth-proxy-image-cleanup.md) | Removed dead proxy container configuration and separated runtime from example dependencies |
-| [`flow/2026-09-20-oauth-proxy-readme-bruno.md`](flow/2026-09-20-oauth-proxy-readme-bruno.md) | Reconciled OAuth proxy onboarding and Bruno collection behavior with current code |
-| [`flow/2026-09-20-domain-documentation-structure.md`](flow/2026-09-20-domain-documentation-structure.md) | Introduced domain-feature stock directories and the shared documentation boundary |
-| [`flow/2026-09-20-minimal-stock-templates.md`](flow/2026-09-20-minimal-stock-templates.md) | Added minimal business and system design templates for domain stock documents |
-| [`flow/2026-09-20-sec-filing-database-content-design.md`](flow/2026-09-20-sec-filing-database-content-design.md) | Designed the staged transition from local filing files to PostgreSQL-backed content |
-| [`flow/2026-09-20-sec-filing-database-content-implementation.md`](flow/2026-09-20-sec-filing-database-content-implementation.md) | Implemented DB-backed content and verified a real SEC Apple 10-K |
-| [`flow/2026-09-20-langgraph-graph-db-stock.md`](flow/2026-09-20-langgraph-graph-db-stock.md) | Consolidated the implemented Neo4j Graph DB contract under the LangGraph package stock |
-
-Existing flow records keep their original wording and paths as historical evidence. A later stock relocation does not rewrite an earlier record.
-
-- [Tech-shared relocation](flow/2026-09-20-tech-shared-document-relocation.md): Renamed shared stock and moved master documents without changing their contents; records old-to-new paths.
-- [Tech-shared entry guidance](flow/2026-09-20-tech-shared-entry-guidance.md): Updated AGENTS and this map with common-to-specific reading and writing rules.
-
-- [`flow/2026-09-20-shared-slap-principle.md`](flow/2026-09-20-shared-slap-principle.md): Established the shared SLAP principle and required reading in `AGENTS.md`.
-- [`flow/2026-09-20-progressive-documentation-discovery.md`](flow/2026-09-20-progressive-documentation-discovery.md): Routed required reading through this map and task-relevant stock/flow discovery.
-
-- [`flow/2026-09-20-agents-guidance-simplification.md`](flow/2026-09-20-agents-guidance-simplification.md): Simplified agent entry guidance and preserved detailed rules in shared stock.
-
-- [Mandatory validation policy](flow/2026-09-20-mandatory-validation-principles.md): Added API, Storybook, and MCP browser validation requirements.
-
-- [Validation MCP setup](flow/2026-09-20-validation-mcp-setup.md): Installed and verified browser/Storybook MCPs and documented setup.
-
-## Supporting documents
-
-### External service research
-
-[Reverse business documentation](reverse-biz/INDEX.md) contains external-service research materials, separate from the implemented product stock. Start at the [Cheongwoldang document map](reverse-biz/cheongwoldang/INDEX.md) for fact collection, saju/tarot analysis, visual trend research, and development handoff templates. Observation coverage must be completed before analytical findings are written. Template placeholders are not service facts or accepted implementation decisions.
-
-### Implementation references
-
-Detailed implementation notes are grouped by their technical owners:
-
-- [Tech-shared package references](stock/tech-shared/INDEX.md): detailed technical notes moved from the former `master-docs/` without changing their contents.
-- `2-bff-apps/src/us-corporate-filings/.docs/api-spec.md`: SEC API specification.
-- `3-langgraph-fast/README.md`: FastAPI/LangGraph setup and runtime policy.
-- `infra/1-infra-graph-rag/docs/`: Graph RAG infrastructure design and flow history.
-- `infra/2-codex-oauth-proxy/docs/`: OAuth proxy design.
-
-If a supporting document conflicts with code or a stock document, verify the implementation first and reconcile the appropriate domain stock document. Preserved imported notes may contain historical routes or paths. Use the [relocation map and reading rules](stock/tech-shared/INDEX.md) to resolve them; the move itself does not certify that every historical detail matches current code.
-
-- [Generative UI 통합 설계](stock/tech-shared/open-ui-system/INDEX.md): OpenUI 최종 출력 서브그래프, Dynamic·Fixed·Catalog 및 사용자 action.
-
-- [2026-10-22 자유 Intelligent UI](flow/2026-10-22-sec-generative-ui.md)
-
-- [2026-10-22 설명형 답변 서식](flow/2026-10-22-sec-prose-rendering.md)
-
-- [2026-10-22 SEC Deep Agent와 공통 tools](flow/2026-10-22-sec-deep-agent.md)
-
-- [2026-10-22 FSD 전환·SEC API 관리자 채팅](flow/2026-10-22-fsd-sec-api-agent.md): FE-FSD-001, SEC-ADMIN-001 구현과 검증.
-
-- [2026-10-22 SEC Chat 기술 개념](flow/2026-10-22-sec-chat-technical-concepts.md): SEC-DOC-001, 실행·도구·UI·이벤트·근거·상태의 구분.
-
-- [2026-10-22 SEC 관리자 레이아웃](flow/2026-10-22-sec-admin-layout.md): 중복 사이드바 제거, 상단 대화 관리와 반응형 화면.
-
-- [2026-10-22 호스트 테마 통합](flow/2026-10-22-host-theme.md): FE-THEME-001, 공통 토글·OpenUI 동기화.
-
-- [2026-10-25 OpenUI 문서 보완](flow/2026-10-25-openui-documentation.md): OPENUI-DOC-001, 두 화면 비교·코드 탐색·생성물 동기화 안내.
-
-- [2026-11-14 OpenUI 명칭 통일](flow/2026-11-14-open-ui-naming.md): OPEN-UI-NAME-001, 화면·환경변수·Python 모듈·현재 문서 경로 및 검증.
-
-- [공통 AgentInterface 이관](flow/2026-11-14-agent-interface-migration.md): OPENUI-AGENT-001, 채팅 UI 통합과 검증.
-
-- [Host 메뉴 그룹 정리](flow/2026-11-14-host-navigation-groups.md): HOST-NAV-001, 기능 그룹과 활성 경로 검증.
-
-- [Host FSD·Steiger 적용 상태 점검](flow/2026-11-14-fsd-steiger-audit.md): FE-FSD-001, 기존 설치·경계·검사와 최소 변경 원칙.
-
-- [기술적 분석 실제 브라우저·PNG 검증](flow/2026-11-14-technical-analysis-browser-validation.md): TA-001~005, 12개 시나리오와 원본 PNG 보고.
-
-- [공통 채팅 디자인 시스템](flow/2026-11-14-shared-chat-design-system.md): OPENUI-CHAT-DS-001, 네 채팅 계열의 프레임·입력·응답 UI 통합.
-
-- [Host 공통 상단 헤더 제거](flow/2026-11-14-host-header-removal.md): HOST-HEADER-001, 앱 헤더 소유권·전체 높이·사이드바 제어 위치.
-
-- [OpenUI Query 금융 차트](flow/2026-11-14-openui-query-financial-charts.md): TA-QUERY-001, 모델 없는 Yahoo·TA-Lib 조회와 Lightweight Charts.
-
-- [OpenUI Query 수동 새로고침](flow/2026-11-14-openui-query-manual-refresh.md): TA-QUERY-002, 편집 가능한 조건·refresh icon·native Query 재조회.
-
-- [Chat Behind the scenes](flow/2026-11-14-chat-behind-the-scenes.md): CHAT-ACTIVITY-001, 도구 실행 이름·상태 표시.
-
-- [SEC Collector 운영 화면](stock/us-corporate-filings/collector-dashboard.md): 기업 필터, 공시 기본 테이블, 행 단위 수집·상세, 디버깅 drawer. [구현 및 변경 기록](flow/2026-11-15-sec-collector-redesign.md).
-
-- [SEC 모델링 구현·통합 검증 중간 기록](flow/2026-11-14-sec-modeling-integration-progress.md): SEC-MODELING-001, 모델링 1/2/3·작업 관리·Admin·검색. 전체 완료 기록은 아니다.
-
-- [SEC Collector API Testing](flow/2026-11-14-sec-api-testing-tab.md): SEC-COLLECTOR-002, 기존6API의 수동 request/response 검사 탭.
-
-- [SEC 모델링 구현 완료·검증 보류](flow/2026-11-14-sec-modeling-implementation-complete.md): SEC-MODELING-001, 구현 범위·기존 실행 결과·사용자 요청에 따른 검증 중단 및 자원 정리.
-
-- [FastAPI 실행 런타임과 TA 지표 확장](flow/2026-11-16-fastapi-runtime-and-ta-indicators.md): FASTAPI-RUNTIME-001, 실제 그래프·PostgreSQL 재시작·API 검증 및 TA-INDICATORS-020 진행 기록.
-
-- [OpenUI catalog 생성·동기화 검사](flow/2026-11-16-openui-catalog-prompt-sync.md): 원본/FE txt·spec/Python mirror 일치와 build gate.
-- [OpenUI graph prompt 감사](flow/2026-11-16-openui-catalog-prompt-audit.md): 등록 graph 적용 경계, 공통 loader와 Canvas prompt/API 검증.
-
-- [SEC 모델링 관리·API Testing](flow/2026-11-16-sec-modeling-admin-api-testing.md): SEC-MODELING-ADMIN-002 공시 상태 표·전범위 통계·고정 preset·격리 API 검증.
-
-- [SEC 모델링 관리 최종 검증](flow/2026-11-16-sec-modeling-admin-validation-final.md): 선행 구현 커밋 이후 검사 집계·전체 typecheck의 별도 한계·자원 정리 확인.
-
-- [PostgreSQL multiworker 구현·API 검증](flow/2026-11-16-fastapi-postgres-multiworker-implementation.md): LG-OSS-MULTI-001, 실제2OS·격리PG·fencing·장애·SDK/Canvas 검증과 정리.
-
-- [SEC 금융 기준·개발 도구 회귀 조사](flow/2026-11-16-sec-financial-basis-devtools-regression.md): 금융 기준 혼용 미해결과 SDK 개발 도구 opt-in/API 검증.
-- [TA-Lib 비교 완료](flow/2026-11-16-talib-comparison-completion.md): 일봉·주봉 결과 보존과 보완 호출·HTTP parser 검증.
-
-- [SEC 금융 수치 basis 검산](flow/2026-11-16-sec-financial-verification.md): SEC-FIN-BASIS-002 구조화 원문 근거·Decimal 계산·최종 UI 보호·API 증거.
-
-- [SEC ResearchChat 모델링 근거·전용 채팅](flow/2026-11-16-sec-chat-modeling-tools.md): SEC-CHAT-MODELING-001, 실제3tool·출처범위·후속질문·15 HTTP 검증.
-
-- [선택형 Canvas 구현](flow/2026-11-17-canvas-item-workspace.md): TA-CANVAS-003, CanvasItem·Library Explorer·요소별 배치 및 검증.
-
-- [SEC 연구 채팅 이름 변경](flow/2026-11-17-sec-research-chat-name.md): SEC-RESEARCH-NAME-001, 화면·메뉴명과 도구 범위 확인.
-
-- [SEC 연구 채팅 수집 도구](flow/2026-11-17-sec-chat-collection-tool.md): SEC-COLLECT-CHAT-001, 선택 기업 수집·기간 보존·완료 확인.
-
-- [작업 최종 정리와 커밋](flow/2026-11-17-workspace-finalization.md): 남은 FastAPI 전환·문서 반영과 최신 검증 집계.
-
-- [채팅별 그룹 시작 질문](flow/2026-11-17-grouped-chat-starters.md): CHAT-STARTERS-002, 기능별 질문 확장과 Storybook 검증.
+- [Canvas A–Z 온보딩 HTML](human-docs/3.dynamic-canvas-openui/canvas-system-onboarding-runbook.html): 사용자 실습·코드 지도·운영 설명. 계약 원본은 기술적 분석 stock이다.
+- [프로젝트 README](../README.md): 설치 및 도구 연결.

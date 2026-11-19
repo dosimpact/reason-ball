@@ -2,7 +2,7 @@
 
 ## TA-001 진입과 범위
 
-Host `/langgraph-dev-chat`(개발 서버) 또는 `/fastapi-chat`(FastAPI)에서 기존 기술적 분석(인라인) 또는 기술적 분석 Canvas 에이전트를 선택한다. Yahoo ticker를 입력해 일봉(`1d`) 또는 주봉(`1wk`) OHLCV를 분석한다. 기본은 일봉 최근 완료 봉 120개다. 미국 한정 필터는 없으며 Yahoo가 인식하는 `.KS`, `.KQ` 등의 ticker도 입력할 수 있다. 공급자별 실제 데이터 가용성은 조회 결과로 판단한다.
+Host의 `/technical-analysis`(인라인)와 `/technical-analysis/canvas`(Canvas)는 각 전용 FastAPI 그래프를 실행한다. 그래프는 `/fastapi-chat`과 `/langgraph-dev-chat`의 목록에서도 선택할 수 있다. Yahoo ticker의 일봉(`1d`) 또는 주봉(`1wk`) OHLCV를 분석한다. 기본은 최근 완료 일봉 120개다. Yahoo가 인식하는 `.KS`, `.KQ` 등의 ticker도 조회할 수 있다. 공급자별 실제 데이터 가용성은 조회 결과로 판단한다.
 
 ## TA-002 계산
 
@@ -42,7 +42,7 @@ Query 차트는 조회 조건 패널에 ticker·주기·봉 수 편집과 새로
 
 `기술적 분석 · Canvas`는 해석을 채팅에 표시하고 가격·지표별 차트를 `CanvasItem`으로 제공한다. 사용자가 **Canvas에 추가**를 누른 요소만 옆 Canvas에 들어간다. 보고서 전체가 자동으로 열리지 않는다. 각 차트의 조회 조건·지표·새로고침은 해당 요소와 함께 이동하며 추가 이후 채팅과 Canvas의 상태는 독립적이다.
 
-요소는 중복 추가를 막고 제거·드래그 순서 변경·두 열 범위의 폭 조절·높이 조절을 지원한다. 키보드 이동·크기 조절도 가능하다. 좁은 화면은 한 열이다. 배치와 요소 상태는 현재 브라우저의 localStorage에 런타임·thread별로 저장하고, 대화 기록에서 해당 thread를 열면 복원한다. 기기 간 동기화는 제공하지 않는다. 서버 보고서 저장과 로컬 배치 저장은 별개다.
+같은 요소를 여러 개 추가해 조회 조건과 배치를 독립적으로 편집할 수 있다. 각 패널은 제거·이동·크기 조절·위치 고정을 지원한다. 키보드로 이동·크기를 조절할 수 있으며 좁은 화면에서는 한 열로 표시한다. localStorage에 런타임·thread별 배치와 상태를 저장하고 같은 브라우저에서 대화를 열면 복원한다. 서버는 근거 보고서를 별도로 저장한다.
 
 요소의 텍스트를 선택해 **채팅에 물어보기**를 누르면 같은 thread에 저장된 원래 보고서와 요소 ID를 근거로 설명한다. 차트 조건 변경은 모델 재분석이 아니므로 기존 해석은 원래 분석 시점 기준임을 표시한다. 새 분석 결과도 채팅에 표시하고 사용자가 추가 여부를 결정한다.
 
@@ -50,7 +50,7 @@ Query 차트는 조회 조건 패널에 ticker·주기·봉 수 편집과 새로
 
 ## TA-CANVAS-002 기존 분석과 Canvas 분석 분리
 
-`technical_analysis_agent`의 기존 inline 출력은 유지한다. `technical_analysis_canvas_agent`만 선택형 wrapper UI와 요소 문맥을 제공한다. TA-Lib·SEC 채팅에는 추가 버튼을 연결하지 않는다. 예전 TA-CANVAS-001의 보고서 전체 자동 표시 방식은 TA-CANVAS-003으로 대체한다. [변경·검증 기록](../../flow/2026-11-17-canvas-item-workspace.md)을 따른다.
+`technical_analysis_agent`는 인라인 출력으로 제공한다. `technical_analysis_canvas_agent`는 사용자가 선택해 추가하는 wrapper 요소와 원본 요소 인용을 제공한다. TA-Lib·SEC 채팅에는 Canvas 추가 버튼이 없다.
 
 ## TALIB-AGENT-001: 전체 함수 탐색과 자유 계산
 

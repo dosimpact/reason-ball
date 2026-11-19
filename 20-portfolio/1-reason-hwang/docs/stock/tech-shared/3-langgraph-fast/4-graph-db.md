@@ -56,7 +56,6 @@ pnpm -C 3-langgraph-fast model1:sample --write-neo4j
 API 또는 제품 View 변경이 아닌 CLI와 정적 preview이며 실제 MCP 브라우저·DB 검증을 수행한다.
 특히 NVDA는 Item 8이 참조 문구이고 재무표는 Item 15에 있으므로 Item 8 표 존재를 일반화하지 않는다.
 
-[계획 flow](../../../flow/2026-11-14-sec-model1-three-filings-plan.md) ·
 [도메인 저장 경계](../../us-corporate-filings/system-design.md#sec-model1-001-분석용-문서-구조의-저장-경계)
 
 ## SEC-MODELING-001: 통합 모델링 경로
@@ -108,12 +107,11 @@ Item의 동일 본문 반복 출현을 섞지 않는다. 기존 게시 generatio
 유지보수 근거로 저장할 수 있다. 이를 원래 개별 추출 응답의 복원으로 표현하지 않는다.
 최종 Topic 배정 또는 검증 실패 시 publish에 도달하지 않으므로 기존 활성 publication은 유지한다.
 공개 요청 필드 추가와 Neo4j schema 변경 없이 generation staging·게시·취소 경계를 유지한다.
-실행 증거와 남은 검증은 [정책 변경 기록](../../../flow/2026-11-15-sec-model2-v3-policy.md)에 둔다.
+AAPL·CPNG 두 공시의 v3 실행에서 활성 generation의 명제·Topic·근거·벡터와 API 조회를 확인했다. 상세 범위는 [도메인 모델링 검증](../../us-corporate-filings/sec-modeling.md)에서 관리한다.
 
 ## 검증 상태
 
-기능 구현은 완료했다. 사용자 요청으로 추가 검증은 중단했으며 NVDA 모델링 2 및 전체 30문항 검색 평가는 미완료다.
-[구현 완료 기록](../../../flow/2026-11-14-sec-modeling-implementation-complete.md)은 기존 검증 결과와 보류 범위를 구분한다.
+모델링 1 샘플은 Neo4j 반복 적재와 69개 Item preview 링크를 검증했다. NVDA 모델링 2 게시와 전체 30문항 검색 평가는 미완료다.
 청커 회귀 테스트는 `uv run pytest tests/test_sec_structural_chunking.py -q`로 실행한다.
 검색 gold 질문은 `assets/sec-modeling/retrieval-gold.json`의 한국어 15개·영어 15개이며,
 보고서 선택 후 Item 필터 없이 실제 근거 문장의 검색 여부를 평가한다.

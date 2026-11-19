@@ -7,10 +7,10 @@
 - `shared/ui/intelligent-ui/OutputView.tsx`가 OpenUI Renderer, BusinessAction, ToAssistant, OpenURL과 라이브러리 action을 처리한다. SEC Chat의 AnswerView도 이 컴포넌트를 사용한다. SEC 관리자 채팅은 공통 AgentChatFrame에 같은 library를 전달한다.
 - `_app/api/generative-ui/[mode]/route.ts`가 same-origin 요청과 `dynamic`/`fixed` 모드를 검사하고 FastAPI로 스트리밍 중계한다. 브라우저 취소를 upstream에 전달한다. API 키와 모델 설정은 전달하지 않는다.
 - `_pages/generative-ui/ui/catalog`은 기준 PoC Lib Story를 이관한 컴포넌트·함수·action 탐색기다. 검색·코드 편집·초기화·반응형 상태를 지원한다. 업무 action 예제는 서버 상태를 변경하지 않는다.
-- `/open-ui/gallery`는 원본 PoC 갤러리의 구성·데모 도구·컴포넌트 예제를 한 화면에 표시한다. 공유 OpenUI 라이브러리와 렌더러를 사용하며 각 예제의 원본 코드를 펼쳐 볼 수 있다. 45개 예제와 데모 도구는 로컬 예제 데이터로 동작한다. 이미지 검색·지도 경로는 Host의 `/api/wiki`, `/api/image-search`, `/api/street-route`를 통해 고정된 Wikimedia·OSRM 서비스에 접근하므로 네트워크가 필요하다.
+- `/open-ui/gallery`는 원본 PoC 갤러리의 구성·데모 도구·컴포넌트 예제를 한 화면에 표시한다. 공유 OpenUI 라이브러리와 렌더러를 사용하며 각 예제의 원본 코드를 펼쳐 볼 수 있다. 45개 예제는 구성 4개·도구 18개·프롬프트 4개·컴포넌트 19개다. 데모 도구는 예제 데이터를 사용하고 assistant 전송은 로컬 알림으로 표시한다. 이미지 검색·지도 경로는 Host의 `/api/wiki`, `/api/image-search`, `/api/street-route`를 통해 고정된 Wikimedia·OSRM 서비스에 접근하며 YouTube 임베드에도 네트워크가 필요하다.
 - `sec-ui:generate`가 공유 library에서 프롬프트·명세·Python 자산을 동기화한다. 이전 UI 프로토콜의 registry/schema/manifest는 사용하지 않는다.
 
-검증은 `test:generative-ui`, `test:generative-ui:views`, `test:generative-ui:live`, 기존 `test:sec-chat:views`를 사용한다. live 테스트는 OPENUI_LIVE_BASE_URL의 소유한 서버를 사용하며 서버를 자동 시작하지 않는다. 서버/브라우저 정리까지 [검증 원칙](../../../validation/INDEX.md)을 적용한다.
+OpenUI 동기화 회귀는 `pnpm -C 1-fe-host test:openui-sync`, `openui:check`로 확인한다. DSL·갤러리·Query 회귀는 `pnpm -C 1-fe-host exec vitest run --project generative-ui`, 렌더링은 [Storybook](storybook.md)으로 확인한다. 대화·action 시나리오는 [Generative UI E2E](../../../../1-fe-host/tests/e2e/generative-ui.spec.ts)에 있다. Playwright 설정은 소유한 Host URL을 `SEC_LIVE_BASE_URL`로 받는다. 기존 E2E의 native `selectOption` 단계는 현재 Base UI Select에 맞춰 갱신이 필요하다. 현재 Select 조작 범위는 [OpenUI 기본 요소 검증](openui-shadcn-primitives.md#프롬프트와-검증)을 따른다. 서버·브라우저 정리는 [검증 원칙](../../../validation/INDEX.md)을 따른다.
 
 ## OPENUI-AGENT-001: 공통 에이전트 인터페이스
 
@@ -20,14 +20,11 @@
 
 AssistantMessage 확장 렌더러는 화면별 검증 결과를 표시한다. SEC의 근거·추천 질문·실행 기록, 기술적 분석의 OpenUI 차트, 데모의 최신 revision action 제한은 각 domain controller와 renderer가 소유한다. 공통 UI 도입이 전송 형식이나 서버의 상태 소유권을 변경하지 않는다. 기존 화면의 메모리 보관·만료 정책도 유지한다.
 
-변경과 검증은 [이관 기록](../../../flow/2026-11-14-agent-interface-migration.md)을 따른다.
-
 화면 추천·선택 action처럼 SDK 밖에서 시작한 실행은 `busy`로 Composer 전송을 비활성화하고 별도 중단 버튼을 제공한다. SDK에서 시작한 실행은 표준 Cancel을 사용한다. 새 대화는 작성 중 입력도 초기화하며 실행 중에는 비활성화한다.
-
 
 ## OPENUI-CHAT-DS-001: 공통 채팅 디자인 시스템
 
-`shared/ui/agent-conversation`은 모든 채팅이 공유하는 표현 계층이다. `/sec-api-agent`, `/sec-chat`, `/langgraph-dev-chat`, `/open-ui/{dynamic,fixed}`는 동일한 프레임·토큰·반응형 배치·Welcome·메시지 목록·Composer·헤더 액션을 사용한다. 페이지별 CSS로 프레임이나 입력창을 다시 정의하지 않는다. 카탈로그와 비채팅 화면은 이 계약의 대상이 아니다.
+`shared/ui/agent-conversation`은 모든 채팅이 공유하는 표현 계층이다. `/sec-api-agent`, `/sec-chat`, `/langgraph-dev-chat`, `/open-ui/{dynamic,fixed}` 등은 동일한 프레임·토큰·반응형 배치·Welcome·메시지 목록·Composer·헤더 액션을 사용한다. 페이지별 CSS로 프레임이나 입력창을 다시 정의하지 않는다. 카탈로그와 비채팅 화면은 이 계약의 대상이 아니다.
 
 - `AgentChatFrame`: OpenUI `AgentInterface`를 소유하는 공통 프레임. native `ChatLLM`, 선택적 `storage`, `componentLibrary`, `onAction`을 받는다. SEC API Agent는 기존 AG-UI adapter와 메모리 대화 보관을 이 프레임에 연결한다.
 - `AgentConversation`: 기존 domain controller의 메시지·전송·AbortController를 공통 프레임에 연결하는 adapter. SEC Intelligent UI, 일반 Chat, 기술적 분석, Generative UI는 서버 계약을 바꾸지 않고 이 adapter를 사용한다.
@@ -40,16 +37,13 @@ AssistantMessage 확장 렌더러는 화면별 검증 결과를 표시한다. SE
 
 컨트롤러별 상태 소유권은 유지한다. 생성 UI의 최신 revision 제한, SEC의 근거·추천 질문·기업 확인·공시 준비, 기술적 분석의 검증된 차트, 관리자 채팅의 도구 타임라인과 대화 기록은 공통 프레임의 확장이다. 외부 action 실행 중 busy guard와 중단 연결도 공통 계층을 따른다.
 
-[변경 및 검증 기록](../../../flow/2026-11-14-shared-chat-design-system.md)
-
-
 ## HOST-HEADER-001: 앱 헤더와 전체 높이
 
 Host RootLayout은 공통 상단 헤더를 표시하지 않는다. AgentChatFrame의 제목·도구 모음·대화 액션이 채팅 화면의 헤더이며, 다른 앱은 필요한 헤더를 각 페이지에서 제공한다. Root 콘텐츠는 `min-h-svh`, 공통 채팅 프레임은 `100svh`를 사용한다. 이전 Host `h-14` 헤더를 위한 높이 차감이나 중복 여백을 추가하지 않는다.
 
-호스트 테마 토글과 데스크톱 사이드바 접기 버튼은 사이드바 footer에 있다. 모바일은 Host 내비게이션 위젯의 왼쪽 아래 고정 버튼으로 사이드바를 연다. 이 내비게이션 버튼은 페이지별 채팅 헤더가 소유하지 않으며 모든 앱에서 유지된다. 테마 상태는 기존 HostThemeProvider를 공유한다.
+테마와 데스크톱 사이드바 토글은 사이드바 footer에 있다. 모바일 메뉴는 공통 ChatPage의 헤더에서 열며 나머지 화면은 Host의 왼쪽 아래 버튼을 사용한다. 모든 화면은 HostThemeProvider의 테마 상태를 공유한다.
 
-[Host 레이아웃 계약](2-frontend-side-architecture.md#host-header-001-host-공통-헤더-제거) · [변경 및 검증](../../../flow/2026-11-14-host-header-removal.md)
+[Host 레이아웃 계약](2-frontend-side-architecture.md#host-header-001-host-공통-헤더-제거)
 
 ## OPENUI-SEC-REMOVE-001: SEC 화면 범위
 
@@ -59,13 +53,13 @@ SEC 채팅이 공유하는 renderer·카탈로그·채팅 프레임은 유지한
 
 ## TA-QUERY-001: 금융 Query provider
 
-`OutputView`의 OpenUI `Renderer.toolProvider`는 `technical_analysis_chart`만 연결한다. 허용된 ticker/interval/count/indicators/기간 인자를 같은 origin의 기존 `/api/langgraph/technical-analysis/chart`로 GET하고 Zod 계약을 검사한다. 임의 URL 또는 모델 도구 실행을 허용하지 않는다. `Query`는 OpenUI SDK builtin이며 기존 parser validator가 생성된 프로그램을 검사한다. `sec-ui:generate`가 FinancialChart schema와 Query 사용 지침을 Python 프롬프트까지 동기화한다.
+`OutputView`의 OpenUI `Renderer.toolProvider`는 `technical_analysis_chart`와 `technical_analysis_catalog`만 연결한다. 차트 인자를 허용 목록으로 검증한 다음 해당 런타임의 same-origin API로 GET하고 Zod로 응답 계약을 검사한다. 비채팅 렌더러의 기본 경로는 `/api/langgraph/technical-analysis/chart`다. `Query`는 OpenUI SDK builtin이며 생성된 프로그램은 Host parser로 검사한다.
 
 `FinancialChart`는 최소 snapshot prop 하나를 받으며 하나의 bars 배열로 Lightweight Charts 캔들·거래량·SMA·RSI·MACD pane을 표시한다. metadata·오류·준비 구간 경고·TradingView attribution을 함께 표시한다. 값이 null이어도 선택한 지표 pane을 유지한다. 크기는 컨테이너에 반응하고 테마는 Host class/data-theme를 따른다.
 
-`/langgraph-dev-chat`의 기존 `technical_analysis_agent`는 본문과 인라인 차트를 유지하고 최신 완료 출력만 활성화한다. 별도 `technical_analysis_canvas_agent`는 선택되어 펼쳐진 Canvas 탭의 검증 완료 출력에만 `active`를 전달한다. 해당 프로그램의 `$chart_refresh_seconds` 기본0을 사용자가 opt-in할 때30으로 전환한다. 선택되지 않은 탭과 접히거나 닫힌 Canvas는 polling을 멈춘다. Query key별 캐시가 설정 변경 중의 응답을 격리하며, 출력 교체/unmount 시 진행 중인 조회를 취소하지 않고 완료되도록 두며, 이전 출력의 성공 콜백은 무시한다. SDK timer와 chart observer는 정리한다. 모델 설명은 최초 분석 스냅샷이고 차트 조회는 대화 state를 바꾸지 않는다.
+채팅의 `technical_analysis_agent`는 본문과 인라인 차트를 표시하고 최신 완료 출력만 활성화한다. Canvas는 펼쳐진 고정 패널마다 독립 Renderer를 마운트한다. 자동 갱신은 기본 0초이며 사용자가 30초 갱신을 켤 수 있다. 접거나 닫은 Canvas의 polling은 멈춘다. Query key별 캐시로 응답을 격리하며 출력 교체·unmount 시 이전 조회는 완료되도록 둔다. 이전 출력의 성공 콜백은 무시하고 SDK timer와 chart observer를 정리한다. 모델 설명은 최초 분석 스냅샷이며 차트 조회는 대화 상태를 바꾸지 않는다. 화면 교체 중 진행하던 Query의 오류 노출 경계는 실제 브라우저에서 별도 검증이 남아 있다.
 
-계약과 검증은 [도메인 설계](../../technical-analysis/system-design.md#ta-query-001-조회-api와-차트-runtime), [flow](../../../flow/2026-11-14-openui-query-financial-charts.md)를 따른다.
+[기술적 분석 Query 계약과 검증](../../technical-analysis/system-design.md#ta-query-001-조회-api와-차트-runtime)을 따른다.
 
 ## TA-QUERY-002: QueryPanel
 
@@ -79,11 +73,9 @@ SDK가 타임라인을 답변 본문 위에 배치하며 도구 없는 turn에�
 
 chat 요청은 기존 한 번의 runs.stream에서 configured 모드를 보존하고 values를 보장한다. TA의 values-only 경로에 token streaming을 강제하지 않으며 기존 messages-tuple 경로에는 values를 함께 받는다. JSON graph 실행 계약은 유지한다. 기록 복원은 user별 마지막 답변과 안전한 도구 현황을 복원하고 남은 pending은 중단 상태로 종료한다. 새 대화·graph 전환은 이전 활동을 분리하며 기존 OutputView/Query는 유지한다. 중첩 graph가 상위 완료 시점에만 values를 보내면 완료 이력이 묶여 나타날 수 있다. 별도 subgraph 실시간 전송은 추가하지 않는다.
 
-[변경·검증 기록](../../../flow/2026-11-14-chat-native-tool-timeline.md)
-
 ## OPENUI-CATALOG-CHART-001: TradingView 차트 카탈로그
 
-`/open-ui/catalog`의 미디어·데이터 그룹에 `FinancialChart` 예제를 제공한다.
+`/open-ui/catalog`의 `financial · 금융` 탭에서 `FinancialChart` 예제를 찾을 수 있다.
 FinancialChart 또는 TradingView로 검색해 캔들·거래량·SMA/RSI/MACD, 가격·거래량 전용, 빈 데이터 예제를 실행하고 코드를 편집·초기화할 수 있다.
 컴포넌트 목록의 `금융 차트 쇼케이스` 그룹에서는 캔들·거래량, SMA(20), RSI(14), MACD(12,26,9) 및 통합 조합을 각각 확인한다. 이 항목들은 `FinancialChart`의 구성 예제이며 별도 컴포넌트가 아니다. 카탈로그 예제는 명시적으로 가상 시세와 표시 확인용 지표 값을 사용하며 모델·서버를 호출하지 않는다. 실제 데이터 조회 계약은 TA-QUERY-001을 따른다.
 
@@ -101,26 +93,17 @@ checkpoint가 보유한 최신 presentation만 마지막 assistant에 복원하�
 기능 추가 이전에 source/graph_id가 없었던 thread는 목록에서 자동 분류하지 않는다.
 서버 재시작 후 보존 여부는 기존 PostgreSQL/checkpointer 설정을 따르며, 메모리 실행에서는 서버 종료 시 사라진다.
 
-[변경·검증 기록](../../../flow/2026-11-14-chat-history.md)
-
 ## CHAT-LAYOUT-002: /chat 통합 헤더
 
-`/langgraph-dev-chat`은 제목·그래프 선택·대화 기록·새 대화를 하나의 compact header에 배치한다. idle Ready띠와 반복 설명을 제거하고 agent별 한글 welcome을 표시한다. 빈 대화도 composer는 하단에 유지한다. 모바일은 header의 메뉴 열기 버튼을 사용하고 기존 전역floating trigger 중복을 숨긴다. compact header는 `/langgraph-dev-chat`에서만 사용한다. populated 대화에서도 header를 정상 문서 흐름에 두어 실제 높이만큼 공간을 확보한다. SEC 채팅은 기존 header와 composer를 유지하며 공통 컴포넌트 회귀 검증 대상으로 포함한다.
+`/langgraph-dev-chat`은 제목·그래프 선택·대화 기록·새 대화를 하나의 compact header에 배치한다. idle Ready띠와 반복 설명을 제거하고 agent별 한글 welcome을 표시한다. 빈 대화도 composer는 하단에 유지한다. 모바일은 header의 메뉴 열기 버튼을 사용하고 기존 전역floating trigger 중복을 숨긴다. 공통 ChatPage를 쓰는 FastAPI 채팅과 전용 화면도 같은 헤더를 사용한다. populated 대화에서도 header를 정상 문서 흐름에 두어 실제 높이만큼 공간을 확보한다. SEC 채팅은 기존 header와 composer를 유지하며 공통 컴포넌트 회귀 검증 대상으로 포함한다.
 
 ## CHAT-GRAPHS-001: 등록 graph discovery와 입력 모드
 
 기존 LangGraph SDK assistants search를100개씩 offset pagination하고 graph_id별 중복을 제거한다. 각 assistant의 input_schema를 조회하고 모든 graph를 표시한다. schema실패도 graph를 숨기지 않고 오류를 안내한다. 새로운알수없는graph도 기본JSON모드로 노출하므로 고정목록이 등록범위를 제한하지 않는다.
 
-starter_graph·simple_llm·technical_analysis_agent·technical_analysis_canvas_agent·sec_deep_agent는 기존 messages채팅을 사용한다. main_graph·price_agent·technical_analysis_graph·tenk_subgraph 및 미분류graph는 JSON객체·입력schema·편집가능예시와 원본values 결과를 제공한다. 내부계산필드까지UI필수입력으로강제하지않고 서버가실제계약을검증한다.
+`starter_graph`, `simple_llm`, `technical_analysis_agent`, `technical_analysis_canvas_agent`, `talib_agent`, `sec_deep_agent`, `sec_modeling_agent`, `price_agent`, `technical_analysis_graph`는 messages 채팅을 사용한다. `main_graph`, `tenk_subgraph` 및 미분류 그래프는 JSON 객체·입력 스키마·편집 가능한 예시와 원본 values를 제공한다.
 
 JSON실행은 새thread를 만들고 입력을변형없이runs.stream(values)로전달한다. 문법오류·배열/null은 전송하지않으며 streamerror·values없는종료를성공으로표시하지않는다. metadata의 run_id로 기존 runs.get을 조회해 status가 success인 경우에만 완료 처리한다. 결과는 100,000자까지 미리 보고 생략을 명시하며 전체 결과 복사는 원본 전체 JSON을 복사한다. 그래프/대화전환과 새실행은 이전요청을구분해늦은결과가섞이지않게한다. 실제시장·SEC·DB변경여부는 선택graph에따르며 자동실행하지않는다. SDK fetch 경계에서 취소 오류를 표준 AbortError로 정규화하여 이미 취소된 요청의 retry가 다음 실행을 막지 않게 한다. 일반 네트워크 retry 정책은 유지한다.
-
-[변경·검증](../../../flow/2026-11-14-chat-layout-all-graphs.md)
-
-
-## TA-CANVAS-001: 기존 보고서 Canvas 전환
-
-기존 custom canvas 이벤트 기반 자동 보고서 탭은 TA-CANVAS-003의 선택형 요소 Canvas로 대체했다. 서버 보고서는 대화 근거로 보존하고, 화면은 사용자가 추가한 CanvasItem만 표시한다. 아래 TA-CANVAS-003과 [도메인 시스템 설계](../../technical-analysis/system-design.md)를 현재 계약으로 따른다.
 
 ## CHAT-RUNTIME-002: 개발 및 FastAPI 채팅 분리
 
@@ -134,8 +117,7 @@ SDK stream은 `on_disconnect=continue`를 명시한다. metadata 및 공개 onRu
 
 실행 중인 history도 열 수 있다. 최신 run과 저장된 state를 1.5초 간격으로 조회하다 terminal 상태에서 멈추며 놓친 토큰을 재생하지 않는다. 저장된 메시지·도구 상태·JSON 결과와 Canvas 보고서를 복원한다. 닫은 탭은 같은 화면의 조회 갱신으로 되살리지 않고, runtime/page 전환과 unmount는 소유 조회를 정리한다. 기존 Canvas 무복원 제한은 이 저장 상태 재개 경로에 한해 대체한다.
 
-검증은 [통합 flow](../../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)에 기록한다. 사용자 승인 범위에 따라 브라우저/Storybook browser 검증은 수행하지 않는다.
-
+검증에는 [개발 채팅 입력 모드](../../../../1-fe-host/tests/e2e/development-graph-modes.spec.ts), [그래프 실행](../../../../1-fe-host/tests/e2e/chat-graphs.spec.ts), [대화 기록](../../../../1-fe-host/tests/e2e/chat-history.spec.ts)을 사용한다. 실제 개발 Host에서 그래프 ID·메시지·JSON 화면 전환을 MCP로 확인했다. POST payload는 통제 fixture에서 검증했다.
 
 ## TA-INDICATORS-002: 20개 지표와 다중 인스턴스
 
@@ -149,8 +131,7 @@ allowlisted `technical_analysis_catalog`는 해당 runtime의 `/technical-analys
 
 두 TA 화면의 재분석은 마지막 성공한 Query 인자만 사용한다. 인라인은 `analysis_request`, Canvas는 `canvas_context.request`로 ticker/interval/count와 인스턴스 전체 설정을 구조화해 전달한다. 단순 조회에는 LLM 실행이 없으며, 인라인 재분석은 새 대화 답변으로, Canvas 재분석은 새 report UUID로 표시한다. 기존 해석의 snapshot 경고는 유지한다.
 
-검증 기록은 [통합 flow](../../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)를 따른다. Story 정의는 추가하되 이번 사용자 승인 범위는 API와 정적 검사이며 Storybook/브라우저 실행은 사용자에게 남긴다.
-
+지표 컨트롤·조회 패널·차트는 [Storybook 금융 예제](storybook.md#openui-fin-story-002-lib-story-금융-v2-예제)와 [기술적 분석 검증 범위](../../technical-analysis/system-design.md#실행과-검증)를 따른다.
 
 ## OPENUI-CATALOG-SYNC-001: 생성 원본과 공통 prompt 일치
 
@@ -159,8 +140,6 @@ allowlisted `technical_analysis_catalog`는 해당 runtime의 `/technical-analys
 `pnpm -C 1-fe-host openui:check`는 OS 임시 디렉터리에서 현재 원본을 재생성한 뒤 FE txt/spec 및 Python prompt 사본을 바이트 단위로 비교한다. 저장된 파일을 수정하지 않으며 종료 시 임시 디렉터리를 정리한다. 빈 출력이나 불일치는 실패하고 기존 생성 명령을 안내한다. Host build는 이 검사를 먼저 실행하므로 최신 원본과 다른 생성 파일을 배포하지 않는다. 개발 서버의 매 요청에서 generator를 실행하지 않는다. 검사 회귀는 `pnpm -C 1-fe-host test:openui-sync`로 확인한다.
 
 OpenUI 컴포넌트 catalog와 Renderer의 Query toolProvider는 별도 계약이다. generate는 runtime handler를 등록하지 않는다. 현재 chart/catalog handler 등록이 포함된 최신 JS와 예전 탭의 번들은 다를 수 있으므로 오류에 Available: technical_analysis_chart만 보이면 현재 제공 JS와 열린 탭의 버전을 먼저 확인한다. 지표 catalog API는 20개 지표 정의를 반환하는 단일 조회 도구이며 컴포넌트 개수와 다르다.
-
-[변경·검증 기록](../../../flow/2026-11-16-openui-catalog-prompt-sync.md)
 
 ## TA-NAV-001: 기술적 분석 전용 진입과 OpenUI Lang
 
@@ -175,8 +154,6 @@ runtime/graph별 history 계약은 CHAT-RUNTIME-002를 따른다. 전용 화면�
 InlineAnalysis 안에서 렌더링하고 Canvas는 채팅의 검증된 program에서 사용자가 선택한 CanvasItem만 별도 패널에 추가한다. Canvas 프로그램은 검증 후 채팅에 표시하며 모델 없는 Query를 유지한다.
 일반 텍스트 요약·오류 fallback은 별도이므로 모든 메시지가 OpenUI DSL이라는 뜻은 아니다.
 
-[구현·검증 기록](../../../flow/2026-11-16-technical-analysis-dedicated-navigation.md).
-
 ### TA-STARTERS-001: 분석 시작 질문
 
 두 기술적 분석 그래프는 각각 12개의 시작 질문을 제공한다. 미국·한국 종목 및 ETF, 일봉·주봉,
@@ -184,18 +161,16 @@ InlineAnalysis 안에서 렌더링하고 Canvas는 채팅의 검증된 program�
 질문은 `chat/model/technicalAnalysisStarters.ts`에서 관리하며 인라인은 대화 내 차트,
 Canvas는 채팅 해석과 개별 추가 가능한 차트·표를 요청한다. 개발 채팅에서 같은 그래프를 선택해도 동일한 질문을 사용한다.
 지원 범위인 일봉·주봉·현재 20개 지표만 제안하며 엘리엇 파동·분봉·통합 매매 점수는 제안하지 않는다.
-[변경·검증](../../../flow/2026-11-16-technical-analysis-starter-questions.md).
 
 ### OPENUI-DEVTOOLS-001: 선택적 개발 진단 도구
 
-SDK가 development에서 자동 마운트하는 Inspect/배포 안내는 기본 비활성이다. OPENUI_DEVTOOLS=true를 설정하고 Host를 재시작하면 원래 도구를 활성화한다. Next Turbopack/webpack 공개 alias가 선택적 @openuidev/devtools만 no-op adapter로 교체하며 업무 응답·native renderer/parser는 보존한다. 실제 컴파일과 모듈 포함은 검증했고 브라우저 시각 검증은 생략했다. [회귀 기록](../../../flow/2026-11-16-sec-financial-basis-devtools-regression.md).
-
+SDK의 development Inspect·배포 안내는 기본 비활성이다. `OPENUI_DEVTOOLS=true`를 설정하고 Host를 재시작하면 활성화된다. Next Turbopack/webpack 공개 alias가 선택 의존성 `@openuidev/devtools`만 no-op adapter로 교체한다. 실제 Next 컴파일과 client chunk 포함을 확인했다.
 
 ## TA-CANVAS-003: CanvasItem과 Library Explorer
 
 `CanvasItem(id,title,children)`은 shared OpenUI catalog와 Library Explorer에 등록한다. `OutputView`에 `onCanvasAdd`가 있을 때만 `Canvas에 추가` 버튼을 표시한다. 이 콜백은 Canvas 전용 ChatPage에서 연결하고 다른 채팅에서는 children만 표시한다. 추출기는 선택한 children이 참조하는 선언과 Query를 보존하며 다른 요소의 Query는 가져오지 않는다.
 
-`onQueryStatusChange`는 chart의 loading/success/error를 전달한다. 최신 요청만 상태·성공 콜백을 갱신해 오래된 응답이 PDF 버튼을 잘못 활성화하지 않게 한다. 카탈로그 원본·생성 spec·Python prompt 사본은 기존 generate/check 스크립트로 동기화한다. 제품 범위와 저장 제한은 [기술적 분석](../../technical-analysis/system-design.md#ta-canvas-003-선택형-요소와-인용-문맥), 실행 증거는 [flow](../../../flow/2026-11-17-canvas-item-workspace.md)를 따른다.
+`onQueryStatusChange`는 chart의 loading/success/error를 전달한다. 최신 요청만 상태·성공 콜백을 갱신한다. 카탈로그 원본·생성 spec·Python prompt 사본은 generate/check로 동기화한다. 저장·인용·PDF는 [기술적 분석 Canvas 계약](../../technical-analysis/system-design.md#ta-canvas-003-선택형-요소와-인용-문맥)을 따른다.
 
 ## CHAT-STARTERS-002: 기능별 시작 질문
 
@@ -203,7 +178,7 @@ AI Chat 메뉴의 기술적 분석 인라인·Canvas, TA-Lib, SEC API Agent, SEC
 
 질문 구성은 각 페이지의 model에서 관리한다. 기술적 분석은 추세·모멘텀·변동성·거래량·시장별 예제를 제공하며 Canvas의 설명은 채팅에, 선택 가능한 UI 요소는 CanvasItem으로 요청한다. SEC 질문은 실제 제공된 조회·검색·수집·모델링 도구의 범위 안에서 작성한다. 데이터가 없으면 미수집·미모델링 상태를 구분하고 없는 근거를 만들지 않도록 요청한다. 일반 대화 그래프에도 별도 시작 질문을 제공하고 JSON 입력 그래프는 기존 실행 폼을 유지한다.
 
-이 변경은 질문 데이터와 표시 연결에 한정되며 도구 권한이나 서버 API를 확장하지 않는다. 새 OpenUI 컴포넌트가 없어 Library Explorer/catalog 재생성은 필요하지 않다. [검증 기록](../../../flow/2026-11-17-grouped-chat-starters.md)을 참조한다.
+시작 질문은 화면에 정의한 질문을 기존 전송 경로에 전달한다. 도구 권한은 서버 계약을 따른다.
 
 ## CHAT-GRAPH-MODE-002: 개발 그래프 이름과 메시지 입력
 

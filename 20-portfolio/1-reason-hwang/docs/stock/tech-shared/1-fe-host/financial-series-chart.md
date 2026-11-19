@@ -32,4 +32,4 @@ config = {title:"제공된 지표",series:[{id:"metric",type:"line",title:"지�
 
 `/open-ui/catalog`의 `financial · 금융` 탭은 기본 차트 유형, 축·마커·기준선, 시리즈 조합, 금융 컴포넌트, 기존 TA 쇼케이스로 나뉜다. 신규 항목은 범용 컴포넌트 설명 1개와 실행 조합 8개이며 지표 전용 예제도 포함한다. `FinancialSeriesChart` 또는 `financial`로 검색할 수 있다.
 
-[변경·검증 기록](../../../flow/2026-11-17-general-financial-chart-types.md).
+Chromium Storybook은 5종 시리즈, 좌우 축, 마커·가격선, 빈 값·오류·dark 테마를 검증한다. MCP에서는 카탈로그 예제 전환과 모바일 390px 렌더링을 가상 데이터로 확인했다.

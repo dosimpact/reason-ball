@@ -1,6 +1,5 @@
 # BFF 디렉터리 및 모듈 정책
 
-> 상태: 승인 및 구현. 2026-09-20 사용자 리뷰와 SSE 추가 결정 반영.
 > 정책 ID: BFF-DIR-001
 
 ## 1. 기본 원칙
@@ -12,17 +11,20 @@
 5. 공통 설정 서비스는 `src/shared/config.service.ts`에 둔다. 폴더마다 Module이나 재수출 index/proxy를 만들지 않는다.
 6. 기존 데이터·공시 원문·migration 이력은 보존한다. 불필요한 구조를 지우는 것과 데이터를 지우는 것은 구분한다.
 
-## 2. 목표 디렉터리
+## 2. 디렉터리
 
 ```text
 src/
 ├── main.ts
 ├── app.module.ts
 ├── shared/
-│   └── config.service.ts                 # 환경값 로딩·검증·제공
+│   ├── config.service.ts                 # 환경값 로딩·검증·제공
+│   └── logger.ts                         # Nest 로깅
 ├── lib/
 │   ├── dart/
 │   │   └── dart.client.ts                # DART 고정 upstream·외부 타입·JSON/ZIP 중계
+│   ├── sec-modeling/                     # 내부 모델링 HTTP client
+│   ├── sec-ixbrl/                        # 내부 iXBRL 추출 HTTP client
 │   └── sec/
 │       ├── sec.client.ts                 # SEC HTTP, 제한·재시도 및 외부 JSON 타입
 │       ├── sec.utils.ts                  # SEC 식별자·URL·원문 변환
@@ -36,6 +38,8 @@ src/
 ├── us-corporate-filings/
 │   ├── us-corporate-filings.module.ts     # 업무 provider 등록 한 곳
 │   ├── us-corporate-filings.controller.ts # 아래 업무 API 라우팅
+│   ├── sec-modeling.controller.ts        # 모델링 관리·분석
+│   ├── sec-ixbrl.controller.ts           # 저장 원문 iXBRL 조회
 │   ├── entity/
 │   │   ├── company.entity.ts             # TypeORM 회사
 │   │   ├── filing.entity.ts              # TypeORM 공시·원문
@@ -45,8 +49,10 @@ src/
 │   ├── service/
 │   │   ├── company.service.ts            # 회사 동기화 + 회사 조회
 │   │   ├── filing.service.ts             # 기업 공시 조회
-│   │   └── filing-backfill.service.ts    # 특정 기업 + 전체 기업 수집
-│   ├── migrations/                       # 기존 migration 파일 그대로 이동
+│   │   ├── filing-backfill.service.ts    # 특정 공시·기업·전체 기업 수집
+│   │   ├── sec-modeling.*.ts             # 모델링 실행·조회·저장
+│   │   └── sec-ixbrl.service.ts          # 저장 원문 조회·추출 호출
+│   ├── migrations/                       # PostgreSQL migration
 │   └── .docs/
 │       └── api-spec.md                   # 우리 BFF 공개 API 명세
 └── remote-delivery/
@@ -61,21 +67,22 @@ src/
 - DB 연결은 AppModule의 `TypeOrmModule.forRootAsync`, 업무 repository 등록은 UsCorporateFilingsModule의 `TypeOrmModule.forFeature`로 처리한다. 별도 사용자 정의 DatabaseModule을 만들지 않는다.
 - 설정 클래스와 SEC client는 필요한 모듈에서 직접 provider로 등록한다. 별도 ConfigModule/SecClientModule은 만들지 않는다. 설정은 bootstrap에서 한 번 검증하고 DI에 동일 snapshot을 제공하여 중복 파싱을 피한다.
 
-## 3. 남길 업무 API
+## 3. 업무 API
 
-공통 prefix는 `/api/sec`. 수집 API 경로는 직전에 합의한 이름을 우선 유지한다.
+공통 prefix는 `/api/sec`다.
 
 | 업무 | 메서드·경로 | 서비스 | 책임 |
 | --- | --- | --- | --- |
 | 회사 동기화 | `POST /company-sync-jobs` | CompanyService | SEC 회사 정보를 DB에 동기화 |
 | 회사 조회 | `GET /companies?page=1&pageSize=...` | CompanyService | 검색·페이지네이션, 최대 100000, limit 호환 |
+| 전체 기업·공시 원문 집계 | `GET /overview` | FilingService | 전체·티커 기업 수와 양식별 공시·원문 집계 |
 | 기업 공시 조회 | `GET /filings?cik=...&page=1&pageSize=...` | FilingService | 기업별 공시 목록; 선택적으로 원문 포함 |
 | 단일 원문 조회 | `GET /filings/:cik/:accessionNo/content` | FilingService | 저장 원문 직접 반환 |
 | 단일 공시 수집 | `POST /filings/:cik/:accessionNo/download-jobs` | FilingBackfillService | 접수번호로 지정한 공시 하나 다운로드 또는 실패 재시도, SSE |
 | 특정 기업 공시 backfill | `POST /company-filing-sync-jobs` | FilingBackfillService | 지정 기업의 기간 내 공시자료 수집·SSE |
 | 전체 기업 공시 backfill | `POST /all-company-filing-sync-jobs` | FilingBackfillService | 전체 기업의 기간 내 공시자료 일괄 수집·SSE |
 
-수집 업무 API는 위 7개로 정리한다. 모델링 API는 아래 SEC-MODELING-001 확장을 따른다. 메타데이터 수집 → 단일 공시 다운로드 또는 범위 백필의 작업은 SSE로 보고한다.
+모델링과 자체 iXBRL 조회는 [도메인 문서 지도](../../us-corporate-filings/INDEX.md)에서 관리한다. 단일 공시 다운로드와 범위 백필은 SSE로 진행 상태를 보고한다.
 
 ### 수집 범위의 의미
 
@@ -86,26 +93,9 @@ src/
 - 메타데이터를 먼저 수집한 후 원문을 다운로드한다. `downloadDocuments` 기본 true, false이면 원문 단계를 건너뛴다. 이미 downloaded인 원문은 보존하고 failed는 재실행 시 다시 시도한다.
 - 기업 공시 조회는 원본·수정본 연결 정보를 기본 포함한다(SEC-AMEND-001). 별도 병합 서비스나 Entity는 만들지 않는다. 기본적으로 원문 없이 반환하고, `includeContent=true`일 때 저장된 원문을 포함한다. 기존 원문 응답 용량 제한은 유지한다.
 
-## 4. 제거·통합 대상
+## 4. SSE 계약
 
-| 현재 구조 또는 API | 목표 |
-| --- | --- |
-| CompaniesSyncModule, FilingsCollectorModule, SecClientModule, ConfigModule, DatabaseModule | 업무 모듈 하나 + AppModule의 framework 설정으로 통합 |
-| api / companies / filings / domain / integrations / persistence의 다중 계층 | controller / entity / service와 외부 lib 경계로 정리 |
-| FilingsQueryService | FilingService에 통합 |
-| 별도 메타데이터 수집·다운로드·retry 서비스 경계 | FilingBackfillService의 내부 작업 단계로 통합 |
-| 여러 request pipe 파일 | DTO 가까이 검증 정의; 꼭 필요한 경우 단일 검증 helper만 사용 |
-| re-export proxy 파일 | 삭제하고 실제 파일 직접 참조 |
-| downloaded-reports API | 기업 공시 조회의 원문 포함 옵션으로 통합 |
-| filing-download-jobs / filing-retry-jobs API | backfill 내부 작업으로 통합 |
-| status-summary / parser-status API | 삭제. 저장된 parserStatus는 보존하고 공시 조회로 확인. 저장소 내 호출자 없음 |
-| backfill latest / run / verification 전용 API | 삭제. 백필 POST SSE 진행 이벤트로 대체 |
-
-단순히 파일을 합쳐 거대 서비스 하나를 만들지 않는다. 서비스 내 함수는 동기화·선택·저장 등 업무 단계로 유지하고, SEC 전용 전송·파싱은 lib에 둔다. 파일을 추가할 때는 독립 책임이나 실제 재사용이 있어야 한다.
-
-## 5. 승인된 SSE 계약
-
-- 백필 POST 2개는 HTTP 200 `text/event-stream`을 반환한다. `started` → `progress` → `completed` 또는 `error` 순서다. 진행 phase는 `archive`(전체 기업만), `metadata`, `documents`다.
+- 단일 공시 다운로드와 백필 POST는 HTTP 200 `text/event-stream`을 반환한다. `started` → `progress` → `completed` 또는 `error` 순서다. 진행 phase는 `archive`(전체 기업만), `metadata`, `documents`다.
 - 검증 실패는 스트림 시작 전 HTTP 400. 스트림 시작 후 실패는 `error` 이벤트의 statusCode/message로 알린다. 200만으로 성공을 판정하지 않는다. completed의 failed 수가 0보다 크면 일부 원문 수집이 실패한 것이다.
 - 별도 runId·작업 Entity·GET 상태 조회·자동 재연결은 없다. 재실행은 기존 filings를 이용하며 완료 원문을 건너뛴다.
 - 연결이 끊기면 다음 진행 보고 시 작업을 중단한다. 이미 진행 중인 SEC 요청·DB 배치는 끝날 수 있다. SSE heartbeat는 15초 간격이다.
@@ -113,14 +103,12 @@ src/
 - 전체 기업 백필 중복 실행은 한 프로세스 내에서 제한한다. 분산 작업 잠금·영구 작업 이력·재시작 자동 복구는 구현하지 않는다.
 - 기간은 기본 20년·최대 30년이며 기존 지원 범위 10-K/10-Q/8-K와 수정공시를 유지한다. ‘전체 기업’은 DB에 티커가 있는 회사로 제한한다.
 
-## 6. 검증과 운영
+## 5. 검증과 운영
 
 - `pnpm --filter @reason-hwang/bff-apps test`, `lint`
 - `pnpm --filter @reason-hwang/bff-apps test:companies:e2e`, `test:filing-routes:e2e`: 격리 PostgreSQL과 실제 Nest HTTP, 외부 SEC만 fixture.
 - Swagger에서 실제 클릭·입력·실행을 MCP로 검증한다.
 - 실제 SEC 전체 동기화·백필은 명시적으로 요청된 경우 수행하며 실행 로그는 무시되는 runtime data 경로에 기록한다.
-
-구현·검증·실행 기록: [BFF 단순화 및 SSE](../../../flow/2026-09-20-bff-simplification-sse.md).
 
 ## SEC-TICKER-SCOPE-001: 전체 백필의 티커 제한
 
@@ -130,7 +118,7 @@ POST /all-company-filing-sync-jobs는 실행 시작 시 DB companies에서 ticke
 
 ## 개발·검증 빌드 출력 분리
 
-`pnpm dev`는 tsconfig.dev.json을 사용해 dist-dev/에 출력한다. 일반 build 및 테스트는 dist/를 사용한다. Nest deleteOutDir이 다른 프로세스의 실행 파일을 삭제하지 않도록 출력과 incremental 캐시를 분리한다. 설정 변경 전부터 실행 중인 watch는 한 번 재시작한다. 두 출력 디렉터리는 커밋하지 않는다.
+`pnpm dev`는 tsconfig.dev.json을 사용해 dist-dev/에 출력한다. 일반 build 및 테스트는 dist/를 사용한다. Nest deleteOutDir이 다른 프로세스의 실행 파일을 삭제하지 않도록 출력과 incremental 캐시를 분리한다. 두 출력 디렉터리는 커밋하지 않는다.
 
 ## BFF-LOG-001: Winston 로깅
 

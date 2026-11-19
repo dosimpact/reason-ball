@@ -31,7 +31,7 @@
 
 공시 출처·원문 인용·분석 범위는 생성 UI와 독립된 `sec.evidence`로 표시한다. 차트에는 기간과 단위를 명시하며 제공된 수치 또는 명시적인 계산만 사용하도록 지시한다. 파서 검사는 문법·컴포넌트 계약 검사이며 모든 수치의 의미적 정확성을 자동 보증하지 않는다. `@ToAssistant`는 후속 메시지를 보내고, 반응형 상태는 차트 유형 등의 화면 전환에 사용한다.
 
-카탈로그 변경 후 `pnpm -C 1-fe-host sec-ui:generate`로 프런트 명세와 Python 프롬프트를 함께 갱신한다. Python의 `SEC_CHAT_UI_VALIDATOR_URL` 기본값은 `http://127.0.0.1:2800/api/sec-ui/validate`다. 배포 환경에서는 Python에서 접근 가능한 프런트 주소를 지정해야 한다.
+카탈로그 변경 후 `pnpm -C 1-fe-host sec-ui:generate`로 프런트 명세와 Python 프롬프트를 함께 갱신한다. 로컬 포트 프로필은 `SEC_CHAT_UI_VALIDATOR_URL=http://127.0.0.1:2983/api/sec-ui/validate`를 사용한다. 설정을 생략하면 코드 기본값은 2800이다. 배포 환경에서는 Python에서 접근 가능한 프런트 주소를 지정한다.
 
 ## SEC-DEEP-001~003 공통 SEC tools와 독립 Deep Agent
 
@@ -39,7 +39,7 @@
 
 기업 검색은 `domains/sec_tools/lookup.py`에서 모델 없이 기존 StructuredTool을 직접 호출하며 HTTP GET `/companies`도 이 경로를 사용한다. `agent.search_companies`는 호환 진입점이다. 확정 CIK의 `/prepare`는 아래 SEC-PREPARE-001에 따라 모델 호출 없이 기존 도구를 순서대로 실행한다. 검색 결과·공시 식별자·본문은 실제 tool artifact에서 가져온다. `/prepare`는 `toolCalls` 이름 목록을 추가 반환한다. 대상 CIK 범위와 refresh 정책을 실행 시 검증하며, 프런트의 resolve→prepare→chat 연결과 최종 분석 그래프는 유지한다.
 
-독립 `graph/primary_graphs/sec_deep_agent/workflow.py`는 `create_deep_agent`를 사용한다. `langgraph.json`의 graph ID는 `sec_deep_agent`다. LangGraph 개발 서버에서는 표준 messages 입력을 받는다. 현재 FastAPI의 고정 표준 호환 graph registry와 별도로 `/api/sec-deep-agent/research`를 제공한다. 이 endpoint는 `{message, history?}` 입력에 `{report, toolCalls, sources}`를 반환하며 SEC Chat threadId는 사용하지 않는다. Accept SSE이면 RUN_STARTED → sec.activity → sec.report → RUN_FINISHED 또는 RUN_ERROR다. 호출당 900초·recursion_limit=80이다. 기존 채팅의 lookup·prepare·확정 수집에는 모델 loop가 없다.
+독립 `graph/primary_graphs/sec_deep_agent/workflow.py`는 `create_deep_agent`를 사용한다. `langgraph.json`의 graph ID는 `sec_deep_agent`다. LangGraph 개발 서버에서는 표준 messages 입력을 받는다. FastAPI graph registry에서도 같은 graph ID로 실행할 수 있다. 전용 HTTP 경로는 `/api/sec-deep-agent/research`다. 이 endpoint는 `{message, history?}` 입력에 `{report, toolCalls, sources}`를 반환하며 SEC Chat threadId는 사용하지 않는다. Accept SSE이면 RUN_STARTED → sec.activity → sec.report → RUN_FINISHED 또는 RUN_ERROR다. 호출당 900초·recursion_limit=80이다. 기존 채팅의 lookup·prepare·확정 수집에는 모델 loop가 없다.
 
 Deep Agent는 계획·가상 파일·기본 위임 도구를 사용할 수 있다. 기본 파일은 실행 상태이며 호스트 파일로 저장되지 않는다. 리포트는 Markdown이며 독립 endpoint에서 OpenUI를 강제로 생성하지 않는다. 기존 SEC Chat은 OpenUI를 유지한다. 독립 리포트의 sources는 메인 그래프가 목록 조회하고 원문을 읽은 공시로 제한한다. 기존 SEC Chat의 구절 ID 기반 인용 검증과 달리 독립 리포트의 모든 인용·계산을 자동으로 검증하는 기능은 아직 없다. 전체 기업 수집은 사용자가 전체 수집을 명시했을 때만 선택하도록 tool 설명과 시스템 지시에 명시했다.
 
@@ -58,7 +58,7 @@ Deep Agent는 계획·가상 파일·기본 위임 도구를 사용할 수 있�
 - 전체 원문 artifact를 파싱하며 활동 화면용 발췌로 분석 근거를 잘라내지 않는다. checkedAt=null(저장본)과 동기화 완료 시각을 구분한다. 모든 준비가 끝난 뒤에만 세션을 생성한다.
 - SSE의 SecReadError는 JSON과 동일한 공시 준비 오류 내용을 표시한다. 기타 예외는 공통 오류로 처리한다. 단계 로그는 도구명·예외 클래스, transport 로그는 run ID·예외 클래스만 남긴다. 취소와 실패는 성공으로 바꾸지 않는다.
 
-검증: `tests/test_sec_prepare.py`, `bruno-api-tests/32-sec-prepare/`. [변경·실제 사이트 검증 기록](../../../flow/2026-11-17-sec-prepare-deterministic.md).
+검증: `tests/test_sec_prepare.py`, `bruno-api-tests/32-sec-prepare/`. 실제 SEC 연구 채팅에서 반복 준비와 완료 타임라인을 확인했다.
 
 ## SEC-COLLECT-002 확정 수집 요청의 단일 도구 실행
 
@@ -68,7 +68,7 @@ SelectedSyncInput으로 `ciks=[CIK]`, tickers=[], 요청 years/since, downloadDo
 
 완료에는 실제 SSE completed, nonnegative integer counters(불리언 제외), companiesProcessed=1, failed=0, checkedAt이 모두 필요하다. 새 다운로드0건은 그 자체로 실패가 아니다. 결과 없이 종료된 stream·upstream error·부분 실패·비정상 counters는 거부한다. 취소/연결 오류는 전파하며 정상 완료로 바꾸지 않는다. JSON/SSE 양쪽에 안전한 SecReadError 설명을 전달하고 서버 로그에는 예외 클래스와 SSE run ID만 기록한다. 실패 후 대화형 설명 계약은 아래 SEC-FAILURE-REPLY-001을 유지한다.
 
-검증: `tests/test_sec_collection.py`, `tests/test_sec_tools.py`, `bruno-api-tests/34-sec-collection/` 및 [실제 사이트 기록](../../../flow/2026-11-17-sec-collection-deterministic.md). 수집은 기존 분석 세션을 만들거나 덮어쓰지 않는다.
+검증: `tests/test_sec_collection.py`, `tests/test_sec_tools.py`, `bruno-api-tests/34-sec-collection/` 및 실제 SEC 연구 채팅의 NVIDIA 10-K 수집. 수집은 기존 분석 세션을 만들거나 덮어쓰지 않는다.
 
 ## SEC-FAILURE-REPLY-001 별도 실패 설명 API
 
@@ -78,7 +78,7 @@ SelectedSyncInput으로 `ciks=[CIK]`, tickers=[], 요청 years/since, downloadDo
 
 프롬프트는 단계의 의미와 알려진 관찰 범주만 설명하도록 제한한다. prepare는 저장 SEC10-K의 검색·원문 준비이며 SEC에 제출하는 기능이 아니다. 질문·기업은 비신뢰 데이터이고, 더 깊은 장애 원인·기업 사실·분석 수치·수집 성공은 생성하지 않도록 지시한다. 이 설명은 검증된 연구 결과를 대신하지 않는다. 기존 실패 endpoint의 상태/오류 종료와 새 설명 endpoint의 성공 응답은 별개다.
 
-검증: `tests/test_sec_failure_reply.py`, `bruno-api-tests/33-sec-failure-reply/`, 전용 HTTP fixture. [실행 기록](../../../flow/2026-11-17-sec-failure-replies.md).
+검증: `tests/test_sec_failure_reply.py`, `bruno-api-tests/33-sec-failure-reply/`, 전용 HTTP fixture. 실제 브라우저에서 모델 설명과 기본 안내를 확인했다.
 
 
 ## SEC-RESEARCH-MODELING-001: 기존 Research Chat의 게시 모델링 조회
@@ -101,4 +101,4 @@ DI: `build_graph(..., modeling_client=...)`는 실제 BFF client 경계만 대�
 
 `pnpm -C 3-langgraph-fast validate:sec-starters --output-dir /tmp/sec-starters`는 Host의24개 시작 질문을 읽고 실제 resolve→prepare→chat 또는 collect를 검증한다. 프로그램은 실제 Host parser로 검사한다. 회사·Item·출처·인용·수집 범위/완료를 확인하며 자기 세션을 finally에서 삭제한다. 실제 수집3건을 포함하므로 명시한 대상 환경을 확인하고 실행한다. 재개는 sourceHash/baseUrl별 최신 기록을 사용하고 `--rerun`, `--indices`, `--stop-on-failure` 및 출력 디렉터리의 PAUSE 파일을 지원한다.
 
-회귀: `tests/test_sec_lookup.py`, `tests/test_sec_starter_context.py`, `tests/test_sec_starter_validation.py`, `bruno-api-tests/35-sec-starters/`. [변경·검증 기록](../../../flow/2026-11-17-sec-starters-regression.md).
+회귀: `tests/test_sec_lookup.py`, `tests/test_sec_starter_context.py`, `tests/test_sec_starter_validation.py`, `bruno-api-tests/35-sec-starters/`. 24개 대표 질문의 HTTP 회귀와 근거·공시 표기 시나리오의 실제 브라우저 확인을 수행했다.

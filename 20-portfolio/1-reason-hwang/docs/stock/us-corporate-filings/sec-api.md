@@ -55,7 +55,7 @@
     - `primaryDocument`: `["aapl-20250927.htm", ...]`
     - `primaryDocDescription`: `["10-K", ...]`
 - **정규화 및 저장**:
-  - 대상 서식(`10-K`, `10-Q`) 및 수집 기준일(`sinceDate`) 필터링.
+  - 대상 서식(`10-K`, `10-Q`, `8-K` 및 각 `/A` 정정 공시) 및 수집 기준일(`sinceDate`) 필터링.
   - `filings` 테이블에 `accession_no`를 키로 `pending` 상태 저장.
 
 ---
@@ -63,7 +63,7 @@
 ### 2.3. 대량 공시 메타데이터 일괄 백필 (`submissions.zip`)
 - **URL**: `https://www.sec.gov/Archives/edgar/daily-index/bulkdata/submissions.zip`
 - **특징**: SEC EDGAR에서 매일 밤(nightly) 갱신하는 전체 기업의 submissions JSON을 담은 압축 파일(수백 MB ~ 수 GB 단위).
-- **용도**: 과거 다년간(최대 20년)의 공시 데이터를 단일 파일 스트리밍/압축 해제를 통해 로컬 DB에 고속 동기화하여, 수만 번의 개별 API 호출을 방지.
+- **용도**: 과거 다년간(기본 20년, 설정 범위 1~30년)의 공시 데이터를 단일 파일 스트리밍/압축 해제를 통해 로컬 DB에 고속 동기화하여, 수만 번의 개별 API 호출을 방지.
 
 ---
 
@@ -88,6 +88,6 @@
    - 본 시스템은 `SecClientService` 내부의 `throttleQueue` 및 타임스탬프 기반 대기를 통해 직렬화된 딜레이(최소 100ms 이상 간격)를 강제합니다.
    - 초과 시 **429 Too Many Requests**가 발생하며 일시적 IP 차단 위험이 있습니다.
 3. **다운로드 크기 제한**:
-   - 악의적이거나 비정상적인 대용량 파일 유입을 방지하기 위해 기본 최대 20MB(`secDocumentMaxBytes`) 크기 제한을 적용합니다.
+   - 악의적이거나 비정상적인 대용량 파일 유입을 방지하기 위해 기본 최대 32 MiB(`SEC_DOCUMENT_MAX_BYTES`) 크기 제한을 적용합니다.
 
 현재 BFF 전송·타입 계약은 [lib SEC 명세](../../../2-bff-apps/src/lib/sec/.docs/api-spec.md)를 따른다. 원문은 ZIP과 별도 수집하며 백필은 SSE로 진행을 보고한다.

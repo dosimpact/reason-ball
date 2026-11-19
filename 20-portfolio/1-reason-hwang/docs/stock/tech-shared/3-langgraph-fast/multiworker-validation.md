@@ -1,6 +1,6 @@
 # Multiworker 실행 검증 계약
 
-결정 ID: LG-OSS-MULTI-001. 구현·운영 설정의 원본은 [FastAPI runtime](fastapi-runtime.md)과 DB saver 문서를 따른다. 이 문서는 검증 경계와 재현 방법의 원본이다. 실행 결과는 [구현·검증 flow](../../../flow/2026-11-16-fastapi-postgres-multiworker-implementation.md)에 기록한다.
+결정 ID: LG-OSS-MULTI-001. 구현·운영 설정의 원본은 [FastAPI runtime](fastapi-runtime.md)과 [DB saver](3-langgraph-db-saver.md)를 따른다.
 
 ## 실제 경로와 격리
 
@@ -26,6 +26,10 @@ schema는 공식 `python -m infrastructure.postgres.runtime_migration --bootstra
 | 기존 계약 | 현재 등록 graph 전체 schema, 실제 SDK 오류 뒤 checkpoint와 후속 turn, Canvas report UUID/custom ready/검증된 OpenUI 보존 |
 
 두 manager를 같은 Python 프로세스에서 만든 테스트는 위2OS 기준을 대체하지 않는다. 독립 adapter/test guard의 실제 PG 검증, 생산 RuntimeQueue의 실제 PG 검증, 실제2OS HTTP 검증을 각각 기록하고 개수를 중복 합산하지 않는다.
+
+## 확인 범위
+
+두 OS 프로세스의 HTTP/SDK 인수 시나리오 13묶음과 Bruno 11개 요청을 검증했다. 실제 PostgreSQL 검사에는 생산 queue의 lease 경합·fencing과 알림 누락·재연결이 포함된다. 공식 migration 명령의 반복 실행과 두 worker의 동시 초기 기동도 확인했다. 운영 서비스 전환과 기본 10/10 용량에서의 부하 시험은 미수행이다.
 
 ## 실행 선택과 증거
 

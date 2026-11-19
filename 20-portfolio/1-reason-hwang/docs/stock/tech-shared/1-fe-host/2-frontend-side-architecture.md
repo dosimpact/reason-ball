@@ -292,37 +292,29 @@ Host의 FastAPI 프록시는 2981, `REMOTE_BFF_URL`은 BFF 2980이다.
 `REMOTE_BFF_URL`을 읽어 개발·preview 포트와 BFF 경유 asset origin을 설정한다.
 전체 계약은 [Workspace](../workspace.md#local-ports-002-애플리케이션-포트-프로필)를 따른다.
 
-
 ## HOST-NAV-001: 사이드바 그룹
 
-Langgraph dev chat의 주소는 `/langgraph-dev-chat`이며 기존 `/chat`은 새 주소로 리다이렉트한다. Host 사이드바는 Overview(Home), Remote Apps(Template·Todo), AI Chat(기술적 분석 인라인·기술적 분석 Canvas·SEC API Agent·SEC Research Chat), Debugging(Langgraph dev chat·FastAPI 채팅), Generative UI(UI Demos·OpenUI Lang Catalog·OpenUI Gallery)로 구성한다. 카탈로그는 직접 진입할 수 있다. URL은 기존 경로를 유지한다. 경로 구간이 일치하는 항목 중 가장 구체적인 경로 하나만 활성화하여 카탈로그에서 UI Demos가 동시에 선택되지 않게 한다. 접힌 상태의 아이콘·툴팁과 모바일 Sidebar 동작은 공통 Sidebar를 따른다.
+개발 채팅의 주소는 `/langgraph-dev-chat`이며 `/chat`은 이 경로로 리다이렉트한다. 사이드바는 Overview(Home), Remote Apps(Template·Todo), Operations(SEC 수집 관리·SEC 모델링 관리·DART API Testing), AI Chat(기술적 분석 인라인·Canvas, TA-Lib, SEC API Agent·Intelligent Research·Modeling), Debugging(Langgraph dev chat·FastAPI 채팅), Generative UI(UI Demos·OpenUI Lang Catalog·OpenUI Gallery)로 구성한다. 현재 URL의 경로 구간과 일치하는 항목 중 가장 구체적인 경로 하나를 활성화한다.
 
 기술적 분석 전용 경로는 `/technical-analysis`(인라인)와 `/technical-analysis/canvas`(Canvas)다.
 각 화면은 FastAPI 런타임의 `technical_analysis_agent`·`technical_analysis_canvas_agent` 하나로 고정되며 그래프 선택기는 표시하지 않는다. 대화·기록·실행 상태·취소와 차트/카탈로그 Query는 `/api/fastapi-langgraph`를 사용한다. 기존 개발 런타임 기록은 자동 이관하지 않는다.
 대상 그래프가 미등록이면 오류·목록 재시도를 제공하고 다른 그래프로 대체 실행하지 않는다.
 기존 `/langgraph-dev-chat`의 전체 그래프 선택 기능과 runtime·graph별 기록은 유지한다.
 모바일은 채팅 헤더의 메뉴 열기를 사용하며 메뉴 링크 선택 후 Sidebar를 닫는다.
-[전용 메뉴 구현·검증](../../../flow/2026-11-16-technical-analysis-dedicated-navigation.md).
-
-[변경 및 검증](../../../flow/2026-11-14-host-navigation-groups.md)
-
 
 ## OPENUI-CHAT-DS-001: 공통 채팅 디자인 시스템
 
 `shared/ui/agent-conversation`의 AgentChatFrame이 SEC API Agent·SEC Intelligent UI·Chat·Generative UI의 화면 프레임, 헤더, Welcome, Composer, 새 대화·기록 액션, 상태·오류, 간격·반응형·테마·스크롤을 소유한다. native AG-UI와 기존 domain controller는 동일한 화면을 사용하며 전송 어댑터만 다르다. 페이지는 toolbar/status/footer와 메시지 renderer 슬롯으로 그래프 선택·공시 근거·추천·차트·revision action을 연결한다. 페이지별 프레임 CSS와 중복 헤더는 만들지 않는다. 상세 계약은 [공통 채팅 설계](open-ui.md#openui-chat-ds-001-공통-채팅-디자인-시스템)를 따른다.
-
 
 ## HOST-HEADER-001: Host 공통 헤더 제거
 
 RootLayout은 사이드바·테마 Provider·SidebarInset과 `min-h-svh` 콘텐츠 영역만 조립한다. SidebarInset 위의 Host 공통 `h-14` 헤더와 그 안의 브랜드 설명·토글은 제공하지 않는다. 각 앱 페이지 또는 공통 AgentChatFrame이 필요한 화면 헤더를 소유하므로 Host가 추가 헤더 높이와 콘텐츠 padding을 강제하지 않는다.
 
 - 데스크톱: 테마 토글과 사이드바 접기 토글을 Host 사이드바 footer에서 제공한다.
-- 모바일: `widgets/host-navigation`의 `MobileSidebarTrigger`가 화면 왼쪽 아래에 고정된 내비게이션 열기 버튼을 제공하며 `md:hidden`으로 데스크톱에서는 숨긴다. 모바일 사이드바를 연 뒤 동일한 footer에서 테마를 바꾼다.
+- 모바일: 공통 ChatPage는 채팅 헤더의 메뉴 버튼을 사용한다. 다른 화면은 `widgets/host-navigation`의 왼쪽 아래 고정 `MobileSidebarTrigger`를 사용한다. 모바일 사이드바에서도 footer에서 테마를 바꾼다.
 - 채팅: 공통 `agent-conversation`의 높이는 `100svh`다. 삭제한 Host 헤더 높이를 viewport에서 차감하지 않으며 내부 메시지 스크롤과 Composer 배치는 공통 채팅 프레임이 소유한다.
 
-[변경 및 검증 기록](../../../flow/2026-11-14-host-header-removal.md)
-
-Host CLI·Turbopack 실행 변경과 검증은 [HOST-DEV-CLI-001 기록](../../../flow/2026-11-14-next-turbopack-cli.md)을 따른다.
+Host 실행 명령과 포트는 [로컬 환경 설정](#local-ports-002-hostremote-환경-설정)을 따른다.
 
 ## SEC-COLLECTOR-001: SEC 운영 화면
 
@@ -343,7 +335,7 @@ Host CLI·Turbopack 실행 변경과 검증은 [HOST-DEV-CLI-001 기록](../../.
 
 `shared/api`의 bounded HTTP 검사 transport를 수집 화면과 재사용한다. 각 도메인의 fixed-preset validator를 거쳐 호출하며 1Mi문자/1000events 한도를 표시한다. `shared/lib/hooks`는 페이지 인스턴스별 request lock을 제공한다. 페이지 사이에 전역 실행 상태를 공유하지 않는다.
 
-`pnpm -C 1-fe-host test:sec-modeling`과 `test:sec-modeling:views`가 단위·Storybook 검증 명령이다. `SEC_MODELING_TEST_BASE=http://127.0.0.1:3980 pnpm -C 1-fe-host test:sec-modeling:api`는 명시적으로 소유한 fixture 서버에서만 HTTP executor를 확인하며 주소 guard가 있다. 이번 변경의 브라우저/Storybook 실행은 사용자 지시에 따라 미실행이다. 실제 API/정적 검사와 통합 상태는 [SEC 모델링 계약](../../us-corporate-filings/sec-modeling.md) 및 dated flow를 따른다.
+[모델링 단위 테스트](../../../../1-fe-host/tests/sec-modeling)와 [API Testing Storybook](../../../../1-fe-host/src/_pages/sec-modeling/ui/ModelingApiTesting.stories.tsx)이 각각 요청·응답 파싱과 화면 상태를 다룬다. 실제 API 검증 범위는 [SEC 모델링 계약](../../us-corporate-filings/sec-modeling.md)을 따른다.
 
 ## DART-FE-001: Open DART API Testing
 
@@ -418,7 +410,6 @@ URL 또는 실행 코드를 메시지로 받지 않는다. 정제 DOM의 fact ID
 
 Chat 그래프 선택기는 등록된 그래프의 역할과 입력 방식을 선택 항목 아래에 표시한다. 미등록 그래프는 설명이 없다는 안내를 표시하며 실제 목록은 실행 서버에서 조회한다.
 
-
 ### CHAT-RUNTIME-002: 런타임 주입형 채팅
 
 `app/fastapi-chat`는 기존 `_pages/chat` 공개 진입점의 FastAPI 변형을 export한다. 별도 도메인 화면 복제 없이 `model/runtime.ts`의 고정 context로 provider의 SDK URL·history namespace·차트 Query endpoint·헤더를 함께 선택한다. 개발 채팅은 2982, FastAPI 채팅과 두 기술적 분석 전용 화면은 2981이며 자동 fallback하지 않는다. runtime별 proxy는 `_app/api`가 소유한다. 실행 취소·저장 상태 재조회는 `api`에, 화면 상태·Canvas 복원은 `model`에 둔다. 상세 계약은 [Host OpenUI](open-ui.md#chat-runtime-002-개발-및-fastapi-채팅-분리)를 따른다.
@@ -427,8 +418,7 @@ Chat 그래프 선택기는 등록된 그래프의 역할과 입력 방식을 �
 
 AI Chat의 `SEC Modeling Chat`은 `/sec-modeling-chat`에서 공용 ChatProvider/ChatPage를 재사용한다. 별도 route 모듈이 `fastApiChatRuntime`과 `fixedGraphId="sec_modeling_agent"`를 전달하므로 선택기를 표시하지 않고2981 FastAPI의 graph discovery·실행·이력·도구 상태를 사용한다. graph 누락 시 기존 명시 오류·재조회 동작을 유지하며 개발 runtime이나 다른 graph로 대체하지 않는다. 모바일 메뉴 트리거도 전용 채팅 헤더를 사용한다.
 
-`/sec-chat`의 원문 Item 인용과 게시 모델링 근거는 분리한다. `sec.evidence.modeling`의 선택된 sources만 QName·값·원문 값·기간·단위·공시/근거 ID·근거 텍스트로 표시한다. `empty`·`unavailable`은 공시 부재와 구분하고 limitations를 함께 표시한다. 단위 JSON은 구조화된 읽기용 표기로 바꾸며 raw JSON·실행 HTML을 표시하지 않는다. 회귀 Story 정의는 추가하되 이번 작업은 사용자 지시에 따라 브라우저·Storybook 실행을 생략한다.
-
+`/sec-chat`의 원문 Item 인용과 게시 모델링 근거는 분리한다. `sec.evidence.modeling`의 선택된 sources만 QName·값·원문 값·기간·단위·공시/근거 ID·근거 텍스트로 표시한다. `empty`·`unavailable`은 공시 부재와 구분하고 limitations를 함께 표시한다. 단위 JSON은 구조화된 읽기용 표기로 바꾸며 raw JSON·실행 HTML을 표시하지 않는다. 회귀 Story 정의는 추가하되 모델링 근거 표시의 브라우저·Storybook 실행은 사용자가 별도 수행하도록 지정한 범위다.
 
 ## OPENUI-FOLDERS-001: 컴포넌트별 관련 파일 배치
 
@@ -439,13 +429,9 @@ AI Chat의 `SEC Modeling Chat`은 `/sec-modeling-chat`에서 공용 ChatProvider
 - `library.ts`, `OutputView.tsx`, `actions.ts`, `query-tools.ts` 등 여러 컴포넌트를 연결하는 공통 진입·실행 코드는 intelligent-ui 루트에 유지한다.
 - 기존 공개 `index.ts` export와 OpenUI 컴포넌트 이름·인자 계약은 유지한다. 테스트 탐색은 하위 폴더까지 포함한다.
 
-[이동과 검증 기록](../../../flow/2026-11-17-openui-component-folders.md).
-
-
 ## OPENUI-COMPOSE-001: 생성 프롬프트 예시
 
-`intelligent-ui/library.ts`는 `promptOptions`를 내보낸다. 설치된 SDK의 examples는 createLibrary 직접 속성이 아닌 prompt 옵션이다. `openui generate`가 이 export를 자동 인식해 금융·Canvas 그룹의 `prompt-examples.ts`와 additionalRules를 공통 생성 프롬프트에 포함한다. 예시의 ticker·ID·숫자는 실제 근거가 아니며 모델은 서버가 제공한 값으로 대체한다. 런타임 렌더러·Query allowlist는 유지한다. [생성·검증 계약](../3-langgraph-fast/open-ui.md), [변경 기록](../../../flow/2026-11-17-openui-llm-composition.md).
-
+`intelligent-ui/library.ts`는 `promptOptions`를 내보낸다. 설치된 SDK의 examples는 createLibrary 직접 속성이 아닌 prompt 옵션이다. `openui generate`가 이 export를 자동 인식해 금융·Canvas 그룹의 `prompt-examples.ts`와 additionalRules를 공통 생성 프롬프트에 포함한다. 예시의 ticker·ID·숫자는 실제 근거가 아니며 모델은 서버가 제공한 값으로 대체한다. 런타임 렌더러·Query allowlist는 유지한다. [생성·검증 계약](../3-langgraph-fast/open-ui.md).
 
 ## OPENUI-FIN-BLOCKS-001: 접이식 조회와 금융 블록
 
@@ -453,4 +439,4 @@ AI Chat의 `SEC Modeling Chat`은 `/sec-modeling-chat`에서 공용 ChatProvider
 
 FinancialChart는 Plot·Summary·Metadata를 조립한 기본 구성이다. 지표 요약과 출처는 접힌 상태이고 오류·로딩·법적 출처는 Plot에 표시한다. 독립 카탈로그 FinancialChartPlot(snapshot, visibilityKey?), FinancialChartSummary(snapshot, visibilityKey?), FinancialChartMetadata(snapshot)로 재배치할 수 있다. Plot/Summary의 동일한 고유 visibilityKey는 표시 설정을 공유하고 다른 키는 격리한다. 최대4개 oscillator 제한을 유지한다. Canvas 엔진·표시 상태·숫자 포맷은 별도 모듈이며 출처 메타데이터는 raw JSON 대신 읽기용 항목으로 제공한다.
 
-카탈로그 예시와 Library Explorer에 독립 블록을 반영하고 generated prompt/spec/Python mirror를 동기화한다. [변경·검증](../../../flow/2026-11-17-financial-ui-blocks.md).
+카탈로그 예시와 Library Explorer에 독립 블록을 반영하고 generated prompt/spec/Python mirror를 동기화한다.

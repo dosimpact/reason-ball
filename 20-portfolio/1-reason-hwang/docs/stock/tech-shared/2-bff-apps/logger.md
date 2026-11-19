@@ -105,7 +105,7 @@ tail -f data/logs/stage/application.log
 
 ## 검증과 참고
 
-실제 Nest application context에서 Logger 호출을 발생시켜 local 콘솔 전용 출력, stage·prod JSON 파일 생성, context 보존과 error 분리를 확인했다. 환경 별칭·우선순위·잘못된 설정 거부 및 기존 테스트도 검증했다. 실행 증거는 [Winston 구현 기록](../../../flow/2026-09-20-bff-winston-logger.md)을 참조한다.
+실제 Nest application context에서 Logger 호출을 발생시켜 local 콘솔 전용 출력, stage·prod JSON 파일 생성, context 보존과 error 분리를 확인했다. 환경 별칭·우선순위·잘못된 설정 거부 및 기존 테스트도 검증했다.
 
 - [디렉터리 정책](directory-policy.md)
 - [Nest 공식 로거 문서](https://docs.nestjs.com/techniques/logger)

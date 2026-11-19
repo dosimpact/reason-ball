@@ -1,205 +1,35 @@
-# Infra Codex OAuth Proxy
+# Codex OAuth proxy
 
-## 개요
-이 프로젝트는 Codex CLI을 OpenAI API 처럼 만들어주는 리버스 프록시서버다.
-- API 키 대신 ChatGPT OAuth 토큰을 사용하며, 기본적으로 `127.0.0.1:18741`에서 실행
+## 역할·HTTP 계약
 
-## OAuth 토큰 발급
+`infra/2-codex-oauth-proxy`는 aiohttp 기반 OpenAI 호환 프록시다. ChatGPT OAuth 인증을 사용해 Codex upstream을 호출하며 Codex CLI 프로세스를 매 요청 실행하는 방식이 아니다.
 
-프로젝트 디렉터리에서 다음 명령으로 로그인한다.
+- POST /v1/chat/completions: Chat Completions 입력을 upstream 형식으로 변환하고 JSON 응답을 되돌린다.
+- POST /v1/responses: Responses 형식을 전달한다. stream=true일 때 실제 upstream SSE bytes를 전달하고, 비스트리밍은 응답을 수집해 JSON 반환한다. 완료 JSON을 가짜 토큰 스트림으로 분할하지 않는다.
+- GET /v1/models: 지원 모델 목록.
+- GET /health: 현재 로컬 인증 상태 확인. health만으로 upstream 생성 성공까지 보장하지 않는다.
 
-```bash
-uv sync
-uv run python -m core.oauth_login --manual-callback
-( "oauth": "uv run python -m core.oauth_login --manual-callback" ) 실행
+구현 원본은 [core/proxy_server.py](../../../../../infra/2-codex-oauth-proxy/core/proxy_server.py), [api_translator.py](../../../../../infra/2-codex-oauth-proxy/core/api_translator.py)다. 일반 채팅·OpenUI의 모델 선택은 [공통 provider](../../3-langgraph-fast/chat-llm-provider.md)를 따른다.
+
+## 설치·실행
+
+```sh
+pnpm -C infra/2-codex-oauth-proxy install
+pnpm -C infra/2-codex-oauth-proxy oauth
+pnpm -C infra/2-codex-oauth-proxy infra:up
+pnpm -C infra/2-codex-oauth-proxy infra:ps
 ```
 
-브라우저 로그인이 끝나면 주소 표시줄의 전체 callback URL을 터미널에 붙여 넣는다.
-발급된 access token, refresh token, account ID는 다음 파일에 저장된다.
+로그인 후 callback URL을 수동 입력해 `.config/chatgpt_auth.json`을 만든다. Compose는 host config 디렉터리를 /app/.config에 마운트한다. 토큰·account ID는 비밀이며 로그·문서·커밋에 포함하지 않는다. 포그라운드 실행은 `pnpm start`다.
 
-```text
-.config/chatgpt_auth.json
-```
+컨테이너 내부18741, Compose 기본 호스트 loopback2890이며 CODEX_OAUTH_PROXY_PORT로 변경한다. host 직접 실행의 포트는 runtime 설정을 따른다. 로컬 프로필은 [workspace](../../workspace.md)를 확인한다. 코드 변경 배포 시 패키지의 `docker-compose up -d --build`로 이미지를 갱신한다.
 
-토큰 파일은 비밀 정보이므로 저장소에 커밋하지 않는다.
-access token이 만료되기 5분 전부터 `TokenManager`가 refresh token을 사용해 자동 갱신하며, 재인증이 필요하면 다음 명령을 사용한다.
+## OAUTH-RELOAD-001: 실행 중 재로그인
 
-```bash
-uv run python -m core.oauth_login --force --manual-callback
-```
+TokenManager는 토큰/account ID 조회 시 lock 안에서 인증 파일을 다시 읽는다. 호스트 `pnpm oauth:force`로 재로그인하면 다음 인증 조회부터 반영되어 재시작이 필요 없다. 파일 누락·파싱 실패·필수 값 누락 시 이전 캐시로 성공을 가장하지 않는다. refresh 응답 대기 중 외부 교체가 있으면 새 파일을 우선한다. 마지막 확인~저장 사이 별도 프로세스 쓰기를 프로세스 간 lock으로 직렬화하지 않는 제한은 남는다.
 
-## Codex OAuth 토큰으로 Codex 호출 후 Open AI API Responses 엔드포인트를 노출
+## 검증과 오류
 
-### 어떻게 Codex을 호출하나요?
+`test:unit`과 `PYTHONPATH=. uv run python api-test/check-auth-reload.py`는 파일 교체·삭제·손상/복구를 격리된 인증 파일/소유 HTTP 서버에서 확인한다. live upstream 검증은 `health-check:sdk`, `health-check:langgraph`, `test:api`로 구분하며 자격 증명·네트워크가 필요하다. 설치·health 성공을 실제 모델 성공으로 확대 해석하지 않는다.
 
-`aiohttp`는 비동기 HTTP 서버와 클라이언트를 함께 제공하는 라이브러리
-- 과정 : 로컬 OpenAI 호환 API 요청을 받고, 같은 이벤트 루프에서 ChatGPT Codex API를 비동기로 호출하는 데 사용
-- Codex 응답을 기다리는 동안에도 다른 요청을 처리할 수 있어 프록시 서버에 적합
-- 이 프록시는 터미널의 `codex` 명령이나 Codex CLI 프로세스를 실행하지 않는다.
-- Codex CLI 출력물을 parsing하는 subprocess wrapper가 아니라, ChatGPT OAuth 인증으로 Codex 내부 HTTP 엔드포인트를 직접 호출하고 이를 OpenAI 호환 REST API로 감싸는 구조다.
-
-
-프록시는 ChatGPT OAuth access token과 account ID를 헤더에 넣어 다음 엔드포인트를 호출한다.
-```text
-POST https://chatgpt.com/backend-api/codex/responses
-```
-
-Codex 요청에는 `store=false`, `stream=true`가 적용된다. 업스트림 SSE 응답은 프록시가 끝까지 수집한 뒤 JSON으로 변환해 반환한다.
-
-로컬에는 다음 REST API를 노출한다.
-```text
-POST /v1/responses
-POST /v1/chat/completions
-GET  /v1/models
-GET  /health
-```
-
-## API Spec
-
-### `GET /v1/models`
-
-실제 Codex 엔드포인트 호출로 검증된 지원 모델 목록을 OpenAI Models API 형식으로 반환한다. OAuth 인증이나 업스트림 호출 없이 로컬 `core/models.py`의 목록을 사용한다.
-
-응답 예시:
-
-```json
-{
-  "object": "list",
-  "data": [
-    {
-      "id": "gpt-5.6-sol",
-      "object": "model",
-      "created": 0,
-      "owned_by": "openai"
-    },
-    {
-      "id": "gpt-5.4-mini",
-      "object": "model",
-      "created": 0,
-      "owned_by": "openai"
-    }
-  ]
-}
-```
-
-`data`에는 `SUPPORTED_CODEX_MODELS`만 포함하며, 현재 미지원 모델과 레거시 alias는 제외한다.
-
-### `POST /v1/responses`
-
-Codex Responses API 형식으로 요청하고 응답받는다.
-
-```json
-{
-  "model": "gpt-5.4-mini",
-  "input": "한 문장으로 인사해줘."
-}
-```
-
-응답 예시:
-
-```json
-{
-  "id": "resp_abc123",
-  "object": "response",
-  "status": "completed",
-  "model": "gpt-5.4-mini",
-  "output": [
-    {
-      "type": "message",
-      "role": "assistant",
-      "content": [
-        {
-          "type": "output_text",
-          "text": "안녕하세요! 무엇을 도와드릴까요?"
-        }
-      ]
-    }
-  ],
-  "usage": {
-    "input_tokens": 15,
-    "output_tokens": 12,
-    "total_tokens": 27
-  }
-}
-```
-
-응답 텍스트 경로는 `output[0].content[0].text`다.
-
-### `POST /v1/chat/completions`
-
-OpenAI Chat Completions 형식으로 요청한다. 프록시가 요청을 Responses 형식으로 변환해 Codex를 호출하고, 결과를 다시 Chat Completions 형식으로 반환한다.
-
-```json
-{
-  "model": "gpt-5.4-mini",
-  "messages": [
-    {
-      "role": "user",
-      "content": "한 문장으로 인사해줘."
-    }
-  ],
-  "stream": false
-}
-```
-
-응답 예시:
-
-```json
-{
-  "id": "chatcmpl-resp_abc123",
-  "object": "chat.completion",
-  "model": "gpt-5.4-mini",
-  "choices": [
-    {
-      "index": 0,
-      "message": {
-        "role": "assistant",
-        "content": "안녕하세요! 무엇을 도와드릴까요?"
-      },
-      "finish_reason": "stop"
-    }
-  ],
-  "usage": {
-    "prompt_tokens": 15,
-    "completion_tokens": 12,
-    "total_tokens": 27
-  }
-}
-```
-
-응답 텍스트 경로는 `choices[0].message.content`다. 현재 클라이언트 대상 SSE 스트리밍은 지원하지 않으므로 `stream=false`로 사용한다.
-
-## Proxy Server
-
-로컬에서는 다음 명령으로 포그라운드 실행한다.
-
-```bash
-uv run python proxy-server/main.py --serve
-```
-
-Docker Compose는 이미지를 빌드하고 호스트의 `.config`를 컨테이너 `/app/.config`에 마운트한다. 따라서 OAuth 로그인은 호스트에서 먼저 수행해야 하며, 컨테이너에서 갱신된 토큰도 같은 디렉터리에 보존된다.
-
-```bash
-uv run python -m core.oauth_login --manual-callback
-docker compose up -d --build
-```
-
-컨테이너는 내부적으로 `0.0.0.0:18741`에 바인딩하지만, 호스트에는 안전을 위해 `127.0.0.1:18741`로만 공개한다. 상태는 다음 명령으로 확인한다.
-
-```bash
-curl http://127.0.0.1:18741/health
-docker compose ps
-```
-
-## OAUTH-RELOAD-001: 실행 중 재로그인 반영
-
-`TokenManager`는 토큰 및 account ID 조회 시 lock 안에서 인증 파일을 다시 읽는다.
-호스트의 `pnpm oauth --force`로 파일이 교체되면 다음 인증 조회부터 적용되며,
-컨테이너 재시작은 필요 없다. 파일 감시 데몬이나 서버 자동 재시작은 사용하지 않는다.
-인증 파일 누락·파싱 실패·필수 토큰 누락은 이전 캐시를 사용하지 않고 실패한다.
-refresh HTTP 응답을 기다리는 동안 파일 내용이 바뀌면 새 파일을 우선 사용한다.
-마지막 파일 확인과 저장 사이의 다른 프로세스 쓰기까지 원자적으로 잠그지는 않는다.
-이 기능을 처음 배포할 때는 `docker compose up -d --build`로 새 코드를 적용한다.
-
-검증: `pnpm test:unit`, `PYTHONPATH=. uv run python api-test/check-auth-reload.py`.
-후자는 Bruno CLI가 필요하며 임시 인증 파일과 소유한 HTTP 서버만 사용한다.
+401이면 파일 상태와 재로그인 반영을 확인하고 반복 refresh로 잘못된 토큰을 계속 저장하지 않는다. upstream 연결 실패·시간초과·비정상 SSE는 호출 오류이며 출력이 성공했다고 처리하지 않는다. 이미 SSE header가 전송된 이후의 장애는 두 번째 JSON 응답이 아니라 연결 실패로 전파된다.

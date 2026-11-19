@@ -38,8 +38,8 @@ parent는 현재 iframe의 contentWindow와 event.source, opaque origin `null`, 
 4. 원문의 fact 클릭이 목록/상세 선택으로 연결되고 목록 선택이 같은 원문 위치로 이동하는지 확인한다. hidden fact·위치 없는 fact·중복 fact도 구분한다.
 5. 지원 변환과 미지원 transform, 비 iXBRL·손상 문서·원문 없음·요청 제한 초과의 결과를 확인한다. 표시 수치를 원문과 대조하고 unsupported를0이나 정상 수치로 읽지 않는다.
 6. 원문에서 script·외부 리소스·위험 URL이 실행되지 않는지, iframe 메시지가 해당 원문에서만 허용되는지 확인한다. 모바일·다크 테마·긴 목록과 키보드 이동을 확인한다.
-7. 필요 시 각 패키지의 committed 검사와 API·브라우저 검증을 사용자가 실행하고 새로운 flow에 결과를 기록한다.
+7. 필요 시 각 패키지의 committed 검사와 API·브라우저 검증을 사용자가 실행하고 관련 stock 검증 절에 실행 범위와 결과를 반영한다.
 
 ## 현재 상태
 
-구현 작성 완료·실행 검증 미실행. 사용자 요청으로 테스트·typecheck·lint·build·브라우저·API 실행 검증을 하지 않는다. 구현 작성 완료와 실행 검증 완료를 구분한다. [구현 기록](../../flow/2026-11-15-sec-ixbrl-viewer-implementation.md).
+실제 문서 추출, BFF/Host 연동과 iframe 메시지 검증은 미완료다. 위 확인 절차의 코드 계약을 실행 증거로 해석하지 않는다.

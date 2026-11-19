@@ -25,7 +25,7 @@
 
 세 그래프(technical_analysis_agent, technical_analysis_canvas_agent, talib_agent)는 공통 `build_output_graph`로 UI를 생성한다. `library.ts`의 componentGroups와 `promptOptions.examples`를 기존 CLI로 생성한 동일 카탈로그를 사용한다. Python presentation 어댑터는 최신 질문·설명과 검증된 결과·표시 제약만 전달하며 DSL 배치를 만들지 않는다. 모델이 전체 프로그램을 생성하고 Host parser와 Canvas ID 검사를 통과해야 게시한다. 형식·DSL 오류는 전체 두 번의 호출 안에서 수정하며 공급자 오류는 계산 상태·텍스트를 보존하는 실패 안내로 처리한다.
 
-`technical_analysis_canvas_agent`는 `presentation`과 `canvas_reports` snapshot으로 보고서를 전달한다. 기존 `technical_analysis_agent`와 다른 graph의 `presentation = {id, program}` 경로는 유지한다. `/langgraph-dev-chat`은 공통 `AgentConversation`의 OpenUI AgentInterface·Composer·메시지 목록을 사용하며, 기존 TA는 inline 본문과 검증된 OutputView를 표시한다. Canvas TA는 채팅에 설명과 검증된 선택형 요소를 표시하며 사용자가 선택한 요소를 Canvas에 추가한다. 그래프 선택과 LangGraph SDK 전송은 기존 ChatProvider가 유지한다. values는 snapshot으로 교체하며 delta처럼 누적하지 않는다. 그래프 선택 목록은 runtime assistant 검색을 페이지별로 조회해 모든 등록 graph를 표시한다. 채팅과 구조화 JSON 입력 모드를 구분하며 서브그래프도 JSON 입력과 원본 결과로 테스트할 수 있다. 기술적 분석 에이전트는 채팅 모드를 유지한다.
+`technical_analysis_canvas_agent`는 `presentation={id,program}`과 `canvas_reports` snapshot으로 보고서를 전달한다. 채팅은 `AgentConversation`의 OpenUI AgentInterface·Composer를 공유하고 `ChatProvider`가 LangGraph SDK 전송과 그래프 선택을 관리한다. values는 전체 snapshot으로 교체한다. 개발 채팅은 runtime assistant 목록과 각 그래프의 입력 모드를 사용한다. `technical_analysis_graph`의 메시지 테스트에는 thread state의 실제 OHLCV가 필요하다. [Host 그래프 선택 계약](../tech-shared/1-fe-host/open-ui.md#chat-graph-mode-002-개발-그래프-이름과-메시지-입력)을 따른다.
 
 ## 실행과 검증
 
@@ -49,14 +49,9 @@ pnpm -C 1-fe-host exec vitest run --project storybook --maxWorkers=1 --no-file-p
 ../node_modules/.bin/bru run 19-technical-analysis --env local --env-var baseUrl=http://127.0.0.1:2981
 ```
 
-Bruno는 실제 Yahoo·모델·Host validator 연결이 필요하다. 테스트용 thread/assistant를 생성하고 삭제한다. 필수 검증과 정리 원칙은 [검증 지도](../../validation/INDEX.md), 실행 증거는 [flow](../../flow/2026-11-08-technical-analysis-agent.md)에 기록한다.
+`19-technical-analysis`의 실제 실행은 Yahoo·모델·Host validator 연결이 필요하다. `27-talib-agent`는 함수 탐색과 계산 계약을, `28-talib-comparison-regression`은 일봉·주봉 비교 완료, `28-talib-price-regression`은 가격 범위와 근거, `29-talib-evidence`는 시계열 근거를 검증한다. `35-openui-composition`은 외부 모델·시세를 고정한 채 실제 SDK router·계산과 Host parser를 검증한다. 테스트용 thread와 assistant는 실행 후 삭제한다. [검증 지도](../../validation/INDEX.md)를 따른다.
 
-
-## TA-VAL-20261114: 실제 브라우저 검증과 관찰된 제한
-
-실제 Yahoo·모델·TA-Lib·OpenUI 경로에서 AAPL 일봉/주봉, RSI7·SMA60 후속 변경, 삼성전자 KRW, 200봉, 잘못된 티커 안내, EMA·5분봉 범위 제한, 그래프 변경 시 격리와 모바일 390px 차트를 확인했다. [검증 기록](../../flow/2026-11-14-technical-analysis-browser-validation.md)에서 PNG 보고서와 결과에 연결한다.
-
-당시 개발 런타임 검증에서 로컬 FE가 개발 runtime 대신 2981을 가리키면 분석이 실행되지 않았다. 현재 두 전용 화면은 실제 graph 실행을 지원하는 FastAPI 2981을 사용하므로 이 과거 관찰을 현재 포트 제한으로 적용하지 않는다. 분석 본문은 공통 ConversationText의 Markdown 렌더러를 사용하며, OpenUI 차트는 기존 검증 결과를 표시한다. 이전 Markdown 원문 노출은 OPENUI-CHAT-DS-001에서 수정했다. 잘못된 지표 기간 요청은 경고 후 기본 설정으로 계산할 수 있어, 사용자 설정 확인 UX는 후속 개선 대상이다. 이번 검증에서는 코드·환경파일을 수정하지 않았다.
+개발 채팅의 실서비스 브라우저 검증은 일봉·주봉, 설정 변경, 국내 ticker, 모바일과 오류를 다뤘다. 현재 FastAPI 전용 화면에서는 실제 모델이 만든 UI를 SDK 응답 fixture로 전달해 인라인 차트, Canvas 요소·반복 추가, TA-Lib 차트, UI 실패 텍스트를 MCP로 확인했다. 해당 검증의 차트 조회는 실제 계산 API에 고정 시세를 연결했다. 전용 화면에서 최신 모델·Yahoo·업무 실행 전체를 한 경로로 검증한 범위는 별도로 남아 있다. 잘못된 구조화 지표 설정은 API에서 거부하며 자연어 요청이 해석 과정에서 기본값으로 돌아오는지 확인하는 UX는 검증 대상이다.
 
 ## TA-QUERY-001: 조회 API와 차트 runtime
 
@@ -70,33 +65,29 @@ Bruno는 실제 Yahoo·모델·Host validator 연결이 필요하다. 테스트�
 
 최신 메시지만 opt-in30초 polling을 제공한다. 이전 메시지와 실행 중 메시지는 polling을 멈추며 화면 제거 시 SDK timer와 chart/observer를 정리한다. Lightweight Charts는 candles·volume·SMA·RSI·MACD pane을 공유 시간축으로 그리고 null을 whitespace로 유지한다. Host 테마 변경을 관찰하고 컨테이너 폭에 맞춰 크기를 조정한다. TradingView 저작권·링크를 표시한다.
 
-[구현·검증 기록](../../flow/2026-11-14-openui-query-financial-charts.md)
-
 ## TA-QUERY-002: Query 수동 재실행
 
 공통 카탈로그 예시와 표시 제약은 ticker/interval/count controls와 FinancialChart를 `QueryPanel([...], Action([@Run(chart)]))`에 함께 배치하도록 안내한다. native OpenUI `@Run`이 `chart` Query statement의 cache를 invalidate하므로 동일 인자로도 새 HTTP 조회가 발생한다. QueryPanel은 SDK query loading·streaming 상태를 사용해 접근 가능한 refresh 버튼과 pending 상태를 표시하며, 모델 action으로 전송하지 않는다. polling·state 격리·unmount 정리 정책은 TA-QUERY-001과 같다.
 
-[변경·검증 기록](../../flow/2026-11-14-openui-query-manual-refresh.md)
+## CHAT-ACTIVITY-002: 도구 실행 현황
 
-## CHAT-ACTIVITY-001: 도구 실행 현황
-
-Host `/langgraph-dev-chat`은 기존 values snapshot의 이번 turn tool_calls/tool 메시지를 연결해 `get_price_ohlcv`, `analyze_ohlcv_with_talib` 등의 실제 실행 이름과 상태를 OpenUI BehindTheScenes로 표시한다. 원본 도구 인자·결과·중간 AI 설명을 추가 노출하지 않는다. 조회 API와 Query의 모델 없는 갱신 경계는 유지한다. [Host 계약](../tech-shared/1-fe-host/open-ui.md#chat-activity-001-chat-behind-the-scenes)을 따른다.
+채팅은 SDK의 기본 도구 타임라인으로 values의 tool call/result를 연결하고 실행 상태와 표시 가능한 인자·결과를 렌더링한다. 중간 설명과 비공개 추론은 제외한다. 중첩 그래프가 마지막에 values를 보내면 실행 내역이 한꺼번에 표시될 수 있다. [Host 타임라인 계약](../tech-shared/1-fe-host/open-ui.md#chat-activity-002-chat-sdk-기본-도구-타임라인)을 따른다.
 
 ## TA-CANVAS-003: 선택형 요소와 인용 문맥
 
-Canvas 전용 그래프는 계산 후 `presentation={id, program}`을 반환한다. id는 저장된 보고서 UUID다. OpenUI는 `CanvasItem(id,title,children)`으로 가격 및 지표 인스턴스별 QueryPanel·FinancialChart를 각각 감싼다. 요소 ID는 보고서 UUID를 포함한다. 모델은 계산 결과를 설명하고 공유 카탈로그를 이용해 전체 UI 프로그램을 구성한다. 서버는 필요한 CanvasItem ID 집합을 제공하고 누락·중복·다른 ID를 거부한다. 모델이 보고서 전체를 Canvas에 스트리밍하던 기존 경로는 사용하지 않는다.
+Canvas 전용 그래프는 계산 후 `presentation={id, program}`을 반환한다. id는 저장된 보고서 UUID다. OpenUI는 `CanvasItem(id,title,children)`으로 가격 및 지표 인스턴스별 QueryPanel·FinancialChart를 각각 감싼다. 요소 ID는 보고서 UUID를 포함한다. 모델은 계산 결과를 설명하고 공유 카탈로그를 이용해 전체 UI 프로그램을 구성한다. 서버는 필요한 CanvasItem ID 집합을 제공하고 누락·중복·다른 ID를 거부한다. 브라우저는 검증된 요소를 채팅에 표시하고 고정된 패널만 Canvas에 배치한다.
 
 각 요소에는 별도 reactive 변수와 Query가 있다. 가격 전용 v2 chart는 명시적 `instances=[]`를 허용하고 지표 요소는 해당 인스턴스를 조회한다. 기존 v1 및 생략 시 기본 지표 계약은 유지한다. 요소별 조회는 독립되므로 많은 지표를 선택하면 초기 HTTP 조회 수도 늘어난다.
 
-Host `OutputView.onCanvasAdd`는 wrapper의 children과 참조하는 선언만 추출해 standalone program 및 현재 reactive state를 넘긴다. Canvas 전용 ChatPage만 이 콜백을 연결한다. `PinnedCanvas`는 요소별 Renderer를 mount하고, localStorage의 `ta-canvas-items-v1:<runtime>:<thread>` 키에 구성·배치·상태를 보존한다. 같은 원본 요소도 클릭할 때마다 UUID가 다른 패널로 추가한다. sourceElementId에 원본 요소 ID를 보존하며 패널별 초기/반응 상태를 독립 복사한다. 기존 보고서 custom 이벤트를 받더라도 그것만으로 새 Canvas를 열지 않는다.
+Host `OutputView.onCanvasAdd`는 wrapper의 children과 참조하는 선언만 추출해 standalone program 및 현재 reactive state를 넘긴다. Canvas 전용 ChatPage만 이 콜백을 연결한다. `PinnedCanvas`는 요소별 Renderer를 mount하고, localStorage의 `ta-canvas-items-v1:<runtime>:<thread>` 키에 구성·배치·상태를 보존한다. 같은 원본 요소도 클릭할 때마다 UUID가 다른 패널로 추가한다. sourceElementId에 원본 요소 ID를 보존하며 패널별 초기/반응 상태를 독립 복사한다. 패널은 사용자가 추가할 때 표시한다.
 
 `canvas_reports[reportId]`에는 계산 결과·조건·program과 허용된 요소 ID를 보존한다. 입력 `canvas_context`는 `reportId`, `elementId`, `quote`, 선택적 구조화 `request`를 받는다. 서버는 현재 thread의 보고서 및 요소 소속을 검증하고, 인용 텍스트는 명령이 아닌 사용자 질문 문맥으로 취급한다. 설명 요청은 새 보고서 없이 채팅으로 답한다. 차트 조건을 바꾼 뒤 질문하더라도 근거는 원래 저장된 분석이며 UI에 이 차이를 명시한다.
 
-PDF는 프런트엔드 인쇄 스타일로 전체 요소를 펼친다. chart Query의 최신 요청 상태가 성공이어야 버튼을 활성화하며 오래된 요청 완료가 이 상태를 덮어쓰지 않는다. 새로고침은 데이터를 다시 조회하므로 로컬 저장을 과거 가격의 불변 스냅샷으로 해석하지 않는다. 공유 발행 API는 이번 범위에 없다.
+PDF는 프런트엔드 인쇄 스타일로 전체 요소를 펼친다. chart Query의 최신 요청 상태가 성공이어야 버튼을 활성화하며 오래된 요청 완료가 이 상태를 덮어쓰지 않는다. 새로고침은 데이터를 다시 조회하므로 로컬 저장을 과거 가격의 불변 스냅샷으로 해석하지 않는다. 공유 발행 API는 제공하지 않는다.
 
 ## TA-CANVAS-002: 독립 그래프 계약
 
-기존 inline·TA-Lib·SEC 그래프 출력은 유지한다. Canvas 전용 그래프와 화면에만 선택형 추가를 연결한다. 서버 보고서는 대화 근거, 로컬 pinned 요소는 사용자의 화면 구성으로 구분한다. 이전 TA-CANVAS-001의 자동 보고서 탭 계약은 TA-CANVAS-003으로 대체한다. [변경·검증 기록](../../flow/2026-11-17-canvas-item-workspace.md)을 따른다.
+Canvas 전용 그래프와 화면에서만 선택형 요소 추가를 제공한다. 서버 보고서는 대화 근거를 보존하며 로컬 고정 요소는 사용자의 화면 배치를 보존한다.
 
 ## TA-INDICATORS-020: 버전 카탈로그와 복수 인스턴스
 
@@ -106,7 +97,7 @@ v2 응답의 공통 OHLCV `bars`와 `indicators[]`의 인스턴스별 series.val
 
 누적 origin은 `date`, `availableHistory`, `policy`, `requestedDate`, `baseline`으로 공개한다. OBV는 첫 거래량, PVT는0, AD는 첫 money-flow-volume을 기준으로 계산한다. count는 표시만 자르며 동일 소스 이력의 겹치는 날짜 값이 유지된다. 공급자 이력 수정은 캐시 버전과 origin 정책의 제약으로 명시한다. 지표 수식·EMA seed·lookback·null/분모0·개별 시그널은 [Python 계산 계약](../tech-shared/3-langgraph-fast/ta20.md)을 따른다.
 
-OpenUI는 `technical_analysis_catalog` Query와 `IndicatorControls($chart_instances,catalog)`, reactive 인스턴스 JSON을 사용한다. 서버는 검증된 결과에서 compact 표시 입력을 만들며 모델이 DSL을 생성한다. 초기 fallback에 큰 수치 배열을 삽입하지 않는다. 실제 숫자는 모델 없는 Query로 조회한다. 두 TA 그래프는 같은 계산·설정 계약을 공유하며 inline은 LLM 생성 presentation, Canvas는 UUID별 저장 근거와 선택형 요소 표시를 사용한다. 프로토콜·수치·모델 비호출·parser 검증 증거와 사용자에게 맡긴 브라우저 검증 범위는 [당일 기록](../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)에 둔다.
+OpenUI는 `technical_analysis_catalog` Query와 `IndicatorControls($chart_instances,catalog)`, reactive 인스턴스 JSON을 사용한다. 서버는 검증된 결과에서 compact 표시 입력을 만들며 모델이 DSL을 생성한다. 실제 숫자는 모델 없는 Query로 조회한다. 두 TA 그래프는 같은 계산·설정 계약을 공유한다.
 
 ## TALIB-AGENT-001: 전체 네이티브 TA-Lib 에이전트
 
@@ -151,8 +142,7 @@ catalog validator를 통과한 프로그램만 presentation으로 반환하고 �
 
 `langgraph.json` 등록과 exported builder를 사용하는 FastAPI GraphRegistry 양쪽에서 같은 그래프를
 사용한다. `/talib-chat`는 고정 graph ID를 사용하는 native chat 진입점이다. 기존 TA와 Canvas의
-그래프·도구·화면은 유지한다. 실제 검증과 사용자 요청으로 제외한 브라우저 범위는
-[2026-11-16 구현 기록](../../flow/2026-11-16-talib-agent.md)을 따른다.
+그래프·도구·화면은 유지한다. 네이티브 parity와 다중 턴·HTTP 검증은 [TA-Lib 테스트](../../../3-langgraph-fast/tests/domains/talib_agent)를 따른다.
 
 ### TALIB-STARTERS-001: 주제별 시작 질문
 
@@ -166,13 +156,12 @@ catalog validator를 통과한 프로그램만 presentation으로 반환하고 �
 - TA-Lib 가격 데이터는 `ticker:interval` 키로 보존하고, 기존 ticker 키는 최신 조회의 호환 별칭으로 유지한다. 계산 요청의 별칭 참조는 실행 시 canonical 키로 고정하므로 다른 주기 조회가 앞선 결과를 지우지 않는다. 같은 주기를 새로 조회하면 그 주기에 의존하는 결과와 연쇄 계산만 무효화한다.
 - 현재 사용자 요청이 일봉·주봉과 계산/비교를 명시한 경우에만 두 주기 및 명시한 네이티브 함수의 실행 결과를 확인한다. 일부가 누락되면 업무 에이전트를 최대 한 번 더 호출한다. 실제 가격 조회 실패는 자동 반복하지 않으며, 여전히 누락되면 미계산 항목을 명시한다. 일반 자연어 작업 계획기나 무제한 재시도는 추가하지 않는다.
 - 모델에 전체 계산 이력의 `origin`·입력 metadata를 전달한다. lookback은 전체 계산 이력에 적용되며 최근 표시 구간의 시작에서 다시 초기화되지 않는다. 현재 UI는 출력 선택형 단일 line/bar 시리즈이며, 캔들·중첩·다중 패널을 제공한다고 설명하지 않는다.
-- 회귀와 검증 상태: [TA-Lib 비교 완료 수정 기록](../../flow/2026-11-16-talib-comparison-completion.md).
 
 ### TALIB-EVIDENCE-001 / TA-QUERY-DEADLINE-001: 네이티브 의미·근거·조회 제한
 
 TA-Lib SQZMOM squeeze의 정수 상태는 고정 v0.8.3 C 소스의 strict 채널 비교를 따른다(-1 해제,0 겹침·접촉,1 wide,2 normal,3 narrow 압축). 별도 momentum과 혼동하지 않는다. 네이티브 양수 입력 제약은 유지하며 부호 있는 누적 OBV·AD에 요청하지 않은 백분율 ROC를 추가하지 않는다. 명시적 유효 함수 호출은 허용한다. 최근 최대120 계산 봉의 출력·가격·거래량 요약은 공통 `summarize_series`를 사용하고, 날짜·절대 변화·유효 개수와 백분율 제한을 함께 전달한다. canonical 데이터와 ticker 별칭은 같은 operand로 해석한다.
 
-Host chart/catalog Query는 헤더·JSON 본문을 포함한30초 제한과 외부 abort 전파를 적용한다. 완료·실패·취소 후 타이머/listener를 정리한다. Canvas graph는 현재 소스에 등록되어 있으며 provisional/ready의 SDK Query 차단 경계는 유지한다. 과거 프로세스 등록·브라우저 로딩 완료 여부는 소스 검사만으로 단정하지 않는다. [변경과 검증 기록](../../flow/2026-11-16-ta-series-evidence-and-query-deadline.md).
+Host chart/catalog Query는 헤더·JSON 본문을 포함한30초 제한과 외부 abort 전파를 적용한다. 완료·실패·취소 후 타이머/listener를 정리한다. Canvas graph는 현재 소스에 등록되어 있으며 provisional/ready의 SDK Query 차단 경계는 유지한다. 초기 로딩에도 같은 제한을 적용한다.
 
 ## PRICE-HISTORY-001: 불완전한 가격 도구 이력
 
@@ -181,7 +170,6 @@ price_agent의 요청 추출은 과거 assistant tool call과 뒤따르는 ToolM
 ## PRICE-MESSAGES-001: 가격 에이전트 입력
 
 price_agent의 사용자 요청 입력은 messages로 통일하며 query 필드는 제거했다. run_price_agent 문자열 helper는 HumanMessage를 생성한다. 응답 작성 모델은 messages의 최신 HumanMessage와 조회 결과를 받아 사용자 언어로 답변한다. 빈 messages는 invalid_request다. Host graph 입력 예제와 실제 graph 검증 스크립트도 messages 형식을 사용한다.
-
 
 ## TA-CANVAS-004: Grafana 방식 그리드와 반복 추가
 
@@ -200,12 +188,11 @@ Canvas 너비600px 미만은 단일열 projection으로 표시하고 저장된 d
 이동/resize 종료 시 저장하며 초기 렌더링·단순 너비 변경은 좌표를 저장하지 않는다.
 참조의 그리드 규칙을 이식하며 기존 대화별 localStorage와 인용·PDF 기능을 유지한다.
 참조 앱의 탭·서버 저장·명령 API 전체를 도입한 것은 아니다.
-[검증 기록](../../flow/2026-11-17-canvas-grafana-grid.md).
+[Canvas 브라우저 시나리오](../../../1-fe-host/tests/e2e/canvas-wrapper.spec.ts)는 통제 응답으로 반복 추가·배치 복원·원본 ID 인용·삭제·인쇄를 검증한다. 실제 Host MCP 검증은 패널 이동·크기 조절·고정과 좁은 화면에서 저장 좌표 보존을 다뤘다.
 
 ## PRICE-RESPONSE-LLM-001: 가격 답변 생성
 
 format_response는 async LLM 노드다. 최신 사용자 요청과 구조화한 조회 결과(종목·통화·주기·조회 시각·날짜별 가격·장중 여부·오류 코드)를 도구가 연결되지 않은 모델에 전달하고 반환 메시지를 messages와 response에 반영한다. 고정 Markdown 포맷과 언어별 오류 문구 조립은 제거했다. close 기준·가격 창작 금지·장중 표시·오류 설명을 prompt로 지시한다. 오류가 있으면 과거 prices를 전달하지 않는다. 정상 요청은 추출1회+답변1회 모델 호출이며 답변 모델 실패는 실행 오류로 전파된다.
-
 
 ## OPENUI-COMPOSE-001: 공통 카탈로그 기반 생성
 
@@ -213,14 +200,10 @@ TA20은 원시 가격/지표 배열 대신 요청 인자와 요약을 전달하�
 
 모델 출력은 parser로 구조를 검증하며 Canvas 요소 식별자는 추가로 강제한다. 설명의 모든 의미·숫자나 Query 조건의 일치까지 parser가 검증하는 것은 아니다. 모델에 전달한 검증된 데이터와 생성 UI의 의미 일치는 별도 품질 관리 대상이다. 모델 UI 생성에 추가 호출과 지연이 발생한다. 고정 업무 action controls는 이 전환 대상이 아니다.
 
-[구현·검증 기록](../../flow/2026-11-17-openui-llm-composition.md).
-
-
 ## OPENUI-FIN-BLOCKS-001: 간결한 차트 화면
 
 조회 조건은 기본 접힘이며 차트와 새로고침은 계속 표시한다. 사용자는 필요할 때 설정을 열고 바꾼다. 지표 요약과 데이터 출처도 독립 접이식 블록이며 모델이 Plot/Summary/Metadata를 별도 조립할 수 있다. Query·계산·재분석 계약은 유지한다. [구체 UI 계약](../tech-shared/1-fe-host/2-frontend-side-architecture.md#openui-fin-blocks-001-접이식-조회와-금융-블록).
 
-
 ## CANVAS-ONBOARD-001: 온보딩 런북
 
-[Canvas A–Z HTML 런북](../../human-docs/3.dynamic-canvas-openui/canvas-system-onboarding-runbook.html)은 현재 구현을 사용자 흐름·서버/브라우저 상태·식별자·Query/LLM 경계·그리드·운영·장애 대응 순서로 설명한다. 외부 CDN 없이 단일 HTML로 동작하며 설명용 실습은 API를 호출하지 않는다. 제품 계약의 기준은 이 시스템 설계와 패키지 stock이다. 2026-11-19 사용자 지정 경로의 HTML 생성 요청에 한해 human-docs 편집 금지의 예외를 적용했으며 기존 goal.md는 변경하지 않았다. [작성·검토 기록](../../flow/2026-11-19-canvas-onboarding-runbook.md).
+[Canvas A–Z HTML 런북](../../human-docs/3.dynamic-canvas-openui/canvas-system-onboarding-runbook.html)은 사용자 흐름, 서버·브라우저 상태, 식별자, Query·LLM 경계, 그리드와 장애 대응을 설명한다. 내장 실습은 외부 CDN과 API 없이 동작한다.

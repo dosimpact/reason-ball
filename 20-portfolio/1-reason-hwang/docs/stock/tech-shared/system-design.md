@@ -84,7 +84,7 @@ SEC primary-document bodies are stored with metadata in PostgreSQL; report queri
 
 FastAPI의 GraphRegistry는 `langgraph.json`의 실제 그래프 builder를 saver와 함께 컴파일한다. 기본 memory mode는 기존 단일 프로세스 경계다. `LANGGRAPH_RUNTIME_MODE=postgres`에서는 LG-OSS-MULTI-001의 DB 접수·전역 용량·thread 순서·owner/lease·fenced checkpoint/pending writes·취소·이벤트를 공통 기준으로 여러 worker가 실행한다. PostgreSQL이나 migration이 준비되지 않으면 memory로 fallback하지 않는다. values/messages/custom과 SDK/OpenUI 계약을 유지하고 기본 연결 해제는 실행을 계속한다. lease를 잃은 running을 자동 재실행하지 않으며 안전한 queued만 이어서 처리한다. 외부 효과가 불명확하면 thread를 검토 필요 상태로 막는다. 전체 LangGraph 프로토콜의 동등성을 주장하지 않으며 DB mode에서 미지원 thread event bus/commands는501이다. [구현 원본](3-langgraph-fast/fastapi-runtime.md)과 [검증 계약](3-langgraph-fast/multiworker-validation.md)을 따른다.
 
-PostgreSQL local 스키마 준비는 기본적으로 public 레거시 테이블을 이동하지 않으며, 레거시 backfill은 명시 opt-in이다. 검증과 결과는 [당일 흐름 기록](../../flow/2026-11-16-fastapi-runtime-and-ta-indicators.md)을 따른다.
+PostgreSQL local 스키마 준비는 기본적으로 public 레거시 테이블을 이동하지 않으며, 레거시 backfill은 명시 opt-in이다. 검증 범위는 [패키지 검증 계약](3-langgraph-fast/multiworker-validation.md)을 따른다.
 
 
 `3-langgraph-fast` is the primary AI runtime. The FastAPI application exposes a LangGraph-compatible surface for Assistants, Threads, Thread Runs, Stateless Runs, Streaming, Crons, Store, A2A, MCP, and System operations. Project-specific extensions include `/health`, `/health/postgres`, `/graph/run`, and `/api/sec-analysis/*` and `/internal/sec-modeling/*`.
@@ -102,13 +102,9 @@ graph that owns its state, ReAct node, prompts boundary, MCP boundary, and Open-
 
 When PostgreSQL is configured, the application persists assistant, thread, run, cron, store, A2A,
 and LangGraph checkpoint data in the dedicated `langgraph` PostgreSQL schema. The BFF's collected SEC tables
-remain in `public`, while its modeling execution tables use `sec_modeling`, even when both services share the `sec_collector` database. Local profile startup
-may create the dedicated schema, move existing LangGraph-owned tables from `public`, prepare
-idempotent schema changes, and migrate legacy snapshots. FastAPI startup also prepares the 10-K
+remain in `public`, while its modeling execution tables use `sec_modeling`, even when both services share the `sec_collector` database. Local profile startup may prepare the dedicated schema and idempotent changes. Moving legacy public tables and backfilling snapshots require explicit opt-in. FastAPI startup also prepares the 10-K
 Neo4j uniqueness constraints in the local profile. For both databases, non-local profiles verify
-the expected schema without executing DDL and fail fast when it is absent or outdated. The supported
-FastAPI deployment is one Uvicorn worker because distributed run coordination is outside the service
-boundary.
+the expected schema without executing DDL and fail fast when it is absent or outdated. Memory runtime mode supports one Uvicorn worker. PostgreSQL runtime mode supports coordinated workers under the lease/fencing and migration contract described above.
 
 Do not bypass startup or migration safeguards selected by `ENV_PROFILE`.
 
@@ -158,16 +154,15 @@ Host `src` 전체는 FSD 레이어와 Steiger 권장 규칙을 적용한다. Nex
 
 ## TA-QUERY-001: 모델 없는 금융 데이터 조회
 
-기술적 분석 OpenUI는 기존 Host `/api/langgraph` 프록시로 Python `GET /technical-analysis/chart`를 조회한다. 이 API는 FastAPI와 LangGraph development custom `http.app`에 같은 router를 등록하며 Yahoo·TA-Lib를 재사용한다. 차트 조건 변경·polling은 그래프 run과 모델 provider를 호출하지 않는다. 초기 분석과 해석의 모델 경계는 유지한다. 구체 계약은 [기술적 분석 시스템 설계](../technical-analysis/system-design.md#ta-query-001-조회-api와-차트-runtime), Host provider는 [OpenUI Host](1-fe-host/open-ui.md#ta-query-001-금융-query-provider)를 따른다.
+전용 기술적 분석 OpenUI는 Host `/api/fastapi-langgraph` 프록시로 Python `GET /technical-analysis/chart`를 조회한다. 이 API는 FastAPI와 LangGraph development custom `http.app`에 같은 router를 등록하며 Yahoo·TA-Lib를 재사용한다. 차트 조건 변경·polling은 그래프 run과 모델 provider를 호출하지 않는다. 초기 분석과 해석의 모델 경계는 유지한다. 구체 계약은 [기술적 분석 시스템 설계](../technical-analysis/system-design.md#ta-query-001-조회-api와-차트-runtime), Host provider는 [OpenUI Host](1-fe-host/open-ui.md#ta-query-001-금융-query-provider)를 따른다.
 
 ## SEC-MODELING-001: 분석 작업과 검색 경계
 
 Host `/sec-modeling` → same-origin BFF proxy → `/api/sec/modeling/*`이 작업을 제어한다.
 BFF PostgreSQL의 `sec_modeling` schema가 실행 이력을 보존하고 FastAPI가 모델링을 실행한다.
 Neo4j는 원본 전체가 아닌 가공 결과·lexical graph·XBRL 사실·벡터를 저장한다.
-검색·근거 조회 시 BFF 원문 조회 의존성을 만들지 않는다. OAuth 추출 호출과 OpenAI 임베딩
-호출은 별도 provider 설정을 사용한다. Qdrant·pgvector·Redis는 이 경로에 도입하지 않는다.
+검색·근거 조회 시 BFF 원문 조회 의존성을 만들지 않는다. 모델링2 추출·임베딩과 모델링3의 직접 Decisions API 호출은 채팅 provider와 별도 설정이다. Qdrant·pgvector·Redis는 이 경로에 도입하지 않는다.
 [도메인 계약](../us-corporate-filings/sec-modeling.md),
 [Python 구현 경계](3-langgraph-fast/4-graph-db.md),
 [BFF 소유 경계](2-bff-apps/directory-policy.md#sec-modeling-001-모델링-실행-확장)를 따른다.
-통합 검증 진행 중이며 완료 증거는 dated flow에 기록한다.
+모델링 작업 제어의 API 검증과 실제 데이터 품질·검색 평가의 미완료 범위는 도메인 계약의 검증 절을 따른다.

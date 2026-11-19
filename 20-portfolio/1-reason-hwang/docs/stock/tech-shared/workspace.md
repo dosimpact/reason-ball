@@ -26,7 +26,6 @@ The authoritative root for this project is `20-portfolio/1-reason-hwang/package.
 
 Run `pnpm install --frozen-lockfile` here separately from the parent installation. From the repository root, use `pnpm -C 20-portfolio/1-reason-hwang install --frozen-lockfile`. Generic parent install/build/test commands do not manage this project.
 
-Decision and validation: [2026-10-02 boundary reconciliation](../../flow/2026-10-02-independent-workspace-boundary.md).
 
 ## Root commands
 
@@ -58,7 +57,6 @@ The root does not expose `start` commands; package-level production `start`
 scripts remain available and require their normal prerequisites.
 `scripts/dev.mjs` is not invoked; existing port listeners are not automatically stopped.
 
-Decision: [development commands](../../flow/2026-11-14-service-dev-commands.md).
 
 Python packages use `uv`. Run `uv sync` in `3-langgraph-fast` or `infra/2-codex-oauth-proxy` when installing their Python dependencies.
 
@@ -72,7 +70,7 @@ Python packages use `uv`. Run `uv sync` in `3-langgraph-fast` or `infra/2-codex-
 | todo remote dev server | `http://127.0.0.1:2985` |
 | FastAPI/LangGraph | `http://127.0.0.1:2981` |
 | LangGraph development runtime | `http://127.0.0.1:2982` |
-| OAuth proxy | `http://127.0.0.1:18741` |
+| OAuth proxy | `http://127.0.0.1:2890` (Compose 기본, 컨테이너 내부18741) |
 | Neo4j Browser/Bolt | `http://localhost:7474`, `localhost:7687` |
 | PostgreSQL | `localhost:55432` by default |
 | Loki | `http://localhost:3100` |
@@ -91,15 +89,13 @@ Infrastructure ports are configurable through `infra/1-infra-graph-rag/.env`; th
 - Shared current architecture and workspace policy: `docs/stock/tech-shared/`.
 - Package-specific technical detail: `docs/stock/tech-shared/{1-fe-host,2-bff-apps,3-langgraph-fast,infra}/`; see [DOC-SCOPE-002](INDEX.md#doc-scope-002-공용과-구체의-두-가지-범위).
 - Domain current state: `docs/stock/<domain-feature-name>/`.
-- Change history: `docs/flow/`.
+- Change history: Git commit/diff; current state: `docs/stock/`.
 
 ## DOC-DISCOVERY-001: Documentation navigation
 
-`AGENTS.md` directs agents to [Documentation Map](../../INDEX.md), which owns the detailed reading order and document selection rules. Discover task-relevant stock documents first, then related flow records and supporting references. Shared design principles are required reading for code design, implementation, and review through that map. Read relevant history without loading all stock and flow documents by default.
+Read AGENTS.md → [documentation map](../../INDEX.md) → common design → relevant package/domain stock → validation policy. Current stock owns implementation, decisions, limitations and reproducible checks. Update it directly when behavior changes; keep commit messages/diffs as the change history rather than adding dated narrative to current design.
 
-Stock defines the accepted current state; flow preserves dated context and validation evidence. Material changes require an append-only flow record and synchronization of affected stock before completion. Keep detailed navigation links in the map so new shared principles can be discovered without adding a direct reference for each one to `AGENTS.md`.
-
-`AGENTS.md` retains only workspace scope, the map entry point, change safety, execution/validation basics, and completion requirements. Package inventories, endpoints, architecture details, and code conventions belong in the mapped stock documents.
+The workspace uses the [stock-only documentation baseline](../../INDEX.md#doc-stock-001-현재-상태-중심-문서). Historical process records are available in Git. Missing, failed or fixture-only validation must remain distinguished from actual runtime success.
 
 ## CODE-EXPLORE-001: Code exploration tooling
 
@@ -136,7 +132,6 @@ LangGraph dev 2982, Host 2983, Template Remote 2984, Todo Remote 2985를 설정�
 - 실행 중인 프로세스에는 소급 적용되지 않으므로 해당 서비스의 `pnpm dev`를 재실행한다.
 - 루트 `pnpm dev`는 기존과 같이 Host/BFF/FastAPI만 실행한다. LangGraph dev와 두 Remote는 각 패키지에서 별도로 실행한다.
 
-실행 연결 설정과 검증: [포트 프로필 변경 기록](../../flow/2026-11-14-application-port-profile.md).
 
 ## LOCAL-NGINX-001: 외부 도메인 연결 기록
 
@@ -148,3 +143,12 @@ Grafana/Neo4j Browser는 호스트의 2974/2970으로 전달한다.
 이 기록은 제공된 설정의 정리이며 실제 외부 연결 검증 결과가 아니다.
 화면의 PostgreSQL HTTP 대상 5433은 현재 DB TCP 포트 2972와 다르며 DB 접속 주소로 취급하지 않는다.
 상세 연결표는 사용자 요청으로 정리한 [로컬 서버 설정](../../human-docs/server설정.local.md)을 참조한다.
+
+## DEV-SERVICE-DEFAULTS-001: 기본 재시작 범위
+
+사용자의 별도 요청이 없으면 서비스 시작·전체 재시작 대상은 BFF2980, FastAPI2981, LangGraph dev2982, Host2983이다. Template2984와 Todo2985는 기본 실행 대상에서 제외하며 명시적으로 요청할 때만 실행한다. 패키지와 기능은 유지하고 기본 운영 프로세스만 종료한다.
+
+
+## DEV-CACHE-001: Host 개발 캐시 복구
+
+Turbopack가 생성한 chunks/ssr runtime을 찾지 못하면 먼저 Host 소유 supervisor·자식 프로세스와 포트를 확인하고 정상 종료한다. 해당 Host의 `.next` 생성 캐시만 제거한 다음 `pnpm -C 1-fe-host dev`로 다시 실행한다. 실행 중인 서버의 캐시를 삭제하거나 다른 앱·DB 볼륨을 정리하지 않는다. 주요 경로 HTTP 응답과 missing-module 오류 재발 여부를 확인한다. 이 절차는 원인이 확인된 캐시 불일치 복구이며 임의 애플리케이션 오류의 공통 해결책은 아니다.

@@ -272,9 +272,9 @@ codex mcp get reason-hwang-codebase-memory
 - Storybook 연결 거부는 서버 실행 여부와 MCP URL의 포트를 확인합니다. 일반 UI URL이 아닌 `/mcp`를 사용합니다.
 - Chrome 실행 실패는 Chrome 설치 위치를 확인합니다. 기본 위치가 아니면 Playwright의 `--executable-path`, Chrome DevTools의 `--executablePath`를 사용합니다.
 
-2026-09-20 설치 검증에서 두 브라우저 MCP의 초기화·도구 목록·브라우저 실행, 별도로 소유한 16006 포트 Storybook MCP의 초기화·도구 목록, Bruno CLI 버전을 확인했습니다. 이는 설치 점검이며 프로젝트 기능 E2E 결과는 아닙니다. 이후 검증 결과는 [flow](docs/flow/)에 기록합니다.
+2026-09-20 설치 검증에서 두 브라우저 MCP의 초기화·도구 목록·브라우저 실행, 별도로 소유한 16006 포트 Storybook MCP의 초기화·도구 목록, Bruno CLI 버전을 확인했습니다. 이는 설치 점검이며 프로젝트 기능 E2E 결과는 아닙니다. 현재 검증 범위와 제한은 [검증 설계](docs/stock/tech-shared/test-design.md)에 유지합니다.
 
-Codebase Memory MCP는 2026-09-20 실제 설치·등록 후 7개 패키지를 인덱싱했습니다. 별도 stdio 클라이언트로 MCP 초기화·도구 목록·`list_projects` 호출을 검증했습니다. 현재 Codex 대화의 도구 목록에 반영하려면 새 세션을 열어야 합니다. 상세 결과는 [설치·인덱싱 기록](docs/flow/2026-09-20-codebase-memory-mcp-installation.md)을 참고하세요.
+Codebase Memory MCP는 2026-09-20 실제 설치·등록 후 7개 패키지를 인덱싱했습니다. 별도 stdio 클라이언트로 MCP 초기화·도구 목록·`list_projects` 호출을 검증했습니다. 현재 Codex 대화의 도구 목록에 반영하려면 새 세션을 열어야 합니다. 상세 결과는 [코드 탐색 도구 운영](docs/stock/tech-shared/workspace.md#code-explore-001-code-exploration-tooling)을 참고하세요.
 
 공식 참고: [Playwright MCP](https://github.com/microsoft/playwright-mcp), [Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp), [Storybook MCP](https://storybook.js.org/docs/next/ai/mcp/overview/), [Codebase Memory MCP v0.11.0](https://github.com/DeusData/codebase-memory-mcp/tree/v0.11.0), [Codex MCP 설정](https://developers.openai.com/codex/mcp).
 
