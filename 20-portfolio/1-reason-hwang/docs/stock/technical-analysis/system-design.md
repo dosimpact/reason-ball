@@ -219,3 +219,8 @@ TA20은 원시 가격/지표 배열 대신 요청 인자와 요약을 전달하�
 ## OPENUI-FIN-BLOCKS-001: 간결한 차트 화면
 
 조회 조건은 기본 접힘이며 차트와 새로고침은 계속 표시한다. 사용자는 필요할 때 설정을 열고 바꾼다. 지표 요약과 데이터 출처도 독립 접이식 블록이며 모델이 Plot/Summary/Metadata를 별도 조립할 수 있다. Query·계산·재분석 계약은 유지한다. [구체 UI 계약](../tech-shared/1-fe-host/2-frontend-side-architecture.md#openui-fin-blocks-001-접이식-조회와-금융-블록).
+
+
+## CANVAS-ONBOARD-001: 온보딩 런북
+
+[Canvas A–Z HTML 런북](../../human-docs/3.dynamic-canvas-openui/canvas-system-onboarding-runbook.html)은 현재 구현을 사용자 흐름·서버/브라우저 상태·식별자·Query/LLM 경계·그리드·운영·장애 대응 순서로 설명한다. 외부 CDN 없이 단일 HTML로 동작하며 설명용 실습은 API를 호출하지 않는다. 제품 계약의 기준은 이 시스템 설계와 패키지 stock이다. 2026-11-19 사용자 지정 경로의 HTML 생성 요청에 한해 human-docs 편집 금지의 예외를 적용했으며 기존 goal.md는 변경하지 않았다. [작성·검토 기록](../../flow/2026-11-19-canvas-onboarding-runbook.md).

@@ -1,5 +1,7 @@
 # Documentation Map
 
+- [Canvas A–Z 온보딩 런북](human-docs/3.dynamic-canvas-openui/canvas-system-onboarding-runbook.html): 사용자 실습·아키텍처·OpenUI·저장·운영·장애 대응. 현재 구현의 설명 자료이며 시스템 계약은 stock 참조.
+
 - [SEC 화면 이탈 자동 취소 제거](flow/2026-11-18-sec-navigation-abort.md): SEC-NAV-ABORT-001, unmount abort 삭제·MCP 검증 미완료.
 
 - [SEC 타임라인 구조 재작성](flow/2026-11-18-sec-activity-rebuild.md): SDK 클래스 의존 제거, 전용 구조·CSS와 실제 채팅 프레임 검증.
