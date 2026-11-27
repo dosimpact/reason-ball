@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {advanceConfession as next,previousConfession as prev,revealConfession as reveal,sampleConfessionScenes} from './confessionCinemaState.js';
+const scenes=[{lines:['a','b']},{lines:['c']},{lines:['before','question'],gate:true}];
+let s={scene:0,line:0,proposal:false};
+assert.deepEqual(next(s,scenes),{scene:0,line:1,proposal:false});
+s=next(next(s,scenes),scenes);assert.equal(s.scene,1);assert.equal(s.line,0);
+assert.deepEqual(prev(s,scenes),{scene:0,line:1,proposal:false});
+s=next(s,scenes);assert.equal(s.scene,2);assert.equal(reveal(s,scenes).proposal,false);
+s=next(s,scenes);assert.equal(s.line,1);assert.deepEqual(next(s,scenes),s);
+assert.equal(reveal({scene:0,line:0,proposal:false},scenes).proposal,false);
+s=reveal(s,scenes);assert.equal(s.proposal,true);assert.deepEqual(next(s,scenes),s);assert.deepEqual(prev(s,scenes),s);
+const sample=sampleConfessionScenes([{image:'/sample.jpg'}]);assert.equal(sample.length,7);assert.equal(sample.at(-1).gate,true);assert.equal(sample[0].lines.length,3);
+console.log('PASS: line progression, scene resets, previous restoration, multiline gate, deliberate final reveal, terminal state, sample reset data');
