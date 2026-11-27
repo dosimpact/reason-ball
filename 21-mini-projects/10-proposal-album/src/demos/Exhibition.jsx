@@ -1,0 +1,10 @@
+import { useEffect, useState } from 'react';
+import FadeContent from '@bits/Animations/FadeContent/FadeContent';
+import './Exhibition.css';
+export default function Exhibition({ memories }) {
+ const [index,setIndex]=useState(0); const count=memories.length;
+ const move=d=>setIndex(i=>(i+d+count)%count);
+ useEffect(()=>{const key=e=>{if(e.key==='ArrowRight')setIndex(i=>(i+1)%count);if(e.key==='ArrowLeft')setIndex(i=>(i-1+count)%count)};window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key)},[count]);
+ const memory=memories[index];
+ return <section className="exhibition-demo"><header className="exhibition-head"><span>THE MUSEUM OF US</span><span>PRIVATE COLLECTION · 2021—FOREVER</span><span>서울, 우리 둘의 미술관</span></header><div className="exhibition-heading"><div><p>AN EXHIBITION FOR ONE PERSON</p><h1>너라는 작품.</h1></div><span className="exhibition-edition">OPEN EVERY DAY<br/>CLOSE TO YOUR HEART</span></div><div className="exhibition-room"><button className="exhibition-side exhibition-left" onClick={()=>move(-1)} aria-label="이전 작품"><img src={memories[(index-1+count)%count].image} alt="이전 기억"/></button><FadeContent key={memory.id} trigger="mount" duration={.7} className="exhibition-main"><img src={memory.image} alt={memory.title}/><span className="exhibition-art-number">NO. {String(index+1).padStart(2,'0')}</span></FadeContent><button className="exhibition-side exhibition-right" onClick={()=>move(1)} aria-label="다음 작품"><img src={memories[(index+1)%count].image} alt="다음 기억"/></button><div className="exhibition-floor"/></div><div className="exhibition-caption" aria-live="polite"><div><span className="exhibition-kicker">{memory.date} / ARCHIVAL MEMORY</span><h2>{memory.title}</h2><p>{memory.caption}</p></div><div className="exhibition-controls"><button onClick={()=>move(-1)} aria-label="이전 기억">←</button><span>{String(index+1).padStart(2,'0')} <i>/ {count}</i></span><button onClick={()=>move(1)} aria-label="다음 기억">→</button></div></div><footer className="exhibition-footer"><span>모든 순간은 너에게로 이어진다.</span><span>← → 키로 작품 감상</span><span>CURATED WITH LOVE ♡</span></footer></section>
+}

@@ -82,3 +82,5 @@ ALWAYS include at the end of each response:
 `21-mini-projects/6-openui-poc/6-7-copilot-kit-intelligent-ui` is an independent upstream pnpm workspace excluded from the parent workspace. Run its committed scripts from that directory; its pnpm and uv lockfiles are authoritative. See its `README.local.md` for setup and credential handling.
 
 `21-mini-projects/8-oauth-oidc-lab` is an independent pnpm workspace excluded from the parent workspace. Run install, build, test, and Docker Compose scripts from that directory; its own lockfile is authoritative.
+
+`21-mini-projects/10-proposal-album` is a standalone package excluded from the parent pnpm workspace. Run `pnpm install --ignore-workspace`, `pnpm test`, and `pnpm build` from that directory. Its local `pnpm-lock.yaml` is authoritative.
